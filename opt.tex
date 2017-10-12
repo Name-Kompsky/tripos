@@ -1,0 +1,399 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Optimisation}
+
+\input{header}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+The typical problem is of the form
+
+\begin{center}
+  minimise $f(x)$ subject to $g(x) = b,\: x \in X$,
+\end{center}
+
+where
+
+\begin{itemize}
+\item $f : \mathbb{R}^n → \mathbb{R}$ is the \emph{objective function},
+\item $X \subseteq \mathbb{R}^n$ defines a \emph{regional constraint},
+\item $g: \mathbb{R}^n → \mathbb{R}^m$ defines $m$ \emph{functional constraints},
+\item $b \in \mathbb{R}^m$ is the \emph{right-hand side}.
+\end{itemize}
+
+We will also use the terminology
+
+\begin{itemize}
+\item a \emph{feasible solution} is any $x \in X$ s.t. $g(x) = b$,
+\item an \emph{optimal solution} is a feasible solution $x^*$ s.t. $f(x^*) ≤ f(x)$ for all feasible $x$.
+
+\end{itemize}
+
+A problem with inequality constraints can be put into equality form by introducing \emph{slack variables}:
+
+\begin{center}
+  minimise $f(x)$ subject to $g(x) ≤ b,\: x \in X$
+
+  minmise $f(x)$ subject to $g(x) + z = b,\: x \in X$.
+\end{center}
+
+\section{Lagrangian Methods}
+
+Consider the problem
+
+\begin{center}
+  minimise $f(x)$ subject to $g(x) = b,\: x \in X$.
+\end{center}
+
+Introduce a new function $L : \mathbb{R}^n × \mathbb{R}^m → \mathbb{R},\: L(x, \lambda) = f(x) + \lambda^T (b - g(x))$, the \emph{Lagrangian} of the problem. The components $\lambda_i$ is called the \emph{Lagrangian multiplier} for the $i$-th functional constraint.
+
+\subsection{Lagrangian Sufficiency}
+
+\begin{thm}[Lagrangian Sufficiency Theorem]
+  Let $x^*$ be feasible. Suppose there exists $\lambda^* \in \mathbb{R}^m$ s.t.
+  \[
+    L(x^*, \lambda^*) ≤ L(x, \lambda^*) \: \text{for all } x \in X
+  \]
+
+  then $x^*$ is optimal.
+
+\end{thm}
+
+\begin{proof}
+  For any feasible $x$ and any $\lambda$ we have
+  \[
+    L(x, \lambda) = f(x) + \lambda^T (b - g(x)) = f(x)
+  \]
+
+  so
+  \begin{align*}
+    f(x^*) &= L(x^*, \lambda^*) \\
+           &≤ L(x, \lambda^*) \: \text{for all} x \in X \: \text{by assumption } \\
+           &= f(x) \: \text{for all feasible } x \in X
+  \end{align*}
+\end{proof}
+
+\subsection{Steps}
+
+Consider the problem to
+
+\begin{center}
+  minimise $f(x)$ subject to $g(x) = b,\: x \in X$
+\end{center}
+
+\begin{itemize}
+\item[Step 1] $\Lambda := \{\displaystyle \lambda \in \mathbb{R}^n: \inf_{x \in X} L(x, \lambda) > -∞\}$
+\item[Step 2] For each $\lambda \in \Lambda$ find the optimal solution to the unconstrained problem
+
+\begin{center}
+  minimise $L(x, \lambda)$ subject to $x \in X$
+\end{center}
+
+Let $x(\lambda)$ be the minimiser
+\item[Step 3] Find a $\lambda^* \in \Lambda$ s.t. $x^* = x(\lambda^*)$ is feasible for the original problem, i.e. $g(x^*) = b$.
+\end{itemize}
+
+Note that $x^*$ is optimal by Lagrangian sufficiency theorem.
+
+\subsection{Complementary Slackness}
+
+Given an inequality constraint, we introduce the equivalent equality constraint problem with slack variables. The Lagrangian is now
+\[
+  L(x, z, \lambda) = f(x) + \lambda^T (b - g(x)) - \lambda^T z
+\]
+
+Note that for the infimum to exist, $\lambda ≤ 0$. The inequality constraint $g(x) ≤ b $ for the variable $x$ introduces a \emph{sign constraint} $\lambda ≤ 0$ for the Lagrange multiplier $\lambda$.
+
+In addition, for $\lambda ≤ 0$ we have $\displaystyle \inf_{z ≥ 0} (-\lambda^T z) = 0$. Thus for each $\lambda \in \Lambda$, the optimal $z = z(\lambda)$ satisfis the \emph{compementary slacknes} condition $\lambda^T z = 0$. Hence $\lambda_i z_i = 0$ for all $i$.
+
+\subsection{Lagrangian Necessity}
+
+Note that for any Lagrange multiplier $\lambda$ we have
+
+\begin{align*}
+  \inf_{x \in X,\: g(x) = b} f(x) &= \inf_{x \in X,\: g(x) = b} (f(x) + \lambda^T (b - g(x))) \\
+                                &= \inf_{x \in X,\: g(x) = b} L(x, \lambda) \\
+                                &≥ \inf_{x \in X} L(x, \lambda)
+\end{align*}
+
+since $\{x \in X: g(x) = b\} ⊆ X$. We say the Lagrangian method works if there exists a Lagrange multiplier $\lambda^*$ s.t. there is an equality. To characterise when the Lagrangian method works, we need to define some terms.
+
+\begin{defi}
+  $\psi: \mathbb{R}^m → \mathbb{R}$ has a \emph{supporting hyperplane} at a point $b \in \mathbb{R}^m$ if there exist a $\lambda$ s.t.
+  \[
+    \psi(c) ≥ \psi(b) + \lambda^T (c-b)
+  \]
+  for all $c \in \mathbb{R}^m$.
+\end{defi}
+
+\begin{defi}
+  The \emph{value function} $φ$ on $\mathbb{R}^n$ is defined by $\displaystyle\phi(c) = \inf_{x \in X,\: g(x) = c} f(x)$.
+\end{defi}
+
+\begin{thm}[Lagrangian Necessity Theorem]
+  The Lagrangian method works for the problem iff the value function has a supporting hyperplane at $b$.
+\end{thm}
+
+\begin{proof}
+  The Lagrangian method works iff there exists a $\lambda$ s.t.
+  \[
+   \phi(b) = \inf_{x \in X} (f(x) + \lambda^T (b - g(x)))
+  \]
+
+  The value function has a supporting hyperplane at $b$ iff there exists a $\lambda$ s.t.
+  \[
+   \phi(b) = \inf_{c \in \mathbb{R}^m} (\phi(c) + \lambda^T (b - c))
+  \]
+
+  Thus the equivalence of the two hypotheses is proven by noting the equality
+  \begin{align*}
+    \inf_{x \in X} (f(x) + \lambda^T (b - g(x))) &= \inf_{c \in \mathbb{R}^m} \underbrace{\inf_{x \in X,\: g(x) = c} (f(x)}_{\phi(c)} + \lambda^T \underbrace{(c - g(x))}_{= 0} + \lambda^T (b - c)) \\
+                                         &= \inf_{c \in \mathbb{R}^m} (\phi(c) + \lambda^T (b - c))
+  \end{align*}
+\end{proof}
+
+To check whether a function has a supporting hyperplane, we have to define a few terms.
+
+\begin{defi}
+  A subset $C \subseteq \mathbb{R}^n$ is \emph{convex} if
+  \[
+    x, y \in C \: \text{implies } \theta x + (1 - \theta)y \in C \: \text{for all } 0 \subseteq \theta \subseteq 1.
+  \]
+\end{defi}
+
+\begin{defi}
+  A function $\psi: \mathbb{R}^m \rightarrow \mathbb{R}^m$ is \emph{convex} if
+  \[
+    \psi(\theta x + (1 - \theta) y \leq \theta\psi(x) + (1-\theta) \psi(y) \: \text{for all } x, y \in \mathbb{R}^m \: \text{and } 0 \leq \theta \leq 1.
+  \]
+\end{defi}
+
+\begin{cor}
+  A fucntion $\psi : \mathbb{R}^m \rightarrow \mathbb{R}$ is convex iff the set
+  \[
+    C := \{(x, y) : \psi(x) \leq y \} \subseteq \mathbb{R}^{m + 1}
+  \]
+  is convex\footnote{The set $C$ defined above is call the \emph{epigraph} of $\psi$.}.
+\end{cor}
+
+\begin{thm}[Non-examinable]
+  A function is convex iff it has a supporting hyperplane at each point.
+\end{thm}
+
+\begin{prop}
+  If
+  \begin{enumerate}
+  \item the set $X$ is convex,
+  \item the objective function $f$ is convex, and
+  \item the functional constraint is
+    \begin{itemize}
+    \item either $g(x) = b$ and $g$ is linear, or
+    \item $g(x) \leq b$ and $g$ is convex.
+    \end{itemize}
+  \end{enumerate}
+
+  then $\psi$ is convex.
+\end{prop}
+
+\section{Dual Problem}
+
+Consider the \emph{primal} problem
+
+\begin{center}
+  $P:$ minimise $f(x)$ subject to $g(x) = b,\: x \in X$.
+\end{center}
+
+As before, introduce the Lagrangian $L$ and the set of Lagrange multipliers $\Lambda$. Now define the \emph{dual objective function} $h: \Lambda \rightarrow \mathbb{R}$ by
+\[
+  h(\lambda) = \inf_{x \in X} L(x, \lambda).
+\]
+
+The \emph{dual} problem is defined to be
+
+\begin{center}
+  $D:$ maximise $h(\lambda)$ subject to $\lambda \in \Lambda$.
+\end{center}
+
+The set $\Lambda$ is the set of \emph{feasible solutions to the dual problem}.
+
+\begin{thm}[Weak Duality]
+  Let $x$ be feasible for $P$ and let $\lambda$ be feasible for $D$. Then
+  \[
+    h(\lambda) \leq f(x)
+  \]
+
+  and in particular
+  \[
+    \sup_{\lambda \in \Lambda} \leq \inf_{x \in X,\: g(x) = b} f(x).
+  \]
+\end{thm}
+
+\begin{proof}
+  Let $x$ and $f$ be feasible for their respective problems, then
+  \begin{align*}
+    h(\lambda) &= \inf\{L(x', \lambda): x' \in X \} \\
+               &\leq L(x, \lambda) \: \text{for all } x \in X \\
+               &= f(x) \: \text{for all feasible } x
+  \end{align*}
+\end{proof}
+
+The difference
+\[
+  \inf_{x \in X,\: g(x) = b} f(x) - \sup_{\lambda \in \Lambda} h(\lambda)
+\]
+
+is called the \emph{duality gap}. Weak duality says that the duality gap is non-negative while in the case where the conditions of Lagrangian necessity are met, the duality gap is zero. This is called strong duality.
+
+\begin{eg}[Linear Programming]
+  Consider the primal problem
+  \begin{center}
+    $P:$ maximise $c^T x$ subject to $Ax \leq b,\: x \geq 0$
+  \end{center}
+  where $A$ is a $m \times n$ matrix, $b \in \mathbb{R}^m$, and $c \in \mathbb{R}^n$.
+
+  The dual problem is found as follows:
+  \begin{enumerate}
+  \item Introduce slack variables
+    \begin{center}
+      $P:$ maximise $c^T x$ subject to $Ax + z = b, \: x \geq 0, \: z \geq 0$
+    \end{center}
+  \item The Lagrangian is
+    \[
+      L(x, z, \lambda) = b^T \lambda + (c - A^T \lambda)^T x - \lambda ^T z.
+    \]
+  \item The set of feasible solutions to the dual problem is
+    \begin{align*}
+      \Lambda &= \{\lambda \in \mathbb{R}^m: \sup_{x \geq 0,\: z \geq 0} L(x, z, \lambda) < \infty \} \\
+              &= \{\lambda \in \mathbb{R}^m: A^T \lambda \geq c,\: \lambda \geq 0\}.
+    \end{align*}
+  \item The dual objective funtion
+    \[
+      \sup_{x \geq 0, z \geq 0} L(x, z, \lambda) = b^T \lambda \: \text{for } \lambda \in \Lambda.
+    \]
+
+    The dual problem is then
+
+    \begin{center}
+      $D:$ minimise $b^T \lambda$ subject to $A^T \lambda \geq c,\: \lambda \geq 0$.
+    \end{center}
+  \end{enumerate}
+\end{eg}
+
+We can verify that the dual of the dual is the original problem.
+
+\begin{thm}[Fundamental Theorem of Linear Programming]
+  Consider the problem
+  
+  \begin{center}
+    $P:$ maximise $c^T x$ subject to $Ax \leq b,\: x \geq 0$.
+  \end{center}
+  
+  A vector $x^* \in \mathbb{R}^n$ is optimal for $P$ iff there exists a vector $\lambda^* \in \mathbb{R}^m$ s.t.
+
+  \begin{itemize}
+  \item $A x^* \leq b,\: x^* \geq 0$ \: (primal feasibility)
+  \item $A^T \lambda^* \geq c,\: \lambda^* \geq 0$ \: (dual feasibility)
+  \item $(\lambda^*)^T (b - A x^*) = 0 = (x^*)^T (c - A^T \lambda ^*)$ \: (complementary slackness)
+  \end{itemize}
+\end{thm}
+
+In this case, the value of the primal problem $c^T x^* = b^T \lambda^*$ equals the value of the dual problem.
+
+\subsection{Extreme Points and Basic Feasible Solutions}
+
+Suppose $\psi$ is a convex function, then give $x, y \in X$ and $0 \leq \theta \leq 1$,
+
+\begin{align*}
+  \psi(\theta x + (1 - \theta) y) & \leq \theta \psi(x) + (1 - \theta)\psi(y) \\
+                                  &\leq \max\{\psi(x), \psi(y)\}
+\end{align*}
+
+That is to say the maximimum of $\psi$ on any segment occurs at one of the end points. Thus to find the maximum of $\psi$ over $X$ we over have to consider points of $X$ that do not lie on a line segment contained in $X$.
+
+\begin{defi}
+  Let $C \subseteq \mathbb{R}^n$ be a convex set. A point $x \in C$ is an \emph{extreme point} if
+
+  \[
+    x = \theta y + (1 - \theta) z
+  \]
+  for $y, z \in X$ and $0 \leq \theta \leq 1$ imples $x = y = z$.
+\end{defi}
+
+\begin{defi}
+  The \emph{standard form} of a linear programme is
+
+  \begin{center}
+    maximise $c^T x$ subject to $Ax = b,\: x\geq 0$
+  \end{center}
+  where $c \in \mathbb{R}^n,\: b \in \mathbb{R}^m$ and $A$ is a $m \times n$ matrix. The set $C := \{x \in \mathbb{R}^n: Ax = b\}$ is the set of feasible solutions to the problem.
+\end{defi}
+
+\begin{prop}
+  The set $C$ is convex.
+\end{prop}
+
+\begin{proof}
+  Suppose $x, y \in C$. Then $Ax = b,\: x \geq 0$, and $Ay = b,\: y \geq 0$. Fix $\theta \in [0, 1]$ and let $z = \theta x + (1 - \theta)y$. Then
+
+  \begin{align*}
+    Az &= \theta Ax + (1 - \theta) Ay = b \\
+    z_i &= \theta x_i + (1 - \theta) y_i \geq 0 \: \text{for all } i
+  \end{align*}
+
+  Hence $z \in C$.
+\end{proof}
+
+A solution $x \in \mathbb{R}^n$ of the equation $Ax = b$ is called \emph{basic} if at least $n - m$ entries of $x$ are zero. If $x$ is a basic solution and $x \geq 0$ then $x$ is called a \emph{basic feasible solution}, abbreviated \emph{b.f.s}.
+
+\begin{thm}
+  Let $x$ be a point in $C$ with the property that have at least $m+1$ indices $i$ s.t. $x_i>0$. Then $x$ is not a extreme point of $C$.
+\end{thm}
+
+\begin{proof}
+  \texttt{to be filled in}
+\end{proof}
+
+\begin{thm}
+  Suppose that every set of $m$ columns of $A$ is linearly independent. Let $x$ be a point in $C$ with the property that at most $m$ indices $i$ are s.t. $z_i>0$. Then $x$ is an extreme point of $C$.
+\end{thm}
+
+\begin{proof}
+  \texttt{to be filled in}
+\end{proof}
+
+\subsection{Simplex Algorithm}
+
+We assume $A$ is a $m\times n$ matrix and $n > m$ and that every set of $m$ columns of $A$ is linearly independent. From discussion above it suffices to consider the extreme points of $C$. Fix $B \subset \{1, \ldots ,n\}$ with $|B|=m$, and let $N=\{1,\ldots, n\} \setminus B$. If $B=\{i_1,\ldots,i_m\}$, let $A_B=(A_{i_1}\:\ldots\:A_{i_m})$ bethe $m\times m$ matrix formed by takning the colums of $A$ indexed by $i \in B$. By assumption $A_B$ is invertible. Define $x_B$ and $c_B$ similarly. Similar for the set $N$.
+
+Using this notation, the equation is
+\[
+  A_B x_B + A_N x_N = b
+\]
+
+Setting $x_N=0$ yields $x_B=A_B^{-1}b$ so by rearranging the coordinates we may write the basic point as $x=\binom{x_B}{x_N}\binom{A_B^{-1}b}{0}$. To check this $x$ is feasible, we need $A_B^{-1}b \geq 0$. If it is, compute the objective function $c^Tx=c_B^Tx_B$.
+
+To check the optimality, we use the fundamental theorem. For the b.f.s. $x=\binom{A_B^{-1}b}{0}$, we associate to it a Lagrange multiplier $\lambda$ by complementary slackness
+
+\begin{align*}
+  0 &= (c - A^T\lambda)^Tx \\
+    &= (c_B - A_B^T\lambda)^Tx_B
+\end{align*}
+
+Assuming \emph{non-degeneracy}, we take $\lambda=(A_B^T)^{-1}c_B$. By construction $x$ satisfies primal feasibility and $\lambda$ satisfies complementary slackness. Thus $x$ is optimal iff $\lambda$ satisfies dual feasibility. Thus if $A^T\lambda\geq c$ then we know we have found an optimal solution.
+
+\section{Two-person Zero-sum Game}
+
+Suppose Player I and Player II are competing. I has $m$ choices of strategies, labelled $i \in \{1,\ldots,m\}$ while II has $n$, labelled $j \in \{1,\ldots,n\}$. Zero-sum means that if I chooses strategy $i$ and II chooses strategy $j$ then
+
+\begin{itemize}
+\item I is paid $a_{i,j}$
+\item II is paid $-a_{i,j}$
+\end{itemize}
+
+So the net payment is zero. The matrix $A=(a_{i,j})_{i,j}$ is called the \emph{payoff} matrix of the game
+\end{document}

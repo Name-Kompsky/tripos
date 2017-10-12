@@ -1,0 +1,391 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Linear Algebra}
+\def\ndate{Michaelmas, 2017 -- 2018}
+
+\input{header}
+
+\newtheorem*{caution}{Caution}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Definition}
+
+\begin{convention}
+  Throughout this course, $\mathbb{F}$ denotes a general field. If you wish, think of it as $\mathbb{R}$ or $\mathbb{C}$.
+\end{convention}
+
+\begin{defi}
+  An $\mathbb{F}$-vector space (or a vector space over $\mathbb{F}$) is an abelian group $(V, +)$ equipped with a function, called \emph{scalar multiplication}: $\mathbb{F}\times V \to V, (\lambda, v) \mapsto \lambda\cdot v$, satisfying the axioms
+  \begin{itemize}
+  \item distributive over vectors: $\lambda(v_1+v_2) = \lambda(v_1+v_2)$,
+  \item distributive over scalars: $(\lambda_1+\lambda_2)v= \lambda_1 v+\lambda_2 v$,
+  \item $\lambda(\mu v) = \lambda \mu v$,
+  \item $1\cdot v = v$.
+  \end{itemize}
+\end{defi}
+
+The additive unit of $V$ is denoted by $\V 0$.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $\forall n \in \mathbb{N}, \mathbb{F}^n$ is the space of column vectors of length $n$ with entries in $\mathbb{F}$. It is an vector space by entry-wise addition and entry-wise scalar multiplication.
+  \item $M_{m,n}(\mathbb{F})$, the set of $m\times n$ matrices with entries in $\mathbb{F}$, with the operation defined as entry-wise addition.
+    \item For any set $X$, $\mathbb{R}^X = \{f: X \to \mathbb{R}\}$, the set of $\mathbb{R}$-valued functions on $X$, with addition and scalar multiplication defined pointwise. For instance, $(f_1+f_2)(x) = f_1(x)+f_2(x)$.
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Check the above examples satisfy the axioms.
+    \item $0\cdot v = \V 0$ and $(-1)\cdot v = -v$ for all $v \in V$.
+  \end{enumerate}
+\end{ex}
+
+\begin{defi}
+  Let $V$ be an $\mathbb{F}$-vector space. A subset $U \subseteq V$ is a \emph{subspace}, denoted $U \leq V$, if
+  \begin{itemize}
+  \item $\V 0 \in U$,
+  \item $U$ is closed under addition: $\forall u_1, u_2 \in U, u_1+u_2 \in U$,
+    \item $U$ is closed under scalar multiplication: $\forall u \in U, \forall \lambda \in \mathbb{F}, \lambda u \in U$.
+  \end{itemize}
+\end{defi}
+
+\begin{ex}
+  If $U$ is a subspace of $V$, then $U$ is also an $\mathbb{F}$-vector space.
+\end{ex}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $V = \mathbb{R}^{\mathbb{R}}$, the set all functions from $\mathbb{R}$ to itself, has a (proper) subspace $C(\mathbb{R})$, the space of continuous functions on $\mathbb{R}$ as continuous functions are closed under addition and scalar multiplication. $C(\mathbb{R})$ in turn has a proper subspace $P(\mathbb{R})$, the set of all polynomials in $\mathbb{R}$.
+    \item $\{(x_1,x_2,x_3) \in \mathbb{R}^3: x_1+x_2+x_3 = t\}$ where $t$ is some fixed constant is a subspace of $\mathbb{R}^3$ if and only if $t = 0$.
+  \end{enumerate}
+\end{eg}
+
+\begin{prop}
+  Let $V$ be an $\mathbb{F}$-vector space, $U, W \leq V$. Then $U \cap W \leq V$.
+\end{prop}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item $\V 0 \in U, \V 0 \in V$ so $\V 0 \in U \cap W$.
+    \item Suppose $u, w \in U \cap W$. Fix $\lambda, \mu \in \mathbb{F}$. As $U \leq V$, $\lambda u + \mu w \in U$. As $W \leq V$, $\lambda u +\mu w \in W$ so $\lambda u + \mu w \in U \cap W$. Take $\lambda = \mu = 1$ for vector addition and $\mu = 0$ for scalar multiplication.
+  \end{itemize}
+\end{proof}
+
+\begin{eg}
+  $V = \mathbb{R}^3, U = \{(x,y,z): x=0\}, W=\{(x,y,z):y=0\}$, then $U\cap W=\{(x,y,z):x=y=0\}$.
+\end{eg}
+
+\begin{note}
+The union of a family of subspaces is \emph{almost never} a subspace. For example, $V = \mathbb{R}^2$, $U, V$ be $x$- and $y$-axis.
+\end{note}
+
+\begin{defi}
+  Let $V$ be an $\mathbb{F}$-vector space, $U, W \leq V$, the \emph{sum} of $U$ and $W$ is the set
+  \[
+    U + W = \{u+w: u\in U, w\in W\}
+  \]
+\end{defi}
+
+\begin{eg}
+  Use the definition from the previous example, $U+W=V$.
+\end{eg}
+
+\begin{prop}
+  $U+W \leq V$.
+\end{prop}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item $\V 0 = \V 0 + \V 0 \in U+W$,
+  \item $u_1,u_1\in U, w_1,w_2\in W$, $(u_1+w_2) + (u_2+w_2) = (u_1+u_2)+(w_1+w_2) \in U+W$,
+    \item similar for scalar multiplication. Left as an exercise.
+  \end{itemize}
+\end{proof}
+
+\begin{note}
+  $U+W$ is the smallest subspace containing both $U$ and $W$. This is because all elements of the form $u+w$ are in such a space by closure under addition.
+\end{note}
+
+\begin{defi}
+  Let $V$ be an $\mathbb{F}$-vector space, $U \leq V$. The \emph{quotient space} $V/U$ is the abelian gropup $V/U$ equipped with scalar multiplication
+  \begin{align*}
+    \mathbb{F} \times V/U &\to V/U \\
+    (\lambda, v+U) &\mapsto \lambda v+U
+  \end{align*}
+\end{defi}
+
+\begin{prop}
+  This is well-defined and $V/U$ is an $\mathbb{F}$-vector space.
+\end{prop}
+
+\begin{proof}
+  First check it is well-defined. Suppose $v_1+U= v_2+U \in V/U$. Then $v_1-v_2\in U$. Now use closure under scalar multiplication and distributivity, $\lambda v_1 - \lambda v_2 = \lambda(v_1-v_2)\in U$ so $\lambda v_1 + U = \lambda v_2 +U\in V/U$.
+  Now check vector space axioms of $V/U$, which will follow from the axioms for $V$:
+  \begin{itemize}
+  \item $\lambda(\mu(v+U)) = \lambda(\mu v+U) = \lambda(\mu v)+U = (\lambda\mu) v+U = \lambda\mu(v+U)$,
+  \item other axioms are left as an exercise.
+  \end{itemize}
+\end{proof}
+
+\begin{defi}
+  Let $V$ be a $\F$-vector space, $S \subseteq V$ be a subset. The \emph{span} of $S$
+  \[
+    \langle S \rangle = \Big\{\sum_{s\in S} \lambda_s s : \lambda_s \in F \Big\}
+  \]
+  is the set of all the finite linear combinations of elements (i.e. all but finitely many of the $\lambda$ are zero) of $S$.
+\end{defi}
+
+\begin{rmk}
+  $\langle S \rangle$ is the smallest subspace of $V$ containing all elements of $S$.
+\end{rmk}
+
+\begin{convention}
+  $\langle \emptyset \rangle = \{\V 0\}$
+\end{convention}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+ \item $V=\R^3$, $S = \{(1,0,0),(0,1,2),(3,-2,-4)\}$, $\langle S \rangle = \{(a,b,2b): a,b\in \R \}$
+ \item For any set $X$, $\R^X$ is a vector space. For $x \in X$, define $\delta_x: X \to \R, \delta_x(x) = 1, \delta_x(y) = 0 \: \forall y \neq x$, then
+   \[
+     \langle \delta_x: x\in X \rangle = \{f\in \R^X: f \text{ has finite support} \}
+   \]
+  \end{enumerate} 
+\end{eg}
+
+\begin{defi}
+  $S$ spans $V$ if $\langle S \rangle = V$.
+\end{defi}
+
+\begin{defi}
+  $V$ is \emph{finite-dimensional} over $\F$ if it is spanned by a finite set.
+\end{defi}
+
+\begin{defi}
+  The vectors $v_1,\ldots, v_n$ are \emph{linearly independent} over $\F$ if
+  \[
+    \sum_{i=1}^n \lambda_i = 0 \Rightarrow \lambda_i = 0 \: \forall i
+  \]
+  A subset $S \subset V$ is \emph{linearly independent} if every finite subset of $S$ is linearly independent.
+
+  A subset if \emph{linearly dependent} if it is not linearly independent.
+\end{defi}
+
+\begin{eg}
+  In the first example above, the three vectors are not linearly independent.
+\end{eg}
+
+\begin{ex}
+  The set $\{\delta_x: x \in X\}$ is linearly independent.
+\end{ex}
+
+\begin{defi}
+  $S$ is a \emph{basis} of $V$ if it is linearly independent and spans $V$.
+\end{defi}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $\F^n$ has standard basis $\{e_1,e_2,\ldots,e_n\}$ where $e_i$ is the column vector with $1$ in the $i$th entry and $0$ elsewhere.
+  \item $V=\C$ over $\C$ has natural basis $\{1\}$, but over $\R$ it has natural basis $\{1, i\}$.
+  \item $V=P(\R)$, the space of real polynomials, has natural basis
+    \[
+      \{1, x, x^2, \dots \}.
+    \]
+    It is an exercise to check this carefully.
+    \end{enumerate}
+\end{eg}
+
+\begin{lem}
+  Let $V$ be a $\F$-vector space. The vectors $v_1,\ldots,v_n$ form a basis of $V$ if and only if each vector $v\in V$ has a unique expression
+  \[
+    v = \sum_{i=1}^n \lambda_i v_i, \lambda_i \in \F.
+  \]
+  
+\end{lem}
+
+\begin{proof}\leavevmode
+  $\Rightarrow:$ Fix $v\in V$. The $v_i$ span $V$, so exists $\lambda_i \in \F$ such that $v = \sum \lambda_i v_i$. Suppose also $v = \sum \mu_i v_i$ for some $\mu_i \in \F$. Then the difference
+  \[
+    \sum (\mu_i - \lambda_i) v_i = \V 0.
+  \]
+  Since the $v_i$ are linearly independent, $\mu_i-\lambda_i = 0$ for all $i$.
+
+  $\Leftarrow:$ The $v_i$ span $V$ by assumption. Suppose $\sum_{i=1}^n \lambda_i v_i = \V 0$. Note that $\V 0 = \sum_{i=0}^n 0 \cdot v_i$. By appying uniqueness to $\V 0$, $\lambda_i = 0$ for all $i$. 
+\end{proof}
+
+\begin{lem}
+  If $v_1,\ldots, v_n$ spans $V$ over $\F$, then some subset of $v_1,\ldots,v_n$ is a basis of $V$ over $\F$.
+\end{lem}
+
+\begin{proof}
+  If $v_1,\ldots, v_n$ is linearly independent then done. Otherwise for some $\ell$, there exist $\alpha_1, \ldots, \alpha_{\ell-1} \in \F$ such that
+  \[
+    v_\ell = \sum_{i=1}^{\ell-1} \alpha_i v_i.
+  \]
+  (If $\sum \lambda_i v_i = 0$, not all $\lambda_i$ is zero. Take $\ell$ maximal with $\lambda_\ell \neq 0$, then $\alpha_i = -\frac{\lambda_i}{\lambda_\ell}$.)
+
+  Now $v_1,\ldots,v_{\ell-1},v_{\ell+1},\ldots,v_n$ still span $V$. Continue iteratively until we have linear independence.
+\end{proof}
+
+\begin{thm}[Steinitz Exchange Lemma]
+  Let $V$ be a finite-dimensional vector space over $\F$. Take $v_1,\ldots,v_m$ to be linearly independent, $w_1,\ldots,w_n$ to span $V$. Then
+  \begin{itemize}
+  \item $m \leq n$, and
+    \item reordering the $w_i$ if needed, $v_1,\ldots, v_m, w_{m+1},\ldots,w_n$ spans $V$.
+  \end{itemize}
+\end{thm}
+
+\begin{proof}
+  Proceed by induction. Suppose that we have replaced $\ell \geq 0$ of the $w_i$. Reordering $w_i$ if needed, $v_1,\ldots,v_\ell,w_{\ell+1},\ldots,w_n$ spans $V$.
+  \begin{itemize}
+  \item If $\ell = m$, done.
+  \item If $\ell < m$, then $v_{\ell+1} = \sum_{i=1}^\ell \alpha_i v_i + \sum_{i> \ell} \beta_i w_i$. As the $v_i$ are linearly independent, $\beta_i \neq 0$ for some $i$. After reordering, $\beta_{\ell+1} \neq 0$,
+    \[
+      w_{\ell+1} = \frac{1}{\beta_{\ell+1}} (v_{\ell+1}-\sum_{i\leq \ell} \alpha_i v_i - \sum_{i>\ell+1} \beta_i w_i).
+    \]
+    Thus $v_1,\ldots, v_\ell, v_{\ell+1},w_{\ell+2},\ldots, w_n$ also spans $V$. After $m$ steps, we will replace $m$ of the $w_i$ by $v_i$. Thus $m \leq n$.
+  \end{itemize}
+\end{proof}
+
+\begin{thm}
+  If $V$ is a finite-dimensional vector space over $\F$, then any two bases for $V$ have the same cardinality, which is called the \emph{dimension} of $V$, donoted $\dim_\F V$.
+\end{thm}
+
+\begin{proof}
+  If $v_1,\ldots, v_n$ and $w_1,\ldots,w_m$ are both bases, then $\{v_i\}$ is linearly independent and $\{w_i\}$ spans $V$ so $n \leq m$. Similarly $m \leq n$.
+\end{proof}
+
+\begin{eg}
+  $\dim_\C \C = 1$, but $\dim_\R \C = 2$.
+\end{eg}
+
+\begin{lem}
+  Let \(V\) be a finite-dimensional vector space over \(\F\). If \(w_1,\ldots,w_\ell\) is a linearly independent set of vectors, we can extend it to a basis \(w_1,\ldots,w_\ell,w_{\ell+1},\ldots,v_n\).
+\end{lem}
+
+\begin{proof}
+  Apply Steinitz exchange lemma to \(w_1,\ldots, w_\ell\) and any basis \(v_1,\ldots, v_n\).
+
+  Or more direcly, if \(V=\langle w_1,\ldots, w_\ell \rangle\), done. Otherwise take \(v_{\ell+1} \in V\setminus\langle w_1,\ldots, w_\ell\rangle\). Now \(w_1,\ldots, w_\ell,w_{\ell+1}\) is linearly independent. Iterate.
+\end{proof}
+
+\begin{cor}
+  Let \(V\) be a finite-dimensional vector space of dimension \(n\). Then
+  \begin{enumerate}
+  \item Any linearly independent set of vectors has at most \(n\) elements, with equality if and only if the set is a basis.
+  \item Any spanning set of vectors has at least \(n\) elements, with equaility if and only if the set is a basis.
+  \end{enumerate}
+\end{cor}
+
+\begin{slogan}
+  Choose the best basis for the job.
+\end{slogan}
+
+\begin{thm}
+  Let \(U, W\) be subspaces of \(V\). If \(V\) and \(W\) are finite-dimensional, so is \(U+W\) and
+  \[
+\dim(U+W) = \dim U + \dim W - \dim(U\cap W).
+  \]
+\end{thm}
+
+\begin{proof}
+  Pick basis \(v_1,\ldots, v_\ell\) of \(U\cap W\). Extend it to basis \(v_1,\ldots,v_\ell,u_1,\ldots,u_m\) of \(U\) and \(v_1,\ldots,v_\ell,w_1,\ldots,w_n\) of \(W\). Claim \(v_1,\ldots, v_\ell,u_1,\ldots,u_m,w_1,\ldots,w_n\) is a basis for \(U+W\):
+  \begin{itemize}
+  \item spanning: if \(u\in U\), then \(u= \sum \alpha_iv_i + \sum \beta_iu_i\) and if \(w\in W\), \(w = \sum_{}^{}\gamma_iv_i + \sum_{}^{}\delta_iw_i\), so \(u+w = \sum_{}^{}(\alpha_i + \gamma_i)v_i + \sum_{}^{}\beta_iu_i \sum_{}^{}\delta_iu_i\).
+  \item linear independence: assume \(\sum \alpha_iv_i + \sum \beta_iu_i+ \sum \gamma_iw_i=0\). Rearrange, \(\sum\alpha_iv_i + \sum\beta_iu_i = -\sum\gamma_iw_i \in U\cap W\) so it equals to \(\sum\delta_iv_i\) for some \(\delta_i\in \F\) because \(v_i\) is a basis for \(U\cap W\). As \(v_i\) and \(w_i\) are linearly independent, \(\gamma_i=\delta_i=0\) for all \(i\). Thus \(\sum\alpha_iv_i + \sum\beta_iv_i=0\), so \(\alpha_i=\beta_i=0\) since \(v_i\) and \(u_i\) form a basis for \(U\).
+  \end{itemize}
+\end{proof}
+
+\begin{thm}
+  Let \(V\) be a finite-dimensional vector space over \(\F\) and \(U \leq V\), then \(U\) and \(V/U\) are also finite dimensional and
+  \[
+\dim V = \dim U + \dim V/U.
+  \]
+\end{thm}
+
+\begin{proof}
+  Left as an exercise. Outline: first show \(U\) is finite-dimensional, then let \(u_1,\ldots,u_\ell\) be a basis for \(U\). Extend it to a basis for \(V\), say \(u_1,\ldots,u_\ell,w_{\ell+1},\ldots,w_n\) of \(V\). Check \(w_{\ell+1}+U,\ldots,w_n+U\) form a basis for \(V/U\).
+\end{proof}
+
+\begin{cor}
+  If \(U\) is a proper subspace of \(V\), which is finite-dimensional, then \(\dim U < \dim V\).
+\end{cor}
+
+\begin{proof}
+  \(V/U \neq 0\) so \(\dim V/U > 0\).
+\end{proof}
+
+\begin{defi}
+  Let \(V\) be a vector space over \(\F\), \(U, W\leq V\). Then
+  \[
+V = U \oplus W
+  \]
+  if every element of \(V\) can be written as \(v=u+w, u\in U, w\in W\) uniquely. This is called the \emph{internal direct sum}. \(W\) is a \emph{direct complement} of \(U\) in \(V\).
+\end{defi}
+
+\begin{lem}
+  Suppose \(U,W\leq V\), TFAE:
+  \begin{enumerate}
+  \item \(V = U \oplus W\),
+  \item \(V=U+W\) and \(U\cap W = 0\),
+  \item Given \(B_1\) any basis of \(U\), \(B_w\) any basis of \(V\), \(B=B_1\cup B_2\) is a basis of \(V\).
+  \end{enumerate}
+\end{lem}
+
+\begin{proof}
+  \(2 \Rightarrow 1\): any \(v\in V\) is \(u+w\) for some \(u\in U, w\in W\). Suppose \(u_1+w_1=u_2+w_2\), then \(u_1-u_2 = w_2-w_1 \in U\cap W = 0\). Thus \(u_1=u_2,w_1=w_2\).
+
+  \(2 \Rightarrow 1\): \(B\) spans as any \(v\in V\) is \(u+w\). Write \(u\) in terms of \(B_1\) and \(w\) in terms of \(B_2\). Then \(u+w\) is a linear combination of elements of \(B\). To show \(B\) is linearly independent, suppose \(\sum_{v\in B} \lambda_v v = \V 0 = \V 0_V + \V 0_W\). Write LHS as \(\sum_{v\in B_1} \lambda_vv + \sum_{v\in B_2}\lambda_vv\). By uniqueness of expression, \(\sum_{v\in B_1}\lambda_vv=\V 0_V\) and \(\sum_{w\in B_2}\lambda_ww=\V 0_w\). As \(B_1, B_2\) are bases, all of the \(\lambda_v, \lambda_w\) are zero.
+
+  \(2 \Rightarrow 1\): if \(v\in V, v=\sum_{x\in V}\lambda_xx = \sum_{u\in B_1}\lambda_uu + \sum_{w\in B_1}\lambda_ww\) so \(v\in U+W\). Conversely, if \(v\in U\cap W, v = \sum_{u\in B_1}\lambda_uu=\sum_{w\in B_2}\lambda_ww\) so all \(\lambda_u, \lambda_v\) are zero since \(B_1\cup B_2\) is linearly independent.
+\end{proof}
+
+\begin{lem}
+  Let \(V\) be a finite-dimensional vector space over \(\F\) and \(U\leq V\). Then there exists a direct complement to \(U\) in \(V\).
+\end{lem}
+
+\begin{proof}
+  Let \(u_1,\ldots, u_\ell\) be a basis for \(U\). Extend this to a basis \(u_1,\ldots, u_\ell,w_{\ell+1},\ldots,w_n\) for \(V\). Then \(\langle w_{\ell+1},\ldots,w_n\rangle\) is a direct complement of \(U\).
+\end{proof}
+
+\begin{caution}
+  Direct complements are \emph{not} unique.
+\end{caution}
+
+\begin{defi}
+  Suppose \(V_1,\ldots, V_\ell \leq V\), then
+  \[
+\sum_i V_i = V_1+\cdots+V_\ell = \{v_1+\cdots+v_\ell: v_i\in V_i\}.
+  \]
+  The direct sum is direct if
+  \[
+    v_1+\cdots+v_\ell = v_1'+\cdots+ v_\ell' \Rightarrow v_i = v_i' \text{ for all } i.
+  \]
+  It is denoted
+  \[
+V = \bigoplus_{i=1}^\ell V_i.
+  \]
+\end{defi}
+
+\begin{ex}
+  \(V_1,\ldots, V_\ell \leq V\), TFAE:
+  \begin{enumerate}
+  \item The sum \(\sum_i V_i\) is direct,
+  \item \(V_i \cap \sum_{j\neq i}V_j = 0\) for all \(i\),
+  \item For any basis \(B_i\) of \(V_i\), the union \(B=\bigcup_{i=1}^\ell B_i\) is a basis for \(\sum_i V_i\).
+  \end{enumerate}
+\end{ex}
+
+\begin{defi}
+  Let \(U, W\) be vector spaces over \(\F\). The \emph{external direct sum} is
+  \[
+U\oplus W = \{(u,w): u\in U, w\in W\}
+  \]
+  with pointwise addition and scalar multiplication.
+\end{defi}
+\end{document}

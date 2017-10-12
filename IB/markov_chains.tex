@@ -1,0 +1,216 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Markov Chains}
+\def\ndate{Michaelmas, 2017 -- 2018}
+
+\input{header}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Markov chains}
+
+Let $X:\Omega \to S$ be a random variable. Then $(X_0,X_1, \ldots)$, a sequence of random variables, is called a \emph{stochastic/random process}. The problem is whether there is any dependence between the random variables. Another example of a stochastic process is $(X_t, t \in \mathbb{R})$, representing, for example, the evolution of a system with respect to time.
+
+
+\begin{defi}
+  Let $X=(X_n:n=0,1,2,\ldots)$ be a sequence taking values in some \emph{state space} $S$, which is either finite or countably infinite. $X$ is a \emph{Markov chain} if it satisfies the \emph{Markov condition}:
+  \begin{multline*}
+    \P(X_{n+1}=i_{n+1}|X_0=i_0,X_1=i_1,\ldots,X_n=i_n) = \P(X_{n+1}=i_{n+1}|X_n=i_n) \\
+    \forall n\geq0, i_0,\ldots,i_{n+1}\in S
+  \end{multline*}
+
+  $X$ is called \emph{homogeneous} if $\P(X_{n+1}=j|X_n=i)$ does not depend on the value of $n$.
+\end{defi}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Random walk is a Markov chain: let $Z_1, Z_2, \ldots$ be independent, $\P(Z_i=1) = p,\P(Z_i=-1) =1-p$, $X_n=Z_1+\cdots+Z_n$.
+  \item Branching process: let $X_n$ be the size of the $n$th generation, then $(X_n)$ is a Markov chain.
+  \end{enumerate}
+\end{ex}
+
+\begin{convention}
+  Henceforth, unless contradicted, all chains are assumed to be homogeneous.
+\end{convention}
+
+Two quantities associated with a chain are:
+\begin{enumerate}
+\item initial distribution $\lambda = (\lambda_i: i\in S)$ where $\lambda_i = \P(X_0=i)$, the probability mass function at $0$.
+\item transition matrix $P = (p_{i,j}: i,j\in S)$ given by $p_{i,j} = \P(X_1=j|X_0=i)$.
+\end{enumerate}
+
+\begin{prop}\leavevmode
+  \begin{enumerate}
+  \item $\lambda$ is a distribution in that $\lambda_i\geq 0$ and $\sum_i \lambda_i = 1$.
+  \item $P$ is a \emph{stochastic matrix} in that $p_{i,j} \geq 0, \sum_j p_{i,j} = 1$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  \begin{enumerate}
+  \item $\lambda_i = \P(X_0=i) \geq 0$, $\sum_i \lambda_i = \sum_i\P(X_0=i)=1$, i.e. $\{X_0=i\}_{i\in X}$ partitions $\Omega$.
+  \item $p_{i,j} = \P(X_1=j|X_0=i) \geq 0$, $\sum_j p_{i,j} = \sum_j \P(X_1=j|X_0=i) = 1$.
+  \end{enumerate}
+\end{proof}
+
+\begin{thm}
+  Let $\lambda$ be a distribution on $S$ and $P$ be a stochastic matrix. The sequence $X=(X_n:n \geq 0)$ is a Markov chain with initial distribution $\lambda$ and transition matrix $P$ if and only if
+  \begin{multline}\label{eqn:joint probability}
+    \P(X_0=i_0, X_1=i_1, \ldots, X_n=i_n) = \lambda_{i_0} p_{i_0,i_1} p_{i_1,i_2} \cdots p_{i_{n-1}, i_n} \\
+    \forall n\geq 0, i_0,\cdots, i_n \in S \tag{$\ast$}
+  \end{multline}
+    
+\end{thm}
+
+\begin{proof}
+  Let $A_k = \{X_k=i_k\}$. Equation~\eqref{eqn:joint probability} is
+\begin{equation}
+  \label{eqn:joint probability2}
+  \P(A_0\cap A_1 \cap \cdots \cap A_n) = \lambda_{i_0} p_{i_0,i_1} p_{i_1,i_2} \cdots p_{i_{n-1}, i_n}
+  \tag{$\star$}
+\end{equation}
+
+Suppose $X$ is a $(\lambda,P)$ Markov chain. Proof of equation~\eqref{eqn:joint probability2} by induction on $n$. When $n=0$, $\P(X_0=i_0)=\lambda_{i_0}$. Suppose equation~\eqref{eqn:joint probability2} holds for $n<N$.
+\begin{align*}
+  \P(A_0\cap\cdots\cap A_N) &= \P(A_0\cap\cdots \cap A_N|A_0\cap\cdots\cap A_{N-1}) \P(A_0\cap\cdots \cap A_{N-1}) \\
+                            &= \P(A_N|A_0\cap\cdots\cap A_{N-1})\P(A_0\cap\cdots\cap A_{N-1}) \\
+                            &\stackrel{\text{MP}}{=} \P(A_N|A_{N-1}) \lambda_{i_0} p_{i_0,i_1} \cdots p_{i_{N-2},i_{N-1}}
+  \end{align*}
+
+Conversly, suppose equation~\eqref{eqn:joint probability2} holds. By the equation, when $n=0$,
+\[
+  \P(X_0=i_0) = \lambda_{i_0},
+\]
+so $X_0$ has p.m.f. $\lambda$. Then
+\[
+  \P(A_{n+1}|A_0\cap\cdots\cap A_n) = \frac{\P(A_0\cap\cdots\cap A_{n+1})}{\P(A_0\cap\dots\cap A_n)} = p_{i_n,i_{n+1}}.
+    \]
+    Therefore $X$ is a Markov chain with transition matrix $P$.
+\end{proof}
+
+\begin{thm}[Extended Markov Property]
+  Let $X$ be a Markov chain and $n\geq1$. Let $H$ be a historic event, i.e. $H$ is given in terms of $\{X_0,X_1,\ldots,X_{n-1}\}$, and let $F$ be a future event, i.e. $F$ is given in terms of $\{X_{n+1},X_{n+2},\ldots\}$. Then
+  \[
+    \P(F|H, X_n=i) = \P(F|X_n=i).
+  \]
+  
+\end{thm}
+
+\begin{proof}
+  Assume that $F$ depends only on finitely many of the future variables.
+  \begin{align*}
+    \P(F|H,X_n=i) &= \frac{\sum_{>n}\sum_{<n}\lambda_{i_0}p_{i_0,i_1}\cdots p_{i_n,i}p_{i,i_{n+1}}\cdots}{\sum_{<n} \lambda_{i_0}p_{i_0,i_1}\cdots p_{i_{n-1},i}} \\
+                  &= \sum_{>n} p_{i,i_{n+1}} \cdots \\
+                  &= \P(F|X_n=i)
+  \end{align*}
+  The case for infinite variables can be deduced using continuity of probability measure.
+\end{proof}
+
+\begin{notation}
+  $\sum_{<n} := \text{ sum over all } i_0,\ldots, i_{n-1} \text{ contibutions to } H/F$
+\end{notation}
+
+\section{Transition Probabilities}
+
+The one-step transition probability is $p_{i,j} = \P(X_1=j|X_0=i)$. The $n$-step transition probability is $p_{i,j}(n) = \P(X_n=j|X_0=i)$.
+
+\begin{question}
+  How to compute the $n$-step probabilities from the one-step probabilities?
+\end{question}
+
+The answer is: matrix. The one-step matric is $P=(p_{i,j})_{i,j\in S}$. Similarly $P(n) = (P_{i,j}(n))_{i,j\in S}$.
+
+\begin{thm}
+  \[
+    P(n) = P^n.
+  \]
+\end{thm}
+
+\begin{prop}[Champan-Kolmogonov equations]
+  \[
+    p_{i,j}(m+n) = \sum_{k\in S} p_{i,j}(m) p_{k,j}(n).
+  \]
+ 
+\end{prop}
+
+\begin{proof}
+  \begin{align*}
+    \P(X_{m+n}=j|X_0=i) &= \sum_{k\in S} \P(X_{m+n}=j,X_m=k|X_0=i) \\
+    \intertext{Use the equality $\P(A\cap B|C) = \P(A|B\cap C)\P(B|C)$,}
+                        &= \sum_{k\in S} \P(X_{m+n}=j| X_m=k,X_0=i)\P(X_m=k|X_0=i) \\
+    \intertext{By Markov property, the first term can be simplified}
+                        &= \sum_{k\in S} p_{i,j}(m) p_{k,j}(n)
+  \end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Theorem]
+  By Chapman-Kolgomonov equation, $P(m+n) = P(m)P(n)$. Thus $P(n) = P(1)P(n-1)=\cdots =P(1)^n=P^n$.
+\end{proof}
+
+\begin{eg}
+  Let $S = \{1,2\}$, $P=\begin{psmallmatrix} 1-\alpha & \alpha \\ \beta & 1-\beta\end{psmallmatrix}$ where $0<\alpha, \beta < 1$.
+  \begin{enumerate}
+  \item Diagonalisation method: $\det(P-\kappa I)=0$, has roots $\kappa_1=1,\kappa_2=1-\alpha-\beta$. Then
+  \[
+    P = U^{-1}
+    \begin{pmatrix}
+      1 & 0\\
+      0 & 1-\alpha-\beta
+    \end{pmatrix}U,
+  \]
+  for some invertible $U$. Then
+  \[
+    P^n = U^{-1}
+    \begin{pmatrix}
+      1^n & 0 \\
+      0 & (1-\alpha-\beta)^n
+    \end{pmatrix} U
+    \]
+    Thus we may write
+    \[
+      P_{1,1}(n) = A+B(1-\alpha-\beta)^n,
+    \]
+    with $P_{1,1}(0)=1,P_{1,1}(1)=1-\alpha$. Solve to get
+    \begin{align*}
+      A &= \frac{\beta}{\alpha+\beta} \\
+      B &= \frac{\alpha}{\alpha+\beta}
+    \end{align*}
+    For the other entries, note $P_{1,2}(n)=1-P_{1,1}(n)$ and $P_{2,1}(n)$ and $P_{2,2}(n)$ can be obtained by exchanging $\alpha$ and $\beta$ due to symmetry.
+
+  \item Difference equation method:
+    \begin{align*}
+      p_{1,1}(n+1) &= \sum_{k=1,2} p_{1,k}(n)p_{k,1}(1) \\
+                   &= p_{1,1}(n)(1-\alpha) + p_{1,2}(n)\beta \\
+                   &= p_{1,1}(n)(1-\alpha) + (1-p_{1,1}(n))\beta
+    \end{align*}
+
+    Thus $\pi_{n}=p_{1,1}(n)$ satisfies
+    \[
+      \pi_{n+1} = (1-\alpha-\beta)\pi_n+\beta
+    \]
+    which can be solved.
+  \end{enumerate}
+\end{eg}
+
+
+\appendix
+
+\section{Resources}
+
+
+Reading list: Probability, an introduction Grimmet, Welsh, 2nd edition, Chapter 12
+
+%webpage: www.statslab.cam.ac.uk/~grg/
+
+
+
+
+
+
+
+
+\end{document}

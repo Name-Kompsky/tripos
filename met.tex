@@ -1,0 +1,206 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Metric \& Topological Spaces}
+\input{header}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Metric Spaces}
+
+\subsection{Metric}
+
+Euclidean space $\mathbb{R}^n$ equipped with standart Euclidean inner-product $(·,·)$, given $\V x, \V y ∈ \mathbb{R}^n$ with coordinates $x_i, y_i$ respectively,
+
+\[
+(\V x, \V y) = \V x · \V y = \sum_{i=1}^{n}x_i y_i
+\]
+
+Euclidean norm $||\V x|| = (\V x, \V x)^{1/2}$ which is the length of $\V x$
+
+Euclidean distance:
+\[
+d_2: \mathbb{R}^n × \mathbb{R}^n → \mathbb{R}, \quad d_2(\V x, \V y) = ||\V x - \V y|| = (\sum_{i=1}^n (x_i - y_i))^{1/2}
+\]
+
+This is an example of a metric.
+
+\begin{defi}
+	A metric space $(X, d)$ consists of a set $X$ and a function $d: X × X → \mathbb{R}$ s.t.
+
+	\begin{enumerate}
+		\item $d(P, Q) ≥ 0$ with equality iff $P = Q$,
+		\item $∀P, Q ∈ X, d(P, Q) = d(Q, P)$,
+		\item $∀P, Q, R ∈ X, d(P, Q) + d(Q, R) ≥ d(P, R)$. (triangle inequality)
+	\end{enumerate}
+\end{defi}
+
+(iii) says, for the Euclidean metrix, for any triangle (possibly degenerate) with vertices $P, Q, R$, sum of lengths of two sides is larger than the length of the third side.
+
+\begin{prop}
+	The Euclidean distance function $d_2$ on $\mathbb{R}^n$ is a metric.
+\end{prop}
+
+\begin{proof}
+	(i) and (ii) are obvious. For (iii) we use Cauchy-schwarz inequality
+	\[
+		(\sum x_i y_i)^2 ≤ (\sum x_i²)(\sum y_i²)
+	\]
+	or in inner product notation
+	\[
+		(\V x, \V y)² ≤ ||\V x||²||\V y||²
+	\]
+	
+	We may take $P = 0 ∈ \mathbb{R}^n$ to be the origin, $Q$ has position vector $\V x$ wrt $P$ and $R$ has position vector $\V y$ wrt $Q$, and has position vector $\V x + \V y$ wrt $P$ :
+
+	\begin{align*}
+		||\V x + \V y||² &= (\V x + \V y, \V x + \V y) \\
+                         &= ||\V x+\V y, \V x+\V y|| \\
+                         &= ||\V x||^2 + 2(\V x,\V y) + ||\V y||^2 \\
+                         &\leq ||\V x||^2 + 2||\V x|| ||\V y|| + ||\V y||^2 \\
+                         &= (||\V x|| + ||\V y||)^2
+	\end{align*}
+\end{proof}
+
+\begin{lem}[Cauchy-Schwarz]
+  \[
+    \forall \V x,\V y \in \mathbb{R}^n, (\V x,\V y)^2 \leq ||\V x||^2 \times ||\V y||^2
+  \]
+\end{lem}
+
+\begin{proof}
+  The quadratic polynomial on real variable $\lambda$
+  \[
+    (\lambda \V x + \V y, \lambda \V x + \V y) = ||\V x||^2 \lambda^2 + 2(\V x,\V y)\lambda + ||\V y||^2
+  \]
+  is positive semi-definite. Thus by considering the determinant the result follows.
+\end{proof}
+
+More example on metric spaces:
+\begin{eg}
+  \begin{enumerate}
+  \item $X = \mathbb{R}^n, d_1(\V x,\V y) = \sum_{i=1}^n |x_i-y_i|$ and $d_\infty(\V x,\V y) = \max_i |x_i-y_i|$ are both metrics.
+  \item for any set $X$, define the \emph{discrete metric}
+    \[
+      d(x, y) =
+      \begin{cases}
+        1 & \text{if } x \neq y \\
+        0 & \text{if } x = y
+      \end{cases}
+    \]
+  \item $X= C[0,1]$, the set of real continuous functions on $[0,1]$. We can define $d_1, d_2,\ldots d_\infty$ by $d_1(f,g) = \int_0^1|f-g|, d_2(f,g) = (\int_0^1(f-g)^2)^{1/2} \cdot d_\infty(f,g) = \sup|f-g|$.
+  \item British Rail metric: consider $\mathbb{R}^n$ with Euclidean metric, and let $0$ denote the origin. Define ew metric on $\mathbb{R}^n$ by
+    \[
+      \rho(P,Q) =
+      \begin{cases}
+        d(P,0) + d(0,Q) &\text{if } P\neq Q \\
+        0 &\text{if } P=Q
+      \end{cases}
+    \]
+  \end{enumerate}
+\end{eg}
+
+Some metrics in fact satisfy a stronger triangle inequality:
+
+\begin{defi}
+  A metric space $(X,d)$ is called an \emph{ultra-metric} if $d$ satisfies
+  \[
+    \forall P,Q,R \in X, d(P,R) \leq \max\{d(P,Q), d(Q,R)\}
+  \]
+  
+\end{defi}
+
+\begin{ex}
+  $X=\mathbb{Z}$, $p$ prime. The \emph{$p$-adic metric} is defined by
+  \[
+    d(m,n) =
+    \begin{cases}
+      0 & m = n \\
+      \frac{1}{p^r} & m \neq n \: \text{where } r = \max\{s\in\mathbb{N}: p^s|(m-n)\}
+    \end{cases}
+  \]
+  Claim $d$ is an ultra-metric.
+\end{ex}
+
+This extends to a $p$-adic metric on $\mathbb{Q}$. For $x\neq y \in \mathbb{Q}$, write $x-y = p^r \frac{m}{n}, r\in\mathbb{Z}$, $m, n$ coprime ot $p$ and define $d(x,y) = \frac{1}{p^r}$.
+
+\begin{ex}
+  The sequence $a_n = 1+p+p^2+\cdot p^n$ is a convergent sequence in $(\mathbb{Q},d_p)$ with limit $a = \frac{1}{1-p}$ since $p^n | (a_n-a) = \frac{p^n}{p-1}$ for all $n$.
+\end{ex}
+
+\begin{defi}
+  Two metrics $\rho_1, \rho_2$ on a set $X$ are \emph{Lipshitz equivalent} if
+  \[
+    \exists 0 < \lambda_1 \leq \lambda_2 \in \mathbb{R} s.t. \lambda_1 \rho_1 \leq \rho_2 \leq \lambda_2\rho2
+  \]
+  
+\end{defi}
+
+This is an equivalence relation.
+
+\begin{rmk}
+  For metrics $d_1, d_2, d_\infty$ on $\mathbb{R}^n$, one can show that
+  \[
+    d_1 \geq d_2 \geq d_\infty \geq \frac{d_2}{\sqrt n} \geq \frac{d_1}{n}
+  \]
+  and so are Lipshitz equivalent.
+\end{rmk}
+
+\begin{prop}
+  $d_1,d_\infty$ one $C[0,1]$ are not Lipshitz equivalent.
+\end{prop}
+
+\begin{proof}
+  For $n \geq 2$, let $f_n \in C[0,1]$ be given by the function as shown. Thus $d_1(f_n,0) =$ area of triangle $\to 0$ as while $d_\infty(f_n,0) \to \sqrt n = \infty$ as $n \to \infty$.
+\end{proof}
+
+\begin{center}
+\begin{tikzpicture}
+  \draw[->] (-.5,0) -- (3,0);
+  \draw[->] (0,-.5) -- (0,3);
+  \draw (0,0) -- (1,2) -- (2,0);
+  \draw (1,0) node[below] {$\frac{1}{n}$} (2,0) node[below] {$\frac{2}{n}$} (0,2) node[left] {$\sqrt n$};
+\end{tikzpicture}
+\end{center}
+
+\begin{ex}
+  Show that $d_2(f_n,0) = \sqrt{\frac{2}{3}}$ for all $n$ is not equivalent to either.
+\end{ex}
+
+\subsection{Open balls and open sets}
+
+Let $(X,d)$ be a metric space, $P\in X, \delta > 0$. The \emph{open ball}
+\[
+  B_d(P,\delta) = \{Q\in X: d(P,Q) < \delta\}
+\]
+Often we omit the meric and write $B(P,\delta)$ or $B_\delta(P)$.
+
+\begin{defi}
+  A subset $U \subseteq X$ of a metric space $(X,d)$ is called \emph{open} if $\forall P \in U, \exists \delta>0 s.t. B(P,\delta)\subseteq U$, i.e. an open subset is just a union of open balls.
+
+  A subset $F\subseteq X$ is closed if $X\setminus F$ is open.
+\end{defi}
+
+Open balls are open and closed balls are closed.
+
+\begin{lem}\leavevmode
+  \begin{enumerate}
+  \item $\emptyset, X \subseteq X$ are open subsets of $(X,d)$.
+  \item If $\{U_i\}_{i\in I}$ are open sets then so is $\bigcup_{i\in I} U_i$.
+    \item If $U_1, U_2$ are open then so is $U_1 \cap U_2$.
+  \end{enumerate}
+\end{lem}
+
+\begin{defi}
+  Give $P$ a point of $(X,d)$, an \emph{open neighbourhood (nbhd)} of $P$ is an open set $U \ni P$.
+\end{defi}
+
+\subsection{Limits and continuity}
+
+Suppose $(x_n)$ is a sequence of points in a metric space $(X,d)$. We say $x_n \to x\in X$ (converges to limit $x$) if $d(x_n,x) \to 0$ as $n \to \infty$. Equivalently, $\forall \varepsilon>0, \exists N \forall n\geq N x_n \in B(x, \varepsilon)$.
+
+\begin{rmk}
+  $x_n \to x$ in $(X,d)$ iff for any open neighbourhood $U \ni x \exists N \forall n\geq N x_n \in U$. 
+\end{rmk}
+\end{document}

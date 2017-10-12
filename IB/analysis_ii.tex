@@ -1,0 +1,349 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Analysis II}
+\def\ndate{Michaelmas, 2017 -- 2018}
+
+\input{header}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Intorduction}
+
+In Analysis I, the primary space we are interested in is \(\R\) and we studied notions such as continuity, convergence, differentiation, integration and solving equaiton through, for example, Intermediate Value Theorem. In Analysis II, we moved to the study general function space.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    & $\mathbb{R}^m$ & Function space \\ \hline
+    Continuity \& convergence & $\checkmark$ & $\checkmark$ \\ \hline
+    Differentiation & $\checkmark$ & Calculus of variations \\ \hline
+    Integration & Probability and measure & ??? (ask physicists) \\ \hline
+    Solving equations & inverse function theorem & existence of solutions for ODEs \\ \hline
+  \end{tabular}
+  \caption{Comparison of Euclidean space and function space}
+\end{table}
+
+\section{Normed Vector Spaces}
+
+A motivating example: if $(a_n)$ is a sequence of real numbers, then $(a_n)\to a$ if
+\[
+  \forall \varepsilon>0,\exists N s.t. \forall n>N, |a_n-a|<\varepsilon.
+\]
+Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\cdot|$ with?
+
+\begin{defi}
+  If $V$ is a real vector space, a \emph{norm} on $V$ is a function $\|\cdot\|:V\to\mathbb{R}$ satisfying
+  \begin{enumerate}
+  \item $\forall \V v \in V, \|\V v\| \geq 0$ with equality if and only if $\V v =\V 0$.
+  \item $\forall \V v,\V w\in V, \|\lambda \V v\| = |\lambda| \|\V v\|$
+    \item $\forall \V v,\V w\in V, \|\V v+\V w\| \leq \|\V v\| + \|\V w\|$ (triangle inequality).
+  \end{enumerate}
+\end{defi}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $V= \mathbb{R}^m, \V v = (v_1,\ldots,v_m)$,
+    \begin{enumerate}
+    \item $\|\V v\| = (\sum_{i=1}^m v_i^2)^{1/2}$, the Euclidean norm,
+    \item $\|\V v\|_\infty = \max |v_i|$, the max norm,
+      \item $\|\V v\|_1 = \sum_{i=1}^m |v_i|$.
+    \end{enumerate}
+  \item $V=C[0,1]$,
+    \begin{enumerate}
+    \item $\|f\|_\infty=\max_{x\in[0,1]} |f(x)|$,
+    \item $\|f\|_2=(\int_0^1 f(x)^2 dx)^{1/2}$, which comes from $\langle f,g\rangle = \int_0^1f(x)g(x) dx$,
+      \item $\|f\|_1=\int_0^1|f(x)| dx$, the $L^1$ norm.
+    \end{enumerate}
+  \end{enumerate}
+\end{eg}
+
+\subsection{Convergence}
+
+\begin{defi}
+  Suppose $(V, \|\cdot\|)$ is a normed vector space and $(\V v_n)$ is a sequence of elements of $V$. We say $(\V v_n)$ converges to $\V v\in V$, denoted $(\V v_n)\to \V v$, if $\forall\varepsilon>0,\exists N s.t. \forall n>N, \|\V v_n-\V v\|<\varepsilon$. Equivalently, $(\V v_n)\to \V v$ if $(\|\V v_n-\V v\|)\to 0$.
+\end{defi}
+
+\begin{ex}
+  Suppose $V=\mathbb{R}^m, (\V v_n) = (v_{n,1},\ldots,v_{n,m})$. Then $(\V v_n)\to \V v$ w.r.t. $\|\cdot\|_\infty$ means
+  \begin{align*}
+    & (\max_{1\leq i \leq m}|v_{n,i}-v_i|) \to 0 \\
+    \Longleftrightarrow & (|v_{n,i}-v_i|)\to 0 \text{ for all } 1\leq i\leq m \\
+    \Longleftrightarrow & (v_{n,i})\to v_i \text{ for all } 1\leq i\leq m
+  \end{align*}
+
+   The convergence w.r.t. $\|\cdot\|_1$ means
+   \begin{align*}
+     & (\sum_{i=1}^m |v_{n,i}-v_i|)\to 0 \\
+     \Longleftrightarrow & (|v_{n,i}-v_i)\to 0 \text{ for all } 1\leq i\leq m \\ 
+    \Longleftrightarrow & (v_{n,i})\to v_i \text{ for all } 1\leq i\leq m.
+  \end{align*}
+\end{ex}
+
+\begin{rmk}
+  Two different norms, same notion of convergence.
+\end{rmk}
+
+\begin{convention}
+  If I say $(\V v_n)\to \V v$ where $(\V v_n)$ is a sequence in $\mathbb{R}^m$ without specifying the norm, I mean w.r.t. $\|\cdot\|_1,\|\cdot\|_2,\|\cdot\|_\infty$. (all give the same notion for convergence).
+\end{convention}
+
+\begin{eg}\label{eg:fdown}
+  $V=C[0,1]$,
+  \[
+    f_n(x) =
+    \begin{cases}
+      1-nx & x\in[0,1/n] \\
+      0 & x\geq 1/n
+    \end{cases}
+  \]
+  Then $\|f_n\|_1=\int_0^1|f_n(x)| dx=\frac{1}{2n}\to 0$ so $(f_n)\to 0$ w.r.t. $\|\cdot\|_1$.
+
+  But $\|f_n\|_\infty=1$ so $(\|f_n\|_\infty) \nto 0$ i.e. $(f_n) \nto 0$ w.r.t. $\|\cdot\|_\infty$.
+\end{eg}
+
+\begin{rmk}
+  Two different norms, two different notions of convergence.
+\end{rmk}
+
+\subsection{Continuity}
+
+\begin{defi}
+  Suppose $V$ and $W$ are normed vector spaces. We say a function $f:V\to W$ is \emph{continuous} if
+  \[
+    (f(\V v_n))\to f(\V v) \text{ in } W \text{ whenever } (\V v_n)\to \V v \text{ in } V.
+  \]
+  
+\end{defi}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $f:V\to \mathbb{R}^m, f(\V v) = (f_1(\V v), \ldots, f_m(\V v))$ is continuous if and only if $f_i:V\to \mathbb{R}$ is continuous for all $1\leq i \leq m$.
+  \item $\rho_i:\mathbb{R}^m\to \mathbb{R}, \rho_i(\V v) =v_i$ is continuous.
+  \item $F:C[0,1]\to\mathbb{R}, F(f)=f(0)$,
+    \begin{enumerate}
+    \item If $(f_n)$ is the sequence from example~\ref{eg:fdown}, then $F(f_n)=1$. Now $(f_n)\to \V 0$ w.r.t. $\|\cdot\|_1$. But $(F(f_n))\nrightarrow 0=F(\V 0)$. So $F$ is not continuous w.r.t. $\|\cdot\|_1$.
+      \item If $(g_n)\to g$ w.r.t. $\|\cdot\|_\infty$, then $(\max|g_n(x)-g(x)|)\to 0$ so $(|g_n(0)-g(0))|\to 0$, $(|F(g_n)-F(g)|)\to 0$, so $F(g_n)\to F(g)$.
+    \end{enumerate}
+    $F$ is continuous w.r.t. $\|\cdot\|_\infty$ but not w.r.t. $\|\cdot\|_1$.
+  \item If $f:V_1\to V_2$ and $g:V_2\to V_3$ are continuous then $g\compose f: V_1\to V_3$ are continuous. Proof: if $(\V v_n) \to (\V v)$ in $V_1$ , then as $f$ is continuous, $(f(\V v_n)) \to (f(\V v))$, then as $g$ is continuous, $(g(f(\V v_n))) \to (g(f(\V v)))$ in $V_3$.
+  \item $\|\cdot\|: V \to \R$ is continuous. Proof: if $(\V v_n)\to \V v$, then $(\|\V v_n - \V v\|) \to 0$. Now
+    \[
+      0 \leq |\|\V v_n\| - \|\V v\|| \leq \|\V v_n - \V v\|
+    \]
+    by Lemma~\ref{lem:alternate triangle}. So $(|\|\V v_n - \V v\||) \to 0$ by squeeze rule, i.e. $\|\V v_n\| \to \|\V v\|$.
+  \end{enumerate}
+\end{eg}
+
+\begin{lem}
+  \label{lem:alternate triangle}
+  $\|\V v- \V w\| \geq |\|\V v\| - \|\V w\||$ for all $\V v, \V w \in V$.
+\end{lem}
+
+\begin{proof}
+  By triangle inequality, $\|\V v- \V w\| - \|\V w\| \geq \|\V v \|$ so $\|\V v - \V w\| \geq \|\V w - \V v\| \geq \|\V w - \V v\|$.
+\end{proof}
+
+More generally, if $X\subset V$ is a subset, we say $f:X\to W$ is continuous if
+\[
+  (f(\V x_n)) \to f(\V x)
+\]
+in $W$ whenever $(\V x_n) \to \V x$ in $V$ for $\V x$ and all $\V x_n \in X$.
+
+\begin{eg}
+  $f:\R \setminus \{0\} \to \R, x \mapsto \frac{1}{x}$ is continuous.
+\end{eg}
+
+\subsection{Open and Closed Subsets}
+
+Let $(V, \|\cdot\|)$ be a normed vector space.
+
+\begin{defi}
+  If $\V v_0 \in V$ and $r \in \R$,
+  \[
+    B_r(\V v_0) = \{\V v\in V: \|\V v - \V v_0\| < r \}
+  \]
+  is the \emph{open ball} of radius $r$ centred at $\V v_0$, and
+  \[
+    \cl B_r(\V v_0) = \{\V v\in V: \|\V v - \V v_0\| < r \}
+  \]
+  is the \emph{closed ball} of radius $r$ centred at $\V v_0$.
+\end{defi}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $(V, \|\cdot\|) = (\R, |\cdot|)$, then
+    \begin{align*}
+      B_r(a) &= (a-r, a+r) \\
+      \cl B_r(a) &= [a-r, a+r] 
+    \end{align*}
+  \item $V=\R^2$, then $\cl B_1(\V 0)$ with respect to \texttt{to be filled in}.
+\item $V = \R^3, \|\cdot\|_2$ is the ``three-dimensional ball''.
+\item $(V, \|\cdot\|) = (C[0,1], \|\cdot\|_\infty)$,
+  \[
+    \cl B_r(f) = \{g\in C[0,1]: f(x)-r \leq g(x) \leq f(x) + r \: \forall x \in [0,1]\}.
+  \]
+  \end{enumerate}
+\end{eg}
+
+\begin{prop}[Alternate characterisation of Continuity]
+  $f:V\to W$ is continuous if and only if
+  \begin{equation}
+    \label{eqn:alternate continuity}
+    \forall \V v_0 \in V, \forall \varepsilon>0, \exists \delta>0 s.t. \|\V v- \V v_0\| \leq \delta \Rightarrow \|f(\V v) - f(\V v_0)\| \tag{$\ast$}
+    \end{equation}
+  i.e.
+  \[
+    f(B_\delta(\V v_0)) \subset B_\varepsilon(f(\V v_0)).
+    \]
+\end{prop}
+
+\begin{proof}
+  Suppose \eqref{eqn:alternate continuity} holds. Given $(v_n)\to v$, must show $(f(v_n))\to f(v)$. Given $\varepsilon>0$, pick $\delta$ such that $(f(B_\delta(v))\subseteq B_\epsilon(f(v))$. Since $(v_n)\to (v)$, exists $N$ such that whenever $n>N$, $\|v_n - v\| < \delta$, i.e. $v_n \in B_\delta(v)$, so $f(v_n) \in B_\epsilon(f(v))$. In other words, whenever $n>N$, $\|f(v_n)-f(v)\| <\varepsilon$.
+
+  Suppose \eqref{eqn:alternate continuity} does not hold. Then exists some $v \in V$ and $\varepsilon>0$ such that there is no $\delta>0$ with $f(B_\delta(v)) \subseteq B_\varepsilon(f(v))$. In particular $f(B_{1/n}(v)) \nsubseteq B_\varepsilon(f(v))$ for all $n$. Pick $v_n \in B_{1/n}(v)$ with $f(v_n) \notin B_\varepsilon(f(v))$. Then $(v_n)\to v$, but $(f(v_n)) \nto f(v)$, since $\|f(v_n) - f(v) \| \geq \varepsilon$ for all $n$. $f$ is not continuous.
+\end{proof}
+
+\begin{defi}
+  $U \subseteq V$ is an \emph{open subset} of $V$ if for every $u \in U$ there is some $\varepsilon>0$ with $B_\varepsilon(u) \subseteq U$.
+\end{defi}
+
+\begin{prop}
+  If $f:V\to W$ is continuous and $U\subseteq W$ is open then
+  \[
+    f^{-1}(U) = \{v \in V: f(v) \in V\}
+  \]
+  is an open subset of $V$.
+\end{prop}
+
+\begin{proof}
+  If $v\in f^{-1}(U)$, then $f(v) \in U$. $U$ is open in $W$ so exists $\varepsilon>0$ such that $B_\varepsilon(f(v)) \subseteq U$. $F$ is continuous so exist $\delta>0$ such that $f(B_\delta(v)) \subseteq B_\varepsilon(f(v)) \subseteq U$. So $B_\delta(v) \subseteq f^{-1}(U)$. $f^{-1}(U)$ is open.
+\end{proof}
+
+\begin{rmk}
+  The converse statement is also true: if for any $U \subseteq W$ open $f^{-1}(U)$ open in $V$, then $f$ is continuous.
+\end{rmk}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $(0,1)$ is open in $\R$.
+    \item The function $h(v) = \|v-v_0\|$ is continuous: $h(v) = g \compose f(v)$ where $f(v) = v-v_0$, and $g(v)=\|v\|$. so $B_r(r) = h^{-1}((-r,r))$ is open in $V$.
+  \end{enumerate}
+\end{eg}
+
+\begin{defi}
+  $C\subseteq V$ is a \emph{closed subset} of $V$ if $V\setminus C$ is open in $V$.
+\end{defi}
+
+\begin{cor}
+  If $f:V\to W$ is continuous and $C\subseteq W$ is closed, then $f^{-1}(C)$ is closed in $V$.
+\end{cor}
+
+\begin{proof}
+  \[
+    f^{-1}(W\setminus C) = V\setminus f^{-1}(C)
+  \]
+  so if $C\subseteq W$ is closed, $W\setminus C$ is open, so $f^{-1}(W\setminus C) = V\setminus f^{-1}(C)$ is open. Thus $f^{-1}(C)\subseteq V$ is closed.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item $[a,b]$ is closed in $\R$.
+  \item $h(v) = \|v-v_0\|, \cl B_r(v_0) = h^{-1}([0,r])$.
+  \item $V, \emptyset$ are both open and closed in $V$.
+    \item $\Q \subseteq \R$ is neither open nor closed.
+  \end{enumerate}
+\end{eg}
+
+\begin{prop}
+  \(C \subseteq V\) is closed if and only if for every sequence \((v_n) \to v\) with all \(v_n \in C\), \(v\in C\).
+\end{prop}
+
+\begin{proof}
+  Suppose \(C\) is closed and \((v_n)\to v \notin C\). Then \(v\in V\setminus C\) which is open, so \(\exists \varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\), i.e. \(B_\varepsilon(v) \cap C =\emptyset\). \((v_n)\to v\) so \(\exists N\) such that \(v_n\in B_\varepsilon(v)\) for all \(n>N\). Thus \(v_n \notin C\) for all \(n>N\). In other word, if \((v_n)\to v\), all but finitely many of \(v_n \notin C\).
+
+  Conversely, suppose \(C\) is not closed. Then \(V\setminus C\) is not open so \(\exists c \in V\setminus C\) such that there is no \(\varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\). In other words, \(B_\varepsilon(v) \cap V \neq \emptyset\) for all \(\varepsilon>0\). Pick \(v_n\in B_{1/n}(v)\cap C\) for all \(n>0\). Then \(\|v_n-v\|< 1/n\) so \((v_n)\to v\). All \(v_n \in C\) but \(v\in V\setminus C\).
+\end{proof}
+
+\begin{eg}
+  The set \(X=\{f\in C[0,1]: \forall x, f(x)>0\}\) is not closed with respect to \(\|\cdot\|_1\) or \(\|\cdot\|_\infty\) since \(f_n(x) = \frac{1}{n} \in X\), \((f_n) \to 0\) with respect to either norm but \(0 \notin X\).
+\end{eg}
+
+For future use, suppose \(U_\alpha \subseteq V, \alpha\in A\) are open subsets of \(V\). Given \(U = \bigcup_{\alpha\in A}U_\alpha\) and \(f: U \to W\),
+
+\begin{prop}
+  If \(f|_{U_\alpha}:U_\alpha \to W\) is continuous for all \(\alpha \in A\), then \(f: U \to W\) is continuous.
+\end{prop}
+
+\begin{note}
+  The hypothesis that \(U_\alpha\) is open is important. For example, let \(f:\R\to\R, f(x) = 1 \text{ if } x\in\Q, f(x)=0\) otherwise, then \(f|_\Q\) and \(f|_{\R\setminus\Q}\) are both continuous but \(f\) is not.
+\end{note}
+
+\begin{proof}
+  Suppose \(v_n, v\in U\) with \((v_n)\to v\). Must show \((f(v_n))\to f(v)\). \(v\in U\) so \(v\in U_\alpha\) for some \(\alpha\). \(U_\alpha\) is open so \(\exists \varepsilon >0\) with \(B_\varepsilon(v) \subseteq U_\alpha\), \((v_n)\to v\) so \(\exists N\) with \(v_n \in B_\varepsilon(v)\) for all \(n>N\). Let \(u_i=v_{N+1}\), then \(u_i\in U_\alpha\) and \((u_i)\to v\). Since \(f|_{U_\alpha}\) is continuous, \((f(u_i))\to f(v)\) which implies that \((f(v_n)) \to f(v)\).
+\end{proof}
+
+\subsection{Lipschitz Equivalence}
+
+Recall from the introduction of norms that \(\|\cdot\|_1, \|\cdot\|_2, \|\cdot\|_\infty\) on \(\R^n\) all induce the same notion of convergence. We want to generalise this idea.
+
+Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
+\begin{align*}
+  \id_V:(V,\|\cdot\|) &\to (V,\|\cdot\|') \\
+  v &\mapsto v
+\end{align*}
+
+\begin{prop}
+  \(\id_V\) as above is continuous if and only if \(\exists C \in \R\) with \(\|v\|' \leq C \|v\|\) for all \(v \in V\).
+\end{prop}
+
+\begin{proof}
+  Suppose \(\|v\|' \leq C \|v\|\) for all \(v\). To show \(\id_V\) is continuous, must show \((v_n)\to v\) with respect to \(\|\cdot\|'\) whenever \((v_n)\to v\) with respect to \(\|\cdot\|\).
+
+  If \((v_n)\to v\) with respect ot \(\|\cdot\|\), then \((\|v_n-v\|)\to 0\) so \((C\|v_n-v\|)\to 0\). We know
+  \[
+    0 \leq \|v_n-v\|' \leq C \|v_n-v\|,
+  \]
+  so by squeeze rule \(\|v_n-v\|\to 0\). Thus \((v_n)\to v\) with respect to \(\|\cdot\|'\).
+
+  Conversely, suppose \(\id_V\) is continuous. There exist \(\delta>0\) such that
+  \[
+    \id_V(B_\delta(0, \|\cdot\|) \subseteq B_1(0, \|\cdot\|')
+  \]
+  Given \(v \in V, v \neq 0\), exists \(K\in\R\) with \(\|Kv\| = \delta/2\) (take \(K=\frac{\delta}{2 \|v\|}\)). Then \(Kv \in B_\delta(0,\|\cdot\|) \Rightarrow Kv\in B_1(0,\|\cdot\|')\), i.e. \(\|Kv\| = \delta/2, \|Kv\|' < 1\), so \(\|Kv\|' \leq \frac{2}{\delta}\|Kv\| \Rightarrow K \|v\|' \leq \frac{2}{\delta}K \|v\|\). Let \(C = \frac{2}{\delta}\).
+\end{proof}
+
+\begin{defi}
+  If \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\), they are said to be \emph{Lipschitz equivalent} if
+  \begin{align*}
+    & \exists C>0 s.t. \forall v \in V, \frac{1}{C}\|v\| \leq \|v\|' \leq C \|v\| \\
+    \Longleftrightarrow & \exists C_1,C_2 s.t. \|v\|' \leq C_1 \|v\|, \|v\| \leq C_2 \|v\|' \\
+    \Longleftrightarrow & \id_V:(V,\|\cdot\|)\to (V,\|\cdot\|') \text{ and } \id_V:(V,\|\cdot\|')\to (V,\|\cdot\|) \text{are both continuous.}
+  \end{align*}
+\end{defi}
+
+\begin{cor}
+  If \((V, \|\cdot\|)\) and \(V, \|\cdot\|')\) are Lipschitz equivalent, then
+  \begin{enumerate}
+  \item \((v_n)\to v\) with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\),
+  \item \(f:V\to W\) is continuous with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\),
+  \item \(F:W\to V\) is continuous with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\).
+  \end{enumerate}
+\end{cor}
+
+\begin{proof}
+  Example proof: if \(f:(V, \|\cdot\|)\to W\) is continuous, \(f:(V,\|\cdot\|')\to W = f:(V, \|\cdot\|)\to W \compose \id_V:(V, \|\cdot\|) \to (V, \|\cdot\|')\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(V=\R^n\), \(\|v\|_\infty \leq \|v\|_2 \leq \|v\|_1 \leq n \|v\|_\infty\) so all three are Lipschitz equivalent.
+  \item \(V=C[0,1]\), \(\id_V:(V, \|\cdot\|_\infty)\to (V,\|\cdot\|_1)\) is continuous but \(\id_V:(V, \|\cdot\|_1)\to (V,\|\cdot\|_\infty)\) is not so not Lipschitz equivalent.
+  \end{enumerate}
+\end{eg}
+\end{document}

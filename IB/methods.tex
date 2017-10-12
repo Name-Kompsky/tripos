@@ -1,0 +1,428 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Methods}
+\def\ndate{Michaelmas, 2017 -- 2018}
+
+\input{header}
+
+\newcommand*\p{\partial}
+\renewcommand*\L{\mathcal{L}}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section*{Self-adjoint ODEs}
+
+\section{Fourier Series}
+
+\subsection{Periodic functions}
+
+A function $f(t)$ is \emph{periodic} with period $T$ if $f(t+T) = f(t)$. Consider $A \sin\omega t$, where $A$ is the amplitude, $\omega$ is the frequency and $2\pi/\omega=T$ is the period. Sines and cosines have an orthogonality property:
+\begin{align*}
+  \cos(A\pm B) &= \cos A\cos B \mp \sin A\sin B \\
+  \cos A \cos B &= \frac{1}{2}[\cos(A-B)+\cos(A+B)] \\
+  \sin A \sin B &= \frac{1}{2}[\cos(A-B)-\cos(A+B)]
+\end{align*}
+
+Consider $\sin\frac{n\pi x}{L}, \sin\frac{m\pi x}{L}$ where $n,m$ are non-negative integers. These functions are periodic with period $2L$.
+\begin{align*}
+  ss_{m,n} &:= \int_0^{2L}\sin\frac{m\pi x}{L}\sin\frac{n\pi x}{L} dx \\
+  &= \frac{1}{2}\int_0^{2L}\cos\frac{(m-n)\pi x}{L} - \cos\frac{(m+n)\pi x}{L} dx \\
+          &= \frac{L}{2\pi}\Bigg[\frac{\sin\frac{(m-n)\pi x}{L}}{m-n} - \frac{\sin\frac{(m+n)\pi x}{L}}{m+n}\Bigg]_0^{2L}\\
+           &=
+             \begin{cases}
+               0 & \text{if } m\neq n \\
+               L & \text{if } m=n\neq 0 \\
+               0 & \text{if } m=n=0
+             \end{cases}
+\end{align*}
+Thus
+\[
+  ss_{m,n}=
+  \begin{cases}
+    L \delta_{mn} &\text{if } n\neq 0 \\
+    0 &\text{if } m=0 \text{ or } n=0
+  \end{cases}
+\]
+Similarly
+\[
+  cc_{m,n} := \int_0^{2L}\cos\frac{m\pi x}{L}\cos\frac{n\pi x}{L} dx =
+  \begin{cases}
+    2L &\text{if } m=n=0 \\
+    L\delta_{mn} &\text{otherwise}
+  \end{cases}
+\]
+Finally,
+\begin{align*}
+  cs_{mn} &:= \int_0^{2L}\cos\frac{m\pi x}{L}\sin\frac{n\pi x}{L} dx \\
+          &= \frac{1}{2}\int_0^{2L}\frac{\sin (m+n)\pi x}{L} - \frac{\sin (m-n)\pi x}{L} dx \\
+          &= 0
+\end{align*}
+
+By analogy with vectors (these integrals are \emph{inner products}), $\sin \frac{n\pi x}{L}$ and $\cos\frac{n\pi x}{L}$ are said to be \emph{orthogonal} on the interval $[0,2L]$. Actually they constitute an \emph{orthogonal basis}, i.e. it is possible to represent an arbitray (but sufficiently well-behaved) function in terms of an infinite series (Fourier series) formed as a sum of sines and cosines.
+
+\subsection{Definition of Fouries Series}
+
+Any ``well-behaved'' (to be defined later) periodic function $f(x)$ with period $2L$ can be written as a Fourier series:
+\begin{equation}
+  \label{eqn:fourier coefficients}
+  \frac{f(x_+)+f(x_-)}{2} = \frac{1}{2}a_0 + \sum_{n=1}^\infty \Big(a_n\cos\frac{n\pi x}{L} +b_n\sin\frac{n\pi x}{L}\Big)
+  \tag{$\ast$}
+\end{equation}
+where $a_n$ and $b_n$ are the \emph{Fourier coefficients} and $f(x_+)$ and $f(x_-)$ are the right limit approaching from above and the left limit approaching from below respectively.
+
+\begin{enumerate}
+\item If $f(x)$ is continuous at $x_c$, the LHS is just $f(x)$.
+  \item if $f(x)$ has a \emph{bounded} discontinuity at $x_d$, i.e., $|f(x_d^-)-f(x_d^+)|$ is non-zero but finite, the Fourier series tends to the mean value of the two limits.
+\end{enumerate}
+
+\subsection{Coefficient Construction}
+
+Multiply RHS of equation~\eqref{eqn:fourier coefficients} by $\sin \frac{m\pi x}{L}$, integrate over $[0, 2\pi]$. Assume we can exchange summation and integration,
+\begin{align*}
+  \int_0^{2L} f(x)\sin\frac{m\pi x}{L} dx &= \int_0^{2L} \Bigg[ \frac{1}{2}a_0 + \sum_{n=1}^\infty \Big(a_n\cos\frac{n\pi x}{L} +b_n\sin\frac{n\pi x}{L}\Big) \Bigg] \sin\frac{m\pi x}{L} dx \\
+    &= 0 + \sum_{n=1}^\infty a_n \int_0^{2L} \cos\frac{n\pi x}{L} \sin\frac{m\pi x}{L} dx +  \sum_{n=1}^\infty b_n \int_0^{2L} \sin\frac{n\pi x}{L} \sin\frac{m\pi x}{L} dx\\
+  &= 0 + 0 + L b_m
+    \end{align*}
+Thus
+\[
+  b_m = \frac{1}{L}\int_0^{2L} f(x) \sin\frac{m\pi x}{L} dx
+\]
+
+Similarly, multiply by $\cos \frac{m\pi x}{L}$ and integrate (include $m=0$), we get
+\[
+  \int_0^{2L} f(x)\cos\frac{m\pi x}{L} dx = \int_0^{2L} \Bigg[ \frac{1}{2}a_0 + \sum_{n=1}^\infty \Big(a_n\cos\frac{n\pi x}{L} +b_n\sin\frac{n\pi x}{L}\Big) \Bigg] \cos\frac{m\pi x}{L} dx
+\]
+The first term is non-zero only when $m=0$. Therefore
+\[
+  \frac{a_0}{2} \cdot 2L = \int_0^{2L} f(x) dx
+\]
+so
+\[
+\frac{a_0}{2} = \frac{1}{2L}\int_0^{2L} f(x) dx.
+\]
+The second term gives
+\[
+  a_m = \frac{1}{L} \int_0^{2L} f(x) \cos\frac{m\pi x}{L} dx.
+\]
+
+The range of integration is one period so it is also permissible to choose $-L$ and $L$ as the limit of integration. A particularly neat case is when $L=\pi$:
+\begin{align*}
+  a_m &= \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos mx dx, m\geq0 \\
+  b_m &= \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin mx dx, m\geq1
+\end{align*}
+
+\subsection{Dirichlet Conditions}
+
+If $f(x)$ is a periodic function with period $2L$ such that
+\begin{enumerate}
+\item it is absolutely integrable, i.e.$\int_0^{2L}|f(x)| dx$ is well-defined,
+\item it has a finite number of extrema (i.e. maxima and minima) in $[0,2L]$,
+  \item it has a finite number of \emph{bounded} discontinuities in $[0,2L]$,
+\end{enumerate}
+then the Fourier series converges to $f(x)$ for all points where $f(x)$ is continuous and at points $x_d$ where $f(x)$ is discontinuous, the series converges to the average value of the left and right limit, i.e. $(f(x_d^+)+f(x_d^-))/2$.
+
+These conditions are satisfied if the function is of \emph{bounded variation}.
+
+\begin{rmk}
+  The Fourier series converges but not necessarily uniformly converges. This gives rises to some weird behaviour.
+\end{rmk}
+
+\subsubsection{Smoothness and Order of Fourier Coefficients}
+
+If the $p$th derivative is the lowest derivative which is discontinuous somewhere (including the endpoints), then the Fourier coefficients are $O(n^{-(p+1)})$ as $n \to \infty$.
+
+For example, if a function has a bouned discontinuity, the $0$th derivative is discontinuous: coefficients are of order $\frac{1}{n}$ as $n \to \infty$.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The sawtooth function $f(x) = x$ for $-L \leq x < L$.
+    \begin{center}
+      \begin{tikzpicture}
+        \begin{axis}[
+          xtick={-4,4},
+          xticklabels={$-2L$,$2L$},
+          ytick={-2,2},
+          yticklabels={$-L$,$L$},
+          axis lines=center,
+          axis equal image,
+          xmin=-8,
+          xmax=8,
+          ymin=-3,
+          ymax=3,
+          xlabel=$x$,
+          ylabel=$f(x)$]
+          \addplot[domain=-2:2,color=red]{x};
+          \addplot[domain=2:6,color=red]{x-4};
+          \addplot[domain=-6:-2,color=red]{x+4};
+        \end{axis}
+      \end{tikzpicture}
+    \end{center}
+    The function is odd so
+\begin{align*}
+  a_m &= \frac{1}{L}\int_{-L}^L x \cos\frac{m\pi x}{L} dx = 0 \\ 
+  b_m  &= \frac{1}{L}\int_{-L}^L x \sin\frac{m\pi x}{L} dx \\
+      &= \frac{1}{L}\Big[x \frac{L}{m\pi}(-\cos\frac{m\pi x}{L})\Big]_{-L}^L - \frac{1}{L}\frac{L}{m\pi} \int_{-L}^L -\cos\frac{m\pi x}{L} dx \\
+      &= \frac{1}{m\pi}\Big( L(-\cos m\pi) - (-L)(-\cos m\pi) \Big) + \frac{1}{m\pi} \Big[ \frac{L}{m\pi} \sin\frac{m\pi x}{L} \Big]_{-L}^L \\
+  &= \frac{2L}{m\pi}(-1)^{m+1}
+\end{align*}
+
+So
+\[
+  \frac{f(x_+)+f(x_-)}{2} = \frac{2L}{\pi}\Big[\sin\frac{\pi x}{L} - \frac{1}{2}\sin\frac{2\pi x}{L} + \cdots \Big].
+\]
+and we observe that
+\begin{enumerate}
+\item $f_N(x) = \sum_{n=1}^N b_n\sin\frac{n\pi x}{L} \to f(x)$ almost everywhere but the convergence is \emph{not} uniform.
+\item Persistent overshooting at $x=L$: Gibbs phenomenon.
+\item $f(L) = 0$, the average of right and left hand limit.
+\item Coefficients are $O(\frac{1}{n})$ as $n\to \infty$.
+\end{enumerate}
+
+\item The integral of the sawtooth function, $f(x) = \frac{x^2}{2}$ for $-L \leq x < L$.
+    \begin{center}
+      \begin{tikzpicture}
+        \begin{axis}[
+          xtick={-4,4},
+          xticklabels={$-2L$,$2L$},
+          ytick={-2,2},
+          yticklabels={$-L/2$,$L/2$},
+          axis lines=center,
+          axis equal image,
+          xmin=-8,
+          xmax=8,
+          ymin=-3,
+          ymax=3,
+          xlabel=$x$,
+          ylabel=$f(x)$]
+          \addplot[domain=-2:2,color=red]{x^2/2};
+          \addplot[domain=2:6,color=red]{(x-4)^2/2};
+          \addplot[domain=-6:-2,color=red]{(x+4)^2/2};
+        \end{axis}
+      \end{tikzpicture}
+    \end{center}
+  Exercise: $f(x) = L^2 \big[ \frac{1}{6} + 2\sum_{n=1}^\infty \frac{(-1)^n}{(n\pi)^2} \cos\frac{n\pi x}{L} \big]$.
+
+  Note at $x=0$,
+  \begin{align*}
+    & 0 = L^2 \Big[\frac{1}{6} + 2\sum_{n=1}^\infty \frac{(-1)^n}{(n\pi)^2} \Big] \\
+    \Rightarrow & \frac{\pi^2}{12} = \sum_{n=1}^\infty\frac{(-1)^{n+1}}{n^2}
+  \end{align*}
+  \end{enumerate}
+\end{eg}
+
+\section{Properties of Fourier Series}
+
+\subsection{Integration \& Differentiation}
+
+\subsubsection{Integration\protect\footnote{Don't panic: it's always OK.}}
+
+Fourier series \emph{can} be integrated term by term. Suppose $f(x)$ with period $2L$ has a Fourier series (so it satisfies the Direichlet condition):
+\[
+  \frac{f(x_+)+f(x_-)}{2} = \frac{1}{2}a_0 + \sum_{n=1}^\infty \Big(a_n\cos\frac{n\pi x}{L} +b_n\sin\frac{n\pi x}{L}\Big).
+\]
+Consider
+\begin{align*}
+  F(x) & = \int_{-L}^x f(u) du \\
+       &= \frac{a_0(x+L)}{2} + \sum_{n=1}^\infty \frac{a_n L}{n\pi}\sin\frac{n\pi x}{L} + \sum_{n=1}^\infty \frac{b_n L}{n\pi} \Big[(-1)^n - \cos\frac{n\pi x}{L} \Big] \\
+       &= \frac{a_0 L}{2} + L \sum_{n=1}^\infty (-1)^n \frac{b_n}{n\pi} - L \sum_{n=1}^\infty \frac{b_n}{n\pi} \cos\frac{n\pi x}{L} + L \sum_{n=1}^\infty \frac{a_n-(-1)^n a_0}{n\pi}\sin\frac{n\pi x}{L}
+\end{align*}
+
+If $a_n, b_n$ are Fourier coefficients, then series involving $\frac{a_n}{n}, \frac{b_n}{n}$ (multiplied by sine or cosine) must also converge, so they are part of a Fourier series. Fourier series of $f(x)$ exists so $b_n$ is at least of $O(\frac{1}{n})$ as $n\to\infty$. Thus $\frac{b_n}{n}$ is at least of order $O(\frac{1}{n^2})$ as $n\to \infty$ and so by comparison test with $\sum \frac{M}{n^2}$ the second term converges, so $F(x)$ has a Fourier series.
+
+\begin{note}
+  Integration smoothes.
+  The proof relies on discontinuity being bounded ($f(x)$ satisfies the Dirichlet condition).
+\end{note}
+
+\subsubsection{Differentiation\protect\footnote{Do panic, it doesn't always work!}}
+
+Let $f(x)$ be a periodic function with period $2$ such that
+\[
+  f(x) =
+  \begin{cases}
+    1 & 0 < x < 1\\
+    -1 & -1 < x < 0 
+  \end{cases}
+\]
+This is an odd function so
+\begin{align*}
+  a_m &= 0 \\
+  b_m &= -\int_{-1}^0 \sin m\pi x dx + \int_{-1}^0 \sin m\pi x dx \\
+  &= \frac{\cos m\pi x}{m\pi} \Big|_{-1}^0 - \frac{\cos m\pi x}{m\pi} \Big|_0^{-1} \\
+  &= \frac{1}{m\pi} \big(1- (-1)^m - (-1)^m + 1 \big) \\
+  & =
+  \begin{cases}
+    \frac{4}{m\pi} & m \text{ is odd} \\
+    0 & m \text{ is even}
+  \end{cases}
+\end{align*}
+Thus
+\[
+  \frac{f(x_+)+f(x_-)}{2} = \frac{4}{\pi} \sum_{n=1}^\infty \frac{\sin(2n-1)\pi x}{2n-1}.
+  \]
+Apply differentiation rules
+\[
+  f'(x) = 4 \sum_{n=1}^\infty \cos(2n-1)\pi x
+\]
+This is clearly divergent even though $f'(x) = 0$ for all $x \neq 0$. The extra factor of $2n-1$ is the problem, which is related to the discontinuity. $f'(x)$ \emph{does not} satisfy the Dirichlet condition.
+
+\begin{note}
+  Intuitively, this behaviour can be explained by noticing that Dirac delta function is the derivative of Heaviside function.
+\end{note}
+
+\section{Differentiation Under Circumstances}
+
+Differentiation of Fourier series under certain circumstances.
+
+\begin{eg}
+  Assume \(f(x)\) is continuous and is extended as a \(2L\)-periodic function, piecewise continuously differentiable on \((-L,L)\). Let \(g(x)=\frac{df}{dx}\). \(g(x)\) satisfies the Dirichlet condition as it has at worst a finite number of bounded discontinuities.
+  \begin{align*}
+    f(x) &= \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos \frac{n\pi x}{L}+ b_n \sin \frac{n\pi x}{L} \\
+    \frac{g(x_+)+g(x_-)}{2} &=\frac{A_0}{2} + \sum_{n=1}^{\infty} A_n \cos \frac{n\pi x}{L} + B_n \sin \frac{n\pi x}{L}
+  \end{align*}
+  Then
+  \begin{align*}
+    A_0 &= \frac{1}{L}\int_{0}^{2L}g(x) dx \\
+        &= \frac{f(2L)-f(0)}{L} \\
+        &= 0
+  \end{align*}
+  by periodicity.
+  \begin{align*}
+    A_n &=\frac{1}{L} \int_{0}^{2L}\frac{df}{dx}\cos \frac{n\pi x}{L}dx \\
+        &= \frac{1}{L}\Big[f(x)\cos \frac{n\pi x}{L} \Big] \Big|_0^{2L} + \frac{n\pi}{L^2} \int_{0}^{2L} f(x)\sin \frac{n\pi x}{L} dx \\
+        &= 0 + \frac{n\pi b_n}{L}
+      \end{align*}
+      Similarly, \(B_n=-\frac{n\pi a_n}{L}\).
+
+      This reduces differentiation to multiplication by \(\pm \frac{n\pi}{L}\).
+      \end{eg}
+
+\subsection{Altenate Representation: Complex Form}
+
+Recall
+\begin{align*}
+  \cos \frac{n\pi x }{L} &= \frac{1}{2} (e^{i\frac{n\pi x}{L}} + e^{-i\frac{n\pi x}{L}}) \\
+  \sin &= \frac{1}{2i} (e^{i\frac{n\pi x}{L}} - e^{-i\frac{n\pi x}{L}})
+\end{align*}
+so
+\begin{align*}
+  \frac{f(x_+)+f(x_-)}{2} &= \frac{a_0}{2} + \sum_{n=1}^{\infty} \frac{a_n}{2} (e^{i \frac{n\pi x}{L}} + e^{-i \frac{n \pi x}{L}}) - \sum_{n=1}^{\infty} \frac{b_n}{2} (e^{i \frac{n\pi x}{L}} - e^{-i \frac{n \pi x}{L}})\\
+  &= \frac{a_0}{2} + \sum_{n=1}^{\infty} \big( \frac{a_n-i b_n}{2} e^{i \frac{n\pi x}{L}} \big) + \sum_{n=1}^{\infty} \big( \frac{a_n+i b_n}{2} e^{-i \frac{n\pi x}{L}} \big) \\
+    &= \sum_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi x}{L}}
+\end{align*}
+with
+\begin{align*}
+  c_0 &= \frac{a_0}{2}, \\
+  c_n &= \frac{a_n-ib_n}{2}, n>0, \\
+  c_n &= \frac{a_n+ib_n}{2}, n<0.
+\end{align*}
+
+Note that \(c_n^* = c_{-n}\). It can be easily shown that complex exponentials are orthogonal:
+\begin{align*}
+  \int_{0}^{2L} e^{i\frac{n\pi x}{L}} e^{-i\frac{m\pi x}{L}}dx &= \int_{0}^{2L}\cos \frac{(n-m)\pi x}{L}dx + i \int_{0 }^{2L}\sin \frac{(n-m)\pi x}{L} dx \\
+  &= 2L \delta_{n,m} + 0
+\end{align*}
+so
+\[
+  c_m = \frac{1}{2L} \int_{0}^{2L}f(x)e^{-i\frac{m\pi x}{L}} dx = \frac{1}{2L} \int_{0}^{2L} \Big( \sum_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi x}{L}} \Big) e^{i\frac{-m\pi x}{L}} dx.
+\]
+
+Now assume \(g(x) = \frac{df}{dx} = \sum_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi x}{L}}\). Then
+\begin{align*}
+  c_n &= \frac{1}{2L}\int_{0}^{2L} \frac{df}{dx }e^{-\frac{in\pi x}{L}}dx \\
+    &= \frac{1}{2L} \big[ f(x) e^{-i\frac{n\pi x}{L}} \big]_0^{2L} + \frac{in\pi}{2L^2} \int_{0}^{2L}f(x) e^{i\frac{-n\pi x}{L}} dx \\
+    &= \frac{in\pi}{L}c_n
+\end{align*}
+by periodicity.
+
+
+
+\subsection{Half-range Series}
+
+Consider a function defined \emph{only} on \(0 \leq x \leq L\). There are two possible ways to extend this function to a \(2L\)-periodic function that can be represented as a Fourier series.
+
+\subsubsection{Odd function: Fourier Sine Series}
+
+\(f(x)\) can be extended as an \emph{odd} function \(f(x)=-f(-x)\) on \(-L \leq x \leq L\) and then extended as a \(2L\)-periodic function. In this case \(a_n=0\) we can define the \emph{Fourier sine series}:
+\[
+  \frac{f(x_+)+f(x_-)}{2} = \sum_{n=1}^{\infty}b_n \sin \frac{n\pi x}{L}
+\]
+where
+\[
+  b_n = \frac{2}{L} \int_{0}^{L} f(x) \sin \frac{n\pi x}{L} dx.
+\]
+Note the range of integration.
+
+\begin{eg}[Sawtooth function]
+  
+\end{eg}
+
+\subsubsection{Even function: Fourier Cosine Series}
+
+\(f(x)\) can also be extended as an even function on \(-L\leq x\leq L\), i.e. \(f(x) = f(-x)\) and then extended as a \(2L\)-periodic function. \(b_n=0\) for all \(n\). The Fourier cosine series is
+\[
+  \frac{f(x)+f(x)}{2} = \frac{a_0}{2} + \sum_{n-1}^{\infty}a_n \cos \frac{n\pi x}{L}
+\]
+where
+\[
+  a_n = \frac{2}{L}\int_{0}^{L}f(x)\cos \frac{n\pi x}{L}.
+\]
+
+\subsection{Parseval's Theorem}
+
+``Energy'' of a periodic signal is often of interest, i.e. \(E = \int_{0}^{2L}f^2(x) dx \). Consider the general case
+\[
+  f(x) = \sum_{n=-\infty}^{\infty}c_n e^{\frac{in\pi x}{L}}, g(x) = \sum_{m=-\infty}^{\infty}d_m e^{\frac{im\pi x}{L}};
+\]
+\begin{align*}
+  \int_{0}^{2L} f(x) g(x) dx &= \sum_{n=-\infty}^{\infty} \sum_{m=-\infty}^{\infty} c_n d_m \int_{0}^{2L} \exp \Big [\frac{i\pi x}{L} (n+m) \Big] dx \\
+  &= \sum_{n=-\infty}^{\infty} \sum_{m=\infty}^{\infty} c_n d_m (2L \delta_{n,-m}) \\
+  &= 2L \sum_{n=-\infty}^{\infty} c_n d_{-n} \\
+  &= 2L \sum_{n=-\infty}^{\infty} c_n d_n*
+  \end{align*}
+so if \(g=f\),
+\[
+  \int_{0}^{2L} f^2(x) dx = 2L \sum_{n=-\infty}^{\infty}|c_n|^2 = L \Big[ \frac{a_0^2}{2} + \sum_{n=1}^{\infty}(a_n^2+b_n^2) \Big]
+\]
+
+\begin{eg}[Sawtooth function]
+  Remember \(f(x)=x\) for \(-L\leq x\leq L\).
+  \[
+    b_n = \frac{2L}{m\pi}(-1)^{m+1}
+  \]
+  so
+  \[
+    \int_{-L}^{L} x^2 dx = \frac{2L^3}{3} = L \sum_{m=1}^{\infty}\frac{4L^2}{m^2\pi^2}
+  \]
+  so
+  \[
+    \sum_{m=1}^{\infty}\frac{1}{m^2} = \frac{\pi^2}{6}.
+  \]
+\end{eg}
+
+\begin{ex}
+  From the Fourier series of \(x^2/2\) show that
+  \[
+    \sum_{m=1}^{\infty}\frac{1}{m^4} = \frac{\pi^4}{90}.
+  \]
+\end{ex}
+
+\section{Sturm-Liouville Theory}
+
+\subsection{Second Order ODEs}
+
+Consider a general second order ordinary partical differential equation
+\[
+  \L y(x) = \alpha(x) \frac{d^2y}{dx^2} + \beta(x) \frac{dy}{dx} + \gamma(x) y = f(x).
+\]
+
+\(\alpha,\beta,\gamma\) are continuous, with \(\alpha\) non-zero except perhaps at a finite number of isolated points. \(f(x)\) is bounded, defined on \(a\leq x\leq b\) (\(a\) or \(b\) may be infinity).
+
+The \emph{homogeneous} equation \(\mathcal{L}y = 0\) has two linearly independent solutions \(y_1,y_2\) and the complementary function is \[
+  y_c=Ay_1+By_2.
+\]
+\emph{Inhomogeneous} or \emph{forced} equation \(\L y = f(x)\) where \(f\) is the forcing, has a particular integral \(y_p(x)\). The general solution is \(y=y_c(x)+y_p(x)\) where \(A,B\) are determined in a problem by applying condition.
+\end{document}

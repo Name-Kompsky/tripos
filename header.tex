@@ -1,0 +1,112 @@
+\ifx \nauthor\undefined
+  \def\nauthor{Qiangru Kuang \\ \href{mailto:qk206@cam.ac.uk}{qk206@cam.ac.uk}}
+\else
+\fi
+
+\ifx \ndate\undefined
+  \def\ndate{\today}
+\else
+\fi
+
+\title{\ntitle}
+\author{\nauthor}
+\date{\ndate}
+
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{stmaryrd}%symbols used so far: \mapsfrom
+\usepackage{amssymb}
+\let\mathbbalt\mathbb
+\usepackage{unicode-math}
+\let\mathbb\mathbbalt%reset to original \mathbb
+\usepackage{tikz}
+\usepackage{pgfplots}
+%some preset styles
+\pgfplotsset{centre/.append style={axis x line=middle, axis y line=middle, xlabel={$x$}, ylabel={$y$}, axis equal}}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+\usepackage{newunicodechar}
+
+\usepackage{fancyhdr}
+
+\fancypagestyle{mypagestyle}{
+    \fancyhf{}
+    \lhead{\emph{\nouppercase{\leftmark}}}
+    \rhead{}
+    \cfoot{\thepage}
+}
+\pagestyle{mypagestyle}
+
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage} % clear page after each section
+\usepackage[perpage]{footmisc}
+\usepackage{blindtext}
+\usepackage{hyperref}
+
+% https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
+\hypersetup{
+    bookmarks=true,
+    unicode=true,
+    pdftitle={\ntitle},
+    pdfauthor={\nauthor},
+    pdfsubject={Mathematics},
+    pdfcreator={\nauthor},
+    pdfproducer={\nauthor},
+    pdfkeywords={math maths \ntitle},
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    filecolor=magenta,
+    urlcolor=cyan
+}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem*{defi}{Definition}
+\newtheorem*{eg}{Example}
+\newtheorem*{rmk}{Remark}
+\newtheorem*{ex}{Exercise}
+\newtheorem*{notation}{Notation}
+\newtheorem*{slogan}{Slogan}
+\newtheorem*{convention}{Convention}
+\newtheorem*{assumption}{Assumption}
+\newtheorem*{question}{Question}
+\newtheorem*{note}{Note}
+
+%operator macros
+%general
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Hom}{Hom}
+
+%field, galois heory
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\gal}{Gal}
+\DeclareMathOperator{\emb}{Emb}
+
+%probability
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+%macros
+
+%mathbf
+%https://tex.stackexchange.com/a/45746/26707
+\newcommand*\V[1]{\ensuremath{\mathbf{#1}}}
+
+\newcommand*{\cl}[1]{\overline{#1}}
+\newcommand*{\compose}{\circ}
+
+\renewcommand*{\C}{\mathbb{C}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\F}{\mathbb{F}}
+
+\newcommand*{\nto}{\nrightarrow}
