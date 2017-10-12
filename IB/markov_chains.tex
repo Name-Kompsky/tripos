@@ -5,6 +5,8 @@
 
 \input{header}
 
+\newcommand*{\tot}{\leftrightarrow}
+
 \begin{document}
 
 \maketitle
@@ -130,7 +132,7 @@ The answer is: matrix. The one-step matric is $P=(p_{i,j})_{i,j\in S}$. Similarl
   \]
 \end{thm}
 
-\begin{prop}[Champan-Kolmogonov equations]
+\begin{prop}[Chapman-Kolmogonov equations]
   \[
     p_{i,j}(m+n) = \sum_{k\in S} p_{i,j}(m) p_{k,j}(n).
   \]
@@ -196,6 +198,159 @@ The answer is: matrix. The one-step matric is $P=(p_{i,j})_{i,j\in S}$. Similarl
   \end{enumerate}
 \end{eg}
 
+It is convenient to think of \(\lambda\) as a row vector and \(P\) as a matrix. Then \(\P(X_1=j) = sum \lambda_ip_{i,j}\) becomes \((\P(X_i=j):j\in S) = \lambda P\), i.e. pre-multiplying \(P\) by \(\lambda\).
+
+\section{Class Structure}
+
+\begin{defi}
+  We say a state \(i\) \emph{leads} to a state \(j\) if \(p_{i,j}(n) > 0\) for some \(n\geq0\), write \(i \to j\).
+  
+  If \(i\to j\) and \(j\to i\), we say \(i\) and \(j\) \emph{communicate} and write \(i \tot j\).
+\end{defi}
+
+\begin{prop}
+  \(\tot\) is an equivalence relation.
+\end{prop}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item reflexive: \(p_{i,i}=1>0\),
+  \item symmetric: if \(i\tot j\) then \(j\tot i\) by definition,
+  \item transitive: if \(i\tot j, j\tot k\) then exist \(m, n\) such that \(p_{i,j}(m)>0, p_{j,k}(n)>0\). Then
+    \[
+      p_{i,k}(m+n) \stackrel{\text{CK}}{=} \sum_{r}^{ }p_{i,r}(m)p_{r,k}(n) \geq p_{i,j}(m)p_{j,k}(n) >0
+      \]
+      so \(i\to k\). Similarly \(k\to i\).
+  \end{itemize}
+\end{proof}
+
+\begin{defi}
+The equivalence classes of \(\tot\), i.e. subsets of \(S\) of the form \(C_i=\{j\in S: i\tot j\}\), are called \emph{communicating classes}.
+\end{defi}
+
+\begin{defi}
+  If there is a unique equivalence class \(S\), call \(S\) (or the chain) \emph{irreducible}.
+\end{defi}
+
+\begin{defi}
+  A subset \(C \subseteq S\) is called \emph{closed} if
+  \[
+i\in C, i\to j \Rightarrow j\in C.
+\]
+
+  If \(i \in S\) is such that \(\{i\}\) is closed, \(i\) is called \emph{absorbing}.
+\end{defi}
+
+A closed set is different from communicating class as it is ``one-way''.
+
+\begin{prop}
+  \(C \subseteq S\) is closed if and only if
+  \begin{equation}
+    \label{eqn:closed subset}
+    p_{i,j}=0 \text{ for } i\in C, j\notin C.
+    \tag{\(\ast\)}
+    \end{equation}
+\end{prop}
+
+\begin{proof}
+  Let \(C \subseteq S\). If \eqref{eqn:closed subset} fails, then there exists \(i\in C, j\notin C\) such that \(p_{i,j}>0\) so \(i\to j\) and so \(C\) is not closed.
+
+  Suppose \eqref{eqn:closed subset} holds and exists \(m>0\) such that \(p_{i,j}(m) >0\). Then
+  \[
+0 < p_{i,j}(m) = \sum_{x_1,\ldots,x_{m-1}\in S} p_{i,x_1}p_{x_1,x_2}\cdots p_{x_{m-1},j}.
+  \]
+  Thus exists \(x_1,\ldots,x_{m-1}\in S\) such that a summand on RHS is larger than \(0\). By \eqref{eqn:closed subset} \(x_1,\ldots,x_{m-1},j \in C\) so \(C\) is closed.
+\end{proof}
+
+\begin{eg}
+  \begin{minipage}[t]{0.45\textwidth}
+  \[
+    P=
+    \begin{pmatrix}
+      \frac{1}{2} & \frac{1}{2} & 0& 0&0 &0 \\
+      0& 0&1&0&0&0 \\
+      \frac{1}{3} &0&0&\frac{1}{3} & \frac{1}{3} &0 \\
+      0&0&0&\frac{1}{2}&\frac{1}{2}& 0 \\
+      0&0&0&0&0& 1 \\
+      0&0&0&0&1&0
+    \end{pmatrix}
+  \]
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\linewidth}
+  \begin{center}
+   \begin{tikzpicture}[->,auto,node distance=1.5cm]
+    \node[state] (1) {\(1\)};
+    \node[state,above right of=1] (2) {\(2\)};
+    \node[state,right of=1] (3) {\(3\)};
+    \node[state,below right of=3] (4) {\(4\)};
+    \node[state,right of=3] (5) {\(5\)};
+    \node[state,right of=5] (6) {\(6\)};
+
+    \draw
+    (1)
+    edge[loop left] node{} (1)
+    edge[] node{} (2)
+    (2)
+    edge[] node{} (3)
+    (3)
+    edge[] node{} (1)
+    edge[] node{} (4)
+    edge[] node{} (5)
+    (4)
+    edge[loop left] node{} (4)
+    edge[] node{} (5)
+    (5)
+    edge[bend right] node{} (6)
+    (6)
+    edge[bend right] node{} (5);
+  \end{tikzpicture}
+  \end{center}
+\end{minipage}
+  has communicating classes \(\{1,2,3\}, \{4\},\{5,6\}\), only the last of which is closed.
+\end{eg}
+
+\section{Recurrence or Transience}
+
+Introduce notation \(\P_i(\cdot) = \P(\cdot| X_0 = i), \E_i(\cdot) = \E(\cdot|X_0=i)\).
+
+\begin{defi}
+The \emph{first-passage time} of \(j\in S\) is
+\[
+T_j = \min \{n\geq 1: X_n=j\}.
+\]
+The \emph{first-passage probability} are
+\[
+f_{i,j}(n) = \P_i(T_j=n).
+\]
+\end{defi}
+
+\begin{defi}
+  \(i\in S\) is \emph{recurrent (or persistent)} if
+  \[
+\P_i(T_i < \infty) = 1,
+  \]
+  and \emph{transient} otherwise.
+\end{defi}
+
+\begin{thm}
+  \(i\) is recurrent if and only if
+  \[
+    \sum_{n\geq0}^{}p_{i,i}(n) = \infty.
+  \]
+\end{thm}
+
+Introduce two generating functions
+\begin{align*}
+  P_{i,j}(s) &= \sum_{n\geq0}^{ }p_{i,j}(n)s^n \\
+  F_{i,j}(s) &= \sum_{n\geq0}^{ }f_{i,j}(n)s^n \\
+  \delta_{i,j} &= p_{i,j}(0) =
+                 \begin{cases}
+                   1 & i = j \\
+                   0 & i \neq j
+                 \end{cases}\\
+  f_{i,j}(0) &= 0 \forall i,j
+\end{align*}
 
 \appendix
 
@@ -205,12 +360,4 @@ The answer is: matrix. The one-step matric is $P=(p_{i,j})_{i,j\in S}$. Similarl
 Reading list: Probability, an introduction Grimmet, Welsh, 2nd edition, Chapter 12
 
 %webpage: www.statslab.cam.ac.uk/~grg/
-
-
-
-
-
-
-
-
 \end{document}

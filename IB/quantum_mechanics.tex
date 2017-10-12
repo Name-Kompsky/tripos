@@ -21,11 +21,11 @@ Quantum mechaniccs is a radical generalisation of classical physics involving a 
 \]
 
 Profund new features of quantum mechanics include:
-\begin{description}
-\item[Quantisation] Physical quantities such as energy may be restricted to discrete sets of values, or may appear only in specific amounts, called \emph{quanta}.
-\item[Wave-particle duality] Classical concepts of a particle and a wave are merged; they become different aspects of a single eneity that shows either particle-like or wave-like behaviour, depending on the circumstances.
-\item[Probability and undertainty]
-\end{description}
+\begin{itemize}
+\item Quantisation: Physical quantities such as energy may be restricted to discrete sets of values, or may appear only in specific amounts, called \emph{quanta}.
+\item Wave-particle duality: Classical concepts of a particle and a wave are merged; they become different aspects of a single eneity that shows either particle-like or wave-like behaviour, depending on the circumstances.
+\item Probability and uncertainty
+\end{itemize}
 
 Despite these radical changes, classical physics must be recovered in the limit $\hbar \to 0$ (which may require careful interpretation).
 
@@ -266,4 +266,131 @@ But
 \begin{eg}
   Let $\psi(x) = Ce^{-x^2/2\alpha}$, then $\langle\hat p\rangle_\psi = 0$ and $\psi(x) = Ce^{-x^2/2\alpha}e^{ikx}$ with $\langle\hat p\rangle_\phi = \hbar k$.
 \end{eg}
+
+If we accept P2 then the result in the example above accounts for the choice of momentum poperator \(\hat p = -i\hbar d/dx\).
+
+\subsubsection{Eigenstates \& Eigenvalues}
+
+\begin{defi}
+  A state \(\psi \neq 0\) is an \emph{eigenstate} or \emph{eigenfunction} of an operator or observable \(Q\) with \emph{eigenvalue} \(q\) if
+  \[
+Q\psi = q\psi.
+  \]
+\end{defi}
+
+\begin{postulate}[P3]
+  If \(Q\) is measured when the particle is an eigenstate \(\psi\) as above, then the results is the eigenvalue \(q\) with probability $1$.
+\end{postulate}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(Q=\hat x\): no (continuous) eigenfunctions since \(\hat x \psi (x)= x\psi(x) = q\psi(x)\) implies that \(\psi(x)=0\) for \(x\neq q\).
+  \item \(Q=\hat p=-i\hbar \frac{d}{dx}\): eigenfunctions obey \(-i\hbar \psi' = q\psi\) so \(\psi(x) = C e^{ikx}\) with \(q=\hbar k\). But this is not normalisable as \(|\psi(x)|^2 = |C|^2\) so we can't interpret this directly as wavefunction for a single particle on \(-\infty < x < \infty\). However, we could normalise it on an interval of length \(\ell\) by choosing \(C = 1/\sqrt{\ell}\) but then need to look carefully at boundary conditions on interval.
+  \item \(Q = H\), Hamiltonian with a particular potential \(V(x) = \frac{1}{2} K x^2\), \(K > 0\): \(H=\frac{1}{2m}\hat p^2 + \frac{1}{2}K\hat x^2\) so the eigenfunction satisfies
+    \[
+H\psi = -\frac{\hbar^2}{2m} \psi'' + \frac{1}{2}K x^2\psi = E \psi.
+    \]
+    This is satisfied by
+    \[
+\psi(x) = C e^{-x^2/2\alpha}
+\]
+if we choose \(\alpha^2 = \hbar^2/Km\). It follows that
+\[
+E = \frac{\hbar}{2} \sqrt{\frac{K}{m}}
+\]
+is the energy eigenvalue.
+  \end{enumerate}
+\end{eg}
+
+\begin{note}
+  Classically for a fixed \(E\) we have \(|x| \leq (2E/K)^{1/2}\) but the wavefunction above gives non-zero probability density along the entire \(x\)-axis.
+\end{note}
+
+In general, the energy eigenvalue equation
+\[
+H\psi = -\frac{\hbar^2}{2m} \psi'' + V(x)\psi = E \psi
+\]
+for a particle of mass \(m\) in a potential \(V(x)\) determines states of definite energy and allowed energy values. This is the \emph{time-independent Schr\"odinger equation}. Solving this equation for hydrogen atom is our eventual aim.
+
+\subsubsection{Some Comments}
+
+\begin{enumerate}
+\item We defined \(\langle Q\rangle_\psi = (\psi, Q\psi)\) in P2 for \(\psi\) normalised. If \(\psi\) is not normalised,
+  \[
+    \langle Q\rangle_\psi =  \frac{(\psi, Q\psi)}{(\psi, \psi)}.
+    \]
+  \item We defined \(Q=\hat x\) which reproduces the standard definiton of mean. For \(\hat p\) and \(H\) we can check explicitly (by taking complex conjugation and integrating by parts) that \(\langle \hat p \rangle_\psi\) and \(\langle H\rangle_\psi\) are real.
+\item P3 is consistent with P2. Consider energy, for example,
+  \begin{align*}
+    H\psi = E\psi \Rightarrow (\psi, H\psi) &= \langle H\rangle_\psi\\
+    &= (\psi, E\psi) = E
+  \end{align*}
+  if \(\psi\) is normalised. In other words, the measurement of energy gives result \(E\) with probability \(1\). The mean result is \(E\).
+\item From $2$ and $3$ we can deduce that any eigenvalue of \(H\) is real.
+\end{enumerate}
+
+\subsection{Infinite Potential Well or Particle in a Box}
+
+Define an infinite potential well
+\[
+  V(x) =
+  \begin{cases}
+    0 & |x| \leq a \\
+    u & |x| > a
+  \end{cases}
+\]
+\begin{center}
+  \begin{tikzpicture}
+  \begin{axis}[
+    xtick={-1,1},
+    xticklabels={\(-a\),\(a\)},
+    yticklabels=none,
+    axis equal image,
+    axis lines=middle,
+    xmin=-2,
+    xmax=2,
+    ymin=-.5,
+    ymax=2,
+    xlabel=$x$,
+    ylabel=$V(x)$]
+    \addplot[samples=20,color=blue](-1,x);
+    \addplot[samples=20,color=blue](1,x);
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+in limit \(u\to\infty\). The time-independent Schr\"odinger equation is
+\begin{align*}
+  -\frac{\hbar^2}{2m}\psi'' &= E\psi, |x| \leq a \\
+  -\frac{\hbar^2}{2m}\psi'' +u \psi &= E\psi, |x| > a 
+\end{align*}
+Taking limit \(u\to\infty\), the second equation suggests we must take \(\psi=0\) for \(|x| > a\), whose rationale will be addressed shortly. The appropriate boundary conditions are \(\psi=0\) for \(|x|=a\) and \(\psi\) continuous at \(x = \pm a\). So we are left to solve
+\begin{align*}
+  -\frac{\hbar^2}{2m} \psi'' &= E\psi, -a\leq x \leq a \\
+  \psi(\pm a) &= 0
+\end{align*}
+
+For \(E>0\), set \(E=\hbar^2k/2m\) with \(k>0\) and we get
+\[
+\psi'' + k\psi =0.
+\]
+So
+\begin{align*}
+  &\psi = A\cos kx + B \sin kx \\
+  &A\cos ka \pm B \sin ka = 0 \\
+  &\text{or } A\cos ka = B\sin ka = 0
+\end{align*}
+so
+\begin{align*}
+  \text{either } B = 0 &, ka = \frac{n\pi}{2} \text{ for } n = 1,3,\ldots \\
+  \text{or } A = 0 &, ka = \frac{n\pi}{2} \text{ for } n = 2,4,\ldots
+\end{align*}
+Hence
+\[
+E_n = \frac{\hbar^2\pi^2n}{8ma^2}
+\]
+for \(n=1,2,3,\ldots\). We obtain a discrete set of allowed energies, with normalised wavefunctions
+\[
+\psi_n(x) = \sqrt \frac{1}{a} \Big\{ {\cos \atop \sin} \Big\} \frac{n\pi}{2a} x \text{ for } n \Big\{ {\text{odd} \atop \text{even}}.
+\]
+
 \end{document}
