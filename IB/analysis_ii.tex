@@ -5,6 +5,9 @@
 
 \input{header}
 
+\theoremstyle{definition}
+\newtheorem*{joke}{Joke}
+
 \begin{document}
 \maketitle
 
@@ -318,6 +321,10 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
   Given \(v \in V, v \neq 0\), exists \(K\in\R\) with \(\|Kv\| = \delta/2\) (take \(K=\frac{\delta}{2 \|v\|}\)). Then \(Kv \in B_\delta(0,\|\cdot\|) \Rightarrow Kv\in B_1(0,\|\cdot\|')\), i.e. \(\|Kv\| = \delta/2, \|Kv\|' < 1\), so \(\|Kv\|' \leq \frac{2}{\delta}\|Kv\| \Rightarrow K \|v\|' \leq \frac{2}{\delta}K \|v\|\). Let \(C = \frac{2}{\delta}\).
 \end{proof}
 
+\begin{joke}
+  \texttt{the joke about a mathematician going for a firefighter interview... Well you should know it by now if you are a mathematician.}
+\end{joke}
+
 \begin{defi}
   If \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\), they are said to be \emph{Lipschitz equivalent} if
   \begin{align*}
@@ -344,6 +351,138 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
   \begin{enumerate}
   \item \(V=\R^n\), \(\|v\|_\infty \leq \|v\|_2 \leq \|v\|_1 \leq n \|v\|_\infty\) so all three are Lipschitz equivalent.
   \item \(V=C[0,1]\), \(\id_V:(V, \|\cdot\|_\infty)\to (V,\|\cdot\|_1)\) is continuous but \(\id_V:(V, \|\cdot\|_1)\to (V,\|\cdot\|_\infty)\) is not so not Lipschitz equivalent.
+  \end{enumerate}
+\end{eg}
+
+\section{Uniform Convergence}
+
+\subsection{Notions of Convergence}
+
+Suppose \(A\subseteq \R, f, f_n: A\to \R\). We say \(f\) is \emph{continuous} if given \(x\in A\) and \(\varepsilon>0\), \(\exists \delta>0\) such that \(|f(x)-f(y)| < \varepsilon\) whenever \(y\in A\) and \(|x-y| < \delta\). We say \(f\) is \emph{bounded} if exists \(M\) such that \(|f(x)| \leq M\) for all \(x\in A\). Define
+\begin{itemize}
+\item \(C(A) = \{f: A\to \R: f \text{ is continuous}\}\),
+\item \(B(A) = \{f:A\to \R: f \text{ is bounded}\}\),
+\end{itemize}
+which are both vector space.
+
+\begin{eg}
+  \(C[0,1] \subseteq B[0,1]\) by Maximum Value Theorem. \(g(x) = \frac{1}{x} \in C(0,1]\) so \(C(0,1] \nsubseteq B(0,1]\).
+\end{eg}
+
+\begin{defi}[Pointwise Convergence]
+  \((f_n) \to f\) \emph{pointwise} if
+  \[
+    (f_n(x)) \to f(x) \text{ for all } x\in \R.
+    \]
+\end{defi}
+
+\begin{defi}
+  The \emph{uniform norm} on \(B(A)\) is given by
+  \[
+    \|f\|_\infty = \sup_{x\in A} |f(x)|.
+  \]
+\end{defi}
+
+\begin{defi}[Uniform Convergence]
+  If \(f, f_n: A\to \R\), we say \(f(x) \to f\) \emph{uniformly on \(A\)} if \((f_n-f) \in B(A)\) for all \(n\) and \((\|f_n-f\|_\infty)\to0\).
+\end{defi}
+    In other words,
+    \begin{itemize}
+    \item \((f_n)\to f\) pointwise means: you give me \(x\in A\) and \(\varepsilon >0\), I have to find \(N\) such that \(|f_n(x) - f(x)| < \varepsilon\) whenever \(n> N\). \emph{This \(N\) only has to work for that particular value of \(x\).}
+    \item \((f_n)\to f\) uniformly means: you give me \(\varepsilon>0\), I have to find \(N\) such that \(|f_n(x) - f(x)|<\varepsilon\) for all \(x\in A\) and \(n>N\). \emph{Same \(N\) works for all \(x\in A\).}
+\end{itemize}
+
+\begin{ex}
+  If \((f_n)\to f \) uniformly, then \((f_n)\to f\) pointwise. The converse is false.
+\end{ex}
+
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item Suppose \(A=\R,f_n(x)=x+\frac{1}{n},f(x)=x\). Then \(f_n(x)-f(x)=\frac{1}{n}\) so \((f_n)\to f\) uniformly.
+  \item Let \(g_n(x) = (x+\frac{1}{n})^2, g(x) = x^2\). Then \((g_n)\to g\) pointwise but \(g_n(x) - g(x) = \frac{2x}{n} + \frac{1}{n^2}\) is not even bounded. So \((g_n)\nto g\) uniformly on \(\R\).
+  \end{itemize}
+\end{eg}
+
+\begin{thm}
+  Suppose \(f_n \in C(A)\) for all \(n\) and \((f_n)\to f\) uniformly on \(A\). Then \(f\in C(A)\) as well.
+\end{thm}
+
+\begin{slogan}
+  The uniform limit of continuous functions is continuous.
+\end{slogan}
+
+\begin{proof}
+  Suppose \(f_n\) are continuous and \((f_n)\to f\) uniformly. Given \(x\in A\) and \(\varepsilon>0\), must find \(\delta>0\) such that \(|f(x)-f(y)| < \varepsilon\) whenever \(y\in A\) and \(|x-y|<\delta\).
+
+  Since \((f_n)\to f\) uniformly, there exists \(N\) such that \(|f_n(x)-f(x)|< \varepsilon/4\) for all \(x\in A\) and \(n\geq N\). Since \(f_N\) is continuous, exists \(\delta>0\) such that \(|f_N(x)-f_n(y)|<\varepsilon/2\) whenever \(y\in A\) and \(|x-y|<\delta\). Then if \(|x-y| < \delta\),
+  \begin{align*}
+    |f(x)-f(y)| &\leq |f(x)-f_N(x)| + |f_N(x)-f_N(y)| + |f_N(y)-f(y)| \\
+    &\leq \varepsilon/4 + \varepsilon/2 + \varepsilon/4 \\
+    &= \varepsilon
+  \end{align*}
+\end{proof}
+
+\begin{eg}
+  Take \(A=[0,1]\),
+  \begin{itemize}
+  \item \(f_n(x)=x^n, f(x) = 1\text{ if } x=1, f(x)=0 \text{ if } x\neq 1\). Then \((f_n)\to f\) pointwise on \([0,1]\) but \(f_n\in C[0,1], f\notin C[0,1]\) so \((f_n)\nto f\) uniformly on \([0,1]\).
+  \item \(g_n(x) = x^n(1-x), g(x) =0\). Then \((g_n)\to g\) uniformly.
+\begin{proof}
+  given \(\varepsilon>0, 1-\varepsilon<1\) so \((1-\varepsilon)^n\to 0\). Pick \(N\) such that \((1-\varepsilon)^n < \varepsilon\) for all \(n> N\). Then \(|f_n(x)| = |(1-x)x^n| \leq 1\cdot(1-\varepsilon)^n < \varepsilon\) for \(x\in[0,1-\varepsilon]\) and \(|f_n(x)| = |(1-x)x^n| < \varepsilon\cdot1^n=\varepsilon\) for \(x\in (1-\varepsilon,1]\). Thus \(|f_n(x)| < \varepsilon\) for all \(x\in[0,1]\).
+\end{proof}
+  \end{itemize}
+\end{eg}
+
+\begin{rmk}
+  Everything I have said so far works fine for \(A\subseteq V, f: A\to W\), where \(V, W\) are normed vector spaces.
+\end{rmk}
+
+\begin{joke}
+  A mathematician named Cliff measured his room for painting. His wife went off to the paint store and told the counter how much paint she needed. The counter said: ``Thats a lot of paint. Are you sure you want that much?'' To which the wife answered: ``Well my husband is a mathematician. I'm sure he gets the numbers correct.''
+
+  She arrived back home with really a lot of paint. Cliff moved all the paint in the house and suddenly said:
+
+  ``Oh, damn! I measured the volumn instead of the area!''
+  \end{joke}
+
+Recall that if \(f\in C[a,b]\) then \(\|f\|_1=\int_a^b|f(x)|dx\). 
+\begin{defi}
+  \(f_n\) converges \emph{in measure} to \(f\) if \((f_n)\to f\) with respect to \(\|\cdot\|_1\), 
+\end{defi}
+
+\begin{lem}
+  If \((f_n)\in C[a,b]\) and \((f_n)\to f\) uniformly then \((f_n)\to f\) in measure.
+\end{lem}
+
+\begin{proof}
+  Given \(\varepsilon>0\), pick \(N\) such that \(|f_n(x)-f(x)|<\varepsilon/2(b-a)\) for all \(x\in [a,b]\). Then
+  \begin{align*}
+    \|f_n-f\| &= \int_a^b |f_n(x)-f(x)| dx \\
+              &\leq \int_a^b\varepsilon/2(b-a) dx \\
+              &= (\varepsilon/2(b-a))(b-a) \\
+              &= \varepsilon/2.
+\end{align*}
+\end{proof}
+
+Equivalently, the map \(\id: (C[a,b], \|\cdot\|_\infty)\to (C[a,b], \|\cdot\|_1)\) is continuous.
+
+\begin{eg}
+  Let \(A=[0,1]\),
+  \begin{enumerate}
+  \item \(f(x) =
+      \begin{cases}
+        nx & x\in [0,1/n] \\ 2-nx & x\in [1/n,2/n] \\0 & x\geq2/n
+      \end{cases}
+  \)
+  Then \((f_n)\to 0\) pointwise and in measure but not uniformly.
+\item \(g_n(x) =
+    \begin{cases}
+      n^2 x & x\in [0,1/n]\\
+      2n-n^2 x& x\in[1/n, 2/n] \\
+      0 & x \geq 2/n
+    \end{cases}
+  \)
+  Then \((g_n)\to 0\) pointwise but \((g_n)\nto 0\) in measure or uniformly.
   \end{enumerate}
 \end{eg}
 \end{document}

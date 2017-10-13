@@ -19,6 +19,11 @@
 \let\mathbbalt\mathbb
 \usepackage{unicode-math}
 \let\mathbb\mathbbalt%reset to original \mathbb
+
+%to address the problem that Latin modern doesn't have unicode support for setminus
+%https://tex.stackexchange.com/a/55205/26707
+\AtBeginDocument{\renewcommand{\setminus}{\mathbin{\backslash}}}
+
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning}
 \usepackage{pgfplots}
@@ -111,3 +116,4 @@
 \newcommand*{\F}{\mathbb{F}}
 
 \newcommand*{\nto}{\nrightarrow}
+\newcommand*\p{\partial}

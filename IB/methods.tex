@@ -5,7 +5,6 @@
 
 \input{header}
 
-\newcommand*\p{\partial}
 \renewcommand*\L{\mathcal{L}}
 
 \begin{document}
@@ -420,9 +419,136 @@ Consider a general second order ordinary partical differential equation
 \]
 
 \(\alpha,\beta,\gamma\) are continuous, with \(\alpha\) non-zero except perhaps at a finite number of isolated points. \(f(x)\) is bounded, defined on \(a\leq x\leq b\) (\(a\) or \(b\) may be infinity).
-
-The \emph{homogeneous} equation \(\mathcal{L}y = 0\) has two linearly independent solutions \(y_1,y_2\) and the complementary function is \[
+tary function is \[
   y_c=Ay_1+By_2.
 \]
 \emph{Inhomogeneous} or \emph{forced} equation \(\L y = f(x)\) where \(f\) is the forcing, has a particular integral \(y_p(x)\). The general solution is \(y=y_c(x)+y_p(x)\) where \(A,B\) are determined in a problem by applying condition.
+
+\subsection{Hermitian Matrices: an Analogy}
+
+Remember the problem: find \(\V x \) such that
+\[
+A \V x = \V b.
+\]
+If \(A\) is an Hermitian matrix, \(A\) is \(N \times N\), i.e. \(A^\dag A\) where the \(\dag\) denotes complex conjugate transpose. It has \(4\) properties:\footnote{Recall an eigenvector and eigenvalue are defined such that \(A \V y_n = \lambda_n \V y_n\) where \(\lambda_n\) is the eigenvalue and \(y_n\) is the eigenvector.}
+\begin{enumerate}
+\item \(\lambda_n\) are real,
+\item if \(\lambda_m\neq\lambda_n\) then \(\V y_m\cdot\V y_n=0\),
+\item the eigenvectors form, on scaling, an orthonormal basis and so specially \(\V b \in \C^N\) can be described by a linear combination of eigenvectors,
+\item if \(A\) is non-singular, i.e. all eigenvalues are non-zero, the solution to \(A\V x = \V b\) can be written as a sum of eigenvector.
+\end{enumerate}
+
+\subsubsection{Gaussian Elimination}
+
+From property \(3\) above we can write
+\begin{align*}
+  \V b &= \sum_{n=1}^{N}b_n y_n \\
+  \V x &=\sum_{n=1}^{N}C_n y_n
+\end{align*}
+
+Since \(A\) is linear,
+\[
+  A \V x = \sum_{n=1}^{N}c_n A \V y_n = \sum_{n=1}^{N}c_n \lambda_n \V y_n = \sum_{n=1}^{N}b_n \V y_n = \V b.
+\]
+For simplicity assuming the \(\lambda_n\) are distinct and non-zero. From property \(2\),
+\[
+\V y_m \cdot \big( \sum_{n=1}^{N}c_n \lambda_n \V y_n \big) = c_m \lambda_m = \V y_m \cdot \big( \sum_{n=1}^{N}c_n \lambda_n \V y_n \big) = b_m
+\]
+Therefore
+\begin{align*}
+  c_m &= \frac{b_m}{\lambda_m} \\
+  x &= \sum_{n=1}^{N}\frac{b_n}{\lambda_n}y_n
+\end{align*}
+
+\begin{question}
+  Can this be generalised to differential operators?
+\end{question}
+
+\subsection{Motivating Example: Fourier Series}
+
+For continuous forcing functions \(f(x)\), we want to find \(y(x)\) on a finite interval such that
+\[
+  -\frac{d^2y}{dx^2} = f(x), 0 \leq x \leq L, \: f(0) = f(L) = y(0) = y(L) = 0,
+\]
+satisfies the Dirichlet conditions and so we can write a Fourier sine series if we extend \(f\) to be a \(2L\)-periodic odd function:
+\begin{align*}
+  f(x) &= \sum_{n=1}^{\infty}b_n \sin \frac{n\pi x}{L} \\
+  b_n &= \frac{2}{L} \int_{0}^{L} f(\xi) \sin \frac{n\pi \xi}{L} d\xi
+\end{align*}
+
+Let \(\L = - \frac{d^2}{dx^2}\), can we find solutions to
+\[
+\L y_n = \lambda_n y_n,\: y_n(0) = y_n(L) = 0?
+\]
+
+Indeed, we can solve the equations
+\[
+  \frac{d^2}{dx^2} y_n = - \lambda_n y_n,
+\]
+and obtain the solutions
+\begin{align*}
+  y_n &= \sin \frac{n\pi x}{L}, \\
+  \lambda_n &= \frac{n^2\pi^2}{L^2}.
+\end{align*}
+In particular, the boundary value quantises the \(\lambda_n\).
+
+\begin{note}
+  \(\lambda_n\) are real and strictly positive and so \(y_n\) is an eigenfunction with associated eigenvalue \(\lambda_n\).
+\end{note}
+
+Note \(\lambda_n = \frac{n^2\pi^2}{L^2}\) has property \(1\) and we have already met the orthogonality property \(2\), i.e. \(\int_{0}^{L} y_ny_m dx=\frac{L}{2}\delta_{m,n} \). There is also a generalisation of property \(3\): sines and cosines form a complete (infinite-dimensional) basis for functions that satisfy Dirichlet condition.
+
+For this problem \(y(x)\) must be sufficiently smooth so that its \emph{second derivative} satisfies the Dirichlet condition.
+
+\(y(x)\) has a Fourier sine series:
+\begin{align*}
+  y(x) &= \sum_{n=1}^{\infty}c_n \sin \frac{n\pi x}{L} \\
+  -\frac{d^2}{dx^2} y &= \L y = \sum_{n=1}^{\infty} \frac{n^2\pi^2}{L^2}c_n \sin \frac{n\pi x}{L} = \sum_{n=1}^{\infty} \lambda_n c_n \sin \frac{n\pi x}{L} \\
+       &= \sum_{n=1}^{\infty}b_n \sin \frac{n\pi x}{L}
+\end{align*}
+
+The orthogonality property tell us that
+\[
+\lambda_n c_n = b_n.
+\]
+Thus
+\begin{align*}
+  y(x) &= \sum_{n=1}^{\infty} \frac{b_n}{\lambda_n} \sin \frac{n\pi x}{L}, \: \lambda_n = \frac{n^2\pi^2}{L^2} \\
+       &= \frac{2}{L} \int_{0}^{L} \sum_{n=1}^{\infty} \frac{1}{\lambda_n} \sin \frac{n\pi x}{L}\sin\frac{n\pi\xi}{L} f(\xi) d\xi \\
+        &= \int_{0}^{L} G(x; \xi) f(\xi) d\xi\end{align*}
+where \(G(x;\xi)\) is the \emph{Green's function}.
+
+Note the loose analogy between Hermtian matrices and self-adjoint operators:
+\begin{align*}
+  A\V x = \V b &\Rightarrow \V x = A^{-1}\V b \\
+  \L y = f &\Rightarrow y = \L^{-1} f
+\end{align*}
+
+\section{Self-adjoint Operators}
+
+\subsection{Definition of Self-adjoint Form}
+
+Consider a second order linear differential operator where the eigenvalue problem is to determine eigenfunction \(y\) and associated eigenvalue \(\lambda\) such that
+\begin{equation}
+  \label{eqn:self-adjoint}
+\alpha(x) \frac{d^2y}{dx^2} + \beta(x) \frac{dy}{dx} + \gamma(x) y = \L y = -\lambda \kappa(x) y, a \leq x\leq b
+\tag{\(\ast\)}
+\end{equation}
+where \(\kappa\) and \(\alpha\) are real and positive on \([a,b]\). (In the previous example, \(\kappa = 1 = \alpha, \beta=\gamma=0\).) This general differential operator can \emph{always} be written in \emph{Sturm-Liouville} or \emph{self-adjoint} form
+\[
+\L y = - \frac{d}{dx} \Big[ p(x) \frac{dy}{dx} \Big] + q(x) y =\lambda w(x) y
+\]
+where \(w(x)\) is called the \emph{weight} function, wlog real and positive on \([a,b]\) except possibly on isolated points where \(w=0\).
+
+Multiply \eqref{eqn:self-adjoint} by \(-\phi(x)\) where
+\[
+\phi(x) = \frac{1}{\alpha(x)}\exp \Big(\int_{ }^{x} \frac{\beta(u)}{\alpha(u)} du \Big),
+\]
+the result is
+\begin{align*}
+  p(x) &= \exp \Big( \int^x \frac{\beta(u)}{\alpha(u)}du \Big) \\
+  q(x) &= -\frac{\gamma(x)}{\alpha(x)} \Big( \int^x \frac{\beta(u)}{\alpha(u)}du \Big) \\
+  w(x) &= -\frac{\kappa(x)}{\alpha(x)} \Big( \int^x \frac{\beta(u)}{\alpha(u)}du \Big)
+\end{align*}
+where \(p, q, w\) are all real and positive on \([a,b]\).
 \end{document}

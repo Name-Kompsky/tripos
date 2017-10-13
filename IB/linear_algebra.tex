@@ -5,6 +5,7 @@
 
 \input{header}
 
+\theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
 \begin{document}
@@ -12,11 +13,13 @@
 
 \tableofcontents
 
-\section{Definition}
+\section{Basics}
 
 \begin{convention}
   Throughout this course, $\mathbb{F}$ denotes a general field. If you wish, think of it as $\mathbb{R}$ or $\mathbb{C}$.
 \end{convention}
+
+\subsection{Definition}
 
 \begin{defi}
   An $\mathbb{F}$-vector space (or a vector space over $\mathbb{F}$) is an abelian group $(V, +)$ equipped with a function, called \emph{scalar multiplication}: $\mathbb{F}\times V \to V, (\lambda, v) \mapsto \lambda\cdot v$, satisfying the axioms
@@ -44,6 +47,8 @@ The additive unit of $V$ is denoted by $\V 0$.
     \item $0\cdot v = \V 0$ and $(-1)\cdot v = -v$ for all $v \in V$.
   \end{enumerate}
 \end{ex}
+
+\subsection{Vector Subspace}
 
 \begin{defi}
   Let $V$ be an $\mathbb{F}$-vector space. A subset $U \subseteq V$ is a \emph{subspace}, denoted $U \leq V$, if
@@ -131,6 +136,8 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   \item other axioms are left as an exercise.
   \end{itemize}
 \end{proof}
+
+\subsection{Span, Linear Independence \& Basis}
 
 \begin{defi}
   Let $V$ be a $\F$-vector space, $S \subseteq V$ be a subset. The \emph{span} of $S$
@@ -252,6 +259,8 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   \end{itemize}
 \end{proof}
 
+\subsection{Dimension}
+
 \begin{thm}
   If $V$ is a finite-dimensional vector space over $\F$, then any two bases for $V$ have the same cardinality, which is called the \emph{dimension} of $V$, donoted $\dim_\F V$.
 \end{thm}
@@ -319,6 +328,8 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 \begin{proof}
   \(V/U \neq 0\) so \(\dim V/U > 0\).
 \end{proof}
+
+\subsection{Direct Sum}
 
 \begin{defi}
   Let \(V\) be a vector space over \(\F\), \(U, W\leq V\). Then
@@ -388,4 +399,170 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
   \]
   with pointwise addition and scalar multiplication.
 \end{defi}
+
+\section{Linear Maps}
+
+\subsection{Definition}
+
+\begin{defi}
+  \(V, W\) two \(\F\)-vector space, a map \(\alpha: V\to W\) is \emph{linear} if
+  \begin{itemize}
+  \item \(\alpha(v_1 + v_2) = \alpha(v_1) + \alpha(v_2)\),
+  \item \(\alpha(\lambda v) = \lambda \alpha(v)\).
+  \end{itemize}
+  This is equivalent to
+  \[
+\alpha(\lambda_1v_1+ \lambda_2v_2) = \lambda_1\alpha(v_1) + \lambda_2\alpha(v_2).
+  \]
+\end{defi}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Given an \(n\times m\) matrix \(A\) with coefficients in \(\F\), the map \(\alpha: \F^m\to \F^n, v\to Av\).
+  \item Differentiation \(D: P(\R) \to P(\R), f\mapsto \frac{df}{dx}\).
+  \item Integration \(I: C[0,1] \to C[0,1], f\to I(f)\) where \(I(f)(x) = \int_0^x f(t)dt\).
+  \item Fix \(x\in [0,1]\), the map \(C[0,1]\to \R, f\mapsto f(x)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{note}
+  Suppose \(U, V, W\) are \(\F\)-vector spaces, then
+  \begin{enumerate}
+  \item \(\id: V\to V\) is linear.
+  \item \(U \stackrel{\alpha}{\to} V \stackrel{\beta}{\to} W\), if \(\alpha, \beta\) are linear then so is \(\beta \compose \alpha\).
+  \end{enumerate}
+\end{note}
+
+\begin{lem}[Free functor \(\mathbf{Set} \to \mathbf{Vect}_K\)]
+  Suppose \(V, W\) are \(\F\)-vector spaces and \(B\) is a basis for \(V\). If \(\alpha_0: B\to W\) is \emph{any} map, then there is a \emph{unique} linear map \(\alpha: V\to W\) extending \(\alpha_o\).
+\end{lem}
+
+\begin{proof}
+  Let \(v\in V\). Write \(v = \sum \lambda_iv_i\) in a unique way. By linearity \(\alpha(v) = \alpha(\sum \lambda_iv_i) = \sum \lambda_i \alpha(v_i) = \sum \lambda_i \alpha_0(v_i)\). Uniqueness follows.
+\end{proof}
+
+\begin{note}\leavevmode
+  \begin{itemize}
+  \item This is true for infinite-dimensional vector space as well.
+  \item Very often, to define a linear map, define it on a basis and extend it linearly to the vector space.
+  \item Two linear maps \(\alpha_1,\alpha_2: V\to W\) are equal if they agree on a basis.
+  \end{itemize}
+\end{note}
+
+\subsection{Isomorphism of Vector Spaces}
+
+\begin{defi}
+  Given \(V, W\) two \(\F\)-vector spaces, the map \(\alpha:V\to W\) is an \emph{isomorphism} if it is linear and bijective, denoted \(V \cong W\).
+\end{defi}
+
+\begin{lem}
+  \(\cong\) is an equivalence relation on the class of all \(\F\)-vector spaces.
+\end{lem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item symmetric: obvious.
+  \item reflexive: blah blah in lecture. Left as an exercise to reader.
+  \item transitive: obvious.
+  \end{itemize}
+\end{proof}
+
+\begin{thm}
+  If \(V\) is an \(\F\)-vector space, then \(V \cong \F^n\) for some \(n\).
+\end{thm}
+
+\begin{proof}
+  Choose a basis \(B\) for \(V\), say \(v_1,\ldots, v_n\). Define a map
+  \begin{align*}
+    V &\to \F^n \\
+    \sum_{}^{ }\lambda_iv_i &\mapsto (\lambda_1,\ldots,\lambda_n)
+  \end{align*}
+which is an isomorphism.
+\end{proof}
+
+\begin{rmk}
+  Choosing an isomorphism \(V \cong \F^n\) is equivalent to choosing a basis for \(V\). i.e. there is a bijection \(\{\alpha\in\Hom(V,W), \alpha\text{ bijective}\} \leftrightarrow \{\text{bases of } V\} \).
+\end{rmk}
+
+\begin{thm}
+  Given two finite-dimensional \(\F\)-vector spaces \(V, W\), they are isomorphic if and only if they have the same dimension.
+\end{thm}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Leftarrow\): \(V \cong \F^{\dim V} = \F^{\dim W} \cong W\).
+  \item \(\Rightarrow\): let \(a:V\to W\) be an isomorphism and \(B\) be a basis for \(V\). Claim \(\alpha(B)\) is a basis for \(W\): \(\alpha(B)\) spans \(W\) due to surjectivity and \(\alpha(B)\) is linearly independent due to injectivity.
+  \end{itemize}
+\end{proof}
+
+\begin{defi}
+  Given \(\alpha: V\to W\),
+  \begin{itemize}
+  \item \(N(\alpha) = \ker \alpha = \{v\in V: \alpha(v) = 0\} \leq V\),
+  \item \(\im \alpha = \{w\in W: \exists v\in V, \alpha(v) = w \} \leq W\).
+  \end{itemize}
+\end{defi}
+
+\begin{prop}\leavevmode
+  \begin{itemize}
+  \item \(\alpha\) is injective if and only if \(N(\alpha) = 0\),
+  \item \(\alpha\) is surjective if and only if \(\im \alpha = W\).
+  \end{itemize}
+\end{prop}
+
+\begin{proof}
+  Easy.
+\end{proof}
+
+\begin{eg}
+  Let \(\alpha: C^\infty(\R) \to C^\infty(\R), \alpha(f)(t) = f''(t)+2f'(t)+5f(t)\). \(\ker \alpha = \{f:f''+2f'+5f=0\}\) and \(g\in \im \alpha\) if and only if there exists an \(f\) such that \(f''+2f'+5f=g\).
+\end{eg}
+
+\begin{thm}[First Isomorphism Theorem]
+  Let \(\alpha: V\to W\) be a linear map. It induces an isomprhism
+  \begin{align*}
+    \bar \alpha: V/\ker \alpha &\to \im \alpha \\
+    v + \ker \alpha &\mapsto \alpha(v)
+  \end{align*}
+\end{thm}
+
+\begin{proof}
+  Check the following:
+  \begin{itemize}
+  \item \(\bar \alpha\) is well-defined,
+  \item \(\bar \alpha\) is linear: immediate from linearity of \(\alpha\),
+  \item \(\bar \alpha\) is surjective.
+  \end{itemize}
+\end{proof}
+
+\begin{defi}\leavevmode
+  \begin{itemize}
+  \item \(r(\alpha) = rk(\alpha) = \dim( \im \alpha)\) is the \emph{rank} of \(\alpha\),
+  \item \(n(\alpha) = \dim N(\alpha)\) is the \emph{nullity} of \(\alpha\).
+  \end{itemize}
+\end{defi}
+
+\begin{thm}[Rank-nullity Theorem]
+  Let \(U, V\) be \(\F\)-vector spaces, \(\dim U < \infty\). Let \(\alpha:U\to V\) be a linear map. Then
+  \[
+\dim U = r(\alpha) + n(\alpha).
+  \]
+\end{thm}
+
+\begin{proof}
+  \(U/\ker \alpha \cong \im \alpha\) so \(\dim U - \dim (\ker \alpha) = \dim \im \alpha\). Rearrange.
+\end{proof}
+
+\begin{lem}
+  Let \(V, W\) be \(\F\)-vector spaces with equal, finite dimension. Let \(\alpha:V\to W\) be linear, then TFAE:
+  \begin{enumerate}
+  \item \(\alpha\) is injective,
+  \item \(\alpha\) is surjective,
+  \item \(\alpha\) is an isomorphism.
+  \end{enumerate}
+\end{lem}
+
+\begin{proof}
+  Rank-nullity theorem.
+\end{proof}
 \end{document}
