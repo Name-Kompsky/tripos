@@ -1,0 +1,209 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{IB Quantum Mechanics in $5$ Minutes}
+
+\input{header}
+
+\theoremstyle{definition}
+\newtheorem*{postulate}{Postulate}
+
+\begin{document}
+\maketitle
+
+The IB Quantum Mechanics course is a first course in quantum mechainics, which lays foundation for the subject and investigates some simple one-dimensional phenomenon via the Schr\"odinger picture.
+
+This document is as a summary of the major results covered in this course.
+
+\begin{defi}[Wavefunction]
+  A \emph{wavefunction} is a function that describes the quantum state of a system.
+\end{defi}
+
+\begin{defi}[Inner product]
+  Given \(\psi(x)\) and \(\phi(x)\), two normalisable wavefunction at some fixed time, the \emph{innder product} is
+  \[
+(\psi, \sigma) = \int_{-\infty}^{\infty} \psi(x)^*\phi(x) dx.
+  \]
+\end{defi}
+
+\begin{defi}[Norm]
+  The \emph{norm} of a wavefunction \(\psi(x)\) is
+  \[
+    \|\psi\|^2 = (\psi,\psi) = \int_{-\infty}^{\infty} |\psi(x)|^2 dx. 
+  \]
+\end{defi}
+\begin{defi}[Operator/Observable]
+  An operator acting on wavefunctions.
+\end{defi}
+
+\begin{itemize}
+\item position: \(\hat x = x\),
+\item momentum: \(\hat p = p\),
+\item energy/Hamiltonian: \(H = -\frac{\hat p^2}{2m} + V(\hat x)\).
+\end{itemize}
+
+\begin{defi}[Expectation value]
+  For any normalised wavefunction \(\psi(x)\) and operator \(Q\), the \emph{expectation value} is
+  \[
+  \langle Q\rangle_\psi = (\psi, Q\phi)
+\]
+
+\end{defi}
+
+\begin{defi}
+  A state \(\psi \neq 0\) is an \emph{eigenstate} or \emph{eigenfunction} of an operator or observable \(Q\) with \emph{eigenvalue} \(q\) if
+  \[
+Q\psi = q\psi.
+  \]
+\end{defi}
+
+
+\begin{postulate}[P1]
+  \label{postulate:1}
+  A measurement of position gives a result with probability density $|\psi(x)|^2$. In other words, $|\psi(x)|^2 \delta x$ is the probability that the particle is found between $x$ and $x+\delta x$. Equivalently, $\int_a^b |\psi(x)|^2 dx$ is the probability that the particle is found in $[a,b]$.
+\end{postulate}
+
+\begin{postulate}[P2]
+  \label{postulate:2}
+  For any observable, $\langle Q\rangle_\psi$ is the mean result (expected value) if $Q$ is measured many times (as times $N\to\infty$) with particle in state $\psi$ before each measurement.
+\end{postulate}
+
+\begin{postulate}[P3]
+  If \(Q\) is measured when the particle is an eigenstate \(\psi\) as above, then the results is the eigenvalue \(q\) with probability $1$.
+\end{postulate}
+
+\begin{defi}
+The \emph{time-independent Schr\"odinger equation} for a particle of mass \(m\) in a potential \(CV(x)\) is the energy eigenvalue equation
+\[
+H\psi = -\frac{\hbar^2}{2m} \psi'' + V(x)\psi = E \psi
+\]
+\end{defi}
+which describes the state at a particular time.
+
+\begin{defi}
+  The \emph{time-dependent Schr\"odinger equation} for a time-dependent wavefunction \(\Psi(x,t)\) is
+  \[
+    i\hbar \Psi = H\Psi.
+  \]
+\end{defi}
+
+For this course we use \emph{separation of variables} and consider a particular class of solutions \(\Psi(x,t) = T(t)\psi(x)\) where \(\Psi(x,0) = \psi(x)\). The solution to \(H\Psi = E\Psi\) is 
+\[
+  \Psi(x,t) = \psi(x) \exp(-\frac{iEt}{\hbar}).
+\]
+
+\begin{defi}[Probability current]
+  \[
+    j(x,t) = -\frac{i\hbar}{2m}\Big( \Psi^* \frac{d\Psi}{dx} - \frac{\Psi^*}{dx}\Psi \Big)
+  \]
+\end{defi}
+
+\begin{prop}
+  The probability density \(P(x,t) = |\Psi(x,t)|^2\) satisfies the conservation equation
+  \[
+    \frac{\p P}{\p t} = - \frac{\p j}{\p x}.
+  \]
+\end{prop}
+
+\begin{eg}\leavevmode
+\begin{itemize}
+\item Infinite potential wall
+\item Potential well
+\item Harmonic oscillator
+\end{itemize}
+\end{eg}
+
+\begin{defi}[Uncertainty]
+  The \emph{uncertainty} in position \((\Delta x)_\psi\) is
+  \[
+(\Delta x)_\psi^2 = \langle (\hat x - \langle \hat x \rangle_\psi)^2\rangle_\psi = \langle \hat x^2 \rangle_\psi - \langle \hat x\rangle_\psi^2.
+  \]
+\end{defi}
+
+\begin{thm}[Ehrenfest's Theorem]
+  \begin{align*}
+    \frac{d}{dx} \langle \hat x\rangle_\Psi &= \frac{1}{m} \langle \hat p\rangle_\Psi \\
+    \frac{d}{dt}\langle \hat p\rangle_\Psi &= - \langle V'(\hat x)\rangle_\Psi
+  \end{align*}
+\end{thm}
+
+\begin{proof}
+  \begin{align*}
+    \frac{d}{dx}\langle\hat x\rangle_\Psi &= (\dot\Psi, \hat x \Psi) + (\Psi,\hat x\dot\Psi) \\
+                                          &= (\frac{1}{i\hbar}H\Psi,\hat x\Psi) + (\Psi, \hat x \frac{1}{i\hbar}H\Psi) \\
+                                          &= -\frac{1}{i\hbar}(\Psi,H\hat x\Psi) + \frac{1}{i\hbar}(\Psi, \hat x H \Psi) \\
+                                          &= \frac{1}{i\hbar} \langle\Psi|[\hat x, H]|\Psi\rangle \\
+                                          &= \frac{1}{i\hbar} \langle\Psi| \frac{i\hbar\hat p}{m}|\Psi\rangle
+  \end{align*}
+  The second relation is similar.
+\end{proof}
+
+\begin{thm}[Heisenbery's Uncertainty Principle]
+  Let \(\psi(x)\) be a normalised state, then
+  \[
+(\delta x)_\psi (\delta p)_\psi \geq \frac{\hbar}{2}.
+  \]
+\end{thm}
+
+\begin{eg}[Uncertainty for Gaussian wavepacket]
+  Consider the normalised Gaussian wavepacket
+  \[
+    \psi(x) = \Big( \frac{1}{\alpha\pi} \Big)^{1/4} e^{-x^2/2\alpha}
+  \]
+  for which we have
+  \begin{align*}
+    \langle\hat x\rangle_\psi &= \langle\hat p\rangle_\psi = 0 \\
+    \langle\hat x^2\rangle_\psi &= \frac{\alpha}{2} \\
+    \langle\hat p^2\rangle_\psi &= \frac{\hbar^2}{2\alpha}
+  \end{align*}
+  so the lower bound is achieved.
+\end{eg}
+
+\begin{defi}[Commutator]
+  Let \(Q, S\) be operators. The \emph{commutator} is \([Q,S] = QS-SQ\).
+\end{defi}
+
+\begin{eg}
+  \begin{align*}
+    [\hat x,\hat p] &= i\hbar \\
+    [\hat x, H] &= \frac{i\hbar}{m}\hat p \\
+    [\hat p, H] &= -i\hbar V'(\hat x)
+  \end{align*}
+\end{eg}
+
+\begin{proof}[Proof of Uncertainty Principle]
+  Define two new operators
+  \[
+X = \hat x - \langle\hat x\rangle_\psi, \: P = \hat p - \langle\hat p\rangle_\psi.
+  \]
+  Note that \([X,P] = [\hat x,\hat p] = i\hbar\). So
+ \begin{align*}
+   (\delta x)_\psi (\delta p)_\psi &= \|X x\|\cdot\|P x\| \\
+                                   &\geq |(X\psi, P\psi)| \\
+                                   &\geq |\im (X\psi, p\psi)| \\
+                                   &\geq \frac{1}{2} |(X\psi, P\psi)-(P\psi,X\psi)| \\
+                                   &= \frac{1}{2} |(\psi,XP\psi)-(\psi,PX\psi)| \\
+                                   &= \frac{1}{2} |(\psi,[X,P]\psi)| \\
+                                   &= \frac{\hbar}{2}
+ \end{align*}
+\end{proof}
+
+\begin{defi}[Wavepacket]
+  A wavepacket is a wavefunction that is localised in space.
+\end{defi}
+
+\begin{defi}[Gaussian wavepacket]
+  A \emph{Guassian wavepacket} is
+  \[
+    \Psi(x,t) = \Big( \frac{1}{\alpha\pi} \Big)^{1/4}\frac{1}{\sqrt{\gamma(t)}} \exp \Big( -\frac{x^2}{2\gamma(t)} \Big)
+  \]
+  for some \(\gamma(t)\).
+\end{defi}
+It is a solution to time-dependent Schr\"odinger equation for \(\gamma(t) = \alpha+\frac{i\hbar}{m}t\).
+
+A related solution to the equation is the moving particle
+\[
+  \Psi(x,t) = \Psi_0(x-ct,t) \exp \Big(-\frac{im}{\hbar}u \Big) \exp \Big(-\frac{imu^2}{\hbar^2}t \Big)
+\]
+which has probability density \( P(x,t) = P_0(x-ut,t) \) and momentum expectation value \(\langle \hat p\rangle_{\Psi_u} = mu\).
+
+\end{document}
