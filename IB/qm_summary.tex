@@ -41,6 +41,13 @@ This document is as a summary of the major results covered in this course.
 \item energy/Hamiltonian: \(H = -\frac{\hat p^2}{2m} + V(\hat x)\).
 \end{itemize}
 
+\begin{defi}[Hermitian operator]
+  An operator \(Q\) is Hermitian if
+  \[
+    (\phi, Q\psi) = (\phi,Q\psi).
+  \]
+\end{defi}
+
 \begin{defi}[Expectation value]
   For any normalised wavefunction \(\psi(x)\) and operator \(Q\), the \emph{expectation value} is
   \[
@@ -72,7 +79,7 @@ Q\psi = q\psi.
 \end{postulate}
 
 \begin{defi}
-The \emph{time-independent Schr\"odinger equation} for a particle of mass \(m\) in a potential \(CV(x)\) is the energy eigenvalue equation
+The \emph{time-independent Schr\"odinger equation} for a particle of mass \(m\) in a potential \(V(x)\) is the energy eigenvalue equation
 \[
 H\psi = -\frac{\hbar^2}{2m} \psi'' + V(x)\psi = E \psi
 \]
@@ -106,9 +113,89 @@ For this course we use \emph{separation of variables} and consider a particular 
 
 \begin{eg}\leavevmode
 \begin{itemize}
-\item Infinite potential wall
-\item Potential well
-\item Harmonic oscillator
+\item Infinite potential wall: consider the potential:\(V(x)=
+  \begin{cases}
+    0 & |x| < a \\
+    \infty & |x| \geq a
+  \end{cases}
+  \) In the region \(|x| \geq a\), the wavefunction must vanish while for \(|x| < a\), write
+  \[
+\psi'' + \kappa^2 \psi =0
+\]
+where \(\kappa^2=\frac{2mE}{\hbar^2} > 0\). The boundary condition is that
+\[
+  \psi =
+  \begin{cases}
+    A\cos \kappa x + B\sin \kappa x & |x| < a \\
+    0 & |x| \geq a
+  \end{cases}
+\]
+must be continuous. As \(0\) is not a wavefunction,
+\begin{align*}
+  A=0 &\text{ or } \kappa x = \frac{n\pi}{2}, n \text{ odd} \\
+  B=0 &\text{ or } \kappa x = \frac{n\pi}{2}, n \text{ even}
+\end{align*}
+The normalised wavefunction is therefore
+\[
+\psi_n(x) = \sqrt \frac{1}{a} \Big\{ {\cos \atop \sin} \Big\} \frac{n\pi}{2a} x \text{ for } n \Big\{ {\text{odd} \atop \text{even}}.
+\]
+with energy eigenvalue
+\[
+E_n = \frac{\hbar^2\pi^2n}{8ma^2}.
+\]
+
+\item Potential well: consider the potential \(V=
+  \begin{cases}
+    -U & |x| < a \\
+    0 & |x| \geq a
+  \end{cases}
+  \) We are interested in bound state solution, i.e. \(-U < E < 0\). We write
+  \begin{align*}
+    \psi'' + \kappa_1^2\psi &= 0 \\
+    \psi'' - \kappa_2^2\psi &= 0
+  \end{align*}
+  where \(\kappa_1^2 = \frac{2m(E+U)}{\hbar^2}>0, \kappa_2^2= -\frac{2mE}{\hbar^2}>0\). They are not independent: \(\kappa_1^2+\kappa_2^2 = \frac{2mU}{\hbar^2}\). We consider the even parity solution first:
+  \[
+    \psi(x) =
+    \begin{cases}
+      A\cos \kappa_1 x & |x| < a \\
+      Ce^{-\kappa_2|x|} & |x| \geq a
+    \end{cases}
+  \]
+  subject to the boundary condition that \(\psi\) and \(\psi'\) are continuous, which is
+  \begin{align*}
+    A\cos \kappa_1 a &= Ce^{-\kappa_2a}, \\
+    -A\sin \kappa_1 a &= -\kappa_2 Ce^{-\kappa_2a}.
+  \end{align*}
+  Divide and use the substitution \(\xi=\kappa_1a, \eta = \kappa_2a\), we get
+  \begin{align*}
+    \eta &= \xi\tan\xi \\\
+    \eta^2 + \xi^2 &= \frac{2mUa^2}{\hbar^2}
+  \end{align*}
+  a \(\xi-\eta\) plot shows that there are \(n\) solutions if
+  \[
+    (n-1)\pi < \sqrt{\frac{2mUa^2}{\hbar^2}} < n\pi.
+  \]
+  In particular, there is at least one even parity solution.
+
+  The odd parity case \texttt{fill in after the first example sheet has been covered}
+\item Harmonic oscillator: consider a particle with mass \(m\) in a potential \(V(x) = \frac{1}{2}m\omega^2x^2\). Let \(y=\sqrt{\frac{m\omega}{\hbar}}x, \mathcal{E} = \frac{2E}{\hbar\omega}\). Then the Schr\"odinger equation becomes
+  \[
+    -\frac{d^2\psi}{dy^2} + y^2\psi = \mathcal{E} \psi.
+  \]
+  Try the ansatz \(\psi(y) = f(y) e^{-y^2/2}\), the equation becomes the \emph{Hermite equation}
+  \[
+    \frac{d^2\psi}{dy^2} - 2y \frac{d\psi}{dy} + (\mathcal{E}-1) =0.
+  \]
+  To solve it, use the series solution \(f(y) = \sum_{r\geq0}a_ry^r\). The result is \(a_0,a_1\) aribitrary, \(a_{r+2} =\frac{2r+1-\mathcal{E}}{(r+1)(r+2)}a_r\). Now consider normalisability: since \(\frac{a_r}{a_{r-2}}\approx \frac{1}{r}\), which is the coefficients of \(y^\alpha e^{y^2}\) for some \(\alpha\), the infinite series diverges. Thus the series must terminate, implying \(\mathcal{E}=2n+1\). For each \(n\) only one of the solutions is normalisable, corresponding to one \emph{Hermite polynomial}, \(h_n(y)\). Thus the wavefunction is
+  \[
+    \psi_n(x) = h_n(\sqrt{\frac{m\omega}{\hbar}}x)\exp \Big( -\frac{1}{2}\frac{m\omega}{\hbar^2}x^2 \Big), n\geq0
+  \]
+  with energy eigenvalues
+  \[
+    E_n=\hbar\omega(n+\frac{1}{2}).
+  \]
+  
 \end{itemize}
 \end{eg}
 
@@ -152,8 +239,7 @@ For this course we use \emph{separation of variables} and consider a particular 
   for which we have
   \begin{align*}
     \langle\hat x\rangle_\psi &= \langle\hat p\rangle_\psi = 0 \\
-    \langle\hat x^2\rangle_\psi &= \frac{\alpha}{2} \\
-    \langle\hat p^2\rangle_\psi &= \frac{\hbar^2}{2\alpha}
+    \langle\hat x^2\rangle_\psi &= \frac{\alpha}{2} ,\: \langle\hat p^2\rangle_\psi = \frac{\hbar^2}{2\alpha}
   \end{align*}
   so the lower bound is achieved.
 \end{eg}
@@ -206,4 +292,24 @@ A related solution to the equation is the moving particle
 \]
 which has probability density \( P(x,t) = P_0(x-ut,t) \) and momentum expectation value \(\langle \hat p\rangle_{\Psi_u} = mu\).
 
+Potential barrier, scattering and quantum tunnelling
+
+Axioms of Quantum Mechanics
+
+\begin{thm}[Ehrenfest's Theorem, General Form]
+  For any Hermitian operator \(Q\),
+  \[
+    i\hbar \frac{d}{dt}\langle Q\rangle_\Psi = \langle[Q,H]\rangle_\Psi + i\hbar \langle \dot{Q}\rangle_\Psi.
+  \]
+  
+\end{thm}
+
+\begin{proof}
+  \begin{align*}
+    i\hbar \frac{d}{dt}\langle Q\rangle_\Psi &= -(i\hbar \dot{\Psi},Q\Psi) + (\Psi, i\hbar Q\dot{\Psi}) + i\hbar(\Psi, Q\Psi)\\
+                                             &= -(H\Psi, Q\Psi) + (\Psi, QH\Psi) + i\hbar\langle\dot{Q}\rangle\\
+                                             &= (\Psi, (QH-HQ)\Psi) + i\hbar\langle\dot{Q}\rangle\\
+                                             &= \langle[Q,H]\rangle_\Psi + i\hbar\langle\dot{Q}\rangle
+  \end{align*}
+\end{proof}
 \end{document}
