@@ -34,6 +34,7 @@
 The additive unit of $V$ is denoted by $\V 0$.
 
 \begin{eg}\leavevmode
+  \label{eg:matrix as V}
   \begin{enumerate}
   \item $\forall n \in \mathbb{N}, \mathbb{F}^n$ is the space of column vectors of length $n$ with entries in $\mathbb{F}$. It is an vector space by entry-wise addition and entry-wise scalar multiplication.
   \item $M_{m,n}(\mathbb{F})$, the set of $m\times n$ matrices with entries in $\mathbb{F}$, with the operation defined as entry-wise addition.
@@ -565,4 +566,181 @@ which is an isomorphism.
 \begin{proof}
   Rank-nullity theorem.
 \end{proof}
+
+\subsection{\(\Hom_\F(V,W)\) as \(\F\)-vector space}
+
+Suppose \(V\) and \(W\) are \(\F\)-vector spaces. Let \(L(V,W) = \{\alpha:V\to W, \alpha \text{ linear}\}\).
+
+\begin{prop}
+  \(L(V,W)\) is an \(\F\)-vector space, under operations
+  \begin{align*}
+    (\alpha_1+\alpha_2)(v) &= \alpha_1(v) + \alpha_2(v) \\
+    (\lambda\alpha)(v) &= \lambda(\alpha(v))
+  \end{align*}
+\end{prop}
+
+\begin{proof}
+  \(\alpha_1+\alpha_2, \lambda\alpha\) as above are well-defined linear maps. The vector space axioms are satisfied.
+\end{proof}
+
+\begin{prop}
+  \label{prop:dimension of linear map space}
+  If both \(V\) and \(W\) are finite-dimensional over \(\F\) then so is \(L(V,W)\) and \(L(V,W) = \dim V \cdot \dim W\).
+\end{prop}
+
+\begin{proof}
+  See Lemma~\ref{cor:dim of hom}.
+\end{proof}
+
+\subsubsection{Matrices, an Interlude}
+
+\begin{defi}
+  An \emph{\(m\times n\) matrix} over \(\F\) is an array with \(m\) rows and \(n\) columns with entries in \(\F\). We write
+  \[
+A = (a_{ij}), a_{ij}\in\F, 1\leq i \leq m, 1\leq j \leq n.
+  \]
+\end{defi}
+
+\begin{defi}
+  \(M_{m,n}(\F)\) is the set of all such \(m\times n\) matrices.
+\end{defi}
+
+\begin{prop}
+  \(M_{m,n}(\F)\) is an \(\F\)-vector space and \(\dim M_{m,n}(\F) = m\cdot n\).
+\end{prop}
+
+\begin{proof}
+  See Example~\ref{eg:matrix as V} for the proof of vector space axioms. For the dimension claim, a standard basis for \(M_{m,n}(F)\) is
+  \[
+    E_{ij}=
+    \begin{pmatrix}
+      0 & \dots & 0 \\
+      \vdots & \ddots & \vdots \\
+      0 & 1 & 0 \\
+      \vdots & \ddots & \vdots \\
+      0 & \dots & 0 
+    \end{pmatrix}
+  \]
+  with \(1\) in the \((i,j)\)th entry so \(a_{ij} = \sum_{i,j}^{} a_{ij}E_{ij}\), from which span and linear independence follow. The basis has cardinality \(m\cdot n\).
+\end{proof}
+
+\subsubsection{Representation of Linear Maps by Matrices}
+
+Let \(V\) and \(W\) be finite-dimensional \(\F\)-vector space, \(\alpha: V\to W\) linear. Let \(B = \{v_1,\ldots,v_n\}\) be a basis for \(V\), \(C = \{w_1,\ldots,w_m\}\) be a basis for \(W\). If \(v=\sum_{i}\lambda_iv_i \in V\), write
+\[
+[v]_B =
+\begin{pmatrix}
+  \lambda_1 \\
+  \vdots \\
+  \lambda_n
+\end{pmatrix}
+\in \F^n
+\]
+which is called the \emph{coordinate vector of \(v\) with respect to \(B\)}. Similarly \([w]_C\in \F^m\).
+
+\begin{defi}
+  \([\alpha]_{B,C}\) is the matrix representation of \(\alpha\) with respect to \(B\) and \(C\) with
+  \begin{align*}
+    [\alpha]_{B,C} &= \Big( [\alpha(v_1)]_C \: \Big| \: [\alpha(v_2)]_C \: \Big | \: \cdots \: \Big| \: [\alpha(v_n)]_C \big) \\
+    &= (a_{ij})
+  \end{align*}
+  The matrix says
+  \[
+\alpha(v_j) = \sum_{i}^{ }a_{ij}w_i.
+  \]
+\end{defi}
+
+\begin{lem}
+  For any \(v\in V\),
+  \[
+[\alpha(v)]_C = [\alpha]_{B,C}\cdot [v]_B
+  \]
+  where \(\cdot\) is matrix multiplication applied to vectors.
+\end{lem}
+
+\begin{proof}
+  Fix \(v =\sum_{j=1}^{n}\lambda_jv_j \in V\), so
+  \[
+[v]_B =
+\begin{pmatrix}
+  \lambda_1 \\
+  \vdots \\
+  \lambda_n
+\end{pmatrix}
+\]
+\begin{align*}
+  \alpha(v) &= \alpha\Big( \sum_{j}^{ }\lambda_jv_j \Big) \\
+            &= \sum_{j}^{ }\lambda_j\alpha(v_j) \\
+            &= \sum_{j}^{ }\lambda_j\Big( \sum_{i}^{ }\alpha_{i,j}w_i \Big) \\
+            &= \sum_{i}^{ }\Big( \sum_{j}^{} \alpha_{i,j}\lambda_j \Big) w_i
+\end{align*}
+so the \(i\)th entry of \([\alpha]_{B,C}\) is \([v]_B\).
+\end{proof}
+
+\begin{lem}
+  Suppose \(U \stackrel{\beta}{\to} V \stackrel{\alpha}{\to} W\) with \(\alpha, \beta\) linear, with \(\alpha\compose\beta: U\to W\). Let \(A, B,C\) be bases for \(U,V,W\) respectively. Then
+  \[
+[\alpha\compose\beta]_{A,C} = [\alpha]_{B,C}\cdot[\beta]_{A,B}.
+  \]
+\end{lem}
+
+\begin{proof}
+  \begin{align*}
+    (\alpha\compose\beta)(u_\ell) &= \alpha(\beta(u_\ell)), \: u_\ell\in A\\
+                                  &= \alpha\Big( \sum_{j}^{ }b_{jl}v_j \Big), \: v_j\in B \\
+                                  &= \sum_{j}^{ }b_{jl}\alpha(v_j) \\
+                                  &= \sum_{j}^{ }b_{jl}\sum_{i}^{ }a_{ij}w_i, \: w_i\in W \\
+                                  &= \sum_{i}^{ }\Big( \sum_{j}^{ }a_{ij}b_{jl})w_i
+  \end{align*}
+\end{proof}
+
+\begin{prop}
+  Let \(V\) and \(W\) be \(\F\)-vector spaces with \(\dim V = n, \dim W = m\), then
+  \[
+L(V,W) \cong M_{m,n}(\F).
+  \]
+\end{prop}
+
+\begin{proof}
+  Fix bases \(B=\{v_1\ldots,v_n\}, C=\{w_1,\ldots,w_m\}\) for \(V\) and \(W\) respectively. Claim
+  \begin{align*}
+    \theta: L(V,W) &\to M_{m,n}(\F) \\
+    \alpha &\mapsto [\alpha]_{B,C}
+  \end{align*}
+  is an isomorphism:
+  \begin{itemize}
+  \item linearity: \([\lambda_1\alpha_1+\alpha_2\alpha_2]_{B,C} = \alpha_1[\alpha_1]_{B,C} + \lambda_2[\alpha_2]_{B,C}\).
+  \item surjectivity: given \(A = (a_{ij})\), let \(\alpha:v_j\mapsto \sum_{i=1}^{m}a_{ij}w_i \) and extend linearly. It follows that \(\alpha\in L(V,W)\) and \(\theta(\alpha) = A\).
+  \item injectivity: \([\alpha]_{B,C} = \V 0\) implies that \(\alpha\) is the zero map.
+  \end{itemize}
+\end{proof}
+
+\begin{cor}
+  \label{cor:dim of hom}
+  \[
+\dim L(V,W) = \dim V \cdot \dim W.
+  \]
+\end{cor}
+
+\begin{eg}
+  Suppose \(\alpha:V\to W\), \(Y\leq V, Z\leq W\) with \(\alpha(Y)\leq Z\). Let \(B'=\{v_1,\ldots,v_k\}\) be a basis of \(Y\) and extend to \(B=\{v_1,\ldots,v_k,v_{k+1},v_n\}\) a basis for \(V\). Similarly \(C'\) and \(C\) for \(Z\) and \(W\).
+  \begin{itemize}
+  \item
+    \[
+[\alpha]_{B,C} =
+\begin{pmatrix}
+  A & B \\
+  0 & C
+\end{pmatrix}
+    \]
+    because for \(1\leq j \leq k\), \(\alpha(v_j)\) is a linear combination of \(w_i\) where \(1\leq i \leq l\).
+  \item \([\alpha|_Y]_{B',C'} = A. \)
+  \item \(\alpha\) induces a map
+    \begin{align*}
+      \bar\alpha: V/Y &\to W/Z \\
+      v+ Y &\mapsto \alpha(v) + Z
+    \end{align*}
+    This is well-defined. Linearity follows from that of \(\alpha\). A basis for \(V/Y\) \(B''=\{v_{k+1}+Y,\ldots,v_n+Y\}\) and similary for \(W/Z\). It is an exercise to show \([\bar\alpha]_{B'',C''} = C \).
+  \end{itemize}
+\end{eg}
 \end{document}

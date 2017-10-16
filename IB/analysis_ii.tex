@@ -485,4 +485,155 @@ Equivalently, the map \(\id: (C[a,b], \|\cdot\|_\infty)\to (C[a,b], \|\cdot\|_1)
   Then \((g_n)\to 0\) pointwise but \((g_n)\nto 0\) in measure or uniformly.
   \end{enumerate}
 \end{eg}
+
+\subsection{Power Series}
+
+\begin{question}
+  Given
+  \[
+    f(x) = \sum_{i=0}^{\infty} \frac{x^i}{i!},
+  \]
+  how do I know if \(f(x)\) is continuous/differentiable?
+\end{question}
+
+Recall some facts about series from Analysis I:
+\begin{enumerate}
+\item The series \(\sum_{i=0}^{\infty}c_i = c\in\C \) means that \((\sum_{i=0}^{\infty})\to c\), as real vector space \((\C, \|\cdot\|) \cong (\R^2, \|\cdot\|)\).
+\item \(\sum_{i=0}^{\infty}c_i \) converges if and only if there exists \(N\in\N\) such that \(\sum_{i=N}^{\infty}c_i \) converges.
+\item Geometric series: \(\sum_{i=k}^{\infty}\alpha^i = \frac{\alpha^k}{1-\alpha} \) for \(|\alpha|<1\).
+\item If \(\sum_{i=0}^{\infty}c_i \) converges then \((c_i)\to 0\).
+\item Comparison test: if \(0 \leq a_i \leq b_i\) for all \(i\) and \(\sum_{i=0}^{\infty}b_i \) converges then \(\sum_{i=0}^{\infty}a_i \) converges and \(\sum_{i=0}^{\infty}a_i \leq \sum_{i=0}^{\infty}b_i \).
+\item Absolute convergence: if \(\sum_{i=0}^{\infty}|c_i| \) converges then \(\sum_{i=0}^{\infty}c_i \) converges and \(|\sum_{i=0}^{\infty}c_i| \leq \sum_{i=0}^{\infty}|c_i| \).
+\end{enumerate}
+
+\begin{lem}
+  If \(0 \leq |c_i| \leq b_i \) for all \(i\) and \(\sum_{i=0}^{\infty}b_i \) converges then \(\sum_{i=0}^{\infty}c_i \) converges.
+\end{lem}
+
+\begin{proof}
+  Combine property 5 and 6.
+\end{proof}
+
+\begin{defi}[Power series]
+A series of the form
+\[
+\sum_{i=0}^{\infty}a_i(z-c)^i,
+\]
+where \(a_i,z,c\in C\) is called a \emph{power series}. \(C\) is the \emph{centre}.
+\end{defi}
+
+\begin{prop}[Pointwise convergence]
+  \label{prop:pointwise convergence of series}
+  If
+  \[
+    \sum_{i=0}^{\infty}a_i(z_0-c)^i
+  \]
+  converges then
+  \[
+    \sum_{i=0}^{\infty}a_i(z-c)^i
+  \]
+  converges whenever
+  \[
+|z-c| < |z_0-c|.
+  \]
+\end{prop}
+
+\begin{proof}
+  By property 4 \((a_i(z_0-c)^i)\to 0\). Pick \(N\) such that \(|a_i(z_0-c)^i|<1\) for all \(i\geq N\). By Property 2 it suffices to show that
+  \[
+    \sum_{i=N}^{\infty}a_i(z-c)^i
+  \]
+  converges. Now for \(i\geq N\),
+  \[
+    \label{eqn:fundamental est}
+    \boxed{
+    |a_i(z-c)^i| = |a_i(z_0-c)^i| \cdot \Big| \frac{z-c}{z_0-c} \Big|^i < 1\cdot \alpha^i
+    }
+    \tag*{Fundamental Estimate for Power Series}
+    \]
+  where \(\alpha = |\frac{z-c}{z_0-c}|\). So if \(|z-c| < |z_0-c|,\alpha<1\), \(\sum_{i=N}^{\infty}\alpha^i \) converges by property 3.
+
+  In summary, we have
+  \[
+|a_i(z-c)^i| < \alpha^i
+\]
+for all \(i\geq N\) and \(\sum_{i=N}^{\infty}\alpha^i \) converges. By the lemma \(\sum_{i=N}^{\infty}a_i(z-c)^i \) converges.
+\end{proof}
+
+\begin{defi}[Radius of convergence]
+  \[
+    R := \sup \{ |z-c|: \sum_{i=0}^{\infty}a_i (z-c)^i \text{ converges}\}
+  \]
+  is the \emph{radius of convergence} of \(\sum_{i=0}^{\infty}a_i(z-c)^i \).
+\end{defi}
+
+Proposition~\ref{prop:pointwise convergence of series} implies that if \(z\in B_R(c)\) then \(\sum_{i=0}^{\infty}a_i(z-c)^i \) converges. In other words, if we define
+\begin{align*}
+  f: B_R(c) &\to \C \\
+  z &\mapsto \sum_{i=0}^{\infty} a_i(z-c)^i \\
+  P_n: B_R(c) &\to \C \\
+  z &\mapsto \sum_{i=0}^{n} a_i(z-c)^i
+\end{align*}
+
+Proposition~\ref{prop:pointwise convergence of series} says that \((P_n)\to f\) pointwise on \(B_R(c)\). As \(P_n\) are polynomials so they are continuous. A natural question is, is \(f\) continuous as well? We know this answer will be yes if we can prove that the convergence is uniform. How do we do that?
+
+\begin{thm}
+  With notations as above,
+  \[
+(P_n)\to f
+\]
+uniformly on \(\cl B_r(c)\) whenever \(r<R\).
+\end{thm}
+
+\begin{note}
+  Equivalently, we can say \((P_n)\to f\) uniformly on \(B_r(c)\) for \(r<R\). The closed ball \(\cl B_r(c)\) is just a convention when talking about uniform convergence on a compact set.
+\end{note}
+
+\begin{proof}
+  Define
+  \[
+    E_n(z) = f(z) - P_n(z) = \sum_{i=n+1}^{\infty}a_i(z-c)^i. 
+  \]
+  Fix \(r< R\). Given \(\varepsilon>0\), need to find \(N \) such that \(|E_n(z)| < \varepsilon\) whenever \(n\geq N\) and \(z\in \cl B_r(c)\).
+
+  Choose \(z_0\) with \(r< |z_0-c| < R\) as in the proof of Proposition~\ref{prop:pointwise convergence of series}, pick \(N_0\) such that \(|a_i(z_0-c)|^i<1\) for \(i\geq N_0\). Now we use \ref{eqn:fundamental est}. For \(i\geq N_0\), we have \(|a_i(z-c)^i| < \alpha(z)^i\) where \(\alpha(z) = |\frac{z-c}{z_0-c}|\). For \(z\in \cl B_r(c)\),
+  \[
+    \alpha(z) = \Big| \frac{z-c}{z_0-c} \Big| \leq \frac{r}{|z_0-c|} = \alpha_0 < 1
+  \]
+  since \(r < |z_0-c|\). Hence for \(n>N_0\),
+  \[
+    |E_n(z)| \leq \sum_{i=n+1}^{\infty}|a_i(z-c)^i| \leq \sum_{i=n+1}^{\infty}\alpha_0^i = \frac{\alpha_0^{n+1}}{1-\alpha_0}.
+  \]
+  As \(\alpha_0 < 1\), \((\alpha_0^i)\to 0\). Pick \(N\geq N_0\) such that
+  \[
+\alpha_0^i < \varepsilon (1-\alpha_0)
+  \]
+  for \(i\geq N\). So for \(n>N\),
+  \[
+    |E_n(z)| < \frac{\varepsilon (1-\alpha_0)}{1-\alpha_0} = \varepsilon
+  \]
+  for all \(z\in \cl B_r(c)\).
+  This is what we wanted.
+\end{proof}
+
+\begin{note}
+  It need not be true that \((P_n)\to f\) uniformly on \(B_R(c)\). For example,
+  \[
+    \sum_{i=0}^{\infty}z^i
+  \]
+  does not converge uniformly on \(B_1(0)\).
+\end{note}
+
+\begin{cor}
+  \(f\) as above is continuous on \(B_R(c)\).
+\end{cor}
+
+\begin{proof}
+  Let \(U_r = B_r(c), r<R\). Then \(U_r\) is open in \(\C\). \((P_n)\to f\) uniformly on \(U_r\) for \(r< R\). Since the \(P_n\) are continuous \(f|_{U_r}\) is continuous. By gluing lemma \(f\) is continuous on
+  \[
+    U = \bigcup_{r<R} U_r = B_R(c).
+  \]
+\end{proof}
+
+To summarise, power series are continuous on domain of convergence \(B_R(c)\).
 \end{document}

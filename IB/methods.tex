@@ -551,4 +551,171 @@ the result is
   w(x) &= -\frac{\kappa(x)}{\alpha(x)} \Big( \int^x \frac{\beta(u)}{\alpha(u)}du \Big)
 \end{align*}
 where \(p, q, w\) are all real and positive on \([a,b]\).
+
+\subsection{Definition of Self-adjointness}
+
+Consider a linear \(2\)nd order differential operator \(\L\) defined on \([a,b]\). The \emph{adjoint} of \(\L\), denoted by \(\L^\dag\) has the property that for all pairs of functions \(y_1\) and \(y_2\) satisfying appropriate boundary conditions, which shall be defined below,
+\[
+\int_a^b y_1^* \L y_2 dx = \int_a^b y_2 (\L^\dag y_1)^* dx.
+\]
+If \(\L = \L^\dag\) (with appropriate boundary conditions) then \(\L\) is said to be \emph{self-adjoint} or \emph{Hermitian}.
+
+\subsubsection{Self-adjointness of Sturm-Liouville Operator}
+
+To derive the necessary and sufficient condition for the Sturm-Liouville operator to be self-adjoint, we consider the real case here:
+\begin{align*}
+  \int_{a}^{b} y_1\L y_2 dx &= \int_{a}^{b} y_1 \Big[ -\frac{d}{dx} \big(p \frac{dy_2}{dx} \big) + qy_2 \Big] dx \\
+                         &= \Big[-y_1 p\frac{dy_2}{dx} \Big]^b_a + \int_{a}^{b} qy_1y_2  dx + \int_{a}^{b} p\frac{dy_2}{dx} \frac{dy_1}{dx} dx \\
+                         &= \Big[-y_1p \frac{dy_2}{dx} \Big]^b_a + \int_{a}^{b} y_2\Big(-\frac{d}{dx} \big(p \frac{dy_1}{dx} \big)+ qy_1 \Big) dx + \Big[ y_2p \frac{dy_1}{dx} \Big]^b_a \\
+                         &= \int_{a}^{b} y_2\L y_1 dx + \Big[ p\underbrace{(y_2 \frac{dy_1}{dx} - y_1 \frac{dy_2}{dx})}_{T_1} \Big]^b_a
+\end{align*}
+Note \(T_1\), the Wronskian.
+
+The operator
+\[
+  \L = -\frac{d}{dx}(p \frac{d}{dx}) + q
+\]
+is thus self-adjoint if and only if \(T_1=0\).
+
+In the previous example, \(y=0\) at \(x=a,b\). Other simple examples satisfying \(T_1=0\) include:
+\begin{itemize}
+\item \(y'=0\) at \(x=a,b\),
+\item \(y+ky'=0\) with \(k\) constant at \(x=a,b\).
+\item Periodic boundary conditions satisfying
+\[
+y(a) = y(b) \text{ or } y'(a) = y'(b).
+\]
+\item \(p=0\) at \(x=a,b\).
+\end{itemize}
+
+\subsubsection{Properties of Self-adjoint Operators}
+
+\begin{enumerate}
+\item The eigenvalues are real: assume that \(\lambda_n\) is an eigenvalue and \(y_n\) is the associated eigenfunction. Then
+  \[
+\L y_n = \lambda_ny_n w, \: (\L y_n)^* = \lambda_n^*y_n^*w^*.
+  \]
+  But here \(w\) and \(\L\) are real by assumption (unlike in quantum mechanics, for example) so
+  \begin{align*}
+    \L y_n^* &= \lambda_n^* y_n^* w \\
+    \int_{a}^{b} y_n(\L y_n^*) dx &=  \int_{a}^{b} y_n(\lambda_n^*wy_n^*) dx = \lambda_n^* \int_{a}^{b} w |y_n|^2 dx \\
+    \int_{a}^{b} y_n^* (\L y_n) dx &= \int_{a}^{b} y_n^*(\lambda_ny_nw) dx = \lambda_n \int_{a}^{b} w |y_n|^2 dx
+  \end{align*}
+  By self-adjointness,
+  \begin{align*}
+    0 &= \int_{a}^{b} y_n (\L y_n)^* dx - \int_{a}^{b} y_n^* (\L y_n) dx \\
+      &= (\lambda_n^* - \lambda_n) \int_{ }^{ } w |y_n|^2 dx
+  \end{align*}
+  so \(\lambda_n^* = \lambda_n\).
+\item The eigenfunctions of distinct eigenvalues are orthogonal: assume that \(y_n\) and \(y_m\) are eigenfunctions with distinct eigenvalues \(\lambda_n \neq \lambda_m\):
+  \[
+\L y_n = \lambda_n w y_n, \: \L y_m = \lambda_m wy_m.
+\]
+By self-adjointness
+\begin{align*}
+  0 &= \int_{a}^{b} y_m\L y_n dx - \int_{a}^{b} y_n\L y_m dx \\
+    &= \int_{a}^{b} y_m \lambda_nwy_n dx - \int_{a}^{b} y_n\lambda_mwy_m dx \\
+    &= (\lambda_n - \lambda_m) \int_{a}^{b} wy_ny_m dx \\
+  \Rightarrow &\int_{a}^{b} wy_ny_m dx = 0
+\end{align*}
+
+Note the weight function in the integral.
+\item There is an orthonormal set of eigenfunctions: let
+  \[
+    Y_n(x) = \frac{y_n(x)}{\big[\int_{a}^{b} wy_n^2 dx \big]^{1/2}}
+  \]
+  so
+  \[
+\delta_{m,n}=\int_{a}^{b} w(x)Y_m(x)Y_n(x) dx.
+  \]
+\item The set of eigenfunctions form a complete basis: suppose a function \(f(x)\) satisfying the boundary condition as eigenfunction. \emph{Completeness} means that any such \(f(x)\) can be expressed as
+  \[
+f(x) = \sum_{n=1}^{\infty}a_ny_n(x) = \sum_{n=1}^{\infty} A_n Y_n(x).
+  \]
+  where \(Y_n(x)\) is an orthonormal basis.
+\item These coefficients can always be determined using orthogonality:
+  \[
+\int_{a}^{b} f(x)wY_m(x) dx = \sum_{n=1}^{\infty}A_n \int_{a}^{b} wY_n(x)Y_m(x) dx = A_m
+\]
+\item A corollary of the property of completeness is that there is always a \emph{countably infinite} number of eigenvalues which satisfy the underlying self-adjoint problem.
+\item Parseval's Theorem for such self-adjoint operators: consider
+  \begin{align*}
+    I &= \int_{a}^{b} w \underbrace{\Big[ f(x) - \sum_{n=1}^{\infty}A_nY_n(x) \Big]^2} dx \\
+      &= \int_{a}^{b} w f^2(x) dx - 2 \sum_{n=1}^{\infty}A_n \int_{a}^{b} w fY_n dx + \sum_{n=1}^{\infty}\sum_{m=1}^{\infty} A_nA_m \int_{a}^{b} wY_nY_m dx \\
+      &=\int_{a}^{b} w f^2 dx -2 \sum_{n=1}^{\infty}A_n^2 + \sum_{n=1}^{\infty}A_n^2 \\
+      &= \int_{a}^{b} wf^2 dx - \sum_{n=1}^{\infty} A_n^2
+  \end{align*}
+  \begin{itemize}
+  \item If the eigenfunctions are complete, \(I=0\) and so there is a Parseval's relation
+  \[
+\int_{a}^{b} wf^2 dx = \sum_{n=1}^{\infty}A_n^2.
+  \]
+\item If the eigenfunctions are not complete, e.g. if \(\L\) is \emph{not} self-adjoint, then square bracket term is positive, \(w\) is positive by construction. Therefore we get \emph{Bessel's inequaility}:
+  \[
+\int_{a}^{b} wf^2 dx \geq \sum_{n=1}^{\infty}A_n^2.
+  \]
+  \end{itemize}
+\item Eigenfunction series representation are the ``best'' such representation in a particular sense: define the partial sum
+  \[
+    s_N(x) = \sum_{n=1}^{N}A_nY_n.
+  \]
+  Completeness implies that \(f(x) = \lim_{N\to \infty}s_N(x)\) except at points of discontinuity of \(f(x)\). For simplicity consider continuous \(f(x)\). The mean square error \(\varepsilon_N\) in approximating \(f(x)\) by \(s_N(x)\) is
+  \[
+\varepsilon_N = \int_{a}^{b} w(f-s_N(x))^2 dx \to 0 \text{ as } N\to \infty.
+\]
+Differentiate,
+\begin{align*}
+  \frac{\partial\varepsilon_n}{\partial A_m} &= -2 \int_{a}^{b} w \Big(f- \sum_{n=1}^{N}A_nY_n \Big) Y_m dx \\
+                                             &= -2 \int_{a}^{b} wfY_m dx + 2 \sum_{n=1}^{N}A_n \int_{a}^{b} wY_nY_m dx \\
+                                             &= -2A_m + 2A_m \\
+                                             &= 0
+\end{align*}
+Therefore the coefficients extremise (in this case, minimise) the error in the mean square sense and so the best partial sum representation is the partial representation using the eigenfunctions of the underlying Sturm-Liouville operator.
+  
+\subsubsection{Example with Non-trivial Weight}
+
+Problem: find \(y(x)\) on \([0,\pi]\) such that
+\begin{align*}
+  y'' + y' + (\frac{1}{4} + \lambda)y &=0 \\
+  y(0) &= 0 \\
+  y(\pi) - 2y'|_\pi &=0
+\end{align*}
+
+Write in self-adjoint form:
+\[
+  - \frac{d}{dx}\Big( e^x \frac{dy}{dx} \Big)- \frac{e^xy}{4} = \lambda e^4y
+\]
+The auxillary equation \(y \propto e^{\sigma x}\) is
+\[
+  \sigma^2 + \sigma + \frac{1}{4} + \lambda = 0
+\]
+so
+\[
+  \sigma = -\frac{1}{2} \pm i \sqrt{\lambda}.
+\]
+The homogeneous solution is
+\[
+  y(x) = A e^{-x/2}\cos\mu x + B e^{-x/2}\sin\mu x
+\]
+with \(\mu^2=\lambda\), satisfying
+\begin{align*}
+  y(0) &= 0
+  y(\pi) - 2y'(\pi) &= Be^{-\pi/2}\big( \sin\mu\pi + \sin\mu\pi - 2\mu\cos\mu\pi \big)=0
+\end{align*}
+Therefore
+\begin{align*}
+  A &= 0, \\
+  \tan\mu\pi &= \mu.
+\end{align*}
+A simple plot shows that there are countably infinite eigenvalues that satisfy this equation. As \(n\to \infty,\mu_n \approx \frac{2n+1}{2}\).
+
+Notice that the eigenfucntions are proportional to \(e^{-x/2}\sin\mu_nx\) so
+\begin{align*}
+  I_{mn} &\propto \alpha\int_{0}^{\pi} wy_n(x)y_m(x) dx \\
+         &= \int_{0}^{\pi} e^x e^{-x/2}\sin\mu_nx e^{-x/2}\sin\mu_mx dx \\
+         &= \int_{0}^{\pi} \sin\mu_nx \sin\mu_mx dx \\
+         &= 0 \text{ if } n \neq m
+\end{align*}
+
+\end{enumerate}
 \end{document}
