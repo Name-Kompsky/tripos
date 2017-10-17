@@ -272,10 +272,9 @@ This is clearly divergent even though $f'(x) = 0$ for all $x \neq 0$. The extra 
   Intuitively, this behaviour can be explained by noticing that Dirac delta function is the derivative of Heaviside function.
 \end{note}
 
-\section{Differentiation Under Circumstances}
+\subsubsection{Differentiation Under Certain Circumstances}
 
-Differentiation of Fourier series under certain circumstances.
-
+Fourier series can be differentiated under certain circumstances: 
 \begin{eg}
   Assume \(f(x)\) is continuous and is extended as a \(2L\)-periodic function, piecewise continuously differentiable on \((-L,L)\). Let \(g(x)=\frac{df}{dx}\). \(g(x)\) satisfies the Dirichlet condition as it has at worst a finite number of bounded discontinuities.
   \begin{align*}
@@ -299,18 +298,18 @@ Differentiation of Fourier series under certain circumstances.
       This reduces differentiation to multiplication by \(\pm \frac{n\pi}{L}\).
       \end{eg}
 
-\subsection{Altenate Representation: Complex Form}
+\subsection{Alternate Representation: Complex Form}
 
 Recall
 \begin{align*}
   \cos \frac{n\pi x }{L} &= \frac{1}{2} (e^{i\frac{n\pi x}{L}} + e^{-i\frac{n\pi x}{L}}) \\
-  \sin &= \frac{1}{2i} (e^{i\frac{n\pi x}{L}} - e^{-i\frac{n\pi x}{L}})
+  \sin \frac{n\pi x }{L} &= \frac{1}{2i} (e^{i\frac{n\pi x}{L}} - e^{-i\frac{n\pi x}{L}})
 \end{align*}
 so
 \begin{align*}
   \frac{f(x_+)+f(x_-)}{2} &= \frac{a_0}{2} + \sum_{n=1}^{\infty} \frac{a_n}{2} (e^{i \frac{n\pi x}{L}} + e^{-i \frac{n \pi x}{L}}) - \sum_{n=1}^{\infty} \frac{b_n}{2} (e^{i \frac{n\pi x}{L}} - e^{-i \frac{n \pi x}{L}})\\
-  &= \frac{a_0}{2} + \sum_{n=1}^{\infty} \big( \frac{a_n-i b_n}{2} e^{i \frac{n\pi x}{L}} \big) + \sum_{n=1}^{\infty} \big( \frac{a_n+i b_n}{2} e^{-i \frac{n\pi x}{L}} \big) \\
-    &= \sum_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi x}{L}}
+                          &= \frac{a_0}{2} + \sum_{n=1}^{\infty} \big( \frac{a_n-i b_n}{2} e^{i \frac{n\pi x}{L}} \big) + \sum_{n=1}^{\infty} \big( \frac{a_n+i b_n}{2} e^{-i \frac{n\pi x}{L}} \big) \\
+                          &= \sum_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi x}{L}}
 \end{align*}
 with
 \begin{align*}
@@ -331,9 +330,9 @@ so
 
 Now assume \(g(x) = \frac{df}{dx} = \sum_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi x}{L}}\). Then
 \begin{align*}
-  c_n &= \frac{1}{2L}\int_{0}^{2L} \frac{df}{dx }e^{-\frac{in\pi x}{L}}dx \\
-    &= \frac{1}{2L} \big[ f(x) e^{-i\frac{n\pi x}{L}} \big]_0^{2L} + \frac{in\pi}{2L^2} \int_{0}^{2L}f(x) e^{i\frac{-n\pi x}{L}} dx \\
-    &= \frac{in\pi}{L}c_n
+  c_n &= \frac{1}{2L}\int_{0}^{2L} \frac{df}{dx }e^{-i\frac{n\pi x}{L}}dx \\
+      &= \frac{1}{2L} \Big[ f(x) e^{-i\frac{n\pi x}{L}} \Big]_0^{2L} + \frac{in\pi}{2L^2} \int_{0}^{2L}f(x) e^{-i\frac{n\pi x}{L}} dx \\
+      &= \frac{in\pi}{L}c_n
 \end{align*}
 by periodicity.
 
