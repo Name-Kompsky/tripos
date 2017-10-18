@@ -434,7 +434,7 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
   \end{enumerate}
 \end{note}
 
-\begin{lem}[Free functor \(\mathbf{Set} \to \mathbf{Vect}_K\)]
+\begin{lem}[Free functor \(\mathbf{Set} \to \mathbf{Vect}_\F\)]
   Suppose \(V, W\) are \(\F\)-vector spaces and \(B\) is a basis for \(V\). If \(\alpha_0: B\to W\) is \emph{any} map, then there is a \emph{unique} linear map \(\alpha: V\to W\) extending \(\alpha_o\).
 \end{lem}
 
@@ -743,4 +743,185 @@ L(V,W) \cong M_{m,n}(\F).
     This is well-defined. Linearity follows from that of \(\alpha\). A basis for \(V/Y\) \(B''=\{v_{k+1}+Y,\ldots,v_n+Y\}\) and similary for \(W/Z\). It is an exercise to show \([\bar\alpha]_{B'',C''} = C \).
   \end{itemize}
 \end{eg}
+
+\subsubsection{Change of Bases}
+
+Throughout this section, let \(V\) and \(W\) be \(\F\)-vector spaces and suppose they have the following bases:
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|c||c|c|}
+    \hline
+    Vector space & \(V\) & \(W\) \\ \hline
+    Basis 1 & \(B = \{v_1,\dots,\v_n\}\) & \(C = \{w_1,\dots,w_m\}\) \\ \hline
+    Basis 2 & \(B' = \{v_1',\dots,v_n'\}\) & \(C' = \{w_1',\dots,w_m'\}\) \\ \hline
+  \end{tabular}
+\end{table}
+
+\begin{defi}[Change-of-basis matrix]
+  The \emph{change-of-basis} matrix from \(B'\) to \(B\) is \(P = (p_{ij})\) given by
+  \begin{align*}
+    v_j' &= \sum_{i}^{ }p_{ij}v_i \\
+    P &= \Big( [v_1']_B \Big| [v_2']_B \Big| \dots \Big| [v_n']_N \Big) = [\id]_{B',B}
+  \end{align*}
+\end{defi}
+
+\begin{lem}
+  \[
+    [v]_B = P[v]_{B'}.
+  \]
+\end{lem}
+
+\begin{proof}
+  \[
+    P[v]_{B'} = [\id]_{B',B}[v]_B' = [v]_B.
+  \]
+\end{proof}
+
+\begin{lem}
+  \(P\) is an invertible \(n\times n\) matrix and \(P^{-1}\) is the change-of-basis matrix from \(B\) to \(B'\).
+\end{lem}
+
+\begin{proof}
+  \begin{align*}
+    [\id]_{B,B'}[\id]_{B',B} &= [\id]_{B',B'} = I_n \\
+    [\id]_{B',B}[\id]_{B,B'} &= [\id]_{B,B} = I_n
+  \end{align*}
+\end{proof}
+
+Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is invertible \(m\times m\) matrix.
+
+\begin{prop}
+  Let \(\alpha: V\to W\) be a linear map, \(A = [\alpha]_{B,C}\), \(A' = [\alpha]_{B',C'}\), then
+  \[
+    A' = Q^{-1}AP.
+  \]
+\end{prop}
+
+\begin{proof}
+  \[
+    \underbrace{[\id]_{C,C'}}_{Q^{-1}} [\alpha]_{B,C} \underbrace{[\id]_{B',B}}_P = \underbrace{[\id\compose\alpha\compose\id]_{B',C'}}_{A'}
+  \]
+\end{proof}
+
+\begin{defi}[Equivalence of matrices]
+  \(A, A' \in M_{m,n}(\F)\) are \emph{equivalent} if
+  \[
+    A' = Q^{-1}AP
+  \]
+  for some invertible \(P\in M_{n,n}(\F)\) and \(Q\in M_{m,n}(\F)\).
+\end{defi}
+
+\begin{note}
+  This defines an equivalence relation on \(M_{m,n}(\F)\).
+\end{note}
+
+\begin{prop}
+  Let \(V, W\) be \(\F\)-vector spaces of dimension \(n\) and \(m\) respectively. Let \(\alpha:V\to W\) be a linear map. Then there exist bases \(B\) of \(V\), \(C\) of \(W\), and some \(r\leq m,n\) such that
+  \[
+    [\alpha]_{B,C} =
+    \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0 
+    \end{pmatrix}
+  \]
+  where \(I_r\) is \(r\times r\) the identity matrix.
+\end{prop}
+
+\begin{note}
+  \(r = rk(\alpha) = r(\alpha)\).
+\end{note}
+
+\begin{proof}
+  Fix \(r\) such that \(\dim N(\alpha) = n-r\). Fix a basis for \(N(\alpha)\), say \(v_{r+1},v_{r+1},\dots,v_n\). Extend this to a basis \(B\) for \(V\), say \(v_1,\dots,v_r,v_{r+1},\dots,v_n\). Now \(\alpha(v_1),\dots,\alpha(v_r)\) is a basis for \(\im(\alpha)\):
+  \begin{itemize}
+  \item span: \((\alpha(v_1),\dots, \alpha(v_n)\) certainly span \(\im(\alpha)\). Since \(v_{r+1},\dot,v_n \in \ker \alpha\), \(\alpha(v_{r+1}),\dots,\alpha(v_n) = 0\) so we can remove them from the spanning set.
+  \item linear independence: assume \(\sum_{i=1}^{n}\lambda_i \alpha(v_i) =\V 0 \). Then \(\alpha \big(\sum_{i=1}^n\lambda_iv_i\big) =\V0\). This implies that
+    \[
+      \sum_{i=1}^{n}\lambda_iv_i = \sum_{j=r+1}^{n}\mu_jv_j.
+    \]
+    As \(v_1,\dots v_n\) are linearly independent, \(\lambda_i=\mu_j=0\) for all \(i,j\).
+  \end{itemize}
+  Extend \(\alpha(v_1),\dots,\alpha(v_r)\) to a basis for \(W\), say \(C\). By construction,
+  \[
+    [\alpha]_{B,C} =
+    \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}
+  \]
+\end{proof}
+
+\begin{rmk}
+  In the proof above we didn't need to assume that \(r = r(\alpha)\). This gives us another way prove Rank-nullity Theorem.
+\end{rmk}
+
+\begin{cor}
+  Any \(m\times n\) matrix is equivalent to
+  \[
+  \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}
+  \]
+  for some \(r\).
+\end{cor}
+
+\begin{defi}[Row and column rank]
+  Let \(A\in M_{m,n}(\F)\).
+  \begin{itemize}
+  \item The \emph{column rank} of \(A\), \(r(A)\) is the dimension of the subspace of \(\F^m\) spanned by the columns of \(A\).
+  \item The \emph{row rank} of \(A\) is the column rank of \(A^T\).
+  \end{itemize}
+\end{defi}
+
+\begin{note}
+  If \(\alpha\) is a linear map represented by \(A\) with respect to any choice of bases, then \(r(\alpha) = r(A)\).
+\end{note}
+
+\begin{prop}
+  Two \(m\times n\) matrices \(A, A'\) are equivalent if and only if
+  \[
+    r(A) = r(A').
+  \]
+\end{prop}
+
+\begin{proof}
+  \(\Leftarrow\): Both \(A\) and \(A'\) are equivalent to \(\begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}\) and matrix equivalence is transitive.
+
+    \(\Rightarrow\): Let \(\alpha:\F^n\to \F^m\) be the linear map represented by \(A\) with repect to, say, the standard basis. Since \(A'=Q^{-1}AP\) for some invertible \(P\) and \(Q\), \(A'\) represents the same \(\alpha\) with respect to another bases. \(r(\alpha)\) is defined in a basis-invariant way so \(r(A) = r(\alpha) = r(A')\).
+\end{proof}
+
+\begin{thm}
+  \[
+    r(A) = r(A^T).
+  \]
+\end{thm}
+
+\begin{proof}
+  \[
+    Q^{-1}AP =
+    \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}_{n,m}
+  \]
+  where \(P\) and \(Q\) are invertible. Take transpose of the whoel equation:
+  \[
+    \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}_{n,m}
+    =(Q^{-1}AP)^T = P^TA^T(Q^T)^{-1}
+  \]
+  so \(A^T\) is equivalent to
+  \[
+      \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}
+  \]
+\end{proof}
 \end{document}

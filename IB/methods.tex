@@ -6,13 +6,14 @@
 \input{header}
 
 \renewcommand*\L{\mathcal{L}}
+\renewcommand*\p{\partial}
 
 \begin{document}
 \maketitle
 
 \tableofcontents
 
-\section*{Self-adjoint ODEs}
+% part 1 Self-adjoint ODEs
 
 \section{Fourier Series}
 
@@ -464,6 +465,7 @@ Therefore
 \end{question}
 
 \subsection{Motivating Example: Fourier Series}
+\label{subsec:motivating}
 
 For continuous forcing functions \(f(x)\), we want to find \(y(x)\) on a finite interval such that
 \[
@@ -517,7 +519,7 @@ Thus
         &= \int_{0}^{L} G(x; \xi) f(\xi) d\xi\end{align*}
 where \(G(x;\xi)\) is the \emph{Green's function}.
 
-Note the loose analogy between Hermtian matrices and self-adjoint operators:
+Note the loose analogy between Hermitian matrices and self-adjoint operators:
 \begin{align*}
   A\V x = \V b &\Rightarrow \V x = A^{-1}\V b \\
   \L y = f &\Rightarrow y = \L^{-1} f
@@ -566,9 +568,9 @@ To derive the necessary and sufficient condition for the Sturm-Liouville operato
   \int_{a}^{b} y_1\L y_2 dx &= \int_{a}^{b} y_1 \Big[ -\frac{d}{dx} \big(p \frac{dy_2}{dx} \big) + qy_2 \Big] dx \\
                          &= \Big[-y_1 p\frac{dy_2}{dx} \Big]^b_a + \int_{a}^{b} qy_1y_2  dx + \int_{a}^{b} p\frac{dy_2}{dx} \frac{dy_1}{dx} dx \\
                          &= \Big[-y_1p \frac{dy_2}{dx} \Big]^b_a + \int_{a}^{b} y_2\Big(-\frac{d}{dx} \big(p \frac{dy_1}{dx} \big)+ qy_1 \Big) dx + \Big[ y_2p \frac{dy_1}{dx} \Big]^b_a \\
-                         &= \int_{a}^{b} y_2\L y_1 dx + \Big[ p\underbrace{(y_2 \frac{dy_1}{dx} - y_1 \frac{dy_2}{dx})}_{T_1} \Big]^b_a
+                         &= \int_{a}^{b} y_2\L y_1 dx + \underbrace{\Big[ p(y_2 \frac{dy_1}{dx} - y_1 \frac{dy_2}{dx})\Big]^b_a}_{T_1} 
 \end{align*}
-Note \(T_1\), the Wronskian.
+Note the Wronskian in \(T_1\).
 
 The operator
 \[
@@ -621,7 +623,7 @@ By self-adjointness
 Note the weight function in the integral.
 \item There is an orthonormal set of eigenfunctions: let
   \[
-    Y_n(x) = \frac{y_n(x)}{\big[\int_{a}^{b} wy_n^2 dx \big]^{1/2}}
+    Y_n(x) = \frac{y_n(x)}{\big(\int_{a}^{b} wy_n^2 dx \big)^{1/2}}
   \]
   so
   \[
@@ -682,7 +684,7 @@ Problem: find \(y(x)\) on \([0,\pi]\) such that
 
 Write in self-adjoint form:
 \[
-  - \frac{d}{dx}\Big( e^x \frac{dy}{dx} \Big)- \frac{e^xy}{4} = \lambda e^4y
+  - \frac{d}{dx}\Big( e^x \frac{dy}{dx} \Big)- \frac{e^xy}{4} = \lambda e^xy.
 \]
 The auxillary equation \(y \propto e^{\sigma x}\) is
 \[
@@ -698,8 +700,8 @@ The homogeneous solution is
 \]
 with \(\mu^2=\lambda\), satisfying
 \begin{align*}
-  y(0) &= 0
-  y(\pi) - 2y'(\pi) &= Be^{-\pi/2}\big( \sin\mu\pi + \sin\mu\pi - 2\mu\cos\mu\pi \big)=0
+  y(0) &= 0, \\
+  y(\pi) - 2y'(\pi) &= Be^{-\pi/2}\big( \sin\mu\pi + \sin\mu\pi - 2\mu\cos\mu\pi \big)=0.
 \end{align*}
 Therefore
 \begin{align*}
@@ -715,6 +717,153 @@ Notice that the eigenfucntions are proportional to \(e^{-x/2}\sin\mu_nx\) so
          &= \int_{0}^{\pi} \sin\mu_nx \sin\mu_mx dx \\
          &= 0 \text{ if } n \neq m
 \end{align*}
-
 \end{enumerate}
+
+\subsubsection{Application in Inhomogeneous Boundary Value Problems}
+
+Consider this inhomogeneous problem:
+\[
+  (\L - \hat \lambda w)y = f(x) = wF(x) = w(x) \sum_{n=0}^{\infty} A_nY_n(x).
+\]
+By completeness, \(y = \sum_{n=1}^{\infty} B_nY_n(x) \) where \(B_n\) is the unknown.
+\begin{align*}
+  w \sum_{n=1}^{\infty}A_nY_n &= \sum_{n=1}^{\infty}B_n (\L Y_n - \hat \lambda w Y_n) \\
+  &= \sum_{n=1}^{\infty}B_n(\lambda_n-\hat \lambda)wY_n
+\end{align*}
+Multiply across by \(Y_m\) and use property 4: \(\delta_{mn} = \int_{a}^{b} wY_nY_m dx \):
+\[
+  A_m = B_m(\lambda_m-\hat \lambda)
+\]
+so
+\begin{align*}
+  B_m &= \frac{A_m}{\lambda_m-\hat\lambda} \\
+      &= \frac{\int_{a}^{b} w(\xi)Y_m(\xi)F(\xi) d\xi}{\lambda_m-\hat\lambda} \\
+      &= \frac{\int_{a}^{b} Y_m(\xi)f(\xi) d\xi}{\lambda_m-\hat\lambda} \\ 
+  y(x) &= \int_{a}^{b}  \sum_{n=1}^{\infty} \frac{Y_n(\xi)Y_n(x)}{\lambda_n-\hat \lambda} f(\xi) d\xi \\
+      &= \int_{a}^{b} G(x;\xi)f(\xi) d\xi
+\end{align*}
+which is the general form of the example in section~\ref{subsec:motivating}.
+
+% Part II: Seperation of Variables
+
+\section{Wave Equation}
+
+Wave equation is a canonical second order PDE: an example of \emph{hyperbolic equation}. Whenever you have a system with low dissipation of energy and a restoring force you have a wave.
+
+The linear wave equation takes the form
+\[
+\frac{\p^2\phi}{\p t^2} = c^2\nabla^2\phi
+\]
+where \(c\) is the (phase) speed, i.e. speed of propagation of crests.
+
+\subsection{Physical Derivation}
+
+The simplest example is a heavy ``massive'' elastic string suspended between \(x=0\) and \(x=L\). Assume those points are at \(y=0\) and assume all deflections are sufficiently small that we can consider them to be vertical. Therefore \(y(x,t)\) describes the deflections.
+
+Tension \(T(x)\) in the string, restoring forces horizontally and vertically:
+
+The horizontal forces satisfy
+\[
+  T(x)\cos\theta_1 = T(x+\delta x)\cos\theta_2,\, |\theta_1|,|\theta_2| \ll 1,
+\]
+so
+\[
+T(\theta) \approx T(x+\delta x)
+\]
+so \(T\) is a constant.
+
+We further assume that there is no horizontal motion and the mass of string per unit length is \(\mu\). The vertical force
+\[
+\mu\delta x \frac{\p^2 y}{\p t^2} = T\sin \theta_2 -T\sin\theta_1 - \mu g\delta x
+\]
+For small angles,
+\begin{align*}
+  \sin \theta_2 &\approx \tan\theta_2 = \frac{\p y}{\p x}\Big|_{x+\delta x} \approx \frac{\p y}{\p x}\Big|x + \delta x \frac{\p^2 y}{\p x^2}\Big|x \\
+  \sin \theta_1 &\approx \tan\theta_1 = \frac{\p y}{\p x}\Big|_x
+\end{align*}
+so
+\[
+  \mu\delta x \frac{\p^2 y}{\p x^2} = T\delta x \frac{\p^2 y}{\p x^2} - \mu g\delta x + O(\delta x^2).
+\]
+We now assume that the weight of the string plays no role:
+\[
+  g\to 0 \text{ or } \frac{T\p^2 y}{\mu\p x^2} \gg g
+\]
+so
+\[
+  \frac{\p^2 y}{\p x^2} = \frac{T}{\mu} \frac{\p^2 y}{\p x^2} = c^2\frac{\p^2 y}{\p x^2}
+\]
+
+\subsection{Example: Wave on a Finite String}
+
+We want to  find the displacement \(y(x,t)\) such that
+\begin{align*}
+  \frac{\p^2 y}{\p x^2} &= c^2 \frac{\p^2 y}{\p x^2} \\
+  y(0,t) &= y(L,t) = 0 \\
+  y(x,0) &= \phi(x) \\
+  \frac{\p y(x,0)}{\p x} &= \psi(x)
+\end{align*}
+
+We use \emph{seperation of variables}. At its heart there is an existence and uniqueness proof. If we can find a solution by \emph{any means} it is the unique solution.
+
+Suppose
+\[
+y(x,t) = X(x)T(t),
+\]
+substitute
+\begin{align*}
+  X \ddot{T} &= c^2X''T \\
+  \frac{1}{c^2} \frac{\ddot{T}}{T} &= \frac{X''}{X} = -\lambda
+\end{align*}
+so we have two equations:
+\begin{align*}
+  X'' &= -\lambda X \\
+  \ddot{T} &= -\lambda c^2 Y \\
+  X(0) &= 0 \\
+  X(L) &= L
+\end{align*}
+\(\lambda\geq0\) as otherwise \(X\) has at most \(1\) zero. Solve \(X\) to get
+\[
+  X = \alpha \cos \sqrt\lambda x + \beta \sin\sqrt\lambda x \\
+\]
+so
+\[
+  \lambda_n = \frac{n^2\pi^2}{L^2}, \, n \in \N.
+\]
+Note that these are real eigenvalues of the Sturm-Liouville system
+\[
+  -\frac{d}{dx} \big(\frac{dX}{dx} \big) = \lambda X.
+\]
+The associated eigenfunctions are the \emph{normal modes}:
+\[
+  X_n(x) = \beta_n \sin \frac{n\pi x}{L}.
+\]
+The lowest mode, i.e. \(n=1\), is the \emph{fundamental mode} while \(n=2,3,\dots\) are the \emph{overtones}.
+
+Note how the eigenvalues \emph{quantise} the admissible solutions. For each of the \(X_n\) there is an associated \(T_n(t)\):
+\[
+  \ddot{T}_n = -\frac{n^2\pi^2c^2}{L^2}T_n
+\]
+which has solution
+\[
+  T_n = \gamma_n \cos \frac{n\pi ct}{L} + \delta_n \sin \frac{n\pi ct}{L}.
+\]
+Combining the two parts,
+\[
+  y_n(x,t) = X_n(x)T_n(t) = \sin \frac{n\pi x}{L} \Big( A_n \cos \frac{n\pi ct}{L} + B_n \sin \frac{n\pi ct}{L} \Big).
+\]
+
+The wave equation is linear so we can add all these solutions together
+\begin{align*}
+  y(x,t) &= \sum_{n=1}^{\infty} \sin \frac{n\pi x}{L} \Big( A_n \cos \frac{n\pi ct}{L} + B_n \sin \frac{n\pi ct}{L} \Big) \\
+         &= \sum_{n=1}^{\infty} b_n(t) \sin \frac{n\pi x}{L}
+\end{align*}
+which is naturally a Fourier sine series. The \(A_n\) and \(B_n\) are determined from initial conditions:
+\begin{align*}
+  &y(x,0) = \phi(x) = \sum_{n=1}^{\infty} A_n \sin \frac{n\pi x}{L} \\
+  \Rightarrow & A_n = \frac{2}{L} \int_{0}^{L} \phi(x) \sin \frac{n\pi x}{L} dx \\
+  & \frac{\p y(x,0)}{\p t} = \psi(x) = \sum_{n=1}^{\infty} \frac{n\pi cB_n}{L} \sin \frac{n\pi x}{L} \\
+  \Rightarrow & B_n = \frac{2}{n\pi c} \int_{0}^{L} \psi(x) \sin \frac{n\pi x}{L} dx
+\end{align*}
+
 \end{document}

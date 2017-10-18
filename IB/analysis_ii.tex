@@ -636,4 +636,147 @@ uniformly on \(\cl B_r(c)\) whenever \(r<R\).
 \end{proof}
 
 To summarise, power series are continuous on domain of convergence \(B_R(c)\).
+
+\subsection{Integration \& Differentiation}
+
+Recall from Analysis I
+\begin{thm}[Fundamental Theorem of Calculus]
+  \label{thm:FTC}
+  Suppose \(f\in C[a,b]\), \(c\in [a,b]\), then
+  \[
+    F(x) = \int_{c}^{x} f(y) dy
+  \]
+  is well-defined for \(x\in[a,b]\) and
+  \[
+    F'(x) = f(x).
+  \]
+\end{thm}
+and the following properties of (Riemann) integral:
+\begin{enumerate}
+\item If \(f(x) \leq g(x) \) for \(x\in[a,b]\), \(\int_{a}^{b} f(x) dx \leq \int_{a}^{b} g(x) dx \).
+\item \(\big|\int_{a}^{b} f(x) dx \big) \leq \int_{a}^{b} |f(x)| dx \).
+\item If \(b<a\), \(\int_{a}^{b} f(x) dx = - \int_{b}^{a} f(x) dx \).
+\end{enumerate}
+
+\begin{lem}
+  If \(|f(x)|\leq C\) for all \(x\in[a,b]\) then
+  \[
+    \Big| \int_{c}^{x} f(t) dt \Big| \leq C|x-c|.
+  \]
+\end{lem}
+
+\begin{proof}
+  If \(x\geq c\) then
+  \[
+    \Big| \int_{c}^{x} f(t) dt \Big| \leq \int_{c}^{x} |f(t)| dt \leq \int_{c}^{x} C dt = C(x-c).
+  \]
+  If \(x\leq c\) then
+   \[
+    \Big| \int_{c}^{x} f(t) dt \Big| \leq \int_{c}^{x} |-f(t)| dt \leq C|x-c|.
+  \]
+\end{proof}
+
+Now suppose \(f_n\in C[a,b]\) and \((f_n)\to f\) uniformly on \([a,b]\) so \(f\in C[a,b]\). Define
+\begin{align*}
+  F_n(x) &= \int_{c}^{x} f_n(t) dt \\
+  F(x) &= \int_{c}^{x} f(t) dt
+\end{align*}
+
+\begin{prop}
+  \label{prop:power series integral convergence}
+  With notations above,
+  \[
+    (F_n) \to F
+  \]
+  uniformly on \([a,b]\).
+\end{prop}
+
+\begin{proof}
+  Given \(\varepsilon>0\), there exists \(N\) such that \(|f_n(x) - f(x)| < \varepsilon/(b-a)\) for all \(n\geq N\) and \(x\in[a,b]\). Then
+  \begin{align*}
+    |F_n(x) - F(x)| &= \Big| \int_{c}^{x} f_n(t) dt - \int_{c}^{x} f(t) dt \Big| \\
+                    &\leq \Big| \int_{c}^{x} \big( f_n(t) - f(t) \big) dt \Big| \\
+                    &\leq |x-c| \cdot\frac{\varepsilon}{b-a} \text{ by lemma} \\
+                    &= \varepsilon
+  \end{align*}
+  since \(x,c\in[a,b]\), \(|x-c|\leq b-a\). Thus \((F_n)\to F\) uniformly on \([a,b]\).
+\end{proof}
+
+Now suppose \(f(x) = \sum_{i=0}^{\infty}a_i(x-c)^i \) is a real power series with radius of convergence \(R\). Then for \(r< R\) and \(P_n(x) = \sum_{i=0}^{n}a_i(x-c)^i \), \((P_n)\to f\) uniformly on \(\cl B_r(c) = [c-r,c+r]\).
+
+\begin{cor}
+  \[
+    \int_{c}^{x} f(t) dt = \sum_{i=0}^{\infty}\frac{a_i}{i+1}(x-c)^{i+1}
+  \]
+  for \(x\in (c-R,c+R)\).
+\end{cor}
+
+\begin{proof}
+  Given \(x\), choose \(r\) with \(|x-c| < r < R\). Then \((P_n)\to f\) on \([c-r, c+r]\) so by Proposition~\ref{prop:power series integral convergence}
+  \[
+    (\mathbf{P}_n) \to \int_{c}^{x} f(t) dt
+  \]
+  uniformly on \([c-r, c+r]\) where
+  \[
+    \mathbf{P}_n(x) = \int_{c}^{x} \sum_{i=0}^{n}a_i(t-c)^i dt = \sum_{i=0}^{n} \frac{a_i}{i+1} (x-c)^{i+1}
+  \]
+  Since uniform convergence implies pointwise convergence,
+  \[
+    \sum_{i=0}^{\infty}\frac{a_i}{i+1}(x-c)^{i+1} = \int_{c}^{x} f(t) dt.
+  \]
+\end{proof}
+
+\begin{question}
+  If \((f_n)\to f\) uniformly on \([a,b]\) and \(f_n\) are differentiable, what can we say about \((f_n')\)?
+\end{question}
+
+The answer is, surprisingly, \emph{absolutely nothing}.
+
+\begin{eg}
+  Let \(f(x) = \frac{1}{n}\sin nx\). Then \((f_n)\to \V 0\) uniformly on \([0,\pi]\). But \(f_n'(x) = \cos nx\) does not even converge for any \(x\neq 0\).
+\end{eg}
+
+Nevertheless, if \(f(x) = \sum_{i=0}^{\infty}a_i(x-c)^i \) has radius of convergence \(R\), we still have
+
+\begin{prop}
+  \(f\) is differentiable on \((c-R, c+R)\) and
+  \[
+    f'(x) = \sum_{i=1}^{\infty}i a_i(x-c)^{i-1}. 
+  \]
+\end{prop}
+
+In other words, power series can be differentiated term-by-term.
+
+\begin{lem}
+  \(g(x) = \sum_{i=1}^{\infty}i a_i(x-c)^{i-1} \) converges for all \(y\in(c-R,c+R)\).
+\end{lem}
+
+\begin{proof}
+  Given \(x\in(c-R,c+R)\), pick \(x_0\) with \(|x-c| < |x_0-c| < R\). Then \(\sum_{i=0}^{\infty}a_i(x_0-c)^i \) converges, so by \ref{eqn:fundamental est}, there exists \(N\) such that
+  \[
+    |a_i(x-c)^i| \leq \alpha^i
+  \]
+  for all \(i\geq N\), where \(\alpha = \frac{|x-c|}{|x_0-c|}<1\). Then
+  \[
+    b_i:= |i a_i (x-c)^{i-1}| \leq \Big| \frac{i a_i}{x-c}\cdot(x-c)^i \Big| \leq \frac{i}{|x-c|}\alpha^i
+  \]
+  where we assume \(y\neq c\). Now
+  \[
+    \lim_{i\to\infty} \frac{b_{i+1}}{b_i} = \lim_{i\to\infty} \frac{i+1}{i}\cdot\alpha = \alpha<1
+  \]
+  so \(\sum_{i=1}^{\infty}\frac{i}{|x-c|}\alpha^i \) converges by ratio test. Since \(|i a_i(x-c)^{i-1}| \leq \frac{i}{|x-c|}\alpha^i\), \(\sum_{i=1}^{\infty}i a_i(x-c)^{i-1} \) converges by comparison test. If \(y=c\) then the convergence is obvious.
+\end{proof}
+
+\begin{proof}[Proof of proposition]
+  \(g(x) = \sum_{i=1}^{\infty}i a_i (x-c)^{i-1} \) converges on \((c-R,c+R)\), so by term-by-term integration
+  \[
+    \int_{c}^{x} g(t) dt = \sum_{i=1}^{\infty}a_i(x-c)^i = f(x) - f(c).
+  \]
+  Now \(g(x)\) is continuous on \((c-R, c+R)\) so we can apply~\ref{thm:FTC} so \(f'(x) = g(x)\) for all \(x\in(c-R,c+R)\).
+\end{proof}
+
+\begin{application}
+  Power series solutions of ODEs are legit as long as you check the radius of convergence.
+\end{application}
+
 \end{document}
