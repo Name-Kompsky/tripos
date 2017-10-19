@@ -1,0 +1,115 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Dynamical Systems}
+\def\ndate{Oct 19, 2017}
+
+\input{header}
+
+\begin{document}
+\maketitle
+
+\section{Stability}
+
+It is clear what we mean by \emph{hyperbolic nodel focii} begin stable/unstable. We need to be more careful with other kinds of fixed points or other invariant sets because there are at least two distinct types of stabilities, i.e. saddle and centre.
+
+\subsection{Definitions}
+
+Consider a flow \(\phi_t(x)\),
+\begin{defi}[Lyapunov Stability]
+ A fixed point \(x_0\) is \emph{Lyapunov stable} if \(\forall\varepsilon>0, \exists\delta>0\) such that
+\[
+  |\phi_t(x)-x_0| < \varepsilon \, \forall t>0.
+\]
+\end{defi}
+
+\begin{slogan}
+  If it starts near, it stays near.
+\end{slogan}
+
+\begin{defi}[Quasi-asymptotic stability]
+  A fixed point \(x_0\) is \emph{quasi-symptotically stable} if for all \(\varepsilon>0\) such that \(|x-x_0|<\delta\) imples that \(\phi(x)\to x_0\) as \(t\to \infty\).
+\end{defi}
+
+\begin{slogan}
+  It tends to the fixed point eventually.
+\end{slogan}
+
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item \(\dot r = 0, dot \theta = 1\): \(\V 0\) is Lyapunov stable (take \(\varepsilon = \delta\)) but not quasi-asymptotic stable.
+  \item \(\dot r = r(a-r^2), \dot \theta = \sin^2(\theta/2)\): \(\theta=0,r=1\) is quasi-aymptotically stable but not Lyapunov stable.
+  \end{itemize}
+\end{eg}
+    
+\begin{defi}[Asymptotic stability]
+  A fixed piont \(x_0\) is \emph{asymptotically stable} if it is both Lyapunov stable and quasi-asymptotically stable.
+\end{defi}
+
+\begin{eg}
+  A sink (all \(\lambda_i\) have \(\Re \lambda_i<0\)) is asymptotically stable (just take \(\delta\) small that the linear terms dominate), and clearly sources/saddles are not Lyapunov stable.
+\end{eg}
+
+To describe the stability of other invariant sets \(\Lambda\) we define
+\[
+  N_\delta(\Lambda) := \{x: \exists y\in\Lambda, |x-y|<\delta \}
+\]
+and say \(\phi_t(x)\to \Lambda\) if
+\[
+  \inf_{y\in \Lambda}\{|\phi_t(x)-y|\}\to 0 \text{ as } t\to \infty.
+\]
+
+\begin{defi}[Stability for an invariant set]
+  \(\Lambda\) is Lyapunov stable if for all \(\varepsilon>0\) exists \(\delta>0\) such that \(x\in N_\varepsilon(\Lambda)\), \(\phi_t(x) \in N_\varepsilon(\Lambda)\) for all \(t>0\).
+
+  \(\Lambda\) is quasi-asymptotically stable if exists \(\delta>0\) such that \(x\in N_\delta(\Lambda)\) such that \(\phi_t(x)\to \Lambda\) as \(t\to \infty\).
+
+  \(\Lambda\) is aymptotically stable if it is both Lyapunov and quasi-asymptotically stable.
+\end{defi}
+
+\subsection{Lyapunov Functions}
+
+Lyapounov functions allow us to say more about the stability of a fixed point which, without loss of generality, we may take to be at \(x=0\).
+
+\begin{defi}[Lyapunov function]
+  A continuously differentiable function \(V:\R^n\to \R\) is a \emph{Lyapunov function} for \(\dot{x} = f(x)\) on a domain \(D\) containing \(\V 0\) if it is
+  \begin{itemize}
+  \item positive-definite: \(V(\V 0) = 0\) and \(V(x) >0\) for all \(x\neq 0\) in \(D\). Informally, \(\V 0\) is the lowest point.
+  \item non-increasing: \(\dot{V} = f\cdot\nabla V \leq 0\) for all \(x\in D\). Informally, it means all trajectories in \(D\) head ``downhill'' or level, but never ``uphill''.
+  \end{itemize}
+\end{defi}
+
+These properties allow us to prove
+
+\begin{thm}[Lyapunov's First Theorem]
+  If a Lyapunov function exists then \(x=0\) is Lyaponov stable.
+\end{thm}
+
+\begin{proof}
+  Wlog assume \(\varepsilon\) is sufficiently small that \(\{|x|\leq\varepsilon\} \subset D\). Let
+  \[
+    m = \inf \{V(x): |x| = \varepsilon\}.
+  \]
+  Since \(|x|=\varepsilon\) is compact, the infimum is attained and by the first property above, \(m>0\).
+
+  Let \(C_{m,\varepsilon} = \{x: V(x)<m, |x| < \varepsilon \}\). Then for all \(x\in C_{m,\varepsilon}\), \(\phi_t(x) \in C_{m,\varepsilon}\) for all \(t>0\) as \(V\geq m\) on the boundary.
+
+  Choose \(\delta\) such that \(\{|x|< \delta\} \subseteq C_{m,\varepsilon}\).
+\end{proof}
+
+Note that a trajectory can head ``downhill'' and not end up at \(x=0\). But there is a very important constraint:
+
+\begin{thm}[La Salle's Invariance Principle]
+  If \(V\) is a Lyapunov function on a bounded domain \(D\) and \(\mathcal O^+(x) \subseteq D\), then \(\phi_t(x)\) tends to an \emph{invariant} subset of \(\{x: \dot{V} = 0\} \cap D\).
+\end{thm}
+
+\begin{proof}
+  \(V(\phi_t(x))\) is monotonically decreasing and bounded below by \(0\). Therefore \(V\to \alpha\) for some \(\alpha\geq0\). \(D\) is compact so the limit set \(\omega(x)\) is non-empty. \(\forall y\in \omega(x)\), \(\exists\{t_n\}\) such that \(\phi_{t_n}(x)\to y\) so \(V(y) = \alpha\) by continuity of \(V\). So \(V(\phi_t(y))=\alpha\) as \(\phi_t(y)\in \omega(x)\). Thus \(\dot{V}(y) = 0\) for all \(y\in\omega(x)\).
+
+  Hence \(\omega(x) \subseteq \{ \dot{V} = 0\}\) and \(\omega(x)\) is invariant (c.f. section 1.4).
+\end{proof}
+
+\begin{cor}
+  If \(V\) is a Lyapunov function on a domain \(D\) and the only invariant subset of \(\{\dot{V}=0\}\) is \(\{\V 0\}\) then \(x=0\) is aymptotically stable.
+\end{cor}
+
+\end{document}

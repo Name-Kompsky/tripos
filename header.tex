@@ -83,6 +83,27 @@
 \newtheorem*{question}{Question}
 \newtheorem*{note}{Note}
 \newtheorem*{application}{Application}
+\makeatletter
+
+%re-declare a math operator
+%https://tex.stackexchange.com/a/175272/26707
+
+\newcommand\RedeclareMathOperator{%
+  \@ifstar{\def\rmo@s{m}\rmo@redeclare}{\def\rmo@s{o}\rmo@redeclare}%
+}
+% this is taken from \renew@command
+\newcommand\rmo@redeclare[2]{%
+  \begingroup \escapechar\m@ne\xdef\@gtempa{{\string#1}}\endgroup
+  \expandafter\@ifundefined\@gtempa
+     {\@latex@error{\noexpand#1undefined}\@ehc}%
+     \relax
+  \expandafter\rmo@declmathop\rmo@s{#1}{#2}}
+% This is just \@declmathop without \@ifdefinable
+\newcommand\rmo@declmathop[3]{%
+  \DeclareRobustCommand{#2}{\qopname\newmcodes@#1{#3}}%
+}
+\@onlypreamble\RedeclareMathOperator
+\makeatother
 
 %operator macros
 %general
@@ -96,20 +117,38 @@
 \DeclareMathOperator{\gal}{Gal}
 \DeclareMathOperator{\emb}{Emb}
 
-%probability
-\renewcommand{\P}{\mathbb{P}}
-\newcommand{\E}{\mathbb{E}}
+
+
+%ceiling and floor
+%https://tex.stackexchange.com/a/118217/26707
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*{\bra}{\langle}
+\newcommand*{\ket}{\rangle}
+\DeclarePairedDelimiter\bk{\bra}{\ket}
+
+
+
 
 %macros
 
-%mathbf
+%general
+
+%vector, i.e. mathbf
 %https://tex.stackexchange.com/a/45746/26707
 \newcommand*\V[1]{\ensuremath{\mathbf{#1}}}
-
+%closure
 \newcommand*{\cl}[1]{\overline{#1}}
+%conjugate
 \newcommand*{\conj}[1]{\overline{#1}}
+%set complement
+\newcommand*{\stcomp}[1]{\overline{#1}}
 \newcommand*{\compose}{\circ}
+\newcommand*{\nto}{\nrightarrow}
+\newcommand*\p{\partial}
 
+%fields
 \renewcommand*{\C}{\mathbb{C}}
 \newcommand*{\R}{\mathbb{R}}
 \newcommand*{\Q}{\mathbb{Q}}
@@ -117,8 +156,10 @@
 \newcommand*{\N}{\mathbb{N}}
 \newcommand*{\F}{\mathbb{F}}
 
-\newcommand*{\nto}{\nrightarrow}
-\newcommand*\p{\partial}
-
+%asymptotic
 \newcommand*{\bigO}{O}
-\newcommand*{\smallO}{o}
+\newcommand*{\smallo}{o}
+
+%probability
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}

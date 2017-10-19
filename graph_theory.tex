@@ -1,0 +1,132 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Graph Theory}
+
+\input{header}
+
+\newcommand*{\Omg}{\Omega}
+\newcommand*{\bigT}{\Theta}
+\newcommand*{\smallomg}{\omega}
+\DeclareMathOperator{\exx}{ex}
+
+\begin{document}
+
+\maketitle
+
+Revision of \(\bigO\) notation and its cousins: let \(f,g:\N\to (0,\infty)\). We say
+\begin{align*}
+  f &= \bigO(g) \text{ if } f< Ag \text{ for some constant } A \\
+  f &= \Omg(g) \text{ if } g=\bigO(f) \\
+  f &= \bigT(g) \text{ if } f=\bigO(g) \text{ and } f = \Omg(g).
+\end{align*}
+Also,
+\begin{align*}
+  f &= \smallo(g) \text{ if } f/g\to 0 \text{ as } n\to \infty \\
+  f &= \smallomg(g) \text{ if } f/g\to \infty \\
+  f &\sim g \text{ if } f/g\to 1.
+\end{align*}
+
+\section{Extremal Graph Theory}
+
+\begin{question}
+  How large must \(n\) be so that if edges of \(K_n\) are coloured blud and yellow then we always get mono \(K_s\)?
+\end{question}
+
+Let \(G\) be ``blue subgraph'' of \(K_n\), i.e. all vertices, only blue edges.
+\begin{align*}
+  K_n \text{ has a blue } K_s &\Leftrightarrow K_s \subseteq G \\
+  K_n \text{ has a yellow } K_s &\Leftrightarrow G \text{ has an induced } \stcomp{K_s} \text{ subgraph}
+\end{align*}
+
+Rephrase: how large must \(n\) be to force every graph of order \(n\) to have \(K_s\) or \(\stcomp{K_s}\) as an induced subgraph?
+
+This is a typical example of an \emph{extremal problem}: how large must some parameter of \(G\) be to force \(G\) to have a certain property?
+
+Alternatively, how big can the parameter be with \(G\) not having the property?
+
+\subsection{The Forbidden Subgraph Problem}
+
+Fix a graph \(H\) with at least one edge. Let \(n \geq |H|\). Clealy \(H \subseteq K_n\) but \(H \nsubseteq \stcomp{K_n}\). How many edges must a graph \(G\) of order \(n\) have to force \(H \subseteq G\)? Alternatively, if \(|G| = n\) and \(H \nsubseteq G\), how large can \(e(G)\) be?
+
+\begin{defi}
+  Define
+  \[
+    \exx(n,H) := \max\{ e(G): |G|=n, H \nsubseteq G\}.
+  \]
+\end{defi}
+
+\begin{question}
+  Can we determine \(\exx(n,H)\)?
+\end{question}
+
+\subsubsection{Triangles}
+
+Let \(H = K_3\). Want \(G\) with \(|G| = n\), \(e(G)\) large, \(\triangle \nsubseteq G\). Try partitioning \(V(G) = X\cup Y\) with all edges going from \(X\) to \(Y\).
+
+\begin{defi}[Bipartite graph]
+  A graph \(G\) is \emph{bipartite} (with bipartition \((X,Y)\)) if \(V(G)\) can be partitioned as \(X\cup Y\) in such a way that if \(e\in E(G)\) then \(e=xy\) for some \(x\in X, y\in Y\).
+\end{defi}
+
+Bipartite graphs have no \(\triangle\) (and indeed no cycles of odd length). In fact, the converse if true:
+
+\begin{thm}
+  A graph is bipartite if and only if it contain no odd cycles.
+\end{thm}
+
+\begin{proof}
+  Later. Or exercise if you're ambitious.
+\end{proof}
+
+\begin{question}
+  Which bipartite graph is the best?
+\end{question}
+
+Clearly want to include all possible edges from \(X\) to \(Y\).
+
+\begin{defi}[Complete bipartite graph]
+  Let \(s,t\geq 1\). The \emph{complete bipartite graph} \(K_{s,t}\) has bipartition \((X,Y)\) with \(|X| = s, |Y| = t\) and \(xy \in E(K_{s,t})\) for all \(x\in X, y\in Y\).
+\end{defi}
+
+We have
+\begin{align*}
+  |K_{s,t}| &= s+t \\
+  e(K_{s,t}) &= st
+\end{align*}
+We want to maximise \(st\) subject to \(s+t=n\), i.e. maximise \(s(n-s)\), which is a quadratic in \(s\). So the best bipartite graph is
+\[
+  K_{\floor*{\frac{n}{2}}, \ceil*{\frac{n}{2}}}.
+\]
+But what if some \emph{non-bipartite} graph is better? For example, \(G\) is not bipartite but \(\triangle \nsubseteq G\) so \(e(K_{3,2}) = 6 > 5 = e(G)\). It turns out we don't have to worry: bipartite graph always wins.
+
+\begin{thm}[Mantel's Theorem]
+  Let \(n\geq 3\). Suppose \(|G| = n, e(G) \geq \floor*{\frac{n^2}{4}}\) and \(\triangle \nsubseteq G\). Then
+  \[
+    G \cong K_{\floor*{\frac{n}{2}}, \ceil*{\frac{n}{2}}}.
+  \]
+\end{thm}
+
+\begin{proof}
+  Proceed by induction on \(n\): if \(n=3\), there is only one possibility: \(G = K_{2,1}\). For \(n>3\), first remove edges from \(G\) if necessary to get \(H\) with \(|H| = n, e(H) = \floor*{\frac{n^2}{4}}\). Clearly \(\triangle \nsubseteq H\). Let \(v\in H\) with \(d(v) = \delta(H)\) and let \(K = H-v\). In other words, \(H\) with vertex \(v\) and all edges including \(v\) removed. Now \(|K| = n-1, \triangle \nsubseteq K\) and \(e(K) = \floor*{\frac{n^2}{4}} - \delta(H)\).
+
+  Suppose \(n\) is even. Then
+  \[
+    \delta(H) \leq \text{average degree of } H = \frac{2e(H)}{|H|} = \frac{n^2/2}{n} = \frac{n}{2}.
+  \]
+  Hence \(e(K) \geq \frac{n^2}{4} - \frac{n}{2} = \frac{(n-1)^2}{4}-\frac{1}{4} = \floor*{\frac{(n-1)^2}{4}}\).
+
+  Similarly if \(n\) is odd, also get \(e(K) \geq \floor*{\frac{(n-1)^2}{4}}\). Hence by induction hypothesis
+  \[
+    K \cong K_{\frac{n-1}{2},\frac{n-1}{2}}
+  \]
+
+  Also \(d(v) = e(H) - e(K)\) so if \(n\) is even
+  \[
+    d(v) = \frac{n^2}{4} - \frac{n^2-2n}{4} = \frac{n}{2}.
+  \]
+  \(H\) is formed by adding a vertex \(v\) to \(K \cong K_{\frac{n}{2},\frac{n-2}{2}}\), and joining \(v\) to \(\frac{n}{2}\) vertices of \(K_1\) without creating a \(\triangle\). If \(K\) has biparition \((X,Y)\), \(v\) cannot be joined both to vertex in \(X\) and vertex in \(Y\) so \(v\) must be joined to all vertices in larger of \(X\) and \(Y\). Thus \(H \cong K_{\floor*{\frac{n}{2}},\ceil*{\frac{n}{2}}}\) (and similar if \(n\) is odd).
+
+  We recover \(G\) by adding edges to \(H\) without making a \(\triangle\). But any new edge creates a \(\triangle\). So \(G \cong H\).
+\end{proof}
+
+Hence if \(|G|=n, e(G) > floor \frac{n^2}{4}\) then \(G\) contains a \(\triangle\). Therefore \(\exx(n, \triangle) = \floor*{\frac{n^2}{4}}\).
+\end{document}
