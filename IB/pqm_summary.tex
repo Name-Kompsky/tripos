@@ -1,0 +1,165 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Principle for Quantum Mechanics Summary}
+
+\input{header}
+
+\renewcommand*{\H}{\mathcal{H}}
+\renewcommand*{\p}{\partial}
+
+\theoremstyle{definition}
+\newtheorem*{postulate}{Postulate}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+\begin{defi}[Hilbert space]
+  A complete inner product space.
+\end{defi}
+
+\begin{defi}[Linear Operator]
+  A linear map \(A: \H\to \H\).
+\end{defi}
+
+\begin{defi}[(Continuous) dual space]
+  \(\H^* = \mathcal{B}(\H,\C)\).
+\end{defi}
+
+Note \(\H \cong \H^*\).
+
+\begin{notation}[Dirac notation]
+  Write an element of \(\H\) as \(|\psi\rangle\), a \emph{ket} and an element of \(\H^*\) as \(\langle \phi|\), a \emph{bra}.
+\end{notation}
+
+Given an orthonormal basis \(\{|e_1\rangle,\dots,|e_n\rangle\}\) of \(\H\), any vector can be expressed as
+\[
+  |u\rangle = \sum_{i=1}^{n}u_i|e_i\rangle.
+\]
+The inner product is then
+\[
+  \langle v| u\rangle = \sum_{i,j=1}^{n}\conj v_j u_i \langle e_j|e_i\rangle = \sum_{i=0}^{n}\conj v_a u_a.
+\]
+If the basis elements are indexed by a continuous family then we simply change summation above to integration:
+\[
+  |\psi\rangle = \int_{ }^{ } \psi(a) |a\rangle da 
+\]
+where an basis element \(|a\rangle\) is normalised using Dirac \(\delta\)-function: \(\langle a'|a\rangle = \delta(a'-a)\).
+
+For example, if we use the \emph{position basis} \(\{|x\rangle\}_{x\in\R}\) then a state can be expressed as
+\[
+  |\psi\rangle = \int_{\R}^{ } \psi(x')|x'\rangle dx'
+\]
+where
+\[
+  \psi(x) = \langle x| \psi\rangle 
+\]
+is the \emph{position space wavefunction}.
+
+\begin{defi}[Commutator]
+  Given two operators \(A\) and \(B\), the \emph{commutator} \([A,B] = AB- BA\) measures the degree to which they are incompatible.
+\end{defi}
+
+\begin{defi}
+  \(|\psi\rangle \in \H\) is an \emph{eigenstate} of an operator \(A\) if \(A|\psi\rangle = a_\psi|\psi\rangle\). \(a_\psi\in\C\) is the \emph{eigenvalue}.
+
+  The set of all eigenvalues of \(A\) is called the \emph{spectrum} of \(A\).
+
+  The number of linearly independent eigenstates having the same eigenvalue is call the \emph{degeneracy} of the eigenvalue.
+\end{defi}
+
+\begin{defi}[Adjoint]
+  The adjoint \(A^\dag\) of an operator \(A\) is such that
+  \[
+    \langle\phi|A^\dag|\psi\rangle = \conj{\langle\psi|A|\phi\rangle} 
+  \] 
+  for all \(|\phi\rangle, |\psi\rangle \in \H\).
+\end{defi}
+
+\begin{defi}[Self-adjoint operator]
+  If \(Q = Q^\dag\) then \(Q\) is \emph{self-adjoint}, or \emph{Hermitian}.
+\end{defi}
+
+For a self-adjoint operator \(Q\), the set of eigenstates \(\{|n\rangle\}\) with eigenvales \(\{q_n\}\) form an orthonormal basis so we can write
+\[
+  Q = \sum_{n}^{ }q_n |n\rangle \langle n|.
+\]
+From this we can define functions of operators:
+\[
+  f(Q) := \sum_{n}^{ }f(q_n) |n\rangle \langle n|.
+\]
+
+\begin{postulate}[Postulates of Quantum Mechanics]
+  \blindtext
+\end{postulate}
+
+\begin{prop}[Generalised uncertainty relation]
+  Given two Hermitian operators \(A\) and \(B\),
+  \[
+    (\Delta A)_\psi^2(\Delta B)_\psi^2 \geq \frac{1}{4}|\langle[A,B]\rangle_\psi|^2
+  \]
+\end{prop}
+
+\begin{proof}
+  For any Hermtian operators \(A\) and \(B\), for all \(\lambda \in \R\), by positive-definiteness of inner-product we have
+  \[
+    0 \leq \|(A+i\lambda B)|\psi\rangle\| = \langle A^2\rangle_\psi + \lambda\langle[A,B]\rangle_\psi + \lambda^2\langle B^2\rangle_\psi.
+  \]
+  Treat this as a quadratic in \(\lambda\) and notice the discriminant to get
+  \[
+    \langle A^2\rangle_\psi \langle B^2\rangle_\psi \geq \frac{1}{4}|\langle[A,B]\rangle_\psi|^2.
+  \]
+  Finally use the fact that \(A'=A-\langle A\rangle_\psi\) is also Hermitian and that \(\langle A'^2\rangle_\psi = (\Delta A)_\psi^2\).
+\end{proof}
+
+\section{Transformations and Symmetries}
+
+A transformation is an operator \(U:\H\to \H, |\psi\rangle\mapsto |\psi'\rangle = U|\psi\rangle\).
+
+\begin{prop}
+  \(U\) as above is unitary, i.e. \(U^{-1} = U^\dag\).
+\end{prop}
+
+\begin{proof}
+  After the tranformation we are expected to still find the state somewhere. Thus
+  \[
+    1 = \langle \psi|\psi\rangle = \langle \psi'|\psi' \rangle = \langle \psi |U^\dag U|\psi \rangle \text{ for all } |\psi\rangle \in \H.
+  \]
+
+  polarisation identity
+\end{proof}
+
+An operator gives a homomorphism from the group of all such transformations to the group of operators of all such transformations, i.e.\(U: g\mapsto U(g)\) and \(U(g_2)\compose U(g_1) = U(g_2\cdot g_2\).
+
+\begin{defi}[Generator]
+  Given a \emph{continuous} transformation \(U(\theta)\), write
+  \[
+    U(\delta\theta) = 1 - i \delta\theta T + \bigO(\delta\theta^2)\footnotemark
+  \]
+  \footnotetext{The \(-i\) is a historical convention.}
+\end{defi}
+
+By unitarity of \(U\), \(T=T^\dag\). A transformation can be seen as the limit of
+\[
+  U(\theta) = \lim_{N\to \infty}\Big( 1- i \frac{\theta}{N}T \Big)^N = e^{-i\theta T}.
+\]
+It follows that
+\[
+  i \frac{\partial |\psi\rangle}{\partial \theta} = T |\psi\rangle.
+\]
+
+Instead of view a transformation as ``changing'' the state, we can also see it as ``changing'' the operator by \emph{similarity transform}:
+\[
+  A \mapsto A' = U^\dag A U = U^{-1} A U.
+\]
+Note that
+\[
+  [A',B'] = U^{-1}[A,B]U
+\]
+and for a continuous transformation,
+\[
+  U^{-1}(\delta\theta) A U(\delta\theta) = A + i\delta\theta [T,A] + \bigO(\delta\theta^2)
+\]
+so the rate of change of states are given by the generator while the rate of change of operators is given by the commutator of the generator with the operator.
+\end{document}
