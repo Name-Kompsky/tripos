@@ -20,6 +20,7 @@
 \usepackage{unicode-math}
 \let\mathbb\mathbbalt%reset to original \mathbb
 
+
 %to address the problem that Latin modern doesn't have unicode support for setminus
 %https://tex.stackexchange.com/a/55205/26707
 \AtBeginDocument{\renewcommand{\setminus}{\mathbin{\backslash}}}
@@ -47,6 +48,7 @@
 \newcommand{\sectionbreak}{\clearpage} % clear page after each section
 \usepackage[perpage]{footmisc}
 \usepackage{blindtext}
+%\usepackage{braket}
 \usepackage{hyperref}
 
 % https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
@@ -124,9 +126,18 @@
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
-\newcommand*{\bra}{\langle}
-\newcommand*{\ket}{\rangle}
-\DeclarePairedDelimiter\bk{\bra}{\ket}
+
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+
+
+
+%Dirac notation
+%TODO: rewrite for variable number of arguments
+\DeclarePairedDelimiterX{\braket}[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+\DeclarePairedDelimiterX{\braketthree}[3]{\langle}{\rangle}{#1 \delimsize\vert #2 \delimsize\vert #3}
+
+\DeclarePairedDelimiter{\bra}{\langle}{\lvert}
+\DeclarePairedDelimiter{\ket}{\rvert}{\rangle}
 
 
 
@@ -137,7 +148,7 @@
 
 %vector, i.e. mathbf
 %https://tex.stackexchange.com/a/45746/26707
-\newcommand*\V[1]{\ensuremath{\mathbf{#1}}}
+\newcommand*\V[1]{\ensuremath{\symbf{#1}}}
 %closure
 \newcommand*{\cl}[1]{\overline{#1}}
 %conjugate
