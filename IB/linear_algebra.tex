@@ -752,7 +752,7 @@ Throughout this section, let \(V\) and \(W\) be \(\F\)-vector spaces and suppose
   \begin{tabular}{|c||c|c|}
     \hline
     Vector space & \(V\) & \(W\) \\ \hline
-    Basis 1 & \(B = \{v_1,\dots,\v_n\}\) & \(C = \{w_1,\dots,w_m\}\) \\ \hline
+    Basis 1 & \(B = \{v_1,\dots,v_n\}\) & \(C = \{w_1,\dots,w_m\}\) \\ \hline
     Basis 2 & \(B' = \{v_1',\dots,v_n'\}\) & \(C' = \{w_1',\dots,w_m'\}\) \\ \hline
   \end{tabular}
 \end{table}
@@ -832,7 +832,7 @@ Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is inve
 \end{note}
 
 \begin{proof}
-  Fix \(r\) such that \(\dim N(\alpha) = n-r\). Fix a basis for \(N(\alpha)\), say \(v_{r+1},v_{r+1},\dots,v_n\). Extend this to a basis \(B\) for \(V\), say \(v_1,\dots,v_r,v_{r+1},\dots,v_n\). Now \(\alpha(v_1),\dots,\alpha(v_r)\) is a basis for \(\im(\alpha)\):
+  Fix \(r\) such that \(\dim N(\alpha) = n-r\). Fix a basis for \(N(\alpha)\), say \(v_{r+1},\dots,v_n\). Extend this to a basis \(B\) for \(V\), say \(v_1,\dots,v_r,v_{r+1},\dots,v_n\). Now \(\alpha(v_1),\dots,\alpha(v_r)\) is a basis for \(\im(\alpha)\):
   \begin{itemize}
   \item span: \((\alpha(v_1),\dots, \alpha(v_n)\) certainly span \(\im(\alpha)\). Since \(v_{r+1},\dot,v_n \in \ker \alpha\), \(\alpha(v_{r+1}),\dots,\alpha(v_n) = 0\) so we can remove them from the spanning set.
   \item linear independence: assume \(\sum_{i=1}^{n}\lambda_i \alpha(v_i) =\V 0 \). Then \(\alpha \big(\sum_{i=1}^n\lambda_iv_i\big) =\V0\). This implies that
@@ -895,6 +895,7 @@ Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is inve
 \end{proof}
 
 \begin{thm}
+  \label{thm:upper corner matrix}
   \[
     r(A) = r(A^T).
   \]
@@ -923,5 +924,132 @@ Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is inve
       0 & 0
     \end{pmatrix}
   \]
+\end{proof}
+
+Note a special case for change of basis: \(V=W\), \(C=B\), the other basis is \(B'\). \(P\), the change-of-basis matrix from \(B'\) to \(B\), given a mpar \(\alpha \in L(V,V)\)
+\[
+  [\alpha]_{B',B'} = P^{-1}[\alpha]_{B,B}P
+\]
+
+\begin{defi}[Similar matrices]
+  Given \(A, A' \in M_{n,n}(\F)\), \(A\) and \(A'\) are \emph{similar}, or \emph{conjugate} if
+  \[
+    A' = P^{-1}AP
+  \]
+  for some invertible \(P\).
+\end{defi}
+
+\subsubsection{Elementary Matrices and Operations}
+
+\begin{defi}[Elementary column operation]
+  \emph{Elementary column operation} on a \(m\times n\) matrix \(A\) is one of the following operations:
+  \begin{enumerate}
+  \item swap column \(i\) and \(j\) (wlog \(i\neq j\)),
+  \item scale column \(i\) by \(\lambda\)  (\(\lambda\neq0\)),
+  \item add \(\lambda\) times column \(i\) to column \(j\) (\(i\neq j,\lambda\neq 0\)).
+  \end{enumerate}
+\end{defi}
+
+\begin{defi}[Elementary row operation]
+  Defined analoguously, replacing ``column'' by ``row''.
+\end{defi}
+
+\begin{note}
+  All of these operations are invertible.
+\end{note}
+
+\begin{defi}[Elementary matrix]
+The elementary row (column, respectively) have corresponding elementary matrices: th effect of performing these column (row, respectively) operations on \(I_n\) (\((I_m\), respectively):
+\begin{enumerate}
+\item
+  \[
+    \begin{pmatrix}
+      1 & 0 & \cdots & 0 & 0 & 0\\
+      \vdots & \ddots & & & & \vdots\\
+      & & 1 & & \cdots & 0\\
+      0 & \cdots & 0 & \ddots & 0 & 0 \\
+      & & 0 & 0 & 1 & &\\
+      \vdots & && \ddots& &\\
+      0 & & \cdots & & \cdots & 0
+    \end{pmatrix}
+  \]
+\item
+  \[
+    \begin{pmatrix}
+      1 & 0 & 0 & 0 \\
+      \vdots & \ddots & & \vdots \\
+      0 & \cdots & \lambda & 0 \\
+      \vdots & & & \vdots \\
+      0 & \cdots & 0 & 1
+    \end{pmatrix}
+  \]
+\item \(I_n+\lambda E_{ij}\) where \(E_{ij}\) is the matrix with \(1\) on \(ij\)th entry and \(0\) elsewhere.
+\end{enumerate}
+\end{defi}
+
+An elementary column (row, respectively) operation on \(A\in M_{m,n}(\F)\) can be performed by multiplying \(A\) by these corresponding elementary matrices on the right (left respectively).
+
+\begin{eg}
+  \[
+    \begin{pmatrix}
+      1 & 2 \\ 3 & 4
+    \end{pmatrix}
+    \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}
+  \]
+\end{eg}
+
+Given the elementary matrices, we can give a constructive proof that any \(m\times n\) matrix is equivalent to \(\begin{pmatrix} I_r & 0 \\ 0 & 0 \end{pmatrix}\) for some \(r\):
+
+\begin{proof}[Constructive proof of Theorem~\ref{thm:upper corner matrix}]
+  Start with \(A\). If all entries of \(A\) are zero then done. If not the some \(a_{ij} = \lambda \neq 0\). Perform the following:
+  \begin{enumerate}
+  \item swap row \(1\) and \(i\), swap column \(1\) and \(j\) so \(\lambda\) is in position \((1,1)\),
+  \item multiply column \(1\) by \(1/\lambda\) to get \(1\) in position \((1,1)\),
+  \item add \((-a_{1,2})\) times column \(1\) to column \(2\). Do so for the other entries in row \(1\). Also use row operations to clear out all other entries in column \(1\). Now the matrix is in the form
+    \[
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & A'
+      \end{pmatrix}
+    \]
+  \item iterate for \(A'\). Stop when the new \(A' = 0\).
+  \end{enumerate}
+  The result of these operations is
+  \[
+    \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}
+    =\underbrace{E'_{\ell}E'_{\ell-1}\dots E'_1}_{Q^{-1}} A \underbrace{E_1E_2\dots E_{\ell-1}E_\ell}_{P}.
+  \]
+  As elementary operations are invertible, the elementary matrices are invertible so
+  \[
+    Q^{-1}AP = 
+     \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}
+  \]
+\end{proof}
+
+Some variations of the algorithm:
+\begin{enumerate}
+\item If you only use elementary row operations, we can get the \emph{row echelon form} of a matrix:
+  \[
+    \begin{pmatrix}
+      a & b & \dots & c \\
+      0 & d & \dots & e \\
+      \vdots & & \ddots & \vdots \\
+      0 & 0 & \dots & f 
+    \end{pmatrix}
+  \]
+\end{enumerate}
+
+\begin{lem}
+  If \(A\) is an \(n\times n\) invertible matrix then we can obtain \(I_n\) by using only elementary row/column operations.
+\end{lem}
+
+\begin{proof}
+  We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ 0 & * \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{j,k+1}\neq 0\) (as otherwise we would have a column of zeros, contradicting \(A\) is invertible).
 \end{proof}
 \end{document}

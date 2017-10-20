@@ -6,7 +6,6 @@
 \input{header}
 
 \renewcommand*\L{\mathcal{L}}
-\renewcommand*\p{\partial}
 
 \begin{document}
 \maketitle
@@ -227,7 +226,8 @@ Consider
 \begin{align*}
   F(x) & = \int_{-L}^x f(u) du \\
        &= \frac{a_0(x+L)}{2} + \sum_{n=1}^\infty \frac{a_n L}{n\pi}\sin\frac{n\pi x}{L} + \sum_{n=1}^\infty \frac{b_n L}{n\pi} \Big[(-1)^n - \cos\frac{n\pi x}{L} \Big] \\
-       &= \frac{a_0 L}{2} + L \sum_{n=1}^\infty (-1)^n \frac{b_n}{n\pi} - L \sum_{n=1}^\infty \frac{b_n}{n\pi} \cos\frac{n\pi x}{L} + L \sum_{n=1}^\infty \frac{a_n-(-1)^n a_0}{n\pi}\sin\frac{n\pi x}{L}
+       &= \frac{a_0 L}{2} + L \sum_{n=1}^\infty (-1)^n \frac{b_n}{n\pi} - L \sum_{n=1}^\infty \frac{b_n}{n\pi} \cos\frac{n\pi x}{L} \\
+       &+ L \sum_{n=1}^\infty \frac{a_n-(-1)^n a_0}{n\pi}\sin\frac{n\pi x}{L}
 \end{align*}
 
 If $a_n, b_n$ are Fourier coefficients, then series involving $\frac{a_n}{n}, \frac{b_n}{n}$ (multiplied by sine or cosine) must also converge, so they are part of a Fourier series. Fourier series of $f(x)$ exists so $b_n$ is at least of $O(\frac{1}{n})$ as $n\to\infty$. Thus $\frac{b_n}{n}$ is at least of order $O(\frac{1}{n^2})$ as $n\to \infty$ and so by comparison test with $\sum \frac{M}{n^2}$ the second term converges, so $F(x)$ has a Fourier series.
@@ -865,5 +865,129 @@ which is naturally a Fourier sine series. The \(A_n\) and \(B_n\) are determined
   & \frac{\p y(x,0)}{\p t} = \psi(x) = \sum_{n=1}^{\infty} \frac{n\pi cB_n}{L} \sin \frac{n\pi x}{L} \\
   \Rightarrow & B_n = \frac{2}{n\pi c} \int_{0}^{L} \psi(x) \sin \frac{n\pi x}{L} dx
 \end{align*}
+
+\subsection{Algorithm for Seperation of Variables}
+
+The algorithm for seperation of variables is clear:
+\begin{enumerate}
+\item seperate the variables: write \(y(x,t)=X(x)T(t)\),
+\item determine the admissable form for eigenvalues and associated eigenfunctions from boundary conditions (i.e. conditions on \(x\)),
+\item determine the form of the other seperated function using the eigenvalues and find a particular set of solution \(y_n\),
+\item sum over all \(y_n\) to form a series representation,
+\item determine the coefficients from the initial condititions (i.e. conditions on \(t\)).
+\end{enumerate}
+
+\begin{ex}
+  Determine the full solution for a plucked string
+  \[
+    \psi(x) =0, \phi(z) =
+    \begin{cases}
+      \phi_0\frac{x}{d} & 0 \leq x \leq d \\
+      \phi_0\frac{L-x}{L-d} & d \leq x \leq L
+    \end{cases}
+  \]
+\end{ex}
+
+\section{Bessel's Equation}
+
+\subsection{Derivation of Bessel's Equation}
+
+\label{subsec:derivation of Bessel}
+
+Consider the wave equation on the unit disc
+\[
+  \frac{\partial^2 u}{\partial x^2} = c^2 \frac{\partial^2 u}{\partial x^2} + c^2 \frac{\partial^2 u}{\partial y^2} = c^2\nabla^2u, \, x^2+y^2\leq 1
+\]
+As usual, use seperation of varaibles:
+\begin{enumerate}%remove
+\item \(u(x,y,t) = V(x,y)T(t)\), \(\ddot T = -\lambda c^2T, \nabla^2V = -\lambda V\) with \(\lambda \geq 0\), since we are in the unit disc,
+  \[
+    V(x,y) = R(r) \Theta(\theta)
+  \]
+  so
+  \begin{align*}
+    \frac{\partial^2 V}{\partial r^2} + \frac{1}{r^2} \frac{\partial^2 V}{\partial \theta^2} + \frac{1}{r}\frac{\partial V}{\partial r} + \lambda V &= 0 \\
+    R''\Theta + \frac{1}{r^2} R\Theta'' + \frac{1}{r}R'\Theta+\lambda R\theta &= 0 \\
+    r^2R''\Theta+rR'\Theta+\lambda r^2R\Theta &= -R\Theta''
+  \end{align*}
+  Divide by \(R\Theta\), we get
+  \[
+    f_2(r) = f_1(\theta) = \mu
+  \]
+  Due to circular gemoetry \(\Theta\) must be periodic with period \(2\pi\). Thus \(\mu = m^2\), an integer. This implies that
+  \[
+    r^2R'' + rR' + (\lambda r^2-m^2)R = 0.
+  \]
+  Now dividing across by \(-r\) to put this in Sturm-Liouville form:
+  \[
+    -\frac{d}{dr}\big( r \frac{d R}{d r} \big) + \frac{m^2}{r}R = \lambda r R, \, r\leq 1
+  \]
+  which has non-trivial weigtht. Furthermore let \(\zeta = \sqrt\lambda r\) this can be reposed as
+  \[
+    \zeta^2 \frac{d^2 R}{d\zeta^2} + \zeta \frac{d R}{d \zeta} + (\zeta^2-m^2)R = 0.
+  \]
+  This is \emph{Bessel's equation}.
+\end{enumerate}
+
+Solution to this equation are called \emph{Bessel functions of the first kind and second kind}.
+
+\subsection{Properties of Bessel Functions}
+
+\begin{enumerate}
+\item \(J_m(\zeta)\), the Bessel function of the frist kind of order \(m\) which is regular at the origin (and is \(0\) there for \(m>0\)) \(m=0\) for axis symmetric solution (i.e. solutions independent of \(\Theta\)).
+\item \(Y_m(\zeta)\) the Bessel function of the second kind which are singular at the origin.\footnote{Note \(Y_m(\zeta)\) here is \emph{not} orthonormal.} Sometimes called Neumann function \(N_m\) or Weber function.
+  \(J_\nu(\zeta)\) has a series expansion (\(\nu\) not an integer in general):
+  \[
+    J_\nu(\zeta) = \Big( \frac{\zeta}{2} \Big)^\nu \sum_{n=0}^{\infty} \frac{(-\zeta^2/4)^k}{k!\Gamma(\nu+k+1)}
+  \]
+  where \(\Gamma\) is the Gamma function.
+
+  \(J_\nu\) and \(J_{-\nu}\) are linearly independent for non-integer \(\nu\). \(Y_\nu(\zeta)\) is defined by
+  \[
+    \frac{J_\nu(\zeta)\cos\nu\pi - J_{-\nu}(\zeta)}{\sin\nu\pi}.
+  \]
+
+  For integer \(\nu-n\):
+  %To be completed
+  \begin{align*}
+    J_{-m}(\zeta) &= (-1)^m J_m(\zeta) \\
+    J_{-m}(\zeta) &= (-1
+  \end{align*}
+  and
+  \iffalse
+  \begin{align*}
+    Y_0(\zeta) &\approx \Big( \frac{2}{\pi} \Big) \log \zeta, \, J_0\approx 1 \text{ as } \zeta\to 0 \\
+    Y_m(\zeta) &\approx - \frac{1}{\pi} \Big \frac{2}{\pi} \Big)
+  \end{align*}
+  \fi
+
+\item As \(\zeta\to \infty\),\(J_\nu(\zeta) = \Big( \frac{2}{\pi\zeta} \Big)^{1/2} \cos(\zeta - \frac{i\pi}{2} - \frac{\pi}{4} ) + \bigO(\zeta^{-3/2})\) and \(Y_\nu(\zeta) = \Big( \frac{2}{\pi\zeta} \Big)^{1/2} \sin(\zeta - \frac{i\pi}{2} - \frac{\pi}{4} )\)
+\end{enumerate}
+
+\subsection{Application to a Simple Drum Problem}
+
+From the problem in Section~\ref{subsec:derivation of Bessel} it is clear \(J_m(\sqrt\lambda_{mn}r\) and \(Y_m(\sqrt\lambda_{mn}r)\) are appropriate eigenfunctions for \(R(r)\) in Bessel's equation.
+
+To solve a problem we need boundary conditions. Let use consider
+\[
+  \frac{\partial^2 u}{\partial t^2} = c^2\nabla^2u \text{ on } r\leq1
+\]
+such that \(u=0\) when \(r=1\) and \(u\) is finite when \(r=0\). SO solution cannot \(Y_m\)!
+
+SO eigenvalues \(\lambda_{mn}\) are solutions of \(J_m(\sqrt\lambda_{mn})=0\) there is clearly a countably infinite number such that
+\[
+  0 < \lambda_{m1} < \lambda_{m2} < \dots < \lambda_{mn} = j_{mn}^2
+\]
+so the general form for the spherically varying part:
+\[
+  V(r_1\theta) = V_{mn}(r,\theta) = J_n(j_{mn}r) (A_n\cos n\theta + B_n \sin n\theta)
+\]
+so we can see that the general solution is
+\begin{align*}
+  u(r,\theta,t) &= \sum_{n=1}^{\infty}J_0(j_{0n}r) (A_{0n}\cos j_{0n}ct + B_{0n}\sin j_{0n}ct) \\
+                &+ \sum_{m=1}^{\infty} \sum_{n=1}^{\infty} J_m(j_{mn}r) (A_{mn}\cos m\theta + B_{mn} \sin m\theta ) \cos j_{mn}ct \\
+                &+ \sum_{m=1}^{\infty} \sum_{n=1}^{\infty}J_m(j_{mn}r) (A_{mn}\cos m\theta + B_{mn} \sin m\theta ) \sin j_{mn}ct
+\end{align*}
+Orthogonality condition exists for Bessel's equations and all coefficients can be determined.
 
 \end{document}

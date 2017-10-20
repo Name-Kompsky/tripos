@@ -26,7 +26,7 @@ In Analysis I, the primary space we are interested in is \(\R\) and we studied n
 
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{|c|c|c|}
+  \begin{tabular}{|c|p{4cm}|p{4cm}|}
     \hline
     & $\mathbb{R}^m$ & Function space \\ \hline
     Continuity \& convergence & $\checkmark$ & $\checkmark$ \\ \hline
@@ -112,7 +112,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \]
   Then $\|f_n\|_1=\int_0^1|f_n(x)| dx=\frac{1}{2n}\to 0$ so $(f_n)\to 0$ w.r.t. $\|\cdot\|_1$.
 
-  But $\|f_n\|_\infty=1$ so $(\|f_n\|_\infty) \nto 0$ i.e. $(f_n) \nto 0$ w.r.t. $\|\cdot\|_\infty$.
+  But $\|f_n\|_\infty=1$ so $(\|f_n\|_\infty) \nto 0$ i.e.\ $(f_n) \nto 0$ w.r.t. $\|\cdot\|_\infty$.
 \end{eg}
 
 \begin{rmk}
@@ -144,7 +144,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
     \[
       0 \leq |\|\V v_n\| - \|\V v\|| \leq \|\V v_n - \V v\|
     \]
-    by Lemma~\ref{lem:alternate triangle}. So $(|\|\V v_n - \V v\||) \to 0$ by squeeze rule, i.e. $\|\V v_n\| \to \|\V v\|$.
+    by Lemma~\ref{lem:alternate triangle}. So $(|\|\V v_n - \V v\||) \to 0$ by squeeze rule, i.e.\ $\|\V v_n\| \to \|\V v\|$.
   \end{enumerate}
 \end{eg}
 
@@ -212,7 +212,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
 \end{prop}
 
 \begin{proof}
-  Suppose \eqref{eqn:alternate continuity} holds. Given $(v_n)\to v$, must show $(f(v_n))\to f(v)$. Given $\varepsilon>0$, pick $\delta$ such that $(f(B_\delta(v))\subseteq B_\epsilon(f(v))$. Since $(v_n)\to (v)$, exists $N$ such that whenever $n>N$, $\|v_n - v\| < \delta$, i.e. $v_n \in B_\delta(v)$, so $f(v_n) \in B_\epsilon(f(v))$. In other words, whenever $n>N$, $\|f(v_n)-f(v)\| <\varepsilon$.
+  Suppose \eqref{eqn:alternate continuity} holds. Given $(v_n)\to v$, must show $(f(v_n))\to f(v)$. Given $\varepsilon>0$, pick $\delta$ such that $(f(B_\delta(v))\subseteq B_\epsilon(f(v))$. Since $(v_n)\to (v)$, exists $N$ such that whenever $n>N$, $\|v_n - v\| < \delta$, i.e.\ $v_n \in B_\delta(v)$, so $f(v_n) \in B_\epsilon(f(v))$. In other words, whenever $n>N$, $\|f(v_n)-f(v)\| <\varepsilon$.
 
   Suppose \eqref{eqn:alternate continuity} does not hold. Then exists some $v \in V$ and $\varepsilon>0$ such that there is no $\delta>0$ with $f(B_\delta(v)) \subseteq B_\varepsilon(f(v))$. In particular $f(B_{1/n}(v)) \nsubseteq B_\varepsilon(f(v))$ for all $n$. Pick $v_n \in B_{1/n}(v)$ with $f(v_n) \notin B_\varepsilon(f(v))$. Then $(v_n)\to v$, but $(f(v_n)) \nto f(v)$, since $\|f(v_n) - f(v) \| \geq \varepsilon$ for all $n$. $f$ is not continuous.
 \end{proof}
@@ -273,7 +273,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
 \end{prop}
 
 \begin{proof}
-  Suppose \(C\) is closed and \((v_n)\to v \notin C\). Then \(v\in V\setminus C\) which is open, so \(\exists \varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\), i.e. \(B_\varepsilon(v) \cap C =\emptyset\). \((v_n)\to v\) so \(\exists N\) such that \(v_n\in B_\varepsilon(v)\) for all \(n>N\). Thus \(v_n \notin C\) for all \(n>N\). In other word, if \((v_n)\to v\), all but finitely many of \(v_n \notin C\).
+  Suppose \(C\) is closed and \((v_n)\to v \notin C\). Then \(v\in V\setminus C\) which is open, so \(\exists \varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\), i.e.\ \(B_\varepsilon(v) \cap C =\emptyset\). \((v_n)\to v\) so \(\exists N\) such that \(v_n\in B_\varepsilon(v)\) for all \(n>N\). Thus \(v_n \notin C\) for all \(n>N\). In other word, if \((v_n)\to v\), all but finitely many of \(v_n \notin C\).
 
   Conversely, suppose \(C\) is not closed. Then \(V\setminus C\) is not open so \(\exists c \in V\setminus C\) such that there is no \(\varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\). In other words, \(B_\varepsilon(v) \cap V \neq \emptyset\) for all \(\varepsilon>0\). Pick \(v_n\in B_{1/n}(v)\cap C\) for all \(n>0\). Then \(\|v_n-v\|< 1/n\) so \((v_n)\to v\). All \(v_n \in C\) but \(v\in V\setminus C\).
 \end{proof}
@@ -323,7 +323,7 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
   \[
     \id_V(B_\delta(0, \|\cdot\|) \subseteq B_1(0, \|\cdot\|')
   \]
-  Given \(v \in V, v \neq 0\), exists \(K\in\R\) with \(\|Kv\| = \delta/2\) (take \(K=\frac{\delta}{2 \|v\|}\)). Then \(Kv \in B_\delta(0,\|\cdot\|) \Rightarrow Kv\in B_1(0,\|\cdot\|')\), i.e. \(\|Kv\| = \delta/2, \|Kv\|' < 1\), so \(\|Kv\|' \leq \frac{2}{\delta}\|Kv\| \Rightarrow K \|v\|' \leq \frac{2}{\delta}K \|v\|\). Let \(C = \frac{2}{\delta}\).
+  Given \(v \in V, v \neq 0\), exists \(K\in\R\) with \(\|Kv\| = \delta/2\) (take \(K=\frac{\delta}{2 \|v\|}\)). Then \(Kv \in B_\delta(0,\|\cdot\|) \Rightarrow Kv\in B_1(0,\|\cdot\|')\), i.e.\ \(\|Kv\| = \delta/2, \|Kv\|' < 1\), so \(\|Kv\|' \leq \frac{2}{\delta}\|Kv\| \Rightarrow K \|v\|' \leq \frac{2}{\delta}K \|v\|\). Let \(C = \frac{2}{\delta}\).
 \end{proof}
 
 \begin{joke}
@@ -335,7 +335,8 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
   \begin{align*}
     & \exists C>0 s.t. \forall v \in V, \frac{1}{C}\|v\| \leq \|v\|' \leq C \|v\| \\
     \Longleftrightarrow & \exists C_1,C_2 s.t. \|v\|' \leq C_1 \|v\|, \|v\| \leq C_2 \|v\|' \\
-    \Longleftrightarrow & \id_V:(V,\|\cdot\|)\to (V,\|\cdot\|') \text{ and } \id_V:(V,\|\cdot\|')\to (V,\|\cdot\|) \text{are both continuous.}
+    \Longleftrightarrow & \id_V:(V,\|\cdot\|)\to (V,\|\cdot\|') \text{ and } \id_V:(V,\|\cdot\|')\to (V,\|\cdot\|) \\
+    & \text{are both continuous.}
   \end{align*}
 \end{defi}
 
@@ -769,7 +770,11 @@ In other words, power series can be differentiated term-by-term.
   \[
     \lim_{i\to\infty} \frac{b_{i+1}}{b_i} = \lim_{i\to\infty} \frac{i+1}{i}\cdot\alpha = \alpha<1
   \]
-  so \(\sum_{i=1}^{\infty}\frac{i}{|x-c|}\alpha^i \) converges by ratio test. Since \(|i a_i(x-c)^{i-1}| \leq \frac{i}{|x-c|}\alpha^i\), \(\sum_{i=1}^{\infty}i a_i(x-c)^{i-1} \) converges by comparison test. If \(y=c\) then the convergence is obvious.
+  so \(\sum_{i=1}^{\infty}\frac{i}{|x-c|}\alpha^i \) converges by ratio test. Since
+  \[
+    |i a_i(x-c)^{i-1}| \leq \frac{i}{|x-c|}\alpha^i,
+  \]
+  \(\sum_{i=1}^{\infty}i a_i(x-c)^{i-1} \) converges by comparison test. If \(y=c\) then the convergence is obvious.
 \end{proof}
 
 \begin{proof}[Proof of proposition]
@@ -784,4 +789,97 @@ In other words, power series can be differentiated term-by-term.
   Power series solutions of ODEs are legit as long as you check the radius of convergence.
 \end{application}
 
+\section{Compactness}
+
+\subsection{Compact subsets of \(\R^n\)}
+
+Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in \(V\) and \((n_j)\) is an increasing sequence of positive integers (i.e.\ \(n_{j+1}>n_j\)) then \((v_{n_j})\) is a \emph{subsequence} of \((v_n)\).
+
+\begin{ex}
+  if \((v_n)\to v\) in \(v\) then any subsequence \((v_{n_j})\) converges to \(v\) as well.
+\end{ex}
+
+\begin{defi}[Boundedness]
+  \(A \subseteq V\) is bounded if there exists \(m\) such that \(\norm v \leq m \) for all \(v\in A\).
+\end{defi}
+
+\begin{rmk}
+  if \(\norm \cdot\) and \(\norm \cdot'\) are Lipschitz equivalent then \(A\) is bounded with respect to \(\norm \cdot\) if and only if with respect to \(\norm \cdot'\). It follows that boundedness in \(\R^n\) means with respect to any one of \(\norm \cdot_1, \norm \cdot_2, \norm \cdot_\infty\).
+\end{rmk}
+
+Recall from analysis i:
+\begin{thm}[Bolzano-Weistrass]
+  A bounded sequence in \(\R\) has a convergent subsequence.
+\end{thm}
+
+\begin{cor}[Bolzano-Weistrass for \(\R^m\)]
+  A bounded sequence in \(\R^m\) has a convergent subsequence.
+\end{cor}
+
+\begin{proof}
+  Inducton on \(m\): if \(m=1\) then done by Bolzano-Weistrass. Suppose it holds for \(\R^{m-1}\) and let \((v_n)\) be a bounded sequence in \(\R^m\). Write \(v_n = (v_{n,1},\dots,v_{n,n}) = (w_n,v_{n,m})\) for some \(w_n\in \R^{m-1}\). \(\norm{w_n}\) and \(|v_{n,m}| \leq \norm{v_n}\) so \((v_n)\) is bounded implies that \((w_n)\) and \((v_{n,m})\) are bounded. By induction \((w_n)\) has a subsequence \((w_{n_j}) \to w \in \R^{m-1}\). Now consider \((v_{n_j,m})\). This is a bounded sequence in \(\R\) so by Bolzano-Weistrass there is a subsequence \((v_{n_{j_k},m}) \to v \in\R\). By Exercise \((w_{n_{j_k}}) \to w\) so
+  \[
+    (v_{n_{j_k}}) = ((w_{n_{j_k}},v_{n_{j_k},m})) \to (w, v) \in \R^m.
+  \]
+\end{proof}
+
+\begin{defi}[Sequential compactness]
+  \(C \subseteq V\) is \emph{sequenctially compact} if any sequence \((v_n)\) in \(C\) has a convergent subsequence \((v_{n_j}) \to v \in C\).
+\end{defi}
+
+\begin{rmk}
+  There is another (topological) definition of compactness using open covers. For metric spaces, in particular subspaces of normed spaces, these two are equivalent.
+\end{rmk}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\R\) is not compact as \((n)\) has no convergent subsequence.
+  \item \((0,1]\) is not compactas \((1/n) \to 0\) but \(0 \notin A\).
+  \end{enumerate}
+\end{eg}
+
+\begin{thm}[Heine-Borel]
+  \(A \subseteq \R^m\) is compact if and only if \(A\) is closed and bounded.
+\end{thm}
+
+\begin{proof}
+  \(\Leftarrow\): Suppose \(A\) is closed and bounded. Given a sequence \((v_n)\) with \(v_n\in A\), must find a convergent subsequence. Since \(A\) is bounded, \((v_n)\) is bounded so by Bolzano-Weistrass there is a convergent subsequence \((v_{n_j})\to v \in \R^m\). As \(A\) is closed and \(v_{n_j}\in A\), \((v_{n_j})\to v\) implies that \(v \in A\).
+
+  \(\Rightarrow\): If \(A\) is not closed or not bounded, we will find a sequence \((v_n)\) with \(v_n \in A\) with no convergent subsequence:
+  \begin{itemize}
+  \item if \(A\) is not closed, there is a sequence \((v_n)\to v\) with \(v_n \in A\) but \(v \notin A\). Suppose \((v_{n_j}) \to w\) is a convergent subsequence. Then by Exercise \((v_{n_j})\to v\). By uniqueness of limits \(v = w \notin A\).
+  \item if \(A\) is not bounded, then for each \(n > 0\) there exists \(v_n \in A\) with \(\norm{v_n} \geq n\). Consider the sequence \((v_n)\). Suppose there is a subsequence \((v_{n_j})\to v\). Then we can find \(J\) such that \(\norm{v_{n_j}-v} < 1\) for all \(j\geq J\). Pick \(K\geq \max(J,\norm v + 1)\). Then for \(j\geq K\),
+    \[
+      \norm{v_{n_j}} \leq \norm{v_{n_j}-v} + \norm v \leq 1+ \norm v \leq K \leq n_j
+    \]
+    since \(n_j \geq j \geq K\). So \(\norm{v_{n_j}} < n_j\) for \(j\geq K\), contradiction.
+  \end{itemize}
+\end{proof}
+
+\begin{eg}
+  \((V, \norm \cdot) = (C[0,1], \norm \cdot_\infty)\). Consider \(f_n(x) = \begin{cases} 1-nx & x\in[0,1/n] \\ 0 & x\geq 1/n \end{cases}\). Note if \(f(x) = \begin{cases} 1 & x=0 \\ 0 & x>0 \end{cases}\) then \((f_n) \to f\) pointwise. Claim \((f_n)\) has no convergent subsequence with respect to \(\norm \cdot_\infty\).
+
+  \begin{proof}
+    Suppose \((f_{n_j})\to g\) uniformly. Then \((f_{n_j})\to g\) pointwise. But we know from Exercise \((f_{n_j})\to f\) pointwise so \(f=g\). But \(f_n\) is continuous so \(g\) is continuous. Contradition.
+  \end{proof}
+
+  \begin{note}
+    \(f_n\in \cl B_1(0) \subseteq V\).
+  \end{note}
+\end{eg}
+
+\begin{cor}
+  \(\cl B_1(0)\) is closed and bounded in \((C[0,1], \norm \cdot_\infty)\) but is not compact.
+\end{cor}
+
+\begin{prop}
+  Suppose \(C \subseteq V\) is compact and \(f:C\to W\) is continuous then \(f(C)\) is also compact.
+\end{prop}
+
+\begin{proof}
+  Suppose \((w_n)\) is a sequence in \(f(C)\). Pick \(v_n \in C\) with \(f(v_n) = w_n\). \(C\) is compact so \((v_n)\) has a convergent subsequence \((v_{n_j})\to v \in C\). \(f\) is continuous so
+  \[
+    (w_{n_j}) = (f(v_{n_j})) \to f(v) \in f(C).
+  \]
+\end{proof}
 \end{document}
