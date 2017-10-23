@@ -896,7 +896,7 @@ The algorithm for seperation of variables is clear:
 
 Consider the wave equation on the unit disc
 \[
-  \frac{\partial^2 u}{\partial x^2} = c^2 \frac{\partial^2 u}{\partial x^2} + c^2 \frac{\partial^2 u}{\partial y^2} = c^2\nabla^2u, \, x^2+y^2\leq 1
+  \frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2} + c^2 \frac{\partial^2 u}{\partial y^2} = c^2\nabla^2u, \, x^2+y^2\leq 1
 \]
 As usual, use seperation of varaibles:
 \begin{enumerate}%remove
@@ -914,7 +914,7 @@ As usual, use seperation of varaibles:
   \[
     f_2(r) = f_1(\theta) = \mu
   \]
-  Due to circular gemoetry \(\Theta\) must be periodic with period \(2\pi\). Thus \(\mu = m^2\), an integer. This implies that
+  Due to circular gemoetry \(\Theta\) must be periodic with period \(2\pi\). Thus \(\mu = m^2\), where \(m\) is an integer. This implies that
   \[
     r^2R'' + rR' + (\lambda r^2-m^2)R = 0.
   \]
@@ -922,9 +922,9 @@ As usual, use seperation of varaibles:
   \[
     -\frac{d}{dr}\big( r \frac{d R}{d r} \big) + \frac{m^2}{r}R = \lambda r R, \, r\leq 1
   \]
-  which has non-trivial weigtht. Furthermore let \(\zeta = \sqrt\lambda r\) this can be reposed as
+  which has non-trivial weigtht. Furthermore let \(z = \sqrt\lambda r\) this can be reposed as
   \[
-    \zeta^2 \frac{d^2 R}{d\zeta^2} + \zeta \frac{d R}{d \zeta} + (\zeta^2-m^2)R = 0.
+    z^2 \frac{d^2 R}{dz^2} + z \frac{d R}{d z} + (z^2-m^2)R = 0.
   \]
   This is \emph{Bessel's equation}.
 \end{enumerate}
@@ -934,47 +934,51 @@ Solution to this equation are called \emph{Bessel functions of the first kind an
 \subsection{Properties of Bessel Functions}
 
 \begin{enumerate}
-\item \(J_m(\zeta)\), the Bessel function of the frist kind of order \(m\) which is regular at the origin (and is \(0\) there for \(m>0\)) \(m=0\) for axis symmetric solution (i.e. solutions independent of \(\Theta\)).
-\item \(Y_m(\zeta)\) the Bessel function of the second kind which are singular at the origin.\footnote{Note \(Y_m(\zeta)\) here is \emph{not} orthonormal.} Sometimes called Neumann function \(N_m\) or Weber function.
-  \(J_\nu(\zeta)\) has a series expansion (\(\nu\) not an integer in general):
+\item \(J_m(z)\), the Bessel function of the frist kind of order \(m\) which is regular at the origin (and is \(0\) there for \(m>0\)) \(m=0\) for axis symmetric solution (i.e. solutions independent of \(\Theta\)).
+\item \(Y_m(z)\) the Bessel function of the second kind which are singular at the origin.\footnote{Note \(Y_m(z)\) here is \emph{not} orthonormal.} Sometimes called Neumann function \(N_m\) or Weber function.
+\end{enumerate}
+    
+Some properities of the Bessel functions include:
+
+\begin{itemize}
+\item \(J_\nu(z)\) has a series expansion (\(\nu\) not an integer in general):
   \[
-    J_\nu(\zeta) = \Big( \frac{\zeta}{2} \Big)^\nu \sum_{n=0}^{\infty} \frac{(-\zeta^2/4)^k}{k!\Gamma(\nu+k+1)}
+    J_\nu(z) = \Big( \frac{z}{2} \Big)^\nu \sum_{n=0}^{\infty} \frac{(-z^2/4)^k}{k!\Gamma(\nu+k+1)}
   \]
   where \(\Gamma\) is the Gamma function.
 
-  \(J_\nu\) and \(J_{-\nu}\) are linearly independent for non-integer \(\nu\). \(Y_\nu(\zeta)\) is defined by
+\item \(J_\nu\) and \(J_{-\nu}\) are linearly independent for non-integer \(\nu\).
+\item \(Y_\nu(z)\) is defined by
   \[
-    \frac{J_\nu(\zeta)\cos\nu\pi - J_{-\nu}(\zeta)}{\sin\nu\pi}.
+    \frac{J_\nu(z)\cos\nu\pi - J_{-\nu}(z)}{\sin\nu\pi}.
   \]
 
-  For integer \(\nu-n\):
-  %To be completed
+\item For integer \(\nu=m\):
   \begin{align*}
-    J_{-m}(\zeta) &= (-1)^m J_m(\zeta) \\
-    J_{-m}(\zeta) &= (-1
+    J_{-m}(z) &= (-1)^m J_m(z) \\
+    Y_{-m}(z) &= (-1)^m Y_m(z) \\
+    Y_m(z) &= \lim_{\nu\to m} \frac{J_\nu(z)\cos\nu\pi - J_{-\nu}}{\sin \nu\pi}.
   \end{align*}
-  and
-  \iffalse
+\item \(Y_0(z) \approx \frac{2}{\pi} \log z, \, J_0\approx 1 \text{ as } z\to 0 \).
+\item \(Y_m(z) \approx - \frac{1}{\pi} \Big( \frac{2}{\pi} \Big)^{-m} (m-1)!,\, J_m \approx \frac{(z/2)^m}{m!} \to 0\) for \(m>0\).
+\item As \(z\to \infty\),
   \begin{align*}
-    Y_0(\zeta) &\approx \Big( \frac{2}{\pi} \Big) \log \zeta, \, J_0\approx 1 \text{ as } \zeta\to 0 \\
-    Y_m(\zeta) &\approx - \frac{1}{\pi} \Big \frac{2}{\pi} \Big)
+    J_\nu(z) &= \Big( \frac{2}{\pi z} \Big)^{1/2} \cos \Big(z - \frac{i\pi}{2} - \frac{\pi}{4} \Big) + \bigO(z^{-3/2}) \\
+    Y_\nu(z) &= \Big( \frac{2}{\pi z} \Big)^{1/2} \sin \Big(z - \frac{i\pi}{2} - \frac{\pi}{4} \Big) + \bigO(z^{-3/2})
   \end{align*}
-  \fi
-
-\item As \(\zeta\to \infty\),\(J_\nu(\zeta) = \Big( \frac{2}{\pi\zeta} \Big)^{1/2} \cos(\zeta - \frac{i\pi}{2} - \frac{\pi}{4} ) + \bigO(\zeta^{-3/2})\) and \(Y_\nu(\zeta) = \Big( \frac{2}{\pi\zeta} \Big)^{1/2} \sin(\zeta - \frac{i\pi}{2} - \frac{\pi}{4} )\)
-\end{enumerate}
+\end{itemize}
 
 \subsection{Application to a Simple Drum Problem}
 
-From the problem in Section~\ref{subsec:derivation of Bessel} it is clear \(J_m(\sqrt\lambda_{mn}r\) and \(Y_m(\sqrt\lambda_{mn}r)\) are appropriate eigenfunctions for \(R(r)\) in Bessel's equation.
+From the problem in Section~\ref{subsec:derivation of Bessel} it is clear \(J_m(\sqrt{\lambda_{mn}}r)\) and \(Y_m(\sqrt{\lambda_{mn}}r)\) are appropriate eigenfunctions for \(R(r)\) in Bessel's equation.
 
 To solve a problem we need boundary conditions. Let use consider
 \[
   \frac{\partial^2 u}{\partial t^2} = c^2\nabla^2u \text{ on } r\leq1
 \]
-such that \(u=0\) when \(r=1\) and \(u\) is finite when \(r=0\). SO solution cannot \(Y_m\)!
+such that \(u=0\) when \(r=1\) and \(u\) is finite when \(r=0\). Thus the solution cannot be \(Y_m\).
 
-SO eigenvalues \(\lambda_{mn}\) are solutions of \(J_m(\sqrt\lambda_{mn})=0\) there is clearly a countably infinite number such that
+The eigenvalues \(\lambda_{mn}\) are solutions of \(J_m(\sqrt{\lambda_{mn}})=0\) there is clearly a countably infinite number such that
 \[
   0 < \lambda_{m1} < \lambda_{m2} < \dots < \lambda_{mn} = j_{mn}^2
 \]
