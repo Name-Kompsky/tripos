@@ -992,6 +992,148 @@ so we can see that the general solution is
                 &+ \sum_{m=1}^{\infty} \sum_{n=1}^{\infty} J_m(j_{mn}r) (A_{mn}\cos m\theta + B_{mn} \sin m\theta ) \cos j_{mn}ct \\
                 &+ \sum_{m=1}^{\infty} \sum_{n=1}^{\infty}J_m(j_{mn}r) (A_{mn}\cos m\theta + B_{mn} \sin m\theta ) \sin j_{mn}ct
 \end{align*}
-Orthogonality condition exists for Bessel's equations and all coefficients can be determined.
 
+The orthogonality condition for Bessel functions is
+\[
+  \int_{0}^{1} J_k(j_{kn}r)J_k(j_{km}r)r dr = \frac{1}{2} \big(J_k'(j_{kn}) \big)^2 \delta_{mn} = \frac{1}{2} \big( J_{k+1}(j_{kn}) \big)^2 \delta_{mn}
+\]
+and so all the coefficients can be determined using orthogonality of sinces, cosines and Bessel functions.
+
+\section{Wave Property}
+
+Let us return to the Cartesian problem of wave equation
+\[
+  \frac{\partial^2 y}{\partial t^2} = c^2 \frac{\partial^2 y}{\partial x^2}, \, y(0,t) = y(L,t) = 0, \, y(x,0) = \phi(x), \, \frac{\partial y(x,0)}{\partial t} = \psi(x)
+\]
+which has general solution
+\[
+  y(x,t) = \sum_{n=1}^{\infty} \Big( a_n \cos \frac{n\pi ct}{L} + b_n \sin \frac{n\pi ct}{L} \Big) \sin \frac{n\pi x}{L}
+\]
+where
+\begin{align*}
+  a_n &= \frac{2}{L} \int_{0}^{L} \phi(x)\sin\frac{n\pi x}{L} dx \\
+  b_n &= \frac{2}{n\pi c} \int_{0}^{L} \psi(x)\sin \frac{n\pi x}{L} dx
+\end{align*}
+
+\subsection{Wave Energy}
+
+Suppose the mass per unit length is \(\mu\). The total kinetic energy is thus
+\[
+  K = \int_{0}^{L} \frac{1}{2} \mu \Big(\frac{\partial y}{\partial t} \Big)^2 dx
+\]
+The potential energy is \(T \times \text{extenstion} = T(\delta s - \delta x)\) which equals to
+\[
+  T \Bigg(\sqrt{1+ \Big( \frac{\partial y}{\partial x} \Big)^2} -1 \Bigg) \delta x.
+\]
+Thus the total potential energy is
+\begin{align*}
+  V &= T \int_{0}^{L} \sqrt{1+ \Big( \frac{\partial y}{\partial x}^2 \Big)} -1 dx \\
+    &\approx \frac{T}{2} \int_{0}^{L} \Big(\frac{\partial y}{\partial x} \Big)^2 dx
+\end{align*}
+using a binomial expansion and noting that since \(\partial y /\partial x\) is small
+\[
+  \Big(\frac{\partial y}{\partial x} \Big)^4 \ll \Big(\frac{\partial y}{\partial x} \Big)^2
+\]
+Thus the total energy is
+\[
+  E = K + V = \frac{\mu}{2} \int_{0}^{L} \Big( \frac{\partial y}{\partial t} \Big)^2 + c^2 \Big( \frac{\partial y}{\partial x} \Big)^2 dx
+\]
+The solution is
+\begin{align*}
+  \frac{\partial y}{\partial t} &= \sum_{n=1}^{\infty} \frac{n\pi c}{L} \Big( b_n \cos \frac{n\pi ct}{L} - a_n \sin \frac{n\pi ct}{L} \Big) \sin \frac{n\pi x}{L} \\
+  \frac{\partial y}{\partial x} &= \sum_{n=1}^{\infty} \frac{n\pi }{L} \Big( a_n \sin \frac{n\pi ct}{L} + b_n \cos \frac{n\pi ct}{L} \Big) \cos \frac{n\pi x}{L} \\ 
+  K &= \frac{\mu}{2} \int_{0}^{L} \sum_{n=1}^{\infty} \sum_{m=1}^{\infty} \sin \frac{n\pi x}{L } \sin \frac{m\pi x}{L } \\
+                                &\times \Big[ \frac{n\pi c}{L} \Big( b_n \cos \frac{n\pi ct}{L} - a_n \sin \frac{n\pi ct}{L} \Big) \Big] \\
+                                &\times \Big[ \frac{m\pi c}{L} \Big( b_m \cos \frac{m\pi ct}{L} - a_m \sin \frac{m\pi ct}{L} \Big) \Big] dx\\
+                                &= \frac{\mu L}{4} \sum_{n=1}^{\infty} \frac{n^2\pi^2c^2}{L^2} \Big( a_n^2 \sin^2 \frac{n\pi ct}{L} +b_n^2 \cos^2 \frac{n\pi ct}{L} \\
+                                & \: -2a_nb_n \cos \frac{n\pi ct}{L} \sin \frac{n\pi ct}{L} \Big) \\
+  V &= \frac{TL}{4} \sum_{n=1}^{\infty} \frac{n^2\pi^2}{L^2} \Big( a_n^2 \cos^2 \frac{n\pi ct}{L} + b_n^2\sin^2 \frac{n\pi ct}{L} \\
+                                & \: +2a_nb_n \sin \frac{n\pi ct}{L} \cos \frac{n\pi ct}{L} \Big)
+\end{align*}
+
+Since \(T^2 = \mu c^2\), these expression yield
+\[
+  E = \frac{\mu c^2\pi^2}{4L} \sum_{n=1}^{\infty} n^2(a_n^2+b_n^2)
+\]
+which is, surpringly (assuming you don't have trust in physicists), independent of time.
+
+The period of oscillation is \(\frac{2\pi}{\omega} = \frac{2\pi L}{\pi c} =\frac{2L}{c}\) so the average kinetic energy over a period is
+\[
+  \overline K = \frac{c}{2L} \int_{0}^{2L/c} K dt = \frac{\mu L}{4} \sum_{n=1}^{\infty} \frac{n^2\pi^2c^2}{L^2} \Big( \frac{a_n^2}{2} + \frac{b_n^2}{2} \Big) = \frac{E}{2}
+\]
+similarly
+\[
+  \overline V = \frac{c}{2L} \int_{0}^{2L/c} V dt = \frac{E}{2}
+\]
+i.e. over a period there is an equipartition between kinetic and potential energy.
+
+\subsection{Reflection and Transmission}
+
+If the medium through which the waves are travelling has different properties then the properties of the waves will change and there may be \emph{reflections} and \emph{transmissions}.
+
+Consider a string with mass per unit length
+\[
+  \mu =
+  \begin{cases}
+    \mu_- & x< 0 \\
+    \mu_+ & x>0
+  \end{cases}
+\]
+The horizontal forces between is still horizontal. Wave speed on either side of \(x=0\) is
+\[
+  c_\pm = \sqrt{\frac{\tau}{\mu_\pm}}.
+\]
+
+The incident wave
+\begin{align*}
+  w_I &= \Re \Bigg(I \exp \Big( i\omega \Big(t- \frac{x}{c_-} \Big) \Big) \Bigg) \\
+      &= I_r \cos \omega \Big(t - \frac{x}{c_-} \Big) - I_i \sin\omega \Big(t- \frac{x}{c_-} \Big) \\
+      &= A_I \sin \Big(\omega \Big(t-\frac{x}{c_-} \Big) + \phi_I\Big)
+\end{align*}
+where \(I = I_r + i I_i\) and we define amplitude
+\[
+  A_I = \sqrt{I_r^2+I_i^2} = |I| 
+\]
+and phase
+\[
+  \phi_I = \arccos \frac{I_r}{|I|} = \arcsin \frac{I_i}{|I|}
+\]
+Similarly the transmitted wave is
+\[
+  w_T = \Re \Bigg(T \exp \Big(i\omega \Big(t- \frac{x}{c_+} \Big)\Big)\Bigg)
+\]
+and the reflected wave is
+\[
+  w_R = \Re \Bigg(R\exp\Big(i\omega\Big(t+ \frac{x}{c_-}\Big)\Big)\Bigg)
+\]
+notice the plus sign.
+
+We determine the coefficients by matching conditions at the origin. The displacement at \(x=0\) must be continuous for all time:
+\begin{align*}
+  w_I\big|_{x=0^-} + w_R\big|_{x=0^-} = w_T\big|_{x=0^+} \\
+  \Re \Big(I \exp(i\omega_-t \Big) + R \exp(i\omega_-t) \Big) &= \Re (T\exp(i\omega_+t))
+\end{align*}
+Thus \(\omega_- = \omega_+\). Also
+\begin{align*}
+  I + R &= T \\
+  I_r + R_r &= T_r \\
+  I_i + R_i &= T_i
+\end{align*}
+i.e. coefficients of cosines and sines are the same.
+
+In the absence of inertia at \(x=0\), the vertical forces are continuous
+\[
+  \tau \frac{\partial y}{\partial x}\Big|_{x=0^-} = \tau \frac{\partial y}{\partial x}\Big|_{x=0^+}
+\]
+so
+\begin{align*}
+  \frac{R}{c_-} - \frac{I}{c_-} &= - \frac{T}{c_+} \\
+  \frac{R_r}{c_-} - \frac{I_r}{c_-} &= - \frac{T_r}{c_+} \\
+  \frac{R_i}{c_-} - \frac{I_i}{c_-} &= - \frac{T_i}{c_+} \\
+\end{align*}
+Solve to get
+\begin{align*}
+  R &= \Big( \frac{c_+-c_-}{c_++c_-} \Big) I \\
+  T &= \Big( \frac{2c_+}{c_++c_-} \Big) I
+\end{align*}
 \end{document}

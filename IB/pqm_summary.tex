@@ -9,6 +9,8 @@
 \newcommand*{\bk}{\braket}
 \newcommand*{\bkt}{\braketthree}
 
+%parity operator
+\newcommand*{\parity}{\mathcal{P}}
 \theoremstyle{definition}
 \newtheorem*{postulate}{Postulate}
 
@@ -275,6 +277,29 @@ For an infinitesimal rotation,
   \V v' = \V v + \delta\V \alpha\times \V v + \bigO(\delta\V\alpha^2).
 \]
 
+\subsubsection{Time translation}
+
+Since \(U(t)\) represents time translation, if a particle is in some state \(\ket{\psi(0)}\) before translation, translating forward to time \(t\) will put the particle in state
+\[
+  \ket{\psi(t)} = U(t) \ket{\psi(0)} = e^{-iHt/\hbar}\ket{\psi(0)}.
+\]
+Differentiating, we get
+\[
+  i\hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H\ket{\psi(t)},
+\]
+the \emph{Time Dependent Schr\"odinger Equation}
+
+\subsection{Discrete Transformation}
+
+\subsubsection{Parity}
+
+Parity transformation is an example of discrete transformation, acting as
+\begin{align*}
+  \parity : \V x &\mapsto - \V x \\
+  t &\mapsto t
+\end{align*}
+
+It satisfies the \emph{anti-commutator} relation
 \pagestyle{empty}
 \begin{landscape}
   
@@ -298,6 +323,21 @@ For an infinitesimal rotation,
 \end{table}
 
 
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|c|p{8cm}|p{8cm}|}
+    \hline
+    & Parity & Time translation \\
+    Governing equation & \(\parity^{-1}\V X \parity = -\V X\) & \(\ket{\psi(t)} = U(t) \ket{\psi(0)}\) \\ \hline
+    Generator & None (discrete) & \(U(\delta t) = 1- \frac{i}{\hbar}H\delta t + \bigO(\delta t^2\) \\ \hline
+    Formula & & \(U(t) = \exp(-\frac{i}{h}Ht)\) \\ \hline
+    Commutator relation & \(\{, \parity, \V X \} = 0\)& \\ \hline
+    Transformation group & \(\Z/2\Z\) & \\ \hline
+    & abelian & abelian \\ \hline
+  \end{tabular}
+  \caption{Parity and time translation}
+  \label{tab:}
+\end{table}
 \end{landscape}
 \pagestyle{plain}
 

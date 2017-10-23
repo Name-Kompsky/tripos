@@ -71,8 +71,6 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \end{enumerate}
 \end{eg}
 
-\subsection{Convergence}
-
 \begin{defi}
   Suppose $(V, \|\cdot\|)$ is a normed vector space and $(\V v_n)$ is a sequence of elements of $V$. We say $(\V v_n)$ converges to $\V v\in V$, denoted $(\V v_n)\to \V v$, if $\forall\varepsilon>0,\exists N s.t. \forall n>N, \|\V v_n-\V v\|<\varepsilon$. Equivalently, $(\V v_n)\to \V v$ if $(\|\V v_n-\V v\|)\to 0$.
 \end{defi}
@@ -130,6 +128,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
 \end{defi}
 
 \begin{eg}\leavevmode
+  \label{eg:continuity}
   \begin{enumerate}
   \item $f:V\to \mathbb{R}^m, f(\V v) = (f_1(\V v), \ldots, f_m(\V v))$ is continuous if and only if $f_i:V\to \mathbb{R}$ is continuous for all $1\leq i \leq m$.
   \item $\rho_i:\mathbb{R}^m\to \mathbb{R}, \rho_i(\V v) =v_i$ is continuous.
@@ -307,6 +306,7 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
 \end{align*}
 
 \begin{prop}
+  \label{prop:continuity of id}
   \(\id_V\) as above is continuous if and only if \(\exists C \in \R\) with \(\|v\|' \leq C \|v\|\) for all \(v \in V\).
 \end{prop}
 
@@ -331,6 +331,7 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
 \end{joke}
 
 \begin{defi}
+  \label{def:Lipschitz equivalence}
   If \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\), they are said to be \emph{Lipschitz equivalent} if
   \begin{align*}
     & \exists C>0 s.t. \forall v \in V, \frac{1}{C}\|v\| \leq \|v\|' \leq C \|v\| \\
@@ -834,7 +835,7 @@ Recall from analysis i:
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(\R\) is not compact as \((n)\) has no convergent subsequence.
-  \item \((0,1]\) is not compactas \((1/n) \to 0\) but \(0 \notin A\).
+  \item \((0,1]\) is not compact as \((1/n) \to 0\) but \(0 \notin A\).
   \end{enumerate}
 \end{eg}
 
@@ -872,7 +873,7 @@ Recall from analysis i:
   \(\cl B_1(0)\) is closed and bounded in \((C[0,1], \norm \cdot_\infty)\) but is not compact.
 \end{cor}
 
-\begin{prop}
+\begin{prop}[Continuous image of compact set]
   Suppose \(C \subseteq V\) is compact and \(f:C\to W\) is continuous then \(f(C)\) is also compact.
 \end{prop}
 
@@ -882,4 +883,134 @@ Recall from analysis i:
     (w_{n_j}) = (f(v_{n_j})) \to f(v) \in f(C).
   \]
 \end{proof}
+
+\begin{application}[Maximum Value Theorem]
+ \begin{lem}
+  If \(\emptyset \neq A \subseteq \R \) is compact then \(\sup A \in A\).
+\end{lem}
+
+\begin{proof}
+  By Heine-Borel, \(A\) is closed and bounded so \(\alpha = \sup A\in \R\). For each \(n>0\), exists \(a_n \in A\) such that \(\alpha-1/n \leq a_n \leq \alpha\). Then \((a_n)\to \alpha\). Since \(A\) is closed and \(a_n \in A\), \(\alpha\in A\) as well.
+\end{proof}
+ 
+\begin{thm}
+  Suppose \(f:C\to \R\)  is continuous and \(C\) is compact and nonempty. Then exists \(v\in C\) such that \(f(v) \geq f(v')\) for all \(v' \in C\).
+\end{thm}
+
+\begin{proof}
+  \(f(C)\) is compact and nonempty by the Proposition, so Lemma implies that \(\alpha = \sup f(C)\) exists and \(\alpha\in f(C)\). Pick \(v\in C\) with \(f(v) = \alpha\). If \(v'\in C\) then \(f(v') \in f(C)\) so \(f(v') \leq \alpha = f(v)\).
+\end{proof}
+
+\begin{cor}
+  Let \(f\) and \(C\) be as above. Then there exists \(v_-\in C\) with \(f(v_-) \leq f(v')\) for all \(v' \in C\).
+\end{cor}
+
+\begin{proof}
+  Apply Theorem to \(-f\).
+\end{proof}
+\end{application}
+
+\begin{application}[Norms on \(\R^n\)]
+  Let \(\norm \cdot\) be some norm on \(\R^m\).
+  
+  \begin{lem}
+    The map \(\id: (\R^m, \norm \cdot_1) \to (\R^m, \norm \cdot)\) is continuous.
+  \end{lem}
+
+  \begin{proof}
+    By the criterion in Proposition~\ref{prop:continuity of id} it suffices to show that there is a constant \(C\) such that \(\norm v \leq C \norm v_1\) for all \(v\in \R^m\). Let \(v = (v_1,\dots,v_m) = \sum_{i=1}^{m}v_ie_i \) where \(e_i\) is the standard basis vector. Take \(C = \max_{1\leq i\leq m}\norm{e_i}\). Then
+    \[
+      \norm v \leq \sum_{i=1}^{m}\norm{v_ie_i} = \sum_{i=1}^{m}|v_i| \norm{e_i} \leq C \sum_{i=1}^{m}|v_i| = C \norm v_1
+    \]
+  \end{proof}
+
+  \begin{cor}
+    The map \(f:(\R^m, \norm \cdot_1) \to (\R, |\cdot|)\) given by \(f(v) = \norm v\) is continuous.
+  \end{cor}
+
+  \begin{proof}
+    \(f = g\compose \id\) where \(g\) is the continuous map from \(\R^m\) to \(\R\) in Example~\ref{eg:continuity}.
+  \end{proof}
+\end{application}
+
+Recall that two norms \(\norm \cdot\) and \(\norm \cdot'\) on \(V\) are Lipschitz equivalent if there exists \(C\) such that
+\[
+  C\norm v \leq \norm v' \leq C \norm v
+\]
+for all \(v\in V\).
+
+\begin{rmk}
+  This is trivially true if \(v=0\) so suffices to check for \(v\neq0\).
+\end{rmk}
+
+\begin{thm}
+  If \(\norm \cdot\) is a norm on \(\R^m\) then it is Lipschitz equivalent to \(\norm \cdot_1\).
+\end{thm}
+
+\begin{proof}
+  Let \(S = \{v\in \R^m: \norm v_1 = 1 \}\). Claim \(S\) is compact with respect to \(\norm \cdot_1\): \(S\) is clearly bounded. Consider \(g:(\R^m, \norm \cdot_1) \to (\R, |\cdot|), v\mapsto \norm v_1\). \(g\) is continuous and \(S = g^{-1}(\{1\})\). As \(\{1\} \subset \R\) is closed \(S\) is closed. So by Heine-Borel \(S\) is compact.
+
+  By Corollary \(f:(S, \norm \cdot_1) \to (\R, |\cdot|)\) given by \(f(v) = \norm v\) is continuous. By the Maximum Value Theorem there exists \(v_\pm\in S\) with
+  \[
+    f(v_-) \leq f(v') \leq f(v_+)
+  \]
+  for all \(v' \in S\). Let \(C_\pm = f(v_\pm)\). Notice that
+  \[
+    v_\pm\in S \Rightarrow \norm{v_\pm}_1 = 1 \Rightarrow v_\pm \neq0 \Rightarrow C_-=\norm{v_\pm} \neq 0.
+  \]
+  Let \(C = \max(C_+,1/C_-)\). Then
+  \[
+    \frac{1}{C} \leq C_- \leq f(v) = \norm{v} \leq C_+ \leq C
+  \]
+  for all \(v \in S\).
+
+  Finally, if \(v \in \R^m\setminus\{0\}\) then \(v/\norm v_1 \in S\) so
+  \[
+    \frac{1}{C} \leq \norm*{\frac{v}{\norm v_1}} \leq C
+  \]
+  and Lipschitz equivalence condition follows.
+\end{proof}
+
+\begin{cor}
+  Any two norms on \(\R^m\) are Lipschitz equivalent.
+\end{cor}
+
+\begin{proof}
+  Lipschitz equivalence is an equivalence relation.
+\end{proof}
+
+\subsection{Completeness}
+
+Let \(V\) be a normed vector space.
+
+\begin{defi}[Cauchy sequence]
+  A sequence \((v_n)\) in \(V\) is \emph{Cauchy} if for any \(\varepsilon>0\), there exists \(N\) such that for all \(n,m\geq N\), \(\norm{v_n-v_m} < \varepsilon\).
+\end{defi}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \((v_n)\to v\) then \((v_n)\) is Cauchy.
+    \begin{proof}
+      Given \(\varepsilon>0\), pick \(N\) such that \(\norm{v_n-v} < \varepsilon/2\) for \(n\geq N\). Then for \(n,m \geq N\),
+      \[
+        \norm{v_n-v_m} \leq \norm{v_n-v}+ \norm{v-v_m} < \varepsilon.
+      \]
+    \end{proof}
+  \item If \(s_n = \sum_{i=1}^{n}1/i \), then \((s_n)\) is not Cauchy since for any fixed \(N\), \(\sum_{i=N}^{m}1/i \to \infty \) as \(m\to \infty\).
+  \end{enumerate}
+\end{eg}
+
+Informally, a Cauchy sequence \emph{wants} to converge: given \(\varepsilon>0\), pick \(N\) such that \(\norm{v_n-v_m}< \varepsilon\) for all \(n,m\geq N\). Then \(\norm{v_n-v_N} < \varepsilon\) for all \(n\geq N\) so \(v_n \in B_\varepsilon(v_N)\).
+
+But there may \emph{not} be anything for it to converge to!
+
+\begin{eg}
+  \(V = C[0,1]\) with \(\norm \cdot_1\). Let \(f_n(x) =
+  \begin{cases}
+    0 & x\in[0,1/2] \\
+    n(x-1/2) & x\in[1/2,1/2+1/n] \\
+    1 & x\geq 1/2+1/n
+  \end{cases}
+  \) Then \((f_n)\) is Cauchy but does not converge to any \(f\in C[0,1]\).
+\end{eg}
 \end{document}

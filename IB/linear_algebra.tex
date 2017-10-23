@@ -5,6 +5,7 @@
 
 \input{header}
 
+\newcommand*{\ann}{\circ}
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
@@ -1050,6 +1051,184 @@ Some variations of the algorithm:
 \end{lem}
 
 \begin{proof}
-  We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ 0 & * \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{j,k+1}\neq 0\) (as otherwise we would have a column of zeros, contradicting \(A\) is invertible).
+  We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ \star & \ast \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{k+1,j}\neq 0\), i.e. in the \(\ast\) block) as otherwise \((0,\dots,1,\dots, 0)\) with \(1\) is \((k+1)\)th position would not be in the span of the column vectors, contradicting the invertiblity. Next we carry out the following operations:
+  \begin{enumerate}
+  \item swap column \(k+1\) and \(j\),
+  \item divide volumn \(k+1\) by \(\lambda\) so have \(1\) in \((k+1,k+1)\) position,
+  \item use column operation to clear other entries of \((k+1)\)th row.
+  \end{enumerate}
+  Proceed inductively.
+\end{proof}
+
+Note that the equality
+\[
+  AE_1E_2\dots E_c = I_n
+\]
+gives
+\[
+  A^{-1} = E_1E_2\dots E_c,
+\]
+one way to compute inverses.
+
+\begin{prop}
+  Any invertible matrix can be written as a product of elementary ones.
+\end{prop}
+
+\section{Dual Spaces \& Dual Maps}
+
+Let \(V\) be an \(\F\)-vector space.
+
+\begin{defi}
+  The \emph{dual space} of \(V\) is defined to be
+  \[
+    V^* = L(V,\F) = \{\alpha:V\to \F, \alpha \text{ linear}\}.
+  \]
+\end{defi}
+
+\(V^*\) is itself an \(\F\)-vector space. Its elements are sometimes called \emph{linear functionals}.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\R^3 \to \R, (a,b,c)\mapsto a-c\) is an element of \(V^*\).
+  \item \(\tr: M_{n,n}(\F)\to \F, A\mapsto \sum_i A_{ii}\) is an element of \(M_{n,n}(\F)^*\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lem}[Dual basis]
+  Let \(V\) be a finite-dimensional \(\F\)-vector space with basis \(B = \{e_1,\dots,e_n\}\). Then there is a basis for \(V^*\), given by
+  \[
+    B* = \{\varepsilon_1,\dots, \varepsilon_n\}
+  \]
+  where
+  \[
+    \varepsilon_j \Big( \sum_{i=1}^{\infty} a_i e_i \Big) = a_j
+  \]
+  for \(1\leq j\leq m\).
+
+  \(B^*\) is called the \emph{dual basis} to \(B\).
+\end{lem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item linear independence: suppose
+    \[
+      \sum_{j=1}^{n}\lambda_j\varepsilon_j = 0.
+    \]
+    Apply the relation to basis vectors,
+    \[
+      0 = \Big( \sum_{j=1}^n \lambda_j\varepsilon_j \Big) e_i = \sum_{j=1}^n \lambda_j\varepsilon_j(e_i)
+      \]
+      The last expression is 
+      \[
+        \varepsilon_j(e_i) = 
+      \begin{cases}
+        0 & \text{ if } i \neq j \\
+        1 & \text{ if } i = j
+      \end{cases}
+    \]
+    so \(\lambda_i=0\) for all \(1 \leq i \leq n\).
+  \item span: if \(\alpha \in V^*\), then
+    \[
+      \alpha = \sum_{i=1}^{n}\alpha(e_i)\varepsilon_i
+    \]
+    since linear maps are uniquely determined by the action on basis.
+  \end{itemize}
+\end{proof}
+
+\begin{cor}
+  If \(V\) is a finite-dimensional \(\F\)-vector space then
+  \[
+    \dim V = \dim V^*.
+  \]
+\end{cor}
+
+\begin{rmk}
+  Sometimes it is useful to think about \((\F^n)^*\) as the space of row vectors of length \(n\) over \(\F\).
+\end{rmk}
+
+\begin{defi}[Annihilator]
+  If \(U \subseteq V\), the \emph{annihilator} of \(U\) is
+  \[
+    U^\ann = \{\alpha\in V^*: \forall u \in U,\,\alpha(u) = 0 \}.
+  \]
+\end{defi}
+
+\begin{lem}\leavevmode
+  \begin{enumerate}
+  \item \(U^\ann \leq V^*\),
+  \item If \(U \leq V\) and \(\dim V = n < \infty\) then
+    \[
+      \dim V = \dim U + \dim U^\ann.
+    \]
+  \end{enumerate}
+\end{lem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(0 \in U^\ann\). If \(\alpha\) and \(\alpha'\) are in \(U^\ann\) then
+    \[
+      (\alpha+ \alpha')(u) = \alpha(u) + \alpha'(u) = 0+0 = 0
+    \]
+    for all \(u\in U\). Similarly \(\lambda\alpha\in U^\ann\) for any \(\lambda \in \F\).
+  \item Let \(B = \{e_1,\dots, e_k\}\) be a basis for \(U\) and extend it to a basis \(e_1,\dots,e_k,e_{k+1},\dots,e_n\) for \(V\). Let \(B^*=\{\varepsilon_1,\dots,\varepsilon_n\}\) be its dual basis. Claim \(\varepsilon_{k+1},\dots,\varepsilon_n \) is a basis for \(U^\ann\):
+    \begin{itemize}
+    \item If \(i>k,j\leq k\) then \(\varepsilon_i(e_j) = 0 \) so \(\varepsilon_i\in U^\ann\)
+    \item Linear independence comes from the fact that \(B^*\) is a basis.
+    \item If \(\alpha\in U^\ann\), \(\alpha = \sum_{i=1}^na_i\varepsilon_i\) for some \(\alpha_i\in \F\). Then for any \(j\leq k\),
+      \[
+        \Big( \sum_{i=1}^{n}a_i\varepsilon_i \Big) (e_j) = 0
+      \]
+      so \(a_j=0\). It follows that \(\alpha \in \langle \varepsilon_{k+1},\dots,\varepsilon_n \rangle\).
+    \end{itemize}
+  \end{enumerate}
+\end{proof}
+
+\begin{lem}[Dual space as a contravariant functor]
+  Let \(V\) and \(W\) be \(\F\)-vector spaces. Let \(\alpha \in L(V,W)\). Then the map
+  \begin{align*}
+    \alpha^*: W^* &\to V^* \\
+    \varepsilon &\mapsto \varepsilon \compose \alpha
+  \end{align*}
+  is linear. \(\alpha^*\) is called the \emph{dual} of \(\alpha\).
+\end{lem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\varepsilon \compose \alpha \in V^*\) since composition preserves linearity.
+  \item Fix \(\theta_1,\theta_2\in W^*\),
+    \begin{align*}
+      \alpha^*(\theta_1+\theta_2) &= (\theta_1+\theta_2)\compose \alpha \\
+                                  &= \theta_1\compose \alpha + \theta_2 \compose \alpha \\
+      &= \alpha^*\theta_1 + \alpha^*\theta_2
+    \end{align*}
+  \item Similarly \(\alpha^*(\lambda\theta) = \lambda\alpha^*(\theta)\).
+  \end{itemize}
+\end{proof}
+
+\begin{prop}
+  Let \(V\) and \(W\) be \(\F\)-vector spaces with bases \(B\) and \(C\) repectively. Let \(B^*\) and \(C^*\) be the dual bases. Consider \(\alpha\in L(V,W)\) with dual \(\alpha^*\), then
+  \[
+    [\alpha^*]_{C^*,B^*} = [\alpha]^T_{B,C}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Say \(B = \{b_1,\dots,b_n\}\), \(B^* = \{\beta_1,\dots,\beta_n\}\), \(C = \{c_1,\dots,c_m\}\) and \(C^* = \{\gamma_1,\dots,\gamma_n\}\). Further let \([\alpha]_{B,C} = (a_{ij})\), an \(m\times n\) matrix.
+  \begin{align*}
+    \alpha^*(\gamma_r)(b_s) &= \gamma_r \compose \alpha(b_s) \\
+                            &= \gamma_r(\alpha(b_s)) \\
+                            &= \gamma(r) \Big( \sum_{t}^{ }a_{ts}c_t \Big) \\
+                            &= \sum_{t}^{ } a_{ts} \gamma_r(c_t) \\
+                            &= a_{rs} \\
+                            &= \Big( \sum_{i}^{ } a_{ri}\beta_i \Big) (b_s)
+  \end{align*}
+  Thus
+  \[
+    \alpha^*(\gamma_r) = \sum_{i}^{ } a_{ri}\beta_i
+  \]
+  so
+  \[
+    [\alpha^*]_{C^*,B^*} = [\alpha]^T_{B,C}.
+  \]
 \end{proof}
 \end{document}
