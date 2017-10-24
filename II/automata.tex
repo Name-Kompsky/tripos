@@ -1,0 +1,52 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+\def\ntitle{Automata and Formal Languages}
+\def\nlecturer{Maurice Chiodo}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
+
+\input{header}
+
+\begin{document}
+
+\input{titlepage}
+
+\begin{thm}\leavevmode
+  \begin{enumerate}
+\item Let \(I \subseteq \N\) be a (possibly infinite) r.e. set and \(I' =C(I) \subseteq I\) then \(\bigcup_{n\in I}w_n\) is r.e.
+\item Let \(j \subset \N\) be finite and \(J' = C(J) \subset J\) then \(\bigcap_{n\in J'}w_n\) is r.e.
+  \end{enumerate}
+\end{thm}
+
+In both cases, we can construct indices for the r.e. set so de
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Set \(A = \bigcup_{n\in T'}w_n\). For any \(x\in \N\), start a diag process to compute if \emph{any} \(f_{n,1}(x)\). This terminates if and only if \(x\in w_n\) for some \(n\in I'\), if and only if \(x \in A\).
+
+  This describes an algorithsm to enumerate \(A\), i.e. to compute \(\phi_A\). By Church (2), \(\phi_A\) is PR, so \(A\) is r.e. Moreover, by Church (3), we can compute \(N\) with \(f_{N,1} = \phi_A\), i.e. \(w_N = A\).
+\item Set \(B = \cap w_n\). For \(x\in w_1\), start a diag process to compute if ACC \(f_{n,1}(x)\) down (over all \(n\in J')\). This terminates if and only if \(x\in w_n\) for all \(n\in J'\), if and only if \(x\in A\).
+  This desribes an algorithm to compute \(\phi_B\). By Church, \(\phi_B\) is PR so \(B\) is r.e. 
+  \end{enumerate}
+\end{proof}
+
+\subsection{Universality \& Undecidability}
+
+In 1936 Turing defined his version of an abstract theory of finite computation, now known as Turing machines. In the same paper he explored the idea of ``universal computing'' and ``undecidabilities''.
+
+\begin{thm}
+  There exists a PR function \(\N^3\to \N\) such that if \(n\) codes a RM and \(m\) codes a \(k\)-tuple and \(f_{n,k}((m)_1,\dots,(m)_k) down = r\)
+  such a PR function is said to be \emph{universal}, as it can simulate \emph{any} RM and \emph{any} input.
+\end{thm}
+
+\begin{proof}
+  Here is a description of an algorithm to compute \(u\):
+  \begin{enumerate}
+  \item on input \((n, k, m)\), check if \(n\) is a code (if not, infinite loop).
+  \item decode \(m\) as a \(k\)-tuple \(((m)_1, \dots, (m)_k)\) (if \(m=0\) or exists \(p>k\) such that \(p|m\), infinite loop).
+  \item Then \(P_n\) as an input 
+  \end{enumerate}
+\end{proof}
+\end{document}

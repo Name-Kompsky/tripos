@@ -1,0 +1,129 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+\def\ntitle{Integrable Systems}
+\def\nlecturer{C.\ Warnick}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
+
+\input{header}
+
+\begin{document}
+
+\input{titlepage}
+
+Consider
+\[
+  u_t + u_{xxx} =0
+\]
+Seek a solutioin of the form
+\[
+  u(x,t) = \exp(-i\omega t+ ikx)
+\]
+This solve the equation if
+\[
+  \omega = -k^3
+\]
+dispersion relation
+so
+\[
+  u_k(x,t) = \exp(ik(k^t+x)
+\]
+
+Each \(u_k\) is a wave translating at speed \(k^2\) in negative \(x\)-direction. Since speed depends on frequency, we say the equation is \emph{dispersive}. We can consider a superposition of solutions
+\[
+  u(x,t) = \int_{\R}^{ } a(k)\exp(ik(k^2t+x) dk
+\]
+where \(a(k)\) is arbitrary and is related to \(\hat{u(\cdot,0)}\). Since different frequencies move at different speeds, solutions should spread out over time.
+
+\subsection{Nonlinear Growth}
+
+Consider
+\[
+  u_t - 6 uu_x =0,
+\]
+the \emph{Burgers equation}. It can be solved by the method of characteristics to give
+\[
+  u(x,t) = f(\xi), \zeta = x+6tf(\xi).
+\]
+and
+\[
+  f(\xi) = u(\xi,0).
+\]
+
+It can be shown that this solution becomes singular, in the sense that \(\sup_{x\in\R}|U_x(x,t)| \to \infty\) as \(t\to \infty\) where
+\[
+  T = \inf_{x\in\R} \frac{1}{6f'(x)}.
+\]
+Surprisingly, the dispersive and nonlinear growth effects balance for KdV. It was known for some time that KdV admits a soliton solution
+\[
+  u(x,t) = -2x^2 \sech^2 \chi (x-2x^4t-x_0)
+\]
+solves KdV for \(x,x_0\in \R\). It represents a wave moving to the right with speed \(4x^2\).
+
+In the mid 60s, Kruskal and Zabosky simulated a solution that starts as two solitons, set up so that one overtakes the other. Curiously, these solitons passed through one another without interacting. If KdV were linear, this would be a surprise, but it is not.
+
+\subsection{Sine-Gordon Equation}
+
+The Sine-Gordon equation is the PDE
+\[
+  u_{tt} - u_{xx} + \delta uu = 0.
+\]
+This is the equation modelling an infinite series of pendula connected by springs.
+
+Sine-Gordon also admits soliton solutions. The \(1\)-soliton solution is given by
+\[
+  u(x,t) = 4\tan^{-1} \exp \Big( \frac{x-vt}{\sqrt{1-v^2}} \Big)
+\]
+This is a ``kink'' solution. The wave translates uniformly with speed \(v\). As for KdV, soliton solutions pass through one another without interaction.
+
+\subsection{Backlund Transformations}
+
+Recall the Cauchy-Riemann equations
+\begin{align*}
+  u_x &= \sqrt y \\
+  -u_y &= \sqrt x
+\end{align*}
+so that
+\[
+  u_{xx} + u_{yy} = 0.
+\]
+
+If we are given \(v\) a solution of Laplace, we can find \(u\) such that
+\begin{align*}
+  u_x &= \sqrt y \\
+  u_y &= -\sqrt x
+\end{align*}
+Then \(u\) will automatically solve Laplace.
+
+\begin{eg}
+  Let \(v=xy\). Solve
+  \begin{align*}
+    u_x &= x \\
+    u_y &= -y 
+  \end{align*}
+This is an exmaple of a (auto) Backlund transformation, relating one solution to another by first order system.
+\end{eg}
+
+For a more interesting example, take Sine-Gordon in light cone coordinates
+\[
+  \frac{\p^2 u}{\p\xi \p\tau} = \sin u.
+\]
+Consider the equations
+\begin{align*}
+  \p_\xi(\phi_1-\phi_0) &= 2\varepsilon \sin \Big( \frac{\phi_1+\phi_0}{2} \Big) \\
+  \p_\tau(\phi_1-\phi_0) &= \frac{2}{\varepsilon} \sin \Big( \frac{\phi_1-\phi_0}{2} \Big)
+\end{align*}
+Differentiating the first equation with repect to \(\tau\):
+\begin{align*}
+  \p_\psi\p_\xi(\phi_1-\phi_0) &= 2\varepsilon \p_\tau \frac{\phi_1+\phi_0}{2}\cos \Big( \frac{\phi_1+\phi_0}{2} \Big) \\
+                               &= 2\sin\frac{\phi_1-\phi_0}{2} \cos\frac{\phi_1+\phi_0}{2} \\
+                               &= \sin\phi_1 - \sin\phi_0
+\end{align*}
+so if \(\phi_0\) sovles Sine-Gordon then \(\phi_1\) must as well
+
+\begin{ex}
+  If \(\psi_0 = 0\), we recover the \(1\)-soliton solution.
+\end{ex}
+\end{document}

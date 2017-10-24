@@ -26,8 +26,14 @@ The following are some notes I made while reading Dummit and Foote, 3rd Edition.
 * Field Theory
 * Galois Theory
 
+And some (very incomplete) sporadic notes:
+* Dynamical Systems
+* Integrable Systems
+* Graph Theory
+* Automata and Formal Languages 
+
 ## Usage
-header.tex is put in the root directory and symlinked to all subdirectories. To compile use `lualatex` due to `unicode-math` package used.
+`header.tex` and `logo.jpg` are put in the root directory and symlinked to all subdirectories. To compile use `lualatex`.
 
 ## Reporting an issue
 If you notice a mistake, want to suggest an advice or have any issue in general, please create an issue on GitHub or contact me by [email](mailto:qk206@cam.ac.uk) or by any other means.
