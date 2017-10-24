@@ -1,14 +1,20 @@
 \documentclass[a4paper]{article}
 
+\def\npart{IB}
+
 \def\ntitle{Methods}
-\def\ndate{Michaelmas, 2017 -- 2018}
+\def\nlecturer{C.\ P.\ Caulfield}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
 
 \input{header}
 
 \renewcommand*\L{\mathcal{L}}
 
 \begin{document}
-\maketitle
+
+\input{titlepage}
 
 \tableofcontents
 
@@ -1046,9 +1052,9 @@ The solution is
                                 &\times \Big[ \frac{n\pi c}{L} \Big( b_n \cos \frac{n\pi ct}{L} - a_n \sin \frac{n\pi ct}{L} \Big) \Big] \\
                                 &\times \Big[ \frac{m\pi c}{L} \Big( b_m \cos \frac{m\pi ct}{L} - a_m \sin \frac{m\pi ct}{L} \Big) \Big] dx\\
                                 &= \frac{\mu L}{4} \sum_{n=1}^{\infty} \frac{n^2\pi^2c^2}{L^2} \Big( a_n^2 \sin^2 \frac{n\pi ct}{L} +b_n^2 \cos^2 \frac{n\pi ct}{L} \\
-                                & \: -2a_nb_n \cos \frac{n\pi ct}{L} \sin \frac{n\pi ct}{L} \Big) \\
+                                & \quad -2a_nb_n \cos \frac{n\pi ct}{L} \sin \frac{n\pi ct}{L} \Big) \\
   V &= \frac{TL}{4} \sum_{n=1}^{\infty} \frac{n^2\pi^2}{L^2} \Big( a_n^2 \cos^2 \frac{n\pi ct}{L} + b_n^2\sin^2 \frac{n\pi ct}{L} \\
-                                & \: +2a_nb_n \sin \frac{n\pi ct}{L} \cos \frac{n\pi ct}{L} \Big)
+                                & \quad +2a_nb_n \sin \frac{n\pi ct}{L} \cos \frac{n\pi ct}{L} \Big)
 \end{align*}
 
 Since \(T^2 = \mu c^2\), these expression yield

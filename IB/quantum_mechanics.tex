@@ -1,7 +1,12 @@
 \documentclass[a4paper]{article}
 
+\def\npart{IB}
+
 \def\ntitle{Quantum Mechanics}
-\def\ndate{Michaelmas, 2017 -- 2018}
+\def\nlecturer{J.\ M.\ Evans}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
 
 \input{header}
 
@@ -9,7 +14,8 @@
 \newtheorem*{postulate}{Postulate}
 
 \begin{document}
-\maketitle
+
+\input{titlepage}
 
 \tableofcontents
 
@@ -311,7 +317,7 @@ In general, the energy eigenvalue equation
 \[
 H\psi = -\frac{\hbar^2}{2m} \psi'' + V(x)\psi = E \psi
 \]
-for a particle of mass \(m\) in a potential \(V(x)\) determines states of definite energy and allowed energy values. This is the \emph{time-independent Schr\"odinger equation}. Solving this equation for hydrogen atom is our eventual aim.
+for a particle of mass \(m\) in a potential \(V(x)\) determines states of definite energy and allowed energy values. This is the \emph{time-independent Schrödinger equation}. Solving this equation for hydrogen atom is our eventual aim.
 
 \subsubsection{Some Comments}
 
@@ -359,7 +365,7 @@ Define an infinite potential well
   \end{axis}
 \end{tikzpicture}
 \end{center}
-in limit \(u\to\infty\). The time-independent Schr\"odinger equation is
+in limit \(u\to\infty\). The time-independent Schrödinger equation is
 \begin{align*}
   -\frac{\hbar^2}{2m}\psi'' &= E\psi, |x| \leq a \\
   -\frac{\hbar^2}{2m}\psi'' +u \psi &= E\psi, |x| > a 

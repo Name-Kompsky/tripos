@@ -1,7 +1,12 @@
 \documentclass[a4paper]{article}
 
+\def\npart{IB}
+
 \def\ntitle{Markov Chains}
-\def\ndate{Michaelmas, 2017 -- 2018}
+\def\nlecturer{G.\ R.\ Grimmet}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
 
 \input{header}
 
@@ -9,14 +14,13 @@
 
 \begin{document}
 
-\maketitle
+\input{titlepage}
 
 \tableofcontents
 
 \section{Markov chains}
 
 Let $X:\Omega \to S$ be a random variable. Then $(X_0,X_1, \ldots)$, a sequence of random variables, is called a \emph{stochastic/random process}. The problem is whether there is any dependence between the random variables. Another example of a stochastic process is $(X_t, t \in \mathbb{R})$, representing, for example, the evolution of a system with respect to time.
-
 
 \begin{defi}
   Let $X=(X_n:n=0,1,2,\ldots)$ be a sequence taking values in some \emph{state space} $S$, which is either finite or countably infinite. $X$ is a \emph{Markov chain} if it satisfies the \emph{Markov condition}:
