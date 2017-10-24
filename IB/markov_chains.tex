@@ -18,26 +18,26 @@
 
 \tableofcontents
 
-\section{Markov chains}
+\section{Definition}
 
-Let $X:\Omega \to S$ be a random variable. Then $(X_0,X_1, \ldots)$, a sequence of random variables, is called a \emph{stochastic/random process}. The problem is whether there is any dependence between the random variables. Another example of a stochastic process is $(X_t, t \in \mathbb{R})$, representing, for example, the evolution of a system with respect to time.
+Let $X:\Omega \to S$ be a random variable. Then $(X_0,X_1, \ldots)$, a sequence of random variables, is called a \emph{stochastic/random process}. The problem we are interested in is whether there is any dependence between the random variables. Another example of a stochastic process is $(X_t, t \in \mathbb{R})$, representing, for example, the evolution of a system with respect to time.
 
 \begin{defi}
   Let $X=(X_n:n=0,1,2,\ldots)$ be a sequence taking values in some \emph{state space} $S$, which is either finite or countably infinite. $X$ is a \emph{Markov chain} if it satisfies the \emph{Markov condition}:
   \begin{multline*}
-    \P(X_{n+1}=i_{n+1}|X_0=i_0,X_1=i_1,\ldots,X_n=i_n) = \P(X_{n+1}=i_{n+1}|X_n=i_n) \\
+    \prob(X_{n+1}=i_{n+1}|X_0=i_0,X_1=i_1,\ldots,X_n=i_n) = \prob(X_{n+1}=i_{n+1}|X_n=i_n) \\
     \forall n\geq0, i_0,\ldots,i_{n+1}\in S
   \end{multline*}
 
-  $X$ is called \emph{homogeneous} if $\P(X_{n+1}=j|X_n=i)$ does not depend on the value of $n$.
+  $X$ is called \emph{homogeneous} if $\prob(X_{n+1}=j|X_n=i)$ does not depend on the value of $n$.
 \end{defi}
 
-\begin{ex}\leavevmode
+\begin{eg}\leavevmode
   \begin{enumerate}
-  \item Random walk is a Markov chain: let $Z_1, Z_2, \ldots$ be independent, $\P(Z_i=1) = p,\P(Z_i=-1) =1-p$, $X_n=Z_1+\cdots+Z_n$.
+  \item Random walk is a Markov chain: let $Z_1, Z_2, \ldots$ be independent, $\prob(Z_i=1) = p,\prob(Z_i=-1) =1-p$, $X_n=Z_1+\cdots+Z_n$.
   \item Branching process: let $X_n$ be the size of the $n$th generation, then $(X_n)$ is a Markov chain.
   \end{enumerate}
-\end{ex}
+\end{eg}
 
 \begin{convention}
   Henceforth, unless contradicted, all chains are assumed to be homogeneous.
@@ -45,8 +45,8 @@ Let $X:\Omega \to S$ be a random variable. Then $(X_0,X_1, \ldots)$, a sequence 
 
 Two quantities associated with a chain are:
 \begin{enumerate}
-\item initial distribution $\lambda = (\lambda_i: i\in S)$ where $\lambda_i = \P(X_0=i)$, the probability mass function at $0$.
-\item transition matrix $P = (p_{i,j}: i,j\in S)$ given by $p_{i,j} = \P(X_1=j|X_0=i)$.
+\item initial distribution $\lambda = (\lambda_i: i\in S)$ where $\lambda_i = \prob(X_0=i)$, the probability mass function at $0$,
+\item transition matrix $P = (p_{i,j}: i,j\in S)$ given by $p_{i,j} = \prob(X_1=j|X_0=i)$.
 \end{enumerate}
 
 \begin{prop}\leavevmode
@@ -56,17 +56,17 @@ Two quantities associated with a chain are:
   \end{enumerate}
 \end{prop}
 
-\begin{proof}
+\begin{proof}\leavevmode
   \begin{enumerate}
-  \item $\lambda_i = \P(X_0=i) \geq 0$, $\sum_i \lambda_i = \sum_i\P(X_0=i)=1$, i.e. $\{X_0=i\}_{i\in X}$ partitions $\Omega$.
-  \item $p_{i,j} = \P(X_1=j|X_0=i) \geq 0$, $\sum_j p_{i,j} = \sum_j \P(X_1=j|X_0=i) = 1$.
+  \item $\lambda_i = \prob(X_0=i) \geq 0$, $\sum_i \lambda_i = \sum_i\prob(X_0=i)=1$, i.e. $\{X_0=i\}_{i\in X}$ partitions $\Omega$.
+  \item $p_{i,j} = \prob(X_1=j|X_0=i) \geq 0$, $\sum_j p_{i,j} = \sum_j \prob(X_1=j|X_0=i) = 1$.
   \end{enumerate}
 \end{proof}
 
 \begin{thm}
   Let $\lambda$ be a distribution on $S$ and $P$ be a stochastic matrix. The sequence $X=(X_n:n \geq 0)$ is a Markov chain with initial distribution $\lambda$ and transition matrix $P$ if and only if
   \begin{multline}\label{eqn:joint probability}
-    \P(X_0=i_0, X_1=i_1, \ldots, X_n=i_n) = \lambda_{i_0} p_{i_0,i_1} p_{i_1,i_2} \cdots p_{i_{n-1}, i_n} \\
+    \prob(X_0=i_0, X_1=i_1, \ldots, X_n=i_n) = \lambda_{i_0} p_{i_0,i_1} p_{i_1,i_2} \cdots p_{i_{n-1}, i_n} \\
     \forall n\geq 0, i_0,\cdots, i_n \in S \tag{$\ast$}
   \end{multline}
     
@@ -76,24 +76,24 @@ Two quantities associated with a chain are:
   Let $A_k = \{X_k=i_k\}$. Equation~\eqref{eqn:joint probability} is
 \begin{equation}
   \label{eqn:joint probability2}
-  \P(A_0\cap A_1 \cap \cdots \cap A_n) = \lambda_{i_0} p_{i_0,i_1} p_{i_1,i_2} \cdots p_{i_{n-1}, i_n}
+  \prob(A_0\cap A_1 \cap \cdots \cap A_n) = \lambda_{i_0} p_{i_0,i_1} p_{i_1,i_2} \cdots p_{i_{n-1}, i_n}
   \tag{$\star$}
 \end{equation}
 
-Suppose $X$ is a $(\lambda,P)$ Markov chain. Proof of equation~\eqref{eqn:joint probability2} by induction on $n$. When $n=0$, $\P(X_0=i_0)=\lambda_{i_0}$. Suppose equation~\eqref{eqn:joint probability2} holds for $n<N$.
+Suppose $X$ is a $(\lambda,P)$ Markov chain. Proof of equation~\eqref{eqn:joint probability2} by induction on $n$. When $n=0$, $\prob(X_0=i_0)=\lambda_{i_0}$. Suppose equation~\eqref{eqn:joint probability2} holds for $n<N$.
 \begin{align*}
-  \P(A_0\cap\cdots\cap A_N) &= \P(A_0\cap\cdots \cap A_N|A_0\cap\cdots\cap A_{N-1}) \P(A_0\cap\cdots \cap A_{N-1}) \\
-                            &= \P(A_N|A_0\cap\cdots\cap A_{N-1})\P(A_0\cap\cdots\cap A_{N-1}) \\
-                            &\stackrel{\text{MP}}{=} \P(A_N|A_{N-1}) \lambda_{i_0} p_{i_0,i_1} \cdots p_{i_{N-2},i_{N-1}}
+  \prob(A_0\cap\cdots\cap A_N) &= \prob(A_0\cap\cdots \cap A_N|A_0\cap\cdots\cap A_{N-1}) \prob(A_0\cap\cdots \cap A_{N-1}) \\
+                            &= \prob(A_N|A_0\cap\cdots\cap A_{N-1})\prob(A_0\cap\cdots\cap A_{N-1}) \\
+                            &\stackrel{\text{MP}}{=} \prob(A_N|A_{N-1}) \lambda_{i_0} p_{i_0,i_1} \cdots p_{i_{N-2},i_{N-1}}
   \end{align*}
 
 Conversly, suppose equation~\eqref{eqn:joint probability2} holds. By the equation, when $n=0$,
 \[
-  \P(X_0=i_0) = \lambda_{i_0},
+  \prob(X_0=i_0) = \lambda_{i_0},
 \]
 so $X_0$ has p.m.f. $\lambda$. Then
 \[
-  \P(A_{n+1}|A_0\cap\cdots\cap A_n) = \frac{\P(A_0\cap\cdots\cap A_{n+1})}{\P(A_0\cap\dots\cap A_n)} = p_{i_n,i_{n+1}}.
+  \prob(A_{n+1}|A_0\cap\cdots\cap A_n) = \frac{\prob(A_0\cap\cdots\cap A_{n+1})}{\prob(A_0\cap\dots\cap A_n)} = p_{i_n,i_{n+1}}.
     \]
     Therefore $X$ is a Markov chain with transition matrix $P$.
 \end{proof}
@@ -101,34 +101,33 @@ so $X_0$ has p.m.f. $\lambda$. Then
 \begin{thm}[Extended Markov Property]
   Let $X$ be a Markov chain and $n\geq1$. Let $H$ be a historic event, i.e. $H$ is given in terms of $\{X_0,X_1,\ldots,X_{n-1}\}$, and let $F$ be a future event, i.e. $F$ is given in terms of $\{X_{n+1},X_{n+2},\ldots\}$. Then
   \[
-    \P(F|H, X_n=i) = \P(F|X_n=i).
+    \prob(F|H, X_n=i) = \prob(F|X_n=i).
   \]
-  
 \end{thm}
 
 \begin{proof}
-  Assume that $F$ depends only on finitely many of the future variables.
+  For $F$ that depends only on finitely many of the future variables,
   \begin{align*}
-    \P(F|H,X_n=i) &= \frac{\sum_{>n}\sum_{<n}\lambda_{i_0}p_{i_0,i_1}\cdots p_{i_n,i}p_{i,i_{n+1}}\cdots}{\sum_{<n} \lambda_{i_0}p_{i_0,i_1}\cdots p_{i_{n-1},i}} \\
+    \prob(F|H,X_n=i) &= \frac{\sum_{>n}\sum_{<n}\lambda_{i_0}p_{i_0,i_1}\cdots p_{i_n,i}p_{i,i_{n+1}}\cdots}{\sum_{<n} \lambda_{i_0}p_{i_0,i_1}\cdots p_{i_{n-1},i}} \\
                   &= \sum_{>n} p_{i,i_{n+1}} \cdots \\
-                  &= \P(F|X_n=i)
+                  &= \prob(F|X_n=i)
   \end{align*}
   The case for infinite variables can be deduced using continuity of probability measure.
 \end{proof}
 
 \begin{notation}
-  $\sum_{<n} := \text{ sum over all } i_0,\ldots, i_{n-1} \text{ contibutions to } H/F$
+  $\sum_{<n}$ denotes the summation over all $i_0,\ldots, i_{n-1}$ contibutions to $H/F$.
 \end{notation}
 
 \section{Transition Probabilities}
 
-The one-step transition probability is $p_{i,j} = \P(X_1=j|X_0=i)$. The $n$-step transition probability is $p_{i,j}(n) = \P(X_n=j|X_0=i)$.
+The one-step transition probability is $p_{i,j} = \prob(X_1=j|X_0=i)$. The $n$-step transition probability is $p_{i,j}(n) = \prob(X_n=j|X_0=i)$.
 
 \begin{question}
   How to compute the $n$-step probabilities from the one-step probabilities?
 \end{question}
 
-The answer is: matrix. The one-step matric is $P=(p_{i,j})_{i,j\in S}$. Similarly $P(n) = (P_{i,j}(n))_{i,j\in S}$.
+The answer is: matrix. The one-step transition matrix is $P=(p_{i,j})_{i,j\in S}$. Similarly $P(n) = (p_{i,j}(n))_{i,j\in S}$.
 
 \begin{thm}
   \[
@@ -138,16 +137,16 @@ The answer is: matrix. The one-step matric is $P=(p_{i,j})_{i,j\in S}$. Similarl
 
 \begin{prop}[Chapman-Kolmogonov equations]
   \[
-    p_{i,j}(m+n) = \sum_{k\in S} p_{i,j}(m) p_{k,j}(n).
+    p_{i,j}(m+n) = \sum_{k\in S} p_{i,k}(m) p_{k,j}(n).
   \]
  
 \end{prop}
 
 \begin{proof}
   \begin{align*}
-    \P(X_{m+n}=j|X_0=i) &= \sum_{k\in S} \P(X_{m+n}=j,X_m=k|X_0=i) \\
-    \intertext{Use the equality $\P(A\cap B|C) = \P(A|B\cap C)\P(B|C)$,}
-                        &= \sum_{k\in S} \P(X_{m+n}=j| X_m=k,X_0=i)\P(X_m=k|X_0=i) \\
+    \prob(X_{m+n}=j|X_0=i) &= \sum_{k\in S} \prob(X_{m+n}=j,X_m=k|X_0=i) \\
+    \intertext{Use the equality $\prob(A\cap B|C) = \prob(A|B\cap C)\prob(B|C)$,}
+                        &= \sum_{k\in S} \prob(X_{m+n}=j| X_m=k,X_0=i)\prob(X_m=k|X_0=i) \\
     \intertext{By Markov property, the first term can be simplified}
                         &= \sum_{k\in S} p_{i,j}(m) p_{k,j}(n)
   \end{align*}
@@ -202,7 +201,7 @@ The answer is: matrix. The one-step matric is $P=(p_{i,j})_{i,j\in S}$. Similarl
   \end{enumerate}
 \end{eg}
 
-It is convenient to think of \(\lambda\) as a row vector and \(P\) as a matrix. Then \(\P(X_1=j) = sum \lambda_ip_{i,j}\) becomes \((\P(X_i=j):j\in S) = \lambda P\), i.e. pre-multiplying \(P\) by \(\lambda\).
+It is convenient to think of \(\lambda\) as a row vector and \(P\) as a matrix. Then \(\prob(X_1=j) = \sum \lambda_ip_{i,j}\) becomes \((\prob(X_i=j):j\in S) = \lambda P\), i.e. pre-multiplying \(P\) by \(\lambda\).
 
 \section{Class Structure}
 
@@ -314,9 +313,9 @@ A closed set is different from communicating class as it is ``one-way''.
   has communicating classes \(\{1,2,3\}, \{4\},\{5,6\}\), only the last of which is closed.
 \end{eg}
 
-\section{Recurrence or Transience}
+\section{Recurrence \& Transience}
 
-Introduce notation \(\P_i(\cdot) = \P(\cdot| X_0 = i), \E_i(\cdot) = \E(\cdot|X_0=i)\).
+Introduce notation \(\prob_i(\cdot) = \prob(\cdot| X_0 = i), \E_i(\cdot) = \E(\cdot|X_0=i)\).
 
 \begin{defi}
 The \emph{first-passage time} of \(j\in S\) is
@@ -325,37 +324,165 @@ T_j = \min \{n\geq 1: X_n=j\}.
 \]
 The \emph{first-passage probability} are
 \[
-f_{i,j}(n) = \P_i(T_j=n).
+f_{i,j}(n) = \prob_i(T_j=n).
 \]
 \end{defi}
 
 \begin{defi}
   \(i\in S\) is \emph{recurrent (or persistent)} if
   \[
-\P_i(T_i < \infty) = 1,
+\prob_i(T_i < \infty) = 1,
   \]
   and \emph{transient} otherwise.
 \end{defi}
 
 \begin{thm}
+  \label{thm:recurrent}
   \(i\) is recurrent if and only if
   \[
     \sum_{n\geq0}^{}p_{i,i}(n) = \infty.
   \]
 \end{thm}
 
-Introduce two generating functions
+Before we prove the theorem, introduce two generating functions:
 \begin{align*}
   P_{i,j}(s) &= \sum_{n\geq0}^{ }p_{i,j}(n)s^n \\
-  F_{i,j}(s) &= \sum_{n\geq0}^{ }f_{i,j}(n)s^n \\
-  \delta_{i,j} &= p_{i,j}(0) =
+  F_{i,j}(s) &= \sum_{n\geq0}^{ }f_{i,j}(n)s^n
+\end{align*}
+with the convention that
+\begin{align*}
+  p_{i,j}(0) &= \delta_{i,j} =
                  \begin{cases}
                    1 & i = j \\
                    0 & i \neq j
                  \end{cases}\\
-  f_{i,j}(0) &= 0 \forall i,j
+  f_{i,j}(0) &= 0 \, \forall i,j
 \end{align*}
 
+Note that
+\begin{align*}
+  p_{i,j}(n) &= \sum_{m=1}^{n}\prob_i(X_n=j|T_j=m)\prob_i(T_j=m) \\
+             &\stackrel{\text{MP}}{=} \sum_{m=1}^{n}p_{j,j}(n-m)f_{i,j}(m)
+\end{align*}
+which is the convolution of \(p\) and \(f\).
+
+It follows that for \(n\geq 1\),
+\begin{align*}
+  \sum_{n\geq1}^{ } p_{i,j}(n)s^n &= \sum_{n\geq1}^{ } \sum_{m=1}^{n} \Big( f_{i,j}(m)s^m \Big) \Big(p_{j,j}(n-m)s^{n-m} \Big) \\
+  P_{i,j}(s) -\delta_{i,j} &= \sum_{m=1}^{\infty} \sum_{n=m}^{\infty} \Big( f_{i,j}(m)s^m \Big) \Big(p_{j,j}(n-m)s^{n-m} \Big) \\
+                                  &= \sum_{m\geq1}^{ } f_{i,j}(m)s^m \sum_{r\geq0}^{} p_{j,j}(r)s^r \\
+                                  &= F_{i,j}(s) P_{j,j}(s)
+\end{align*}
+be careful when dealing with double summations.
+
+\begin{thm}
+  \[
+    P_{i,j}(s) = \delta_{i,j} + F_{i,j}(s)P_{j,j}(s) \text{ for } |s| < 1.
+  \]
+\end{thm}
+
+The \(|s| < 1\) condition: since \(|F_{i,j}(s)| < \infty\) if \(|s| < 2\),
+\[
+  |P_{i,j}(s)| \leq \sum_{n}^{ }|s|^n < \infty 
+\]
+
+A lemma from analysis before we finally prove Theorem~\ref{thm:recurrent}:
+ \begin{lem}[Abel's Lemma]
+  Let \((u_i)_{i\geq0}\) be a non-negative sequence such that
+  \[
+    \mathcal U(s) = \sum_{i=0}^{\infty}u_is^i
+  \]
+  converges when \(|s| <1\), then
+  \[
+    \sum_{i=0}^{\infty}u_i = \lim_{s\to 1^-} \mathcal U(s),
+  \]
+  whether or not this limit is finite.
+\end{lem}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:recurrent}]
+  For \(|s| < 1\), then
+  \begin{align*}
+    p_{i,i}(s) &= 1+ F_{i,i}P_{i,i} \\
+    P_{i,i} &= \frac{1}{1-F_{i,j}}
+  \end{align*}
+Let \(s \to 1^-\), then by Abel's Lemma
+\begin{equation}
+  \label{eqn:recurrent P}
+  P_{i,i}(1) = \infty \Leftrightarrow F_{i,i}(1) =1
+\end{equation}
+i.e. \(i\) is recurrent.
+\end{proof}
+
+\begin{thm}[Recurrence as a class property]
+  Let \(C\) be a communicating class, then
+  \begin{enumerate}
+  \item either every state in \(C\) is recurrent or every state is transient,
+  \item if \(C\) contains some recurrent state then \(C\) is closed.
+  \end{enumerate}
+\end{thm}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(i,j \in C\), \(i \neq j\). There exist \(m,n\geq 1\) such that
+    \[
+      \alpha = p_{i,j}(m)p_{j,i}(n) >0.
+    \]
+    This is simply a restatement of the communicating property. Then
+    \begin{align*}
+      p_{i,j}(m+k+n) \geq p_{i,j}(m)p_{j,j}(k)p_{j,i}(n) = \alpha p_{j,j}(k)
+    \end{align*}
+    Intuitively, the middle term is the probability of going from \(i\) to \(i\) by passing \(j\) at step \(m\) and \(m+k\).
+    Thus
+    \[
+      \sum_{k}^{}p_{i,i}(m+k+n) \geq \alpha \sum_{k}^{ }p_{j,j}(k).
+    \]
+    Thus \(j\) recurrent implies that \(i\) is recurrent. Vice versa.
+  \item Suppose \(i\in C\) is recurrent but \(C\) is not closed. Then there exists \(j\in C, k\notin C\) with \(p_{j,k} > 0\). By the previous part \(j\) is recurrent so
+    \[
+      1 = \prob_j(T_j < \infty) = 1 - \prob_j(\text{no return to } j) \leq 1- p_{j,k} < 1
+    \]
+    Absurd.
+  \end{enumerate}
+\end{proof}
+
+\begin{thm}
+  Assume \(|S| < \infty\), then
+  \begin{enumerate}
+  \item \(S\) contains some recurrent state,
+  \item if the chain is irreducible, all states are recurrent.
+  \end{enumerate}
+\end{thm}
+
+Similar as before, we need a proposition before the proof:
+  \begin{prop}
+    If \(j\) is a transient state then
+    \[
+      \forall i,\, p_{i,j}(n) \to 0 \text{ as } n\to\infty
+    \]
+  \end{prop}
+
+  \begin{proof}
+    Asuume \(j\) is transient. By \eqref{eqn:recurrent P},
+    \[
+      P_{j,j}(1) < \infty.
+    \]
+    By Theorem~\ref{thm:recurrent},
+    \[
+      \sum_{n}^{ }p_{i,j}(n) = P_{i,j}(1) < \infty
+    \]
+    so \(n\)th term \(p_{i,j}(n)\) tends to \(0\) as \(n\to \infty\).
+  \end{proof}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\sum_{j\in S}^{ }p_{i,j}(n) = 1 \) since \(P\) is a stochastic matrix. If \(j\) is transient then each summand tends to \(0\) as \(n\to \infty\), which is absurd since \(|S| < \infty\).
+  \item Obvious.
+  \end{enumerate}
+\end{proof}
 \appendix
 
 \section{Resources}
