@@ -11,6 +11,9 @@
 \input{header}
 
 \newcommand*{\ann}{\circ}
+
+\newcommand*{\basis}{\mathcal}
+
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
@@ -29,7 +32,12 @@
 \subsection{Definition}
 
 \begin{defi}
-  An $\mathbb{F}$-vector space (or a vector space over $\mathbb{F}$) is an abelian group $(V, +)$ equipped with a function, called \emph{scalar multiplication}: $\mathbb{F}\times V \to V, (\lambda, v) \mapsto \lambda\cdot v$, satisfying the axioms
+  An $\mathbb{F}$-vector space (or a vector space over $\mathbb{F}$) is an abelian group $(V, +)$ equipped with a function, called \emph{scalar multiplication}:
+  \begin{align*}
+    \mathbb{F}\times V &\to V \\
+    (\lambda, v) &\mapsto \lambda\cdot v
+  \end{align*}
+  satisfying the axioms
   \begin{itemize}
   \item distributive over vectors: $\lambda(v_1+v_2) = \lambda(v_1+v_2)$,
   \item distributive over scalars: $(\lambda_1+\lambda_2)v= \lambda_1 v+\lambda_2 v$,
@@ -282,7 +290,7 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 \end{eg}
 
 \begin{lem}
-  Let \(V\) be a finite-dimensional vector space over \(\F\). If \(w_1,\ldots,w_\ell\) is a linearly independent set of vectors, we can extend it to a basis \(w_1,\ldots,w_\ell,w_{\ell+1},\ldots,v_n\).
+  Let \(V\) be a finite-dimensional \(\F\)-vector space. If \(w_1,\ldots,w_\ell\) is a linearly independent set of vectors, we can extend it to a basis \(w_1,\ldots,w_\ell,w_{\ell+1},\ldots,w_n\).
 \end{lem}
 
 \begin{proof}
@@ -550,7 +558,7 @@ which is an isomorphism.
   \end{itemize}
 \end{defi}
 
-\begin{thm}[Rank-nullity Theorem]
+\begin{thm}[Rank-nullity]
   Let \(U, V\) be \(\F\)-vector spaces, \(\dim U < \infty\). Let \(\alpha:U\to V\) be a linear map. Then
   \[
 \dim U = r(\alpha) + n(\alpha).
@@ -574,7 +582,8 @@ which is an isomorphism.
   Rank-nullity theorem.
 \end{proof}
 
-\subsection{\(\Hom_\F(V,W)\) as \(\F\)-vector space}
+%\subsection{\texorpdfstring{\(\Hom_\F(V,W)\)}{Hom\textsubscript{F}(V,W)} as \texorpdfstring{\(\F\)}{F}-vector space}
+\subsection{Linear Maps as Vector Space}
 
 Suppose \(V\) and \(W\) are \(\F\)-vector spaces. Let \(L(V,W) = \{\alpha:V\to W, \alpha \text{ linear}\}\).
 
@@ -1082,6 +1091,8 @@ one way to compute inverses.
 
 \section{Dual Spaces \& Dual Maps}
 
+\subsection{Definition}
+
 Let \(V\) be an \(\F\)-vector space.
 
 \begin{defi}
@@ -1101,9 +1112,9 @@ Let \(V\) be an \(\F\)-vector space.
 \end{eg}
 
 \begin{lem}[Dual basis]
-  Let \(V\) be a finite-dimensional \(\F\)-vector space with basis \(B = \{e_1,\dots,e_n\}\). Then there is a basis for \(V^*\), given by
+  Let \(V\) be a finite-dimensional \(\F\)-vector space with basis \(\basis B = \{e_1,\dots,e_n\}\). Then there is a basis for \(V^*\), given by
   \[
-    B* = \{\varepsilon_1,\dots, \varepsilon_n\}
+    \basis B* = \{\varepsilon_1,\dots, \varepsilon_n\}
   \]
   where
   \[
@@ -1111,7 +1122,7 @@ Let \(V\) be an \(\F\)-vector space.
   \]
   for \(1\leq j\leq m\).
 
-  \(B^*\) is called the \emph{dual basis} to \(B\).
+  \(\basis B^*\) is called the \emph{dual basis} to \(\basis B\).
 \end{lem}
 
 \begin{proof}\leavevmode
@@ -1152,6 +1163,10 @@ Let \(V\) be an \(\F\)-vector space.
   Sometimes it is useful to think about \((\F^n)^*\) as the space of row vectors of length \(n\) over \(\F\).
 \end{rmk}
 
+\subsection{Dual Map}
+
+It turns out dual spaces have maps between them. Before studying them in detail later, we introduce this concept add richness to the theory of dual map:
+
 \begin{defi}[Annihilator]
   If \(U \subseteq V\), the \emph{annihilator} of \(U\) is
   \[
@@ -1176,7 +1191,7 @@ Let \(V\) be an \(\F\)-vector space.
       (\alpha+ \alpha')(u) = \alpha(u) + \alpha'(u) = 0+0 = 0
     \]
     for all \(u\in U\). Similarly \(\lambda\alpha\in U^\ann\) for any \(\lambda \in \F\).
-  \item Let \(B = \{e_1,\dots, e_k\}\) be a basis for \(U\) and extend it to a basis \(e_1,\dots,e_k,e_{k+1},\dots,e_n\) for \(V\). Let \(B^*=\{\varepsilon_1,\dots,\varepsilon_n\}\) be its dual basis. Claim \(\varepsilon_{k+1},\dots,\varepsilon_n \) is a basis for \(U^\ann\):
+  \item Let \(\basis B = \{e_1,\dots, e_k\}\) be a basis for \(U\) and extend it to a basis for \(V\), say \(e_1,\dots,e_k,e_{k+1},\dots,e_n\). Let \(\basis B^*=\{\varepsilon_1,\dots,\varepsilon_n\}\) be its dual basis. Claim \(\varepsilon_{k+1},\dots,\varepsilon_n \) is a basis for \(U^\ann\):
     \begin{itemize}
     \item If \(i>k,j\leq k\) then \(\varepsilon_i(e_j) = 0 \) so \(\varepsilon_i\in U^\ann\)
     \item Linear independence comes from the fact that \(B^*\) is a basis.
@@ -1212,14 +1227,14 @@ Let \(V\) be an \(\F\)-vector space.
 \end{proof}
 
 \begin{prop}
-  Let \(V\) and \(W\) be \(\F\)-vector spaces with bases \(B\) and \(C\) repectively. Let \(B^*\) and \(C^*\) be the dual bases. Consider \(\alpha\in L(V,W)\) with dual \(\alpha^*\), then
+  Let \(V\) and \(W\) be \(\F\)-vector spaces with bases \(\basis B\) and \(\basis C\) repectively. Let \(\basis B^*\) and \(\basis C^*\) be the dual bases. Consider \(\alpha\in L(V,W)\) with dual \(\alpha^*\), then
   \[
-    [\alpha^*]_{C^*,B^*} = [\alpha]^T_{B,C}.
+    [\alpha^*]_{\basis C^*,\basis B^*} = [\alpha]^T_{\basis B,\basis C}.
   \]
 \end{prop}
 
 \begin{proof}
-  Say \(B = \{b_1,\dots,b_n\}\), \(B^* = \{\beta_1,\dots,\beta_n\}\), \(C = \{c_1,\dots,c_m\}\) and \(C^* = \{\gamma_1,\dots,\gamma_n\}\). Further let \([\alpha]_{B,C} = (a_{ij})\), an \(m\times n\) matrix.
+  Say \(\basis B = \{b_1,\dots,b_n\}\), \(\basis B^* = \{\beta_1,\dots,\beta_n\}\), \(\basis C = \{c_1,\dots,c_m\}\) and \(\basis C^* = \{\gamma_1,\dots,\gamma_n\}\). Further let \([\alpha]_{\basis B,\basis C} = (a_{ij})\), an \(m\times n\) matrix.
   \begin{align*}
     \alpha^*(\gamma_r)(b_s) &= \gamma_r \compose \alpha(b_s) \\
                             &= \gamma_r(\alpha(b_s)) \\
@@ -1234,7 +1249,144 @@ Let \(V\) be an \(\F\)-vector space.
   \]
   so
   \[
-    [\alpha^*]_{C^*,B^*} = [\alpha]^T_{B,C}.
+    [\alpha^*]_{\basis C^*,\basis B^*} = [\alpha]^T_{\basis B,\basis C}.
   \]
+\end{proof}
+
+
+It follows that
+\begin{lem}
+  Let \(V\) be a finite-dimensioanl \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). Then the change of basis matrix from \(\basis F^*\) to \(\basis E^*\) is
+  \[
+    (P^{-1})^T.
+  \]
+\end{lem}
+
+\begin{proof}
+  \[
+    [\id]_{\basis F^*,\basis E^*} = [\id]_{\basis E, \basis F}^T = ([\id]_{\basis F, \basis E}^{-1})^T.
+  \]
+\end{proof}
+
+\begin{caution}
+  \(V \cong V^*\) only if \(V\) is finite dimensional. Let \(V = P\), the space of all real polynomials. It has basis \(\{p_j\}_{j\in \N}\) where \(p(j) = t^j\). In example sheet 2 we will see
+\begin{align*}
+  P^* &\cong \R^\N \\
+  \varepsilon &\to (\varepsilon(p_0), \varepsilon(p_1), \dots)
+\end{align*}
+and on example sheet 1 we prove
+\[
+  P \ncong \R^\N
+\]
+as the latter does not have a countable basis.
+\end{caution}
+
+Now we move on to more discussion about annhilator.
+
+\begin{lem}
+  Let \(V\) and \(W\) be \(\F\)-vector spaces. Fix \(\alpha \in L(V,W)\) and let \(\alpha^* \in L(W^*, V^*)\) be its dual. Then
+  \begin{itemize}
+  \item \(N(\alpha^*) = (\im \alpha)^\ann\), so if \(\alpha^*\) is injectve if and only if \(\alpha\) is surjective.
+  \item \(\im \alpha^* \leq N(\alpha)^\ann\), with equality if \(V\) and \(W\) are both finite-dimensional, in which case \(\alpha^*\) is surjective if and only if \(\alpha\) is injective.
+  \end{itemize}
+\end{lem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item Let \(\varepsilon \in W^*\), then
+  \begin{align*}
+    & \varepsilon \in N(\alpha^*) \\
+    \Leftrightarrow & \alpha^* (\varepsilon) = 0 \\
+    \Leftrightarrow & \varepsilon \compose \alpha = 0 \\
+    \Leftrightarrow & \varepsilon(u) = 0 \, \forall u \in \im \alpha \\
+    \Leftrightarrow & \varepsilon \in (\im \alpha)^\ann
+  \end{align*}
+
+\item Let \(\varepsilon \in \im \alpha^*\), Then \(\varepsilon = \alpha^* (\phi)\) for some \(\phi \in W^*\). For any \(u \in N(a)\),
+  \[
+    \varepsilon(u) = (\alpha^* \phi)(u) = (\phi\compose \alpha)(u) = \phi(\alpha(u)) = \phi(0) = 0
+  \]
+  so \(\varepsilon \in N(\alpha)^\ann\).
+
+  Now use the fact that \(V\) and \(W\) are finite-dimensional:
+  \[
+    \dim \im(\alpha^*) = r(\alpha^*) = r(\alpha)
+  \]
+  as \(r(A) = r(A^T)\). On the other hand,
+  \[
+    r(\alpha) = \dim V - \dim N(\alpha) = \dim (N(\alpha))^\ann
+  \]
+  Thus they are equal.
+\end{itemize}
+\end{proof}
+
+\subsection{Double Dual}
+
+Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. The natrual next step is
+
+\begin{defi}[Double dual]
+  The \emph{double dual} of \(V\) is
+  \[
+    V^{**} = V^* = L(V^*, \F).
+  \]
+\end{defi}
+
+\begin{thm}[Double dual as natural transformation]
+  If \(V\) is an \(\F\)-vector space, then the map
+  \begin{align*}
+    \hat \cdot: V &\to V^{**} \\
+    v &\mapsto \hat v
+  \end{align*}
+  where \(\hat v(\varepsilon) = \varepsilon(v)\), is an natural homomorphism. In particular when \(V\) is finite-dimensional this is a natural isomorphism.
+\end{thm}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item For \(v\in V\), the map \(\hat v: V^* \to \F\) is linear so \(\hat \cdot\) does give a map from \(V\) to \(V^{**}\).
+  \item Linear: for \(v_1, v_2 \in V\), \(\lambda_1, \lambda_2 \in \F\), \(\varepsilon \in V*\), then
+    \[
+      %deal with this
+      \widehat{\lambda_1v_1 + \lambda_2v_2(\varepsilon)} = \varepsilon(\lambda_1v_1 + \lambda_2v_2) = \lambda_1 \varepsilon(v_1) + \lambda_2 \varepsilon(v_2) = \lambda_1 \hat v_1(\varepsilon) + \lambda_2 \hat v_2(\epsilon)
+    \]
+  \item Injectivity: let \(e \in V\setminus\{0\}\). Extend it to a basis of \(V\), say \(e, e_2,\dots, e_n\). Let \(\varepsilon, \varepsilon_2,\dots, \varepsilon_n\) be its corresponding dual basis. Now
+    \[
+      \hat e(\varepsilon) = \varepsilon(e) = 1 
+    \]
+    so \(\hat e\) is non-zero. \(\hat \cdot\) is injective.
+  \item Finally, if \(V\) is finite-dimensional, \(\dim V = \dim V^* = \dim V^{**}\) so \(\hat \cdot\) is an isomorphism.
+  \end{itemize}
+\end{proof}
+
+\begin{lem}
+  Let \(V\) be a finite-dimensional \(\F\)-vector space and \(U \leq V\). Then
+  \[
+    \hat U = U^{\ann \ann}.
+  \]
+  So \(U = U^{\ann \ann}\).
+\end{lem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item First show \(\hat U \leq U^{\ann \ann}\): given \(u \in U\), for all \(\varepsilon \in U^\ann\), \(\varepsilon(u) = 0\) so \(\hat u(\varepsilon) = 0\). Thus \(\hat u \in (U^\ann)^\ann = U^{\ann \ann}\).
+  \item
+    \[
+      \dim U^{\ann \ann} = \dim V^* - \dim U^\ann = \dim V - \dim U^\ann = \dim U
+    \] so \(\hat U = U^{\ann \ann}\).
+  \end{itemize}
+\end{proof}
+
+\begin{lem}[Galois Connection]
+  Let \(V\) be a finite-dimensional \(\F\)-vector space and \(U_1, U_2 \leq V\). Then
+  \begin{itemize}
+  \item \((U_1 + U_2)^\ann = U_1^\ann \cap U_2^\ann\),
+  \item \((U_1 \cap U_2)^\ann = U_1^\ann + U_2^\ann\).
+  \end{itemize}
+\end{lem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item Let \(\theta \in V^*\), \(\theta \in (U_1+U_2)^\ann\) if and only if \(\theta(u_1+u_2) = 0\) for all \(u_1\in U_1, u_2 \in U_2\), if and only if \(\theta(u) = 0\) for all \(u \in U_1 \cup U_2\), so \(\theta\in U_2^\ann \cap U_2^\ann\).
+  \item Apply \(^\ann\) to the first result.
+  \end{itemize}
 \end{proof}
 \end{document}

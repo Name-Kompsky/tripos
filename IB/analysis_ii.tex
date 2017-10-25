@@ -14,8 +14,9 @@
 \newtheorem*{joke}{Joke}
 
 \begin{document}
-% TODO: rewrite \norm
 
+% TODO: rewrite \norm
+% TODO: plot simple functions
 
 
 
@@ -81,7 +82,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
 \end{defi}
 
 \begin{ex}
-  Suppose $V=\mathbb{R}^m, (\V v_n) = (v_{n,1},\ldots,v_{n,m})$. Then $(\V v_n)\to \V v$ w.r.t. $\|\cdot\|_\infty$ means
+  Suppose $V=\mathbb{R}^m, (\V v_n) = (v_{n,1},\ldots,v_{n,m})$. Then $(\V v_n)\to \V v$ with respect to $\|\cdot\|_\infty$ means
   \begin{align*}
     & (\max_{1\leq i \leq m}|v_{n,i}-v_i|) \to 0 \\
     \Longleftrightarrow & (|v_{n,i}-v_i|)\to 0 \text{ for all } 1\leq i\leq m \\
@@ -797,7 +798,7 @@ In other words, power series can be differentiated term-by-term.
 
 \section{Compactness}
 
-\subsection{Compact subsets of \(\R^n\)}
+\subsection{Compact subsets of \texorpdfstring{\(\R^n\)}{Rn}}
 
 Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in \(V\) and \((n_j)\) is an increasing sequence of positive integers (i.e.\ \(n_{j+1}>n_j\)) then \((v_{n_j})\) is a \emph{subsequence} of \((v_n)\).
 
@@ -814,16 +815,16 @@ Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in
 \end{rmk}
 
 Recall from analysis i:
-\begin{thm}[Bolzano-Weistrass]
+\begin{thm}[Bolzano-Weierstrass]
   A bounded sequence in \(\R\) has a convergent subsequence.
 \end{thm}
 
-\begin{cor}[Bolzano-Weistrass for \(\R^m\)]
+\begin{cor}[Bolzano-Weierstrass for \(\R^m\)]
   A bounded sequence in \(\R^m\) has a convergent subsequence.
 \end{cor}
 
 \begin{proof}
-  Inducton on \(m\): if \(m=1\) then done by Bolzano-Weistrass. Suppose it holds for \(\R^{m-1}\) and let \((v_n)\) be a bounded sequence in \(\R^m\). Write \(v_n = (v_{n,1},\dots,v_{n,n}) = (w_n,v_{n,m})\) for some \(w_n\in \R^{m-1}\). \(\norm{w_n}\) and \(|v_{n,m}| \leq \norm{v_n}\) so \((v_n)\) is bounded implies that \((w_n)\) and \((v_{n,m})\) are bounded. By induction \((w_n)\) has a subsequence \((w_{n_j}) \to w \in \R^{m-1}\). Now consider \((v_{n_j,m})\). This is a bounded sequence in \(\R\) so by Bolzano-Weistrass there is a subsequence \((v_{n_{j_k},m}) \to v \in\R\). By Exercise \((w_{n_{j_k}}) \to w\) so
+  Inducton on \(m\): if \(m=1\) then done by Bolzano-Weierstrass. Suppose it holds for \(\R^{m-1}\) and let \((v_n)\) be a bounded sequence in \(\R^m\). Write \(v_n = (v_{n,1},\dots,v_{n,n}) = (w_n,v_{n,m})\) for some \(w_n\in \R^{m-1}\). \(\norm{w_n}\) and \(|v_{n,m}| \leq \norm{v_n}\) so \((v_n)\) is bounded implies that \((w_n)\) and \((v_{n,m})\) are bounded. By induction \((w_n)\) has a subsequence \((w_{n_j}) \to w \in \R^{m-1}\). Now consider \((v_{n_j,m})\). This is a bounded sequence in \(\R\) so by Bolzano-Weierstrass there is a subsequence \((v_{n_{j_k},m}) \to v \in\R\). By Exercise \((w_{n_{j_k}}) \to w\) so
   \[
     (v_{n_{j_k}}) = ((w_{n_{j_k}},v_{n_{j_k},m})) \to (w, v) \in \R^m.
   \]
@@ -849,7 +850,7 @@ Recall from analysis i:
 \end{thm}
 
 \begin{proof}
-  \(\Leftarrow\): Suppose \(A\) is closed and bounded. Given a sequence \((v_n)\) with \(v_n\in A\), must find a convergent subsequence. Since \(A\) is bounded, \((v_n)\) is bounded so by Bolzano-Weistrass there is a convergent subsequence \((v_{n_j})\to v \in \R^m\). As \(A\) is closed and \(v_{n_j}\in A\), \((v_{n_j})\to v\) implies that \(v \in A\).
+  \(\Leftarrow\): Suppose \(A\) is closed and bounded. Given a sequence \((v_n)\) with \(v_n\in A\), must find a convergent subsequence. Since \(A\) is bounded, \((v_n)\) is bounded so by Bolzano-Weierstrass there is a convergent subsequence \((v_{n_j})\to v \in \R^m\). As \(A\) is closed and \(v_{n_j}\in A\), \((v_{n_j})\to v\) implies that \(v \in A\).
 
   \(\Rightarrow\): If \(A\) is not closed or not bounded, we will find a sequence \((v_n)\) with \(v_n \in A\) with no convergent subsequence:
   \begin{itemize}
@@ -889,6 +890,10 @@ Recall from analysis i:
   \]
 \end{proof}
 
+\begin{joke}
+  There is no joke today.
+\end{joke}
+
 \begin{application}[Maximum Value Theorem]
  \begin{lem}
   If \(\emptyset \neq A \subseteq \R \) is compact then \(\sup A \in A\).
@@ -915,7 +920,7 @@ Recall from analysis i:
 \end{proof}
 \end{application}
 
-\begin{application}[Norms on \(\R^n\)]
+\begin{application}[Equivalence of Norms on \(\R^n\)]
   Let \(\norm \cdot\) be some norm on \(\R^m\).
   
   \begin{lem}
@@ -1001,7 +1006,7 @@ Let \(V\) be a normed vector space.
         \norm{v_n-v_m} \leq \norm{v_n-v}+ \norm{v-v_m} < \varepsilon.
       \]
     \end{proof}
-  \item If \(s_n = \sum_{i=1}^{n}1/i \), then \((s_n)\) is not Cauchy since for any fixed \(N\), \(\sum_{i=N}^{m}1/i \to \infty \) as \(m\to \infty\).
+  \item If \((\sum_{i=1}^{n}1/i )\) is not Cauchy since for any fixed \(N\), \(\sum_{i=N}^{m}1/i \to \infty \) as \(m\to \infty\).
   \end{enumerate}
 \end{eg}
 
@@ -1017,5 +1022,98 @@ But there may \emph{not} be anything for it to converge to!
     1 & x\geq 1/2+1/n
   \end{cases}
   \) Then \((f_n)\) is Cauchy but does not converge to any \(f\in C[0,1]\).
+\end{eg}
+%TODO: add a plot
+
+\begin{eg}[(Not quite an) Example]
+  Let \((V, \norm \cdot) = (\Q, \norm \cdot)\), let \(v_n\) be the first \(n\)-decimal place expansion of \(\pi\). Then \((v_n)\) is Cauchy but does not converge to any \(v\in \Q\).
+\end{eg}
+
+\begin{defi}[Completeness]
+  A normed vector space \((V, \norm \cdot)\) is \emph{complete} if whenever \((v_n)\) is a Cauchy sequence in \(V\), there exists \(v\in V\) such that \((v_n) \to v\).
+\end{defi}
+
+\begin{eg}
+  \((C[0, 1], \norm \cdot_1)\) is not complete.
+\end{eg}
+
+\begin{thm}[Completeness of Euclidean Space]
+  \label{thm:completeness of R}
+  \(\R^m\) is complete.
+\end{thm}
+
+The proof uses two lemmas about Cauchy sequences: suppose \(V\) is a normed vector space and \((v_n)\) is Cauchy, then
+
+\begin{lem}[Boundedness of Cauchy sequence]
+  \label{lem:boundedness of Cauchy}
+  \((v_n)\) is bounded.
+\end{lem}
+
+\begin{proof}
+  Example sheet.
+\end{proof}
+
+\begin{lem}
+  \label{lem:subsequence of Cauchy}
+  If there exists a subsequence \((v_{n_j}) \to v \in V\) then \((v_n) \to v\).
+\end{lem}
+
+\begin{proof}
+  Given \(\varepsilon > 0\), pick \(N\) such that for all \(n, m \geq N\), \(\norm{v_n - v_m} < \varepsilon/2\). Since \((v_{n_j}) \to v\), exists \(J\) such that whenever \(j \geq J\), \(\norm{v_{n_j} - v} < \varepsilon/2\). Pick \(j \geq J\) such that \(n_j \geq N\). Then for all \(n\geq N\),
+  \[
+    \norm{v_n - v} \leq \norm{v_n - v_{n_j}} + \norm{v_{n_j} - v} < \varepsilon/2 + \varepsilon/2 = \varepsilon.
+  \]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:completeness of R}]
+  Suppose \((v_n)\) is a Cauchy sequence in \(\R^n\). By Lemma~\ref{lem:boundedness of Cauchy}, \((v_n)\) is bounded. By Bolzano-Weierstrass, it has a convergent subsequence \((v_{n_j}) \to v \in \R^n\). By Lemma~\ref{lem:subsequence of Cauchy} \((v_n) \to v \in \R^n\). So any Cauchy sequence in \(\R^n\) converges to \(v\in \R^n\). \(\R^n\) is complete.
+\end{proof}
+
+We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weierstrass property. Nevertheless, it is complete:
+
+\begin{thm}
+  Let \([a, b]\) be a bounded interval in \(\R\), then \(C[a, b]\) is complete with respect to \(\norm \cdot_\infty\).
+\end{thm}
+
+\begin{proof}
+  Suppose \((f_n)\) is Cauchy in \(C[a, b]\). We must find \(f\in C[a, b]\) such that \((f_n) \to f\) uniformly on \([a, b]\).
+
+  Give \(\varepsilon > 0\), pick \(N\) such that whenever \(n,m \geq N\),
+  \begin{equation}
+    \label{eqn:Cauchy uniform}
+    |f_n(x) - f_m(x)| \leq \max_{x \in [a,b]}|f_n(x) - f_m(x)| = \norm{f_n - f_m}_\infty < \varepsilon/2
+    \tag{\(\ast\)}
+  \end{equation}
+  i.e.\ for all \(x \in [a, b]\), the sequence \((f_n(x))\) is Cauchy in \(\R\). Since \(\R\) is complete, \(\lim_{n \to \infty}f_n(x)\) exists. Now define \(f(x) = \lim_{n \to \infty}f_n(x)\). Claim \((f_n) \to f\) uniformly on \([a, b]\): given \(\varepsilon > 0\), choose \(N\) as in~\eqref{eqn:Cauchy uniform}. Given \(x\), choose \(M\) such that \(|f_n(x) - f(x)| < \varepsilon/2\) for \(n \geq M\). Let \(m' = \max\{M, N\}\). Then for \(n \geq N\),
+  \[
+    |f_n(x) - f(x)| \leq |f_n(x) - f_{m'}(x)| + |f_{m'}(x) - f(x)| < \varepsilon/2 + \varepsilon/2 = \varepsilon.
+  \]
+  Since the uniform limit of continuous functions is continuous, \((f_n) \to f \in C[a, b]\). \((C[a, b], \norm \cdot_\infty)\) is complete.
+\end{proof}
+
+\begin{defi}[Normed subspace]
+  Let \((V, \norm \cdot)\) and \((V', \norm \cdot')\) be two normed vector spaces. We say \(V\) is a \emph{normed vector subspace} of \(V'\) if
+  \begin{enumerate}
+  \item \(V \leq V'\) as a vector space,
+  \item \(\norm v = \norm v'\) for all \(v \in V\).
+  \end{enumerate}
+
+\end{defi}
+
+\begin{rmk}\leavevmode
+  \begin{enumerate}
+  \item If \(V \subseteq V'\), \(V\) is complete then \(V\) is a closed subset of \(V'\).
+    \begin{proof}
+      Suppose \((v_n)\) is a sequence in \(V\) and \((v_n) \to v' \in V'\). Then \((v_n)\) is Cauchy in \(V\) so \((v_n) \to v \in V\). By uniqueness of limits \(v = v' \in V\) so \(V \subseteq V\) is closed.
+    \end{proof}
+  \item If \((V, \norm \cdot)\) is a normed space then there exists a complete normed pace \((\cl V, \norm \cdot)\) which contains \(V\) as a dense subspace (dense means that any \(v \in V\) is a limit of sequence in \(V\)). This \(\cl V\) is the \emph{completion} of \(V\) and is unique up to isomorphism of normed space.
+  \end{enumerate}
+\end{rmk}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\R\) is the completion of \(\Q\) with \(|\cdot|\).
+  \item The completion of \((C[0, 1], \norm \cdot_1)\) is the space of Lebesgue integrable functions on \([0, 1]\).
+    \end{enumerate}
 \end{eg}
 \end{document}

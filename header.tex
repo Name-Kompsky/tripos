@@ -20,6 +20,7 @@
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{stmaryrd}%symbols used so far: \mapsfrom
+\usepackage{empheq}
 \usepackage{amssymb}
 \let\mathbbalt\mathbb
 \usepackage{unicode-math}
@@ -34,6 +35,7 @@
 \usetikzlibrary{automata,positioning}
 \usepackage{pgfplots}
 %some preset styles
+\pgfplotsset{compat=1.15}
 \pgfplotsset{centre/.append style={axis x line=middle, axis y line=middle, xlabel={$x$}, ylabel={$y$}, axis equal}}
 \usepackage{tikz-cd}
 \usepackage{graphicx}
@@ -58,7 +60,7 @@
 
 % https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
 \hypersetup{
-    bookmarks=true,
+    %bookmarks=true,
     unicode=true,
     pdftitle={\ntitle},
     pdfauthor={\nauthor},
@@ -183,3 +185,8 @@
 %probability
 \newcommand*{\prob}{\mathbb{P}}
 \newcommand*{\E}{\mathbb{E}}
+
+%vector calculus
+\newcommand*{\gradient}{\V \nabla}
+\newcommand*{\divergence}{\gradient \cdot}
+\newcommand*{\curl}{\gradient \cdot}

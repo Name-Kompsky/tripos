@@ -12,6 +12,13 @@
 
 \renewcommand*\L{\mathcal{L}}
 
+\newcommand*\grad{\gradient}
+%TODO: resolve \div not working issue
+\renewcommand\div{\divergence}
+\newcommand*\dive{\divergence}
+
+\DeclareMathOperator{\erf}{erf}
+
 \begin{document}
 
 \input{titlepage}
@@ -66,7 +73,7 @@ Finally,
           &= 0
 \end{align*}
 
-By analogy with vectors (these integrals are \emph{inner products}), $\sin \frac{n\pi x}{L}$ and $\cos\frac{n\pi x}{L}$ are said to be \emph{orthogonal} on the interval $[0,2L]$. Actually they constitute an \emph{orthogonal basis}, i.e. it is possible to represent an arbitray (but sufficiently well-behaved) function in terms of an infinite series (Fourier series) formed as a sum of sines and cosines.
+By analogy with vectors (these integrals are \emph{inner products}), $\sin \frac{n\pi x}{L}$ and $\cos\frac{n\pi x}{L}$ are said to be \emph{orthogonal} on the interval $[0,2L]$. Actually they constitute an \emph{orthogonal basis}, i.e.\ it is possible to represent an arbitray (but sufficiently well-behaved) function in terms of an infinite series (Fourier series) formed as a sum of sines and cosines.
 
 \subsection{Definition of Fouries Series}
 
@@ -87,10 +94,11 @@ where $a_n$ and $b_n$ are the \emph{Fourier coefficients} and $f(x_+)$ and $f(x_
 
 Multiply RHS of equation~\eqref{eqn:fourier coefficients} by $\sin \frac{m\pi x}{L}$, integrate over $[0, 2\pi]$. Assume we can exchange summation and integration,
 \begin{align*}
-  \int_0^{2L} f(x)\sin\frac{m\pi x}{L} dx &= \int_0^{2L} \Bigg[ \frac{1}{2}a_0 + \sum_{n=1}^\infty \Big(a_n\cos\frac{n\pi x}{L} +b_n\sin\frac{n\pi x}{L}\Big) \Bigg] \sin\frac{m\pi x}{L} dx \\
-    &= 0 + \sum_{n=1}^\infty a_n \int_0^{2L} \cos\frac{n\pi x}{L} \sin\frac{m\pi x}{L} dx +  \sum_{n=1}^\infty b_n \int_0^{2L} \sin\frac{n\pi x}{L} \sin\frac{m\pi x}{L} dx\\
-  &= 0 + 0 + L b_m
-    \end{align*}
+  & \int_0^{2L} f(x)\sin\frac{m\pi x}{L} dx \\
+  =& \int_0^{2L} \Bigg[ \frac{1}{2}a_0 + \sum_{n=1}^\infty \Big(a_n\cos\frac{n\pi x}{L} + b_n\sin\frac{n\pi x}{L}\Big) \Bigg] \sin\frac{m\pi x}{L} dx \\
+  =& 0 + \sum_{n=1}^\infty a_n \int_0^{2L} \cos\frac{n\pi x}{L} \sin\frac{m\pi x}{L} dx +  \sum_{n=1}^\infty b_n \int_0^{2L} \sin\frac{n\pi x}{L} \sin\frac{m\pi x}{L} dx \\
+  =& 0 + 0 + L b_m
+\end{align*}
 Thus
 \[
   b_m = \frac{1}{L}\int_0^{2L} f(x) \sin\frac{m\pi x}{L} dx
@@ -123,11 +131,11 @@ The range of integration is one period so it is also permissible to choose $-L$ 
 
 If $f(x)$ is a periodic function with period $2L$ such that
 \begin{enumerate}
-\item it is absolutely integrable, i.e.$\int_0^{2L}|f(x)| dx$ is well-defined,
-\item it has a finite number of extrema (i.e. maxima and minima) in $[0,2L]$,
+\item it is absolutely integrable, i.e.\ $\int_0^{2L}|f(x)| dx$ is well-defined,
+\item it has a finite number of extrema (i.e.\ maxima and minima) in $[0,2L]$,
   \item it has a finite number of \emph{bounded} discontinuities in $[0,2L]$,
 \end{enumerate}
-then the Fourier series converges to $f(x)$ for all points where $f(x)$ is continuous and at points $x_d$ where $f(x)$ is discontinuous, the series converges to the average value of the left and right limit, i.e. $(f(x_d^+)+f(x_d^-))/2$.
+then the Fourier series converges to $f(x)$ for all points where $f(x)$ is continuous and at points $x_d$ where $f(x)$ is discontinuous, the series converges to the average value of the left and right limit, i.e.\ $(f(x_d^+)+f(x_d^-))/2$.
 
 These conditions are satisfied if the function is of \emph{bounded variation}.
 
@@ -367,7 +375,7 @@ Note the range of integration.
 
 \subsubsection{Even function: Fourier Cosine Series}
 
-\(f(x)\) can also be extended as an even function on \(-L\leq x\leq L\), i.e. \(f(x) = f(-x)\) and then extended as a \(2L\)-periodic function. \(b_n=0\) for all \(n\). The Fourier cosine series is
+\(f(x)\) can also be extended as an even function on \(-L\leq x\leq L\), i.e.\ \(f(x) = f(-x)\) and then extended as a \(2L\)-periodic function. \(b_n=0\) for all \(n\). The Fourier cosine series is
 \[
   \frac{f(x)+f(x)}{2} = \frac{a_0}{2} + \sum_{n-1}^{\infty}a_n \cos \frac{n\pi x}{L}
 \]
@@ -378,7 +386,7 @@ where
 
 \subsection{Parseval's Theorem}
 
-``Energy'' of a periodic signal is often of interest, i.e. \(E = \int_{0}^{2L}f^2(x) dx \). Consider the general case
+``Energy'' of a periodic signal is often of interest, i.e.\ \(E = \int_{0}^{2L}f^2(x) dx \). Consider the general case
 \[
   f(x) = \sum_{n=-\infty}^{\infty}c_n e^{\frac{in\pi x}{L}}, g(x) = \sum_{m=-\infty}^{\infty}d_m e^{\frac{im\pi x}{L}};
 \]
@@ -436,12 +444,12 @@ Remember the problem: find \(\V x \) such that
 \[
 A \V x = \V b.
 \]
-If \(A\) is an Hermitian matrix, \(A\) is \(N \times N\), i.e. \(A^\dag A\) where the \(\dag\) denotes complex conjugate transpose. It has \(4\) properties:\footnote{Recall an eigenvector and eigenvalue are defined such that \(A \V y_n = \lambda_n \V y_n\) where \(\lambda_n\) is the eigenvalue and \(y_n\) is the eigenvector.}
+If \(A\) is an Hermitian matrix, \(A\) is \(N \times N\), i.e.\ \(A^\dag A\) where the \(\dag\) denotes complex conjugate transpose. It has \(4\) properties:\footnote{Recall an eigenvector and eigenvalue are defined such that \(A \V y_n = \lambda_n \V y_n\) where \(\lambda_n\) is the eigenvalue and \(y_n\) is the eigenvector.}
 \begin{enumerate}
 \item \(\lambda_n\) are real,
 \item if \(\lambda_m\neq\lambda_n\) then \(\V y_m\cdot\V y_n=0\),
 \item the eigenvectors form, on scaling, an orthonormal basis and so specially \(\V b \in \C^N\) can be described by a linear combination of eigenvectors,
-\item if \(A\) is non-singular, i.e. all eigenvalues are non-zero, the solution to \(A\V x = \V b\) can be written as a sum of eigenvector.
+\item if \(A\) is non-singular, i.e.\ all eigenvalues are non-zero, the solution to \(A\V x = \V b\) can be written as a sum of eigenvector.
 \end{enumerate}
 
 \subsubsection{Gaussian Elimination}
@@ -503,7 +511,7 @@ In particular, the boundary value quantises the \(\lambda_n\).
   \(\lambda_n\) are real and strictly positive and so \(y_n\) is an eigenfunction with associated eigenvalue \(\lambda_n\).
 \end{note}
 
-Note \(\lambda_n = \frac{n^2\pi^2}{L^2}\) has property \(1\) and we have already met the orthogonality property \(2\), i.e. \(\int_{0}^{L} y_ny_m dx=\frac{L}{2}\delta_{m,n} \). There is also a generalisation of property \(3\): sines and cosines form a complete (infinite-dimensional) basis for functions that satisfy Dirichlet condition.
+Note \(\lambda_n = \frac{n^2\pi^2}{L^2}\) has property \(1\) and we have already met the orthogonality property \(2\), i.e.\ \(\int_{0}^{L} y_ny_m dx=\frac{L}{2}\delta_{m,n} \). There is also a generalisation of property \(3\): sines and cosines form a complete (infinite-dimensional) basis for functions that satisfy Dirichlet condition.
 
 For this problem \(y(x)\) must be sufficiently smooth so that its \emph{second derivative} satisfies the Dirichlet condition.
 
@@ -760,7 +768,7 @@ The linear wave equation takes the form
 \[
 \frac{\p^2\phi}{\p t^2} = c^2\nabla^2\phi
 \]
-where \(c\) is the (phase) speed, i.e. speed of propagation of crests.
+where \(c\) is the (phase) speed, i.e.\ speed of propagation of crests.
 
 \subsection{Physical Derivation}
 
@@ -844,7 +852,7 @@ The associated eigenfunctions are the \emph{normal modes}:
 \[
   X_n(x) = \beta_n \sin \frac{n\pi x}{L}.
 \]
-The lowest mode, i.e. \(n=1\), is the \emph{fundamental mode} while \(n=2,3,\dots\) are the \emph{overtones}.
+The lowest mode, i.e.\ \(n=1\), is the \emph{fundamental mode} while \(n=2,3,\dots\) are the \emph{overtones}.
 
 Note how the eigenvalues \emph{quantise} the admissible solutions. For each of the \(X_n\) there is an associated \(T_n(t)\):
 \[
@@ -877,10 +885,10 @@ which is naturally a Fourier sine series. The \(A_n\) and \(B_n\) are determined
 The algorithm for seperation of variables is clear:
 \begin{enumerate}
 \item seperate the variables: write \(y(x,t)=X(x)T(t)\),
-\item determine the admissable form for eigenvalues and associated eigenfunctions from boundary conditions (i.e. conditions on \(x\)),
+\item determine the admissable form for eigenvalues and associated eigenfunctions from boundary conditions (i.e.\ conditions on \(x\)),
 \item determine the form of the other seperated function using the eigenvalues and find a particular set of solution \(y_n\),
 \item sum over all \(y_n\) to form a series representation,
-\item determine the coefficients from the initial condititions (i.e. conditions on \(t\)).
+\item determine the coefficients from the initial condititions (i.e.\ conditions on \(t\)).
 \end{enumerate}
 
 \begin{ex}
@@ -940,7 +948,7 @@ Solution to this equation are called \emph{Bessel functions of the first kind an
 \subsection{Properties of Bessel Functions}
 
 \begin{enumerate}
-\item \(J_m(z)\), the Bessel function of the frist kind of order \(m\) which is regular at the origin (and is \(0\) there for \(m>0\)) \(m=0\) for axis symmetric solution (i.e. solutions independent of \(\Theta\)).
+\item \(J_m(z)\), the Bessel function of the frist kind of order \(m\) which is regular at the origin (and is \(0\) there for \(m>0\)) \(m=0\) for axis symmetric solution (i.e.\ solutions independent of \(\Theta\)).
 \item \(Y_m(z)\) the Bessel function of the second kind which are singular at the origin.\footnote{Note \(Y_m(z)\) here is \emph{not} orthonormal.} Sometimes called Neumann function \(N_m\) or Weber function.
 \end{enumerate}
     
@@ -1071,7 +1079,7 @@ similarly
 \[
   \overline V = \frac{c}{2L} \int_{0}^{2L/c} V dt = \frac{E}{2}
 \]
-i.e. over a period there is an equipartition between kinetic and potential energy.
+i.e.\ over a period there is an equipartition between kinetic and potential energy.
 
 \subsection{Reflection and Transmission}
 
@@ -1094,7 +1102,7 @@ The incident wave
 \begin{align*}
   w_I &= \Re \Bigg(I \exp \Big( i\omega \Big(t- \frac{x}{c_-} \Big) \Big) \Bigg) \\
       &= I_r \cos \omega \Big(t - \frac{x}{c_-} \Big) - I_i \sin\omega \Big(t- \frac{x}{c_-} \Big) \\
-      &= A_I \sin \Big(\omega \Big(t-\frac{x}{c_-} \Big) + \phi_I\Big)
+      &= A_I \cos \Big(\omega \Big(t-\frac{x}{c_-} \Big) + \phi_I\Big)
 \end{align*}
 where \(I = I_r + i I_i\) and we define amplitude
 \[
@@ -1115,17 +1123,20 @@ and the reflected wave is
 notice the plus sign.
 
 We determine the coefficients by matching conditions at the origin. The displacement at \(x=0\) must be continuous for all time:
-\begin{align*}
-  w_I\big|_{x=0^-} + w_R\big|_{x=0^-} = w_T\big|_{x=0^+} \\
-  \Re \Big(I \exp(i\omega_-t \Big) + R \exp(i\omega_-t) \Big) &= \Re (T\exp(i\omega_+t))
-\end{align*}
-Thus \(\omega_- = \omega_+\). Also
+\[
+  w_I\big|_{x=0^-} + w_R\big|_{x=0^-} = w_T\big|_{x=0^+}
+\]
+In the derivation above we asserted that the angular frequency \(\omega\) is the same on both sides. If you are not convinced, expand the above relation
+\[
+  \Re \Big(I \exp(i\omega_-t) \Big) + R \exp(i\omega_-t) \Big) = \Re \Big( T\exp(i\omega_+t) \Big)
+\]
+and it must be that \(\omega_- = \omega_+\). Also
 \begin{align*}
   I + R &= T \\
   I_r + R_r &= T_r \\
   I_i + R_i &= T_i
 \end{align*}
-i.e. coefficients of cosines and sines are the same.
+i.e.\ coefficients of cosines and sines are the same.
 
 In the absence of inertia at \(x=0\), the vertical forces are continuous
 \[
@@ -1138,8 +1149,150 @@ so
   \frac{R_i}{c_-} - \frac{I_i}{c_-} &= - \frac{T_i}{c_+} \\
 \end{align*}
 Solve to get
-\begin{align*}
+\begin{empheq}[left=\empheqlbrace]{align}
+  \nonumber
   R &= \Big( \frac{c_+-c_-}{c_++c_-} \Big) I \\
+  \nonumber
   T &= \Big( \frac{2c_+}{c_++c_-} \Big) I
+\end{empheq}
+
+The waves have the following properties:
+\begin{enumerate}
+\item 
+  \[
+  \frac{R_i}{R_r} = \frac{T_i}{T_r} = \frac{I_i}{I_r}
+\]
+so there is a simpe relationship between the phases of the incoming, reflected and transmitted waves.
+\[
+  \phi_I = \arccos \frac{I_r}{\sqrt{I_r^2+R_i^2}} = \arccos \frac{I}{\sqrt{1+ I_i^2/I_r^2}}
+\]
+\item
+  \[
+    \frac{I^2}{c_-} - \frac{R^2}{c_-} = \frac{T^2}{c_+}
+  \]
+  This is the statement that the flux of kinetic energy through the system matches at \(x=0\). This is an important concept in physics called \emph{impedance}.
+\item Different limiting cases of \(\mu\):
+\begin{itemize}
+\item If \(\mu_+ = \mu_-\), then \(c_+ = c_-, R=0, T=I\), i.e.\ perfect transmission.
+\item On the other hand if \(\mu_+ \gg \mu_-\) then \(c_+ \ll c_-, T \approx 0, R \approx -I\). This is the reflection of fixed end. The reflected wave has a phase shift of \(\pi\).
+\item if \(\mu_+ \ll \mu_-\) then \(c_+ \gg c_-, T \approx 2I, R \approx I\). There is no phase shift and there is large amplitude disturbance to the right.
+\end{itemize}
+\end{enumerate}
+
+\begin{ex}
+  Show in the last two cases above most of the energy is reflected.
+\end{ex}
+
+\section{Diffusion Equation}
+
+The diffusion equation is an exmaple of \emph{parabolic} PDE, which is of enormous importance in physics and chemistry.
+
+\subsection{Fick's Law}
+
+In steady state, \emph{Fick's First Law} states that the transport per unit area, \emph{flux}, may be related to the negative of the spatial gradient of the quantity by a \emph{diffusion coefficient} (which may or may not be constant):
+\[
+  \V J_A = -D_{AB} \grad c_A
+\]
+where \(c_A\) is the concentration of species \(A\) in species \(B\).
+
+In general \(D_{AB}\) may be a function but in this course we only consider the constant case.
+
+\emph{Fick's Second Law} is about heat. Heat is defined to be
+\[
+  Q = \int_{V}^{ } c_p \rho \theta dV
+\]
+where \(\theta\) is the temperatue in Kelvin, \(c_P\) is specific heat capacity at constant pressure and \(\rho\) is the mass density. Differentiate with respect to time
+\[
+  \frac{dQ}{dt} = \int_{V}^{ } c_P \rho \frac{\partial \theta}{\partial t} dV
+\]
+By Fourier's Law (an empirical result), which is a special case of Fick's First Law, the heat flux is given by
+\[
+  \V q = -k \grad \theta
+\]
+where \(k\) is \emph{thermal conductivity}. Integrate over \(S\), the surface of \(V\), with outward normal \(\hat \V n\), the total transport of heat out is
+\begin{align*}
+  -\frac{dQ}{dt} &= \int_{S}^{ } -k\grad \phi \cdot \hat \V n ds \\
+                 &= \int_{V}^{ } \dive (-k \nabla) dV \\
+                 &= -\int_{V}^{ } c_P \rho \frac{\partial \theta}{\partial t} dV
 \end{align*}
+As \(V\) is arbitrary,
+\[
+  \frac{\partial \theta}{\partial t} = \frac{1}{c_P \rho} \dive (k \grad \theta)
+\]
+and \(c_P\rho\) is the \emph{volumetric heat capacity}.
+
+Under the simplifying assumption that \(k\) is constant,
+\[
+  \frac{\partial \theta}{\partial t} = \frac{k}{c_P\rho} \grad^2 \theta = D \grad^2 \theta = \kappa \grad^2 \theta
+\]
+where \(D\) or \(\kappa\) is \emph{thermal diffusivity}.
+
+\subsection{Random Walk Interpertation}
+
+Heat diffusion can also be understood, initially conjured by Eisntein, in terms of random walk.
+
+Consider a lattice at
+\[
+  \dots, -\delta x, 0, \delta x, \dots, x- \delta x, x, x+ \delta x, \dots
+\]
+Let \(c(x,t)\) be the concentration of \(x\) at \(t\). Every particle takes a random walk. In \(\delta t\) the probability a particle takes a step to right is \(p\), same for left and the probability of staying in the same place is \(1-2p\). Thus
+\[
+  c(x, t + \delta t) - c(x, t) = p \Big[ c(x + \delta x, t) -2 c(x, t) + c(x - \delta x, t) \Big]
+\]
+Talylor expand,
+\[
+  \delta t \frac{\partial c}{\partial t} \Big|_{x,t} + \bigO(\delta t^2) = p(\delta x^2) \frac{\partial^2 c}{\partial x^2} \Big|_{x,t} + \bigO(\delta x^3)
+\]
+Thus
+\[
+  \frac{\partial c}{\partial t} + \bigO(\delta t) = \frac{p \delta x^2}{\delta t} \frac{\partial^2 c}{\partial x^2} + \bigO(\delta x^3/\delta t)
+\]
+Now take limit
+\begin{align*}
+  \delta t &\to 0 \\
+  \delta x &\to 0 \\
+  \frac{p\delta x^2}{\delta t} &\to D
+\end{align*}
+The equation becomes
+\[
+  \frac{\partial \theta}{\partial t} = D \frac{\partial^2 c}{\partial x^2}.
+\]
+
+Note that \(\frac{\p \theta}{\p t} = D \nabla^2\theta\) is first order in time so to solve the problem we need to know boundary conditions and \(\theta(x,0)\), i.e.\ initial condition.
+
+\subsection{Similarity Solutions}
+
+We can find a solution \emph{without} applying boundary conditions by considering a \emph{similarity variable}:
+\begin{align*}
+  \eta &= \frac{x}{2\sqrt{Dt}} \\
+  \frac{\partial  }{\partial t} &= \frac{\partial \eta}{\partial t} \frac{\partial  }{\partial \eta} = -\frac{\eta}{2t} \frac{\partial  }{\partial \eta} \\
+  \frac{\partial  }{\partial x} &= \dots\frac{\partial \eta}{\partial x} \frac{\partial  }{\partial \eta} = \frac{1}{2\sqrt{Dt}} \frac{\partial  }{\partial t} \\
+  \frac{\partial^2  }{\partial x^2} &= \frac{1}{4Dt} \frac{\partial^2  }{\partial \eta^2}
+\end{align*}
+so
+\[
+  -\frac{\eta}{2t} \frac{\partial \theta}{\partial \eta} = D \frac{1}{4Dt} \frac{\partial  }{\partial \eta} \frac{\partial \theta}{\partial \eta}
+\]
+Introduce
+\[
+  X = \frac{\partial \theta}{\partial \eta}
+\]
+and it follows that
+\[
+  -2\eta X = \frac{\partial X}{\partial \eta}
+\]
+Solve the simple equation to get
+\[
+  \theta(x,t) = \frac{2C_3}{\sqrt \pi} \int_{0}^{\frac{x}{2\sqrt{Dt}}} e^{-u^2} du  = C_3 \erf \Big( \frac{x}{2\sqrt{Dt}} \Big)
+\]
+where
+\[
+  \erf(y) = \frac{2}{\sqrt \pi} \int_{0}^{y} e^{-u^2} du
+\]
+is the \emph{error function}. Note that
+\begin{itemize}
+\item \(\erf(0) = 0\) and \(\erf(y) \to \pm 1\) as \(y \to \pm \infty\).
+\item The solution does not change along the line of constant \(\eta\), i.e.\ constant \(\frac{x}{2\sqrt{Dt}}\).
+\end{itemize}
+
 \end{document}
