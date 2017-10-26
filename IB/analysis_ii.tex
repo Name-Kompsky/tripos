@@ -32,13 +32,13 @@ In Analysis I, the primary space we are interested in is \(\R\) and we studied n
 
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{|c|p{4cm}|p{4cm}|}
+  \begin{tabular}{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
     \hline
     & $\mathbb{R}^m$ & Function space \\ \hline
-    Continuity \& convergence & $\checkmark$ & $\checkmark$ \\ \hline
+    Convergence \& continuity & $\checkmark$ & $\checkmark$ \\ \hline
     Differentiation & $\checkmark$ & Calculus of variations \\ \hline
     Integration & Probability and measure & ??? (ask physicists) \\ \hline
-    Solving equations & inverse function theorem & existence of solutions for ODEs \\ \hline
+    Solutions to equations & inverse function theorem & existence of solutions for ODEs \\ \hline
   \end{tabular}
   \caption{Comparison of Euclidean space and function space}
 \end{table}
@@ -51,11 +51,11 @@ A motivating example: if $(a_n)$ is a sequence of real numbers, then $(a_n)\to a
 \]
 Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\cdot|$ with?
 
-\begin{definition}
+\begin{definition}[Norm]
   If $V$ is a real vector space, a \emph{norm} on $V$ is a function $\|\cdot\|:V\to\mathbb{R}$ satisfying
   \begin{enumerate}
   \item $\forall \V v \in V, \|\V v\| \geq 0$ with equality if and only if $\V v =\V 0$.
-  \item $\forall \V v,\forall \lambda \in \R \|\lambda \V v\| = |\lambda| \|\V v\|$
+  \item $\forall \V v,\forall \lambda \in \R, \|\lambda \V v\| = |\lambda| \|\V v\|$
     \item $\forall \V v,\V w\in V, \|\V v+\V w\| \leq \|\V v\| + \|\V w\|$ (triangle inequality).
   \end{enumerate}
 \end{definition}
@@ -77,22 +77,22 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \end{enumerate}
 \end{eg}
 
-\begin{definition}
-  Suppose $(V, \|\cdot\|)$ is a normed vector space and $(\V v_n)$ is a sequence of elements of $V$. We say $(\V v_n)$ converges to $\V v\in V$, denoted $(\V v_n)\to \V v$, if $\forall\varepsilon>0,\exists N s.t. \forall n>N, \|\V v_n-\V v\|<\varepsilon$. Equivalently, $(\V v_n)\to \V v$ if $(\|\V v_n-\V v\|)\to 0$.
+\begin{definition}[Convergence]
+  Suppose $(V, \|\cdot\|)$ is a normed vector space and $(\V v_n)$ is a sequence of elements of $V$. We say $(\V v_n)$ \emph{converges} to $\V v\in V$, denoted $(\V v_n)\to \V v$, if $\forall\varepsilon>0,\exists N s.t. \forall n>N, \|\V v_n-\V v\|<\varepsilon$. Equivalently, $(\V v_n)\to \V v$ if $(\|\V v_n-\V v\|)\to 0$.
 \end{definition}
 
 \begin{ex}
   Suppose $V=\mathbb{R}^m, (\V v_n) = (v_{n,1},\ldots,v_{n,m})$. Then $(\V v_n)\to \V v$ with respect to $\|\cdot\|_\infty$ means
   \begin{align*}
-    & (\max_{1\leq i \leq m}|v_{n,i}-v_i|) \to 0 \\
+    & \left( \max_{1\leq i \leq m}|v_{n,i}-v_i| \right) \to 0 \\
     \Longleftrightarrow & (|v_{n,i}-v_i|)\to 0 \text{ for all } 1\leq i\leq m \\
     \Longleftrightarrow & (v_{n,i})\to v_i \text{ for all } 1\leq i\leq m
   \end{align*}
 
-   The convergence w.r.t. $\|\cdot\|_1$ means
+   The convergence with respect to $\|\cdot\|_1$ means
    \begin{align*}
-     & (\sum_{i=1}^m |v_{n,i}-v_i|)\to 0 \\
-     \Longleftrightarrow & (|v_{n,i}-v_i)\to 0 \text{ for all } 1\leq i\leq m \\ 
+     & \left( \sum_{i=1}^m |v_{n,i}-v_i| \right) \to 0 \\
+     \Longleftrightarrow & \left( |v_{n,i}-v_i \right)\to 0 \text{ for all } 1\leq i\leq m \\ 
     \Longleftrightarrow & (v_{n,i})\to v_i \text{ for all } 1\leq i\leq m.
   \end{align*}
 \end{ex}
@@ -125,7 +125,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
 
 \subsection{Continuity}
 
-\begin{definition}
+\begin{definition}[Continuity]
   Suppose $V$ and $W$ are normed vector spaces. We say a function $f:V\to W$ is \emph{continuous} if
   \[
     (f(\V v_n))\to f(\V v) \text{ in } W \text{ whenever } (\V v_n)\to \V v \text{ in } V.
@@ -144,16 +144,22 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
       \item If $(g_n)\to g$ w.r.t. $\|\cdot\|_\infty$, then $(\max|g_n(x)-g(x)|)\to 0$ so $(|g_n(0)-g(0))|\to 0$, $(|F(g_n)-F(g)|)\to 0$, so $F(g_n)\to F(g)$.
     \end{enumerate}
     $F$ is continuous w.r.t. $\|\cdot\|_\infty$ but not w.r.t. $\|\cdot\|_1$.
-  \item If $f:V_1\to V_2$ and $g:V_2\to V_3$ are continuous then $g\compose f: V_1\to V_3$ are continuous. Proof: if $(\V v_n) \to (\V v)$ in $V_1$ , then as $f$ is continuous, $(f(\V v_n)) \to (f(\V v))$, then as $g$ is continuous, $(g(f(\V v_n))) \to (g(f(\V v)))$ in $V_3$.
-  \item $\|\cdot\|: V \to \R$ is continuous. Proof: if $(\V v_n)\to \V v$, then $(\|\V v_n - \V v\|) \to 0$. Now
+  \item If $f:V_1\to V_2$ and $g:V_2\to V_3$ are continuous then $g\compose f: V_1\to V_3$ are continuous.
+    \begin{proof}
+      If $(\V v_n) \to (\V v)$ in $V_1$ , then as $f$ is continuous, $(f(\V v_n)) \to (f(\V v))$, then as $g$ is continuous, $(g(f(\V v_n))) \to (g(f(\V v)))$ in $V_3$.
+    \end{proof}
+  \item $\|\cdot\|: V \to \R$ is continuous.
+    \begin{proof}
+      If $(\V v_n)\to \V v$, then $(\|\V v_n - \V v\|) \to 0$. Now
     \[
       0 \leq |\|\V v_n\| - \|\V v\|| \leq \|\V v_n - \V v\|
     \]
     by Lemma~\ref{lem:alternate triangle}. So $(|\|\V v_n - \V v\||) \to 0$ by squeeze rule, i.e.\ $\|\V v_n\| \to \|\V v\|$.
+  \end{proof}
   \end{enumerate}
 \end{eg}
 
-\begin{lemma}
+\begin{lemma}[Reverse triangle inequality]
   \label{lem:alternate triangle}
   $\|\V v- \V w\| \geq |\|\V v\| - \|\V w\||$ for all $\V v, \V w \in V$.
 \end{lemma}
@@ -162,7 +168,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   By triangle inequality, $\|\V v- \V w\| - \|\V w\| \geq \|\V v \|$ so $\|\V v - \V w\| \geq \|\V w - \V v\| \geq \|\V w - \V v\|$.
 \end{proof}
 
-More generally, if $X\subset V$ is a subset, we say $f:X\to W$ is continuous if
+More generally, if $X\subseteq V$ is a subset, we say $f:X\to W$ is continuous if
 \[
   (f(\V x_n)) \to f(\V x)
 \]
@@ -176,14 +182,14 @@ in $W$ whenever $(\V x_n) \to \V x$ in $V$ for $\V x$ and all $\V x_n \in X$.
 
 Let $(V, \|\cdot\|)$ be a normed vector space.
 
-\begin{definition}
+\begin{definition}[Open and closed ball]
   If $\V v_0 \in V$ and $r \in \R$,
   \[
     B_r(\V v_0) = \{\V v\in V: \|\V v - \V v_0\| < r \}
   \]
   is the \emph{open ball} of radius $r$ centred at $\V v_0$, and
   \[
-    \cl B_r(\V v_0) = \{\V v\in V: \|\V v - \V v_0\| < r \}
+    \cl B_r(\V v_0) = \{\V v\in V: \|\V v - \V v_0\| \leq r \}
   \]
   is the \emph{closed ball} of radius $r$ centred at $\V v_0$.
 \end{definition}
@@ -204,15 +210,16 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   \end{enumerate}
 \end{eg}
 
-\begin{proposition}[Alternate characterisation of Continuity]
+\begin{proposition}[Alternate characterisation of continuity]
   $f:V\to W$ is continuous if and only if
   \begin{equation}
     \label{eqn:alternate continuity}
-    \forall \V v_0 \in V, \forall \varepsilon>0, \exists \delta>0 s.t. \|\V v- \V v_0\| \leq \delta \Rightarrow \|f(\V v) - f(\V v_0)\| \tag{$\ast$}
+    \forall \V v_0 \in V, \forall \varepsilon>0, \exists \delta>0 s.t. \|\V v- \V v_0\| < \delta \Rightarrow \|f(\V v) - f(\V v_0)\| < \varepsilon
+    \tag{$\ast$}
     \end{equation}
-  i.e.
+  i.e.\ 
   \[
-    f(B_\delta(\V v_0)) \subset B_\varepsilon(f(\V v_0)).
+    f(B_\delta(\V v_0)) \subseteq B_\varepsilon(f(\V v_0)).
     \]
 \end{proposition}
 
@@ -222,7 +229,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   Suppose \eqref{eqn:alternate continuity} does not hold. Then exists some $v \in V$ and $\varepsilon>0$ such that there is no $\delta>0$ with $f(B_\delta(v)) \subseteq B_\varepsilon(f(v))$. In particular $f(B_{1/n}(v)) \nsubseteq B_\varepsilon(f(v))$ for all $n$. Pick $v_n \in B_{1/n}(v)$ with $f(v_n) \notin B_\varepsilon(f(v))$. Then $(v_n)\to v$, but $(f(v_n)) \nto f(v)$, since $\|f(v_n) - f(v) \| \geq \varepsilon$ for all $n$. $f$ is not continuous.
 \end{proof}
 
-\begin{definition}
+\begin{definition}[Open subset]
   $U \subseteq V$ is an \emph{open subset} of $V$ if for every $u \in U$ there is some $\varepsilon>0$ with $B_\varepsilon(u) \subseteq U$.
 \end{definition}
 
@@ -249,7 +256,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   \end{enumerate}
 \end{eg}
 
-\begin{definition}
+\begin{definition}[Closed subset]
   $C\subseteq V$ is a \emph{closed subset} of $V$ if $V\setminus C$ is open in $V$.
 \end{definition}
 
@@ -267,7 +274,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item $[a,b]$ is closed in $\R$.
-  \item $h(v) = \|v-v_0\|, \cl B_r(v_0) = h^{-1}([0,r])$.
+  \item $h(v) = \|v-v_0\|, \cl B_r(v_0) = h^{-1}([0,r])$ so closed ball is closed.
   \item $V, \emptyset$ are both open and closed in $V$.
     \item $\Q \subseteq \R$ is neither open nor closed.
   \end{enumerate}
@@ -278,7 +285,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
 \end{proposition}
 
 \begin{proof}
-  Suppose \(C\) is closed and \((v_n)\to v \notin C\). Then \(v\in V\setminus C\) which is open, so \(\exists \varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\), i.e.\ \(B_\varepsilon(v) \cap C =\emptyset\). \((v_n)\to v\) so \(\exists N\) such that \(v_n\in B_\varepsilon(v)\) for all \(n>N\). Thus \(v_n \notin C\) for all \(n>N\). In other word, if \((v_n)\to v\), all but finitely many of \(v_n \notin C\).
+  Suppose \(C\) is closed and \((v_n)\to v \notin C\). Then \(v\in V\setminus C\) is open, so \(\exists \varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\), i.e.\ \(B_\varepsilon(v) \cap C =\emptyset\). \((v_n)\to v\) so \(\exists N\) such that \(v_n\in B_\varepsilon(v)\) for all \(n>N\). Thus \(v_n \notin C\) for all \(n>N\). In other word, if \((v_n)\to v\), all but finitely many of \(v_n \notin C\).
 
   Conversely, suppose \(C\) is not closed. Then \(V\setminus C\) is not open so \(\exists c \in V\setminus C\) such that there is no \(\varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\). In other words, \(B_\varepsilon(v) \cap V \neq \emptyset\) for all \(\varepsilon>0\). Pick \(v_n\in B_{1/n}(v)\cap C\) for all \(n>0\). Then \(\|v_n-v\|< 1/n\) so \((v_n)\to v\). All \(v_n \in C\) but \(v\in V\setminus C\).
 \end{proof}
@@ -333,10 +340,12 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
 \end{proof}
 
 \begin{joke}
-  \texttt{the joke about a mathematician going for a firefighter interview... Well you should know it by now if you are a mathematician.}
+  {\raggedright
+    \texttt{The joke about a mathematician going for a firefighter interview... Well you should know it by now if you are a mathematician.}
+    \par}
 \end{joke}
 
-\begin{definition}
+\begin{definition}[Lipschitz equivalence]
   \label{def:Lipschitz equivalence}
   If \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\), they are said to be \emph{Lipschitz equivalent} if
   \begin{align*}
@@ -348,7 +357,7 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
 \end{definition}
 
 \begin{corollary}
-  If \((V, \|\cdot\|)\) and \(V, \|\cdot\|')\) are Lipschitz equivalent, then
+  If \((V, \|\cdot\|)\) and \((V, \|\cdot\|')\) are Lipschitz equivalent, then
   \begin{enumerate}
   \item \((v_n)\to v\) with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\),
   \item \(f:V\to W\) is continuous with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\),
@@ -389,14 +398,14 @@ which are both vector space.
     \]
 \end{definition}
 
-\begin{definition}
+\begin{definition}[Uniform norm]
   The \emph{uniform norm} on \(B(A)\) is given by
   \[
     \|f\|_\infty = \sup_{x\in A} |f(x)|.
   \]
 \end{definition}
 
-\begin{definition}[Uniform Convergence]
+\begin{definition}[Uniform convergence]
   If \(f, f_n: A\to \R\), we say \(f(x) \to f\) \emph{uniformly on \(A\)} if \((f_n-f) \in B(A)\) for all \(n\) and \((\|f_n-f\|_\infty)\to0\).
 \end{definition}
     In other words,
@@ -446,6 +455,10 @@ which are both vector space.
   \end{itemize}
 \end{eg}
 
+\begin{note}
+  The converse, at least when taken literally, is false. See example sheet 1 Q11.
+\end{note}
+
 \begin{remark}
   Everything I have said so far works fine for \(A\subseteq V, f: A\to W\), where \(V, W\) are normed vector spaces.
 \end{remark}
@@ -459,7 +472,8 @@ which are both vector space.
   \end{joke}
 
 Recall that if \(f\in C[a,b]\) then \(\|f\|_1=\int_a^b|f(x)|dx\). 
-\begin{definition}
+
+\begin{definition}[Convergence in measure]
   \(f_n\) converges \emph{in measure} to \(f\) if \((f_n)\to f\) with respect to \(\|\cdot\|_1\), 
 \end{definition}
 
@@ -506,7 +520,7 @@ Equivalently, the map \(\id: (C[a,b], \|\cdot\|_\infty)\to (C[a,b], \|\cdot\|_1)
   \[
     f(x) = \sum_{i=0}^{\infty} \frac{x^i}{i!},
   \]
-  how do I know if \(f(x)\) is continuous/differentiable?
+  how do I know if \(f(x)\) is continuous or differentiable?
 \end{question}
 
 Recall some facts about series from Analysis I:
@@ -652,7 +666,7 @@ To summarise, power series are continuous on domain of convergence \(B_R(c)\).
 
 \subsection{Integration \& Differentiation}
 
-Recall from Analysis I
+Recall from Analysis I that
 \begin{theorem}[Fundamental Theorem of Calculus]
   \label{thm:FTC}
   Suppose \(f\in C[a,b]\), \(c\in [a,b]\), then
@@ -667,7 +681,7 @@ Recall from Analysis I
 and the following properties of (Riemann) integral:
 \begin{enumerate}
 \item If \(f(x) \leq g(x) \) for \(x\in[a,b]\), \(\int_{a}^{b} f(x) dx \leq \int_{a}^{b} g(x) dx \).
-\item \(\big|\int_{a}^{b} f(x) dx \big) \leq \int_{a}^{b} |f(x)| dx \).
+\item \(\big|\int_{a}^{b} f(x) dx \big| \leq \int_{a}^{b} |f(x)| dx \).
 \item If \(b<a\), \(\int_{a}^{b} f(x) dx = - \int_{b}^{a} f(x) dx \).
 \end{enumerate}
 
@@ -781,7 +795,7 @@ In other words, power series can be differentiated term-by-term.
   \[
     |i a_i(x-c)^{i-1}| \leq \frac{i}{|x-c|}\alpha^i,
   \]
-  \(\sum_{i=1}^{\infty}i a_i(x-c)^{i-1} \) converges by comparison test. If \(y=c\) then the convergence is obvious.
+  \(\sum_{i=1}^{\infty}i a_i(x-c)^{i-1} \) converges by comparison test. If \(x=c\) then the convergence is obvious.
 \end{proof}
 
 \begin{proof}[Proof of proposition]
@@ -814,7 +828,7 @@ Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in
   if \(\norm \cdot\) and \(\norm \cdot'\) are Lipschitz equivalent then \(A\) is bounded with respect to \(\norm \cdot\) if and only if with respect to \(\norm \cdot'\). It follows that boundedness in \(\R^n\) means with respect to any one of \(\norm \cdot_1, \norm \cdot_2, \norm \cdot_\infty\).
 \end{remark}
 
-Recall from analysis i:
+Recall from Analysis i:
 \begin{theorem}[Bolzano-Weierstrass]
   A bounded sequence in \(\R\) has a convergent subsequence.
 \end{theorem}
@@ -849,10 +863,10 @@ Recall from analysis i:
   \(A \subseteq \R^m\) is compact if and only if \(A\) is closed and bounded.
 \end{theorem}
 
-\begin{proof}
-  \(\Leftarrow\): Suppose \(A\) is closed and bounded. Given a sequence \((v_n)\) with \(v_n\in A\), must find a convergent subsequence. Since \(A\) is bounded, \((v_n)\) is bounded so by Bolzano-Weierstrass there is a convergent subsequence \((v_{n_j})\to v \in \R^m\). As \(A\) is closed and \(v_{n_j}\in A\), \((v_{n_j})\to v\) implies that \(v \in A\).
-
-  \(\Rightarrow\): If \(A\) is not closed or not bounded, we will find a sequence \((v_n)\) with \(v_n \in A\) with no convergent subsequence:
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Leftarrow\): Suppose \(A\) is closed and bounded. Given a sequence \((v_n)\) with \(v_n\in A\), must find a convergent subsequence. Since \(A\) is bounded, \((v_n)\) is bounded so by Bolzano-Weierstrass there is a convergent subsequence \((v_{n_j})\to v \in \R^m\). As \(A\) is closed and \(v_{n_j}\in A\), \((v_{n_j})\to v\) implies that \(v \in A\).
+  \item \(\Rightarrow\): If \(A\) is not closed or not bounded, we will find a sequence \((v_n)\) with \(v_n \in A\) with no convergent subsequence:
   \begin{itemize}
   \item if \(A\) is not closed, there is a sequence \((v_n)\to v\) with \(v_n \in A\) but \(v \notin A\). Suppose \((v_{n_j}) \to w\) is a convergent subsequence. Then by Exercise \((v_{n_j})\to v\). By uniqueness of limits \(v = w \notin A\).
   \item if \(A\) is not bounded, then for each \(n > 0\) there exists \(v_n \in A\) with \(\norm{v_n} \geq n\). Consider the sequence \((v_n)\). Suppose there is a subsequence \((v_{n_j})\to v\). Then we can find \(J\) such that \(\norm{v_{n_j}-v} < 1\) for all \(j\geq J\). Pick \(K\geq \max(J,\norm v + 1)\). Then for \(j\geq K\),
@@ -860,6 +874,7 @@ Recall from analysis i:
       \norm{v_{n_j}} \leq \norm{v_{n_j}-v} + \norm v \leq 1+ \norm v \leq K \leq n_j
     \]
     since \(n_j \geq j \geq K\). So \(\norm{v_{n_j}} < n_j\) for \(j\geq K\), contradiction.
+  \end{itemize}
   \end{itemize}
 \end{proof}
 
@@ -891,7 +906,7 @@ Recall from analysis i:
 \end{proof}
 
 \begin{joke}
-  There is no joke today.
+  \texttt{There is no joke today.}
 \end{joke}
 
 \begin{application}[Maximum Value Theorem]
@@ -900,7 +915,7 @@ Recall from analysis i:
 \end{lemma}
 
 \begin{proof}
-  By Heine-Borel, \(A\) is closed and bounded so \(\alpha = \sup A\in \R\). For each \(n>0\), exists \(a_n \in A\) such that \(\alpha-1/n \leq a_n \leq \alpha\). Then \((a_n)\to \alpha\). Since \(A\) is closed and \(a_n \in A\), \(\alpha\in A\) as well.
+  \(A\) is closed and bounded so \(\alpha = \sup A\in \R\). For each \(n>0\), exists \(a_n \in A\) such that \(\alpha-1/n \leq a_n \leq \alpha\). Then \((a_n)\to \alpha\). Since \(A\) is closed and \(a_n \in A\), \(\alpha\in A\) as well.
 \end{proof}
  
 \begin{theorem}
