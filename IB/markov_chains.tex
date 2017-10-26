@@ -22,7 +22,7 @@
 
 Let $X:\Omega \to S$ be a random variable. Then $(X_0,X_1, \ldots)$, a sequence of random variables, is called a \emph{stochastic/random process}. The problem we are interested in is whether there is any dependence between the random variables. Another example of a stochastic process is $(X_t, t \in \mathbb{R})$, representing, for example, the evolution of a system with respect to time.
 
-\begin{defi}
+\begin{definition}
   Let $X=(X_n:n=0,1,2,\ldots)$ be a sequence taking values in some \emph{state space} $S$, which is either finite or countably infinite. $X$ is a \emph{Markov chain} if it satisfies the \emph{Markov condition}:
   \begin{multline*}
     \prob(X_{n+1}=i_{n+1}|X_0=i_0,X_1=i_1,\ldots,X_n=i_n) = \prob(X_{n+1}=i_{n+1}|X_n=i_n) \\
@@ -30,7 +30,7 @@ Let $X:\Omega \to S$ be a random variable. Then $(X_0,X_1, \ldots)$, a sequence 
   \end{multline*}
 
   $X$ is called \emph{homogeneous} if $\prob(X_{n+1}=j|X_n=i)$ does not depend on the value of $n$.
-\end{defi}
+\end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -49,12 +49,12 @@ Two quantities associated with a chain are:
 \item transition matrix $P = (p_{i,j}: i,j\in S)$ given by $p_{i,j} = \prob(X_1=j|X_0=i)$.
 \end{enumerate}
 
-\begin{prop}\leavevmode
+\begin{proposition}\leavevmode
   \begin{enumerate}
   \item $\lambda$ is a distribution in that $\lambda_i\geq 0$ and $\sum_i \lambda_i = 1$.
   \item $P$ is a \emph{stochastic matrix} in that $p_{i,j} \geq 0, \sum_j p_{i,j} = 1$.
   \end{enumerate}
-\end{prop}
+\end{proposition}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
@@ -63,14 +63,14 @@ Two quantities associated with a chain are:
   \end{enumerate}
 \end{proof}
 
-\begin{thm}
+\begin{theorem}
   Let $\lambda$ be a distribution on $S$ and $P$ be a stochastic matrix. The sequence $X=(X_n:n \geq 0)$ is a Markov chain with initial distribution $\lambda$ and transition matrix $P$ if and only if
   \begin{multline}\label{eqn:joint probability}
     \prob(X_0=i_0, X_1=i_1, \ldots, X_n=i_n) = \lambda_{i_0} p_{i_0,i_1} p_{i_1,i_2} \cdots p_{i_{n-1}, i_n} \\
     \forall n\geq 0, i_0,\cdots, i_n \in S \tag{$\ast$}
   \end{multline}
     
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Let $A_k = \{X_k=i_k\}$. Equation~\eqref{eqn:joint probability} is
@@ -98,12 +98,12 @@ so $X_0$ has p.m.f. $\lambda$. Then
     Therefore $X$ is a Markov chain with transition matrix $P$.
 \end{proof}
 
-\begin{thm}[Extended Markov Property]
+\begin{theorem}[Extended Markov Property]
   Let $X$ be a Markov chain and $n\geq1$. Let $H$ be a historic event, i.e. $H$ is given in terms of $\{X_0,X_1,\ldots,X_{n-1}\}$, and let $F$ be a future event, i.e. $F$ is given in terms of $\{X_{n+1},X_{n+2},\ldots\}$. Then
   \[
     \prob(F|H, X_n=i) = \prob(F|X_n=i).
   \]
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   For $F$ that depends only on finitely many of the future variables,
@@ -129,18 +129,18 @@ The one-step transition probability is $p_{i,j} = \prob(X_1=j|X_0=i)$. The $n$-s
 
 The answer is: matrix. The one-step transition matrix is $P=(p_{i,j})_{i,j\in S}$. Similarly $P(n) = (p_{i,j}(n))_{i,j\in S}$.
 
-\begin{thm}
+\begin{theorem}
   \[
     P(n) = P^n.
   \]
-\end{thm}
+\end{theorem}
 
-\begin{prop}[Chapman-Kolmogonov equations]
+\begin{proposition}[Chapman-Kolmogonov equations]
   \[
     p_{i,j}(m+n) = \sum_{k\in S} p_{i,k}(m) p_{k,j}(n).
   \]
  
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   \begin{align*}
@@ -205,15 +205,15 @@ It is convenient to think of \(\lambda\) as a row vector and \(P\) as a matrix. 
 
 \section{Class Structure}
 
-\begin{defi}
+\begin{definition}
   We say a state \(i\) \emph{leads} to a state \(j\) if \(p_{i,j}(n) > 0\) for some \(n\geq0\), write \(i \to j\).
   
   If \(i\to j\) and \(j\to i\), we say \(i\) and \(j\) \emph{communicate} and write \(i \tot j\).
-\end{defi}
+\end{definition}
 
-\begin{prop}
+\begin{proposition}
   \(\tot\) is an equivalence relation.
-\end{prop}
+\end{proposition}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -227,33 +227,33 @@ It is convenient to think of \(\lambda\) as a row vector and \(P\) as a matrix. 
   \end{itemize}
 \end{proof}
 
-\begin{defi}
+\begin{definition}
 The equivalence classes of \(\tot\), i.e. subsets of \(S\) of the form \(C_i=\{j\in S: i\tot j\}\), are called \emph{communicating classes}.
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   If there is a unique equivalence class \(S\), call \(S\) (or the chain) \emph{irreducible}.
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   A subset \(C \subseteq S\) is called \emph{closed} if
   \[
 i\in C, i\to j \Rightarrow j\in C.
 \]
 
   If \(i \in S\) is such that \(\{i\}\) is closed, \(i\) is called \emph{absorbing}.
-\end{defi}
+\end{definition}
 
 A closed set is different from communicating class as it is ``one-way''.
 
-\begin{prop}
+\begin{proposition}
   \(C \subseteq S\) is closed if and only if
   \begin{equation}
     \label{eqn:closed subset}
     p_{i,j}=0 \text{ for } i\in C, j\notin C.
     \tag{\(\ast\)}
     \end{equation}
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Let \(C \subseteq S\). If \eqref{eqn:closed subset} fails, then there exists \(i\in C, j\notin C\) such that \(p_{i,j}>0\) so \(i\to j\) and so \(C\) is not closed.
@@ -315,9 +315,11 @@ A closed set is different from communicating class as it is ``one-way''.
 
 \section{Recurrence \& Transience}
 
+\subsection{Definition}
+
 Introduce notation \(\prob_i(\cdot) = \prob(\cdot| X_0 = i), \E_i(\cdot) = \E(\cdot|X_0=i)\).
 
-\begin{defi}
+\begin{definition}
 The \emph{first-passage time} of \(j\in S\) is
 \[
 T_j = \min \{n\geq 1: X_n=j\}.
@@ -326,23 +328,25 @@ The \emph{first-passage probability} are
 \[
 f_{i,j}(n) = \prob_i(T_j=n).
 \]
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   \(i\in S\) is \emph{recurrent (or persistent)} if
   \[
 \prob_i(T_i < \infty) = 1,
   \]
   and \emph{transient} otherwise.
-\end{defi}
+\end{definition}
 
-\begin{thm}
+\subsection{Recurrent Condition}
+
+\begin{theorem}
   \label{thm:recurrent}
   \(i\) is recurrent if and only if
   \[
     \sum_{n\geq0}^{}p_{i,i}(n) = \infty.
   \]
-\end{thm}
+\end{theorem}
 
 Before we prove the theorem, introduce two generating functions:
 \begin{align*}
@@ -375,11 +379,11 @@ It follows that for \(n\geq 1\),
 \end{align*}
 be careful when dealing with double summations.
 
-\begin{thm}
+\begin{theorem}
   \[
     P_{i,j}(s) = \delta_{i,j} + F_{i,j}(s)P_{j,j}(s) \text{ for } |s| < 1.
   \]
-\end{thm}
+\end{theorem}
 
 The \(|s| < 1\) condition: since \(|F_{i,j}(s)| < \infty\) if \(|s| < 2\),
 \[
@@ -387,7 +391,7 @@ The \(|s| < 1\) condition: since \(|F_{i,j}(s)| < \infty\) if \(|s| < 2\),
 \]
 
 A lemma from analysis before we finally prove Theorem~\ref{thm:recurrent}:
- \begin{lem}[Abel's Lemma]
+ \begin{lemma}[Abel's Lemma]
   Let \((u_i)_{i\geq0}\) be a non-negative sequence such that
   \[
     \mathcal U(s) = \sum_{i=0}^{\infty}u_is^i
@@ -397,7 +401,7 @@ A lemma from analysis before we finally prove Theorem~\ref{thm:recurrent}:
     \sum_{i=0}^{\infty}u_i = \lim_{s\to 1^-} \mathcal U(s),
   \]
   whether or not this limit is finite.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Exercise.
@@ -417,13 +421,15 @@ Let \(s \to 1^-\), then by Abel's Lemma
 i.e. \(i\) is recurrent.
 \end{proof}
 
-\begin{thm}[Recurrence as a class property]
+\subsection{Properties of Recurrence}
+
+\begin{theorem}[Recurrence as a class property]
   Let \(C\) be a communicating class, then
   \begin{enumerate}
   \item either every state in \(C\) is recurrent or every state is transient,
   \item if \(C\) contains some recurrent state then \(C\) is closed.
   \end{enumerate}
-\end{thm}
+\end{theorem}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
@@ -449,21 +455,22 @@ i.e. \(i\) is recurrent.
   \end{enumerate}
 \end{proof}
 
-\begin{thm}
+\begin{theorem}
+  \label{thm:recurrent irreducible chain}
   Assume \(|S| < \infty\), then
   \begin{enumerate}
   \item \(S\) contains some recurrent state,
   \item if the chain is irreducible, all states are recurrent.
   \end{enumerate}
-\end{thm}
+\end{theorem}
 
 Similar as before, we need a proposition before the proof:
-  \begin{prop}
+  \begin{proposition}
     If \(j\) is a transient state then
     \[
       \forall i,\, p_{i,j}(n) \to 0 \text{ as } n\to\infty
     \]
-  \end{prop}
+  \end{proposition}
 
   \begin{proof}
     Asuume \(j\) is transient. By \eqref{eqn:recurrent P},
@@ -483,6 +490,134 @@ Similar as before, we need a proposition before the proof:
   \item Obvious.
   \end{enumerate}
 \end{proof}
+
+\subsection{Random Walks and Pólya's Theorem}
+
+In this section, we discuss simple symmetric random walk on \(d\)-dimensional lattices, i.e.\ \(\Z^d\), in particular answering the question when the chain is recurrent.\footnote{Note that this chain is irreducible so by Theorem~\ref{thm:recurrent irreducible chain} either we can talk about recurrence as a chain property.}  It turns out that there is a surprisingly beautiful result.
+
+We call two points \(x\) and \(y\) \emph{neighbours} if
+\[
+  \sum_{i}^{ }|x_i-y_i| = 1,
+\]
+i.e.\ they differ by \(1\) in only one coordinate. Let \(X\) be a symmetric random walk on \(\Z^d\) where \(d \geq 1\), i.e.\ \(X = (X_1, X_2, \dots)\) is a Markov chains with state space \(S = \Z^d\) and transition probability
+\[
+  \prob(X_{n+1} = y | X_n = x) =
+  \begin{cases}
+    0 & \text{ if } x \text{ and } y \text{ are not neighbours} \\
+    \frac{1}{2d} & \text{ if } x \text{ and } y \text{ are neighbours}
+  \end{cases}
+\]
+
+\begin{theorem}[Pólya's]
+  \(X\) is recurrent if \(d \leq 2\) and transient if \(d \geq 3\).
+\end{theorem}
+
+\begin{proof}
+  First set \(d = 1\). Recall that \(0\) is recurrent if and only if \(\sum_n p_{0,0}(n) = 0\). However, it is not possible to return to the same place after an odd number of steps so the expression simplifies to
+  \begin{equation}
+    \label{eqn:polya}
+    \sum_n p_{0, 0}(2n)
+    \tag{\(\ast\)}
+  \end{equation}
+  In the even case, the random walk returns to \(0\) if and only if there are equal number of movement to either direction so by applying the binomial distribution,
+  \[
+    p_{0,0}(2n) = \left( \frac{1}{2} \right)^{2n} \binom{2n}{n}
+  \]
+  To simplify this, recall Sterling's formula
+  \[
+    n! \sim \left( \frac{n}{e} \right)^n \sqrt{2\pi n} \text{ as } n \to \infty.
+  \]
+  So
+  \[
+    p_{0,0}(2n) \sim \frac{1}{\sqrt{\pi n}}
+  \]
+  and the sum~\eqref{eqn:polya} tend to infinity.
+
+  Now let \(d = 2\). By the same reasoning and generalising binomial to multinomial coefficients, we get
+  \begin{align*}
+    p_{0,0}(2n) &= \left( \frac{1}{4} \right)^{2n} \sum_{m=0}^{n} \binom{2n}{m, m, n-m, n-m} \\
+                &= \left( \frac{1}{4} \right)^{2n} \sum_{m=0}^{n} \frac{(2n)!}{(m!)^2 ((n-m)!)^2} \\
+                &= \left( \frac{1}{4} \right)^{2n} \frac{(2n)!}{(n!)^2} \sum_{m=0}^{n} \binom{n}{m} \binom{n}{n-m} \\
+    \intertext{Now pause and think: the summation represents the number of ways to take \(m\) balls from a bag of \(n\) balls and take \(n-m\) balls from another bag of \(n\) balls, for \(0 \leq m \leq n\), but this is precisely the number of ways to take \(n\) balls from \(2n\) balls!}
+                &= \left( \frac{1}{4} \right)^{2n} \binom{2n}{n} \binom{2n}{n} \\
+                &= \left( p_{0,0}^{d=1}(2n) \right)^2
+  \end{align*}
+  thus the sum~\eqref{eqn:polya} also tends to infinity and \(0\) is recurrent.
+
+  Let \(d = 3\) (similar for \(d \geq 4\)) and we have
+  \begin{align*}
+    p_{0,0}(2n) &= \left( \frac{1}{6} \right)^{2n} \sum_{i+j+k = n} \binom{2n}{i,i,j,j,k,k} \\
+                &= \left( \frac{1}{6} \right)^{2n} \sum_{i+j+k = n}^{}\frac{(2n)!}{(i! j! k!)^2} \\
+                &= \left( \frac{1}{6} \right)^{2n} \binom{2n}{n} \sum_{i+j+k = n}^{} \left( \frac{n!}{i! j! k!} \right)^2 \\ 
+                &=  \left( \frac{1}{2} \right)^{2n} \binom{2n}{n} \sum_{i+j+k = n}^{} \left( \frac{n!}{3^n i! j! k!} \right)^2 \\
+                &\leq \left( \frac{1}{2} \right)^{2n} M_n \sum_{i+j+k = n}^{}\frac{1}{3^n i! j! k!} \\
+    \intertext{ where \(M_n = \max \{ \frac{n!}{3^n i!j!k!}, i+j+k = n \} \).}
+    \intertext{The reason we introduce \(3^n\) becomes apparent in this step: \( \frac{n!}{3^n i! j! k!}\) is the probability of, upon throwing \(n\) balls into \(3\) urns, finding \(i, j, k\) in each respectively. Thus they sum up to \(1\).}
+                &\leq \left( \frac{1}{2} \right)^{2n} \binom{2n}{n} \frac{n!}{3^n \left( \floor{n/3}! \right)^3}
+  \end{align*}
+  The upper bound of \(M_n\) is left as an exercise. By Sterling's formula,
+  \[
+    p_{0,0}(2n) \leq \frac{C}{n^{3/2}}
+  \]
+  so the sum is finite and \(0\) is recurrent.
+\end{proof}
+
+We have seen that the probability \(p_{0, 0}(2n)\) when \(d = 2\) is the square of the probability when \(d = 1\), but when \(d = 3\) it doesn't become cubed. It should inspire us to suspect that the \(d = 2\) case is simple enough such that the random walks in two directions are ``independent'', but when \(n \geq 3\) there is some hidden structure that destroys such independence. What is so special about dimension two?
+
+There is an alternative way to tackle this problem that might be more lucid and shed some light on the magical property of \(d = 2\). Instead of cartesian coordinates \(X_n = (A_n, B_n)\), rotate the axes by \(45^\circ\) clockwise. The new coordinates, scaled by a constant factor for convenience, are
+\[
+  Y_n =
+  \begin{pmatrix}
+    U_n \\
+    V_n
+  \end{pmatrix}
+  = \sqrt 2
+  \begin{pmatrix}
+    \cos 45^\circ & -\sin 45^\circ \\
+    \sin 45^\circ & \cos 45^\circ
+  \end{pmatrix} X_n
+  =
+  \begin{pmatrix}
+    A_n - B_n \\
+    A_n + B_n
+  \end{pmatrix}
+\]
+\iffalse
+\begin{align*}
+  U_n &= A_n - B_n \\
+  V_n &= A_n + B_n \\
+  Y_n &= (U_n, V_n)
+\end{align*}
+\fi
+
+Claim \(U = (U_n)\) and \(V = (V_n)\) are \emph{independent} random walks on \(\Z\):
+
+\begin{proof}
+  \begin{align*}
+    \prob(Y_{n+1} &= Y_n+ (1,1)) = \prob(X_{n+1} = X_n + (1,0)) = \frac{1}{4} \\
+                  &= \prob(U_{n+1} - U_n = 1, V_{n+1} - V_n = 1)
+  \end{align*}
+  since during one step \(X_n\) can only change by \(1\) in one coordinate. Similar for the other three cases.
+
+  So
+  \[
+    \prob(U_{n+1} - U_n = \alpha, V_{n+1} - V_n = \beta) = \left( \frac{1}{2} \right)^2 = \prob(U_{n+1} - U_n = \alpha) \prob(V_{n+1} - V_n = \beta)
+  \]
+  for \(\alpha, \beta = \pm 1\). \(U_n\) and \(V_n\) are independent and each generates a random walk on \(\Z\).
+\end{proof}
+
+By independence
+  \[
+    \prob_0(X_n = (0,0)) = \prob_0(Y_n = (0,0)) = \prob_0(U_n = 0) \prob_0(V_n = 0)
+  \]
+  so
+  \[
+    p_{0,0}^{d=2}(2n) = \left( p_{0,0}^{d=1} \right)^2.
+  \]
+
+  The moral of this calculation is, two dimensional random walk is indeed the product of two one dimensional cases, but in a not-entirely-straightforward way.
+
+\iffalse
 \appendix
 
 \section{Resources}
@@ -491,4 +626,5 @@ Similar as before, we need a proposition before the proof:
 Reading list: Probability, an introduction Grimmet, Welsh, 2nd edition, Chapter 12
 
 %webpage: www.statslab.cam.ac.uk/~grg/
+\fi
 \end{document}

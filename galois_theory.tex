@@ -12,26 +12,26 @@
 
 \section{Basic Definitions}
 
-\begin{defi}
+\begin{definition}
     $\aut(K/F) := \{\sigma \in \aut(K): \sigma|_F = \id \}$
-\end{defi}
+\end{definition}
 
 $\sigma \in \aut(K)$ always fixes its \emph{prime subfield} so e.g. $\aut(\mathbb{R}) = \aut(\mathbb{R}/\mathbb{Q})$
 
-\begin{prop}
+\begin{proposition}
   \label{prop:permutation}
     Given $K/F$, $\alpha \in K$ algebraic over $F$, $\forall\sigma \in \aut(K/F)$, $\sigma\alpha$ is also a root of the minimal polynomial, i.e. $\sigma$ permutates the roots of the minimal polynomial.
-\end{prop}
+\end{proposition}
 
 $\sigma \in \aut(K/F)$ is completely determined by what it does to the generators of $K$. If $K/F$ is finite then $\aut(K/F)$ is finite.
 
-\begin{prop}
+\begin{proposition}
     Given $H \leq \aut(K)$, the \emph{fixed field of $H$} $F := \{\alpha \in K:\forall\sigma \in H, \sigma\alpha = \alpha\}$ is a subfield of $K$.
-\end{prop}
+\end{proposition}
 
 Actually, given any $S \subseteq \aut(K), F_S = F_{\langle S \rangle} \leq K$.
 
-\begin{prop}
+\begin{proposition}
     The association of the group to fields and fields to group is inclusion reversing, namely
 
     \begin{enumerate}
@@ -39,7 +39,7 @@ Actually, given any $S \subseteq \aut(K), F_S = F_{\langle S \rangle} \leq K$.
         \item if $H_1 \leq H_2 \leq \aut(K)$ are two subgroups of automorphisms with associated subfield $F_1$ and $F_2$ then $F_2 \leq F_1$
     \end{enumerate}
 
-\end{prop}
+\end{proposition}
 
 Let $F$ be a field and $E$ be the splitting field over $F$ of $f(x) \in F[x]$. Given any isomorphism $\phi: F \rightarrow F'$, it can be extended to an isomorphism $\sigma: E \rightarrow E'$ where $E'$ is the splitting field for $f'(x) = \phi(f(x)) \in F'[x]$.
 
@@ -64,28 +64,28 @@ From $[E : F] = [E: F(\alpha)] [F(\alpha) : F]$ it follows that the number of ex
 
 In the particular case when $F = F'$ and $\phi$ is identity we have:
 
-\begin{prop}
+\begin{proposition}
     Let $E$ be a splitting field over $F$ of the polynomial $f(x) \in F[x]$, then
     \[
         |\aut(E/F)| \leq [E : F]
     \]
 
     with equality if $f(x)$ is separable over $F$.
-\end{prop}
+\end{proposition}
 
-\begin{defi}
+\begin{definition}
     Let $K/F$ be a finite extension. Then $K$ is said to be \emph{Galois} over $F$ and $K/F$ is a \emph{Galois extension} if $|\aut(K/F)| = [K : F]$. If $K/F$ is Galois the group $\aut(K/F)$ is called the \emph{Galois group} of $K/F$, denoted $\gal(K/F)$.
-\end{defi}
+\end{definition}
 
-\begin{cor}
+\begin{corollary}
     If $K$ is a splitting field over $F$ of a separable polynomial $f(x)$ then $K/F$ is Galois.
-\end{cor}
+\end{corollary}
 
 Note that the corollary implies that \emph{the splitting field of any polynomial $f(x)$ over a perfect field is Galois}, since the splitting field of $f(x)$ is the same as the splitting field of the product of the irreducible factors of $f(x)$ (i.e. the ``square free'' part), which is separable.
 
-\begin{defi}
+\begin{definition}
     If $f(x)$ is a separable polynomial over $F$, then the \emph{Galois group of $f(x)$ over $F$} is the Galois group of the splitting field of $f(x)$ over $F$.
-\end{defi}
+\end{definition}
 
 \begin{eg}
     \begin{enumerate}
@@ -107,23 +107,23 @@ Note that the corollary implies that \emph{the splitting field of any polynomial
 \section{The Fundamental Theorem of Galois Theory}
 There is a correspondence between the lattice of subgroups of a Galois group and subfields of the extension field. The Fundamental Theorem of Galois Theory states that the relations are not conincidental and hold for any Galois extension. We first introduce \emph{group characters}:
 
-\begin{defi}
+\begin{definition}
     A \emph{character} $\chi$ of a group $G$ with values in a field $L$ is a homomorphism from $G$ to the multiplicative group of $L$:
     \[
         \chi: G \rightarrow L^\times
     \]
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
     The characters $\chi_1, \chi_2, \ldots \chi_n$ of $G$ are said to be \emph{linearly independent} over $L$ is they are linearly independent as functions on $G$, i.e. if there is no nontrivial relation
     \[
         a_1 \chi_1 + a_2 \chi_2 + \cdots a_n \chi_n = 0
     \]
-\end{defi}
+\end{definition}
 
-\begin{thm}[Linear Independence of Characters]
+\begin{theorem}[Linear Independence of Characters]
     If $\chi_1, \chi_2, \ldots \chi_n$ are distinct characters of $G$ with values in $L$ then they are linearly independent over $L$.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
     Suppose there is a counterexample with minimal number $m$ of nonzero coefficients $a_i$. Wlog suppose
@@ -147,25 +147,25 @@ There is a correspondence between the lattice of subgroups of a Galois group and
 
 An injective homomorphism of a field $K$ into a field $L$ is called an \emph{embedding} of $K$ into $L$.
 
-\begin{cor}
+\begin{corollary}
   If $\sigma_1, \sigma_2, \ldots \sigma_n$ are distinct embeddings of a field $K$ into a field $L$, then they are linearly independent as funcrions on $K$. In particular distinct automorphisms of a field $K$ are linearly independent.
-\end{cor}
+\end{corollary}
 
-\begin{thm}\label{thm:degree of fixed field}
+\begin{theorem}\label{thm:degree of fixed field}
   Let $G = \{\sigma_1=1, \sigma_2,\ldots, \sigma_n\}$ be a subgroup of automorphisms of a field $K$ and let $F$ be its fixed field. Then
   \[ [K:F] = n = |G| \]
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   \texttt{to be filled in}
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   \label{cor:upper bound of order of aut group}
   Let $K/F$ be a finite extension. Then
   \[ |\aut(K/F)| \leq [K:F] \]
   with equality iff $F$ is the fixed field of $\aut(K/F)$. In other words, $K/F$ is Galois iff $F$ is the fixed field of $\aut(K/F)$.
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Let $F_1$ be the fixed field of $\aut(K/F)$, so that
@@ -173,9 +173,9 @@ An injective homomorphism of a field $K$ into a field $L$ is called an \emph{emb
   By Theorem \ref{thm:degree of fixed field}, $[K:F] = [K:F_1][F_1:F] = |\aut(K/F)| [F_1:F]$.
 \end{proof}
 
-\begin{cor}\label{cor:galois group cor}
+\begin{corollary}\label{cor:galois group cor}
   Let $G \leq \aut(K)$ be finite and let $F$ be its fixed subfield. Then $\aut(K/F) = G$, so $K/F$ is Galois with Galois group $G$.
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Since $G \leq \aut(K/F)$, $|G| \leq |\aut(K/F)|$. From Theorem \ref{thm:degree of fixed field} $|G| = [K:F]$ and from Corollary \ref{cor:galois group cor} $|\aut(K/F)| \leq [K:F]$ so
@@ -184,19 +184,19 @@ An injective homomorphism of a field $K$ into a field $L$ is called an \emph{emb
   and it follows that we have equalities throughout.
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   \label{cor:unique fixed field}
   If $G_1 \neq G_2$ are two distinct finite subgroups of $\aut(K)$ then their fxed fixed fields are also distinct.
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Let $F_1$ and $F_2$ be their fixed fields respectively. If $F_1 = F_2$ then $F_1$ is fixed by $G_2$. Thus By the previous corollary $G_2 \leq G_1$. Same argrument shows $G_1 \leq G_2$.
 \end{proof}
 
-\begin{thm}
+\begin{theorem}
   \label{thm:characterisation of galois extension}
   The extension $K/F$ is Galois iff $K$ is the splitting field of some separable polynomial over $F$. In this case every irreducible polynomial with coefficients in $F$ which has a root in $K$ is separable and has all its roots in $K$ (so in particular $K/F$ is a separable extension).
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   We first show that if $K/F$ is Galois then every irreducible polynomial $p(x) \in F[x]$ having a root in $K$ splits completely in $K[x]$. Let $G = \gal(K/F) = \{1, \sigma_2,\ldots,\sigma_n\}$. Let $\alpha \in K$ be a root of $p(x)$ and consider the elements
@@ -208,11 +208,11 @@ An injective homomorphism of a field $K$ into a field $L$ is called an \emph{emb
   To show the first part, suppose $K/F$ is Galois and let $\{\omega_i\}_{i=1}^n$ be a basis for $K/F$. Let $p_i(x)$ be the minimal polynomial for $\omega_i$ over $F$, which is separable and has all its roots in $K$. Let $g(x)$ be the ``square free'' part of their products. Then the splitting field of the two polynomials is the same, which is $K$ (shown by demonstrating inclusion both ways). Thus $K$ is the splitting field of the separable polynomial $g(x)$.
 \end{proof}
 
-\begin{defi}
+\begin{definition}
   Let $K/F$ be a Galois extension. If $\alpha \in F$ then the elements $\sigma\alpha$ for $\sigma \in \gal(K/F)$ are called the \emph{(Galois) conjugates} of $\alpha$ over $F$. If $F \subseteq E \subseteq K$ is a subfield then $\sigma(E)$ is the \emph{conjugate field} of $E$ over $F$.
-\end{defi}
+\end{definition}
 
-\begin{thm}[Fundamental Theorem of Galois Theory]
+\begin{theorem}[Fundamental Theorem of Galois Theory]
   Let $K/F$ be a Galois extension and $G := \gal(K/F)$. Then there is a bijection
   \[
     \left\{
@@ -258,7 +258,7 @@ An injective homomorphism of a field $K$ into a field $L$ is called an \emph{emb
   \item $E$ is Galois over $F$ iff $H \trianglelefteq G$. In this case $\gal(E/F) \cong G/H$. More generally, even if $H$ is not necessarily normal in $G$, the isomorphisms of $E$ (into a fixed algebraic closure of $F$ containing $K$) which fix $F$ are in bijection with $G/H$, the set of cosets of $H$ in $G$.
   \item the lattice of subfields is dual to the lattice of subgroups: if $E_1, E_2$ correspond to $H_1, H_2$ respectively, then the intersection $E_1 \cap E_2$ corresponds to the group $\langle H_1, H_2 \rangle$ generated by $H_1$ and $H_2$ and the composite field $E_1E_2$ corresponds to the intersection $H_1 \cap H_2$.
   \end{enumerate}
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Given any $H \leq G$ there is a unique fixed field by Corollary \ref{cor:unique fixed field} so the map is injective from right to left.
@@ -348,13 +348,13 @@ An injective homomorphism of a field $K$ into a field $L$ is called an \emph{emb
   which is a \emph{quasidihedral group} which is a subgroup of $S_8$.
 \end{eg}
 
-\begin{rmk}
+\begin{remark}
   The example illustrates that one must take care in determining Galois groups from the actions on generators. Had we proceeded directly from the original generators $\theta = \sqrt[8] 2$ and $\zeta = \zeta_8$ we might have incorrectly concluded that there were a total of $32$ elements in the Galois group. The problem is that these choices are not independent, due to the relation
   \[ \theta^4 = \sqrt 2 = \zeta + \zeta^7 \]
   which shows that one cannot specify the images of $\theta$ and $\zeta$ independently.
 
   It is thus necessary to provide justification that maps are automorphisms. This can be accomplished, for example, by using the extension theorems or by using degree considerations as we did here.
-\end{rmk}
+\end{remark}
 
 \section{Finite Fields}
 
@@ -370,13 +370,13 @@ where
 
 Since the Galois group is abelian, every subgroup is normal, so each of the subfields $\mathbb F_{p^d}$ where $d|n$ is Galois over $\mathbb F_p$.
 
-\begin{prop}
+\begin{proposition}
   Any finite field is isomorphic to $\mathbb F_{p^n}$ for some prime $p$ and some integrer $n \geq 1$. The field $\mathbb F_{p^n}$ is the splitting field over $\mathbb F_p$ of the polynomial $x^{p^n}-x$, with cyclic Galois group of order $n$ generated by the Frobenius automorphism $\sigma_p$. The subfields of $\mathbb F_{p^n}$ are all Galois over $\mathbb F_p$ and are in bijection with the divisors $d$ of $n$. They are the fields of $\mathbb F_{p^d}$, the fixed fields of $\sigma^d_p$.
-\end{prop}
+\end{proposition}
 
-\begin{cor}
+\begin{corollary}
   The irreducible polynomial $x^4+1 \in \mathbb{Z}[x]$ is reducible modulo every prime $p$.
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Consider the polynomial $x^4+1 \in \mathbb F_p[x]$ for prime $p$. If $p = 2$ then $x^4 + 1 = (x+1)^4$ so reducible. Assume now that $p$ is odd. Then $p^2-1 \equiv 0 \mod 8$. Thus
@@ -388,17 +388,17 @@ Since the Galois group is abelian, every subgroup is normal, so each of the subf
 
 The multiplicative group $\mathbb F_{p^n}^\times$ is finite so cyclic. Let $\theta$ be any generator, then $\mathbb F_{p^n} = \mathbb F_p(\theta)$. Thus
 
-\begin{prop}
+\begin{proposition}
   $\mathbb F_{p^n}$ is simple. In particular, there exists an irreducivle polynomial of degree $n$ over $\mathbb F_p$ for every $n \geq 1$.
-\end{prop}
+\end{proposition}
 
 Thus $\mathbb F_{p^n}$ can both be seen as the splitting field of $x^{p^n}-x$ over $\mathbb F_p$ and the quotient of $\mathbb F_p$ by the minimal polynomial of $\theta$. As $\theta$ is a root of $x^{p^n}-x$, the minimal polynomial is a divisor of $x^{p^n}-x$ of degree $n$.
 
 Conversely, let $p(x)$ be irreducible of degree $d$ and divide $x^{p^n}-x$. If $\alpha$ is a root of $p(x)$ then $\mathbb F(\alpha)$ is a subfield of $\mathbb F_{p^n}$ of degree $d$. Thus $d|n$ and the extension if Galois by the previous proposition so all the roots of $p(x)$ are contained in $\mathbb F_p(\alpha)$. Thus if we gather all factors of $x^{p^n}-x$ in $\mathbb F_{p^n}$ according to the degree $d$ of their minimal polynomails ofver $\mathbb F_p$, then
 
-\begin{prop}
+\begin{proposition}
   The polynomial $x^{p^n}-x$ is precisely the product of all the distinct irreducible polynomials in $\mathbb F_p[x]$ of degree $d$ where $d|n$.
-\end{prop}
+\end{proposition}
 
 \begin{eg}
   The finite field $\mathbb F_{p^n}$ is unique up to isomorphism. If $f_1(x)$ and $f_2(x)$ are irreducible of degree $n$, then $f_2(x)$ splits completely in the field $\mathbb F_{p^n} \cong \mathbb F_p[x]/(f_1(x))$. If we denote a root of $f_2(x)$ by $\alpha(x)$, the isomorphism is given by
@@ -412,7 +412,7 @@ Conversely, let $p(x)$ be irreducible of degree $d$ and divide $x^{p^n}-x$. If $
 
 We can give a formula for the number of irreducible polynomials of degree $n$ using result from elementary number theory.
 
-\begin{defi}
+\begin{definition}
   The \emph{M\"obius $\mu$-function} is definded by
   \[
     \mu (n) =  
@@ -422,7 +422,7 @@ We can give a formula for the number of irreducible polynomials of degree $n$ us
     (-1)^r & \text{if $n$ has $r$ distinct prime factors}
   \end{cases}
   \]
-\end{defi}
+\end{definition}
 
 Given $f(n)$ a function defined for all nonnegative integers $n$ and
 \[
@@ -458,9 +458,9 @@ Given two finite fields $\mathbb F_{p^{n_1}}, \mathbb F_{p^{n_2}}$, $\mathbb F_{
 
 \section{From Dexter Chua Notes}
 
-\begin{lem}
+\begin{lemma}
   Given $L/K$, $f(t) \in K[t]$ irreducible, there is a bijection between
   \[ \{ \text{roots of } f \: \text{in } L \} \longleftrightarrow \Hom_K(K[t]/(f(t)), L) \]
-\end{lem}
+\end{lemma}
 \fi
 \end{document}
