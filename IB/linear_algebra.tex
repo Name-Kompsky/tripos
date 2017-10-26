@@ -23,7 +23,7 @@
 
 \tableofcontents
 
-\section{Basics}
+\section{Vector Spaces}
 
 \begin{convention}
   Throughout this course, $\mathbb{F}$ denotes a general field. If you wish, think of it as $\mathbb{R}$ or $\mathbb{C}$.
@@ -31,8 +31,8 @@
 
 \subsection{Definition}
 
-\begin{defi}
-  An $\mathbb{F}$-vector space (or a vector space over $\mathbb{F}$) is an abelian group $(V, +)$ equipped with a function, called \emph{scalar multiplication}:
+\begin{definition}[Vector space]
+  An $\mathbb{F}$-\emph{vector space} (or a vector space over $\mathbb{F}$) is an abelian group $(V, +)$ equipped with a function, called \emph{scalar multiplication}:
   \begin{align*}
     \mathbb{F}\times V &\to V \\
     (\lambda, v) &\mapsto \lambda\cdot v
@@ -44,7 +44,7 @@
   \item $\lambda(\mu v) = \lambda \mu v$,
   \item $1\cdot v = v$.
   \end{itemize}
-\end{defi}
+\end{definition}
 
 The additive unit of $V$ is denoted by $\V 0$.
 
@@ -66,14 +66,14 @@ The additive unit of $V$ is denoted by $\V 0$.
 
 \subsection{Vector Subspace}
 
-\begin{defi}
+\begin{definition}[Vector Subspace]
   Let $V$ be an $\mathbb{F}$-vector space. A subset $U \subseteq V$ is a \emph{subspace}, denoted $U \leq V$, if
   \begin{itemize}
   \item $\V 0 \in U$,
   \item $U$ is closed under addition: $\forall u_1, u_2 \in U, u_1+u_2 \in U$,
     \item $U$ is closed under scalar multiplication: $\forall u \in U, \forall \lambda \in \mathbb{F}, \lambda u \in U$.
   \end{itemize}
-\end{defi}
+\end{definition}
 
 \begin{ex}
   If $U$ is a subspace of $V$, then $U$ is also an $\mathbb{F}$-vector space.
@@ -86,9 +86,9 @@ The additive unit of $V$ is denoted by $\V 0$.
   \end{enumerate}
 \end{eg}
 
-\begin{prop}
+\begin{proposition}
   Let $V$ be an $\mathbb{F}$-vector space, $U, W \leq V$. Then $U \cap W \leq V$.
-\end{prop}
+\end{proposition}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -105,20 +105,20 @@ The additive unit of $V$ is denoted by $\V 0$.
 The union of a family of subspaces is \emph{almost never} a subspace. For example, $V = \mathbb{R}^2$, $U, V$ be $x$- and $y$-axis.
 \end{note}
 
-\begin{defi}
+\begin{definition}[Sum of vector spaces]
   Let $V$ be an $\mathbb{F}$-vector space, $U, W \leq V$, the \emph{sum} of $U$ and $W$ is the set
   \[
     U + W = \{u+w: u\in U, w\in W\}
   \]
-\end{defi}
+\end{definition}
 
 \begin{eg}
   Use the definition from the previous example, $U+W=V$.
 \end{eg}
 
-\begin{prop}
+\begin{proposition}
   $U+W \leq V$.
-\end{prop}
+\end{proposition}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -132,17 +132,17 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   $U+W$ is the smallest subspace containing both $U$ and $W$. This is because all elements of the form $u+w$ are in such a space by closure under addition.
 \end{note}
 
-\begin{defi}
+\begin{definition}[Quotient vector space]
   Let $V$ be an $\mathbb{F}$-vector space, $U \leq V$. The \emph{quotient space} $V/U$ is the abelian gropup $V/U$ equipped with scalar multiplication
   \begin{align*}
     \mathbb{F} \times V/U &\to V/U \\
     (\lambda, v+U) &\mapsto \lambda v+U
   \end{align*}
-\end{defi}
+\end{definition}
 
-\begin{prop}
+\begin{proposition}
   This is well-defined and $V/U$ is an $\mathbb{F}$-vector space.
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   First check it is well-defined. Suppose $v_1+U= v_2+U \in V/U$. Then $v_1-v_2\in U$. Now use closure under scalar multiplication and distributivity, $\lambda v_1 - \lambda v_2 = \lambda(v_1-v_2)\in U$ so $\lambda v_1 + U = \lambda v_2 +U\in V/U$.
@@ -155,41 +155,41 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 
 \subsection{Span, Linear Independence \& Basis}
 
-\begin{defi}
+\begin{definition}[Span]
   Let $V$ be a $\F$-vector space, $S \subseteq V$ be a subset. The \emph{span} of $S$
   \[
-    \langle S \rangle = \Big\{\sum_{s\in S} \lambda_s s : \lambda_s \in F \Big\}
+    \generation S = \Big\{\sum_{s\in S} \lambda_s s : \lambda_s \in F \Big\}
   \]
-  is the set of all the finite linear combinations of elements (i.e. all but finitely many of the $\lambda$ are zero) of $S$.
-\end{defi}
+  is the set of all the finite linear combinations of elements (i.e.\ all but finitely many of the $\lambda$ are zero) of $S$.
+\end{definition}
 
-\begin{rmk}
-  $\langle S \rangle$ is the smallest subspace of $V$ containing all elements of $S$.
-\end{rmk}
+\begin{remark}
+  $\generation S$ is the smallest subspace of $V$ containing all elements of $S$.
+\end{remark}
 
 \begin{convention}
-  $\langle \emptyset \rangle = \{\V 0\}$
+  $\generation \emptyset = \{\V 0\}$
 \end{convention}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
- \item $V=\R^3$, $S = \{(1,0,0),(0,1,2),(3,-2,-4)\}$, $\langle S \rangle = \{(a,b,2b): a,b\in \R \}$
+ \item $V=\R^3$, $S = \{(1,0,0),(0,1,2),(3,-2,-4)\}$, $\generation S = \{(a,b,2b): a,b\in \R \}$
  \item For any set $X$, $\R^X$ is a vector space. For $x \in X$, define $\delta_x: X \to \R, \delta_x(x) = 1, \delta_x(y) = 0 \: \forall y \neq x$, then
    \[
-     \langle \delta_x: x\in X \rangle = \{f\in \R^X: f \text{ has finite support} \}
+     \generation{\delta_x: x\in X} = \{f\in \R^X: f \text{ has finite support} \}
    \]
   \end{enumerate} 
 \end{eg}
 
-\begin{defi}
-  $S$ spans $V$ if $\langle S \rangle = V$.
-\end{defi}
+\begin{definition}[Span]
+  $S$ spans $V$ if $\generation S = V$.
+\end{definition}
 
-\begin{defi}
+\begin{definition}[Finite-dimensional]
   $V$ is \emph{finite-dimensional} over $\F$ if it is spanned by a finite set.
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}[Linear independence]
   The vectors $v_1,\ldots, v_n$ are \emph{linearly independent} over $\F$ if
   \[
     \sum_{i=1}^n \lambda_i = 0 \Rightarrow \lambda_i = 0 \: \forall i
@@ -197,7 +197,7 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   A subset $S \subset V$ is \emph{linearly independent} if every finite subset of $S$ is linearly independent.
 
   A subset if \emph{linearly dependent} if it is not linearly independent.
-\end{defi}
+\end{definition}
 
 \begin{eg}
   In the first example above, the three vectors are not linearly independent.
@@ -207,9 +207,9 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   The set $\{\delta_x: x \in X\}$ is linearly independent.
 \end{ex}
 
-\begin{defi}
+\begin{definition}[Basis]
   $S$ is a \emph{basis} of $V$ if it is linearly independent and spans $V$.
-\end{defi}
+\end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -223,27 +223,28 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
     \end{enumerate}
 \end{eg}
 
-\begin{lem}
+\begin{lemma}
   Let $V$ be a $\F$-vector space. The vectors $v_1,\ldots,v_n$ form a basis of $V$ if and only if each vector $v\in V$ has a unique expression
   \[
     v = \sum_{i=1}^n \lambda_i v_i, \lambda_i \in \F.
   \]
   
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
-  $\Rightarrow:$ Fix $v\in V$. The $v_i$ span $V$, so exists $\lambda_i \in \F$ such that $v = \sum \lambda_i v_i$. Suppose also $v = \sum \mu_i v_i$ for some $\mu_i \in \F$. Then the difference
+  \begin{itemize}
+  \item $\Rightarrow:$ Fix $v\in V$. The $v_i$ span $V$, so exists $\lambda_i \in \F$ such that $v = \sum \lambda_i v_i$. Suppose also $v = \sum \mu_i v_i$ for some $\mu_i \in \F$. Then the difference
   \[
     \sum (\mu_i - \lambda_i) v_i = \V 0.
   \]
   Since the $v_i$ are linearly independent, $\mu_i-\lambda_i = 0$ for all $i$.
-
-  $\Leftarrow:$ The $v_i$ span $V$ by assumption. Suppose $\sum_{i=1}^n \lambda_i v_i = \V 0$. Note that $\V 0 = \sum_{i=0}^n 0 \cdot v_i$. By appying uniqueness to $\V 0$, $\lambda_i = 0$ for all $i$. 
+\item $\Leftarrow:$ The $v_i$ span $V$ by assumption. Suppose $\sum_{i=1}^n \lambda_i v_i = \V 0$. Note that $\V 0 = \sum_{i=0}^n 0 \cdot v_i$. By appying uniqueness to $\V 0$, $\lambda_i = 0$ for all $i$.
+  \end{itemize}
 \end{proof}
 
-\begin{lem}
+\begin{lemma}
   If $v_1,\ldots, v_n$ spans $V$ over $\F$, then some subset of $v_1,\ldots,v_n$ is a basis of $V$ over $\F$.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   If $v_1,\ldots, v_n$ is linearly independent then done. Otherwise for some $\ell$, there exist $\alpha_1, \ldots, \alpha_{\ell-1} \in \F$ such that
@@ -255,13 +256,13 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   Now $v_1,\ldots,v_{\ell-1},v_{\ell+1},\ldots,v_n$ still span $V$. Continue iteratively until we have linear independence.
 \end{proof}
 
-\begin{thm}[Steinitz Exchange Lemma]
+\begin{theorem}[Steinitz Exchange Lemma]
   Let $V$ be a finite-dimensional vector space over $\F$. Take $v_1,\ldots,v_m$ to be linearly independent, $w_1,\ldots,w_n$ to span $V$. Then
   \begin{itemize}
   \item $m \leq n$, and
     \item reordering the $w_i$ if needed, $v_1,\ldots, v_m, w_{m+1},\ldots,w_n$ spans $V$.
   \end{itemize}
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Proceed by induction. Suppose that we have replaced $\ell \geq 0$ of the $w_i$. Reordering $w_i$ if needed, $v_1,\ldots,v_\ell,w_{\ell+1},\ldots,w_n$ spans $V$.
@@ -277,9 +278,9 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 
 \subsection{Dimension}
 
-\begin{thm}
+\begin{theorem}
   If $V$ is a finite-dimensional vector space over $\F$, then any two bases for $V$ have the same cardinality, which is called the \emph{dimension} of $V$, donoted $\dim_\F V$.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   If $v_1,\ldots, v_n$ and $w_1,\ldots,w_m$ are both bases, then $\{v_i\}$ is linearly independent and $\{w_i\}$ spans $V$ so $n \leq m$. Similarly $m \leq n$.
@@ -289,9 +290,9 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   $\dim_\C \C = 1$, but $\dim_\R \C = 2$.
 \end{eg}
 
-\begin{lem}
+\begin{lemma}
   Let \(V\) be a finite-dimensional \(\F\)-vector space. If \(w_1,\ldots,w_\ell\) is a linearly independent set of vectors, we can extend it to a basis \(w_1,\ldots,w_\ell,w_{\ell+1},\ldots,w_n\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Apply Steinitz exchange lemma to \(w_1,\ldots, w_\ell\) and any basis \(v_1,\ldots, v_n\).
@@ -299,47 +300,47 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   Or more direcly, if \(V=\langle w_1,\ldots, w_\ell \rangle\), done. Otherwise take \(v_{\ell+1} \in V\setminus\langle w_1,\ldots, w_\ell\rangle\). Now \(w_1,\ldots, w_\ell,w_{\ell+1}\) is linearly independent. Iterate.
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   Let \(V\) be a finite-dimensional vector space of dimension \(n\). Then
   \begin{enumerate}
   \item Any linearly independent set of vectors has at most \(n\) elements, with equality if and only if the set is a basis.
   \item Any spanning set of vectors has at least \(n\) elements, with equaility if and only if the set is a basis.
   \end{enumerate}
-\end{cor}
+\end{corollary}
 
 \begin{slogan}
   Choose the best basis for the job.
 \end{slogan}
 
-\begin{thm}
+\begin{theorem}
   Let \(U, W\) be subspaces of \(V\). If \(V\) and \(W\) are finite-dimensional, so is \(U+W\) and
   \[
 \dim(U+W) = \dim U + \dim W - \dim(U\cap W).
   \]
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Pick basis \(v_1,\ldots, v_\ell\) of \(U\cap W\). Extend it to basis \(v_1,\ldots,v_\ell,u_1,\ldots,u_m\) of \(U\) and \(v_1,\ldots,v_\ell,w_1,\ldots,w_n\) of \(W\). Claim \(v_1,\ldots, v_\ell,u_1,\ldots,u_m,w_1,\ldots,w_n\) is a basis for \(U+W\):
   \begin{itemize}
-  \item spanning: if \(u\in U\), then \(u= \sum \alpha_iv_i + \sum \beta_iu_i\) and if \(w\in W\), \(w = \sum_{}^{}\gamma_iv_i + \sum_{}^{}\delta_iw_i\), so \(u+w = \sum_{}^{}(\alpha_i + \gamma_i)v_i + \sum_{}^{}\beta_iu_i \sum_{}^{}\delta_iu_i\).
+  \item spanning: if \(u\in U\), then \(u= \sum \alpha_iv_i + \sum \beta_iu_i\) and if \(w\in W\), \(w = \sum_{}^{}\gamma_iv_i + \sum_{}^{}\delta_iw_i\), so \(u+w = \sum_{}^{}(\alpha_i + \gamma_i)v_i + \sum_{}^{}\beta_iu_i + \sum_{}^{}\delta_iu_i\).
   \item linear independence: assume \(\sum \alpha_iv_i + \sum \beta_iu_i+ \sum \gamma_iw_i=0\). Rearrange, \(\sum\alpha_iv_i + \sum\beta_iu_i = -\sum\gamma_iw_i \in U\cap W\) so it equals to \(\sum\delta_iv_i\) for some \(\delta_i\in \F\) because \(v_i\) is a basis for \(U\cap W\). As \(v_i\) and \(w_i\) are linearly independent, \(\gamma_i=\delta_i=0\) for all \(i\). Thus \(\sum\alpha_iv_i + \sum\beta_iv_i=0\), so \(\alpha_i=\beta_i=0\) since \(v_i\) and \(u_i\) form a basis for \(U\).
   \end{itemize}
 \end{proof}
 
-\begin{thm}
+\begin{theorem}
   Let \(V\) be a finite-dimensional vector space over \(\F\) and \(U \leq V\), then \(U\) and \(V/U\) are also finite dimensional and
   \[
 \dim V = \dim U + \dim V/U.
   \]
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Left as an exercise. Outline: first show \(U\) is finite-dimensional, then let \(u_1,\ldots,u_\ell\) be a basis for \(U\). Extend it to a basis for \(V\), say \(u_1,\ldots,u_\ell,w_{\ell+1},\ldots,w_n\) of \(V\). Check \(w_{\ell+1}+U,\ldots,w_n+U\) form a basis for \(V/U\).
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   If \(U\) is a proper subspace of \(V\), which is finite-dimensional, then \(\dim U < \dim V\).
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   \(V/U \neq 0\) so \(\dim V/U > 0\).
@@ -347,44 +348,44 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 
 \subsection{Direct Sum}
 
-\begin{defi}
+\begin{definition}[Direct sum]
   Let \(V\) be a vector space over \(\F\), \(U, W\leq V\). Then
   \[
 V = U \oplus W
   \]
-  if every element of \(V\) can be written as \(v=u+w, u\in U, w\in W\) uniquely. This is called the \emph{internal direct sum}. \(W\) is a \emph{direct complement} of \(U\) in \(V\).
-\end{defi}
+  if every element of \(V\) can be written as \(v=u+w\) for some unique \(u\in U, w\in W\). This is called the \emph{internal direct sum}. \(W\) is a \emph{direct complement} of \(U\) in \(V\).
+\end{definition}
 
-\begin{lem}
+\begin{lemma}
   Suppose \(U,W\leq V\), TFAE:
   \begin{enumerate}
   \item \(V = U \oplus W\),
   \item \(V=U+W\) and \(U\cap W = 0\),
-  \item Given \(B_1\) any basis of \(U\), \(B_w\) any basis of \(V\), \(B=B_1\cup B_2\) is a basis of \(V\).
+  \item Given \(\basis B_1\) any basis of \(U\), \(\basis B_2\) any basis of \(V\), \(\basis B = \basis B_1\cup \basis B_2\) is a basis of \(V\).
   \end{enumerate}
-\end{lem}
+\end{lemma}
 
-\begin{proof}
-  \(2 \Rightarrow 1\): any \(v\in V\) is \(u+w\) for some \(u\in U, w\in W\). Suppose \(u_1+w_1=u_2+w_2\), then \(u_1-u_2 = w_2-w_1 \in U\cap W = 0\). Thus \(u_1=u_2,w_1=w_2\).
-
-  \(2 \Rightarrow 1\): \(B\) spans as any \(v\in V\) is \(u+w\). Write \(u\) in terms of \(B_1\) and \(w\) in terms of \(B_2\). Then \(u+w\) is a linear combination of elements of \(B\). To show \(B\) is linearly independent, suppose \(\sum_{v\in B} \lambda_v v = \V 0 = \V 0_V + \V 0_W\). Write LHS as \(\sum_{v\in B_1} \lambda_vv + \sum_{v\in B_2}\lambda_vv\). By uniqueness of expression, \(\sum_{v\in B_1}\lambda_vv=\V 0_V\) and \(\sum_{w\in B_2}\lambda_ww=\V 0_w\). As \(B_1, B_2\) are bases, all of the \(\lambda_v, \lambda_w\) are zero.
-
-  \(2 \Rightarrow 1\): if \(v\in V, v=\sum_{x\in V}\lambda_xx = \sum_{u\in B_1}\lambda_uu + \sum_{w\in B_1}\lambda_ww\) so \(v\in U+W\). Conversely, if \(v\in U\cap W, v = \sum_{u\in B_1}\lambda_uu=\sum_{w\in B_2}\lambda_ww\) so all \(\lambda_u, \lambda_v\) are zero since \(B_1\cup B_2\) is linearly independent.
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(2 \Rightarrow 1\): any \(v\in V\) is \(u+w\) for some \(u\in U, w\in W\). Suppose \(u_1+w_1=u_2+w_2\), then \(u_1-u_2 = w_2-w_1 \in U\cap W = 0\). Thus \(u_1=u_2,w_1=w_2\).
+  \item \(2 \Rightarrow 1\): \(\basis B\) spans as any \(v\in V\) is \(u+w\). Write \(u\) in terms of \(\basis B_1\) and \(w\) in terms of \(\basis B_2\). Then \(u+w\) is a linear combination of elements of \(\basis B\). To show \(\basis B\) is linearly independent, suppose \(\sum_{v\in \basis B} \lambda_v v = \V 0 = \V 0_V + \V 0_W\). Write LHS as \(\sum_{v\in \basis B_1} \lambda_vv + \sum_{v\in \basis B_2}\lambda_vv\). By uniqueness of expression, \(\sum_{v\in \basis B_1}\lambda_vv=\V 0_V\) and \(\sum_{w\in \basis B_2}\lambda_ww=\V 0_w\). As \(\basis B_1, \basis B_2\) are bases, all of the \(\lambda_v, \lambda_w\) are zero.
+  \item \(2 \Rightarrow 1\): if \(v\in V, v=\sum_{x\in V}\lambda_xx = \sum_{u\in B_1}\lambda_uu + \sum_{w\in \basis B_1}\lambda_ww\) so \(v\in U+W\). Conversely, if \(v\in U\cap W, v = \sum_{u\in \basis B_1}\lambda_uu=\sum_{w\in \basis B_2}\lambda_ww\) so all \(\lambda_u, \lambda_v\) are zero since \(\basis B_1\cup \basis B_2\) is linearly independent.
+  \end{enumerate}
 \end{proof}
 
-\begin{lem}
+\begin{lemma}
   Let \(V\) be a finite-dimensional vector space over \(\F\) and \(U\leq V\). Then there exists a direct complement to \(U\) in \(V\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}
-  Let \(u_1,\ldots, u_\ell\) be a basis for \(U\). Extend this to a basis \(u_1,\ldots, u_\ell,w_{\ell+1},\ldots,w_n\) for \(V\). Then \(\langle w_{\ell+1},\ldots,w_n\rangle\) is a direct complement of \(U\).
+  Let \(u_1,\ldots, u_\ell\) be a basis for \(U\). Extend this to a basis \(u_1,\ldots, u_\ell,w_{\ell+1},\ldots,w_n\) for \(V\). Then \(\generation{w_{\ell+1},\ldots,w_n}\) is a direct complement of \(U\).
 \end{proof}
 
 \begin{caution}
   Direct complements are \emph{not} unique.
 \end{caution}
 
-\begin{defi}
+\begin{definition}
   Suppose \(V_1,\ldots, V_\ell \leq V\), then
   \[
 \sum_i V_i = V_1+\cdots+V_\ell = \{v_1+\cdots+v_\ell: v_i\in V_i\}.
@@ -397,7 +398,7 @@ V = U \oplus W
   \[
 V = \bigoplus_{i=1}^\ell V_i.
   \]
-\end{defi}
+\end{definition}
 
 \begin{ex}
   \(V_1,\ldots, V_\ell \leq V\), TFAE:
@@ -408,19 +409,19 @@ V = \bigoplus_{i=1}^\ell V_i.
   \end{enumerate}
 \end{ex}
 
-\begin{defi}
+\begin{definition}[Direct Sum]
   Let \(U, W\) be vector spaces over \(\F\). The \emph{external direct sum} is
   \[
 U\oplus W = \{(u,w): u\in U, w\in W\}
   \]
   with pointwise addition and scalar multiplication.
-\end{defi}
+\end{definition}
 
 \section{Linear Maps}
 
 \subsection{Definition}
 
-\begin{defi}
+\begin{definition}[Linear map]
   \(V, W\) two \(\F\)-vector space, a map \(\alpha: V\to W\) is \emph{linear} if
   \begin{itemize}
   \item \(\alpha(v_1 + v_2) = \alpha(v_1) + \alpha(v_2)\),
@@ -430,7 +431,7 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
   \[
 \alpha(\lambda_1v_1+ \lambda_2v_2) = \lambda_1\alpha(v_1) + \lambda_2\alpha(v_2).
   \]
-\end{defi}
+\end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -441,7 +442,7 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
   \end{enumerate}
 \end{eg}
 
-\begin{note}
+\begin{note}[Category of \(\mathbf{Vect}_\F\)]
   Suppose \(U, V, W\) are \(\F\)-vector spaces, then
   \begin{enumerate}
   \item \(\id: V\to V\) is linear.
@@ -449,9 +450,9 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
   \end{enumerate}
 \end{note}
 
-\begin{lem}[Free functor \(\mathbf{Set} \to \mathbf{Vect}_\F\)]
-  Suppose \(V, W\) are \(\F\)-vector spaces and \(B\) is a basis for \(V\). If \(\alpha_0: B\to W\) is \emph{any} map, then there is a \emph{unique} linear map \(\alpha: V\to W\) extending \(\alpha_o\).
-\end{lem}
+\begin{lemma}[Free functor \(\mathbf{Set} \to \mathbf{Vect}_\F\)]
+  Suppose \(V, W\) are \(\F\)-vector spaces and \(\basis B\) is a basis for \(V\). If \(\alpha_0: \basis B\to W\) is \emph{any} map, then there is a \emph{unique} linear map \(\alpha: V\to W\) extending \(\alpha_o\).
+\end{lemma}
 
 \begin{proof}
   Let \(v\in V\). Write \(v = \sum \lambda_iv_i\) in a unique way. By linearity \(\alpha(v) = \alpha(\sum \lambda_iv_i) = \sum \lambda_i \alpha(v_i) = \sum \lambda_i \alpha_0(v_i)\). Uniqueness follows.
@@ -459,21 +460,21 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
 
 \begin{note}\leavevmode
   \begin{itemize}
-  \item This is true for infinite-dimensional vector space as well.
+  \item This is true for infinite-dimensional vector spaces as well.
   \item Very often, to define a linear map, define it on a basis and extend it linearly to the vector space.
-  \item Two linear maps \(\alpha_1,\alpha_2: V\to W\) are equal if they agree on a basis.
+  \item Two linear maps \(\alpha_1,\alpha_2: V\to W\) are equal if and only if they agree on a basis.
   \end{itemize}
 \end{note}
 
 \subsection{Isomorphism of Vector Spaces}
 
-\begin{defi}
+\begin{definition}[Isomorphism]
   Given \(V, W\) two \(\F\)-vector spaces, the map \(\alpha:V\to W\) is an \emph{isomorphism} if it is linear and bijective, denoted \(V \cong W\).
-\end{defi}
+\end{definition}
 
-\begin{lem}
+\begin{lemma}
   \(\cong\) is an equivalence relation on the class of all \(\F\)-vector spaces.
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -483,48 +484,48 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
   \end{itemize}
 \end{proof}
 
-\begin{thm}
+\begin{theorem}
   If \(V\) is an \(\F\)-vector space, then \(V \cong \F^n\) for some \(n\).
-\end{thm}
+\end{theorem}
 
 \begin{proof}
-  Choose a basis \(B\) for \(V\), say \(v_1,\ldots, v_n\). Define a map
+  Choose a basis for \(V\), say \(v_1,\ldots, v_n\). Define a map
   \begin{align*}
     V &\to \F^n \\
-    \sum_{}^{ }\lambda_iv_i &\mapsto (\lambda_1,\ldots,\lambda_n)
+    \sum_{i}^{ }\lambda_iv_i &\mapsto (\lambda_1,\ldots,\lambda_n)
   \end{align*}
 which is an isomorphism.
 \end{proof}
 
-\begin{rmk}
-  Choosing an isomorphism \(V \cong \F^n\) is equivalent to choosing a basis for \(V\). i.e. there is a bijection \(\{\alpha\in\Hom(V,W), \alpha\text{ bijective}\} \leftrightarrow \{\text{bases of } V\} \).
-\end{rmk}
+\begin{remark}
+  Choosing an isomorphism \(V \cong \F^n\) is equivalent to choosing a basis for \(V\). i.e.\ there is a bijection \(\{\alpha\in\Hom(V,\F^n), \alpha\text{ bijective}\} \leftrightarrow \{\text{bases of } V\} \).
+\end{remark}
 
-\begin{thm}
+\begin{theorem}
   Given two finite-dimensional \(\F\)-vector spaces \(V, W\), they are isomorphic if and only if they have the same dimension.
-\end{thm}
+\end{theorem}
 
 \begin{proof}\leavevmode
   \begin{itemize}
   \item \(\Leftarrow\): \(V \cong \F^{\dim V} = \F^{\dim W} \cong W\).
-  \item \(\Rightarrow\): let \(a:V\to W\) be an isomorphism and \(B\) be a basis for \(V\). Claim \(\alpha(B)\) is a basis for \(W\): \(\alpha(B)\) spans \(W\) due to surjectivity and \(\alpha(B)\) is linearly independent due to injectivity.
+  \item \(\Rightarrow\): let \(a:V\to W\) be an isomorphism and \(\basis B\) be a basis for \(V\). Claim \(\alpha(\basis B)\) is a basis for \(W\): \(\alpha(\basis B)\) spans \(W\) due to surjectivity and \(\alpha(\basis B)\) is linearly independent due to injectivity.
   \end{itemize}
 \end{proof}
 
-\begin{defi}
+\begin{definition}[Kernel \& Image]
   Given \(\alpha: V\to W\),
   \begin{itemize}
   \item \(N(\alpha) = \ker \alpha = \{v\in V: \alpha(v) = 0\} \leq V\),
   \item \(\im \alpha = \{w\in W: \exists v\in V, \alpha(v) = w \} \leq W\).
   \end{itemize}
-\end{defi}
+\end{definition}
 
-\begin{prop}\leavevmode
+\begin{proposition}\leavevmode
   \begin{itemize}
   \item \(\alpha\) is injective if and only if \(N(\alpha) = 0\),
   \item \(\alpha\) is surjective if and only if \(\im \alpha = W\).
   \end{itemize}
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Easy.
@@ -534,13 +535,13 @@ which is an isomorphism.
   Let \(\alpha: C^\infty(\R) \to C^\infty(\R), \alpha(f)(t) = f''(t)+2f'(t)+5f(t)\). \(\ker \alpha = \{f:f''+2f'+5f=0\}\) and \(g\in \im \alpha\) if and only if there exists an \(f\) such that \(f''+2f'+5f=g\).
 \end{eg}
 
-\begin{thm}[First Isomorphism Theorem]
+\begin{theorem}[First Isomorphism Theorem]
   Let \(\alpha: V\to W\) be a linear map. It induces an isomprhism
   \begin{align*}
     \bar \alpha: V/\ker \alpha &\to \im \alpha \\
     v + \ker \alpha &\mapsto \alpha(v)
   \end{align*}
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Check the following:
@@ -551,32 +552,32 @@ which is an isomorphism.
   \end{itemize}
 \end{proof}
 
-\begin{defi}\leavevmode
+\begin{definition}\leavevmode
   \begin{itemize}
   \item \(r(\alpha) = rk(\alpha) = \dim( \im \alpha)\) is the \emph{rank} of \(\alpha\),
   \item \(n(\alpha) = \dim N(\alpha)\) is the \emph{nullity} of \(\alpha\).
   \end{itemize}
-\end{defi}
+\end{definition}
 
-\begin{thm}[Rank-nullity]
+\begin{theorem}[Rank-nullity]
   Let \(U, V\) be \(\F\)-vector spaces, \(\dim U < \infty\). Let \(\alpha:U\to V\) be a linear map. Then
   \[
 \dim U = r(\alpha) + n(\alpha).
   \]
-\end{thm}
+\end{theorem}
 
 \begin{proof}
-  \(U/\ker \alpha \cong \im \alpha\) so \(\dim U - \dim (\ker \alpha) = \dim \im \alpha\). Rearrange.
+  \(U/\ker \alpha \cong \im \alpha\) so \(\dim U - \dim (\ker \alpha) = \dim (\im \alpha)\). Rearrange.
 \end{proof}
 
-\begin{lem}
+\begin{lemma}
   Let \(V, W\) be \(\F\)-vector spaces with equal, finite dimension. Let \(\alpha:V\to W\) be linear, then TFAE:
   \begin{enumerate}
   \item \(\alpha\) is injective,
   \item \(\alpha\) is surjective,
   \item \(\alpha\) is an isomorphism.
   \end{enumerate}
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Rank-nullity theorem.
@@ -587,22 +588,22 @@ which is an isomorphism.
 
 Suppose \(V\) and \(W\) are \(\F\)-vector spaces. Let \(L(V,W) = \{\alpha:V\to W, \alpha \text{ linear}\}\).
 
-\begin{prop}
+\begin{proposition}
   \(L(V,W)\) is an \(\F\)-vector space, under operations
   \begin{align*}
     (\alpha_1+\alpha_2)(v) &= \alpha_1(v) + \alpha_2(v) \\
     (\lambda\alpha)(v) &= \lambda(\alpha(v))
   \end{align*}
-\end{prop}
+\end{proposition}
 
 \begin{proof}
-  \(\alpha_1+\alpha_2, \lambda\alpha\) as above are well-defined linear maps. The vector space axioms are satisfied.
+  \(\alpha_1+\alpha_2, \lambda\alpha\) as above are well-defined linear maps. The vector space axioms can be easily checked.
 \end{proof}
 
-\begin{prop}
+\begin{proposition}
   \label{prop:dimension of linear map space}
   If both \(V\) and \(W\) are finite-dimensional over \(\F\) then so is \(L(V,W)\) and \(L(V,W) = \dim V \cdot \dim W\).
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   See Lemma~\ref{cor:dim of hom}.
@@ -610,20 +611,20 @@ Suppose \(V\) and \(W\) are \(\F\)-vector spaces. Let \(L(V,W) = \{\alpha:V\to W
 
 \subsubsection{Matrices, an Interlude}
 
-\begin{defi}
+\begin{definition}[Matrix]
   An \emph{\(m\times n\) matrix} over \(\F\) is an array with \(m\) rows and \(n\) columns with entries in \(\F\). We write
   \[
 A = (a_{ij}), a_{ij}\in\F, 1\leq i \leq m, 1\leq j \leq n.
   \]
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   \(M_{m,n}(\F)\) is the set of all such \(m\times n\) matrices.
-\end{defi}
+\end{definition}
 
-\begin{prop}
+\begin{proposition}
   \(M_{m,n}(\F)\) is an \(\F\)-vector space and \(\dim M_{m,n}(\F) = m\cdot n\).
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   See Example~\ref{eg:matrix as V} for the proof of vector space axioms. For the dimension claim, a standard basis for \(M_{m,n}(F)\) is
@@ -642,9 +643,9 @@ A = (a_{ij}), a_{ij}\in\F, 1\leq i \leq m, 1\leq j \leq n.
 
 \subsubsection{Representation of Linear Maps by Matrices}
 
-Let \(V\) and \(W\) be finite-dimensional \(\F\)-vector space, \(\alpha: V\to W\) linear. Let \(B = \{v_1,\ldots,v_n\}\) be a basis for \(V\), \(C = \{w_1,\ldots,w_m\}\) be a basis for \(W\). If \(v=\sum_{i}\lambda_iv_i \in V\), write
+Let \(V\) and \(W\) be finite-dimensional \(\F\)-vector space, \(\alpha: V\to W\) linear. Let \(\basis B = \{v_1,\ldots,v_n\}\) be a basis for \(V\), \(\basis C = \{w_1,\ldots,w_m\}\) be a basis for \(W\). If \(v=\sum_{i}\lambda_iv_i \in V\), write
 \[
-[v]_B =
+[v]_{\basis B} =
 \begin{pmatrix}
   \lambda_1 \\
   \vdots \\
@@ -652,32 +653,32 @@ Let \(V\) and \(W\) be finite-dimensional \(\F\)-vector space, \(\alpha: V\to W\
 \end{pmatrix}
 \in \F^n
 \]
-which is called the \emph{coordinate vector of \(v\) with respect to \(B\)}. Similarly \([w]_C\in \F^m\).
+which is called the \emph{coordinate vector of \(v\) with respect to \(\basis B\)}. Similarly \([w]_{\basis C}\in \F^m\).
 
-\begin{defi}
-  \([\alpha]_{B,C}\) is the matrix representation of \(\alpha\) with respect to \(B\) and \(C\) with
+\begin{definition}[Matrix representation]
+  \([\alpha]_{\basis B, \basis C}\) is the matrix representation of \(\alpha\) with respect to \(\basis B\) and \(\basis C\) with
   \begin{align*}
-    [\alpha]_{B,C} &= \Big( [\alpha(v_1)]_C \: \Big| \: [\alpha(v_2)]_C \: \Big | \: \cdots \: \Big| \: [\alpha(v_n)]_C \big) \\
+    [\alpha]_{\basis B, \basis C} &= \Big( [\alpha(v_1)]_{\basis C} \: \Big| \: [\alpha(v_2)]_{\basis C} \: \Big | \: \cdots \: \Big| \: [\alpha(v_n)]_{\basis C} \Big) \\
     &= (a_{ij})
   \end{align*}
   The matrix says
   \[
 \alpha(v_j) = \sum_{i}^{ }a_{ij}w_i.
   \]
-\end{defi}
+\end{definition}
 
-\begin{lem}
+\begin{lemma}
   For any \(v\in V\),
   \[
-[\alpha(v)]_C = [\alpha]_{B,C}\cdot [v]_B
+[\alpha(v)]_{\basis C} = [\alpha]_{\basis B, \basis C}\cdot [v]_{\basis B}
   \]
   where \(\cdot\) is matrix multiplication applied to vectors.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Fix \(v =\sum_{j=1}^{n}\lambda_jv_j \in V\), so
   \[
-[v]_B =
+[v]_{\basis B} =
 \begin{pmatrix}
   \lambda_1 \\
   \vdots \\
@@ -687,18 +688,18 @@ which is called the \emph{coordinate vector of \(v\) with respect to \(B\)}. Sim
 \begin{align*}
   \alpha(v) &= \alpha\Big( \sum_{j}^{ }\lambda_jv_j \Big) \\
             &= \sum_{j}^{ }\lambda_j\alpha(v_j) \\
-            &= \sum_{j}^{ }\lambda_j\Big( \sum_{i}^{ }\alpha_{i,j}w_i \Big) \\
+            &= \sum_{j}^{ }\lambda_j\Big( \sum_{i}^{ }\alpha_{ij}w_i \Big) \\
             &= \sum_{i}^{ }\Big( \sum_{j}^{} \alpha_{i,j}\lambda_j \Big) w_i
 \end{align*}
-so the \(i\)th entry of \([\alpha]_{B,C}\) is \([v]_B\).
+so the \(i\)th entry of \([\alpha]_{\basis B, \basis C}\) is \([v]_{\basis B}\).
 \end{proof}
 
-\begin{lem}
-  Suppose \(U \stackrel{\beta}{\to} V \stackrel{\alpha}{\to} W\) with \(\alpha, \beta\) linear, with \(\alpha\compose\beta: U\to W\). Let \(A, B,C\) be bases for \(U,V,W\) respectively. Then
+\begin{lemma}
+  Suppose \(U \stackrel{\beta}{\to} V \stackrel{\alpha}{\to} W\) with \(\alpha, \beta\) linear, with \(\alpha\compose\beta: U\to W\). Let \(\basis A, \basis B, \basis C\) be bases for \(U,V,W\) respectively. Then
   \[
-[\alpha\compose\beta]_{A,C} = [\alpha]_{B,C}\cdot[\beta]_{A,B}.
+[\alpha\compose\beta]_{\basis A, \basis C} = [\alpha]_{\basis B,\basis C}\cdot[\beta]_{\basis A, \basis B}.
   \]
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   \begin{align*}
@@ -710,53 +711,50 @@ so the \(i\)th entry of \([\alpha]_{B,C}\) is \([v]_B\).
   \end{align*}
 \end{proof}
 
-\begin{prop}
+\begin{proposition}
   Let \(V\) and \(W\) be \(\F\)-vector spaces with \(\dim V = n, \dim W = m\), then
   \[
 L(V,W) \cong M_{m,n}(\F).
   \]
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Fix bases \(B=\{v_1\ldots,v_n\}, C=\{w_1,\ldots,w_m\}\) for \(V\) and \(W\) respectively. Claim
   \begin{align*}
     \theta: L(V,W) &\to M_{m,n}(\F) \\
-    \alpha &\mapsto [\alpha]_{B,C}
+    \alpha &\mapsto [\alpha]_{\basis B, \basis C}
   \end{align*}
   is an isomorphism:
   \begin{itemize}
-  \item linearity: \([\lambda_1\alpha_1+\alpha_2\alpha_2]_{B,C} = \alpha_1[\alpha_1]_{B,C} + \lambda_2[\alpha_2]_{B,C}\).
+  \item linearity: \([\lambda_1\alpha_1+\alpha_2\alpha_2]_{\basis B, \basis C} = \lambda_1[\alpha_1]_{\basis B, \basis C} + \lambda_2[\alpha_2]_{\basis B, \basis C}\).
   \item surjectivity: given \(A = (a_{ij})\), let \(\alpha:v_j\mapsto \sum_{i=1}^{m}a_{ij}w_i \) and extend linearly. It follows that \(\alpha\in L(V,W)\) and \(\theta(\alpha) = A\).
-  \item injectivity: \([\alpha]_{B,C} = \V 0\) implies that \(\alpha\) is the zero map.
+  \item injectivity: \([\alpha]_{\basis B, \basis C} = \V 0\) implies that \(\alpha\) is the zero map.
   \end{itemize}
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   \label{cor:dim of hom}
   \[
 \dim L(V,W) = \dim V \cdot \dim W.
   \]
-\end{cor}
+\end{corollary}
 
 \begin{eg}
-  Suppose \(\alpha:V\to W\), \(Y\leq V, Z\leq W\) with \(\alpha(Y)\leq Z\). Let \(B'=\{v_1,\ldots,v_k\}\) be a basis of \(Y\) and extend to \(B=\{v_1,\ldots,v_k,v_{k+1},v_n\}\) a basis for \(V\). Similarly \(C'\) and \(C\) for \(Z\) and \(W\).
+  Suppose \(\alpha:V\to W\), \(Y\leq V, Z\leq W\) with \(\alpha(Y)\leq Z\). Let \(\basis B'=\{v_1,\ldots,v_k\}\) be a basis of \(Y\) and extend to \(\basis B=\{v_1,\ldots,v_k,v_{k+1},v_n\}\) a basis for \(V\). Similarly \(\basis C' = \{w_1,\dots,w_l\}\) and \(\basis C\) for \(Z\) and \(W\).
   \begin{itemize}
-  \item
-    \[
-[\alpha]_{B,C} =
+  \item \([\alpha]_{\basis B, \basis C} =
 \begin{pmatrix}
   A & B \\
   0 & C
 \end{pmatrix}
-    \]
-    because for \(1\leq j \leq k\), \(\alpha(v_j)\) is a linear combination of \(w_i\) where \(1\leq i \leq l\).
+\) for some \(A, B, C\) because for \(1\leq j \leq k\), \(\alpha(v_j)\) is a linear combination of \(w_i\) where \(1\leq i \leq l\).
   \item \([\alpha|_Y]_{B',C'} = A. \)
   \item \(\alpha\) induces a map
     \begin{align*}
       \bar\alpha: V/Y &\to W/Z \\
       v+ Y &\mapsto \alpha(v) + Z
     \end{align*}
-    This is well-defined. Linearity follows from that of \(\alpha\). A basis for \(V/Y\) \(B''=\{v_{k+1}+Y,\ldots,v_n+Y\}\) and similary for \(W/Z\). It is an exercise to show \([\bar\alpha]_{B'',C''} = C \).
+    This is well-defined. Linearity follows from that of \(\alpha\). A basis for \(V/Y\) is \(\basis B''=\{v_{k+1}+Y,\ldots,v_n+Y\}\) and similarly for \(W/Z\). It is an exercise to show \([\bar\alpha]_{\basis B'', \basis C''} = C \).
   \end{itemize}
 \end{eg}
 
@@ -768,98 +766,98 @@ Throughout this section, let \(V\) and \(W\) be \(\F\)-vector spaces and suppose
   \begin{tabular}{|c||c|c|}
     \hline
     Vector space & \(V\) & \(W\) \\ \hline
-    Basis 1 & \(B = \{v_1,\dots,v_n\}\) & \(C = \{w_1,\dots,w_m\}\) \\ \hline
-    Basis 2 & \(B' = \{v_1',\dots,v_n'\}\) & \(C' = \{w_1',\dots,w_m'\}\) \\ \hline
+    Basis 1 & \(\basis B = \{v_1,\dots,v_n\}\) & \(\basis C = \{w_1,\dots,w_m\}\) \\ \hline
+    Basis 2 & \(\basis B' = \{v_1',\dots,v_n'\}\) & \(\basis C' = \{w_1',\dots,w_m'\}\) \\ \hline
   \end{tabular}
 \end{table}
 
-\begin{defi}[Change-of-basis matrix]
-  The \emph{change-of-basis} matrix from \(B'\) to \(B\) is \(P = (p_{ij})\) given by
+\begin{definition}[Change-of-basis matrix]
+  The \emph{change-of-basis matrix} from \(\basis B'\) to \(\basis B\) is \(P = (p_{ij})\) given by
   \begin{align*}
     v_j' &= \sum_{i}^{ }p_{ij}v_i \\
-    P &= \Big( [v_1']_B \Big| [v_2']_B \Big| \dots \Big| [v_n']_N \Big) = [\id]_{B',B}
+    P &= \Big( [v_1']_{\basis B} \: \Big| \: [v_2']_{\basis B} \: \Big| \: \dots \Big| \: [v_n']_{\basis B} \Big) = [\id]_{\basis B', \basis B}
   \end{align*}
-\end{defi}
+\end{definition}
 
-\begin{lem}
+\begin{lemma}
   \[
-    [v]_B = P[v]_{B'}.
+    [v]_{\basis B} = P[v]_{\basis B'}.
   \]
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   \[
-    P[v]_{B'} = [\id]_{B',B}[v]_B' = [v]_B.
+    P[v]_{\basis B'} = [\id]_{\basis B', \basis B}[v]_{\basis B'} = [v]_{\basis B}.
   \]
 \end{proof}
 
-\begin{lem}
-  \(P\) is an invertible \(n\times n\) matrix and \(P^{-1}\) is the change-of-basis matrix from \(B\) to \(B'\).
-\end{lem}
+\begin{lemma}
+  \(P\) is an invertible \(n\times n\) matrix and \(P^{-1}\) is the change-of-basis matrix from \(\basis B\) to \(\basis B'\).
+\end{lemma}
 
 \begin{proof}
   \begin{align*}
-    [\id]_{B,B'}[\id]_{B',B} &= [\id]_{B',B'} = I_n \\
-    [\id]_{B',B}[\id]_{B,B'} &= [\id]_{B,B} = I_n
+    [\id]_{\basis B, \basis B'}[\id]_{\basis B', \basis B} &= [\id]_{\basis B', \basis B'} = I_n \\
+    [\id]_{\basis B', \basis B}[\id]_{\basis B, \basis B'} &= [\id]_{\basis B, \basis B} = I_n
   \end{align*}
 \end{proof}
 
-Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is invertible \(m\times m\) matrix.
+Let \(Q\) be the change-of-basis matrix from \(\basis C'\) to \(\basis C\). Then \(Q\) is an invertible \(m\times m\) matrix.
 
-\begin{prop}
-  Let \(\alpha: V\to W\) be a linear map, \(A = [\alpha]_{B,C}\), \(A' = [\alpha]_{B',C'}\), then
+\begin{proposition}
+  Let \(\alpha: V\to W\) be a linear map, \(A = [\alpha]_{\basis B,\basis C}\), \(A' = [\alpha]_{\basis B',\basis C'}\), then
   \[
     A' = Q^{-1}AP.
   \]
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   \[
-    \underbrace{[\id]_{C,C'}}_{Q^{-1}} [\alpha]_{B,C} \underbrace{[\id]_{B',B}}_P = \underbrace{[\id\compose\alpha\compose\id]_{B',C'}}_{A'}
+    \underbrace{[\id]_{\basis C,\basis C'}}_{Q^{-1}} [\alpha]_{\basis B,\basis C} \underbrace{[\id]_{\basis B',\basis B}}_P = \underbrace{[\id\compose\alpha\compose\id]_{\basis B',\basis C'}}_{A'}
   \]
 \end{proof}
 
-\begin{defi}[Equivalence of matrices]
+\begin{definition}[Equivalence of matrices]
   \(A, A' \in M_{m,n}(\F)\) are \emph{equivalent} if
   \[
     A' = Q^{-1}AP
   \]
-  for some invertible \(P\in M_{n,n}(\F)\) and \(Q\in M_{m,n}(\F)\).
-\end{defi}
+  for some invertible \(P\in M_{n,n}(\F)\) and \(Q\in M_{m,m}(\F)\).
+\end{definition}
 
 \begin{note}
   This defines an equivalence relation on \(M_{m,n}(\F)\).
 \end{note}
 
-\begin{prop}
-  Let \(V, W\) be \(\F\)-vector spaces of dimension \(n\) and \(m\) respectively. Let \(\alpha:V\to W\) be a linear map. Then there exist bases \(B\) of \(V\), \(C\) of \(W\), and some \(r\leq m,n\) such that
+\begin{proposition}
+  Let \(V, W\) be \(\F\)-vector spaces of dimension \(n\) and \(m\) respectively. Let \(\alpha:V\to W\) be a linear map. Then there exist bases \(\basis B\) of \(V\), \(\basis C\) of \(W\), and some \(r\leq m,n\) such that
   \[
-    [\alpha]_{B,C} =
+    [\alpha]_{\basis B,\basis C} =
     \begin{pmatrix}
       I_r & 0 \\
       0 & 0 
     \end{pmatrix}
   \]
-  where \(I_r\) is \(r\times r\) the identity matrix.
-\end{prop}
+  where \(I_r\) the is \(r\times r\) the identity matrix.
+\end{proposition}
 
 \begin{note}
   \(r = rk(\alpha) = r(\alpha)\).
 \end{note}
 
 \begin{proof}
-  Fix \(r\) such that \(\dim N(\alpha) = n-r\). Fix a basis for \(N(\alpha)\), say \(v_{r+1},\dots,v_n\). Extend this to a basis \(B\) for \(V\), say \(v_1,\dots,v_r,v_{r+1},\dots,v_n\). Now \(\alpha(v_1),\dots,\alpha(v_r)\) is a basis for \(\im(\alpha)\):
+  Fix \(r\) such that \(\dim N(\alpha) = n-r\). Fix a basis for \(N(\alpha)\), say \(v_{r+1},\dots,v_n\). Extend this to a basis \(\basis B\) for \(V\), say \(v_1,\dots,v_r,v_{r+1},\dots,v_n\). Now \(\alpha(v_1),\dots,\alpha(v_r)\) is a basis for \(\im(\alpha)\):
   \begin{itemize}
-  \item span: \((\alpha(v_1),\dots, \alpha(v_n)\) certainly span \(\im(\alpha)\). Since \(v_{r+1},\dot,v_n \in \ker \alpha\), \(\alpha(v_{r+1}),\dots,\alpha(v_n) = 0\) so we can remove them from the spanning set.
+  \item span: \(\alpha(v_1),\dots, \alpha(v_n)\) certainly span \(\im(\alpha)\). Since \(v_{r+1},\dot,v_n \in \ker \alpha\), \(\alpha(v_{r+1}),\dots,\alpha(v_n) = 0\) so we can remove them from the spanning set.
   \item linear independence: assume \(\sum_{i=1}^{n}\lambda_i \alpha(v_i) =\V 0 \). Then \(\alpha \big(\sum_{i=1}^n\lambda_iv_i\big) =\V0\). This implies that
     \[
       \sum_{i=1}^{n}\lambda_iv_i = \sum_{j=r+1}^{n}\mu_jv_j.
     \]
     As \(v_1,\dots v_n\) are linearly independent, \(\lambda_i=\mu_j=0\) for all \(i,j\).
   \end{itemize}
-  Extend \(\alpha(v_1),\dots,\alpha(v_r)\) to a basis for \(W\), say \(C\). By construction,
+  Extend \(\alpha(v_1),\dots,\alpha(v_r)\) to a basis for \(W\), say \(\basis C\). By construction,
   \[
-    [\alpha]_{B,C} =
+    [\alpha]_{\basis B,\basis C} =
     \begin{pmatrix}
       I_r & 0 \\
       0 & 0
@@ -867,11 +865,11 @@ Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is inve
   \]
 \end{proof}
 
-\begin{rmk}
+\begin{remark}
   In the proof above we didn't need to assume that \(r = r(\alpha)\). This gives us another way prove Rank-nullity Theorem.
-\end{rmk}
+\end{remark}
 
-\begin{cor}
+\begin{corollary}
   Any \(m\times n\) matrix is equivalent to
   \[
   \begin{pmatrix}
@@ -880,52 +878,53 @@ Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is inve
     \end{pmatrix}
   \]
   for some \(r\).
-\end{cor}
+\end{corollary}
 
-\begin{defi}[Row and column rank]
+\begin{definition}[Row and column rank]
   Let \(A\in M_{m,n}(\F)\).
   \begin{itemize}
   \item The \emph{column rank} of \(A\), \(r(A)\) is the dimension of the subspace of \(\F^m\) spanned by the columns of \(A\).
   \item The \emph{row rank} of \(A\) is the column rank of \(A^T\).
   \end{itemize}
-\end{defi}
+\end{definition}
 
 \begin{note}
   If \(\alpha\) is a linear map represented by \(A\) with respect to any choice of bases, then \(r(\alpha) = r(A)\).
 \end{note}
 
-\begin{prop}
+\begin{proposition}
   Two \(m\times n\) matrices \(A, A'\) are equivalent if and only if
   \[
     r(A) = r(A').
   \]
-\end{prop}
+\end{proposition}
 
-\begin{proof}
-  \(\Leftarrow\): Both \(A\) and \(A'\) are equivalent to \(\begin{pmatrix}
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Leftarrow\): Both \(A\) and \(A'\) are equivalent to \(
+    \begin{pmatrix}
       I_r & 0 \\
       0 & 0
-    \end{pmatrix}\) and matrix equivalence is transitive.
-
-    \(\Rightarrow\): Let \(\alpha:\F^n\to \F^m\) be the linear map represented by \(A\) with repect to, say, the standard basis. Since \(A'=Q^{-1}AP\) for some invertible \(P\) and \(Q\), \(A'\) represents the same \(\alpha\) with respect to another bases. \(r(\alpha)\) is defined in a basis-invariant way so \(r(A) = r(\alpha) = r(A')\).
+    \end{pmatrix}
+    \) and matrix equivalence is transitive.
+  \item \(\Rightarrow\): Let \(\alpha:\F^n\to \F^m\) be the linear map represented by \(A\) with repect to, say, the standard basis. Since \(A'=Q^{-1}AP\) for some invertible \(P\) and \(Q\), \(A'\) represents the same \(\alpha\) with respect to another bases. \(r(\alpha)\) is defined in a basis-invariant way so \(r(A) = r(\alpha) = r(A')\).
+  \end{itemize}
 \end{proof}
 
-\begin{thm}
+\begin{theorem}
   \label{thm:upper corner matrix}
   \[
     r(A) = r(A^T).
   \]
-\end{thm}
+\end{theorem}
 
-\begin{proof}
-  \[
+\begin{proof} \(
     Q^{-1}AP =
     \begin{pmatrix}
       I_r & 0 \\
       0 & 0
     \end{pmatrix}_{n,m}
-  \]
-  where \(P\) and \(Q\) are invertible. Take transpose of the whoel equation:
+  \) where \(P\) and \(Q\) are invertible. Take transpose of the whole equation:
   \[
     \begin{pmatrix}
       I_r & 0 \\
@@ -942,39 +941,39 @@ Let \(Q\) be the change-of-basis matrix from \(C'\) to \(C\). Then \(Q\) is inve
   \]
 \end{proof}
 
-Note a special case for change of basis: \(V=W\), \(C=B\), the other basis is \(B'\). \(P\), the change-of-basis matrix from \(B'\) to \(B\), given a mpar \(\alpha \in L(V,V)\)
+Note a special case for change of basis: \(V=W\), \(\basis C=\basis B\), the other basis is \(\basis B'\). \(P\), the change-of-basis matrix from \(\basis B'\) to \(\basis B\), given a mpar \(\alpha \in L(V,V)\)
 \[
-  [\alpha]_{B',B'} = P^{-1}[\alpha]_{B,B}P
+  [\alpha]_{\basis B',\basis B'} = P^{-1}[\alpha]_{\basis B,\basis B}P
 \]
 
-\begin{defi}[Similar matrices]
+\begin{definition}[Similar matrices]
   Given \(A, A' \in M_{n,n}(\F)\), \(A\) and \(A'\) are \emph{similar}, or \emph{conjugate} if
   \[
     A' = P^{-1}AP
   \]
   for some invertible \(P\).
-\end{defi}
+\end{definition}
 
 \subsubsection{Elementary Matrices and Operations}
 
-\begin{defi}[Elementary column operation]
+\begin{definition}[Elementary column operation]
   \emph{Elementary column operation} on a \(m\times n\) matrix \(A\) is one of the following operations:
   \begin{enumerate}
   \item swap column \(i\) and \(j\) (wlog \(i\neq j\)),
   \item scale column \(i\) by \(\lambda\)  (\(\lambda\neq0\)),
   \item add \(\lambda\) times column \(i\) to column \(j\) (\(i\neq j,\lambda\neq 0\)).
   \end{enumerate}
-\end{defi}
+\end{definition}
 
-\begin{defi}[Elementary row operation]
+\begin{definition}[Elementary row operation]
   Defined analoguously, replacing ``column'' by ``row''.
-\end{defi}
+\end{definition}
 
 \begin{note}
   All of these operations are invertible.
 \end{note}
 
-\begin{defi}[Elementary matrix]
+\begin{definition}[Elementary matrix]
 The elementary row (column, respectively) have corresponding elementary matrices: th effect of performing these column (row, respectively) operations on \(I_n\) (\((I_m\), respectively):
 \begin{enumerate}
 \item
@@ -1001,7 +1000,7 @@ The elementary row (column, respectively) have corresponding elementary matrices
   \]
 \item \(I_n+\lambda E_{ij}\) where \(E_{ij}\) is the matrix with \(1\) on \(ij\)th entry and \(0\) elsewhere.
 \end{enumerate}
-\end{defi}
+\end{definition}
 
 An elementary column (row, respectively) operation on \(A\in M_{m,n}(\F)\) can be performed by multiplying \(A\) by these corresponding elementary matrices on the right (left respectively).
 
@@ -1061,12 +1060,12 @@ Some variations of the algorithm:
   \]
 \end{enumerate}
 
-\begin{lem}
+\begin{lemma}
   If \(A\) is an \(n\times n\) invertible matrix then we can obtain \(I_n\) by using only elementary row/column operations.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
-  We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ \star & \ast \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{k+1,j}\neq 0\), i.e. in the \(\ast\) block) as otherwise \((0,\dots,1,\dots, 0)\) with \(1\) is \((k+1)\)th position would not be in the span of the column vectors, contradicting the invertiblity. Next we carry out the following operations:
+  We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ \star & \ast \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{k+1,j}\neq 0\), i.e.\ in the \(\ast\) block) as otherwise \((0,\dots,1,\dots, 0)\) with \(1\) is \((k+1)\)th position would not be in the span of the column vectors, contradicting the invertiblity. Next we carry out the following operations:
   \begin{enumerate}
   \item swap column \(k+1\) and \(j\),
   \item divide volumn \(k+1\) by \(\lambda\) so have \(1\) in \((k+1,k+1)\) position,
@@ -1085,9 +1084,9 @@ gives
 \]
 one way to compute inverses.
 
-\begin{prop}
+\begin{proposition}
   Any invertible matrix can be written as a product of elementary ones.
-\end{prop}
+\end{proposition}
 
 \section{Dual Spaces \& Dual Maps}
 
@@ -1095,12 +1094,12 @@ one way to compute inverses.
 
 Let \(V\) be an \(\F\)-vector space.
 
-\begin{defi}
+\begin{definition}
   The \emph{dual space} of \(V\) is defined to be
   \[
     V^* = L(V,\F) = \{\alpha:V\to \F, \alpha \text{ linear}\}.
   \]
-\end{defi}
+\end{definition}
 
 \(V^*\) is itself an \(\F\)-vector space. Its elements are sometimes called \emph{linear functionals}.
 
@@ -1111,7 +1110,7 @@ Let \(V\) be an \(\F\)-vector space.
   \end{enumerate}
 \end{eg}
 
-\begin{lem}[Dual basis]
+\begin{lemma}[Dual basis]
   Let \(V\) be a finite-dimensional \(\F\)-vector space with basis \(\basis B = \{e_1,\dots,e_n\}\). Then there is a basis for \(V^*\), given by
   \[
     \basis B* = \{\varepsilon_1,\dots, \varepsilon_n\}
@@ -1123,7 +1122,7 @@ Let \(V\) be an \(\F\)-vector space.
   for \(1\leq j\leq m\).
 
   \(\basis B^*\) is called the \emph{dual basis} to \(\basis B\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -1152,29 +1151,29 @@ Let \(V\) be an \(\F\)-vector space.
   \end{itemize}
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   If \(V\) is a finite-dimensional \(\F\)-vector space then
   \[
     \dim V = \dim V^*.
   \]
-\end{cor}
+\end{corollary}
 
-\begin{rmk}
+\begin{remark}
   Sometimes it is useful to think about \((\F^n)^*\) as the space of row vectors of length \(n\) over \(\F\).
-\end{rmk}
+\end{remark}
 
 \subsection{Dual Map}
 
 It turns out dual spaces have maps between them. Before studying them in detail later, we introduce this concept add richness to the theory of dual map:
 
-\begin{defi}[Annihilator]
+\begin{definition}[Annihilator]
   If \(U \subseteq V\), the \emph{annihilator} of \(U\) is
   \[
     U^\ann = \{\alpha\in V^*: \forall u \in U,\,\alpha(u) = 0 \}.
   \]
-\end{defi}
+\end{definition}
 
-\begin{lem}\leavevmode
+\begin{lemma}\leavevmode
   \begin{enumerate}
   \item \(U^\ann \leq V^*\),
   \item If \(U \leq V\) and \(\dim V = n < \infty\) then
@@ -1182,7 +1181,7 @@ It turns out dual spaces have maps between them. Before studying them in detail 
       \dim V = \dim U + \dim U^\ann.
     \]
   \end{enumerate}
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
   \begin{enumerate}
@@ -1204,14 +1203,14 @@ It turns out dual spaces have maps between them. Before studying them in detail 
   \end{enumerate}
 \end{proof}
 
-\begin{lem}[Dual space as a contravariant functor]
+\begin{lemma}[Dual space as a contravariant functor]
   Let \(V\) and \(W\) be \(\F\)-vector spaces. Let \(\alpha \in L(V,W)\). Then the map
   \begin{align*}
     \alpha^*: W^* &\to V^* \\
     \varepsilon &\mapsto \varepsilon \compose \alpha
   \end{align*}
   is linear. \(\alpha^*\) is called the \emph{dual} of \(\alpha\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -1226,12 +1225,12 @@ It turns out dual spaces have maps between them. Before studying them in detail 
   \end{itemize}
 \end{proof}
 
-\begin{prop}
+\begin{proposition}
   Let \(V\) and \(W\) be \(\F\)-vector spaces with bases \(\basis B\) and \(\basis C\) repectively. Let \(\basis B^*\) and \(\basis C^*\) be the dual bases. Consider \(\alpha\in L(V,W)\) with dual \(\alpha^*\), then
   \[
     [\alpha^*]_{\basis C^*,\basis B^*} = [\alpha]^T_{\basis B,\basis C}.
   \]
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Say \(\basis B = \{b_1,\dots,b_n\}\), \(\basis B^* = \{\beta_1,\dots,\beta_n\}\), \(\basis C = \{c_1,\dots,c_m\}\) and \(\basis C^* = \{\gamma_1,\dots,\gamma_n\}\). Further let \([\alpha]_{\basis B,\basis C} = (a_{ij})\), an \(m\times n\) matrix.
@@ -1255,12 +1254,12 @@ It turns out dual spaces have maps between them. Before studying them in detail 
 
 
 It follows that
-\begin{lem}
+\begin{lemma}
   Let \(V\) be a finite-dimensioanl \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). Then the change of basis matrix from \(\basis F^*\) to \(\basis E^*\) is
   \[
     (P^{-1})^T.
   \]
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   \[
@@ -1283,13 +1282,13 @@ as the latter does not have a countable basis.
 
 Now we move on to more discussion about annhilator.
 
-\begin{lem}
+\begin{lemma}
   Let \(V\) and \(W\) be \(\F\)-vector spaces. Fix \(\alpha \in L(V,W)\) and let \(\alpha^* \in L(W^*, V^*)\) be its dual. Then
   \begin{itemize}
   \item \(N(\alpha^*) = (\im \alpha)^\ann\), so if \(\alpha^*\) is injectve if and only if \(\alpha\) is surjective.
   \item \(\im \alpha^* \leq N(\alpha)^\ann\), with equality if \(V\) and \(W\) are both finite-dimensional, in which case \(\alpha^*\) is surjective if and only if \(\alpha\) is injective.
   \end{itemize}
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -1324,29 +1323,28 @@ Now we move on to more discussion about annhilator.
 
 Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. The natrual next step is
 
-\begin{defi}[Double dual]
+\begin{definition}[Double dual]
   The \emph{double dual} of \(V\) is
   \[
     V^{**} = V^* = L(V^*, \F).
   \]
-\end{defi}
+\end{definition}
 
-\begin{thm}[Double dual as natural transformation]
+\begin{theorem}[Double dual as natural transformation]
   If \(V\) is an \(\F\)-vector space, then the map
   \begin{align*}
     \hat \cdot: V &\to V^{**} \\
     v &\mapsto \hat v
   \end{align*}
   where \(\hat v(\varepsilon) = \varepsilon(v)\), is an natural homomorphism. In particular when \(V\) is finite-dimensional this is a natural isomorphism.
-\end{thm}
+\end{theorem}
 
 \begin{proof}\leavevmode
   \begin{itemize}
   \item For \(v\in V\), the map \(\hat v: V^* \to \F\) is linear so \(\hat \cdot\) does give a map from \(V\) to \(V^{**}\).
   \item Linear: for \(v_1, v_2 \in V\), \(\lambda_1, \lambda_2 \in \F\), \(\varepsilon \in V*\), then
     \[
-      %deal with this
-      \widehat{\lambda_1v_1 + \lambda_2v_2(\varepsilon)} = \varepsilon(\lambda_1v_1 + \lambda_2v_2) = \lambda_1 \varepsilon(v_1) + \lambda_2 \varepsilon(v_2) = \lambda_1 \hat v_1(\varepsilon) + \lambda_2 \hat v_2(\epsilon)
+      \reallywidehat{\lambda_1v_1 + \lambda_2v_2}(\varepsilon) = \varepsilon(\lambda_1v_1 + \lambda_2v_2) = \lambda_1 \varepsilon(v_1) + \lambda_2 \varepsilon(v_2) = \lambda_1 \hat v_1(\varepsilon) + \lambda_2 \hat v_2(\epsilon)
     \]
   \item Injectivity: let \(e \in V\setminus\{0\}\). Extend it to a basis of \(V\), say \(e, e_2,\dots, e_n\). Let \(\varepsilon, \varepsilon_2,\dots, \varepsilon_n\) be its corresponding dual basis. Now
     \[
@@ -1357,13 +1355,13 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   \end{itemize}
 \end{proof}
 
-\begin{lem}
+\begin{lemma}
   Let \(V\) be a finite-dimensional \(\F\)-vector space and \(U \leq V\). Then
   \[
     \hat U = U^{\ann \ann}.
   \]
   So \(U = U^{\ann \ann}\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -1375,13 +1373,13 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   \end{itemize}
 \end{proof}
 
-\begin{lem}[Galois Connection]
+\begin{lemma}[Galois Connection]
   Let \(V\) be a finite-dimensional \(\F\)-vector space and \(U_1, U_2 \leq V\). Then
   \begin{itemize}
   \item \((U_1 + U_2)^\ann = U_1^\ann \cap U_2^\ann\),
   \item \((U_1 \cap U_2)^\ann = U_1^\ann + U_2^\ann\).
   \end{itemize}
-\end{lem}
+\end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}

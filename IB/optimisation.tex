@@ -1,12 +1,19 @@
 \documentclass[a4paper]{article}
 
+\def\npart{IB}
+
 \def\ntitle{Optimisation}
+\def\nlecturer{M.\ Tehranchi}
+
+\def\nterm{Easter}
+\def\nyear{2017}
 
 \input{header}
 
 \begin{document}
 
-\maketitle
+\input{titlepage}
+
 \tableofcontents
 
 \section{Introduction}
@@ -54,7 +61,7 @@ Introduce a new function $L : \mathbb{R}^n × \mathbb{R}^m → \mathbb{R},\: L(x
 
 \subsection{Lagrangian Sufficiency}
 
-\begin{thm}[Lagrangian Sufficiency Theorem]
+\begin{theorem}[Lagrangian Sufficiency Theorem]
   Let $x^*$ be feasible. Suppose there exists $\lambda^* \in \mathbb{R}^m$ s.t.
   \[
     L(x^*, \lambda^*) ≤ L(x, \lambda^*) \: \text{for all } x \in X
@@ -62,7 +69,7 @@ Introduce a new function $L : \mathbb{R}^n × \mathbb{R}^m → \mathbb{R},\: L(x
 
   then $x^*$ is optimal.
 
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   For any feasible $x$ and any $\lambda$ we have
@@ -123,21 +130,21 @@ Note that for any Lagrange multiplier $\lambda$ we have
 
 since $\{x \in X: g(x) = b\} ⊆ X$. We say the Lagrangian method works if there exists a Lagrange multiplier $\lambda^*$ s.t. there is an equality. To characterise when the Lagrangian method works, we need to define some terms.
 
-\begin{defi}
+\begin{definition}
   $\psi: \mathbb{R}^m → \mathbb{R}$ has a \emph{supporting hyperplane} at a point $b \in \mathbb{R}^m$ if there exist a $\lambda$ s.t.
   \[
     \psi(c) ≥ \psi(b) + \lambda^T (c-b)
   \]
   for all $c \in \mathbb{R}^m$.
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   The \emph{value function} $φ$ on $\mathbb{R}^n$ is defined by $\displaystyle\phi(c) = \inf_{x \in X,\: g(x) = c} f(x)$.
-\end{defi}
+\end{definition}
 
-\begin{thm}[Lagrangian Necessity Theorem]
+\begin{theorem}[Lagrangian Necessity Theorem]
   The Lagrangian method works for the problem iff the value function has a supporting hyperplane at $b$.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   The Lagrangian method works iff there exists a $\lambda$ s.t.
@@ -159,33 +166,33 @@ since $\{x \in X: g(x) = b\} ⊆ X$. We say the Lagrangian method works if there
 
 To check whether a function has a supporting hyperplane, we have to define a few terms.
 
-\begin{defi}
+\begin{definition}
   A subset $C \subseteq \mathbb{R}^n$ is \emph{convex} if
   \[
     x, y \in C \: \text{implies } \theta x + (1 - \theta)y \in C \: \text{for all } 0 \subseteq \theta \subseteq 1.
   \]
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   A function $\psi: \mathbb{R}^m \rightarrow \mathbb{R}^m$ is \emph{convex} if
   \[
     \psi(\theta x + (1 - \theta) y \leq \theta\psi(x) + (1-\theta) \psi(y) \: \text{for all } x, y \in \mathbb{R}^m \: \text{and } 0 \leq \theta \leq 1.
   \]
-\end{defi}
+\end{definition}
 
-\begin{cor}
+\begin{corollary}
   A fucntion $\psi : \mathbb{R}^m \rightarrow \mathbb{R}$ is convex iff the set
   \[
     C := \{(x, y) : \psi(x) \leq y \} \subseteq \mathbb{R}^{m + 1}
   \]
   is convex\footnote{The set $C$ defined above is call the \emph{epigraph} of $\psi$.}.
-\end{cor}
+\end{corollary}
 
-\begin{thm}[Non-examinable]
+\begin{theorem}[Non-examinable]
   A function is convex iff it has a supporting hyperplane at each point.
-\end{thm}
+\end{theorem}
 
-\begin{prop}
+\begin{proposition}
   If
   \begin{enumerate}
   \item the set $X$ is convex,
@@ -198,7 +205,7 @@ To check whether a function has a supporting hyperplane, we have to define a few
   \end{enumerate}
 
   then $\psi$ is convex.
-\end{prop}
+\end{proposition}
 
 \section{Dual Problem}
 
@@ -221,7 +228,7 @@ The \emph{dual} problem is defined to be
 
 The set $\Lambda$ is the set of \emph{feasible solutions to the dual problem}.
 
-\begin{thm}[Weak Duality]
+\begin{theorem}[Weak Duality]
   Let $x$ be feasible for $P$ and let $\lambda$ be feasible for $D$. Then
   \[
     h(\lambda) \leq f(x)
@@ -231,7 +238,7 @@ The set $\Lambda$ is the set of \emph{feasible solutions to the dual problem}.
   \[
     \sup_{\lambda \in \Lambda} \leq \inf_{x \in X,\: g(x) = b} f(x).
   \]
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Let $x$ and $f$ be feasible for their respective problems, then
@@ -286,7 +293,7 @@ is called the \emph{duality gap}. Weak duality says that the duality gap is non-
 
 We can verify that the dual of the dual is the original problem.
 
-\begin{thm}[Fundamental Theorem of Linear Programming]
+\begin{theorem}[Fundamental Theorem of Linear Programming]
   Consider the problem
   
   \begin{center}
@@ -300,7 +307,7 @@ We can verify that the dual of the dual is the original problem.
   \item $A^T \lambda^* \geq c,\: \lambda^* \geq 0$ \: (dual feasibility)
   \item $(\lambda^*)^T (b - A x^*) = 0 = (x^*)^T (c - A^T \lambda ^*)$ \: (complementary slackness)
   \end{itemize}
-\end{thm}
+\end{theorem}
 
 In this case, the value of the primal problem $c^T x^* = b^T \lambda^*$ equals the value of the dual problem.
 
@@ -315,27 +322,27 @@ Suppose $\psi$ is a convex function, then give $x, y \in X$ and $0 \leq \theta \
 
 That is to say the maximimum of $\psi$ on any segment occurs at one of the end points. Thus to find the maximum of $\psi$ over $X$ we over have to consider points of $X$ that do not lie on a line segment contained in $X$.
 
-\begin{defi}
+\begin{definition}
   Let $C \subseteq \mathbb{R}^n$ be a convex set. A point $x \in C$ is an \emph{extreme point} if
 
   \[
     x = \theta y + (1 - \theta) z
   \]
   for $y, z \in X$ and $0 \leq \theta \leq 1$ imples $x = y = z$.
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   The \emph{standard form} of a linear programme is
 
   \begin{center}
     maximise $c^T x$ subject to $Ax = b,\: x\geq 0$
   \end{center}
   where $c \in \mathbb{R}^n,\: b \in \mathbb{R}^m$ and $A$ is a $m \times n$ matrix. The set $C := \{x \in \mathbb{R}^n: Ax = b\}$ is the set of feasible solutions to the problem.
-\end{defi}
+\end{definition}
 
-\begin{prop}
+\begin{proposition}
   The set $C$ is convex.
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Suppose $x, y \in C$. Then $Ax = b,\: x \geq 0$, and $Ay = b,\: y \geq 0$. Fix $\theta \in [0, 1]$ and let $z = \theta x + (1 - \theta)y$. Then
@@ -350,17 +357,17 @@ That is to say the maximimum of $\psi$ on any segment occurs at one of the end p
 
 A solution $x \in \mathbb{R}^n$ of the equation $Ax = b$ is called \emph{basic} if at least $n - m$ entries of $x$ are zero. If $x$ is a basic solution and $x \geq 0$ then $x$ is called a \emph{basic feasible solution}, abbreviated \emph{b.f.s}.
 
-\begin{thm}
+\begin{theorem}
   Let $x$ be a point in $C$ with the property that have at least $m+1$ indices $i$ s.t. $x_i>0$. Then $x$ is not a extreme point of $C$.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   \texttt{to be filled in}
 \end{proof}
 
-\begin{thm}
+\begin{theorem}
   Suppose that every set of $m$ columns of $A$ is linearly independent. Let $x$ be a point in $C$ with the property that at most $m$ indices $i$ are s.t. $z_i>0$. Then $x$ is an extreme point of $C$.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   \texttt{to be filled in}

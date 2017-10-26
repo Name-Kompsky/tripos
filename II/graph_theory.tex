@@ -1,6 +1,12 @@
 \documentclass[a4paper]{article}
 
+\def\npart{II}
+
 \def\ntitle{Graph Theory}
+\def\nlecturer{I.\ Leader}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
 
 \input{header}
 
@@ -11,7 +17,7 @@
 
 \begin{document}
 
-\maketitle
+\input{titlepage}
 
 Revision of \(\bigO\) notation and its cousins: let \(f,g:\N\to (0,\infty)\). We say
 \begin{align*}
@@ -48,12 +54,12 @@ Alternatively, how big can the parameter be with \(G\) not having the property?
 
 Fix a graph \(H\) with at least one edge. Let \(n \geq |H|\). Clealy \(H \subseteq K_n\) but \(H \nsubseteq \stcomp{K_n}\). How many edges must a graph \(G\) of order \(n\) have to force \(H \subseteq G\)? Alternatively, if \(|G| = n\) and \(H \nsubseteq G\), how large can \(e(G)\) be?
 
-\begin{defi}
+\begin{definition}
   Define
   \[
     \exx(n,H) := \max\{ e(G): |G|=n, H \nsubseteq G\}.
   \]
-\end{defi}
+\end{definition}
 
 \begin{question}
   Can we determine \(\exx(n,H)\)?
@@ -63,15 +69,15 @@ Fix a graph \(H\) with at least one edge. Let \(n \geq |H|\). Clealy \(H \subset
 
 Let \(H = K_3\). Want \(G\) with \(|G| = n\), \(e(G)\) large, \(\triangle \nsubseteq G\). Try partitioning \(V(G) = X\cup Y\) with all edges going from \(X\) to \(Y\).
 
-\begin{defi}[Bipartite graph]
+\begin{definition}[Bipartite graph]
   A graph \(G\) is \emph{bipartite} (with bipartition \((X,Y)\)) if \(V(G)\) can be partitioned as \(X\cup Y\) in such a way that if \(e\in E(G)\) then \(e=xy\) for some \(x\in X, y\in Y\).
-\end{defi}
+\end{definition}
 
 Bipartite graphs have no \(\triangle\) (and indeed no cycles of odd length). In fact, the converse if true:
 
-\begin{thm}
+\begin{theorem}
   A graph is bipartite if and only if it contain no odd cycles.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Later. Or exercise if you're ambitious.
@@ -83,9 +89,9 @@ Bipartite graphs have no \(\triangle\) (and indeed no cycles of odd length). In 
 
 Clearly want to include all possible edges from \(X\) to \(Y\).
 
-\begin{defi}[Complete bipartite graph]
+\begin{definition}[Complete bipartite graph]
   Let \(s,t\geq 1\). The \emph{complete bipartite graph} \(K_{s,t}\) has bipartition \((X,Y)\) with \(|X| = s, |Y| = t\) and \(xy \in E(K_{s,t})\) for all \(x\in X, y\in Y\).
-\end{defi}
+\end{definition}
 
 We have
 \begin{align*}
@@ -98,12 +104,12 @@ We want to maximise \(st\) subject to \(s+t=n\), i.e. maximise \(s(n-s)\), which
 \]
 But what if some \emph{non-bipartite} graph is better? For example, \(G\) is not bipartite but \(\triangle \nsubseteq G\) so \(e(K_{3,2}) = 6 > 5 = e(G)\). It turns out we don't have to worry: bipartite graph always wins.
 
-\begin{thm}[Mantel's Theorem]
+\begin{theorem}[Mantel's Theorem]
   Let \(n\geq 3\). Suppose \(|G| = n, e(G) \geq \floor*{\frac{n^2}{4}}\) and \(\triangle \nsubseteq G\). Then
   \[
     G \cong K_{\floor*{\frac{n}{2}}, \ceil*{\frac{n}{2}}}.
   \]
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Proceed by induction on \(n\): if \(n=3\), there is only one possibility: \(G = K_{2,1}\). For \(n>3\), first remove edges from \(G\) if necessary to get \(H\) with \(|H| = n, e(H) = \floor*{\frac{n^2}{4}}\). Clearly \(\triangle \nsubseteq H\). Let \(v\in H\) with \(d(v) = \delta(H)\) and let \(K = H-v\). In other words, \(H\) with vertex \(v\) and all edges including \(v\) removed. Now \(|K| = n-1, \triangle \nsubseteq K\) and \(e(K) = \floor*{\frac{n^2}{4}} - \delta(H)\).

@@ -55,6 +55,21 @@
 \newcommand{\sectionbreak}{\clearpage} % clear page after each section
 \usepackage[perpage]{footmisc}
 \usepackage{blindtext}
+
+%\reallywidehat
+%https://tex.stackexchange.com/a/101136/26707
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+
 %\usepackage{braket}
 \usepackage{hyperref}
 
@@ -75,15 +90,15 @@
     urlcolor=cyan
 }
 
-\newtheorem{thm}{Theorem}
-\newtheorem{prop}{Proposition}
-\newtheorem{lem}{Lemma}
-\newtheorem{cor}{Corollary}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
 
 \theoremstyle{definition}
-\newtheorem*{defi}{Definition}
+\newtheorem*{definition}{Definition}
 \newtheorem*{eg}{Example}
-\newtheorem*{rmk}{Remark}
+\newtheorem*{remark}{Remark}
 \newtheorem*{ex}{Exercise}
 \newtheorem*{notation}{Notation}
 \newtheorem*{slogan}{Slogan}
@@ -92,10 +107,11 @@
 \newtheorem*{question}{Question}
 \newtheorem*{note}{Note}
 \newtheorem*{application}{Application}
-\makeatletter
+
 
 %re-declare a math operator
 %https://tex.stackexchange.com/a/175272/26707
+\makeatletter
 
 \newcommand\RedeclareMathOperator{%
   \@ifstar{\def\rmo@s{m}\rmo@redeclare}{\def\rmo@s{o}\rmo@redeclare}%
@@ -115,11 +131,14 @@
 \makeatother
 
 %operator macros
-%general
+%matrix
+\DeclareMathOperator{\tr}{tr}
+
+%algebra
+\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\im}{Im}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\tr}{tr}
+\DeclarePairedDelimiter{\generation}{\langle}{\rangle}
 
 %hyperbolic
 \DeclareMathOperator{\sech}{sech}

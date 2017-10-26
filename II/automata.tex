@@ -1,8 +1,9 @@
 \documentclass[a4paper]{article}
 
 \def\npart{II}
+
 \def\ntitle{Automata and Formal Languages}
-\def\nlecturer{Maurice Chiodo}
+\def\nlecturer{M.\ Chiodo}
 
 \def\nterm{Michaelmas}
 \def\nyear{2017}
@@ -13,12 +14,12 @@
 
 \input{titlepage}
 
-\begin{thm}\leavevmode
+\begin{theorem}\leavevmode
   \begin{enumerate}
 \item Let \(I \subseteq \N\) be a (possibly infinite) r.e. set and \(I' =C(I) \subseteq I\) then \(\bigcup_{n\in I}w_n\) is r.e.
 \item Let \(j \subset \N\) be finite and \(J' = C(J) \subset J\) then \(\bigcap_{n\in J'}w_n\) is r.e.
   \end{enumerate}
-\end{thm}
+\end{theorem}
 
 In both cases, we can construct indices for the r.e. set so de
 
@@ -36,10 +37,10 @@ In both cases, we can construct indices for the r.e. set so de
 
 In 1936 Turing defined his version of an abstract theory of finite computation, now known as Turing machines. In the same paper he explored the idea of ``universal computing'' and ``undecidabilities''.
 
-\begin{thm}
+\begin{theorem}
   There exists a PR function \(\N^3\to \N\) such that if \(n\) codes a RM and \(m\) codes a \(k\)-tuple and \(f_{n,k}((m)_1,\dots,(m)_k) down = r\)
   such a PR function is said to be \emph{universal}, as it can simulate \emph{any} RM and \emph{any} input.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Here is a description of an algorithm to compute \(u\):

@@ -51,14 +51,14 @@ A motivating example: if $(a_n)$ is a sequence of real numbers, then $(a_n)\to a
 \]
 Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\cdot|$ with?
 
-\begin{defi}
+\begin{definition}
   If $V$ is a real vector space, a \emph{norm} on $V$ is a function $\|\cdot\|:V\to\mathbb{R}$ satisfying
   \begin{enumerate}
   \item $\forall \V v \in V, \|\V v\| \geq 0$ with equality if and only if $\V v =\V 0$.
   \item $\forall \V v,\forall \lambda \in \R \|\lambda \V v\| = |\lambda| \|\V v\|$
     \item $\forall \V v,\V w\in V, \|\V v+\V w\| \leq \|\V v\| + \|\V w\|$ (triangle inequality).
   \end{enumerate}
-\end{defi}
+\end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -77,9 +77,9 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \end{enumerate}
 \end{eg}
 
-\begin{defi}
+\begin{definition}
   Suppose $(V, \|\cdot\|)$ is a normed vector space and $(\V v_n)$ is a sequence of elements of $V$. We say $(\V v_n)$ converges to $\V v\in V$, denoted $(\V v_n)\to \V v$, if $\forall\varepsilon>0,\exists N s.t. \forall n>N, \|\V v_n-\V v\|<\varepsilon$. Equivalently, $(\V v_n)\to \V v$ if $(\|\V v_n-\V v\|)\to 0$.
-\end{defi}
+\end{definition}
 
 \begin{ex}
   Suppose $V=\mathbb{R}^m, (\V v_n) = (v_{n,1},\ldots,v_{n,m})$. Then $(\V v_n)\to \V v$ with respect to $\|\cdot\|_\infty$ means
@@ -97,9 +97,9 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \end{align*}
 \end{ex}
 
-\begin{rmk}
+\begin{remark}
   Two different norms, same notion of convergence.
-\end{rmk}
+\end{remark}
 
 \begin{convention}
   If I say $(\V v_n)\to \V v$ where $(\V v_n)$ is a sequence in $\mathbb{R}^m$ without specifying the norm, I mean w.r.t. $\|\cdot\|_1,\|\cdot\|_2,\|\cdot\|_\infty$. (all give the same notion for convergence).
@@ -119,19 +119,19 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   But $\|f_n\|_\infty=1$ so $(\|f_n\|_\infty) \nto 0$ i.e.\ $(f_n) \nto 0$ w.r.t. $\|\cdot\|_\infty$.
 \end{eg}
 
-\begin{rmk}
+\begin{remark}
   Two different norms, two different notions of convergence.
-\end{rmk}
+\end{remark}
 
 \subsection{Continuity}
 
-\begin{defi}
+\begin{definition}
   Suppose $V$ and $W$ are normed vector spaces. We say a function $f:V\to W$ is \emph{continuous} if
   \[
     (f(\V v_n))\to f(\V v) \text{ in } W \text{ whenever } (\V v_n)\to \V v \text{ in } V.
   \]
   
-\end{defi}
+\end{definition}
 
 \begin{eg}\leavevmode
   \label{eg:continuity}
@@ -153,10 +153,10 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \end{enumerate}
 \end{eg}
 
-\begin{lem}
+\begin{lemma}
   \label{lem:alternate triangle}
   $\|\V v- \V w\| \geq |\|\V v\| - \|\V w\||$ for all $\V v, \V w \in V$.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   By triangle inequality, $\|\V v- \V w\| - \|\V w\| \geq \|\V v \|$ so $\|\V v - \V w\| \geq \|\V w - \V v\| \geq \|\V w - \V v\|$.
@@ -176,7 +176,7 @@ in $W$ whenever $(\V x_n) \to \V x$ in $V$ for $\V x$ and all $\V x_n \in X$.
 
 Let $(V, \|\cdot\|)$ be a normed vector space.
 
-\begin{defi}
+\begin{definition}
   If $\V v_0 \in V$ and $r \in \R$,
   \[
     B_r(\V v_0) = \{\V v\in V: \|\V v - \V v_0\| < r \}
@@ -186,7 +186,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
     \cl B_r(\V v_0) = \{\V v\in V: \|\V v - \V v_0\| < r \}
   \]
   is the \emph{closed ball} of radius $r$ centred at $\V v_0$.
-\end{defi}
+\end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -204,7 +204,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   \end{enumerate}
 \end{eg}
 
-\begin{prop}[Alternate characterisation of Continuity]
+\begin{proposition}[Alternate characterisation of Continuity]
   $f:V\to W$ is continuous if and only if
   \begin{equation}
     \label{eqn:alternate continuity}
@@ -214,7 +214,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   \[
     f(B_\delta(\V v_0)) \subset B_\varepsilon(f(\V v_0)).
     \]
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Suppose \eqref{eqn:alternate continuity} holds. Given $(v_n)\to v$, must show $(f(v_n))\to f(v)$. Given $\varepsilon>0$, pick $\delta$ such that $(f(B_\delta(v))\subseteq B_\epsilon(f(v))$. Since $(v_n)\to (v)$, exists $N$ such that whenever $n>N$, $\|v_n - v\| < \delta$, i.e.\ $v_n \in B_\delta(v)$, so $f(v_n) \in B_\epsilon(f(v))$. In other words, whenever $n>N$, $\|f(v_n)-f(v)\| <\varepsilon$.
@@ -222,25 +222,25 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   Suppose \eqref{eqn:alternate continuity} does not hold. Then exists some $v \in V$ and $\varepsilon>0$ such that there is no $\delta>0$ with $f(B_\delta(v)) \subseteq B_\varepsilon(f(v))$. In particular $f(B_{1/n}(v)) \nsubseteq B_\varepsilon(f(v))$ for all $n$. Pick $v_n \in B_{1/n}(v)$ with $f(v_n) \notin B_\varepsilon(f(v))$. Then $(v_n)\to v$, but $(f(v_n)) \nto f(v)$, since $\|f(v_n) - f(v) \| \geq \varepsilon$ for all $n$. $f$ is not continuous.
 \end{proof}
 
-\begin{defi}
+\begin{definition}
   $U \subseteq V$ is an \emph{open subset} of $V$ if for every $u \in U$ there is some $\varepsilon>0$ with $B_\varepsilon(u) \subseteq U$.
-\end{defi}
+\end{definition}
 
-\begin{prop}
+\begin{proposition}
   If $f:V\to W$ is continuous and $U\subseteq W$ is open then
   \[
     f^{-1}(U) = \{v \in V: f(v) \in V\}
   \]
   is an open subset of $V$.
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   If $v\in f^{-1}(U)$, then $f(v) \in U$. $U$ is open in $W$ so exists $\varepsilon>0$ such that $B_\varepsilon(f(v)) \subseteq U$. $F$ is continuous so exist $\delta>0$ such that $f(B_\delta(v)) \subseteq B_\varepsilon(f(v)) \subseteq U$. So $B_\delta(v) \subseteq f^{-1}(U)$. $f^{-1}(U)$ is open.
 \end{proof}
 
-\begin{rmk}
+\begin{remark}
   The converse statement is also true: if for any $U \subseteq W$ open $f^{-1}(U)$ open in $V$, then $f$ is continuous.
-\end{rmk}
+\end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -249,13 +249,13 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   \end{enumerate}
 \end{eg}
 
-\begin{defi}
+\begin{definition}
   $C\subseteq V$ is a \emph{closed subset} of $V$ if $V\setminus C$ is open in $V$.
-\end{defi}
+\end{definition}
 
-\begin{cor}
+\begin{corollary}
   If $f:V\to W$ is continuous and $C\subseteq W$ is closed, then $f^{-1}(C)$ is closed in $V$.
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   \[
@@ -273,9 +273,9 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   \end{enumerate}
 \end{eg}
 
-\begin{prop}
+\begin{proposition}
   \(C \subseteq V\) is closed if and only if for every sequence \((v_n) \to v\) with all \(v_n \in C\), \(v\in C\).
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Suppose \(C\) is closed and \((v_n)\to v \notin C\). Then \(v\in V\setminus C\) which is open, so \(\exists \varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\), i.e.\ \(B_\varepsilon(v) \cap C =\emptyset\). \((v_n)\to v\) so \(\exists N\) such that \(v_n\in B_\varepsilon(v)\) for all \(n>N\). Thus \(v_n \notin C\) for all \(n>N\). In other word, if \((v_n)\to v\), all but finitely many of \(v_n \notin C\).
@@ -289,9 +289,9 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
 
 For future use, suppose \(U_\alpha \subseteq V, \alpha\in A\) are open subsets of \(V\). Given \(U = \bigcup_{\alpha\in A}U_\alpha\) and \(f: U \to W\),
 
-\begin{prop}
+\begin{proposition}
   If \(f|_{U_\alpha}:U_\alpha \to W\) is continuous for all \(\alpha \in A\), then \(f: U \to W\) is continuous.
-\end{prop}
+\end{proposition}
 
 \begin{note}
   The hypothesis that \(U_\alpha\) is open is important. For example, let \(f:\R\to\R, f(x) = 1 \text{ if } x\in\Q, f(x)=0\) otherwise, then \(f|_\Q\) and \(f|_{\R\setminus\Q}\) are both continuous but \(f\) is not.
@@ -311,10 +311,10 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
   v &\mapsto v
 \end{align*}
 
-\begin{prop}
+\begin{proposition}
   \label{prop:continuity of id}
   \(\id_V\) as above is continuous if and only if \(\exists C \in \R\) with \(\|v\|' \leq C \|v\|\) for all \(v \in V\).
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Suppose \(\|v\|' \leq C \|v\|\) for all \(v\). To show \(\id_V\) is continuous, must show \((v_n)\to v\) with respect to \(\|\cdot\|'\) whenever \((v_n)\to v\) with respect to \(\|\cdot\|\).
@@ -336,7 +336,7 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
   \texttt{the joke about a mathematician going for a firefighter interview... Well you should know it by now if you are a mathematician.}
 \end{joke}
 
-\begin{defi}
+\begin{definition}
   \label{def:Lipschitz equivalence}
   If \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\), they are said to be \emph{Lipschitz equivalent} if
   \begin{align*}
@@ -345,16 +345,16 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
     \Longleftrightarrow & \id_V:(V,\|\cdot\|)\to (V,\|\cdot\|') \text{ and } \id_V:(V,\|\cdot\|')\to (V,\|\cdot\|) \\
     & \text{are both continuous.}
   \end{align*}
-\end{defi}
+\end{definition}
 
-\begin{cor}
+\begin{corollary}
   If \((V, \|\cdot\|)\) and \(V, \|\cdot\|')\) are Lipschitz equivalent, then
   \begin{enumerate}
   \item \((v_n)\to v\) with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\),
   \item \(f:V\to W\) is continuous with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\),
   \item \(F:W\to V\) is continuous with respect to \(\|\cdot\|\) if and only if with respect to \(\|\cdot\|'\).
   \end{enumerate}
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Example proof: if \(f:(V, \|\cdot\|)\to W\) is continuous, \(f:(V,\|\cdot\|')\to W = f:(V, \|\cdot\|)\to W \compose \id_V:(V, \|\cdot\|) \to (V, \|\cdot\|')\).
@@ -382,23 +382,23 @@ which are both vector space.
   \(C[0,1] \subseteq B[0,1]\) by Maximum Value Theorem. \(g(x) = \frac{1}{x} \in C(0,1]\) so \(C(0,1] \nsubseteq B(0,1]\).
 \end{eg}
 
-\begin{defi}[Pointwise Convergence]
+\begin{definition}[Pointwise Convergence]
   \((f_n) \to f\) \emph{pointwise} if
   \[
     (f_n(x)) \to f(x) \text{ for all } x\in \R.
     \]
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   The \emph{uniform norm} on \(B(A)\) is given by
   \[
     \|f\|_\infty = \sup_{x\in A} |f(x)|.
   \]
-\end{defi}
+\end{definition}
 
-\begin{defi}[Uniform Convergence]
+\begin{definition}[Uniform Convergence]
   If \(f, f_n: A\to \R\), we say \(f(x) \to f\) \emph{uniformly on \(A\)} if \((f_n-f) \in B(A)\) for all \(n\) and \((\|f_n-f\|_\infty)\to0\).
-\end{defi}
+\end{definition}
     In other words,
     \begin{itemize}
     \item \((f_n)\to f\) pointwise means: you give me \(x\in A\) and \(\varepsilon >0\), I have to find \(N\) such that \(|f_n(x) - f(x)| < \varepsilon\) whenever \(n> N\). \emph{This \(N\) only has to work for that particular value of \(x\).}
@@ -416,9 +416,9 @@ which are both vector space.
   \end{itemize}
 \end{eg}
 
-\begin{thm}
+\begin{theorem}
   Suppose \(f_n \in C(A)\) for all \(n\) and \((f_n)\to f\) uniformly on \(A\). Then \(f\in C(A)\) as well.
-\end{thm}
+\end{theorem}
 
 \begin{slogan}
   The uniform limit of continuous functions is continuous.
@@ -446,9 +446,9 @@ which are both vector space.
   \end{itemize}
 \end{eg}
 
-\begin{rmk}
+\begin{remark}
   Everything I have said so far works fine for \(A\subseteq V, f: A\to W\), where \(V, W\) are normed vector spaces.
-\end{rmk}
+\end{remark}
 
 \begin{joke}
   A mathematician named Cliff measured his room for painting. His wife went off to the paint store and told the counter how much paint she needed. The counter said: ``Thats a lot of paint. Are you sure you want that much?'' To which the wife answered: ``Well my husband is a mathematician. I'm sure he gets the numbers correct.''
@@ -459,13 +459,13 @@ which are both vector space.
   \end{joke}
 
 Recall that if \(f\in C[a,b]\) then \(\|f\|_1=\int_a^b|f(x)|dx\). 
-\begin{defi}
+\begin{definition}
   \(f_n\) converges \emph{in measure} to \(f\) if \((f_n)\to f\) with respect to \(\|\cdot\|_1\), 
-\end{defi}
+\end{definition}
 
-\begin{lem}
+\begin{lemma}
   If \((f_n)\in C[a,b]\) and \((f_n)\to f\) uniformly then \((f_n)\to f\) in measure.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Given \(\varepsilon>0\), pick \(N\) such that \(|f_n(x)-f(x)|<\varepsilon/2(b-a)\) for all \(x\in [a,b]\). Then
@@ -519,23 +519,23 @@ Recall some facts about series from Analysis I:
 \item Absolute convergence: if \(\sum_{i=0}^{\infty}|c_i| \) converges then \(\sum_{i=0}^{\infty}c_i \) converges and \(|\sum_{i=0}^{\infty}c_i| \leq \sum_{i=0}^{\infty}|c_i| \).
 \end{enumerate}
 
-\begin{lem}
+\begin{lemma}
   If \(0 \leq |c_i| \leq b_i \) for all \(i\) and \(\sum_{i=0}^{\infty}b_i \) converges then \(\sum_{i=0}^{\infty}c_i \) converges.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Combine property 5 and 6.
 \end{proof}
 
-\begin{defi}[Power series]
+\begin{definition}[Power series]
 A series of the form
 \[
 \sum_{i=0}^{\infty}a_i(z-c)^i,
 \]
 where \(a_i,z,c\in C\) is called a \emph{power series}. \(C\) is the \emph{centre}.
-\end{defi}
+\end{definition}
 
-\begin{prop}[Pointwise convergence]
+\begin{proposition}[Pointwise convergence]
   \label{prop:pointwise convergence of series}
   If
   \[
@@ -549,7 +549,7 @@ where \(a_i,z,c\in C\) is called a \emph{power series}. \(C\) is the \emph{centr
   \[
 |z-c| < |z_0-c|.
   \]
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   By property 4 \((a_i(z_0-c)^i)\to 0\). Pick \(N\) such that \(|a_i(z_0-c)^i|<1\) for all \(i\geq N\). By Property 2 it suffices to show that
@@ -573,12 +573,12 @@ where \(a_i,z,c\in C\) is called a \emph{power series}. \(C\) is the \emph{centr
 for all \(i\geq N\) and \(\sum_{i=N}^{\infty}\alpha^i \) converges. By the lemma \(\sum_{i=N}^{\infty}a_i(z-c)^i \) converges.
 \end{proof}
 
-\begin{defi}[Radius of convergence]
+\begin{definition}[Radius of convergence]
   \[
     R := \sup \{ |z-c|: \sum_{i=0}^{\infty}a_i (z-c)^i \text{ converges}\}
   \]
   is the \emph{radius of convergence} of \(\sum_{i=0}^{\infty}a_i(z-c)^i \).
-\end{defi}
+\end{definition}
 
 Proposition~\ref{prop:pointwise convergence of series} implies that if \(z\in B_R(c)\) then \(\sum_{i=0}^{\infty}a_i(z-c)^i \) converges. In other words, if we define
 \begin{align*}
@@ -590,13 +590,13 @@ Proposition~\ref{prop:pointwise convergence of series} implies that if \(z\in B_
 
 Proposition~\ref{prop:pointwise convergence of series} says that \((P_n)\to f\) pointwise on \(B_R(c)\). As \(P_n\) are polynomials so they are continuous. A natural question is, is \(f\) continuous as well? We know this answer will be yes if we can prove that the convergence is uniform. How do we do that?
 
-\begin{thm}
+\begin{theorem}
   With notations as above,
   \[
 (P_n)\to f
 \]
 uniformly on \(\cl B_r(c)\) whenever \(r<R\).
-\end{thm}
+\end{theorem}
 
 \begin{note}
   Equivalently, we can say \((P_n)\to f\) uniformly on \(B_r(c)\) for \(r<R\). The closed ball \(\cl B_r(c)\) is just a convention when talking about uniform convergence on a compact set.
@@ -637,9 +637,9 @@ uniformly on \(\cl B_r(c)\) whenever \(r<R\).
   does not converge uniformly on \(B_1(0)\).
 \end{note}
 
-\begin{cor}
+\begin{corollary}
   \(f\) as above is continuous on \(B_R(c)\).
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Let \(U_r = B_r(c), r<R\). Then \(U_r\) is open in \(\C\). \((P_n)\to f\) uniformly on \(U_r\) for \(r< R\). Since the \(P_n\) are continuous \(f|_{U_r}\) is continuous. By gluing lemma \(f\) is continuous on
@@ -653,7 +653,7 @@ To summarise, power series are continuous on domain of convergence \(B_R(c)\).
 \subsection{Integration \& Differentiation}
 
 Recall from Analysis I
-\begin{thm}[Fundamental Theorem of Calculus]
+\begin{theorem}[Fundamental Theorem of Calculus]
   \label{thm:FTC}
   Suppose \(f\in C[a,b]\), \(c\in [a,b]\), then
   \[
@@ -663,7 +663,7 @@ Recall from Analysis I
   \[
     F'(x) = f(x).
   \]
-\end{thm}
+\end{theorem}
 and the following properties of (Riemann) integral:
 \begin{enumerate}
 \item If \(f(x) \leq g(x) \) for \(x\in[a,b]\), \(\int_{a}^{b} f(x) dx \leq \int_{a}^{b} g(x) dx \).
@@ -671,12 +671,12 @@ and the following properties of (Riemann) integral:
 \item If \(b<a\), \(\int_{a}^{b} f(x) dx = - \int_{b}^{a} f(x) dx \).
 \end{enumerate}
 
-\begin{lem}
+\begin{lemma}
   If \(|f(x)|\leq C\) for all \(x\in[a,b]\) then
   \[
     \Big| \int_{c}^{x} f(t) dt \Big| \leq C|x-c|.
   \]
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   If \(x\geq c\) then
@@ -695,14 +695,14 @@ Now suppose \(f_n\in C[a,b]\) and \((f_n)\to f\) uniformly on \([a,b]\) so \(f\i
   F(x) &= \int_{c}^{x} f(t) dt
 \end{align*}
 
-\begin{prop}
+\begin{proposition}
   \label{prop:power series integral convergence}
   With notations above,
   \[
     (F_n) \to F
   \]
   uniformly on \([a,b]\).
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Given \(\varepsilon>0\), there exists \(N\) such that \(|f_n(x) - f(x)| < \varepsilon/(b-a)\) for all \(n\geq N\) and \(x\in[a,b]\). Then
@@ -717,12 +717,12 @@ Now suppose \(f_n\in C[a,b]\) and \((f_n)\to f\) uniformly on \([a,b]\) so \(f\i
 
 Now suppose \(f(x) = \sum_{i=0}^{\infty}a_i(x-c)^i \) is a real power series with radius of convergence \(R\). Then for \(r< R\) and \(P_n(x) = \sum_{i=0}^{n}a_i(x-c)^i \), \((P_n)\to f\) uniformly on \(\cl B_r(c) = [c-r,c+r]\).
 
-\begin{cor}
+\begin{corollary}
   \[
     \int_{c}^{x} f(t) dt = \sum_{i=0}^{\infty}\frac{a_i}{i+1}(x-c)^{i+1}
   \]
   for \(x\in (c-R,c+R)\).
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Given \(x\), choose \(r\) with \(|x-c| < r < R\). Then \((P_n)\to f\) on \([c-r, c+r]\) so by Proposition~\ref{prop:power series integral convergence}
@@ -751,18 +751,18 @@ The answer is, surprisingly, \emph{absolutely nothing}.
 
 Nevertheless, if \(f(x) = \sum_{i=0}^{\infty}a_i(x-c)^i \) has radius of convergence \(R\), we still have
 
-\begin{prop}
+\begin{proposition}
   \(f\) is differentiable on \((c-R, c+R)\) and
   \[
     f'(x) = \sum_{i=1}^{\infty}i a_i(x-c)^{i-1}. 
   \]
-\end{prop}
+\end{proposition}
 
 In other words, power series can be differentiated term-by-term.
 
-\begin{lem}
+\begin{lemma}
   \(g(x) = \sum_{i=1}^{\infty}i a_i(x-c)^{i-1} \) converges for all \(y\in(c-R,c+R)\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Given \(x\in(c-R,c+R)\), pick \(x_0\) with \(|x-c| < |x_0-c| < R\). Then \(\sum_{i=0}^{\infty}a_i(x_0-c)^i \) converges, so by \ref{eqn:fundamental est}, there exists \(N\) such that
@@ -806,22 +806,22 @@ Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in
   if \((v_n)\to v\) in \(v\) then any subsequence \((v_{n_j})\) converges to \(v\) as well.
 \end{ex}
 
-\begin{defi}[Boundedness]
+\begin{definition}[Boundedness]
   \(A \subseteq V\) is bounded if there exists \(m\) such that \(\norm v \leq m \) for all \(v\in A\).
-\end{defi}
+\end{definition}
 
-\begin{rmk}
+\begin{remark}
   if \(\norm \cdot\) and \(\norm \cdot'\) are Lipschitz equivalent then \(A\) is bounded with respect to \(\norm \cdot\) if and only if with respect to \(\norm \cdot'\). It follows that boundedness in \(\R^n\) means with respect to any one of \(\norm \cdot_1, \norm \cdot_2, \norm \cdot_\infty\).
-\end{rmk}
+\end{remark}
 
 Recall from analysis i:
-\begin{thm}[Bolzano-Weierstrass]
+\begin{theorem}[Bolzano-Weierstrass]
   A bounded sequence in \(\R\) has a convergent subsequence.
-\end{thm}
+\end{theorem}
 
-\begin{cor}[Bolzano-Weierstrass for \(\R^m\)]
+\begin{corollary}[Bolzano-Weierstrass for \(\R^m\)]
   A bounded sequence in \(\R^m\) has a convergent subsequence.
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Inducton on \(m\): if \(m=1\) then done by Bolzano-Weierstrass. Suppose it holds for \(\R^{m-1}\) and let \((v_n)\) be a bounded sequence in \(\R^m\). Write \(v_n = (v_{n,1},\dots,v_{n,n}) = (w_n,v_{n,m})\) for some \(w_n\in \R^{m-1}\). \(\norm{w_n}\) and \(|v_{n,m}| \leq \norm{v_n}\) so \((v_n)\) is bounded implies that \((w_n)\) and \((v_{n,m})\) are bounded. By induction \((w_n)\) has a subsequence \((w_{n_j}) \to w \in \R^{m-1}\). Now consider \((v_{n_j,m})\). This is a bounded sequence in \(\R\) so by Bolzano-Weierstrass there is a subsequence \((v_{n_{j_k},m}) \to v \in\R\). By Exercise \((w_{n_{j_k}}) \to w\) so
@@ -830,13 +830,13 @@ Recall from analysis i:
   \]
 \end{proof}
 
-\begin{defi}[Sequential compactness]
+\begin{definition}[Sequential compactness]
   \(C \subseteq V\) is \emph{sequenctially compact} if any sequence \((v_n)\) in \(C\) has a convergent subsequence \((v_{n_j}) \to v \in C\).
-\end{defi}
+\end{definition}
 
-\begin{rmk}
+\begin{remark}
   There is another (topological) definition of compactness using open covers. For metric spaces, in particular subspaces of normed spaces, these two are equivalent.
-\end{rmk}
+\end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -845,9 +845,9 @@ Recall from analysis i:
   \end{enumerate}
 \end{eg}
 
-\begin{thm}[Heine-Borel]
+\begin{theorem}[Heine-Borel]
   \(A \subseteq \R^m\) is compact if and only if \(A\) is closed and bounded.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   \(\Leftarrow\): Suppose \(A\) is closed and bounded. Given a sequence \((v_n)\) with \(v_n\in A\), must find a convergent subsequence. Since \(A\) is bounded, \((v_n)\) is bounded so by Bolzano-Weierstrass there is a convergent subsequence \((v_{n_j})\to v \in \R^m\). As \(A\) is closed and \(v_{n_j}\in A\), \((v_{n_j})\to v\) implies that \(v \in A\).
@@ -875,13 +875,13 @@ Recall from analysis i:
   \end{note}
 \end{eg}
 
-\begin{cor}
+\begin{corollary}
   \(\cl B_1(0)\) is closed and bounded in \((C[0,1], \norm \cdot_\infty)\) but is not compact.
-\end{cor}
+\end{corollary}
 
-\begin{prop}[Continuous image of compact set]
+\begin{proposition}[Continuous image of compact set]
   Suppose \(C \subseteq V\) is compact and \(f:C\to W\) is continuous then \(f(C)\) is also compact.
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   Suppose \((w_n)\) is a sequence in \(f(C)\). Pick \(v_n \in C\) with \(f(v_n) = w_n\). \(C\) is compact so \((v_n)\) has a convergent subsequence \((v_{n_j})\to v \in C\). \(f\) is continuous so
@@ -895,25 +895,25 @@ Recall from analysis i:
 \end{joke}
 
 \begin{application}[Maximum Value Theorem]
- \begin{lem}
+ \begin{lemma}
   If \(\emptyset \neq A \subseteq \R \) is compact then \(\sup A \in A\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   By Heine-Borel, \(A\) is closed and bounded so \(\alpha = \sup A\in \R\). For each \(n>0\), exists \(a_n \in A\) such that \(\alpha-1/n \leq a_n \leq \alpha\). Then \((a_n)\to \alpha\). Since \(A\) is closed and \(a_n \in A\), \(\alpha\in A\) as well.
 \end{proof}
  
-\begin{thm}
+\begin{theorem}
   Suppose \(f:C\to \R\)  is continuous and \(C\) is compact and nonempty. Then exists \(v\in C\) such that \(f(v) \geq f(v')\) for all \(v' \in C\).
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   \(f(C)\) is compact and nonempty by the Proposition, so Lemma implies that \(\alpha = \sup f(C)\) exists and \(\alpha\in f(C)\). Pick \(v\in C\) with \(f(v) = \alpha\). If \(v'\in C\) then \(f(v') \in f(C)\) so \(f(v') \leq \alpha = f(v)\).
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   Let \(f\) and \(C\) be as above. Then there exists \(v_-\in C\) with \(f(v_-) \leq f(v')\) for all \(v' \in C\).
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Apply Theorem to \(-f\).
@@ -923,9 +923,9 @@ Recall from analysis i:
 \begin{application}[Equivalence of Norms on \(\R^n\)]
   Let \(\norm \cdot\) be some norm on \(\R^m\).
   
-  \begin{lem}
+  \begin{lemma}
     The map \(\id: (\R^m, \norm \cdot_1) \to (\R^m, \norm \cdot)\) is continuous.
-  \end{lem}
+  \end{lemma}
 
   \begin{proof}
     By the criterion in Proposition~\ref{prop:continuity of id} it suffices to show that there is a constant \(C\) such that \(\norm v \leq C \norm v_1\) for all \(v\in \R^m\). Let \(v = (v_1,\dots,v_m) = \sum_{i=1}^{m}v_ie_i \) where \(e_i\) is the standard basis vector. Take \(C = \max_{1\leq i\leq m}\norm{e_i}\). Then
@@ -934,9 +934,9 @@ Recall from analysis i:
     \]
   \end{proof}
 
-  \begin{cor}
+  \begin{corollary}
     The map \(f:(\R^m, \norm \cdot_1) \to (\R, |\cdot|)\) given by \(f(v) = \norm v\) is continuous.
-  \end{cor}
+  \end{corollary}
 
   \begin{proof}
     \(f = g\compose \id\) where \(g\) is the continuous map from \(\R^m\) to \(\R\) in Example~\ref{eg:continuity}.
@@ -949,13 +949,13 @@ Recall that two norms \(\norm \cdot\) and \(\norm \cdot'\) on \(V\) are Lipschit
 \]
 for all \(v\in V\).
 
-\begin{rmk}
+\begin{remark}
   This is trivially true if \(v=0\) so suffices to check for \(v\neq0\).
-\end{rmk}
+\end{remark}
 
-\begin{thm}
+\begin{theorem}
   If \(\norm \cdot\) is a norm on \(\R^m\) then it is Lipschitz equivalent to \(\norm \cdot_1\).
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Let \(S = \{v\in \R^m: \norm v_1 = 1 \}\). Claim \(S\) is compact with respect to \(\norm \cdot_1\): \(S\) is clearly bounded. Consider \(g:(\R^m, \norm \cdot_1) \to (\R, |\cdot|), v\mapsto \norm v_1\). \(g\) is continuous and \(S = g^{-1}(\{1\})\). As \(\{1\} \subset \R\) is closed \(S\) is closed. So by Heine-Borel \(S\) is compact.
@@ -981,9 +981,9 @@ for all \(v\in V\).
   and Lipschitz equivalence condition follows.
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   Any two norms on \(\R^m\) are Lipschitz equivalent.
-\end{cor}
+\end{corollary}
 
 \begin{proof}
   Lipschitz equivalence is an equivalence relation.
@@ -993,9 +993,9 @@ for all \(v\in V\).
 
 Let \(V\) be a normed vector space.
 
-\begin{defi}[Cauchy sequence]
+\begin{definition}[Cauchy sequence]
   A sequence \((v_n)\) in \(V\) is \emph{Cauchy} if for any \(\varepsilon>0\), there exists \(N\) such that for all \(n,m\geq N\), \(\norm{v_n-v_m} < \varepsilon\).
-\end{defi}
+\end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -1029,34 +1029,34 @@ But there may \emph{not} be anything for it to converge to!
   Let \((V, \norm \cdot) = (\Q, \norm \cdot)\), let \(v_n\) be the first \(n\)-decimal place expansion of \(\pi\). Then \((v_n)\) is Cauchy but does not converge to any \(v\in \Q\).
 \end{eg}
 
-\begin{defi}[Completeness]
+\begin{definition}[Completeness]
   A normed vector space \((V, \norm \cdot)\) is \emph{complete} if whenever \((v_n)\) is a Cauchy sequence in \(V\), there exists \(v\in V\) such that \((v_n) \to v\).
-\end{defi}
+\end{definition}
 
 \begin{eg}
   \((C[0, 1], \norm \cdot_1)\) is not complete.
 \end{eg}
 
-\begin{thm}[Completeness of Euclidean Space]
+\begin{theorem}[Completeness of Euclidean Space]
   \label{thm:completeness of R}
   \(\R^m\) is complete.
-\end{thm}
+\end{theorem}
 
 The proof uses two lemmas about Cauchy sequences: suppose \(V\) is a normed vector space and \((v_n)\) is Cauchy, then
 
-\begin{lem}[Boundedness of Cauchy sequence]
+\begin{lemma}[Boundedness of Cauchy sequence]
   \label{lem:boundedness of Cauchy}
   \((v_n)\) is bounded.
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Example sheet.
 \end{proof}
 
-\begin{lem}
+\begin{lemma}
   \label{lem:subsequence of Cauchy}
   If there exists a subsequence \((v_{n_j}) \to v \in V\) then \((v_n) \to v\).
-\end{lem}
+\end{lemma}
 
 \begin{proof}
   Given \(\varepsilon > 0\), pick \(N\) such that for all \(n, m \geq N\), \(\norm{v_n - v_m} < \varepsilon/2\). Since \((v_{n_j}) \to v\), exists \(J\) such that whenever \(j \geq J\), \(\norm{v_{n_j} - v} < \varepsilon/2\). Pick \(j \geq J\) such that \(n_j \geq N\). Then for all \(n\geq N\),
@@ -1071,9 +1071,9 @@ The proof uses two lemmas about Cauchy sequences: suppose \(V\) is a normed vect
 
 We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weierstrass property. Nevertheless, it is complete:
 
-\begin{thm}
+\begin{theorem}
   Let \([a, b]\) be a bounded interval in \(\R\), then \(C[a, b]\) is complete with respect to \(\norm \cdot_\infty\).
-\end{thm}
+\end{theorem}
 
 \begin{proof}
   Suppose \((f_n)\) is Cauchy in \(C[a, b]\). We must find \(f\in C[a, b]\) such that \((f_n) \to f\) uniformly on \([a, b]\).
@@ -1091,16 +1091,16 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
   Since the uniform limit of continuous functions is continuous, \((f_n) \to f \in C[a, b]\). \((C[a, b], \norm \cdot_\infty)\) is complete.
 \end{proof}
 
-\begin{defi}[Normed subspace]
+\begin{definition}[Normed subspace]
   Let \((V, \norm \cdot)\) and \((V', \norm \cdot')\) be two normed vector spaces. We say \(V\) is a \emph{normed vector subspace} of \(V'\) if
   \begin{enumerate}
   \item \(V \leq V'\) as a vector space,
   \item \(\norm v = \norm v'\) for all \(v \in V\).
   \end{enumerate}
 
-\end{defi}
+\end{definition}
 
-\begin{rmk}\leavevmode
+\begin{remark}\leavevmode
   \begin{enumerate}
   \item If \(V \subseteq V'\), \(V\) is complete then \(V\) is a closed subset of \(V'\).
     \begin{proof}
@@ -1108,7 +1108,7 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
     \end{proof}
   \item If \((V, \norm \cdot)\) is a normed space then there exists a complete normed pace \((\cl V, \norm \cdot)\) which contains \(V\) as a dense subspace (dense means that any \(v \in V\) is a limit of sequence in \(V\)). This \(\cl V\) is the \emph{completion} of \(V\) and is unique up to isomorphism of normed space.
   \end{enumerate}
-\end{rmk}
+\end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}

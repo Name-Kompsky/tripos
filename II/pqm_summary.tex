@@ -1,6 +1,12 @@
 \documentclass[a4paper]{article}
 
+\def\npart{II}
+
 \def\ntitle{Principles of Quantum Mechanics Summary}
+\def\nlecturer{D.\ B.\ Skinner}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
 
 \input{header}
 
@@ -23,21 +29,22 @@
 \usepackage{pdflscape}
 
 \begin{document}
-\maketitle
+
+\input{titlepage}
 
 \section{Introduction}
 
-\begin{defi}[Hilbert space]
+\begin{definition}[Hilbert space]
   A complete inner product space.
-\end{defi}
+\end{definition}
 
-\begin{defi}[Linear Operator]
+\begin{definition}[Linear Operator]
   A linear map \(A: \H\to \H\).
-\end{defi}
+\end{definition}
 
-\begin{defi}[(Continuous) dual space]
+\begin{definition}[(Continuous) dual space]
   \(\H^* = \mathcal{B}(\H,\C)\).
-\end{defi}
+\end{definition}
 
 Note \(\H \cong \H^*\).
 
@@ -69,29 +76,29 @@ where
 \]
 is the \emph{position space wavefunction}.
 
-\begin{defi}[Commutator]
+\begin{definition}[Commutator]
   Given two operators \(A\) and \(B\), the \emph{commutator} \([A,B] = AB- BA\) measures the degree to which they are incompatible.
-\end{defi}
+\end{definition}
 
-\begin{defi}
+\begin{definition}
   \(|\psi\rangle \in \H\) is an \emph{eigenstate} of an operator \(A\) if \(A|\psi\rangle = a_\psi|\psi\rangle\). \(a_\psi\in\C\) is the \emph{eigenvalue}.
 
   The set of all eigenvalues of \(A\) is called the \emph{spectrum} of \(A\).
 
   The number of linearly independent eigenstates having the same eigenvalue is call the \emph{degeneracy} of the eigenvalue.
-\end{defi}
+\end{definition}
 
-\begin{defi}[Adjoint]
+\begin{definition}[Adjoint]
   The adjoint \(A^\dag\) of an operator \(A\) is such that
   \[
     \langle\phi|A^\dag|\psi\rangle = \conj{\langle\psi|A|\phi\rangle} 
   \] 
   for all \(|\phi\rangle, |\psi\rangle \in \H\).
-\end{defi}
+\end{definition}
 
-\begin{defi}[Self-adjoint operator]
+\begin{definition}[Self-adjoint operator]
   If \(Q = Q^\dag\) then \(Q\) is \emph{self-adjoint}, or \emph{Hermitian}.
-\end{defi}
+\end{definition}
 
 For a self-adjoint operator \(Q\), the set of eigenstates \(\{|n\rangle\}\) with eigenvales \(\{q_n\}\) form an orthonormal basis so we can write
 \[
@@ -127,12 +134,12 @@ From this we can define functions of operators:
   \end{enumerate}
 \end{postulate}
 
-\begin{prop}[Generalised uncertainty relation]
+\begin{proposition}[Generalised uncertainty relation]
   Given two Hermitian operators \(A\) and \(B\),
   \[
     (\Delta A)_\psi^2(\Delta B)_\psi^2 \geq \frac{1}{4}|\langle[A,B]\rangle_\psi|^2
   \]
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   For any Hermtian operators \(A\) and \(B\), for all \(\lambda \in \R\), by positive-definiteness of inner-product we have
@@ -150,9 +157,9 @@ From this we can define functions of operators:
 
 A transformation is an operator \(U:\H\to \H, |\psi\rangle\mapsto |\psi'\rangle = U|\psi\rangle\).
 
-\begin{prop}
+\begin{proposition}
   \(U\) as above is unitary, i.e. \(U^{-1} = U^\dag\).
-\end{prop}
+\end{proposition}
 
 \begin{proof}
   After the tranformation we are expected to still find the state somewhere. Thus
@@ -165,13 +172,13 @@ A transformation is an operator \(U:\H\to \H, |\psi\rangle\mapsto |\psi'\rangle 
 
 An operator gives a homomorphism from the group of all such transformations to the group of operators of all such transformations, i.e.\(U: g\mapsto U(g)\) and \(U(g_2)\compose U(g_1) = U(g_2\cdot g_2\).
 
-\begin{defi}[Generator]
+\begin{definition}[Generator]
   Given a \emph{continuous} transformation \(U(\theta)\), write
   \[
     U(\delta\theta) = 1 - i \delta\theta T + \bigO(\delta\theta^2)\footnotemark
   \]
   \footnotetext{The \(-i\) is a historical convention.}
-\end{defi}
+\end{definition}
 
 By unitarity of \(U\), \(T=T^\dag\). A transformation can be seen as the limit of
 \[
