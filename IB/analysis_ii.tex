@@ -10,6 +10,8 @@
 
 \input{header}
 
+\newcommand*{\riem}[1]{\mathcal{#1}}
+
 \theoremstyle{definition}
 \newtheorem*{joke}{Joke}
 
@@ -38,7 +40,7 @@ In Analysis I, the primary space we are interested in is \(\R\) and we studied n
     Convergence \& continuity & $\checkmark$ & $\checkmark$ \\ \hline
     Differentiation & $\checkmark$ & Calculus of variations \\ \hline
     Integration & Probability and measure & ??? (ask physicists) \\ \hline
-    Solutions to equations & inverse function theorem & existence of solutions for ODEs \\ \hline
+    Solving equations & inverse function theorem & existence of solutions for ODEs \\ \hline
   \end{tabular}
   \caption{Comparison of Euclidean space and function space}
 \end{table}
@@ -1131,4 +1133,144 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
   \item The completion of \((C[0, 1], \norm \cdot_1)\) is the space of Lebesgue integrable functions on \([0, 1]\).
     \end{enumerate}
 \end{eg}
+
+\subsection{Uniform Continuity}
+
+Suppose \(V\) and \(W\) are normed spaces and \(X \subseteq V\),
+
+\begin{definition}[Uniform continuity]
+  \(f: W \to W\) is \emph{uniformly continuous} if
+  \[
+    \forall \varepsilon>0, \, \exists \delta>0 \, \forall v, w \in X, \, \norm{v - w} < \delta \Rightarrow \norm{f(v) - f(w)} < \varepsilon.
+  \]
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{itemize}
+  \item \(f\) is continuous means that if I give you \(\varepsilon > 0\) and \(v \in X\), you find \(\delta > 0\) such that \(\norm{f(v) - f(w)} < \varepsilon\) whenever \(\norm{v - w} < \delta\).
+  \item \(f\) is uniformly means that if I give you \(\varepsilon > 0\), you find \(\delta > 0\) which works for all \(v \in X\).
+  \end{itemize}
+\end{note}
+
+Clearly uniform convergence imples convergence but the converse is false.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f: \R \to \R, f(x) = x^2\) is not uniformly continuous since \(f(x + \delta/2) - f(x) = x \delta + \delta^2/4 > 1\) if \(x > 1/\delta\).
+  \item Suppose \(a, b \in \R\), \(f: (a, b) \to \R\) is uniformly continuous, then \(f\) is bounded on \((a, b)\):
+    \begin{proof}
+      Suppose \(|f(x) - f(y)| < 1\) whenever \(|x - y| < 2 \delta\), then
+      \[
+        |f(x) - f(y)| \leq \left| f(x) - f(\frac{x+y}{2}) \right| + \left| f(\frac{x+y}{2}) - f(y) \right| < 1 + 1 = 2
+      \]
+      Similarly \(|x - y| < n \delta\) implies that \(|f(x) - f(y)| < n\) so \(f\) is bounded on \((a, b)\).
+    \end{proof}
+    \item \(f:(0, 1) \to \R, f(x) = 1/x\) is continuous but not bounded so not uniformly continuous.
+    \item \(f:(0, 1) \to \R, f(x) = \sin(1/x)\) is not unifornly continuous since for any \(\delta > 0\), there exists \(x, x' \in(0, \delta)\) with \(f(x) = 1, f(x') = -1\).
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}
+  If \(C \subseteq V\) is compact and \(f: C \to W\) is continuous then \(f\) is uniformly continuous.
+\end{theorem}
+
+\begin{proof}
+  By contradiction. Suppose \(f\) satisfies the hypotheses but is not uniformly continuous, i.e.\ \(\exists a > 0\) such that there is no \(\delta > 0\) with \(\norm{f(v) - f (w)} < a\) whenever \(\norm{v - w} < \delta\). Thus \(\forall n > 0\), \(\exists v_n, w_n\) such that \(\norm{v_n - w_n} < 1/n\) but \(\norm{f(v_n) - f(w_n)} \geq a\). Since \(C\) is compact, \((v_n)\) has a convergent subsequence \((v_{n_j}) \to v \in C\). Claim \((w_{n_j}) \to v\):
+  \begin{proof}
+    \((v_{n_j}) \to  v\) so \(\lim_{j\to \infty}\norm{v_{n_j} - v} = 0\). \(\norm{v_n - w_n} < 1/n\) so \(\lim_{j\to \infty}\norm{v_{n_j} - w_{n_j}} = 0\). Then
+    \[
+      0 \leq \norm{w_{n_j} - v} \leq \norm{w_{n_j} - v_{n_j}} + \norm{v_{n_j} - v}
+  \]
+  so by squeeze rule \(\lim_{j\to \infty} \norm{w_{n_j} - v} = 0\).
+  \end{proof}
+  Now we claim \(\lim_{j\to \infty} \norm{f(v_{n_j}) - f(w_{n_j})} = 0\):
+    \begin{proof}
+      \((v_{n_j}) \to v\), \(f\) is continuous so \((f(v_{n_j})) \to f(v)\).
+      Similarly \((w_{n_j}) \to v\), so \((f(w_{n_j})) \to f(v)\) as well. Then
+      \[
+        0 \leq \norm{f(v_{n_j}) - f(w_{n_j})} \leq \norm{f(v_{n_j}) - f(v)} + \norm{f(w_{n_j}) - f(v)}
+      \]
+      and the result follows by squeeze rule.
+    \end{proof}
+    Now choose \(J\) such that \(\norm{f(v_{n_j}) - f(w_{n_j})} < a\) whenver \(j \geq J\). Then let \(N = n_J\), \(\norm{f(v_n) - f(w_n)} < a\) whenever \(n \geq N\). However, this contradicts the fact that \(\norm{f(v_n) - f(w_n)} \geq a > 0\) for all \(n\).
+\end{proof}
+
+\subsubsection{Application: Riemann Integral}
+
+Recall from Analysis I: \(g: [a, b] \to \R \) is \emph{piecewise constant} if \(\exists a = a_0 < a_1 < \dots < a_n = b\) such that \(g(x) = c_i\) for all \(x\in (a_{i-1}, a_i)\). Let
+\[
+  P[a, b] = \{g: [a, b] \to \R: g \text{ is piecewise continuous} \}
+\]
+
+\begin{notation}
+  \(f \leq g\) means for all \(x \in [a, b]\), \(f(x) \leq g(x)\).
+\end{notation}
+
+If \(g \in P[a, b]\), define
+\[
+  I(g) = \sum_{i=1}^{n}c_i(a_i - a_{i-1})
+\]
+to be the signed area under the graph of \(g\).
+
+\begin{lemma}
+  If \(f,g \in P[a, b]\), then
+  \begin{enumerate}
+  \item \(f + \lambda g \in P[a, b]\) and \(I(f + \lambda g) = I(f) + \lambda I(g)\).
+  \item If \(f \geq 0\) then \(I(f) \geq 0\).
+  \item If \(f \geq g\) then \(I(f) \geq I(g)\).
+  \end{enumerate}
+\end{lemma}
+
+
+If \(f \in B[a, b]\), define
+\begin{align*}
+  \riem U(f) &= \{ g \in P[a, b]: g \geq f\} \\
+  \riem L(f) &= \{ g \in P[a, b]: g \leq f\}
+\end{align*}
+Now define
+\begin{align*}
+  U(f) &= \{ I(g): g \in \riem U(f) \} \\
+  L(f) &= \{ I(g): g \in \riem L(f) \}
+\end{align*}
+so given \(g_+ \in \riem U(f), g_- \in \riem L(f)\), \(g_- \leq f \leq g_+\) so \(I(g_-) \leq I(g_+)\). Now define
+\begin{align*}
+  u(f) &= \inf U(f) \\
+  l(f) &= \sup L(f)
+\end{align*}
+
+\begin{definition}[Riemann integral]
+  \(f\) is \emph{Riemann integrable} if \(u(f) = l(f)\). In this case define
+  \[
+    \int_{a}^{b} f(x) dx = u(f) = l(f).
+  \]
+\end{definition}
+
+\begin{theorem}
+  If \(f \in C[a, b]\) then \(f\) is Riemann integrable.
+\end{theorem}
+
+\begin{proof}
+  By Maximum Value Theorem \(f \in B[a, b]\). Claim given \(\varepsilon > 0\), \(\exists g_+ \in \riem U(f), g_- \in \riem L(f)\) such that \(I(g_+) - I(g_-) < \varepsilon\):
+  \begin{proof}
+    Since \([a, b]\) is compact, \(f\) is uniformly continuous. Choose \(\delta > 0 \) such that \(|f(x) - f(y)| < \varepsilon/(b-a)\) whenever \(|x - y| < \delta\).
+    
+    Choose \(a = a_0 < \dots < a_n = b\) such that \(a_i - a_{i-1} < \delta\) for all \(i\). Define
+    \begin{align*}
+      c_i^+ &= \max_{x \in [a_{i-1}, a_i]} f(x) \\
+      c_i^- &= \min_{x \in [a_{i-1}, a_i]} f(x) \\
+    \end{align*}
+    If \(x, y \in [a_{i-1}, a_i]\), \(|x - y| < \delta\) so \(c_i^+ - c_i^- < \varepsilon/(a_{i-1}, a_i)\). Now take \(g_\pm(x) = c_i^\pm\) if \(x \in [a_{i-1}, a_i]\). By construction for \(x \in [a_{i-1}, a_i]\),
+    \[
+      g_+(x) \geq c_i^+ = \max_{x \in [a_{i-1}, a_i]}f(x) \geq f(x)
+    \]
+    so \(g_+ \geq f\). Similar for \(g_-\). It follows that \(I(g_+) - I(g_-) < \varepsilon\).
+  \end{proof}
+
+  With this result, the proof of the theorem is almost apparent: since
+  \[
+    I(g_-) \leq l(f) \leq u(f) \leq I(g_+),
+  \]
+  \(0 \leq u(f) - l(f) \leq I(g_+) - I(g_-) \leq \varepsilon\) for all \(\varepsilon > 0\). Thus \(u(f) = l(f)\) and \(f\) is Riemann integrable.
+  
+\end{proof}
 \end{document}

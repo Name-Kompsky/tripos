@@ -13,6 +13,7 @@
 \newcommand*{\ann}{\circ}
 
 \newcommand*{\basis}{\mathcal}
+\newcommand*{\M}{\mathcal{M}}
 
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
@@ -1386,5 +1387,194 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   \item Let \(\theta \in V^*\), \(\theta \in (U_1+U_2)^\ann\) if and only if \(\theta(u_1+u_2) = 0\) for all \(u_1\in U_1, u_2 \in U_2\), if and only if \(\theta(u) = 0\) for all \(u \in U_1 \cup U_2\), so \(\theta\in U_2^\ann \cap U_2^\ann\).
   \item Apply \(^\ann\) to the first result.
   \end{itemize}
+\end{proof}
+
+\section{Bilinear Forms I}
+
+\begin{definition}[Bilinear form]
+  Let \(U\) and \(V\) be \(\F\)-vector spaces. A map \(\varphi: U \times V \to \F\) is \emph{bilinear} if it is linear in both arguments, i.e.
+  \begin{align*}
+    \forall u \in U, \, \varphi(u, -) &\in V^* \\
+    \forall u \in U, \, \varphi(-, v) &\in U^*
+  \end{align*}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(V \times V^* \to \F, (v, \theta) \mapsto \theta(v)\).
+  \item \(U = V = \R^n, \varphi(x, y) = \sum_{i=1}^{n}x_iy_i\).
+  \item \(A \in \M_{m,n}(\F), \varphi: \F^m \times \F^n \to \F, (u, v) \mapsto u^TAv\).
+  \item \(U = V = C([0, 1], \R), (f, g) \mapsto \int_{0}^{1} f(t)g(t) dt \)
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Matrix of bilinear form]
+  Let \(\basis B = \{e_1,\dots,e_m\}\) be a basis for \(U\) and \(\basis C = \{f_1,\dots,f_n\}\) be a basis for \(V\). Given a bilinear map \(\varphi: U \times V \to \F\), the \emph{matrix of \(\varphi\)} with respect to \(\basis B\) and \(\basis C\) is
+  \[
+    [\varphi]_{\basis B, \basis C} = \left( \varphi(e_i, f_j) \right)_{m \times n}.
+  \]
+\end{definition}
+
+\begin{lemma}
+  \[
+    \varphi(u, v) = [u]_{\basis B}^T [\varphi]_{\basis B, \basis C} [v]_{\basis C}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(u = \sum_{i}^{ }\lambda_ie_i, v = \sum_{j}^{} \mu_jf_j\), then
+  \begin{align*}
+    \varphi(u, v) &= \varphi\left( \sum_{i}^{ }\lambda_ie_i, \sum_{j}^{} \mu_jf_j \right) \\
+                  &= \sum_{i}^{ }\lambda_i \varphi\left(e_i, \sum_{j}^{} \mu_jf_j \right)\\
+                  &= \sum_{i, j}^{ }\lambda_i \varphi(e_i, f_j) \mu_j
+  \end{align*}
+\end{proof}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item \([\varphi]_{\basis B, \basis C}\) is the unique matrix with this property.
+  \item A bilinear \(\varphi: U \times V \to \F\) induces linear maps
+    \begin{align*}
+      \varphi_L: U &\to V* \\
+      u &\mapsto (v \mapsto \varphi(u, v)) \\
+      \varphi_R: V &\to U* \\
+      v &\mapsto (u \mapsto \varphi(u, v))
+    \end{align*}
+  \end{enumerate}
+\end{note}
+
+\begin{lemma}
+  Let \(\basis B = \{e_1,\dots, e_m\}\) be a basis for \(U\), \(\basis B^* = \{\varphi_1,\dots, \varphi_m\}\) a basis for \(U^*\), \(\basis C = \{f_1,\dots, f_n\}, \basis C^* = \{\eta_1,\dots, \eta_n\}\) for \(V\) and \(V^*\). If \([\varphi]_{\basis B, \basis C} = A\) then
+  \begin{align*}
+    [\varphi_L]_{\basis B, \basis C^*} &= A^T, \\
+    [\varphi_R]_{\basis C, \basis B^*} &= A. \\
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  \begin{align*}
+    \varphi_L(e_i)(f_j) = A_{ij} &\Longrightarrow \varphi_L(e_i) = \sum_{j}^{ }A_{ij}\eta_j \\
+    \varphi_R(f_j)(e_i) = A_{ij} &\Longrightarrow \varphi_R(f_j) = \sum_{i}^{ }A_{ij}\varepsilon_j
+  \end{align*}
+\end{proof}
+
+\begin{definition}[Left and right kernel]
+  The \emph{left (right, respectively) kernel} of \(\varphi\) is \(\ker \varphi_L\) (\(\ker \varphi_R\), respectively).
+\end{definition}
+
+\begin{definition}[Degeneracy]
+  \(\varphi\) is \emph{non-degenerate} if \(\ker \varphi_L = 0\) and \(\ker \varphi_R = 0\). Otherwise, \(\varphi\) is \emph{degenerate}.
+\end{definition}
+
+\begin{lemma}
+  Let \(U, V\) have bases as before, and \(\varphi, A\) as before. Then \(\varphi\) is non-degenerate if and only if \(A\) is invertible.
+\end{lemma}
+
+\begin{proof}
+  \begin{align*}
+    & \varphi \text{ is non-degenerate} \\
+    \Leftrightarrow & \ker \varphi_L = 0 \text{ and } \ker \varphi_R = 0 \\
+    \Leftrightarrow & n(A^T) = n(A) = 0 \\
+    \Leftrightarrow & r(A^T) = \dim V, r(A) = \dim U \\
+    \Leftrightarrow & A \text{ is invertible}
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  If \(\varphi\) is non-degenerate and \(U\) and \(V\) are finite-dimensional and \(\dim U = \dim V\).
+\end{corollary}
+
+\begin{corollary}
+  When \(U\) and \(V\) are finite-dimensional, choosing a non-degenerate bilinear form \(\varphi: U \times V \to \F\) is equivalent to picking an isomorphism \(\varphi_L: U \to V^*\).
+\end{corollary}
+
+\begin{definition}
+  For \(T \subseteq U\),
+  \begin{align*}
+    T^\perp &= \{ v\in V: \varphi(t, v) = 0 \, \forall t\in T \} \leq V \\
+    ^\perp S &= \{ u\in U: \varphi(u, s) = 0 \, \forall s\in S \} \leq U
+  \end{align*}
+\end{definition}
+They are generalisation of annihilators.
+
+\begin{proposition}
+  Suppose \(U\) have basese \(\basis B, \basis B'\) and \(V \) have bases \(\basis C, \basis C'\), \(P = [\id]_{\basis B', \basis B}, \Q = [\id]_{\basis C',\basis C}\). Let \(\varphi: U \times V \to \F\) be a bilinear form. Then
+  \[
+    [\varphi]_{\basis B',\basis C'} = P^T[\varphi]_{\basis B,\basis C}Q.
+  \]
+\end{proposition}
+
+\begin{proof}
+  \begin{align*}
+    \varphi(u, v) &= [u]_{\basis B}^T [\varphi]_{\basis B, \basis C} [v]_{\basis C} \\
+                  &= (P[u]_{\basis B'})^T [\varphi]_{\basis B, \basis C} (Q[v]_{\basis C'}) \\
+                  &= [u]_{\basis B'}^T P^T[\varphi]_{\basis B, \basis C}Q[v]_{\basis C'} 
+  \end{align*}
+\end{proof}
+
+\begin{definition}[Rank of bilinear form]
+  The \emph{rank} of \(\varphi\), \(r(\varphi)\), is the rank of its matrix representation (which is well-defined by the previous proposition).
+\end{definition}
+
+\begin{note}
+  \[
+    r(\varphi) = r(\varphi_L) = r(\varphi_R).
+  \]
+\end{note}
+
+\section{Determinant \& Trace}
+
+\subsection{Trace}
+
+\begin{definition}[Trace]
+  For \(A \in \M_n(\F) = \M_{n,n}(\F)\), the \emph{trace} of \(A\) is
+  \[
+    \tr(A) = \sum_{i=1}^{n}A_{ii}.
+  \]
+\end{definition}
+
+\begin{lemma}
+  For \(A, B\in \M_n(\F)\),
+  \[
+    \tr(AB) = \tr(BA).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \[
+    \tr(AB) = \sum_{i}^{ }\sum_{j}^{ }a_{ij}b_{ji} = \sum_{j}^{ }\sum_{i}^{ }b_{ji}a_{ij} = \tr(BA).
+  \]
+\end{proof}
+
+\begin{lemma}
+  Similar (or conjugate) matrices have the same trace.
+\end{lemma}
+
+\begin{proof}
+  Suppose \(A\) and \(B\) are conjugates, they there exists \(P\) such that \(B = P^{-1}AP\) so
+  \[
+    \tr(B) = \tr(P^{-1}AP) = \tr(APP^{-1}) = \tr(A).
+  \]
+\end{proof}
+
+\begin{definition}[Trace of map]
+  Let \(\alpha: V \to V\) be a linear, the \emph{trace} of \(\alpha\) is
+  \[
+    \tr \alpha = \tr [\alpha]_{\basis B, \basis B}
+  \]
+  with repsect to a basis \(\basis B\). This is well-defined by the previous lemma.
+\end{definition}
+
+\begin{lemma}
+  Let \(\alpha: V \to V\) be linear and \(\alpha^*: V* \to V*\) be its dual. Then
+  \[
+    \tr \alpha = \tr \alpha^*.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \[
+    \tr \alpha = \tr [\alpha]_{\basis B} = \tr [\alpha]_{\basis B}^T = \tr[\alpha^*]_{\basis B^*} = \tr \alpha^*.
+  \]
 \end{proof}
 \end{document}

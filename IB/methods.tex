@@ -1266,7 +1266,7 @@ We can find a solution \emph{without} applying boundary conditions by considerin
 \begin{align*}
   \eta &= \frac{x}{2\sqrt{Dt}} \\
   \frac{\partial  }{\partial t} &= \frac{\partial \eta}{\partial t} \frac{\partial  }{\partial \eta} = -\frac{\eta}{2t} \frac{\partial  }{\partial \eta} \\
-  \frac{\partial  }{\partial x} &= \dots\frac{\partial \eta}{\partial x} \frac{\partial  }{\partial \eta} = \frac{1}{2\sqrt{Dt}} \frac{\partial  }{\partial t} \\
+  \frac{\partial  }{\partial x} &= \frac{\partial \eta}{\partial x} \frac{\partial  }{\partial \eta} = \frac{1}{2\sqrt{Dt}} \frac{\partial  }{\partial t} \\
   \frac{\partial^2  }{\partial x^2} &= \frac{1}{4Dt} \frac{\partial^2  }{\partial \eta^2}
 \end{align*}
 so
@@ -1295,4 +1295,155 @@ is the \emph{error function}. Note that
 \item The solution does not change along the line of constant \(\eta\), i.e.\ constant \(\frac{x}{2\sqrt{Dt}}\).
 \end{itemize}
 
+\subsection{Seperation of variables}
+
+\subsubsection{Cartesian Geometry}
+
+We wish to solve a problem with boundary conditions and initial conditions so consider a bar of length \(2L\),
+\begin{align*}
+  \theta(x,0) &=
+  \begin{cases}
+    \theta_0 & 0 < x \leq L \\
+    0 & -L \leq x < 0
+  \end{cases}
+  \\
+  \theta(L,t) &= \theta_0 \\
+  \theta(-L,t) &= 0 \\
+  \frac{\partial \theta}{\partial t} &= D \frac{\partial^2 \theta}{\partial x^2}
+\end{align*}
+
+This problem has \emph{inhomogeneous boundary conditions}, although it is still linear so we can define
+\begin{align*}
+  \theta &= \theta_s(x) + \hat \theta(x, t) \\
+  0 = \frac{d^x \theta_s}{dx^2} \\
+  \frac{\partial \theta}{\partial t} &= D \frac{\partial^2 \theta}{\partial x^2}
+\end{align*}
+where \(\theta_s(L) = \theta_0\) and \(\theta_s(-L) = 0\) so \(\hat \theta(L, t) = 0 = \hat \theta(-L, t)\).
+
+So we are solving
+\begin{align*}
+  \theta_s(x) &= \theta_0 \left( \frac{x+L}{2L} \right) \\
+  \hat \theta(x, t) &= \theta - \theta_s \\
+  \hat \theta(x, 0) &= \theta_0 \left( H(x) - \frac{x+L}{2L} \right) \\
+  \hat \theta(-L, t) &= \hat \theta(L, t) = 0
+\end{align*}
+satisfying the heat equation.
+
+Now apply seperation of variables:
+\begin{enumerate}
+\item Let \(\hat \theta(x, t) = X(x) T(t)\),
+\item \(X \dot T = DT X''\) so \(\frac{\dot T}{T} = D \frac{X''}{X}\). \(X'' = -\lambda X, \dot T = -D \lambda T\) where \(\lambda > 0\). Note that in comparison with the wave equation, it has first time derivative. Thus any state is transient.
+\item Apply the boundary conditions:
+  \begin{align*}
+    X(x) &= A\cos\sqrt \lambda x + B \sin \sqrt \lambda x \\
+    0 &= A \cos \sqrt \lambda L - B \sqrt \lambda L \\
+    0 &= A \cos \sqrt \lambda L + B \sqrt \lambda L \\
+  \end{align*}
+  so \(A = \sin \sqrt \lambda L = 0, \lambda = \frac{n^2\pi^2}{L^2}\) we require the solution to be odd.
+\item Find the eigenvalues,
+  \[
+    T_n = c_n \exp \left( - \frac{Dn^2\pi^2}{L^2}t \right)
+  \]
+\item the full solution is
+  \[
+    \hat \theta(x, t) = \sum_{n=1}^{\infty}b_n \sin \frac{n\pi x}{L} \exp \left( - \frac{Dn^2\pi^2}{L^2}t \right)
+  \]
+\item Apply the initial condition:
+  \[
+    \hat \theta(x, 0) = \sum_{n=1}^{\infty} \sin \frac{n\pi x}{L} = \theta_0 \left( H(x) - \frac{x+L}{2L} \right)
+  \]
+  so
+  \begin{align*}
+    L b_m &= \theta_0 \int_{0}^{L} \sin \frac{m\pi x}{L} dx \\
+    &- \frac{\theta_0}{2} \int_{-L}^{L} \sin \frac{m\pi x}{L} dx \\
+    &- \frac{\theta_0}{2L} \int_{-L}^{L} x\sin \frac{m\pi x}{L} dx \\
+           &= \frac{L\theta_0}{m\pi}
+  \end{align*}
+
+  So
+  \[
+    \hat \theta = \theta_0 \sum_{n=1}^{\infty} \frac{1}{n\pi} \sin \frac{n\pi x}{L} \exp \left( - \frac{D n^2\pi^2}{L^2} t \right)
+  \]
+  and the full solution is
+  \[
+    \theta(x, t) = \theta_0 \left( \frac{x+L}{2L} \right) + \hat \theta(x, t).
+  \]
+
+  Now consider an infinite bar with
+  \[
+    \theta(x, 0) =
+    \begin{cases}
+      \theta_0 & x > 0 \\
+      0 & x < 0
+    \end{cases}
+  \]
+  with similarity solution
+  \[
+    \theta_e = \frac{\theta_0}{2} \left( 1 + \erf\left( \frac{x}{2\sqrt{Dt}} \right) \right)
+  \]
+  is a solution that satsifies this initial condition.
+
+  We will show that at early time \(\theta_e\) is very similary to \(\theta\) with boundary conditions, i.e.\ \(t \ll L^2/D\). The exponential terms have almost disappeared
+\end{enumerate}
+
+\subsection{Annular Geometry}
+
+Consider an annulus with out radius \(R_o\) and inner radius \(R_i\). At \(t = 0^+\) the fluid in the pipe flows. The outer temperature is \(\theta_f\) and the inner temperature is \(\theta_g\).
+
+This problem is clearly axis-symmetric so consider the scaled temperature
+\[
+  \psi(r, t) = \frac{\theta(r, t) - \theta_g}{\theta_f - \theta_g}
+\]
+therefore the problem reduces to
+\begin{align*}
+  \frac{\partial \psi}{\partial t} &= \frac{D}{r} \frac{\partial  }{\partial r} \left( r \frac{\partial \psi}{\partial r} \right) \\
+  \psi(r, 0) &= 0, \, R_i < r < R_0 \\
+  \psi(R_i, t) &= 1 \\
+  \phi(R_o, t) &= 0
+\end{align*}
+
+Write \(\psi\) as a sum of steady state solution and time-dependent solution:
+\[
+  \psi(r, t) = \psi_s(r) = \hat \psi(r, t)
+\]
+solve to get
+\[
+  \psi_s = \frac{\log r/R}{\log R_i/R_o}
+\]
+Now apply seperation of variables,
+\begin{align*}
+  \hat \psi(r, t) &= R(r)T(t) \\
+  \dot T &= -\lambda D T \\
+  r^2 R'' + r R' + \lambda r^2 R &= 0
+\end{align*}
+which is Bessel's equation of order zero. So we set
+\[
+  R_m(r) = A_m J_0(s_m r) + B_m Y_0(s_m r)
+\]
+\(s_m\) are determined from the boundary contitions. Note since the domain does not include the origin the solution involves \(Y_m\).
+\[
+  R_m(r) = \left[ \frac{J_0(s_m r)}{J_0(s_m R_i)} - \frac{Y_0(s_m r)}{Y_0(s_m R_i)} \right]
+\]
+Condition at \(r = R_o\) yields eigenvalues \(s_m\) since \(\hat \psi(R_o, t) = 0, R_m(R_o) = 0\) so
+\[
+  Y_0(s_m R_i) J_0(s_m R_o) - Y_o(s_m R_o)J_o(s_m R_i) = 0
+\]
+must have a countably infinite number of solutions since the operator is self-adjoint.
+
+Also, the eigenfunctions are orthogonal so
+\[
+  \frac{1}{a_m^2} = \int_{R_i}^{R_o} r \left[ \frac{J_0(s_m r)}{J_0(s_m R_i)} - \frac{Y_0(s_m r)}{Y_0(s_m R_i)} \right]^2 dr
+\]
+The other seperated solution is
+\[
+  T_m(t) = \exp \left( -D s_m^2 t \right)
+\]
+and thus the general solution is
+\[
+  \psi(r, t) = \psi_s + \sum_{m=1}^{\infty} c_m \exp \left( -D s_m^2 t \right) R_m(r)
+\]
+\(c_m\) is determined from initial conditions:
+\[
+  c_n = - \int_{R_i}^{R_o} r \psi(s R_n(r) dr
+\]
 \end{document}
