@@ -1577,4 +1577,163 @@ They are generalisation of annihilators.
     \tr \alpha = \tr [\alpha]_{\basis B} = \tr [\alpha]_{\basis B}^T = \tr[\alpha^*]_{\basis B^*} = \tr \alpha^*.
   \]
 \end{proof}
+
+\subsection{Determinant}
+
+Let \(S_n\) be the permutations group of the set \(\{1, 2, \dots, n\}\) and \(\varepsilon: S_n \to \{1, -1\}\) be the signature of a permutation, i.e.
+\[
+  \varepsilon(\sigma) =
+  \begin{cases}
+    1 &\text{if \(\sigma\) is a product of even number of transpotitions}\\
+    0 &\text{otherwise}
+  \end{cases}
+\]
+
+\begin{definition}[Determinant]
+  Suppose \(A \in \M_n(\F)\), \(A = (a_{ij})\), the \emph{determinant} of \(A\) is
+  \[
+    \det A = \sum_{\sigma \in S_n}^{ } \varepsilon(\sigma) a_{\sigma(1), 1} a_{\sigma(2), 2} \dots a_{\sigma(n), n}.
+  \]
+\end{definition}
+
+There are \(n!\) terms in this summation and each is the signed product of \(n\) elements (one from each row and each column).
+
+\begin{eg}
+  For \(n = 2\),
+  \[
+    \det
+    \begin{pmatrix}
+      a_{11} & a_{12} \\
+      a_{21} & a_{22}
+    \end{pmatrix}
+    =a_{11}a_{22} - a_{21}a_{12}
+  \]
+\end{eg}
+
+\begin{lemma}
+  If \(A = (a_{ij})\) is an upper-triangular matrix (i.e.\ \(a_{ij} = 0\) for all \(i > j\)) then
+  \[
+    \det A = a_{11}a_{22}\dots a_{nn}.
+  \]
+  Similar for lower-trianglular matrices.
+\end{lemma}
+
+\begin{proof}
+  In the summation
+  \[
+    \det A = \sum_{\sigma \in S_n}^{ }\varepsilon(\sigma) a_{\sigma(1), 1}\dots a_{\sigma(n),n},
+  \]
+  for a summand to be non-zero, need \(\sigma(j) \leq j\) for all \(j\). Thus \(\sigma = \id\).
+\end{proof}
+
+\begin{lemma}
+  \[
+    \det A = \det A^T
+  \]
+\end{lemma}
+
+\begin{proof}
+  \begin{align*}
+    \det A &= \sum_{\sigma \in S_n}^{ } \varepsilon(\sigma) \prod_{i = 1}^n a_{\sigma(i), i} \\
+           &= \sum_{\sigma \in S_n}^{ } \varepsilon(\sigma) \prod_{i = 1}^n a_{i, \sigma^{-1}(i)} \\
+           &= \sum_{\sigma \in S_n}^{ } \varepsilon(\sigma^{-1}) \prod_{i = 1}^n a_{i, \sigma^{-1}(i)} \\
+           &= \sum_{\tau \in S_n}^{ } \varepsilon(\tau) \prod_{i = 1}^n a_{i, \tau(i)} \text{ where \(\tau = \sigma^{-1}\)} \\
+           &= \det A^T
+  \end{align*}
+\end{proof}
+
+\begin{definition}[Volume form]
+  A \emph{volume form} on \(\F^n\) is a function
+  \[
+    d: \underbrace{\F^n \times \F^n \times \dots \times \F^n}_{\text{\(n\) copies}} \to \F
+  \]
+  which is:
+  \begin{itemize}
+  \item multilinear: for any \(i\) and \(v_1, \dots, v_{i-1}, v_i, v_{i + 1}, \dots, v_n \in \F^n\),
+    \[
+      d(v_1, \dots, v_{i-1}, -, v_{i+1}, \dots, v_n) \in (\F^n)^*.
+    \]
+  \item alternating: if \(v_i = v_j\) for \(i \neq j\), \(d(v_1, \dots, v_n) = 0\).
+  \end{itemize}
+\end{definition}
+
+\begin{notation}
+  Given \(A = (a_{ij})\), write \(A\) in column form
+  \[
+    \left( A^{(1)} | \cdots | A^{(n)} \right).
+  \]
+\end{notation}
+For example, if \(\{e_i\}\) is a standard basis for \(\F^n\) then
+\[
+  I = \left(e_1 | \dots | e_n \right).
+\]
+
+\begin{lemma}
+  \begin{align*}
+    \det: \F^n \times \dots \times \F^n &\to \F \\
+    (A^{(1)}, \dots, A^{(n)}) &\mapsto \det A
+  \end{align*}
+  is a volume form.
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item Multilinear: for any fixed \(\sigma \in S_n\), \(\prod_{i = 1}^n a_{\sigma(i), i}\) contains exactly one term from each column so it is multilinear. Multilinearity is preserved under addition.
+  \item Alternating: suppose \(A^{(k)} = A^{(l)}\) for some \(l \neq k\). Let \(\tau = (kl)\). Then \(a_{ij} = a_{i \tau(j)}\) for all \(i, j\). Also \(S_n\) can be expressed as a union of two disjoint cosets \(A_n\) and \(\tau A_n\) so
+    \begin{align*}
+      \det A &= \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \sigma(i)} - \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \tau\sigma(i)} \\
+             &= \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \sigma(i)} - \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \sigma(i)} \\
+             &= 0
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+In the rest of the section, we are going to prove that the converse is true, i.e.\ all volume forms are determinants up to a scaling constant.
+
+\begin{lemma}
+  Let \(d\) be a volume form. Then swapping two entries changes the sign:
+  \[
+    d(v_1, \dots, v_i, \dots, v_j, \dots, v_n) = - d(v_1, \dots, v_j, \dots, v_i, \dots, v_n).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \begin{align*}
+    0 &= d(v_1, \dots, v_{i-1}, v_i + v_j, v_{i+1}, \dots, v_{j-1}, v_i + v_j, v_{j + 1}, \dots, v_n) \\
+      &= \underbrace{(v_1, \dots, v_i, \dots, v_i, \dots, v_n)}_{ = 0} + d(v_1, \dots, v_j, \dots, v_i, \dots, v_n) \\
+      &+ d(v_1, \dots, v_i, \dots, v_j, \dots, v_n) + \underbrace{d(v_1, \dots, v_j, \dots, v_j, \dots, v_n)}_{ = 0} \\
+  \end{align*}
+  Rearrange.
+\end{proof}
+
+\begin{corollary}
+  If \(\sigma \in S_n\),
+  \[
+    d(v_{\sigma(1)}, \dots, v_{\sigma(n)}) = \varepsilon(\sigma) d(v_1, \dots, v_n).
+  \]
+\end{corollary}
+
+\begin{theorem}
+  Let \(d\) be a volumne form on \(\F^n\), \(A = (A^{(1)}|\dots | A^{(n)})\), then
+  \[
+    d(A^{(1)}, \dots, A^{(n)}) = \det A \cdot d(e_1, \dots, e_n).
+  \]
+\end{theorem}
+
+\begin{proof}
+  \begin{align*}
+    d(A^{(1)}, \dots, A^{(n)}) &= d \left( \sum_{i=1}^{n} a_{i1}e_i, A^{(2)}, \dots, A^{(n)} \right) \\
+                               &= \sum_{i = 1}^{n}a_{i1} d(e_i, A^{(2)}, \dots, A^{(n)}) \\
+                               &= \sum_{i}^{} \sum_{j}^{ } a_{i1} a_{j2} d(e_i, e_j, \dots, A^{(n)}) \\
+                               &= \sum_{i_1, i_2, \dots, i_n}^{ } \prod_{k = 1}^{n} a_{{i_k},k} d(e_{i_1}, \dots e_{i_n})
+\end{align*}
+The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma \in S_N\) such that \(i_k = \sigma(k)\). Thus
+\begin{align*}
+  d(A^{(1)}, \dots, A^{(n)}) = \sum_{\sigma \in S_n}^{ } \prod_{k = 1}^{n} a_{\sigma(k), k} \underbrace{d(e_{\sigma(1)}, \dots, e_{\sigma(n)})}_{= \varepsilon(\sigma) d(e_1, \dots, e_n)}
+\end{align*}
+\end{proof}
+
+\begin{corollary}
+  \(\det\) is the unique volume form \(d\) such that \(d(e_1, \dots, e_n) = 1\).
+\end{corollary}
 \end{document}

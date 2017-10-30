@@ -16,6 +16,8 @@
 %TODO: resolve \div not working issue
 \renewcommand\div{\divergence}
 \newcommand*\dive{\divergence}
+\newcommand*\laplace{\grad^2}
+\newcommand*\lap{\laplace}
 
 \DeclareMathOperator{\erf}{erf}
 
@@ -1446,4 +1448,136 @@ and thus the general solution is
 \[
   c_n = - \int_{R_i}^{R_o} r \psi(s R_n(r) dr
 \]
+
+\section{Laplace's Equation}
+
+There are many steady state problems, and they often involve finding the solution to \emph{Lapace's eqaution}:
+\[
+  \lap \psi = 0
+\]
+in some domain \(D\). It is a canonical example of the \(3\)rd qualitatively different linear PDE: \emph{elliptic} PDEs.
+
+\subsection{Motivation \& Notation}
+
+Subject to boundary condition on \(\partial D\) of \(D\) we can define the problem:
+\begin{enumerate}
+\item Dirichlet conditions: if \(\psi\) is given on the boundary, the solution to \(\psi\) is unique.
+\item Neumann conditions: if \(\V n \cdot \grad \psi\) is given on boundary where \(\V n\) is the outward normal, \(\psi\) is unique up to an additive constant.
+\end{enumerate}
+
+Examples include:
+\begin{enumerate}
+\item In fluid mechaincs, in the absence of sources, sinks and vortices, the velocity \(\V u\) can be written as a velocity potential \(\V u = \grad \phi\) and if the fluid is incompressible, i.e.\ \(\dive \V u = 0\), then \(\lap \phi = 0\).
+\item The study of Laplace's equation is often called \emph{potential theory} because there are many solutions where a vector quantity (a conservative force) can be expressed as a gradient of potential \(\V F = -\grad \psi\). Work done around any closed path is zero:
+  \[
+    \oint_C \V F \cdot d\V r = 0.
+  \]
+  Thus by vector calculus \(\psi\) satisfies the Laplace's equaiotn. By convention \(\V F\) is called a \emph{force field}.
+\item Harmonic functions (another name for solutions of Laplace's equations) are extremely important in mathematics. Consider a complex function \(f(z)\) defined in some region \(R \subseteq \C\). Write \(z = x + iy\).
+\[
+  f(z) = u(x, y) + iv(x, y)
+\]
+The requirement that \(f(z)\) is analytic/holomorphic in \(R\) (single valued and differentiable, loosly a generalisation of the concept of continuity), can be shown to require that \emph{both} \(u\) and \(v\) satisfy the 2D version of Laplace's equation:
+\begin{align*}
+  \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}  &= 0 \\
+  \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}  &= 0
+\end{align*}
+\end{enumerate}
+
+\subsection{3D Cartesian Coordinates for Laplace's Equation}
+
+In 3D \(\psi(x, y, z) = X(x) Y(y) Z(x)\) such that
+\[
+  \psi_{xx} +\psi_{yy} + \psi_{zz} = 0
+\]
+satsify
+\[
+  \frac{X''}{X} +\frac{Y''}{Y} +\frac{Z''}{Z} = 0 .
+\]
+Thus write
+\begin{align*}
+  X'' &= -\lambda_\ell X \\
+  Y'' &= -\mu_m Y \\
+  Z'' &= (\lambda_\ell + \mu_m) Z
+\end{align*}
+where \(\lambda_\ell\) and \(\mu_m\) are positive. Now procees to solve in using SOV:
+\begin{enumerate}
+\item Seperate variables.
+\item Find the eigenvalues \(\lambda_\ell\) and \(\mu_m\) and the associated eigenfunctions \(X_\ell(x), Y_m(y)\) by applying boundary conditions on \(x\) and \(y\).
+\item Solve for \(Z_{\ell,m}\) and thus construct a particular solution \(P_{\ell, m} = X_\ell(x) Y_m(y) Z_{\ell, m}(z)\)
+\item Sum
+  \[
+    \phi(x, y, z) = \sum_{\ell, m}^{ } a_{\ell, m} X_\ell(x) Y_m(y) Z_{\ell, m}(z)
+  \]
+\item Determine the \(a_{\ell, m}\) using the boundary conditions on \(z\).
+\end{enumerate}
+
+\subsection{Example: Steady Heat Conduction}
+
+Consider a semi-infinite rod of rectangular cross-section heated at one end with fixed temeprature and fixed (lower) temperature on the other side:
+\begin{align*}
+  \frac{\partial \psi}{\partial t} &= k \lap \psi = 0 \\
+  \psi(x, y, 0) &= \Theta(x, y), \, \psi \to 0 \text{ as } y \to \infty \\
+  \psi(0, y, z) &= \psi(a, y, z) = \psi(x, 0, z) = \psi(x, b, z) = 0
+\end{align*}
+
+Same steps as above:
+\begin{enumerate}
+\item Let \(\psi = X_\ell(X) Y_m(y) Z_{\ell, m}(z)\). So \(X'' = -\lambda_\ell X, X(0) = X(a) = 0\). The boundary conditions quantise \(\lambda_\ell = \frac{\ell^2\pi^2}{a^2}\) so
+  \[
+    X_\ell = \sqrt{\frac{2}{a}} \sin \frac{\ell\pi x}{a}, \, \ell = 1, 2, 3, \dots
+  \]
+  Similarly
+  \[
+    Y'' = -\mu_m Y, \, Y(0) = Y(b) = 0
+  \]
+  implies
+  \begin{align*}
+    \mu_m &= \frac{m^2\pi^2}{b^2} \\
+    Y_m &= \sqrt{\frac{2}{b}} \sin \frac{m\pi y}{b}
+  \end{align*}
+\item
+  \[
+    Z''_{\ell, m} = \left( \frac{\ell^2\pi^2}{a^2} + \frac{m^2\pi^2}{b^2} \right) Z_{\ell, m}
+  \]
+  so
+  \[
+    Z_{\ell, m} = \alpha \exp \left[ \left( \frac{\ell^2\pi^2}{a^2} + \frac{m^2\pi^2}{b^2} \right)^{1/2} \pi z \right] + \beta \exp \left[ -\left( \frac{\ell^2\pi^2}{a^2} + \frac{m^2\pi^2}{b^2} \right)^{1/2} \pi z \right]
+  \]
+  The generation solution is
+  \begin{align*}
+    \psi(x, y, z) &= \frac{2}{\sqrt{ab}} \sum_{\ell = 1}^{\infty} \sum_{m = 1}^{\infty} a_{\ell, m} \sin \frac{\ell\pi x}{a} \sin \frac{m\pi y}{b} \exp \left[ -\left( \frac{\ell^2\pi^2}{a^2} + \frac{m^2\pi^2}{b^2} \right)^{1/2} \pi z \right]
+  \end{align*}
+\item The boundary conditions at \(z = 0\) determines the coefficients \(a_{\ell, m}\) due to orthogonality of sines:
+  \iffalse
+  \begin{align*}
+    & \frac{2}{\sqrt{ab}} \int_{0}^{b} \int_{0}^{a} \Theta(x, y) \sin \frac{p\pi x}{a} \sin \frac{q\pi y}{b} dx dy \\
+    =& \sum_{\ell = 1}^{\infty} \sum_{m = 1}^{\infty} a_\ell \frac{2}{b} \int_{0}^{b} \sin \frac{m\pi y}{b} \sin \frac{q\pi y}{b} dx \right] \dots \\
+    =& a_{pq}
+  \end{align*}
+  \fi
+\end{enumerate}
+
+One observation of that Fourier series is clearly useful. Sine functions because of Dirichlet  conditions, Neuman conditions cosines (no need to normalise).
+
+For a finte bar we would have had \(Z_{\ell, m}\) in terms of sinhs and coshs. Solution for \(\Theta = 1\):
+\begin{align*}
+  a_{pq} &= \frac{2}{\sqrt{ab}} \int_{0}^{b} \int_{0}^{a} \sin \frac{p\pi x}{a} \sin \frac{q \pi y}{b} dx dy \\
+         &=
+           \begin{cases}
+             \frac{8 \sqrt{ab}}{\pi^2 pq} & \text{ if \(p\) and \(q\) are both odd} \\
+             0 &\text{ otherwise}
+           \end{cases}
+\end{align*}
+so
+\[
+  \phi(x, y, z) = 16 \sum_{\ell = 1}^{\infty} \sum_{m = 1}^{\infty} \dots
+\]
+
+Some obervations:
+\begin{itemize}
+\item The bar is notter in the middle.
+\item As \(z \to \infty\), the solution is dominated by the lower harmonics, i.e.\ when \(\ell\) and \(m\) are small so the far field solution is determined by \(\ell = m = 1\).
+\item if \(a = b\) then \(k_{m, \ell} = k_{\ell, m}\) and the eigenvalues are degenerate. The eigenfunctions are still orthogonal and the problem is still well-posed.
+\end{itemize}
 \end{document}

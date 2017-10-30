@@ -11,6 +11,7 @@
 \input{header}
 
 \newcommand*{\riem}[1]{\mathcal{#1}}
+\newcommand*{\D}{\mathcal{D}}
 
 \theoremstyle{definition}
 \newtheorem*{joke}{Joke}
@@ -814,7 +815,7 @@ In other words, power series can be differentiated term-by-term.
 
 \section{Compactness}
 
-\subsection{Compact subsets of \texorpdfstring{\(\R^n\)}{Rn}}
+\subsection{Compact subsets of \texorpdfstring{\(\R^n\)}{R\^{}n}}
 
 Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in \(V\) and \((n_j)\) is an increasing sequence of positive integers (i.e.\ \(n_{j+1}>n_j\)) then \((v_{n_j})\) is a \emph{subsequence} of \((v_n)\).
 
@@ -830,7 +831,7 @@ Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in
   if \(\norm \cdot\) and \(\norm \cdot'\) are Lipschitz equivalent then \(A\) is bounded with respect to \(\norm \cdot\) if and only if with respect to \(\norm \cdot'\). It follows that boundedness in \(\R^n\) means with respect to any one of \(\norm \cdot_1, \norm \cdot_2, \norm \cdot_\infty\).
 \end{remark}
 
-Recall from Analysis i:
+Recall from Analysis I:
 \begin{theorem}[Bolzano-Weierstrass]
   A bounded sequence in \(\R\) has a convergent subsequence.
 \end{theorem}
@@ -847,7 +848,7 @@ Recall from Analysis i:
 \end{proof}
 
 \begin{definition}[Sequential compactness]
-  \(C \subseteq V\) is \emph{sequenctially compact} if any sequence \((v_n)\) in \(C\) has a convergent subsequence \((v_{n_j}) \to v \in C\).
+  \(C \subseteq V\) is \emph{sequentially compact} if any sequence \((v_n)\) in \(C\) has a convergent subsequence \((v_{n_j}) \to v \in C\).
 \end{definition}
 
 \begin{remark}
@@ -911,8 +912,9 @@ Recall from Analysis i:
   \texttt{There is no joke today.}
 \end{joke}
 
-\begin{application}[Maximum Value Theorem]
- \begin{lemma}
+\subsubsection{Application I: Maximum Value Theorem}
+
+\begin{lemma}
   If \(\emptyset \neq A \subseteq \R \) is compact then \(\sup A \in A\).
 \end{lemma}
 
@@ -935,30 +937,29 @@ Recall from Analysis i:
 \begin{proof}
   Apply Theorem to \(-f\).
 \end{proof}
-\end{application}
 
-\begin{application}[Equivalence of Norms on \(\R^n\)]
-  Let \(\norm \cdot\) be some norm on \(\R^m\).
+\subsubsection{Application II: Equivalence of Norms on \texorpdfstring{\(\R^n\)}{R\^{}n}}
+
+Let \(\norm \cdot\) be some norm on \(\R^m\).
   
-  \begin{lemma}
-    The map \(\id: (\R^m, \norm \cdot_1) \to (\R^m, \norm \cdot)\) is continuous.
-  \end{lemma}
+\begin{lemma}
+  The map \(\id: (\R^m, \norm \cdot_1) \to (\R^m, \norm \cdot)\) is continuous.
+\end{lemma}
 
-  \begin{proof}
-    By the criterion in Proposition~\ref{prop:continuity of id} it suffices to show that there is a constant \(C\) such that \(\norm v \leq C \norm v_1\) for all \(v\in \R^m\). Let \(v = (v_1,\dots,v_m) = \sum_{i=1}^{m}v_ie_i \) where \(e_i\) is the standard basis vector. Take \(C = \max_{1\leq i\leq m}\norm{e_i}\). Then
-    \[
-      \norm v \leq \sum_{i=1}^{m}\norm{v_ie_i} = \sum_{i=1}^{m}|v_i| \norm{e_i} \leq C \sum_{i=1}^{m}|v_i| = C \norm v_1
-    \]
-  \end{proof}
+\begin{proof}
+  By the criterion in Proposition~\ref{prop:continuity of id} it suffices to show that there is a constant \(C\) such that \(\norm v \leq C \norm v_1\) for all \(v\in \R^m\). Let \(v = (v_1,\dots,v_m) = \sum_{i=1}^{m}v_ie_i \) where \(e_i\) is the standard basis vector. Take \(C = \max_{1\leq i\leq m}\norm{e_i}\). Then
+  \[
+    \norm v \leq \sum_{i=1}^{m}\norm{v_ie_i} = \sum_{i=1}^{m}|v_i| \norm{e_i} \leq C \sum_{i=1}^{m}|v_i| = C \norm v_1
+  \]
+\end{proof}
 
-  \begin{corollary}
-    The map \(f:(\R^m, \norm \cdot_1) \to (\R, |\cdot|)\) given by \(f(v) = \norm v\) is continuous.
-  \end{corollary}
+\begin{corollary}
+  The map \(f:(\R^m, \norm \cdot_1) \to (\R, |\cdot|)\) given by \(f(v) = \norm v\) is continuous.
+\end{corollary}
 
-  \begin{proof}
-    \(f = g\compose \id\) where \(g\) is the continuous map from \(\R^m\) to \(\R\) in Example~\ref{eg:continuity}.
-  \end{proof}
-\end{application}
+\begin{proof}
+  \(f = g\compose \id\) where \(g\) is the continuous map from \(\R^m\) to \(\R\) in Example~\ref{eg:continuity}.
+\end{proof}
 
 Recall that two norms \(\norm \cdot\) and \(\norm \cdot'\) on \(V\) are Lipschitz equivalent if there exists \(C\) such that
 \[
@@ -1271,6 +1272,169 @@ so given \(g_+ \in \riem U(f), g_- \in \riem L(f)\), \(g_- \leq f \leq g_+\) so 
     I(g_-) \leq l(f) \leq u(f) \leq I(g_+),
   \]
   \(0 \leq u(f) - l(f) \leq I(g_+) - I(g_-) \leq \varepsilon\) for all \(\varepsilon > 0\). Thus \(u(f) = l(f)\) and \(f\) is Riemann integrable.
-  
 \end{proof}
+
+\section{Differential Calculus on \texorpdfstring{\(\R^n\)}{R\^{}n}}
+
+\subsection{Derivative}
+
+It is natural to ask what is the generalisation of differentiation on \(\R\) to higher dimension. More specifically,
+
+\begin{question}\leavevmode
+  \begin{enumerate}
+  \item What does it mean for \(F: \R^2 \to \R\) to be differentiable?
+  \item If \(F\) is differentiable, what is its derivative?
+  \end{enumerate}
+\end{question}
+
+Recall from multivariate calculus the partial derivative
+\begin{align*}
+  \frac{\partial F}{\partial x_1} \Big|_{(a_1, a_2)} &= \D_1 F|_{(a_1, a_2)} \\
+                                                     &= \left( \frac{d}{dt} F(a_1 + t, a_2) \right) \big|_{t = 0} \\
+                                                     &= \lim_{h \to 0} \frac{F(a_1 + h, a_2) - F(a_1, a_2)}{h}
+\end{align*}
+Similar for \(\frac{\partial F}{\partial x_2}\).
+
+\begin{note}
+  Just becuase \(\frac{\partial F}{\partial x_i}\) exists does not mean that \(F\) is differentiable at \(a = (a_1, a_2)\):
+
+  \begin{eg}\leavevmode
+    \begin{itemize}
+    \item \[
+      F(x_1, x_2) =
+      \begin{cases}
+        0 & \text{ if } x_1 = 0 \text{ or } x_2 = 0 \\
+        1 & \text{ otherwise}
+      \end{cases}
+    \]
+    Then \(\frac{\partial F}{\partial x_1} = \frac{\partial F}{\partial x_2} = 0\) at \((0, 0)\) but \(F\) is not even continuous. Heuristically, a good definition of differentiability should not allow this (as this is not compatible with the old definition of differentiability).
+  \item If one insists that differentiability does not imply continuity (by whatever means) and declare \(F\) as differentiable whenever \(\frac{\partial F}{\partial x_i}\) exists, then consier \(G(x_1, x_2) = F(x_1 + x_2, x_1 - x_2)\), then \(\frac{\partial G}{\partial x_1}\) does not eve exist. This is even worse: the composition of differentiable functions is not differentiable!
+  \end{itemize}
+  \end{eg}
+\end{note}
+
+The existence of partial derivatives is not stron enough as \(\frac{\partial F}{\partial x_i}\) merely tells us about restriction of \(F\) to coordinate axes.
+
+To answer Q1, recall that \(f: \R \to \R\), \(f'(a) = c\) means that
+\[
+  \lim_{h \to 0} \frac{f(a+h) - f(a)}{h} = c.
+\]
+Graphically, \(y = T(x)\) is the tangent line to \(y = f(x)\) at \((a, f(a))\) where \(T(x) = f(a) + c(x - a)\). In other words,
+\begin{align*}
+  \lim_{h \to 0} \frac{f(a + h) - T(a + h)}{h} &= \lim_{h \to 0} \left( \frac{f(a + h) - f(a)}{h} - \frac{ch}{h} \right) \\
+                                               &= f'(a) -c \\
+                                               &= c - c \\
+                                               &= 0
+\end{align*}
+so \(f\) is differentiable at \(a\) if and only if \(f\) is well-approximately by its tangent line near \(a\) in the sense that
+\[
+  \lim_{h \to 0} \frac{f(a + h) - T(a + h)}{h} = 0.
+\]
+
+\begin{answer}[Answer to Q1]
+  \(F: \R^2 \to \R\) is differentiable at \(a\) if it is well-approximated by its tangent plane \(z = T(x_1, x_2)\) at \((a, F(a))\) in the sense that
+  \begin{equation}
+    \label{eqn:derivative}
+    \lim_{h \to 0} \frac{F(a + h) - T(a + h)}{\norm h} = 0
+    \tag{\(\ast\)}
+  \end{equation}
+  where the limit will be made rigorous later.
+\end{answer}
+
+Now we have to ask: what is the tangent plane? It is the equation
+\begin{align*}
+  z &= T(x_1, x_2) \\
+    &= F(a_1, a_2) +c_1(x_1 - a_1) + c_2(x_2 - a_2)
+\end{align*}
+for some \(c_1\) and \(c_2\) so
+\[
+  T(a + h) = F(a_1, a_2) + c_1h_1 + c_2h_2 = F(a_1, a_2) + L(h)
+\]
+where \(h = (h_1, h_2)\) and \(L: \R^2 \to \R\) is a linear map.
+
+\begin{answer}[Answer to Q2]
+  The derivative \(\D F|_a\) is the linear map \(L\).
+\end{answer}
+
+What should \(c_1\) and \(c_2\) that we used to parameterise \(T\) be? Equation~\eqref{eqn:derivative} says that
+\[
+  \lim_{h \to 0} \frac{F(a + h) - F(a_1, a_2) - c_1h_1 - c_2h_2}{\norm h} = 0
+\]
+Taking \(h = (h_1, 0)\) gives
+\begin{align*}
+  0 &= \lim_{h \to 0} \frac{F(a + h) - F(a_1, a_2) - c_1h_1}{h_1} \\
+    &= \lim_{h_1 \to 0} \left( \frac{F(a_1 + h, a_2) - F(a_1, a_2)}{h_1} - c_1 \right) \\
+    &= \frac{\partial F}{\partial x} \Big|_{(a_1, a_2)}
+\end{align*}
+so \(c_1 = \frac{\partial F}{\partial x_1}|_{(a_1, a_2)}\). Similar for \(c_2\). So
+\begin{align*}
+    \D F|_a &= \frac{\partial F}{\partial x_1} h_1 + \frac{\partial F}{\partial x_2} h_2 \\
+            &= \left( \frac{\partial F}{\partial x_1} \quad \frac{\partial F}{\partial x_2} \right) \binom{h_1}{h_2}
+\end{align*}
+i.e.\ as a map \(\D F|_a\) is given by the matrix
+\[
+  (\D_1 F|_a \quad \D_2 F|_a ).
+\]
+
+\begin{eg}
+  Define \(F\) as in the previous example. \(\frac{\partial F}{\partial x_i} = 0\) so if there were a tangent plane at 0 it would be given by
+  \[
+    z = T(x_1, x_2) = 0 + 0 \cdot x_1 + 0 \cdot x_2 = 0
+  \]
+  What a terrible approximation to \(F\)! No wonder \(F\) is not differentiable at \(0\).
+\end{eg}
+
+More generatlly,
+
+\begin{definition}[Differentiability]
+  Given \(F: \R^n \to \R^m\), \(F\) is \emph{differentiable} at \(a\) if there is a linear function \(L: \R^n \to \R^m\) such that
+  \[
+    \lim_{h \to 0} \frac{F(a + h) - F(a) - L(h)}{\norm h} = 0.
+  \]
+  If so, say \(\D F|_a = L\) is the \emph{derivative} of \(F\) at \(a\).
+\end{definition}
+
+If \(F = (F_1, \dots, F_m)\) is differentiable at \(a\), the derivative is given by the matrix
+\[
+  \D F|_a =
+  \begin{pmatrix}
+    \D_1F_1|_a & \cdots & \D_nF_1|_a \\
+    \vdots & \ddots & \vdots \\
+    \D_1F_m|_a & \cdots & \D_nF_m|_a
+  \end{pmatrix}
+\]
+  
+
+\begin{eg}
+  If \(\gamma: \R \to \R^n\),
+  \[
+    \D \gamma|_t =
+    \begin{pmatrix}
+      \gamma_1'(t) \\
+      \vdots \\
+      \gamma_m'(t)
+    \end{pmatrix}
+  \]
+  Recall the chain rule: given \(F: \R^m \to \R\),
+  \begin{align*}
+    \frac{d}{dt} F(\gamma(t)) &= \sum_{i = 1}^{m} \frac{\partial F}{\partial x_i} \Big|_{\gamma(t)} \gamma'_i(t) \\
+                              &=
+                                  \left( \frac{\partial F}{\partial x_1}  \cdots \frac{\partial F}{\partial x_m} \right)
+                                \begin{pmatrix}
+                                  \gamma_1'(t) \\
+                                  \vdots \\
+                                  \gamma_m'(t)
+                                \end{pmatrix} \\
+                              &= [C]
+  \end{align*}
+  As matrix multiplication is composition of linear maps,
+  \[
+    \D( F \compose \gamma)|_t = \D F|_{\gamma(t)} \compose \D \gamma|_t.
+  \]
+\end{eg}
+
+Similarly for \(F: \R^n \to \R^m\), \(G: \R^m \to \R^l\) differentiable, we will show that
+\[
+    \D( F \compose G) = \D F \compose \D G.
+\]
 \end{document}
