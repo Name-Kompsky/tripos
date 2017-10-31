@@ -607,15 +607,177 @@ Claim \(U = (U_n)\) and \(V = (V_n)\) are \emph{independent} random walks on \(\
 \end{proof}
 
 By independence
+\[
+  \prob_0(X_n = (0,0)) = \prob_0(Y_n = (0,0)) = \prob_0(U_n = 0) \prob_0(V_n = 0)
+\]
+so
+\[
+  p_{0,0}^{d=2}(2n) = \left( p_{0,0}^{d=1} \right)^2.
+\]
+
+The moral of this calculation is, two dimensional random walk is indeed the product of two one dimensional cases, but in a not-entirely-straightforward way.
+
+\section{Hitting Time and Probability}
+
+\begin{definition}[Hitting Time]
+  Given a subset \(A \subseteq S\), the \emph{hitting time} of \(A\) is
   \[
-    \prob_0(X_n = (0,0)) = \prob_0(Y_n = (0,0)) = \prob_0(U_n = 0) \prob_0(V_n = 0)
+    H^A = \inf\{n\geq 0: X_n \in A \}
+  \]
+\end{definition}
+Note that \(\inf \emptyset = \infty\) so \(H^A: \Omega \to \{0, 1, \dots\} \cup \{\infty\}\).
+
+\begin{definition}[Hitting probability]
+  The \emph{hitting probability} is \(h_i^A = \prob_i(H^A < \infty)\).
+\end{definition}
+
+By Markov property, hitting probability satisfies the equation
+\begin{equation}
+  \label{eqn:hitting prob}
+  h_i^A =
+  \begin{cases}
+    1 & i \in A \\
+    \sum_{i \in S} p_{ij}h_j^A & i \notin A
+  \end{cases}
+  \tag{\(\ast\)}
+\end{equation}
+
+\begin{theorem}
+  The vector \(h^A = (h_i^A: i \in S)\) is the minimal non-negative solution to~\eqref{eqn:hitting prob} in that for any \(x = (x_i: i \in S)\) satisfy
+  \[
+    x_i =
+    \begin{cases}
+      1 & i \in A \\
+      \sum_j p_{ij}x_j & i \notin A
+    \end{cases}
+  \]
+  and \(x_i \geq 0\) for \(i \in S\), \(h_i^A \leq x_i\) for \(i \in S\).
+\end{theorem}
+
+\begin{proof}
+  By MP, \(h^A\) satisfies~\eqref{eqn:hitting prob}. Suppose \(x = (x_i: i \in S)\) satisfies the hypothesis in the theorem. If \(i \in A\), \(x_i = 1 = h_i^A\) so \(h_i^A \leq x_i\). Let \(i \notin A\), then
+  \begin{align*}
+    x_i &= \sum_j p_{ij}x_j \\
+        &= \sum_{j \in A}p_{ij}\cdot 1 + \sum_{j \notin A} p_{ij}x_j \\
+        &\geq \sum_{j \in A} p_{ij} \\
+        &= \prob_i(H^A = 1)
+  \end{align*}
+  Similarly
+  \begin{align*}
+    x_i &= \prob_i(H^A = 1)  + \sum_{j \notin A}^{ } p_{ij} \left( \sum_{k \in A}^{ } p_{jk}x_k + \sum_{k \notin A}^{ } p_{jk}x_k \right) \\
+        &\geq \prob_i(H^A = 1) + \prob_i(H^A = 2)
+  \end{align*}
+  so by induction
+  \[
+    x_i \geq \sum_{m = 1}^{n} \prob_i(H^A = m) = \prob_i(H^A \leq n) \to \prob_i(H^A < \infty) = h_i^A
+  \]
+  as \(n \to \infty\).
+\end{proof}
+
+\begin{definition}[Mean hitting time]
+  The \emph{mean hitting time} is
+  \[
+    k_i^A = \E_i(H^A).
+  \]
+\end{definition}
+
+\begin{note}
+  \(k_i^A = \infty\) if \(h_i^A < 1\).
+\end{note}
+
+\begin{theorem}
+  The vector \(k^A = (k_i^A: i \in S)\) is the minimal non-negative solution to the equation
+  \begin{equation}
+    \label{eqn:hitting time}
+    y_i =
+    \begin{cases}
+      0 & i \in A \\
+      1 + \sum_{j}^{ } p_{ij}y_j & i \notin A
+    \end{cases}
+    \tag{\(\dag\)}
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  By MP, \(k^A\) satisfies~\eqref{eqn:hitting time}. Let \(y = (y_i: i \in S)\) be a non-negative solution to~\eqref{eqn:hitting time}. Let \(i \in A\) then \(y_i = 0 = k_1\). Let \(i \notin A\).
+  \begin{align*}
+    y_i &= 1 + \sum_{j \in S}^{ } p_{ij}y_j \\
+        &= 1 + \sum_{j \notin A}^{ } p_{ij}y_j \\
+        &= 1 + \sum_{j \notin A}^{ } p_{ij} \left( 1+ \sum_{k \notin A}^{ } p_{jk}y_k \right) \\
+        &\geq \prob_i(H^A \geq 1) + \prob_i(H^A \geq 2)
+  \end{align*}
+  By induction
+  \[
+    y_i \geq \sum_{m = 1}^{n} \prob_i(H^A \geq m) \to \sum_{m = 1}^{\infty} \prob_i(H^A \geq m) = \E_i(H^A)
+  \]
+  as \(n \to \infty\).
+\end{proof}
+
+\begin{eg}[Gambler's ruin]
+  Let \(S = \{0, 1, 2, \dots \}\) and \(0 < p < 1\). Take a random walk on \(S\) which moves one step right with probability \(p\) and left with probability \(q = 1 - p\). \(0\) is an \emph{absorbing barrier} as as soon as the random walk hits \(0\) it ends.
+
+  \begin{question}
+    What is the probability of absorption at \(0\) starting at \(i\)?
+  \end{question}
+
+  \begin{answer}
+    Let \(h_i = h_i^{\{0\}}\), then
+    \begin{align*}
+      h_0 &= 1 \\
+      h_i &= p h_{i+1} + q h_{i-1}
+    \end{align*}
+    which can be regarded as a second order difference equation with initial conditions.
+
+    First suppose \(p \neq q\). The general solution is
+    \[
+      h_i = A + B \left( \frac{q}{p} \right)^i \text{ for } i \geq 0.
+    \]
+    Suppose \(p < q\). Since \(h^i \leq 1\), \(B = 0\) or otherwise for large \(i\), \(h^i\) will blow up. Thus \(h_i = h_0 = 1\) for \(i \geq 0\). Now suppose \(p > q\). Eliminate \(B\) to get
+    \[
+      h_i = \left( \frac{q}{p} \right)^i + A \left( 1 - \left( \frac{q}{p} \right)^i \right)
+    \]
+    The minimality of \(h^i\) requires that \(A = 0\) so
+    \[
+      h_i = \left( \frac{q}{p} \right)^i
+    \]
+
+    Finally, consider the case \(p = q = \frac{1}{2}\). As above \(B = 0, A = 1\) so \(h_i = 1\) for \(i \geq 0\).
+  \end{answer}
+\end{eg}
+
+\begin{eg}[Birth-death chain]
+  This is similar to gambler's ruin but with inhomogeneuous transition probabilites: \(p_i + q_i = 1, p_i \in (0, 1)\). The governing equations are
+  \begin{align*}
+    h_0 &= 1 \\
+    h_i &= p_i h_{i+1} + q_i h_{i-1}
+  \end{align*}
+  At first glance, it seems nothing like a second order differential equation. However, rearrange to get
+  \[
+    p_i(h_i - h_{i + 1}) = q_i(h_{i - 1} -h_i)
+  \]
+  Define \(u_i = h_{i - 1} - h_i\) then
+  \[
+    p_i u_{i + 1} = q_i u_i
   \]
   so
+  \begin{align*}
+    u_i &= \frac{q_i q_{i - 1} \dots q_1}{p_i p_{i - 1} \dots p_1} u_1 \\
+        &= \gamma_i u_i
+  \end{align*}
+  where
   \[
-    p_{0,0}^{d=2}(2n) = \left( p_{0,0}^{d=1} \right)^2.
+    \gamma_i = \frac{\prod_{j = 1}^{i} q_j}{\prod_{j = 1}^{i} p_j}.
   \]
-
-  The moral of this calculation is, two dimensional random walk is indeed the product of two one dimensional cases, but in a not-entirely-straightforward way.
+  As
+  \begin{align*}
+    h_i &= 1 - (u_1 + u_2 + \dots + u_i) \\
+        &= 1 - u_1(\gamma_0 + \dots + \gamma_{i - 1}) \text{ for } i \geq 1
+  \end{align*}
+  where \(\gamma_0 = 1\). Let \(S = \sum_{i = 0}^{\infty} \gamma_i \). If \(S = \infty\) then \(u_1 = 0\) and \(h_i = 1\). If \(S < \infty\), \(1 - u_1 S = 0\) so
+  \[
+    h_i = 1 - \frac{\sum_{j = 0}^{i - 1}\gamma_j}{\sum_{j = 0}^{\infty}\gamma_j}
+  \]
+\end{eg}
 
 \iffalse
 \appendix
