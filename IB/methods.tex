@@ -1484,7 +1484,7 @@ The requirement that \(f(z)\) is analytic/holomorphic in \(R\) (single valued an
 \end{align*}
 \end{enumerate}
 
-\subsection{3D Cartesian Coordinates for Laplace's Equation}
+\subsection{Laplace's Equation in 3D Cartesian Coordinates}
 
 In 3D \(\psi(x, y, z) = X(x) Y(y) Z(x)\) such that
 \[
@@ -1576,8 +1576,178 @@ so
 
 Some obervations:
 \begin{itemize}
-\item The bar is notter in the middle.
+\item The bar is hotter in the middle.
 \item As \(z \to \infty\), the solution is dominated by the lower harmonics, i.e.\ when \(\ell\) and \(m\) are small so the far field solution is determined by \(\ell = m = 1\).
 \item if \(a = b\) then \(k_{m, \ell} = k_{\ell, m}\) and the eigenvalues are degenerate. The eigenfunctions are still orthogonal and the problem is still well-posed.
 \end{itemize}
+
+\subsection{Laplace's Equation in Polar Coordinates}
+
+\subsubsection{Plane Polar Coordinates}
+
+In polar coordinates \(\psi(r, \theta)\) and Laplaces's equation becomes
+\[
+  \lap \psi = \frac{1}{r} \frac{\partial  }{\partial r}\left(r \frac{\partial \psi}{\partial r} \right) + \frac{1}{r^2} \frac{\partial^2 \psi}{\partial \theta^2}
+\]
+Follow the seperation of variables algotithm:
+\begin{enumerate}
+\item \(\psi = R(r) \Theta(\theta)\) such that
+  \begin{align*}
+    \Theta'' &= -\lambda \Theta \\
+    \frac{r}{R}(rR')' &= \lambda
+  \end{align*}
+\item \(\Theta(\theta + 2\pi) = \Theta(\theta)\) so for \(n \) a positive integer \(\lambda = n^2\) is an eigenvalue with associated eigenfunction
+  \[
+    \Theta_n(\theta) = a_n \cos n\theta + b_n \sin n\theta
+  \]
+  For \(n^2 = 0 = \lambda\),
+  \[
+    \Theta_0(\theta) = \frac{a_0}{2} + b_0 \theta = \frac{a_0}{2} = c
+  \]
+  where \(b_0 = 0\) for periodicity and the scaling is to mimic Fourier series representation. The constant is also known as \(c\) sometimes.
+
+\item For \(n \neq 0\),
+  \begin{align*}
+    r(rR')' - n^2 R_n &= 0 \\
+    r^2R_n'' + rR_n' - n^2R_n &= 0 
+  \end{align*}
+  This is an equidimensional equation so use ansatz \(R_n \propto r^\beta\):
+  \begin{align*}
+    \beta^2 - n^2 &= 0 \\
+    \beta &= \pm n \\
+  \end{align*}
+  so
+  \[
+    R_n(r) = c_n r^n + d_n r^{-n}, \, n = 1, 2, \dots
+  \]
+  If \(n = 0\), \((rR')' = 0\) so
+  \[
+    c_0 + d_0 \log r = R_0 = \psi_0(r, \theta)
+  \]
+  since \(\Theta_0\) is simply a constant.
+\item Combine the results above:
+  \[
+    \psi(r, \theta) = c_0 + d_0 \log r + \sum_{n = 1}^{\infty} \left( a_n \cos n\theta + b_n \sin n\theta \right) \left( c_n r^n + d_n r^{-n} \right)
+  \]
+  Note: only \(3\) of \(a_n, b_n, c_n \) and \(d_n\) are needed for a complete description as the solution can always be scaled.
+\end{enumerate}
+
+\subsubsection{Example: Laplace's Equation in a Unit Disc}
+
+We want to solve the Laplace's equation for \(0 \leq r \leq 1\) such that
+\[
+  \psi(1, \theta) = f(\theta)
+\]
+and we require regularity at the origin.
+
+Regularity at \(r = 0\) implies that \(d_0 = d_n = 0\) so
+\[
+  \psi(r, \theta) = \frac{a_0}{2} + \sum_{n = 1}^{\infty}(a_n \cos n\theta + b_n \sin n\theta) r^n
+\]
+at \(r = 1\),
+\[
+  f(\theta) = \psi(1, \theta) = \frac{a_0}{2} + \sum_{n = 1}^{\infty}(a_n \cos n\theta + b_n \sin n\theta)
+\]
+Use Fourier series
+\begin{align*}
+  a_n &= \frac{1}{\pi} \int_{0}^{2\pi} f(\theta) \cos n\theta d\theta \\
+  b_n &= \frac{1}{\pi} \int_{0}^{2\pi} f(\theta) \sin n\theta d\theta \\
+\end{align*}
+
+\begin{note}
+  Higher harmonics, i.e.\ larger \(n\) have influence which is localised near \(r = 1\) due to \(r^n\) factor.
+\end{note}
+
+\subsubsection{Cylindrical Polar Coordinates}
+
+\[
+  \lap \psi = 0 = \frac{1}{r} \frac{\partial  }{\partial r} \left( r \frac{\partial \psi}{\partial r} \right) + \frac{1}{r^2} \frac{\partial^2 \psi}{\partial \theta^2} + \frac{\partial^2  }{\partial z^2} \psi
+\]
+
+Seperation of variables algorithm:
+\begin{enumerate}
+\item \(\psi = R(r) \Theta(\theta) Z(z)\) such that
+  \begin{align*}
+    \Theta'' &= -n^2 \Theta \\
+    Z'' &= k^2 Z
+  \end{align*}
+  so
+  \[
+    r \frac{d}{dr} \left( r \frac{dR}{dr} \right) + (k^2r^2 - n^2)R = 0
+  \]
+  Note substituting \(kr = x\) obtain Bessel's equation of order \(n\).
+\item Solve to get
+  \begin{align*}
+    \Theta_n(\theta) &= a_n \cos n\theta + b_n \sin n\theta \\
+    Z_k(z) &= C_k e^{-kz} + d_z e^{kz}
+  \end{align*}
+\item Substitute \(kr = x\):
+  \[
+    R_{n,k}(r) = \alpha_{n, k} J_n(kr) + \beta_{n, k} Y_n(kr)
+  \]
+\item The full solution is
+  \begin{align*}
+    \psi(r, \theta, z) &= \sum_{n = 0}^{\infty} \sum_{j = 1}^{\infty} \left( \alpha_{j,n} J_n(k_jr) + \beta_{jn}Y_n(h_jr) \right) \\
+    & \times (a_n \cos n\theta + b_n \sin n\theta ) (c_j e^{-k_j z} + d_j e^{k_j z})
+  \end{align*}
+\end{enumerate}
+
+\subsubsection{Example: Heat Conduction in a Wire}
+
+Imagine a semi-infinite rod of circular cross section of radius \(a\) heated at one end (for simplicity at some spatially constant high temperature) with fixed lower temperature on the outer cylindrical surface.
+
+The Laplace's equation is
+\begin{align*}
+  \lap \psi &= 0 \\
+  \psi(a, \theta, z) &= 0 \\
+  \psi(r, \theta, 0) &= \Theta_0 \\
+  \psi &\to 0 \text{ as } z \to \infty
+\end{align*}
+The symmetry implies that there is no \(\theta\) dependence so \(b_n = 0 = a_n\) for \(n > 0\). Similarly all \(d_j = 0\). In addition, regularity at origin implies \(\beta_{jn} = 0\) so
+\[
+  \psi(r, \theta, z) = \sum_{j = 1}^{\infty} A_j J_0 \left( \frac{k_j r}{a} \right) e^{-k_jz/n}
+\]
+
+It is an exercise to show that
+\[
+  \psi(r, \theta, z) = \sum_{j = 1}^{\infty} \frac{2 \Theta_0}{k_j J_1(k_j)} J_0 \left( k_j \frac{r}{a} \right) e^{-k_j z/a}
+\]
+
+\section{Legendre's Equation}
+
+Laplace's equation is often solved on the sphere, which is an example of \emph{orthogonal polynomials}.
+
+\subsection{Laplace's Equation in Spherical Polar}
+
+Recall that spherical polar is parameterised by \(r, \theta, \phi\) where \(r\) is the distance from the origin, \(\theta\) is the angle \(\V r\) makes with the positive \(z\)-axis (so \(\theta = \frac{\pi}{2} -\) latitude in radians) and \(\phi\) is the angle the projection of \(\V r\) onto the \(xy\)-plane makes with positive \(x\)-axis (\(\phi\) is the longitude).
+
+In spherical polar, Laplace's equation becomes
+\[
+  \frac{1}{r^2} \frac{\partial  }{\partial r} \left( r^2 \frac{\partial \psi}{\partial r} \right) + \frac{1}{r^2 \sin \theta} \frac{\partial  }{\partial \theta} \left( \sin \theta \frac{\partial \psi}{\partial \theta} \right) + \frac{1}{r^2\sin^2 \theta} \frac{\partial^2 \psi}{\partial \phi^2} = 0
+\]
+In this course, we restrict out attention to axisymmetric solutions so \(\psi\) is independent of \(\phi\).
+
+Seperation of variables algorithm:
+
+\begin{enumerate}
+\item \(\psi(r, \theta) = R(r) \Theta(\theta)\) substitute into the equation and multiply across by \(\frac{r^2}{R\Theta}\),
+  \begin{align*}
+    \frac{1}{R} \frac{d}{dr} \left( r^2 \frac{dR}{dr} \right) + \frac{1}{\Theta \sin \theta} \frac{d}{d\theta} \left( \sin \theta \frac{d\Theta}{d\theta} \right) &= 0 \\
+    (r^2R')' - \lambda R &= 0 \\
+    (\sin \theta \Theta')' + \lambda \sin \theta \Theta &= 0
+  \end{align*}
+\end{enumerate}
+
+\subsection{Legendre's Equation}
+
+Make the substitution \(x = \cos \theta\) in the equations above, \(0 \leq \theta \leq \pi\) and \(-1 \leq x \leq 1\) and \(\frac{d}{d\theta} = -\sin \theta \frac{d}{dx}\) so
+\[
+  -\sin \theta \frac{d}{dx} ( \sin \theta (- \sin \theta \frac{d\Theta}{dx})) + \lambda \sin\theta \Theta = 0
+\]
+which can be written in self-adjoint form
+\[
+  -\frac{d}{dx} \left( (1 - x^2) \frac{d\Theta}{dx} \right) = \lambda \Theta
+\]
+Thi is known as \emph{Legendre's equation}.
+
 \end{document}

@@ -10,6 +10,14 @@
 
 \input{header}
 
+
+
+% TODO: rewrite matrix group as macrco \M
+
+
+
+
+
 \newcommand*{\ann}{\circ}
 
 \newcommand*{\basis}{\mathcal}
@@ -1069,7 +1077,7 @@ Some variations of the algorithm:
   We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ \star & \ast \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{k+1,j}\neq 0\), i.e.\ in the \(\ast\) block) as otherwise \((0,\dots,1,\dots, 0)\) with \(1\) is \((k+1)\)th position would not be in the span of the column vectors, contradicting the invertiblity. Next we carry out the following operations:
   \begin{enumerate}
   \item swap column \(k+1\) and \(j\),
-  \item divide volumn \(k+1\) by \(\lambda\) so have \(1\) in \((k+1,k+1)\) position,
+  \item divide volume \(k+1\) by \(\lambda\) so have \(1\) in \((k+1,k+1)\) position,
   \item use column operation to clear other entries of \((k+1)\)th row.
   \end{enumerate}
   Proceed inductively.
@@ -1714,7 +1722,7 @@ In the rest of the section, we are going to prove that the converse is true, i.e
 \end{corollary}
 
 \begin{theorem}
-  Let \(d\) be a volumne form on \(\F^n\), \(A = (A^{(1)}|\dots | A^{(n)})\), then
+  Let \(d\) be a volume form on \(\F^n\), \(A = (A^{(1)}|\dots | A^{(n)})\), then
   \[
     d(A^{(1)}, \dots, A^{(n)}) = \det A \cdot d(e_1, \dots, e_n).
   \]
@@ -1736,4 +1744,175 @@ The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma
 \begin{corollary}
   \(\det\) is the unique volume form \(d\) such that \(d(e_1, \dots, e_n) = 1\).
 \end{corollary}
+
+\begin{proposition}
+  Suppose \(A, B \in \M_n(\F)\), then
+  \[
+    \det AB =\det A \det B.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let \(d_A: \F^n \times \dots \F^n \to \F, (v_1, \dots, v_n) \to \det(Av_1|\cdots|Av_n)\), then \(d_A\) is a volume form:
+  \begin{itemize}
+  \item Multilinear: \(v_i \mapsto A_{v_i}\) is linear and \(\det\) is multilinear.
+  \item Altenating: \(v_i = v_j\) implies \(A_{v_i} = A_{v_j}\) and \(\det\) is alternating.
+  \end{itemize}
+  It follows that
+  \begin{align*}
+    d_A(Be_1, \dots, Be_n) &= \det B \cdot d_A(e_1, \dots, e_n) = \det B \det A \\
+                           &= \det (ABe_1| \cdots | ABe_n) = \det AB
+  \end{align*}
+\end{proof}
+
+\begin{definition}[Singular]
+  \(A \in \M_n(\F)\) is \emph{singular} if \(\det A = 0\). Otherwise it is \emph{non-singular}.
+\end{definition}
+
+\begin{lemma}
+  If \(A\) is invertible then it is non-singular and
+  \[
+    \det A^{-1} = \frac{1}{\det A}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \[
+    1 = \det I_n = \det(AA^{-1}) = \det A \det A^{-1}
+  \]
+  The result follows.
+\end{proof}
+
+\begin{theorem}
+  Suppose \(A \in \M_n(\F)\) then TFAE:
+  \begin{enumerate}
+  \item \(A\) is invertible,
+  \item \(A\) is non-singular,
+  \item \(r(A) = n\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \Rightarrow 2\): done.
+  \item \(2 \Rightarrow 3\): suppose that \(r(A) < n\). By rank-nullity \(n(A) > 0\) so \(\exists \lambda \in \F^n \setminus \{0\}\) such that \(A \lambda = 0\). Say \(\lambda = (\lambda_i)\) and \(\lambda_k \neq 0\). Have \(\sum_{i = 1}^{n}A^{(i)}\lambda_i = 0 \). Let
+    \[
+      B= (e_1|e_2|\cdots|e_{k-1}|\lambda|e_{k+1}|\cdots|e_n)
+    \]
+    It follows that \(AB\) has \(k\)th column zero so
+    \[
+      0 = \det AB = \det A \det B = \lambda_k \det A.
+    \]
+    So \(\det A = 0\).
+  \item \(3 \Rightarrow 1\): by rank-nullity.
+  \end{itemize}
+\end{proof}
+
+\subsection{Determinant of Linear Maps}
+
+\begin{lemma}
+  Conjugate matrices have the same determinant.
+\end{lemma}
+
+\begin{proof}
+  Let \(B = P^{-1}AP\). Then
+  \[
+    \det B = \det (P^{-1}AP) = \det P^{-1} \det A \det P = \det (P^{-1}P) \det A = \det A.
+  \]
+\end{proof}
+
+\begin{definition}[Determinant]
+  Let \(\alpha: V \to V\) where \(V\) is a finite-dimensional vector space. The \emph{determinant} of \(\alpha\) is
+  \[
+    \det \alpha = \det [\alpha]_{\basis B, \basis B}
+  \]
+  where \(\basis B\) is any basis for \(V\). 
+\end{definition}
+This is well-defined by the previous lemma.
+
+\begin{theorem}
+  \(\det: L(V, V) \to \F\) satisfies
+  \begin{enumerate}
+  \item \(\det \id = 1\),
+  \item \(\det \alpha \compose \beta = \det \alpha \det \beta\),
+  \item \(\det \alpha \neq 0\) if and only if \(\alpha\) is invertible and in this case \(\det (\alpha^{-1}) = \frac{1}{\det \alpha}\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Restatement of previous results.
+\end{proof}
+
+\subsection{Determinant of Block-triangular Matrices}
+
+\begin{lemma}
+  Suppose \(A \in \M_k(\F), B \in \M_\ell(\F)\) and \(C \in \M_{k, \ell}(\F)\), then
+  \[
+    \det
+    \begin{pmatrix}
+      A & C \\
+      0 & B
+    \end{pmatrix}
+    = \det A \det B.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(n = k + \ell\) and call the block matrix \(X = (x_{ij})\), which is an element of \(\M_n(\F)\). Then
+  \begin{align*}
+    \det X &= \sum_{\sigma \in S_n}^{ }\varepsilon(\sigma) \prod_{i = 1}^{n} x_{\sigma(i), i} \\
+    \intertext{Note that \(x_{\sigma(i), i} = 0\) if \(i \leq k\) and \(\sigma(i) > k\). Thus we are summing over all \(\sigma\) such that \(\sigma = \sigma_1\sigma_2\) where \(\sigma_1 \in \sym_{\{1,\dots, k\}}\) and \(\sigma_2 \in \sym_{\{k+1, \dots, n\}}\).}
+           &= \sum_{\sigma_1 \in \sym_{\{1, \dots, k\}}}^{ } \varepsilon(\sigma_1) \prod_{j = 1}^{k} a_{\sigma_1(j),j} \\
+           &\cdot \sum_{\sigma_2 \in \sym_{\{k+1, \dots, n\}}}^{ } \varepsilon(\sigma_1) \prod_{j = k + 1}^{k} a_{\sigma_2(j),j} \\
+           &= \det A \det B
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  For a sequence of matrices \(A_1, \dots, A_k\),
+  \[
+    \det
+    \begin{pmatrix}
+      A_1 & & & & \\
+      & A_2 & & * & \\
+      & & A_3 & & \\
+      & 0 & & \ddots & \\
+      & & & & A_k
+    \end{pmatrix}
+    = \prod_{i = 1}^{k} \det A_i
+  \]
+\end{corollary}
+
+\begin{proof}
+  Apply the previous lemma inductively.
+\end{proof}
+
+\begin{caution}
+  In general,
+  \[
+    \det
+    \begin{pmatrix}
+      A & B \\
+      C & D
+    \end{pmatrix}
+    \neq \det A \det D - \det B \det C.
+  \]
+\end{caution}
+
+\subsection{Volume Interpretation of Determinant}
+
+In \(\R^2\), the determinant of a matrix
+\[
+  \det
+  \begin{pmatrix}
+    a_{11} & a_{12} \\
+    a_{21} & a_{22} 
+  \end{pmatrix}
+\]
+can be intepreted as the signed area of the parallelogram spanned by the column vectors of the matrix \(\binom{a_{11}}{a_{21}}\) and \(\binom{a_{12}}{a_{22}}\).
+    
+Similarly in \(\R^3\) the determinant of a matrix is the signed volume of the parallelepiped spanned by the column vectors of the matrix.
+
+For higher dimensions, although it can be difficult to visualise, the same interpretation still works.
+
 \end{document}

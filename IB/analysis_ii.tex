@@ -31,7 +31,7 @@
 
 \section{Introduction}
 
-In Analysis I, the primary space we are interested in is \(\R\) and we studied notions such as continuity, convergence, differentiation, integration and solving equaiton through, for example, Intermediate Value Theorem. In Analysis II, we moved to the study general function space.
+In IA Analysis I, the primary space we are interested in is \(\R\) and we studied notions such as continuity, convergence, differentiation, integration and solving equaiton through, for example, Intermediate Value Theorem. In Analysis II, we moved to the study general function space.
 
 \begin{table}[htbp]
   \centering
@@ -526,7 +526,7 @@ Equivalently, the map \(\id: (C[a,b], \|\cdot\|_\infty)\to (C[a,b], \|\cdot\|_1)
   how do I know if \(f(x)\) is continuous or differentiable?
 \end{question}
 
-Recall some facts about series from Analysis I:
+Recall some facts about series from IA Analysis I:
 \begin{enumerate}
 \item The series \(\sum_{i=0}^{\infty}c_i = c\in\C \) means that \((\sum_{i=0}^{\infty})\to c\), as real vector space \((\C, \|\cdot\|) \cong (\R^2, \|\cdot\|)\).
 \item \(\sum_{i=0}^{\infty}c_i \) converges if and only if there exists \(N\in\N\) such that \(\sum_{i=N}^{\infty}c_i \) converges.
@@ -669,7 +669,7 @@ To summarise, power series are continuous on domain of convergence \(B_R(c)\).
 
 \subsection{Integration \& Differentiation}
 
-Recall from Analysis I that
+Recall from IA Analysis I that
 \begin{theorem}[Fundamental Theorem of Calculus]
   \label{thm:FTC}
   Suppose \(f\in C[a,b]\), \(c\in [a,b]\), then
@@ -831,7 +831,7 @@ Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in
   if \(\norm \cdot\) and \(\norm \cdot'\) are Lipschitz equivalent then \(A\) is bounded with respect to \(\norm \cdot\) if and only if with respect to \(\norm \cdot'\). It follows that boundedness in \(\R^n\) means with respect to any one of \(\norm \cdot_1, \norm \cdot_2, \norm \cdot_\infty\).
 \end{remark}
 
-Recall from Analysis I:
+Recall from IA Analysis I:
 \begin{theorem}[Bolzano-Weierstrass]
   A bounded sequence in \(\R\) has a convergent subsequence.
 \end{theorem}
@@ -1198,7 +1198,7 @@ Clearly uniform convergence imples convergence but the converse is false.
 
 \subsubsection{Application: Riemann Integral}
 
-Recall from Analysis I: \(g: [a, b] \to \R \) is \emph{piecewise constant} if \(\exists a = a_0 < a_1 < \dots < a_n = b\) such that \(g(x) = c_i\) for all \(x\in (a_{i-1}, a_i)\). Let
+Recall from IA Analysis I: \(g: [a, b] \to \R \) is \emph{piecewise constant} if \(\exists a = a_0 < a_1 < \dots < a_n = b\) such that \(g(x) = c_i\) for all \(x\in (a_{i-1}, a_i)\). Let
 \[
   P[a, b] = \{g: [a, b] \to \R: g \text{ is piecewise continuous} \}
 \]
@@ -1276,7 +1276,7 @@ so given \(g_+ \in \riem U(f), g_- \in \riem L(f)\), \(g_- \leq f \leq g_+\) so 
 
 \section{Differential Calculus on \texorpdfstring{\(\R^n\)}{R\^{}n}}
 
-\subsection{Derivative}
+\subsection{Derivative, First Attempt}
 
 It is natural to ask what is the generalisation of differentiation on \(\R\) to higher dimension. More specifically,
 
@@ -1437,4 +1437,130 @@ Similarly for \(F: \R^n \to \R^m\), \(G: \R^m \to \R^l\) differentiable, we will
 \[
     \D( F \compose G) = \D F \compose \D G.
 \]
+
+\subsection{Limits}
+
+Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in U\), \(f: U \setminus \{v_0\} \to W\),
+
+\begin{definition}[Limit]
+  We say the \emph{limit} of \(f\) at \(v_0\) is \(w\), denoted by
+  \[
+    \lim_{v \to v_0} f(v) = w,
+  \]
+  if for every \(\varepsilon > 0\), exists \(\delta > 0\) such that \(\norm{f(v) - w} < \varepsilon\) whenever \( 0 < \norm{v - v_0} < \delta\) and \(v \in U\).
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item \(\lim_{v \to v_0} f(v) = w\) if and only if \(\lim_{v \to v_0} \norm{f(v) - w} = 0\).
+  \item \(\lim_{v \to v_0} f(v) = w\) if and only if for every sequence \((x_i)\) in \(U\setminus\{v_0\}\) which converges to \(v_0\), the sequence \((f(x_i)) \to w\).
+  \item If \(\norm \cdot_V\) and \(\norm \cdot_V'\) are Lipschitz equivalent on \(V\) and \(\norm \cdot_W\) and \(\norm \cdot_W'\) are Lipschitz equivalent on \(W\) then \(\lim_{v \to v_0} f(v) = w\) with respect to \(\norm \cdot_V\) and \(\norm \cdot_W\) if and only if with respect to \(\norm \cdot_V'\) and \(\norm \cdot_W'\). In particular if \(V = \R^n\), \(W = \R^m\) then the limit is unambiguously defined without specifying any norms.
+  \end{enumerate}
+\end{note}
+
+\begin{proposition}[Properties of limits]\leavevmode
+  \begin{enumerate}
+  \item \(\lim_{v \to v_0} (f(v) + \lambda g(v)) = \lim_{v \to v_0} f(v) + \lambda \lim_{v \to v_0} g(v)\).
+  \item If \(\lambda: U \setminus \{v_0\} \to \R\) then
+    \[
+      \lim_{v \to v_0} \lambda(v)f(v) = \lim_{v \to v_0}\lambda(v) \lim_{v \to v_0} f(v)
+    \]
+    if both limits on RHS exist.
+  \item Squeeze rule: if \(\norm{f(v) - w} \leq \norm{g(v) -w}\) and \(\lim_{v \to w_o}g(v) = w\) then \(\lim_{v \to v_0} f(v) = w\).
+  \item If \(f: U\setminus\{v_0\} \to \R^m, f(v) = (f_1(v), \dots, f_m(v))\), \(w = (w_1, \dots, w_m)\) then \(\lim_{v \to v_0} f(v) = w\) if and only if \(\lim_{v \to v_0} f_i(v) = w_i\) for all \(1 \leq i \leq m\).
+  \item If \(\lim_{v \to 0} f(v) = w\) and \(x \in V\setminus\{0\}\) then \(\lim_{t \to 0} f(t x) = w\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  The first three are the same as the real case in IA Analysis I.
+  
+  For (4), \((f(x)) \to w\) if and only if \((f_i(x_n)) \to w_i\) for all \(i\) so the result follows from sequential characterisation of limits.
+
+  For (5), given \(\varepsilon > 0\), exists \(\delta > 0\) such that \(\norm{f(v) - w} < \varepsilon\) whenever \(0 < \norm v < \delta\). Then for \(0 < |t| < \delta/\norm x\), \(0 < \norm{t x} < \delta\) so \(\norm{f(t x) - w} < \varepsilon\) so \(\lim_{t \to 0} f(t x) = w\).
+\end{proof}
+
+\begin{note}
+  \(\lim_{t \to 0} f(t x) = w\) for all \( x \in V\setminus \{0\}\) does not imply that \(\lim_{v \to 0} f(v) = w\).
+\end{note}
+
+\begin{eg}
+  Let
+  \begin{align*}
+    f: \R^2\setminus\{0\} &\to \R \\
+    f(x_1, x_2) &=
+                  \begin{cases}
+                    \frac{x_1^2}{x_2^2}(x_1^2 + x_2^2) & x_2 \neq 0 \\
+                    0 & x_2 = 0
+                  \end{cases}
+  \end{align*}
+  Then if \(x = (x_1, x_2)\) with \(x_2 \neq 0\),
+  \[
+    \lim_{t \to 0} f(t x) = \lim_{t \to 0} \frac{x_1^2}{x_2^2}(x_1^2 + x_2^2) t^2 = 0
+  \]
+  If \(x = (x_1, 0)\) with \(x_1 \neq 0\) then \(\lim_{t \to 0} f(t x) = \lim_{t \to 0} 0 = 0\). But
+  \[
+    f(t, t^2) = \frac{t^2}{t^4}(t^2 + t^4) = 1 + t^2 \geq 1
+  \]
+  for \(t \neq 0\) so taking \(t = \frac{1}{n}\), we find points \((1/n, 1/n^2)\) arbitrarily close to \((0, 0)\) with \(f(1/n, 1/n^2) \geq 1\) so \(\lim_{v \to 0} f(v) \neq 0\).
+\end{eg}
+
+\begin{definition}[Continuity]
+  \(f: U \to W\) is \emph{continuous} at \(v_0\) if
+  \[
+    \lim_{v \to v_0} f(v) = f(v_0).
+  \]
+\end{definition}
+
+\begin{lemma}
+  \(f\) is continuous at \(v_0\) if and only if \((f(x_i)) \to f(v_0)\) whenever \((x_i)\) is a sequence in \(U\) converging to \(v_0\).
+\end{lemma}
+
+\begin{proof}
+  Sequential characterisation of limit.
+\end{proof}
+
+Recall that previously we have defined continuity of a function \emph{on a domain}. Here we define continuity of a function \emph{at a point}. Fortunately, these two notions of continuity are compatible:
+
+\begin{corollary}
+  \(f\) is continuous if and only if \(f\) is continuous at every \(v \in U\).
+\end{corollary}
+
+\begin{proof}
+  \(f\) is continuous at every \(v \in U\) if and only if \((x_i) \to v \in U \Rightarrow (f(x_i)) \to f(v)\) if and only if \(f\) is continuous.
+\end{proof}
+
+\subsection{Derivative, Formal Version}
+
+Suppose \(U \subseteq \R^n\) is open, \(f: U \to \R^m\) and \(a \in U\).
+
+\begin{definition}[Differentiability]
+  \(f\) is \emph{differentiable} at \(a\) if there is a linear function \(L: \R^n \to \R^m\) such that
+  \begin{equation}
+    \label{eqn:derivative2}
+    \lim_{h \to 0} \frac{f(a + h) - f(a) - L(h)}{\norm h} = 0
+    \tag{\(\ast\)}
+  \end{equation}
+  in which case we say \(\D f|_a = L\) is the \emph{derivative} of \(f\) at \(a\).
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item Equivalently, \(f(a + h) = f(a) + L(h) + \norm h \alpha(h)\) where \(\lim_{h \to 0}\alpha(h) = 0\).
+  \item If~\eqref{eqn:derivative2} holds for two linear functions \(L, L': \R^n \to \R^m\) then \(L = L'\) so \(\D f|_a\) is well-defined.
+    \begin{proof}
+      Subtraction gives
+      \[
+        \lim_{h \to 0} \frac{L(h) - L'(h)}{\norm h} = 0
+      \]
+      which implies that for any \(v \in \R^n\setminus\{0\}\),
+      \[
+        0 = \lim_{t \to 0^+} \frac{L(t v) - L'(t v)}{\norm{tv}} = \lim_{t \to 0^+} \frac{L(v) - L'(v)}{\norm{v}} = \frac{L(v) - L'(v)}{\norm{v}}
+      \]
+      so \(0 = L(v) - L'(v) = (L - L')(v)\) for all \(v \neq 0\). They certainly agree at \(0\).
+    \end{proof}
+  \item The definition of derivative does not depend on the norm used.
+  \end{enumerate}
+\end{note}
+
 \end{document}

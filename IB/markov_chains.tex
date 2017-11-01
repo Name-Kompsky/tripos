@@ -637,7 +637,7 @@ By Markov property, hitting probability satisfies the equation
   h_i^A =
   \begin{cases}
     1 & i \in A \\
-    \sum_{i \in S} p_{ij}h_j^A & i \notin A
+    \sum_{j \in S} p_{ij}h_j^A & i \notin A
   \end{cases}
   \tag{\(\ast\)}
 \end{equation}
@@ -762,7 +762,7 @@ By Markov property, hitting probability satisfies the equation
   so
   \begin{align*}
     u_i &= \frac{q_i q_{i - 1} \dots q_1}{p_i p_{i - 1} \dots p_1} u_1 \\
-        &= \gamma_i u_i
+        &= \gamma_i u_1
   \end{align*}
   where
   \[
