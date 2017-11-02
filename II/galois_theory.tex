@@ -1,0 +1,117 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Galois Theory}
+\def\nlecturer{C.\ Brookes}
+
+\def\nterm{Michaelmas}
+\def\nyear{2017}
+
+\input{header}
+
+\DeclareMathOperator{\n}{N}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Field Extensions}
+
+\blindtext{10}
+
+\section{Seperable, Normal and Galois Extensions}
+
+\blindtext
+
+\subsection{Trace \& Norm}
+
+\begin{definition}[Trace and norm]
+  Let \(K \leq M\) be a finite field extension and \(\alpha \in M\). Multiplication by \(a\) is a \(K\)-linear map \(\theta_\alpha: M \to M\). The \emph{trace of \(\alpha\) over \(K\)} is
+  \[
+    \Tr_{M/K}(\alpha) = \Tr( \theta_\alpha) \in K
+  \]
+  and the \emph{norm of \(\alpha\) over \(K\)} is
+  \[
+    \n_{M/K}(\alpha) = \det \theta_\alpha \in K.
+  \]
+\end{definition}
+
+\begin{note}
+  These dependent on the field extension.
+\end{note}
+
+\begin{theorem}
+  Suppose \(f_\alpha(t) = t^s + a_{s - 1}t^{s - 1} + \dots + a_0\) is the minimal polynomial of \(\alpha\) over \(K\). Let \(r = |M: K(\alpha)|\). Then the characteristic polynomial of \(\theta_\alpha\) is \((f_\alpha(t))^r\) and
+  \begin{align*}
+    \Tr_{M/K}(\alpha) &= -r a_{s-1} \\
+    \n_{M/K}(\alpha) &= ((-1)^s a_0)^r
+  \end{align*}
+\end{theorem}
+
+\section{Fundamental Theorem of Galois Theory}
+
+\begin{definition}[Fixed field]
+  Let \(K \leq L\) be a field extension and \(H \leq \aut_K(L)\). The \emph{fixed field} of \(H\) is
+  \[
+    L^H = \{\alpha \in L: \sigma(\alpha) = \alpha \text{ for all } \sigma \in H \}.
+  \]
+\end{definition}
+
+The fixed field is a field and \(K \leq L^H \leq L\).
+
+\begin{theorem}[Fundamental Theorem of Galois Theory]
+  Let \(K \leq L\) be a finite Galois extension. Then
+  \begin{enumerate}
+  \item There is a one-to-one correspondence
+    \begin{align*}
+      \left\{
+        \begin{array}[h]{c}
+          \text{intermediate subfield} \\
+          K \leq M \leq L
+        \end{array}
+      \right\}
+      &\longleftrightarrow
+      \left\{
+        \begin{array}[h]{c}
+          \text{subgroup } H \\
+          \text{of } \gal(L/K)
+        \end{array}
+      \right\} \\
+      %
+      M &\mapsto \aut_M(L) \\
+      L^H &\mapsfrom H
+    \end{align*}
+  \item \(H\) is a normal subgroup of \(\gal(L/K)\) if and only if \(K \leq L^H\) if and only if \(K \leq L^H\) is Galois.
+  \item If \(H \trianglelefteq \gal(L/K)\) then the map
+    \[
+      \theta: \gal(L/K) \to \gal(L^H/K)
+    \]
+    given by restriction to \(L^H\) is a surjective group homomorphism with kernel \(H\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Observe that \(M \leq L\) is Galois and so we could have written \(\gal(L/M)\) instead of \(\aut_M(L)\). To see this,
+    \begin{itemize}
+    \item seperability: follows from 2.15
+    \item normality: if \(\alpha \in L\) then the minimal polynomial of \(\alpha\) over \(M\) divides the minimal polynomial of \(\alpha\) over \(K\). But the latter splits over \(L\) (see example sheet).
+    \end{itemize}
+  \item If \(K \leq M\) is normal then Remark 2.27 says if \(\sigma: L \to L\) then \(\sigma(M) = M\) and so we can talk about the restriction of \(\alpha\) to \(M\) giving an automorphism of \(M\).
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Q \leq \Q(\sqrt(2), i)\). We saw in chapter 1 the lattices of intermediate subfields and subgroups \(\gal(\Q(\sqrt 2, i/\Q) \cong C_2 \times C_2\) which is abelian. Thus all subgroups are normal and all intermediate subfields are normal extensions of \(\Q\).
+  \item \(\Q \leq \Q((\sqrt[3]{2}, \omega)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[Artin's]
+  Let \(K \leq L\) be a field extension and \(H \leq \aut_K(L)\) be a finite subgroup. Let \(M = L^H\). Then \(M \leq L\) is a finite Galois extension and \(H = \gal(L/M)\).
+\end{theorem}
+\end{document}
