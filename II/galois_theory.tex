@@ -51,6 +51,86 @@
   \end{align*}
 \end{theorem}
 
+\subsection{Normal Extensions}
+
+We met this definition before:
+
+\begin{definition}[Normal extension]
+  An extension \(K \leq M\) is \emph{normal} if for every \(\alpha \in M\), the minimal polynomial \(f_\alpha(t)\) of \(\alpha\) over \(K\) splits over \(M\).
+\end{definition}
+
+\begin{theorem}
+  Let \(K \leq M\) be a finite field extension. Then \(K \leq M\) is normal if and only if \(M\) is the splitting field for some \(f(t) \in K[t]\).
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): suppose \(K \leq M\) isnormal. Pick \(\alpha_1, \dots, \alpha_r \in M\) such that \(M = K(\alpha_1, \dots, \alpha_kr\). Let \(f(_{\alpha_i}(t)\) be the minimal polynomail of \(\alpha_i\) over \(K\). Let \(f(t) = \prod_{n = 1}^{r} f_{\alpha_i}(t)\).
+
+    By normality, each \(f(_{\alpha_i}(t)\) splits over \(M\) and so is \(f(t)\). \(M\) is the splitting field of \(f(t)\) over \(K\) since if \(\beta_1, \dots, \beta_m\) are the roots of \(f(t)\) then \(M = K(\beta_1, \dots, \beta_m)\).
+  \item \(\Leftarrow\): suppose \(M\) is a splitting field for \(f(t)\) over \(K\). Then \(M = K(\beta_1, \dots, \beta_m)\) where \(\beta_j\) are the roots of \(f(t)\) over \(M\). Take \(\alpha \in M\). Let \(f_\alpha(t)\) be the minimal polynomial of \(\alpha\) over \(K\). Let \(M \leq L\) large enough so that \(f_\alpha(t)\) splits over \(L\)
+
+    Now consdier a \(K\)-homomorphism \(\phi: M \to L\): \(\phi(\beta_j)\) is also a root of \(f(t)\) and is therefore one of the \(\beta_j\). Injectivity of \(K\)-homomorphisms implies that \(\phi\) permutes \(\beta_j\). However, \(M = K(\beta_1, \dots, \beta_m)\) and so \(\phi\) is determined by the images of \(\beta_j\), thus \(\phi(M) = M\).
+
+    However, if \(\alpha_i\) is a root of \(f_\alpha(t)\) in \(L\), then there is a \(K\)-homomorphism
+    \begin{align*}
+      K(\alpha) &\to K(\alpha_i) \\
+      \alpha &\mapsto \alpha_i
+    \end{align*}
+    This extends by 2.10~\ref{tbf} to a \(K\)-homomorphism \(\phi: M \to L\). But \(\phi(M) = M\) so \(\alpha_i \in M\). Thus \(M\) is normal over \(K\).
+  \end{itemize}
+\end{proof}
+
+\begin{remark}
+  As for separability, being normal is equivalent to being normally generated. We will show in example sheet that \(K \leq L\) is a normal and finite extension if and only if \(L = K(\alpha_1, \dots, \alpha_r)\) with the minimal polynomial of each adjoined element splitting over \(L\).
+\end{remark}
+
+\begin{definition}[\(K\)-automorphism group]
+  Let \(K \leq M\) be a finite extension. Its \emph{\(K\)-automorphism group} is
+  \[
+    \aut_K(M) = \Hom_K(M, M).
+  \]
+\end{definition}
+
+From \ref{tbh} we know that such \(K\)-automorphisms are isormophisms and thus have inverses (well, it name says so).
+
+\begin{lemma}
+  \[
+    |\aut_K(M)| \leq |M:K|.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \ref{tbh} (extension of homomorphisms)
+\end{proof}
+
+\begin{theorem}
+  \label{thm:galois criterion}
+  Let \(K \leq M\) be a finite field extension, then \(|\aut_K(M)| = |M:K|\) if and only if the extension is both normal and separable.
+\end{theorem}
+
+\begin{definition}[Galois extension]
+  A finite field extension that is normal and separable is a \emph{Galois extension}.
+\end{definition}
+
+\begin{definition}[Galois group]
+  Let \(K \leq M\) be a Galois extension. Then the \(K\)-automorphism group of \(M\) is the \emph{Galois group} of \(M\) over \(K\), denoted by
+  \[
+    \gal(M/K).
+  \]
+\end{definition}
+
+\begin{remark}
+  Some authors use the term ``Galois group'' as a synonym for automorphism group even when the extension is not Galois.
+\end{remark}
+
+\begin{proof}[Proof of~\autoref{thm:galois criterion}]
+  Suppose \(|\aut_K(M)| = |M:K| = n\). Let \(M \leq L\)be large enough. The \(n\) distinct \(K\)-automorphisms \(\phi: M \to M\) extend to \(n\) \(K\)-homomorphisms \(\phi: M \to L\) and 2.12~\ref{tbf} says that \(M\) is seperable over \(K\).
+
+  For normality, pick \(\alpha \in M\) with minimal polynomial \(f_\alpha(t)\) over \(K\). Take \(M = K(\alpha_1, \dots, \alpha_m)\) as in the proof of 2.10~\ref{tbf} with \(\alpha = \alpha_1\) and \(L = M\). We only get \(|M:K|\) extensions of the inclusion \(K \hookrightarrow M\) if each inequality in the proof is an equality. In particular, we need the number of \(K\)-homomorphisms \(K(\alpha_1) \to M\) to be \(K(\alpha_1):K|\). But then 2.6~\ref{tbf} says we have \(|K(\alpha):K|\) distinct roots of \(f_\alpha(t)\) i \(M\). Thus \(f_\alpha(t)\) splits over \(M\).
+
+  Conversely, suppose \(K \leq M\) is separable and normal. Then for \(K \leq M \leq L\) with \(L\) large enough, spearability implies there are \(|M:K|\) \(K\)-homomorphisms \(\phi: M \to L\) by 2.12~\ref{tbf}. However, \(K \leq M\) is normal implies that it is the splitting field for some polynomial \(f(t) \in K[t]\) and thus 
+\end{proof}
 \section{Fundamental Theorem of Galois Theory}
 
 \begin{definition}[Fixed field]
@@ -63,6 +143,7 @@
 The fixed field is a field and \(K \leq L^H \leq L\).
 
 \begin{theorem}[Fundamental Theorem of Galois Theory]
+  \label{thm:fundamental}
   Let \(K \leq L\) be a finite Galois extension. Then
   \begin{enumerate}
   \item There is a one-to-one correspondence
@@ -84,7 +165,7 @@ The fixed field is a field and \(K \leq L^H \leq L\).
       M &\mapsto \aut_M(L) \\
       L^H &\mapsfrom H
     \end{align*}
-  \item \(H\) is a normal subgroup of \(\gal(L/K)\) if and only if \(K \leq L^H\) if and only if \(K \leq L^H\) is Galois.
+  \item \(H\) is a normal subgroup of \(\gal(L/K)\) if and only if \(K \leq L^H\) is normal if and only if \(K \leq L^H\) is Galois.
   \item If \(H \trianglelefteq \gal(L/K)\) then the map
     \[
       \theta: \gal(L/K) \to \gal(L^H/K)
@@ -97,21 +178,241 @@ The fixed field is a field and \(K \leq L^H \leq L\).
   \begin{enumerate}
   \item Observe that \(M \leq L\) is Galois and so we could have written \(\gal(L/M)\) instead of \(\aut_M(L)\). To see this,
     \begin{itemize}
-    \item seperability: follows from 2.15
+    \item seperability: follows from \ref{tbf}
     \item normality: if \(\alpha \in L\) then the minimal polynomial of \(\alpha\) over \(M\) divides the minimal polynomial of \(\alpha\) over \(K\). But the latter splits over \(L\) (see example sheet).
     \end{itemize}
-  \item If \(K \leq M\) is normal then Remark 2.27 says if \(\sigma: L \to L\) then \(\sigma(M) = M\) and so we can talk about the restriction of \(\alpha\) to \(M\) giving an automorphism of \(M\).
+  \item If \(K \leq M\) is normal then \ref{tbf} says if \(\sigma: L \to L\) then \(\sigma(M) = M\) and so we can talk about the restriction of \(\alpha\) to \(M\) giving an automorphism of \(M\).
   \end{enumerate}
 \end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(\Q \leq \Q(\sqrt(2), i)\). We saw in chapter 1 the lattices of intermediate subfields and subgroups \(\gal(\Q(\sqrt 2, i/\Q) \cong C_2 \times C_2\) which is abelian. Thus all subgroups are normal and all intermediate subfields are normal extensions of \(\Q\).
-  \item \(\Q \leq \Q((\sqrt[3]{2}, \omega)\).
-  \end{enumerate}
+  \item \(\Q \leq \Q(\sqrt{2}, i)\). We saw in \ref{tbf} the lattices of intermediate subfields and subgroups \(\gal(\Q(\sqrt 2, i/\Q) \cong C_2 \times C_2\) which is abelian. Thus all subgroups are normal and all intermediate subfields are normal extensions of \(\Q\).
+  \item \(\Q \leq \Q(\sqrt[3]{2}, \omega)\).
+    \[
+      \begin{tikzcd}
+        & \Q(\sqrt[3]{2}, \omega) \ar[dl, dash, "3"] \ar[d, dash, "2"] \ar[dr, dash, "2"] \ar[drr, dash, "2"] \\
+        \Q(\omega) \ar[dr, dash, "2"] & \Q(\sqrt[3]{2}) \ar[d, dash, "3"] & \Q(\omega\sqrt[3]{2}) \ar[dl, dash, "3"] & \Q(\omega^2\sqrt[3]{2}) \ar[dll, dash, "3"] \\
+        & \Q
+      \end{tikzcd}
+    \]
+    \[
+      \begin{tikzcd}
+        & 1 \ar[dl, dash, "3"] \ar[d, dash, "2"] \ar[dr, dash, "2"] \ar[drr, dash, "2"] \\
+        \{\sigma_1, \sigma_2, \sigma_3\} \ar[dr, dash, "2"] & \{\sigma_1, \sigma_4\} \ar[d, dash, "3"] & \{\sigma_1, \sigma_5\} \ar[dl, dash, "3"] & \{\sigma_1, \sigma_6\} \ar[dll, dash, "3"] \\
+        & \{\sigma_1, \dots, \sigma_6\} \cong D_6
+      \end{tikzcd}
+    \]
+    The subgroup \(H\) of order \(3\) is normal but those of order \(2\) are not so the map \(\gal(\Q(\sqrt[3]{2}, \omega)/\Q) \to \gal(\Q(\omega)/\Q)\) has kernel \(H\).
+    \end{enumerate}
 \end{eg}
 
 \begin{theorem}[Artin's]
+  \label{thm:artin}
   Let \(K \leq L\) be a field extension and \(H \leq \aut_K(L)\) be a finite subgroup. Let \(M = L^H\). Then \(M \leq L\) is a finite Galois extension and \(H = \gal(L/M)\).
 \end{theorem}
+
+\begin{remark}
+  This implies some part of the Galois correspondence:
+  \[
+    H \to L^H \to \gal(L/H^H)
+  \]
+  where we get back to \(H\).
+\end{remark}
+
+\begin{proof}
+  Take \(\alpha \in L\). We first show that \(|M(\alpha):M| \leq |H|\). Let \(\{\alpha_1, \dots, \alpha_n\}\) be the distinct images of \(\alpha\) under \(H\), i.e.\ \(\{\phi(\alpha): \alpha \in H\}\). Define \(g(t) = \prod_{i = 1}^{\infty} (t - \alpha_i) \). Each \(\phi\) induces an endomorphism on \(L[t]\) under which \(g(t)\) is invariant since \(\phi\) permutes the \(\alpha_i\). Thus the coefficients lie in \(L^H = M\) and so \(g(t) \in M[t]\). By definition \(g(\alpha) = 0\) since \(\alpha\) is one of the \(\alpha_i\). Hence the minimal polynomial \(f_\alpha(t)\) of \(\alpha\) over \(M\) divides \(g(t)\). Thus
+  \[
+    |M(\alpha):M| = \deg f_\alpha(t) \leq \deg g(t) \leq |H|.
+  \]
+  This step shows that \(\alpha\) is algebraic over \(M\) and \(f_\alpha(t)\) is seperable whenver \(g(t)\) is. Thus \((M \leq L\) is a separable extension.
+
+  Next we show that \(M \leq L\) is a simple extension. Pick \(\alpha \in L\) with \(|M(\alpha):m|\) maximal. We will show that \(L = M(\alpha)\) for this \(\alpha\). Suppose \(\beta \in L\). Then \(M \leq M(a=\alpha, \beta)\) is finite and separably generated and hence is a finite separable extension. By \nameref{thm:primitive} \(M(\alpha, \beta) = M(\gamma)\) for some \(\gamma\). But then
+  \[
+    M \leq M(\alpha) \leq M(\gamma)
+  \]
+  so by the maximality of \(|M(\alpha):M|\), \(M(\alpha) = M(\gamma)\). Thus \(\beta \in M(\gamma) = M(\alpha)\) so \(L = M(\alpha)\).
+
+  It follows that \(|L:M| \leq |H|\).
+
+  Finally,
+  \[
+    |L:M| = |M(\alpha):M| \leq |H| \leq |\aut_M(L)| \leq |L:M| \leq |L:M|
+  \]
+  so we must have equality throughtout, i.e.\ \(|L:M| = |\aut_M(L)| = |H|\) so \(M \leq L\) is a finite Glois extension and \(H = \gal(L/M)\).
+\end{proof}
+
+\begin{theorem}
+  Let \(K \leq L\) be a finite field extension. TFAE:
+  \begin{enumerate}
+  \item \(K \leq L\) is Galois,
+  \item \(L^H = K\) when \(H = \aut_K(L)\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+  The theorem allows some authors to give yet another definition of a Galois extension.
+\end{remark}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(1 \Rightarrow 2\): Let \(M = L^H\) where \(H = \aut_K(L)\). By \nameref{thm:artin} \(M \leq L\) is a Galois extension. Now we have two Galois extensions, giving the equality
+    \begin{align*}
+      |H| &= |\gal_K(L)| = |L:K| \\
+          &= |\gal_M(L)| = |L:M|
+    \end{align*}
+    As \(K \leq L^H = M\), equality.
+  \item \(2 \Rightarrow 1\): \nameref{thm:artin}.
+  \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:fundamental}]\leavevmode
+  \begin{enumerate}
+  \item Composing the maps
+    \begin{align*}
+      H &\mapsto L^H \\
+      M &\mapsto \gal(L/M)
+    \end{align*}
+    gives \(H \to H\) by \nameref{thm:artin}. Composition the other way \(M \mapsto \gal(L/M) \mapsto L^H\) where \(H = \gal(L/M)\) gives \(M\) since \(M \leq L^H\) and
+    \[
+      |L:L^H| = |H| = |\gal(L/M)| = |L:M|.
+    \]
+  \item Take \(H \leq \gal(L/K)\). Then for \(\phi \in \gal(L/K)\), \(L^{\phi H \phi^{-1}} = \phi(L^H)\) so by 1 \(H \normal \gal(L/K)\) if and only if \(\phi(L^H) = L^H\). Let \(M = L^H\). We will show that \(K \leq M\) is normal if and only if \(\phi(M) = M\) for every \(\phi \in \gal(L/K)\):
+    \begin{itemize}
+    \item \(\Rightarrow\): To be filled in
+      %
+      %
+      %
+      %
+      %
+      %
+    \end{itemize}
+
+  \end{enumerate}
+\end{proof}
+
+\section{Galois Group of Polynomials}
+
+\begin{definition}[Galois group]
+  Let \(f(t) \in K[t]\) be a separable polynomial and \(K \leq L\) with \(L\) a splitting field for \(f(t)\). Then the \emph{Galois group} of \(f(t)\) over \(K\) is
+  \[
+    \gal(f) = \gal(L/K).
+  \]
+\end{definition}
+
+Since \(L\) is a splitting field for \(f(t)\), \(L = K(\alpha_1, \dots, \alpha_n)\) where \(\alpha_1, \dots, \alpha_n\) are the roots of \(f(t)\) in \(L\). Observe that if \(\phi \in \gal(L/K)\) it maps bijectively roots of \(f(t)\) to itself. Thus \(\phi\) permutes the \(\alpha_i\).
+
+Moreover if \(\phi\) fixes each \(\alpha_i\) it also fixes all elements of \(L\) and so it is the identity map. Thus \(\gal(f)\) may be regarded as a permutation group of the \(n\) roots, so in particular admitting a permutation representation in \(S_n\).
+
+\begin{lemma}
+  \label{lem:galois orbits}
+  Suppose seperable \(f(t) = g_1(t) \cdots g_s(t)\) with \(g_i(t)\) irreducible in \(K[t]\) is a factorisation in \(K[t]\). Then the orbits of \(\gal(f)\) acting on the roots of \(f(t)\) correspond to the factors \(g_j(t)\): two roots are in the same orbit if and only if they are roots of the same \(g_i(t)\).
+
+  In particular if \(f(t) \in K[t]\) is irreducible, there is only one orbit, i.e.\ \(\gal(f)\) acts transitively on the roots of \(f(t)\).
+\end{lemma}
+
+\begin{proof}
+  Let \(\alpha_k\) and \(\alpha_\ell\) be in the same orbit under \(\gal(f)\). Thus there is \(\phi \in \gal(f)\) with \(\alpha_\ell = \phi(\alpha_k)\). But if \(\alpha_k\) is a root of \(g_j(t)\) then \(\phi(\alpha_k)\) is also a root of \(g_j(t)\).
+
+  Conversely if \(\alpha_k\) and \(\alpha_\ell\) are roots of \(g_j(t)\), then
+  \[
+    K(\alpha_k) \cong K[t]/(g_j(t)) \cong K(\alpha_\ell) \leq L
+  \]
+  Denote by \(\phi_0\) the isomorphsim \(K(\alpha_k) \to K(\alpha_\ell)\). \(\phi_0\) extends to \(\phi \in \gal(L/K)\). Thus \(\alpha_k\) and \(\alpha_\ell\) are in the same orbit.
+\end{proof}
+
+\begin{lemma}
+  The transitive subgroups of \(S_n\) for \(n \leq 5\) are
+  \[
+  \begin{array}[h]{c|l}
+    n & \\ \hline
+    2 & S_2 \cong C_2 \\ \hline
+    3 & A_3 \cong C_3, S_3 \\ \hline
+    4 & C_4, V_4, D_8, A_4, S_4 \\ \hline
+    5 & C_5, D_{10}, H_{20}, A_5, S_5 \\ \hline
+  \end{array}
+  \]
+  where \(H_{20}\) is generated by a \(5\)-cycle and a \(4\)-cycle.
+\end{lemma}
+
+\begin{theorem}
+  Let \(p\) be a prime and \(f(t) \in \Q[t]\) of degree \(p\). Suppose \(f(t)\) has exactly \(2\) non-real roots in \(\C\). Then
+  \[
+    \gal(f) \cong S_p.
+  \]
+\end{theorem}
+
+\begin{proof}
+  \(\gal(f)\) acts on the \(p\) distincts roots of \(f(t)\) in a splitting field \(L\) of \(f(t)\) (in \(\C\)). By \autoref{lem:galois orbits} the irreducibility of \(f(t)\) implies that \(\gal(f)\) acts transitively on \(p\) roots so by orbit-stabiliser \(p \divides |\gal(f)|\) but
+  \[
+    |\gal(f)| \leq |S_p| = p!
+  \]
+  and so \(\gal(f)\) has a Sylow \(p\)-subgroup of order \(p\), necessarily cyclic. Thus \(\gal(f)\) contains a \(p\)-cycle. Supposition that there are exactly \(2\) non-real roots gives that complex conjugation yields a transposition in \(\gal(f)\). The \(p\)-cycle and the transposition generate \(S_p\).
+\end{proof}
+
+\begin{eg}
+  Let \(f(t) = t^5 - 6t + 3 \in \Q[t]\), then claim \(\gal(f) \cong S_5\):
+
+  \begin{proof}
+    \(f(t)\) is irreducible by Einsenstein with \(p = 3\). We want to show that \(f(t)\) has \(3\) real roots (so \(2\) non-real roots) and apply the previous theorem.
+
+    Now we apply knowledge from analysis:
+    \[
+      f(-2) = -17, f(-1) = 8, f(1) = -2, f(2) = 23
+    \]
+    and \(f'(t) = 5t^4 - 6\) which has two real roots. Thus by Intermediate Value Theorem there are \(3\) real roots while by Rolle's Theorem there are at most \(3\) real roots.
+  \end{proof}
+\end{eg}
+
+\begin{definition}[Discriminant]
+  Let \(f(t) \in K[t]\) with distinct roots \(\alpha_1, \dots, \alpha_n\) (in a splitting field) (\(f(t)\) need not be irreducible). Set \(\Delta = \prod_{i < j}(\alpha_i - \alpha_j)\). The the \emph{discriminant} \(D = D(f)\) of \(f\) is
+  \[
+    D(f) = \Delta^2 = \prod_{i < j}(\alpha_i - \alpha_j)^2 = (-1)^{\frac{n(n-1)}{2}} \prod_{i \neq j}(\alpha_i - \alpha_j).
+  \]
+\end{definition}
+
+\begin{remark}
+  We have already met this in the proof of~\ref{tbf}.
+\end{remark}
+
+\begin{lemma}
+  Let \(f(t) \in K[t]\) be seperable of degree \(n\) with \(\ch K \neq 2\). Then
+  \[
+    \gal(f) \leq A_n \Leftrightarrow D(f) \text{ is a square in } K.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(L\) be a splitting field of \(f(t)\) over \(K\). Then \(D(f) \neq 0\) and is fixed by all elements of \(G = \gal(L/K)\) as the latter permutes the roots. Thus \(D \in K\) since \(L^G = K\) by Galois correspondence.
+
+  If \(\sigma \in G\) then \(\sigma(\Delta) = (\sgn \sigma) \Delta\) where we are regarding \(G\) as a subgroup of \(S_n\) and \(\sgn\) is the signature (this is where we need \(\ch K \neq 2\)). Thus if \(G \leq A_n\) we got that \(\Delta\) is fixed by all \(\sigma \in G\). THus \(\Delta \in K = L^G\).
+
+  On the other hand if \(G \nleq A_n\) we get \(\sigma(\Delta) = -\Delta\) if \(\sigma\) is odd and so \(\Delta \notin K = L^G\). Finally note that if \(D\) has square roots they must be \(\pm \Delta\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(n = 2\): \(f(t) =t^2 + bt + c = (t - \alpha_1)(t - \alpha_2)\) has determinant
+    \[
+      D(f) = (\alpha_1 - \alpha_2)^2 - (\alpha_1 + \alpha_2)^2 - 4\alpha_1\alpha_2 = b^2 - 4c
+    \]
+  \item \(n = 3\): \(f(t) = t^3 + ct + d\) has determinant
+    \[
+      D(t) = -4c^3 - 27d^2
+   \]
+   \begin{remark}
+     Any general monic cubic \(g(t)\) can be put into this form by a suitable substitution \(f(t) = g(t_1 + \lambda)\) for suitable \(\lambda\). Note \(D(f) = D(g)\).
+   \end{remark}
+ \end{enumerate}
+\end{eg}
+
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item \(f(t) = t^3 - t - 1 \in \Q[t]\) irreducible in \(\Z[t]\) since irreducible mod \(2\). \(D(f) = -23\) which is not a square in \(\Q\). Thus \(\gal(f) \cong S_3\).
+  \item \(f(t) = t^3 - 3t - 1 \in \Q[t]\) irredicible since irreducible mod \(2\). \(D(f) = 81\) which is a square so \(\gal(f) \cong A_3\).
+  \end{itemize}
+\end{eg}
+
+
+
 \end{document}
