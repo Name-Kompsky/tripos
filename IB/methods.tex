@@ -1748,6 +1748,169 @@ which can be written in self-adjoint form
 \[
   -\frac{d}{dx} \left( (1 - x^2) \frac{d\Theta}{dx} \right) = \lambda \Theta
 \]
-Thi is known as \emph{Legendre's equation}.
+This is known as \emph{Legendre's equation}.
 
+\subsection{Legendre Polynomial}
+
+We require a bounded solution of Legendre's equation on \([-1. 1]\). Sustitute a series solution
+\[
+  \Theta = \sum_{n = 0}^{\infty} a_n x^n
+\]
+
+\begin{align*}
+  (1 - x^2) \frac{d^2\Theta}{dx^2} - 2x \frac{d\Theta}{dx} + \theta \Theta &= 0 \\
+  (1 -x^2) \sum_{n = 2}^{\infty} a_n(n)(n - 1) x^{n-2} - 2 \sum_{n = 1}^{\infty}n a_n x^n + \lambda \sum_{n = 0}^{\infty} a_n x^n &= 0
+\end{align*}
+Consider the coefficients of \(x^n\):
+\begin{align*}
+  a_{n + 2} (n + 2)(n + 1) - n(n - 1) a_n - 2 n a_n + \lambda a_n &= 0 \\
+  a_{n + 2} &= \frac{n(n + 1) - \lambda}{(n + 2)(n + 1)} a_n
+\end{align*}
+There are two linearly independent solution \(L_e\) and \(L_0\), \(L_e\) has \(a_0 \neq 0, a_1 = 0\) and \(L_0\) has \(a_0 = 0, a_1 \neq 0\).
+\begin{align*}
+  L_e &= a_0 \left( 1 + \frac{-\lambda x^2}{2!} + \frac{(-\lambda)(6 - \lambda) x^4}{4!} + \frac{(-\lambda)(6 - \lambda)(20 - \lambda)x^6}{6!} + \dots \right) \\
+  L_0 &= a_1 \left( x + \frac{(2 - \lambda)x^3}{3!} + \dots \right)
+\end{align*}
+Note \(\frac{a_{n + 2}}{a_n} \to 1\) as \(n \to \infty\). THe series converges for \(|x| < 1\) and diverges for \(x = \pm 1\). Therefore for the solution to be bounded the series must terminate so
+\[
+  \lambda = m(m + 1)
+\]
+for some integer \(m\). It follows that there are countably many eigenvalues. This defines the \emph{Legendre polynomial} of degree \(m\).
+
+\subsection{Properties of Legendre Polynomials}
+
+By convention they are scaled so \(P_m(1) = 1\). Each  \(P_n(x)\) has \(n\) zeros in \([-1. 1]\). When \(n\) is odd, \(P_n(x)\) is odd about \(x = 0\) and when \(n\) is even, \(P_n(x)\) is even about \(x = 0\). The first four of them is
+\[
+\begin{array}[h]{c|c|c}
+  m & \lambda & P_n(x) \\
+  0 & 0 & 1 \\
+  1 & 2 & x \\
+  2 & 6 & \frac{3x^2 - 1}{2} \\
+  3 & 12 & \frac{5x^3 - 3x}{2} \\
+  4 & 20 & \frac{35x^4 - 20x^2 + 3}{8}
+\end{array}
+\]
+
+In addition the polynomials are orthogonal:
+\[
+  \int_{-1}^{1} P_n(x) P_m(x) dx = \frac{2}{2n + 1} \delta_{mn}
+\]
+So bounded functions on \([-1, 1]\) can be represented using the Legendre polynomials
+\begin{align*}
+  f(x) &= \sum_{n = 0}^{\infty} a_n P_n(x) \\
+  a_n &=  \frac{2n + 1}{2} \int_{-1}^{1}  f(x) P_n(x) dx
+\end{align*}
+
+\subsection{General axisymmetric solution}
+
+Let's return to the original question
+\begin{align*}
+  \psi(r, \theta) &= R(r) \Theta(\theta) \\
+  \Theta_n(\theta) &= P_n(x) = P_n(\cos \theta), \lambda = n(n + 1) \\
+  (r^2 R_n') - n(n + 1) R_n &= 0
+\end{align*}
+The last equation is equidimensional so use ansatz \(R_n \propto r^\beta\) so
+\[
+  \beta(\beta + 1) = n(n + 1)
+\]
+which has two solutions \(\beta = n\) and \(\beta = -n - 1\). Therefore particular solution is
+\[
+  \psi_n(r, \theta) = (a_nr^n + b_n r^{-(n + 1)}) P_n(\cos \theta)
+\]
+and summing up
+\[
+  \psi(r, \theta) = \sum_{n = 0}^{\infty} (a_nr^n + b_n r^{-(n + 1)}) P_n(\cos \theta)
+\]
+\(a_n\) and \(b_n\) are determined from boundary conditions, remembering \(\cos \theta = x\) and normalisation constant \(\frac{2}{2n +1}\).
+
+\begin{eg}
+  Axisymmetric Laplace's equation inside the unit sphere:
+  \[
+    \lap \psi = 0, r < 1, \psi(1, \theta) = f(\theta)
+  \]
+  The solution has to be regular at the origin so \(b_n = 0\) for all \(n\). Then at \(r = 1\),
+  \[
+    f(\theta) = \sum_{n = 0}^{\infty} a_n P_n(\cos \theta), 0 \leq \theta \leq \pi
+  \]
+
+  \(f(\theta)\) can in general be reposed as \(F(x)\) where
+  \[
+    F(x) = \sum_{n = 0}^{\infty} a_n P_n(x), x = \cos \theta, -1 \leq x \leq 1
+  \]
+  so
+  \[
+    a_ n = \frac{2n + 1}{2} \int_{-1}^{1} F(x) P_n(x) dx
+  \]
+\end{eg}
+
+\subsection{Generating Function}
+
+Consider a point unit charge located at \(z = 1\) in a Cartesian coordinate.
+
+The potential is
+\[
+  \psi(r, \theta) = \frac{1}{\rho} = \frac{1}{\sqrt{1 - 2r \cos \theta + r^2}}
+\]
+\(\psi\) satisfies Laplace's equation so it must be regular near the origin:
+\[
+  \psi(r, \theta) = \sum_{n = 0}^{\infty} a_n P_n(\cos \theta) r^n.
+\]
+By uniqueness of solution, these two must agree. Scale the polynomials so that \(P_n(1) = 1\) so
+\[
+  \frac{1}{\sqrt{1 - 2r + r^2}} = \frac{1}{1 - r} = \sum_{n = 0}^{\infty} a_n r^n
+\]
+so \(a_n = 1\) and the solution is
+\[
+  \sum_{n = 0}^{\infty} P_n(x)r^n = \frac{1}{\sqrt{1 - 2r + r^2}}
+\]
+differentiate \(n\) times so
+\[
+  \frac{1}{n!} \frac{d^n}{dr^n} \left( \frac{1}{\sqrt{1 - 2rx +r^2}} \right)_{r = 0} = P_n(x)
+\]
+
+\begin{ex}
+  Derive the orthogonality condition.
+  \begin{align*}
+    \int_{-1}^{1} \frac{1}{1 - 2rx + r^2} dx &= \sum_{m = 0}^{\infty} r^m \sum_{n = 0}^{\infty} r^n \int_{-1}^{1} P_n(x)P_m(x) dx \\
+                                             &= \sum_{n = 0}^{\infty} \frac{2}{2n + 1} r^{2n}
+  \end{align*}
+\end{ex}
+
+\subsection{Example: Unbounded Force Field}
+
+Consider a neutral conducting sphere in previously uniform electric field. Find the new potential \(V\)
+
+\begin{align*}
+  \V E &= -\grad V \\
+  \lap V &= -\frac{\rho}{\rho_0} = 0
+\end{align*}
+\[
+  V(r, \theta) = \sum_{n = 0}^{\infty}(a_n r^n + \frac{b_n}{r^{n + 1}}) P_n(\cos \theta)
+\]
+For field as \(r \to \infty\), \(V \to - E_0z = -E_0r \cos \theta\) so
+\[
+  V \to -E_0rP_1(\cos \theta)
+\]
+since \(P_1(x) = x\). Thus we have \(a_1 = - E_0\) and \(a_n = 0\) for \(n = 0, n > 1\). Thus
+\[
+  V(r_0) = 0 = \frac{b_0}{r_0} + \left( \frac{b_1}{r_0^2 - E_0r_0} \right) P_1 \cos \theta + \sum_{n = 2}^{\infty} \frac{b_nP}{denominator}
+\]
+Since this is true on the whole sphere, \(b_n = 0\) for \(n \geq 2\), \(b_0 = 0\), \(b_1 = \phi E_0 r_0^2\). So
+\[
+  V = -E_0 r \cos \theta \left( 1 - \frac{r_0^3}{r^3} \right)
+\]
+This show that the effect of the sphere is local.
+
+\subsection{Connection with Electrostatic Multipoles}
+
+Consider chareges placed non-uniformly but axisymmetrically inside a sphere. Far away we must have
+\[
+  V(r, \theta) = \sum_{n = 0}^{\infty} b_n r^{-(n + 1)} P_n(\cos \theta)
+\]
+
+For \(n = 0\), \(V \propto b_0/r\) isotropic monopole froma point charge
+
+\(n = 1\), \(V \propto b_1 \cos \phi/r^2\) dipole field
+
+\(n = 2\) \(V \propto \frac{b_2(3 \cos^2 \theta - 1)}{2r^3}\) quadrupole.
 \end{document}

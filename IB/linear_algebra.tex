@@ -61,7 +61,7 @@ The additive unit of $V$ is denoted by $\V 0$.
   \label{eg:matrix as V}
   \begin{enumerate}
   \item $\forall n \in \mathbb{N}, \mathbb{F}^n$ is the space of column vectors of length $n$ with entries in $\mathbb{F}$. It is an vector space by entry-wise addition and entry-wise scalar multiplication.
-  \item $M_{m,n}(\mathbb{F})$, the set of $m\times n$ matrices with entries in $\mathbb{F}$, with the operation defined as entry-wise addition.
+  \item $\\M_{m,n}(\mathbb{F})$, the set of $m\times n$ matrices with entries in $\mathbb{F}$, with the operation defined as entry-wise addition.
     \item For any set $X$, $\mathbb{R}^X = \{f: X \to \mathbb{R}\}$, the set of $\mathbb{R}$-valued functions on $X$, with addition and scalar multiplication defined pointwise. For instance, $(f_1+f_2)(x) = f_1(x)+f_2(x)$.
   \end{enumerate}
 \end{eg}
@@ -628,15 +628,15 @@ A = (a_{ij}), a_{ij}\in\F, 1\leq i \leq m, 1\leq j \leq n.
 \end{definition}
 
 \begin{definition}
-  \(M_{m,n}(\F)\) is the set of all such \(m\times n\) matrices.
+  \(\M_{m,n}(\F)\) is the set of all such \(m\times n\) matrices.
 \end{definition}
 
 \begin{proposition}
-  \(M_{m,n}(\F)\) is an \(\F\)-vector space and \(\dim M_{m,n}(\F) = m\cdot n\).
+  \(\M_{m,n}(\F)\) is an \(\F\)-vector space and \(\dim \M_{m,n}(\F) = m\cdot n\).
 \end{proposition}
 
 \begin{proof}
-  See Example~\ref{eg:matrix as V} for the proof of vector space axioms. For the dimension claim, a standard basis for \(M_{m,n}(F)\) is
+  See Example~\ref{eg:matrix as V} for the proof of vector space axioms. For the dimension claim, a standard basis for \(\M_{m,n}(F)\) is
   \[
     E_{ij}=
     \begin{pmatrix}
@@ -723,14 +723,14 @@ so the \(i\)th entry of \([\alpha]_{\basis B, \basis C}\) is \([v]_{\basis B}\).
 \begin{proposition}
   Let \(V\) and \(W\) be \(\F\)-vector spaces with \(\dim V = n, \dim W = m\), then
   \[
-L(V,W) \cong M_{m,n}(\F).
+L(V,W) \cong \M_{m,n}(\F).
   \]
 \end{proposition}
 
 \begin{proof}
   Fix bases \(B=\{v_1\ldots,v_n\}, C=\{w_1,\ldots,w_m\}\) for \(V\) and \(W\) respectively. Claim
   \begin{align*}
-    \theta: L(V,W) &\to M_{m,n}(\F) \\
+    \theta: L(V,W) &\to \M_{m,n}(\F) \\
     \alpha &\mapsto [\alpha]_{\basis B, \basis C}
   \end{align*}
   is an isomorphism:
@@ -827,15 +827,15 @@ Let \(Q\) be the change-of-basis matrix from \(\basis C'\) to \(\basis C\). Then
 \end{proof}
 
 \begin{definition}[Equivalence of matrices]
-  \(A, A' \in M_{m,n}(\F)\) are \emph{equivalent} if
+  \(A, A' \in \M_{m,n}(\F)\) are \emph{equivalent} if
   \[
     A' = Q^{-1}AP
   \]
-  for some invertible \(P\in M_{n,n}(\F)\) and \(Q\in M_{m,m}(\F)\).
+  for some invertible \(P\in \M_{n,n}(\F)\) and \(Q\in \M_{m,m}(\F)\).
 \end{definition}
 
 \begin{note}
-  This defines an equivalence relation on \(M_{m,n}(\F)\).
+  This defines an equivalence relation on \(\M_{m,n}(\F)\).
 \end{note}
 
 \begin{proposition}
@@ -890,7 +890,7 @@ Let \(Q\) be the change-of-basis matrix from \(\basis C'\) to \(\basis C\). Then
 \end{corollary}
 
 \begin{definition}[Row and column rank]
-  Let \(A\in M_{m,n}(\F)\).
+  Let \(A\in \M_{m,n}(\F)\).
   \begin{itemize}
   \item The \emph{column rank} of \(A\), \(r(A)\) is the dimension of the subspace of \(\F^m\) spanned by the columns of \(A\).
   \item The \emph{row rank} of \(A\) is the column rank of \(A^T\).
@@ -956,7 +956,7 @@ Note a special case for change of basis: \(V=W\), \(\basis C=\basis B\), the oth
 \]
 
 \begin{definition}[Similar matrices]
-  Given \(A, A' \in M_{n,n}(\F)\), \(A\) and \(A'\) are \emph{similar}, or \emph{conjugate} if
+  Given \(A, A' \in \M_{n,n}(\F)\), \(A\) and \(A'\) are \emph{similar}, or \emph{conjugate} if
   \[
     A' = P^{-1}AP
   \]
@@ -1011,7 +1011,7 @@ The elementary row (column, respectively) have corresponding elementary matrices
 \end{enumerate}
 \end{definition}
 
-An elementary column (row, respectively) operation on \(A\in M_{m,n}(\F)\) can be performed by multiplying \(A\) by these corresponding elementary matrices on the right (left respectively).
+An elementary column (row, respectively) operation on \(A\in \M_{m,n}(\F)\) can be performed by multiplying \(A\) by these corresponding elementary matrices on the right (left respectively).
 
 \begin{eg}
   \[
@@ -1115,7 +1115,7 @@ Let \(V\) be an \(\F\)-vector space.
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(\R^3 \to \R, (a,b,c)\mapsto a-c\) is an element of \(V^*\).
-  \item \(\tr: M_{n,n}(\F)\to \F, A\mapsto \sum_i A_{ii}\) is an element of \(M_{n,n}(\F)^*\).
+  \item \(\tr: \M_{n,n}(\F)\to \F, A\mapsto \sum_i A_{ii}\) is an element of \(\M_{n,n}(\F)^*\).
   \end{enumerate}
 \end{eg}
 
@@ -1403,7 +1403,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   Let \(U\) and \(V\) be \(\F\)-vector spaces. A map \(\varphi: U \times V \to \F\) is \emph{bilinear} if it is linear in both arguments, i.e.
   \begin{align*}
     \forall u \in U, \, \varphi(u, -) &\in V^* \\
-    \forall u \in U, \, \varphi(-, v) &\in U^*
+    \forall v \in V, \, \varphi(-, v) &\in U^*
   \end{align*}
 \end{definition}
 
@@ -1443,10 +1443,10 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   \item \([\varphi]_{\basis B, \basis C}\) is the unique matrix with this property.
   \item A bilinear \(\varphi: U \times V \to \F\) induces linear maps
     \begin{align*}
-      \varphi_L: U &\to V* \\
-      u &\mapsto (v \mapsto \varphi(u, v)) \\
-      \varphi_R: V &\to U* \\
-      v &\mapsto (u \mapsto \varphi(u, v))
+      \varphi_L: U &\to V^* \\
+      u &\mapsto \varphi(u, -) \\
+      \varphi_R: V &\to U^* \\
+      v &\mapsto \varphi(-, v)
     \end{align*}
   \end{enumerate}
 \end{note}
@@ -1574,7 +1574,7 @@ They are generalisation of annihilators.
 \end{definition}
 
 \begin{lemma}
-  Let \(\alpha: V \to V\) be linear and \(\alpha^*: V* \to V*\) be its dual. Then
+  Let \(\alpha: V \to V\) be linear and \(\alpha^*: V^* \to V^*\) be its dual. Then
   \[
     \tr \alpha = \tr \alpha^*.
   \]
@@ -1913,6 +1913,164 @@ can be intepreted as the signed area of the parallelogram spanned by the column 
     
 Similarly in \(\R^3\) the determinant of a matrix is the signed volume of the parallelepiped spanned by the column vectors of the matrix.
 
-For higher dimensions, although it can be difficult to visualise, the same interpretation still works.
+For higher dimensions, although it can be difficult to visualise, the same interpretation still works: consier a hypercube
+%
+%
+%
+%
 
+\subsection{Elementary Operations and Determinant}
+
+Consider the determinants of elementary column operation matrices:
+\begin{itemize}
+\item \(E_1\) swaps two columns so \(\det E_1 = -1\),
+\item \(E_2\) multiplies a column by \(\lambda \neq 0\) so \(\det E_2 = \lambda\),
+\item \(E_3\) adds \(\lambda\) times of a column to another column so \(\det E_3 = 1\).
+\end{itemize}
+
+One could prove properties of \(\det\) by decomposing any matrix into elementary matrices.
+
+\subsection{Column Expansion \& Adjugate Matrices}
+
+\begin{lemma}
+  Suppose \(A \in \M_n(\F)\), \(A = (a_{ij})\). Define \(A_{\widehat{ij}} \in M_{n - 1}(\F)\) by deleting row \(i\) and column \(j\) from \(A\). Then \(\det A\) can be calculated by
+  \begin{enumerate}
+  \item expansion in column \(j\): for a fixed \(j\),
+    \[
+      \det A = \sum_{i = 1}^{n} (-1)^{i + j} a_{ij} \det A_{\widehat{ij}}.
+    \]
+  \item expansion in row \(i\): for a fixed \(i\),
+    \[
+      \det A = \sum_{j = 1}^{n} (-1)^{i + j} a_{ij} \det A_{\widehat{ij}}.
+    \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{remark}
+  It is possible to use one of the expressions above to define determinant iteratively, with base case \(\det a = a\) for \(n = 1\).
+\end{remark}
+
+\begin{eg}
+  \[
+    \begin{vmatrix}
+      a & b & c \\
+      d & e & f \\
+      g & h & i
+    \end{vmatrix}
+    =
+    a
+    \begin{vmatrix}
+      e & f \\
+      h & i
+    \end{vmatrix}
+    -b
+    \begin{vmatrix}
+      d & f \\
+      g & i
+    \end{vmatrix}
+    +c
+    \begin{vmatrix}
+      d & e \\
+      g & h
+    \end{vmatrix}
+  \]
+\end{eg}
+
+\begin{proof}
+  We prove \(1\):
+  
+  \begin{align*}
+    \det A &= \det( A^{(1)} | \cdots | \sum_{i = 1}^{n} a_{ij}e_i | \cdots | A^{(n)} ) \\
+           &= \sum_{i = 1}^{n} a_{ij} \det( A^{(1)} | \cdots | e_i | \cdots | A^{(n)} ) \\
+    \intertext{use row and column operations to move the entry to top left corner,}
+           &= \sum_{i = 1}^{n} a_{ij} (-1)^{(i - 1) + (j - 1)} \det
+             \begin{pmatrix}
+               1 & 0 \\
+               0 & A_{\widehat{ij}}
+             \end{pmatrix} \\
+           &= \sum_{i = 1}^{n} a_{ij} (-1)^{i + j} \det A_{\widehat{ij}}
+  \end{align*}
+\end{proof}
+
+\begin{definition}[Adjugate]
+  Let \(A \in \M_n(\F)\). The \emph{adjugate matrix} of \(A\), \(\adj A\), is the \(n \times n\) matrix
+  \[
+    (\adj A)_{ij} = (-1)^{i + j} \det A_{\widehat{ji}}.
+  \]
+\end{definition}
+
+\begin{theorem}\leavevmode
+  \begin{enumerate}
+  \item \((\adj A ) A = \det A \cdot I\),
+  \item If \(A\) is invertible then
+    \[
+      A^{-1} = \frac{\adj A}{\det A}.
+    \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item For a fixed \(j\), \(\det A = \sum_i (\adj A)_{ji} a_{ij} = A_{jj}\). For \(j \neq k\), replace the \(j\)th column with the \(k\)th:
+    \begin{align*}
+      0 &= \det(A^{(1)} | \cdots | A^{(k)} | \cdots | A^{(k)} | \cdots | A^{(n)}) \\
+        &= \sum_{i}^{ } (\adj A)_{ji} a_{ik} \\
+        &= A_{jk}
+    \end{align*}
+  \item If \(A\) is invertible then \(\det A \neq 0\) so
+    \[
+      I = \frac{\adj A}{\det A} A.
+    \]
+  \end{enumerate}
+\end{proof}
+
+\subsection{System of Linear Equations}
+
+A system of linear equations can be written as
+\[
+  A \V x = \V b
+\]
+where \(A \in \M_{m, n}(\F)\) and \(\V b \in \M_{m, 1}(\F)\) are known and \(\V x \in \M_{n, 1}(\F)\) is unknown.
+
+The system has a solution if and only if \(r(A) = r(A|\V b)\) where the matrix on RHS is the \emph{augmented matrix} by adding \(\V b\) as a column to \(A\) since this happens if and only if \(\V b\) is a linear combination of columns of \(A\).
+
+The solution is unique if and only if \(r(A) = n\).
+
+In particular, if \(m = n\), if \(A\) is non-singular then there is a unique solution
+\[
+  \V x = A^{-1} \V b.
+\]
+
+Although in theory we could invert the matrix to solve the system of equations, it is terribly inefficient. Instead, we use
+
+\begin{proposition}[Cramer's rule]
+  If \(A \in \M_n(\F)\) is invertible then the system
+  \[
+    A \V x = \V b
+  \]
+  has unique solution \(\V x = (x_i)\) where
+  \[
+    x_i = \frac{\det (A_{\hat{i} \V b})}{\det A}
+  \]
+  where \(A_{\hat{i} \V b}\) is obtained from \(A\) by deleting \(i\)th column and replacing it with \(\V b\).
+\end{proposition}
+
+\begin{proof}
+  Assume \(\V x\) is a solution of the system.
+  \begin{align*}
+    \det (A_{\hat i \V b}) &= \det(A^{(1)} | \cdots | \V b | \cdots | A^{(n)}) \\
+                           &= \det(A^{(1)} | \cdots | A \V x | \cdots | A^{(n)}) \\
+                           &= \sum_{j = 1}^{n} x_j \det(A^{(1)} | \cdots | A^{(j)} | \cdots | A^{(n)}) \\
+    \intertext{\(A^{(j)}\) is one of the other columns unless \(j = i\) so}
+                           &= x_i \det A
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  If \(A \in \M_n(\Z)\) with \(\det A = \pm 1\), then
+  \begin{enumerate}
+  \item \(A^{-1} \in \M_n(\Z)\).
+  \item Given \(\V b \in \Z^n\), \(A \V x = \V b\) has an integer solution.
+  \end{enumerate}
+\end{corollary}
 \end{document}

@@ -157,7 +157,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
     \[
       0 \leq |\|\V v_n\| - \|\V v\|| \leq \|\V v_n - \V v\|
     \]
-    by Lemma~\ref{lem:alternate triangle}. So $(|\|\V v_n - \V v\||) \to 0$ by squeeze rule, i.e.\ $\|\V v_n\| \to \|\V v\|$.
+    by \nameref{lem:alternate triangle}. So $(|\|\V v_n - \V v\||) \to 0$ by squeeze rule, i.e.\ $\|\V v_n\| \to \|\V v\|$.
   \end{proof}
   \end{enumerate}
 \end{eg}
@@ -552,7 +552,7 @@ A series of the form
 where \(a_i,z,c\in C\) is called a \emph{power series}. \(C\) is the \emph{centre}.
 \end{definition}
 
-\begin{proposition}[Pointwise convergence]
+\begin{proposition}
   \label{prop:pointwise convergence of series}
   If
   \[
@@ -597,7 +597,7 @@ for all \(i\geq N\) and \(\sum_{i=N}^{\infty}\alpha^i \) converges. By the lemma
   is the \emph{radius of convergence} of \(\sum_{i=0}^{\infty}a_i(z-c)^i \).
 \end{definition}
 
-Proposition~\ref{prop:pointwise convergence of series} implies that if \(z\in B_R(c)\) then \(\sum_{i=0}^{\infty}a_i(z-c)^i \) converges. In other words, if we define
+\Cref{prop:pointwise convergence of series} implies that if \(z\in B_R(c)\) then \(\sum_{i=0}^{\infty}a_i(z-c)^i \) converges. In other words, if we define
 \begin{align*}
   f: B_R(c) &\to \C \\
   z &\mapsto \sum_{i=0}^{\infty} a_i(z-c)^i \\
@@ -605,7 +605,7 @@ Proposition~\ref{prop:pointwise convergence of series} implies that if \(z\in B_
   z &\mapsto \sum_{i=0}^{n} a_i(z-c)^i
 \end{align*}
 
-Proposition~\ref{prop:pointwise convergence of series} says that \((P_n)\to f\) pointwise on \(B_R(c)\). As \(P_n\) are polynomials so they are continuous. A natural question is, is \(f\) continuous as well? We know this answer will be yes if we can prove that the convergence is uniform. How do we do that?
+\Cref{prop:pointwise convergence of series} says that \((P_n)\to f\) pointwise on \(B_R(c)\). As \(P_n\) are polynomials so they are continuous. A natural question is, is \(f\) continuous as well? We know this answer will be yes if we can prove that the convergence is uniform. How do we do that?
 
 \begin{theorem}
   With notations as above,
@@ -626,7 +626,7 @@ uniformly on \(\cl B_r(c)\) whenever \(r<R\).
   \]
   Fix \(r< R\). Given \(\varepsilon>0\), need to find \(N \) such that \(|E_n(z)| < \varepsilon\) whenever \(n\geq N\) and \(z\in \cl B_r(c)\).
 
-  Choose \(z_0\) with \(r< |z_0-c| < R\) as in the proof of Proposition~\ref{prop:pointwise convergence of series}, pick \(N_0\) such that \(|a_i(z_0-c)|^i<1\) for \(i\geq N_0\). Now we use \ref{eqn:fundamental est}. For \(i\geq N_0\), we have \(|a_i(z-c)^i| < \alpha(z)^i\) where \(\alpha(z) = |\frac{z-c}{z_0-c}|\). For \(z\in \cl B_r(c)\),
+  Choose \(z_0\) with \(r< |z_0-c| < R\) as in the proof of \Cref{prop:pointwise convergence of series}, pick \(N_0\) such that \(|a_i(z_0-c)|^i<1\) for \(i\geq N_0\). Now we use \ref{eqn:fundamental est}. For \(i\geq N_0\), we have \(|a_i(z-c)^i| < \alpha(z)^i\) where \(\alpha(z) = |\frac{z-c}{z_0-c}|\). For \(z\in \cl B_r(c)\),
   \[
     \alpha(z) = \Big| \frac{z-c}{z_0-c} \Big| \leq \frac{r}{|z_0-c|} = \alpha_0 < 1
   \]
@@ -742,7 +742,7 @@ Now suppose \(f(x) = \sum_{i=0}^{\infty}a_i(x-c)^i \) is a real power series wit
 \end{corollary}
 
 \begin{proof}
-  Given \(x\), choose \(r\) with \(|x-c| < r < R\). Then \((P_n)\to f\) on \([c-r, c+r]\) so by Proposition~\ref{prop:power series integral convergence}
+  Given \(x\), choose \(r\) with \(|x-c| < r < R\). Then \((P_n)\to f\) on \([c-r, c+r]\) so by \Cref{prop:power series integral convergence}
   \[
     (\mathbf{P}_n) \to \int_{c}^{x} f(t) dt
   \]
@@ -806,14 +806,14 @@ In other words, power series can be differentiated term-by-term.
   \[
     \int_{c}^{x} g(t) dt = \sum_{i=1}^{\infty}a_i(x-c)^i = f(x) - f(c).
   \]
-  Now \(g(x)\) is continuous on \((c-R, c+R)\) so we can apply~\ref{thm:FTC} so \(f'(x) = g(x)\) for all \(x\in(c-R,c+R)\).
+  Now \(g(x)\) is continuous on \((c-R, c+R)\) so we can apply~\nameref{thm:FTC} so \(f'(x) = g(x)\) for all \(x\in(c-R,c+R)\).
 \end{proof}
 
 \begin{application}
   Power series solutions of ODEs are legit as long as you check the radius of convergence.
 \end{application}
 
-\section{Compactness}
+\section{Compactness \& Completeness}
 
 \subsection{Compact subsets of \texorpdfstring{\(\R^n\)}{R\^{}n}}
 
@@ -947,7 +947,7 @@ Let \(\norm \cdot\) be some norm on \(\R^m\).
 \end{lemma}
 
 \begin{proof}
-  By the criterion in Proposition~\ref{prop:continuity of id} it suffices to show that there is a constant \(C\) such that \(\norm v \leq C \norm v_1\) for all \(v\in \R^m\). Let \(v = (v_1,\dots,v_m) = \sum_{i=1}^{m}v_ie_i \) where \(e_i\) is the standard basis vector. Take \(C = \max_{1\leq i\leq m}\norm{e_i}\). Then
+  By the criterion in \Cref{prop:continuity of id} it suffices to show that there is a constant \(C\) such that \(\norm v \leq C \norm v_1\) for all \(v\in \R^m\). Let \(v = (v_1,\dots,v_m) = \sum_{i=1}^{m}v_ie_i \) where \(e_i\) is the standard basis vector. Take \(C = \max_{1\leq i\leq m}\norm{e_i}\). Then
   \[
     \norm v \leq \sum_{i=1}^{m}\norm{v_ie_i} = \sum_{i=1}^{m}|v_i| \norm{e_i} \leq C \sum_{i=1}^{m}|v_i| = C \norm v_1
   \]
@@ -1083,8 +1083,8 @@ The proof uses two lemmas about Cauchy sequences: suppose \(V\) is a normed vect
   \]
 \end{proof}
 
-\begin{proof}[Proof of Theorem~\ref{thm:completeness of R}]
-  Suppose \((v_n)\) is a Cauchy sequence in \(\R^n\). By Lemma~\ref{lem:boundedness of Cauchy}, \((v_n)\) is bounded. By Bolzano-Weierstrass, it has a convergent subsequence \((v_{n_j}) \to v \in \R^n\). By Lemma~\ref{lem:subsequence of Cauchy} \((v_n) \to v \in \R^n\). So any Cauchy sequence in \(\R^n\) converges to \(v\in \R^n\). \(\R^n\) is complete.
+\begin{proof}[Proof of \Cref{thm:completeness of R}]
+  Suppose \((v_n)\) is a Cauchy sequence in \(\R^n\). By \Cref{lem:boundedness of Cauchy}, \((v_n)\) is bounded. By Bolzano-Weierstrass, it has a convergent subsequence \((v_{n_j}) \to v \in \R^n\). By \Cref{lem:subsequence of Cauchy} \((v_n) \to v \in \R^n\). So any Cauchy sequence in \(\R^n\) converges to \(v\in \R^n\). \(\R^n\) is complete.
 \end{proof}
 
 We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weierstrass property. Nevertheless, it is complete:
@@ -1300,20 +1300,21 @@ Similar for \(\frac{\partial F}{\partial x_2}\).
 
   \begin{eg}\leavevmode
     \begin{itemize}
-    \item \[
-      F(x_1, x_2) =
-      \begin{cases}
-        0 & \text{ if } x_1 = 0 \text{ or } x_2 = 0 \\
-        1 & \text{ otherwise}
-      \end{cases}
-    \]
-    Then \(\frac{\partial F}{\partial x_1} = \frac{\partial F}{\partial x_2} = 0\) at \((0, 0)\) but \(F\) is not even continuous. Heuristically, a good definition of differentiability should not allow this (as this is not compatible with the old definition of differentiability).
-  \item If one insists that differentiability does not imply continuity (by whatever means) and declare \(F\) as differentiable whenever \(\frac{\partial F}{\partial x_i}\) exists, then consier \(G(x_1, x_2) = F(x_1 + x_2, x_1 - x_2)\), then \(\frac{\partial G}{\partial x_1}\) does not eve exist. This is even worse: the composition of differentiable functions is not differentiable!
-  \end{itemize}
+    \item Let
+      \[
+        F(x_1, x_2) =
+        \begin{cases}
+          0 & \text{ if } x_1 = 0 \text{ or } x_2 = 0 \\
+          1 & \text{ otherwise}
+        \end{cases}
+      \]
+      Then \(\frac{\partial F}{\partial x_1} = \frac{\partial F}{\partial x_2} = 0\) at \((0, 0)\) but \(F\) is not even continuous. Heuristically, a good definition of differentiability should not allow this as this is not compatible with the definition of differentiability for 1D.
+    \item If one insists that differentiability does not imply continuity (by whatever means) and declare \(F\) as differentiable whenever \(\frac{\partial F}{\partial x_i}\) exists, then consider \(G(x_1, x_2) = F(x_1 + x_2, x_1 - x_2)\), whose derivative \(\frac{\partial G}{\partial x_1}\) does not even exist. This is even worse: the composition of differentiable functions is not differentiable!
+    \end{itemize}
   \end{eg}
 \end{note}
 
-The existence of partial derivatives is not stron enough as \(\frac{\partial F}{\partial x_i}\) merely tells us about restriction of \(F\) to coordinate axes.
+The existence of partial derivatives is not strong enough as \(\frac{\partial F}{\partial x_i}\) merely tells us about restriction of \(F\) to coordinate axes.
 
 To answer Q1, recall that \(f: \R \to \R\), \(f'(a) = c\) means that
 \[
@@ -1377,7 +1378,7 @@ i.e.\ as a map \(\D F|_a\) is given by the matrix
 \]
 
 \begin{eg}
-  Define \(F\) as in the previous example. \(\frac{\partial F}{\partial x_i} = 0\) so if there were a tangent plane at 0 it would be given by
+  Let \(F\) be the same as in the previous example. \(\frac{\partial F}{\partial x_i} = 0\) so if there were a tangent plane at 0 it would be given by
   \[
     z = T(x_1, x_2) = 0 + 0 \cdot x_1 + 0 \cdot x_2 = 0
   \]
@@ -1386,13 +1387,15 @@ i.e.\ as a map \(\D F|_a\) is given by the matrix
 
 More generatlly,
 
-\begin{definition}[Differentiability]
+\begin{restatable}[Differentiability]{definition}{differentiability}
   Given \(F: \R^n \to \R^m\), \(F\) is \emph{differentiable} at \(a\) if there is a linear function \(L: \R^n \to \R^m\) such that
-  \[
+  \begin{equation}
+    \label{eqn:derivative2}
     \lim_{h \to 0} \frac{F(a + h) - F(a) - L(h)}{\norm h} = 0.
-  \]
+    \tag{\(\ast\)}
+  \end{equation}
   If so, say \(\D F|_a = L\) is the \emph{derivative} of \(F\) at \(a\).
-\end{definition}
+\end{restatable}
 
 If \(F = (F_1, \dots, F_m)\) is differentiable at \(a\), the derivative is given by the matrix
 \[
@@ -1404,7 +1407,6 @@ If \(F = (F_1, \dots, F_m)\) is differentiable at \(a\), the derivative is given
   \end{pmatrix}
 \]
   
-
 \begin{eg}
   If \(\gamma: \R \to \R^n\),
   \[
@@ -1440,7 +1442,7 @@ Similarly for \(F: \R^n \to \R^m\), \(G: \R^m \to \R^l\) differentiable, we will
 
 \subsection{Limits}
 
-Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in U\), \(f: U \setminus \{v_0\} \to W\),
+Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in U\), \(f: U \setminus \{v_0\} \to W\).
 
 \begin{definition}[Limit]
   We say the \emph{limit} of \(f\) at \(v_0\) is \(w\), denoted by
@@ -1473,15 +1475,15 @@ Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in
 \end{proposition}
 
 \begin{proof}
-  The first three are the same as the real case in IA Analysis I.
+  The first three are the same as the one dimensional case in IA Analysis I.
   
-  For (4), \((f(x)) \to w\) if and only if \((f_i(x_n)) \to w_i\) for all \(i\) so the result follows from sequential characterisation of limits.
+  For (4), \((f(x)) \to w\) if and only if \((f_i(x_n)) \to w_i\) for all \(i\) so the result follows from sequential characterisation of convergence.
 
   For (5), given \(\varepsilon > 0\), exists \(\delta > 0\) such that \(\norm{f(v) - w} < \varepsilon\) whenever \(0 < \norm v < \delta\). Then for \(0 < |t| < \delta/\norm x\), \(0 < \norm{t x} < \delta\) so \(\norm{f(t x) - w} < \varepsilon\) so \(\lim_{t \to 0} f(t x) = w\).
 \end{proof}
 
 \begin{note}
-  \(\lim_{t \to 0} f(t x) = w\) for all \( x \in V\setminus \{0\}\) does not imply that \(\lim_{v \to 0} f(v) = w\).
+  \(\lim_{t \to 0} f(t x) = w\) for all \( x \in V\setminus \{0\}\) does not imply that \(\lim_{v \to 0} f(v) = w\). This is similar to the case the existence of \(\frac{\partial f}{\partial x_i}\) for all \(i\) does not imply differentiability of \(f\).
 \end{note}
 
 \begin{eg}
@@ -1517,7 +1519,7 @@ Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in
 \end{lemma}
 
 \begin{proof}
-  Sequential characterisation of limit.
+  Sequential characterisation of convergence.
 \end{proof}
 
 Recall that previously we have defined continuity of a function \emph{on a domain}. Here we define continuity of a function \emph{at a point}. Fortunately, these two notions of continuity are compatible:
@@ -1530,19 +1532,11 @@ Recall that previously we have defined continuity of a function \emph{on a domai
   \(f\) is continuous at every \(v \in U\) if and only if \((x_i) \to v \in U \Rightarrow (f(x_i)) \to f(v)\) if and only if \(f\) is continuous.
 \end{proof}
 
-\subsection{Derivative, Formal Version}
+\subsection{Derivative, Revisited}
 
-Suppose \(U \subseteq \R^n\) is open, \(f: U \to \R^m\) and \(a \in U\).
+Suppose \(U \subseteq \R^n\) is open, \(f: U \to \R^m\) and \(a \in U\). We recall
 
-\begin{definition}[Differentiability]
-  \(f\) is \emph{differentiable} at \(a\) if there is a linear function \(L: \R^n \to \R^m\) such that
-  \begin{equation}
-    \label{eqn:derivative2}
-    \lim_{h \to 0} \frac{f(a + h) - f(a) - L(h)}{\norm h} = 0
-    \tag{\(\ast\)}
-  \end{equation}
-  in which case we say \(\D f|_a = L\) is the \emph{derivative} of \(f\) at \(a\).
-\end{definition}
+\differentiability*
 
 \begin{note}\leavevmode
   \begin{enumerate}
@@ -1563,4 +1557,197 @@ Suppose \(U \subseteq \R^n\) is open, \(f: U \to \R^m\) and \(a \in U\).
   \end{enumerate}
 \end{note}
 
+Let \(U \subseteq \R^n\) be open and \(f: U \to \R^n\).
+
+\begin{notation}
+  \(L(\R^n, \R^m)\) is the space of linear maps from \(\R^n\) to \(R^m\), which is isomorphic to \(\mathcal{M}_{m, n}(\R)\).
+\end{notation}
+
+\begin{eg}
+  If \(L \in L(\R^n, \R^m), y_0 \in \R^n, f(x) = y_0 + L(x)\) then
+  \begin{align*}
+    f(a + h) &= y_0 + L(a + h) \\
+             &= y_0 + L(a) + L(h) \\
+             &= f(a) + L(h)
+  \end{align*}
+  so
+  \[
+    \lim_{h \to 0} \frac{f(a + h) - f(a) - L(h)}{\norm h} = \lim_{h \to 0} \frac{0}{\norm h} = 0
+  \]
+  so \(f\) is differentiable and \(\D f|_a = L\).
+\end{eg}
+
+\begin{definition}[Differentiability]
+  \(f\) is differentiable if \(f\) is differentiable at all \(a \in U\).
+\end{definition}
+
+There are two ways to think about the derivative:
+\begin{itemize}
+\item analyst way: \(\D f: U \to L(\R^n, \R^m), a \mapsto \D f|_a\). 
+\item geometer way: define the tangent bundle \(TU = U \times \R^n\) if \(U \subseteq \R^n\) is open, then
+  \begin{align*}
+    df: TU &\to T\R^M \cong \R^m \times \R^m \\
+    (a, v) &\mapsto (f(v), \D f|_a(v))
+  \end{align*}
+\end{itemize}
+
+The analyset way says that give \(f\) in the previous example, the derivative \(\D f: \R^n \to L(\R^n, \R^m), a \mapsto L\) is the constant map.
+
+\subsection{Directional Derivative}
+
+Let \(F: U \to \R^n\).
+
+\begin{definition}[Directional derivative]
+  If \(v \in \R^n\setminus \{0\}\) the \emph{directional derivative} of \(F\) at \(a\) in the direction \(v\) is
+  \[
+    \D_v F|a = \lim_{t \to 0^+} \frac{F(a + tv) - F(a)}{t}
+  \]
+  if RHS exist.
+\end{definition}
+
+\begin{eg}
+  If \(e_i\) is the standard basis vector of \(\R^n\) then \(\D_{e_i} f|a = \D_i F|_a\) if \(\D_i F|_a\) exists.
+\end{eg}
+
+\begin{proposition}
+  If \(F\) is differentiable at \(a\) then
+  \[
+    \D_v F|_a = \D F|_a (v).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Suppose
+  \[
+    \lim_{h \to 0} \frac{F(a + h) - F(a) - L(h)}{\norm h} = 0.
+  \]
+  Then by the property of limits
+  \begin{align*}
+    0 &= \lim_{h \to 0^+} \frac{F(a + tv) - F(a) - L(tv)}{\norm{tv}} \\
+      &= \lim_{h \to 0^+} \frac{F(a + tv) - F(a) - t L(v)}{t}
+  \end{align*}
+  so
+  \[
+    \lim_{t \to 0^+} \frac{F(a + tv) - F(a)}{t} = L(v).
+  \]
+  Thus
+  \[
+    \D_v F|_a = \D F|_a(v).
+  \]
+\end{proof}
+
+\begin{eg}
+  In the example above,
+  \[
+    \D F|_a(e_i) = \D_{e_i} F|_a = \D_i F|_a.
+  \]
+  If \(F\) is differentiable, the derivative is representated by the \(1 \times n\) matrix
+  \[
+    (\D_1 F|_a \cdots \D_n F|_a).
+  \]
+\end{eg}
+
+\begin{corollary}
+  If \(F\) is differentiable at \(a\) then \(D_v F|_a\) is a linear function of \(v\).
+\end{corollary}
+
+\begin{eg}
+  Let
+  \[
+    F(x_1, x_2) =
+    \begin{cases}
+      \frac{x_1^3 + x_2^3}{x_1^2 + x_2^2} & (x_1, x_2) \neq (0, 0) \\
+      0 & (x_1, x_2) = (0, 0)
+    \end{cases}
+  \]
+  Then
+  \begin{align*}
+    \D_v F|_0 &= \lim_{t \to 0^+} \frac{F(tv) - F(0)}{t} \\
+              &= \lim_{t \to 0^+} \frac{t^3(v_1^3 + v_2^3)}{t^2(v_1^2 + v_2^2)} \cdot \frac{1}{t}\\
+              &= \frac{v_1^3 + v_2^3}{v_1^2 + v_2^2}
+  \end{align*}
+  so \(D_v F|_0\) exists for all \(v \neq 0\). But \(\D_{(1, 0)} F|_0 = \D_{(0, 1)} F|_0 = \D_{(1, 1)} F|_0 = 1\),
+  \[
+    \D_{(1, 0)} F|_0 + \D_{(0, 1)} F|_0 \neq \D_{(1, 1)} F|_0.
+  \]
+  \(D_v F|_0\) is not a linear function of \(v\) so \(F\) is not differentiable at \(0\).
+\end{eg}
+
+\begin{remark}
+  If \(F: U \to \R\), the \emph{gradient} is
+  \[
+    \gradient F|_a = (\D_1 F|_a \cdots \D_n F|_a) \in \R^n
+  \]
+  There is a vector space isomorphism
+  \begin{align*}
+    \R^n &\to (\R^n)^* \\
+    w &\mapsto w^* = w \cdot -
+  \end{align*}
+  sending a vector to its dual. In particular
+  \[
+    \gradient F|_a \mapsto \D F|_a
+  \]
+  so
+  \[
+    \D_v F|_a = D F|_a(v) = \gradient F|_a \cdot v.
+  \]
+\end{remark}
+
+\begin{proposition}
+  \(f = (f_1, \dots, f_m): U \to \R^m\) is differentiable at \(a\) with derivative \(L = (L_1, \dots L_m)\) where \(L_i \in (\R^n)^*\) if and only if \(f_i\)'s are differentiable at \(a\) with derivative \(L_i\) for all \(1 \leq i \leq m\).
+\end{proposition}
+
+\begin{proof}
+  By property of limits,
+  \[
+    \lim_{h \to 0} = \frac{f(a + h) - f(a) - L(h)}{\norm h} = 0
+  \]
+  if and only if
+  \[
+    \lim_{h \to 0} = \frac{f_i(a + h) - f_i(a) - L_i(h)}{\norm h} = 0
+  \]
+  for all \(i\).
+\end{proof}
+
+\begin{corollary}
+  If \(f\) is differentiable at \(a\) then \(\D f|_a \in L(\R^n, \R^m)\) is given by multiplicatoin by the \(m \times n\) matrix
+\[
+  \D f|_a =
+  \begin{pmatrix}
+    \D_1f_1|_a & \cdots & \D_nf_1|_a \\
+    \vdots & \ddots & \vdots \\
+    \D_1f_m|_a & \cdots & \D_nf_m|_a
+  \end{pmatrix}
+\]
+\end{corollary}
+
+Sometimes it is better to differentiate by hand:
+\begin{eg}
+  Let
+  \begin{align*}
+    F: \R^n \times \R^n &\to \R \\
+    (a_1, a_2) &\mapsto a_1 \cdot a_2
+  \end{align*}
+  Then
+  \[
+    F(a + h) = (a_1 + h_1) \cdot (a_2 + h_2) = \underbrace{a_1 \cdot a_2}_{F(a)}
+    + \underbrace{h_1 \cdot a_2 + a_1 \cdot h_2}_{L_a(h)}
+    + h_1 \cdot h_2
+  \]
+  Observe that \(L_a(h) = a_1 \cdot h_2 + a_2 \cdot h_1\) is a linear function of \(h\). Claim \(\D F|_a = L_a\):
+  \begin{proof}
+    \[
+      \lim_{h \to 0} \frac{F(a + h) - F(a) - L_a(h)}{\norm h} = \lim_{h \to 0} \frac{h_1 \cdot h_2}{\norm h}
+    \]
+    By Cauchy-Schwartz,
+    \[
+      0 \leq \frac{|h_1 \cdot h_2|}{\norm h} \leq \frac{\norm{h_1}\norm{h_2}}{(\norm{h_1}^2 + \norm{h_2}^2)^{1/2}} = \frac{\norm{h_1}}{(\norm{h_1}^2 + \norm{h_2}^2)^{1/2}} \cdot \norm{h_2} \leq \norm{h_2}
+    \]
+    so by squeeze rule
+    \[
+      \lim_{h \to 0} \frac{h_1 \cdot h_2}{\norm h}
+    \]
+    and it follows that \(\D F|_a = L_a\).
+  \end{proof}
+\end{eg}
 \end{document}

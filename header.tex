@@ -71,6 +71,7 @@
 }
 
 %\usepackage{braket}
+\usepackage{thmtools}%restate theorem
 \usepackage{hyperref}
 
 % https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
@@ -89,6 +90,8 @@
     filecolor=magenta,
     urlcolor=cyan
 }
+
+\usepackage{cleveref}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}{Proposition}[section]
@@ -135,6 +138,7 @@
 %matrix
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\adj}{adj}
 
 %algebra
 \DeclareMathOperator{\Hom}{Hom}
