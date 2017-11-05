@@ -19,9 +19,81 @@
 
 \tableofcontents
 
+\setcounter{section}{-1}
+
+\section{History}
+
+The primary motivation is to study
+% TODO: fill this in
+%
+%
+%
+
+\blindtext
+
 \section{Field Extensions}
 
-\blindtext{10}
+\subsection{Field Extensions}
+
+\begin{definition}[Field extension]
+  A \emph{field extension} \(K \leq L\) is the inclusion of a field \(K\) into another field \(L\), with the same \(0\) and \(1\) and the restriction of \(+\) and \(\cdot\) in \(L\) to \(K\) gives \(+\) and \(\cdot\) in \(K\).
+\end{definition}
+
+\begin{eg}
+  \(\Q \leq \R, \R \leq \C, \Q \leq \Q(\sqrt 2) = \{\lambda + \mu \sqrt 2, \lambda, \mu \in \Q\}\) and \(\Q(i) = \{\lambda + \mu i, \lambda, \mu \in \Q\} \leq \C\) are all field extensions.
+\end{eg}
+
+Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space with addition given by the field and scalar multiplication given by the multiplication in the field \(L\).
+
+\begin{definition}[Degree of extension]
+  The \emph{degree} of \(L\) over \(K\) is \(\dim_kL\), the dimension of the \(K\)-vector space \(L\). It is denoted by \(|L:K|\). It may or may not be finite.
+\end{definition}
+
+\begin{definition}[Finite extension]
+  If \(|L:K| < \infty\) the extension if \emph{finite}. Otherwise it is \emph{infinite}.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(|\C:\R| = 2\) since \(\{1, i\}\) is a basis.
+  \item Similarly \(|\Q(i):\Q| = 2\).
+  \item \(\Q \leq \R\) is an infinite extension.
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[Tower Law]
+  Suppose \(K \leq L \leq M\) are field extensions. Then
+  \[
+    |M:K| = |M:L||L:K|.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Assume \(|M:L| < \infty, |L:K| < \infty\). Then we take an \(L\)-basis \(\{f_i\}_{i = 1}^b\) and a \(K\)-basis \(\{e_j\}_{j = 1}^a\).
+
+  Now take \(m \in M\). \(m \sum_{i = 1}^{b} \mu_if_i\) for some \(\mu_i \in L\). For each \(\mu_i\), we can write \(\mu_i = \sum_{j = 1}^{\infty} \lambda_{ij}e_j\) for some \(\lambda_{ij} \in K\). Thus
+  \[
+    m = \sum_{i = 1}^{b} \sum_{j = 1}^{a} \lambda_{ij} f_ie_j
+  \]
+  so \(\{f_ie_j\}\) span \(M\).
+
+  To show linear independence, it suffices to show that if \(m = 0\) then each of the \(\lambda_{ij}\) is zero. When \(m = 0\), the linear independence of \(f_i\) forces each \(\mu_i\) to be zero. Then the linear independence of \(e_i\) forces \(\lambda_{ij}\) to be zero as required.
+
+  The proof for infinite extensions is omitted. Observe (not very rigorously) that if \(M\) is an infinite extension of \(L\) then it is an infinite extension of \(K\), and if \(L\) is an infinite extension of \(K\) then the larger field \(M\) must also be an infinite extension of \(K\).
+\end{proof}
+
+\begin{eg}
+  Consider
+  \[
+    \Q \leq \Q(\sqrt 2) \leq \Q(\sqrt 2, i).
+  \]
+  \(\Q(\sqrt 2)\) has \(\{1, \sqrt 2\}\) as a \(\Q\)-basis. \(\Q(\sqrt 2, i)\) has \(\{1, i\}\) as a \(\Q(\sqrt 2)\)-basis. Now \(\Q(\sqrt 2, i)\) has basis \(\{1, \sqrt 2, i, i \sqrt 2\}\) over \(\Q\). Thus
+  \[
+    |\Q(\sqrt 2, i):\Q| = 4 = 2 \cdot 2 = |\Q(\sqrt 2, i):\Q(\sqrt 2)||\Q(\sqrt 2):\Q|.
+  \]
+\end{eg}
+
+\blindtext
 
 \section{Separable, Normal and Galois Extensions}
 
@@ -93,13 +165,13 @@
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item Let \(\Q \leq L\) be an algebraic extension. Then \(L\) is separable over \(\Q\).
-  \item Let \(L = \F_p(X)\), the field of rational functiions in \(X\) over \(\F_p\). It has \(K = \F_p(X^p)\) as a subfield. Then \(K \leq L\) is not separable
+  \item Let \(L = \F_p(X)\), the field of rational functiions in \(X\) over \(\F_p\). It has \(K = \F_p(X^p)\) as a subfield. Then \(K \leq L\) is not separable:
     \begin{proof}
       Observe that if \(f(t) = t^p - X^p \in K[t]\) then \(f'(t) = 0\). But \(t^p - X^p = (t - X)^p \in L[t]\). However, \(f(t) \in K[t]\) is irreducible: suppose \(f(t) = g(t)h(t) \in K[t] \subseteq L[t]\), we get \(g(t) = (t - X)^r\) for some \(0 \leq r < p\) if the factorisation is non-trivial. But this would mean \(X^r \in K\). However \(r\) and \(p\) are coprime so there exist \(a, b \in \Z\) such that \(ar + bp = 1\), so \(X = (X^r)^a (X^p)^b \in K\). Thus we would have \(X = u(X^p)/v(X^p)\), absurd.
 
-      Thus \(f(t) = t^p - X^p\) is the minimal polynomial of \(X\) over \(K\). \(C\) is purely inseparable over \(K\) and it follows that \(K \leq L\) is not separable.
+      Thus \(f(t) = t^p - X^p\) is the minimal polynomial of \(X\) over \(K\). \(\alpha\) is purely inseparable over \(K\) and it follows that \(K \leq L\) is not separable.
     \end{proof}
-  \item Let \(\F\) be a finite field with \(|\F| = m\), a power of \(\ch \F\), and \(f(t) = t^n - 1\) where \(n = m - 1\). We know this is separable over \(\F_p\) since we say that \(f(t)\) has distinct linear factors in \(\F[t]\).
+  \item Let \(\F\) be a finite field with \(|\F| = m\), a power of \(\ch \F\), and \(f(t) = t^n - 1\) where \(n = m - 1\). We know this is separable over \(\F_p\) since we saw that \(f(t)\) has distinct linear factors in \(\F[t]\).
   \end{enumerate}
 \end{eg}
 
@@ -145,7 +217,7 @@
 
   Now assume \(K\) is an infinite field. Since \(K \leq M\) is a finite extension, \(M = K(\alpha_1, \dots, \alpha_n)\) for some \(\alpha_i\). It suffices to show that any field \(M = K(\alpha, \beta)\) with \(\beta\) separable over \(K\) is of the form \(K(\gamma)\).
 
-  Take \(f(t)\) and \(g(t)\) to be the minimal polynomials of \(\alpha\) and \(\beta\) over \(K\) respectively. Let \(L\) be the splitting field for \(f(t)g(t)\) over \(K(\alpha, \beta)\). The distinct zeros of \(f(t)\) in \(L\) are \(\alpha = \alpha_1, \alpha_2, \dots, \alpha_a\) and those of \(g(t)\) are \(\beta = \beta_1, \beta_2, \dots, \beta_b\). By separability we know \(b = \deg g(t)\). Choose \(\lambda \in K\) such that all \(\alpha_i + \lambda \beta_j\) are distinct (this is possible since \(K\) is infinite). Now we set \(\gamma = \alpha + \lambda \beta\) (remember \(\alpha\) is \(\alpha_1\) and \(\beta\) is \(\beta_1\)). Let \(F(t) = f(\gamma - \lambda t) \in K(\gamma)[t]\). We have \(g(\beta) = 0\). and \(F(\beta) = f(\alpha) = 0\). Thus \(F(t)\) and \(g(t)\) have a common zero. Any other common zero would have to be \(\beta_j\) for some \(j > 1\). But then \(F(\beta_j) = f(\alpha + \lambda(\beta - \beta_j))\). By assumption \(\alpha + \gamma(\beta - \beta_j)\) is never an \(\alpha_i\) so \(f(\beta_j) \neq 0\).
+  Take \(f(t)\) and \(g(t)\) to be the minimal polynomials of \(\alpha\) and \(\beta\) over \(K\) respectively. Let \(L\) be the splitting field for \(f(t)g(t)\) over \(K(\alpha, \beta)\). The distinct zeros of \(f(t)\) in \(L\) are \(\alpha_1 = \alpha, \alpha_2, \dots, \alpha_a\) and those of \(g(t)\) are \(\beta_1 = \beta, \beta_2, \dots, \beta_b\). By separability we know \(b = \deg g(t)\). Choose \(\lambda \in K\) such that all \(\alpha_i + \lambda \beta_j\) are distinct (this is possible since \(K\) is infinite). Now we set \(\gamma = \alpha + \lambda \beta\) (remember \(\alpha\) is \(\alpha_1\) and \(\beta\) is \(\beta_1\)). Let \(F(t) = f(\gamma - \lambda t) \in K(\gamma)[t]\). We have \(g(\beta) = 0\). and \(F(\beta) = f(\alpha) = 0\). Thus \(F(t)\) and \(g(t)\) have a common zero. Any other common zero would have to be \(\beta_j\) for some \(j > 1\). But then \(F(\beta_j) = f(\alpha + \lambda(\beta - \beta_j))\). By assumption \(\alpha + \gamma(\beta - \beta_j)\) is never an \(\alpha_i\) so \(f(\beta_j) \neq 0\).
 
   Now separability of \(g(t)\) says that the linear factors are all disinct. So \((t - \beta)\) is a highest common factor of \(F(t)\) and \(g(t)\) in \(L[t]\). However, the minimal polynomial \(h(t)\) of \(\beta\) over \(K(\gamma)\) then divides \(F(t)\) and \(g(t)\) in \(K(\gamma)[t]\), and hence in \(L[t]\). This imples \(h(t) = t - \beta\), and so \(\beta \in K(\gamma)\). Therefore \(\alpha = \gamma - \lambda \beta \in K(\gamma)\). So \(K(\alpha, \beta) \leq K(\gamma)\). The other direction is obvious.
 \end{proof}
@@ -156,9 +228,9 @@
 
 \subsection{Trace \& Norm}
 
-These will also be used in number fields next term.
+These will also be used in IID Number Fields.
 
-\begin{definition}[Trace \& norm]
+\begin{definition}[Trace \& Norm]
   Let \(K \leq M\) be a finite field extension and \(\alpha \in M\). Multiplication by \(a\) is a \(K\)-linear map \(\theta_\alpha: M \to M\). The \emph{trace} of \(\alpha\) over \(K\) is
   \[
     \Tr_{M/K}(\alpha) = \Tr \theta_\alpha \in K
@@ -183,7 +255,7 @@ These will also be used in number fields next term.
 \end{theorem}
 
 \begin{proof}
-  Regard \(M\) as a \(K(\alpha)\)-vector space with basis \(1 = \beta_1, \beta_2, \dots, \beta_r\). Now take the \(K\)-vecotr space basis \(1, \alpha, \alpha^2, \dots, \alpha^{s - 1}\) of \(K(\alpha)\). Then \(\{\alpha^i \beta_j\}_{i < r, j \leq r}\) is a \(K\)-vector space basis for \(M\). Multiplication by \(\alpha\) in \(K(\alpha)\) is represented by the matrix
+  Regard \(M\) as a \(K(\alpha)\)-vector space with basis \(\beta_1 = 1, \beta_2, \dots, \beta_r\). Now take the \(K\)-vecotr space basis \(1, \alpha, \alpha^2, \dots, \alpha^{s - 1}\) of \(K(\alpha)\). Then \(\{\alpha^i \beta_j\}_{i < s, j \leq r}\) is a \(K\)-vector space basis for \(M\). Multiplication by \(\alpha\) in \(K(\alpha)\) is represented by the matrix
     \[
       A =
       \begin{pmatrix}
@@ -224,7 +296,7 @@ These will also be used in number fields next term.
   \[
     f_\alpha(t) = \prod_{i = 1}^{s} (t - \alpha_i) = a^s + a_{s - 1}s^{t - 1} + \dots + a_0
   \]
-  be the minimal polynomial of \(\alpha\) over \(K\) in \(L[t]\) where \(L\) is large enough that \(f_\alpha(t)\) splits in \(L\). There are \(s\) \(K\)-homomorphisms \(K(\alpha) \to L\), corresponding to maps sending \(\alpha\) to \(\alpha_i\). Each of these extends in \(|M:K(\alpha)|\) ways to give \(K\)-homomorphisms \(M \to L\). However, each of such extension mapping \(\alpha \mapsto \alpha_i\) still does so. Set \(r = |L:K(\alpha)|\). There are \(r\) maps sending \(\alpha \to \alpha_i\) for each \(i\). Thus if the \(n = rs\) distinct \(K\)-homomorphism \(M \to L\) are \(\sigma_1, \dots, \sigma_n\) then
+  be the minimal polynomial of \(\alpha\) over \(K\) in \(L[t]\) where \(L\) is large enough that \(f_\alpha(t)\) splits in \(L\). There are \(s\) \(K\)-homomorphisms \(K(\alpha) \to L\), corresponding to maps sending \(\alpha\) to \(\alpha_i\). Each of these extends in \(r = |M:K(\alpha)|\) ways to give \(K\)-homomorphisms \(M \to L\). However, each of such extension mapping \(\alpha \mapsto \alpha_i\) still does so. so there are \(r\) maps sending \(\alpha \to \alpha_i\) for each \(i\). Thus if the \(n = rs\) distinct \(K\)-homomorphism \(M \to L\) are \(\sigma_1, \dots, \sigma_n\) then
   \[
     \sum_{i = 1}^{n} \sigma_i(\alpha) = r(\alpha_1 + \dots \alpha_s) = -ra_{s - 1} = \Tr_{M/K} (\alpha)
   \]
@@ -234,13 +306,20 @@ These will also be used in number fields next term.
   \]
 \end{proof}
 
+% TODO: check for repetition
+%
+%
+%
+%
+%
 Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\theta_\alpha\) is \((f_\alpha(t))^r\) where \(f_\alpha(t)\) is the minimal polynomial of \(\alpha\) over \(K\) and \(r = |M:K(\alpha)|\). The characteristic polynomial if \(\prod_{n = 1}^{s} (t - \alpha_i)^r\) where \(\alpha_i\) are the roots of \(f_\alpha(t)\) in a splitting field. We also saw that those root are \(\sigma_1(\alpha), \dots, \sigma_n(\alpha)\) so the characteristic polynomial is
 \[
   \prod_{i = 1}^{n} (t - \sigma_i(\alpha)).
 \]
 
 \begin{theorem}
-  Let \(K \leq M\) be a finite separable extension. Then we define a \(K\)-belinear form
+  \label{thm:vandermonde}
+  Let \(K \leq M\) be a finite separable extension. Then we define a \(K\)-bilinear form
   \begin{align*}
     T: M \times M &\to K \\
     (x, y) &\mapsto \Tr_{M/K}(xy)
@@ -249,10 +328,11 @@ Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\t
 \end{theorem}
 
 \begin{remark}
-  If \(K \leq M\) is a finite extension which is separable then \(\Tr_{M/K}\) is always zero. It follows that \(T\) is degnerate. See example sheet.
+  If \(K \leq M\) is a finite extension which is not separable then \(\Tr_{M/K}\) is always zero. It follows that \(T\) is degnerate. See example sheet.
 \end{remark}
 
 \begin{proof}
+  \label{proof:vandermonde}
   By \nameref{thm:primitive}, separability implies that \(M = K(\alpha)\) for some \(\alpha\). We have a \(K\)-basis \(\{\alpha^i\}_{i = 0}^{n - 1}\) of \(K(\alpha)\) where \(n = |M:K|\). The \(K\)-belinear form \(T\) is represented by the matrix
   \[
     A =
@@ -262,19 +342,27 @@ Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\t
       \cdots & \cdots & \cdots
     \end{pmatrix}
   \]
-  Let \(L\) be a splitting field of the minimal polynomial \(f(t)\) of \(\alpha\) over \(K\).Then \(f_\alpha(t) = \prod_{i = 1}^n (t - \alpha_i)\) with \(\alpha_1, \dots, \alpha_n \in L\). The entries in \(A\) are of the form \(\Tr_{M/K}(\alpha^L)\) which is \(\alpha_1^l + \dots + \alpha_n^l\) by \Cref{thm:trace and norm of separable extension}.
+  Let \(L\) be a splitting field of the minimal polynomial \(f(t)\) of \(\alpha\) over \(K\).Then \(f_\alpha(t) = \prod_{i = 1}^n (t - \alpha_i)\) with \(\alpha_1, \dots, \alpha_n \in L\). The entries in \(A\) are of the form \(\Tr_{M/K}(\alpha^\ell)\) which is \(\alpha_1^\ell + \dots + \alpha_n^\ell\) by \Cref{thm:trace and norm of separable extension}.
 
-  Now consider \(\Delta = \prod_{i < j} (\alpha_i - \alpha_j)\), the \emph{Vandermonde determinant}, is
+  Now consider \(\Delta = \prod_{i < j} (\alpha_i - \alpha_j)\), the \emph{Vandermonde determinant}, is the determinant of the \emph{Vandermonde matrix}
   \[
-    \begin{vmatrix}
-      1 & 1 & 1 & \cdots 1 \\
-      \alpha_1 & \alpha_2 & & \\
-      \alpha_1^2 & \alpha_2^2 & & \\
-      \vdots & & \ddots & \\
+    V =
+    \begin{pmatrix}
+      1 & 1 & \cdots & 1 \\
+      \alpha_1 & \alpha_2 & \cdots & \alpha_n \\
+      \alpha_1^2 & \alpha_2^2 & \cdots & \alpha_n^2 \\
+      \vdots & & \ddots & \vdots \\
       \alpha_1^{n - 1} & \alpha_2^{n - 1} & \dots & \alpha_n^{n - 1}
-    \end{vmatrix}
+    \end{pmatrix}
   \]
-  Now consider \(VV^T\) and observe that it is \(A\). Thus \(0 \neq D = \Delta^2 = |VV^T| = |A|\). Thus \(A\) is non-singular and therfore the bilinear form \(T\) is non-degenerate.
+  Observe that \(A_{ij} = \sum_n \alpha_n^{i + j - 2}, V_{ij} = \alpha_j^{i - 1}\) so
+  \begin{align*}
+    (VV^T)_{ik} &= V_{ij}V_{kj} \\
+                &= \alpha_j^{i - 1} \alpha_j^{k - 1} \\
+                &= \sum_n \alpha_n^{i + k - 2} \\
+                &= A_{ik}
+  \end{align*}
+  so \(VV^T = A\). Thus \(0 \neq D = \Delta^2 = |VV^T| = |A|\). Thus \(A\) is non-singular and therfore the bilinear form \(T\) is non-degenerate.
 \end{proof}
 
 \begin{remark}
@@ -295,10 +383,10 @@ We met this definition before:
 
 \begin{proof}\leavevmode
   \begin{itemize}
-  \item \(\Rightarrow\): suppose \(K \leq M\) isnormal. Pick \(\alpha_1, \dots, \alpha_r \in M\) such that \(M = K(\alpha_1, \dots, \alpha_kr\). Let \(f(_{\alpha_i}(t)\) be the minimal polynomail of \(\alpha_i\) over \(K\). Let \(f(t) = \prod_{n = 1}^{r} f_{\alpha_i}(t)\).
+  \item \(\Rightarrow\): suppose \(K \leq M\) is normal. Pick \(\alpha_1, \dots, \alpha_r \in M\) such that \(M = K(\alpha_1, \dots, \alpha_k)\). Let \(f_{\alpha_i}(t)\) be the minimal polynomial of \(\alpha_i\) over \(K\). Let \(f(t) = \prod_{n = 1}^{r} f_{\alpha_i}(t)\).
 
     By normality, each \(f_{\alpha_i}(t)\) splits over \(M\) and so is \(f(t)\). \(M\) is the splitting field of \(f(t)\) over \(K\) since if \(\beta_1, \dots, \beta_m\) are the roots of \(f(t)\) then \(M = K(\beta_1, \dots, \beta_m)\).
-  \item \(\Leftarrow\): suppose \(M\) is a splitting field for \(f(t)\) over \(K\). Then \(M = K(\beta_1, \dots, \beta_m)\) where \(\beta_j\) are the roots of \(f(t)\) over \(M\). Take \(\alpha \in M\). Let \(f_\alpha(t)\) be the minimal polynomial of \(\alpha\) over \(K\). Let \(M \leq L\) large enough so that \(f_\alpha(t)\) splits over \(L\)
+  \item \(\Leftarrow\): suppose \(M\) is a splitting field for \(f(t)\) over \(K\). Then \(M = K(\beta_1, \dots, \beta_m)\) where \(\beta_j\) are the roots of \(f(t)\) over \(M\). Take \(\alpha \in M\). Let \(f_\alpha(t)\) be the minimal polynomial of \(\alpha\) over \(K\). Let \(M \leq L\) be large enough so that \(f_\alpha(t)\) splits over \(L\).
 
     Now consdier a \(K\)-homomorphism \(\phi: M \to L\): \(\phi(\beta_j)\) is also a root of \(f(t)\) and is therefore one of the \(\beta_j\). Injectivity of \(K\)-homomorphisms implies that \(\phi\) permutes \(\beta_j\). However, \(M = K(\beta_1, \dots, \beta_m)\) and so \(\phi\) is determined by the images of \(\beta_j\), thus \(\phi(M) = M\).
 
@@ -359,9 +447,10 @@ From \ref{tbh} we know that such \(K\)-automorphisms are isormophisms and thus h
 \end{remark}
 
 \begin{proof}[Proof of \Cref{thm:galois criterion}]
+  \label{proof:galois criterion}
   Suppose \(|\aut_K(M)| = |M:K| = n\). Let \(M \leq L\) be large enough. The \(n\) distinct \(K\)-automorphisms \(\phi: M \to M\) extend to \(n\) \(K\)-homomorphisms \(\phi: M \to L\) and 2.12~\ref{tbf} says that \(M\) is separable over \(K\).
 
-  For normality, pick \(\alpha \in M\) with minimal polynomial \(f_\alpha(t)\) over \(K\). Take \(M = K(\alpha_1, \dots, \alpha_m)\) as in the proof of 2.10~\ref{tbf} with \(\alpha = \alpha_1\) and \(L = M\). We only get \(|M:K|\) extensions of the inclusion \(K \hookrightarrow M\) if each inequality in the proof is an equality. In particular, we need the number of \(K\)-homomorphisms \(K(\alpha_1) \to M\) to be \(K(\alpha_1):K|\). But then 2.6~\ref{tbf} says we have \(|K(\alpha):K|\) distinct roots of \(f_\alpha(t)\) i \(M\). Thus \(f_\alpha(t)\) splits over \(M\).
+  For normality, pick \(\alpha \in M\) with minimal polynomial \(f_\alpha(t)\) over \(K\). Take \(M = K(\alpha_1, \dots, \alpha_m)\) as in the proof of 2.10~\ref{tbf} with \(\alpha = \alpha_1\) and \(L = M\). We only get \(|M:K|\) extensions of the inclusion \(K \hookrightarrow M\) if each inequality in the proof is an equality. In particular, we need the number of \(K\)-homomorphisms \(K(\alpha_1) \to M\) to be \(|K(\alpha_1):K|\). But then 2.6~\ref{tbf} says we have \(|K(\alpha):K|\) distinct roots of \(f_\alpha(t)\) in \(M\). Thus \(f_\alpha(t)\) splits over \(M\).
 
   Conversely, suppose \(K \leq M\) is separable and normal. Then for \(K \leq M \leq L\) with \(L\) large enough, separability implies there are \(|M:K|\) \(K\)-homomorphisms \(\phi: M \to L\) by 2.12~\ref{tbf}. However, \(K \leq M\) is normal implies that it is the splitting field for some polynomial \(f(t) \in K[t]\) and thus \(M = K(\alpha_1, \dots, \alpha_n)\) where \(f(t) = \prod_{i = 1}^n (t - \alpha_i)\). Note that \(\phi(\alpha_j)\) is also a root of \(\phi(f(t)) = f(t)\), and is therefore one of the \(\alpha_j\). Thus \(\phi(M) = M\). Thus \(|\aut_K(M)| = |M:K|\).
 \end{proof}
@@ -374,22 +463,18 @@ From \ref{tbh} we know that such \(K\)-automorphisms are isormophisms and thus h
   \begin{enumerate}
   \item Consider \(\Q \leq \Q(\sqrt 2, i)\), which is Galois:
     \[
-      \gal(\Q(\sqrt 2, i)/\Q) = \generation{\sigma: \sqrt 2 \mapsto -\sqrt 2, \tau: i \mapsto -1} \cong C_2 \times C_2.
+      \gal(\Q(\sqrt 2, i)/\Q) = \generation{\sigma: \sqrt 2 \mapsto -\sqrt 2, \tau: i \mapsto -i} \cong C_2 \times C_2.
     \]
     All non-identity elements have order \(2\).
-  \item Let \(f(t) = t^3 - 2\). The splitting field of \(f(t)\) over \(\Q\) is \(\Q(\sqrt[3]{2}, \omega)\) where \(\omega\) is a primitive cubic root of unity. Thus \(\Q \leq \Q(\sqrt[3]{2}, \omega)\) is Galois with \(|\gal(\Q(\sqrt[3]{2}, \omega)/\Q) = |\Q(\sqrt[3]{2}, \omega):\Q| = 6\). The Galois group contains
+  \item Let \(f(t) = t^3 - 2\). The splitting field of \(f(t)\) over \(\Q\) is \(\Q(\sqrt[3]{2}, \omega)\) where \(\omega\) is a primitive cubic root of unity. Thus \(\Q \leq \Q(\sqrt[3]{2}, \omega)\) is Galois with \(|\gal(\Q(\sqrt[3]{2}, \omega)/\Q|) = |\Q(\sqrt[3]{2}, \omega):\Q| = 6\). The Galois group contains
     \begin{align*}
-      \sigma_1: \sqrt[3]{2} \mapsto \sqrt[3]{2} %%%%%%%%
+      \sigma: \sqrt[3]{2} &\mapsto \omega\sqrt[3]{2}, \, \omega \mapsto \omega \\
+      \tau: \sqrt[3]{2} &\mapsto \sqrt[3]{2}, \, \omega \mapsto \omega^2 \text{ complex conjugation}
     \end{align*}
-    \texttt{to be filled in}
-    %
-    %
-    %
-    %
-    %
-    %
+    and is generated by these two elements. It is an exercise to show that \(\gal(\Q(\sqrt[3]{2}, \omega)/\Q \cong D_6 \cong S_3\).
   \end{enumerate}
 \end{eg}
+
 \section{Fundamental Theorem of Galois Theory}
 
 \begin{definition}[Fixed field]
@@ -416,8 +501,8 @@ The fixed field is a field and \(K \leq L^H \leq L\).
       &\longleftrightarrow
       \left\{
         \begin{array}[h]{c}
-          \text{subgroup } H \\
-          \text{of } \gal(L/K)
+          \text{subgroup } \\
+          H \leq \gal(L/K)
         \end{array}
       \right\} \\
       %
@@ -437,16 +522,16 @@ The fixed field is a field and \(K \leq L^H \leq L\).
   \begin{enumerate}
   \item Observe that \(M \leq L\) is Galois and so we could have written \(\gal(L/M)\) instead of \(\aut_M(L)\). To see this,
     \begin{itemize}
-    \item separability: follows from \ref{tbf}
+    \item separability: follows from 2.15 \ref{tbf}
     \item normality: if \(\alpha \in L\) then the minimal polynomial of \(\alpha\) over \(M\) divides the minimal polynomial of \(\alpha\) over \(K\). But the latter splits over \(L\) (see example sheet).
     \end{itemize}
-  \item If \(K \leq M\) is normal then \ref{tbf} says if \(\sigma: L \to L\) then \(\sigma(M) = M\) and so we can talk about the restriction of \(\alpha\) to \(M\) giving an automorphism of \(M\).
+  \item If \(K \leq M\) is normal then the remark after \hyperref[proof:galois criterion]{proof} of \Cref{thm:galois criterion} says if \(\sigma: L \to L\) then \(\sigma(M) = M\) and so we can talk about the restriction of \(\alpha\) to \(M\) giving an automorphism of \(M\).
   \end{enumerate}
 \end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(\Q \leq \Q(\sqrt{2}, i)\). We saw in \ref{tbf} the lattices of intermediate subfields and subgroups \(\gal(\Q(\sqrt 2, i/\Q) \cong C_2 \times C_2\) which is abelian. Thus all subgroups are normal and all intermediate subfields are normal extensions of \(\Q\).
+  \item \(\Q \leq \Q(\sqrt{2}, i)\). We saw in \ref{tbf} the lattices of intermediate subfields and subgroups \(\gal(\Q(\sqrt 2, i)/\Q) \cong C_2 \times C_2\) which is abelian. Thus all subgroups are normal and all intermediate subfields are normal extensions of \(\Q\).
   \item \(\Q \leq \Q(\sqrt[3]{2}, \omega)\).
     \[
       \begin{tikzcd}
@@ -458,11 +543,11 @@ The fixed field is a field and \(K \leq L^H \leq L\).
     \[
       \begin{tikzcd}
         & 1 \ar[dl, dash, "3"] \ar[d, dash, "2"] \ar[dr, dash, "2"] \ar[drr, dash, "2"] \\
-        \{\sigma_1, \sigma_2, \sigma_3\} \ar[dr, dash, "2"] & \{\sigma_1, \sigma_4\} \ar[d, dash, "3"] & \{\sigma_1, \sigma_5\} \ar[dl, dash, "3"] & \{\sigma_1, \sigma_6\} \ar[dll, dash, "3"] \\
-        & \{\sigma_1, \dots, \sigma_6\} \cong D_6
+        \generation{\sigma} \ar[dr, dash, "2"] & \generation{\tau} \ar[d, dash, "3"] & \generation{\sigma^2\tau} \ar[dl, dash, "3"] & \generation{\sigma\tau} \ar[dll, dash, "3"] \\
+        & \generation{\sigma, \tau} \cong D_6
       \end{tikzcd}
     \]
-    The subgroup \(H\) of order \(3\) is normal but those of order \(2\) are not so the map \(\gal(\Q(\sqrt[3]{2}, \omega)/\Q) \to \gal(\Q(\omega)/\Q)\) has kernel \(H\).
+    The subgroup \(H\) of order \(3\) is normal but those of order \(2\) are not so the map \(\gal(\Q(\sqrt[3]{2}, \omega)/\Q) \to \gal(\Q(\omega)/\Q)\), i.e.\ \(D_6 \mapsto C_2\), generated by conjugation has kernel \(\generation{\sigma}\).
     \end{enumerate}
 \end{eg}
 
@@ -472,11 +557,10 @@ The fixed field is a field and \(K \leq L^H \leq L\).
 \end{theorem}
 
 \begin{remark}
-  This implies some part of the Galois correspondence:
+  This implies one way of Galois correspondence:
   \[
-    H \to L^H \to \gal(L/H^H)
+    H \mapsto L^H \mapsto \gal(L/L^H) = H.
   \]
-  where we get back to \(H\).
 \end{remark}
 
 \begin{proof}
@@ -484,9 +568,9 @@ The fixed field is a field and \(K \leq L^H \leq L\).
   \[
     |M(\alpha):M| = \deg f_\alpha(t) \leq \deg g(t) \leq |H|.
   \]
-  This step shows that \(\alpha\) is algebraic over \(M\) and \(f_\alpha(t)\) is separable whenver \(g(t)\) is. Thus \((M \leq L\) is a separable extension.
+  This step shows that \(\alpha\) is algebraic over \(M\) and \(f_\alpha(t)\) is separable since \(g(t)\) is. Thus \(M \leq L\) is a separable extension.
 
-  Next we show that \(M \leq L\) is a simple extension. Pick \(\alpha \in L\) with \(|M(\alpha):m|\) maximal. We will show that \(L = M(\alpha)\) for this \(\alpha\). Suppose \(\beta \in L\). Then \(M \leq M(a=\alpha, \beta)\) is finite and separably generated and hence is a finite separable extension. By \nameref{thm:primitive} \(M(\alpha, \beta) = M(\gamma)\) for some \(\gamma\). But then
+  Next we show that \(M \leq L\) is a simple extension. Pick \(\alpha \in L\) with \(|M(\alpha):M|\) maximal. We will show that \(L = M(\alpha)\) for this \(\alpha\). Suppose \(\beta \in L\). Then \(M \leq M(\alpha, \beta)\) is finite and separably generated and hence is a finite separable extension. By \nameref{thm:primitive} \(M(\alpha, \beta) = M(\gamma)\) for some \(\gamma\). But then
   \[
     M \leq M(\alpha) \leq M(\gamma)
   \]
@@ -494,18 +578,19 @@ The fixed field is a field and \(K \leq L^H \leq L\).
 
   It follows that \(|L:M| \leq |H|\).
 
-  Finally,
+  Finally, \(H \leq \aut_M(L)\) so
   \[
-    |L:M| = |M(\alpha):M| \leq |H| \leq |\aut_M(L)| \leq |L:M| \leq |L:M|
+    |L:M| = |M(\alpha):M| \leq |H| \leq |\aut_M(L)| \leq |L:M|
   \]
-  so we must have equality throughtout, i.e.\ \(|L:M| = |\aut_M(L)| = |H|\) so \(M \leq L\) is a finite Glois extension and \(H = \gal(L/M)\).
+  so we must have equality throughtout, i.e.\ \(|L:M| = |\aut_M(L)| = |H|\) so \(M \leq L\) is a finite Galois extension and \(H = \gal(L/M)\).
 \end{proof}
 
 \begin{theorem}
+  \label{thm:fixed field criterion for galois extension}
   Let \(K \leq L\) be a finite field extension. TFAE:
   \begin{enumerate}
   \item \(K \leq L\) is Galois,
-  \item \(L^H = K\) when \(H = \aut_K(L)\).
+  \item \(L^H = K\) where \(H = \aut_K(L)\).
   \end{enumerate}
 \end{theorem}
 
@@ -515,7 +600,7 @@ The fixed field is a field and \(K \leq L^H \leq L\).
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-  \item \(1 \Rightarrow 2\): Let \(M = L^H\) where \(H = \aut_K(L)\). By \nameref{thm:artin} \(M \leq L\) is a Galois extension. Now we have two Galois extensions, giving the equality
+  \item \(1 \Rightarrow 2\): Let \(M = L^H\) where \(H = \aut_K(L)\). By \nameref{thm:artin} \(M \leq L\) is a Galois extension. Now we have two Galois extensions, giving the equalities
     \begin{align*}
       |H| &= |\gal_K(L)| = |L:K| \\
           &= |\gal_M(L)| = |L:M|
@@ -532,25 +617,39 @@ The fixed field is a field and \(K \leq L^H \leq L\).
       H &\mapsto L^H \\
       M &\mapsto \gal(L/M)
     \end{align*}
-    gives \(H \to H\) by \nameref{thm:artin}. Composition the other way \(M \mapsto \gal(L/M) \mapsto L^H\) where \(H = \gal(L/M)\) gives \(M\) since \(M \leq L^H\) and
-    \[
-      |L:L^H| = |H| = |\gal(L/M)| = |L:M|.
-    \]
+    gives \(H \to H\) by \nameref{thm:artin}. Composition the other way \(M \mapsto \gal(L/M) \mapsto L^H\) where \(H = \gal(L/M)\) gives \(M\) by \Cref{thm:fixed field criterion for galois extension}.
+    %since \(M \leq L^H\) and
+    %\[
+    %  |L:L^H| = |H| = |\gal(L/M)| = |L:M|.
+    %\]
   \item Take \(H \leq \gal(L/K)\). Then for \(\phi \in \gal(L/K)\), \(L^{\phi H \phi^{-1}} = \phi(L^H)\) so by 1 \(H \normal \gal(L/K)\) if and only if \(\phi(L^H) = L^H\). Let \(M = L^H\). We will show that \(K \leq M\) is normal if and only if \(\phi(M) = M\) for every \(\phi \in \gal(L/K)\):
     \begin{itemize}
-    \item \(\Rightarrow\): To be filled in
-      %
-      %
-      %
-      %
-      %
-      %
+    \item \(\Rightarrow\): remark 2 after \Cref{thm:fundamental}.
+    \item \(\Leftarrow\): suppose \(\phi(M) = M\) for all \(\phi \in \gal(L/K)\). Pick \(\alpha \in M\) and let \(f_\alpha(t)\) be its minimal polynomial over \(K\). We take \(\beta\) as a root for \(f_\alpha(t)\) in \(L\) (which is possible by normality). Then there is a \(K\)-homomorphism
+      \begin{align*}
+        K(\alpha) &\to K(\beta) \\
+        \alpha &\mapsto \beta
+      \end{align*}
+      This extends to a \(K\)-homomorphism \(\phi: L \to L\). Since we assume \(\phi(M) = M\), \(\phi(\alpha) = \beta \in M\). Thus \(K \leq M\) is normal.
     \end{itemize}
 
+    Note that \(K \leq M\) is separable since \(K \leq M \leq L\) and \(K \leq L\) is separable. Thus \(K \leq M\) is Galois.
+  \item By remark 2 after \Cref{thm:fundamental}, the restriction map \(\theta: \gal(L/K) \to \gal(L^H/K)\) is well-defined. Surjectivity follows from being able to extend a \(K\)-homomorphism \(L^H \to L^H \leq L\) to a \(K\)-homomorphism \(L \to L\). Clearly \(H \leq \ker \theta\). However
+    \begin{align*}
+      \frac{|L:K|}{|\ker \theta|} &= \frac{|\gal(L/K)|}{|\ker \theta|} \\
+                                  &= |\gal(L^H/K)| \text{ by surjectivity of \(\theta\)} \\
+                                  &= |L^H:K| \text{ since \(K \leq L^H\) is Galois} \\
+                                  &= \frac{|L:K|}{|L:L^H|} \text{ by Tower Law}
+    \end{align*}
+    Then
+    \[
+      |\ker \theta| = |L:L^H| = |\gal(L/L^H)| = |H|
+    \]
+    by \nameref{thm:artin}. Thus \(\ker \theta = H\).
   \end{enumerate}
 \end{proof}
 
-\section{Galois Group of Polynomials}
+\subsection{Galois Group of Polynomials}
 
 \begin{definition}[Galois group]
   Let \(f(t) \in K[t]\) be a separable polynomial and \(K \leq L\) with \(L\) a splitting field for \(f(t)\). Then the \emph{Galois group} of \(f(t)\) over \(K\) is
@@ -624,14 +723,14 @@ Moreover if \(\phi\) fixes each \(\alpha_i\) it also fixes all elements of \(L\)
 \end{eg}
 
 \begin{definition}[Discriminant]
-  Let \(f(t) \in K[t]\) with distinct roots \(\alpha_1, \dots, \alpha_n\) (in a splitting field) (\(f(t)\) need not be irreducible). Set \(\Delta = \prod_{i < j}(\alpha_i - \alpha_j)\). The the \emph{discriminant} \(D = D(f)\) of \(f\) is
+  Let \(f(t) \in K[t]\) have distinct roots \(\alpha_1, \dots, \alpha_n\) (in a splitting field) (\(f(t)\) need not be irreducible). Set \(\Delta = \prod_{i < j}(\alpha_i - \alpha_j)\). Then the \emph{discriminant} of \(f\) is
   \[
     D(f) = \Delta^2 = \prod_{i < j}(\alpha_i - \alpha_j)^2 = (-1)^{\frac{n(n-1)}{2}} \prod_{i \neq j}(\alpha_i - \alpha_j).
   \]
 \end{definition}
 
 \begin{remark}
-  We have already met this in the proof of~\ref{tbf}.
+  We have already met this in the \hyperref[proof:vandermonde]{proof} of \Cref{thm:vandermonde}.
 \end{remark}
 
 \begin{lemma}
@@ -688,7 +787,7 @@ with the first two being subgroups of \(A_4\). From looking at the discriminant 
 \end{theorem}
 
 \begin{proof}
-  I will talk about last line once we have thought about Galois groups over finite fields. The fact that \(\gal(\bar f) \hookrightarrow \gal(f)\) is from Number Fields. Look at Tony Scholl's teaching page on Galois Theory.
+  I will talk about last line once we have thought about Galois groups over finite fields. The fact that \(\gal(\bar f) \hookrightarrow \gal(f)\) is from IID Number Fields. Look at Tony Scholl's teaching page on Galois Theory.
 \end{proof}
 
 \begin{eg}
@@ -698,10 +797,10 @@ with the first two being subgroups of \(A_4\). From looking at the discriminant 
   \[
     \red f(t) = t^4 - t - 1 = (t + 4)(t^3 + 3t^2 + 2t + 5)
   \]
-  the second factor is irreducible over \(\F_7\) since it has no roots in \(\F_7\). By \Cref{thm:mod p reduction} \(\gal(f)\) contains an element of cycle type \((1, 3)\), i.e.\ a \(3\)-cycle. We deduce that \(\gal(f) \cong S_4\) as the other possibilities that contain an odd permutation do not contain a \(3\)-cycle.
+  the second factor is irreducible over \(\F_7\) since it has no roots in \(\F_7\). By \Cref{thm:mod p reduction} \(\gal(f)\) contains an element of cycle type \((1, 3)\), i.e.\ a \(3\)-cycle. We deduce that \(\gal(f) \cong S_4\) as it is the only transitive subgroup of \(S_4\) that contains an odd permutation and a \(3\) cycle.
 \end{eg}
 
-\section{Galois Theory of Finite Fields}
+\subsection{Galois Theory of Finite Fields}
 
 Recall what we already know from \Cref{sec:section 1}: a finite field \(\F\) is of characteristic \(p > 0\) where \(p\) is a prime and \(|\F| = p^r\) for some \(r\). The multiplicative group of \(\F\) is cyclic. It is a splitting field for \(t^n - 1\) over \(\F_p\) where \(n = p^r - 1\). By the uniqueness of splitting fields this is unique. Observe we could also describe \(\F\) as the splitting field of \(t^{p^r} - t\) over \(\F_p\).
 
