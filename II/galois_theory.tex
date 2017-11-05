@@ -23,34 +23,263 @@
 
 \blindtext{10}
 
-\section{Seperable, Normal and Galois Extensions}
+\section{Separable, Normal and Galois Extensions}
+
+\subsection{Separable Extension}
+
+\begin{definition}[Separable polynomial]
+  Let \(K\) be a field and \(f(t) \in K[t]\). Suppose \(f(t)\) is irreducible in \(K[t]\) and \(L\) is a splitting field of \(f(t)\) over \(K\). Then \(f(t)\) is \emph{separable} over \(K\) if \(f(t)\) has no repeated roots in \(L\). For general \(f(t)\), we say \(f(t)\) is \emph{separable} over \(K\) if every irreducible factor in \(K[t]\) is separable over \(K\).
+
+  All constant polynomials are deemed to be separable.
+\end{definition}
+
+\begin{definition}[Formal differentiation]
+  If \(K\) is a field, the \emph{formal differentiation} is the \(K\)-linear map 
+  \begin{align*}
+    D: K[t] &\to K[t] \\
+    t^n &\mapsto n t^{n-1}
+  \end{align*}
+\end{definition}
+
+\begin{notation}
+  Denote \(D(f(t))\) by \(f'(t)\).
+\end{notation}
+
+\begin{lemma}
+  \label{lem:formal derivative}
+  Let \(K\) be a field, \(f(t), g(t) \in K[t]\). Then
+  \[
+    (f(t)g(t))' = f'(t)g(t) + f(t)g'(t)
+  \]
+  and if \(f(t) \neq 0\), \(f(t)\) has a repeated root in a splitting field if and only if \(f(t)\) and \(f'(t)\) have a common irreducible factor in \(K[t]\).
+\end{lemma}
+
+\begin{proof}
+  \(D\) is a \(K\)-linear map so we only need to check for \(f(t) = t^n\). It is left as an exercise.
+
+  Let \(\alpha\) be a repeated root in a splitting field \(L\). Then \(f(t) = (t - \alpha)^2 g(t) \in L[t]\) so \(f'(t) = (t - \alpha)^2g'(t) + 2(t - \alpha)g(t)\) and \(f'(\alpha) = 0\). Therefore the minimal polynomial \(f_\alpha(t)\) of \(\alpha\) in \(K[t]\) divides both \(f(t)\) and \(f'(t)\), so it is a common irreducible factor of \(f(t)\) and \(f'(t)\).
+
+  Conversely, let \(h(t)\) be a common irreducible factor of \(f(t)\) and \(f'(t)\) in \(K[t]\). Pick a root \(\alpha \in L\) of \(h(t)\). Then \(f(\alpha) = f'(\alpha) = 0\). Then \(f(t) = (t - \alpha)g(t) \in L[t]\) and \(f'(t) = (t - \alpha)g'(t) + g(t)\). Since \(f'(\alpha) = 0\), we have \((t - \alpha) \divides f'(t)\) so \((t -\alpha) \divides g(t)\). Hence \((t - \alpha)^2 \divides f(t)\).
+\end{proof}
+
+\begin{corollary}
+  If \(K\) is a field and \(f(t) \in K[t]\) is irreducible, then
+  \begin{enumerate}
+  \item if \(\ch K = 0\) then \(f(t)\) is separable over \(K\),
+  \item if \(\ch K = p > 0\) then \(f(t)\) is not separable if and only if \(f(t) \in K[t^p]\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  By \Cref{lem:formal derivative}, \(f(t)\) is not separable if and only if \(f(t)\) and \(f'(t)\) have a common irreducible factor. But since \(f(t)\) is irreducible, the only possible factor is \(f(t)\) itself, i.e.\ \(f(t) \divides f'(t)\). \(f'(t) = 0\) as it has a smaller degree. But if \(f(t) = \sum_{i = 0}^{n} a_it^i\) then \(f'(t) = \sum_{i = 1}^{n} ia_it^{i - 1}\) so \(f'(t) = 0\) if and only if \(ia_i = 0\) for all \(i \geq 1\). Thus
+  \begin{enumerate}
+  \item if \(\ch K = 0\), \(f'(t) \neq 0\) for non-constant \(f(t)\) so \(f(t)\) is separable over \(K\),
+  \item if \(\ch K = p > 0\), then if \(f'(t) = 0\) we must have \(ia_i = 0\) for all \(i \geq 1\), i.e.\ \(f(t)\) is not separable if and only if \(f(t) \in K[t^p]\).
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[Separable element]
+  If \(K \leq L\) is a field extension, we say \(\alpha \in L\) is \emph{separable} over \(K\) if its minimal polynomial is separable over \(K\).
+\end{definition}
+
+\begin{definition}[Purely inseparable]
+  If the minimal polynomial of \(\alpha\) is \(f_\alpha(t) = (t - \alpha)^n = t^n - \alpha^n\) where \(n\) is a power of \(\ch K\), \(\alpha\) is said to be \emph{purely inseparably} over \(K\).
+\end{definition}
+
+\begin{definition}[Separable extension]
+  Given \(K \leq L\), \(L\) is \emph{separable} over \(K\) if all elements of \(L\) are separable over \(K\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(\Q \leq L\) be an algebraic extension. Then \(L\) is separable over \(\Q\).
+  \item Let \(L = \F_p(X)\), the field of rational functiions in \(X\) over \(\F_p\). It has \(K = \F_p(X^p)\) as a subfield. Then \(K \leq L\) is not separable
+    \begin{proof}
+      Observe that if \(f(t) = t^p - X^p \in K[t]\) then \(f'(t) = 0\). But \(t^p - X^p = (t - X)^p \in L[t]\). However, \(f(t) \in K[t]\) is irreducible: suppose \(f(t) = g(t)h(t) \in K[t] \subseteq L[t]\), we get \(g(t) = (t - X)^r\) for some \(0 \leq r < p\) if the factorisation is non-trivial. But this would mean \(X^r \in K\). However \(r\) and \(p\) are coprime so there exist \(a, b \in \Z\) such that \(ar + bp = 1\), so \(X = (X^r)^a (X^p)^b \in K\). Thus we would have \(X = u(X^p)/v(X^p)\), absurd.
+
+      Thus \(f(t) = t^p - X^p\) is the minimal polynomial of \(X\) over \(K\). \(C\) is purely inseparable over \(K\) and it follows that \(K \leq L\) is not separable.
+    \end{proof}
+  \item Let \(\F\) be a finite field with \(|\F| = m\), a power of \(\ch \F\), and \(f(t) = t^n - 1\) where \(n = m - 1\). We know this is separable over \(\F_p\) since we say that \(f(t)\) has distinct linear factors in \(\F[t]\).
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}
+  It is useful to have an alternative approach to separability of field extensions without having to check separability of minimal polynomials for all elements of the larger field. This is where we start thinking about \(K\)-homomorphisms.
+\end{remark}
+
+\begin{lemma}
+  Let \(M = K(\alpha)\) where \(\alpha\) is algebraic over \(K\). Let \(f_\alpha(t)\) be the minimal polynomial of \(\alpha\) over \(K\). For any field extension \(K \leq L\), the number of \(K\)-homomorphisms \(M \to L\) is equal to the number of distinct roots of \(f_\alpha(t)\) in \(L\). Thus
+  \[
+    |\Hom_K(M, L)| \leq \deg f_\alpha(t) = |K(\alpha):K| = |M:K|.
+  \]
+\end{lemma}
+
+\begin{proof}
+  We say in 1.21 \ref{tbf} that any \(K\)-homomorphism \(M \to L\) is injective. Since \(K(\alpha) \cong K[t]/(f_\alpha(t))\), for any root \(\beta\) of \(f_\alpha(t)\) in \(L\), we can define a \(K\)-homomorphism
+  \begin{align*}
+    K[t]/(f_\alpha(t)) &\to L \\
+    t + (f_\alpha(t)) &\mapsto \beta
+  \end{align*}
+
+  Conversely, for any \(K\)-homomorphism \(\phi: M \to L\), the image \(\phi(\alpha)\) must satisfy \(f_\alpha(\phi(\alpha)) = 0\). These two maps are inverses to each other.
+\end{proof}
+
+%TODO
+\texttt{to be filled in}
 
 \blindtext
+%
+%
+%
+%
+%
+
+\begin{theorem}[Primitive Element Theorem]
+  \label{thm:primitive}
+  Any finite separable extension \(K \leq M\) is simple, i.e.\ \(M = K(\alpha)\) for some \(\alpha\), which is called the \emph{primitive element}.
+\end{theorem}
+
+\begin{proof}
+  \label{proof:primitive}
+  If \(K\) is a finite field then \(M\) is also finite. So we can take \(\alpha\) to be generator of the multiplicative group of \(M\), which is cyclic.
+
+  Now assume \(K\) is an infinite field. Since \(K \leq M\) is a finite extension, \(M = K(\alpha_1, \dots, \alpha_n)\) for some \(\alpha_i\). It suffices to show that any field \(M = K(\alpha, \beta)\) with \(\beta\) separable over \(K\) is of the form \(K(\gamma)\).
+
+  Take \(f(t)\) and \(g(t)\) to be the minimal polynomials of \(\alpha\) and \(\beta\) over \(K\) respectively. Let \(L\) be the splitting field for \(f(t)g(t)\) over \(K(\alpha, \beta)\). The distinct zeros of \(f(t)\) in \(L\) are \(\alpha = \alpha_1, \alpha_2, \dots, \alpha_a\) and those of \(g(t)\) are \(\beta = \beta_1, \beta_2, \dots, \beta_b\). By separability we know \(b = \deg g(t)\). Choose \(\lambda \in K\) such that all \(\alpha_i + \lambda \beta_j\) are distinct (this is possible since \(K\) is infinite). Now we set \(\gamma = \alpha + \lambda \beta\) (remember \(\alpha\) is \(\alpha_1\) and \(\beta\) is \(\beta_1\)). Let \(F(t) = f(\gamma - \lambda t) \in K(\gamma)[t]\). We have \(g(\beta) = 0\). and \(F(\beta) = f(\alpha) = 0\). Thus \(F(t)\) and \(g(t)\) have a common zero. Any other common zero would have to be \(\beta_j\) for some \(j > 1\). But then \(F(\beta_j) = f(\alpha + \lambda(\beta - \beta_j))\). By assumption \(\alpha + \gamma(\beta - \beta_j)\) is never an \(\alpha_i\) so \(f(\beta_j) \neq 0\).
+
+  Now separability of \(g(t)\) says that the linear factors are all disinct. So \((t - \beta)\) is a highest common factor of \(F(t)\) and \(g(t)\) in \(L[t]\). However, the minimal polynomial \(h(t)\) of \(\beta\) over \(K(\gamma)\) then divides \(F(t)\) and \(g(t)\) in \(K(\gamma)[t]\), and hence in \(L[t]\). This imples \(h(t) = t - \beta\), and so \(\beta \in K(\gamma)\). Therefore \(\alpha = \gamma - \lambda \beta \in K(\gamma)\). So \(K(\alpha, \beta) \leq K(\gamma)\). The other direction is obvious.
+\end{proof}
+
+\begin{ex}
+  In our example in Chapter 1 \Cref{tbf} we have \(\Q \leq \Q(\sqrt 2, i)\). We had intermediate subfields \(\Q(\sqrt 2), \Q(i)\) and \(\Q(i\sqrt 2)\). If we follow the procedure of the \hyperref[proof:primitive]{proof} of \Cref{thm:primitive}, \(\alpha = \sqrt 2, \beta = i, f(t) = t^2 - 2\) and \(g(t) = t^2 + 1\). Consider some \(\sqrt 2 + \lambda i\) where \(\pm \sqrt 2 \pm \lambda i\) are all distinct, for example \(\lambda = 1\). The proof show that \(\Q(\sqrt 2, i) = \Q(\sqrt 2 + i)\).
+\end{ex}
 
 \subsection{Trace \& Norm}
 
-\begin{definition}[Trace and norm]
-  Let \(K \leq M\) be a finite field extension and \(\alpha \in M\). Multiplication by \(a\) is a \(K\)-linear map \(\theta_\alpha: M \to M\). The \emph{trace of \(\alpha\) over \(K\)} is
+These will also be used in number fields next term.
+
+\begin{definition}[Trace \& norm]
+  Let \(K \leq M\) be a finite field extension and \(\alpha \in M\). Multiplication by \(a\) is a \(K\)-linear map \(\theta_\alpha: M \to M\). The \emph{trace} of \(\alpha\) over \(K\) is
   \[
-    \Tr_{M/K}(\alpha) = \Tr( \theta_\alpha) \in K
+    \Tr_{M/K}(\alpha) = \Tr \theta_\alpha \in K
   \]
-  and the \emph{norm of \(\alpha\) over \(K\)} is
+  and the \emph{norm} of \(\alpha\) over \(K\) is
   \[
     \n_{M/K}(\alpha) = \det \theta_\alpha \in K.
   \]
 \end{definition}
 
 \begin{note}
-  These dependent on the field extension.
+  Trace and norm depend on the field extension.
 \end{note}
 
 \begin{theorem}
+  \label{thm:trace and norm}
   Suppose \(f_\alpha(t) = t^s + a_{s - 1}t^{s - 1} + \dots + a_0\) is the minimal polynomial of \(\alpha\) over \(K\). Let \(r = |M: K(\alpha)|\). Then the characteristic polynomial of \(\theta_\alpha\) is \((f_\alpha(t))^r\) and
   \begin{align*}
     \Tr_{M/K}(\alpha) &= -r a_{s-1} \\
     \n_{M/K}(\alpha) &= ((-1)^s a_0)^r
   \end{align*}
 \end{theorem}
+
+\begin{proof}
+  Regard \(M\) as a \(K(\alpha)\)-vector space with basis \(1 = \beta_1, \beta_2, \dots, \beta_r\). Now take the \(K\)-vecotr space basis \(1, \alpha, \alpha^2, \dots, \alpha^{s - 1}\) of \(K(\alpha)\). Then \(\{\alpha^i \beta_j\}_{i < r, j \leq r}\) is a \(K\)-vector space basis for \(M\). Multiplication by \(\alpha\) in \(K(\alpha)\) is represented by the matrix
+    \[
+      A =
+      \begin{pmatrix}
+        0 & & & \cdots & -a_0 \\
+        1 & 0 & & \cdots & -a_1 \\
+        0 & 1 & 0 & \cdots & -a_2 \\
+        \vdots & & & \ddots & \vdots \\
+        0 & 0 & \cdots & 1 & -a_{s - 1}
+      \end{pmatrix}
+    \]
+    so multiplication by \(\alpha\) in \(M\) is represented by the \(rs \times rs\) matrix
+    \[
+      \begin{pmatrix}
+        A & 0 & \cdots & 0 \\
+        0 & A & \cdots & 0 \\
+        \vdots & & \ddots & \vdots \\
+        0 & 0 & \cdots & A
+      \end{pmatrix}
+    \]
+    whose characteristic polynomial if \((f_\alpha(t))^r\). By inspecting the coefficients of the characteristic polynomial we get the trace and norm.
+\end{proof}
+
+\begin{theorem}
+  \label{thm:trace and norm of separable extension}
+  Let \(K \leq M\) be a finite separable field extension and \(|M:K| = n\). Let \(\alpha \in M\) and \(K \leq L\) large enough so that there are \(n\) distinct \(K\)-homomorphisms \(\sigma_1, \dots, \sigma_n: M \to L\). Then the characteristic polynomial of \(\theta_\alpha: M \to M\) is
+  \[
+    \prod_{i = 1}^{n}(t - \sigma_i(\alpha)).
+  \]
+  Thus
+  \begin{align*}
+    \Tr_{M/K}(\alpha) &= \sum_{i = 1}^{n} \sigma_i(\alpha) \\
+    \n_{M/K} &= \prod_{i = 1}^{n} \sigma_i(\alpha)
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Let
+  \[
+    f_\alpha(t) = \prod_{i = 1}^{s} (t - \alpha_i) = a^s + a_{s - 1}s^{t - 1} + \dots + a_0
+  \]
+  be the minimal polynomial of \(\alpha\) over \(K\) in \(L[t]\) where \(L\) is large enough that \(f_\alpha(t)\) splits in \(L\). There are \(s\) \(K\)-homomorphisms \(K(\alpha) \to L\), corresponding to maps sending \(\alpha\) to \(\alpha_i\). Each of these extends in \(|M:K(\alpha)|\) ways to give \(K\)-homomorphisms \(M \to L\). However, each of such extension mapping \(\alpha \mapsto \alpha_i\) still does so. Set \(r = |L:K(\alpha)|\). There are \(r\) maps sending \(\alpha \to \alpha_i\) for each \(i\). Thus if the \(n = rs\) distinct \(K\)-homomorphism \(M \to L\) are \(\sigma_1, \dots, \sigma_n\) then
+  \[
+    \sum_{i = 1}^{n} \sigma_i(\alpha) = r(\alpha_1 + \dots \alpha_s) = -ra_{s - 1} = \Tr_{M/K} (\alpha)
+  \]
+  since the sum of roots of \(f_\alpha(t)\) is \(-a_{s - 1}\), and
+  \[
+    \prod_{i = 1}^{n} \sigma_i(\alpha) = ((-1)^s a_0)^r = \n_{M/K}(\alpha).
+  \]
+\end{proof}
+
+Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\theta_\alpha\) is \((f_\alpha(t))^r\) where \(f_\alpha(t)\) is the minimal polynomial of \(\alpha\) over \(K\) and \(r = |M:K(\alpha)|\). The characteristic polynomial if \(\prod_{n = 1}^{s} (t - \alpha_i)^r\) where \(\alpha_i\) are the roots of \(f_\alpha(t)\) in a splitting field. We also saw that those root are \(\sigma_1(\alpha), \dots, \sigma_n(\alpha)\) so the characteristic polynomial is
+\[
+  \prod_{i = 1}^{n} (t - \sigma_i(\alpha)).
+\]
+
+\begin{theorem}
+  Let \(K \leq M\) be a finite separable extension. Then we define a \(K\)-belinear form
+  \begin{align*}
+    T: M \times M &\to K \\
+    (x, y) &\mapsto \Tr_{M/K}(xy)
+  \end{align*}
+  where \(xy\) is the product in \(M\). Then this is non-degenerate. In particular, the \(K\)-linear map \(\Tr_{M/K}: M \to K\) is non-zero. Thus it is surjective.
+\end{theorem}
+
+\begin{remark}
+  If \(K \leq M\) is a finite extension which is separable then \(\Tr_{M/K}\) is always zero. It follows that \(T\) is degnerate. See example sheet.
+\end{remark}
+
+\begin{proof}
+  By \nameref{thm:primitive}, separability implies that \(M = K(\alpha)\) for some \(\alpha\). We have a \(K\)-basis \(\{\alpha^i\}_{i = 0}^{n - 1}\) of \(K(\alpha)\) where \(n = |M:K|\). The \(K\)-belinear form \(T\) is represented by the matrix
+  \[
+    A =
+    \begin{pmatrix}
+      \Tr_{M/K}(1) & \Tr_{M/K}(\alpha) & \cdots \\
+      \Tr_{M/K}(\alpha) & \Tr_{M/K}(\alpha^2) & \cdots \\
+      \cdots & \cdots & \cdots
+    \end{pmatrix}
+  \]
+  Let \(L\) be a splitting field of the minimal polynomial \(f(t)\) of \(\alpha\) over \(K\).Then \(f_\alpha(t) = \prod_{i = 1}^n (t - \alpha_i)\) with \(\alpha_1, \dots, \alpha_n \in L\). The entries in \(A\) are of the form \(\Tr_{M/K}(\alpha^L)\) which is \(\alpha_1^l + \dots + \alpha_n^l\) by \Cref{thm:trace and norm of separable extension}.
+
+  Now consider \(\Delta = \prod_{i < j} (\alpha_i - \alpha_j)\), the \emph{Vandermonde determinant}, is
+  \[
+    \begin{vmatrix}
+      1 & 1 & 1 & \cdots 1 \\
+      \alpha_1 & \alpha_2 & & \\
+      \alpha_1^2 & \alpha_2^2 & & \\
+      \vdots & & \ddots & \\
+      \alpha_1^{n - 1} & \alpha_2^{n - 1} & \dots & \alpha_n^{n - 1}
+    \end{vmatrix}
+  \]
+  Now consider \(VV^T\) and observe that it is \(A\). Thus \(0 \neq D = \Delta^2 = |VV^T| = |A|\). Thus \(A\) is non-singular and therfore the bilinear form \(T\) is non-degenerate.
+\end{proof}
+
+\begin{remark}
+  We will meet \(D\) again shortly. It is the \emph{discriminant} of the polynomial \(f_\alpha(t)\).
+\end{remark}
 
 \subsection{Normal Extensions}
 
@@ -130,7 +359,7 @@ From \ref{tbh} we know that such \(K\)-automorphisms are isormophisms and thus h
 \end{remark}
 
 \begin{proof}[Proof of \Cref{thm:galois criterion}]
-  Suppose \(|\aut_K(M)| = |M:K| = n\). Let \(M \leq L\) be large enough. The \(n\) distinct \(K\)-automorphisms \(\phi: M \to M\) extend to \(n\) \(K\)-homomorphisms \(\phi: M \to L\) and 2.12~\ref{tbf} says that \(M\) is seperable over \(K\).
+  Suppose \(|\aut_K(M)| = |M:K| = n\). Let \(M \leq L\) be large enough. The \(n\) distinct \(K\)-automorphisms \(\phi: M \to M\) extend to \(n\) \(K\)-homomorphisms \(\phi: M \to L\) and 2.12~\ref{tbf} says that \(M\) is separable over \(K\).
 
   For normality, pick \(\alpha \in M\) with minimal polynomial \(f_\alpha(t)\) over \(K\). Take \(M = K(\alpha_1, \dots, \alpha_m)\) as in the proof of 2.10~\ref{tbf} with \(\alpha = \alpha_1\) and \(L = M\). We only get \(|M:K|\) extensions of the inclusion \(K \hookrightarrow M\) if each inequality in the proof is an equality. In particular, we need the number of \(K\)-homomorphisms \(K(\alpha_1) \to M\) to be \(K(\alpha_1):K|\). But then 2.6~\ref{tbf} says we have \(|K(\alpha):K|\) distinct roots of \(f_\alpha(t)\) i \(M\). Thus \(f_\alpha(t)\) splits over \(M\).
 
@@ -208,7 +437,7 @@ The fixed field is a field and \(K \leq L^H \leq L\).
   \begin{enumerate}
   \item Observe that \(M \leq L\) is Galois and so we could have written \(\gal(L/M)\) instead of \(\aut_M(L)\). To see this,
     \begin{itemize}
-    \item seperability: follows from \ref{tbf}
+    \item separability: follows from \ref{tbf}
     \item normality: if \(\alpha \in L\) then the minimal polynomial of \(\alpha\) over \(M\) divides the minimal polynomial of \(\alpha\) over \(K\). But the latter splits over \(L\) (see example sheet).
     \end{itemize}
   \item If \(K \leq M\) is normal then \ref{tbf} says if \(\sigma: L \to L\) then \(\sigma(M) = M\) and so we can talk about the restriction of \(\alpha\) to \(M\) giving an automorphism of \(M\).
@@ -255,7 +484,7 @@ The fixed field is a field and \(K \leq L^H \leq L\).
   \[
     |M(\alpha):M| = \deg f_\alpha(t) \leq \deg g(t) \leq |H|.
   \]
-  This step shows that \(\alpha\) is algebraic over \(M\) and \(f_\alpha(t)\) is seperable whenver \(g(t)\) is. Thus \((M \leq L\) is a separable extension.
+  This step shows that \(\alpha\) is algebraic over \(M\) and \(f_\alpha(t)\) is separable whenver \(g(t)\) is. Thus \((M \leq L\) is a separable extension.
 
   Next we show that \(M \leq L\) is a simple extension. Pick \(\alpha \in L\) with \(|M(\alpha):m|\) maximal. We will show that \(L = M(\alpha)\) for this \(\alpha\). Suppose \(\beta \in L\). Then \(M \leq M(a=\alpha, \beta)\) is finite and separably generated and hence is a finite separable extension. By \nameref{thm:primitive} \(M(\alpha, \beta) = M(\gamma)\) for some \(\gamma\). But then
   \[
@@ -336,7 +565,7 @@ Moreover if \(\phi\) fixes each \(\alpha_i\) it also fixes all elements of \(L\)
 
 \begin{lemma}
   \label{lem:galois orbits}
-  Suppose seperable \(f(t) = g_1(t) \cdots g_s(t)\) with \(g_i(t)\) irreducible in \(K[t]\) is a factorisation in \(K[t]\). Then the orbits of \(\gal(f)\) acting on the roots of \(f(t)\) correspond to the factors \(g_j(t)\): two roots are in the same orbit if and only if they are roots of the same \(g_i(t)\).
+  Suppose separable \(f(t) = g_1(t) \cdots g_s(t)\) with \(g_i(t)\) irreducible in \(K[t]\) is a factorisation in \(K[t]\). Then the orbits of \(\gal(f)\) acting on the roots of \(f(t)\) correspond to the factors \(g_j(t)\): two roots are in the same orbit if and only if they are roots of the same \(g_i(t)\).
 
   In particular if \(f(t) \in K[t]\) is irreducible, there is only one orbit, i.e.\ \(\gal(f)\) acts transitively on the roots of \(f(t)\).
 \end{lemma}
@@ -406,7 +635,7 @@ Moreover if \(\phi\) fixes each \(\alpha_i\) it also fixes all elements of \(L\)
 \end{remark}
 
 \begin{lemma}
-  Let \(f(t) \in K[t]\) be seperable of degree \(n\) with \(\ch K \neq 2\). Then
+  Let \(f(t) \in K[t]\) be separable of degree \(n\) with \(\ch K \neq 2\). Then
   \[
     \gal(f) \leq A_n \Leftrightarrow D(f) \text{ is a square in } K.
   \]
