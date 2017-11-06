@@ -11,17 +11,12 @@
 \input{header}
 
 
-
-% TODO: rewrite matrix group as macrco \M
-
-
-
-
+\newcommand*{\M}{\matrixring}
+\newcommand*{\spans}{\generation}
 
 \newcommand*{\ann}{\circ}
 
 \newcommand*{\basis}{\mathcal}
-\newcommand*{\M}{\mathcal{M}}
 
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
@@ -167,31 +162,31 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 \begin{definition}[Span]
   Let $V$ be a $\F$-vector space, $S \subseteq V$ be a subset. The \emph{span} of $S$
   \[
-    \generation S = \Big\{\sum_{s\in S} \lambda_s s : \lambda_s \in F \Big\}
+    \spans S = \Big\{\sum_{s\in S} \lambda_s s : \lambda_s \in F \Big\}
   \]
   is the set of all the finite linear combinations of elements (i.e.\ all but finitely many of the $\lambda$ are zero) of $S$.
 \end{definition}
 
 \begin{remark}
-  $\generation S$ is the smallest subspace of $V$ containing all elements of $S$.
+  $\spans S$ is the smallest subspace of $V$ containing all elements of $S$.
 \end{remark}
 
 \begin{convention}
-  $\generation \emptyset = \{\V 0\}$
+  $\spans \emptyset = \{\V 0\}$
 \end{convention}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
- \item $V=\R^3$, $S = \{(1,0,0),(0,1,2),(3,-2,-4)\}$, $\generation S = \{(a,b,2b): a,b\in \R \}$
+ \item $V=\R^3$, $S = \{(1,0,0),(0,1,2),(3,-2,-4)\}$, $\spans S = \{(a,b,2b): a,b\in \R \}$
  \item For any set $X$, $\R^X$ is a vector space. For $x \in X$, define $\delta_x: X \to \R, \delta_x(x) = 1, \delta_x(y) = 0 \: \forall y \neq x$, then
    \[
-     \generation{\delta_x: x\in X} = \{f\in \R^X: f \text{ has finite support} \}
+     \spans{\delta_x: x\in X} = \{f\in \R^X: f \text{ has finite support} \}
    \]
   \end{enumerate} 
 \end{eg}
 
 \begin{definition}[Span]
-  $S$ spans $V$ if $\generation S = V$.
+  $S$ spans $V$ if $\spans S = V$.
 \end{definition}
 
 \begin{definition}[Finite-dimensional]
@@ -387,7 +382,7 @@ V = U \oplus W
 \end{lemma}
 
 \begin{proof}
-  Let \(u_1,\ldots, u_\ell\) be a basis for \(U\). Extend this to a basis \(u_1,\ldots, u_\ell,w_{\ell+1},\ldots,w_n\) for \(V\). Then \(\generation{w_{\ell+1},\ldots,w_n}\) is a direct complement of \(U\).
+  Let \(u_1,\ldots, u_\ell\) be a basis for \(U\). Extend this to a basis \(u_1,\ldots, u_\ell,w_{\ell+1},\ldots,w_n\) for \(V\). Then \(\spans{w_{\ell+1},\ldots,w_n}\) is a direct complement of \(U\).
 \end{proof}
 
 \begin{caution}
@@ -2073,4 +2068,162 @@ Although in theory we could invert the matrix to solve the system of equations, 
   \item Given \(\V b \in \Z^n\), \(A \V x = \V b\) has an integer solution.
   \end{enumerate}
 \end{corollary}
+
+\section{Endomorphism}
+
+Let \(V\) be a \(\F\)-vector space with \(\dim V = n < \infty\). Let \(\basis B =\{v_1, \dots, v_n\}\) be a basis and \(\alpha \in L(V) = L(V, V)\).
+
+The general problem studied in this section is to choose a basis \(\basis B\) such that \([\alpha]_{\basis B}\) has ``nice forms''.
+
+Suppose there is another basis \(\basis B'\) and the change-of-basis matrix \(P\). Recall that
+\[
+  [\alpha]_{\basis B} = P^{-1}[\alpha]_{\basis B'}P.
+\]
+The above proble is thus euqivalent to given \(A \in \M_n(\F)\), want \(A'\) conjugate to \(A\) and in a ``nice form''.
+
+What are the nice forms that we desire? The best we can have is
+
+\begin{definition}[Diagonalisable]
+  \(\alpha \in L(V)\) is \emph{diagonalisable} if there exists \(\basis B\) such that \([\alpha]_{\basis B}\) is diagonal.
+\end{definition}
+
+A slightly weaker, albeit still ``nice'' enough form is
+
+\begin{definition}[Triangulable]
+  \(\alpha \in L(V)\) is \emph{triangulable} if there exists \(\basis B\) such that \([\alpha]_{\basis B}\) is upper triangular.
+\end{definition}
+
+Equivalent, rephrasing using lanugages of matrices, \(A \in \M_n(\F)\) is diagonalisable (triangulable, respectively) if it is conjugate to a diagonal (upper triangle, respectively) matrix.
+
+\begin{definition}[Eigenvalue, eigenvector, eigenspace]\leavevmode
+  \begin{enumerate}
+  \item \(\lambda \in \F\) is an \emph{eigenvalue} of \(\alpha\) if there exists some \(v \in V\setminus\{0\}\) such that \(\alpha(v) = \lambda v\).
+  \item \(v \in V\) is an \emph{eigenvector} of \(\alpha\) if \(\alpha(v) = \lambda v\) for some eigenvalue \(\lambda\).
+  \item \(V_\lambda = \{v \in V: \alpha(v) = \lambda v\}\) is the \emph{\(\lambda\)-eigenspace} of \(\alpha\).
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  It is easy to check that \(V_\lambda \leq V\).
+\end{remark}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item \(V_\lambda = \ker(\alpha - \lambda \iota)\) and
+    \begin{align*}
+      & \lambda \text{ is an eigenvalue} \\
+      \Leftrightarrow & \alpha - \lambda \iota \text{ is singular} \\
+      \Leftrightarrow & \det (\alpha - \lambda \iota) = 0
+    \end{align*}
+  \item If \(\alpha(v_j) = \lambda v_j\) then the \(j\)th column of \([\alpha]_{\basis B}\) is \((0, \dots, \lambda, \dots, 0)^T\).
+  \item \([\alpha]_{\basis B}\) is diagonal if and only if \(\basis B\) consists of eigenvectors. \([\alpha]_{\basis B}\) is upper triangular if and only if \(\alpha(v_j) = \spans{v_1, \dots, v_j}\) for all \(j\). In particular, \(v_1\) is an eigenvector.
+  \end{enumerate}
+\end{remark}
+
+\subsection{Polynomial Ring, an Aside}
+
+Before discussing polynomials associated with a linear map, we need a little knowledge of the ambient polynomial space that we will be working with. The following results should be self-evident and proofs are omitted. Most of them will be studied in detail in IB Groups, Rings and Modules and a proof the Fundamental Theorem of ALgebra can be found in IB Complex Analysis.
+
+Let \(\F[t] = \{\text{polynomials with coefficients in } \F\) and \(\deg f\) be the degree of an \(f\) in \(\F[t]\). By convention \(\deg 0 = -\infty\). We have the following properties:
+\begin{enumerate}
+\item \(\deg (f + g) \leq \max(\deg f, \deg g), \deg(f g) = \deg f + \deg g\).
+\item If \(\lambda \in \F\) is a root of some \(f \in \F[t]\), i.e.\ \(f(\lambda) = 0\) then \((t - \lambda) \divides f\). In other words, \(f(t) = (t - \lambda) g(t)\) for some \(g(t) \in \F[t]\) and \(\deg g = \deg f - 1\).
+\item We say \(\lambda\) is a root of \(f \in \F[t]\) with \emph{multiplicity} \(e \in \N\) if \((t - \lambda)^e \divides f\) but \((t - \lambda)^e \ndivides f\).
+\item A polynomial of degree \(n\) has at most \(n\) roots, counted with multiplicity.
+\item Fundamental Theorem of Algebra: any \(f \in \C[t]\) of positive degree has a root (hence \(\deg f\) roots).
+\end{enumerate}
+
+\begin{definition}[Characteristic polynomial]
+   The \emph{characteristic polynomial} of \(\alpha \in L(V)\) is
+  \[
+    \chi_\alpha(t) = \det (\alpha - t \iota).
+  \]
+  The \emph{characteristic polynomial} of \(A \in \M_n(\F)\) is
+  \[
+    \chi_A(t) = \det (A - t I).
+  \]
+\end{definition}
+
+Conjugate matrices have the same characteristic polynomial.
+
+\begin{theorem}
+  A linear map \(\alpha\) is triangulable if and only if \(\chi_\alpha(t)\) can be written as a product of linear factors over \(\F\).
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): suppose \(\alpha\) is triangulable and is represented by
+    \[
+      \begin{pmatrix}
+        a_1 & \cdots & * \\
+        & \ddots & \vdots \\
+        0 & & a_n
+      \end{pmatrix}
+    \]
+    with respect to some basis. Then
+    \[
+      \chi_\alpha(t) = \det
+      \begin{pmatrix}
+        a_1 - t & \cdots & * \\
+        & \ddots & \vdots \\
+        0 & & a_n -t
+      \end{pmatrix}
+      = \prod_{i = 1}^{n} (a_i - t)
+    \]
+  \item \(\Leftarrow\): induction of \(n = \dim V\): if \(n = 1\) then done. Suppose \(n > 1\) and the theorem holds for all endomorphisms of spaces of smaller dimensions. By hypothesis \(\chi_\alpha(t)\) has a root in \(\F\), say \(\lambda\). Let \(U = V_\alpha \neq 0\), then \(\alpha(U) \leq U\) so \(\alpha\) induces \(\overline \alpha: V/U \to V/U\). Pick basis \(v_1, \dots, v_k\) for \(U\) and extend it to a basis \(\basis B = \{v_1, \dots, v_n\}\) for \(V\). With respect to \(\basis B\), \(\alpha\) has representation
+    \[
+      \begin{pmatrix}
+        \lambda I_k & * \\
+        0 & C
+      \end{pmatrix}
+    \]
+    so
+    \[
+      \chi_\alpha(t) = \det(\alpha - t \iota) = (\lambda - t)^k \chi_{\overline \alpha}(t).
+    \]
+    Thus \(\chi_{\overline \alpha}(t)\) is also a product of linear factors. Since \(\chi_{\overline \alpha}(t)\) acts on a linear space of strictly smaller dimension, by induction hypothesis there is a basis \(w_{k + 1} + U, \dots, w_n + U\) for \(V/U\) with respect to which \(\overline \alpha\) has an upper-triangular matrix representation, say T. Then with respect to basis \(v_1, \dots, v_k, w_{k + 1}, \dots, w_n\), \(\alpha\) has matrix representation
+    \[
+      \begin{pmatrix}
+        \lambda I_k & * \\
+        0 & T
+      \end{pmatrix}
+    \]
+  \end{itemize}
+\end{proof}
+
+\begin{eg}
+  Let \(\F = \R\), \(V = \R^2\) and \(\alpha\) is a rotation. Then with respect to the standard basis \(\alpha\) has representation
+  \[
+    \begin{pmatrix}
+      \cos \theta & \sin \theta \\
+      -\sin \theta & \cos \theta
+    \end{pmatrix}
+  \]
+  and thus \(\chi_\alpha(t) = t^2 - 2 \cos \theta t + 1\), which is irreducible in general. Thus \(\alpha\) is not triangulable over \(\R\).
+\end{eg}
+
+\begin{lemma}
+  Let \(V\) be a \(n\)-dimensional \(\F\)-vector space and \(\alpha \in L(V)\) with \(\chi_\alpha(t) = (-1)^n t^n + c_{n - 1} t^{n - 1} + \dots c_0\). Then
+  \begin{itemize}
+  \item \(c_0 = \det \alpha\),
+  \item \(c_{n - 1} = (-1)^{n - 1} \tr \alpha\) for \(\F = \R\) or \(\C\).
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(c_0 = \chi_\alpha(0) = \det (\alpha - 0) = \det \alpha\).
+  \item If \(\F = \R\) then there is a extension of scalars \(\M_n(\R) \embed \M_n(\C)\) induced by \(\R \embed \C\) (i.e.\ complexification). For \(\F = \C\),
+    \[
+      \chi_\alpha(t) = \det
+      \begin{pmatrix}
+        a_0 - t & \cdots & * \\
+        & \ddots & \vdots \\
+        0 & & a_n - t
+      \end{pmatrix}
+      = \prod_{i = 1}^{n} (a_i - t)
+    \]
+    where \(\sum_{i = 1}^n a_i = \tr \alpha\).
+  \end{itemize}
+\end{proof}
 \end{document}

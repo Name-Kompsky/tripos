@@ -1750,4 +1750,166 @@ Sometimes it is better to differentiate by hand:
     and it follows that \(\D F|_a = L_a\).
   \end{proof}
 \end{eg}
+
+Now we study some general properties of linear maps.
+
+Recall from IB Linear Algebra that given \(V, W\) vector spaces,
+\[
+  L(V, W) = \{T:V \to W | T \text{ is linear}\}.
+\]
+
+\begin{lemma}
+  If \(L \in L(\R^n, \R^m)\) then \(L\) is continuous.
+\end{lemma}
+
+\begin{proof}
+  Suppose \(L(x) = (L_1(x), \dots, L_m(x))\). Write \(L_i(x) = \sum_{j = 1}^{n} a_{ij} x_j\) and let \(A = (a_{ij})\) be the matrix representation of \(L\). Since \(\pi_j: x \mapsto x_j\) is continuous, \(L_i\) is a linear combination of continuous functions so continuous. All components of \(L\) are continuous and so is \(L\).
+\end{proof}
+
+\begin{note}
+  The lemma assumes that the vector spaces are finite-dimensional. This does not hold for general normed spaces. For example,
+  \begin{align*}
+    (C[0, 1], \norm \cdot_1) &\to \R \\
+    f &\mapsto f(0)
+  \end{align*}
+  is not continuous.
+\end{note}
+
+\begin{proposition}
+  If \(f: U \to \R^m\) is differentiable at \(a\) then \(f\) is continuous at \(a\).
+\end{proposition}
+
+\begin{proof}
+  Since \(f\) is differentiable at \(a\), we may write
+  \[
+    f(a + h) = f(a) + L(h) + \norm h \alpha(h)
+  \]
+  where \(L(h) = \D f|_a \in L(\R^n, \R^m)\) and \(\lim_{h \to 0} \alpha(h) = 0\).
+
+  Since \(L\) is continuous,
+  \begin{align*}
+    \lim_{h \to 0} f(a + h) &= \lim_{h \to 0} f(a) + \lim_{h \to 0} L(h)  + \lim_{h \to 0} \norm h \alpha(h) \\
+                            &= f(a) + L(0) + \lim_{h \to 0}\norm h \cdot \lim_{h \to 0} \alpha(h) \\
+                            &= f(a) + 0 + 0 \\
+                            &= f(a)
+  \end{align*}
+  Thus \(f\) is continuous at \(a\).
+\end{proof}
+
+\begin{joke}
+  blah blah
+\end{joke}
+
+\begin{definition}[\(C^1\) space]
+  \(F: U \to \R\) is \(C^1\) if all the partial derivatives \(\D_i F\) exist and are continuous on \(U\). Denote
+  \[
+    C^1(U) = \{F: U \to \R: F \text{ is } C^1\}.
+  \]
+\end{definition}
+
+\begin{theorem}
+  If \(F\) is \(C^1\) then \(F\) is differentiable on \(U\).
+\end{theorem}
+
+\begin{joke}
+  I messsed up this proof last year and the next day Trump was elected president.
+\end{joke}
+
+\begin{proof}
+  For the ease of notation we show the \(n = 2\) case here. The proof for \(n \geq 3\) is entirely analogous.
+
+  We need to show that \(F(a + h) - F(a)\) is well-approximated by
+  \[
+    L(h) = \D_1 F|_a \cdot h_1 + \D_2 F|_a \cdot h_2.
+  \]
+  From now on assume \(\norm h < \varepsilon\) where \(B_\varepsilon(a) \subseteq U\).
+  \iffalse
+  \begin{center}
+    \begin{tikzpicture}%[every node/.style={draw,shape=circle,fill=blue}]
+\tikzstyle{every node}=[draw,shape=circle]
+    \path (0, 0) node (p0) {x}
+    (1, 0) node (p1) {x1};
+    \draw (p0) -- (p1);
+\filldraw [gray] (3,0) circle (2pt);
+    %\draw (0, 0) -- (4, 0) -- (4, 3);
+    %\node at (0, 0) {shape=circle, fill};
+  \end{tikzpicture}
+  \end{center}
+  \fi
+  A simple diagram shows that
+  \[
+    F(a + h) - F(a) = F(x_2) - F(x_1) + F(x_1) - F(x_0)
+  \]
+  Recall from IA Analysis I
+  
+  \begin{theorem}[Mean Value Theorem]
+    If \(f: [a, b] \to \R\) is differentiable then there exists \(c \in [a, b]\) such that
+    \[
+      f(b) - f(a) = (b - a) f'(c).
+    \]
+  \end{theorem}
+
+  Now apply this to \(f(t) = F(a_1 + t, a_2)\), \(f'(t) = \D_1 F|_{(a_1 + t, a_2)}\): there exists \(y_1(h) = (a_1 + c_1(h), a_2)\) such that \(c_1(h) \in [0, h_1]\) and
+  \[
+    F(x_1) - F(x_0) = h_1 \cdot \D_1 F|_{y_1(h)}.
+  \]
+  Similarly apply MVT to \(g(t) = F(a_1 + h_1, a_2 + t)\): there exists \(y_2(h) = (a_1 + h_1, a_2 + c_2(h))\) such that \(c_2(h) \in [0, h_2]\) and
+  \[
+    F(x_2) - F(x_1) = h_2 \cdot \D_2 F|_{y_2(h)}.
+  \]
+
+  Notice that since \(y_1(h) = (a_1 + c_1(h), a_2)\) where \(c_1(h) \in [0, h_1]\), we have
+  \[
+    \norm{y_1(h) - a} \leq \norm{h_1} \leq \norm h.
+  \]
+  Similarly \(\norm{y_2(h) - a} \leq \norm{h}\). Claim that
+  \[
+    \lim_{h \to 0} \D_1 F|_{y_1(h)} - \D_1 F|_a = 0
+  \]
+
+  \begin{proof}
+    By hypothesis \(\D_1 F\) is continuous so given \(\varepsilon > 0\), there exists \(\delta > 0\) such that \(|\D_1 F|_z - \D_1 F|_a| < \varepsilon\) whenever \(\norm{z - a} < \delta\). Then if \(\norm h < \delta\), \(\norm{y_1(h) - a} \leq \norm h < \delta\). Then
+    \[
+      |\D_1 F|_{y_1(h)} - \D_1 F|_a| < \varepsilon.
+    \]
+  \end{proof}
+  Similarly we see that
+  \[
+    \lim_{h \to 0} \D_2 F|_{y_1(h)} - \D_2 F|_a = 0.
+  \]
+  Now \(\frac{|h_1|}{\norm h} \leq 1\) so by squeeze rule
+  \[
+    \lim_{h \to 0} \frac{(\D_1 F|_{y_1(h)} - \D_1 F|_a)h}{\norm h} = 0
+  \]
+  and similary for \(\D_2\). Then
+  \begin{align*}
+    F(a + h) - F(a) &= F(x_2) - F(x_1) + F(x_1) - F(x_0) \\
+                    &= h_1 \cdot \D_1 F|_{y_1(h)} + h_2 \cdot \D_2 F|_{y_2(h)}
+  \end{align*}
+  Thus
+  \begin{align*}
+    F(a + h) - F(a) - L(h) &= h_1 \cdot (\D_1 F|_{y_1(h)} - \D_1 F|_a) \\
+    &+ h_2 \cdot (\D_2 F|_{y_2(h)} - \D_2 F|_a)
+  \end{align*}
+  Divide by \(\norm h\) and take limits,
+  \begin{align*}
+    \lim_{h \to 0} \frac{F(a + h) - F(a) - L(h)}{\norm h} &= \lim_{h \to 0} \frac{h_1 \cdot (\D_1 F|_{y_1(h)} - \D_1 F|_a)}{\norm h} \\
+    &+ \lim_{h \to 0} \frac{h_2 \cdot (\D_2 F|_{y_2(h)} - \D_2 F|_a)}{\norm h} \\
+                                                          &= 0 + 0 \\
+                                                          &= 0
+  \end{align*}
+  Thus \(F\) is differentiable at \(a\).
+\end{proof}
+
+\begin{definition}[\(C^1\) space]
+  \(f = (f_1, \dots, f_m): U \to \R^n\) is \(C^1\) if \(f_i\) is \(C^1\) for all \(i\).
+\end{definition}
+
+\begin{corollary}
+  If \(f \in C^1(U)\) then \(f\) is differentiable on \(U\).
+\end{corollary}
+
+\begin{proof}
+  \(f\) is differentiable if and only if \(f_i\) are differentiable for all \(i\).
+\end{proof}
 \end{document}
