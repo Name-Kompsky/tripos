@@ -116,7 +116,7 @@ The first term is non-zero only when $m=0$. Therefore
 \]
 so
 \[
-\frac{a_0}{2} = \frac{1}{2L}\int_0^{2L} f(x) dx.
+  a_0 = \frac{1}{L}\int_0^{2L} f(x) dx.
 \]
 The second term gives
 \[
@@ -396,7 +396,7 @@ where
   \int_{0}^{2L} f(x) g(x) dx &= \sum_{n=-\infty}^{\infty} \sum_{m=-\infty}^{\infty} c_n d_m \int_{0}^{2L} \exp \Big [\frac{i\pi x}{L} (n+m) \Big] dx \\
   &= \sum_{n=-\infty}^{\infty} \sum_{m=\infty}^{\infty} c_n d_m (2L \delta_{n,-m}) \\
   &= 2L \sum_{n=-\infty}^{\infty} c_n d_{-n} \\
-  &= 2L \sum_{n=-\infty}^{\infty} c_n d_n*
+  &= 2L \sum_{n=-\infty}^{\infty} c_n d_n^*
   \end{align*}
 so if \(g=f\),
 \[
@@ -1062,9 +1062,9 @@ The solution is
                                 &\times \Big[ \frac{n\pi c}{L} \Big( b_n \cos \frac{n\pi ct}{L} - a_n \sin \frac{n\pi ct}{L} \Big) \Big] \\
                                 &\times \Big[ \frac{m\pi c}{L} \Big( b_m \cos \frac{m\pi ct}{L} - a_m \sin \frac{m\pi ct}{L} \Big) \Big] dx\\
                                 &= \frac{\mu L}{4} \sum_{n=1}^{\infty} \frac{n^2\pi^2c^2}{L^2} \Big( a_n^2 \sin^2 \frac{n\pi ct}{L} +b_n^2 \cos^2 \frac{n\pi ct}{L} \\
-                                & \quad -2a_nb_n \cos \frac{n\pi ct}{L} \sin \frac{n\pi ct}{L} \Big) \\
+                                & -2a_nb_n \cos \frac{n\pi ct}{L} \sin \frac{n\pi ct}{L} \Big) \\
   V &= \frac{TL}{4} \sum_{n=1}^{\infty} \frac{n^2\pi^2}{L^2} \Big( a_n^2 \cos^2 \frac{n\pi ct}{L} + b_n^2\sin^2 \frac{n\pi ct}{L} \\
-                                & \quad +2a_nb_n \sin \frac{n\pi ct}{L} \cos \frac{n\pi ct}{L} \Big)
+                                & +2a_nb_n \sin \frac{n\pi ct}{L} \cos \frac{n\pi ct}{L} \Big)
 \end{align*}
 
 Since \(T^2 = \mu c^2\), these expression yield

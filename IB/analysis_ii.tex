@@ -442,8 +442,8 @@ which are both vector space.
   Since \((f_n)\to f\) uniformly, there exists \(N\) such that \(|f_n(x)-f(x)|< \varepsilon/4\) for all \(x\in A\) and \(n\geq N\). Since \(f_N\) is continuous, exists \(\delta>0\) such that \(|f_N(x)-f_n(y)|<\varepsilon/2\) whenever \(y\in A\) and \(|x-y|<\delta\). Then if \(|x-y| < \delta\),
   \begin{align*}
     |f(x)-f(y)| &\leq |f(x)-f_N(x)| + |f_N(x)-f_N(y)| + |f_N(y)-f(y)| \\
-    &\leq \varepsilon/4 + \varepsilon/2 + \varepsilon/4 \\
-    &= \varepsilon
+                &\leq \varepsilon/4 + \varepsilon/2 + \varepsilon/4 \\
+                &= \varepsilon
   \end{align*}
 \end{proof}
 
@@ -1710,7 +1710,7 @@ Let \(F: U \to \R^n\).
 \end{proof}
 
 \begin{corollary}
-  If \(f\) is differentiable at \(a\) then \(\D f|_a \in L(\R^n, \R^m)\) is given by multiplicatoin by the \(m \times n\) matrix
+  If \(f\) is differentiable at \(a\) then \(\D f|_a \in L(\R^n, \R^m)\) is given by multiplication by the \(m \times n\) matrix
 \[
   \D f|_a =
   \begin{pmatrix}
@@ -1745,17 +1745,15 @@ Sometimes it is better to differentiate by hand:
     \]
     so by squeeze rule
     \[
-      \lim_{h \to 0} \frac{h_1 \cdot h_2}{\norm h}
+      \lim_{h \to 0} \frac{h_1 \cdot h_2}{\norm h} = 0
     \]
     and it follows that \(\D F|_a = L_a\).
   \end{proof}
 \end{eg}
 
-Now we study some general properties of linear maps.
-
 Recall from IB Linear Algebra that given \(V, W\) vector spaces,
 \[
-  L(V, W) = \{T:V \to W | T \text{ is linear}\}.
+  L(V, W) = \{T:V \to W: T \text{ is linear}\}.
 \]
 
 \begin{lemma}
@@ -1767,7 +1765,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
 \end{proof}
 
 \begin{note}
-  The lemma assumes that the vector spaces are finite-dimensional. This does not hold for general normed spaces. For example,
+  The lemma assumes that the domain and codomain are finite-dimensional. The result does not hold for general normed spaces. For example,
   \begin{align*}
     (C[0, 1], \norm \cdot_1) &\to \R \\
     f &\mapsto f(0)
@@ -1797,7 +1795,9 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
 \end{proof}
 
 \begin{joke}
-  blah blah
+  {\raggedright
+    \texttt{Unfortunately the author missed this lecture and could not reproduce the joke in its original form.}\footnote{The author would upon request produce a list of references from which an interested individual could hear the original joke.}
+  \par}
 \end{joke}
 
 \begin{definition}[\(C^1\) space]
@@ -1812,7 +1812,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
 \end{theorem}
 
 \begin{joke}
-  I messsed up this proof last year and the next day Trump was elected president.
+  Lecturer: I'm not usually superstitious, but last time I lectured this course I messed up proving this theorem. The next day Trump was elected.
 \end{joke}
 
 \begin{proof}
@@ -1823,20 +1823,23 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
     L(h) = \D_1 F|_a \cdot h_1 + \D_2 F|_a \cdot h_2.
   \]
   From now on assume \(\norm h < \varepsilon\) where \(B_\varepsilon(a) \subseteq U\).
-  \iffalse
+
   \begin{center}
-    \begin{tikzpicture}%[every node/.style={draw,shape=circle,fill=blue}]
-\tikzstyle{every node}=[draw,shape=circle]
-    \path (0, 0) node (p0) {x}
-    (1, 0) node (p1) {x1};
-    \draw (p0) -- (p1);
-\filldraw [gray] (3,0) circle (2pt);
-    %\draw (0, 0) -- (4, 0) -- (4, 3);
-    %\node at (0, 0) {shape=circle, fill};
-  \end{tikzpicture}
+    \begin{tikzpicture}[scale = 1]
+      \draw [dashed] (0, 0) -- (4, 0) -- (4, 3);
+      \draw [fill] (0, 0) circle (2pt);
+      \draw [fill] (4, 0) circle (2pt);
+      \draw [fill] (4, 3) circle (2pt);
+      \draw[fill=red, red] (3, 0) circle (2pt);
+      \draw[fill=red, red] (4, 2) circle (2pt);
+      \node [below] at (0, 0) {\(x_0(h) = a\)};
+      \node [below] at (3, 0) {\(y_1(h)\)};
+      \node [below right] at (4, 0) {\(x_1(h) = (a_1 + h, a_2)\)};
+      \node [right] at (4, 2) {\(y_2(h)\)};
+      \node [right] at (4, 3) {\(x_3(h) = a + h\)};
+    \end{tikzpicture}
   \end{center}
-  \fi
-  A simple diagram shows that
+  The black dots in the above diagram shows that we can do a two step approximation
   \[
     F(a + h) - F(a) = F(x_2) - F(x_1) + F(x_1) - F(x_0)
   \]
