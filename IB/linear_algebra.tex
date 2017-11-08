@@ -10,7 +10,6 @@
 
 \input{header}
 
-
 \newcommand*{\M}{\matrixring}
 \newcommand*{\spans}{\generation}
 
@@ -631,7 +630,7 @@ A = (a_{ij}), a_{ij}\in\F, 1\leq i \leq m, 1\leq j \leq n.
 \end{proposition}
 
 \begin{proof}
-  See Example~\ref{eg:matrix as V} for the proof of vector space axioms. For the dimension claim, a standard basis for \(\M_{m,n}(F)\) is
+  See \hyperref[eg:matrix as V]{Example} for the proof of vector space axioms. For the dimension claim, a standard basis for \(\M_{m,n}(F)\) is
   \[
     E_{ij}=
     \begin{pmatrix}
@@ -2213,7 +2212,7 @@ Conjugate matrices have the same characteristic polynomial.
 \begin{proof}\leavevmode
   \begin{itemize}
   \item \(c_0 = \chi_\alpha(0) = \det (\alpha - 0) = \det \alpha\).
-  \item If \(\F = \R\) then there is a extension of scalars \(\M_n(\R) \embed \M_n(\C)\) induced by \(\R \embed \C\) (i.e.\ complexification). For \(\F = \C\),
+  \item If \(\F = \R\) then there is an extension of scalars \(\M_n(\R) \embed \M_n(\C)\) induced by \(\R \embed \C\) (i.e.\ complexification). For \(\F = \C\),
     \[
       \chi_\alpha(t) = \det
       \begin{pmatrix}
@@ -2226,4 +2225,137 @@ Conjugate matrices have the same characteristic polynomial.
     where \(\sum_{i = 1}^n a_i = \tr \alpha\).
   \end{itemize}
 \end{proof}
+
+\begin{notation}
+  Let \(p(t)\) be a polynomial over \(\F\),
+  \[
+    p(t) = a_nt^n + \dots + a_0 \in \F[t].
+  \]
+  For \(A \in \M_n(\F)\), define
+  \[
+    p(A) = a_nA^n + \dots + a_0I \in \M_n(\F).
+  \]
+  For \(\alpha \in L(V)\), definie
+  \[
+    p(\alpha) = a_n\alpha^n + \dots + a_0\iota \in L(V).
+  \]
+\end{notation}
+
+\begin{theorem}
+  Let \(V\) be an finite-dimensional \(\F\)-vector space. Let \(\alpha \in L(V)\). Then \(\alpha\) is diagonalisable if and only if \(p(\alpha) = 0\) for some \(p \in \F[t]\) which is the product of distinct linear factors.
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\Rightarrow\): Suppose \(\alpha\) is diagonalisable with distinct eigenvalues \(\lambda_1, \dots, \lambda_k\). Let
+    \[
+      p(t) = (t - \lambda_1) \cdots (t - \lambda_k).
+    \]
+    Let \(\basis B\) be a basis of eigenvectors. For \(v \in \basis B\), \(\alpha(v) = \lambda_i v\) for some \(i\). Thus
+    \[
+      0 = (\alpha - \lambda_i \iota) v = p(\alpha)(v) = 0.
+    \]
+    As this holds for all \(v \in \basis B\), \(p(\alpha) = 0\).
+  \item \(\Leftarrow\): Suppose \(p(\alpha) = 0\) for this \(p\), which is monic wlog. Claim that
+    \[
+      V = \bigoplus_{i = 1}^k V_{\lambda_i}
+    \]
+    \begin{proof}
+      For \(j = 1, \dots, k\), let
+      \[
+        q_j(t) = \prod_{i = 1, i \neq j}^k \frac{t - \lambda_i}{\lambda_j - \lambda_i}
+      \]
+      and \(q(t) = \sum_{j = 1}^k q_j(t)\). \(q(t)\) has degree at most \(k - 1\) and \(q(\lambda_i) = 1\) for all \(i = 1, \dots, k\) so \(q(t) = 1\).
+
+      Let \(\pi_j = q_j(\alpha): V \to V\). By construction
+      \[
+        \sum_{j = 1}^{k} \pi_j = q(\alpha) = \iota \in L(V)
+      \]
+      so given \(v \in V\),
+      \[
+        v = q(\alpha) (v) = \sum_{j = 1}^{k} \pi_j(v).
+      \]
+      Also
+      \[
+        (\alpha - \lambda_j \iota)(\pi_j(v)) = (\alpha - \lambda_j\iota)(q_j(\alpha))(v) = \frac{1}{\sum_{i \neq j}^{ } (\lambda_j - \lambda_i)} \underbrace{p(\alpha)}_{= 0}(v) = 0.
+      \]
+      We have thus shown that
+      \[
+        \pi_j \in \ker(\alpha - \lambda_j \iota) = V_{\lambda_j}.
+      \]
+      Thus \(V = \sum_{j = 1}^{k} V_{\lambda_j}\).
+
+      To prove the sum is direct, suppose \(v \in V_{\lambda_j} \cap (\sum_{i \neq j}^k V_{\lambda_i})\) and apply \(\pi_j\) to \(v\):
+      \begin{align*}
+        v \in V_{\lambda_j} &\Rightarrow \pi_j(v) = \prod_{i = 1, i \neq j}^{k} \frac{\lambda_j - \lambda_i}{\lambda_j - \lambda_i} v = v \\
+        v \in \sum_{i \neq j}^{k}V_{\lambda_i} &\Rightarrow \pi_j(v) = 0
+      \end{align*}
+        so \(v = 0\) and the sum is direct.
+
+        Now take the union of bases for \(V_{\lambda_i}\) as a basis for \(V\).
+    \end{proof}
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Morally speaking, \(\pi_j\) ``projects'' to \(V_{\lambda_j}\).
+  \item The proof shows that for \(k\) distinct eigenvalues \(\lambda_1, \dots \lambda_k\) of \(\alpha\), the sum \(\sum_j V_{\lambda_j}\) is direct. The only way for diagonalisation to fail is if \(\sum V_{\lambda_j} \lneq V\).
+  \end{enumerate}
+\end{remark}
+
+\begin{corollary}
+  Suppose \(A \in \M_n(\C)\) has finite order then \(A\) is diagonalisable. 
+\end{corollary}
+
+\begin{proof}
+  \(p(A) = 0\) for \(p(t) = t^m - 1\) where \(m\) is the order of \(A\). This factorises as \(\prod_{i = 0}^{m - 1} (t - \xi^i)\) where \(\xi\) is a primitive \(m\)th root of unity.
+\end{proof}
+
+\begin{theorem}[Simultaneous diagonalisation]
+  Let \(\alpha, \beta \in L(V)\) be diagonalisable. Then \(\alpha\) and \(\beta\) are \emph{simultaneous diaognalisable} (there exists a basis with respect to which they are both diagonal) if and only if \(\alpha\) and \(\beta\) commute.
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): Suppose there is a basis \(\basis B\) such that \(A = [\alpha]_{\basis B}\) and \(B = [\beta]_{\basis B}\) are diagonal. Any two diagonal matrices commute so \(AB = BA\), \(\alpha\beta = \beta\alpha\).
+  \item \(\Leftarrow\): Suppose \(\alpha\) and \(\beta\) commute and both are diagonalisable. We have
+    \[
+      V = V_1 \oplus \cdots \oplus V_k
+    \]
+    where \(V_i = \ker(\alpha - \lambda_i\iota)\). Claim that \(\beta(V_j) \leq V_j\): suppose \(v \in V_j\),
+    \[
+      \alpha\beta (v) = \beta\alpha (v) = \beta\lambda_j v = \lambda_j \beta(v).
+    \]
+
+    As \(\beta\) is diagonalisable, there is a polynomial \(p\) with distinct linear factors such that \(p(\beta) = 0\). Now
+    \[
+      p(\beta|_{V_i}) = p(\beta)|_{V_i} = 0
+    \]
+    so \(\beta|_{V_i} \in L(V_i)\) is diagonal. Pick a basis \(\basis B_i\) of \(V_i\) combining its eigenvectors for \(\beta\). By construction these are also eigenvectors for \(\alpha\). With respect to \(\basis B = \bigcup_i \basis B_i\) both \(\alpha\) and \(\beta\) are diagonal.
+  \end{itemize}
+\end{proof}
+
+\begin{lemma}[{\(\F[t]\)} as a Euclidean domain]
+  Given \(a, b \in \F[t]\) with \(b \neq 0\), there eixst \(q, r \in \F[t]\) with \(\deg r < \deg b\) and \(a = qb + r\).
+\end{lemma}
+
+\begin{proof}
+  IB Groups, Rings and Modules.
+\end{proof}
+
+\begin{definition}[Minimal polynomial]
+  Suppose \(\alpha \in L(V)\) and \(V\) is finite-dimensional. The \emph{minimal polynomial} of \(\alpha\), \(m_\alpha\), is the monic non-zero polynomial of smallest degree such that
+  \[
+    m_\alpha(\alpha) = 0.
+  \]
+\end{definition}
+
+\begin{remark}
+  Let \(\dim V = n < \infty\), \(\dim L(V) = n^2\) so
+  \[
+    \iota, \alpha, \alpha^2, \dots, \alpha^{n^2} \in L(V)
+  \]
+  must be linearly dependent so there is a non-trivial relation. Thus minimal polynomial exists.
+\end{remark}
 \end{document}

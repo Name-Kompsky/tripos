@@ -972,10 +972,12 @@ for all \(v\in V\).
 \end{remark}
 
 \begin{theorem}
+  \label{thm:Lipschitz equivalence}
   If \(\norm \cdot\) is a norm on \(\R^m\) then it is Lipschitz equivalent to \(\norm \cdot_1\).
 \end{theorem}
 
 \begin{proof}
+  \label{proof:Lipschitz equivalence}
   Let \(S = \{v\in \R^m: \norm v_1 = 1 \}\). Claim \(S\) is compact with respect to \(\norm \cdot_1\): \(S\) is clearly bounded. Consider \(g:(\R^m, \norm \cdot_1) \to (\R, |\cdot|), v\mapsto \norm v_1\). \(g\) is continuous and \(S = g^{-1}(\{1\})\). As \(\{1\} \subset \R\) is closed \(S\) is closed. So by Heine-Borel \(S\) is compact.
 
   By Corollary \(f:(S, \norm \cdot_1) \to (\R, |\cdot|)\) given by \(f(v) = \norm v\) is continuous. By the Maximum Value Theorem there exists \(v_\pm\in S\) with
@@ -1739,7 +1741,7 @@ Sometimes it is better to differentiate by hand:
     \[
       \lim_{h \to 0} \frac{F(a + h) - F(a) - L_a(h)}{\norm h} = \lim_{h \to 0} \frac{h_1 \cdot h_2}{\norm h}
     \]
-    By Cauchy-Schwartz,
+    By Cauchy-Schwarz,
     \[
       0 \leq \frac{|h_1 \cdot h_2|}{\norm h} \leq \frac{\norm{h_1}\norm{h_2}}{(\norm{h_1}^2 + \norm{h_2}^2)^{1/2}} = \frac{\norm{h_1}}{(\norm{h_1}^2 + \norm{h_2}^2)^{1/2}} \cdot \norm{h_2} \leq \norm{h_2}
     \]
@@ -1839,7 +1841,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
       \node [right] at (4, 3) {\(x_3(h) = a + h\)};
     \end{tikzpicture}
   \end{center}
-  The black dots in the above diagram shows that we can do a two step approximation
+  The black dots in the above illustraction show that we can do a two step approximation
   \[
     F(a + h) - F(a) = F(x_2) - F(x_1) + F(x_1) - F(x_0)
   \]
@@ -1914,5 +1916,189 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
 
 \begin{proof}
   \(f\) is differentiable if and only if \(f_i\) are differentiable for all \(i\).
+\end{proof}
+
+\subsection{Chain Rule}
+
+\subsubsection{Limits and Compositions}
+
+Let \(V_1, V_2, V_3\) be normed vector spaces, \(U_1 \subseteq V_1, U_2 \subseteq V_2\) open, \(v_0 \in U_1\), \(f: U_1 \to U_2, g: U_2 \to V_3\).
+
+\begin{lemma}
+  If \(\lim_{v \to v_0} f(v) = w\) and \(g\) is continuous at \(w\) then
+  \[
+    \lim_{v \to v_0} g(f(v)) = g(w).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \(g\) is continuous at \(w\) so given \(\varepsilon > 0\), exists \(\delta_1 > 0\) such that \(\norm{g(w') - g(w)} < \varepsilon\) whenever \(\norm{w' - w} < \delta_1\). As \(\lim_{v \to v_0} f(v) = w\), exists \(\delta_2 > 0\) such that \(\norm{f(v) - w} < \delta_1\) whenever \(0 < \norm{v - v_0} < \delta_2\). Taking \(w' = f(v)\), we see that \(\norm{g(f(v)) - g(w)} < \varepsilon\) whenever \(0 < \norm{v - v_0} < \delta_2\). Thus
+  \[
+    \lim_{v \to v_0} g(f(v)) = g(w).
+  \]
+\end{proof}
+
+\subsubsection{Derivatives and Compositions}
+
+Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \to \R^\ell\). If \(f\) is differentiable at \(a \in U_1\), \(\D f|_a \in L(\R^n, \R^m)\). If \(g\) is differentiable at \(f(a) \in U_2\), \(\D g|_{f(a)} \in L(\R^m, \R^\ell)\), so the composition
+\[
+  \D g|_{f(a)} \compose \D f|_a \in L(\R^n, \R^m).
+\]
+
+\begin{theorem}[Chain rule]
+  Suppose \(f\) and \(g\) are as above. If \(f\) is differentiable at \(a\) and \(g\) is differentiable at \(f(a)\), then \(g \compose f\) is differentiable at \(a\) and
+  \[
+    \D (g \compose f)|_a = \D g|_{f(a)} \compose \D f|_a.
+  \]
+\end{theorem}
+
+\begin{proof}
+  We first use altenate characterisation of differentiability to rephrase the problem. We know that
+  \[
+    f(a + h) = f(a) + L_1(h) + \norm h \alpha(h)
+  \]
+  where \(L_1 = \D f|_a \in L(\R^n, \R^m)\) and \(\lim_{h \to 0} \alpha(h) = 0\). Similarly
+  \[
+    g(f(a) + r) = g(f(a)) + L_2(r) + \norm r \beta(r)
+  \]
+  where \(L_2 = \D g|_{f(a)} \in L(\R^m, \R^\ell)\) and \(\lim_{r \to 0} B(r) = 0\).
+  \begin{joke}
+    I had some trouble finding a good name for the infinitesimal variable. Certainly \(f\) or \(g\) can't be used althought they are close to \(h\). In the end I settled for \(r\), although it does not have much \(h\)-ness.
+  \end{joke}
+  
+  \begin{note}
+    If I define \(\beta(0) = 0\) then \(\beta\) is continuous at \(0\).
+  \end{note}
+
+  The objective is to show that
+  \[
+    g(f(a + h)) = g(f(a)) + L_2(L_1(h)) + \norm h \gamma(h)
+  \]
+  where \(\lim_{h \to 0} \gamma(h) = 0\).
+
+  So we watnt to find \(\gamma(h)\). Using the estimates for \(f(a + h)\) and \(g(f(a) + r)\), we see that
+  \begin{align*}
+    g(f(a + h)) &= g(f(a) + \underbrace{L_1(h) + \norm h \alpha(h)}_{E(h)}) \\
+                &= g(f(a)) + L_2(L_1(h) + \norm h \alpha(h)) + \norm{E(h)} \beta(E(h)) \\
+                &= g(f(\alpha)) + L_2(L_1(h)) + \norm h L_2(\alpha(h)) + \norm{E(h)} \beta(E(h)) 
+  \end{align*}
+  i.e.
+  \[
+    \gamma(h) = L_2(\alpha(h)) + \frac{\norm{E(h)}}{\norm h} \beta(E(h)).
+  \]
+
+  Always remember divide and conquer. The first term is easy so we focus on \(E(h)\) for now.
+
+  \begin{lemma}
+    There exists \(\delta > 0\) such that \(\norm{E(h)}/\norm{h} \leq M\) whenever \(0 < \norm h < \delta\).
+  \end{lemma}
+
+  \begin{proof}
+    Recall that
+    \[
+      \frac{E(h)}{\norm h} = L_1\left( \frac{h}{\norm h} \right) + \alpha(h)
+    \]
+    where
+    \[
+      \frac{h}{\norm h} \in S = \{v \in \R^n : \norm v = 1\}.
+    \]
+    We have seen before in the \hyperref[proof:Lipschitz equivalence]{proof} of \Cref{thm:Lipschitz equivalence} that \(S\) is compact. By Max Value theorem there exists \(M'\) such that \(\norm{L_1(v)} \leq M'\) for all \(v \in S\).
+
+  Choose \(\delta\) such that \(\norm{\alpha(h)} < 1\) whenever \(0 < \norm h < \delta\). Then for \(0 < \norm h < \delta\),
+  \[
+    \frac{\norm{E(h)}}{\norm h} \leq \norm*{L\left( \frac{h}{\norm h} \right)} + \norm{\alpha(h)} \leq M' + 1 = M
+  \]
+  \end{proof}
+
+  \begin{corollary}
+    \[
+      \lim_{h \to 0} E(h) = 0.
+    \]
+  \end{corollary}
+
+  \begin{proof}
+    \[
+      \lim_{h \to 0} E(h) = \lim_{h \to 0} \frac{E(h)}{\norm h} \cdot \norm h = 0
+    \]
+    by squeeze rule.
+  \end{proof}
+
+  Finally we are ready to estimate \(\gamma(h)\). \(L_2\) is continuous so
+  \[
+    \lim_{h \to 0} \alpha(h) = 0 \Rightarrow \lim_{h \to 0} L_2(\alpha(h)) = L_2(0) = 0.
+  \]
+  \(\beta\) is continuous so
+  \[
+    \lim_{h \to 0} E(h) = 0 \Rightarrow \lim_{h \to 0} \beta(E(h)) = \beta(0) = 0.
+  \]
+  Applying Lemma, squeeze rule shows that
+  \[
+    \lim_{h \to 0} \gamma(h) = 0.
+  \]
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(\gamma: \R \to \R^n, F: \R^n \to \R\), let \(f = F \compose \gamma\). Then
+    \begin{align*}
+      \D (F \compose \gamma)|_t &= [f'(t)] \\
+                                &=\D F|_{\gamma(t)} \compose \D \gamma|_t \\
+                                &= (\D_1 F|_{\gamma(t)} \cdots \D_n F|_{\gamma(t)})
+                                  \begin{pmatrix}
+                                    \gamma_1'(t) \\
+                                    \vdots \\
+                                    \gamma_n(t)
+                                  \end{pmatrix}\\
+                                &= [\gradient F|_{\gamma(t)} \cdot \gamma'(t)]
+    \end{align*}
+    i.e.\ \(f'(t) = \gradient F|_{\gamma(t)} \cdot \gamma'(t)\).
+  \end{enumerate}
+\end{remark}
+
+In IA Analysis I, we prove the Mean Value Theorem which is an important result in differential calculus. The results generalise to higher dimension spaces.
+
+\begin{definition}[Convex set]
+  \(U \subseteq \R^n\) is \emph{convex} if whenever \(x_0, x_1 \in U\) then
+  \[
+    tx_1 + (1 - t)x_0 \in U
+  \]
+  for \(t \in [0, 1]\).
+\end{definition}
+
+\begin{theorem}[Mean Value Inequality]
+  Suppose \(U \subseteq \R^n\) is open and convex. If \(F: U \to \R\) is differentiable and satisfies
+  \[
+    \norm*{\gradient F|_a} \leq M
+  \]
+  for all \(a \in U\) then
+  \[
+    |F(x_1) - F(x_0)| \leq M \norm{x_1 - x_0}
+  \]
+  for all \(x_1, x_0 \in U\).
+\end{theorem}
+
+\begin{proof}
+  Given what we have so far, it takes more words to state the theorem than to prove it (well, maybe not).
+  
+  For \(t \in [0, 1]\) define
+  \[
+    \gamma(t) = t x_1 + (1 - t)x_0.
+  \]
+  Then
+  \[
+    \gamma'(t) = x_1 - x_0
+  \]
+  and \(\im \gamma \subseteq U\). Let \(f(t) = F(\gamma(t))\), then
+  \begin{align*}
+    |f'(t)| &= |\gradient F|_{\gamma(t)} \cdot \gamma'(t)| \\
+            &\leq \norm*{F|_{\gamma(t)}} \cdot \norm{\gamma'(t)} \text{ by Cauchy-Schwarz} \\
+            &\leq M \norm{x_1 -x_0}
+  \end{align*}
+  Mean Value Theorem applied to \(f(t)\) says that
+  \begin{align*}
+    |F(x_1)  - F(x_0)| &= |f(1) - f(0)| \\
+                       &= |f'(c)| \text{ for some } c \in [0, 1] \\
+                       &\leq M \norm{x_1 - x_0}
+  \end{align*}
 \end{proof}
 \end{document}

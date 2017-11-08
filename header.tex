@@ -93,18 +93,43 @@
 
 \usepackage{cleveref}
 
+\usepackage[framemethod=tikz]{mdframed}
+\mdfdefinestyle{leftbar}{
+  linewidth=1.5pt,
+  linecolor=gray,
+  hidealllines=true,
+  leftline=true,
+  leftmargin=0pt,
+  innerleftmargin=5pt,
+  innerrightmargin=10pt,
+  innertopmargin=-5pt,
+  innerbottommargin=5pt,
+}
+%\newmdtheoremenv[style=leftbar]{theorem}{Theorem}[section]
+%\newmdtheoremenv[style=leftbar]{proposition}[theorem]{proposition}
+%\newmdtheoremenv[style=leftbar]{lemma}[theorem]{Lemma}
+%\newmdtheoremenv[style=leftbar]{corollary}[theorem]{corollary}
+
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}{Proposition}[section]
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\surroundwithmdframed[style=leftbar]{theorem}
+\surroundwithmdframed[style=leftbar]{proposition}
+\surroundwithmdframed[style=leftbar]{lemma}
+\surroundwithmdframed[style=leftbar]{corollary}
 
 \theoremstyle{definition}
+
 \newtheorem*{definition}{Definition}
-\newtheorem*{eg}{Example}
-\newtheorem*{remark}{Remark}
-\newtheorem*{ex}{Exercise}
-\newtheorem*{notation}{Notation}
+\surroundwithmdframed[style=leftbar]{definition}
+
 \newtheorem*{slogan}{Slogan}
+\newtheorem*{eg}{Example}
+\newtheorem*{ex}{Exercise}
+\newtheorem*{remark}{Remark}
+\newtheorem*{notation}{Notation}
 \newtheorem*{convention}{Convention}
 \newtheorem*{assumption}{Assumption}
 \newtheorem*{question}{Question}

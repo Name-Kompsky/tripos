@@ -12,6 +12,8 @@
 
 \newcommand*{\tot}{\leftrightarrow}
 
+%\DeclareMathOperator{\gcd}{gcd}
+
 \begin{document}
 
 \input{titlepage}
@@ -870,11 +872,127 @@ By Markov property, hitting probability satisfies the equation
   \[
     G'(s) = \frac{q + pG^2}{1 - 2psG}
   \]
-  By Abel's theorem
+  By \Cref{tbf} Abel's theorem
   \[
     E_1(H) = \lim_{s \to 1^-} G'(s) = \frac{q + p}{1 - 2p} = \frac{1}{q - p}.
   \]
 \end{eg}
+
+\section{Classification of States}
+
+Depending on ht mean time to return to the recurrent state: finite or infinite
+
+\begin{theorem}
+  Let \(X_0 = i\) and \(V_i = |\{n \geq 1: X_n = i\}|\). Then \(V_i\) has a geometric distribution
+  \[
+    \prob_i(V_i = r) = f^r (1 - f), r \geq 1
+  \]
+  where \(f = f_{i, i} \in [0, 1]\).
+\end{theorem}
+
+\begin{proof}
+  \begin{align*}
+    \prob_i(V_i \geq r) &= \prob_i(T^r < \infty) \\
+                        &= \prob_i(T^4 < \infty | T^{r - 1} < \infty) \prob_i(T^{r - 1} < \infty) \\
+                        &= f \cdot \prob_i(V_i \geq r - 1) SMP \\
+                        &= f^r
+  \end{align*}
+  where
+  \[
+    T^r =
+    \begin{cases}
+      time of rth return & \\
+      \infty & \text{ if } V_i < r
+    \end{cases}
+  \]
+  Then
+  \[
+    \prob_i(V_i = r) = \prob_i(V_i \geq r) - \prob_i(V_i \geq r + 1) = f^r(1 - r)
+  \]
+\end{proof}
+
+\begin{note}
+  If \(f < 1\), \(\prob_i(V_i < \infty) = 1\) and if \(f = 1\), \(\prob_i(V_i = \infty) = 1\).
+\end{note}
+
+\begin{definition}[Mean recurrence time]
+  The \emph{mean recurrence time} of \(i \in S\) is
+  \[
+    \mu_i = \E_i(T_i) =
+    \begin{cases}
+      \infty & \text{if \(i\) is transient} \\
+      \sum_{n = 1}^{\infty} n f_{i,i}(n) &
+    \end{cases}
+  \]
+
+  Let \(i\) be recurrnet. Then \(i\) is \emph{null} if \(\mu_i = \infty\) and \emph{positive} if \(\mu_i < \infty\).
+
+  The \emph{period} of \(i \in S\) is
+  \[
+    d_i = \gcd\{n: p_{i,i}(n) > 0 \}.
+  \]
+
+  \(i\) is \emph{aperiodic} if \(d_i = 1\).
+
+  \(i\) is \emph{ergodic} if it is recurrent, positive and aperiodic.
+\end{definition}
+
+\begin{theorem}
+  Let \(i \tot j\). Then
+  \begin{enumerate}
+  \item \(d_i = d_j\), i.e.\ period is a class property.
+  \item \(i\) is recurrent if and only if \(j\) is recurrent.
+  \item \(i\) is positive recurrent if and only if \(j\) is positive recurrent.
+  \item \(i\) is ergodic if and only if \(j\) is ergodic.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  2 has already been proved and 4 follows from 1, 2 and 3. 3 will be proved later. To prove 1:
+
+  Let \(i \tot j\) and \(i \neq j\).
+  \begin{align*}
+    D_k = \{n \geq 1: p_{k,k}(n) > 0 \} \\
+    d-k = \gcd\{D_k\}
+  \end{align*}
+  Since \(i \to j\), there exists \(m, n \geq 1\) such that \(\alpha = p_{i,j}(m)p_{i,j}(n) > 0\). By CK,
+  \[
+    p_{i,i}(m + r + n) \geq \alpha p_{j,j}(r).
+  \]
+  Thus if \(r \in D_j \cup \{0\}\), \(p_{i,i} (m + r + n) > 0\) and hence \(d_i \divides m + r + n\) and hence \(d_i \divides r\) since if \(r = 0\), \(d_i \divides m + n\).
+
+  Thus \(d_i \divides d_j\). Similarly \(d_j \divides d_i\) and hence \(d_i = d_j\).
+\end{proof}
+
+\begin{proposition}
+  If a chain is irreducible and let \(j \in S\) be recurrent. Then
+  \[
+    \prob(T_j < \infty) = \prob(X_n = j \text{ for some } n \geq 1) = 1.
+  \]
+\end{proposition}
+Compare to the definition of recurrence, \(\prob_j\)
+
+\begin{proof}
+  \(f_{i,j} = \prob_i(T_j < \infty)\). Let \(i \neq j\). Claim that \(p_{j, i}(m)(1 - f_{i,j}) \leq 1 - f_{j,j}\) where \(m= \inf\{r: p_{j,i}(r) > 0\}\). Then \(p_{j, i}(m) = \prob_j(X_m = i, X_r \neq j \text{ for } 1 \leq r < m)\). We have \(f_{j,j} = 1\) and hence \(f_{i,j} = 1\).
+
+  Thus \(\prob_i(T_j < \infty) = 1\). Let \(\lambda_i = \prob(X_0 = i)\),
+  \[
+    \prob(T_j < \infty) = \sum_{i \in S} \prob_i(T_j < \infty) \lambda_i = 1.
+  \]
+\end{proof}
+
+\section{Invariant Distributions}
+
+What happens to \(X_n\) as \(n \to \infty\)? Random variables are functions so we are talking about convergence of a sequence of functions. There are lots of modes of convergence on function space. When studying Markov chains, it turns out there is a unique convergence that we need: does \(\prob(X_n = i)\) converge as \(n \to \infty\).
+
+\[
+  \prob(X_{n + 1} = j) = \sum_i \prob(X_{n + 1} = j | X_n = 0) \prob(X_n = i)
+\]
+
+\[
+  \pi_j = \sum_i p_{i,j} \pi_i
+\]
+\(\pi = \pi P\), eigenvalue problem.
 \iffalse
 \appendix
 

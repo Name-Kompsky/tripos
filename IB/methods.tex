@@ -1913,4 +1913,194 @@ For \(n = 0\), \(V \propto b_0/r\) isotropic monopole froma point charge
 \(n = 1\), \(V \propto b_1 \cos \phi/r^2\) dipole field
 
 \(n = 2\) \(V \propto \frac{b_2(3 \cos^2 \theta - 1)}{2r^3}\) quadrupole.
+
+06/11/17
+
+\section{Green's Function}
+
+\subsection{Construction of the Green's Function}
+
+From the properties of the \(\delta\) function, \(\L G = 0\) for \(x \neq \xi\). Algorithm for Green's function:
+
+\begin{enumerate}
+\item construct a solution for region I \(x < \xi\) from two linearly independent solutions \(y_1\) and \(y_2\) of the homogeneous problem \(\L y = 0\) i.e.
+  \[
+    G(x; \xi) = A(\xi)y_1(x) + B(\xi)y_2(x), a \leq x < \xi
+  \]
+\item in region II \(x > \xi\),
+  \[
+    G(x; \xi) = C(\xi)Y_1(x) + D(\xi)Y_2(x), \xi < x \leq b
+  \]
+  where \(Y_1\) and \(Y_2\) are also linearly indepdent solution of \(\L y = 0\).
+
+  There are four constant, so need four condition.
+\item Apply the homogeneous boundary conditions at \(x = a\) to eliminate either \(A\) or \(B\):
+  \[
+    G(a; \xi) = 0 \Rightarrow Ay_1(a) + By_2(a) = 0
+  \]
+\item Similarly
+  \[
+    G(b; \xi) = 0 \Rightarrow CY_1(a) + DY_2(a) = 0
+  \]
+\item The third condition is that \(G(x; \xi)\) must be continuous there:
+  \[
+    Ay_1(\xi) + By_2(\xi) = CY_1(\xi) + DY_2(\xi)
+  \]
+\item The fourth condition is the \emph{jump condition}:
+  \[
+    \frac{dG}{dx} \Big|_{x = \xi-}^{x = \xi+} = \frac{1}{\alpha(\xi)} = \lim_{x \to \xi+} \frac{dg}{dx} - \dots = \frac{1}{\alpha(\xi)}
+  \]
+  so
+  \[
+    CY_1'(\xi) + DY_2'(\xi) - Ay_1'(\xi) - By_2'(\xi) = \frac{1}{\alpha(\xi)}
+  \]
+\item
+  \begin{align*}
+    y(x) &= Y_1(x) \int_{a}^{x} C(\xi)f(\xi) d\xi + Y_2(x) \int_{a}^{x} D(\xi)f(\xi) d\xi \\
+    &+ y_1(x) \int_{x}^{b} A(\xi)f(\xi) d\xi + y_2(x) \int_{x}^{b} B(\xi)f(\xi) d\xi
+  \end{align*}
+\end{enumerate}
+
+Condition ot \(x = \xi\), proof by contradiction:
+Assume \(G\) is discontinuous at \(x = \xi\). possible discontinuity is a finite jump \(F\) \(H(\xi)\).
+\[
+  \frac{dG}{dx} \propto \delta(x - \xi), \, \frac{d^2T}{dx^2} \propto \delta'(x - \xi)
+\]
+However
+\[
+  \alpha G'' + \beta G' + \gamma G = \delta(x - \xi)
+\]
+there is no discontinuity of the strngth so \(G\) is continuous at \(x = \xi\).
+
+Jump condition: integrate over an arbitrary small interval around \(x = \xi\):
+\[
+  \int_{\xi - \epsilon}^{\xi + \epsilon} \delta(x - \xi) dx = 1 + \int_{\xi -\epsilon}^{\xi + \epsilon} \alpha(x) \frac{d^2G}{dx^2} dx + \dots
+\]
+\(T_3\): \(G\) is continuous, \(\gamma\) is bounded so \(T_3 \to 0\) as \(\epsilon \to 0\).
+
+\(T_2\): \(dG/dx\) is bounded, \(\beta\) is bounded so \(T_2 \to 0\) as \(\epsilon \to 0\).
+
+\(T_1\): \(\alpha\) is condinuous, \(\alpha(x) \to \alpha(\xi)\) as \(\epsilon \to 0\) so
+\[
+  T_1 \to \alpha(\xi) \lim_{\epsilon \to 0} \int_{\xi - \epsilon}^{\xi + \xi} \frac{d^2G}{dx^2} dx = \alpha(\xi) \frac{dG}{dx} \Big|_{x = \xi-}^{x = \xi+}
+\]
+Jump condition is established.
+
+\subsection{Example of Construction}
+
+\[
+  -y'' - y = f(x), y(0) = y(1) = 0
+\]
+
+Algorithm:
+\begin{enumerate}
+\item For \(0 \leq x < \xi\), \(G'' + G = 0\) so
+  \[
+    G = A \cos x + B \sin x
+  \]
+\item For \(\xi < x \leq 1\), \(G'' + G = 0\) so
+  \[
+    G = C \cos (1 - x) + D \sin (1 - x)
+  \]
+  This solution is equivalent to the ``obvious'' solution but it is easier to apply boundary conditions.
+\item \(G(0; \xi) = 0\) implies that \(A = 0\) and \(G(1, \xi) = 0\) implies that \(C = 0\).
+\item Continuity at \(x = \xi\) implies that
+  \[
+    B = D \frac{\sin (1 - \xi)}{\sin \xi}
+  \]
+\item Thus
+  \[
+    G =
+    \begin{cases}
+      \frac{D \sin(1 - \xi)}{\sin \xi} \sin x & 0 < x < \xi \\
+      D \sin (1 - x) & \xi < x < 1
+    \end{cases}
+  \]
+  Here \(\alpha(x) = 1\) so
+  \begin{align*}
+    D [-\cos (1 - x)]_{\xi+} - D \dots &= -1 \\
+    D &= \frac{\sin \xi}{\sigma 1}
+  \end{align*}
+  so
+  \[
+    G(x; \xi) =
+    \begin{cases}
+      \frac{\sin(1 - \xi) \sin x}{\sin 1} & 0 \leq x < \xi \\
+      \frac{\sin(1 - x) \sin \xi}{\sin 1} & \xi < x \leq 1
+    \end{cases}
+  \]
+  and
+  \[
+    y(x) = \frac{\sin(1 - x)}{\sin 1} \int_{a}^{x}  dx
+  \]
+  Note the symmetry of \(G\) with respect to \(x\) and \(\xi\).
+\end{enumerate}
+
+Note for the two linearly independent solutions
+\begin{align*}
+  \hat y_1 &= \sin x \\
+  \hat y_2 &= \sin (1 - x)
+\end{align*}
+of the \(\L y = 0\) which satisfy boundary conditions at \(x = a\) and \(x = b\) respectively,
+\[
+  G(x; \xi) = \frac{}{denominator}
+\]
+where
+\[
+  J = \alpha(x) W(\hat y_1, \hat y_2) = \alpha(x) [\hat y_1(x) \hat y_2'(x) - \hat y_2(x) \hat y_1'(x) ]
+\]
+
+\begin{note}
+  Be careful with \(\xi < x\) and \(\xi > x\) region of substitution.
+\end{note}
+
+\subsection{Inhomogeneous Boundary Conditions}
+
+Homogeneous boundary conditions are essential to construction of Green's function. This method is a way to construct a \emph{particular integral} with homogeneous boundary conditions. It is easy to construct a \emph{complementary function} satisfying inhomogeneous boundary conditions and then add this to the particular integral in Green's function form.
+
+\begin{eg}
+  \(-y'' - y = f(x) = \L y, y(0) = 1, y(1) = 1\)
+
+  Inhomogeneous boundary conditions: \(y_c(0) = 0\) implies that \(C_1 = 0\), \(y_c(1) = 1\) implies that \(c_2 = \frac{1}{\sin 1}\).
+
+   \(\dots\)
+\end{eg}
+
+\section{Green's Function Properties}
+
+\subsection{Equivalent of Eigenfunction Expansion}
+
+Remember section 4.5:
+\[
+  (\L - \hat \lambda w) y = f(x)
+\]
+where \(\hat \sigma\) is not an eigenvalue of \(\L y\). The solution is
+\[
+  y(x) = \int_{a}^{b} \left( \sum{n = 1}^\infty \frac{Y_n(\xi)Y_n(x)}{\lambda_n - \hat \lambda} \right) f(\xi) d\xi
+\]
+where \(Y_n\) are normalised eigenvectors with eigenvalues \(\sigma_n\).
+
+In chapter 14
+\[
+  \L = - \frac{d^2}{dx^2}, \hat \lambda = 1, w = 1
+\]
+so
+\[
+  G_e(x; \xi) = \dots
+\]
+For \(G_c = G_e\), we need to find the Fourier sine series representation of \(G_c(x; \xi)\):
+\[
+  G_c(x; \xi) = \sum_{n = 1}^{\infty} b_n(\xi) \sin n\xi x
+\]
+i.e.
+\[
+  b_n = \frac{2 \sin n\pi\xi}{n^2\pi^2 - 1}
+\]
+\begin{align*}
+  b_n(\xi) &= 2 \int_{0}^{1} G_c(x; \xi) \sin n\pi x dx \\
+           &= \int_{0}^{\xi} \frac{\sin x \sin(1 - \xi)}{\sin 1} \sin n \pi x dx + \int_{\xi}^{1} \frac{\sin (1 - x) \sin \xi)}{\sin 1} \sin n \pi x dx \\
+           &= \sin (n\pi\xi) (\frac{1}{n\pi - 1} - \frac{1}{n\pi + 1} \\
+           &= \frac{2 \sin n\pi\xi}{n^2\pi^2 - 1}
+\end{align*}
+so \(G_c(\) and \(G_e\) are equivalent.
 \end{document}
