@@ -993,6 +993,85 @@ What happens to \(X_n\) as \(n \to \infty\)? Random variables are functions so w
   \pi_j = \sum_i p_{i,j} \pi_i
 \]
 \(\pi = \pi P\), eigenvalue problem.
+
+\begin{definition}[Invariant distribution]
+  \(X\) is aMarkov chain with transition matrix \(P\). The vector \(\pi = (\pi_i: i \in S)\) is an \emph{invariant distribution} if
+  \begin{enumerate}
+  \item \(\pi_i \geq 0, \sum_i \pi_i = 1\),
+  \item \(\pi = \pi P\)
+  \end{enumerate}
+\end{definition}
+
+If \(X_0\) has distribution \(\pi\), \(X_n\) has distribution
+\[
+  \pi P^n = (\pi P) P^{n - 1} = \pi P^{n - 1} = \cdots \pi
+\]
+
+\begin{theorem}
+  Let \(X\) be an irreducible Markov chain. Then
+  \begin{enumerate}
+  \item There exists an invariant distribution if and only if some state of the chain is positive recurrent.
+  \item If there exists an invariant distribution \(\pi\) then every state is positive recurrent and
+    \[
+      \pi_i = \frac{1}{\mu_i}
+    \]
+    for \(i \in S\) where \(\mu_i\) is the mean recurrence time. In particular \(\pi\) is unique.
+  \end{enumerate}
+\end{theorem}
+
+Fix \(k \in S\), start at \(k\). Let \(W_i\) be the number of visits to \(i\) up to the first return time to \(k\), i.e.
+\[
+  W_i = \sum_{m = 1}^{\infty} \V 1(X_m = i, T_k \geq m) = \sum_{m = 1}^{T_k} \V 1(X_m = i)
+\]
+where \(\V 1(\cdot)\) is the indicator function.
+
+Let \(\rho(i) = \E_k(W_i)\).
+
+\begin{proposition}
+  Suppose the chain is irreducible and recurrent, \(k \in S\). \(\rho = (\rho_i: i \in S)\) satisfies
+  \begin{enumerate}
+  \item \(\rho_k = 1\).
+  \item \(\sum_i \rho(i) = \mu_k\) whether or not \(\mu_k < \infty\).
+  \item \(\rho = \rho P\).
+  \item \(0 < \rho_i < \infty\) for \(i \in S\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Immediate from the definition.
+  \item
+    \[
+      \E_k \sum_{i \in S}^{ } W_i = E_k T_k
+    \]
+    Assuming we can interchange summations (since \(\E\) is the limit of a series), since all summands are non-negative,
+    \[
+      \sum_{i \in S}^{ } E_k(W_i) = \mu_k
+    \]
+    but the summand on LHS is precisely \(\rho_i\).
+  \item
+    \begin{align*}
+      \rho_j &= \E_k(W_j) \\
+             &= \sum_{m \geq 1}^{ } \prob_k(X_m = j, T_k \geq m) \text{ again we interchange the summations} \\
+             &= \sum_{m \geq 1}^{ } \sum_{i \in S}^{ } \prob_k(X_m = j, X_{m - 1} = i, T_k \geq m) \\
+             &= \sum_{m \geq 1}^{ } \sum_{i \in S}^{ } \prob_k(X_m = j| X_{m - 1} = i, T_k \geq m)\prob_k(X_{m - 1} = i, T_k \geq m) \\
+             &= \sum_{m \geq 1}^{ } \sum_{i \in S}^{ } \prob_k(X_m = j| X_{m - 1} = i, T_k \geq m)\prob_k(X_{m - 1} = i) \text{ Markov property} \\
+             &= \sum_{m \geq 1}^{ } \sum_{i \in S}^{ } p_{i,j} \prob_k(X_{m - 1} = i, T_k \geq m) \\
+             &= \sum_{i \in S}^{ } p_{i,j} \sum_{m \geq 1}^{ } \prob_k(X_{m - 1} = i, T_k \geq m) \\
+             &= \sum_{i \in S}^{ } p_{i,j} \sum_{r \geq 1}^{ } \prob_k(X_{r} = i, T_k \geq r + 1) \\
+      \intertext{consider two cases: if \(i \neq k\), the term when \(r = 0\) is \(0\) and \(T_k \geq r + 1\) if and only if \(T_k \geq r\). If \(i = k\), the term when \(r = 0\) is \(1\) and all the other terms are zero. Thus}
+             &= \sum_{i \in S}^{ }p_{i,j} \rho_i
+    \end{align*}
+  \item Pivot off the fact that \(\rho_k = 1\). Since \(\rho = \rho P\), we have \(\rho = \rho P^r\) for \(r \geq 1\). Thus
+    \[
+      \rho_i \geq \rho_k p_{k, i}(m), \rho_k \geq \rho_i p_{i, k}(n)
+    \]
+    By irreducibility, there exists \(m, n \geq 1\) with \(p_{k, i}(m), p_{i, k}(m) > 0\) so
+    \[
+      0 < p_{k, i}(m) \leq \rho_i \leq \frac{1}{p_{i, k}(n)} < \infty
+    \]
+  \end{enumerate}
+\end{proof}
 \iffalse
 \appendix
 
