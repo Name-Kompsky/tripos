@@ -1310,8 +1310,8 @@ Similar for \(\frac{\partial F}{\partial x_2}\).
           1 & \text{ otherwise}
         \end{cases}
       \]
-      Then \(\frac{\partial F}{\partial x_1} = \frac{\partial F}{\partial x_2} = 0\) at \((0, 0)\) but \(F\) is not even continuous. Heuristically, a good definition of differentiability should not allow this as this is not compatible with the definition of differentiability for 1D.
-    \item If one insists that differentiability does not imply continuity (by whatever means) and declare \(F\) as differentiable whenever \(\frac{\partial F}{\partial x_i}\) exists, then consider \(G(x_1, x_2) = F(x_1 + x_2, x_1 - x_2)\), whose derivative \(\frac{\partial G}{\partial x_1}\) does not even exist. This is even worse: the composition of differentiable functions is not differentiable!
+      Then \(\frac{\partial F}{\partial x_1} = \frac{\partial F}{\partial x_2} = 0\) at \((0, 0)\) but \(F\) is not even continuous. Heuristically, a good definition of differentiability should not allow this as this is not compatible with the definition of differentiability on \(\R\).
+    \item If one insists that differentiability does not imply continuity (by whatever means) and declare \(F\) as differentiable whenever \(\frac{\partial F}{\partial x_i}\) exists, then consider \(G(x_1, x_2) = F(x_1 + x_2, x_1 - x_2)\), whose derivative \(\frac{\partial G}{\partial x_1}\) does not even exist. This reveals a bigger problem with this definition of ``differentiability'': the composition of differentiable functions is not differentiable!
     \end{itemize}
   \end{eg}
 \end{note}
@@ -1387,7 +1387,7 @@ i.e.\ as a map \(\D F|_a\) is given by the matrix
   What a terrible approximation to \(F\)! No wonder \(F\) is not differentiable at \(0\).
 \end{eg}
 
-More generatlly,
+More generally,
 
 \begin{restatable}[Differentiability]{definition}{differentiability}
   Given \(F: \R^n \to \R^m\), \(F\) is \emph{differentiable} at \(a\) if there is a linear function \(L: \R^n \to \R^m\) such that
@@ -1431,7 +1431,7 @@ If \(F = (F_1, \dots, F_m)\) is differentiable at \(a\), the derivative is given
                                 \end{pmatrix} \\
                               &= [C]
   \end{align*}
-  As matrix multiplication is composition of linear maps,
+  As matrix multiplication is composition of linear maps
   \[
     \D( F \compose \gamma)|_t = \D F|_{\gamma(t)} \compose \D \gamma|_t.
   \]
@@ -1472,7 +1472,7 @@ Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in
     if both limits on RHS exist.
   \item Squeeze rule: if \(\norm{f(v) - w} \leq \norm{g(v) -w}\) and \(\lim_{v \to w_o}g(v) = w\) then \(\lim_{v \to v_0} f(v) = w\).
   \item If \(f: U\setminus\{v_0\} \to \R^m, f(v) = (f_1(v), \dots, f_m(v))\), \(w = (w_1, \dots, w_m)\) then \(\lim_{v \to v_0} f(v) = w\) if and only if \(\lim_{v \to v_0} f_i(v) = w_i\) for all \(1 \leq i \leq m\).
-  \item If \(\lim_{v \to 0} f(v) = w\) and \(x \in V\setminus\{0\}\) then \(\lim_{t \to 0} f(t x) = w\).
+  \item If \(\lim_{v \to 0} f(v) = w\) and \(x \in U\setminus\{0\}\) then \(\lim_{t \to 0} f(t x) = w\).
   \end{enumerate}
 \end{proposition}
 
@@ -1485,7 +1485,7 @@ Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in
 \end{proof}
 
 \begin{note}
-  \(\lim_{t \to 0} f(t x) = w\) for all \( x \in V\setminus \{0\}\) does not imply that \(\lim_{v \to 0} f(v) = w\). This is similar to the case the existence of \(\frac{\partial f}{\partial x_i}\) for all \(i\) does not imply differentiability of \(f\).
+  \(\lim_{t \to 0} f(t x) = w\) for all \( x \in U\setminus \{0\}\) does not imply that \(\lim_{v \to 0} f(v) = w\). This is similar to the case the existence of \(\frac{\partial f}{\partial x_i}\) for all \(i\) does not imply differentiability of \(f\).
 \end{note}
 
 \begin{eg}
@@ -1562,7 +1562,7 @@ Suppose \(U \subseteq \R^n\) is open, \(f: U \to \R^m\) and \(a \in U\). We reca
 Let \(U \subseteq \R^n\) be open and \(f: U \to \R^n\).
 
 \begin{notation}
-  \(L(\R^n, \R^m)\) is the space of linear maps from \(\R^n\) to \(R^m\), which is isomorphic to \(\mathcal{M}_{m, n}(\R)\).
+  \(L(\R^n, \R^m)\) is the space of linear maps from \(\R^n\) to \(\R^m\), which is isomorphic to \(\mathcal{M}_{m, n}(\R)\).
 \end{notation}
 
 \begin{eg}
@@ -1593,7 +1593,7 @@ There are two ways to think about the derivative:
   \end{align*}
 \end{itemize}
 
-The analyset way says that give \(f\) in the previous example, the derivative \(\D f: \R^n \to L(\R^n, \R^m), a \mapsto L\) is the constant map.
+The analyst way says that given \(f\) in the previous example, the derivative \(\D f: \R^n \to L(\R^n, \R^m), a \mapsto L\) is the constant map.
 
 \subsection{Directional Derivative}
 
@@ -1602,13 +1602,13 @@ Let \(F: U \to \R^n\).
 \begin{definition}[Directional derivative]
   If \(v \in \R^n\setminus \{0\}\) the \emph{directional derivative} of \(F\) at \(a\) in the direction \(v\) is
   \[
-    \D_v F|a = \lim_{t \to 0^+} \frac{F(a + tv) - F(a)}{t}
+    \D_v F|_a = \lim_{t \to 0^+} \frac{F(a + tv) - F(a)}{t}
   \]
   if RHS exist.
 \end{definition}
 
 \begin{eg}
-  If \(e_i\) is the standard basis vector of \(\R^n\) then \(\D_{e_i} f|a = \D_i F|_a\) if \(\D_i F|_a\) exists.
+  If \(e_i\) is the standard basis vector of \(\R^n\) then \(\D_{e_i} F|_a = \D_i F|_a\) if \(\D_i F|_a\) exists.
 \end{eg}
 
 \begin{proposition}
@@ -1691,7 +1691,7 @@ Let \(F: U \to \R^n\).
   \]
   so
   \[
-    \D_v F|_a = D F|_a(v) = \gradient F|_a \cdot v.
+    \D_v F|_a = \D F|_a(v) = \gradient F|_a \cdot v.
   \]
 \end{remark}
 
@@ -1727,7 +1727,7 @@ Sometimes it is better to differentiate by hand:
 \begin{eg}
   Let
   \begin{align*}
-    F: \R^n \times \R^n &\to \R \\
+    F: \R \times \R &\to \R \\
     (a_1, a_2) &\mapsto a_1 \cdot a_2
   \end{align*}
   Then
@@ -1810,6 +1810,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
 \end{definition}
 
 \begin{theorem}
+  \label{thm:C1 implies differentiability}
   If \(F\) is \(C^1\) then \(F\) is differentiable on \(U\).
 \end{theorem}
 
@@ -1818,6 +1819,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
 \end{joke}
 
 \begin{proof}
+  \label{proof:C1 implies differentiability}
   For the ease of notation we show the \(n = 2\) case here. The proof for \(n \geq 3\) is entirely analogous.
 
   We need to show that \(F(a + h) - F(a)\) is well-approximated by
@@ -1858,7 +1860,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
   \[
     F(x_1) - F(x_0) = h_1 \cdot \D_1 F|_{y_1(h)}.
   \]
-  Similarly apply MVT to \(g(t) = F(a_1 + h_1, a_2 + t)\): there exists \(y_2(h) = (a_1 + h_1, a_2 + c_2(h))\) such that \(c_2(h) \in [0, h_2]\) and
+  Similarly apply Mean Value Theorem to \(g(t) = F(a_1 + h_1, a_2 + t)\): there exists \(y_2(h) = (a_1 + h_1, a_2 + c_2(h))\) such that \(c_2(h) \in [0, h_2]\) and
   \[
     F(x_2) - F(x_1) = h_2 \cdot \D_2 F|_{y_2(h)}.
   \]
@@ -1953,7 +1955,7 @@ Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \t
 \end{theorem}
 
 \begin{proof}
-  We first use altenate characterisation of differentiability to rephrase the problem. We know that
+  We first use alternate characterisation of differentiability to rephrase the problem. We know that
   \[
     f(a + h) = f(a) + L_1(h) + \norm h \alpha(h)
   \]
@@ -1976,7 +1978,7 @@ Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \t
   \]
   where \(\lim_{h \to 0} \gamma(h) = 0\).
 
-  So we watnt to find \(\gamma(h)\). Using the estimates for \(f(a + h)\) and \(g(f(a) + r)\), we see that
+  So we want to find \(\gamma(h)\). Using the estimates for \(f(a + h)\) and \(g(f(a) + r)\), we see that
   \begin{align*}
     g(f(a + h)) &= g(f(a) + \underbrace{L_1(h) + \norm h \alpha(h)}_{E(h)}) \\
                 &= g(f(a)) + L_2(L_1(h) + \norm h \alpha(h)) + \norm{E(h)} \beta(E(h)) \\
@@ -2041,13 +2043,13 @@ Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \t
   \begin{enumerate}
   \item If \(\gamma: \R \to \R^n, F: \R^n \to \R\), let \(f = F \compose \gamma\). Then
     \begin{align*}
-      \D (F \compose \gamma)|_t &= [f'(t)] \\
+      \D (F \compose \gamma)|_t &= f'(t) \\
                                 &=\D F|_{\gamma(t)} \compose \D \gamma|_t \\
                                 &= (\D_1 F|_{\gamma(t)} \cdots \D_n F|_{\gamma(t)})
                                   \begin{pmatrix}
                                     \gamma_1'(t) \\
                                     \vdots \\
-                                    \gamma_n(t)
+                                    \gamma_n'(t)
                                   \end{pmatrix}\\
                                 &= [\gradient F|_{\gamma(t)} \cdot \gamma'(t)]
     \end{align*}
@@ -2055,7 +2057,7 @@ Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \t
   \end{enumerate}
 \end{remark}
 
-In IA Analysis I, we prove the Mean Value Theorem which is an important result in differential calculus. The results generalise to higher dimension spaces.
+In IA Analysis I, we proved the Mean Value Theorem which is an important result in differential calculus. The result generalises to higher dimensions.
 
 \begin{definition}[Convex set]
   \(U \subseteq \R^n\) is \emph{convex} if whenever \(x_0, x_1 \in U\) then
@@ -2100,5 +2102,210 @@ In IA Analysis I, we prove the Mean Value Theorem which is an important result i
                        &= |f'(c)| \text{ for some } c \in [0, 1] \\
                        &\leq M \norm{x_1 - x_0}
   \end{align*}
+\end{proof}
+
+\subsection{Higher Derivatives}
+
+Let \(U \subseteq \R^n\) open, \(a \in U\) and \(f: U \to \R^m\) differentiable. Then \(\D f_a \in L(\R^n, \R^m)\).
+
+\begin{question}
+  How should we define the second derivative at \(a\)?
+\end{question}
+
+Given \(v \in \R^n\), define
+\begin{align*}
+  \alpha_v: U &\to \R^m \\
+  x &\mapsto \D f|_x(v)
+\end{align*}
+
+\begin{note}
+  \(\alpha_v\) depends on \(f\).
+\end{note}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\alpha_{e_i}(x) = \D f_{x}(e_i) =\D_i f(x)\).
+  \item \(\alpha_{v_1 + \lambda v_2}(x) = \D f|_x(v_1 + \lambda v_2) = \D f|_x(v_1) + \lambda \D f|_x(v_2) = \alpha_{v_1}(x) + \lambda \alpha_{v_2}(x)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Twice differentiability]
+  \(f\) is \emph{twice differentiable} at \(a \in U\) if \(\alpha_v\) is differentiable at \(a\) for all \(v \in \R^n\).
+
+  If so define
+  \begin{align*}
+    \D^2 f|_a: \R^n \times \R^n &\to \R^m \\
+    (v, w) &\mapsto \D \alpha_v|_a (w)
+  \end{align*}
+\end{definition}
+
+\begin{eg}
+  \begin{align*}
+    \D^2 f|_a (e_i, e_j) &= \D \alpha_{e_i}|a (e_j) \\
+                         &= \D (\D_i f)|_a (e_j) \\
+                         &= \D_j (\D_i f)|_a
+  \end{align*}
+\end{eg}
+
+\begin{notation}
+  Let
+  \[
+    \D_{ij} f|_a := \D_j (\D_i f) = \frac{\partial}{\partial x_j} \frac{\partial f}{\partial x_i} \Big|_a.
+  \]
+\end{notation}
+
+\begin{lemma}
+  If \(f\) is twice differentiable at \(a\) then
+  \[
+    \D^2 f|_a: \R^n \times \R^n \to \R^m
+  \]
+  is bilinear, i.e.
+  \begin{enumerate}
+  \item \(\D^2 f|_a(v_1 + \lambda v_2, w) = \D^2 f|_a(v_1, w) + \lambda \D^2 f|_a(v_2, w)\),
+  \item \(\D^2 f|_a(v, w_1 + \lambda w_2) = \D^2 f|_a(v, w_1) + \lambda \D^2 f|_a(v, w_2)\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item
+    \begin{align*}
+      \D^2 f|_a(v_1 + \lambda v_2, w) &= \D \alpha_{v_1 + \lambda v_2}|_a (w) \\
+                                      &= \D(\alpha_{v_1} + \lambda\alpha_{v_2}) |_a (w) \\
+                                      &= \D \alpha_{v_1} |_a (w) + \lambda \D \alpha_{v_2} |_a (w) \\
+                                      &= \D^2 f|_a(v_1, w) + \lambda \D^2 f|_a(v_2, w)
+    \end{align*}
+  \item 
+    \begin{align*}
+      \D^2 f|_a(v, w_1 + \lambda w_2) &= \D \alpha_v|_a (w_1 + \lambda w_2) \\
+                                      &= \D \alpha_v|_a(w_1) + \lambda \D \alpha_v|_a(w_2) \\
+                                      &= \D^2 f|_a(v, w_1) + \lambda \D^2 f|_a(v, w_2)
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+Now suppose \(m = 1\), i.e.\ \(F: U \to \R\). Then
+\begin{align*}
+  \D^2 F|_a (v, w) &= \D^2 F|_a \left( \sum_{i = 1}^{n} v_i e_i, \sum_{j = 1}^{n} w_j e_j \right) \\
+                   &= \sum_{i, j = 1}^{n} v_i \D^2 F|_a(e_i, e_j) w_j \\
+                   &= v^T H(a) w
+\end{align*}
+where
+\[
+  H(a) = (\D^2 F|_a (e_i, e_j)) = (\D_{ij} F|_a)
+\]
+is the \emph{Hessian matrix}  of \(F\) at \(a\).
+
+\begin{eg}
+  Let \(F: \R^2 \to \R, F(x_1, x_2) = x_1^4x_2^2\), then
+  \[
+    \begin{array}[h]{l l}
+      \D_{11} F = 12 x_1^2 x_2^2 & \D_{12} F = 8x_1^3 x_2 \\
+      \D_{21} F = 8 x_1^3 x_2 & \D_{22} F = 2 x_1^4
+    \end{array}
+  \]
+  so
+  \[
+    H(1, 1) =
+    \begin{pmatrix}
+      12 & 8 \\
+      8 & 2
+    \end{pmatrix}
+  \]
+  and
+  \[
+    \D^2 F|_{(1, 1)} ((3, 1), (1, 2)) =
+    \begin{pmatrix}
+      3 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+      12 & 8 \\
+      8 & 2
+    \end{pmatrix}
+    \begin{pmatrix}
+      1 \\
+      2
+    \end{pmatrix}
+  \]
+\end{eg}
+
+\begin{definition}[\(C^2\) space]
+  \(F: U \to \R\) is \(C^2\) if \(F\) is \(C^1\) and all second partial derivatives \(\D_{ij} F\) exist and are continuous on \(U\). If so \(F \in C^2(U)\).
+\end{definition}
+
+\begin{remark}
+  We conduct a reality check that \(F \in C^2(U)\) does imply that \(F\) is twice differentiable: if \(F \in C^2(U)\) then \(\D_i F \in C^1(U)\) for all \(i\). Since \(\alpha_v(x) = \D F|_x(v)\) it follows that
+  \[
+    \alpha_v = \sum_{i = 1}^{n} v_i \D_i F \in C^1(U).
+  \]
+  By \Cref{thm:C1 implies differentiability} \(\alpha_v\) is differentiable for all \(v\) so \(F\) is twice differentiable on \(U\).
+\end{remark}
+
+\begin{theorem}[Symmetry of Mixed Partials]
+  If \(U \subseteq \R^2\) is open and \(F \in C^2(U)\) then
+  \[
+    \D_{12} F = \D_{21} F.
+  \]
+\end{theorem}
+
+\begin{lemma}
+  \[
+    \D_{21} F|_a = \lim_{h \to 0} \frac{1}{h^2} \left( F(a_1 + h, a_2 + h) - F(a_1 + h, a_2) - F(a_1, a_2 + h) + F(a_1, a_2) \right).
+  \]
+\end{lemma}
+
+\begin{note}
+  \(h \in \R\), not \(\R^2\).
+\end{note}
+
+\begin{proof}
+  The proof is similar to the \hyperref[proof:C1 implies differentiability]{proof} of \Cref{thm:C1 implies differentiability} in that we apply Mean Value Theorem to a two step estimation.
+   \begin{center}
+    \begin{tikzpicture}[scale = 1]
+      \draw [fill] (0, 0) circle (2pt);
+      \draw [fill] (2, 0) circle (2pt);
+      \draw [fill] (0, 2) circle (2pt);
+      \draw [fill] (2, 2) circle (2pt);
+      \node [left] at (0, 0) {\((a_1, a_2)\)};
+      \node [right] at (2, 0) {\((a_1 + h, a_2)\)};
+      \node [left] at (0, 2) {\((a_1, a_2 + h)\)};
+      \node [right] at (2, 2) {\((a_1 + h, a_2 + h)\)};
+    \end{tikzpicture}
+  \end{center}
+ Let
+  \begin{align*}
+    \Delta &= F(a_1 + h, a_2 + h) - F(a_1 + h, a_2) - F(a_1, a_2 + h) + F(a_1, a_2) \\
+    A(t) &= F(a_1 + h, t) - F(a_1, t)
+  \end{align*}
+  so that
+  \begin{align*}
+    \Delta &= A(a_2 + h) - A(a_2) \\
+    A'(t) &= \D_2 F|_{(a_1 + h, t)} - \D_2 F|_{(a_1, t)}
+  \end{align*}
+  By Mean Value Theorem applied to \(A\), we see that
+  \begin{align*}
+    \Delta &= h \cdot A'(x_2(h)) \\
+    \intertext{where \(x_2(h) \in [a_2, a_2 + h]\)}
+           &= h \cdot \left( \D_2 F|_{(a_1 + h, x_2(h))} - \D_2 F|_{(a_1, x_2(h))} \right) \\
+           &= h \cdot (B(a_1 + h) - B(a_1)) \\
+    \intertext{where}
+    B(s) &= \D_2 F|_{(s, x_2(h))} \\
+    B'(s) &= \D_1 (\D_2 F)|_{(s, x_2(h))} = \D_{21} F|_{(s, x_2(h))} \\
+    \intertext{so by Mean Value Theorem again}
+           &= h^2 \D_{21} F|_{(x_1(h), x_2(h))}
+  \end{align*}
+
+  In summary, \(\Delta = h^2 \D_{21} F|_{x_1(h), x_2(h)}\) so
+  \[
+    \lim_{h \to 0} \frac{\Delta}{h^2} = \lim_{h \to 0} D_{21} F(x_1(h), x_2(h))
+  \]
+  where \(x_1(h) \in [a_1, a_1 + h], x_2(h) \in [a_2, a_2 + h]\). Thus we know
+  \[
+    \lim_{h \to 0} (x_1(h), x_2(h)) = (a_1, a_2).
+  \]
+  Since \(F \in C^2(U)\), \(\D_{21} F\) is continuous so
+  \[
+    \lim_{h \to 0} \D_{21} F(x_1(h), x_2(h)) = \D_{21} F|_a = \lim_{h \to 0} \frac{\Delta}{h^2}.
+  \]
 \end{proof}
 \end{document}

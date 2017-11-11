@@ -10,14 +10,15 @@
 
 \input{header}
 
-\renewcommand*\L{\mathcal{L}}
+\renewcommand*{\L}{\mathcal{L}}
 
-\newcommand*\grad{\gradient}
+\newcommand*{\grad}{\gradient}
 %TODO: resolve \div not working issue
-\renewcommand\div{\divergence}
-\newcommand*\dive{\divergence}
-\newcommand*\laplace{\grad^2}
-\newcommand*\lap{\laplace}
+\renewcommand{\div}{\divergence}
+\newcommand*{\dive}{\divergence}
+\newcommand*{\laplace}{\grad^2}
+\newcommand*{\lap}{\laplace}
+\newcommand*{\ft}{\tilde}
 
 \DeclareMathOperator{\erf}{erf}
 
@@ -2103,4 +2104,208 @@ i.e.
            &= \frac{2 \sin n\pi\xi}{n^2\pi^2 - 1}
 \end{align*}
 so \(G_c(\) and \(G_e\) are equivalent.
+
+\subsection{Physical Interpretation}
+
+Steady forced wave equation:
+\[
+  T \frac{\partial^2 y}{\partial x^2} - \mu y = \mu \frac{\partial^2 y}{\partial t^2} = 0
+\]
+The solution is
+\[
+  \frac{\partial^2 y}{\partial x^2} = \frac{\mu(x)}{T}g = f(x)
+\]
+Assume \(\mu\) is constant,
+\[
+  y = \frac{\mu g}{2T}x(x - L)
+\]
+
+Imagine a point mass \(m\) concentrated at \(x = \xi\). Resolving forces horizontally show that \(T\) is constant along the string and resolving forces vertically show that
+\begin{align*}
+  mg &= T(\sin \theta_1 + \sin \theta_2) \\
+     &= -T(\frac{y(\xi)}{\xi} + \frac{y(\xi)}{L - \xi} \text{ using approximation } \sin \theta = \tan \theta
+\end{align*}
+so
+\begin{align*}
+  y(\xi) &= \frac{mg}{T} \xi(\xi - L) = f(\xi) \xi (\xi -L) \\
+  y &=
+      \begin{cases}
+        f(\xi) \frac{x (\xi - L)}{L} & 0 \leq x \leq \xi \\
+        f(\xi) \frac{\xi (\xi - L)}{L} & \xi \leq x \leq L
+      \end{cases}
+\end{align*}
+
+The Green's function of this problem is
+\[
+  \L G = \frac{d^2}{dx^2} G = \delta(x - \xi)
+\]
+\begin{enumerate}
+\item \(\frac{d^2G}{dx^2} = 0\) in region I so \(A x + B\),
+\item \(\frac{d^2G}{dx^2} = 0\) in region II so \(c(x - L) + D\),
+\item Boundary condition at \(0\), \(B = 0\) 
+\item Boundary condition at \(L\), \(D = 0\) 
+\item Continuity at \(x = \xi\), \(c = \frac{A\xi}{\xi - L}\)
+\item Apply jump condition, \(A = \frac{\xi -L}{L}\)
+\item The result is
+  \[
+    G(x; \xi) =
+    \begin{cases}
+      \frac{x(\xi - L)}{L} & 0 \leq x \leq \xi \\
+      \frac{\xi(x - L)}{L} & \xi \leq x \leq L
+    \end{cases}
+  \]
+\end{enumerate}
+
+\subsection{Continuum Generalisation}
+
+The problem is linear so it is possible to have \(N\) different point masses \(m_i\) locatee at \(\xi_i\) in which case
+\[
+  y(x) = \sum_{i = 1}^{N} \frac{m_ig}{T} G(x; \xi_i) = \sum_{i = 1}^{N} f(\xi_i) G(x; \xi_i)
+\]
+It is at least plausible that we can take a continumm limit:
+\[
+  y(x) = \int_{0}^{L}  f(\xi) G(x; \xi) d\xi
+\]
+
+\begin{ex}
+  Show you can recover the parabolic constant \(\mu\) case from the Green's function integral.
+\end{ex}
+
+\subsection{Higher Order Differential Operators}
+
+If \(\L y = f(x)\) is an \(n\)th order ODE (where we assumem the coefficient of \(\frac{d^n}{dx^n}\) is \(1\) for simplicity and \(n > 2\)) with homogeneous boundary conditions on \([a, b]\) then
+\[
+  y(x) = \int_{a}^{b} f(\xi) G(x;\xi) d\xi
+\]
+where \(G\) satisfies the homogeneous boundary conditions, \(\L G = \delta(x - \xi)\), \(G\) and its first \(n - 2\) erivatives are continuous at \(x = \xi\) and
+\[
+  \frac{d^{(n - 1)}}{dx^{(n - 1)}} G(\xi^+) - \frac{d^{(n - 1)}}{dx^{(n - 1)}} G(\xi^-) = 1
+\]
+
+\subsection{Application of Green's Function to Initial Value Problem}
+
+Green's functions can also be used to solve initial value problems. Consider
+\[
+  \L y = f(t), t \geq a, y(a) = y'(a) = 0
+\]
+
+As before we wantto find
+\[
+  \L G = \delta(t- \tau)
+\]
+
+\begin{enumerate}
+\item Construct \(G\) for \(a \leq t < z\):
+  \[
+    G = A y_1(t) + B y_2(t)
+  \]
+  with \(\L y_1 = \L(y_2) = 0\) and they are linearly independent.
+\item Apply \emph{both} boundary conditions to this solution:
+  \begin{align*}
+    A y_1(a) + B y_2(a) &= 0 \\
+    A y_1'(a) + B y_2'(a) &= 0
+  \end{align*}
+  \(y_1, y_2\) are linearly independent, so Wronskian is non-zero. Thus \(A = B = 0\). Thus \(G(t; \tau) = 0\) for \(a \leq t \leq \tau\).
+\item Construct \(G\) for \(t \geq \tau\):
+  \[
+    G = C y_1(t) + D y_2(t)
+  \]
+\item Apply conditions at \(\tau\):
+  \begin{align*}
+    C y_1(\tau) + D y_2(\tau) &= 0 \\
+    C y_1'(\tau) + D y_2'(\tau) &= \frac{1}{\alpha(\xi)}
+  \end{align*}
+\end{enumerate}
+and so we have the Green's function
+\[
+  y(t) = \int_{a}^{t} f(\tau) G(t; \tau) d\tau
+\]
+since \(G \neq 0\) only when \(t > \tau\).
+
+Note the causality: the solution at \(t\) depdends only on the forcing on \(a \leq \tau \leq t\).
+
+\begin{eg}
+  Consider the problem
+  \[
+    \frac{d^2y}{dt^2} + y = f(t), y(0) = \dot y(0) = 0
+  \]
+  The Green's function has the form
+  \[
+    G =
+    \begin{cases}
+      0 & \leq t \leq \tau \\
+      C \cos(t - \tau) + D \sin(t - \tau) & t > \tau
+    \end{cases}
+  \]
+  The continuity implies that \(C = 0\). The jump condition says \(D = 1\). Thus
+  \[
+    G =
+    \begin{cases}
+      0 & 0 \leq t \leq \tau \\
+      \sin(t - \tau) & t \geq \tau
+    \end{cases}
+    \]
+    so
+    \[
+      y(t) = \int_{0}^{t} f(\tau) \sin(t - \tau) d\tau
+    \]
+\end{eg}
+
+\begin{ex}
+  Show that if \(f(t) = \sin t\),
+  \[
+    y = \frac{1}{2} \sin t - \frac{1}{2} t\cos t.
+  \]
+\end{ex}
+
+\section{Fourier Transforms}
+
+\subsection{Connection of Fourier Transforms and Fourier Series}
+
+Consider the complex form of Fourier series of a \(2L\)-periodic function
+\[
+  f(x) = \sum_{n = -\infty}^{\infty} c_n^{(L)} \exp ( \frac{in\pi x}{L} )
+\]
+where
+\[
+  c_n^{(L)} = \frac{1}{2L} \int_{-L}^{L} f(x) \exp (- \frac{in\pi x}{L}) dx
+\]
+
+\begin{question}
+  What happens as \(L \to \infty\)?
+\end{question}
+
+Need the integrals to converge so assume that \(f(x)\) is both absolutely integrable and square integrable:
+\begin{align*}
+  \int_{-\infty}^{\infty} |f(x)| dx &< \infty \\
+  \int_{-\infty}^{\infty} |f(x)|^2 dx &< \infty
+\end{align*}
+
+Now consider a fixed \(n\) but \(L \to \infty\),
+\[
+  \lim_{L \to \infty} 2L c_n^{(L)} = \lim_{L \to \infty} \int_{-\infty}^{\infty} f(x) \exp (-\frac{in\pi x}{L}) dx = \int_{-\infty}^{\infty} f(x) dx \leq \int_{-\infty}^{\infty} |f(x)| dx < \infty
+\]
+This means that for fixed \(n\),
+\[
+  \lim_{L \to \infty} c_n^{(L)} = 0.
+\]
+Now let \(n\) vary too and think about the real line. Keep \(n/L\) fixed as \(L\) increases. The result is denser distribution of points in the real line with wavelengths \(2L/n\).
+
+Imagine repacing the discrete variable \(n\pi/L\) by a continuous variable \(k\). Then we define the \emph{Fourier transformation}
+\[
+  \ft f(k) := \lim_{L \to \infty} 2L c_{kL/\pi}^{(L)} = \int_{-\infty}^{\infty} f(x) \exp(-ikx) dx
+\]
+Fourier transformation is a linear operator which maps between physical spaces to \emph{spectral} spaces (the \(k\)-wavenumber space). \(e^{-ikx}\) is the \emph{kernel} (there exists other kernels of transformation).
+
+\subsection{Fourier Transform and its inverse}
+
+There is ambiguity in the definition of Fourier transform.
+
+\begin{convention}
+  We will use the convetion
+  \begin{align*}
+    \ft f(k) &= \int_{-\infty}^{\infty} f(x) \exp(-ikx) dx \\
+    f(x) &= \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft f(k) \exp(ikx) dk
+  \end{align*}
+\end{convention}
 \end{document}

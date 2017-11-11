@@ -289,7 +289,7 @@ These will also be used in IID Number Fields.
   Thus
   \begin{align*}
     \Tr_{M/K}(\alpha) &= \sum_{i = 1}^{n} \sigma_i(\alpha) \\
-    \n_{M/K} &= \prod_{i = 1}^{n} \sigma_i(\alpha)
+    \n_{M/K}(\alpha) &= \prod_{i = 1}^{n} \sigma_i(\alpha)
   \end{align*}
 \end{theorem}
 
@@ -298,7 +298,7 @@ These will also be used in IID Number Fields.
   \[
     f_\alpha(t) = \prod_{i = 1}^{s} (t - \alpha_i) = a^s + a_{s - 1}s^{t - 1} + \dots + a_0
   \]
-  be the minimal polynomial of \(\alpha\) over \(K\) in \(L[t]\) where \(L\) is large enough that \(f_\alpha(t)\) splits in \(L\). There are \(s\) \(K\)-homomorphisms \(K(\alpha) \to L\), corresponding to maps sending \(\alpha\) to \(\alpha_i\). Each of these extends in \(r = |M:K(\alpha)|\) ways to give \(K\)-homomorphisms \(M \to L\). However, each of such extension mapping \(\alpha \mapsto \alpha_i\) still does so. so there are \(r\) maps sending \(\alpha \to \alpha_i\) for each \(i\). Thus if the \(n = rs\) distinct \(K\)-homomorphism \(M \to L\) are \(\sigma_1, \dots, \sigma_n\) then
+  be the minimal polynomial of \(\alpha\) over \(K\) in \(L[t]\) where \(L\) is large enough that \(f_\alpha(t)\) splits in \(L\). There are \(s\) \(K\)-homomorphisms \(K(\alpha) \to L\), corresponding to maps sending \(\alpha\) to \(\alpha_i\). Each of these extends in \(r = |M:K(\alpha)|\) ways to give \(K(\alpha)\)-homomorphisms \(M \to L\). However, each of such extension mapping \(\alpha \mapsto \alpha_i\) still does so. So there are \(r\) maps sending \(\alpha \to \alpha_i\) for each \(i\). Thus if the \(n = rs\) distinct \(K\)-homomorphism \(M \to L\) are \(\sigma_1, \dots, \sigma_n\) then
   \[
     \sum_{i = 1}^{n} \sigma_i(\alpha) = r(\alpha_1 + \dots \alpha_s) = -ra_{s - 1} = \Tr_{M/K} (\alpha)
   \]
@@ -314,14 +314,14 @@ These will also be used in IID Number Fields.
 %
 %
 %
-Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\theta_\alpha\) is \((f_\alpha(t))^r\) where \(f_\alpha(t)\) is the minimal polynomial of \(\alpha\) over \(K\) and \(r = |M:K(\alpha)|\). The characteristic polynomial if \(\prod_{n = 1}^{s} (t - \alpha_i)^r\) where \(\alpha_i\) are the roots of \(f_\alpha(t)\) in a splitting field. We also saw that those root are \(\sigma_1(\alpha), \dots, \sigma_n(\alpha)\) so the characteristic polynomial is
+Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\theta_\alpha\) is \((f_\alpha(t))^r\) where \(f_\alpha(t)\) is the minimal polynomial of \(\alpha\) over \(K\) and \(r = |M:K(\alpha)|\). The characteristic polynomial is \(\prod_{n = 1}^{s} (t - \alpha_i)^r\) where \(\alpha_i\) are the roots of \(f_\alpha(t)\) in a splitting field. We also saw that those root are \(\sigma_1(\alpha), \dots, \sigma_n(\alpha)\) so the characteristic polynomial is
 \[
   \prod_{i = 1}^{n} (t - \sigma_i(\alpha)).
 \]
 
 \begin{theorem}
   \label{thm:vandermonde}
-  Let \(K \leq M\) be a finite separable extension. Then we define a \(K\)-bilinear form
+  Let \(K \leq M\) be a finite separable extension. We define a \(K\)-bilinear form
   \begin{align*}
     T: M \times M &\to K \\
     (x, y) &\mapsto \Tr_{M/K}(xy)

@@ -388,18 +388,18 @@ V = U \oplus W
   Direct complements are \emph{not} unique.
 \end{caution}
 
-\begin{definition}
-  Suppose \(V_1,\ldots, V_\ell \leq V\), then
+\begin{definition}[Direct sum]
+  Suppose \(V_1,\ldots, V_\ell \leq V\), then the sum
   \[
 \sum_i V_i = V_1+\cdots+V_\ell = \{v_1+\cdots+v_\ell: v_i\in V_i\}.
   \]
-  The direct sum is direct if
+  is \emph{direct} if
   \[
     v_1+\cdots+v_\ell = v_1'+\cdots+ v_\ell' \Rightarrow v_i = v_i' \text{ for all } i.
   \]
-  It is denoted
+  In which case it is denoted
   \[
-V = \bigoplus_{i=1}^\ell V_i.
+    V = \bigoplus_{i=1}^\ell V_i.
   \]
 \end{definition}
 
@@ -412,7 +412,7 @@ V = \bigoplus_{i=1}^\ell V_i.
   \end{enumerate}
 \end{ex}
 
-\begin{definition}[Direct Sum]
+\begin{definition}[Direct sum]
   Let \(U, W\) be vector spaces over \(\F\). The \emph{external direct sum} is
   \[
 U\oplus W = \{(u,w): u\in U, w\in W\}
@@ -555,7 +555,7 @@ which is an isomorphism.
   \end{itemize}
 \end{proof}
 
-\begin{definition}\leavevmode
+\begin{definition}[Rank \& Nullity]\leavevmode
   \begin{itemize}
   \item \(r(\alpha) = rk(\alpha) = \dim( \im \alpha)\) is the \emph{rank} of \(\alpha\),
   \item \(n(\alpha) = \dim N(\alpha)\) is the \emph{nullity} of \(\alpha\).
@@ -586,7 +586,6 @@ which is an isomorphism.
   Rank-nullity theorem.
 \end{proof}
 
-%\subsection{\texorpdfstring{\(\Hom_\F(V,W)\)}{Hom\textsubscript{F}(V,W)} as \texorpdfstring{\(\F\)}{F}-vector space}
 \subsection{Linear Maps as Vector Space}
 
 Suppose \(V\) and \(W\) are \(\F\)-vector spaces. Let \(L(V,W) = \{\alpha:V\to W, \alpha \text{ linear}\}\).
@@ -630,7 +629,7 @@ A = (a_{ij}), a_{ij}\in\F, 1\leq i \leq m, 1\leq j \leq n.
 \end{proposition}
 
 \begin{proof}
-  See \hyperref[eg:matrix as V]{Example} for the proof of vector space axioms. For the dimension claim, a standard basis for \(\M_{m,n}(F)\) is
+  See this \hyperref[eg:matrix as V]{example} for the proof of vector space axioms. For the dimension claim, a standard basis for \(\M_{m,n}(F)\) is
   \[
     E_{ij}=
     \begin{pmatrix}
@@ -662,20 +661,21 @@ which is called the \emph{coordinate vector of \(v\) with respect to \(\basis B\
   \([\alpha]_{\basis B, \basis C}\) is the matrix representation of \(\alpha\) with respect to \(\basis B\) and \(\basis C\) with
   \begin{align*}
     [\alpha]_{\basis B, \basis C} &= \Big( [\alpha(v_1)]_{\basis C} \: \Big| \: [\alpha(v_2)]_{\basis C} \: \Big | \: \cdots \: \Big| \: [\alpha(v_n)]_{\basis C} \Big) \\
-    &= (a_{ij})
+                                  &= (a_{ij})
   \end{align*}
-  The matrix says
-  \[
-\alpha(v_j) = \sum_{i}^{ }a_{ij}w_i.
-  \]
 \end{definition}
+
+The matrix says
+\[
+  \alpha(v_j) = \sum_{i}^{ }a_{ij}w_i.
+\]
 
 \begin{lemma}
   For any \(v\in V\),
   \[
 [\alpha(v)]_{\basis C} = [\alpha]_{\basis B, \basis C}\cdot [v]_{\basis B}
   \]
-  where \(\cdot\) is matrix multiplication applied to vectors.
+  where \(\cdot\) is matrix multiplication.
 \end{lemma}
 
 \begin{proof}
@@ -689,18 +689,18 @@ which is called the \emph{coordinate vector of \(v\) with respect to \(\basis B\
 \end{pmatrix}
 \]
 \begin{align*}
-  \alpha(v) &= \alpha\Big( \sum_{j}^{ }\lambda_jv_j \Big) \\
+  \alpha(v) &= \alpha\left( \sum_{j}^{ }\lambda_jv_j \right) \\
             &= \sum_{j}^{ }\lambda_j\alpha(v_j) \\
-            &= \sum_{j}^{ }\lambda_j\Big( \sum_{i}^{ }\alpha_{ij}w_i \Big) \\
-            &= \sum_{i}^{ }\Big( \sum_{j}^{} \alpha_{i,j}\lambda_j \Big) w_i
+            &= \sum_{j}^{ }\lambda_j\left( \sum_{i}^{ }\alpha_{ij}w_i \right) \\
+            &= \sum_{i}^{ }\left( \sum_{j}^{} a_{ij}\lambda_j \right) w_i
 \end{align*}
-so the \(i\)th entry of \([\alpha]_{\basis B, \basis C}\) is \([v]_{\basis B}\).
+so the \(i\)th entry of \(\alpha(v)\) is the \(i\)th entry of \([\alpha]_{\basis B, \basis C} \cdot [v]_{\basis B}\).
 \end{proof}
 
 \begin{lemma}
-  Suppose \(U \stackrel{\beta}{\to} V \stackrel{\alpha}{\to} W\) with \(\alpha, \beta\) linear, with \(\alpha\compose\beta: U\to W\). Let \(\basis A, \basis B, \basis C\) be bases for \(U,V,W\) respectively. Then
+  Suppose \(U \stackrel{\beta}{\to} V \stackrel{\alpha}{\to} W\) with \(\alpha, \beta\) linear, with \(\alpha \compose \beta: U\to W\). Let \(\basis A, \basis B, \basis C\) be bases for \(U,V,W\) respectively. Then
   \[
-[\alpha\compose\beta]_{\basis A, \basis C} = [\alpha]_{\basis B,\basis C}\cdot[\beta]_{\basis A, \basis B}.
+    [\alpha\compose\beta]_{\basis A, \basis C} = [\alpha]_{\basis B,\basis C}\cdot[\beta]_{\basis A, \basis B}.
   \]
 \end{lemma}
 
@@ -710,7 +710,7 @@ so the \(i\)th entry of \([\alpha]_{\basis B, \basis C}\) is \([v]_{\basis B}\).
                                   &= \alpha\Big( \sum_{j}^{ }b_{jl}v_j \Big), \: v_j\in B \\
                                   &= \sum_{j}^{ }b_{jl}\alpha(v_j) \\
                                   &= \sum_{j}^{ }b_{jl}\sum_{i}^{ }a_{ij}w_i, \: w_i\in W \\
-                                  &= \sum_{i}^{ }\Big( \sum_{j}^{ }a_{ij}b_{jl})w_i
+                                  &= \sum_{i}^{ }\left( \sum_{j}^{ }a_{ij}b_{jl} \right)w_i
   \end{align*}
 \end{proof}
 
@@ -743,7 +743,7 @@ L(V,W) \cong \M_{m,n}(\F).
 \end{corollary}
 
 \begin{eg}
-  Suppose \(\alpha:V\to W\), \(Y\leq V, Z\leq W\) with \(\alpha(Y)\leq Z\). Let \(\basis B'=\{v_1,\ldots,v_k\}\) be a basis of \(Y\) and extend to \(\basis B=\{v_1,\ldots,v_k,v_{k+1},v_n\}\) a basis for \(V\). Similarly \(\basis C' = \{w_1,\dots,w_l\}\) and \(\basis C\) for \(Z\) and \(W\).
+  Suppose \(\alpha:V\to W\), \(Y\leq V, Z\leq W\) with \(\alpha(Y)\leq Z\). Let \(\basis B'=\{v_1,\ldots,v_k\}\) be a basis of \(Y\) and extend to \(\basis B=\{v_1,\dots,v_k,v_{k+1}, \dots, v_n\}\) a basis for \(V\). Similarly \(\basis C' = \{w_1,\dots,w_l\}\) and \(\basis C\) for \(Z\) and \(W\).
   \begin{itemize}
   \item \([\alpha]_{\basis B, \basis C} =
 \begin{pmatrix}
@@ -944,9 +944,9 @@ Let \(Q\) be the change-of-basis matrix from \(\basis C'\) to \(\basis C\). Then
   \]
 \end{proof}
 
-Note a special case for change of basis: \(V=W\), \(\basis C=\basis B\), the other basis is \(\basis B'\). \(P\), the change-of-basis matrix from \(\basis B'\) to \(\basis B\), given a mpar \(\alpha \in L(V,V)\)
+Note a special case for change of basis: \(V = W\), \(\basis C = \basis B\) and \(\basis C' = \basis B'\). \(P\), the change-of-basis matrix from \(\basis B'\) to \(\basis B\), is given the map \(\alpha \in L(V,V)\)
 \[
-  [\alpha]_{\basis B',\basis B'} = P^{-1}[\alpha]_{\basis B,\basis B}P
+  [\alpha]_{\basis B',\basis B'} = P^{-1}[\alpha]_{\basis B,\basis B}P.
 \]
 
 \begin{definition}[Similar matrices]
@@ -977,28 +977,28 @@ Note a special case for change of basis: \(V=W\), \(\basis C=\basis B\), the oth
 \end{note}
 
 \begin{definition}[Elementary matrix]
-The elementary row (column, respectively) have corresponding elementary matrices: th effect of performing these column (row, respectively) operations on \(I_n\) (\((I_m\), respectively):
+The elementary row (column, respectively) operations have corresponding elementary matrices, which are the results of performing these column (row, respectively) operations on \(I_n\) (\(I_m\), respectively):
 \begin{enumerate}
 \item
   \[
     \begin{pmatrix}
-      1 & 0 & \cdots & 0 & 0 & 0\\
-      \vdots & \ddots & & & & \vdots\\
-      & & 1 & & \cdots & 0\\
+      1 & 0 & \cdots & & & 0 \\
+      \vdots & \ddots & & & & \vdots \\
+      & & 0 & & 1 & 0 \\
       0 & \cdots & 0 & \ddots & 0 & 0 \\
-      & & 0 & 0 & 1 & &\\
-      \vdots & && \ddots& &\\
+      & & 1 & 0 & 0 & & \\
+      \vdots & &&  \ddots & \\
       0 & & \cdots & & \cdots & 0
     \end{pmatrix}
   \]
 \item
   \[
     \begin{pmatrix}
-      1 & 0 & 0 & 0 \\
-      \vdots & \ddots & & \vdots \\
-      0 & \cdots & \lambda & 0 \\
-      \vdots & & & \vdots \\
-      0 & \cdots & 0 & 1
+      1 & 0 & \cdots & & 0 \\
+       & \ddots & & & \\
+      \vdots & & \lambda & & \vdots \\
+       & & & \ddots & \\
+      0 & \cdots & & 0 & 1
     \end{pmatrix}
   \]
 \item \(I_n+\lambda E_{ij}\) where \(E_{ij}\) is the matrix with \(1\) on \(ij\)th entry and \(0\) elsewhere.
@@ -1023,7 +1023,7 @@ Given the elementary matrices, we can give a constructive proof that any \(m\tim
   \begin{enumerate}
   \item swap row \(1\) and \(i\), swap column \(1\) and \(j\) so \(\lambda\) is in position \((1,1)\),
   \item multiply column \(1\) by \(1/\lambda\) to get \(1\) in position \((1,1)\),
-  \item add \((-a_{1,2})\) times column \(1\) to column \(2\). Do so for the other entries in row \(1\). Also use row operations to clear out all other entries in column \(1\). Now the matrix is in the form
+  \item add \((-a_{12})\) times column \(1\) to column \(2\). Do so for the other entries in row \(1\). Also use row operations to clear out all other entries in column \(1\). Now the matrix is in the form
     \[
       \begin{pmatrix}
         1 & 0 \\
@@ -1116,7 +1116,7 @@ Let \(V\) be an \(\F\)-vector space.
 \begin{lemma}[Dual basis]
   Let \(V\) be a finite-dimensional \(\F\)-vector space with basis \(\basis B = \{e_1,\dots,e_n\}\). Then there is a basis for \(V^*\), given by
   \[
-    \basis B* = \{\varepsilon_1,\dots, \varepsilon_n\}
+    \basis B^* = \{\varepsilon_1,\dots, \varepsilon_n\}
   \]
   where
   \[
@@ -1167,7 +1167,7 @@ Let \(V\) be an \(\F\)-vector space.
 
 \subsection{Dual Map}
 
-It turns out dual spaces have maps between them. Before studying them in detail later, we introduce this concept add richness to the theory of dual map:
+It turns out dual spaces have maps between them. Before studying them in detail, we introduce this concept to add richness to the theory of dual map:
 
 \begin{definition}[Annihilator]
   If \(U \subseteq V\), the \emph{annihilator} of \(U\) is
@@ -1195,7 +1195,7 @@ It turns out dual spaces have maps between them. Before studying them in detail 
     for all \(u\in U\). Similarly \(\lambda\alpha\in U^\ann\) for any \(\lambda \in \F\).
   \item Let \(\basis B = \{e_1,\dots, e_k\}\) be a basis for \(U\) and extend it to a basis for \(V\), say \(e_1,\dots,e_k,e_{k+1},\dots,e_n\). Let \(\basis B^*=\{\varepsilon_1,\dots,\varepsilon_n\}\) be its dual basis. Claim \(\varepsilon_{k+1},\dots,\varepsilon_n \) is a basis for \(U^\ann\):
     \begin{itemize}
-    \item If \(i>k,j\leq k\) then \(\varepsilon_i(e_j) = 0 \) so \(\varepsilon_i\in U^\ann\)
+    \item If \(i>k,j\leq k\) then \(\varepsilon_i(e_j) = 0 \) so \(\varepsilon_i\in U^\ann\).
     \item Linear independence comes from the fact that \(B^*\) is a basis.
     \item If \(\alpha\in U^\ann\), \(\alpha = \sum_{i=1}^na_i\varepsilon_i\) for some \(\alpha_i\in \F\). Then for any \(j\leq k\),
       \[
@@ -1258,7 +1258,7 @@ It turns out dual spaces have maps between them. Before studying them in detail 
 
 It follows that
 \begin{lemma}
-  Let \(V\) be a finite-dimensioanl \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). Then the change of basis matrix from \(\basis F^*\) to \(\basis E^*\) is
+  Let \(V\) be a finite-dimensional \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). Then the change of basis matrix from \(\basis F^*\) to \(\basis E^*\) is
   \[
     (P^{-1})^T.
   \]
@@ -1274,7 +1274,7 @@ It follows that
   \(V \cong V^*\) only if \(V\) is finite dimensional. Let \(V = P\), the space of all real polynomials. It has basis \(\{p_j\}_{j\in \N}\) where \(p(j) = t^j\). In example sheet 2 we will see
 \begin{align*}
   P^* &\cong \R^\N \\
-  \varepsilon &\to (\varepsilon(p_0), \varepsilon(p_1), \dots)
+  \varepsilon &\mapsto (\varepsilon(p_0), \varepsilon(p_1), \dots)
 \end{align*}
 and on example sheet 1 we prove
 \[
@@ -1345,7 +1345,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \begin{proof}\leavevmode
   \begin{itemize}
   \item For \(v\in V\), the map \(\hat v: V^* \to \F\) is linear so \(\hat \cdot\) does give a map from \(V\) to \(V^{**}\).
-  \item Linear: for \(v_1, v_2 \in V\), \(\lambda_1, \lambda_2 \in \F\), \(\varepsilon \in V*\), then
+  \item Linear: for \(v_1, v_2 \in V\), \(\lambda_1, \lambda_2 \in \F\), \(\varepsilon \in V^*\), then
     \[
       \reallywidehat{\lambda_1v_1 + \lambda_2v_2}(\varepsilon) = \varepsilon(\lambda_1v_1 + \lambda_2v_2) = \lambda_1 \varepsilon(v_1) + \lambda_2 \varepsilon(v_2) = \lambda_1 \hat v_1(\varepsilon) + \lambda_2 \hat v_2(\epsilon)
     \]
@@ -2132,6 +2132,8 @@ Let \(\F[t] = \{\text{polynomials with coefficients in } \F\) and \(\deg f\) be 
 \item Fundamental Theorem of Algebra: any \(f \in \C[t]\) of positive degree has a root (hence \(\deg f\) roots).
 \end{enumerate}
 
+\subsection{Characteristic Poylynomial of Endormorphism}
+
 \begin{definition}[Characteristic polynomial]
    The \emph{characteristic polynomial} of \(\alpha \in L(V)\) is
   \[
@@ -2357,5 +2359,213 @@ Conjugate matrices have the same characteristic polynomial.
     \iota, \alpha, \alpha^2, \dots, \alpha^{n^2} \in L(V)
   \]
   must be linearly dependent so there is a non-trivial relation. Thus minimal polynomial exists.
+\end{remark}
+
+\begin{lemma}
+  Let \(\alpha \in L(V)\), \(p \in \F[t]\). Then \(p(\alpha) = 0\) if and only if \(m_\alpha(t) | p(t)\).
+\end{lemma}
+
+\begin{proof}
+  By Euclidean algorithm there exist \(q, r \in \F[t]\) such that
+  \[
+    p(t) = m_\alpha(t) q(t) + r(t)
+  \]
+  where \(\deg r < \deg m_\alpha\). Then
+  \[
+    0 = p(\alpha) = m_\alpha(\alpha) q(\alpha) + r(\alpha)
+  \]
+  so \(r(\alpha) = 0\). By the minimality of the degree of \(m_\alpha\), \(r = 0\).
+\end{proof}
+
+\begin{corollary}
+  \(m_\alpha\) is uniquely defined.
+\end{corollary}
+
+\begin{proof}
+  Suppose \(m_1\) and \(m_2\) are both minimal polynomials of \(\alpha\). Then by the previous lemma \(m_1 \divides m_2\) and vice versa. By assumption both of them are monic so \(m_1 = m_2\).
+\end{proof}
+
+\begin{theorem}[Cayley-Hamilton Theorem]
+  Let \(V\) be a finite-dimensional \(\F\)-vector space. Let \(\alpha \in L(V)\). Then
+  \[
+    \chi_\alpha(\alpha) = 0.
+  \]
+\end{theorem}
+
+Frist we give a proof for \(\F = \C\):
+
+\begin{proof}
+  For some basis \(\basis B = \{v_1, \dots, v_n\}\), \(\alpha\) has matrix representation
+  \[
+    [\alpha]_{\basis B} =
+    \begin{pmatrix}
+      a_1 & \cdots & * \\
+      0 & a_2 & \vdots \\
+      0 & \cdots & a_n
+    \end{pmatrix}
+  \]
+  Let \(U_j = \spans{v_1, \dots, v_j}\). Then \((\alpha - a_j \iota) U_j \leq U_{j - 1}\) so
+  \[
+    \underbrace{(\alpha - a_1 \iota) (\alpha - a_2 \iota) \cdots \underbrace{(\alpha - a_{n - 1} \iota) \underbrace{(\alpha - a_n \iota) V}_{\leq U_{n - 1}}}_{\leq U_{n - 2}}}_{\leq (\alpha - a_1\iota) U_1 = 0} = 0
+  \]
+  so
+  \[
+    \chi_\alpha(\alpha) = 0.
+  \]
+\end{proof}
+
+However, this proof is not satisfactory that it relies on the fact of \(\C\) being algebraically closed which is partially, to say the least, an analytical and not an algebraic property\footnote{Note that while being closed is an algebraic property, the construction of \(\C\) via \(\R\) from \(\Q\) is not.}. In actuality, Cayley-Hamilton is a general result that applies to all fields. Thus we give an alternative algebraic proof:
+
+\begin{proof}
+  Let \(A \in \M_n(\F)\), then
+  \[
+    \chi_A(t) \cdot (-1)^n = t^n + a_{n - 1}t^{n - 1} + \dots + a_0 = \det(tI - A).
+  \]
+  For any matrix \(B\), we have
+  \[
+    B \adj B = \det B I.
+  \]
+  Let \(B = tI - A\), \(\adj B\) matrix with entries polynomials in \(t\) of degree smaller than \(n\), i.e.\ polynomials in \(t\) with coefficients in \(\M_n(\F)\).
+
+  Thus
+  \[
+    (tI - A) \underbrace{B_{n - 1}t^{n - 1} + \cdots + B_1 t + B_0}_{\adj B} = \underbrace{(t^n + a_{n - 1}t^{n - 1} + \cdots + a_0)}_{\det B} I
+  \]
+  Equating the coefficients of each power of \(t\),
+  \begin{align*}
+    I &= B_{n - 1} \\
+    a_{n - 1} I &= B_{n - 2} - AB_{n - 1} \\
+    \vdots & \\
+    a_0 I &= -AB_0
+  \end{align*}
+  multiply
+  \begin{align*}
+    A^n I &= B_{n - 1} \\
+    A^{n - 1} a_{n - 1} I &= B_{n - 2} - AB_{n - 1} \\
+    \vdots & \\
+    A^0 a_0 I &= -AB_0
+  \end{align*}
+  Add them up,
+  \[
+    A^n + a_{n - 1}A^{n - 1} + \dots a_1 A + A_0 I = 0.
+  \]
+\end{proof}
+
+\begin{definition}[Algebraic multiplicity]
+  Let \(\lambda\) be an eigenvalue of \(\alpha \in L(V)\) where \(V\) is finite-dimensional \(\F\)-vector space. Write
+  \[
+    \chi_\alpha(t) = (t - \lambda)^{a_\lambda} q(t)
+  \]
+  for some \(q \in \F[t]\) and \((t - \lambda) \ndivides q(t)\). \(a_\alpha\) is the \emph{algebraic multiplicity} of \(\lambda\) as an eigenvalue of \(\alpha\).
+\end{definition}
+
+\begin{definition}[Geometric multiplicity]
+  \(g_\lambda = n(\alpha - \lambda \iota)\) is the \emph{geometric multiplicity} of \(\alpha\).
+\end{definition}
+
+\begin{lemma}
+  If \(\lambda\) is an eigenvalue then
+  \[
+    1 \leq g_\lambda \leq a_\lambda.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \(1 \leq g_\lambda\) since \(\alpha - \lambda \iota\) is singular.
+
+  Let \(\basis B = \{v_1, \dots v_n\}\) be a basis of \(V\) with \(\{v_1, \dots, v_g\}\) a basis of \(N(\alpha - \lambda \iota)\). Let \(g = g_\lambda\). Then
+  \[
+    [\alpha]_{\basis B} =
+    \begin{pmatrix}
+      \lambda I_g & * \\
+      0 & A_1
+    \end{pmatrix}
+  \]
+  where \(A_1 \in \M_{n - g}(\F)\). Thus
+  \[
+    \chi_\alpha(t) = (t - \lambda)^g \alpha_{A_1}(t)
+  \]
+  and \(g_\lambda \leq a_\lambda\).
+\end{proof}
+
+\begin{lemma}
+  Let \(\lambda\) be an eigenvalue. Let \(c_\lambda\) be the multiplicity of \(\lambda\) as a root of \(m_\alpha\). Then
+  \[
+    1 \leq c_\lambda \leq a_\lambda.
+  \]
+\end{lemma}
+
+\begin{proof}
+  As \(m_\alpha \divides \lambda_\lambda\), \(c_\lambda \leq a_\lambda\).
+
+  As \(\lambda\) is an eigenvalue, \(\alpha(v) = \lambda v\) for some \(v \neq 0\). Now give \(p \in \F[t]\), \(p(\alpha)(v) = p(\lambda)(v)\). Apply this to \(m_\alpha\),
+  \[
+    0 = m_\alpha(\alpha)(v) = m_\alpha(\lambda)(v)
+  \]
+  so \(m_\alpha(\lambda) = 0\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let
+  \[
+    A =
+    \begin{pmatrix}
+      1 & 0 & -2 \\
+      0 & 1 & 1 \\
+      0 & 0 & 2
+    \end{pmatrix}
+  \]
+  then
+  \[
+    \chi_A(t) = |A - tI| = (2 - t)(1 - t)^2.
+  \]
+  There are two candidates for the minimal polynomial:
+  \begin{itemize}
+  \item \((t - 2)(t - 1)^2\),
+  \item \((t - 2)(t - 1)\).
+  \end{itemize}
+  We can check that \((A - I)(A - 2I) = 0\) so 2 holds. It follows that \(A\) is diagonalisable.
+\item Let
+  \[
+    A =
+    \begin{pmatrix}
+      \lambda & 1 & & 0 \\
+      0 & \lambda & 1 & \\
+      0 & & & \lambda
+    \end{pmatrix}
+  \]
+  which has \(g_\lambda = 1, a_\lambda = n, c_\lambda = n\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  Let \(\F = \C\), \(\alpha \in L(V)\), then TFAE:
+  \begin{enumerate}
+  \item \(\alpha\) is diagonalisable,
+  \item \(a_\lambda = g_\lambda\) for all eigenvalues \(\lambda\),
+  \item \(c_\lambda = 1\) for all eigenvalues \(\lambda\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \Leftrightarrow 2\): Let \(\lambda_1, \dots, \lambda_k\) be eigenvalues of \(\alpha\). Then \(\alpha\) is diagonalisable if and only if \(V = \bigoplus_i V_{\lambda_k}\). But \(\dim V = \dim n \)
+    \begin{align*}
+      \dim V &= \dim n = \dim \chi_\alpha = a_1 + \dots + a_k \\
+      \dim \bigoplus_i V_{\lambda_k} &= g_1 + \dots + g_k
+    \end{align*}
+    But \(g_i \leq a_i\) for all \(i\) so \(\alpha\) is diagonalisable if and only if \(g_i = \alpha_i\) for all \(i\).
+  \item \(2 \Leftrightarrow 3\): By the Fundamental Theorem of ALgebra, \(m_\alpha\) is a product of linear factors. \(\alpha\) is diagonalisable if and only if these are all distinct, i.e. \(c_\lambda = 1\) for all eigenvalues \(\lambda\).
+  \end{itemize}
+\end{proof}
+
+\begin{remark}
+  Over \(\C\),
+  \begin{align*}
+    \chi_\alpha(t) &= (\lambda_1 - t)^{a_1} \cdots (\lambda_k - t)^{a_k} \\
+    m_\alpha(t) &= (t - \lambda_1)^{c_1} \cdots (t - \lambda_k)^{c_k}
+  \end{align*}
+  with \(1 \leq c_i \leq a_i\).
 \end{remark}
 \end{document}
