@@ -331,7 +331,7 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 \end{proof}
 
 \begin{theorem}
-  Let \(V\) be a finite-dimensional vector space over \(\F\) and \(U \leq V\), then \(U\) and \(V/U\) are also finite dimensional and
+  Let \(V\) be a finite-dimensional vector space over \(\F\) and \(U \leq V\), then \(U\) and \(V/U\) are also finite-dimensional and
   \[
 \dim V = \dim U + \dim V/U.
   \]
@@ -1050,28 +1050,25 @@ Given the elementary matrices, we can give a constructive proof that any \(m\tim
   \]
 \end{proof}
 
-Some variations of the algorithm:
-\begin{enumerate}
-\item If you only use elementary row operations, we can get the \emph{row echelon form} of a matrix:
-  \[
-    \begin{pmatrix}
-      a & b & \dots & c \\
-      0 & d & \dots & e \\
-      \vdots & & \ddots & \vdots \\
-      0 & 0 & \dots & f 
-    \end{pmatrix}
-  \]
-\end{enumerate}
+If you only use elementary row operations, we can get the \emph{row echelon form} of a matrix:
+\[
+  \begin{pmatrix}
+    a & b & \dots & c \\
+    0 & d & \dots & e \\
+    \vdots & & \ddots & \vdots \\
+    0 & 0 & \dots & f
+  \end{pmatrix}
+\]
 
 \begin{lemma}
   If \(A\) is an \(n\times n\) invertible matrix then we can obtain \(I_n\) by using only elementary row/column operations.
 \end{lemma}
 
 \begin{proof}
-  We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ \star & \ast \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{k+1,j}\neq 0\), i.e.\ in the \(\ast\) block) as otherwise \((0,\dots,1,\dots, 0)\) with \(1\) is \((k+1)\)th position would not be in the span of the column vectors, contradicting the invertiblity. Next we carry out the following operations:
+  We prove the column operation case. Use induction on \(n\), the number of rows. Suppose we have got \(\begin{pmatrix} I_k & 0 \\ \star & \ast \end{pmatrix}\) for some \(k\geq 0\). There exists \(j>k\) such that \(a_{k+1,j}\neq 0\), (i.e.\ in the \(\ast\) block) as otherwise \((0,\dots,1,\dots, 0)\) with \(1\) in \((k+1)\)th position would not be in the span of the column vectors, contradicting the invertiblity. Next we carry out the following operations:
   \begin{enumerate}
   \item swap column \(k+1\) and \(j\),
-  \item divide volume \(k+1\) by \(\lambda\) so have \(1\) in \((k+1,k+1)\) position,
+  \item divide column \(k+1\) by \(a_{k + 1, k + 1}\) so have \(1\) in \((k+1,k+1)\) position,
   \item use column operation to clear other entries of \((k+1)\)th row.
   \end{enumerate}
   Proceed inductively.
@@ -1255,10 +1252,9 @@ It turns out dual spaces have maps between them. Before studying them in detail,
   \]
 \end{proof}
 
-
 It follows that
 \begin{lemma}
-  Let \(V\) be a finite-dimensional \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). Then the change of basis matrix from \(\basis F^*\) to \(\basis E^*\) is
+  Let \(V\) be a finite-dimensional \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). If the change of basis matrix from \(\basis F\) to \(\basis E\) is \(P\) then the change of basis matrix from \(\basis F^*\) to \(\basis E^*\) is
   \[
     (P^{-1})^T.
   \]
@@ -1271,7 +1267,7 @@ It follows that
 \end{proof}
 
 \begin{caution}
-  \(V \cong V^*\) only if \(V\) is finite dimensional. Let \(V = P\), the space of all real polynomials. It has basis \(\{p_j\}_{j\in \N}\) where \(p(j) = t^j\). In example sheet 2 we will see
+  \(V \cong V^*\) only if \(V\) is finite-dimensional. Let \(V = P\), the space of all real polynomials. It has basis \(\{p_j\}_{j\in \N}\) where \(p(j) = t^j\). In example sheet 2 we will see
 \begin{align*}
   P^* &\cong \R^\N \\
   \varepsilon &\mapsto (\varepsilon(p_0), \varepsilon(p_1), \dots)
@@ -1288,7 +1284,7 @@ Now we move on to more discussion about annhilator.
 \begin{lemma}
   Let \(V\) and \(W\) be \(\F\)-vector spaces. Fix \(\alpha \in L(V,W)\) and let \(\alpha^* \in L(W^*, V^*)\) be its dual. Then
   \begin{itemize}
-  \item \(N(\alpha^*) = (\im \alpha)^\ann\), so if \(\alpha^*\) is injectve if and only if \(\alpha\) is surjective.
+  \item \(N(\alpha^*) = (\im \alpha)^\ann\), so \(\alpha^*\) is injectve if and only if \(\alpha\) is surjective.
   \item \(\im \alpha^* \leq N(\alpha)^\ann\), with equality if \(V\) and \(W\) are both finite-dimensional, in which case \(\alpha^*\) is surjective if and only if \(\alpha\) is injective.
   \end{itemize}
 \end{lemma}
@@ -1324,7 +1320,7 @@ Now we move on to more discussion about annhilator.
 
 \subsection{Double Dual}
 
-Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. The natrual next step is
+Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. The natrual (oops) next step is
 
 \begin{definition}[Double dual]
   The \emph{double dual} of \(V\) is
@@ -1359,17 +1355,17 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \end{proof}
 
 \begin{lemma}
-  Let \(V\) be a finite-dimensional \(\F\)-vector space and \(U \leq V\). Then
+  Let \(V\) be an \(\F\)-vector space and \(U \leq V\). Then
   \[
-    \hat U = U^{\ann \ann}.
+    \hat U \leq U^{\ann \ann}.
   \]
-  So \(U = U^{\ann \ann}\).
+  If \(V\) is finite-dimensional then \(\hat U = U^{\ann \ann}\) so \(U \cong U^{\ann \ann}\).
 \end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}
   \item First show \(\hat U \leq U^{\ann \ann}\): given \(u \in U\), for all \(\varepsilon \in U^\ann\), \(\varepsilon(u) = 0\) so \(\hat u(\varepsilon) = 0\). Thus \(\hat u \in (U^\ann)^\ann = U^{\ann \ann}\).
-  \item
+  \item If \(V\) is finite-dimensional then
     \[
       \dim U^{\ann \ann} = \dim V^* - \dim U^\ann = \dim V - \dim U^\ann = \dim U
     \] so \(\hat U = U^{\ann \ann}\).
@@ -1387,11 +1383,11 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \begin{proof}\leavevmode
   \begin{itemize}
   \item Let \(\theta \in V^*\), \(\theta \in (U_1+U_2)^\ann\) if and only if \(\theta(u_1+u_2) = 0\) for all \(u_1\in U_1, u_2 \in U_2\), if and only if \(\theta(u) = 0\) for all \(u \in U_1 \cup U_2\), so \(\theta\in U_2^\ann \cap U_2^\ann\).
-  \item Apply \(^\ann\) to the first result.
+  \item Apply \(^\ann\) to the first result and use the previous lemma.
   \end{itemize}
 \end{proof}
 
-\section{Bilinear Forms I}
+\section{Bilinear Form I}
 
 \begin{definition}[Bilinear form]
   Let \(U\) and \(V\) be \(\F\)-vector spaces. A map \(\varphi: U \times V \to \F\) is \emph{bilinear} if it is linear in both arguments, i.e.
@@ -1435,7 +1431,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \begin{note}\leavevmode
   \begin{enumerate}
   \item \([\varphi]_{\basis B, \basis C}\) is the unique matrix with this property.
-  \item A bilinear \(\varphi: U \times V \to \F\) induces linear maps
+  \item A bilinear form \(\varphi: U \times V \to \F\) induces linear maps
     \begin{align*}
       \varphi_L: U &\to V^* \\
       u &\mapsto \varphi(u, -) \\
@@ -1483,15 +1479,15 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \end{proof}
 
 \begin{corollary}
-  If \(\varphi\) is non-degenerate and \(U\) and \(V\) are finite-dimensional and \(\dim U = \dim V\).
+  If \(\varphi\) is non-degenerate then \(U\) and \(V\) are finite-dimensional and \(\dim U = \dim V\).
 \end{corollary}
 
 \begin{corollary}
-  When \(U\) and \(V\) are finite-dimensional, choosing a non-degenerate bilinear form \(\varphi: U \times V \to \F\) is equivalent to picking an isomorphism \(\varphi_L: U \to V^*\).
+  When \(U\) and \(V\) are finite-dimensional, choosing a non-degenerate bilinear form \(\varphi: U \times V \to \F\) is equivalent to picking an homomorphism \(\varphi_L: U \to V^*\).
 \end{corollary}
 
 \begin{definition}
-  For \(T \subseteq U\),
+  For \(T \subseteq U, S \in V\),
   \begin{align*}
     T^\perp &= \{ v\in V: \varphi(t, v) = 0 \, \forall t\in T \} \leq V \\
     ^\perp S &= \{ u\in U: \varphi(u, s) = 0 \, \forall s\in S \} \leq U
@@ -1500,7 +1496,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 They are generalisation of annihilators.
 
 \begin{proposition}
-  Suppose \(U\) have basese \(\basis B, \basis B'\) and \(V \) have bases \(\basis C, \basis C'\), \(P = [\id]_{\basis B', \basis B}, \Q = [\id]_{\basis C',\basis C}\). Let \(\varphi: U \times V \to \F\) be a bilinear form. Then
+  Suppose \(U\) have basese \(\basis B, \basis B'\) and \(V \) have bases \(\basis C, \basis C'\), \(P = [\id]_{\basis B', \basis B}, Q = [\id]_{\basis C',\basis C}\). Let \(\varphi: U \times V \to \F\) be a bilinear form. Then
   \[
     [\varphi]_{\basis B',\basis C'} = P^T[\varphi]_{\basis B,\basis C}Q.
   \]
@@ -1525,6 +1521,8 @@ They are generalisation of annihilators.
 \end{note}
 
 \section{Determinant \& Trace}
+
+% TODO: add exposition about eigenvalues and basis-independent values.
 
 \subsection{Trace}
 
@@ -1559,10 +1557,10 @@ They are generalisation of annihilators.
   \]
 \end{proof}
 
-\begin{definition}[Trace of map]
-  Let \(\alpha: V \to V\) be a linear, the \emph{trace} of \(\alpha\) is
+\begin{definition}[Trace]
+  Let \(\alpha: V \to V\) be a linear map. The \emph{trace} of \(\alpha\) is
   \[
-    \tr \alpha = \tr [\alpha]_{\basis B, \basis B}
+    \tr \alpha = \tr[\alpha]_{\basis B} = \tr [\alpha]_{\basis B, \basis B}
   \]
   with repsect to a basis \(\basis B\). This is well-defined by the previous lemma.
 \end{definition}
@@ -1582,7 +1580,7 @@ They are generalisation of annihilators.
 
 \subsection{Determinant}
 
-Let \(S_n\) be the permutations group of the set \(\{1, 2, \dots, n\}\) and \(\varepsilon: S_n \to \{1, -1\}\) be the signature of a permutation, i.e.
+Recall some results from IA Groups: let \(S_n\) be the permutation group of the set \(\{1, 2, \dots, n\}\) and \(\varepsilon: S_n \to \{1, -1\}\) be the signature of a permutation, i.e.
 \[
   \varepsilon(\sigma) =
   \begin{cases}
@@ -1594,7 +1592,7 @@ Let \(S_n\) be the permutations group of the set \(\{1, 2, \dots, n\}\) and \(\v
 \begin{definition}[Determinant]
   Suppose \(A \in \M_n(\F)\), \(A = (a_{ij})\), the \emph{determinant} of \(A\) is
   \[
-    \det A = \sum_{\sigma \in S_n}^{ } \varepsilon(\sigma) a_{\sigma(1), 1} a_{\sigma(2), 2} \dots a_{\sigma(n), n}.
+    \det A = \sum_{\sigma \in S_n}^{ } \varepsilon(\sigma) a_{\sigma(1), 1} a_{\sigma(2), 2} \cdots a_{\sigma(n), n}.
   \]
 \end{definition}
 
@@ -1625,7 +1623,7 @@ There are \(n!\) terms in this summation and each is the signed product of \(n\)
   \[
     \det A = \sum_{\sigma \in S_n}^{ }\varepsilon(\sigma) a_{\sigma(1), 1}\dots a_{\sigma(n),n},
   \]
-  for a summand to be non-zero, need \(\sigma(j) \leq j\) for all \(j\). Thus \(\sigma = \id\).
+  for a summand to be non-zero, we need \(\sigma(j) \leq j\) for all \(j\). Thus \(\sigma = \id\).
 \end{proof}
 
 \begin{lemma}
@@ -1667,7 +1665,7 @@ There are \(n!\) terms in this summation and each is the signed product of \(n\)
 \end{notation}
 For example, if \(\{e_i\}\) is a standard basis for \(\F^n\) then
 \[
-  I = \left(e_1 | \dots | e_n \right).
+  I = \left(e_1 | \cdots | e_n \right).
 \]
 
 \begin{lemma}
@@ -1683,14 +1681,15 @@ For example, if \(\{e_i\}\) is a standard basis for \(\F^n\) then
   \item Multilinear: for any fixed \(\sigma \in S_n\), \(\prod_{i = 1}^n a_{\sigma(i), i}\) contains exactly one term from each column so it is multilinear. Multilinearity is preserved under addition.
   \item Alternating: suppose \(A^{(k)} = A^{(l)}\) for some \(l \neq k\). Let \(\tau = (kl)\). Then \(a_{ij} = a_{i \tau(j)}\) for all \(i, j\). Also \(S_n\) can be expressed as a union of two disjoint cosets \(A_n\) and \(\tau A_n\) so
     \begin{align*}
-      \det A &= \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \sigma(i)} - \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \tau\sigma(i)} \\
-             &= \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \sigma(i)} - \sum_{\sigma \in A_n}^{ } \prod_{i = 1}^n a_{i, \sigma(i)} \\
+      \det A &= \sum_{\sigma \in A_n}^{ } \varepsilon(\sigma) \prod_{i = 1}^n a_{i, \sigma(i)} - \sum_{\sigma \in A_n}^{ } \varepsilon(\sigma) \prod_{i = 1}^n a_{i, \tau\sigma(i)} \\
+      \intertext{since \(\varepsilon\) is a homomorphism}
+             &= \sum_{\sigma \in A_n}^{ } \varepsilon(\sigma) \prod_{i = 1}^n a_{i, \sigma(i)} - \sum_{\sigma \in A_n}^{ } \varepsilon(\sigma) \prod_{i = 1}^n a_{i, \sigma(i)} \\
              &= 0
     \end{align*}
   \end{itemize}
 \end{proof}
 
-In the rest of the section, we are going to prove that the converse is true, i.e.\ all volume forms are determinants up to a scaling constant.
+In the rest of the section we are going to prove that the converse is also true, i.e.\ all volume forms are determinants up to a scaling constant.
 
 \begin{lemma}
   Let \(d\) be a volume form. Then swapping two entries changes the sign:
@@ -1750,7 +1749,7 @@ The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma
   Let \(d_A: \F^n \times \dots \F^n \to \F, (v_1, \dots, v_n) \to \det(Av_1|\cdots|Av_n)\), then \(d_A\) is a volume form:
   \begin{itemize}
   \item Multilinear: \(v_i \mapsto A_{v_i}\) is linear and \(\det\) is multilinear.
-  \item Altenating: \(v_i = v_j\) implies \(A_{v_i} = A_{v_j}\) and \(\det\) is alternating.
+  \item Alternating: \(v_i = v_j\) implies \(A_{v_i} = A_{v_j}\) and \(\det\) is alternating.
   \end{itemize}
   It follows that
   \begin{align*}
@@ -1774,7 +1773,6 @@ The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma
   \[
     1 = \det I_n = \det(AA^{-1}) = \det A \det A^{-1}
   \]
-  The result follows.
 \end{proof}
 
 \begin{theorem}
@@ -1855,9 +1853,9 @@ This is well-defined by the previous lemma.
   Let \(n = k + \ell\) and call the block matrix \(X = (x_{ij})\), which is an element of \(\M_n(\F)\). Then
   \begin{align*}
     \det X &= \sum_{\sigma \in S_n}^{ }\varepsilon(\sigma) \prod_{i = 1}^{n} x_{\sigma(i), i} \\
-    \intertext{Note that \(x_{\sigma(i), i} = 0\) if \(i \leq k\) and \(\sigma(i) > k\). Thus we are summing over all \(\sigma\) such that \(\sigma = \sigma_1\sigma_2\) where \(\sigma_1 \in \sym_{\{1,\dots, k\}}\) and \(\sigma_2 \in \sym_{\{k+1, \dots, n\}}\).}
+    \intertext{Note that \(x_{\sigma(i), i} = 0\) if \(i \leq k\) and \(\sigma(i) > k\). Thus we are only concerned about \(\sigma\) under which these are in different orbits, i.e.\ \(\sigma = \sigma_1\sigma_2\) where \(\sigma_1 \in \sym_{\{1,\dots, k\}}\) and \(\sigma_2 \in \sym_{\{k+1, \dots, n\}}\).}
            &= \sum_{\sigma_1 \in \sym_{\{1, \dots, k\}}}^{ } \varepsilon(\sigma_1) \prod_{j = 1}^{k} a_{\sigma_1(j),j} \\
-           &\cdot \sum_{\sigma_2 \in \sym_{\{k+1, \dots, n\}}}^{ } \varepsilon(\sigma_1) \prod_{j = k + 1}^{k} a_{\sigma_2(j),j} \\
+           &\times \sum_{\sigma_2 \in \sym_{\{k+1, \dots, n\}}}^{ } \varepsilon(\sigma_1) \prod_{j = k + 1}^{n} a_{\sigma_2(j),j} \\
            &= \det A \det B
   \end{align*}
 \end{proof}
@@ -1903,17 +1901,18 @@ In \(\R^2\), the determinant of a matrix
     a_{21} & a_{22} 
   \end{pmatrix}
 \]
-can be intepreted as the signed area of the parallelogram spanned by the column vectors of the matrix \(\binom{a_{11}}{a_{21}}\) and \(\binom{a_{12}}{a_{22}}\).
+can be intepreted as the signed area of the parallelogram spanned by the column vectors \(\binom{a_{11}}{a_{21}}\) and \(\binom{a_{12}}{a_{22}}\) of the matrix.
     
 Similarly in \(\R^3\) the determinant of a matrix is the signed volume of the parallelepiped spanned by the column vectors of the matrix.
 
-For higher dimensions, although it can be difficult to visualise, the same interpretation still works: consier a hypercube
-%
-%
-%
-%
+For higher dimensions, although it can be difficult to visualise, the same interpretation still works: consier a hypercube \(H = [0, 1]^n \subseteq \R^n\). Then a map \(A \in \M_n(\F)\) sends
+\begin{align*}
+  H &\to A(H) \\
+  \sum_{i = 1}^{n} t_ie_i &\mapsto \sum_{i = 1}^{n}t_i A^{(i)}
+\end{align*}
+and the generalised signed volume of RHS is \(\det A\).
 
-\subsection{Elementary Operations and Determinant}
+\subsection{Determinant of Elementary Operation}
 
 Consider the determinants of elementary column operation matrices:
 \begin{itemize}
@@ -1927,7 +1926,7 @@ One could prove properties of \(\det\) by decomposing any matrix into elementary
 \subsection{Column Expansion \& Adjugate Matrices}
 
 \begin{lemma}
-  Suppose \(A \in \M_n(\F)\), \(A = (a_{ij})\). Define \(A_{\widehat{ij}} \in M_{n - 1}(\F)\) by deleting row \(i\) and column \(j\) from \(A\). Then \(\det A\) can be calculated by
+  Suppose \(A \in \M_n(\F)\), \(A = (a_{ij})\). Define \(A_{\widehat{ij}} \in \M_{n - 1}(\F)\) by deleting row \(i\) and column \(j\) from \(A\). Then \(\det A\) can be calculated by
   \begin{enumerate}
   \item expansion in column \(j\): for a fixed \(j\),
     \[
@@ -1974,7 +1973,7 @@ One could prove properties of \(\det\) by decomposing any matrix into elementary
   We prove \(1\):
   
   \begin{align*}
-    \det A &= \det( A^{(1)} | \cdots | \sum_{i = 1}^{n} a_{ij}e_i | \cdots | A^{(n)} ) \\
+    \det A &= \det \left( A^{(1)} | \cdots | \sum_{i = 1}^{n} a_{ij}e_i | \cdots | A^{(n)} \right) \\
            &= \sum_{i = 1}^{n} a_{ij} \det( A^{(1)} | \cdots | e_i | \cdots | A^{(n)} ) \\
     \intertext{use row and column operations to move the entry to top left corner,}
            &= \sum_{i = 1}^{n} a_{ij} (-1)^{(i - 1) + (j - 1)} \det
@@ -1993,6 +1992,8 @@ One could prove properties of \(\det\) by decomposing any matrix into elementary
   \]
 \end{definition}
 
+Notice the transposition of indices.
+
 \begin{theorem}\leavevmode
   \begin{enumerate}
   \item \((\adj A ) A = \det A \cdot I\),
@@ -2005,11 +2006,11 @@ One could prove properties of \(\det\) by decomposing any matrix into elementary
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-  \item For a fixed \(j\), \(\det A = \sum_i (\adj A)_{ji} a_{ij} = A_{jj}\). For \(j \neq k\), replace the \(j\)th column with the \(k\)th:
+  \item For a fixed \(j\), \(\det A = \sum_i (\adj A)_{ji} a_{ij} = (\adj A \cdot A)_{jj}\). For \(j \neq k\), replace the \(j\)th column with the \(k\)th:
     \begin{align*}
       0 &= \det(A^{(1)} | \cdots | A^{(k)} | \cdots | A^{(k)} | \cdots | A^{(n)}) \\
         &= \sum_{i}^{ } (\adj A)_{ji} a_{ik} \\
-        &= A_{jk}
+        &= (\adj A \cdot A)_{jk}
     \end{align*}
   \item If \(A\) is invertible then \(\det A \neq 0\) so
     \[
@@ -2018,7 +2019,7 @@ One could prove properties of \(\det\) by decomposing any matrix into elementary
   \end{enumerate}
 \end{proof}
 
-\subsection{System of Linear Equations}
+\subsection{Application: System of Linear Equations}
 
 A system of linear equations can be written as
 \[
@@ -2070,15 +2071,13 @@ Although in theory we could invert the matrix to solve the system of equations, 
 
 \section{Endomorphism}
 
-Let \(V\) be a \(\F\)-vector space with \(\dim V = n < \infty\). Let \(\basis B =\{v_1, \dots, v_n\}\) be a basis and \(\alpha \in L(V) = L(V, V)\).
+Let \(V\) be an \(\F\)-vector space with \(\dim V = n < \infty\). Let \(\basis B =\{v_1, \dots, v_n\}\) be a basis and \(\alpha \in L(V) = L(V, V)\). The general problem studied in this section is to choose a basis \(\basis B\) such that \([\alpha]_{\basis B}\) has ``nice forms'', for example, amenable to \(\det\) and \(\tr\).
 
-The general problem studied in this section is to choose a basis \(\basis B\) such that \([\alpha]_{\basis B}\) has ``nice forms''.
-
-Suppose there is another basis \(\basis B'\) and the change-of-basis matrix \(P\). Recall that
+Suppose there is another basis \(\basis B'\) with change-of-basis matrix \(P\). Recall that
 \[
   [\alpha]_{\basis B} = P^{-1}[\alpha]_{\basis B'}P.
 \]
-The above proble is thus euqivalent to given \(A \in \M_n(\F)\), want \(A'\) conjugate to \(A\) and in a ``nice form''.
+The above problem is thus euqivalent to: given \(A \in \M_n(\F)\), find \(A'\) conjugate to \(A\) and in a ``nice form''.
 
 What are the nice forms that we desire? The best we can have is
 
@@ -2115,19 +2114,19 @@ Equivalent, rephrasing using lanugages of matrices, \(A \in \M_n(\F)\) is diagon
       \Leftrightarrow & \det (\alpha - \lambda \iota) = 0
     \end{align*}
   \item If \(\alpha(v_j) = \lambda v_j\) then the \(j\)th column of \([\alpha]_{\basis B}\) is \((0, \dots, \lambda, \dots, 0)^T\).
-  \item \([\alpha]_{\basis B}\) is diagonal if and only if \(\basis B\) consists of eigenvectors. \([\alpha]_{\basis B}\) is upper triangular if and only if \(\alpha(v_j) = \spans{v_1, \dots, v_j}\) for all \(j\). In particular, \(v_1\) is an eigenvector.
+  \item \([\alpha]_{\basis B}\) is diagonal if and only if \(\basis B\) consists of eigenvectors. \([\alpha]_{\basis B}\) is upper triangular if and only if \(\alpha(v_j) \in \spans{v_1, \dots, v_j}\) for all \(j\). In particular, \(v_1\) is an eigenvector.
   \end{enumerate}
 \end{remark}
 
 \subsection{Polynomial Ring, an Aside}
 
-Before discussing polynomials associated with a linear map, we need a little knowledge of the ambient polynomial space that we will be working with. The following results should be self-evident and proofs are omitted. Most of them will be studied in detail in IB Groups, Rings and Modules and a proof the Fundamental Theorem of ALgebra can be found in IB Complex Analysis.
+Before discussing polynomials associated with a linear map, we need some knowledge about the ambient polynomial space that we will be working with. The following results should be self-evident and proofs are omitted. Most of them will be studied in detail in IB Groups, Rings and Modules and a proof the Fundamental Theorem of Algebra can be found in IB Complex Analysis.
 
-Let \(\F[t] = \{\text{polynomials with coefficients in } \F\) and \(\deg f\) be the degree of an \(f\) in \(\F[t]\). By convention \(\deg 0 = -\infty\). We have the following properties:
+Let \(\F[t] = \{\text{polynomials with coefficients in } \F\}\) and \(\deg f\) be the degree of \(f\) in \(\F[t]\). By convention \(\deg 0 = -\infty\). We have the following properties:
 \begin{enumerate}
 \item \(\deg (f + g) \leq \max(\deg f, \deg g), \deg(f g) = \deg f + \deg g\).
 \item If \(\lambda \in \F\) is a root of some \(f \in \F[t]\), i.e.\ \(f(\lambda) = 0\) then \((t - \lambda) \divides f\). In other words, \(f(t) = (t - \lambda) g(t)\) for some \(g(t) \in \F[t]\) and \(\deg g = \deg f - 1\).
-\item We say \(\lambda\) is a root of \(f \in \F[t]\) with \emph{multiplicity} \(e \in \N\) if \((t - \lambda)^e \divides f\) but \((t - \lambda)^e \ndivides f\).
+\item We say \(\lambda\) is a root of \(f \in \F[t]\) with \emph{multiplicity} \(e \in \N\) if \((t - \lambda)^e \divides f\) but \((t - \lambda)^{e + 1} \ndivides f\).
 \item A polynomial of degree \(n\) has at most \(n\) roots, counted with multiplicity.
 \item Fundamental Theorem of Algebra: any \(f \in \C[t]\) of positive degree has a root (hence \(\deg f\) roots).
 \end{enumerate}
@@ -2171,7 +2170,7 @@ Conjugate matrices have the same characteristic polynomial.
       \end{pmatrix}
       = \prod_{i = 1}^{n} (a_i - t)
     \]
-  \item \(\Leftarrow\): induction of \(n = \dim V\): if \(n = 1\) then done. Suppose \(n > 1\) and the theorem holds for all endomorphisms of spaces of smaller dimensions. By hypothesis \(\chi_\alpha(t)\) has a root in \(\F\), say \(\lambda\). Let \(U = V_\alpha \neq 0\), then \(\alpha(U) \leq U\) so \(\alpha\) induces \(\overline \alpha: V/U \to V/U\). Pick basis \(v_1, \dots, v_k\) for \(U\) and extend it to a basis \(\basis B = \{v_1, \dots, v_n\}\) for \(V\). With respect to \(\basis B\), \(\alpha\) has representation
+  \item \(\Leftarrow\): induction of \(n = \dim V\): if \(n = 1\) then done. Suppose \(n > 1\) and the theorem holds for all endomorphisms of spaces of smaller dimensions. By hypothesis \(\chi_\alpha(t)\) has a root in \(\F\), say \(\lambda\). Let \(U = V_\lambda \neq 0\), then \(\alpha(U) \leq U\) so \(\alpha\) induces \(\overline \alpha: V/U \to V/U\). Pick basis \(v_1, \dots, v_k\) for \(U\) and extend it to a basis \(\basis B = \{v_1, \dots, v_n\}\) for \(V\). With respect to \(\basis B\), \(\alpha\) has representation
     \[
       \begin{pmatrix}
         \lambda I_k & * \\
@@ -2193,7 +2192,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{proof}
 
 \begin{eg}
-  Let \(\F = \R\), \(V = \R^2\) and \(\alpha\) is a rotation. Then with respect to the standard basis \(\alpha\) has representation
+  Let \(\F = \R\), \(V = \R^2\) and \(\alpha\) be a rotation. Then with respect to the standard basis \(\alpha\) has representation
   \[
     \begin{pmatrix}
       \cos \theta & \sin \theta \\
@@ -2204,7 +2203,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{eg}
 
 \begin{lemma}
-  Let \(V\) be a \(n\)-dimensional \(\F\)-vector space and \(\alpha \in L(V)\) with \(\chi_\alpha(t) = (-1)^n t^n + c_{n - 1} t^{n - 1} + \dots c_0\). Then
+  Let \(V\) be an \(n\)-dimensional \(\F\)-vector space and \(\alpha \in L(V)\) with \(\chi_\alpha(t) = (-1)^n t^n + c_{n - 1} t^{n - 1} + \dots c_0\). Then
   \begin{itemize}
   \item \(c_0 = \det \alpha\),
   \item \(c_{n - 1} = (-1)^{n - 1} \tr \alpha\) for \(\F = \R\) or \(\C\).
@@ -2237,7 +2236,7 @@ Conjugate matrices have the same characteristic polynomial.
   \[
     p(A) = a_nA^n + \dots + a_0I \in \M_n(\F).
   \]
-  For \(\alpha \in L(V)\), definie
+  For \(\alpha \in L(V)\), define
   \[
     p(\alpha) = a_n\alpha^n + \dots + a_0\iota \in L(V).
   \]
@@ -2279,11 +2278,11 @@ Conjugate matrices have the same characteristic polynomial.
       \]
       Also
       \[
-        (\alpha - \lambda_j \iota)(\pi_j(v)) = (\alpha - \lambda_j\iota)(q_j(\alpha))(v) = \frac{1}{\sum_{i \neq j}^{ } (\lambda_j - \lambda_i)} \underbrace{p(\alpha)}_{= 0}(v) = 0.
+        (\alpha - \lambda_j \iota)(\pi_j(v)) = (\alpha - \lambda_j\iota)(q_j(\alpha)(v)) = \frac{1}{\sum_{i \neq j}^{ } (\lambda_j - \lambda_i)} \underbrace{p(\alpha)}_{= 0}(v) = 0.
       \]
       We have thus shown that
       \[
-        \pi_j \in \ker(\alpha - \lambda_j \iota) = V_{\lambda_j}.
+        \im \pi_j \subseteq \ker(\alpha - \lambda_j \iota) = V_{\lambda_j}.
       \]
       Thus \(V = \sum_{j = 1}^{k} V_{\lambda_j}\).
 
@@ -2302,7 +2301,7 @@ Conjugate matrices have the same characteristic polynomial.
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item Morally speaking, \(\pi_j\) ``projects'' to \(V_{\lambda_j}\).
-  \item The proof shows that for \(k\) distinct eigenvalues \(\lambda_1, \dots \lambda_k\) of \(\alpha\), the sum \(\sum_j V_{\lambda_j}\) is direct. The only way for diagonalisation to fail is if \(\sum V_{\lambda_j} \lneq V\).
+  \item The proof shows that for \(k\) distinct eigenvalues \(\lambda_1, \dots \lambda_k\) of \(\alpha\), the sum \(\sum_j V_{\lambda_j}\) is direct. The only way for diagonalisation to fail is if \(\sum_j V_{\lambda_j} \lneq V\).
   \end{enumerate}
 \end{remark}
 
@@ -2315,7 +2314,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{proof}
 
 \begin{theorem}[Simultaneous diagonalisation]
-  Let \(\alpha, \beta \in L(V)\) be diagonalisable. Then \(\alpha\) and \(\beta\) are \emph{simultaneous diaognalisable} (there exists a basis with respect to which they are both diagonal) if and only if \(\alpha\) and \(\beta\) commute.
+  Let \(\alpha, \beta \in L(V)\) be diagonalisable. Then \(\alpha\) and \(\beta\) are \emph{simultaneous diagonalisable} (there exists a basis with respect to which they are both diagonal) if and only if \(\alpha\) and \(\beta\) commute.
 \end{theorem}
 
 \begin{proof}\leavevmode
@@ -2392,7 +2391,7 @@ Conjugate matrices have the same characteristic polynomial.
   \]
 \end{theorem}
 
-Frist we give a proof for \(\F = \C\):
+First we give a proof for \(\F = \C\):
 
 \begin{proof}
   For some basis \(\basis B = \{v_1, \dots, v_n\}\), \(\alpha\) has matrix representation
@@ -2400,8 +2399,8 @@ Frist we give a proof for \(\F = \C\):
     [\alpha]_{\basis B} =
     \begin{pmatrix}
       a_1 & \cdots & * \\
-      0 & a_2 & \vdots \\
-      0 & \cdots & a_n
+      & \ddots & \vdots \\
+      0 & & a_n
     \end{pmatrix}
   \]
   Let \(U_j = \spans{v_1, \dots, v_j}\). Then \((\alpha - a_j \iota) U_j \leq U_{j - 1}\) so
@@ -2414,7 +2413,7 @@ Frist we give a proof for \(\F = \C\):
   \]
 \end{proof}
 
-However, this proof is not satisfactory that it relies on the fact of \(\C\) being algebraically closed which is partially, to say the least, an analytical and not an algebraic property\footnote{Note that while being closed is an algebraic property, the construction of \(\C\) via \(\R\) from \(\Q\) is not.}. In actuality, Cayley-Hamilton is a general result that applies to all fields. Thus we give an alternative algebraic proof:
+However, this proof is unsatisfactory in that it relies on the fact of \(\C\) being algebraically closed which is partially, to say the least, an analytical and not an algebraic property\footnote{While being closed is an algebraic property, the construction of \(\C\) via \(\R\) from \(\Q\) is not. The point here is that Caylay-Hamilton holds for all fields, not just closed ones.}. In actuality, Cayley-Hamilton is a general result that applies to all fields. Thus we give an alternative algebraic proof:
 
 \begin{proof}
   Let \(A \in \M_n(\F)\), then
@@ -2425,38 +2424,38 @@ However, this proof is not satisfactory that it relies on the fact of \(\C\) bei
   \[
     B \adj B = \det B I.
   \]
-  Let \(B = tI - A\), \(\adj B\) matrix with entries polynomials in \(t\) of degree smaller than \(n\), i.e.\ polynomials in \(t\) with coefficients in \(\M_n(\F)\).
+  Let \(B = tI - A\). Then \(\adj B\) is a matrix whose entries are polynomials in \(t\) of degree smaller than \(n\), i.e.\ polynomials in \(t\) with coefficients in \(\M_n(\F)\).
 
   Thus
   \[
-    (tI - A) \underbrace{B_{n - 1}t^{n - 1} + \cdots + B_1 t + B_0}_{\adj B} = \underbrace{(t^n + a_{n - 1}t^{n - 1} + \cdots + a_0)}_{\det B} I
+    (tI - A) \underbrace{(B_{n - 1}t^{n - 1} + \cdots + B_1 t + B_0)}_{\adj B} = \underbrace{(t^n + a_{n - 1}t^{n - 1} + \cdots + a_0)}_{\det B} I
   \]
   Equating the coefficients of each power of \(t\),
   \begin{align*}
     I &= B_{n - 1} \\
     a_{n - 1} I &= B_{n - 2} - AB_{n - 1} \\
-    \vdots & \\
+    & \vdots \\
     a_0 I &= -AB_0
   \end{align*}
-  multiply
+  multiply by \(A^{n - i + 1}\) for the \(i\)th row
   \begin{align*}
-    A^n I &= B_{n - 1} \\
-    A^{n - 1} a_{n - 1} I &= B_{n - 2} - AB_{n - 1} \\
-    \vdots & \\
-    A^0 a_0 I &= -AB_0
+    A^n &= A^n B_{n - 1} \\
+    a_{n - 1} A^{n - 1} &= A^{n - 1} B_{n - 2} - A^n B_{n - 1} \\
+    & \vdots \\
+    a_0 I &= -AB_0
   \end{align*}
-  Add them up,
+  and add them up,
   \[
     A^n + a_{n - 1}A^{n - 1} + \dots a_1 A + A_0 I = 0.
   \]
 \end{proof}
 
 \begin{definition}[Algebraic multiplicity]
-  Let \(\lambda\) be an eigenvalue of \(\alpha \in L(V)\) where \(V\) is finite-dimensional \(\F\)-vector space. Write
+  Let \(\lambda\) be an eigenvalue of \(\alpha \in L(V)\) where \(V\) is a finite-dimensional \(\F\)-vector space. Write
   \[
     \chi_\alpha(t) = (t - \lambda)^{a_\lambda} q(t)
   \]
-  for some \(q \in \F[t]\) and \((t - \lambda) \ndivides q(t)\). \(a_\alpha\) is the \emph{algebraic multiplicity} of \(\lambda\) as an eigenvalue of \(\alpha\).
+  for some \(q(t) \in \F[t]\) and \((t - \lambda) \ndivides q(t)\). \(a_\lambda\) is the \emph{algebraic multiplicity} of \(\lambda\) as an eigenvalue of \(\alpha\).
 \end{definition}
 
 \begin{definition}[Geometric multiplicity]
@@ -2496,9 +2495,9 @@ However, this proof is not satisfactory that it relies on the fact of \(\C\) bei
 \end{lemma}
 
 \begin{proof}
-  As \(m_\alpha \divides \lambda_\lambda\), \(c_\lambda \leq a_\lambda\).
+  As \(m_\alpha \divides \chi_\lambda\), \(c_\lambda \leq a_\lambda\).
 
-  As \(\lambda\) is an eigenvalue, \(\alpha(v) = \lambda v\) for some \(v \neq 0\). Now give \(p \in \F[t]\), \(p(\alpha)(v) = p(\lambda)(v)\). Apply this to \(m_\alpha\),
+  As \(\lambda\) is an eigenvalue, \(\alpha(v) = \lambda v\) for some \(v \neq 0\). Now given \(p \in \F[t]\), \(p(\alpha)(v) = p(\lambda)(v)\). Apply this to \(m_\alpha\),
   \[
     0 = m_\alpha(\alpha)(v) = m_\alpha(\lambda)(v)
   \]
@@ -2525,14 +2524,15 @@ However, this proof is not satisfactory that it relies on the fact of \(\C\) bei
   \item \((t - 2)(t - 1)^2\),
   \item \((t - 2)(t - 1)\).
   \end{itemize}
-  We can check that \((A - I)(A - 2I) = 0\) so 2 holds. It follows that \(A\) is diagonalisable.
+  We can check that \((A - I)(A - 2I) = 0\) so the second one is the minimal polynomial. It follows that \(A\) is diagonalisable.
 \item Let
   \[
     A =
     \begin{pmatrix}
-      \lambda & 1 & & 0 \\
-      0 & \lambda & 1 & \\
-      0 & & & \lambda
+      \lambda & 1 & & \\
+      & \lambda & 1 &  \\
+      & & \ddots & 1 \\
+      & & & \lambda
     \end{pmatrix}
   \]
   which has \(g_\lambda = 1, a_\lambda = n, c_\lambda = n\).
@@ -2550,13 +2550,13 @@ However, this proof is not satisfactory that it relies on the fact of \(\C\) bei
 
 \begin{proof}\leavevmode
   \begin{itemize}
-  \item \(1 \Leftrightarrow 2\): Let \(\lambda_1, \dots, \lambda_k\) be eigenvalues of \(\alpha\). Then \(\alpha\) is diagonalisable if and only if \(V = \bigoplus_i V_{\lambda_k}\). But \(\dim V = \dim n \)
+  \item \(1 \Leftrightarrow 2\): Let \(\lambda_1, \dots, \lambda_k\) be eigenvalues of \(\alpha\). Then \(\alpha\) is diagonalisable if and only if \(V = \bigoplus_k V_{\lambda_k}\). Take dimension of both sides,
     \begin{align*}
-      \dim V &= \dim n = \dim \chi_\alpha = a_1 + \dots + a_k \\
-      \dim \bigoplus_i V_{\lambda_k} &= g_1 + \dots + g_k
+      \dim V &= n = \deg \chi_\alpha = a_1 + \dots + a_k \\
+      \dim \bigoplus_k V_{\lambda_k} &= g_1 + \dots + g_k
     \end{align*}
-    But \(g_i \leq a_i\) for all \(i\) so \(\alpha\) is diagonalisable if and only if \(g_i = \alpha_i\) for all \(i\).
-  \item \(2 \Leftrightarrow 3\): By the Fundamental Theorem of ALgebra, \(m_\alpha\) is a product of linear factors. \(\alpha\) is diagonalisable if and only if these are all distinct, i.e. \(c_\lambda = 1\) for all eigenvalues \(\lambda\).
+    But \(g_k \leq a_k\) for all \(k\) so \(\alpha\) is diagonalisable if and only if \(g_k = \alpha_k\) for all \(k\).
+  \item \(2 \Leftrightarrow 3\): By the Fundamental Theorem of Algebra, \(m_\alpha\) is a product of linear factors. \(\alpha\) is diagonalisable if and only if these are all distinct, i.e. \(c_\lambda = 1\) for all eigenvalues \(\lambda\).
   \end{itemize}
 \end{proof}
 
@@ -2568,4 +2568,290 @@ However, this proof is not satisfactory that it relies on the fact of \(\C\) bei
   \end{align*}
   with \(1 \leq c_i \leq a_i\).
 \end{remark}
+
+\begin{definition}[Jordan normal form]
+  \(A \in \M_n(\F)\) is in \emph{Jordan normal form} if it is a block diagonal matrix
+  \[
+    A =
+    \begin{pmatrix}
+      J_{n_1}(\lambda_1) & & & \\
+      & J_{n_2}(\lambda_2) & & \\
+      & & \ddots & \\
+      & & & J_{n_k}(\lambda_k)
+    \end{pmatrix}
+  \]
+  where \(k \geq 1\), \(n_1, \dots, n_k \in \N\) with \(\sum_k n_k = n\), \(\lambda_i \in \F\) not necessarily distinct and
+  \[
+    J_m(\lambda) =
+    \begin{pmatrix}
+      \lambda & 1 & & \\
+      & \lambda & 1 & \\
+      & & \ddots & 1 \\
+      & & & \lambda
+    \end{pmatrix}
+    \in M_m(\F)
+  \]
+  is a \emph{Jordan block}.
+\end{definition}
+
+\begin{theorem}
+  \label{thm:jordan normal form}
+  Every \(A \in \M_n(\C)\) is similar to a matrix in Jordan normal form, unique up to reordering the Jordan blocks.
+\end{theorem}
+
+\begin{proof}[Non-examinable]
+  It is a consequence of a main theorem on modules in IB Groups, Rings and Modules.
+\end{proof}
+
+In the rest of this section assume \(\F = \C\) unless stated otherwise.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Classification of Jordan normal forms for \(\M_2(\C)\):
+  \[
+    \begin{array}[h]{c|c|c}
+      \begin{psmallmatrix}
+        \lambda_1 & \\
+        & \lambda_2
+      \end{psmallmatrix}
+        &
+          \begin{psmallmatrix}
+            \lambda & \\
+            & \lambda
+          \end{psmallmatrix}
+        &
+          \begin{psmallmatrix}
+            \lambda & 1 \\
+            & \lambda
+          \end{psmallmatrix}
+      \\ \hline
+      (t - \lambda_1)(t - \lambda_2) & t - \lambda & (t - \lambda)^2
+    \end{array}
+  \]
+\item Classification of Jordan normal forms for \(\M_3(\C)\):
+  \[
+    \begin{array}[h]{c|c|c}
+      \begin{psmallmatrix}
+        \lambda_1 & & \\
+        & \lambda_2 & \\
+        & & \lambda_3
+      \end{psmallmatrix}
+        &
+          \begin{psmallmatrix}
+            \lambda_1 & & \\
+            & \lambda_2 & \\
+            & & \lambda_3
+          \end{psmallmatrix}
+        &
+          \begin{psmallmatrix}
+            \lambda & & \\
+            & \lambda & \\
+            & & \lambda
+          \end{psmallmatrix}
+      \\ \hline
+      (t - \lambda_1)(t - \lambda_2)(t - \lambda_3) & (t - \lambda_1)(t - \lambda_2) & t - \lambda \\
+      & & \\
+      \begin{psmallmatrix}
+        \lambda_1 & & \\
+        & \lambda_2 & 1 \\
+        & & \lambda_2
+      \end{psmallmatrix}
+        &
+          \begin{psmallmatrix}
+            \lambda & & \\
+            & \lambda & 1 \\
+            & & \lambda
+          \end{psmallmatrix}
+        &
+          \begin{psmallmatrix}
+            \lambda & 1 & \\
+            & \lambda & 1 \\
+            & & \lambda
+          \end{psmallmatrix}
+      \\ \hline
+      (t - \lambda_1)(t - \lambda_2)^2 & (t - \lambda)^2 & (t - \lambda)^3
+    \end{array}
+  \]
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[Generalised Eigenspace Decomposition]
+  \label{thm:generalised eigenspace decomposition}
+  Let \(V\) be a finite-dimensional \(\C\)-vector space and \(\alpha \in L(V)\). Suppose that
+  \[
+    m_\alpha(t) = (t - \lambda_1)^{c_1} \cdots (t - \lambda_k)^{c_k}
+  \]
+  where \(\lambda_i\)'s are distinct. Then
+  \[
+    V = \bigoplus_j V_j
+  \]
+  where
+  \[
+    V_j = N(\alpha - \lambda_j \iota)^{c_j}
+  \]
+  is the \emph{generalised eigenspace}.
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+  Let
+  \[
+    p_j(t) = \prod_{i \neq j}^{ } (t - \lambda_1)^{c_i}.
+  \]
+  The \(p_j\) have no common factor so by Euclidean algorithm we can find \(q_1, \dots, q_k \in \C[t]\) such that
+  \[
+    \sum_{j}^{ } p_j(t)q_j(t) = 1.
+  \]
+  Let \(\pi_j = q_j(\alpha)p_j(\alpha) \in L(V)\). Note \(\sum_{j = 1}^{k} \pi_j = \iota\).
+  \begin{enumerate}
+  \item As \(m_\alpha(\alpha) = 0\), \((\alpha - \lambda_i \iota)^{c_j} \pi_j = 0\) so \(\im \pi_j \leq V_j\).
+  \item Suppose \(v \in V\), \(v = \iota(v) = \sum \pi_j(v)\) so \(V = \sum_j V_j\).
+  \item To show the sum is direct, \(\pi_i \pi_j = 0\) for \(i \neq j\) so
+    \[
+      \pi_i = \pi_i \left( \sum_{j = 1}^{k} \pi_j \right) = \pi_i^2
+    \]
+    i.e.\ \(\pi_i\) is a projection. Then
+    \[
+      \pi_i |_{V_j} =
+      \begin{cases}
+        \id & i = j \\
+        0 & i \neq j
+      \end{cases}
+    \]
+    Directness follows.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item We can use \nameref{thm:generalised eigenspace decomposition} to reduce the proof of \Cref{thm:jordan normal form} to a single eigenvalue.
+  \item Considering \(\alpha - \lambda \iota\) can reduce to the case of eigenvalue \(0\).
+  \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+  Let \(\alpha \in L(V)\) with Jordan normal form \(A \in \M_n(\C)\). Then the number of Jordan blocks \(J_\ell(\lambda)\) of \(A\) with \(\ell \geq 1\) is
+  \[
+    n((\alpha - \lambda \iota)^\ell) - n((\alpha - \lambda \iota)^{\ell - 1}).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Work blockwise, for each \(s \times s\) block, 
+  \[
+    \begin{array}[h]{c|c|c}
+      \begin{psmallmatrix}
+        \lambda & 1 & & \\
+        & \ddots & \ddots & \\
+        & & \ddots & 1 \\
+        & & & \lambda
+      \end{psmallmatrix}
+        &
+          \begin{psmallmatrix}
+            0 & 1 & & \\
+            & & \ddots & \\
+            & & & 1 \\
+            & & & 0
+          \end{psmallmatrix}
+                 &
+                   \begin{psmallmatrix}
+                     0 & 0 & 1 & \\
+                     & & \ddots & 1 \\
+                     & & & 0 \\
+                     & & & 0
+                   \end{psmallmatrix}
+      \\ \hline
+      J_s(\lambda) & J_s(\lambda) - \lambda I & (J_s(\lambda) - \lambda I)^2
+    \end{array}
+  \]
+  so
+  \[
+    n((J_s(\lambda) - \lambda I)^k) =
+    \begin{cases}
+      k & k \leq s \\
+      s & k \geq s
+    \end{cases}
+  \]
+\end{proof}
+
+\begin{eg}
+  Let
+  \[
+    A =
+    \begin{pmatrix}
+      0 & -1 \\
+      1 & 2
+    \end{pmatrix}
+  \]
+  we want to find a basis \(\basis B = \{v_1, v_2\}\) with respect to which \(A\) is in Jordan normal form.
+  \begin{enumerate}
+  \item
+    \[
+      \chi_A(t) =
+      \begin{vmatrix}
+        -t & -1 \\
+        1 & 2 - t
+      \end{vmatrix}
+      = t^2 - 2t + 1 = (t - 1)^2
+    \]
+    There are two possibilities:
+    \begin{enumerate}
+    \item \(m_A(t) = t - 1\). Then the Jordan normal form is
+      \[
+        \begin{pmatrix}
+          1 & 0 \\
+          0 & 1
+        \end{pmatrix}
+      \]
+    \item \(m_A = (t - 1)^2\). Then the Jordan normal form is
+      \[
+        \begin{pmatrix}
+          1 & 1 \\
+          0 & 1
+        \end{pmatrix}
+      \]
+    \end{enumerate}
+    A trick here is to note that if \(A\) is conjugate to \(I\) then \(A = I\). Thus (b) holds.
+  \item The eigenspace is spanned by \(v_1 = \binom{1}{-1}\).
+  \item \(v_2\) satisfies \((A - I)v_2 = v_1\) so
+    \[
+      \begin{pmatrix}
+        -1 & -1 \\
+        1 & 1
+      \end{pmatrix}
+      v_2 =
+      \begin{pmatrix}
+        1 \\
+        -1
+      \end{pmatrix}
+    \]
+    so \(v_2 = \binom{-1}{0}\). Note that \(v_2\) is not unique.
+  \item Finally,
+    \[
+      A =
+      \begin{pmatrix}
+        1 & -1 \\
+        -1 & 0
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & 1 \\
+        0 & 1
+      \end{pmatrix}
+      \begin{pmatrix}
+        1 & -1 \\
+        -1 & 0
+      \end{pmatrix}
+      ^{-1}
+    \]
+  \end{enumerate}
+\end{eg}
+
+We can use the diagonalisation to calculate powers of matrices:
+\[
+  A^n = (P^{-1}JP)^n = P^{-1}J^nP = P
+  \begin{pmatrix}
+    1 & n \\
+    0 & 1
+  \end{pmatrix}
+  P
+\]
 \end{document}

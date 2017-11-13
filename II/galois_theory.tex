@@ -1082,7 +1082,7 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
 \end{remark}
 
 \begin{proof}
-  Since \(t^m - \lambda\) and \(mt^{m - 1}\) are coprime, we know that \(t^m - \lambda\) has distinct roots, say \(\alpha_1, \dots \alpha_m\) in the splitting field \(L\). Thus \(K \leq L\) is Galois. Since \((\alpha_i\alpha_j^{-1})^m = \lambda \lambda^{-1} = 1\), the elemtns
+  Since \(t^m - \lambda\) and \(mt^{m - 1}\) are coprime, we know that \(t^m - \lambda\) has distinct roots, say \(\alpha_1, \dots \alpha_m\) in the splitting field \(L\). Thus \(K \leq L\) is Galois. Since \((\alpha_i\alpha_j^{-1})^m = \lambda \lambda^{-1} = 1\), the elements
   \[
     \alpha_1\alpha_1^{-1} = 1, \alpha_2\alpha_1^{-1}, \dots, \alpha_m\alpha_1^{-1}
   \]
@@ -1104,12 +1104,24 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
     \Theta: \gal(L/K(\xi)) &\to \Z/m\Z \\
     \sigma &\mapsto j(\sigma)
   \end{align*}
-  Note that \(j(\sigma) = 1\) only if \(\sigma\) is the identity and so \(\Theta\) is injective. Thus \(\gal(L/K(\xi))\) is isomorphic to a subgroup of \(\Z/m\Z\), so a cyclic group of order dividing \(m\).
+  Note that \(j(\sigma) = 0\) only if \(\sigma\) is the identity and so \(\Theta\) is injective. Thus \(\gal(L/K(\xi))\) is isomorphic to a subgroup of \(\Z/m\Z\), so a cyclic group of order dividing \(m\).
 
   Finally,
   \[
-    |L:K(\xi)| = |\gal(L/K(\xi)| \leq m
+    |L:K(\xi)| = |\gal(L/K(\xi))| \leq m
   \]
   with equality precisely when the action of \(\gal(L/K(\xi))\) is transitive on the roots and that is when \(t^m - \lambda\) is irreducible over \(K(\xi)\) by \Cref{lem:galois orbits}.
 \end{proof}
+
+\begin{eg}
+  Let \(f(t) = t^6 + 3\). Let \(\xi = - \omega\) be a primitve \(6\)th root of unity where \(\omega\) is a primitive cubic root of unity. Then
+  \[
+    \Q(\xi) = \Q(\omega) = \Q(\sqrt{-3}).
+  \]
+  \(f(t)\) is irreducible over \(\Q\) by Eisenstein with \(3\). However over \(\Q(\xi) = \Q(\sqrt{-3})\). \(f(t)\) factorises as
+  \[
+    f(t) = (t^3 + \sqrt{-3}) (t^3 - \sqrt{-3})
+  \]
+  so the splitting field \(L\) of \(f(t)\) over \(\Q(\xi)\) is a proper subgroup of \(\Z/6\Z\).
+\end{eg}
 \end{document}

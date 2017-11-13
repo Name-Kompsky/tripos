@@ -2295,7 +2295,7 @@ Imagine repacing the discrete variable \(n\pi/L\) by a continuous variable \(k\)
 \[
   \ft f(k) := \lim_{L \to \infty} 2L c_{kL/\pi}^{(L)} = \int_{-\infty}^{\infty} f(x) \exp(-ikx) dx
 \]
-Fourier transformation is a linear operator which maps between physical spaces to \emph{spectral} spaces (the \(k\)-wavenumber space). \(e^{-ikx}\) is the \emph{kernel} (there exists other kernels of transformation).
+Fourier transformation is a linear operator which maps between physical spaces to \emph{spectral spaces} (the \(k\)-wavenumber space). \(e^{-ikx}\) is the \emph{kernel} (there exists other kernels of transformation).
 
 \subsection{Fourier Transform and its inverse}
 
@@ -2308,4 +2308,182 @@ There is ambiguity in the definition of Fourier transform.
     f(x) &= \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft f(k) \exp(ikx) dk
   \end{align*}
 \end{convention}
+
+Assume that
+\[
+  \ft f(k) = A \int_{-\infty}^{\infty} f(x) \exp(\mp ikx) dx
+\]
+(\(A = 1\), minus sign in this course). Now remember the definition of Fourier series:
+\[
+  \frac{f(x_+ + x_-)}{2} = \sum_{n = \infty}^{\infty} \frac{1}{2L} \int_{-L}^{L} f(y) \exp \left( -\frac{in\pi y}{L} \right) dy \exp \left( \frac{in\pi y}{L} \right)
+\]
+Now let \(h = \pi/c\) and let \(n = \pm m\) (where \(\mp\) is chosen the opposite of that in the Fourier transormation,
+\[
+  \frac{f(x_+ + x_-)}{2} = \frac{1}{2\pi} \sum_{m = \infty}^{\infty} h \exp (\pm imh) \int_{-L}^{L} f(y) \exp(\mp imhy) dy
+\]
+Let \(L \to \infty, h \to 0, mh \to k\) to obtain
+\[
+  \frac{f(x_+ + x_-)}{2} = \frac{1}{2\pi A} \int_{-\infty}^{\infty} \ft f(k) \exp(\pm ikx) dx
+\]
+defining the inverse transform.
+
+\subsection{Properties of Fourier Transform}
+
+\begin{enumerate}
+\item Linearity:
+  \[
+    \ft{\lambda f + \mu g} (k) = \lambda \ft f(k) + \mu \ft g(k)
+  \]
+\item Translation:
+  \begin{align*}
+    g(x) &= f(x - \lambda) \\
+    \ft g(k) &= \exp(-ik\lambda) \ft f(k)
+  \end{align*}
+\item Dual to translation is frequency shift:
+  \begin{align*}
+    g(x) &= \exp(i\lambda x) f(x) \\
+    \ft g(k) &= \ft(k - \lambda)
+  \end{align*}
+\item Scaling:
+  \begin{align*}
+    g(x) &= f(\lambda x) \\
+    \ft g(k) &= \frac{1}{|\lambda|} \ft f \left( \frac{k}{\lambda} \right)
+  \end{align*}
+\item
+  \begin{align*}
+    g(x) &= x f(x) \\
+    \ft g(k) = \frac{i d \ft f(k)}{dt}
+  \end{align*}
+\end{enumerate}
+
+\subsubsection{Fourier Series of differentiation}
+
+Property 5 above is dual to a very important proporty of Fourier Transforms.
+
+Let \(f(x)\) be a continuous, piecewise continuous differentiable with a well-defined Fourier transform and \(\lim_{x \to \infty} f(x) = 0\). Consider the Fourier transform of \(g = df/dx\). Consider
+\[
+  \int_{-L}^{L} \frac{df}{dx} \exp(-kx) dx = f(x) \exp(-ikx) \Big|_{-L}^{L} + ik \int_{-L}^{L} f(x) \exp(-ikx) dx
+\]
+Let \(L \to \infty\), we get
+\[
+  \int_{-\infty}^{\infty} \frac{df}{dx} \exp(-ikx) dx = ik \ft f(k) = \ft g(k)
+\]
+so differentiation in physical space is multiplication in spectral space. We can thus transform differentiation in physical space, a hard problem, into multiplication in spectral space, an easier problem, and finally inverse transform the solution to physical space.
+
+\subsubsection{Dirichlet's Discontinuous Formula}
+
+Consider the box-car function
+\[
+  f(tx) =
+  \begin{cases}
+    1 & |x| \leq a \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+Calculate the transform:
+\[
+  \ft f(t) = \int_{-a}^{a} \exp(-ikx) dx = \int_{-a}^{a} \cos kx dx = \frac{2\sin ka}{k}
+\]
+Inverse transform:
+\begin{align*}
+  f(x) &= \frac{1}{\pi} \int_{-\infty}^{\infty} \frac{\sin ka}{k} \exp(ikx) dk \\
+       &= \frac{2}{\pi} \int_{0}^{\infty} \frac{\sin ka \cos k\pi}{k} dk \\
+       &= \frac{1}{\pi} \int_{0}^{\infty} \frac{k (a + x)}{k} dk + \frac{1}{\pi} \int_{0}^{\infty} \frac{k (a - x)}{k} dk
+\end{align*}
+Recall from IA Differential Equations
+\[
+  \int_{0}^{\infty} \frac{\sin \lambda x}{x} dx = \frac{\pi}{2} \sgn(\lambda)
+\]
+
+\section{Properties of Fourier Transform}
+
+\subsection{Convolution \& Parseval's Theorem}
+
+Very often we encounter problems involving products of Fourier transforms:
+\[
+  \ft h(k) = \ft f(k) \ft g(k)
+\]
+with \(f(x\) and \(f(x)\) known, \(h(x)\) unknown.
+
+Asume \(f(x)\) and \(g(x)\) are piecewise continuously differentiable and one of the Fourier transforms is absolutely integrable. Apply the definitions:
+\[
+  h(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft f(k) \ft g(k) \exp(ikx) dk = \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft g(k) \exp(ikx) \int_{-\infty}^{\infty} f(u) \exp(-iku) du dt
+\]
+since \(f\) and \(\ft g\) are absolutely integrable, we can invert the order of integration:
+\begin{align*}
+  h(x) &= \int_{-\infty}^{\infty} f(u) \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft g(t) \exp(ik(x - u)) dk du \\
+       &= \int_{-\infty}^{\infty} f(x)g(x - u) du
+\end{align*}
+which by definition is the \emph{convolution} of \(f\) and \(g\).
+
+\begin{ex}
+  It has a dual:
+  \begin{align*}
+    & h(x) = f(x)g(x) \\
+    \Rightarrow & \ft h(k) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft f(u) \ft g(k - u) du
+  \end{align*}
+\end{ex}
+
+\subsection{Corollary Yielding Parseval's Theorem}
+
+Let \(g(x) = f^*(-x)\), then
+\begin{align*}
+  & \ft g(k) = \int_{-\infty}^{\infty} f^*(-x) \exp(-ikx) dx \\
+  \Rightarrow & \hat g^*(k) = \int_{-\infty}^{\infty} f(-x) \exp(ikx) dx
+\end{align*}
+
+Let \(y = -x\), we get
+\[
+  \ft g^*(k) = \int_{-\infty}^{\infty} f(y) \exp(-iky) dy = \ft f(k)
+\]
+Substitute into convolution formula and inversion formula,
+\[
+  \int_{-\infty}^{\infty} f(u) f^*(u - x) du = h(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} |\ft f(k)|^2 \exp(ikx) dx
+\]
+It is true for all \(x\) and in particular for \(x = 0\),
+\[
+  \int_{-\infty}^{\infty} |f(u)|^2 du = \frac{1}{2\pi} \int_{-\infty}^{\infty} |\ft f(k)|^2 dk
+\]
+
+% TODO
+\subsection{Fourier Tranform \& delta-function}
+
+Assume \(f(x)\) is continuous, square integrable and absolutely integrable. Transform and invert:
+\begin{align*}
+  f(x) &= \frac{1}{2\pi} \int_{-\infty}^{\infty} \exp(ikx) \int_{-\infty}^{\infty} f(u) \exp(-iku) du dk \\
+       &= \int_{-\infty}^{\infty} f(u) \frac{1}{2\pi} \int_{-\infty}^{\infty} \exp(ik(x - u)) dk du
+\end{align*}
+Compare this to the sampling property
+\[
+  f(x) = \int_{-\infty}^{\infty} f(u) \delta(x - u) du
+\]
+which gives an altervative definition of \(\delta\)-function:
+\[
+  \delta(x - u) = \delta(u - x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \exp(ik(x - u)) dk
+\]
+
+The Fourier transform of a constant is easy to define in terms of \(\delta\)-function as a dual property.
+
+The Fourier transform of a \(\delta\)-function \(f(t) = \delta(x)\) is
+\[
+  \ft f(k) = \int_{-\infty}^{\infty} \delta(x) \exp(-ikx) dx = 1
+\]
+The Fourier transform of a constant funciton \(f(x) = 2\) is
+\[
+  \ft f(k) = \int_{-\infty}^{\infty} \exp(-ikx) dx = 2\pi \delta(k)
+\]
+
+\begin{note}
+  This is the \(\delta\)-function with argument \(k\), not the transform of it.
+\end{note}
+
+By translation property,
+\begin{align*}
+  f(x) &= \delta(x - a) \\
+  \ft f(k) &= \int_{-\infty}^{\infty} \delta(x - a) \exp(-ikx) dx = \exp(-ika)
+\end{align*}
+
+\begin{note}
+  Localised in physical space, spread out in spectral space and vice versa.
+\end{note}
 \end{document}

@@ -958,7 +958,7 @@ Let \(\norm \cdot\) be some norm on \(\R^m\).
 \end{corollary}
 
 \begin{proof}
-  \(f = g\compose \id\) where \(g\) is the continuous map from \(\R^m\) to \(\R\) in Example~\ref{eg:continuity}.
+  \(f = g\compose \id\) where \(g\) is the continuous map from \(\R^m\) to \(\R\) in Example 5 on page~\pageref{eg:continuity}.
 \end{proof}
 
 Recall that two norms \(\norm \cdot\) and \(\norm \cdot'\) on \(V\) are Lipschitz equivalent if there exists \(C\) such that
@@ -2242,6 +2242,7 @@ is the \emph{Hessian matrix}  of \(F\) at \(a\).
 \end{remark}
 
 \begin{theorem}[Symmetry of Mixed Partials]
+  \label{thm:symmetry of mixed partials}
   If \(U \subseteq \R^2\) is open and \(F \in C^2(U)\) then
   \[
     \D_{12} F = \D_{21} F.
@@ -2308,4 +2309,190 @@ is the \emph{Hessian matrix}  of \(F\) at \(a\).
     \lim_{h \to 0} \D_{21} F(x_1(h), x_2(h)) = \D_{21} F|_a = \lim_{h \to 0} \frac{\Delta}{h^2}.
   \]
 \end{proof}
+
+\begin{proof}[Proof of \nameref{thm:symmetry of mixed partials}]
+  This should be almost apparent from the symmetry of the expression on RHS above. Let \(G(x_1, x_2) = F((x_2, x_1)\). Then
+  \begin{align*}
+    \D_{12} F|_{(a_1, a_2)} &= \D_{21} G|_{(a_2, a_2)} \\
+                            &= \lim_{h \to 0} \frac{1}{h^2} \left( G(a_1 + h, a_2 + h) - G(a_1, a_2 + h) - G(a_1 + h, a_2) + G(a_1, a_2) \right) \\
+                            &= \lim_{h \to 0} \frac{1}{h^2} \left( F(a_1 + h, a_2 + h) - F(a_1 + h, a_2) - F(a_1, a_2 + h) + F(a_1, a_2) \right) \\
+                            &= \D_{21} F|_{(a_1, a_2)}
+ \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Suppose \(U \subseteq \R^n\) is open, \(F \in C^2(\R^n)\). Then
+  \[
+    D_{ij} F|_a = D_{ji} F|_a
+  \]
+  for all \(1 \leq i \leq j \leq n\) and all \(a \in U\).
+\end{corollary}
+
+\begin{proof}
+  Apply \nameref{thm:symmetry of mixed partials} to
+  \[
+    G(x_1, x_2) = F(a_1, \dots, a_{i - 1}, x_1, a_{i + 1}, \dots, a_{j - 1}, x_2, a_{j + 1}, \dots, a_n).
+  \]
+\end{proof}
+
+To summarise, if \(F \in C^2(U)\) then the Hessian matrix
+\[
+  H|_a = \left( D_{ij} F|_a \right)
+\]
+is symmetric. We have proved that the second derivative is given by
+\begin{align*}
+  \D^2 F|_a: \R^n \times \R^n &\to \R \\
+  (v, w) &\mapsto v^T H|_a w
+\end{align*}
+so \(\D^2 F|_a\) is a \emph{symmetric bilinear form}:
+\[
+  \D^2 F|_a(v, w) = \D^2 F|_a(w, v).
+\]
+
+We could rephrase our theory for second derivatives developed so far using the language of linear maps, which gives an alternative descriptoin from a slightly different point: if \(f: U \to \R^m\) is \(C^2\), then
+\begin{align*}
+  \D f: U &\to L(\R^n, \R^m) \cong \matrixring_{m, n}(\R) \cong \R^{mn} \\
+  \D (\D f)|_a &\in L(\R^n, L(\R^n, \R^m)).
+\end{align*}
+i.e.\ if \(w \in \R^n, v \in \R^n\),
+\[
+  \D (\D f)|_a (w) \in L(\R^n, \R^m).
+\]
+Define a function
+\[
+  B(v, w) = (\D( \D f)|_a (w))(v)
+\]
+which is a clearly bilinear map \(\R^n \times \R^n \to \R^m\) and it is not hard too see that
+\[
+  B(v, w) = \D^2 f|_a (v, w)
+\]
+as we defined it.
+
+\subsubsection{Third and Higher Derivatives}
+
+\begin{definition}[\(C^k\) space]
+  \(F: U \to \R\) is \(C^k\) if the partial derivatives \(\D_i F\) are \(C^{k - 1}\) for all \(1 \leq i \leq n\).
+
+  If \(F \in C^k(U)\), define the \(k\)th derivative
+  \begin{align*}
+    \D^k F|_a: (\R^n)^k &\to \R \\
+    (v_1, \dots, v_k) &\mapsto \D( \D^{k - 1} F(v_1, \dots v_{k - 1}))|_a (v_k)
+  \end{align*}
+  which is a \emph{symmetric multilinear form}.
+\end{definition}
+
+\begin{note}
+  The above definition also applies to \(F: U \to \R^m\).
+\end{note}
+
+\subsection{Taylor's Formula}
+
+Let \(U \subseteq \R^n\) be convex and open, \(F \in C^k(U)\) and \(x_0, x_0 + v \in U\). Define
+\[
+  f(t) = F(x_0 + tv).
+\]
+Note that \(f: [0, 1] \to \R\).
+
+\begin{proposition}
+  \(f\) is \(k\)-times differentiable and
+  \[
+    f^{(k)}(t) = \D^k F|_{x_0 + tv} (v, \dots, v).
+  \]
+\end{proposition}
+
+\begin{proof}
+  If \(G \in C^k(U)\), \(g(t) = G(x_0 + tv)\) then
+  \begin{equation}
+    \label{eqn:taylor}
+    g'(t) = \D_v G|_{x_0 + v} = \D G|_{x_0 + v} (v).
+    \tag{\(\ast\)}
+  \end{equation}
+  Proof is by induction on \(k\). \(k = 1\) is \eqref{eqn:taylor} with \(G = F\). In general define
+  \begin{align*}
+    h(t) &= f^{(k - 1)}(t) \\
+         &= \D^{k - 1} F|_{x_0 + tv} (v, \dots, v) \\
+         &= H(x_0 + tv)
+  \end{align*}
+  where \(H(x) = \D^{k - 1} F|_x(v, \dots, v)\).
+
+  Applying \eqref{eqn:taylor} to \(h\) gives
+  \begin{align*}
+    f^{(k)}(t) &= h'(t) \\
+               &= \D H|_{x_0 + tv}(v) \\
+               &= \D( \D^{k - 1} F(v, \dots, v))(v) \\
+               &= \D^k F(v, \dots, v)
+  \end{align*}
+\end{proof}
+
+\begin{corollary}[Multivariable Taylor's Formula]
+  If \(U\) is open and convex, \(x_0, x_0 + v \in U\) and \(F \in C^k(U)\) then
+  \[
+    F(x_0 + v) = \sum_{i = 0}^{k - 1} \frac{1}{i!} \D^i F|_{x_0} (v, \dots, v) + \frac{1}{k!} \D^k F|_{x + tv}(v, \dots, v)
+  \]
+  for some \(t \in [0, 1]\).
+\end{corollary}
+
+\begin{proof}
+  This seems like a horrible mess but, like many other things we have encountered in this course, its nothing more than theory from IA Analysis I plus definitions. Define
+  \[
+    f(t) = F(x_0 + tv).
+  \]
+  Then the single variable Taylor's formula says that
+  \[
+    f(1) = \sum_{i = 0}^{k - 1} \frac{1}{i!} f^{(i)}(0) 1^i + \frac{1}{k!} f^{(k)}(t)1^k
+  \]
+  for some \(t \in [0, 1]\). Subsituting the formula for \(f^{(i)}\) as in the proposition above gives the result required.
+\end{proof}
+
+\subsection{Speed \& Distance}
+
+Well this a bewildering section that doesn't seem to go anywhere or belong to any part of this course (or tripos, for that matter), nevertheless it is required by the faculty.\footnote{``All right let's go ahead and get started.''}
+
+\begin{lemma}
+  If \(\alpha: \R \to \R^n\) is \(C^1\) then
+  \[
+    \frac{d}{dt} \norm{\alpha(t)} \leq \norm{\alpha'(t)}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \(\norm{\alpha(t)} = (\alpha \cdot \alpha)^{1/2}\) so
+  \begin{align*}
+    \frac{d}{dt}(\alpha \cdot \alpha)^{1/2} &= \frac{1}{2} (\alpha \cdot \alpha)^{-1/2} (2\alpha' \cdot \alpha) \\
+                                            &= \frac{\alpha' \cdot \alpha}{(\alpha \cdot \alpha)^{1/2}} \\
+                                            &\leq \frac{\norm{\alpha'} \norm \alpha}{\norm \alpha} \\
+                                            &= \norm{\alpha'}
+  \end{align*}
+  by Cauchy-Schwarz.
+\end{proof}
+
+\begin{corollary}
+  If \(\gamma: \R \to \R^n\) is continuous then
+  \[
+    \norm*{\int_{0}^{1} \gamma(t) dt} \leq \int_{0}^{1} \norm*{\gamma(t)} dt
+  \]
+\end{corollary}
+
+\begin{note}
+  If \(\gamma(t) = v(t)\) is the velocity then this says displacement is smaller than distance on the odometer.
+\end{note}
+
+\begin{proof}
+  Let \(\alpha(s) = \int_{0}^{s} \gamma(t) dt\). Then by the lemma
+  \[
+    \frac{d}{ds} \norm{\alpha(s)} \leq \norm{\alpha'(s)} = \norm{\gamma(s)}
+  \]
+  where the equality comes from Fundamental Theorem of Calculus. Let \(\beta(s) = \int_{0}^{s} \norm{\gamma(t)} dt\) then \(\beta'(s) = \norm{\gamma(s)}\).
+
+  Since \(\norm{\alpha(0)} = 0 \beta(0)\) and
+  \[
+    \frac{d}{ds} \norm{\alpha(s)} \leq \norm{\gamma(s)} = \frac{d}{ds} B(s),
+  \]
+  \[
+    \norm{\alpha(s)} \leq \beta(s)
+  \]
+  for all \(s \geq 0\). Take \(s = 1\) to get the result required.
+\end{proof}
+
+And that marks the end of this vestigial section.
 \end{document}
