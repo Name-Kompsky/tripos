@@ -12,8 +12,6 @@
 
 \newcommand*{\tot}{\leftrightarrow}
 
-%\DeclareMathOperator{\gcd}{gcd}
-
 \begin{document}
 
 \input{titlepage}
@@ -1071,6 +1069,82 @@ Let \(\rho(i) = \E_k(W_i)\).
       0 < p_{k, i}(m) \leq \rho_i \leq \frac{1}{p_{i, k}(n)} < \infty
     \]
   \end{enumerate}
+\end{proof}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(k\) be positive recurrent, hence \(\mu_k < \infty\). Then \(\pi_i := \rho_i/\mu_ik\) is an invariant distribution.
+  \item Let \(\pi\) be an invariant distribution. Claim \(\pi_i > 0\) for all \(i \in S\):
+    \begin{proof}
+      Since \(\pi = \pi p\), we have \(\pi = \pi p^n\) for \(n \geq 0\) and hence
+      \[
+        \pi_i = \sum_j \pi_j p_{j,i}(n) \geq \pi_k p_{k,i}(n)
+      \]
+      for \(k \in S\). Since \(\sum_i \pi_i = 1\) we may pick \(k \in S\) with \(\pi_k > 0\). By irreducibility there exists \(n \geq 0\) such tat \(p_{k, i}(n) > 0\). Hence \(\pi_i > 0\).
+
+      Suppose every state is transient, since \(\pi = \pi p^n\),
+      \[
+        \pi_j = \sum_i \pi_i p_{i, j}(n)
+      \]
+      taking limit as \(n \to \infty\),
+      \[
+        \sum_i \pi_i 0 = 0
+      \]
+      absurd.
+      \begin{proof}[Proof of the limiting process]
+        \begin{align*}
+          0 \leq \sum_i \pi_i p_{i, j}(n) &= \sum_{i \in F} \cdots + \sum_i \notin F \cdots \text{ where } F \subseteq S, |F| < \infty \\
+          &\leq \sum_{i \in F} p_{i, j}(n) + \sum_{i \notin F} \pi_i \text{ by boundedness} \\
+                                          &\to 0 + \sum_{i \notin F} \pi_i \text{ as } n \to \infty \\
+          &\to 0 \text{ as } F \to S^-
+        \end{align*}
+      \end{proof}
+      Thus every state is recurrent.
+    \end{proof}
+    \begin{align*}
+      \pi_i \mu_i &= \sum_{n = 1}^{\infty} \prob_i(T_i \geq n) \prob(X_0 = i) \\
+                  &= \sum_{n = 1}^{\infty} \prob(X_0 = i, T_i \geq n) 
+                    %TBF
+    \end{align*}
+    Using stationarity,
+    \begin{align*}
+      \pi_i \mu_i &= \pi_i + \sum_{n = 2}^{\infty} (a_{n - 2} - a_{n - 1}) \text{ where } a_r = \prob(X_0 \neq i, \dots, X_r \neq i) \\
+                  &= \pi_i + a_0 - \lim_{m \to \infty} a_m \\
+                  &= \pi_i + (1 - \pi_i) - \underbrace{\prob(T_i = \infty)}_{= 0 \text{ by recurrence}} \\
+                  &= 1
+    \end{align*}
+    Since \(\pi_i\mu_i = 1\),
+    \[
+      \mu_i = \frac{1}{\pi_i} < \infty
+    \]
+    since \(\pi_i > 0\). Thus \(i\) is positive recurrent.
+  \end{enumerate}
+\end{proof}
+
+\section{Convergence to Equilibrium}
+
+\begin{theorem}
+  Consider an irreducible aperiodic, positive recurrent Markov chain. For \(i, j \in S\), \(p_{i, j}(n) \to \pi_j\) as \(n \to \infty\) where \(\pi\) is the unique invariant distribution.
+\end{theorem}
+
+\begin{proof}
+  ``coupling'' is the main idea.
+
+  Let \(X = (X_n), Y = (Y_n)\) be independent Markov chains with the appropriate common invariant distribution. Let \(Z = (Z_n = (X_n, Y_n))_{n \geq 0}\). Then \(Z\) is a Markov chain with state space \(S \times S\) and transition matrix
+  \[
+    p_{ij, kl} = p_{i, k}p_{j, l}
+  \]
+  Fix \(s \in S\), let
+  \[
+    T = \inf \{n \geq 1: Z_n = (s, s)\}.
+  \]
+  Since \(X\) and \(Y\) have invariant distribution \(\pi\), \(Z\) has invariant distribution \(v_{ij} = \pi_i\pi_j\) since
+  \[
+    \sum_{i,j } v_{ij}p_{ij, kl} = \sum_i \pi_i p_{i, k} \sum_j \pi_j p_{j, l} = \pi_k \pi_l = v_{kl}
+  \]
+  Hence \(Z\) is positive recurrent and \(\prob(T < \infty) = 1\).
+
+  Next time: confirmation \(Z\) is irreducible.
 \end{proof}
 \iffalse
 \appendix
