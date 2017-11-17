@@ -21,6 +21,7 @@
 \newcommand*{\ft}{\tilde}
 
 \DeclareMathOperator{\erf}{erf}
+\DeclareMathOperator{\sinc}{sinc}
 
 \begin{document}
 
@@ -2486,4 +2487,268 @@ By translation property,
 \begin{note}
   Localised in physical space, spread out in spectral space and vice versa.
 \end{note}
+
+\subsection{Fourier Transform of Trigonometric Functions}
+
+Fourier transform of \(H(x)\): assume \(H(0) = \frac{1}{2}\). Let \(g(x) = H(x)\), then \(g(x) + g(-x) = 1\) for all \(x\) and
+  \[
+    \ft g(k) + \ft g(-k) = 2\pi \delta(k)
+  \]
+  but \(H'(x) = \delta(x)\) so \(ik \ft g(k) = 1\). Now remember \(k \delta(k) = 0 = \delta(k) = 0\) so
+  \begin{align*}
+    \ft g(k) &= \pi \delta(k) + \frac{1}{ik} \\
+    %%
+  \end{align*}
+  Remember Dirichlet derivative formula:
+  \[
+    \frac{1}{2} \sgn(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \frac{\exp(ikx)}{ik} dx
+  \]
+  so
+  \begin{align*}
+    f(x) = \frac{1}{2} \sgn(x) &\leftrightarrow \ft f(k) = \frac{1}{ik} \\
+    f(x) = \frac{1}{2} \sgn(x - a) &\leftrightarrow \ft f(k) = \frac{\exp(-ika)}{ik}
+  \end{align*}
+
+  Note that these are generalised functions.
+
+  \section{Applications of Fourier Transforms}
+
+\subsection{ODEs}
+
+Consider
+\[
+  \frac{d^2}{dx^2}y - A^2 y = - f(x), -\infty < x < \infty
+\]
+\(y \to 0, y' \to 0\) as \(|x| \to \infty\) and \(A > 0\) is constant.
+
+\[
+  -(k^2 + A^2) \ft y(k) = -\ft f(k) \Rightarrow \ft y(k) = \ft f(t) \left( \frac{1}{A^2 + k^2} \right)
+\]
+
+Consider \(h(x) = \frac{\exp(-\mu |x|)}{2\mu}\), \(\mu > 0\),
+\begin{align*}
+  \ft h(k) &= \Re \frac{1}{\mu} \int_{0}^{\infty} \exp(-x(\mu + ik)) dx \\
+           &= \frac{1}{\mu} \Re \frac{-\exp(-x(\mu + ik))}{\mu + ik} \Big|_0^\infty \\
+           &= \frac{1}{\mu} \Re \frac{1}{\mu + ik} \\
+           &= \frac{1}{\mu^2 + k^2}
+\end{align*}
+Therefore
+\[
+  y(x) = \frac{1}{2A} \int_{-\infty}^{\infty} f(u) \exp(-A |x - u|) du
+\]
+
+\begin{ex}
+  Show that she solution can be found using Green's function. What are the boundary conditions on Green's function as \(|x| \to \infty\)?
+\end{ex}
+
+\subsection{Application of Fourier Transforms to Linear Systems.}
+
+Suppose there is a linear operator \(\L\) forced by input \(I(t)\) to give an output \(O\):
+\[
+  \L[O] = I
+\]
+Consider a general signal with frequency \(\omega\). It can be written as
+\begin{align*}
+  G(t) &= \Re |A| \exp(i(\omega t + \phi)) \\
+       &= (|A| \cos \phi) \cos \omega t + (- |A| \sin \phi) \sin \omega t
+\end{align*}
+where \(|A|\) is the amplitude and \(\phi\) is the phase. Consider the signal
+\[
+  I(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft I(\omega) \exp(i\omega t) d\omega,
+\]
+the synthesis of a pulse. The Fourier transorm in the \emph{resolution} of the pulse
+\[
+  \ft I(\omega) = \int_{-\infty}^{\infty} I(t) \exp(-i\omega t) dt
+\]
+Now imageine an amplifier (\(\L\) operator) takes as input forcing the signal \(I\), does something to it and makes an output:
+\[
+  O(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft R(\omega) \ft I(\omega) \exp(i\omega t) d\omega
+\]
+where \(\ft R(\omega)\) is the \emph{transfer function} of the operator.
+
+The transfer function is the Fourier transform of another function the \emph{response function} \(R(t)\)
+\begin{align*}
+  R(t) &= \frac{1}{2\pi} \int_{-\infty}^{\infty} \ft R(\omega) \exp(i\omega t) d\omega \\
+  \ft R(\omega) &= \int_{-\infty}^{\infty} R(t) \exp(-i\omega t) dt
+\end{align*}
+Since by convolution Fourier transform of \(O(t)\) is the product of Fourier transforms, convolution theorem says
+\[
+  O(t) = \int_{-\infty}^{\infty} I(u) R(t - u) du
+\]
+Causality: wlog \(I(t) = 0\) for \(t < 0\) so the operator doesn't do anything without input (no hum). \(R(t) = 0\) for \(t < 0\) so
+\[
+  O(t) = \int_{0}^{t} I(u) R(t - u) du
+\]
+which is the Green's function for initial value problem.
+
+\subsection{General form of Transfer Function}
+
+For simplicity assume that the operator does not depende on derivatives of the input:
+\[
+  \L_n[O(t)] = I(t) = \left( \sum_{i = 0}^{n} u_{n - i} \frac{d^i}{dt^i} \right) O(t)
+\]
+apply Fourier transforms:
+\begin{align*}
+  \ft I &= \left( a_n + a_{n - 1} i \omega + \dots + a_1(i\omega)^{n - 1} + a_0 (i\omega)^n \right) \ft O(\omega) \\
+  \ft R(\omega) &= \frac{1}{a_n + a_{n - 1} i \omega + \dots + a_1(i\omega)^{n - 1} + a_0 (i\omega)^n}
+\end{align*}
+
+By Fundamental Theorem of Algebra, the denominator can be factored into a product of roots so
+\[
+  \ft R = \frac{1}{a_0 (i\omega - c_1)^{k_1} \cdots (i\omega - c_j)^{k_j}}
+\]
+where \(\sum_{j = 1}^j k_i = n\). For simplicity (require that the system to be stable), \(\Re(c_j) < 0\). Applying partial fractions, \(\ft R\) can bge written as a simple sum of the form
+\[
+  \frac{\Gamma_{m_j}}{(i\omega - c_j)^m}, 1\leq m \leq k_j
+\]
+where  \(\Gamma_{m_j}\) is a constant. Thus the general form of \(\ft R(\omega)\) is
+\[
+  \ft R(\omega) = \sum_j \sum_m \frac{\Gamma_{m_j}}{(i\omega - c_j)^m}
+\]
+Need to know the function \(h_m(t)\) such that
+\[
+  \hat h_m(\omega) = \frac{1}{(i\omega - \alpha)^{m + 1}}, m \geq 0, \Re \alpha < 0
+\]
+But these are quiet easy: let \(h_0(t) = \exp(\alpha t)\) for \(t > 0\) and zero otherwise,
+\[
+  \ft h_0(\omega) = \int_{0}^{\infty} \exp(\alpha - i\omega)t dt = \frac{1}{i\omega - \alpha}
+\]
+Similarly \(h_1(t) = t\exp(\alpha t)\) for \(t > 0\) and zero otherwise and then
+\[
+  \ft h_1(\omega) = \cdots
+\]
+since we assume \(\Re \alpha < 0\). By induction,
+\[
+  h_m(t) =
+  \begin{cases}
+    \frac{t^me^{\alpha t}}{m!} & t > 0 \\
+    0 & t \leq 0
+  \end{cases}
+\]
+where \(\Re \alpha < 0\).
+
+As an application, consider a damped oscillator
+\[
+  \left( \frac{d^2}{dx^2} + 2p \frac{d}{dt} + p^2 + q^2 \right) y = f(t), p > 0
+\]
+Taking Fourier transforms:
+\[
+  (i\omega)^2 \ft y = 2ip \omega \ft y + (p^2 + q^2) \ft y = \ft f
+\]
+
+\section{Discrete Fourier Transform}
+
+\subsection{The Nyquist Frequency}
+
+Consider a signal which is sampled at evenly spaced time intervl \(\Delta\). There exists an underlying continuous function \(h(t)\). Define \(h_n = h(n \Delta)\) where \(n \in \Z\). \(f_s = \frac{1}{\Delta}\) is the sampling rate or sampling frequency. Note this frequency is different from the one we discussed before: if \(h(t)\) has period then it has frequency \(f = \frac{1}{T}\), as opposed to angular frequency \(\omega = 2\pi f\). The sampling frequency chosen leads to the definition of the \emph{Nyquist critical frequency} \(f_c = \frac{1}{2\Delta}\).
+
+Consider a signal in hte form of cosine with this frequency:
+\[
+  h(t) = A \cos 2\pi f_c t = A \cos \frac{\pi t}{\Delta}
+\]
+\(h_n\) corresponds to the peaks and troughs of the wave. Therefore to catch the key properties of the wave we must sample at at least twice this frequency. For example, CDs are sampled at \(44.1\)kHz so \(f_c = 22.05\)kHz while the audible range is \(2 - 20000\)Hz.
+
+The margin of over-sampling is important because odd things happen near \(f_c\). Consider
+\begin{align*}
+  h(t, \phi) &= A \cos (2\pi f_c t + \phi) \\
+             &= A \cos \frac{\pi t}{\Delta} \cos \phi - A \sin \frac{\pi t}{\Delta} \sin \phi
+\end{align*}
+Note tha if sampling at \(n\Delta\) the second term is always zero so the signal is indistinguishable from
+\begin{align*}
+  g(t, \phi) &= A \cos (w\pi f_c t) \cos \phi \\
+             &= \frac{A}{2} \left(\cos \right)
+\end{align*}
+For this reason \(g(t, \phi)\) and \(h(t, \phi)\) are called \emph{aliases} of each other.
+
+\subsection{Sampling Theorem}
+
+Rigorous results can be derived for band-width limited signals: \(g(t)\) does not contain any frequency of magnitude greater than \(\omega_{\text{max}} = 2\pi f_{\text{max}}\). Thus by the definition of Fourier transform
+\[
+  \ft g(\omega) = \int_{-\infty}^{\infty} g(t) \exp (i\omega t) dt
+\]
+and \(\ft g(\omega) = 0\) for \(|\omega| > |\omega_{max}|\).
+
+therefore
+\[
+  g(t) = \dots
+\]
+Now set the sampling interval \(\Delta = \frac{1}{2f_{max}} = \frac{\pi}{\omega_{max}}\) and \(t_n = n\Delta\),
+\[
+  g(t_n) = g_n = \frac{1}{2\pi} \int_{-\omega_{max}}^{\omega_{max}} \ft g(\omega) \exp(\frac{w\pi \omega n}{\omega_{max}} d\omega
+\]
+
+\[
+  g_{-n} = \frac{\omega_{max}}{\pi} c_n
+\]
+where \(c_n\) are the complex Fourier coefficients for series representation of a \(2\omega_{max}\)-periodic extesnsion \(\ft g_p(\omega)\) oft the Fourier transform \(\ft g_\omega\).
+
+Therefore since the actual Fourier transform \(\ft g(\omega)\) is band-width limited, the actual Fourier transform of the underlying function is the product of the periodically repeating \(\ft g_p(\omega)\) and a box-car function
+\begin{align*}
+  \ft h(\omega) &=
+                  \begin{cases}
+                    1 & \\
+                    0 &
+                  \end{cases}
+  \\
+  \ft g(\omega) &= \ft g_p(\omega) \ft h(\omega) \\
+                &= \frac{\pi}{\omega_{max}} \sum_{n = \infty}^{\infty} g_n \exp - \frac{in\pi \omega}{\omega_{max}} \ft h(\omega)
+\end{align*}
+
+Invert, assuming we can swap integration and summation,
+\begin{align*}
+  g(t) &= \frac{1}{2\pi} \int_{-\infty}^{a} \ft g(\omega) \exp(i\omega t) d\omega \\
+       &= \frac{1}{2\omega_{max}} \sum_{n = \infty}^{\infty} g_n \int_{-\omega_m}^{\omega_m} \exp i\omega(t - \frac{n\pi}{\omega_m}) d\omega \\
+       &= \frac{1}{2} \sum_{n = \infty}^{\infty} g_n \frac{\sin (\omega_m t - \pi n)}{\omega_m t - \pi n} \\
+       &= \Delta \sum_{n = \infty}^{\infty} g(n \Delta) \frac{\sin 2\pi f_{max} (t - n\Delta)}{\pi (t - n\Delta)}
+\end{align*}
+The above equation is the \emph{Shannon-Whittaker formula} This means that band-width limited function for continuous time can be represented exactly by this representation based on sampling at discrete time. This is the \emph{Shannon sampling theorem}.
+
+Note that the formula dependes on \(\Delta\) and \(f_{max}\) alone.
+
+Central role played by \emph{Whittaker Cardinal sinc function}
+\[
+  \sinc t = \frac{\sin t}{t}.
+\]
+
+What happenns for non-bandwidth limited functions? The answer is aliasing: power is ``folded back'' into the frequency below the Nyquist frequency.
+
+\subsection{Discrete Fourier Transform}
+
+Sampling theorem needs an infinite number of measurements but in the real world we only have finitely many, say \(N\), measurements of a function \(h(t)\). Let \(N\) be even. If the sampling interval is \(\Delta\) then
+\[
+  h_m = h(t_m)
+\]
+where \(t_m = m\Delta\), \(m = 0, 1, \dots, N - 1\). The best we can hope for is \(N\) estimates of Fourier transform at some frequency, clearly in the range \([-f_c, f_c]\) where \(f_c = \frac{1}{2\Delta}\) is the Nyquist frequency discussed before. Therefore the most sensible choice is
+\[
+  f_n = \frac{n}{N\Delta}
+\]
+where \(n = -N/2, -N/2 + 1, \dots, N/2\) so \(\Delta_f = \frac{1}{N\Delta}\). Note that although there seem to be \(2N + 1\) numbers, \(f_{\pm N/2} = \pm f_c\)
+
+Consider Fourier transform at fixed frequency \(f_n\):
+\begin{align*}
+  \ft h(f_n) &= \int_{-\infty}^{\infty} h(t) \exp(-2\pi i f_n t) dt \\
+             &\approx \Delta \sum_{m = 0}^{N - 1} h_m \exp(-\pi i f_n f_m) \\
+             &= \Delta \sum_{m = 0}^{N - 1} h_m \exp \left( - \frac{2\pi i}{N} mn \right)
+\end{align*}
+This is the definition of \emph{discrete Fourier transform}.
+
+Properties of DFT: it maps \(N\) complex numbers \(h_m\) into \(N\) complex numbers \(\ft h(f_m)\) with no dependence on dimensional parameter.
+
+\(\ft h_d(f_m)\) is periodic in \(n\) with perioid \(N\). In derivation we chose to let \(n\) run from \(-N/2\) to \(N/2\). It is clear the the two end measurements are the same.
+
+We can choose to let \(n\) run from \(0\) to \(N -1\). Since
+\[
+  \ft h_d(f_{-n}) = \ft h_d(F_{N - n}),
+\]
+there is a correspondence.
+
+Note the actual Fourier transform at frequency \(f_n\)
+\[
+  \ft h(f_n) \approx \Delta \ft h_d
+\]
+
+\begin{align*}
+  h_m &= h(t_m) \\
+      &= \frac{1}{2\pi} \int_{-\infty}^{0} \ft h_m \exp i\omega t_m d\omega
+\end{align*}
 \end{document}

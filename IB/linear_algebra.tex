@@ -26,7 +26,7 @@
 
 \tableofcontents
 
-\section{Vector Spaces}
+\section{Vector Space}
 
 \begin{convention}
   Throughout this course, $\mathbb{F}$ denotes a general field. If you wish, think of it as $\mathbb{R}$ or $\mathbb{C}$.
@@ -420,7 +420,7 @@ U\oplus W = \{(u,w): u\in U, w\in W\}
   with pointwise addition and scalar multiplication.
 \end{definition}
 
-\section{Linear Maps}
+\section{Linear Map}
 
 \subsection{Definition}
 
@@ -1088,7 +1088,7 @@ one way to compute inverses.
   Any invertible matrix can be written as a product of elementary ones.
 \end{proposition}
 
-\section{Dual Spaces \& Dual Maps}
+\section{Dual Space \& Dual Map}
 
 \subsection{Definition}
 
@@ -1496,6 +1496,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 They are generalisation of annihilators.
 
 \begin{proposition}
+  \label{prop:change of basis of bilinear form}
   Suppose \(U\) have basese \(\basis B, \basis B'\) and \(V \) have bases \(\basis C, \basis C'\), \(P = [\id]_{\basis B', \basis B}, Q = [\id]_{\basis C',\basis C}\). Let \(\varphi: U \times V \to \F\) be a bilinear form. Then
   \[
     [\varphi]_{\basis B',\basis C'} = P^T[\varphi]_{\basis B,\basis C}Q.
@@ -2131,7 +2132,7 @@ Let \(\F[t] = \{\text{polynomials with coefficients in } \F\}\) and \(\deg f\) b
 \item Fundamental Theorem of Algebra: any \(f \in \C[t]\) of positive degree has a root (hence \(\deg f\) roots).
 \end{enumerate}
 
-\subsection{Characteristic Poylynomial of Endormorphism}
+\subsection{Characteristic Polynomial of Endormorphism}
 
 \begin{definition}[Characteristic polynomial]
    The \emph{characteristic polynomial} of \(\alpha \in L(V)\) is
@@ -2640,7 +2641,7 @@ In the rest of this section assume \(\F = \C\) unless stated otherwise.
           \begin{psmallmatrix}
             \lambda_1 & & \\
             & \lambda_2 & \\
-            & & \lambda_3
+            & & \lambda_2
           \end{psmallmatrix}
         &
           \begin{psmallmatrix}
@@ -2649,7 +2650,7 @@ In the rest of this section assume \(\F = \C\) unless stated otherwise.
             & & \lambda
           \end{psmallmatrix}
       \\ \hline
-      (t - \lambda_1)(t - \lambda_2)(t - \lambda_3) & (t - \lambda_1)(t - \lambda_2) & t - \lambda \\
+      (t - \lambda_1)(t - \lambda_2)(t - \lambda_3) & (t - \lambda_1)(t - \lambda_2) & t - \lambda \\ \hline \hline
       & & \\
       \begin{psmallmatrix}
         \lambda_1 & & \\
@@ -2854,4 +2855,473 @@ We can use the diagonalisation to calculate powers of matrices:
   \end{pmatrix}
   P
 \]
+
+\begin{remark}
+  In Jordan normal form,
+  \begin{itemize}
+  \item \(a_\lambda\) is the total number of times that \(\lambda\) appears in the diagonal.
+  \item \(g_\lambda\) is the number of \(\lambda\)-Jordan blocks.
+  \item \(c_\lambda\) is the size the largest \(\lambda\)-Jordan block.
+  \end{itemize}
+\end{remark}
+
+\section{Bilinear Form II}
+
+In this chapter we are going to studying a special bilinear form in detail. Let \(\varphi: V \times V \to \F\) be a bilinear form on \(V\) and assume we take the same basis for both factors of \(V\), say \(\basis B\). Therefore for \(\dim V < \infty\), \(\varphi\) has matrix representation
+\[
+  [\varphi]_{\basis B} = [\varphi]_{\basis B, \basis B}.
+\]
+
+Recall that
+\begin{lemma}
+  Let \(\varepsilon: V \times V \to \F, \dim V < \infty\) and \(\basis B\) and \(\basis B'\) are two bases for \(V\). Let \(P = [\id]_{\basis B', \basis B}\). Then
+  \[
+    [\varphi]_{\basis B'} = P^T[\varphi]_{\basis B}P.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Special case of \Cref{prop:change of basis of bilinear form}.
+\end{proof}
+
+This motivates us to define a relation on \(\M_n(\F)\)
+
+\begin{definition}[Congruent]
+  \(A, B \in \M_n(\F)\) are \emph{congruent} if
+  \[
+    A = P^TBP
+  \]
+  for some invertible \(P\).
+\end{definition}
+
+\begin{note}
+  This is an equivalence relation.
+\end{note}
+
+Naturally, we want to find nice forms to which a general bilinear form is congruent. Certainly the nicest form we can have is diagonal matrix. It turns out the property we require a bilinear form to be ``diagonalisable'' is
+
+\begin{definition}[Symmetric]
+  A bilinear form \(\varphi\) on \(V\) is \emph{symmetric} if
+  \[
+    \varphi(u, v) = \varphi(v, u)
+  \]
+  for all \(u, v \in V\).
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{itemize}
+  \item \(A \in \M_n(\F)\) is symmetric if \(A = A^T\). Then \(\varphi\) is symmetric if and only if \([\varphi]_{\basis B}\) is symmetric for any basis \(\basis B\), if and only if \([\varphi]_{\basis B}\) is symmetric for one \(\basis B\).
+  \item To be able to represent \(\varphi\) by a diagonal matrix, \(\varphi\) needs to be symmetric:
+    \[
+      [\varphi]_{\basis B} = P^TAP = D \Rightarrow D^T = D = P^TA^TP \Rightarrow A = A^T
+    \]
+  \end{itemize}
+\end{note}
+
+\begin{definition}[Quadratic form]
+  A map \(Q: V \to \F\) is a \emph{quadratic form} if there is a bilinear form \(\varphi\) on \(V\) such that
+  \[
+    Q(v) = \varphi(v, v)
+  \]
+  for all \(v \in V\).
+\end{definition}
+
+\begin{eg}
+  Let \(V = \R^2\). A general quadratic form is
+  \[
+    \begin{pmatrix}
+      x \\
+      y
+    \end{pmatrix}
+    \mapsto
+    \begin{pmatrix}
+      x & y
+    \end{pmatrix}
+    %
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+    %
+    \begin{pmatrix}
+      x \\
+      y
+    \end{pmatrix}
+    = ax^2 + (b + c) xy + dy^2
+  \]
+\end{eg}
+
+\begin{remark}
+  A quadratic form does not change under \(A \mapsto \frac{1}{2}(A + A^T)\) where \(A\) is a representation of the inducing bilinear form.
+\end{remark}
+
+\begin{proposition}
+  Assume \(\ch \F \neq 2\). If \(Q: V \to \F\) is a quadratic form then there exists a unique symmetric bilinear form \(\varphi\) on \(V\) such that
+  \[
+    Q(v) = \varphi(v, v)
+  \]
+  for all \(v \in V\).
+\end{proposition}
+
+\begin{proof}
+  First we prove the existence. Let \(\psi\) be a bilinear form on \(V\) such that \(Q(v) = \psi(v, v)\) for all \(v \in V\). We want to construct a symmetric bilinear form by adding \(\psi\) and its transpose. Let
+  \[
+    \varphi(u, v) = \frac{1}{2}(\psi(u, v) + \psi(v, u)).
+  \]
+  (this is where we require \(\ch \F \neq 2\)) then it is bilinear and symmetric and
+  \[
+    \varphi(v, v) = \psi(v, v) = Q(u).
+  \]
+
+  To show the uniqueness, suppose \(\varphi\) is such a symmetric bilinear form. Consider
+  \begin{align*}
+    Q(u + v) &= \varphi(u + v, u + v) \\
+             &= \varphi(u, u) + \varphi(u, v) + \varphi(v, u) + \varphi(v, v) \\
+             &= Q(u) + 2\varphi(u, v) + Q(v)
+  \end{align*}
+  Rearrange,
+  \[
+    \varphi(u, v) = \frac{1}{2}(Q(u + v) - Q(u) - Q(v))
+  \]
+  which is uniquely determined.
+\end{proof}
+
+\begin{remark}
+  The last identity
+  \[
+    \varphi(u, v) = \frac{1}{2}(Q(u + v) - Q(u) - Q(v))
+  \]
+  is called the \emph{polarisation identity} and will appear later.
+\end{remark}
+
+The note after the definition of symmetric bilinear form shows that being symmetric is a necessary condition for a bilinear form to be ``diagonalisable''. The following theorem says that it is also sufficient:
+
+\begin{theorem}
+  Let \(\varphi\) be a symmetric bilinear form on \(V\), an \(\F\)-vector space and assume \(\ch \F \neq 2\) and \(\dim V < \infty\). Then there is a basis \(\basis B\) of \(V\) such that \([\varphi]_{\basis B}\) is diagonal.
+\end{theorem}
+
+\begin{proof}
+  Induction on \(n = \dim V\). If \(n = 0\) or \(1\) then obviously true.
+
+  Suppose the theorem holds for all spaces of dimension smaller than \(n\). There are two cases to consider:
+  \begin{enumerate}
+  \item if \(\varphi(u, u ) = 0\) for all \(u\) then by the polarisation identity \(\varphi = 0\) so diagonal.
+  \item otherwise choose \(e_1 \in V\) such that \(\varphi(e_1, e_1) \neq 0\). Let
+    \[
+      U = \spans{e_1}^\perp = \{u \in V: \varphi(e_1, u) = 0\} = \ker (\varphi(e_1, -): V \to \F)
+    \]
+    which has dimension \(n - 1\) by rank-nullity. Moreover, \(V = \spans{e_1} \oplus U\) since \(\spans{e_1} \cap U = 0\) and \(\dim(\spans{e_1} \oplus U) = n\). Consider \(\varphi|_U: U \times U \to \F\) which is also symmetric bilinear. By induction hypothesis there is a basis \(e_2, \dots e_n\) of \(U\) with respect to which \(\varphi|_U\) is diagonal. Now \(\varphi\) is diagonal with respect to \(e_1, \dots, e_n\).
+  \end{enumerate}
+\end{proof}
+
+\begin{notation}
+  In \(V = \R^n\) with standard basis \(e_1, \dots, e_n\), write
+  \[
+    Q(x_1, x_2, \dots, x_n) = Q \left(\sum_{i = 1}^n x_i e_i \right).
+  \]
+\end{notation}
+
+\begin{eg}
+  Let \(V = \R^3\) with standard basis \(e_1, e_2, e_3\) and
+  \[
+    Q(x_1, x_2, x_3) = x_1^2 + x_2^2 + 2x_3^2 + 2x_1x_2 + 2x_1x_3 -2x_2x_3.
+  \]
+  We want a basis \(f_1, f_2, f_3\) of \(\R^3\) such that
+  \[
+    Q(af_1 + bf_2 + cf_3) = \lambda a^2 + \mu b^2 + \nu c^2
+  \]
+  for some \(\lambda, \mu, \nu \in \R\), which are the diagonal entries.
+
+  The martix representation of \(Q\) with repect to \(e_1, e_2, e_3\) is
+  \[
+    A =
+    \begin{pmatrix}
+      1 & 1 & 1 \\
+      1 & 1 & -1 \\
+      1 & -1 & 2
+    \end{pmatrix}
+  \]
+
+  We could use the algorithm as outlined in the induction proof above but choose to do it differently by completing the squre:
+    \begin{align*}
+      Q(x_1, x_2, x_3) &= \underbrace{(x_1 + x_2 + x_3)^2}_{\text{used all terms in } x_1} + x_3^2 - 2x_2x_3 - 2 x_2x_3 \\
+                       &= (x_1 + x_2 + x_3)^2 + \underbrace{(x_3 - 2x_2)^2}_{\text{used all terms in } x_3} - (2x_2)^2
+    \end{align*}
+    From here we can read off the diagonal matrix and the basis: for some \(P\),
+    \[
+      P^TAP =
+      \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & -1
+      \end{pmatrix}
+    \]
+    To find \(P\), note that
+    \[
+      \begin{pmatrix}
+        x_1' \\
+        x_2' \\
+        x_3'
+      \end{pmatrix}
+      =
+      \underbrace{
+      \begin{pmatrix}
+        1 & 1 & 1 \\
+        0 & -2 & 1 \\
+        0 & 2 & 0 
+      \end{pmatrix}
+    }_{P^{-1}}
+    %
+    \begin{pmatrix}
+      x_1 \\
+      x_2 \\
+      x_3
+    \end{pmatrix}
+    \]
+\end{eg}
+
+\begin{corollary}
+  Let \(\varphi\) be a symmetric bilinear form on \(V\), a finite-dimensional \(\C\)-vector space. There there is a basis \(\basis B = \{v_1, \dots v_n\}\) of \(V\) such that
+  \[
+    [\varphi]_{\basis B} =
+    \begin{pmatrix}
+      I_r & 0 \\
+      0 & 0
+    \end{pmatrix}
+  \]
+  where \(r = r(\varphi)\).
+\end{corollary}
+
+\begin{proof}
+  Pick basis \(\basis E = \{e_1, \dots e_n\}\) such that
+  \[
+    [\varphi]_{\basis E} =
+    \begin{pmatrix}
+      a_1 & & \\
+      & \ddots & \\
+      & & a_n
+    \end{pmatrix}
+  \]
+  Reorder the \(e_i\)'s such that
+  \[
+    \begin{cases}
+      a_i \neq 0 & 1 \leq i \leq r \\
+      a_i = 0 & i > r
+    \end{cases}
+  \]
+  For \(i \leq r\), pick a complex square root of \(a_i\), say \(\sqrt{a_i}\). Now let
+  \[
+    v_i =
+    \begin{cases}
+      \frac{e_i}{\sqrt{a_i}} & 1 \leq i \leq r \\
+      e_i & i > r
+    \end{cases}
+  \]
+\end{proof}
+
+\begin{corollary}
+  Every symmetric matrix \(A \in \M_n(\C)\) is congruent to a unique matrix of the form \(\begin{psmallmatrix} I_r & 0 \\ 0 & 0 \end{psmallmatrix}\).
+\end{corollary}
+
+Equivalently,
+\[
+  Q \left( \sum_{i = 1}^{n} \lambda_i v_i \right) = \sum_{i = 1}^{r} \lambda_i^2.
+\]
+
+We have derived a corollary for our favourite field \(\C\), and there is another one corresponding to our second favourite \(\R\):
+
+\begin{corollary}
+  Let \(\varphi\) be a symmetric bilinear form on \(V\), a finite-dimensional \(\R\)-vector space. There is a basis \(\basis B = \{v_1, \dots, v_n\}\) such that
+  \[
+    [\varphi]_{\basis B} =
+    \begin{pmatrix}
+      I_p & & \\
+      & -I_q & \\
+      & & 0
+    \end{pmatrix}
+  \]
+  where \(p, q \geq 0\) and \(p + q = r(\varphi)\).
+\end{corollary}
+
+\begin{proof}
+  The proof is the same as for \(\C\) up to the point of exhibiting a basis with respect to which \(\varphi\) is diagonal. Note that we \emph{cannot} choose a square root for all the entries. Instead, reorder the indices such that
+  \[
+    \begin{cases}
+      a_i > 0 & 1 \leq i \leq p \\
+      a_i < 0 & p + 1 \leq i \leq p + q \\
+      a_i = 0 & i > p + q
+    \end{cases}
+  \]
+  and let
+  \[
+    v_i =
+    \begin{cases}
+      \frac{e_i}{\sqrt{a_i}} & 1 \leq i \leq p \\
+      \frac{e_i}{\sqrt{-a_i}} & p + 1 \leq i \leq p + q \\
+      e_i & i > p + 1
+    \end{cases}
+  \]
+\end{proof}
+
+Equivalently,
+\[
+  Q \left( \sum_{i = 1}^{n} \lambda_i v_i \right) = \sum_{i = 1}^{p} \lambda_i^2 - \sum_{i = p + 1}^{q + p} \lambda_i^2.
+\]
+
+\begin{definition}[Positive/Negative (semi-)definiteness]
+  A symmetric bilinear form \(\varphi\) on a real vector space \(V\) is
+  \begin{itemize}
+  \item \emph{positive definite} if \(\varphi(u, u) > 0\) for all \(u \in V\setminus \{0\}\).
+  \item \emph{positive semi-definite} if \(\varphi(u, u) \geq 0\) for all \(u \in V\setminus \{0\}\).
+  \item \emph{positive definite} if \(\varphi(u, u) < 0\) for all \(u \in V\setminus \{0\}\).
+  \item \emph{positive semi-definite} if \(\varphi(u, u) \leq 0\) for all \(u \in V\setminus \{0\}\).
+  \item \emph{indefinite} if none of the above.
+  \end{itemize}
+\end{definition}
+
+The same terminologies apply to quadratic forms.
+
+\begin{eg}
+  The bilinear form on \(\R^n\) represented by \(\begin{psmallmatrix} I_p & 0 \\ 0 & 0 \end{psmallmatrix} \in \M_n(\R)\) is positive definite is \(p = n\) and positive semi-definite if \(p < n\).
+\end{eg}
+
+\begin{definition}[Signature]
+  The \emph{signature} of a real symmetric bilinear form \(\varphi\) is
+  \[
+    s(\varphi) = p - q.
+  \]
+\end{definition}
+
+Again, this applies to quadratic forms as well.
+
+However, we have not even checked whether this is well-defined. Thus we need
+
+\begin{theorem}[Sylvester's Law of Inertia]
+  If a real symmetric bilinear bilinear form \(\varphi\) has with respect to basis \(\basis B\) and \(\basis B'\)
+  \[
+    [\varphi]_{\basis B} =
+    \begin{pmatrix}
+      I_p & & \\
+      & -I_q & \\
+      & & 0
+    \end{pmatrix}
+    \quad
+    [\varphi]_{\basis B'} =
+    \begin{pmatrix}
+      I_p' & & \\
+      & -I_q' & \\
+      & & 0
+    \end{pmatrix}
+  \]
+  then
+  \begin{align*}
+    p &= p', \\
+    q &= q'.
+  \end{align*}
+\end{theorem}
+
+It is then immediate that
+
+\begin{corollary}
+  Signature is well-defined.
+\end{corollary}
+
+\begin{proof}
+  For uniqueness of \(p\), show that \(p\) is the largest dimension of a subspace on which \(\varphi\) is positive definite. This suffices as it is a basis invariant characterisation.
+
+  Let \(\basis B = \{v_1, \dots, v_n\}\). Let \(X = \spans{v_1, \dots, v_p}\) and \(Y = \spans{v_{p + 1}, \dots, v_n}\). \(\dim X = p\) and \(\varphi\) is positive definite on \(X\):
+  \[
+    Q(v) = Q \left( \sum_{i = 1}^{p} \lambda_i v_i \right) = \sum_{i = 1}^{p} \lambda_i^2 > 0
+  \]
+  for all \(v \neq 0\). Similarly \(\varphi\) is negative semi-definite on \(Y\).
+
+  Suppose is \(\varphi\) is positive definite on some other subspace \(X'\). Then \(X' \cap Y = 0\) since \(Q\) is positive definite on \(X'\) and negative semi-definite on \(Y\). Therefore
+  \[
+    \dim (Y + X') = \dim Y \oplus X' = \dim Y + \dim X' \leq n
+  \]
+  but since \(\dim Y = n - p\) we have \(\dim X' \leq p\).
+
+  For \(q\), we can either run the same argument with negative definite spaces, or use the fact that \(q = r(\varphi) - q\) is invariant.
+\end{proof}
+
+The zero diagonal block is not very interesting but it does get a speical name:
+
+\begin{definition}[Kernel of symmetric bilinear form]
+  The \emph{kernel} of a symmetric bilinear form is
+  \[
+    K = \{ v \in V: \varphi(u, v) = 0 \text{ for all } u \in V\}.
+  \]
+\end{definition}
+
+\begin{note}
+  \[
+    \dim K = n - r(\varphi).
+  \]
+\end{note}
+
+In our previous notation, the kernel is simply
+\[
+  K = \spans{v_{p + q + 1}, \dots, v_n}.
+\]
+
+\begin{caution}
+  There is a subspace \(T\) of dimension \(n - (p + q) + \min(p, q)\) such that \(\varphi|_{T \times T} = 0\): say \(p \geq q\),
+  \[
+    T = \spans{v_1 + v_{p + 1}, \dots, v_q + v_{p + q}, v_{p + q + 1}, \dots, v_n}.
+  \]
+\end{caution}
+
+\begin{ex}
+  Check that \(T\) above is the largest possible dimension of such a space.
+\end{ex}
+
+\section{Sesquilinear Form}
+
+Let \(\F = \C\) throughout this chapter.
+
+The dot product on a real vector space comes naturally as a bilinear form. However, its generalisation to complex vector space, the standard inner product defined by
+\[
+  \innerproduct{x, y} = \sum_{i = 1}^{n} x_i \conj y_i
+\]
+is not bilinear: the second coordinate transforms by ``conjugate-linearity'' instead of linearity. Among many other examples of the same spirit\footnote{Formally, any \(\C\)-algebra induced by an inner product.}, this serves as a motivation to modify the definition of bilinear forms for \(\C\)-vector spaces:
+
+\begin{definition}[Sesquilinear form]
+  Let \(V\) and \(W\) be \(\C\)-vector spaces. A \emph{sesquilinear form} is a function \(\varphi: V \times W \to \C\) such that
+  \begin{align*}
+    \varphi(\lambda_1v_1 + \lambda_2v_2, w) &= \lambda_1 \varphi(v_1, w) + \lambda_2 \varphi(v_2, w) \\
+    \varphi(v, \mu_1w_1 + \mu_2w_2) &= \conj \mu_1 \varphi(v, w_1) + \conj \mu_2 \varphi(v, w_2)
+  \end{align*}
+  for all \(\lambda_1, \mu_1 \in \C\) and \(v, v_1, v_2 \in V\), \(w, w_1, w_2 \in W\).
+\end{definition}
+
+Naturally we would expect a sesquilinear form, just like a bilinear form, to have a matrix representation which behaves and transforms accordingly under change-of-basis:
+
+\begin{definition}[Matrix of sesquilinear form]
+  Same notation as above. Let \(\basis B = \{v_1, \dots, v_m\}\) be a basis for \(V\) and \(\basis C = \{w_1, \dots, v_n\}\) be a basis for \(W\). Then the \emph{matrix} of \(\varphi\) with respect to \(\basis B\) and \(\basis C\) is
+  \[
+    [\varphi]_{\basis B, \basis C} = \left(\varphi(v_i, w_j)\right)_{i,j}
+  \]
+\end{definition}
+
+\begin{lemma}
+  \[
+    \varphi(u, v) = [u]_{\basis B}^T [\varphi]_{\basis B, \basis C} \conj{[v]}_{\basis C}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Easy.
+\end{proof}
+
+\begin{lemma}
+  Let \(\basis B, \basis B'\) be bases for \(V\), \(P = [\id]_{\basis B', \basis B}\) and \(\basis C, \basis C\) be bases for \(W\), \(Q = [\id]_{\basis C', \basis C}\). Then
+  \[
+    [\varphi]_{\basis B', \basis C'} = P^T [\varphi]_{\basis B, \basis C} \conj Q.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Ditto.
+\end{proof}
+
 \end{document}

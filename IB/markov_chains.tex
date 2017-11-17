@@ -3,7 +3,7 @@
 \def\npart{IB}
 
 \def\ntitle{Markov Chains}
-\def\nlecturer{G.\ R.\ Grimmet}
+\def\nlecturer{G.\ R.\ Grimmett}
 
 \def\nterm{Michaelmas}
 \def\nyear{2017}
@@ -1127,6 +1127,8 @@ Let \(\rho(i) = \E_k(W_i)\).
   Consider an irreducible aperiodic, positive recurrent Markov chain. For \(i, j \in S\), \(p_{i, j}(n) \to \pi_j\) as \(n \to \infty\) where \(\pi\) is the unique invariant distribution.
 \end{theorem}
 
+Ergodic theorem
+
 \begin{proof}
   ``coupling'' is the main idea.
 
@@ -1144,15 +1146,97 @@ Let \(\rho(i) = \E_k(W_i)\).
   \]
   Hence \(Z\) is positive recurrent and \(\prob(T < \infty) = 1\).
 
-  Next time: confirmation \(Z\) is irreducible.
+  We are still lacking one thing: \(Z\) is irreducible. This has something to do with aperiodicity.
+
+  A digression about number theory: if \(D\) is a finite subset of non-negative integers with \(\gcd(D) = 1\), there exists \(N\) such that for \(n > N\) and expression
+  \[
+    n = \sum_{d \in D} \alpha_d d
+  \]
+  with \(\alpha_d \in \{0, 1, 2, \dots\}\).
+
+  Since \(X\) is aperiodic, we deduce that \(p_{i,i}(n) > 0\) for all large \(n\). Thus
+  \[
+    p_{ij, ij}(n) = p_{i, i}(n)p_{j, j}(n) > 0
+  \]
+  for all large \(n\). Therefore \(Z\) is aperiodic.
+
+  Similarly \(Z\) is irreducible (oops, check the book!)
 \end{proof}
+
+\begin{align*}
+  p_{i, k}(n) &= \prob_i(X_n = k) \\
+              &= \prob_{ij}(X_n = k) \\
+              &= \sum_{t = 1}^{\infty} \prob_{ij}(X_n = k | T = t)\prob_{ij}(T = t) \\
+              &= \sum_{t \leq n}^{ } \prob_{ij}(X_n = k | T = t) \prob_{ij}(T = k) + \sum_{t > n}^{ } \prob_{ij}(T = t) \\
+              %&= \prob_S(X_{n - t} = k) = \prob_s(Y_{n - t} = k)
+              &= \sum_{t \leq n}^{ } \prob_{ij}(Y_n = k, T = k) + \prob_{ij}(T > n) \\
+              &\leq p_{j, k}(n) + \prob_{ij}(T > n)
+\end{align*}
+so
+\[
+  |p_{i, k}(n) - p_{j, k}(n)| \leq \prob_{ij}(T > n) \to 0
+\]
+as \(n \to \infty\). This says that if it converges they converge the the same value. Now we are just one line from the final result:
+\[
+  \pi_k - p_{ij}(n) = \sum_{i}^{ } \pi(p_{i,k}(n) - p_{j, k}(n)) \to 0
+\]
+by bounded convergence theorem.
+
+This is an extremely elegant proof and it took a long time before this proof was found.
+
+We are left with one final bit 
+
+\begin{theorem}
+  Let \(V_i(n) = \sum_{k = 1}^n \V 1(x_k = i)\) be the total number of visits to \(i\) up to time \(n\). If the chain is irreducible and positive recurrent then
+  \[
+    \frac{V_i(n)}{n} \Rightarrow \frac{1}{\mu_i}
+  \]
+  as \(n \to \infty\), where \(\Rightarrow\) means weak convergence, i.e.
+  \[
+    \prob \left( \frac{V_i(n)}{n} \leq a\frac{1}{\mu_i} \right) \to
+    \begin{cases}
+      0 & a < 1 \\
+      1 & a > 1
+    \end{cases}
+  \]
+\end{theorem}
+
+We are not going prove this. Renewal theorem.
+
+\begin{remark}
+  Let \(u_i\) be a typical interval length between successive visits to \(i\). \(V_i(n) \geq x\) if and only if \(\sum_{m = 1}^x u_i(m) \leq n\) where the \(u_i(m)\) are iid copies of \(u_i\).
+\end{remark}
+
+\section{Time Reversal}
+
+some ruminations bout physics: in real life time reversal is possible but extremely unlikely. The typical explanation is entropy.
+
+Let \(X = (X_n: n = 0, 1, \cdots, N)\) be an irreducible and positive recurrent Markov chain with transition matrix \(P\) and invariant distribution \(\pi\). Let \(Y_n = X_{N - n}\), so \(Y = (Y_0, \cdots, Y_N) = (X_n, \cdots, X_0)\), the reverse of \(X\).
+
+We have to make some assumptions for our reversed chain to make sense: assume that \(X_0\) has distribution \(\pi\).
+
+\begin{theorem}
+  \(Y\) is an irreducible Markov chain with transition matrix
+  \[
+    \hat p_{i,j} = \frac{\pi_j}{\pi_i} p_{j, i}
+  \]
+  and invariant distribution \(\pi\).
+\end{theorem}
+
+\begin{proof}
+  First check that \(\hat P = (\hat p_{i,j})\) is a stochastic matrix: the entries are non-negative and
+  \[
+    \sum_j \hat p_{i,j} = \sum_j \frac{\pi_j}{\pi_i} p_{j, i} = \frac{1}{\pi_i} \sum_j \pi_j p_{j,i} = 1.
+  \]
+\end{proof}
+
 \iffalse
 \appendix
 
 \section{Resources}
 
 
-Reading list: Probability, an introduction Grimmet, Welsh, 2nd edition, Chapter 12
+Reading list: Probability, an introduction Grimmett, Welsh, 2nd edition, Chapter 12
 
 %webpage: www.statslab.cam.ac.uk/~grg/
 \fi

@@ -192,7 +192,10 @@
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 
-\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\DeclarePairedDelimiter{\innerproduct}{\langle}{\rangle}
+
+%\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 
 
 
@@ -201,8 +204,8 @@
 \DeclarePairedDelimiterX{\braket}[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
 \DeclarePairedDelimiterX{\braketthree}[3]{\langle}{\rangle}{#1 \delimsize\vert #2 \delimsize\vert #3}
 
-\DeclarePairedDelimiter{\bra}{\langle}{\lvert}
-\DeclarePairedDelimiter{\ket}{\rvert}{\rangle}
+\DeclarePairedDelimiter{\bra}{\langle}{\rvert}
+\DeclarePairedDelimiter{\ket}{\lvert}{\rangle}
 
 
 

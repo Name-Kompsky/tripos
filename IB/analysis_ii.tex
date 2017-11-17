@@ -13,6 +13,9 @@
 \newcommand*{\riem}[1]{\mathcal{#1}}
 \newcommand*{\D}{\mathcal{D}}
 
+% operator norm
+\newcommand*{\nop}[1]{\norm*{#1}_{\text{op}}}
+  
 \theoremstyle{definition}
 \newtheorem*{joke}{Joke}
 
@@ -47,6 +50,8 @@ In IA Analysis I, the primary space we are interested in is \(\R\) and we studie
 \end{table}
 
 \section{Normed Vector Spaces}
+
+\subsection{Definitions}
 
 A motivating example: if $(a_n)$ is a sequence of real numbers, then $(a_n)\to a$ if
 \[
@@ -1588,7 +1593,7 @@ There are two ways to think about the derivative:
 \item analyst way: \(\D f: U \to L(\R^n, \R^m), a \mapsto \D f|_a\). 
 \item geometer way: define the tangent bundle \(TU = U \times \R^n\) if \(U \subseteq \R^n\) is open, then
   \begin{align*}
-    df: TU &\to T\R^M \cong \R^m \times \R^m \\
+    df: TU &\to T\R^m \cong \R^m \times \R^m \\
     (a, v) &\mapsto (f(v), \D f|_a(v))
   \end{align*}
 \end{itemize}
@@ -1600,7 +1605,7 @@ The analyst way says that given \(f\) in the previous example, the derivative \(
 Let \(F: U \to \R^n\).
 
 \begin{definition}[Directional derivative]
-  If \(v \in \R^n\setminus \{0\}\) the \emph{directional derivative} of \(F\) at \(a\) in the direction \(v\) is
+  If \(v \in \R^n\setminus \{0\}\), the \emph{directional derivative} of \(F\) at \(a\) in the direction \(v\) is
   \[
     \D_v F|_a = \lim_{t \to 0^+} \frac{F(a + tv) - F(a)}{t}
   \]
@@ -2433,7 +2438,7 @@ Note that \(f: [0, 1] \to \R\).
 \end{corollary}
 
 \begin{proof}
-  This seems like a horrible mess but, like many other things we have encountered in this course, its nothing more than theory from IA Analysis I plus definitions. Define
+  This seems like a horrible mess but, like many other things we have encountered in this course, its nothing more than ideas from IA Analysis I applied new (actually gneralised from old) definitions. Define
   \[
     f(t) = F(x_0 + tv).
   \]
@@ -2446,7 +2451,10 @@ Note that \(f: [0, 1] \to \R\).
 
 \subsection{Speed \& Distance}
 
-Well this a bewildering section that doesn't seem to go anywhere or belong to any part of this course (or tripos, for that matter), nevertheless it is required by the faculty.\footnote{``All right let's go ahead and get started.''}
+
+Well the title says all. This a bewildering section that doesn't seem to go anywhere or belong to any part of this course. Nevertheless it is required by the faculty.\footnote{``All right let's go ahead and get started.''}
+
+All norms are Euclidean norms in this section since we require inner product.
 
 \begin{lemma}
   If \(\alpha: \R \to \R^n\) is \(C^1\) then
@@ -2467,6 +2475,7 @@ Well this a bewildering section that doesn't seem to go anywhere or belong to an
 \end{proof}
 
 \begin{corollary}
+  \label{cor:distance and displacement}
   If \(\gamma: \R \to \R^n\) is continuous then
   \[
     \norm*{\int_{0}^{1} \gamma(t) dt} \leq \int_{0}^{1} \norm*{\gamma(t)} dt
@@ -2495,4 +2504,356 @@ Well this a bewildering section that doesn't seem to go anywhere or belong to an
 \end{proof}
 
 And that marks the end of this vestigial section.
+
+\section{Metric Spaces}
+
+In this chapter we take a short break from differential calculus (but don't forget them! We will need them shortly after).
+
+\subsection{Definitions}
+
+\begin{definition}
+  A \emph{metric space} is a set \(X\) with a distance function \(D: X \times X \to \R\) satisfying
+  \begin{enumerate}
+  \item positivity: \(d(x, y) \geq 0, d(x, y) = 0\) if and only if \(x = y\).
+  \item symmetry: \(d(x, y) = d(y, x)\) for all \(x, y \in X\).
+  \item triangle inequality: \(d(x, z) \leq d(x, y) + d(y, z)\) for all \(x, y, z \in X\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item A normed space \((V, \norm \cdot)\) is a metric space with
+    \[
+      d(v, w) = \norm{v - w}.
+    \]
+
+    \begin{proof}\leavevmode
+      \begin{enumerate}
+      \item \(d(v, w) = \norm{v - w} \geq 0\) and \(d(v, w) = 0\) if and only if \(\norm{v, w} = 0\) if and only if \(v - w = 0\) if and only if \(v = w\).
+      \item \(d(v, w) = \norm{v - w} = \norm{(-1)(w - v)} = |-1| \cdot \norm{w - v} = d(w, v)\).
+      \item \(d(v_1, v_3) = \norm{v_1 - v_3} \leq \norm{v_1 - v_2} + \norm{v_2 - v_3} = d(v_1, v_2) + d(v_2, v_3)\).
+      \end{enumerate}
+    \end{proof}
+  \item If \((x, d)\) is a metric space and \(Y \subseteq X\) then \((Y, d|_{Y \times Y})\) is metric space. We say \(Y\) is a \emph{subspace} of \(X\).
+  \item For any set \(X\), let
+    \[
+      d(x, y) =
+      \begin{cases}
+        1 & x = y \\
+        0 & x \neq y
+      \end{cases}
+    \]
+    which is the \emph{discrete metric}.
+  \end{enumerate}
+\end{eg}
+
+Most of the definitions and theorems we gave about subsets of normed spaces apply equally well to metric spaces by replacing \(\norm{v - w}\) with \(d(v, w)\). Actually metric is a more fundamental concept than norm: every norm induces a metric as outlined above but not vice versa. This means that we could have organised the contents in a more structured and formal way by introducing metric spaces and its properties upfront and subsequently allowing normed spaces to inherit these properties. However, we choose not to do so since
+
+\begin{enumerate}
+\item for most of the course up to this point, properties of metric spaces are in a sense add complexity but not richness to our theory because we work with \(\R^n\) and function spaces, which come with a normed structure. Differential calculus in high dimension is already hard and we don't want to make things more complicated.
+\item in fact, we don't use metric properties until the last chapter. It might be better to give an ad hoc definition here lest one forget if we do it at the very beginning.
+\end{enumerate}
+
+That is enough digression about the structure of the course. As promised, here are some definitions and results that generalise easily those from normed space. You should find them at this point very familiar (and more so if you've taken IB Metric and Topological Spaces).
+
+\begin{definition}[Convergence]
+  A sequence \((x_n)\) in \(X\) \emph{converges} to \(x \in X\) if for every \(\varepsilon > 0\), there exists \(N\) such that \(d(x_n, x) < \varepsilon\) whenever \(n > N\).
+\end{definition}
+
+\begin{definition}[Continuity]
+  If \((X, d_x)\) and \((Y, d_Y)\) are metric spaces, \(f: X \to Y\) is continuous if \((f(x_n)) \to f(x)\) with respect to \(d_Y\) whenever \((x_n) \to x \in X\) with respect to \(d_X\).
+\end{definition}
+
+\begin{proposition}[Alternate characterisation of continuity]
+  \(f\) is continuous if and only if for every \(\varepsilon > 0\) and \(x \in X\), there exists \(\delta > 0\) such that \(d(f(x'), f(x)) < \varepsilon\) whenever \(d(x', x) < \delta\).
+\end{proposition}
+
+\begin{definition}[Open ball]
+  The set 
+  \[
+    B_r(x) = \{x' \in X: d(x', x) < r\}
+  \]
+  is the \emph{open ball} of radius \(r\) centred at \(x\).
+\end{definition}
+
+\begin{definition}[Closed ball]
+ The set
+   \[
+     B_r(x) = \{x' \in X: d(x', x) \leq r\}
+   \]
+   is the \emph{closed ball} of radius \(r\) centred at \(x\).
+\end{definition}
+
+\begin{definition}[Open subset]
+  \(U \subseteq X\) is an \emph{open} subset of \(X\) if for every \(x \in U\), there exists \(\varepsilon > 0\) such that \(B_\varepsilon(x) \subseteq U\).
+\end{definition}
+
+\begin{proposition}
+  If \(f: X \to Y\) is continuous and \(U \subseteq Y\) is open then
+  \[
+    f^{-1}(U) \subseteq X
+  \]
+  is open.
+\end{proposition}
+
+We have stressed this before but in case one has forgotten,
+
+\begin{note}
+  Being open (and closed) is a property of a \emph{subset}, not a space.
+\end{note}
+
+\begin{eg}
+  Let \(X = \R\) with metric \(d(x, y) = |x - y|\). Then \([0, \frac{1}{2})\) is not an open subset of \(X\). If \(Y = [0, 1] \subseteq X\) with the subspace metric then \([0, \frac{1}{2})\) is an open subset of \(Y\).
+\end{eg}
+
+\begin{definition}[Closed subset]
+  \(C\) is a \emph{closed subset} of \(X\) if \(X \setminus C\) is an open subset.
+\end{definition}
+
+\begin{proposition}
+  \(C \subseteq X\) is closed if and only if whenever \((x_n) \to x\) in \(X\) and \(x_n\)'s are all in \(C\) then \(x \in C\) as well.
+\end{proposition}
+
+\begin{definition}[Cauchy sequence]
+  A sequence \((x_n)\) in \(X\) is \emph{Cauchy} if for every \(\varepsilon > 0\) there exists \(N\) such that \(d(x_n, x_m) < \varepsilon\) whenever \(n, m \geq N\).
+\end{definition}
+
+\begin{definition}[Completeness]
+  \(X\) is \emph{complete} if whenever \((x_n)\) is a Cauchy sequence in \(X\), there exists \(x \in X\) such that \((x_n) \to x\).
+\end{definition}
+
+\begin{proposition}
+  Suppose \(X\) is a complete metric space and \(C \subseteq X\) is closed. Then \(C\) with the subspace metric is also complete.
+\end{proposition}
+
+\begin{proof}
+  Suppose \((x_n)\) is a Cauchy sequence in \(C\). Then \((x_n)\) is also a Cauchy sequence in \(X\). Since \(X\) is complete there exists \(x \in X\) such that \((x_n) \to x\). Since \(C \subseteq X\) is closed \(x \in C\) so \(C\) is complete.
+\end{proof}
+
+\begin{joke}
+  This is a story about John Conway. Before he moved to the U.S. he was a professor here in Cambridge. He was a very unusual guy and liked playing games. His office was full of toys, such as balls to study sphere packing. In fact he had two offices full of toys: the first one was filled up so he was given a second one.
+
+  One day he had his attic repainted. When the painters finished, they left behind this long roll of paper and an enormous pair of shears. They came back and collect hte shears but not didn't bother the paper.
+
+  Back then Conway was interested in finite simple group. Around that time someone suspected a new finite simple group and Conway proposed a way to build it. Other group theorists told Conway that, well, if you want to prove it then just write down the character table (which is enormous). But he was too busy to get started.
+
+  Just about then he thought it would a really good idea to use the paper at hand to do this. He cover the floor of attic with paper and started working on the character table. And indeed he found it, so now we have a finite simple group (actually three) called Conway group.\footnote{Moral of the story: sometimes you just need a really big piece of paper!}
+\end{joke}
+
+\subsection{Lipschitz Maps}
+
+Suppose \((X, d_X)\) and \((Y, d_Y)\) are metric spaces.
+
+\begin{definition}[Lipschitz map]
+  \(f: X \to Y\) is \emph{\(K\)-Lipschitz}, where \(K \in \R, K > 0\), if for every \(x, x' \in X\),
+  \[
+    d_Y(f(x), f(x')) \leq K d_X(x, x').
+  \]
+
+  Say \(f\) is \emph{Lipschitz} if it is \(K\)-Lipschitz for some \(K\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(f\) is Lipschitz then it is uniformly continuous:
+
+    \begin{proof}
+      Suppose \(f\) is \(K\)-Lipschitz. Given \(\varepsilon > 0\), \(d(f(x), f(x')) \leq K d(x, x') < \varepsilon\) whenever \(d(x, x') < \varepsilon/K\).
+    \end{proof}
+  \item Suppose \(U \subseteq \R^n\) is open, \(F \in C^1(U)\). If \(K = \cl B_r(x_0) \subseteq U\) then \(F|_K\) is Lipschitz:
+
+    \begin{proof}
+      The function
+      \begin{align*}
+        U & \to \R^n \to \R \\
+        x &\mapsto \gradient F|_x \mapsto \norm{\gradient F|_x}
+      \end{align*}
+      is continuous. \(K\) is closed and bounded and thus compact. Thus by Maximum Value Theorem there exists \(M\) such that \(\norm{\gradient F|_x} \leq M\) for all \(x \in K\). \(K = \cl B_r(x_0)\) is convex so by Mean Value Inequality
+      \[
+        |F(x) - F(x')| \leq M \norm{x - x'}
+      \]
+      so \(f\) is \(M\)-Lipschitz.
+    \end{proof}
+  \item If \(f: X \to Y\) is \(K_1\)-Lipschitz, \(g: Y \to Z\) is \(K_2\)-Lipschitz then \(g \compose f\) is \(K_1K_2\)-Lipschitz:
+
+    \begin{proof}
+      \begin{align*}
+        d(g(f(x)), g(f(x'))) &\leq K_2 d(f(x), f(x')) \\
+                            &\leq K_2K_2 d(x, x')
+      \end{align*}
+    \end{proof}
+  \item Consequently, composition of Lipschitz maps is Lipschitz.
+  \item If \(\norm \cdot\) and \(\norm \cdot'\) are two norms on \(V\). Then they are Lipschitz equivalent if and only if the maps
+    \begin{align*}
+      \id: (V, \norm \cdot) &\to (V, \norm \cdot') \\
+      \id: (V, \norm \cdot') &\to (V, \norm \cdot)
+    \end{align*}
+    are both Lipschitz.
+  \end{enumerate}
+\end{eg}
+
+\subsubsection{Operator Norm}
+
+\begin{definition}
+  Let \(V\) and \(W\) be normed spaces. Given \(L \in L(V, W)\), the \emph{operator norm} is
+  \[
+    \nop L = \sup_{v \in V\setminus \{0\}} \frac{\norm{L(v)}_W}{\norm v_V} = \sup_{v \in V \setminus \{0\}} \norm*{ L\left( \frac{v}{\norm v} \right)}
+    \]
+\end{definition}
+
+\begin{remark}
+  If \(V\) and \(W\) are finite-dimensional, \(L \in L(V, W)\) is continuous and \(S(V) = \{v \in V: \norm v = 1\}\) is compact. By the Maximum Value Theorem,
+  \[
+    \sup_{v \in S(V)} \norm{L(v)} = \max_{v \in S(V)} \norm{L(v)}.
+  \]
+  so we can replace \(\sup\) with \(max\) in the definition.
+\end{remark}
+
+Observe that if \(v \in V\) then \(\norm{L(v)} \leq \nop L \cdot \norm v\).
+
+We call something a norm without checking whether it is a norm so we had better do it now:
+
+\begin{proposition}
+  \(\nop \cdot\) is a norm on \(L(V, W)\).
+\end{proposition}
+
+\begin{proof}\leavevmode
+  Example sheet.
+\end{proof}
+
+Form here on let \(V = (\R^n, \norm \cdot_2)\) and \(W = (\R^m, \norm \cdot_2)\).
+
+\begin{proposition}
+  Suppose \(U \subseteq \R^n\) is open and convex, \(f: U \to \R^m\) is differentiable and \(\nop{\D f|_x} \leq M\) for all \(x \in U\). Then \(f\) is \(M\)-Lipschitz.
+\end{proposition}
+
+\begin{proof}
+  This is nothing more than a corollary of Mean Value Inequality.
+
+  Given \(x_0, x_1 \in U\), define
+  \begin{align*}
+    x: [0, 1] &\to U \\
+    t &\mapsto (1 - t)x_0 + t x_1 \\
+    \gamma: [0, 1] &\to \R^m \\
+    t &\mapsto f(x(t))
+  \end{align*}
+  By \Cref{cor:distance and displacement},
+  \[
+    \norm*{\int_{0}^{1} \gamma'(t) dt} \leq \int_{0}^{1} \norm{\gamma'(t)} dt
+  \]
+  By Fundamental Theorem of Calculus, LHS is
+  \[
+    \norm*{\int_{0}^{1} \gamma'(t) dt} = \norm{\gamma(1) - \gamma(0)} = \norm{f(x_1) - f(x_0)},
+  \]
+  and by chain rule the integrand on RHS is
+  \[
+    \norm{\gamma'(t)} = \norm*{ \D f|_{x(t)}(x'(t))} \leq \norm{\D f|_{x(t)}} \cdot \norm{x'(t)} \leq M \norm{x_1 - x_0}.
+  \]
+  Thus putting everyting together we get
+  \[
+    \norm{f(x_1) - f(x_0)} \leq M \norm{x_1 - x_0}.
+  \]
+\end{proof}
+
+\subsection{Contraction Mapping Theorem}
+
+In this section we will learn a new way to solve equations.
+
+\begin{definition}[Contraction map]
+  Let \(X\) be a metric space. \(f: X \to X\) is a \emph{contraction map} if it is \(K\)-Lipschitz for some \(K < 1\), i.e.
+  \[
+    d(f(x), f(x')) \leq K d(x, x').
+  \]
+\end{definition}
+
+Intuitively, \(f\) shrinks distances, ergo the name.
+
+\begin{definition}[Fixed point]
+  \(x \in X\) is a \emph{fixed point} of \(f: X \to X\) if \(f(x) = x\).
+\end{definition}
+
+\begin{theorem}[Contraction Mapping Theorem]
+  Suppose \(X\) is a \emph{complete} metric space. If \(f: X \to X\) is a contraction map then \(f\) has a unique fixed point.
+\end{theorem}
+
+\begin{proof}
+  Since \(f\) is a contraction, there is some \(K < 1\) such that
+  \[
+    d(f(x), f(x')) \leq K d(x, x').
+  \]
+
+  We prove the uniqueness part first since it is short. Suppose \(x\) and \(x'\) are both fixed points of \(f\), then
+  \[
+    d(x, x') = d(f(x), f(x')) \leq K d(x, x')
+  \]
+  where \(K < 1\). The only way for this to hold is \(d(x, x') = 0\), i.e.\ \(x = x'\).
+
+  Next we prove the more interesting part about existence. Heuristically, completeness appears in our hypothesis although it is not in any part of the definition of a contraction map or fixed point, so we better find a Cauchy sequence to which we can apply the condition. Pick \(x_0 \in X\) and inductively define
+  \[
+    x_{n + 1} = f(x_n) = f^{n + 1}(x_0).
+  \]
+  Observe that
+  \[
+    d(x_n, x_{n + 1}) = d(f(x_{n - 1}), f(x_n)) \leq K d(x_{n - 1}, x_n)
+  \]
+  so by induction we see that
+  \[
+    d(x_n, x_{n - 1}) \leq K^n d(x_0, x_1) = K^n R
+  \]
+  where \(R = d(x_0, x_1)\). Claim \((x_n)\) is Cauchy:
+
+  \begin{proof}
+    \begin{align*}
+      d(x_n, x_{n + r}) &\leq d(x_n, x_{n + 1}) + d(x_{n + 1}, x_{n + 2}) + \dots + d(x_{n + r -1}, x_{n + r}) \\
+                        &\leq K^n R + K^{n + 1} R + \dots + K^{n + r - 1} R \\
+                        &= K^n R \frac{1 - K^r}{1 - K} \\
+                        &\leq K^n R \frac{1}{1 - K}
+    \end{align*}
+    As \(K < 1\),
+    \[
+      \lim_{n \to \infty} \frac{K^n R}{1 - K} = 0.
+    \]
+
+    Given \(\varepsilon > 0\), pick \(N\) such that \(\frac{K^nR}{1 - K} < \varepsilon\) whenever \(n \geq N\). Then for \(m \geq n \geq N\),
+    \[
+      d(x_n, x_m) \leq \frac{K^nR}{1 - K} < \varepsilon
+    \]
+    so \((x_n)\) is Cauchy.
+  \end{proof}
+
+  Since \(X\) is complete, there exists \(x \in X\) such that \((x_n) \to x\). \(f\) is Lipschitz so it is continuous so \((f(x_n)) \to f(x)\), i.e.
+  \((x_{n + 1}) \to f(x)\). But \((x_{n + 1}) \to x\) so by uniqueness of limits in metric space \(f(x) = x\), i.e.\ \(x\) is a fixed point of \(f\).
+\end{proof}
+
+
+\begin{remark}
+  How does this help us solve equations? The theorem says that the equation \(f(x) = x\) has a unique solution and the proof shows that we can approximate the fixed point by starting with \(x_0 \in X\) and repeatedly applying \(f\).
+\end{remark}
+
+In practice, not every map is contraction so we often have to restrict the domain of \(f\) in order to get a contraction map.
+
+\begin{eg}[Finding square roots using iteration]
+  An elementary method to find the square root of a non-negative number \(n\) is to let
+  \begin{align*}
+    f: (0, \infty) &\to (0, \infty) \\
+    x &\mapsto \frac{1}{2} \left( x + \frac{n}{x} \right)
+  \end{align*}
+  and iterate \(f\).
+
+  Why does this work? We are essentially finding a fixed point of \(f\). But then \(x = f(x) = \frac{1}{2}(x + n/x)\) so \(x^2 = n\). Therefore the fixed point of \(f\) is precisely \(\sqrt n\).
+
+  That seems promising. Now we are left to show \(f\) is a contraction:
+  \[
+    |f(x) - f(y)| = \frac{1}{2} \left|x + \frac{n}{x} - y - \frac{n}{y} \right| = \frac{1}{2} |x - y| \cdot \left|1 - \frac{n}{xy} \right|.
+  \]
+  Unfortunately, this means that if \(x\) and \(y\) are small \(f\) is definitely not a contraction. To fix this, we restrict \(f\) to \(I_K = [\sqrt n /K, K \sqrt n]\). Then \(f(I_K) \subseteq I_K\) and if we choose \(K = \sqrt 2\), for example, then
+  \[
+    \left|1 - \frac{n}{xy} \right| \leq |1 - 2| = 1
+  \]
+  so
+  \[
+    |f(x) - f(y)| \leq \frac{1}{2} |x - y| \cdot 1 = \frac{1}{2} |x - y|
+  \]
+  for \(x, y \in I_K\) so \(f|_{I_{\sqrt 2}}\) is a contraction map. Therefore if I start with \(x_0 \in I_{\sqrt 2}\) and iterate it will converge to \(\sqrt n\).
+\end{eg}
 \end{document}

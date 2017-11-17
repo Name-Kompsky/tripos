@@ -1344,11 +1344,14 @@ We need the following to prove the theorem:
 
 \subsection{Cubics}
 
+In this section and the following one we assume \(\ch K \neq 2\) for discussion about discriminant and \(\ch K \neq 3\) for cubic Kummer extension.
+
 We have already seen that if \(f(t)\) is a monic irreducible cubic in \(K[t]\) with \(L\) its splitting field over \(K\),
 \[
-  \gal(f) = \gal(L/K) = G
+  G = \gal(f) = \gal(L/K)
 \]
-is \(A_3\) or \(S_3\) since irreducibility implies that the action on roots is transitive.
+is either \(A_3\) or \(S_3\) since irreducibility implies that the action on roots is transitive. Thus we have the following correspondence:
+
 \[
   \begin{array}[h]{ccc}
     L & 1 & \\
@@ -1358,7 +1361,7 @@ is \(A_3\) or \(S_3\) since irreducibility implies that the action on roots is t
     K & G &
   \end{array}
 \]
-where \(\Delta^2 = D(f)\) is the determinant of \(f\). But to see if we can solve \(f\) by radicals we want to make use of \Cref{thm:kummer theory} and so we need to adjoin the appropriate roots of unity. Now we get a bigger picture:
+where \(\Delta^2 = D(f)\) is the determinant of \(f\). But to see if we can solve \(f\) by radicals we want to make use of \Cref{thm:kummer theory} and so we need to adjoin the appropriate roots of unity. So we get a bigger picture:
 \[
   \begin{tikzcd}
     & L(\omega) \ar[dl, dash] \ar[dr, dash, "1 \text{ or } 2"] & \\
@@ -1385,23 +1388,17 @@ where \(\alpha_1, \alpha_2, \alpha_3\) are roots of \(f(t)\). Now all the extens
 \[
   K \leq K(\Delta) \leq K(\Delta, \omega) \leq L(\omega)
 \]
-are cyclotomic or Kummer. Thus \(f(t)\) is soluble by radicals.
+are either cyclotomic or Kummer. Thus \(f(t)\) is soluble by radicals.
 
 Let's give a try to our theory. Given an irreducible cubic
 \[
   f(t) = t^3 + at^2 + bt + c = (t - \alpha_1)(t - \alpha_2)(t - \alpha_3),
 \]
-we have \(\alpha_1 + \alpha_2 + \alpha_3 = -a\). But we don't actually need that many parameters. Replace \(\alpha_i\)'s by
-\begin{align*}
-  \alpha_1' &= \alpha_1 + \frac{a}{3} \\
-  \alpha_1' &= \alpha_1 + \frac{a}{3} \\
-  \alpha_1' &= \alpha_1 + \frac{a}{3}
-\end{align*}
-so that \(\alpha_1' + \alpha_2' + \alpha_3' = 0\) and they are roots of a polynomial \(g(t) = t^3 + pt + q\) and most importantly,
+we have \(\alpha_1 + \alpha_2 + \alpha_3 = -a\). But we don't actually need that many parameters: let \(\alpha' = \alpha_i + \frac{a}{3}\) so that \(\alpha_1' + \alpha_2' + \alpha_3' = 0\) and the \(\alpha'\)'s are roots of the polynomial \(g(t) = t^3 + pt + q\) and most importantly,
 \[
   K(\alpha_1, \alpha_2, \alpha_3) = K(\alpha_1', \alpha_2', \alpha_3')
 \]
-so the splitting field for \(g(t)\) is the same as that for \(f(t)\) so we could work on \(g(t)\) instead. The determinant of \(g(t)\) is \(D(g) = -4p^3 - 27q^2\).
+so the splitting field for \(g(t)\) is the same as that for \(f(t)\). Thus we could work with \(g(t)\) instead. The determinant of \(g(t)\) is \(D(g) = -4p^3 - 27q^2\).
 
 Set
 \begin{align*}
@@ -1457,14 +1454,14 @@ Let \(L = K(\alpha_1, \dots, \alpha_4)\) be the splitting field of \(f(t)\) over
     | & | & \\
     K(\Delta) & G \cap A_4 & \\
     | & | & \\
-    K & G \leq S_4 &
+    K & G &
   \end{array}
 \]
-where \(M\) is the fixed field of \(G \cap V_4 \normal G\) which is an normal extension of \(K\). By \nameref{thm:fundamental},
+where \(M\) is the fixed field of the normal subgroup \(G \cap V_4 \normal G\), which is an normal extension of \(K\). By \nameref{thm:fundamental},
 \[
-  \gal(M/K) \cong G/(G \cap V_4)
+  \gal(M/K) \cong G/(G \cap V_4).
 \]
-Now we use a little knowledge from group theory: there is a group isomorphism
+To determine this group concretely, we use a little knowledge from group theory: there is a group isomorphism
 \[
   S_4/V_4 \cong S_3.
 \]
@@ -1497,19 +1494,181 @@ Remebering that \(\alpha_1 + \alpha_2 + \alpha_3 + \alpha_4 = 0\),
 \end{align*}
 These are all distinct since for example if \(y^2 = z^2\) then \(y = \pm z\) so \(\alpha_3 = \alpha_4\) or \(\alpha_1 = \alpha_2\).
 
+Now consider the \emph{resolvent cubic}
+\[
+  g(t) = (t - x^2) (t - y^2)(t - z^2) \in K[t].
+\]
+
 \(x^2, y^2\) and \(z^2\) are permuted by \(G\) and are fixed by \(G \cap V_4\). Thus
 \[
   K(x^2, y^2, z^2) \leq M = L^{G \cap V_4}.
 \]
-We calim that we actually have equality here:
+We claim that we actually have equality here:
 
 \begin{proof}
-  Next time.
+ Check \(D(f) = D(g)\) --- this will be addressed on example sheet --- so \(K(\Delta) \leq K(x^2, y^2, z^2)\).
+
+Now observe that
+\[
+  \gal(L/(K(x^2, y^2, z^2)) = \gal(K(x, y, z)/K(x^2, y^2, z^2))
+\]
+and in
+\[
+  K(x^2, y^2, z^2) \leq K(x, y^2, z^2) \leq K(x, y, z^2) \leq K(x, y, z),
+\]
+each extension is of degree either \(1\) or \(2\) so \(|K(x, y, z):K(x^2, y^2, z^2)|\) divides \(8\) so elements of \(\gal(L/K(x^2, y^2, z^2))\) have order dividing \(8\). But since
+\[
+  \gal(L/K(x^2, y^2, z^2)) \leq G \cap A_4,
+\]
+by checking the order of elements in \(A_4\) we see that
+\[
+  \gal(L/K(x^2, y^2, z^2)) \leq G \cap V_4.
+\]
+Therefore by \nameref{thm:fundamental}
+\[
+  M = K(x^2, y^2, z^2).
+\]
 \end{proof}
 
-Now consider the \emph{resolvent cubic}
+Consider the coefficients of \(g(t)\): its roots \(x^2, y^2, z^2\) are permuted by \(G\) and so it has coefficients in \(K\). We can actually write down these coefficients:
+\begin{align*}
+  x^2 + y^2 + z^2 &= -2b \\
+  x^2y^2 + x^2z^2 + y^2z^2 &= b^2 - 4d \\
+  xyz &= -c \\
+  x^2y^2z^2 &= c^2
+\end{align*}
+so
 \[
-  g(t) = (t - x^2) (t - y^2)(t - z^2) \in K[t]
+  g(t) = t^3 + 2bt^2 + (b^2 - 4d)t - c^2.
 \]
-Note that its coefficients are fixed by \(G\) and so lie in \(K[t]\).
+We know how to solve cubics so we can solve for \(x^2, y^2, z^2\), from which we can solve for \(x, y, z\). Finally we use formula \(\alpha_1 = \frac{1}{2}(x + y + z)\) etc to recover the roots for the quartic. Whew, done!
+
+\begin{remark}
+  In our map
+  \[
+    \theta: S_4 \to S_3,
+  \]
+  we have restriction
+  \[
+    \theta|_{A_4}: A_4 \to A_3 \cong C_3
+  \]
+  and
+  \[
+    \theta|_{G \cap A_4}: G \cap A_4 \to A_3
+  \]
+  so
+  \[
+    G \cap A_4 /(G \cap V_4) \leq A_3
+  \]
+  which is either \(1\) or \(A_3\), corresponding to \(M/K(\Delta)\). If the resolvent cubic is irreducible then it is isomorphic to \(A_3\). Otherwise it is the trivial group.
+\end{remark}
+
+\begin{eg}
+  Let \(f(t) = t^4 + 4t^2 + 2\). As an aside even if we didn't study Galois theory we could solve it. Then the resolvent cubic \(g(t) = t^3 + 8t^2 + 8t\). Note that \(c = 0\) in \(f(t)\) so \(g(t)\) has no constant term and thus reducible. It follows that \(M = K(\Delta)\).
+\end{eg}
+
+\subsection{Solubility by Radicals}
+
+Now suppose we have a Galois extension \(K \leq L\) with
+\[
+  K = L_0 \leq L_1 \leq \cdots \leq L_m = L
+\]
+such that each \(L_i \leq L_{i + 1}\) is either cyclotomic or Kummer extension.
+
+Let \(G = \gal(G/K)\). There is a corresponding chain of subgroups of \(G\)
+\[
+  G = G_0 \geq G_1 \geq \cdots \geq G_m = 1
+\]
+with \(G_i = \gal(L/K_i)\) and, by \nameref{thm:fundamental}, \(L_i = L^{G_i}\). However each extension \(L_i \leq L_{i + 1}\) is Galois and we know
+\[
+  G_{i + 1} = \gal(L/L_{i + 1}) \normal \gal(L/L_i) = G_i
+\]
+and
+\[
+  G_i/G_{i + 1} \cong \gal(L_{i + 1}/L_i)
+\]
+which is abelian if \(L_i \leq L_{i + 1}\) is cyclotomic and cyclic if \(L_i \leq L_{i + 1}\) is Kummer. It is the perfect time to introduce some group theory:
+
+\begin{definition}[Soluble group]
+  A group is \emph{soluble} if there is a chain of subgroups
+  \begin{equation}
+    \label{eqn:abelian soluble}
+    1 \normal G_m \normal G_{m - 1} \normal \cdots \normal G_1 \normal G_0 = G
+    \tag{\(\ast\)}
+  \end{equation}
+  with \(G_i/G_{i + 1}\) abelian.
+\end{definition}
+
+\begin{remark}
+  Note that some authors use ``cyclic'' for the definition. While we will prove shortly that they are equivalent for a finite group \(G\), in general they are different.
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(S_3\) is soluble since
+    \[
+      1 \normal \generation{(123)} \normal S_3.
+    \]
+  \item \(S_4\) is soluble since
+    \[
+      1 \normal V_4 \normal A_4 \normal S_5.
+    \]
+    and \(A_4/V_4 \cong C_3\), \(S_4/A_4 \cong C_2\).
+  \item \(A_5\) is not soluble: we have proved in IA Groups and again in IB Groups, Rings and Modules that \(A_5\) is simple, and therefore any normal subgroup is \(1\) or \(A_5\). Then any chain of normal subgroups would have non-abelian quotients and thus \(A_5\) is not soluble.
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  A finite group \(G\) is soluble if and only if
+  \begin{equation}
+    \label{eqn:cyclic soluble}
+    1 = G_m \normal G_{m - 1} \normal \cdots \normal G_1 \normal G_0 = G
+    \tag{\(\dag\)}
+  \end{equation}
+  with \(G_i/G_{i + 1}\) cyclic.
+\end{lemma}
+This says that we only have to consider cyclic extensions.
+
+\begin{proof}
+  The if part is easy. For the only if part, from Structural Theorem of Finitely Generated Abelian Groups, if \(A\) is abelian then there is a chain
+  \[
+    0 = A_r \normal A_{r - 1} \normal \cdots \normal A_0 = A
+  \]
+  with \(A_r/A_{r + 1}\) cyclic. Thus if we have a chain \eqref{eqn:abelian soluble} with abelian factors \(G_i/G_{i + 1}\), we can refine it to one of the form \eqref{eqn:cyclic soluble} by Third Isomorphism Theorem.
+\end{proof}
+
+\begin{definition}[Derived subgroup]
+  The \emph{derived subgroup} \(G'\) of a group \(G\) is the subgroup generated by all the commutators
+  \[
+    g_1g_2g_1^{-1}g_2^{-1}
+  \]
+  for \(g_1, g_2 \in G\).
+\end{definition}
+
+Note that it is the subgroup \emph{generated} by all such elements since it is not obvious that they are closed.
+
+\begin{lemma}
+  Let \(K \normal G\). Then \(G/K\) is abelian if and only if \(G' \leq K\).
+\end{lemma}
+
+\begin{proof}
+  \(G/K\) is abelian if and only if
+  \[
+    Kg_1Kg_2Kg_1^{-1}Kg_2^{-2} = K
+  \]
+  for all \(g_1, g_2 \in G\), if and only if
+  \[
+    g_1g_2g_1^{-1}g_2^{-1} \in K
+  \]
+  if and only if \(G' \leq K\).
+\end{proof}
+
+\begin{remark}
+  Some interesting asides:
+  \begin{enumerate}
+  \item In IID Representation Theory we will prove Burnside's Theorem: if \(|G| = p^aq^b\) with \(p, q\) distinct primes then \(G\) is soluble.
+  \item Feit-Thompson Theorem: if \(|G|\) is odd then \(G\) is soluble.
+  \item There is an analogue of Sylow's Theorem due to Philip Hall: given a finite group \(G\), if for every \(m\) and \(n\) coprime and \(|G| = mn\), there is a subgroup of order \(m\) if and only if \(G\) is soluble.
+  \end{enumerate}
+\end{remark}
 \end{document}
