@@ -17,6 +17,9 @@
 
 \newcommand*{\red}[1]{\overline{#1}}
 
+
+\makeindex
+
 \begin{document}
 
 \input{titlepage}
@@ -47,7 +50,7 @@ This course requires quite a lot of IB Groups, Rings and Modules but no content 
 
 \subsection{Field Extensions}
 
-\begin{definition}[Field extension]
+\begin{definition}[Field extension]\index{field extension}
   A \emph{field extension} \(K \leq L\) is the inclusion of a field \(K\) into another field \(L\), with the same \(0\) and \(1\) and the restriction of \(+\) and \(\cdot\) in \(L\) to \(K\) gives \(+\) and \(\cdot\) in \(K\).
 \end{definition}
 
@@ -61,7 +64,7 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
   The \emph{degree} of \(L\) over \(K\) is \(\dim_kL\), the dimension of the \(K\)-vector space \(L\). It is denoted by \(|L:K|\). It may or may not be finite.
 \end{definition}
 
-\begin{definition}[Finite extension]
+\begin{definition}[Finite extension]\index{field extension!finite}
   If \(|L:K| < \infty\) the extension if \emph{finite}. Otherwise it is \emph{infinite}.
 \end{definition}
 
@@ -111,13 +114,13 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
 
 \subsection{Separable Extension}
 
-\begin{definition}[Separable polynomial]
+\begin{definition}[Separable polynomial]\index{separable}
   Let \(K\) be a field and \(f(t) \in K[t]\). Suppose \(f(t)\) is irreducible in \(K[t]\) and \(L\) is a splitting field of \(f(t)\) over \(K\). Then \(f(t)\) is \emph{separable} over \(K\) if \(f(t)\) has no repeated roots in \(L\). For general \(f(t)\), we say \(f(t)\) is \emph{separable} over \(K\) if every irreducible factor in \(K[t]\) is separable over \(K\).
 
   All constant polynomials are deemed to be separable.
 \end{definition}
 
-\begin{definition}[Formal differentiation]
+\begin{definition}[Formal differentiation]\index{differentiation}
   If \(K\) is a field, the \emph{formal differentiation} is the \(K\)-linear map 
   \begin{align*}
     D: K[t] &\to K[t] \\
@@ -162,7 +165,7 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
   \end{enumerate}
 \end{proof}
 
-\begin{definition}[Separable element]
+\begin{definition}[Separable element]\index{separable}
   If \(K \leq L\) is a field extension, we say \(\alpha \in L\) is \emph{separable} over \(K\) if its minimal polynomial is separable over \(K\).
 \end{definition}
 
@@ -170,7 +173,7 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
   If the minimal polynomial of \(\alpha\) is \(f_\alpha(t) = (t - \alpha)^n = t^n - \alpha^n\) where \(n\) is a power of \(\ch K\), \(\alpha\) is said to be \emph{purely inseparably} over \(K\).
 \end{definition}
 
-\begin{definition}[Separable extension]
+\begin{definition}[Separable extension]\index{field extension!separable}
   Given \(K \leq L\), \(L\) is \emph{separable} over \(K\) if all elements of \(L\) are separable over \(K\).
 \end{definition}
 
@@ -339,7 +342,7 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
 
 These will also be used in IID Number Fields.
 
-\begin{definition}[Trace \& Norm]
+\begin{definition}[Trace \& Norm]\index{trace}\index{norm}
   Let \(K \leq M\) be a finite field extension and \(\alpha \in M\). Multiplication by \(a\) is a \(K\)-linear map \(\theta_\alpha: M \to M\). The \emph{trace} of \(\alpha\) over \(K\) is
   \[
     \Tr_{M/K}(\alpha) = \Tr \theta_\alpha \in K
@@ -482,7 +485,7 @@ Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\t
 
 We met this definition before:
 
-\begin{definition}[Normal extension]
+\begin{definition}[Normal extension]\index{field extension!normal}
   An extension \(K \leq M\) is \emph{normal} if for every \(\alpha \in M\), the minimal polynomial \(f_\alpha(t)\) of \(\alpha\) over \(K\) splits over \(M\).
 \end{definition}
 
@@ -540,11 +543,11 @@ From \ref{tbh} we know that such \(K\)-automorphisms are isormophisms and thus h
   if and only if the extension is both normal and separable.
 \end{theorem}
 
-\begin{definition}[Galois extension]
+\begin{definition}[Galois extension]\index{field extension!Galois}
   A finite field extension that is normal and separable is a \emph{Galois extension}.
 \end{definition}
 
-\begin{definition}[Galois group]
+\begin{definition}[Galois group]\index{Galois group}
   Let \(K \leq M\) be a Galois extension. Then the \(K\)-automorphism group of \(M\) is the \emph{Galois group} of \(M\) over \(K\), denoted by
   \[
     \gal(M/K).
@@ -586,7 +589,7 @@ From \ref{tbh} we know that such \(K\)-automorphisms are isormophisms and thus h
 
 \section{Fundamental Theorem of Galois Theory}
 
-\begin{definition}[Fixed field]
+\begin{definition}[Fixed field]\index{fixed field}
   Let \(K \leq L\) be a field extension and \(H \leq \aut_K(L)\). The \emph{fixed field} of \(H\) is
   \[
     L^H = \{\alpha \in L: \sigma(\alpha) = \alpha \text{ for all } \sigma \in H \}.
@@ -760,7 +763,7 @@ The fixed field is a field and \(K \leq L^H \leq L\).
 
 \subsection{Galois Group of Polynomials}
 
-\begin{definition}[Galois group]
+\begin{definition}[Galois group]\index{Galois group}
   Let \(f(t) \in K[t]\) be a separable polynomial and \(K \leq L\) with \(L\) a splitting field for \(f(t)\). Then the \emph{Galois group} of \(f(t)\) over \(K\) is
   \[
     \gal(f) = \gal(L/K).
@@ -804,6 +807,7 @@ Moreover if \(\phi\) fixes each \(\alpha_i\) it also fixes all elements of \(L\)
 \end{lemma}
 
 \begin{theorem}
+  \label{thm:galois group Sp}
   Let \(p\) be a prime and \(f(t) \in \Q[t]\) of degree \(p\). Suppose \(f(t)\) has exactly \(2\) non-real roots in \(\C\). Then
   \[
     \gal(f) \cong S_p.
@@ -832,7 +836,7 @@ Moreover if \(\phi\) fixes each \(\alpha_i\) it also fixes all elements of \(L\)
   \end{proof}
 \end{eg}
 
-\begin{definition}[Discriminant]
+\begin{definition}[Discriminant]\index{discriminant}
   Let \(f(t) \in K[t]\) have distinct roots \(\alpha_1, \dots, \alpha_n\) (in a splitting field) (\(f(t)\) need not be irreducible). Set \(\Delta = \prod_{i < j}(\alpha_i - \alpha_j)\). Then the \emph{discriminant} of \(f\) is
   \[
     D(f) = \Delta^2 = \prod_{i < j}(\alpha_i - \alpha_j)^2 = (-1)^{\frac{n(n-1)}{2}} \prod_{i \neq j}(\alpha_i - \alpha_j).
@@ -916,7 +920,7 @@ Recall what we already know from \Cref{sec:section 1}: a finite field \(\F\) is 
 
 What we haven't shown yet is that for any \(p^r\) there is a field with \(|\F| = p^r\).
 
-\begin{definition}[Frobenius automorphism]
+\begin{definition}[Frobenius automorphism]\index{Frobenius automorphism}
   Let \(\F\) be a finite field of characteristic \(p\). The \emph{Frobenius automorphism} of \(\F\) is
   \begin{align*}
     \phi_p: \F &\to \F \\
@@ -977,7 +981,7 @@ Observe that all subgroups of cyclic groups are normal and therefore all our int
 
 \subsection{Cyclotomic Extensions}
 
-\begin{definition}[Cyclotomic extension]
+\begin{definition}[Cyclotomic extension]\index{field extension!cyclotomic}
   Suppose \(\ch K = 0\) or \(p\) is prime wher \(p \ndivides m\). The \emph{\(m\)th cyclotomic extension} of \(K\) is the splitting field \(L\) of \(t^m - 1\).
 \end{definition}
 
@@ -1012,7 +1016,7 @@ which is an injective map.
 
 Thus \(G\) is abelian and we regard \(G\) as a subgroup of \((\Z/m\Z)^\times\).
 
-\begin{definition}[Cyclotomic polynomial]
+\begin{definition}[Cyclotomic polynomial]\index{cyclotomic polynomial}
   The \emph{\(m\)th cyclotomic polynomial} is
   \[
     \Phi_m(t) = \prod_{i \in (\Z/m\Z)^\times} (t - \xi^i),
@@ -1133,11 +1137,11 @@ So far we have worked exclusively with finite fields with non-zero characteristi
   So the claim is true. Now consider a root \(\gamma\) of \(h(t)\). It is also a primitive \(m\)th root of unity and \(\gamma = \xi^i\) for some \(i\) coprime with \(m\). Factorise it as \(i = p_1 \cdots p_k\) with \(p_j\) prime and not necessarily distinct and \(p_j \ndivides m\). Apply the claim repeatedly, we get that \(\gamma\) is also a root of \(g(t)\) and so \(\Phi_m(t)\) has a repeated root. Absurd. Thus \(\Phi_m(t)\) is irreducible over \(\Q\).
 \end{proof}
 
-\begin{definition}[Cyclic extension]
+\begin{definition}[Cyclic extension]\index{field extension!cyclic}
   An extension \(K \leq L\) is \emph{cyclic} if the extension is Galois and \(\gal(L/K)\) is cyclic.
 \end{definition}
 
-\begin{definition}[Abelian extension]
+\begin{definition}[Abelian extension]\index{field extension!abelian}
   An extension \(K \leq L\) is \emph{abelian} if the extension is Galois and \(\gal(L/K)\) is abelian.
 \end{definition}
 
@@ -1290,7 +1294,7 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
 
 Since we are going to restate the hypothesis in the theorem many times, we give it a name
 
-\begin{definition}[Kummer extension]
+\begin{definition}[Kummer extension]\index{field extension!Kummer}
   A cyclic extension \(K \leq L\) with \(|L:K| = m\) where \(\ch K \ndivides m\) and \(K\) contains a primitve \(m\)th root of unity is a \emph{Kummer extension}.
 \end{definition}
 
@@ -1330,7 +1334,7 @@ We need the following to prove the theorem:
 
 \(t^m - \lambda\) is the minimal polynomial of \(\beta\) over \(K\) and hence is irreducible.
 
-\begin{definition}[Radical extension]
+\begin{definition}[Radical extension]\index{field extension!radical}
   A field extension \(K \leq L\) is an \emph{extension by racidals} if there exists
   \[
     K = L_0 \leq L_ 1 \leq \cdots \leq L_n = L
@@ -1338,7 +1342,7 @@ We need the following to prove the theorem:
   such that each \(L_i \leq L_{i + 1}\) is either cyclotomic or Kummer extension.
 \end{definition}
 
-\begin{definition}[Solubility by radicals]
+\begin{definition}[Solubility by radicals]\index{solubility}
   A polynomial \(f(t) \in K[t]\) is \emph{soluble by radicals} if its splitting field lies in an extension by radicals.
 \end{definition}
 
@@ -1589,7 +1593,7 @@ and
 \]
 which is abelian if \(L_i \leq L_{i + 1}\) is cyclotomic and cyclic if \(L_i \leq L_{i + 1}\) is Kummer. It is the perfect time to introduce some group theory:
 
-\begin{definition}[Soluble group]
+\begin{definition}[Soluble group]\index{soluble group}
   A group is \emph{soluble} if there is a chain of subgroups
   \begin{equation}
     \label{eqn:abelian soluble}
@@ -1600,7 +1604,7 @@ which is abelian if \(L_i \leq L_{i + 1}\) is cyclotomic and cyclic if \(L_i \le
 \end{definition}
 
 \begin{remark}
-  Note that some authors use ``cyclic'' for the definition. While we will prove shortly that they are equivalent for a finite group \(G\), in general they are different.
+  Note that some authors use ``cyclic'' in the definition. While we will prove shortly that they are equivalent for a finite group \(G\), in general they are different.
 \end{remark}
 
 \begin{eg}\leavevmode
@@ -1654,7 +1658,7 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
 \begin{proof}
   \(G/K\) is abelian if and only if
   \[
-    Kg_1Kg_2Kg_1^{-1}Kg_2^{-2} = K
+    Kg_1Kg_2Kg_1^{-1}Kg_2^{-1} = K
   \]
   for all \(g_1, g_2 \in G\), if and only if
   \[
@@ -1668,7 +1672,110 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
   \begin{enumerate}
   \item In IID Representation Theory we will prove Burnside's Theorem: if \(|G| = p^aq^b\) with \(p, q\) distinct primes then \(G\) is soluble.
   \item Feit-Thompson Theorem: if \(|G|\) is odd then \(G\) is soluble.
-  \item There is an analogue of Sylow's Theorem due to Philip Hall: given a finite group \(G\), if for every \(m\) and \(n\) coprime and \(|G| = mn\), there is a subgroup of order \(m\) if and only if \(G\) is soluble.
+  \item There is an analogue of Sylow's Theorem due to Philip Hall: given a finite group \(G\), for every \(m\) and \(n\) coprime and \(|G| = mn\), there is a subgroup of order \(m\) if and only if \(G\) is soluble.
   \end{enumerate}
 \end{remark}
+
+\begin{definition}[Derived series]\index{derived series}
+  The \emph{derived series} \(\{G^{(m)}\}\) of \(G\) is defined inductively as
+  \begin{align*}
+    G^{(0)} &= G \\
+    G^{(i + 1)} &= (G^{(i)})'
+  \end{align*}
+  Thus
+  \[
+    \cdots \normal G^{(2)} \normal G^{(1)} \normal G^{(0)} = G
+  \]
+  with \(G^{(i)}/G^{(i + 1)}\) abelian.
+\end{definition}
+
+\begin{lemma}
+  Given a finite group \(G\), \(G\) is soluble if and only if \(G^{(m)} = 1\) for some \(m\).
+\end{lemma}
+
+\begin{proof}
+  If \(G^{(m)} = 1\) then the derived series gives a chain of the form \eqref{eqn:abelian soluble} as in the definition of solubility.
+
+  Conversely, if there is a chain of the form \eqref{eqn:abelian soluble}
+  \[
+    1 \normal G_m \normal \cdots \normal G_1 \normal G
+  \]
+  with \(G_i/G_{i + 1}\) abelian then induction shows that \(G^{(j)} \leq G_j\) and so \(G^{(m)} = 1\).
+\end{proof}
+
+\begin{remark}
+  The derived series is the fastest descending chain with abelian factors.
+\end{remark}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item Let \(H \leq G\). If \(G\) is soluble then \(H\) is soluble.
+  \item Let \(H \normal G\). Then \(G\) is soluble if and only if \(H\) and \(G/H\) are both soluble.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(G\) is soluble so there is some \(m\) such that \(G^{(m)} = 1\). But \(H^{(m)} \leq G^{(m)}\) and so \(H\) is soluble.
+  \item Let \(H \normal G\). Suppose \(G\) is soluble. Then by the previous line \(H\) is soluble. Let \(G^{(m)} = 1\), observed that
+    \[
+      (G/H)' = G'H/H \leq G/H
+    \]
+    and inductively
+    \[
+      (G/H)^{(j)} = G^{(j)}H/H \leq G/H.
+    \]
+    Thus \((G/H)^{(m)} = H/H = 1\) so \(G/H\) is soluble.
+
+    Conversely, suppose both \(H\) and \(G/H\) are soluble, i.e.\ \(H^{(r)} = 1\) and \((G/H)^{(s)} = H/H\). But from above \((G/H)^{(s)} = G^{(s)}H/H\) so \(G^{(s)}H = H\) and thus \(G^{(s)} \leq H\). Therefore
+    \[
+      G^{(r + s)} \leq H^{(r)} = 1
+    \]
+    so \(G\) is soluble.
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}
+  \(S_5\) is not soluble since its subgroup \(A_5\) is not soluble.
+\end{eg}
+
+\begin{theorem}
+  \label{thm:solubility}
+  Let \(K\) be a field with \(\ch K = 0\) and \(f(t) \in K[t]\). Then \(f(t)\) is soluble by radicals over \(K\) if and only if \(\gal(f)\) over \(K\) is soluble.
+\end{theorem}
+
+\begin{remark}
+  We don't need to restrict to \(\ch K = 0\). What we need to do for a particular \(f(t)\) is to avoid a finite number of bad characteristics (to avoid characteristics smaller than \(\deg f(t)\)).
+\end{remark}
+
+\begin{corollary}
+  If \(f(t)\) is a monic irreducible polynomial in \(K[t]\) with \(\ch K = 0\) and \(\gal(f) \cong A_5\) or \(S_5\) then \(f(t)\) is not soluble by radicals.
+\end{corollary}
+
+\begin{eg}
+  In the example after \Cref{thm:galois group Sp} on page~\pageref{thm:galois group Sp}, \(f(t) = t^5 - 6t + 3 \in \Q[t]\) has Galois group \(S_5\) over \(\Q\): recall that it has three real roots and so complex conjugation gives a transposition. \(f(t)\) is irreducible and so \(5 \divides |\gal(f)|\) and so there is a \(5\)-cycle. Together they generate \(S_5\). Thus \(f(t)\) is not soluble by radicals.
+\end{eg}
+
+\begin{proof}[Proof of \Cref{thm:solubility}]
+  Suppose \(f(t)\) is soluble by radicals. Then the splitting field of \(f(t)\) over \(K\), \(L\), lies in an extension of \(K\) by radicals:
+  \[
+    K = L_0 \leq L_1 \leq \dots \leq L_m
+  \]
+  with each \(L_i \leq L_{i + 1}\) either cyclotomic or Kummer.
+
+  \begin{lemma}
+    If \(K \leq N\) is an extension by radicals then there exists \(N \leq N'\) with \(K \leq N'\) an extension of radicals with \(K \leq N'\) a Galois extension.
+  \end{lemma}
+
+  Assuming this lemma and so we may assume \(K \leq L_m\) is Galois. By \nameref{thm:fundamental} there is a corresponding chain of subgroups \(\gal(L_m/K)\). Previous discussion shows that \(\gal(L_m/K)\) is soluble. So to sum up we have \(K \leq L \leq L_m\) with \(L_m\) Galois so by \nameref{thm:fundamental}
+  %
+  %
+  %
+  % what about L_m/L? Why is it Galois?
+  \[
+    \gal(L/K) \cong \gal(L_m/K)/\gal(L_m/L)
+  \]
+  But quotients of soluble group are soluble so \(\gal(L/K)\) is soluble.
+\end{proof}
+\printindex
 \end{document}

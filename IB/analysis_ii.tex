@@ -19,11 +19,13 @@
 \theoremstyle{definition}
 \newtheorem*{joke}{Joke}
 
+
+\makeindex
+
 \begin{document}
 
 % TODO: rewrite \norm
 % TODO: plot simple functions
-
 
 
 \input{titlepage}
@@ -59,7 +61,7 @@ A motivating example: if $(a_n)$ is a sequence of real numbers, then $(a_n)\to a
 \]
 Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\cdot|$ with?
 
-\begin{definition}[Norm]
+\begin{definition}[Norm]\index{norm}
   If $V$ is a real vector space, a \emph{norm} on $V$ is a function $\|\cdot\|:V\to\mathbb{R}$ satisfying
   \begin{enumerate}
   \item $\forall \V v \in V, \|\V v\| \geq 0$ with equality if and only if $\V v =\V 0$.
@@ -85,7 +87,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \end{enumerate}
 \end{eg}
 
-\begin{definition}[Convergence]
+\begin{definition}[Convergence]\index{convergence}
   Suppose $(V, \|\cdot\|)$ is a normed vector space and $(\V v_n)$ is a sequence of elements of $V$. We say $(\V v_n)$ \emph{converges} to $\V v\in V$, denoted $(\V v_n)\to \V v$, if $\forall\varepsilon>0,\exists N s.t. \forall n>N, \|\V v_n-\V v\|<\varepsilon$. Equivalently, $(\V v_n)\to \V v$ if $(\|\V v_n-\V v\|)\to 0$.
 \end{definition}
 
@@ -133,7 +135,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
 
 \subsection{Continuity}
 
-\begin{definition}[Continuity]
+\begin{definition}[Continuity]\index{continuity}
   Suppose $V$ and $W$ are normed vector spaces. We say a function $f:V\to W$ is \emph{continuous} if
   \[
     (f(\V v_n))\to f(\V v) \text{ in } W \text{ whenever } (\V v_n)\to \V v \text{ in } V.
@@ -237,7 +239,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   Suppose \eqref{eqn:alternate continuity} does not hold. Then exists some $v \in V$ and $\varepsilon>0$ such that there is no $\delta>0$ with $f(B_\delta(v)) \subseteq B_\varepsilon(f(v))$. In particular $f(B_{1/n}(v)) \nsubseteq B_\varepsilon(f(v))$ for all $n$. Pick $v_n \in B_{1/n}(v)$ with $f(v_n) \notin B_\varepsilon(f(v))$. Then $(v_n)\to v$, but $(f(v_n)) \nto f(v)$, since $\|f(v_n) - f(v) \| \geq \varepsilon$ for all $n$. $f$ is not continuous.
 \end{proof}
 
-\begin{definition}[Open subset]
+\begin{definition}[Open subset]\index{open subset}
   $U \subseteq V$ is an \emph{open subset} of $V$ if for every $u \in U$ there is some $\varepsilon>0$ with $B_\varepsilon(u) \subseteq U$.
 \end{definition}
 
@@ -264,7 +266,7 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
   \end{enumerate}
 \end{eg}
 
-\begin{definition}[Closed subset]
+\begin{definition}[Closed subset]\index{closed subset}
   $C\subseteq V$ is a \emph{closed subset} of $V$ if $V\setminus C$ is open in $V$.
 \end{definition}
 
@@ -353,7 +355,7 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
     \par}
 \end{joke}
 
-\begin{definition}[Lipschitz equivalence]
+\begin{definition}[Lipschitz equivalence]\index{norm!Lipschitz equivalence}
   \label{def:Lipschitz equivalence}
   If \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\), they are said to be \emph{Lipschitz equivalent} if
   \begin{align*}
@@ -399,21 +401,21 @@ which are both vector space.
   \(C[0,1] \subseteq B[0,1]\) by Maximum Value Theorem. \(g(x) = \frac{1}{x} \in C(0,1]\) so \(C(0,1] \nsubseteq B(0,1]\).
 \end{eg}
 
-\begin{definition}[Pointwise Convergence]
+\begin{definition}[Pointwise Convergence]\index{convergence!pointwise}
   \((f_n) \to f\) \emph{pointwise} if
   \[
     (f_n(x)) \to f(x) \text{ for all } x\in \R.
     \]
 \end{definition}
 
-\begin{definition}[Uniform norm]
+\begin{definition}[Uniform norm]\index{norm!uniform}
   The \emph{uniform norm} on \(B(A)\) is given by
   \[
     \|f\|_\infty = \sup_{x\in A} |f(x)|.
   \]
 \end{definition}
 
-\begin{definition}[Uniform convergence]
+\begin{definition}[Uniform convergence]\index{convergence!uniform}
   If \(f, f_n: A\to \R\), we say \(f(x) \to f\) \emph{uniformly on \(A\)} if \((f_n-f) \in B(A)\) for all \(n\) and \((\|f_n-f\|_\infty)\to0\).
 \end{definition}
     In other words,
@@ -481,7 +483,7 @@ which are both vector space.
 
 Recall that if \(f\in C[a,b]\) then \(\|f\|_1=\int_a^b|f(x)|dx\). 
 
-\begin{definition}[Convergence in measure]
+\begin{definition}[Convergence in measure]\index{convergence!in measure}
   \(f_n\) converges \emph{in measure} to \(f\) if \((f_n)\to f\) with respect to \(\|\cdot\|_1\), 
 \end{definition}
 
@@ -549,7 +551,7 @@ Recall some facts about series from IA Analysis I:
   Combine property 5 and 6.
 \end{proof}
 
-\begin{definition}[Power series]
+\begin{definition}[Power series]\index{power series}
 A series of the form
 \[
 \sum_{i=0}^{\infty}a_i(z-c)^i,
@@ -595,7 +597,7 @@ where \(a_i,z,c\in C\) is called a \emph{power series}. \(C\) is the \emph{centr
 for all \(i\geq N\) and \(\sum_{i=N}^{\infty}\alpha^i \) converges. By the lemma \(\sum_{i=N}^{\infty}a_i(z-c)^i \) converges.
 \end{proof}
 
-\begin{definition}[Radius of convergence]
+\begin{definition}[Radius of convergence]\index{power series!radius of convergence}
   \[
     R := \sup \{ |z-c|: \sum_{i=0}^{\infty}a_i (z-c)^i \text{ converges}\}
   \]
@@ -828,7 +830,7 @@ Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in
   if \((v_n)\to v\) in \(v\) then any subsequence \((v_{n_j})\) converges to \(v\) as well.
 \end{ex}
 
-\begin{definition}[Boundedness]
+\begin{definition}[Boundedness]\index{boundedness}
   \(A \subseteq V\) is bounded if there exists \(m\) such that \(\norm v \leq m \) for all \(v\in A\).
 \end{definition}
 
@@ -852,7 +854,7 @@ Recall from IA Analysis I:
   \]
 \end{proof}
 
-\begin{definition}[Sequential compactness]
+\begin{definition}[Sequential compactness]\index{sequential compactness}
   \(C \subseteq V\) is \emph{sequentially compact} if any sequence \((v_n)\) in \(C\) has a convergent subsequence \((v_{n_j}) \to v \in C\).
 \end{definition}
 
@@ -1018,7 +1020,7 @@ for all \(v\in V\).
 
 Let \(V\) be a normed vector space.
 
-\begin{definition}[Cauchy sequence]
+\begin{definition}[Cauchy sequence]\index{Cauchy}
   A sequence \((v_n)\) in \(V\) is \emph{Cauchy} if for any \(\varepsilon>0\), there exists \(N\) such that for all \(n,m\geq N\), \(\norm{v_n-v_m} < \varepsilon\).
 \end{definition}
 
@@ -1054,7 +1056,7 @@ But there may \emph{not} be anything for it to converge to!
   Let \((V, \norm \cdot) = (\Q, \norm \cdot)\), let \(v_n\) be the first \(n\)-decimal place expansion of \(\pi\). Then \((v_n)\) is Cauchy but does not converge to any \(v\in \Q\).
 \end{eg}
 
-\begin{definition}[Completeness]
+\begin{definition}[Completeness]\index{completeness}
   A normed vector space \((V, \norm \cdot)\) is \emph{complete} if whenever \((v_n)\) is a Cauchy sequence in \(V\), there exists \(v\in V\) such that \((v_n) \to v\).
 \end{definition}
 
@@ -1116,7 +1118,7 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
   Since the uniform limit of continuous functions is continuous, \((f_n) \to f \in C[a, b]\). \((C[a, b], \norm \cdot_\infty)\) is complete.
 \end{proof}
 
-\begin{definition}[Normed subspace]
+\begin{definition}[Normed subspace]\index{norm!normed subspace}
   Let \((V, \norm \cdot)\) and \((V', \norm \cdot')\) be two normed vector spaces. We say \(V\) is a \emph{normed vector subspace} of \(V'\) if
   \begin{enumerate}
   \item \(V \leq V'\) as a vector space,
@@ -1146,7 +1148,7 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
 
 Suppose \(V\) and \(W\) are normed spaces and \(X \subseteq V\),
 
-\begin{definition}[Uniform continuity]
+\begin{definition}[Uniform continuity]\index{continuity!uniform}
   \(f: W \to W\) is \emph{uniformly continuous} if
   \[
     \forall \varepsilon>0, \, \exists \delta>0 \, \forall v, w \in X, \, \norm{v - w} < \delta \Rightarrow \norm{f(v) - f(w)} < \varepsilon.
@@ -1246,7 +1248,7 @@ so given \(g_+ \in \riem U(f), g_- \in \riem L(f)\), \(g_- \leq f \leq g_+\) so 
   l(f) &= \sup L(f)
 \end{align*}
 
-\begin{definition}[Riemann integral]
+\begin{definition}[Riemann integral]\index{Riemann integral}
   \(f\) is \emph{Riemann integrable} if \(u(f) = l(f)\). In this case define
   \[
     \int_{a}^{b} f(x) dx = u(f) = l(f).
@@ -1451,7 +1453,7 @@ Similarly for \(F: \R^n \to \R^m\), \(G: \R^m \to \R^l\) differentiable, we will
 
 Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in U\), \(f: U \setminus \{v_0\} \to W\).
 
-\begin{definition}[Limit]
+\begin{definition}[Limit]\index{limit}
   We say the \emph{limit} of \(f\) at \(v_0\) is \(w\), denoted by
   \[
     \lim_{v \to v_0} f(v) = w,
@@ -1514,7 +1516,7 @@ Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in
   for \(t \neq 0\) so taking \(t = \frac{1}{n}\), we find points \((1/n, 1/n^2)\) arbitrarily close to \((0, 0)\) with \(f(1/n, 1/n^2) \geq 1\) so \(\lim_{v \to 0} f(v) \neq 0\).
 \end{eg}
 
-\begin{definition}[Continuity]
+\begin{definition}[Continuity]\index{continuity}
   \(f: U \to W\) is \emph{continuous} at \(v_0\) if
   \[
     \lim_{v \to v_0} f(v) = f(v_0).
@@ -1584,7 +1586,7 @@ Let \(U \subseteq \R^n\) be open and \(f: U \to \R^n\).
   so \(f\) is differentiable and \(\D f|_a = L\).
 \end{eg}
 
-\begin{definition}[Differentiability]
+\begin{definition}[Differentiability]\index{differentiability}
   \(f\) is differentiable if \(f\) is differentiable at all \(a \in U\).
 \end{definition}
 
@@ -1604,7 +1606,7 @@ The analyst way says that given \(f\) in the previous example, the derivative \(
 
 Let \(F: U \to \R^n\).
 
-\begin{definition}[Directional derivative]
+\begin{definition}[Directional derivative]\index{directional derivative}
   If \(v \in \R^n\setminus \{0\}\), the \emph{directional derivative} of \(F\) at \(a\) in the direction \(v\) is
   \[
     \D_v F|_a = \lim_{t \to 0^+} \frac{F(a + tv) - F(a)}{t}
@@ -1807,7 +1809,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
   \par}
 \end{joke}
 
-\begin{definition}[\(C^1\) space]
+\begin{definition}[\(C^1\) space]\index{C1@\(C^1\)}
   \(F: U \to \R\) is \(C^1\) if all the partial derivatives \(\D_i F\) exist and are continuous on \(U\). Denote
   \[
     C^1(U) = \{F: U \to \R: F \text{ is } C^1\}.
@@ -1913,7 +1915,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
   Thus \(F\) is differentiable at \(a\).
 \end{proof}
 
-\begin{definition}[\(C^1\) space]
+\begin{definition}[\(C^1\) space]\index{C1@\(C^1\)}
   \(f = (f_1, \dots, f_m): U \to \R^n\) is \(C^1\) if \(f_i\) is \(C^1\) for all \(i\).
 \end{definition}
 
@@ -2064,7 +2066,7 @@ Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \t
 
 In IA Analysis I, we proved the Mean Value Theorem which is an important result in differential calculus. The result generalises to higher dimensions.
 
-\begin{definition}[Convex set]
+\begin{definition}[Convex set]\index{convex}
   \(U \subseteq \R^n\) is \emph{convex} if whenever \(x_0, x_1 \in U\) then
   \[
     tx_1 + (1 - t)x_0 \in U
@@ -2134,7 +2136,7 @@ Given \(v \in \R^n\), define
   \end{enumerate}
 \end{eg}
 
-\begin{definition}[Twice differentiability]
+\begin{definition}[Twice differentiability]\index{differentiability!twice}
   \(f\) is \emph{twice differentiable} at \(a \in U\) if \(\alpha_v\) is differentiable at \(a\) for all \(v \in \R^n\).
 
   If so define
@@ -2234,7 +2236,7 @@ is the \emph{Hessian matrix}  of \(F\) at \(a\).
   \]
 \end{eg}
 
-\begin{definition}[\(C^2\) space]
+\begin{definition}[\(C^2\) space]\index{C2@\(C^2\)}
   \(F: U \to \R\) is \(C^2\) if \(F\) is \(C^1\) and all second partial derivatives \(\D_{ij} F\) exist and are continuous on \(U\). If so \(F \in C^2(U)\).
 \end{definition}
 
@@ -2375,7 +2377,7 @@ as we defined it.
 
 \subsubsection{Third and Higher Derivatives}
 
-\begin{definition}[\(C^k\) space]
+\begin{definition}[\(C^k\) space]\index{Ck@\(C^k\)}
   \(F: U \to \R\) is \(C^k\) if the partial derivatives \(\D_i F\) are \(C^{k - 1}\) for all \(1 \leq i \leq n\).
 
   If \(F \in C^k(U)\), define the \(k\)th derivative
@@ -2511,7 +2513,7 @@ In this chapter we take a short break from differential calculus (but don't forg
 
 \subsection{Definitions}
 
-\begin{definition}
+\begin{definition}[Metric space]\index{metric}
   A \emph{metric space} is a set \(X\) with a distance function \(D: X \times X \to \R\) satisfying
   \begin{enumerate}
   \item positivity: \(d(x, y) \geq 0, d(x, y) = 0\) if and only if \(x = y\).
@@ -2556,11 +2558,11 @@ Most of the definitions and theorems we gave about subsets of normed spaces appl
 
 That is enough digression about the structure of the course. As promised, here are some definitions and results that generalise easily those from normed space. You should find them at this point very familiar (and more so if you've taken IB Metric and Topological Spaces).
 
-\begin{definition}[Convergence]
+\begin{definition}[Convergence]\index{convergence}
   A sequence \((x_n)\) in \(X\) \emph{converges} to \(x \in X\) if for every \(\varepsilon > 0\), there exists \(N\) such that \(d(x_n, x) < \varepsilon\) whenever \(n > N\).
 \end{definition}
 
-\begin{definition}[Continuity]
+\begin{definition}[Continuity]\index{continuity}
   If \((X, d_x)\) and \((Y, d_Y)\) are metric spaces, \(f: X \to Y\) is continuous if \((f(x_n)) \to f(x)\) with respect to \(d_Y\) whenever \((x_n) \to x \in X\) with respect to \(d_X\).
 \end{definition}
 
@@ -2584,7 +2586,7 @@ That is enough digression about the structure of the course. As promised, here a
    is the \emph{closed ball} of radius \(r\) centred at \(x\).
 \end{definition}
 
-\begin{definition}[Open subset]
+\begin{definition}[Open subset]\index{open subset}
   \(U \subseteq X\) is an \emph{open} subset of \(X\) if for every \(x \in U\), there exists \(\varepsilon > 0\) such that \(B_\varepsilon(x) \subseteq U\).
 \end{definition}
 
@@ -2606,7 +2608,7 @@ We have stressed this before but in case one has forgotten,
   Let \(X = \R\) with metric \(d(x, y) = |x - y|\). Then \([0, \frac{1}{2})\) is not an open subset of \(X\). If \(Y = [0, 1] \subseteq X\) with the subspace metric then \([0, \frac{1}{2})\) is an open subset of \(Y\).
 \end{eg}
 
-\begin{definition}[Closed subset]
+\begin{definition}[Closed subset]\index{closed subset}
   \(C\) is a \emph{closed subset} of \(X\) if \(X \setminus C\) is an open subset.
 \end{definition}
 
@@ -2614,11 +2616,11 @@ We have stressed this before but in case one has forgotten,
   \(C \subseteq X\) is closed if and only if whenever \((x_n) \to x\) in \(X\) and \(x_n\)'s are all in \(C\) then \(x \in C\) as well.
 \end{proposition}
 
-\begin{definition}[Cauchy sequence]
+\begin{definition}[Cauchy sequence]\index{Cauchy}
   A sequence \((x_n)\) in \(X\) is \emph{Cauchy} if for every \(\varepsilon > 0\) there exists \(N\) such that \(d(x_n, x_m) < \varepsilon\) whenever \(n, m \geq N\).
 \end{definition}
 
-\begin{definition}[Completeness]
+\begin{definition}[Completeness]\index{completeness}
   \(X\) is \emph{complete} if whenever \((x_n)\) is a Cauchy sequence in \(X\), there exists \(x \in X\) such that \((x_n) \to x\).
 \end{definition}
 
@@ -2644,7 +2646,7 @@ We have stressed this before but in case one has forgotten,
 
 Suppose \((X, d_X)\) and \((Y, d_Y)\) are metric spaces.
 
-\begin{definition}[Lipschitz map]
+\begin{definition}[Lipschitz map]\index{Lipschitz map}
   \(f: X \to Y\) is \emph{\(K\)-Lipschitz}, where \(K \in \R, K > 0\), if for every \(x, x' \in X\),
   \[
     d_Y(f(x), f(x')) \leq K d_X(x, x').
@@ -2694,7 +2696,7 @@ Suppose \((X, d_X)\) and \((Y, d_Y)\) are metric spaces.
 
 \subsubsection{Operator Norm}
 
-\begin{definition}
+\begin{definition}[Operator norm]\index{operator norm}
   Let \(V\) and \(W\) be normed spaces. Given \(L \in L(V, W)\), the \emph{operator norm} is
   \[
     \nop L = \sup_{v \in V\setminus \{0\}} \frac{\norm{L(v)}_W}{\norm v_V} = \sup_{v \in V \setminus \{0\}} \norm*{ L\left( \frac{v}{\norm v} \right)}
@@ -2759,7 +2761,7 @@ Form here on let \(V = (\R^n, \norm \cdot_2)\) and \(W = (\R^m, \norm \cdot_2)\)
 
 In this section we will learn a new way to solve equations.
 
-\begin{definition}[Contraction map]
+\begin{definition}[Contraction map]\index{contraction}
   Let \(X\) be a metric space. \(f: X \to X\) is a \emph{contraction map} if it is \(K\)-Lipschitz for some \(K < 1\), i.e.
   \[
     d(f(x), f(x')) \leq K d(x, x').
@@ -2856,4 +2858,6 @@ In practice, not every map is contraction so we often have to restrict the domai
   \]
   for \(x, y \in I_K\) so \(f|_{I_{\sqrt 2}}\) is a contraction map. Therefore if I start with \(x_0 \in I_{\sqrt 2}\) and iterate it will converge to \(\sqrt n\).
 \end{eg}
+
+\printindex
 \end{document}
