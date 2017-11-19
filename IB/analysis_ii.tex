@@ -57,16 +57,16 @@ In IA Analysis I, the primary space we are interested in is \(\R\) and we studie
 
 A motivating example: if $(a_n)$ is a sequence of real numbers, then $(a_n)\to a$ if
 \[
-  \forall \varepsilon>0,\exists N s.t. \forall n>N, |a_n-a|<\varepsilon.
+  \forall \varepsilon>0, \exists N s.t. \forall n>N, |a_n-a|<\varepsilon.
 \]
 Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\cdot|$ with?
 
 \begin{definition}[Norm]\index{norm}
-  If $V$ is a real vector space, a \emph{norm} on $V$ is a function $\|\cdot\|:V\to\mathbb{R}$ satisfying
+  If $V$ is a real vector space, a \emph{norm} on $V$ is a function $\norm \cdot:V\to\mathbb{R}$ satisfying
   \begin{enumerate}
-  \item $\forall \V v \in V, \|\V v\| \geq 0$ with equality if and only if $\V v =\V 0$.
-  \item $\forall \V v,\forall \lambda \in \R, \|\lambda \V v\| = |\lambda| \|\V v\|$
-    \item $\forall \V v,\V w\in V, \|\V v+\V w\| \leq \|\V v\| + \|\V w\|$ (triangle inequality).
+  \item $\forall \V v \in V, \norm{\V v} \geq 0$ with equality if and only if $\V v =\V 0$.
+  \item $\forall \V v, \forall \lambda \in \R, \norm{\lambda \V v} = |\lambda| \norm{\V v}$
+  \item $\forall \V v, \V w\in V, \norm{\V v+\V w} \leq \norm{\V v} + \norm{\V w}$ (triangle inequality).
   \end{enumerate}
 \end{definition}
 
@@ -74,15 +74,15 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \begin{enumerate}
   \item $V= \mathbb{R}^m, \V v = (v_1,\ldots,v_m)$,
     \begin{enumerate}
-    \item $\|\V v\| = (\sum_{i=1}^m v_i^2)^{1/2}$, the Euclidean norm,
-    \item $\|\V v\|_\infty = \max |v_i|$, the max norm,
-      \item $\|\V v\|_1 = \sum_{i=1}^m |v_i|$.
+    \item $\norm{\V v} = (\sum_{i=1}^m v_i^2)^{1/2}$, the Euclidean norm,
+    \item $\norm{\V v}_\infty = \max |v_i|$, the max norm,
+    \item $\norm{\V v}_1 = \sum_{i=1}^m |v_i|$.
     \end{enumerate}
-  \item $V=C[0,1]$,
+  \item $V = C[0, 1]$,
     \begin{enumerate}
-    \item $\|f\|_\infty=\max_{x\in[0,1]} |f(x)|$,
-    \item $\|f\|_2=(\int_0^1 f(x)^2 dx)^{1/2}$, which comes from $\langle f,g\rangle = \int_0^1f(x)g(x) dx$,
-      \item $\|f\|_1=\int_0^1|f(x)| dx$, the $L^1$ norm.
+    \item $\norm f_\infty=\max_{x\in[0,1]} |f(x)|$,
+    \item $\norm f_2 = (\int_0^1 f(x)^2 dx)^{1/2}$, which comes from $\innerproduct{f, g} = \int_0^1f(x)g(x) dx$,
+    \item $\norm f_1 = \int_0^1|f(x)| dx$, the $L^1$ norm.
     \end{enumerate}
   \end{enumerate}
 \end{eg}
@@ -2328,7 +2328,7 @@ is the \emph{Hessian matrix}  of \(F\) at \(a\).
 \end{proof}
 
 \begin{corollary}
-  Suppose \(U \subseteq \R^n\) is open, \(F \in C^2(\R^n)\). Then
+  Suppose \(U \subseteq \R^n\) is open, \(F \in C^2(U)\). Then
   \[
     D_{ij} F|_a = D_{ji} F|_a
   \]
@@ -2434,7 +2434,7 @@ Note that \(f: [0, 1] \to \R\).
 \begin{corollary}[Multivariable Taylor's Formula]
   If \(U\) is open and convex, \(x_0, x_0 + v \in U\) and \(F \in C^k(U)\) then
   \[
-    F(x_0 + v) = \sum_{i = 0}^{k - 1} \frac{1}{i!} \D^i F|_{x_0} (v, \dots, v) + \frac{1}{k!} \D^k F|_{x + tv}(v, \dots, v)
+    F(x_0 + v) = \sum_{i = 0}^{k - 1} \frac{1}{i!} \D^i F|_{x_0} (v, \dots, v) + \frac{1}{k!} \D^k F|_{x_0 + tv}(v, \dots, v)
   \]
   for some \(t \in [0, 1]\).
 \end{corollary}
