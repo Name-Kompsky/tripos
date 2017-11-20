@@ -2681,7 +2681,7 @@ Suppose \((X, d_X)\) and \((Y, d_Y)\) are metric spaces.
     \begin{proof}
       \begin{align*}
         d(g(f(x)), g(f(x'))) &\leq K_2 d(f(x), f(x')) \\
-                            &\leq K_2K_2 d(x, x')
+                            &\leq K_2K_1 d(x, x')
       \end{align*}
     \end{proof}
   \item Consequently, composition of Lipschitz maps is Lipschitz.
@@ -2730,7 +2730,7 @@ Form here on let \(V = (\R^n, \norm \cdot_2)\) and \(W = (\R^m, \norm \cdot_2)\)
 \end{proposition}
 
 \begin{proof}
-  This is nothing more than a corollary of Mean Value Inequality.
+  The proof for the general case is similar to that of Mean Value Inequality is left as an exercise. Here we want to draw our attention to the case where \(f\) is \(C^1\) and show how it arises as a corollary of Mean Value Inequality.
 
   Given \(x_0, x_1 \in U\), define
   \begin{align*}
@@ -2858,6 +2858,128 @@ In practice, not every map is contraction so we often have to restrict the domai
   \]
   for \(x, y \in I_K\) so \(f|_{I_{\sqrt 2}}\) is a contraction map. Therefore if I start with \(x_0 \in I_{\sqrt 2}\) and iterate it will converge to \(\sqrt n\).
 \end{eg}
+
+\section{Solving Equations}
+
+In this final chapter we are going to learn methods to solve equations, first in \(\R^n\) and then in function space.
+
+\subsection{Inverse Function Theorem}
+
+\begin{definition}[Diffeomorphism]\index{diffeomorphism}
+  Suppose \(U_1, U_2 \subseteq \R^n\) is open. A map \(f: U_1 \to U_2\) is a \emph{diffeomorphism} if \(f\) is a bijection and both \(f\) and \(f^{-1}\) are \(C^1\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(L \in L(\R^n, \R^n)\) is invertible (i.e.\ \(\det L \neq 0\)) then the \emph{affine map}
+    \begin{align*}
+      A: \R^n &\to \R^n \\
+      x &\mapsto L(x) + y_0
+    \end{align*}
+    is a diffeomorphism with inverse \(y \mapsto L^{-1}(y - y_0)\).
+  \item The polar coordinates map
+    \begin{align*}
+      f: (0, \infty) \times (0, \pi) &\to \R \times (0, \infty) \\
+      (r, \theta) &\mapsto (r \cos \theta, r \sin \theta)
+    \end{align*}
+    is a diffeomorphism. It is easy to see that \(f\) is bijective and \(C^1\) and its inverse is
+    \[
+      f^{-1}(x, y) = \left( \sqrt{x^2 + y^2}, \tan^{-1} \frac{y}{x} \right)
+    \]
+    also \(C^1\).
+  \end{enumerate}
+\end{eg}
+
+The second example gives us another viewpoint for diffeomorphism: if \(f: U_1 \to U_2\) is a diffeomorphism then \((f_1(x), \dots, f_n(x))\) is a different coordinate system on \(U_1\). This is the basis of differential geometry.
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(f: U_1 \to U_2\) and \(g: U_2 \to U_3\) are diffeomorphisms then so is the composition \(g \compose f: U_1 \to U_3\).
+  \item If \(U_1, U_2 \subseteq \R^n\) are open, write \(U_1 \cong U_2\) if there is a diffeomorphism \(f: U_1 \to U_2\). Then \(\cong\) is an equivalence relation on open subsets of \(\R^n\).
+  \item Differentiable functions are continuous so if \(f: U_1 \to U_2\) is a diffeomorphism then it is also a homeomorphism. The converse is not true: \(f: \R \to \R, x \mapsto x^3\) is a homeomorphism with \(f^{-1}(x) = x^{1/3}\). However \(f\) is not a diffeomorphism since \(f^{-1}\) is not differentiable at \(0\).
+  \item If \(f: U_1 \to U_2\) is a diffeomorphism then \(f^{-1} \compose f = \id_{U_1}\). Applying the chain rule,
+    \[
+      \D f^{-1}|_{f(x)} \compose \D f|_x = \D (\id_{U_1})|_x = \iota \in L(\R^n, \R^n).
+    \]
+    This implies that \(\D f|_x\) is invertible and
+    \[
+      (\D f^{-1})|_{f(x)} = (\D f|_x)^{-1}.
+    \]
+    We can use this to prove the above proposition: \(f(x) = x^3\) is not a diffeomorphism since \(\D f|_x = (3x^2)\) is not invertible at \(x = 0\).
+  \end{enumerate}
+\end{remark}
+
+In the rest of the section we are going to prove a single theorem. This theorem gives a sufficient condition for a local diffeomorphism. Roughly it says that if we are interested in determining whether a map is a diffeomorphism near a point, we only have to consider its invertibility at that point.
+
+This theorem is of enormous importance and is considered ``Theorem \(0\)'' of differential geometry:
+
+\begin{theorem}[Inverse Function Theorem]\index{Inverse Function Theorem}
+  \label{thm:inverse function}
+  Suppose \(U \subseteq \R^n\) is open, \(f: U \to \R^n\) is \(C^1\) and \(x_0 \in U\) is such that \(\D f|_{x_0}\) is invertible, then there exists \(U_1 \subseteq U\), \(U_2 \subseteq \R^n\) open with \(x_0 \in U_1\) such that \(f|_{U_1}: U_1 \to U_2\) is a diffeomorphism.
+\end{theorem}
+
+As we said, this is a huge theorem and we will take two lectures to prove it so before we start to prove it let us discuss its intuition and implications.
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item We can choose \(U_1 = B_\varepsilon(x_0)\) or \(U_2 = B_\delta(f(x_0))\) but not both at once.
+  \item The theorem says that if \(\det \D f|_{x_0} \neq 0\) then \((f_1(x), \dots, f_n(x))\) are local coordinates on \(\R^n\) near \(x_0\).
+  \item On \(\R\), if \(f: \R \to \R\) is \(C^1\) and \(f'(x) \neq 0\) then \(f\) is a diffeomorphism onto its image. But this is false for any higher dimension: that \(f: \R^n \to \R^n\) is \(C^1\) with \(\det \D f|_x \neq 0\) does not imply that \(f\) is diffeomorphism onto its image. For example, let
+    \begin{align*}
+      f: (0, \infty) \times \R &\to \R^2 \setminus \{0\} \\
+      (r, \theta) &\mapsto (r \cos \theta, r \sin \theta)
+    \end{align*}
+    has
+    \[
+      \D f|_{r, \theta} =
+      \begin{pmatrix}
+        \cos \theta & -r \sin \theta \\
+        \sin \theta & r \cos \theta
+      \end{pmatrix}
+    \]
+    and \(\det \D f|_{r, \theta} = r \neq 0\) (note that we excluded the origin in the definition, which is always a problem for polar coordinates). But \(f\) is not injective since \(f(r, \theta) = f(r, \theta + 2\pi)\). This shows that the theorem is there is no global generalisation of the one-dimensional case and \nameref{thm:inverse function} is, in a sense, the best alternative we can have about the local generalisation thereof.
+  \end{enumerate}
+\end{remark}
+
+\begin{proof}[Proof of \nameref{thm:inverse function}]
+  As this proof is long, I will interleave it with comments and remarks for clarity.
+  
+  First consider a special case. Let \(f: U \to \R^n\), \(0 \in U\), \(f(0) = 0\) and \(\D f|_0 = \iota \in L(\R^n, \R^n)\).
+
+  \begin{remark}
+    Before we prove the theorem for this special case, note that to pass from the special case to a general case where \(\D g|_{x_0}\) is invertible, we consider the function
+    \[
+      f(x) = L^{-1}(g(x + x_0) - g(x_0))
+    \]
+    where \(L = \D g|_{x_0} \in L(\R^n, \R^n)\).
+  \end{remark}
+
+  The hard bit is to show that \(f\) is locally invertible near \(0\), i.e.\ there exist \(\varepsilon > 0\), \(\delta > 0\) such that if \(y_0 \in B_\varepsilon(0)\) then there is a unique \(x \in B_\delta(0)\)with \(f(x) = y_0\). If this holds, take \(U_2 = B_\varepsilon(0)\), \(U_1 = f^{-1}(U_2) \cap B_\delta(0)\), then \(f: U_1 \to U_2\) is a bijection.
+
+  The way we solve \(f(x) = y_0\) is to use the tool we have just acquired: Contraction Mapping theorem. If we could write down a contraction map \(N_{y_0}\) whose fixed point \(N_{y_0}(x) = x\) solves \(f(x) = y_0\) then we are done.
+
+  Let us write done the map first. Take
+  \[
+    N_{y_0}(x) = x + y_0 - f(x).
+  \]
+  Check that \(N_{y_0}(x) = x\) if and only if \(x = x + y_0 - f(x)\) if and only if \(f(x) = y_0\).
+
+  \begin{remark}
+    Okay so this map works for us. The question is, how do I come up with this map? The answer (essentially) is Newton's method. Recall Newton's method in one-dimension: to solve \(f(x) = y_0\) for \(f: \R \to \R\), let \(x_{m + 1} = \widetilde N_{y_0}(x_n)\) where
+    \[
+      \widetilde N_{y_0}(x) = x + \frac{y_0 - f(x)}{f'(x)}.
+    \]
+    This easily generalises to a function \(f: \R^n \to \R^n\): let
+    \[
+      \widetilde N_{y_0}(x) = x + (\D f|_x)^{-1} (y_0 - f(x)).
+    \]
+
+    It is now only one step from its final form. We simplify further by approximating \(\D f|_x \approx \D f|_0 = \iota\) where the last step is by our hypothesis. Then we get
+    \[
+      N_{y_0}(x) = x + \iota^{-1} (y_0 - f(x)) = x + y_0 - f(x).
+    \]
+  \end{remark}
+\end{proof}
 
 \printindex
 \end{document}

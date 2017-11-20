@@ -17,6 +17,8 @@
 
 \newcommand*{\basis}{\mathcal}
 
+\newcommand*{\ip}{\innerproduct}
+
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
@@ -1493,7 +1495,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   For \(T \subseteq U, S \in V\),
   \begin{align*}
     T^\perp &= \{ v\in V: \varphi(t, v) = 0 \, \forall t\in T \} \leq V \\
-    ^\perp S &= \{ u\in U: \varphi(u, s) = 0 \, \forall s\in S \} \leq U
+    \prescript{\perp}{}{S} &= \{ u\in U: \varphi(u, s) = 0 \, \forall s\in S \} \leq U
   \end{align*}
 \end{definition}
 They are generalisation of annihilators.
@@ -2870,7 +2872,9 @@ We can use the diagonalisation to calculate powers of matrices:
 
 \section{Bilinear Form II}
 
-In this chapter we are going to studying a special bilinear form in detail. Let \(\varphi: V \times V \to \F\) be a bilinear form on \(V\) and assume we take the same basis for both factors of \(V\), say \(\basis B\). Therefore for \(\dim V < \infty\), \(\varphi\) has matrix representation
+\subsection{Symmetric Bilinear Forms}
+
+In this chapter we are going to studying a special bilinear form (and variants whereof) in detail. Let \(\varphi: V \times V \to \F\) be a bilinear form on \(V\) and assume we take the same basis for both factors of \(V\), say \(\basis B\). Therefore if \(\dim V < \infty\) \(\varphi\) has matrix representation
 \[
   [\varphi]_{\basis B} = [\varphi]_{\basis B, \basis B}.
 \]
@@ -3278,13 +3282,13 @@ In our previous notation, the kernel is simply
   Check that \(T\) above is the largest possible dimension of such a space.
 \end{ex}
 
-\section{Sesquilinear Form}
+\subsection{Sesquilinear Form}
 
-Let \(\F = \C\) throughout this chapter.
+Let \(\F = \C\) throughout this section.
 
 The dot product on a real vector space comes naturally as a bilinear form. However, its generalisation to complex vector space, the standard inner product defined by
 \[
-  \innerproduct{x, y} = \sum_{i = 1}^{n} x_i \conj y_i
+  \ip{x, y} = \sum_{i = 1}^{n} x_i \conj y_i
 \]
 is not bilinear: the second coordinate transforms by ``conjugate-linearity'' instead of linearity. Among many other examples of the same spirit\footnote{Formally, any \(\C\)-algebra induced by an inner product.}, this serves as a motivation to modify the definition of bilinear forms for \(\C\)-vector spaces:
 
@@ -3327,5 +3331,196 @@ Naturally we would expect a sesquilinear form, just like a bilinear form, to hav
   Ditto.
 \end{proof}
 
+\subsection{Hermitian Form}
+
+We have special bilinear forms that are symmetric. The analogue for sesquilinear form is
+
+\begin{definition}[Hermitian form]\index{Hermitian}
+  A sesquilinear form \(\varphi: V \times V \to \C\) is \emph{Hermitian} if
+  \[
+    \varphi(u, v) = \conj{\varphi(v,u)}.
+  \]
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item For \(\varphi\) Hermitian, \(\varphi(u, u) \in \R\) and \(\varphi(\lambda u, \lambda u) = |\lambda|^2 \varphi(u,u)\) so we can still talk about positive/negative (semi-)definite Hermitian forms.
+  \item For a Hermitian form \(\varphi: V \times V \to \C\), let \(\basis B\) be a basis for \(V\). Then we write
+    \[
+      [\varphi]_{\basis B} = [\varphi]_{\basis B, \basis B}.
+    \]
+  \end{enumerate}
+\end{note}
+
+\begin{lemma}
+  A sesquilinear form \(\varphi: V \times V \to \C\) is Hermitian if and only if for any basis \(\basis B\),
+  \[
+    [\varphi]_{\basis B} = \conj{[\varphi]}^T_{\basis B}.
+  \]
+\end{lemma}
+
+As before, if and only if this holds for one basis.
+
+\begin{proof}
+  \begin{itemize}\leavevmode
+  \item \(\Rightarrow\): Let \(\basis B = \{v_1, \dots, v_n\}\) and \(A = [\varphi]_{\basis B} = (a_{ij})\). Then
+    \begin{align*}
+      a_{ij} &= \varphi(v_i, v_j) \\
+             &= \conj{\varphi(v_j, v_i)} \\
+      &= \conj{a_{ji}}
+    \end{align*}
+  \item \(\Leftarrow\):
+    \begin{align*}
+      \varphi \left( \sum \lambda_iv_i, \sum \mu_jv_j \right) &= \lambda^T A \conj \mu \\
+                                                              &= \lambda^T \conj A^T \conj \mu \\
+                                                              &= \conj \mu^T \conj A \lambda \\
+                                                              &= \left( \conj{\mu^T A \conj \lambda} \right)^T \\
+                                                              &= \conj{\mu^T A \conj \lambda} \\
+                                                              &= \conj{\varphi \left( \sum \mu_jv_j, \sum \lambda_iv_i \right)}
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+Similarly we have polarisation identity for sesquilinear form: a Hermitian form \(\varphi\) on \(\C\)-vector space \(V\) is determined by
+\begin{align*}
+  Q: V &\to \R \\
+  v &\mapsto \varphi(v, v)
+\end{align*}
+via the formula
+\[
+  \varphi(u, v) = \frac{1}{4} \left( Q(u + v) - Q(u - v) + i Q(u + iv) - i Q(u - iv) \right).
+\]
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+Lastly,
+\begin{theorem}[Diagonalisation of Hermitian Form and Sylvester's Law]\index{tbd}
+  Let \(V\) be a finite-dimensional \(\C\)-vector space and \(\varphi: V \times V \to \C\) be a Hermitian form. There is a basis \(\basis B = \{v_1, \dots, v_n\}\) of \(V\) with respect to which
+  \[
+    [\varphi]_{\basis B} =
+    \begin{pmatrix}
+      I_p & & \\
+      & -I_q & \\
+      & & 0
+    \end{pmatrix}
+  \]
+  where \(p\) and \(q\) are invariants of \(\varphi\).
+\end{theorem}
+
+\begin{proof}
+  This is nearly as identical to the symmetric case so we only give a sketch here.
+
+  For existence, if \(\varphi(u, u) = 0\) for all \(u\) then by polarisation identity \(\varphi(u, v) = 0\) so done. Assume not. There exists \(e_1\) such that \(\varphi(e_1, e_1) \neq 0\). Rescale to have
+  \[
+    v_1 = \frac{e_1}{\sqrt{\norm{\varphi(e_1, e_1)}}}
+  \]
+  so \(\varphi(v_1, v_1) = \pm 1\). Note that we used the fact that \(\varphi(e_1, e_1) \in \R\).
+
+  Consider the complementary space
+  \[
+    W = \spans{v_1}^\perp = \left\{ w \in V: \varphi(v_1, w) = 0 \right\}
+  \]
+  Check that \(V = \spans{v_1} \oplus W\). Now proceed by induction on \(W\).
+
+  For uniqueness part (Sylvester's law), note \(p\) is the maximal dimension of a subspace of \(V\) on which \(\varphi\) is positive definite.
+\end{proof}
+
+\subsection{Alternating Form}
+
+\begin{definition}[Alternating form]\index{alternating}\index{skew-symmetric}
+  A bilinear form \(\varphi: V \times V \to \F\) is \emph{alternating} or \emph{skew-symmetric} if
+  \[
+    \varphi(u, v) = - \varphi(v, u)
+  \]
+  for all \(u, v \in V\).
+\end{definition}
+
+As a consequence \(\varphi(u, u) = 0\) for all \(u \in V\) and for any basis \(\basis B\), \([\varphi]_{\basis B} = - [\varphi]_{\basis B}^T\).
+
+\begin{remark}
+  Alternating form is useful since for any \(A \in \M_n(\F)\) with \(\ch \F \neq 2\),
+  \[
+    A = \underbrace{\frac{1}{2}(A + A^T)}_{\text{symmetric}} + \underbrace{\frac{1}{2}(A - A^T)}_{\text{skew-symmetric}}.
+  \]
+\end{remark}
+
+\begin{theorem}
+  If \(\varphi\) is skew-symmetric, there exists a basis
+  \[
+    \basis B = \{v_1, w_1, v_2, w_2, \dots, v_m, w_m, v_{2m + 1}, \dots, v_n\}
+  \]
+  such that
+  \[
+    [\varphi]_{\basis B} =
+    \begin{pmatrix}
+      0 & 1 & & & & & & & & \\
+      -1 & 0 & & & & & & & & \\
+      & & 0 & 1 & & & & & & \\
+      & & -1 & 0 & & & & & & \\
+      & & & & \ddots & & & & & \\
+      & & & & & 0 & 1 & & & \\
+      & & & & & -1 & 0 & & & \\
+      & & & & & & & 0 & &\\
+      & & & & & & & & \ddots & \\
+      & & & & & & & & & 0 \\
+    \end{pmatrix}
+  \]
+  where there are \(m\) blocks of \(\begin{psmallmatrix} 0 & 1 \\ -1 & 0 \end{psmallmatrix}\).
+\end{theorem}
+
+\begin{remark}
+  By reordering the basis, with respect to
+  \[
+    \{v_1, \dots, v_m, w_1, \dots, w_m, v_{2m + 1}, \dots v_n\}
+  \]
+  it has matrix representation
+  \[
+    \begin{pmatrix}
+      0 & I_m & \\
+      -I_m & 0 & \\
+      & & 0
+    \end{pmatrix}
+  \]
+\end{remark}
+
+\begin{remark}
+  Skew-symmetric matrices have even rank.
+\end{remark}
+
+\begin{proof}[Sketch of proof]
+  Induction on \(\dim V\): If \(\varphi = 0\) then done. Assume not. Then there exists \(v_1, w_1\) such that \(\varphi(v_1, w_1) \neq 0\). In particular \(v_1\) and \(w_1 \) are linearly independent. Scale \(v_1\) to get \(\varphi(v_1, w_1) = 1 = -\varphi(w_1, v_1)\) and let
+  \begin{align*}
+    U &= \spans{v_1, w_1} \\
+    W &= \prescript{\perp}{}{U} = \{ v\in V: \varphi(v, v_1) = \varphi(v, w_1) = 0 \}
+  \end{align*}
+  Check \(V = U \oplus W\) by dimension argument. Now apply the induction hypothesis to \(\varphi|_W\).
+\end{proof}
+
+\section{Inner Product Spaces}
+
+Let \(\F = \R\) or \(\C\) in this chapter.
+
+\begin{definition}[Inner product]\index{inner product}
+  Let \(V\) be a vector space over \(\R\) (\(\C\), repsectively). An \emph{inner product} on \(V\) is a positive definite symmetric bilinear form (Hermitian form, respectively) \(\varphi\) on \(V\).
+
+  \(V\) is called a real (complex, respectively) \emph{inner product space}, or a \emph{Euclidean} (\emph{unitary}, repsectively) space.
+\end{definition}
+
+\begin{notation}
+  Write \(\ip{u, v}\) for \(\varphi(u, v)\). Note that it is the same as our notation for span so whenever I mention span in this chapter I will spell it out.
+\end{notation}
+
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item Dot product on \(\R^n\) or \(\C^n\).
+  \item \(V = C([0, 1], \C)\), \(\ip{f, g} = \int_0^1 f(t) \conj{g(t)} dt\)
+  \item This can be generalised. Given \(w: [0, 1] \to \R_{> 0}\) continuous, think of it as a weight function, we can define an inner product
+    \[
+      \ip{f, g} = \int_{0}^{1} w(t)f(t)\conj{g(t)} dt.
+    \]
+  \end{itemize}
+\end{eg}
 \printindex
 \end{document}
