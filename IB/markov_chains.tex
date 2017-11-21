@@ -1228,7 +1228,104 @@ We have to make some assumptions for our reversed chain to make sense: assume th
   \[
     \sum_j \hat p_{i,j} = \sum_j \frac{\pi_j}{\pi_i} p_{j, i} = \frac{1}{\pi_i} \sum_j \pi_j p_{j,i} = 1.
   \]
+
+  Claim \(\pi = \pi \hat P\):
+  \begin{align*}
+    \sum_i \pi_i \hat p_{i,j} &= \sum_i \pi_j p_{j, i} = \pi_j
+  \end{align*}
+
+  Now to prove it is a Markov chain,
+  \begin{align*}
+    \prob(Y_0 = i_0, \dots, Y_n = i_n) &= \prob(X_{N -n} = i_n, \dots, X_N = i_0) \\
+                                       &= \pi_{i_n} p_{i_n, i_{n - 1}} \cdots p_{i_1, i_0} \\
+                                       &= \pi_{i_{n - 1}} \hat p_{i_{n + 1}, i_n} p_{i_{n - 1}, i_{n - 1}} \cdots, p_{i_1, i_n} \\
+                                       &= \pi_{i_0} \hat p_{i_0, i_1} \cdots \hat p_{i_{n - 1}, i_n}
+  \end{align*}
+  Hence \(Y\) has the stated properties.
 \end{proof}
+
+We call mY the \emph{time-reversal} of \(X\) and we say \(X\) is \emph{reversible} if \(Y\) and \(X\) have the same transition probabilities. By (*) (the equation is the statement of the theorem), \(X\) is recursive if and only if
+\[
+  \pi_i p_{i,j} = \pi_j p_{j, i}
+\]
+for all \(i, j \in S\). This is the detailed balance equation.
+
+More generally, we say a transition matrix \(P\) and a distribution \(\lambda\) are in \emph{detailed balance} if
+\[
+  \lambda_i p_{i, j} = \lambda_j p_{j, i}
+\]
+for all \(i, j \in S\). An irreducible chain \(X\) with invariant distribution \(\pi\) is called \emph{reversible in equilibrium} if its \(P\) is in detailed balance with \(\pi\).
+
+Equation such as \(\pi = \pi P\) can be difficult and may depend on some special structure on \(P\). On the other hand the detailed balance equation is almost trivial.
+
+\begin{proposition}
+  If \(\pi\) is a distribution satisfying
+  \[
+    \pi_i p_{i, j} = \pi_j p_{j, i}
+  \]
+  for all \(i, j \in S\) and \(S\) is irreducible, then \(\pi\) is the only invariant distribution of the chain and the chain is reversible in equilibrium
+\end{proposition}
+
+\begin{proof}
+  Let \(\pi\) be a distribution satisfying the hypothesis. Then
+  \[
+    \sum_i \pi_j p_{j, i} = \sum_j \pi_i p_{i, j} = \pi_i
+  \]
+  as \((\pi P)_i = \pi_i\). Therefore \(\pi = \pi P\).
+\end{proof}
+
+\begin{eg}[Birth-death with retaining barrier]
+  Try the detailed balance equation
+  \[
+    \pi_{i - 1} p_{i - 1} = \pi_i q_i
+  \]
+  so
+  \begin{equation}
+    \pi_i = \frac{p_{i - 1}}{q_i} \frac{p_{i - 2}}{q_{i - 1}} \cdots \frac{p_0}{q_1} \pi_0 = \rho_i \pi_0
+  \end{equation}
+
+  \[
+    \sum_i \pi_i = \pi_0 \sum_i \rho_i
+  \]
+  If \(S = \sum_i \rho_i\) satisfies \(S < \infty\) then \(\pi_i = \rho_i/S\) is an invariant distribution and if \(S = \infty\) there is no invariant distribution.
+\end{eg}
+
+\section{Random Walk on a Graph}
+
+A finite graph consists of vertices and edges and is denoted \(G = (V, E)\). We discuss graphs are simple (in which there are no parallel edges and loops) and connected. If \((u, v) \in E\) then \(v\) is called an \emph{neighbour} of \(u\). The \emph{degree} of \(u\), \(d(u)\), is the number of its neighbours.
+
+A random walk on \(G\) is a Markov chain with state space \(V\) and transition probability
+\[
+  p_{u, n} =
+  \begin{cases}
+    0 & \text{ if \(v\) is not a neighbour of \(u\)} \\
+    \frac{1}{d(u)} & \text{if \(v\) is a neighbour of \(u\)}
+  \end{cases}
+\]
+This is irreducible if and only if \(G\) is connected, which we assume henceforth.
+
+As always, the natural question to ask is if there is an invariant distribution. Try to solve
+\[
+  \cdot p_{u, v} = \cdot p_{v, u}
+\]
+for \((u, v) \in E\). We try to find ``things'' to multiply for the above relation to hold. The obvious choice is \(\pi_u = d(u)\). But we have to normalise it since
+\[
+  \sum_u d(u) = 2|E|
+\]
+Then \(\pi_u = \frac{d(u)}{2|E|}\) satsifies the above detailed balance equation, and hence is the unique invariant distribution.
+
+\begin{eg}[Erratic Knight]
+  A knight performs independent legal knight moves about a \(8 \times 8\) chessboard. This is a Markov chain on the state space \(S\), the smallest square on hte board. (Exercise: show this is irreducible). The question is: what is its invariant distribution?
+
+  The answer is simple:
+  \[
+    \pi_i = \frac{\text{No. of legal moves from square}}{336}
+  \]
+\end{eg}
+
+\begin{ex}[Erratic Bishop]
+  There are two types of bishops, depending on the colour of the intial checkerboard. Consequently there are two commutative classes.
+\end{ex}
 
 \iffalse
 \appendix
