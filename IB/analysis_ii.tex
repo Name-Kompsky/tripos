@@ -2726,6 +2726,7 @@ We call something a norm without checking whether it is a norm so we had better 
 Form here on let \(V = (\R^n, \norm \cdot_2)\) and \(W = (\R^m, \norm \cdot_2)\).
 
 \begin{proposition}
+  \label{prop:operator norm bounded implies Lipschitz}
   Suppose \(U \subseteq \R^n\) is open and convex, \(f: U \to \R^m\) is differentiable and \(\nop{\D f|_x} \leq M\) for all \(x \in U\). Then \(f\) is \(M\)-Lipschitz.
 \end{proposition}
 
@@ -2774,7 +2775,8 @@ Intuitively, \(f\) shrinks distances, ergo the name.
   \(x \in X\) is a \emph{fixed point} of \(f: X \to X\) if \(f(x) = x\).
 \end{definition}
 
-\begin{theorem}[Contraction Mapping Theorem]
+\begin{theorem}[Contraction Mapping Theorem]\index{Contraction Mapping Theorem}
+  \label{thm:contraction}
   Suppose \(X\) is a \emph{complete} metric space. If \(f: X \to X\) is a contraction map then \(f\) has a unique fixed point.
 \end{theorem}
 
@@ -2924,7 +2926,7 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
   \begin{enumerate}
   \item We can choose \(U_1 = B_\varepsilon(x_0)\) or \(U_2 = B_\delta(f(x_0))\) but not both at once.
   \item The theorem says that if \(\det \D f|_{x_0} \neq 0\) then \((f_1(x), \dots, f_n(x))\) are local coordinates on \(\R^n\) near \(x_0\).
-  \item On \(\R\), if \(f: \R \to \R\) is \(C^1\) and \(f'(x) \neq 0\) then \(f\) is a diffeomorphism onto its image. But this is false for any higher dimension: that \(f: \R^n \to \R^n\) is \(C^1\) with \(\det \D f|_x \neq 0\) does not imply that \(f\) is diffeomorphism onto its image. For example, let
+  \item On \(\R\), if \(f: \R \to \R\) is \(C^1\) and \(f'(x) \neq 0\) then \(f\) is a diffeomorphism onto its image. But this is false in higher dimension: that \(f: \R^n \to \R^n\) is \(C^1\) with \(\det \D f|_x \neq 0\) does not imply \(f\) is a diffeomorphism onto its image. For example, let
     \begin{align*}
       f: (0, \infty) \times \R &\to \R^2 \setminus \{0\} \\
       (r, \theta) &\mapsto (r \cos \theta, r \sin \theta)
@@ -2937,7 +2939,7 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
         \sin \theta & r \cos \theta
       \end{pmatrix}
     \]
-    and \(\det \D f|_{r, \theta} = r \neq 0\) (note that we excluded the origin in the definition, which is always a problem for polar coordinates). But \(f\) is not injective since \(f(r, \theta) = f(r, \theta + 2\pi)\). This shows that the theorem is there is no global generalisation of the one-dimensional case and \nameref{thm:inverse function} is, in a sense, the best alternative we can have about the local generalisation thereof.
+    and \(\det \D f|_{r, \theta} = r \neq 0\) (note that we excluded the origin in the definition, which is always a problem for polar coordinates). But \(f\) is not injective since \(f(r, \theta) = f(r, \theta + 2\pi)\). This shows that there is no global generalisation of the one-dimensional result and \nameref{thm:inverse function} is, in a sense, the best alternative we can have about the local generalisation thereof.
   \end{enumerate}
 \end{remark}
 
@@ -2974,11 +2976,159 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
       \widetilde N_{y_0}(x) = x + (\D f|_x)^{-1} (y_0 - f(x)).
     \]
 
-    It is now only one step from its final form. We simplify further by approximating \(\D f|_x \approx \D f|_0 = \iota\) where the last step is by our hypothesis. Then we get
+    It is now only one step from its final form. We simplify further by approximation \(\D f|_x \approx \D f|_0\). By hypothesis \(\D f|_0 = \iota\) so we get
     \[
       N_{y_0}(x) = x + \iota^{-1} (y_0 - f(x)) = x + y_0 - f(x).
     \]
   \end{remark}
+
+  We want to find \(\delta > 0\) such that \(N_y|_{B_\delta(0)}\) is a contraction map. We first prove it is Lipschitz:
+
+  \begin{lemma}
+    There exists \(\delta > 0\) such that \(N_y|_{B_\delta(0)}\) is \(\frac{1}{2}\)-Lipschitz.
+  \end{lemma}
+
+  \begin{proof}
+    Notice that
+    \[
+      \D N_y|_x = \D (x + y - f(x))|_x = \iota - \D f|_x.
+    \]
+    Now \(f\) is \(C^1\) so the map \(\D f: U \to L(\R^n, \R^n) \cong \R^{n^2}\) is continuous. All norms on \(\R^{n^2}\) are equivalent so \(\D f\) is continuous with respect to \(\nop \cdot\). Thus there exists \(\delta > 0\) such that
+    \[
+      \nop{\D f|_x - \D f|_0} < \frac{1}{2}
+    \]
+    whenever \(\norm x < 2 \delta\), i.e.\ \(\nop{\D f|_x - \iota} < \frac{1}{2}\) for \(x \in B_{2\delta}(0)\) and thus for \(x \in B_{\delta}(0)\), i.e.\ \(\nop{\D N_y|_x} < \frac{1}{2}\).
+
+    By \Cref{prop:operator norm bounded implies Lipschitz}, \(N_y|_{B_\delta(0)}\) is \(\frac{1}{2}\)-Lipschitz.
+  \end{proof}
+
+  That is one step in the correct direction. However, we still haven't quite got a contraction map as \(N_y(x)\) may end up not in the ball \(B_\delta(0)\). Our objective is to make sure when \(y\) is small enough it is also small.
+
+  \begin{lemma}
+    Let \(\varepsilon = \frac{\delta}{2}\). Then if \(y \in B_\varepsilon(0)\),
+    \[
+      N_y(\cl B_\delta(0)) \subseteq B_\delta(0).
+    \]
+  \end{lemma}
+
+  \begin{proof}
+    Suppose \(x \in \cl B_\delta(0)\). Then
+    \begin{align*}
+      \norm{N_y(x)} &\leq \norm{N_y(0)} + \norm{N_y(x) - N_y(0)} \\
+                    &\leq \norm{0 + y -f(0)} + \frac{1}{2} \norm{x - 0} \\
+                    &= \norm y + \frac{1}{2} \norm x \\
+                    &< \frac{\delta}{2} + \frac{\delta}{2} \\
+                    &= \delta
+    \end{align*}
+    so \(N_y(x) \in B_\delta(0)\).
+  \end{proof}
+
+  In summary, we get
+  \[
+    N_y|_{\cl B_\delta(0)}: \cl B_\delta(0) \to B_\delta(0)
+  \]
+  is \(\frac{1}{2}\)-Lipschitz and is thus a contraction map for.
+
+  \begin{proposition}
+    Let \(\varepsilon\) and \(\delta\) be as above. If \(y \in B_\varepsilon(0)\) there is a unique \(x \in B_\delta(0)\) with \(f(x) = y\).
+  \end{proposition}
+
+  \begin{proof}
+    Check the hypotheses for \nameref{thm:contraction}: \(\R^n\) is complete and \(\cl B_\delta(0) \subseteq \R^n\) is closed so \(\cl B_\delta(0)\) is a complete metric space. \nameref{thm:contraction} applied to \(N_y|_{\cl B_\delta(0)}\) shows that there is a unique \(x \in \cl B_\delta(0)\) with \(N_y(x) = x\), i.e.\ there is a unique \(x \in \cl B_\delta(0)\) with \(f(x) = y\). To remove the bar on top of the ball, apply \(N_y\) again so we get
+    \[
+      x = N_y(x) \in B_\delta(0).
+    \]
+  \end{proof}
+
+  \begin{corollary}
+    There exists \(U_1 \subseteq U\) open with \(0 \in U_1\) and \(U_2 \subseteq \R^n\) open with \(0 \in U_2\) such that \(f|_{U_1}: U_1 \to U_2\) is a bijection.
+  \end{corollary}
+
+  \begin{proof}
+    Take \(U_2 = B_\varepsilon(0)\) and \(U_1 = f^{-1}(U_2) \cap B_\delta(0)\). \(f\) is continuous so \(f^{-1}(U_2)\) is open so \(U_1\) is open. By construction \(f(U_1) \subseteq U_2\). The proposition above says that for every \(y \in U_2\) then there exists a unique \(x \in U_1\) with \(f(x) = y\).
+  \end{proof}
+
+  So far we have got a well-define map \(g = (f|_{U_1})^{-1}: U_2 \to U_1\). The next goal is to show \(g\) is \(C^1\) so that \(f|_{U_1}: U_1 \to U_2\) is a diffeomorphism.
+
+  \begin{lemma}
+    \(g\) is \(2\)-Lipschitz.
+  \end{lemma}
+
+  \begin{proof}
+    Suppose \(g(y_1) = x_1\) and \(g(y_2) = x_2\). Then \(N_{y_1}(x_1) = x_1\) and \(N_{y_2}(x_2) = x_2\). Notice that
+    \[
+      N_{y_1}(x) - N_{y_2}(x) = x + y_1 - f(x) - x - y_2 + f(x) = y_1 - y_2.
+    \]
+    We have
+    \begin{align*}
+      \norm{x_1 - x_2} &= \norm{N_{y_1}(x_1) - N_{y_2}(x_2)} \\
+                       &\leq \norm{N_{y_1}(x_1) - N_{y_1}(x_2)} + \norm{N_{y_1}(x_2) - N_{y_2}(x_2)} \\
+                       &\leq \frac{1}{2}\norm{x_1 - x_2} + \norm{y_1 - y_2}
+    \end{align*}
+    so \(\frac{1}{2}\norm{x_1 - x_2} \leq \norm{y_1 - y_2}\), i.e.\ \(\norm{g(y_1) - g(y_2)} \leq 2\norm{y_1 - y_2}\).
+  \end{proof}
+
+  \begin{corollary}
+    \(g\) is continuous.
+  \end{corollary}
+
+  \begin{proof}
+    \(g\) is \(K\)-Lipschitz so uniformly continuous.
+  \end{proof}
+
+  Suppose \(y \in U_2, g(y) = x\). We want to show \(\D g|_y = (\D f|_x)^{-1}\). Note that although \(\D f|_0\) is invertible, we don't know about \(\D f|_x\) yet.
+
+  \begin{lemma}
+    \(\D f|_x\) is invertible.
+  \end{lemma}
+  
+  \begin{proof}
+    In the proof of a previous lemma we know that \(\nop{\D f|_x - \iota} < 1/2\). Write \(A = \iota - \D f|_x\) so \(\nop A < 1/2\). From an exercise on example sheet we know the series \(B = \sum_{n = 0}^\infty A^n\) converges and \(B = (\iota - A)^{-1} = (\D f|_x)^{-1}\).
+  \end{proof}
+
+  We have set up everything properly and are ready for the final step. The ideas involved should be very reminiscent of those in the proof of (baby) Inverse Function Theorem in IA Analysis I.
+  
+  \begin{proposition}
+    \(g: U_2 \to U_1\) is \(C^1\).
+  \end{proposition}
+
+  \begin{proof}
+    Fix \(y \in U_2\), let \(g(y) = x\). Since \(U_2\) is open there exists \(\eta > 0\) such that \(B_\eta(y) \subseteq U_2\). For \(\kappa \in B_\eta(0)\), define
+    \[
+      h(\kappa) = g(y + \kappa) - g(y),
+    \]
+    i.e.\ \(g(y + \kappa) = g(y) + h(\kappa)\) so \(f(x + h(\kappa)) = y + \kappa\). We know \(f\) is differentiable at \(x \in U_1 \subseteq U\) so
+    \begin{align*}
+      y + \kappa &= f(x + h(\kappa)) \\
+                 &= f(x) + L(h(\kappa)) + \norm{h(\kappa)} \alpha(h(\kappa)) \\
+      \intertext{where \(L = \D f|_x\) and \(\lim_{h \to 0} \alpha(h) = 0\) by the definition of differentiability}
+                 &= y + L(g(y + \kappa) - g(y)) + \norm{h(k)} \alpha(h(\kappa))
+    \end{align*}
+    which implies that
+    \[
+      g(y + \kappa) = g(y) + L^{-1}(\kappa) - \norm{h(k)} L^{-1}(\alpha(h(\kappa)).
+    \]
+    To show that \(g\) is differentiable, it suffices to show that
+    \[
+      \lim_{\kappa \to 0} \frac{\norm{h(\kappa)}}{\norm \kappa} L^{-1}(\alpha(h(\kappa))) = 0.
+    \]
+    Now \(g\) is \(2\)-Lipschitz so
+    \[
+      \norm{h(\kappa)} = \norm{g(y + \kappa) - g(y)} \leq 2 \norm \kappa.
+    \]
+    Since \(h\) is continuous \(\lim_{\kappa \to 0} h(\kappa) = 0\). \(\alpha\) and \(L^{-1}\) are continuous at \(0\) so
+    \[
+      \lim_{\kappa \to 0} \frac{\norm{h(\kappa)}}{\norm \kappa} L^{-1}(\alpha(h(\kappa))) = 0.
+    \]
+    by squeeze rule. Therefore \(g\) is differentiable.
+
+    We are almost there. To show \(g\) is \(C^1\), the derivative map
+    \begin{align*}
+      U_2 &\to L(\R^n, \R^n) \\
+      x &\mapsto (\D f|_x)^{-1}
+    \end{align*}
+    is continuous by composition.
+  \end{proof}
 \end{proof}
 
 \printindex

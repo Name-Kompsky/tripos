@@ -192,7 +192,7 @@
 \end{proof}
 
 \begin{corollary}
-  Let \(M\) be an \(R\)-module and \(N \leq M\). If \(M\) is finitely generated the so is \(M/M\).
+  Let \(M\) be an \(R\)-module and \(N \leq M\). If \(M\) is finitely generated the so is \(M/N\).
 \end{corollary}
 
 \begin{proof}
@@ -235,7 +235,7 @@
 \begin{definition}[Independence]\index{independenc}
   Let \(m_1, \dots m_k \in M\). They are \emph{independent} if
   \[
-    \sum_i r_i \cdot m_i 0
+    \sum_i r_i \cdot m_i = 0
   \]
   implies that \(r_i = 0\) for all \(1 \leq i \leq k\).
 \end{definition}
@@ -248,7 +248,7 @@
     \end{enumerate}
     \[
       \begin{tikzcd}
-        S \ar[r, hook] \ar[dr, "\psi"] & \generation S \ar[d, dashed, "\theta"] \\
+        S \ar[r, hook] \ar[dr, "\psi"'] & R^S \ar[d, dashed, "\theta"] \\
         & N
       \end{tikzcd}
     \]

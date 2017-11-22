@@ -22,7 +22,6 @@
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
-
 \makeindex
 
 \begin{document}
@@ -374,11 +373,11 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 \end{lemma}
 
 \begin{proof}\leavevmode
-  \begin{enumerate}
+  \begin{itemize}
   \item \(2 \Rightarrow 1\): any \(v\in V\) is \(u+w\) for some \(u\in U, w\in W\). Suppose \(u_1+w_1=u_2+w_2\), then \(u_1-u_2 = w_2-w_1 \in U\cap W = 0\). Thus \(u_1=u_2,w_1=w_2\).
-  \item \(2 \Rightarrow 1\): \(\basis B\) spans as any \(v\in V\) is \(u+w\). Write \(u\) in terms of \(\basis B_1\) and \(w\) in terms of \(\basis B_2\). Then \(u+w\) is a linear combination of elements of \(\basis B\). To show \(\basis B\) is linearly independent, suppose \(\sum_{v\in \basis B} \lambda_v v = \V 0 = \V 0_V + \V 0_W\). Write LHS as \(\sum_{v\in \basis B_1} \lambda_vv + \sum_{v\in \basis B_2}\lambda_vv\). By uniqueness of expression, \(\sum_{v\in \basis B_1}\lambda_vv=\V 0_V\) and \(\sum_{w\in \basis B_2}\lambda_ww=\V 0_w\). As \(\basis B_1, \basis B_2\) are bases, all of the \(\lambda_v, \lambda_w\) are zero.
-  \item \(2 \Rightarrow 1\): if \(v\in V, v=\sum_{x\in V}\lambda_xx = \sum_{u\in B_1}\lambda_uu + \sum_{w\in \basis B_1}\lambda_ww\) so \(v\in U+W\). Conversely, if \(v\in U\cap W, v = \sum_{u\in \basis B_1}\lambda_uu=\sum_{w\in \basis B_2}\lambda_ww\) so all \(\lambda_u, \lambda_v\) are zero since \(\basis B_1\cup \basis B_2\) is linearly independent.
-  \end{enumerate}
+  \item \(1 \Rightarrow 3\): \(\basis B\) spans as any \(v\in V\) is \(u+w\). Write \(u\) in terms of \(\basis B_1\) and \(w\) in terms of \(\basis B_2\). Then \(u+w\) is a linear combination of elements of \(\basis B\). To show \(\basis B\) is linearly independent, suppose \(\sum_{v\in \basis B} \lambda_v v = \V 0 = \V 0_V + \V 0_W\). Write LHS as \(\sum_{v\in \basis B_1} \lambda_vv + \sum_{v\in \basis B_2}\lambda_vv\). By uniqueness of expression, \(\sum_{v\in \basis B_1}\lambda_vv=\V 0_V\) and \(\sum_{w\in \basis B_2}\lambda_ww=\V 0_w\). As \(\basis B_1, \basis B_2\) are bases, all of the \(\lambda_v, \lambda_w\) are zero.
+  \item \(3 \Rightarrow 2\): if \(v\in V, v=\sum_{x\in V}\lambda_xx = \sum_{u\in \basis B_1}\lambda_uu + \sum_{w\in \basis B_1}\lambda_ww\) so \(v\in U+W\). Conversely, if \(v\in U\cap W, v = \sum_{u\in \basis B_1}\lambda_uu=\sum_{w\in \basis B_2}\lambda_ww\) so all \(\lambda_u, \lambda_v\) are zero since \(\basis B_1\cup \basis B_2\) is linearly independent.
+  \end{itemize}
 \end{proof}
 
 \begin{lemma}
@@ -3290,7 +3289,7 @@ The dot product on a real vector space comes naturally as a bilinear form. Howev
 \[
   \ip{x, y} = \sum_{i = 1}^{n} x_i \conj y_i
 \]
-is not bilinear: the second coordinate transforms by ``conjugate-linearity'' instead of linearity. Among many other examples of the same spirit\footnote{Formally, any \(\C\)-algebra induced by an inner product.}, this serves as a motivation to modify the definition of bilinear forms for \(\C\)-vector spaces:
+is not bilinear: the second coordinate transforms by ``conjugate-linearity'' instead of linearity. Among many other examples of the same spirit, this serves as a motivation to modify the definition of bilinear forms for \(\C\)-vector spaces:
 
 \begin{definition}[Sesquilinear form]\index{sesquilinear}
   Let \(V\) and \(W\) be \(\C\)-vector spaces. A \emph{sesquilinear form} is a function \(\varphi: V \times W \to \C\) such that
@@ -3500,6 +3499,8 @@ As a consequence \(\varphi(u, u) = 0\) for all \(u \in V\) and for any basis \(\
 
 \section{Inner Product Spaces}
 
+\subsection{Definition}
+
 Let \(\F = \R\) or \(\C\) in this chapter.
 
 \begin{definition}[Inner product]\index{inner product}
@@ -3509,18 +3510,230 @@ Let \(\F = \R\) or \(\C\) in this chapter.
 \end{definition}
 
 \begin{notation}
-  Write \(\ip{u, v}\) for \(\varphi(u, v)\). Note that it is the same as our notation for span so whenever I mention span in this chapter I will spell it out.
+  Write \(\ip{u, v}\) for \(\varphi(u, v)\). Note that it is the same as our notation for span so we will spell out span whenever we use it in this chapter.
 \end{notation}
 
 \begin{eg}\leavevmode
   \begin{itemize}
   \item Dot product on \(\R^n\) or \(\C^n\).
-  \item \(V = C([0, 1], \C)\), \(\ip{f, g} = \int_0^1 f(t) \conj{g(t)} dt\)
+  \item \(V = C([0, 1], \C)\), \(\ip{f, g} = \int_0^1 f(t) \conj{g(t)} dt\).
   \item This can be generalised. Given \(w: [0, 1] \to \R_{> 0}\) continuous, think of it as a weight function, we can define an inner product
     \[
       \ip{f, g} = \int_{0}^{1} w(t)f(t)\conj{g(t)} dt.
     \]
   \end{itemize}
 \end{eg}
+
+\begin{remark}
+  An inner product induces a distance function, i.e.\ a norm on \(V\) by
+  \[
+    \norm v = \sqrt{\ip{v, v}}
+  \]
+  whose axioms will be checked later.
+  
+  Conversely, \(\norm \cdot\) determines the inner product because of the polarisation identity.
+\end{remark}
+
+\begin{lemma}[Cauchy-Schwarz Inequality]\index{Cauchy-Schwarz}
+  \[
+    |\ip{u, v}| \leq \norm u \cdot \norm v
+  \]
+  for all \(u, v \in V\).
+\end{lemma}
+
+\begin{proof}
+  Wlog \(u \neq 0\). For all \(t \in \F\),
+  \begin{align*}
+    0 &\leq \norm{tu - v}^2 \\
+      &= \ip{tu - v, tu - v} \\
+      &= \norm{tu}^2 - t \ip{u, v} - \conj t \conj{\ip{u, v}} + \norm v^2 \\
+    \intertext{by setting \(t = \conj{\ip{u, v}}/\norm v^2\),}
+      &\leq - \frac{|\ip{u, v}|^2}{\norm u^2} + \norm v^2
+  \end{align*}
+  Rearrange.
+\end{proof}
+
+\begin{note}
+  We only used polarisation identity and did not assume any of the norm properties of \(\norm \cdot\), which we will prove now.
+\end{note}
+
+\begin{corollary}[Triangle Inequaility]
+  \[
+    \norm{u + v} \leq \norm u + \norm v
+  \]
+  for all \(u, v \in V\).
+\end{corollary}
+
+\begin{proof}
+  \begin{align*}
+    \norm{u + v}^2 &= \norm u^2 + \ip{u, v} + \conj{\ip{u, v}} + \norm v^2 \\
+                   &\leq \norm u^2 + 2 \norm u \cdot \norm v + \norm v^2 \\
+                   &= (\norm u + \norm v)^2
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  \(\norm \cdot\) is a norm.
+\end{corollary}
+
+\begin{remark}
+  For \(\F = \R\), the angle \(\theta\) between two non-zero vectors \(u\) and \(v\) satisfies (or defined by, actually)
+  \[
+    \cos \theta = \frac{\ip{u, v}}{\norm u \cdot \norm v}.
+  \]
+\end{remark}
+
+\subsection{Orthonomal Basis}
+
+\begin{definition}[Orthogonality]\index{orthogonal}
+  A set \(\{e_1, \dots, e_k\}\) of vectors in \(V\) is \emph{orthogonal} if
+  \[
+    \ip{e_i, e_j} = 0
+  \]
+  for \(i \neq j\).
+\end{definition}
+
+\begin{definition}[Orthonormality]\index{orthonormal}
+  A set \(\{e_1, \dots, e_k\}\) of vectors in \(V\) is \emph{orthonormal} if
+  \[
+    \ip{e_i, e_j} = \delta_{ij}
+  \]
+  for all \(i, j\).
+\end{definition}
+
+\begin{lemma}
+  If \(\{e_1, \dots, e_k\}\) is orthogonal and non-zero then they are linearly independent.
+
+  Moreover if \(v = \sum_{j = 1}^k \lambda_j e_j\),
+  \[
+    \lambda_j = \frac{\ip{v, e_j}}{\ip{e_j, e_j}}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \[
+    \ip{v, e_j} = \ip*{\sum_{i = 1}^{k} \lambda_ie_i, e_j} = \lambda_j \ip{e_j, e_j}
+  \]
+  and the results follow.
+\end{proof}
+
+\begin{lemma}[Parseval's Identity]\index{Parseval}
+  Let \(V\) be a finite-dimensional inner product space with an orthonormal basis \(e_1, \dots, e_n\). Then
+  \[
+    \ip{u, v} = \sum_{i = 1}^{n}\ip{u, e_i} \conj{\ip{v, e_i}}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Follows immediately from the orthonormal basis expansion formula in the previous lemma:
+  \[
+    \ip{u, v} = \ip*{\sum_{i = 1}^n \ip{u, e_i}e_i, \sum_{j = 1}^n \ip{v,e_j}e_j}.
+  \]
+\end{proof}
+
+\begin{theorem}[Gram-Schmidt Orthogonalisation Process]\index{Gram-Schmidt}
+  Let \(V\) be an inner product space and \(\{v_1, v_2, \dots \}\) be a countable set of linearly indpendent vectors in \(V\). Then there exists a sequence \(e_1, e_2, \dots\) orthonormal such that
+  \[
+    \text{span} \{v_1, \dots, v_k\} = \text{span} \{e_1, \dots, e_k\}
+  \]
+  for all \(k\).
+\end{theorem}
+
+\begin{proof}
+  We see the word ``coutable'' and instinctly use induction on \(k\). If \(k = 1\) then done. Suppose we have found \(e_1, \dots, e_k\). Inspired by the orthonormal basis expansion formula, let
+  \[
+    e'_{k + 1} = v_{k + 1} - \underbrace{\sum_{i = 1}^k \ip{v_{k + 1}, e_i} e_i}_{\text{linear combination of } v_1, \dots, v_k}
+  \]
+  which is non-zero by linear independence of \(\{v_1, \dots, v_{k + 1}\}\). Also \(\ip{e'_{k + 1}, e_i} = 0\) for \(1 \leq i \leq k\) by construction. Finally,
+\[
+  \text{span} \{v_1, \dots, v_k, v_{k + 1}\} = \text{span} \{e_1, \dots, e_k, e'_{k + 1}\}.
+\]
+Finally normalise it by
+\[
+  e_{k + 1} = \frac{e'_{k + 1}}{\norm{e'_{k + 1}}}.
+\]
+\end{proof}
+
+\begin{corollary}
+  Let \(V\) be a finite-dimensional inner product space. Any orthonormal set of vectors can be extended to an orthonormal basis.
+\end{corollary}
+
+\begin{proof}
+  Say \(\{e_1, \dots, e_k\}\) are orthonormal. They are linearly independent so we can extend to a basis \(\{e_1, \dots, e_k, v_{k + 1}, \dots, v_n\}\) of \(V\).
+
+  Now apply Gram-Schmidt to this set. As the first \(k\) vectors are already orthonormal it has no effect on them.
+\end{proof}
+
+\begin{note}
+  \(A \in \M_{m, n}(\R)\) has orthonormal columns if \(A^TA = I\) and \(A \in \M_{m, n}(\C)\) has orthonormal columns if \(A^T \conj A = I\).
+\end{note}
+
+We give special names to them:
+
+\begin{definition}[Orthogonal matrix]\index{matrix!orthogonal}
+  \(A \in \M_n(\R)\) is \emph{orthogonal} if \(A^T A = I\).
+\end{definition}
+
+Equivalently \(A^{-1} = A^T\).
+
+\begin{definition}[Unitary matrix]\index{matrix!unitary}
+  \(A \in \M_n(\R)\) is \emph{unitary} if \(A^T \conj A = I\).
+\end{definition}
+
+Equivalently \(A^{-1} = \conj A^T\).
+
+Given these terminologies, Gram-Schmidt may be equivalently formulated as follow:
+
+\begin{proposition}
+  \(A \in \M_n(\R)\) (\(\M_n(\C)\), respectively) non-singular can be written as \(A = RT\) where
+  \begin{itemize}
+  \item \(T\) is upper triangular,
+  \item \(R\) is orthogonal (unitary, respectively).
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Apply Gram-Schmidt to columns of \(A\). The details are left as an exercise.
+\end{proof}
+
+\subsection{Orthogonal Complements \& Projections}
+
+\begin{definition}[Orthogonal direct sum]\index{orthogonal direct sum}
+  Let \(V\) be an inner product space and \(V_1, V_2 \leq V\). \(V\) is the \emph{orthogonal direct sum} of \(V_1\) and \(V_2\) if
+  \begin{enumerate}
+  \item \(V = V_1 \oplus V_2\),
+  \item \(\ip{v_1, v_2} = 0\) for all \(v_1 \in V_1, v_2 \in V_2\).
+  \end{enumerate}
+  Write \(V = V_1 \perp V_2\).
+\end{definition}
+
+\begin{note}
+  The first condition is actually redundant: \(V_1 \cap V_2 = 0\) because of positive definiteness of inner product.
+\end{note}
+
+\begin{definition}[Orthogonal complement]\index{orthogonal complement}
+  Let \(W \leq V\). The \emph{orthogonal complement} of \(W\) in \(V\) is
+  \[
+    W^\perp = \{v \in V: \ip{v, w} = 0 \text{ for all } v \in W \}.
+  \]
+\end{definition}
+
+\begin{lemma}
+  Let \(V\) be a finite-dimensional inner product space and \(W \leq V\). Then
+  \[
+    V =  W \perp W^\perp.
+  \]
+\end{lemma}
+
+\begin{proof}
+  If \(w \in W, u \in W^\perp\) then \(\ip{w, u} = 0\) so it remains to show that \(V = W + W^\perp\).
+
+  Let \(\{e_1, \dots, e_k\}\) be an orthonormal basis for \(W\). By a previous lemma we can extend it to an orthonormal basis \(\{e_1, \dots, e_n\}\) of \(V\). Note that \(e_{k + 1}, \dots, e_n \in W^\perp\).
+
+  \begin{note}
+    Complementary space is, in general, not unique but orthogonal complement is.
+  \end{note}
+\end{proof}
+
 \printindex
 \end{document}
