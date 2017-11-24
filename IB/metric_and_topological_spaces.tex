@@ -20,77 +20,76 @@
 
 \subsection{Metric}
 
-Euclidean space $\mathbb{R}^n$ equipped with standart Euclidean inner-product $(·,·)$, given $\V x, \V y ∈ \mathbb{R}^n$ with coordinates $x_i, y_i$ respectively,
+Euclidean space $\mathbb{R}^n$ equipped with standard Euclidean inner product $(\cdot,\cdot)$, given $\V x, \V y ∈ \mathbb{R}^n$ with coordinates $x_i, y_i$ respectively,
 
 \[
-(\V x, \V y) = \V x · \V y = \sum_{i=1}^{n}x_i y_i
+  (\V x, \V y) = \V x \cdot \V y = \sum_{i=1}^{n}x_i y_i
 \]
 
-Euclidean norm $||\V x|| = (\V x, \V x)^{1/2}$ which is the length of $\V x$
+Euclidean norm $\norm{\V x} = (\V x, \V x)^{1/2}$ which is the length of $\V x$.
 
 Euclidean distance:
-\[
-d_2: \mathbb{R}^n × \mathbb{R}^n → \mathbb{R}, \quad d_2(\V x, \V y) = ||\V x - \V y|| = (\sum_{i=1}^n (x_i - y_i))^{1/2}
-\]
+\begin{align*}
+  d_2: \mathbb{R}^n \times \mathbb{R}^n &\to \mathbb{R} \\
+  d_2(\V x, \V y) &= \norm{\V x - \V y} = (\sum_{i=1}^n (x_i - y_i))^{1/2}
+\end{align*}
 
 This is an example of a metric.
 
 \begin{definition}
-	A metric space $(X, d)$ consists of a set $X$ and a function $d: X × X → \mathbb{R}$ s.t.
-
+	A metric space $(X, d)$ consists of a set $X$ and a function $d: X \times X \to \mathbb{R}$ such that
 	\begin{enumerate}
-		\item $d(P, Q) ≥ 0$ with equality iff $P = Q$,
-		\item $∀P, Q ∈ X, d(P, Q) = d(Q, P)$,
-		\item $∀P, Q, R ∈ X, d(P, Q) + d(Q, R) ≥ d(P, R)$. (triangle inequality)
+		\item $d(P, Q) \geq 0$ with equality if and only if $P = Q$,
+		\item $\forall P, Q \in X, d(P, Q) = d(Q, P)$,
+		\item $\forall P, Q, R \in X, d(P, Q) + d(Q, R) \geq d(P, R)$. (triangle inequality)
 	\end{enumerate}
 \end{definition}
 
-(iii) says, for the Euclidean metrix, for any triangle (possibly degenerate) with vertices $P, Q, R$, sum of lengths of two sides is larger than the length of the third side.
+3 says that, for the Euclidean metric, for any triangle (possibly degenerate) with vertices $P, Q, R$, the sum of lengths of two sides is larger than the length of the third side.
 
 \begin{proposition}
 	The Euclidean distance function $d_2$ on $\mathbb{R}^n$ is a metric.
 \end{proposition}
 
 \begin{proof}
-	(i) and (ii) are obvious. For (iii) we use Cauchy-schwarz inequality
+	1 and 2 are obvious. For 3 we use Cauchy-Schwarz inequality
 	\[
-		(\sum x_i y_i)^2 ≤ (\sum x_i²)(\sum y_i²)
+		\left(\sum x_i y_i\right)^2 \leq \left(\sum x_i^2\right)\left(\sum y_i^2\right),
 	\]
 	or in inner product notation
 	\[
-		(\V x, \V y)² ≤ ||\V x||²||\V y||²
+		(\V x, \V y)^2 ≤ \norm{\V x}^2 \norm{\V y}^2.
 	\]
 	
-	We may take $P = 0 ∈ \mathbb{R}^n$ to be the origin, $Q$ has position vector $\V x$ wrt $P$ and $R$ has position vector $\V y$ wrt $Q$, and has position vector $\V x + \V y$ wrt $P$ :
-
+	We may take $P = 0 \in \mathbb{R}^n$ to be the origin, $Q$ has position vector $\V x$ with respect to $P$ and $R$ has position vector $\V y$ with respect to $Q$, and has position vector $\V x + \V y$ with respect to $P$ :
 	\begin{align*}
-		||\V x + \V y||² &= (\V x + \V y, \V x + \V y) \\
-                         &= ||\V x+\V y, \V x+\V y|| \\
-                         &= ||\V x||^2 + 2(\V x,\V y) + ||\V y||^2 \\
-                         &\leq ||\V x||^2 + 2||\V x|| ||\V y|| + ||\V y||^2 \\
-                         &= (||\V x|| + ||\V y||)^2
+      \norm{\V x + \V y}^2 &= (\V x + \V y, \V x + \V y) \\
+                           &= \norm{\V x+\V y, \V x+\V y} \\
+                           &= \norm{\V x}^2 + 2(\V x,\V y) + \norm{\V y}^2 \\
+                           &\leq \norm{\V x}^2 + 2\norm{\V x} \cdot \norm{\V y} + \norm{\V y}^2 \\
+                           &= (\norm{\V x} + \norm{\V y})^2
 	\end{align*}
 \end{proof}
 
-\begin{lemma}[Cauchy-Schwarz]
+\begin{lemma}[Cauchy-Schwarz Inequality]
   \[
-    \forall \V x,\V y \in \mathbb{R}^n, (\V x,\V y)^2 \leq ||\V x||^2 \times ||\V y||^2
+    \forall \V x,\V y \in \mathbb{R}^n, (\V x,\V y)^2 \leq \norm{\V x}^2 \times \norm{\V y}^2.
   \]
 \end{lemma}
 
 \begin{proof}
   The quadratic polynomial on real variable $\lambda$
   \[
-    (\lambda \V x + \V y, \lambda \V x + \V y) = ||\V x||^2 \lambda^2 + 2(\V x,\V y)\lambda + ||\V y||^2
+    (\lambda \V x + \V y, \lambda \V x + \V y) = \norm{\V x}^2 \lambda^2 + 2(\V x,\V y)\lambda + \norm{\V y}^2
   \]
   is positive semi-definite. Thus by considering the determinant the result follows.
 \end{proof}
 
-More example on metric spaces:
-\begin{eg}
+More examples of metric spaces:
+\begin{eg}\leavevmode
   \begin{enumerate}
-  \item $X = \mathbb{R}^n, d_1(\V x,\V y) = \sum_{i=1}^n |x_i-y_i|$ and $d_\infty(\V x,\V y) = \max_i |x_i-y_i|$ are both metrics.
-  \item for any set $X$, define the \emph{discrete metric}
+  \item $X = \mathbb{R}^n, d_1(\V x,\V y) = \sum_{i=1}^n |x_i-y_i|$ and $d_\infty(\V x,\V y) = \max_i |x_i - y_i|$ are both metrics.
+  \item For any set $X$, define the \emph{discrete metric}
     \[
       d(x, y) =
       \begin{cases}
@@ -98,8 +97,14 @@ More example on metric spaces:
         0 & \text{if } x = y
       \end{cases}
     \]
-  \item $X= C[0,1]$, the set of real continuous functions on $[0,1]$. We can define $d_1, d_2,\ldots d_\infty$ by $d_1(f,g) = \int_0^1|f-g|, d_2(f,g) = (\int_0^1(f-g)^2)^{1/2} \cdot d_\infty(f,g) = \sup|f-g|$.
-  \item British Rail metric: consider $\mathbb{R}^n$ with Euclidean metric, and let $0$ denote the origin. Define ew metric on $\mathbb{R}^n$ by
+  \item $X= C[0,1]$, the set of real continuous functions on $[0,1]$. We can define $d_1, d_2,\ldots d_\infty$ by
+    \begin{align*}
+      d_1(f,g) &= \int_0^1 |f-g| dx \\
+      d_2(f,g) &= \left(\int_0^1(f-g)^2 dx\right)^{1/2} \\
+      &\vdots \\
+      d_\infty(f,g) &= \sup|f-g|
+    \end{align*}
+  \item British rail metric: consider $\mathbb{R}^n$ with Euclidean metric, and let $0$ denote the origin. Define a new metric on $\mathbb{R}^n$ by
     \[
       \rho(P,Q) =
       \begin{cases}
@@ -112,21 +117,20 @@ More example on metric spaces:
 
 Some metrics in fact satisfy a stronger triangle inequality:
 
-\begin{definition}
-  A metric space $(X,d)$ is called an \emph{ultra-metric} if $d$ satisfies
+\begin{definition}[Ultra-metric]
+  A metric space $(X,d)$ is called an \emph{ultra-metric} if for all \(P, Q, R \in X\),
   \[
-    \forall P,Q,R \in X, d(P,R) \leq \max\{d(P,Q), d(Q,R)\}
+    d(P,R) \leq \max\{d(P,Q), d(Q,R)\}.
   \]
-  
 \end{definition}
 
 \begin{ex}
-  $X=\mathbb{Z}$, $p$ prime. The \emph{$p$-adic metric} is defined by
+  $X = \mathbb{Z}$, $p$ prime. The \emph{$p$-adic metric} is defined by
   \[
     d(m,n) =
     \begin{cases}
       0 & m = n \\
-      \frac{1}{p^r} & m \neq n \: \text{where } r = \max\{s\in\mathbb{N}: p^s|(m-n)\}
+      \frac{1}{p^r} & m \neq n \: \text{where } r = \max\{s\in\mathbb{N}: p^s \divides (m-n)\}
     \end{cases}
   \]
   Claim $d$ is an ultra-metric.
@@ -135,15 +139,14 @@ Some metrics in fact satisfy a stronger triangle inequality:
 This extends to a $p$-adic metric on $\mathbb{Q}$. For $x\neq y \in \mathbb{Q}$, write $x-y = p^r \frac{m}{n}, r\in\mathbb{Z}$, $m, n$ coprime ot $p$ and define $d(x,y) = \frac{1}{p^r}$.
 
 \begin{ex}
-  The sequence $a_n = 1+p+p^2+\cdot p^n$ is a convergent sequence in $(\mathbb{Q},d_p)$ with limit $a = \frac{1}{1-p}$ since $p^n | (a_n-a) = \frac{p^n}{p-1}$ for all $n$.
+  The sequence $a_n = 1+p+p^2+ \dots + p^n$ is a convergent sequence in $(\mathbb{Q},d_p)$ with limit $a = \frac{1}{1-p}$ since $p^n | (a_n-a) = \frac{p^n}{p-1}$ for all $n$.
 \end{ex}
 
-\begin{definition}
-  Two metrics $\rho_1, \rho_2$ on a set $X$ are \emph{Lipshitz equivalent} if
+\begin{definition}[Lipschitz equivalence]
+  Two metrics $\rho_1, \rho_2$ on a set $X$ are \emph{Lipschitz equivalent} if there exist \(0 < \lambda_1 \leq \lambda_2\) in \(\R\) such that
   \[
-    \exists 0 < \lambda_1 \leq \lambda_2 \in \mathbb{R} s.t. \lambda_1 \rho_1 \leq \rho_2 \leq \lambda_2\rho2
+    \lambda_1 \rho_1 \leq \rho_2 \leq \lambda_2\rho_2.
   \]
-  
 \end{definition}
 
 This is an equivalence relation.
@@ -153,11 +156,11 @@ This is an equivalence relation.
   \[
     d_1 \geq d_2 \geq d_\infty \geq \frac{d_2}{\sqrt n} \geq \frac{d_1}{n}
   \]
-  and so are Lipshitz equivalent.
+  and so are Lipschitz equivalent.
 \end{remark}
 
 \begin{proposition}
-  $d_1,d_\infty$ one $C[0,1]$ are not Lipshitz equivalent.
+  $d_1$ and $d_\infty$ on $C[0,1]$ are not Lipschitz equivalent.
 \end{proposition}
 
 \begin{proof}
@@ -177,7 +180,7 @@ This is an equivalence relation.
   Show that $d_2(f_n,0) = \sqrt{\frac{2}{3}}$ for all $n$ is not equivalent to either.
 \end{ex}
 
-\subsection{Open balls and open sets}
+\subsection{Open Ball and Open Set}
 
 Let $(X,d)$ be a metric space, $P\in X, \delta > 0$. The \emph{open ball}
 \[
@@ -185,10 +188,12 @@ Let $(X,d)$ be a metric space, $P\in X, \delta > 0$. The \emph{open ball}
 \]
 Often we omit the meric and write $B(P,\delta)$ or $B_\delta(P)$.
 
-\begin{definition}
-  A subset $U \subseteq X$ of a metric space $(X,d)$ is called \emph{open} if $\forall P \in U, \exists \delta>0 s.t. B(P,\delta)\subseteq U$, i.e. an open subset is just a union of open balls.
+\begin{definition}[Open subset]
+  A subset $U \subseteq X$ of a metric space $(X,d)$ is called \emph{open} if for all \(P \in U\), there exists \(\delta > 0\) such that $B(P,\delta) \subseteq U$, i.e.\ an open subset is just a union of open balls.
+\end{definition}
 
-  A subset $F\subseteq X$ is closed if $X\setminus F$ is open.
+\begin{definition}[Closed subset]
+  A subset $F\subseteq X$ is \emph{closed} if $X\setminus F$ is open.
 \end{definition}
 
 Open balls are open and closed balls are closed.
@@ -201,15 +206,15 @@ Open balls are open and closed balls are closed.
   \end{enumerate}
 \end{lemma}
 
-\begin{definition}
-  Give $P$ a point of $(X,d)$, an \emph{open neighbourhood (nbhd)} of $P$ is an open set $U \ni P$.
+\begin{definition}[Open neighbourhood]
+  Give $P$ a point of $(X,d)$, an \emph{open neighbourhood} of $P$ is an open set $U \ni P$.
 \end{definition}
 
-\subsection{Limits and continuity}
+\subsection{Limit and Continuity}
 
 Suppose $(x_n)$ is a sequence of points in a metric space $(X,d)$. We say $x_n \to x\in X$ (converges to limit $x$) if $d(x_n,x) \to 0$ as $n \to \infty$. Equivalently, $\forall \varepsilon>0, \exists N \forall n\geq N x_n \in B(x, \varepsilon)$.
 
 \begin{remark}
-  $x_n \to x$ in $(X,d)$ iff for any open neighbourhood $U \ni x \exists N \forall n\geq N x_n \in U$. 
+  $x_n \to x$ in $(X,d)$ if and only if for any open neighbourhood $U \ni x \exists N \forall n\geq N x_n \in U$. 
 \end{remark}
 \end{document}

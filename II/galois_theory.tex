@@ -1304,8 +1304,9 @@ We need the following to prove the theorem:
   \label{lem:linear independence of group characters}
   Let \(\phi_1, \dots, \phi_n\) be embeddings of a field \(K\) into a field \(L\). Then there do not exist \(\lambda_1, \dots, \lambda_n\) not all zero such that
   \[
-    \lambda_1 \phi_1(x) + \dots \lambda_n \phi_n(x) = 0 \, \forall x \in K.
+    \lambda_1 \phi_1(x) + \dots + \lambda_n \phi_n(x) = 0
   \]
+  for all \(x \in K\).
 \end{lemma}
 
 \begin{proof}
@@ -1845,5 +1846,120 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
     by an element of cycle type \((3, 2)\). Thus \(\gal(f)\) also contains an element of cycle type \((3, 2)\). Then \(g^3\) is a transposition. A subgroup of \(S_5\) containing a \(5\)-cycle and a transposition must be \(S_5\). Therefore \(f(t)\) is not solvable by radicals.
   \end{enumerate}
 \end{eg}
+
+\section{Final Thoughts}
+
+\subsection{Algebraic Closure}
+
+\begin{definition}[Algebracially closed]\index{algebraically closed}
+  A field \(L\) is \emph{algebraically closed} if any \(f(t) \in L[t]\) splits into a product of linear factors in \(L[t]\).
+\end{definition}
+
+\begin{remark}
+  This is equivalent to saying that any \(f(t) \in L[t]\) has a root in \(L\), or that any algebraic extension of \(L\) is \(L\) itself.
+\end{remark}
+
+\begin{definition}[Algebraic closure]\index{algebraic closure}
+  An extension \(K \leq L\) is an \emph{algebraic closure} of \(K\) if \(K \leq L\) is algebraic and \(L\) is algebraically closed.
+\end{definition}
+
+\begin{lemma}
+  If \(K \leq L\) is algebraic and every polynomial in \(K[t]\) splits completely over \(L\) then \(L\) is an algebraic closure of \(K\).
+\end{lemma}
+
+\begin{proof}
+  We need to show that \(L\) is algebraically closed. Suppose \(L \leq L(\alpha)\) is a finite extension and \(f_\alpha(t) = t^n + a_{n - 1}t^{n - 1} + \dots + a_0\) is the minimal polynomial of \(\alpha\) over \(L\). Let \(M = K(a_0, \dots, a_{n - 1})\). Then \(M \leq M(\alpha)\) is a finite extension. But each \(a_i\) is algebraic over \(K\) and so \(|M:K| < \infty\). Hence \(|M(\alpha):K| < \infty\) by Tower Law and so \(\alpha\) is algebraic over \(K\).
+
+  The minimal polynomial of \(\alpha\) over \(K\) must split over \(L\) and so \(\alpha \in L\). Thus any algebraic extension of \(L\) is \(L\) itself.
+\end{proof}
+
+\begin{eg}[Algebraic number]
+  Let \(\mathbb A = \{\alpha \in \C: \alpha \text{algebraic over } \Q\}\). It is a subfield of \(\C\): if \(\alpha\) and \(\beta\) are algebraic over \(\Q\) then \(|\Q(\alpha, \beta): \Q| < \infty\). So if \(\gamma = \alpha + \beta, \alpha - \beta, \alpha\beta\) or \(\alpha/\beta\) for \(\beta \neq 0\) we get \(\Q(\gamma) \leq \Q(\alpha, \beta)\) and so \(|\Q(\gamma):\Q| < \infty\) so \(\gamma\) is algebraic over \(Q\) and so \(\gamma \in \mathbb A\). Therefore \(\mathbb A = \cl Q\) is an algebraic closure of \(\Q\).
+\end{eg}
+
+Like construction of many other objects in this course, we want to prove the existence and uniqueness of algebraic closures. In general we need to appeal to Zorn's Lemma. This will be covered in IID Logic and Set, and it fact it is equivalent to both Axiom of Choice and to the Well-ordering Principle.
+
+We will do a quick ad hoc statement of Zorn's Lemma here and relegate the main discussion to IID Logic and Set.
+
+\begin{definition}[Partial order]
+  \((\zeta, \leq)\) is a \emph{partial order} on a set \(\zeta\) is
+  \begin{enumerate}
+  \item reflexive: \(x \leq x\) for all \(x \in \zeta\).
+  \item transitive: \(x \leq y\) and \(y \leq z\) implies \(x \leq z\).
+  \item antisymmetric: if \(x \leq y\) and \(y \leq x\) then \(x = y\).
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Total order]
+  A partial order \((\zeta, \leq)\) is a \emph{total order} if it is total: for any \(x, y \in \zeta\), either \(x \leq y\) or \(y \leq x\).
+\end{definition}
+
+\begin{definition}[Chain]
+  A \emph{chain} in a partially ordered set \((\zeta, \leq)\) is a totally ordered subset.
+\end{definition}
+
+\begin{theorem}[Zorn's Lemma]\index{Zorn's Lemma}
+  Let \((\zeta, \leq)\) be a non-empty partially ordered set. Suppose that any chain has an upper bound. Then \(\zeta\) has a maximal element.
+\end{theorem}
+
+Recall a result derived from Zorn's Lemma in IB Groups, Rings and Modules:
+
+\begin{lemma}
+  Let \(R\) be a ring. Then \(R\) has a maximal ideal.
+\end{lemma}
+
+\begin{proof}
+  Let \(\zeta\) be the set of proper ideals of \(R\). \(\{0\}\) is a proper ideal so \(\zeta\) is non-empty. Let \(\zeta\) be partially orderd by inclusion.
+
+  Note that an ideal \(I \ideal R\) is proper if and only if \(1 \notin I\). Any chain of proper ideals has an upper bound in \(\zeta\), namely the union of the chain, so by Zorn's Lemma \(\zeta\) has a maximal element, i.e.\ a maximal ideal of \(R\).
+\end{proof}
+
+\begin{theorem}[Existence of algebraic closure]
+  Any field has an algebraic closure.
+\end{theorem}
+
+\begin{proof}
+  Let
+  \[
+    \zeta = \{(f(t), j): f(t) \text{ irreducible monic in } K[t], 1 \leq j \leq \deg f \}.
+  \]
+  For each pair \(s = (f(t), j) \in \zeta\), introduce an indeterminate \(X_s = X_{f, j}\). Consider the polynomial ring \(K[X_s: s \in \zeta]\) and set
+  \[
+    \tilde f(t) = f(t) - \prod_{j = 1}^{\deg f} (t - X_{f, j}) \in K[X_s: s \in \zeta][t].
+  \]
+  Let \(I \ideal K[X_s: s \in \zeta]\) be generated by all the coefficients of all the \(\tilde f(t)\)'s, which we denote by \(a_{f, \ell}\) for \(0 \leq \ell < \deg f\). Claim that \(I \neq K[X_s: s \in \zeta]\):
+  \begin{proof}
+    Suppose \(1 \in I\) for contradiction. We thus have a relation
+    \begin{equation}
+      \label{eqn:ideal}
+      b_1 a_{f_1, \ell_1} + \dots + b_N a_{f_N, \ell_N} = 1 \in K[X_s: s \in \zeta].
+      \tag{\(\ast\)}
+    \end{equation}
+    Let \(L\) be a splitting field for the product \(f_1(t)\cdots f_N(t)\).For each \(i\), \(f_i\) splits over \(L\) so write
+    \[
+      f_i(t) = \prod_{j = 1}^{\deg f_i} (t - \alpha_{ij}).
+    \]
+    Define a \(K\)-linear ring homomorphism which is identity on \(K\)
+    \begin{align*}
+      \theta: K[X_s: s \in \zeta] &\to L \\
+      X_{f_i, j} &\mapsto \alpha_{ij} \\
+      X_s &\mapsto 0 \text{ otherwise}
+    \end{align*}
+    This induces a map \(\theta: K[X_s: s \in \zeta][t] \to L[t]\). Then
+    \begin{align*}
+      \theta(\tilde f_i(t)) &= \theta(f_i(t)) - \prod_{j = 1}^{\deg f_i} \theta(t - X_{f_i, j}) \\
+                            &= f_i(t) - \prod_{j = 1}^{\deg f_i} (t - \alpha_{ij}) \\
+                            &= 0
+    \end{align*}
+    But then \(\theta(a_{f_i, j}) = 0\) since \(a_{f_i, j}\) are the coefficients of \(\tilde f_i(t)\). But applying \(\theta\) to \eqref{eqn:ideal} shows \(0 = 1\). Absurd.
+  \end{proof}
+
+  We have thus shown that \(I \ideal K[X_s: s \in \zeta]\) is proper. By Zorn's Lemma, there is a maximal ideal \(P \ideal K[X_s: s \in \zeta]\) containing \(I\). Set
+  \[
+    L_1 = K[X_s: s \in \zeta]/P,
+  \]
+  which is a field. We thus have a field extension \(K \leq L_1\). Claim that \(L_1\) is an algebraic closure of \(K\):
+\end{proof}
+
 \printindex
 \end{document}

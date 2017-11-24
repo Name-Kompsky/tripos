@@ -22,6 +22,172 @@
 
 \section{Groups}
 
+\subsection{Definitions}
+
+\begin{definition}[Group]\index{group}
+  A \emph{group} is a triple \((G, \cdot, e)\) of a set \(G\), a function \(- \cdot -: G \times G \to G\) and \(e \in G\) such that
+  \begin{itemize}
+  \item associativity: for all \(a, b, c \in G\), \((a \cdot b) \cdot c = a \cdot (b \cdot c)\),
+  \item identity: for all \(a \in G\), \(a \cdot e = a = e \cdot a\),
+  \item inverse: for all \(a \in G\), there exists \(\alpha^{-1} \in G\) such that \(a \cdot a^{-1} = e = a^{-1} \cdot a\).
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Subgroup]\index{group!subgroup}
+  If \((G, \cdot, e)\) is a group, \(H \subseteq G\) is a \emph{subgroup} if
+  \begin{itemize}
+  \item \(e \in H\),
+  \item for all \(a, b \in H\), \(a \cdot b \in H\).
+  \end{itemize}
+  This makes \((H, \cdot, e)\) into a group. Write \(H \leq G\).
+\end{definition}
+
+\begin{lemma}
+  If \(H \subseteq G\) is non-emphy and for all \(a, b \in H\), \(a \cdot b^{-1} \in H\) then \(H \leq G\).
+\end{lemma}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Additive groups: \((\N, +, 0)\), \((\R, +, 0)\), \((\C, +, 0)\).
+  \item Groups of symmetries: \(S_n\), \(D_{2n}\), \(\GL_n(\R)\). They have subgroups \(A_n \leq S_n\), \(C_n \leq D_{2n}\), \(\SL_n(\R) \leq \GL_n(\R)\).
+  \item An group \(G\) is \emph{abelian}\index{group!abelian} is a group such that \(a \cdot b = b \cdot a\) for all \(a, b \in G\).
+  \end{enumerate}
+\end{eg}
+
+If \(H \leq G\), \(g \in G\), we define the \emph{left \(H\)-coset} of \(G\) to be
+\[
+  gH = \{gh: h \in H\}.
+\]
+As we have seen in IA Groups, the \(H\)-cosets form a patition of \(G\) and are in bijection with each other via
+\begin{align*}
+  H &\leftrightarrow gH \\
+  h &\mapsto gh \\
+  g^{-1}h &\mapsfrom h
+\end{align*}
+We write \(G/H\) for the set of left cosets.
+
+\begin{theorem}[Lagrange]\index{Lagrange's Theorem}
+  \label{thm:lagrange}
+  If \(G\) is a finite group and \(H \leq G \) then
+  \[
+    |G| = |H| \cdot |G/H|.
+  \]
+\end{theorem}
+
+We call \(|G/H|\) the \emph{index}\index{group!index} of \(H\) in \(G\).
+
+\begin{definition}[Order]\index{order}
+  Given \(g \in G\), the \emph{order} of \(g\) is the smallest \(n\) such that \(g^n = e\). We write \(n = o(g) = |g|\). If no such \(n\) exists then \(g\) has infinite order.
+\end{definition}
+
+Recall that if \(g^m = e\) then \(|g| \divides m\).
+
+\begin{lemma}
+  If \(G\) is finite and \(g \in G\) then \(|g| \divides |G|\).
+\end{lemma}
+
+\begin{proof}
+  The set
+  \[
+    \generation g = \{e, g, \dots, g^{|g| - 1}\}
+  \]
+  is a subgroup of \(G\). The result follows from \nameref{thm:lagrange}.
+\end{proof}
+
+\subsection{Normal subgroups, Quotients and Homomorphisms}
+
+Recall that \(gH = g'H\) if and only if \(g^{-1}g' \in H\). In particular, if \(h \in H\) then \(ghH = gH\).
+
+Given a subgroup \(H \leq G\), we want to define a group structure on its cosets. Argurably the most natural candidate for the group operation would be
+\begin{align*}
+  - \cdot -: G/H \times G &\to G/H \\
+  (gH, g'H) &\mapsto gg'H
+\end{align*}
+But is this well-defined? Suppose \(g'H = g'hH\), then
+\[
+  (gH) \cdot (g'hH) = gg'hH = gg'H
+\]
+so it is well-defined in the second coordinate. Suppose \(gH = ghH\), then
+\[
+  (ghH) \cdot (g'H) = ghg' H \stackrel{?}{=} gg'H
+\]
+where the last step holds if and only if \((g')^{-1}hg' \in H\) for all \(h \in H\), \(g' \in G\). Thus we need this true to define a group structure on the cosets. This motivates us to define
+
+\begin{definition}[Normal subgroup]\index{group!subgroup!normal}
+  A subgroup \(H \leq G\) is \emph{normal} if for all \(h \in H\), \(g \in G\), \(g^{-1}hg \in H\). Write \(H \normal G\).
+\end{definition}
+
+\begin{definition}[Quotient group]\index{group!quotient}
+  If \(H \normal G\), then \(G/H\) equipped with the product
+  \begin{align*}
+    G/H \times G/H &\to G/H \\
+    (gH, g'H) &\mapsto gg'H
+  \end{align*}
+  and identity \(eH\) is a group. This is the \emph{quotient group} of \(G\) by \(H\).
+\end{definition}
+
+Now we have defined and seen quite a few groups. We are interested not in the internal structure of groups but how they relate to each other. This motivates to define morphisms between groups:
+
+\begin{definition}[Homomorphism]\index{group!homomorphism}
+  If \((G, \cdot, e_G)\) and \((H, *, e_H)\) are groups, a function \(\varphi: G \to H\) is a \emph{homomorphism} if for all \(g, h \in G\),
+  \[
+    \varphi(g \cdot g') = \varphi(g) * \varphi(g').
+  \]
+\end{definition}
+
+This implies that \(\varphi(e_G) = e_H\) and \(\varphi(g^{-1}) = \varphi(g)^{-1}\). We define
+\begin{align*}
+  \ker \varphi &= \{g \in G: \varphi(g) = e_H\}, \\
+  \im \varphi &= \{\varphi(g): g \in G\}.
+\end{align*}
+
+\begin{lemma}\leavevmode
+  \begin{itemize}
+  \item \(\ker \varphi \normal G\),
+  \item \(\im \varphi \leq H\).
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  Easy.
+\end{proof}
+
+\begin{definition}[Isomorphism]\index{group!isomorphism}
+  A homomorphism \(\varphi\) is an \emph{isomorphism} if it is a bijection. Say \(G\) and \(H\) are \emph{isomorphic} if there exists some isomorphism \(\varphi: G \to H\). Write \(G \cong H\).
+\end{definition}
+
+\begin{ex}
+  If \(\varphi\) is an isomorphism then the inverse \(\varphi^{-1}: H \to G\) is also an isomorphism.
+\end{ex}
+
+\begin{theorem}[First Isomorphism Theorem]\index{tbd}
+  Let \(\varphi: G \to H\) be a homomorphism . Then \(\ker \varphi \leq G\), \(\im \varphi \leq G\) and
+  \[
+    G/\ker \varphi \cong \im \varphi.
+  \]
+\end{theorem}
+
+\begin{proof}
+  We have done the first part. For the second part, define
+  \begin{align*}
+    \theta: G/\ker \varphi &\to \im \varphi \\
+    g\ker \varphi &\mapsto \varphi(g)
+  \end{align*}
+  \[
+    \begin{tikzcd}
+      G \ar[r, "\varphi"] \ar[d, two heads] & H \\
+      G/\ker \varphi \ar[ur, dashed, "\phi"']
+    \end{tikzcd}
+  \]
+  Check this is well-defined: if \(g\ker \varphi = g'\ker \varphi\) then \(g^{-1}g' \in \ker \varphi\) so \(e_H = \varphi(g^{-1}g') = \varphi(g)^{-1}\varphi(g')\), \(\varphi(g) = \varphi(g')\) and \(\theta(g\ker \varphi) = \theta(g'\ker \varphi)\).
+
+  \(\theta\) is a homomorphism:
+  \[
+    \theta(g\ker \varphi \cdot g'\ker \varphi) = \theta(gg' \ker \varphi) = \varphi(gg') = \varphi(g)\varphi(g') = \theta(g\ker \varphi) \theta(g\ker \varphi).
+  \]
+  \(\theta\) is surjective and finally to show it is injective, suppose \(\theta(g\ker \varphi) = e_H\). Then \(g \in \ker \varphi\) so \(g\ker \varphi = e\ker \varphi\).
+\end{proof}
+
 \blindtext
 
 \section{Rings}
@@ -34,12 +200,12 @@
 
 \begin{definition}[Module]\index{module}
   Let \(R\) be a commutative ring. A quadruple \((M, +, , 0_M, \cdot)\) is an \emph{\(R\)-module} if \((M, +, 0_M)\) is an abelian group and the operation \(- \cdot -: R \times M \to M\) satisfies
-  \begin{align*}
-    (r_1 + r_2) \cdot m &= r_1 \cdot m + r_2 \cdot m \\
-    r \cdot (m_1 + m_2) &= r \cdot m_1 + r \cdot m_2 \\
-    r_2 \cdot (r_1 \cdot m) &= (r_2r_2) \cdot m \\
-    1_R \cdot m &= m
-  \end{align*}
+  \begin{itemize}
+  \item \((r_1 + r_2) \cdot m = r_1 \cdot m + r_2 \cdot m\),
+  \item \(r \cdot (m_1 + m_2) = r \cdot m_1 + r \cdot m_2\),
+  \item \(r_2 \cdot (r_1 \cdot m) = (r_2r_2) \cdot m\),
+  \item \(1_R \cdot m = m\).
+  \end{itemize}
 \end{definition}
 
 \begin{eg}\leavevmode
