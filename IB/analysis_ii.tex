@@ -1044,13 +1044,31 @@ But there may \emph{not} be anything for it to converge to!
 \begin{eg}
   \(V = C[0,1]\) with \(\norm \cdot_1\). Let \(f_n(x) =
   \begin{cases}
-    0 & x\in[0,1/2] \\
-    n(x-1/2) & x\in[1/2,1/2+1/n] \\
-    1 & x\geq 1/2+1/n
+    0 & x \in [0,1/2] \\
+    n(x-1/2) & x \in [1/2,1/2+1/n] \\
+    1 & x \geq 1/2+1/n
   \end{cases}
   \) Then \((f_n)\) is Cauchy but does not converge to any \(f\in C[0,1]\).
 \end{eg}
-%TODO: add a plot
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[
+      ticks=none,
+      axis equal image,
+      axis lines=center,
+      xmin=-.1,
+      xmax=1.2,
+      ymin=-.1,
+      ymax=1.2,
+      xlabel=\(x\),
+      ylabel=\(f_n(x)\)]
+      \addplot[domain=0:.5,thick]{0};
+      \addplot[domain=.5:.75,thick]{4*(x-.5)};
+      \addplot[domain=.75:1,thick]{1};
+    \end{axis}
+  \end{tikzpicture}
+\end{center}
 
 \begin{eg}[(Not quite an) Example]
   Let \((V, \norm \cdot) = (\Q, \norm \cdot)\), let \(v_n\) be the first \(n\)-decimal place expansion of \(\pi\). Then \((v_n)\) is Cauchy but does not converge to any \(v\in \Q\).
@@ -3129,7 +3147,194 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
     \end{align*}
     is continuous by composition.
   \end{proof}
+  We have essentially done the proof. Now we have to prove the theorem in the form stated. Begin with an obseravtion:
+
+  \begin{lemma}
+    Suppose \(f: U_1 \to U_2\) is \(C^1\). If \(U_3 \subseteq U_1\) is open then \(f|_{U_3}: U_3 \to f(U_3)\) is \(C^1\).
+  \end{lemma}
+
+  \begin{proof}
+    \(f(U_3) = (f^{-1})^{-1}(U_3)\) is open since \(f^{-1}\) is \(C^1\) and thus continuous. By construction \(f|_{U_3}: U_3 \to f(U_3)\) is a bijection. As \(f\) and \(f^{-1}\) are \(C^1\), \(f|_{U_3}\) and \((f^{-1})|_{f(U_3)}\) are \(C^1\).
+  \end{proof}
+
+  Now suppose \(\D f|_{x_0} = L\) is invertible. Let
+  \[
+    \tilde f(x) = L^{-1}(f(x + x_0) - f(x_0)),
+  \]
+  which is to say \(\tilde f = A_2 \compose f \compose A_1\) where
+  \begin{align*}
+    A_1, A_2: \R^n &\to \R^n \\
+    A_1(x) &= x + x_0 \\
+    A_2(y) &= L^{-1}(y - f(x_0))
+  \end{align*}
+  are both affine diffeomorphisms. Now \(\tilde f(0) = 0\) so
+  \begin{align*}
+    \D \tilde f|_0 &= \D A_2|_{f(A_1(x))} \compose \D f|_{A_1(0)} \compose \D A_1|_0 \\
+                   &= L^{-1} \compose L \compose \iota \\
+                   &= \iota
+  \end{align*}
+  \(\tilde f: A_1^{-1}(U) \to \R^n\) satisfies all requirements we used above and thus there exists \(\widetilde U_1 \subseteq A_1^{-1}(U)\) such that \(\tilde f|_{\widetilde U_1}: \widetilde U_1 \to \tilde f(\widetilde U_1)\) is a diffeomorphism. All that's left is to write the correct subset on which the functions are defined.
+
+  Let \(U_1 = A_1(\widetilde U_1) \subseteq U\). Then
+  \[
+    f|_{U_1} = A_2^{-1}|_{\tilde f(A_1^{-1}(U_1))} \compose \tilde f|_{A_1^{-1}(U_1)} \compose A_1^{-1}|_{U_1}.
+  \]
+
+  Done!
 \end{proof}
 
+\begin{remark}
+  The proof of differentiability of \(g\) is non-examinable.
+\end{remark}
+
+\subsection{Implicit Function Theorem}
+
+\begin{question}
+  Suppose \(f: \R^n \to \R^m\) is \(C^1\) and \(y_0 \in \R^m\). What can I say about
+  \[
+    f^{-1}(y_0),
+  \]
+  the set of solutions to \(f(x) = y_0\)?
+\end{question}
+
+Let's begin with a simple example. Let
+\begin{align*}
+  F: \R^2 &\to \R \\
+  (x_1, x_2) &\mapsto x_1^2 - x_2^2
+\end{align*}
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node [blue] at (2.9,3.4) {\(y = 0\)};
+    \node [green] at (4.5,3) {\(y > 0\)};
+    \node [red] at (2.9,2) {\(y < 0\)};
+    \begin{axis}[
+      ticks=none,
+      axis equal image,
+      axis lines=center,
+      xmin=-5,
+      xmax=5,
+      ymin=-5,
+      ymax=5,
+      xlabel=\(x_1\),
+      ylabel=\(x_2\)]
+      \addplot[domain=-4:4,color=blue]{x};
+      \addplot[domain=-4:4,color=blue]{-x};
+
+      \addplot[domain=2:4,samples=60,green]{sqrt(x^2-4)};
+      \addplot[domain=2:4,samples=60,green]{-sqrt(x^2-4)};
+      \addplot[domain=-4:-2,samples=60,green]{sqrt(x^2-4)};
+      \addplot[domain=-4:-2,samples=60,green]{-sqrt(x^2-4)};
+
+      \addplot[domain=-3.5:3.5,samples=60,red]{sqrt(x^2+4)};
+      \addplot[domain=-3.5:3.5,samples=60,red]{-sqrt(x^2+4)};
+
+      \addplot[domain=-.14:.14,very thick,blue]{x};
+      \addplot[domain=-.14:.14,very thick,blue]{-x};
+      \draw (axis cs:0,0) circle [radius=.2];
+
+      \addplot[domain=-2.79:-1.15,very thick,red]{-sqrt(x^2+4)};
+      \draw (axis cs:-2,-2.82) circle[radius=1];
+      
+      \addplot[domain=2.825:3.18,very thick,green]{sqrt(x^2-4)};
+      \draw (axis cs:3,2.23) circle [radius=0.3];
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Level sets for different \(y\)'s}
+\end{figure}
+
+For most \(x \in \R^2\), there exists \(\varepsilon > 0\) such that \(B_\varepsilon(x) \cap F^{-1}(F(x))\) is the image of a parameterised curve. But something different happens at the origin: two curves intersect there and there is no neighbourhood of the origin such that it looks like a curve.
+
+\begin{question}
+  What is different about \((0, 0)\)?
+\end{question}
+
+The answer lies in the derivative of the map. \(\D F = (2x_1, - 2x_2) \in L(\R^2, \R)\) is surjective everywhere except \((0, 0)\).
+
+\begin{theorem}
+  Suppose \(f: \R^n \to \R^m\) is \(C^1\), \(x_0 \in \R^n\) and \(\D f|_{x_0} \in L(\R^n, \R^m)\) is \emph{surjective}. Then there is an open subset \(U \subseteq \R^n\), \(x_0 \in U\) and diffeomorphism \(h: U \to U'\) such that
+  \[
+    f(x) = (h_1(x), \dots, h_m(x))
+  \]
+  for \(x \in U\).
+\end{theorem}
+
+The theorem says that there are local coordinates \((y_1, \dots, y_n)\) on \(\R^n\) near \(x_0\) such that \(y_i = h_i(x)\) and with respect ot which \(f\) is the projection of first \(m\) coordinates.
+
+\begin{proof}
+  Let \(L_1 = \D f|_{x_0} \in L(\R^n, \R^m)\). \(L_1\) is surjective so \(\dim \ker L_1 = n - m\) by Rank-nullity. Pick \(L_2 \in L(\R^n, \R^{n - m})\) such that \(\ker L_2 \cap \ker L_1 = 0\). There are many possibilities for \(L_2\), for example the orthogonal projection onto \(\ker L_1 \cong \R^{n - m}\). Define
+  \begin{align*}
+    h: \R^n &\to \R^m \times \R^{n - m} \cong \R^n \\
+    x &\mapsto (f(x), L_2(x))
+  \end{align*}
+  Then the derivative \(\D h|_{x_0}: \R^n \to \R^m \times \R^{n - m}\) is given by \((\D f|_{x_0}, \D L_2|_{x_0}) = (L_1, L_2)\).
+  \[
+    \begin{tikzcd}
+      \R^n \supseteq U \ar[r, "h"] \ar[dr, "f"'] & U' \ar[d, "\pi = f \compose h^{-1}"] \\
+      & \R^m
+    \end{tikzcd}
+  \]
+
+  If \(v \in \ker \D h|_{x_0}\) then \(v \in \ker L_1 \cap \ker L_2 = 0\) so \(v = 0\). That is to say \(\D h|_{x_0} \in L(\R^n, \R^n)\) is injective and thus invertible. Thus by \nameref{thm:inverse function} there exists \(U \subseteq \R^n\) open, \(x_0 \in U\) such that \(h|_U\) is a diffeomorphism. By construction
+  \[
+    f(x) = (h_1(x), \dots, h_m(x)).
+  \]
+\end{proof}
+
+\begin{corollary}
+  With \(f\) and \(x_0\) as above, there is an open set \(V \subseteq \R^{n - m}\) and an injective map \(g: V \to \R^n\) such that
+  \[
+    f^{-1}(y_0) \cap U = g(V)
+  \]
+  where \(y_0 = f(x_0)\). That is to say \(f^{-1}(y_0)\) is locally the image of a function \(g: V \to \R^n\).
+\end{corollary}
+
+\begin{proof}
+  Consider the map
+  \begin{align*}
+    \iota: \R^{n - m} &\to \R^n \cong \R^m \times \R^{n - m} \\
+    z &\mapsto (y_0, z)
+  \end{align*}
+  \[
+    \begin{tikzcd}
+      U \subseteq \R^n \ar[r, "h"] & \R^n \supseteq U' \\
+      & \hspace{1.6em} V \subseteq \R^{n - m} \ar[ul, "g"] \ar[u, "\iota"', shift left=5]
+    \end{tikzcd}
+  \]
+  Let \(V = \iota^{-1}(U')\), which is open since \(\iota\) is continuous. \(g: V \to \R^n\) is given by \(g = h^{-1} \compose \iota\). Then \(g\) is injective since both \(h^{-1}\) and \(\iota\) are, and \(f(x) = y_0\) if and only if \(h(x) = (y_0, z)\), if and only if \(f(x) \in \im g\).
+\end{proof}
+
+We have the tool ready for our theorem. Before that let's introduce some terminologies. Let \(f: \R^n \to \R^m\).
+
+\begin{definition}[Critical point]\index{critical point}
+  \(x \in \R^n\) is a \emph{critical point} of \(f\) if \(\D f|_x\) is not surjective.
+\end{definition}
+
+\begin{definition}[Critical value]\index{critical value}
+  \(y \in \R^m\) is a \emph{critical value} of \(f\) if any \(x \in f^{-1}(y)\) is a critical point.
+\end{definition}
+
+\begin{definition}[Singular]\index{singular}
+  If \(x \in f^{-1}(y)\) is a critical point then \(x\) is a \emph{singular point} of \(f^{-1}(y)\).
+
+  If \(y\) is a critical value of \(f\) then \(f^{-1}(y)\) is \emph{singular}.
+\end{definition}
+
+And the one final definition:
+
+\begin{definition}[Manifold]\index{manifold}
+  An \emph{\(n\)-manifold} is a metric space \(X\) such that any \(p \in X\) has an open neighbourhood \(U\) homeomorphic to an open subset of \(\R^n\).
+\end{definition}
+
+\begin{theorem}[Global Implicit Function Theorem]
+  If \(y \in \R^m\) is not a critical value of \(f\), \(f^{-1}(y)\) is an \((n - m)\)-dimensional manifold.
+\end{theorem}
+
+%So the generic structure
+
+\begin{remark}
+  Sards Theorem asserts that in a sense, most points in \(\R^m\) are not critical values.
+\end{remark}
 \printindex
 \end{document}

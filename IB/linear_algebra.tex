@@ -22,6 +22,13 @@
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
+\iffalse
+\let\O\relax
+\let\U\relax
+\DeclareMathOperator{\O}{O}
+\DeclareMathOperator{\U}{U}
+\fi
+
 \makeindex
 
 \begin{document}
@@ -3735,5 +3742,230 @@ Given these terminologies, Gram-Schmidt may be equivalently formulated as follow
   \end{note}
 \end{proof}
 
+A concept closely related to orthogonal complement is
+
+\begin{definition}[Projection]\index{projection}
+  Suppose \(V = U \oplus W\), a \emph{projection} from \(V\) to \(W\) is a map
+  \begin{align*}
+    \pi: V &\to W \\
+    u + w &\mapsto w
+  \end{align*}
+  where \(u \in U, w \in W\). This a well-defined linear map and is idempotent, i.e.\ \(\pi^2 = \pi\).
+\end{definition}
+
+If the direct sum is orthogonal, however, there is a unique projection:
+
+\begin{definition}[Orthogonal projection]
+  If \(U = W^\perp\) above then \(\pi\) is the \emph{orthgonal projection} from \(V\) to \(W\).
+\end{definition}
+
+\begin{note}
+  \(\pi' = \iota - \pi\) is the orthogonal projection from \(V\) to \(W^\perp\).
+\end{note}
+
+So far we have discussed orthogonal complement only at an abstract level and we don't know yet how to find one, although you should have a good intuition of how. The following lemma tells us how it works:
+
+\begin{lemma}
+  Let \(V\) be an inner product space, \(W \leq V\) with orthonormal basis \(e_1, \dots, e_k\) and \(\pi\) is the orthogonal projection onto \(W\). Then
+  \begin{enumerate}
+  \item For all \(v \in V\),
+    \[
+      \pi(v) = \sum_{i = 1}^k \ip{v, e_i} e_i
+    \]
+  \item \(\norm{v - \pi(v)} \leq \norm{v - w}\) for all \(v \in V\), \(w \in W\) with equiality if and only if \(\pi(v) = w\). Equivalently, \(\pi(v)\) is the closed point in \(W\) to \(v\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item We need
+    \[
+      v - \sum_{i = 1}^k \ip{v, e_1}e_i \in W^\perp.
+    \]
+    But
+    \[
+      \ip*{v - \sum_{i = 1}^k \ip{v, e_i}e_i, e_j} = \ip{v, e_j} - \ip{v, e_j} = 0.
+    \]
+  \item
+    \begin{align*}
+      \norm{v - w}^2 &= \norm{\underbrace{v - \pi(v)}_{\in W^\perp} + \underbrace{\pi(v) - w}_{\in W}}^2 \\
+                     &= \norm{v - \pi(v)}^2 + \norm{\pi(v) - w}^2 \\
+                     &\leq \norm{v - \pi(v)}^2
+    \end{align*}
+    with equality if and only if \(\pi(v) = w\).
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  We met internal and external direct sum before. There is an analogous distinction for orthogonal direct sum.
+
+  Given \(V_1, V_2\) two inner product spaces over \(\F\), we can define the \emph{external orthogonal} direct sum \(V_1 \oplus V_2\) by
+  \[
+    \ip{(u_1, u_2), (v_1, v_2)} = \ip{u_1, v_1} + \ip{u_2, v_2}.
+  \]
+  In practice we often suppress the distinction between internal and extensal (orthogonal) direct sums.
+\end{remark}
+
+\subsection{Adjoints}
+
+\begin{proposition}
+  Let \(V\) and \(W\) be finite-dimensional inner product spaces and \(\alpha \in L(V, W)\). Then there exists a unique linear map \(\alpha^*: W \to V\) such that for all \(v \in V, w \in W\),
+  \[
+    \ip{\alpha v, w} = \ip{v, \alpha^*w}.
+  \]
+
+  If \(\basis B\) is an orthonormal basis for \(V\) and \(\basis C\) is an orthonormal basis for \(W\),
+  \[
+    [\alpha^*]_{\basis C, \basis B} = \conj{[\alpha]}^T_{\basis B, \basis C}.
+  \]
+\end{proposition}
+
+\begin{definition}[Adjoint]\index{adjoint}
+  \(\alpha^*\) as above is the \emph{adjoint} of \(\alpha\).
+\end{definition}
+
+\begin{proof}
+  Let \(\basis B = \{v_1, \dots, v_n\}, \basis C = \{w_1, \dots, w_m\}\) and as usual, let
+  \begin{align*}
+    A &= [\alpha]_{\basis B, \basis V} = (a_{ij}) \\
+    \conj A^T &= C = (c_{ij})
+  \end{align*}
+  where \(c_{ij} = \conj{a_{ij}}\).
+
+  Since the formula for the adjoint map is given, we might as well just verify it. Consider the linear map \(\beta\) such that \([\beta]_{\basis C, \basis B} = C\). Then
+  \begin{align*}
+    \ip*{\alpha \left( \sum_i \lambda_iv_i \right), \sum_j \mu_jw_j} &= \ip*{\sum_{i, k}\lambda_ia_{ki}w_k, \sum_j \mu_jw_j} = \sum_{i, j} \lambda_ia_{ji}\conj{\mu_j} \\
+    \intertext{while on the other hand}
+    \ip*{\sum_i \lambda_iv_i, \beta \left( \sum_j \mu_jw_j \right)} &= \ip*{\sum_i\lambda_iv_i, \sum_{j, k}\mu_jc_{kj}v_k}  = \sum_{i, j}\lambda_i \conj{c_{ij}}\conj{\mu_j} \\
+  \end{align*}
+  and we see that they are equal since \(c_{ij} = \conj{a_{ij}}\). Thus we have proved the existence of adjoint.
+
+  By specialising the above calculation to basis elements uniqueness follows.
+\end{proof}
+
+\begin{notation}
+  Denote the Hermitian conjugate by
+  \[
+    A^\dag = \conj A^T.
+  \]
+\end{notation}
+
+\begin{caution}
+  We use the same notation \(\alpha^*\) for the adjoint and the dual of \(\alpha\). Hopefully the context should be clear which one is our concern.
+\end{caution}
+
+\begin{remark}
+  This usage of notation is not entirely coincidental. In fact, let \(V\) and \(W\) be finite-dimensional real inner product space and \(\alpha \in L(V, W)\). In finite dimension there is an isomorphism
+  \begin{align*}
+    \psi_{R, V}: V &\to V^* \\
+    v &\mapsto \ip{-, v}
+  \end{align*}
+  and similarly \(\psi_{R, W}: W \to W^*\) such that the following diagram commutes:
+  \[
+    \begin{tikzcd}
+      W \ar[r, "\text{adjoint of } \alpha"] \ar[d, "\psi_{R, W}"']  & V \ar[d, "\psi_{R, V}"] \\
+      W^* \ar[r, "\text{dual of } \alpha"'] & V^*
+    \end{tikzcd}
+  \]
+  In the fancy language of category theory, this essentially says that adjoint and dual are naturally isomorphic as contravariant functors.
+\end{remark}
+
+\subsection{Self-adjoint Maps \& Isomoetries}
+
+Let \(V = W\) throughout this section.
+
+\begin{definition}[Self-adjoint]\index{self-adjoint}
+  Let \(V\) be an inner product space and \(\alpha \in L(V)\). Let \(\alpha^*\) be the adjoint of \(\alpha\). \(\alpha\) is \emph{self-adjoint} if it satisfies one of the equivalent properties below:
+  \begin{itemize}
+  \item For all \(u, v \in V\), \(\ip{\alpha u, v} = \ip{u, \alpha v}\),
+  \item \(\alpha = \alpha^*\).
+  \end{itemize}
+
+  \(\alpha\) is said to be symmetric (Hermitian, respectively) if the vector space is real (complex, respectively).
+\end{definition}
+
+\begin{definition}[Isometry]\index{isometry}
+  Let \(V\) abe an inner product space and \(\alpha \in L(V)\). Let \(\alpha^*\) be the adjoint of \(\alpha\). \(\alpha\) is an \emph{isometry} if it satisfies one of the equivalent properties below:
+  \begin{itemize}
+  \item For all \(u, v \in V\), \(\ip{\alpha u, \alpha v} = \ip{u, v}\),
+  \item \(\alpha^{-1} = \alpha^*\).
+  \end{itemize}
+
+  \(\alpha\) is said to be orthogonal (unitary, respectively) if the vector space is real (complex, respectively).
+\end{definition}
+
+The equivalences should be quite obvious and in case you don't find it so,
+
+\begin{proof}[Proof of 2nd equivalence]\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): \(\norm{\alpha v}^2 = \norm{v}^2\) so \(\alpha\) is injective and \(\alpha^{-1}\) exists. For all \(u, v \in V\),
+    \[
+      \ip{u, \alpha^*v} = \ip{\alpha u, v} = \ip{u, \alpha^{-1}v}
+    \]
+    so \(\alpha^{-1} = \alpha^*\).
+  \item \(\Leftarrow\):
+    \[
+      \ip{\alpha u, \alpha v} = \ip{u, \alpha^*\alpha v} = \ip{u, v}
+    \]
+    for all \(u, v \in V\).
+  \end{itemize}
+\end{proof}
+
+\begin{remark}
+  By the polarisation identity there is yet another equivalent definition of isometry: \(\alpha\) is an isometry if
+  \[
+    \norm{\alpha v} = \norm{v}
+  \]
+  for all \(v \in V\).
+\end{remark}
+
+The might appear to you to be closer to the casual definition of an ``isometry''.
+
+\begin{lemma}
+  Let \(V\) be a finite-dimensional real (complex, respectively) inner product space and \(\alpha \in L(V)\). Then
+  \begin{itemize}
+  \item \(\alpha\) is self-adjoint if and only if for all \emph{orthonormal basis} \(\basis B\), \([\alpha]_{\basis B}\) is symmetric (Hermitian, repsectively).
+  \item \(\alpha\) is an isometry if and only if for all \emph{orthonormal basis} \(\basis B\), \([\alpha]_{\basis B}\) is orthogonal (unitary, respectively).
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  There is very little to do actually. For any orthonormal basis \(\basis B\),
+  \[
+    [\alpha^*]_{\basis B} = \conj{[\alpha]}^T_{\basis B}
+  \]
+  and the two cases follow.
+\end{proof}
+
+It turns out all the isometries on an inner product space form a group:
+
+\begin{definition}[Orthogonal/Unitary group]\index{orthogonal group}\index{unitary group}\leavevmode
+  \begin{itemize}
+  \item If \(\F = \R\), the \emph{orthogonal group} of \(V\) is
+    \[
+      O(V) = \{\alpha \in L(V): \alpha \text{ isometry}\}.
+    \]
+  \item If \(\F = \C\), the \emph{unitary group} of \(V\) is
+    \[
+      U(V) = \{\alpha \in L(V): \alpha \text{ isometry}\}.
+    \]
+  \end{itemize}
+\end{definition}
+
+\begin{lemma}
+  Let \(V\) be an inner product space with orthonormal basis \(e_1, \dots, e_n\). Then
+  \begin{itemize}
+  \item if \(\F = \R\), there is a correspondence
+    \begin{align*}
+      O(V) &\leftrightarrow \{\text{orthonormal basis of } V\} \\
+      \alpha &\leftrightarrow (\alpha(e_1), \dots, \alpha(e_n))
+    \end{align*}
+  \item if \(\F = \C\), there is a correspondence
+    \begin{align*}
+      U(V) &\leftrightarrow \{\text{orthonormal basis of } V\} \\
+      \alpha &\leftrightarrow (\alpha(e_1), \dots, \alpha(e_n))
+    \end{align*}
+  \end{itemize}
+\end{lemma}
 \printindex
 \end{document}
