@@ -25,8 +25,6 @@
 \begin{document}
 
 % TODO: rewrite \norm
-% TODO: plot simple functions
-
 
 \input{titlepage}
 
@@ -822,7 +820,7 @@ In other words, power series can be differentiated term-by-term.
 
 \section{Compactness \& Completeness}
 
-\subsection{Compact subsets of \texorpdfstring{\(\R^n\)}{R\^{}n}}
+\subsection{Compact subsets of \texorpdfstring{\(\R^n\)}{ℝ\^{}n}}
 
 Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in \(V\) and \((n_j)\) is an increasing sequence of positive integers (i.e.\ \(n_{j+1}>n_j\)) then \((v_{n_j})\) is a \emph{subsequence} of \((v_n)\).
 
@@ -945,7 +943,7 @@ Recall from IA Analysis I:
   Apply Theorem to \(-f\).
 \end{proof}
 
-\subsubsection{Application II: Equivalence of Norms on \texorpdfstring{\(\R^n\)}{R\^{}n}}
+\subsubsection{Application II: Equivalence of Norms on \texorpdfstring{\(\R^n\)}{ℝ\^{}n}}
 
 Let \(\norm \cdot\) be some norm on \(\R^m\).
   
@@ -1301,7 +1299,7 @@ so given \(g_+ \in \riem U(f), g_- \in \riem L(f)\), \(g_- \leq f \leq g_+\) so 
   \(0 \leq u(f) - l(f) \leq I(g_+) - I(g_-) \leq \varepsilon\) for all \(\varepsilon > 0\). Thus \(u(f) = l(f)\) and \(f\) is Riemann integrable.
 \end{proof}
 
-\section{Differential Calculus on \texorpdfstring{\(\R^n\)}{R\^{}n}}
+\section{Differential Calculus on \texorpdfstring{\(\R^n\)}{ℝ\^{}n}}
 
 \subsection{Derivative, First Attempt}
 
@@ -3250,7 +3248,7 @@ For most \(x \in \R^2\), there exists \(\varepsilon > 0\) such that \(B_\varepsi
   What is different about \((0, 0)\)?
 \end{question}
 
-The answer lies in the derivative of the map. \(\D F = (2x_1, - 2x_2) \in L(\R^2, \R)\) is surjective everywhere except \((0, 0)\).
+The answer lies in the derivative of the map. \(\D F|_{(x_1, x_2)} = (2x_1, - 2x_2) \in L(\R^2, \R)\) is surjective everywhere except \((0, 0)\).
 
 \begin{theorem}
   Suppose \(f: \R^n \to \R^m\) is \(C^1\), \(x_0 \in \R^n\) and \(\D f|_{x_0} \in L(\R^n, \R^m)\) is \emph{surjective}. Then there is an open subset \(U \subseteq \R^n\), \(x_0 \in U\) and diffeomorphism \(h: U \to U'\) such that
@@ -3260,7 +3258,7 @@ The answer lies in the derivative of the map. \(\D F = (2x_1, - 2x_2) \in L(\R^2
   for \(x \in U\).
 \end{theorem}
 
-The theorem says that there are local coordinates \((y_1, \dots, y_n)\) on \(\R^n\) near \(x_0\) such that \(y_i = h_i(x)\) and with respect ot which \(f\) is the projection of first \(m\) coordinates.
+The theorem says that there are local coordinates \((y_1, \dots, y_n)\) on \(\R^n\) near \(x_0\) such that \(y_i = h_i(x)\) and with respect to which \(f\) is the projection of first \(m\) coordinates.
 
 \begin{proof}
   Let \(L_1 = \D f|_{x_0} \in L(\R^n, \R^m)\). \(L_1\) is surjective so \(\dim \ker L_1 = n - m\) by Rank-nullity. Pick \(L_2 \in L(\R^n, \R^{n - m})\) such that \(\ker L_2 \cap \ker L_1 = 0\). There are many possibilities for \(L_2\), for example the orthogonal projection onto \(\ker L_1 \cong \R^{n - m}\). Define

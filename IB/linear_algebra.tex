@@ -43,7 +43,7 @@
   Throughout this course, $\mathbb{F}$ denotes a general field. If you wish, think of it as $\mathbb{R}$ or $\mathbb{C}$.
 \end{convention}
 
-\subsection{Definition}
+\subsection{Definitions}
 
 \begin{definition}[Vector space]\index{vector space}
   An $\mathbb{F}$-\emph{vector space} (or a vector space over $\mathbb{F}$) is an abelian group $(V, +)$ equipped with a function, called \emph{scalar multiplication}:
@@ -433,7 +433,7 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 
 \section{Linear Map}
 
-\subsection{Definition}
+\subsection{Definitions}
 
 \begin{definition}[Linear map]\index{linear map}
   \(V, W\) two \(\F\)-vector space, a map \(\alpha: V\to W\) is \emph{linear} if
@@ -998,7 +998,7 @@ The elementary row (column, respectively) operations have corresponding elementa
       & & 0 & & 1 & 0 \\
       0 & \cdots & 0 & \ddots & 0 & 0 \\
       & & 1 & 0 & 0 & & \\
-      \vdots & &&  \ddots & \\
+      \vdots & & &  \ddots & \\
       0 & & \cdots & & \cdots & 0
     \end{pmatrix}
   \]
@@ -1101,7 +1101,7 @@ one way to compute inverses.
 
 \section{Dual Space \& Dual Map}
 
-\subsection{Definition}
+\subsection{Definitions}
 
 Let \(V\) be an \(\F\)-vector space.
 
@@ -1265,7 +1265,7 @@ It turns out dual spaces have maps between them. Before studying them in detail,
 
 It follows that
 \begin{lemma}
-  Let \(V\) be a finite-dimensional \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). If the change of basis matrix from \(\basis F\) to \(\basis E\) is \(P\) then the change of basis matrix from \(\basis F^*\) to \(\basis E^*\) is
+  Let \(V\) be a finite-dimensional \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). If the change-of-basis matrix from \(\basis F\) to \(\basis E\) is \(P\) then the change-of-basis matrix from \(\basis F^*\) to \(\basis E^*\) is
   \[
     (P^{-1})^T.
   \]
@@ -2083,13 +2083,15 @@ Although in theory we could invert the matrix to solve the system of equations, 
 
 \section{Endomorphism}
 
-Let \(V\) be an \(\F\)-vector space with \(\dim V = n < \infty\). Let \(\basis B =\{v_1, \dots, v_n\}\) be a basis and \(\alpha \in L(V) = L(V, V)\). The general problem studied in this section is to choose a basis \(\basis B\) such that \([\alpha]_{\basis B}\) has ``nice forms'', for example, amenable to \(\det\) and \(\tr\).
+\subsection{Definitions}
+
+Let \(V\) be an \(\F\)-vector space with \(\dim V = n < \infty\). Let \(\basis B =\{v_1, \dots, v_n\}\) be a basis and \(\alpha \in L(V) = L(V, V)\). The general problem studied in this section is to choose a basis \(\basis B\) such that \([\alpha]_{\basis B}\) has ``nice forms'', for example, to be amenable to \(\det\) and \(\tr\).
 
 Suppose there is another basis \(\basis B'\) with change-of-basis matrix \(P\). Recall that
 \[
   [\alpha]_{\basis B} = P^{-1}[\alpha]_{\basis B'}P.
 \]
-The above problem is thus euqivalent to: given \(A \in \M_n(\F)\), find \(A'\) conjugate to \(A\) and in a ``nice form''.
+The above problem is thus euqivalent to the following: given \(A \in \M_n(\F)\), find \(A'\) conjugate to \(A\) and in a ``nice form''.
 
 What are the nice forms that we desire? The best we can have is
 
@@ -2132,9 +2134,13 @@ Equivalent, rephrasing using lanugages of matrices, \(A \in \M_n(\F)\) is diagon
 
 \subsection{Polynomial Ring, an Aside}
 
-Before discussing polynomials associated with a linear map, we need some knowledge about the ambient polynomial space that we will be working with. The following results should be self-evident and proofs are omitted. Most of them will be studied in detail in IB Groups, Rings and Modules and a proof the Fundamental Theorem of Algebra can be found in IB Complex Analysis.
+Before discussing polynomials associated with a linear map, we need some background knowledge about the ambient polynomial space that we will be working with. The following results should be self-evident and proofs are omitted. Most of them will be studied in detail in IB Groups, Rings and Modules and a proof the Fundamental Theorem of Algebra can be found in IB Complex Analysis.
 
-Let \(\F[t] = \{\text{polynomials with coefficients in } \F\}\) and \(\deg f\) be the degree of \(f\) in \(\F[t]\). By convention \(\deg 0 = -\infty\). We have the following properties:
+Let
+\[
+  \F[t] = \{\text{polynomials with coefficients in } \F\}
+\]
+and \(\deg f\) be the degree of \(f\) in \(\F[t]\). In addition for the convenience of stating the following properties we let \(\deg 0 = -\infty\). We have the following properties:
 \begin{enumerate}
 \item \(\deg (f + g) \leq \max(\deg f, \deg g), \deg(f g) = \deg f + \deg g\).
 \item If \(\lambda \in \F\) is a root of some \(f \in \F[t]\), i.e.\ \(f(\lambda) = 0\) then \((t - \lambda) \divides f\). In other words, \(f(t) = (t - \lambda) g(t)\) for some \(g(t) \in \F[t]\) and \(\deg g = \deg f - 1\).
@@ -2225,7 +2231,7 @@ Conjugate matrices have the same characteristic polynomial.
 \begin{proof}\leavevmode
   \begin{itemize}
   \item \(c_0 = \chi_\alpha(0) = \det (\alpha - 0) = \det \alpha\).
-  \item If \(\F = \R\) then there is an extension of scalars \(\M_n(\R) \embed \M_n(\C)\) induced by \(\R \embed \C\) (i.e.\ complexification). For \(\F = \C\),
+  \item If \(\F = \R\) then there is an extension of scalars \(\M_n(\R) \otimes \C \embed \M_n(\C)\) induced by \(\R \embed \C\) (i.e.\ complexification). For \(\F = \C\), use Fundamental Theorem of Algebra to write
     \[
       \chi_\alpha(t) = \det
       \begin{pmatrix}
@@ -2290,11 +2296,11 @@ Conjugate matrices have the same characteristic polynomial.
       \]
       Also
       \[
-        (\alpha - \lambda_j \iota)(\pi_j(v)) = (\alpha - \lambda_j\iota)(q_j(\alpha)(v)) = \frac{1}{\sum_{i \neq j}^{ } (\lambda_j - \lambda_i)} \underbrace{p(\alpha)}_{= 0}(v) = 0.
+        (\alpha - \lambda_j \iota)(\pi_j(v)) = (\alpha - \lambda_j\iota)(q_j(\alpha)(v)) = \frac{1}{\prod_{i \neq j}^{ } (\lambda_j - \lambda_i)} \underbrace{p(\alpha)}_{= 0}(v) = 0.
       \]
       We have thus shown that
       \[
-        \im \pi_j \subseteq \ker(\alpha - \lambda_j \iota) = V_{\lambda_j}.
+        \im \pi_j \leq \ker(\alpha - \lambda_j \iota) = V_{\lambda_j}.
       \]
       Thus \(V = \sum_{j = 1}^{k} V_{\lambda_j}\).
 
@@ -2312,7 +2318,7 @@ Conjugate matrices have the same characteristic polynomial.
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item Morally speaking, \(\pi_j\) ``projects'' to \(V_{\lambda_j}\).
+  \item Morally speaking, \(\pi_j\) ``projects'' \(V\) to \(V_{\lambda_j}\).
   \item The proof shows that for \(k\) distinct eigenvalues \(\lambda_1, \dots \lambda_k\) of \(\alpha\), the sum \(\sum_j V_{\lambda_j}\) is direct. The only way for diagonalisation to fail is if \(\sum_j V_{\lambda_j} \lneq V\).
   \end{enumerate}
 \end{remark}
@@ -2373,7 +2379,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{remark}
 
 \begin{lemma}
-  Let \(\alpha \in L(V)\), \(p \in \F[t]\). Then \(p(\alpha) = 0\) if and only if \(m_\alpha(t) | p(t)\).
+  Let \(\alpha \in L(V)\), \(p \in \F[t]\). Then \(p(\alpha) = 0\) if and only if \(m_\alpha(t) \divides p(t)\).
 \end{lemma}
 
 \begin{proof}
@@ -2425,16 +2431,16 @@ First we give a proof for \(\F = \C\):
   \]
 \end{proof}
 
-However, this proof is unsatisfactory in that it relies on the fact of \(\C\) being algebraically closed which is partially, to say the least, an analytical and not an algebraic property\footnote{While being closed is an algebraic property, the construction of \(\C\) via \(\R\) from \(\Q\) is not. The point here is that Caylay-Hamilton holds for all fields, not just closed ones.}. In actuality, Cayley-Hamilton is a general result that applies to all fields. Thus we give an alternative algebraic proof:
+However, this proof is unsatisfactory in that it relies on the fact of \(\C\) being algebraically closed, which is partially, to say the least, an analytical and not an algebraic property\footnote{While being closed is an algebraic property, the construction of \(\C\) via \(\R\) from \(\Q\) is not. The point here is that Caylay-Hamilton holds for all fields, not just closed ones.}. In actuality, Cayley-Hamilton is a general result that applies to all fields. Thus we give an alternative algebraic proof:
 
-\begin{proof}
+\begin{proof}(Non-examinable)
   Let \(A \in \M_n(\F)\), then
   \[
     \chi_A(t) \cdot (-1)^n = t^n + a_{n - 1}t^{n - 1} + \dots + a_0 = \det(tI - A).
   \]
   For any matrix \(B\), we have
   \[
-    B \adj B = \det B I.
+    B \adj B = \det B \cdot I.
   \]
   Let \(B = tI - A\). Then \(\adj B\) is a matrix whose entries are polynomials in \(t\) of degree smaller than \(n\), i.e.\ polynomials in \(t\) with coefficients in \(\M_n(\F)\).
 
@@ -2484,7 +2490,7 @@ However, this proof is unsatisfactory in that it relies on the fact of \(\C\) be
 \begin{proof}
   \(1 \leq g_\lambda\) since \(\alpha - \lambda \iota\) is singular.
 
-  Let \(\basis B = \{v_1, \dots v_n\}\) be a basis of \(V\) with \(\{v_1, \dots, v_g\}\) a basis of \(N(\alpha - \lambda \iota)\). Let \(g = g_\lambda\). Then
+  Let \(\basis B = \{v_1, \dots v_n\}\) be a basis of \(V\) with \(\{v_1, \dots, v_g\}\) a basis of \(\ker(\alpha - \lambda \iota)\). Let \(g = g_\lambda\). Then
   \[
     [\alpha]_{\basis B} =
     \begin{pmatrix}
@@ -2507,7 +2513,7 @@ However, this proof is unsatisfactory in that it relies on the fact of \(\C\) be
 \end{lemma}
 
 \begin{proof}
-  As \(m_\alpha \divides \chi_\lambda\), \(c_\lambda \leq a_\lambda\).
+  As \(m_\alpha \divides \chi_\alpha\), \(c_\lambda \leq a_\lambda\).
 
   As \(\lambda\) is an eigenvalue, \(\alpha(v) = \lambda v\) for some \(v \neq 0\). Now given \(p \in \F[t]\), \(p(\alpha)(v) = p(\lambda)(v)\). Apply this to \(m_\alpha\),
   \[
@@ -2529,7 +2535,7 @@ However, this proof is unsatisfactory in that it relies on the fact of \(\C\) be
   \]
   then
   \[
-    \chi_A(t) = |A - tI| = (2 - t)(1 - t)^2.
+    \chi_A(t) = \det(A - tI) = (2 - t)(1 - t)^2.
   \]
   There are two candidates for the minimal polynomial:
   \begin{itemize}
@@ -2552,22 +2558,22 @@ However, this proof is unsatisfactory in that it relies on the fact of \(\C\) be
 \end{eg}
 
 \begin{lemma}
-  Let \(\F = \C\), \(\alpha \in L(V)\), then TFAE:
+  Let \(\alpha \in L(V)\), then TFAE:
   \begin{enumerate}
   \item \(\alpha\) is diagonalisable,
   \item \(a_\lambda = g_\lambda\) for all eigenvalues \(\lambda\),
-  \item \(c_\lambda = 1\) for all eigenvalues \(\lambda\).
+  \item if \(\F = \C\), \(c_\lambda = 1\) for all eigenvalues \(\lambda\).
   \end{enumerate}
 \end{lemma}
 
 \begin{proof}\leavevmode
   \begin{itemize}
-  \item \(1 \Leftrightarrow 2\): Let \(\lambda_1, \dots, \lambda_k\) be eigenvalues of \(\alpha\). Then \(\alpha\) is diagonalisable if and only if \(V = \bigoplus_k V_{\lambda_k}\). Take dimension of both sides,
+  \item \(1 \Leftrightarrow 2\): Let \(\lambda_1, \dots, \lambda_k\) be eigenvalues of \(\alpha\). Then \(\alpha\) is diagonalisable if and only if \(V = \bigoplus_i V_{\lambda_i}\). Take dimension of both sides,
     \begin{align*}
       \dim V &= n = \deg \chi_\alpha = a_1 + \dots + a_k \\
-      \dim \bigoplus_k V_{\lambda_k} &= g_1 + \dots + g_k
+      \dim \bigoplus_i V_{\lambda_i} &= g_1 + \dots + g_k
     \end{align*}
-    But \(g_k \leq a_k\) for all \(k\) so \(\alpha\) is diagonalisable if and only if \(g_k = \alpha_k\) for all \(k\).
+    But \(g_i \leq a_i\) for all \(i\) so \(\alpha\) is diagonalisable if and only if \(g_i = \alpha_i\) for all \(i\).
   \item \(2 \Leftrightarrow 3\): By the Fundamental Theorem of Algebra, \(m_\alpha\) is a product of linear factors. \(\alpha\) is diagonalisable if and only if these are all distinct, i.e. \(c_\lambda = 1\) for all eigenvalues \(\lambda\).
   \end{itemize}
 \end{proof}
@@ -2592,7 +2598,7 @@ However, this proof is unsatisfactory in that it relies on the fact of \(\C\) be
       & & & J_{n_k}(\lambda_k)
     \end{pmatrix}
   \]
-  where \(k \geq 1\), \(n_1, \dots, n_k \in \N\) with \(\sum_k n_k = n\), \(\lambda_i \in \F\) not necessarily distinct and
+  where \(k \geq 1\), \(n_1, \dots, n_k \in \N\) with \(\sum_i n_i = n\), \(\lambda_i \in \F\) not necessarily distinct and
   \[
     J_m(\lambda) =
     \begin{pmatrix}
@@ -2611,7 +2617,7 @@ However, this proof is unsatisfactory in that it relies on the fact of \(\C\) be
   Every \(A \in \M_n(\C)\) is similar to a matrix in Jordan normal form, unique up to reordering the Jordan blocks.
 \end{theorem}
 
-\begin{proof}[Non-examinable]
+\begin{proof}(Non-examinable)
   It is a consequence of a main theorem on modules in IB Groups, Rings and Modules.
 \end{proof}
 
@@ -2899,7 +2905,7 @@ Recall that
 
 This motivates us to define a relation on \(\M_n(\F)\)
 
-\begin{definition}[Congruent]\index{matrix!congruency}
+\begin{definition}[Congruency]\index{matrix!congruency}
   \(A, B \in \M_n(\F)\) are \emph{congruent} if
   \[
     A = P^TBP
@@ -3506,7 +3512,7 @@ As a consequence \(\varphi(u, u) = 0\) for all \(u \in V\) and for any basis \(\
 
 \section{Inner Product Space}
 
-\subsection{Definition}
+\subsection{Definitions}
 
 Let \(\F = \R\) or \(\C\) in this chapter.
 

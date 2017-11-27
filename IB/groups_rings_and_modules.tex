@@ -11,6 +11,7 @@
 \input{header}
 
 \DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\fit}{Fit}
 
 \makeindex
 
@@ -570,10 +571,464 @@ then such an \(R\)-module \(M\) is determined by the matrix
 
 For this section assume \(R\) to be a Euclidean domain and let \(\varphi: R \setminus \{0\} \to \Z_{\geq 0}\) be the Euclidean function. For \(a, b \in R\), we have shown that \(\gcd(a, b)\) exists and is unique up to associates. In addition, the Euclidean algorithm shows that \(\gcd(a, b) = ax + by\) for some \(x, y \in R\).
 
-What follows would be very similar to what we have learned in IB Linear Algebra --- in fact identical except at one place:
+What follows would be very similar to what we have learned in IB Linear Algebra --- in fact identical except a single modification:
 
 \begin{definition}[Elementary row operation]\index{tbd}
   \emph{Elementary row operation} on an \(m \times n\) matrix \(m\) with entries in \(R\) are
+  \begin{enumerate}
+  \item Add \(c \in R\) times the \(i\)th row to the \(j\)th row where \(i \neq j\). This can be realised by left multiplication by \(mI + C\) where \(C\) is \(c\) in \((i,j)\)th position and \(0\) elsewhere.
+  \item Swapping the \(i\)th and \(j\)th row where \(i \neq j\). Realised by left multiplication by
+  \[
+    \begin{pmatrix}
+      1 & 0 & \cdots & & & 0 \\
+      \vdots & \ddots & & & & \vdots \\
+      & & 0 & & 1 & 0 \\
+      0 & \cdots & 0 & \ddots & 0 & 0 \\
+      & & 1 & 0 & 0 & & \\
+      \vdots & &&  \ddots & \\
+      0 & & \cdots & & \cdots & 0
+    \end{pmatrix}
+  \]
+\item Multiply the \(i\)th row by a \emph{unit} \(c \in R\). Realised by left multiplication by
+  \[
+    \begin{pmatrix}
+      1 & 0 & \cdots & & 0 \\
+       & \ddots & & & \\
+      \vdots & & c & & \vdots \\
+       & & & \ddots & \\
+      0 & \cdots & & 0 & 1
+    \end{pmatrix}
+  \]
+  \end{enumerate}
 \end{definition}
+
+\begin{definition}[Elementary column operation]
+  Defined analogously by replacing ``row'' with ``column''.
+\end{definition}
+
+Similary to IB Linear Algebra, we define an equivalence relation
+
+\begin{definition}[Equivalence]\index{equivalence}
+  \(A, B \in \matrixring_{m, n}(R)\) are \emph{equivalent} if there is a sequence of elementary row and column operations taking \(A\) to \(B\).
+\end{definition}
+
+If \(A\) and \(B\) are equivalent then there are invertible square matrices \(P\) and \(Q\) such that
+\[
+  B = QAP^{-1}.
+\]
+
+\begin{theorem}[Smith Normal Form]\index{Simith Normal Form}
+  An \(n \times m\) matrix over a Euclidean domain \(R\) is equivalent to
+  \[
+    \begin{pmatrix}
+      d_1 \\
+      & d_2 \\
+      & & \ddots \\
+      & & & d_r \\
+      & & & & 0 \\
+      & & & & & \ddots \\
+      & & & & & & 0
+    \end{pmatrix}
+  \]
+  where the \(d_i\)'s are non-zero and
+  \[
+    d_1 \divides d_2 \divides \cdots \divides d_r.
+  \]
+\end{theorem}
+
+\begin{proof}
+  This proof is going to be algorithmic. If \(A = 0\) we are done. Otherwise there is a \(A_{ij} \neq 0\). By swapping \(1\)st and \(i\)th row, and \(1\)st and \(i\)th column we may suppose \(A_{11} \neq 0\). We want to reduct \(\varphi(A_{11})\) as much as possible. Split into three cases:
+  \begin{itemize}
+  \item Case 1: if there is a \(A_{1j}\) not divisible by \(A_{11}\) then have
+    \[
+      A_{1j} = q A_{11} + r
+    \]
+    with \(\varphi(r) < \varphi(A_{11})\). Add \(-q\) times the \(1\)st column to the \(j\)th. This makes the \((1,j)\)th entry \(r\). Swap \(i\)th and \(j\)th column to get \(A_{11} = r\). Thus we have \emph{stictly} decreased the \(\varphi\) value of the \((1, 1)\) entry.
+  \item Case 2: if \(A_{11}\) does not divide some \(A_{i1}\), do the analogous to entries in the first column to strictly reduce \(\varphi(A_{11})\).
+
+    As \(\varphi(A_{11})\) can only strictly decrease finitely many times, after some applications of Case 1 and 2 we can assumes \(A_{11}\) divides all the entries in the \(1\)st row and \(1\)st column. If \(A_{1j} = q A_{11}\) then we can add \(-q\) times the \(1\)st column to the \(j\)th row to make the \((i, j)\)th entry \(0\). Thus we obtain
+    \[
+      A =
+      \begin{pmatrix}
+        d & 0 \\
+        0 & C
+      \end{pmatrix}
+    \]
+  \item Case 3: if there is an entry \(c_{ij}\) of \(C\) not divisible by \(d\), write
+    \[
+      c_{ij} = qd + r
+    \]
+    where \(\varphi(r) < \varphi(d)\). Conduct the following series of elementary operations
+    \begin{align*}
+      &
+        \begin{pmatrix}
+          d & 0 & \cdots & 0 & \cdots & 0 \\
+          0 \\
+          \vdots \\
+          0 & & & c_{ij} \\
+          \vdots \\
+          0
+        \end{pmatrix}
+      \stackrel{\text{EC } 1}{\to}
+      \begin{pmatrix}
+        d & 0 & \cdots & d & \cdots & 0 \\
+        0 \\
+        \vdots \\
+        0 & & & c_{ij} \\
+        \vdots \\
+        0
+      \end{pmatrix}
+      \\
+      \stackrel{\text{ER } 1}{\to}&
+      \begin{pmatrix}
+        d & 0 & \cdots & d & \cdots & 0 \\
+        0 \\
+        \vdots \\
+        -qd & & & r \\
+        \vdots \\
+        0
+      \end{pmatrix}
+      \stackrel{\text{ER } 2, \text{EC } 2}{\to}
+      \begin{pmatrix}
+        r & * & \cdots & * \\
+        * \\
+        \vdots & & * \\
+        *
+      \end{pmatrix}
+    \end{align*}
+    Repeat Case 1 and 2, we finally get
+    \[
+      \begin{pmatrix}
+        d' \\
+        & C'
+      \end{pmatrix}
+    \]
+    where \(\varphi(d') < \varphi(d)\).
+  \end{itemize}
+
+  Eventually we can suppose that \(d'\) divides every entry of \(C'\). By induction \(C'\) is equivalent to
+  \[
+    \begin{pmatrix}
+      d_2 \\
+      & d_3 \\
+      & & \ddots \\
+      & & & d_r \\
+      & & & & 0 \\
+      & & & & & \ddots \\
+      & & & & & & 0
+    \end{pmatrix}
+  \]
+  with
+  \[
+    d_2 \divides d_3 \divides \cdots \divides d_r
+  \]
+  and we must have \(d' \divides d_i\) for \(i > 1\).
+\end{proof}
+
+\begin{remark}
+  The \(d_i\)'s in Smith Normal Form are unique up to associates.
+\end{remark}
+
+Certainly Smith Normal Form is nice form and the algorithm guarantees that it exists and is unique. However, the computation is too cumbersome to be useful. However, if we could prove it is invariant under matrix conjugation, we may apply some clever tricks to extract the \(d_i\)'s in Smith Normal Form without explicitly computing them.
+
+\begin{definition}[Minor]\index{minor}
+  A \(k \times k\) \emph{minor} of a matrix \(A\) is the determinant of a matrix formed by forgetting all but \(k\) rows and \(k\) columns of \(A\).
+\end{definition}
+
+\begin{definition}[Fitting ideal]\index{Fitting ideal}
+  The \(k\)th \emph{Fitting ideal} of \(A\) \(\fit_k(A) \ideal R\) is the ideal generated by all \(k \times k\) minors of \(A\).
+\end{definition}
+
+Given a matrix \(A\) in Smith Normal Form as above with \(d_1 \divides \cdots \divides d_r\), the only \(k \times k\) submatrices which do not have a whole row or column \(0\) are those which keep both \(i_1\)th row and \(i_1\)th column, both \(i_2\)th row and \(i_2\)th column, etc. Therefore
+\begin{align*}
+  \fit_k(A) &= \left(\det
+    \begin{pmatrix}
+      d_{i_1} \\
+      & d_{i_2} \\
+      & & \ddots \\
+      & & & d_{i_k}
+    \end{pmatrix}
+  \right) \\
+            &= (d_{i_1} \cdots d_{i_k}: \text{ sequences } i_1, \dots, i_k) \\
+            &= (d_1d_2 \cdots d_k)
+\end{align*}
+as \(d_m \divides d_{i_m}\) for all \(m\).
+
+Therefore from the above computation \(\fit_k(A)\) and \(\fit_{k - 1}(A)\) determine \(d_k\) up to associates.
+
+\begin{lemma}
+  If \(A\) and \(B\) are equivalent matrices then \(\fit_k(A) = \fit_k(B)\) for all \(k\).
+\end{lemma}
+
+\begin{proof}
+  It amounts to show that elementary operations does not change \(\fit_k(A) \ideal R\). We do the first type of row operation. Fix a \(k \times k\) submatrix \(C\) in \(A\). Recall the this row operation adds \(\lambda\) times the \(i\)th row to the \(j\)th row. Depending on \(i\) and \(j\), split into three cases:
+  \begin{itemize}
+  \item Case 1: if the \(j\)th row is not in \(C\) then \(C\) is unchanged, so is its determinant.
+  \item Case 2: if the \(i\)th and \(j\)th rows are both in \(C\), the operation changes \(C\) by a row operation so its determinant is unchanged.
+  \item Cases 3: if the \(j\)th row is in \(C\) but the \(i\)th is not, suppose wlog the \(i\)th row of \(A\) corresponding to columns of \(C\) has entries \((f_1, f_2, \dots, f_k)\). After the row operation, \(C\) is changed to \(C'\) whose \(j\)th row is
+    \[
+      (c_{j, 1} + \lambda f_1, c_{j, 2} + \lambda f_2, \dots, c_{j, k} + \lambda f_k).
+    \]
+    By expansion along the \(j\)th row,
+    \[
+      \det C' = \det C \pm \lambda \det D
+    \]
+    where \(D\) is the matrix obtained by replacing the \(j\)th row of \(C\) with \((f_1, \dots, f_k)\), which is a \(k \times k\) submatrix of \(A\) up to reordering (which is accounted for by the \(\pm\) sign), by multilinearity of \(\det\). So \(\det C' \in \fit_k(A)\) as it is a linear combination of minors. Therefore \(\fit_k(A') \subseteq \fit_k(A)\) where \(A'\) is obtained from \(A\) by this operation. As row operations are inertible, we must have equality.
+  \end{itemize}
+
+  The other two types of row operations are similar but easier. Column operations follow analogously.
+\end{proof}
+
+\begin{eg}
+  Let
+  \[
+    A =
+    \begin{pmatrix}
+      2 & -1 \\
+      1 & 2
+    \end{pmatrix}
+    \in \matrixring_{2, 2}(\Z).
+  \]
+  Algorithmically, we can carry out the following sequence of operations to obtain Smith Normal Form:
+  \[
+    \begin{pmatrix}
+      2 & -1 \\
+      1 & 2
+    \end{pmatrix}
+    \stackrel{\text{ER } 2}{\to}
+    \begin{pmatrix}
+      1 & 2 \\
+      2 & -1
+    \end{pmatrix}
+    \stackrel{\text{ER } 1}{\to}
+    \begin{pmatrix}
+      1 & 2 \\
+      0 & -5
+    \end{pmatrix}
+    \stackrel{\text{ER } 1}{\to}
+    \begin{pmatrix}
+      1 & 0 \\
+      0 & -5
+    \end{pmatrix}
+    \stackrel{\text{ER } 3}{\to}
+    \begin{pmatrix}
+      1 & 0 \\
+      0 & 6
+    \end{pmatrix}
+  \]
+
+  Alternatively, using what we have just proved,
+  \begin{align*}
+    \fit_1(A) &= (2, -1, 2, 1) = (1) \\
+    \fit_2(A) &= (\det A) = (5)
+  \end{align*}
+  so \(d_1 = 1, d_1d_2 = 5\) so \(d_2 = 5\).
+\end{eg}
+
+Recall that we have remarked that a submodule of a finitely genereated module may not be finitely generated. However the following lemma tells us that submodules of finitely generated free modules over some particular rings are so:
+
+\begin{lemma}
+  Let \(R\) be a PID. Any submodule of \(R^n\) is generated by at most \(n\) elements.
+\end{lemma}
+
+\begin{proof}
+  Let \(N \leq R^n\) and consider the ideal
+  \[
+    I = \{r \in R: \exists r_2, \dots, r_n \text{ such that } (r, r_2, \dots, r_n) \in N\},
+  \]
+  which is the image of \(N \stackrel{\iota}{\to} R^n \stackrel{\pi_1}{\to} R\), a submodule of \(R\).
+
+    As \(R\) is a PID, \(I = (a) \ideal R\) for some \(a \in R\). Thus there is some
+    \[
+      n_1 = (a, a_2, a_2, \dots, a_n) \in N.
+    \]
+    Suppose \((r_1, r_2, \dots, r_n) \in N\). Then there exists some \(x \in R\) such that \(r_1 = ax\). Then
+    \[
+      (r_1, \dots, r_n) - x \cdot n_1 = (0, r_2 - xa_2, \dots, r_n - xa_n) \in N \cap (0 \oplus R^{n-1}).
+    \]
+
+    By induction \(N \cap (0 \oplus R^{n - 1}) \cong N' \leq R^{n - 1}\) is generated by \(n_2, \dots, n_n\) so \(n_1, \dots, n_n\) generate \(N\).
+\end{proof}
+
+\begin{theorem}
+  Let \(R\) be a Euclidean domain and \(N \leq R^n\). Then there is a basis \(v_1, \dots, v_n\) of \(R^n\) such that \(N\) is generated by \(d_1v_1, \dots, d_rv_r\) for some \(0 \leq r \leq n\) and some \(d_1 \divides \dots \divides d_r\).
+\end{theorem}
+
+\begin{proof}
+  By the previous lemma there are \(x_1, \dots, x_m \in N\) which generate \(N\) and \(0 \leq m \leq n\). Each \(x_i\) is an element of \(R^n\) so we can form an \(n \times m\) matrix whose first \(m\) columns are \(x_i\), i.e.
+  \[
+    A =
+    \begin{pmatrix}
+      \uparrow & \uparrow & & \uparrow & \uparrow & & \uparrow \\
+      x_1 & x_2 & \cdots & x_m & 0 & \cdots & 0 \\
+      \downarrow & \downarrow & & \downarrow & \downarrow & & \downarrow \\
+    \end{pmatrix}
+    \in \matrixring_{n, m}(R)
+  \]
+
+  We can put \(A\) into Smith Normal Form with diagonal entries \(d_1 \divides \cdots \divides d_r\) by elementary operations. Each row operation is given by a change of basis of \(R^n\) and each column operation is given by rechoosing the generating set \(x_1, \dots, x_m\). Thus after a change of basis of \(R^n\) to \(v_1, \dots, v_n\), \(N\) is generated by \(d_1v_1, \dots, d_rv_r\).
+\end{proof}
+
+\begin{corollary}
+  A submodule \(N \leq R^n\) is isomorphic to \(R^m\) for some \(m \leq n\).
+\end{corollary}
+
+\begin{proof}
+  By the theorem above, we can find a basis \(v_1, \dots, v_n\) for \(R^n\) such that \(N\) is generated by \(d_1v_1, \dots, d_mv_m\). These are linearly independent as a dependence between them would give a dependence between \(v_1, \dots, v_n\).
+\end{proof}
+
+Now we are ready for the big theorem in this course:
+
+\begin{theorem}[Classification Theorem for Finitely Generated Modules over Euclidean Domain]\index{tbd}
+  \label{thm:module over ED}
+  Let \(R\) be a Euclidean domain and \(M\) a finitely generated \(R\)-modules. Then
+  \[
+    M \cong \frac{R}{(d_1)} \oplus \frac{R}{(d_2)} \oplus \dots \oplus \frac{R}{(d_r)} \oplus R \oplus \dots \oplus R
+  \]
+  for some \(d_i \neq 0\) with \(d_1 \divides d_2 \divides \cdots \divides d_r\).
+\end{theorem}
+
+\begin{proof}
+  Let \(M\) be generateed by \(m_1, \dots, m_n \in M\), giving a surjection \(\varphi: R^n \surj M\) so \(M \cong R^n/\ker \varphi\). By the previous theorem there is a basis \(v_1, \dots, v_n\) of \(R^n\) such that \(\ker \varphi\) is generated by \(d_1v_1, \dots, d_rv_r\) with \(d_1 \divides \cdots \divides d_r\). Thus by changing the basis of \(R^n\) to \(v_i\)'s, \(\ker \varphi\) is generated by columns of
+  \[
+    \begin{pmatrix}
+      d_1 \\
+      & d_2 \\
+      & & \ddots \\
+      & & & d_r \\
+      & & & & 0 \\
+      & & & & & \ddots \\
+      & & & & & & 0
+    \end{pmatrix}
+  \]
+  so
+  \[
+    M \cong \frac{R^n}{\ker \varphi} \cong \left( \bigoplus_{i = 1}^r \frac{R}{(d_i)} \right) \oplus R \oplus \dots \oplus R
+  \]
+  as required.
+\end{proof}
+
+\begin{eg}
+  Let \(R = \Z\), a Euclidean domain, and \(A\) be the abelian group (i.e.\ \(\Z\)-module) generated by \(a, b, c\), subject to
+  \[
+    \begin{cases}
+      2a + 3b + c = 0 \\
+      a + 2b = 0 \\
+      5a + 6b + 7c = 0
+    \end{cases}
+  \]
+  Thus \(A = \Z^3/N\) where \(N \leq \Z^3\) is generated by \((2, 3, 1)^T, (1, 2, 0)^T, (5, 6, 7)^T\). The matrix \(A\) whose columns are these vectors
+  \[
+    A =
+    \begin{pmatrix}
+      2 & 1 & 5 \\
+      3 & 2 & 6 \\
+      1 & 0 & 7
+    \end{pmatrix}
+  \]
+  has Smith Normal Form with diagonal entries \(1, 1, 3\):
+
+  \begin{proof}
+    \begin{align*}
+      \fit_1(A) &= (1) \\
+      \fit_2(A) &\supseteq \left( \det
+                  \begin{pmatrix}
+                    2 & 1 \\
+                    3 & 2
+                  \end{pmatrix}
+                        \right)
+                        = (1) \\
+      \fit_3(A) &= (\det A) = 3
+    \end{align*}
+    so \(d_1 = 1, d_1d_2 = 1, d_1d_2d_3 = 3\).
+  \end{proof}
+
+  After change of basis, \(N\) is generated by \((1, 0, 0)^T, (0, 1, 0)^T, (0, 0, 3)^T\) so
+  \[
+    A \cong \Z/1\Z \oplus \Z/1\Z \oplus \Z/3\Z \cong \Z/3\Z.
+  \]
+\end{eg}
+
+We can derive, as a corollary actually, what we stated earlier without proof
+
+\begin{theorem}[Structure Theorem for Finitely Generated Abelian Groups]
+  Any finitely generated abelian group is isomorphis to
+  \[
+    C_{d_1} \times C_{d_2} \times \dots \times C_{d_r} \times C_\infty \times \dots \times C_\infty
+  \]
+  with \(d_1 \divides \cdots \divides d_r\).
+\end{theorem}
+
+\begin{proof}
+  ``Trivial'' should suffice here but let us spell it out: apply \nameref{thm:module over ED} to \(\Z\), and note that
+  \[
+    \Z/(d) = C_d, \, \Z = C_\infty.
+  \]
+\end{proof}
+
+The above classification theorem decompose into modules whose relation modules' principal ideals form a descending chain by divisibility. It turns out it is also possible to decompose by the coprime factors of the relation modules. Before that let us prove something we have known for a (very) long time, but at a high level:
+
+\begin{lemma}[Chinese Remainder Theorem]
+  Let \(R\) be a Euclidean domain and \(a, b \in R\) with \(\gcd(a, b) = 1\). Then
+  \[
+    R/(ab) \cong R(a) \oplus R/(b).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Consider the \(R\)-module homomorphism
+  \begin{align*}
+    \varphi: R/(a) \oplus R/(b) &\to R/(ab) \\
+    (r_1 + (a), r_2 + (b)) &\mapsto br_1 + ar_2 + (ab)
+  \end{align*}
+  As \(\gcd(a, b) = 1\), \((a, b) = (1)\) so \(1 = xa + yb\) for some \(x, y \in R\). Therefore for \(r \in R\), \(r = rxa + ryb\) so
+  \[
+    r + (ab) = rxa + ryb + (ab) = \varphi((ry + (a), rx + (b)))
+  \]
+  and so \(\varphi\) is surjective.
+
+  If \(\varphi((r_1 + (a), r_2 + (b))) = 0\) then \(br_1 + ar_2 \in (ab)\). Thus \(a \divides br_1 + ar_2, a \divides br_1\). As \(\gcd(a, b) = 1\), \(a \divides r_1\) so \(r_1 + (a) = 0 + (a)\). Similarly \(r_2 + (b) = 0 + (b)\) so \(\varphi\) is injective.
+\end{proof}
+
+We thus have
+
+\begin{theorem}[Primary Decomposition Theorem]
+  Let \(R\) be a Euclidean domain and \(M\) be a finitely generated \(R\)-module. Then
+  \[
+    M \cong \bigoplus_{i = 1}^n N_i
+  \]
+  with each \(N_i\) either equal to \(R\) or \(R/(p^m)\) for some prime \(p \in R\) and \(n \geq 1\).
+\end{theorem}
+
+\begin{proof}
+  Note that if \(d = p_1^{m_1} \cdots p_k^{m_k}\) with \(p_i \in R\) distinct primes, by the previous lemma
+  \[
+    \frac{R}{(D)} \cong \frac{R}{(p_1^{n_1})} \oplus \dots \oplus \frac{R}{(p_k^{m_k})}.
+  \]
+  Plug this into \nameref{thm:module over ED} to get the required result.
+\end{proof}
+
+\subsection{\texorpdfstring{\(\F[X]\)}{𝔽}-modules and Normal Form}
+
+For any field \(\F\), \(\F[X]\) is a Euclidean domain and so the results of the last section apply. If \(V\) is an \(\F\)-vector space and \(\alpha: V t\ V\) is an endomorphism, then we have
+\begin{align*}
+  \F[X] \times V &\to V \\
+  (f, v) &\mapsto f(\alpha)(v)
+\end{align*}
+which makes \(V\) into an \(\F[X]\)-module, call it \(V_\alpha\). It turns out that \(\F[X]\)-module is the correct tool to study endomorphisms and many results in IB Linear Algebra, as well as many further results in algebra, can be obtained by looking into the \(\F[X]\)-module structure.
+
+\begin{lemma}
+  If \(V\) is finite-dimensional then \(V_\alpha\) is finitely generated as an \(\F[X]\)-module.
+\end{lemma}
+
+\begin{proof}
+  \(V\) is a finitely generated \(\F\)-module and \(\F \leq \F[X]\) so \(V\) is also a finitely generated \(\F[X]\)-module.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(V_\alpha \cong \F[X]/(X^r)\) as an \(\F[X]\)-module. This has \(\F\)-basis \(\{X^i\}_{i = 0}^{r - 1}\) and the action 
+  \end{enumerate}
+\end{eg}
 \printindex
 \end{document}
