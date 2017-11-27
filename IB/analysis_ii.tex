@@ -148,7 +148,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
   \item $\rho_i:\mathbb{R}^m\to \mathbb{R}, \rho_i(\V v) =v_i$ is continuous.
   \item $F:C[0,1]\to\mathbb{R}, F(f)=f(0)$,
     \begin{enumerate}
-    \item If $(f_n)$ is the sequence from example~\ref{eg:fdown}, then $F(f_n)=1$. Now $(f_n)\to \V 0$ w.r.t. $\|\cdot\|_1$. But $(F(f_n))\nrightarrow 0=F(\V 0)$. So $F$ is not continuous w.r.t. $\|\cdot\|_1$.
+    \item If $(f_n)$ is the sequence from the example on page~\pageref{eg:fdown}, then $F(f_n)=1$. Now $(f_n)\to \V 0$ w.r.t. $\|\cdot\|_1$. But $(F(f_n))\nrightarrow 0=F(\V 0)$. So $F$ is not continuous w.r.t. $\|\cdot\|_1$.
       \item If $(g_n)\to g$ w.r.t. $\|\cdot\|_\infty$, then $(\max|g_n(x)-g(x)|)\to 0$ so $(|g_n(0)-g(0))|\to 0$, $(|F(g_n)-F(g)|)\to 0$, so $F(g_n)\to F(g)$.
     \end{enumerate}
     $F$ is continuous w.r.t. $\|\cdot\|_\infty$ but not w.r.t. $\|\cdot\|_1$.
@@ -220,11 +220,11 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
 
 \begin{proposition}[Alternate characterisation of continuity]
   $f:V\to W$ is continuous if and only if
-  \begin{equation}
+  \begin{equation*}
     \label{eqn:alternate continuity}
     \forall \V v_0 \in V, \forall \varepsilon>0, \exists \delta>0 s.t. \|\V v- \V v_0\| < \delta \Rightarrow \|f(\V v) - f(\V v_0)\| < \varepsilon
     \tag{$\ast$}
-    \end{equation}
+    \end{equation*}
   i.e.\ 
   \[
     f(B_\delta(\V v_0)) \subseteq B_\varepsilon(f(\V v_0)).
@@ -1115,6 +1115,7 @@ The proof uses two lemmas about Cauchy sequences: suppose \(V\) is a normed vect
 We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weierstrass property. Nevertheless, it is complete:
 
 \begin{theorem}
+  \label{thm:completeness of function space with uniform norm}
   Let \([a, b]\) be a bounded interval in \(\R\), then \(C[a, b]\) is complete with respect to \(\norm \cdot_\infty\).
 \end{theorem}
 
@@ -1122,11 +1123,11 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
   Suppose \((f_n)\) is Cauchy in \(C[a, b]\). We must find \(f\in C[a, b]\) such that \((f_n) \to f\) uniformly on \([a, b]\).
 
   Give \(\varepsilon > 0\), pick \(N\) such that whenever \(n,m \geq N\),
-  \begin{equation}
+  \begin{equation*}
     \label{eqn:Cauchy uniform}
     |f_n(x) - f_m(x)| \leq \max_{x \in [a,b]}|f_n(x) - f_m(x)| = \norm{f_n - f_m}_\infty < \varepsilon/2
     \tag{\(\ast\)}
-  \end{equation}
+  \end{equation*}
   i.e.\ for all \(x \in [a, b]\), the sequence \((f_n(x))\) is Cauchy in \(\R\). Since \(\R\) is complete, \(\lim_{n \to \infty}f_n(x)\) exists. Now define \(f(x) = \lim_{n \to \infty}f_n(x)\). Claim \((f_n) \to f\) uniformly on \([a, b]\): given \(\varepsilon > 0\), choose \(N\) as in~\eqref{eqn:Cauchy uniform}. Given \(x\), choose \(M\) such that \(|f_n(x) - f(x)| < \varepsilon/2\) for \(n \geq M\). Let \(m' = \max\{M, N\}\). Then for \(n \geq N\),
   \[
     |f_n(x) - f(x)| \leq |f_n(x) - f_{m'}(x)| + |f_{m'}(x) - f(x)| < \varepsilon/2 + \varepsilon/2 = \varepsilon.
@@ -1359,11 +1360,11 @@ so \(f\) is differentiable at \(a\) if and only if \(f\) is well-approximately b
 
 \begin{answer}[Answer to Q1]
   \(F: \R^2 \to \R\) is differentiable at \(a\) if it is well-approximated by its tangent plane \(z = T(x_1, x_2)\) at \((a, F(a))\) in the sense that
-  \begin{equation}
+  \begin{equation*}
     \label{eqn:derivative}
     \lim_{h \to 0} \frac{F(a + h) - T(a + h)}{\norm h} = 0
     \tag{\(\ast\)}
-  \end{equation}
+  \end{equation*}
   where the limit will be made rigorous later.
 \end{answer}
 
@@ -1414,11 +1415,11 @@ More generally,
 
 \begin{restatable}[Differentiability]{definition}{differentiability}
   Given \(F: \R^n \to \R^m\), \(F\) is \emph{differentiable} at \(a\) if there is a linear function \(L: \R^n \to \R^m\) such that
-  \begin{equation}
+  \begin{equation*}
     \label{eqn:derivative2}
     \lim_{h \to 0} \frac{F(a + h) - F(a) - L(h)}{\norm h} = 0.
     \tag{\(\ast\)}
-  \end{equation}
+  \end{equation*}
   If so, say \(\D F|_a = L\) is the \emph{derivative} of \(F\) at \(a\).
 \end{restatable}
 
@@ -2425,11 +2426,11 @@ Note that \(f: [0, 1] \to \R\).
 
 \begin{proof}
   If \(G \in C^k(U)\), \(g(t) = G(x_0 + tv)\) then
-  \begin{equation}
+  \begin{equation*}
     \label{eqn:taylor}
     g'(t) = \D_v G|_{x_0 + v} = \D G|_{x_0 + v} (v).
     \tag{\(\ast\)}
-  \end{equation}
+  \end{equation*}
   Proof is by induction on \(k\). \(k = 1\) is \eqref{eqn:taylor} with \(G = F\). In general define
   \begin{align*}
     h(t) &= f^{(k - 1)}(t) \\
@@ -3242,7 +3243,7 @@ Let's begin with a simple example. Let
   \caption{Level sets for different \(y\)'s}
 \end{figure}
 
-For most \(x \in \R^2\), there exists \(\varepsilon > 0\) such that \(B_\varepsilon(x) \cap F^{-1}(F(x))\) is the image of a parameterised curve. But something different happens at the origin: two curves intersect there and there is no neighbourhood of the origin such that it looks like a curve.
+For most \(x \in \R^2\), there exists \(\varepsilon > 0\) such that \(B_\varepsilon(x) \cap F^{-1}(F(x))\) is the image of a parameterised curve. But something different happens at the origin: two curves intersect there and there is no neighbourhood of the origin in which it looks like a curve.
 
 \begin{question}
   What is different about \((0, 0)\)?
@@ -3329,10 +3330,131 @@ And the one final definition:
   If \(y \in \R^m\) is not a critical value of \(f\), \(f^{-1}(y)\) is an \((n - m)\)-dimensional manifold.
 \end{theorem}
 
-%So the generic structure
-
 \begin{remark}
   Sards Theorem asserts that in a sense, most points in \(\R^m\) are not critical values.
 \end{remark}
+
+\subsection{Solving ODEs}
+
+Given \(\V V: \R^n \to \R^n\) which is \(C^1\) (think of it as a vector field on \(\R^n\)) and \(\V x_0 \in \R^n\), the main question in the section is to find a map \(\V x: (-\varepsilon, \varepsilon) \to \R^n\) for some \(\varepsilon > 0\) satisfying
+\begin{equation*}
+  \label{eqn:ODE}
+  \frac{d \V x}{dt} = \V V(\V x(t)), \, \V x(0) = \V x_0.
+  \tag{\(\ast\)}
+\end{equation*}
+
+\begin{eg}
+  Solve
+  \[
+    \begin{cases}
+      x_1'(t) = x_2 \sin(x_1x_2^2) \\
+      x_2'(t) = e^{x_1^2 + x_2^3}
+    \end{cases}
+  \]
+  with initial conditions
+  \[
+    \begin{cases}
+      x_1(0) = 0 \\
+      x_2(0) = 0
+    \end{cases}
+  \]
+\end{eg}
+
+Let's set up a physical model for \(n = 2\). Let \(\R^2\) be the surface of the ocean. \(\V V(\V p)\) is the velocity of the current at position \(\V p\). If I drop a robber duck in at position \(\V x_0\) at time \(t = 0\), then \(\V x(t)\) is the position of the duck at time \(t\). Then \eqref{eqn:ODE} says that \(\frac{d\V x}{dt}\), the velocity of the duck at time \(t\), equals to \(\V V(\V x(t))\), the velocity of the current at the duck's position, i.e.\ the duck moves at the same speed as the current. For this reason, solutions to \eqref{eqn:ODE} are often called \emph{flowlines} of \(\V V\).
+
+The tangent vector to \(\V x(t)\) at time \(t\) is \(\V x'(t) = \V V(\V x(t))\), i.e.\ the flowline \(\V x(t)\) is everywhere tangent to \(\V V\).
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(\norm{\V V(\V p)}\) grows rapidly with \(\norm{\V p}\) then the duck may escape to infinity in finite time. So, the physical model being a model, shouldn't be taken too literally. For example for \(n = 1\), the problem
+    \[
+      \frac{dx}{dt} = x^2, \, x(0) = 1
+    \]
+    has a solution \(x = \frac{1}{1 - t}\). There is no solution on \([0, t)\) for any \(t > 1\). This hints that we may not be able to get global solution, but only a local solution in an \(\varepsilon\)-neighbourhood of certain points.
+  \item Argurably a more realistic physical model would be to have to allow \(\V V\) to have dependence, i.e.
+    \[
+      \V V: \R \times \R^n \to \R^n
+    \]
+    and solve
+    \begin{equation*}
+      \label{eqn:time-dependent ODE}
+      \frac{d \V x}{dt} = \V V(t, \V x),
+      \tag{\(\ast\ast\)}
+    \end{equation*}
+    However, there is a cheap trick that reduces the problem to the previous form. Consider the \(y_0(t), y_1(t), \dots, y_n(t)\) which are components of \(\V y: \R^{n + 1} \to \R^{n + 1}\), satisfying
+    \begin{align*}
+      y_0'(t) &= 1 \\
+      y_1'(t) &= V_1(y_0(t), \dots, y_n(t)) \\
+              & \vdots \\
+      y_n'(t) &= V_n(y_0(t), \dots, y_n(t))
+    \end{align*}
+    with initial conditions
+    \begin{align*}
+      y_0(0) &= 0 \\
+      (y_1(0), \dots, y_n(0)) &= \V x_0
+    \end{align*}
+    This is an equation of type \eqref{eqn:ODE} with \(\widetilde \V V(\V p) = (1, \V V(\V p))\). Any solution satisfies \(y_0(t) = t\) so \(\V x(t) = (y_1(t), \dots, y_n(t))\) is a solution to \eqref{eqn:time-dependent ODE}.
+    Therefore we can reduce the problem of solving equations of type \eqref{eqn:time-dependent ODE} to the problem of solving equations of type \eqref{eqn:ODE}.
+  \end{enumerate}
+\end{remark}
+
+To solve this type of equation, we will use \nameref{thm:contraction}. Recall that we need two things: a complete metric space \(X\) and a contraction \(F: X \to X\).
+
+Take
+\[
+  X = \{\V x: [-\varepsilon, \varepsilon] \to \R^n : \V x \text{ is continuous} \}
+\]
+where \(\varepsilon\) is to be determined. This is a normed vector space with
+\[
+  \norm{\V x} = \max_{t \in [-\varepsilon, \varepsilon]}\norm{\V x(t)}_2 = \norm*{\norm{\V x(t)}_2}_\infty
+\]
+We showed back in \Cref{thm:completeness of function space with uniform norm} that \(C[a, b]\) is complete with respect to \(\norm \cdot_\infty\).
+
+\begin{corollary}
+  \(X\) is complete.
+\end{corollary}
+
+\begin{proof}
+  Suppose \((\V x_k)\) is a Cauchy sequence in \(X\). Write \(\V x_k(t) = (x_{k, 1}(t), \dots, x_{k, n}(t))\). Then for \(1 \leq i \leq n\), \((x_{k, i})\) is Cauchy in \(C[-\varepsilon, \varepsilon]\). Thus there exists \(y_i \in [-\varepsilon, \varepsilon]\) such that \((x_{k, i}) \to y_i\). Then \((\V x_k) \to \V y = (y_1(t), \dots, y_n(t))\) in \(X\) so \(X\) is complete.
+\end{proof}
+
+Before we look for a contraction map note that the equation \(\V x'(t) = \V V(\V x(t))\) is \emph{not} good for iteration since differentiation is a map \(C^r \to C^{r - 1}\). Instead, consider the integral equation
+\begin{equation*}
+  \label{eqn:ODE integral}
+  \V x(t) = \V x_0 + \int_0^t \V V(\V x(s)) ds
+  \tag{\(\dag\)}
+\end{equation*}
+
+\begin{proposition}
+  If \(\V x \in X\), \(\V x\) satisfies \eqref{eqn:ODE integral} if and only if \(\V x\) satisfies \eqref{eqn:ODE}.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(\V x \in X\). Then \(\V V \compose \V x: [-\varepsilon, \varepsilon] \to \R^n\) is continuous so the function
+  \[
+    \V y(t) = \V x_0 + \int_{0}^{t} \V V(\V x(s)) ds
+  \]
+  is well-defined. By Fundamental Theorem of Calculus
+  \[
+    \V y'(t) = \V V(\V x(t)).
+  \]
+  Thus if \(\V x\) satisfies \eqref{eqn:ODE integral} then \(\V x'(t) = \V V(\V x(t))\) so \(\V x\) satisfies \eqref{eqn:ODE}.
+
+  Conversely, if \(\V x'(t) = \V V(\V x(t))\), \(\V x\) is differentiable and thus continuous so \(V x \in X\). Moreover \(\V x'(t) = \V V(\V x(t))\) is continuous (since \(\V V \compose \V x\) is) so \(\V x(t)\) is \(C^1\). Integrating both sides of \eqref{eqn:ODE} gives \eqref{eqn:ODE integral}.
+\end{proof}
+
+Consider the map
+\begin{align*}
+  F: X &\to X \\
+  F(\V x)(t) &= \V x_0 + \int_{0}^{t} \V V(\V x(s)) ds
+\end{align*}
+then \(\V x\) solves \eqref{eqn:ODE integral} if and only if \(\V x\) is a fixed point of \(F\). Now there is only one question left: when is \(F\) a contraction map?
+
+\begin{proposition}
+  If \(\V V\) is \(K\)-Lipschitz the \(F\) is \(K\varepsilon\)-Lipschitz.
+\end{proposition}
+
+Thus if \(\V V\) is Lipschitz, taking \(\varepsilon\) small enough guarantees that \(F\) is a contraction.
+
 \printindex
 \end{document}

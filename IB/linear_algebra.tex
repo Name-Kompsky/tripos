@@ -22,13 +22,6 @@
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
-\iffalse
-\let\O\relax
-\let\U\relax
-\DeclareMathOperator{\O}{O}
-\DeclareMathOperator{\U}{U}
-\fi
-
 \makeindex
 
 \begin{document}
@@ -2210,6 +2203,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{proof}
 
 \begin{eg}
+  \label{eg:rotation}
   Let \(\F = \R\), \(V = \R^2\) and \(\alpha\) be a rotation. Then with respect to the standard basis \(\alpha\) has representation
   \[
     \begin{pmatrix}
@@ -2221,6 +2215,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{eg}
 
 \begin{lemma}
+  \label{lem:determinant from characteristic}
   Let \(V\) be an \(n\)-dimensional \(\F\)-vector space and \(\alpha \in L(V)\) with \(\chi_\alpha(t) = (-1)^n t^n + c_{n - 1} t^{n - 1} + \dots c_0\). Then
   \begin{itemize}
   \item \(c_0 = \det \alpha\),
@@ -2229,6 +2224,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{lemma}
 
 \begin{proof}\leavevmode
+  \label{proof:determinant from characteristic}
   \begin{itemize}
   \item \(c_0 = \chi_\alpha(0) = \det (\alpha - 0) = \det \alpha\).
   \item If \(\F = \R\) then there is an extension of scalars \(\M_n(\R) \otimes \C \embed \M_n(\C)\) induced by \(\R \embed \C\) (i.e.\ complexification). For \(\F = \C\), use Fundamental Theorem of Algebra to write
@@ -3861,7 +3857,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
 \end{caution}
 
 \begin{remark}
-  This usage of notation is not entirely coincidental. In fact, let \(V\) and \(W\) be finite-dimensional real inner product space and \(\alpha \in L(V, W)\). In finite dimension there is an isomorphism
+  This usage of notation is not entirely coincidental. In fact, let \(V\) and \(W\) be finite-dimensional real inner product spaces and \(\alpha \in L(V, W)\). In finite dimension there is an isomorphism
   \begin{align*}
     \psi_{R, V}: V &\to V^* \\
     v &\mapsto \ip{-, v}
@@ -3973,5 +3969,125 @@ It turns out all the isometries on an inner product space form a group:
     \end{align*}
   \end{itemize}
 \end{lemma}
+
+\subsubsection{Spectral Theory for Self-adjoint Maps}
+
+Spectral theory is the study of eigenvalues and eigenvectors of linear operators, particularly those on infinite dimensional spaces. They have enormous importance in many areas of mathematics and physics, including for example functional analysis, harmonic analysis and quantum mechanics. In this course, spectral simply refers the the collection of all eigenvalues of an endomorphism on a finite-dimensional vector space.
+
+\begin{lemma}
+  Let \(V\) be an inner product space. If \(\alpha \in L(V)\) is self-adjoint then
+  \begin{enumerate}
+  \item \(\alpha\) has real eigenvalues.
+  \item eigenvectors of \(\alpha\) for different eigenvalues are orthogonal.
+  \end{enumerate}
+\end{lemma}
+
+Note that this true for any inner product space, regardless of dimension.
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(\alpha v = \lambda v\) for some non-zero \(v \in V\) and \(\lambda \in \C\). Then
+    \[
+      \lambda \ip{v, v} = \ip{\lambda v, v} = \ip{\alpha v, v} = \ip{v, \alpha v} = \ip{v, \lambda v} = \conj \lambda \ip{v, v}
+    \]
+    so \(\lambda = \conj \lambda \in \R\).
+  \item Suppose \(\alpha v = \lambda v, \alpha w = \mu w\) where \(\lambda \neq \mu \in \R\). Use the similar idea,
+    \[
+      \lambda \ip{v, w} = \ip{\lambda v, w} = \ip{\alpha v, w} = \ip{v, \alpha w} = \mu \ip{v, w}
+    \]
+    so \(\ip{v, w} = 0\).
+  \end{enumerate}
+\end{proof}
+
+For infinite dimensional space, we may not have any eigenvalues (although in which case the above is vacuously true). However, in finite-dimesional case we have
+
+\begin{theorem}
+  Let \(V\) be a finite-dimensional inner product space and \(\alpha \in L(V)\) is self-adjoint. Then \(V\) has an orthonormal basis of eigenvectors, whose eigenvalues are real by the previous lemma.
+\end{theorem}
+
+\begin{proof}
+  Let \(\F = \R\) or \(\C\). Induction on \(n = \dim V\). If \(n = 0\) this is vacuously true. If \(n = 1\) then also true by the previous lemma. Suppose \(n > 1\). Say
+  \[
+    [\alpha]_{\basis B} = A
+  \]
+  where \(\basis B\) is the standard basis. Passing to \(\C\) in the same way we did in the \hyperref[proof:determinant from characteristic]{proof} of \Cref{lem:determinant from characteristic}. By Fundamental Theorem of Algebra, \(\chi_A(t) \in \C[t]\) has a root so \(A \in \M_n(\C)\) has an eigenvalue. Note that the argument so far applies to all maps, not just self-adjoint operators.
+
+  Now using self-adjointness, this eigenvalue is real. So \(\chi_A(t)\) has a (real) root. Thus for both fields \(\alpha\) has a real eigenvalue, say \(\lambda\). Pick \(v_1 \in V \setminus \{0\}\) such that \(\alpha v_1 = \lambda v_1\). Now use the old trick of passing to a space of strictly smaller dimension, in this case the orthogonal complement
+  \[
+    U = \spans{v_1}^\perp \leq V
+  \]
+  where \(\spans{v_1}\) is the subspace spanned by \(v_1\). Check conditions for induction: if \(u \in V\),
+  \[
+    \ip{\alpha u, v_1} = \ip{u, \alpha v_1} = \ip{u, \lambda v_1} = \lambda \ip{u, v_1} = 0
+  \]
+  so \(\alpha u \in U\), i.e.\ \(\alpha\) is \(U\)-stable. \(\alpha|_U \in L(U)\) is obviously self-adjoint so by induction hypothesis there is an orthonormal basis \(v_2, \dots, v_n\) of \(U\) which are eigenvectors for \(\alpha|_U\). Adjoining \(\frac{v_1}{\norm{v_1}}\) gives an orthonormal basis of eigenvectors of \(\alpha\).
+\end{proof}
+
+\begin{corollary}
+  Let \(V\) be a finite-dimensional inner product space. If \(\alpha \in L(V)\) is self-adjoint, \(V\) is the orthogonal direct sum of all the eigenspaces of \(\alpha\).
+\end{corollary}
+
+\begin{proof}
+  Immediate.
+\end{proof}
+
+One reason self-adjoint operators are important is that many physical systems can be described by self-adjoint operators. By the theorem we can decompose such a space into orthogonal direct sum of eigenspaces, and when in orthonormal basis, the action of a self-adjoint operator is simply ``scaling''.
+
+\subsubsection{Spectral Theory for Unitary Maps}
+
+The other important map is isometry. Let \(\F = \C\) throughout this subsection.
+
+\begin{lemma}
+  Let \(V\) be a complex inner product space and \(\alpha \in L(V)\) unitary. Then
+  \begin{enumerate}
+  \item all eigenvalues lie on the unit circle.
+  \item eigenvectors corresponding to different eigenvalues are orthogonal.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  This involves similar ideas as the lemma in the last subsection.
+  \begin{enumerate}
+  \item Suppose \(\alpha v = \lambda v\) for non-zero \(v \in V\). In addition \(\lambda \neq 0\) as \(\alpha\) is invertible. Then
+    \[
+      \lambda \ip{v, v} = \ip{\lambda v, v} = \ip{\alpha v, v} = \ip{v, \alpha^{-1} v} = \ip{v, \lambda^{-1} v} = \conj \lambda^{-1} \ip{v, v}
+    \]
+    so \(\lambda = \conj \lambda^{-1}\), \(|\lambda|^2 = 1\).
+  \item Suppose \(\alpha v = \lambda v, \alpha w = \mu w\) where \(\lambda \neq \mu\). Then
+    \[
+      \lambda \ip{v, w} = \ip{\alpha v, w} = \ip{v, \alpha^{-1} w} = \conj \mu^{-1} \ip{v, w} = \mu \ip{v, w}
+    \]
+    so \(\ip{v, w} = 0\).
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Let \(V\) be a finite-dimensional complex inner product space and \(\alpha \in L(V)\). Then \(V\) has an orthonormal basis of eigenvectors.
+\end{theorem}
+
+\begin{proof}
+  By Fundamental Theorem of Algebra, \(\alpha\) has an eigenvalue, say \(\lambda \in \C\). Fix non-zero \(v_1 \in V\) such that \(\alpha v_1 = \lambda v_1\) and further assume \(\norm{v_1} = 1\). Let
+  \[
+    U = \spans{v_1}^\perp \leq V.
+  \]
+  For all \(u \in U\),
+  \[
+    \ip{\alpha u, v_1} = \ip{u, \alpha^{-1} v_1} = \conj \lambda^{-1} \ip{u, v_1} = 0
+  \]
+  so \(\alpha u \in U\) and \(\alpha\) is \(U\)-stable. By induction on dimension, \(U\) has an orthonormal basis of eigenvectors of \(\alpha|_U\), say \(v_2, \dots, v_n\). Thus \(v_1, \dots, v_n\) is an orthonormal basis of eigenvectors of \(\alpha\).
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Self-adjoint operators and isometries have different physical properties. However spectral theory says that they have similar properties and the proofs of which are essentially identical. This is because they are both examples of a more general type of operators called \emph{normal} maps, which are defined to be those satisfying
+    \[
+      \alpha \alpha^* = \alpha^* \alpha.
+    \]
+    Other examples of normal maps include skew-Hermitian maps. We will meet more in example sheet.
+  \item Note that unlike the previous subsection, we only discuss unitary operators (i.e.\ complex isometries). An orthogonal matrix \(A \in \M_n(\R)\) cannot, in general, be diagonalised over \(\R\). For example, rotation of \(\R^2\). See example on page~\pageref{eg:rotation}.
+
+    However, we can still get orthonormal basis with respect to which it is \emph{block-diagonal} with each blocks of size 1 or 2. See also example sheet. In a sense, this is the ``worst'' can happen to an isometry.
+  \end{enumerate}
+\end{remark}
 \printindex
 \end{document}
