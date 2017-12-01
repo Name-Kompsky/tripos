@@ -3404,7 +3404,7 @@ via the formula
 \end{proof}
 
 Lastly,
-\begin{theorem}[Diagonalisation of Hermitian Form and Sylvester's Law]\index{tbd}
+\begin{theorem}[Diagonalisation of Hermitian Form and Sylvester's Law]\index{Hermitian!diagonalisation}\index{Sylvester's Law}
   Let \(V\) be a finite-dimensional \(\C\)-vector space and \(\varphi: V \times V \to \C\) be a Hermitian form. There is a basis \(\basis B = \{v_1, \dots, v_n\}\) of \(V\) with respect to which
   \[
     [\varphi]_{\basis B} =
@@ -4089,5 +4089,69 @@ The other important map is isometry. Let \(\F = \C\) throughout this subsection.
     However, we can still get orthonormal basis with respect to which it is \emph{block-diagonal} with each blocks of size 1 or 2. See also example sheet. In a sense, this is the ``worst'' can happen to an isometry.
   \end{enumerate}
 \end{remark}
+
+\subsubsection{Application to Bilinear Forms}
+
+Recall spectral theorem for self-adjoint maps and isometries.
+
+\begin{corollary}
+  Let \(A \in \M_n(\R)\) (\(\M_n(\C)\) respectively) be a symmetric (Hermitian respectively) matrix. Then there is an orthogonal (unitary respectively) matrix \(P\) such that \(P^\dag AP\) is diagonal with real entries.
+\end{corollary}
+
+\begin{proof}
+  Let \(\F = \R\) or \(\C\) and equip \(\F^n\) with the standard inner product. Then \(A \in L(\F^n)\) is self-adjoint. Thus there is an orthonormal basis of \(\F^n\) of eigenvectors of \(A\) (with real eigenvalues), say \(v_1, \dots, v_n\). Let
+  \[
+    P = (v_1 \:|\: \cdots \:|\: v_n)
+  \]
+  then \(P^{-1}AP\) is diagonal with real entries. Now use \(P^{-1} = P^\dag\).
+\end{proof}
+
+\begin{note}
+  For an orthogonal change-of-basis matrix \(P\),
+  \[
+    P^{-1}AP = P^\dag AP
+  \]
+  where LHS is change-of-basis of \(A\) as a linear map while RHS is change-of-basis of \(A\) as a bilinear (sesquilinear respectively) form. This interpretation can be exploited to tell us more about the structure of it.
+\end{note}
+
+\begin{corollary}
+  Let \(V\) be a finite-dimensional real (complex respectively) inner product space and \(\varphi: V \times V \to \F\) be a symmetric bilinear (Hermitian respectively) form. Then there is an orthonormal basis of \(V\) with respect to which \(\varphi\) is represented by  a diagonal matrix with real entries.
+\end{corollary}
+
+Recall that previously we have shown that in general a symmetric bilinear (Hermitian respectively) form is diagonalisable using perpendicular space. However, if we equip the same space with an inner product, this corollary not only tells us that the bilinear form is diagonalisable, but also gives us an orthonormal basis with respect to which this holds.
+
+\begin{proof}
+  Let \(\basis B = \{v_1, \dots, v_n\}\) be any orthonormal basis and \(A = [\varphi]_{\basis B}\). \(A = A^\dag\) and there is an orthogonal (unitary respectively) matrix \(P\) such that \(D = P^\dag AP\) is diagonal. Let \(w_i\) be the \(i\)th column of \(P\), then \(\basis B' = \{w_1, \dots, w_n\}\) is an orthonormal basis of \(V\) and \([\varphi]_{\basis B'} = D\).
+\end{proof}
+
+\begin{remark}
+  The diagonal entries of \(P^\dag AP\) are the eigenvalues of \(A\) and thus the signature could be equivalently defined as
+  \[
+    s(\varphi) = \# \text{positive eigenvalues of } A - \# \text{negative eigenvalues of } A.
+  \]
+\end{remark}
+
+\begin{corollary}[Simultaneous diagonalisation of bilinear forms]
+  Let \(V\) be a finite-dimensional real (complex respectively) vector space. Let \(\varphi, \psi\) be symmetric (Hermitian respectively) bilinear forms on \(V\). Assume \(\varphi\) is positive definite. There is a basis \(\basis B = \{v_1, \dots, v_n\}\) of \(V\) such that \([\varphi]_{\basis B}\) and \([\psi]_{\basis B}\) are both diagonal.
+\end{corollary}
+
+\begin{proof}
+  First note that \(V\) equipped with \(\varphi\) is an inner product space. Thus there exists an orthonormal (with respect to this inner product) basis with respect to which \(\psi\) is represented by a diagonal matrix. By definition \(\varphi\) is represented by the identity matrix, which is unchanged under any change of basis. The result follows.
+\end{proof}
+
+\begin{caution}
+  The positive definite assumption is necessary. See example sheet for counterexamples when this assumption is not satisfied.
+\end{caution}
+
+And we have a version correpsonding to matrices:
+
+\begin{corollary}
+  Let \(A, B \in \M_n(\R)\) (\(\M_n(\C)\) respectively) be symmetric (Hermitian respectively). Suppose \(\conj x^T Ax > 0\) for all non-zero \(x\). Then there exists \(Q \in \M_n(\R)\) (\(\M_n(\C)\) respectively) invertible such that \(Q^TAQ\) and \(Q^TBQ\) (\(Q^TA\conj Q\) and \(Q^TB\conj Q\) respectively) are both diagonal.
+\end{corollary}
+
+\begin{proof}
+  Easy.
+\end{proof}
+
 \printindex
 \end{document}
