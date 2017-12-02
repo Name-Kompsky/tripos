@@ -161,7 +161,7 @@ This implies that \(\varphi(e_G) = e_H\) and \(\varphi(g^{-1}) = \varphi(g)^{-1}
   If \(\varphi\) is an isomorphism then the inverse \(\varphi^{-1}: H \to G\) is also an isomorphism.
 \end{ex}
 
-\begin{theorem}[First Isomorphism Theorem]\index{tbd}
+\begin{theorem}[1st Isomorphism Theorem]\index{tbd}
   Let \(\varphi: G \to H\) be a homomorphism . Then \(\ker \varphi \leq G\), \(\im \varphi \leq G\) and
   \[
     G/\ker \varphi \cong \im \varphi.
@@ -189,6 +189,259 @@ This implies that \(\varphi(e_G) = e_H\) and \(\varphi(g^{-1}) = \varphi(g)^{-1}
   \(\theta\) is surjective and finally to show it is injective, suppose \(\theta(g\ker \varphi) = e_H\). Then \(g \in \ker \varphi\) so \(g\ker \varphi = e\ker \varphi\).
 \end{proof}
 
+\begin{eg}
+  Consider
+  \begin{align*}
+    \varphi: \C &\to \C \setminus \{0\} \\
+    z &\mapsto e^z
+  \end{align*}
+  \(e^{z + w} = e^z \cdot e^w\) so \(\varphi: (\C, +, 0) \to (\C \setminus \{0\}, \times, 1)\) is a homomorphism. \(\varphi\) is surjective (as \(\log\) is a left inverse).
+  \[
+    \ker \varphi = \{z \in \C: e^z = 1\} = \{2\pi ik: k \in \Z\} = 2\pi i\Z
+  \]
+  so by 1st Isomorphism Theorem
+  \[
+    \C/2\pi i\Z \cong \C \setminus \{0\}.
+  \]
+\end{eg}
+
+\begin{theorem}[2nd Isomorphism Theorem]
+  Let \(H \leq G\) and \(K \normal G\). Then
+  \begin{align*}
+    HK &\leq G \\
+    H &\cap K \normal H \\
+    HK/K &\cong H/(H \cap K)
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Let \(h, h' \in H\), \(k, k' \in K\). Then
+  \[
+    (h'k')(hk)^{-1} = h'k'k^{-1}h^{-1} = (h'h^{-1})(hk'k^{-1}h^{-1}) \in HK.
+  \]
+
+  Consider
+  \begin{align*}
+    \varphi: H &\to G/K \\
+    h &\mapsto hK
+  \end{align*}
+  This is the composition \(H \stackrel{\iota}{\to} G \stackrel{\pi}{\to} G/K\) so a homomorphism. Since
+  \begin{align*}
+    \ker \varphi &= \{hK: hK = eK\} = H \cap K \normal H \\
+    \im \varphi &= \{gK: gK = hK \text{ for some } h \in H\} = HK/K
+  \end{align*}
+  so by 1st Isomorphism Theorem
+  \[
+    H/(H \cap K) \cong HK/K.
+  \]
+\end{proof}
+
+As a corollary we have
+
+\begin{theorem}[Subgroup correspondence]
+  Let \(K \normal G\). There is a bijection between
+  \begin{align*}
+    \{\text{subgroups of } G/K\} &\leftrightarrow \{\text{subgroups of \(G\) containing \(K\)}\} \\
+    H &\mapsto \{g \in G: gK \in H\} \\
+    L/K &\mapsfrom K \normal L \leq G
+  \end{align*}
+  Moreover, the same map gives a bijection between
+  \[
+    \{\text{normal subgroups of } G/K\} \leftrightarrow \{\text{normal subgroups of \(G\) containing \(K\)}\}.
+  \]
+\end{theorem}
+
+\begin{theorem}[3rd Isomorphism Theorem]
+  Let \(K \leq L \leq G\) be normal subgroups. Then
+  \[
+    \frac{G/K}{L/K} \cong G/L.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Consider
+  \begin{align*}
+    \varphi: G/K &\to G/L \\
+    gK \mapsto gL
+  \end{align*}
+  Check it is well-defined: if \(gK = g'K\), \(g^{-1}g' \in K \subseteq L\) so \(gL = g'L\). \(\varphi\) is clearly surjective and has kernel
+  \[
+    ker \varphi = \{gK \in G/K: gL = eL\} = L/K
+  \]
+  so by 1st Isomorphism Theorem
+  \[
+    \frac{G/K}{L/K} \cong G/L.
+  \]
+\end{proof}
+
+\begin{definition}[Simple group]\index{simple group}
+  A group \(G\) is \emph{simple} if its only normal subgroups are \(\{e\}\) and \(G\).
+\end{definition}
+
+\begin{lemma}
+  An abelian group is simple if and only if it is isomorphic to \(C_p\) for some prime \(p\).
+\end{lemma}
+
+\begin{proof}
+  In an abelian group every subgroup is normal. Let \(g \in G\) be non-trivial. Then
+  \[
+    \generation g = \{\dots, g^{-2}, g^{-1}, e, g, g^2, \dots\} \normal G.
+  \]
+  If \(G\) is simple, this must be the whole group so \(G\) is cyclic. If \(G\) is infinite, it is isomorphic to \(\Z\) which is not simple as \(2\Z \normal G\). Therefore \(G \cong C_n\) for some \(n\). If \(n = ab\), \(a, b \in \N\), \(a, b \neq 1\) then \(\generation{g^a} \normal G\). Absurd. Thus \(n\) is a prime.
+
+  For the other directions, note that \(C_p\) is simple for prime \(p\) by \nameref{thm:lagrange}.
+\end{proof}
+
+\begin{theorem}
+  Let \(G\) be a finite group. Then there is a chain of subgroups
+  \[
+    G = H_0 \geq H_1 \geq H_2 \geq \dots \geq H_s = \{e\}
+  \]
+  such that \(H_{n + 1} \normal H_n\) and \(H_n/H_{n + 1}\) is simple for all \(n\).
+\end{theorem}
+
+\begin{proof}
+  Let \(H_1\) be a normal subgroup of \(H_0 = G\) of maximal order. If \(H_0/H_1\) is not simple, there would be a proper normal subgroup \(X \normal H_1/H_2\). This corresponds to a normal subgroup of \(H_0\), \(Y\), which strictly contains \(H_1\). Absurd. Thus \(H_0/H_1\) is simple.
+
+  Choose \(H_2\) to be the maximal normal subgroup of \(H_1\) and continue. As \(H_{n + 1}\) is a proper subgroup of \(H_n\), \(|H_{n + 1}| < |H_n|\) so this process terminates after finitely many steps.
+\end{proof}
+
+\subsection{Actions \& Permutations}
+
+The \emph{symmetric group}\index{symmetric group} \(S_n\) is the set of permutations of \(\{1, \dots, n\}\). Every permutation is a product of transpositions. A permutation is \emph{even} if it is a product of evenly-many transpositions and \emph{odd} otherwise.
+
+The \emph{sign}\index{sign} of a permutation is a homomorphism
+\begin{align*}
+  \sgn: S_n &\to \{\pm 1\} \\
+  \sigma &\mapsto
+           \begin{cases}
+             1 & \sigma \text{ is even} \\
+             -1 & \sigma \text{ is odd}
+           \end{cases}
+\end{align*}
+The kernel of \(\sgn\) is the \emph{alternating group} \(A_n \normal S_n\) of index \(2\) for \(n \geq 2\).
+
+For any set \(X\), we let \(\sym(X)\) denote the set of all permutations of \(X\), with composition as the group operation.
+
+Here is a definition that is included in the syllabus but seems to be never used anywhere:
+
+\begin{definition}
+  A group \(G\) is a \emph{permutation group of degree \(n\)} if
+  \[
+    G \leq \sym(X)
+  \]
+  with \(|X| = n\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(S_n\) is a permutation group of order \(n\), so is \(A_n\).
+  \item \(D_{2n}\) acts on the \(n\) vertices of a regular \(n\)-gon, so
+    \[
+      D_{2n} \leq S(\{n \text{ vertices}\}).
+    \]
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Group action]\index{group action}
+  An \emph{action} of a group \((G, \cdot, e)\) on a set \(X\) is a function \(- * - : G \times X \to X\) such that
+  \begin{enumerate}
+  \item For all \(g, h \in G\), \(x \in X\),
+    \[
+      g * (h * x) = (gh) * x.
+    \]
+  \item For all \(x \in X\),
+    \[
+      e * x = x.
+    \]
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  Giving an action of \(G\) on \(X\) is the same as giving a homomorphism \(\varphi: G \to \sym(X)\).
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): Let \(- * -\) be an action. For all \(g \in G\), let
+    \begin{align*}
+      \varphi: X &\to X \\
+      x &\mapsto g * x
+    \end{align*}
+    This satisfies
+    \[
+      \varphi(gh)(x) = (gh) * x = g * (h * x) = \varphi(g)(\varphi(h)(x)) = (\varphi(g) \compose \varphi(h))(x)
+    \]
+    so \(\varphi(gh) = \varphi(g) \compose \varphi(h)\).
+
+    In addition \(\varphi(e)(x) = e * x = x = \id_X(x)\) so \(\varphi(e) = \id X\). Now we note that
+    \[
+      \id_X = \varphi(e) = \varphi(gg^{-1}) = \varphi(g) \compose \varphi(g^{-1})
+    \]
+    so \(\varphi(g^{-1})\) is inverse to \(\varphi(g)\). In particular \(\varphi(g)\) is a bijection.
+  \item \(\Leftarrow\): Let \(\varphi: G \to \sym(X)\) be a homomorphism. Define
+    \begin{align*}
+      - * -: G \times X &\to X \\
+      (g, x) &\mapsto \varphi(g)(x)
+    \end{align*}
+    Verify that
+    \begin{align*}
+      g * (h * x) &= \varphi(g)(\varphi(h)(x)) = (\varphi(g) \compose \varphi(h))(x) = \varphi(gh)(x) = (gh) * x \\
+      e * x &= \varphi(e)(x) = \id_X(x) = x
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+Given a homomorphism \(\varphi: G \to \sym(X)\) induced by an action, define \(G^X = \im \varphi, G_X = \ker \varphi\). Then by 1st Isomorphism Theorem \(G_X \normal G, G/G_X \cong G^X\).
+
+If \(G_X = \{e\}\), i.e.\ \(\varphi\) is injective then we say \(\varphi\) is a \emph{permutation representation of \(G\)}. It follows that \(G \cong G^X \leq \sym(X)\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(G\) be the symmetries of a cube. Then \(G\) acts on the set \(X\) of diagonals. \(|X| = 4\) and \(\varphi: G \to \sym(X)\) is surjective so \(G^X = \sym(X) \cong S_4\). \(G_X = \{\id, \text{antipodal map}\}\) so by \nameref{thm:lagrange}
+    \[
+      |G| = |G_X| \cdot |G^X| = 48.
+    \]
+  \item For any group \(G\), left multiplication is a homomorphism:
+    \begin{align*}
+      \varphi: G &\to \sym G \\
+      g &\mapsto g \cdot -
+    \end{align*}
+    \(G_X = \{g \in G: gh = h \text{ for all } G\} = \{e\}\) so \(\varphi\) is a permutation representation. This is
+
+    \begin{theorem}[Cayley's]
+      Every group is isomorphic to a subgroup of a symmetric group.
+    \end{theorem}
+  \item If \(G\) is a group and \(H \leq G\), we have
+    \begin{align*}
+      \varphi: G &\to \sym(G/H) \\
+      g &\mapsto g \cdot -
+    \end{align*}
+    \(G_X = \{g \in G: gaH = aH \text{ for all } aH\} = \bigcap_{a \in G} aHa^{-1}\). This is the largest subgroup of \(H\) which is normal in \(G\).
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}
+  Let \(G\) be a finite group and \(H \leq G\) with index \(n\). Then there is a \(K \normal G, K \leq H\) such that \(G/K\) is isomorphic to a subgroup of \(S_n\). In particular
+  \[
+    |G/K| \divides n!, n \divides |G/K|.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(K = G_X\) for the action of \(G\) on \(X = G/H\). Then
+  \[
+    G/G_X \cong G^X \leq \sym(X) \cong S_n.
+  \]
+\end{proof}
+
+\begin{theorem}
+  Let \(G\) be a non-abelian simple group and \(H \leq G\) is a subgroup of index \(n > 1\). Then \(G\) is isomorphic to a subgroup of \(A_n\) for some \(n \geq 5\).
+\end{theorem}
+
+\begin{proof}
+  
+\end{proof}
 \blindtext
 
 \section{Rings}
@@ -992,7 +1245,8 @@ The above classification theorem decompose into modules whose relation modules' 
 
 We thus have
 
-\begin{theorem}[Primary Decomposition Theorem]
+\begin{theorem}[Primary Decomposition Theorem]\index{primary decomposition}
+  \label{thm:primary decomposition}
   Let \(R\) be a Euclidean domain and \(M\) be a finitely generated \(R\)-module. Then
   \[
     M \cong \bigoplus_{i = 1}^n N_i
@@ -1003,14 +1257,14 @@ We thus have
 \begin{proof}
   Note that if \(d = p_1^{m_1} \cdots p_k^{m_k}\) with \(p_i \in R\) distinct primes, by the previous lemma
   \[
-    \frac{R}{(D)} \cong \frac{R}{(p_1^{n_1})} \oplus \dots \oplus \frac{R}{(p_k^{m_k})}.
+    \frac{R}{(d)} \cong \frac{R}{(p_1^{n_1})} \oplus \dots \oplus \frac{R}{(p_k^{m_k})}.
   \]
   Plug this into \nameref{thm:module over ED} to get the required result.
 \end{proof}
 
 \subsection{\texorpdfstring{\(\F[X]\)}{𝔽}-modules and Normal Form}
 
-For any field \(\F\), \(\F[X]\) is a Euclidean domain and so the results of the last section apply. If \(V\) is an \(\F\)-vector space and \(\alpha: V t\ V\) is an endomorphism, then we have
+For any field \(\F\), \(\F[X]\) is a Euclidean domain and so results of the last section apply. If \(V\) is an \(\F\)-vector space and \(\alpha: V \to V\) is an endomorphism, then we have
 \begin{align*}
   \F[X] \times V &\to V \\
   (f, v) &\mapsto f(\alpha)(v)
@@ -1027,8 +1281,458 @@ which makes \(V\) into an \(\F[X]\)-module, call it \(V_\alpha\). It turns out t
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item Suppose \(V_\alpha \cong \F[X]/(X^r)\) as an \(\F[X]\)-module. This has \(\F\)-basis \(\{X^i\}_{i = 0}^{r - 1}\) and the action 
+  \item Suppose \(V_\alpha \cong \F[X]/(X^r)\) as an \(\F[X]\)-module. This has \(\F\)-basis \(\{X^i\}_{i = 0}^{r - 1}\) and the action of \(\alpha\) corresponds to multiplication by \(X\). Thus in this basis \(\alpha\) has matrix representation
+    \[
+      \begin{pmatrix}
+        0 \\
+        1 & 0 \\
+        & 1 & 0 \\
+        & & & \ddots \\
+        & & & 1 & 0
+      \end{pmatrix}
+    \]
+  \item Suppose \(V_\alpha \cong \F[X]/((X - \lambda)^r)\). Consider \(\beta = \alpha - \lambda \cdot \id\). Then \(V_\beta \cong \F[Y]/(Y^r)\) as an \(\F[Y]\)-module. By the previous example \(V\) has a basis so that \(\beta\) is given by the matrix above and \(\alpha\) is given by
+    \[
+      \begin{pmatrix}
+        \lambda \\
+        1 & \lambda \\
+        & 1 & \lambda \\
+        & & & \ddots \\
+        & & & 1 & \lambda
+      \end{pmatrix}
+    \]
+  \item Suppose \(V_\alpha \cong \F[X]/(f)\) where
+    \[
+      f = X^r + a_{r - 1}X^{r - 1} + \dots + a_1X + a_0.
+    \]
+    Then \(\{X^i\}_{i = 0}^{r - 1}\) is an \(\F\)-basis and in this basis \(\alpha\) is given by
+    \[
+      \begin{pmatrix}
+        0 & & & & & & -a_0 \\
+        1 & 0 & & & & & -a_1 \\
+        & 1 & 0 & & & & -a_2 \\
+        & & 1 & 0 & & & -a_3 \\
+        & & & & \ddots & & \vdots \\
+        & & & & & 1 & -a_{r - 1}
+      \end{pmatrix}
+    \]
+    This matrix is called the \emph{companion matrix} for \(f\), written \(C(f)\).
   \end{enumerate}
 \end{eg}
+
+\begin{theorem}[Rational Canonical Form]\index{Rational Canonical Form}
+  Let \(V\) be a finite-dimensional \(\F\)-vector space and \(\alpha: V \to V\) be linear. Regard \(V\) as an \(\F[X]\)-module \(V_\alpha\), we have
+  \[
+    V_\alpha \cong \frac{\F[X]}{(d_1)} \oplus \dots \oplus \frac{\F[X]}{(d_r)}
+  \]
+  with \(d_1 \divides d_2 \divides \cdots \divides d_r\). There is a basis of \(V\) with respect to which \(\alpha\) is given by
+  \[
+    \begin{pmatrix}
+      C(d_1) \\
+      & C(d_2) \\
+      & & \ddots \\
+      & & & C(d_r)
+    \end{pmatrix}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Apply \nameref{thm:module over ED} to \(\F[X]\), a Euclidean domain. Note that no copies of \(\F[X]\) appear as it has infinite dimension over \(V\).
+\end{proof}
+
+Some observations:
+\begin{enumerate}
+\item If \(\alpha\) is represented by a matrix \(A\) in some basis, then \(A\) is conjugate to the above matrix.
+\item The minimal polynomial of \(\alpha\) is \(d_r \in \F[X]\).
+\item The characteristic polynomial of \(\alpha\) is \(d_1d_2\cdots d_r\).
+\end{enumerate}
+
+Recall that we have two classification theorems for modules over Euclidean domain. The above theorem corresponds to invariant decomposition. One might naturally ask what result follows from primary decomposition. Before that let's convince ourselves that primes in \(\C[X]\) are as simple as they can be:
+
+\begin{lemma}
+  The primes in \(\C[X]\) are \(X - \lambda\) for \(\lambda \in \C\) up to associates.
+\end{lemma}
+
+\begin{proof}
+  If \(f \in \C[X]\) is irreducible then Fundamental Theorem of Algebra says that \(f\) has a root \(\lambda\), i.e.\ \(f\) is a constant. Thus it is \(0\) or a unit, absurd. Thus \((X - \lambda) \divides f\), write \(f = (X - \lambda) g\). But \(f\) is irreducible so \(g\) is a unit. Thus \(f\) is an associate of \(X - \lambda\).
+\end{proof}
+
+\begin{remark}
+  The lemma is equivalent to the statement that \(\C\) is algebraically closed, which says that every polynomial with coefficients in \(\C\) factorises into linear factors in \(\C\). In fact, every field can be extended to an algebraically closed one. This will be discussed in detail in IID Galois Theory.
+\end{remark}
+
+\begin{theorem}[Jordan Normal Form]\index{Jordan normal form}
+  Let \(V\) be a finite-dimensional \(\C\)-vector space and \(\alpha:V \to V\) linear. Consider \(V_\alpha\) as an \(\C[X]\)-module, then
+  \[
+    V_\alpha \cong \frac{\C[X]}{((X - \lambda_1)^{a_1})} \oplus \frac{\C[X]}{((X - \lambda_2)^{a_2})} \oplus \dots \oplus \frac{\C[X]}{((X - \lambda_r)^{a_r})}
+    \]
+    where the \(\lambda_i\)'s are not necessarily distinct. There is a basis of \(V\) with respect to which \(\alpha\) is given by
+    \[
+      \begin{pmatrix}
+        J_{a_1}(\lambda_1) \\
+        & J_{a_2}(\lambda_2) \\
+        & & \ddots \\
+        & & & J_{a_r}(\lambda_r)
+      \end{pmatrix}
+    \]
+    where
+    \[
+      J_m(\lambda) =
+      \begin{pmatrix}
+        \lambda \\
+        1 & \lambda \\
+        & 1 & \lambda \\
+        & & & \ddots \\
+        & & & 1 & \lambda
+      \end{pmatrix}
+    \]
+    has size \(m\).
+\end{theorem}
+
+\begin{proof}
+  Immediate from \nameref{thm:primary decomposition} and knowing all the primes in \(\C[X]\).
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The \(J_m(\lambda)\) are called \emph{Jordan \(\lambda\)-blocks}.
+  \item The minimal polynomial of \(\alpha\) is
+    \[
+      m_\alpha(t) = \prod_\lambda (X - \lambda)^{a_\lambda}
+    \]
+    where \(a_\lambda\) is the largest \(\lambda\)-block.
+  \item The characteristic polynomial of \(\alpha\) is
+    \[
+      \chi_\alpha(t) = \prod_\lambda (X - \lambda)^{b_\lambda}
+    \]
+    where \(b_\lambda\) is the sum of the sizes of the \(\lambda\)-blocks.
+  \item Consider \(\ker (X \cdot -: V_\alpha \to V_\alpha)\). What is its dimension?
+
+    On \(\C[X]/(X - \lambda)^a\), if \(\lambda \neq 0\) then the map \(X \cdot -\) is an isomorphism since
+    \[
+      \ker (X \cdot -) = \{f + ((X - \lambda)^a): Xf \in ((X - \lambda)^a)\}
+    \]
+    so if \(Xf = (X - \lambda)^a \cdot g\), as \(X\) and \(X - \lambda\) are coprime, \(X \divides g\), \((X - \lambda)^a \divides f\) so \(\ker (X \cdot -) = 0\).
+
+    If \(\lambda = 0\), \(X \cdot -: \C[X]/(X^a) \to \C[X]/(X^a)\) has matrix
+    \[
+      \begin{pmatrix}
+        0 \\
+        1 & 0 \\
+        & 1 & 0 \\
+        & & & \ddots \\
+        & & & 1 & 0
+      \end{pmatrix}
+    \]
+    so \(1\)-dimensional kernel. Thus
+    \[
+      \dim \ker (X \cdot -: V_\alpha \to V_\alpha) = \# \text{Jordan \(0\)-blocks}.
+    \]
+  \item Similarly, \(X^2 \cdot -: \C[X]/((X - \lambda)^a) \to \C[X]/((X - \lambda)^a)\) is an isomorphism for \(\lambda \neq 0\) and for \(\lambda = 0\) is given by the matrix
+    \[
+      \begin{pmatrix}
+        0 \\
+        0 & 0 \\
+        1 & 0 & 0 \\
+        & 1 & 0 & \\
+        & & & \ddots \\
+        & & & & 0
+      \end{pmatrix}
+    \]
+    which has \(2\)-dimensional kernel if \(a > 1\) and \(1\)-dimensional kernel if \(a = 1\). Therefore
+    \begin{align*}
+      \dim \ker (X^2 \cdot -: V_\alpha \to V_\alpha) &= \# \text{Jordan \(0\)-blocks} \\
+                                                     &+ \# \text{Jordan \(0\)-blocks of size \(> 1\)}.
+    \end{align*}
+    so
+    \[
+      \# \text{Jordan \(0\)-blocks of size \(1\)} = 2 \dim \ker (X \cdot -) - \dim \ker (X^2 \cdot -).
+    \]
+    Using the same method we can find Jordan \(0\)-blocks of other sizes.
+    \iffalse
+    \begin{align*}
+      \dim (X^r \cdot -: V_\alpha \to V_\alpha) &= \# \text{Jordan \(0\)-blocks} \\
+                                                &+ \sum_{i = 1}^{r - 1} \# \text{Jordan \(0\)-blocks of size \(> i\)} \\
+      \sum_{i = 1}^{r - 1} \# \text{blocks of size \(\leq i\)} &= r \cdot \dim \ker (X \cdot -) - \dim \ker (X^r \cdot -) \\
+      \# \text{blocks of size \(\leq r - 1\)} &= r \cdot \dim \ker (X \cdot -) - \dim \ker (X^r \cdot -) \\
+                                                &- (r - 1) \cdot \dim \ker (X \cdot -) + \dim \ker (X^{r - 1} \cdot -) \\
+                                                &= \dim \ker (X \cdot -) - \dim \ker (X^r \cdot -) + \dim \ker (X^{r - 1} \cdot -) \\
+      \# \text{blocks of size \(r\)} &= 2 \cdot \dim \ker (X^r \cdot -) - \dim \ker (X^{r + 1} \cdot -) - \dim \ker(X^{r - 1} \cdot -)
+    \end{align*}
+    \fi
+  \end{enumerate}
+\end{remark}
+
+\subsection{Conjugacy}
+
+This section is non-examinable.
+
+\begin{lemma}
+  If \(\alpha: V \to V\) and \(\beta: W \to W\) are endomorphism of \(\F\)-vector spaces, then \(V_\alpha \cong W_\beta\) as \(\F[X]\)-modules if and only if there is an isomorphism \(\gamma: V \to W\) such that
+  \[
+    \gamma^{-1} \beta \gamma = \alpha,
+  \]
+  i.e.\ \(\alpha\) and \(\beta\) are conjugates.
+\end{lemma}
+
+\begin{proof}
+  Let \(\hat \gamma: V_\alpha \to W_\beta\) be an \(\F[X]\)-module isomorphism. In particular \(\hat \gamma\) gives an \(\F\)-vector space isomorphism \(\gamma: V \to W\). Then
+  \begin{align*}
+    \beta \compose \gamma: W_\beta &\to W_\beta \\
+    v &\mapsto X \cdot \gamma(v)
+  \end{align*}
+
+  Now
+  \begin{align*}
+    X \cdot \gamma(v) &= X \cdot \hat \gamma(v) \text{ \(\hat \gamma\) as an \(\F[X]\)-module map} \\
+                      &= \hat \gamma(X \cdot v) \text{ in \(\F[X]\)-module \(V_\alpha\)} \\
+                      &= \hat \gamma(\alpha(v)) \\
+                      &= \gamma(\alpha(v))
+  \end{align*}
+  so \(\beta \compose \gamma = \gamma \compose \alpha\), \(\gamma^{-1} \compose \beta \compose \gamma = \alpha\). Therefore if \(W = V\) then \(V_\alpha \cong V_\beta\) if and only if \(\alpha\) and \(\beta\) are conjugates.
+  \[
+    \begin{tikzcd}
+      V \ar[r, "\alpha"] \ar[d, dashed, "\gamma"'] & V \ar[d, dashed, "\gamma"] & V_\alpha \ar[r, dashed, "\alpha = X \cdot -"] \ar[d, "\hat \gamma"'] & V_\alpha \ar[d, "\hat \gamma"] \\
+      W \ar[r, "\beta"] & W & W_\beta \ar[r, dashed, "\beta = X \cdot -"] & W_\beta
+    \end{tikzcd}
+  \]
+\end{proof}
+
+Applying \nameref{thm:module over ED}, we get
+
+\begin{corollary}
+  There is a bijection
+  \[
+    \{\text{conjugacy class of } \matrixring_n(\F)\} \leftrightarrow
+    \left\{
+    \begin{array}[h]{c}
+      \text{sequence of monic polynomials } d_1, \dots, d_r \\
+      \text{ where } d_1 \divides \cdots \divides d_r \text{ and } \deg (d_1 \cdots d_r) = n
+    \end{array}
+  \right\}
+  \]
+\end{corollary}
+
+\begin{eg}
+  Consider \(\GL_2(\F)\). The conjugacy classes are described by \(d_1 \divides \cdots \divides d_r\) where \(\deg (d_1 \cdots d_r) = 2\). Therefore we have one of the followings:
+  \begin{enumerate}
+  \item \(\deg d_1 = 2\),
+  \item \(\deg d_1 = \deg d_2 = 1\). As \(d_1 \divides d_2\), \(d_1 = d_2\).
+  \end{enumerate}
+  These give us respecively
+  \begin{enumerate}
+  \item \(\F[X]/(X^2 + a_1X + a_0)\),
+  \item \(\F[X]/(X - \lambda) \oplus \F[X]/(X - \lambda)\).
+  \end{enumerate}
+
+  Therefore any \(A \in \GL_2(\F)\) is conjugate to one of
+  \[
+    \begin{pmatrix}
+      0 & -a_0 \\
+      1 & -a_1
+    \end{pmatrix}
+    ,\quad
+    \begin{pmatrix}
+      \lambda & 0 \\
+      0 & \lambda
+    \end{pmatrix}
+  \]
+  They are not conjugates.
+
+  The first case be futher split into two cases. If \(X^2 + a_1X + a_0\) is reducible they it factorises as either \((X - \lambda)^2\) or \((X - \lambda)(X - \mu)\) where \(\lambda \neq \mu\). Thus we get one of
+  \[
+    \begin{pmatrix}
+      \lambda & 0 \\
+      1 & \lambda
+    \end{pmatrix}
+    ,\quad
+    \begin{pmatrix}
+      \lambda & 0 \\
+      0 & \mu
+    \end{pmatrix}
+  \]
+\end{eg}
+
+\begin{eg}
+  Let \(\F = \Z/3\Z\). For what \(a_1, a_0\) is \(X^2 + a_1X + a_0 \in \F[X]\) irreducible? There are \(3 \times 3 = 9\) polynomials in total, of which \(\binom{3}{1} + \binom{3}{2} = 6\) are reducible. Guess (any verify!) that the irreducibles are \(X^2 + 1, X^2 + 2X + 2, X^2 + 2X + 2\). Therefore the conjugacy classes in \(\GL_2(\Z/3\Z)\) are
+  \[
+    \begin{array}[h]{ccc}
+      \begin{psmallmatrix}
+        0 & -1 \\
+        1 & 0
+      \end{psmallmatrix}
+          &
+            \begin{psmallmatrix}
+              0 & -2 \\
+              1 & -1
+            \end{psmallmatrix}
+          &
+            \begin{psmallmatrix}
+              0 & -2 \\
+              1 & -2
+            \end{psmallmatrix}
+      \\ \hline
+      \begin{psmallmatrix}
+        \lambda & 0 \\
+        1 & \lambda
+      \end{psmallmatrix}
+          &
+            \lambda \neq 0
+      \\ \hline
+      \begin{psmallmatrix}
+        \lambda & 0 \\
+        0 & \mu
+      \end{psmallmatrix}
+          &
+            \lambda, \mu \neq 0
+    \end{array}
+  \]
+  so there are in total \(8\) conjugacy classes. They have order
+  \[
+    \begin{array}[h]{c|c|c|c|c|c}
+      \begin{psmallmatrix}
+        0 & 2 \\
+        1 & 0
+      \end{psmallmatrix}
+          &
+            \begin{psmallmatrix}
+              0 & 1 \\
+              1 & 2
+            \end{psmallmatrix}
+          &
+            \begin{psmallmatrix}
+              0 & 1 \\
+              1 & 1
+            \end{psmallmatrix}
+          &
+            \begin{psmallmatrix}
+              1 & 0 \\
+              1 & 1
+            \end{psmallmatrix}
+          &
+            \begin{psmallmatrix}
+              2 & 0 \\
+              1 & 2
+            \end{psmallmatrix}
+          &
+            \begin{psmallmatrix}
+              \lambda & 0 \\
+              0 & \mu
+            \end{psmallmatrix}
+      \\ \hline
+      4 & 8 & 8 & 3 & 6 & 2
+    \end{array}
+  \]
+\end{eg}
+
+Just for fun, let's use what we deduced above and knowledge about Sylow \(p\)-subgroups way back in the beginning of the course to determine the group structure of \(\GL_2(\Z/3/Z)\).
+
+Recall that
+\[
+  |GL_2(\Z/3\Z)| = (3^2 - 1)(3^2 - 3) = 2^4 \cdot 3
+\]
+so the Sylow \(2\)-subgroup has order \(2^4 = 16\). There are no elements of order \(16\) so it cannot be cyclic. Let
+\[
+  A =
+  \begin{pmatrix}
+    0 & 2 \\
+    1 & 0
+  \end{pmatrix}
+  ,\quad
+  B =
+  \begin{pmatrix}
+    0 & 1 \\
+    1 & 2
+  \end{pmatrix}
+\]
+so
+\[
+  A^{-1}BA =
+  \begin{pmatrix}
+    2 & 2 \\
+    2 & 0
+  \end{pmatrix}
+  = B^3.
+\]
+Therefore \(\generation{B} \normal \generation{A, B} \leq \GL_2(\Z/3\Z)\). The 2nd Isomorphism Theorem says that
+\[
+  \generation{A, B}/\generation{B} \cong \generation{A}/(\generation{A} \cap \generation{B}).
+\]
+Now \(\generation A \cap \generation B = \generation*{\begin{psmallmatrix} 2 & 0 \\ 0 & 2 \end{psmallmatrix}}\), a group of order \(2\). Therefore
+\[
+  |\generation{A, B}| = \frac{|\generation A| \cdot |\generation B|}{|\generation A \cap \generation B|} = \frac{8 \cdot 4}{2} = 16
+\]
+which is a Sylow \(2\)-subgroup of \(\GL_2(\Z/3\Z)\). It has presentation
+\[
+  \generation{A, B| A^4 = B^8 = 1, A^{-1}BA = B^3},
+\]
+the semidihedral group of order \(16\).
+
+Since we still have time left, we can do one more fun example.
+
+\begin{eg}
+  Let \(R = \Z[X]/(X^2 + 5) \cong \Z[\sqrt{-5}] \leq \C\). Then
+  \[
+    (1 + X)(1 - X) = 1 - X^2 = 1 + 5 = 6 = 2 \cdot 3.
+  \]
+  As \(1 \pm X, 2\) and \(3\) are irreducibles \(R\) is \emph{not} a UFD. Let
+  \[
+    I_1 = (3, 1 + X), I_2 = (3, 1 - x)
+  \]
+  be submodules of \(R\). Consider
+  \begin{align*}
+    \varphi: I_1 \oplus I_2 &\to R \\
+    (a, b) &\to a + b
+  \end{align*}
+  Then \(\im \varphi = (3, 1 + X, 1 - X)\). Since \(3 - (1 + X) - (1 - X) = 1\), \(\im \varphi = R\). Also
+  \[
+    \ker \varphi = \{(a, b) \in I_1 \oplus I_2 : a + b = 0\} \cong I_1 \cap I_2
+  \]
+  where the last isomorphism can be deduced from the map \((x, -x) \mapsfrom x\). Note that \((3) \subseteq I_1 \cap I_2\). Let
+  \[
+    s \cdot 3 + t \cdot (1 + X) \in (3, 1 - X) \subseteq R = \Z[X]/(X^2 - 5).
+  \]
+  Reduce mod \(3\), we get
+  \[
+    t \cdot (1 + X) = (1 - X)p \mod (3, X^2 + 5) = (3, X^2 - 1) = (2, (X + 1)(X - 1))
+  \]
+  so \(1 - X \divides t\), \((1 + X)(1 - X) \divides t(1 + X)\) so
+  \[
+    t(1 + X) = q(X^2 - 1) = q(X^2 + 5 -6) = 3(-2q).
+  \]
+  Then \(s \cdot 3 + t \cdot (1 + X)\) is divisible by \(3\) so \(I_1 \cap I_2 \subseteq (3)\). Equality follows.
+
+  From example sheet 4 we know that if \(N \leq M\) and \(M/N \cong \R^n\) then \(M \cong N \oplus R^n\). Here
+  \[
+    I_1 \oplus I_2/\ker \varphi \cong \im \varphi = R
+  \]
+  so
+  \[
+    I_1 \oplus I_2 \cong R \oplus \ker \varphi = R \oplus (3).
+  \]
+  Consider
+  \begin{align*}
+    \psi: R &\to (3) \\
+    x &\mapsto 3x
+  \end{align*}
+  a surjective \(R\)-module map. \(\ker \varphi = 0\) as \(R\) is an integral domain so \(\varphi\) is an isomorphism. Thus
+  \[
+    I_1 \oplus I_2 \cong R \oplus R = R^2.
+  \]
+  In particular this shows that sums of non-free modules can be free.
+
+  Next we claim that \(I_1\) is not principal. If \(I_1 = (a + bX)\) then \(I_2 = (a + bX)\). This is because \(I_1 = (3, 1 + X)\) and \(I_2 = (3, 1 - X)\) and \(R\) has automorphism \(X \mapsto -X\) which interchanging \(I_1\) and \(I_2\).\footnote{This technique will play a central role in IID Galois Theory.} But then
+  \[
+    (3) = I_1 \cap I_2 = ((a + bX)(a - bX)) = (a^2 - b^2X^2) = (a^2 + 5b^2)
+  \]
+  so \(a^2 + 5b^2 \divides 3\), absurd.
+
+  In summary, we have shown that
+  \begin{enumerate}
+  \item \(I_1\) needs \(2\) elements to generate (as it is not principal), but it is not the free module \(R^2\).
+  \item \(I_1\) is a direct summand of \(R^2\).
+  \end{enumerate}
+\end{eg}
+
 \printindex
 \end{document}
