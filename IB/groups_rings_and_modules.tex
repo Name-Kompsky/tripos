@@ -10,6 +10,12 @@
 
 \input{header}
 
+% conjugacy class
+\DeclareMathOperator{\Cl}{Cl}
+
+% Sylow subgroup
+\DeclareMathOperator{\syl}{Syl}
+
 \DeclareMathOperator{\Ann}{Ann}
 \DeclareMathOperator{\fit}{Fit}
 
@@ -308,6 +314,8 @@ As a corollary we have
 
 \subsection{Actions \& Permutations}
 
+Part of the reason we study groups is that they have interesting internal structures. However, more importantly, groups are interesting because many transformations of an object can be described by a group. This is formalised by the concept of group action in this section.
+
 The \emph{symmetric group}\index{symmetric group} \(S_n\) is the set of permutations of \(\{1, \dots, n\}\). Every permutation is a product of transpositions. A permutation is \emph{even} if it is a product of evenly-many transpositions and \emph{odd} otherwise.
 
 The \emph{sign}\index{sign} of a permutation is a homomorphism
@@ -424,7 +432,7 @@ If \(G_X = \{e\}\), i.e.\ \(\varphi\) is injective then we say \(\varphi\) is a 
 \begin{theorem}
   Let \(G\) be a finite group and \(H \leq G\) with index \(n\). Then there is a \(K \normal G, K \leq H\) such that \(G/K\) is isomorphic to a subgroup of \(S_n\). In particular
   \[
-    |G/K| \divides n!, n \divides |G/K|.
+    |G/K| \divides n!, \, n \divides |G/K|.
   \]
 \end{theorem}
 
@@ -440,8 +448,302 @@ If \(G_X = \{e\}\), i.e.\ \(\varphi\) is injective then we say \(\varphi\) is a 
 \end{theorem}
 
 \begin{proof}
+  Let \(G\) act on \(G/H\), giving \(\varphi: G \to \sym(G/H)\). Then \(\ker \varphi \normal G\). As \(G\) is simple, \(\ker \varphi = \{e\}\) or \(G\). But \(\ker \varphi = \bigcap_{g \in G} g^{-1}Hg \leq H\), a proper subgroup of \(G\) so \(\ker \varphi = \{e\}\). By 1st Isomorphism Theorem
+  \[
+    G = G/\{e\} \cong \im \varphi = G^X \leq \sym(G/H) \cong S_n.
+  \]
+  Applying 2nd Isomorphism Theorem to \(A_n \normal S_n, G^X \leq S_n\), we get
+  \[
+    G^X \cap A_n \normal G^X, \, G^X/(G^X \cap A_n) \cong G^XA_n/A_n.
+  \]
+  As \(G^X \cong G\) is simple, \(G^X \cap A_n\) is either trivial or \(G^X\), i.e.\ \(G^X \leq A_n\). But if \(G^X \cap A_n = \{e\}\),
+  \[
+    G^X \cong G^XA_n/A_n \leq S_n/A_n \cong C_2
+  \]
+  which contradicts \(G^X \cong G\) being non-abelian. Hence \(G \cong G^X \leq A_n\).
+
+  \[
+    \begin{tikzcd}
+      1 \ar[r] & G \ar[r, "\varphi"] & \sym(G/H) \ar[r, "\sgn"] & C_2
+    \end{tikzcd}
+  \]
   
+  The see that we must have \(n \geq 5\), observe that \(A_2, A_3\) and \(A_4\) have no non-abelian simple subgroup.
 \end{proof}
+
+\begin{corollary}
+  If \(G\) is non-abelian simple, \(H \leq G\) of index \(n\), then
+  \[
+    |G| \divides \frac{n!}{2}.
+  \]
+\end{corollary}
+
+Some futher definitions we have already met in IA Groups:
+
+\begin{definition}[Orbit \& Stabiliser]
+  If \(G\) acts on \(X\), the \emph{orbit} of \(x \in X\) is
+  \[
+    G \cdot x = \{g * x: g \in G\}.
+  \]
+  and the \emph{stabiliser} of \(x\) is
+  \[
+    G_x = \{g \in G: g * x = x \forall x \in X\}.
+  \]
+\end{definition}
+
+\begin{theorem}[Orbit-stabiliser]\index{Orbit-stabiliser Theorem}
+  \label{thm:orbit-stabiliser}
+  If \(G\) acts on \(X\), for all \(x \in X\) there is a bijection
+  \begin{align*}
+    G \cdot x &\leftrightarrow G/G_x \\
+    g * x &\leftrightarrow gG_x
+  \end{align*}
+\end{theorem}
+
+\subsection{Conjugacy class, Centraliser \& Normaliser}
+
+In the previous section we use a group action of a group on itself, namely left multiplication, to study the structure of a group. In this section we study conjugation, another group action that gives much richer results.
+
+There is an action of \(G\) on \(X = G\) via \(g * x = gxg^{-1}\), giving \(\varphi: G \to \sym(G)\).
+
+\begin{remark}
+  \[
+    \varphi(g)(xy) = gxyg^{-1} = (gxg^{-1})(gyg^{-1}) = \varphi(g)(x) \varphi(g)(y)
+  \]
+  so \(\varphi(g)\) is a group homomorphism. In fact this is an automorphism and \(\varphi(g) \in \inn(G)\), which is the group of all automorphisms arising from conjugation.
+\end{remark}
+
+Denote
+\[
+  \aut(G) = \{\theta: G \to G: \theta \text{ is an isomorphism}\} \leq \sym(G).
+\]
+We have shown \(\varphi: G \to \sym(G)\) has image in \(\aut(G) \leq \sym(G)\), i.e.\ \(\inn(G) \leq \aut(G)\).
+
+\begin{definition}[Conjugacy class]\index{conjugacy class}
+  The \emph{conjugacy clss} of \(x \in G\) is
+  \[
+    G \cdot x = \Cl_G(x) = \{gxg^{-1}: g \in G\}.
+  \]
+\end{definition}
+
+\begin{definition}[Centraliser]\index{centraliser}
+  The \emph{centraliser} of \(x \in G\) is
+  \[
+    C_G(x) = \{g \in G: gx = xg\}.
+  \]
+\end{definition}
+
+\begin{definition}[Centre]\index{centre}
+  The \emph{centre} of \(G\) is
+  \[
+    Z(G) = \ker \varphi = \{g \in G: gxg^{-1} = x \forall x \in G\}.
+  \]
+\end{definition}
+
+\begin{definition}[Normaliser]\index{normaliser}
+  The \emph{normaliser} of \(H \leq G\) is
+  \[
+    N_G(H) = \{g \in G: gHg^{-1} = H\}.
+  \]
+\end{definition}
+
+By \nameref{thm:orbit-stabiliser}, there is a bijection between
+\[
+  \Cl_G(x) \leftrightarrow G/C_G(x)
+\]
+so if \(G\) is finite, \(|\Cl_G(x)| = |G/C_G(x)|\) divides \(|G|\).
+
+Recall from IA Groups that in the permutation group \(S_n\)
+\begin{enumerate}
+\item every element can be written as a product of disjoint cycles,
+\item permutations are conjugations if and only if they have the same cycle type.
+\end{enumerate}
+
+We will use these knowledge to make our first (and the only one in this course) step towards classification of finite simple groups:
+
+\begin{theorem}
+  \(A_n\) is simple for \(n \geq 5\).
+\end{theorem}
+
+\begin{proof}
+  First claim \(A_n\) is generated by \(3\)-cycles. Need to show that double transpositions are generated by \(3\)-cycles. There are two cases:
+  \begin{itemize}
+  \item \((ab)(bc) = (abc)\),
+  \item \((ab)(cd) = (acb)((acd)\).
+  \end{itemize}
+
+  Let \(H \normal A_n\). Suppose \(H\) contains a \(3\)-cycle, say \((abc)\). There exists \(\sigma \in S_n\) such that
+  \[
+    (abc) = \sigma^{-1}(123)\sigma.
+  \]
+  If \(\sigma \in A_n\) then \((123) \in H\). If \(\sigma \notin A_n\), let \(\sigma' = (45)\sigma \in A_n\). Here we use the fact that \(n \geq 5\). Then
+  \[
+    (abc) = \sigma^{-1}(45)(123)(45)\sigma = (abc).
+  \]
+  Hence \(H\) contains all \(3\)-cycles and \(H = A_n\). It then suffices to show any non-trivial \(H \normal A_n\) contains a \(3\)-cycle. Split into different cases:
+  \begin{itemize}
+  \item Case I: \(H\) contains \(\sigma = (12 \cdots r)\tau\), written in disjoint cycle notation, for some \( r \geq 4\). Let \(\pi = (123)\) and consider the \emph{commutator}
+    \[
+      [\sigma, \pi] = \sigma^{-1}\pi^{-1}\sigma\pi = \tau^{-1}(r \cdots 21)(132)(12 \cdots r)\tau(123) = (23r)
+    \]
+    which is a \(3\)-cycle in \(H\).
+  \item Case II: \(H\) contains \(\sigma = (123)(456)\tau\). Let \(\pi = (124)\) and consider
+    \[
+      [\sigma, \pi] = \tau^{-1}(132)(465)(142)(123)(456)\tau(124) = (12436)
+    \]
+    which is a \(5\)-cycle in \(H\). This reduces to Cases I.
+  \item Case III: \(H\) contains \(\sigma = (123)\tau\) and \(\tau\) is a product of \(2\)-cycles. Then \(\sigma^2 = (132) \in H\).
+  \item Case IV: \(H\) contains \(\sigma = (12)(34)\tau\) where \(\tau\) is a product of \(2\)-cycles. Let \(\pi = (123)\) and
+    \[
+      u = [\sigma, \pi] = (12)(34)(132)(12)(34)(123) = (14)(23).
+    \]
+    Not let \(v = (125)\) where we used the fact \(n \geq 5\) again. Then
+    \[
+      [u, v] = (14)(23)(152)(14)(23)(125) = (12345) \in H
+    \]
+    which is a \(5\)-cycle.
+  \end{itemize}
+\end{proof}
+
+\subsection{Finite \texorpdfstring{\(p\)}{p}-groups}
+
+A finite group \(G\) is a \emph{\(p\)-group} if \(|G| = p^n\) for some prime \(p\).
+
+\begin{theorem}
+  If \(G\) is a finite \(p\)-group then \(Z(G) \neq \{e\}\).
+\end{theorem}
+
+\begin{proof}
+  The conjugacy classes partition \(G\) and \(|\Cl(x)| = |G/C(x)|\) which divides \(|G|\). Thus \(|Cl(x)|\) is a power of \(p\). Class equation reads
+  \[
+    |G| = |Z(G)| + \sum_{\text{other ccl's}} |\Cl(x)|
+  \]
+  Reduce mod \(p\), we get \(|Z(G)| = 0 \mod p\). But \(|Z(G)| \geq 1\) so \(|Z(G)| \geq p\).
+\end{proof}
+
+\begin{corollary}
+  A group of order \(p^n\), \(n > 1\) is never simple.
+\end{corollary}
+
+\begin{lemma}
+  For any group \(G\), if \(G/Z(G)\) is cyclic, \(G\) is abelian.
+\end{lemma}
+
+\begin{proof}
+  Let \(G/Z(G) = \generation{gZ(G)}\). Then every coset is of the form \(g^rX(G)\), \(r \in \Z\). Thus every element of \(G\) is of the form \(g^rz\) where \(z \in Z(G)\). Then
+  \[
+    g^rzg^{r'}z' = g^rg^{r'}zz' = g^{r + r'} z'z = g^{r'}z'g^rz
+  \]
+  and hence \(G\) is abelian.
+\end{proof}
+
+\begin{corollary}
+  If \(|G| = p^2\), \(G\) is abelian.
+\end{corollary}
+
+\begin{proof}
+  \(Z(G) \neq \{e\}\) so \(|Z(G)| = p\) or \(p^2\). Suppose \(|Z(G)| = p\), \(|G/Z(G)| = p\) so \(G/Z(G) \cong C_p\) so by the lemma \(G\) is abelian. Absurd. Thus \(Z(G) = G\) and thus \(G\) is abelian.
+\end{proof}
+
+\begin{theorem}
+  If \(|G| = p^a\), \(G\) has a subgroup of order \(p^b\) for all \(0 \leq b \leq a\).
+\end{theorem}
+
+\begin{proof}
+  Induction on \(a\). If \(a = 1\) then done. Suppose \(a > 1\). Then \(Z(G) \neq \{e\}\). Let \(x \in Z(G)\) be non-identity. Then \(x\) has order  a power of \(p\), say \(p^i\). Then \(z = x^{p^{i - 1}}\) has order precisely \(p\). Let \(C = \generation z \normal G\). Then \(G/C\) has order \(p^{a - 1}\). By induction hypothesis we can find a subgroup \(H \leq G/C\) of order \(p^{b - 1}\). Then \(H\) must be of the form \(L/C\) for some \(L \leq G\) and \(|L| = p^b\).
+\end{proof}
+
+\subsection{Finite abelian groups}
+
+\begin{theorem}
+  If \(G\) is a finite abelian group then
+  \[
+    G \cong C_{d_1} \times C_{d_2} \times \dots \times C_{d_k}
+  \]
+  with \(d_{i + 1} \divides d_i\) for all \(i\).
+\end{theorem}
+
+\begin{proof}
+  This will be a corollary of the main result on modules by considering abelian groups as \(\Z\)-modules.
+\end{proof}
+
+\begin{eg}
+  If \(|G| = 8\) and \(G\) is abelian, \(G\) is isomorphic to one of \(C_8\), \(C_4 \times C_2\) and \(C_2 \times C_2 \times C_2\).
+\end{eg}
+
+\begin{lemma}[Chinese Remainder Theorem]\index{Chinese Remainder Theorem}
+  If \(n\) and \(m\) are coprime, then
+  \[
+    C_{nm} \cong C_n \times C_m.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(g \in C_n\) has order \(n\), \(h \in C_m\) has order \(m\). Consider
+  \[
+    x = (g, h) \in C_n \times C_m.
+  \]
+  If \(e = x^r = (g^r, h^r)\), then \(n \divides r, m \divides r\) so \(nm \divides r\). Thus \(|x| = nm\). The group is cyclic.
+\end{proof}
+
+\begin{corollary}
+  If \(G\) is a finite abelian group then
+  \[
+    G \cong C_{n_1} \times C_{n_2} \times \dots \times C_{n_\ell}
+  \]
+  with each \(n_i\) a power of prime.
+\end{corollary}
+
+\begin{proof}
+  If \(d = p_1^{a_1}p_2^{a_2}\cdots p_r^{a_r}\), a factorisation of distinct primes, the above lemma shows
+  \[
+    C_d \cong C_{p_1^{a_1}} \times C_{p_2^{a_2}} \times \dots \times C_{p_r^{a_r}}.
+  \]
+  Apply this to the theorem above.
+\end{proof}
+
+\subsection{Sylow's Theorem}
+
+\begin{theorem}[Sylow's Theorem]\index{Sylow's Theorem}
+  \label{thm:sylow}
+  Let \(|G| = p^a \cdot m\) with \((p, m) = 1\) where \(p\) is a prime. Then
+  \begin{enumerate}
+  \item the set
+    \[
+      \syl_p(G) = \{P \leq G: |P| = p^a\}
+    \]
+    of \emph{Sylow \(p\)-subgroups} is not empty,\index{Sylow subgroup}
+  \item all elements of \(\syl_p(G)\) are conjugates in \(G\),
+  \item the number
+    \[
+      n_p = |\syl_p(G)|
+    \]
+    satisfies
+    \[
+      n_p = 1 \mod p, \, n_p \divides |G|.
+    \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+  If \(n_p = 1\) then the unqiue Sylow \(p\)-subgroup is normal in \(G\).
+\end{lemma}
+
+\begin{proof}
+  Let \(P \leq G\) be the Sylow \(p\)-subgroup and \(g \in G\). As \(gPg^{-1} \leq \syl_p(G)\), \(gPg^{-1} = P\) so \(P \normal G\).
+\end{proof}
+
+\begin{eg}
+  Let \(G\) be group of order \(96 = 2^5 \cdot 3\). Then
+  \begin{itemize}
+  \item \(n_2 = 1 \mod 2\) and \(n_2 \divides 3\) so \(n_2 = 1\) or \(3\).
+  \item \(n_3 = 1 \mod 3\) and \(n_3 \divides 32\) so \(n_3 = 1, 4\) or \(16\).
+  \end{itemize}
+  Actually in this example, since \(|G| \ndivides \frac{3!}{2}\), \(G\) cannot be simple.
+\end{eg}
+
+\(G\) acts on the set \(\syl_p(G)\) by conjugation. The second part of Sylow's Theorem says that this action has precisely one orbit. The stabiliser of \(P \in \syl_p(G)\) is the normaliser \(N_G(P) \leq G\) of index \(n_p = |\syl_p(G)|\).
+
 \blindtext
 
 \section{Rings}
@@ -453,7 +755,7 @@ If \(G_X = \{e\}\), i.e.\ \(\varphi\) is injective then we say \(\varphi\) is a 
 \subsection{Definitions}
 
 \begin{definition}[Module]\index{module}
-  Let \(R\) be a commutative ring. A quadruple \((M, +, , 0_M, \cdot)\) is an \emph{\(R\)-module} if \((M, +, 0_M)\) is an abelian group and the operation \(- \cdot -: R \times M \to M\) satisfies
+  Let \(R\) be a commutative ring. A quadruple \((M, +, 0_M, \cdot)\) is an \emph{\(R\)-module} if \((M, +, 0_M)\) is an abelian group and the operation \(- \cdot -: R \times M \to M\) satisfies
   \begin{itemize}
   \item \((r_1 + r_2) \cdot m = r_1 \cdot m + r_2 \cdot m\),
   \item \(r \cdot (m_1 + m_2) = r \cdot m_1 + r \cdot m_2\),
