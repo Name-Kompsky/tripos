@@ -733,7 +733,7 @@ L(V,W) \cong \M_{m,n}(\F).
   \end{align*}
   is an isomorphism:
   \begin{itemize}
-  \item linearity: \([\lambda_1\alpha_1+\alpha_2\alpha_2]_{\basis B, \basis C} = \lambda_1[\alpha_1]_{\basis B, \basis C} + \lambda_2[\alpha_2]_{\basis B, \basis C}\).
+  \item linearity: \([\lambda_1\alpha_1 + \lambda_2\alpha_2]_{\basis B, \basis C} = \lambda_1[\alpha_1]_{\basis B, \basis C} + \lambda_2[\alpha_2]_{\basis B, \basis C}\).
   \item surjectivity: given \(A = (a_{ij})\), let \(\alpha:v_j\mapsto \sum_{i=1}^{m}a_{ij}w_i \) and extend linearly. It follows that \(\alpha\in L(V,W)\) and \(\theta(\alpha) = A\).
   \item injectivity: \([\alpha]_{\basis B, \basis C} = \V 0\) implies that \(\alpha\) is the zero map.
   \end{itemize}
@@ -1096,10 +1096,8 @@ one way to compute inverses.
 
 \subsection{Definitions}
 
-Let \(V\) be an \(\F\)-vector space.
-
 \begin{definition}[Dual space]\index{vector space!dual}
-  The \emph{dual space} of \(V\) is defined to be
+  Let \(V\) be an \(\F\)-vector space. The \emph{dual space} of \(V\) is defined to be
   \[
     V^* = L(V,\F) = \{\alpha:V\to \F, \alpha \text{ linear}\}.
   \]
@@ -1306,7 +1304,7 @@ Now we move on to more discussion about annhilator.
 
 \item Let \(\varepsilon \in \im \alpha^*\), Then \(\varepsilon = \alpha^* (\phi)\) for some \(\phi \in W^*\). For any \(u \in N(a)\),
   \[
-    \varepsilon(u) = (\alpha^* \phi)(u) = (\phi\compose \alpha)(u) = \phi(\alpha(u)) = \phi(0) = 0
+    \varepsilon(u) = (\alpha^*(\phi))(u) = (\phi\compose \alpha)(u) = \phi(\alpha(u)) = \phi(0) = 0
   \]
   so \(\varepsilon \in N(\alpha)^\ann\).
 
@@ -1333,7 +1331,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   \]
 \end{definition}
 
-\begin{theorem}[Double dual as natural transformation]
+\begin{theorem}[Natural homomorphism of double dual]
   If \(V\) is an \(\F\)-vector space, then the map
   \begin{align*}
     \hat \cdot: V &\to V^{**} \\
@@ -1345,9 +1343,9 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \begin{proof}\leavevmode
   \begin{itemize}
   \item For \(v\in V\), the map \(\hat v: V^* \to \F\) is linear so \(\hat \cdot\) does give a map from \(V\) to \(V^{**}\).
-  \item Linear: for \(v_1, v_2 \in V\), \(\lambda_1, \lambda_2 \in \F\), \(\varepsilon \in V^*\), then
+  \item Linearity: for \(v_1, v_2 \in V\), \(\lambda_1, \lambda_2 \in \F\), \(\varepsilon \in V^*\), then
     \[
-      \reallywidehat{\lambda_1v_1 + \lambda_2v_2}(\varepsilon) = \varepsilon(\lambda_1v_1 + \lambda_2v_2) = \lambda_1 \varepsilon(v_1) + \lambda_2 \varepsilon(v_2) = \lambda_1 \hat v_1(\varepsilon) + \lambda_2 \hat v_2(\epsilon)
+      \reallywidehat{\lambda_1v_1 + \lambda_2v_2}(\varepsilon) = \varepsilon(\lambda_1v_1 + \lambda_2v_2) = \lambda_1 \varepsilon(v_1) + \lambda_2 \varepsilon(v_2) = \lambda_1 \hat v_1(\varepsilon) + \lambda_2 \hat v_2(\varepsilon)
     \]
   \item Injectivity: let \(e \in V\setminus\{0\}\). Extend it to a basis of \(V\), say \(e, e_2,\dots, e_n\). Let \(\varepsilon, \varepsilon_2,\dots, \varepsilon_n\) be its corresponding dual basis. Now
     \[
@@ -2882,7 +2880,7 @@ We can use the diagonalisation to calculate powers of matrices:
 
 \subsection{Symmetric Bilinear Forms}
 
-In this chapter we are going to studying a special bilinear form (and variants whereof) in detail. Let \(\varphi: V \times V \to \F\) be a bilinear form on \(V\) and assume we take the same basis for both factors of \(V\), say \(\basis B\). Therefore if \(\dim V < \infty\) \(\varphi\) has matrix representation
+In this chapter we are going to studying a special bilinear form (and variants whereof) in detail. Let \(\varphi: V \times V \to \F\) be a bilinear form on \(V\) and assume we take the same basis for both factors of \(V\), say \(\basis B\). Therefore if \(\dim V < \infty\), \(\varphi\) has matrix representation
 \[
   [\varphi]_{\basis B} = [\varphi]_{\basis B, \basis B}.
 \]

@@ -10,6 +10,9 @@
 
 \input{header}
 
+\theoremstyle{definition}
+\newtheorem*{fiat}{Fiat}
+
 % conjugacy class
 \DeclareMathOperator{\Cl}{Cl}
 
@@ -967,7 +970,7 @@ If every \(r \in R, r \neq 0_R\) is a unit, then \(R\) is a \emph{field}.
     1_{R \times S} &= (1_R, 1_S) \\
     0_{R \times S} &= (0_R, 0_S)
   \end{align*}
-  Let \(e_1 = (1_R, 0), e_2 = (0, 1_S)\), then
+  Let \(e_1 = (1_R, 0), e_2 = (0, 1_S)\), then\footnote{This is known as orthogonal idempotents.}
   \begin{align*}
     e_1^2 &= e_1 \\
     e_2^2 &= e_2 \\
@@ -1151,6 +1154,376 @@ We say \(I \ideal R\) is \emph{proper} if \(I \neq R\).
   \item \((X) = \{\text{polynomials with constant coefficient } 0\} \ideal \C[X]\).
   \end{enumerate}
 \end{eg}
+
+\begin{proposition}[Quotient ring]\index{ring!quotient}
+  Let \(I \ideal R\) be an ideal. The \emph{quotient ring} is the set of cosets \(r + I\) (i.e.\ \((R, +, 0)/I\)). Addition and multiplication are given by
+  \begin{align*}
+    (r_1 + I) + (r_2 + I) &= r_1 + r_2 + I \\
+    (r_1 + I) \cdot (r_2 + I) &= r_1r_2 + I
+  \end{align*}
+  with \(0_{R/I} = 0_R + I, 1_{R/I} = 1_R + I\). This is a ring, and the quotient map
+  \begin{align*}
+    R &\to R/I \\
+    r &\mapsto r + I
+  \end{align*}
+  is a ring homomorphism.
+\end{proposition}
+
+\begin{proof}
+  We already knew \((R/I, +, 0_{R/I})\) is an abelian group and addition as described above is well-defined. Suppose
+  \begin{align*}
+    r_1 + I &= r_1' + I \\
+    r_2 + I &= r_2' + I
+  \end{align*}
+  then \(r_1' - r_1 = a_1 \in I, r_2' - r_2 = a_2 \in I\). So
+  \[
+    r_1'r_2' = (r_1 + a_1)(r_2 + a_2) = r_1r_2 + \underbrace{r_1a_2 + r_2a_1 + a_1a_2}_{\in I}.
+  \]
+  Thus \(r_1'r_2' + I = r_1r_2 + I\). This shows multiplication is well-defined. The ring axioms for \(R/I\) then follow from those of \(R\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(n\Z \ideal \Z\) so \(\Z/n\Z\) is a ring. It has elements
+    \[
+      0 + n\Z, 1 + n\Z, \dots, (n - 1) + n\Z
+    \]
+    and addition and multiplication are modular arithmetic mod \(n\).
+  \item \((X) \ideal \C[X]\) so \(\C[X]/(X)\) is a ring. We have
+    \[
+      a_0 + \underbrace{a_1X + a_2X^2 + \dots + a_nX^n}_{\in (X)} + (X) = a_0 + X.
+    \]
+    If \(a_0 + (X) = b_0 + (X)\) then \(a_0 - b_0 \in (X)\) so \(a_0 - b_0\) is divisible by \(X\), \(a_0 - b_0 = 0\). Consider
+    \begin{align*}
+      \varphi: \C &\to \C[X]/(X) \\
+      a &\mapsto a + (X)
+    \end{align*}
+    which is a bijection. Observe that \(\varphi\) is a bijection and its inverse is given by the map \(f + (X) \mapsto f(0)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{proposition}[Euclidean algorithm for polynomials]
+  \label{prop:polynomial euclidean}
+  Let \(F\) be a \emph{field} and \(f, g \in F[X]\). Then we may write
+  \[
+    f = g \cdot q + r
+  \]
+  with \(\deg r < \deg g\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\deg f = n, \deg g = m\) so
+  \begin{align*}
+    f &= a_0 + a_1X + \dots + a_nX^n \\
+    g &= b_0 + b_1X + \dots + b_nX^m
+  \end{align*}
+  with \(a_n, b_m \neq 0\).
+
+  If \(n < m\), let \(q = 0, r = f\) so done. Suppose \(n \geq m\) and proceed by induction on \(n\). Let
+  \[
+    f_1 = f - gX^{n - m} a_nb_m^{-1}
+  \]
+  where \(b_m^{-1}\) exists since \(b_m \in F\) and \(b_m \neq 0\). THis has degree \(< n\). If \(n = m\) then
+  \[
+    f = g(X^{n - m}a_nb_m^{-1}) + f_1
+  \]
+  with \(\deg f_1 < n = m = \deg g\). If \(n > m\), by induction we have \(f_1 = gq_1 + r\) with \(\deg r < \deg g\) so
+  \[
+    f = g(X^{n - m}a_nb_m^{-1}) + gq_1 + r = g(X^{n - m}a_nb_m^{-1} + q_1) + r
+  \]
+  as required.
+\end{proof}
+
+\begin{eg}
+  Consider \((X^2 + 1) \ideal \R[X]\) and let \(R = \R[X]/(X^2 + 1)\). It has elements of the form \(f + (X^2 + 1)\). By \nameref{prop:polynomial euclidean} \(f = (X^2 + 1)g + r\) with \(\deg r \leq 1\) so \(f + (X^2 + 1) = r + (X^2 + 1)\). Any element can be represented by a polynomial of degree \(\leq 1\), say \(a + bX + (X^2 + 1)\). If \(a_1 + b_1X + (X^2 + 1) = a_2 + b_2X + (X^2 + 1)\) then \((a_1 + b_1X) - (a_2 + b_2X)\) is divisible by \(X^2 + 1\). But degrees add in multiplication so \(a_1 + b_1X = a_2 + b_2X\). Consider the bijection
+  \begin{align*}
+    \varphi: R &\to \C \\
+    a + bX + (X^2 + 1) &\mapsto a + bi
+  \end{align*}
+  It obviously send addition to addition. For multiplication,
+  \begin{align*}
+    &\varphi((a + bX + (X^2 + 1)) \cdot (c + dX + (X^2 + 1))) \\
+    =& \varphi(ac + (bc + ad)X + bdX^2 + (X^2 + 1)) \\
+    =& \varphi(ac + (bc + ad)X + bd(X^2 + 1) - bd + (X^2 + 1) \\
+    =& (ac - bd) + (bc + ad)i \\
+    =& (a + bi) \cdot (c + di) \\
+    =& \varphi(a + bX + (X^2 + 1)) \cdot \varphi(c + dX + (X^2 + 1))
+  \end{align*}
+  Thus we have shown that \(\C \cong \R[X]/(X^2 + 1)\).
+\end{eg}
+
+\begin{remark}
+  The key idea in the proof is to force \(X^2 + 1\) to vanish by quotient the polynomial ring by the generated ideal so that ``\(X = \pm i\)''. Similarly \(\Q[X]/(X^2 - 2) \cong \Q[\sqrt 2] \leq \R\).
+\end{remark}
+
+This is a nice result. However, the proof is too cumbersum to be generalised as we have to check well-definedness for each case. Instead, we have the following theorems stating the general results for abstract rings and ideals. The proofs are similar to those for groups and are omitted.
+
+\begin{theorem}[1st Isomorphism Theorem]
+  Let \(\varphi: R \to S\) be a ring isomorphism. Then \(\ker \varphi \ideal R, \im \varphi \leq S\) and
+  \begin{align*}
+    R/\ker \varphi &\to \im \varphi \\
+    r + \ker \varphi &\mapsto \varphi(r)
+  \end{align*}
+  is a ring isomorphism.
+\end{theorem}
+
+\begin{theorem}[2nd Isomorphism Theorem]
+  Let \(R \leq S\) and \(J \ideal S\). Then \(R \cap J \ideal R\) and
+  \[
+    \frac{R + J}{J} \cong \frac{R}{F \cap J}
+  \]
+  as rings.
+\end{theorem}
+
+\begin{theorem}[Subring and ideal correspondence]
+  Let \(I \ideal R\). Then there is a bijection between
+  \begin{align*}
+    \{\text{subrings of } R/I\} &\leftrightarrow \{\text{subrings of } R \text{ containing } I\} \\
+    L \leq R/I &\mapsto \{r \in R: r + I \in L\} \\
+    S/I \leq R/I &\mapsfrom I \ideal S \leq R
+  \end{align*}
+  and
+  \begin{align*}
+    \{\text{ideals of } R/I\} &\leftrightarrow \{\text{ideals of } R \text{ containing } I\} \\
+    L \ideal R/I &\mapsto \{r \in R: r + I \in L\} \\
+    J/I \ideal R/I &\mapsfrom I \ideal J \ideal R
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}[3rd Isomorphism Theorem]
+  Let \(I, J \ideal R, I \subseteq J\). Then \(J/I \ideal R/I\) and
+  \[
+    \frac{R/I}{J/I} \cong R/J.
+  \]
+\end{theorem}
+
+\begin{eg}
+  Consider the homomorphism
+  \begin{align*}
+    \varphi: \R[X] &\to \C \\
+    \sum a_nX^n &\mapsto \sum a_n i^n
+  \end{align*}
+  i.e.\ evaluation at \(i\). It is surjective and
+  \[
+    \ker \varphi = \{f \in \R[X]: f(i) = 0\} = (X^2 + 1)
+  \]
+  because real polynomials with \(i\) as a root also have \(-i\) as aroot, so are divisible by \((X - i)(X + i) = X^2 + 1\). By 1st Isomorphism Theorem
+  \[
+    \R[X]/(X^2 + 1) \cong \C.
+  \]
+\end{eg}
+
+\begin{eg}[Characteristic of a ring]
+  For any ring \(R\) there is a unique homomorphism
+  \begin{align*}
+    \iota: \Z &\to R \\
+    n &\mapsto
+        \begin{cases}
+          \underbrace{1_R + 1_R + \dots + 1_R}_{n \text{ times}} & n > 0 \\
+          -\underbrace{(1_R + 1_R + \dots + 1_R)}_{n \text{ times}} & n < 0
+        \end{cases}
+  \end{align*}
+  \(\ker \iota \ideal \Z\) so \(\ker \iota = n\Z\) for some \(n \geq 0\). This number \(n\) is called the \emph{characteristic} of \(R\), denoted \(\ch R\).
+
+  For example, \(\Z \leq \Q \leq \R \leq \C\) all have characteristic \(0\). \(\Z/n\Z\) have characteristic \(n\).
+\end{eg}
+
+\subsection{Integral domain, Field of fractions, Maximal and Prime ideals}
+
+\begin{definition}[Integral domain]\index{integral domain}
+  A non-zero ring \(R\) is an \emph{integral domain} if for all \(a, b \in R\), \(a \cdot b = 0\) implies that \(a = 0\) or \(b = 0\).
+\end{definition}
+
+\begin{definition}[Zero divisor]\index{zero divisor}
+  \(x\) is a \emph{zero divisor} in \(R\) if \(x \neq 0\) and there exists \(y \neq 0\) such that \(x \cdot y = 0\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item All fields are integral domains: if \(xy = 0\) with \(y \neq 0\), then \(y^{-1}\) exists and
+    \[
+      0 = 0 \cdot y^{-1} = (xy) \cdot y^{-1} = x.
+    \]
+  \item A subring of an integral domain is an integral domain. Thus \(\Z \leq \Q, \Z[i] \leq \C\) are integral domains.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Principal ideal domain]\index{PID}
+  A ring \(R\) is a \emph{principal ideal domain} (PID) if it is an integral domain and every ideal is principal, i.e.\ for all \(I \ideal R\), there exists \(a \in R\) such that \(I = (a)\).
+\end{definition}
+
+\begin{eg}
+  \(\Z\) is a PID.
+\end{eg}
+
+\begin{lemma}
+  A finite integral domain is a field.
+\end{lemma}
+
+\begin{proof}
+  Let \(a \neq 0 \in R\) and consider
+  \begin{align*}
+    a \cdot -: R &\to R \\
+    b &\mapsto ab
+  \end{align*}
+  This is a group homomorphism and its kernel is
+  \[
+    \ker (a \cdot -) = \{b \in R: ab = 0\} = \{0\}.
+  \]
+  Thus \(a \cdot -\) is injective. As \(|R| < \infty\), \(a \cdot -\) must also be surjective. Thus there exists \(b \in R\) such that \(ab = 1\). \(b = a^{-1}\).
+\end{proof}
+
+\begin{lemma}
+  Let \(R\) be an integral domain. Then \(R[X]\) is an integral domain.
+\end{lemma}
+
+\begin{proof}
+  Let
+  \begin{align*}
+    f &= \sum_{i = 0}^n a_iX^i \\
+    g &= \sum_{j = 0}^m b_jX^j
+  \end{align*}
+  with \(a_n, b_m \neq 0\) be non-zero polynomials. Then the largest power of \(X\) in \(fg\) is \(X^{m + n}\) and its coefficient is \(a_nb_m \in R\). This is a product of non-zero elements on an integral domain so non-zero. Thus \(fg \neq 0\).
+\end{proof}
+
+This gives us a way to produce a new integral domain from old ones. Moreover, iterating this, \(R[X_1, \dots, X_n] = ((R[X_1])[X_2]\dots[X_n])\) is an integral domain.
+
+\begin{theorem}[Field of fractions]\index{field of fractions}
+  Let \(R\) be an integral domain. There is a \emph{field of fractions} \(F\) of \(R\) with the following properties:
+  \begin{enumerate}
+  \item \(F\) is a field,
+  \item \(R \leq F\),
+  \item every element of \(F\) is of the form \(a \cdot b^{-1}\) where \(a, b \in R \leq F\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Consider \(S = \{(a, b) \in R^2: b \neq 0\}\) with an equivalence relation
+  \[
+    (a, b) \sim (c, d) \Leftrightarrow ad = bd \in R.
+  \]
+  This is reflexive and symmetric. To show it is transitive, suppose \((a, b) \sim (c, d), (c, d) \sim (e, f)\). Then
+  \[
+    (ad)f = (bc)f = b(cf) = b(ed)
+  \]
+  so \(d(af - be) = 0\). As \(d \neq 0\) and \(R\) is an \emph{integral domain}, \(af - be = 0\), i.e.\ \((a, b) \sim (e, f)\).
+
+  Let \(F = S/\sim\) and write \([(a, b)] = \frac{a}{b}\). Define
+  \begin{align*}
+    \frac{a}{b} + \frac{c}{d} &= \frac{ad + bc}{bd} \\
+    \frac{a}{b} \cdot \frac{c}{d} &= \frac{ac}{bd} \\
+    0_F &= \frac{0}{1} \\
+    1_F &= \frac{1}{1}
+  \end{align*}
+  These are well-defined. If \(\frac{a}{b} \neq 0_F = \frac{0}{1}\) then \(a \cdot 1\neq 0 \cdot b = 0\). Then \(\frac{b}{a} \in F\) and \(\frac{a}{b} \cdot \frac{b}{a} = \frac{1}{1} = 1_F\) so \(\frac{a}{b} \in F\) has an inverse. \(F\) is a field.
+
+  \(R\) is a subring of \(F\) via
+  \begin{align*}
+    R &\embed F \\
+    r &\mapsto \frac{r}{1}
+  \end{align*}
+  which is injective as \(R\) is an integral domain.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The field of fractions of \(\Z\) is \(\Q\).
+  \item The field of fractions of \(\C[X]\) is
+    \[
+      \C(X) = \left\{ \frac{p(X)}{q(X)}: p(X), q(X) \in \C[X], q(X) \neq 0 \right\},
+    \]
+    the field of \emph{rational functions}.
+  \end{enumerate}
+\end{eg}
+
+As we have mentioned before, \(\{0\}\) is a bona fide ring although it is a (trivial) counterexample to many results. However, it is not a field as we require \(0 \neq 1\). To emphasise this, we declare
+
+\begin{fiat}
+  The ring \(\{0\}\) is \emph{not} a field.
+\end{fiat}
+
+\begin{lemma}
+  A non-zero ring \(R\) is a field if and only if its only ideals are \(\{0\}\) and \(R\).
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): Suppose \(I \ideal R\) is a non-zero ideal, then it contains \(a \neq 0\). But an ideal containing a unit must be the whole ring.
+  \item \(\Leftarrow\): Let \(x \neq 0 \in R\). Then \((x) = R\) as it is not the zero ideal. Thus there exists \(y \in R\) such that \(xy = 1_R\) so \(x\) is a unit.
+  \end{itemize}
+\end{proof}
+
+\begin{definition}[Maximal ideal]\index{ideal!maximal}
+  An ideal \(I \ideal R\) is \emph{maximal} if there is no proper ideal which properly contains \(I\).
+\end{definition}
+
+\begin{lemma}
+  An ideal \(I \ideal R\) is maximal if and only if \(R/I\) is a field.
+\end{lemma}
+
+\begin{proof}
+  \(R/I\) is a field if and only if \(I/I\) and \(R/I\) are the only ideals in \(R/I\), if and only if \(I, R \ideal R\) are the only ideals containing \(I\).
+\end{proof}
+
+\begin{definition}[Prime ideal]\index{ideal!prime}
+  An ideal \(I \ideal R\) is \emph{prime} if \(I\) is proper and if \(a, b \in R\) such that \(ab \in I\) then \(a \in I\) or \(b \in I\).
+\end{definition}
+
+\begin{eg}
+  The ideal \(n\Z\) is prime if and only if \(n\) is \(0\) or a prime number: if \(p\) is prime and \(a, b \in p\Z\) then \(p \divides ab\) so \(p \divides a\) or \(p \divides b\), i.e.\ \(a \in p\Z\) or \(b \in p\Z\). Conversely, if \(n = uv\) is composite, \(u < n\) then \(uv \in n\Z\) but \(u \neq n\Z\).
+\end{eg}
+
+\begin{lemma}
+  \(I \ideal R\) is prime if and only if \(R/I\) is an integral domain.
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): Supose \(I \ideal R\) is prime. Let \(a + I, b + I \in R/I\) be such that \((a + I)(b + I) = 0_{R/I}\). Since \(ab + I = 0_{R/I}\), \(ab \in I\). As \(I\) is prime, \(a \in I\) or \(b \in I\), i.e.\ \(a + I = 0_{R/I}\) or \(b + I = 0_{R/I}\). Thus \(R/I\) is an integral domain.
+  \item \(\Leftarrow\): Suppose \(R/I\) is an integral domain. Let \(a, b \in R\) such that \(ab + I = 0_{R/I}\). \((a + I)(b + I) = 0_{R/I}\). As \(R/I\) is an integral domain, \(a + I = 0_{R/I}\) or \(b + I = 0_{R/I}\), i.e.\ \(a \in I\) or \(b \in I\).
+  \end{itemize}
+\end{proof}
+
+\begin{corollary}
+  Maximal ideals are prime.
+\end{corollary}
+
+\begin{proof}
+  Fields are integral domains.
+\end{proof}
+
+\begin{lemma}
+  If \(R\) is an integral domain then its characteristic is \(0\) or a prime number.
+\end{lemma}
+
+\begin{proof}
+  Consider \(\ker (\iota: \Z \to R) = n\Z\). By 1st Isomorphism Theorem
+  \[
+    \Z/n\Z \cong \im \iota \leq R.
+  \]
+  As a subring of an integral domain is an integral domain, \(\Z/n\Z\) is an integral domain so \(n\Z \ideal \Z\) is prime. Thus \(n = 0\) or a prime number.
+\end{proof}
+
+\subsection{Factorisation in integral domains}
+
+Let \(R\) be an integral domain in this section.
+
+We begin with several definitions. Note that for every statement about an element of the ring there is an equivalent one in terms of ideals.
+
+\begin{definition}[Unit, divisibility, associates, irreducible, prime]\index{tbd}\leavevmode
+  \begin{itemize}
+  \item An element \(a \in R\) is a \emph{unit} if there is \(b \in R\) such that \(ab = 1_R\). Equivalently, \((a) = R\).
+  \item \(a \in R\) \emph{divides} \(b \in R\) if there is a \(c \in R\) such that \(b = ac\). Equivalently, \((b) \subseteq (a)\). Write \(a \divides b\).
+  \item \(a, b \in R\) are \emph{associates} if \(a \divides b\) and \(b \divides a\). Equivalently, \((a) = (b)\).
+  \item \(r \in R\) is \emph{irreducible} if it is not zero, not a unit and if \(r = ab\) then \(a\) or \(b\) is a unit.
+  \item \(r \in R\) is \emph{prime} if it is not zero, not a unit and if \(r \divides ab\) then \(r \divides a\) or \(r \divides b\). Equivalently, \(ab \in (r) \Rightarrow a \in (r) \text{ or } b \in (r)\).
+  \end{itemize}
+\end{definition}
+
+\begin{remark}
+  Being a unit/irreducible/prime dependes not only on the element but also on the ambient ring: \(2X \in \Z[X]\) is not irreducible but \(2X \in \Q[X]\) is.
+\end{remark}
+\newpage
 \blindtext
 
 \section{Modules}
