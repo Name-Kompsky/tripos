@@ -1523,6 +1523,112 @@ We begin with several definitions. Note that for every statement about an elemen
 \begin{remark}
   Being a unit/irreducible/prime dependes not only on the element but also on the ambient ring: \(2X \in \Z[X]\) is not irreducible but \(2X \in \Q[X]\) is.
 \end{remark}
+
+\begin{lemma}
+  \((r) \ideal R\) is prime if and only if \(r\) is zero or prime.
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): Let \((r) \ideal R\) be a prime ideal and \(r \divides ab\). Then \(ab \in (r)\) so \(a \in (r)\) or \(b \in (r)\) as \((r)\) is prime. So \(r \divides a\) or \(r \divides b\). \(r\) is \(0\) or a prime.
+  \item \(\Leftarrow\): If \(r = 0\) then \((0) \ideal R\) is a prime ideal since \(R \cong R/(0)\) is an integral domain. Let \(r \neq 0\) be a prime and \(ab \in (r)\). Then \(r \divides ab\) so \(r \divides a\) or \(r \divides b\). \(a \in (r)\) or \(b \in (r)\) as required.
+  \end{itemize}
+\end{proof}
+
+\begin{lemma}
+  If \(r \in R\) is prime then it is irreducible.
+\end{lemma}
+
+\begin{proof}
+  Let \(r = ab\). Then \(r \divides ab\) so \(r \divides a\) or \(r \divides b\). Suppose \(r \divides a\) wlog. Then \(a = rc\). \(r = (rc)b\), \(r(bc - 1) = 0\). As \(r \neq 0\) and \(R\) is an integral domain, \(bc - 1 = 0\) so \(b\) is a unit.
+\end{proof}
+
+\begin{eg}
+  Let \(R = \Z[\sqrt{-5}] = \{a + b \sqrt{-5}: a, b \in \Z\} \leq \C\). This is a subring of a field so an integral domain. Define
+  \begin{align*}
+    N: R &\to \Z_{\geq 0} \\
+    a + b\sqrt{-5} &\mapsto a^2 +5b^2
+  \end{align*}
+  so \(N(z) = z\conj z\). Note \(N(r_1r_2) = N(r_1)N(r_2)\). If \(r\) is a unit then there esists \(s \in R\) such that \(rs = 1\), then \(N(r)N(s) = N(1) = 1\), so \(N(r) = 1\). So \(r = a + b \sqrt{-5}\) such that \(a^2 + 5b^2 = 1\). The only possibility is \(r = \pm 1\). Claim that \(2 \in R\) is irreducible:
+
+  \begin{proof}
+    Let \(2 = ab\) so \(N(a)N(b) = 4\). \(N(a) = 1, 2\) or \(4\). But \(N(a) \neq 2\) so \(N(a) = 1\) or \(4\), \(N(b) = 4\) or \(1\) so \(a\) or \(b\) is a unit.
+  \end{proof}
+  Similarly we can show that \(3\) and \(1 \pm \sqrt{-5}\) are irreducible.
+
+  Note that
+  \[
+    (1 + \sqrt{-5})(1 - \sqrt{-5}) = 1 + 5 = 6 = 2 \cdot 3
+  \]
+  so \(2 \divides (1 + \sqrt{-5})(1 - \sqrt{-5})\) but \(N(1 \pm \sqrt{-5} = 6\) is \emph{not} divisible by \(N(2) = 4\) so \(2 \ndivides 1 \pm \sqrt{-5}\). Thus \(2 \in R\) is not prime.
+
+  We also find that \(6 = 2 \cdot 3 = (1 + \sqrt{-5})(1 - \sqrt{-5})\) has two different factorisations into irreducibles.
+\end{eg}
+
+\begin{definition}[Euclidean domain]\index{Euclidean domain}
+  An integral domain \(R\) is a \emph{Euclidean domain} (ED) if there is a function \(\varphi: R \setminus \{0\} \to \Z_{\geq 0}\), a \emph{Euclidean function} such that
+  \begin{enumerate}
+  \item \(\forall a, b \in R \setminus \{0\}\), \(\varphi(ab) \geq \varphi(a)\),
+  \item \(\forall a, b \in R, b \neq 0\), we have \(a = bq + r\) with \(r = 0\) or \(\varphi(r) < \varphi(b)\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Z\) is a Euclidean domain with \(\varphi(n) = |n|\).
+  \item For a field \(\F\), \(\F[X]\) is a Euclidean domain with \(\varphi(f) = \deg f\).
+  \item \(\Z[i]\) is a Euclidean domain with \(\varphi(a + ib) = a^2 + b^2 = (a + ib)(a - ib)\).
+
+    \begin{proof}
+      Let \(z_1, z_2 \in \Z[i], z_2 \neq 0\). Consider \(\frac{z_1}{z_2} \in \C\). By considering the lattice of Gaussian integers on the complex plane, we can find \(q \in \Z[i]\) such that \(\left|\frac{z_1}{z_2} - q \right| < 1\). Consider \(r = z_1 - qz_2 \in \Z[i]\),
+      \[
+        \left| \frac{r}{z_2} \right| = \left| \frac{z_1}{z_2} - q \right| < 1
+      \]
+      so \(|r| < |z_2|\) so \(\varphi(r) = |r|^2 < |z_2|^2 = \varphi(z_2)\).
+    \end{proof}
+  \item Similarly we can show \(\Z[\sqrt{-2}]\) is a Euclidean domain.
+  \end{enumerate}
+\end{eg}
+
+\begin{proposition}
+  If \(R\) is a ED then it is a PID.
+\end{proposition}
+
+This proof is a generalisation of the proof that \(\Z\) is a PID.
+
+\begin{proof}
+  Let \(I \ideal R\) and choose \(0 \neq b \in I\) such that \(\varphi(b)\) is minimal. If \(a \in I\) then Euclidean property gives \(a = qb + r\) with \(\varphi(r) < \varphi(b)\) or \(r = 0\). Then \(r = a - qb \in I\) but if \(r \neq 0\) then minimality of \(\varphi(b)\) is contradicted. Thus \(r = 0\) and \(a \in (b)\). \(I = (b)\).
+\end{proof}
+
+\begin{eg}
+  \(\Z, \F[X]\) and \(\Z[i]\) are PIDs.
+\end{eg}
+
+\begin{eg}
+  \(\Z[X]\) is \emph{not} a PID. Consider \((2, X) \ideal \Z[X]\). Suppose \((2, X) = (f)\) for some \(f \in \Z[X]\), then \(f \divides 2\). Degrees of polynomials on an integral domain add under multiplication so if \(f\) divides a constant polynomial it must be constant. Thus \(f = \pm 1, \pm 2\). If \(f = \pm 2\), \(\pm 2 \ndivides X\). Absurd. Thus \(f = \pm 1\), \((f) = \Z[X]\). But \(1 \neq (2, X)\). Absurd.
+\end{eg}
+
+\begin{eg}
+  Let \(\F\) be a field and \(A \in \matrixring_n(\F)\). Consider
+  \[
+    I = \{f \in \F[X]: f(A) = 0\}.
+  \]
+  If \(f , g\in I\), \((f + g)(A) = f(A) + g(A) = 0\). If \(h \in \F[X]\), \((fh)(A) = f(A)h(A) = 0\) so \(I \ideal \F[X]\). As \(\F[X]\) is a PID, \(I = (m_A)\) for some \(m_A \in \F[X]\). This \(m_A\) is the \emph{minimal polynomial} of \(A\) and it follows that it is unique up to a unit.
+\end{eg}
+
+\begin{definition}[Unique factorisation domain]\index{unique factorisation domain}
+  An integral domain is a \emph{unique factoriation domain} (UFD) if
+  \begin{itemize}
+  \item every non-zero, non-unit is a product of irreducibles,
+  \item if \(p_1 \cdots p_n = q_1 \cdots q_m\) are factorisations into irreducibles, then \(n = m\) and \(p_i\) is an associate of \(q_i\) up to reordering.
+  \end{itemize}
+\end{definition}
+
+We will show that PIDs are UFDs.
+
+\begin{lemma}
+  If \(R\) is a PID then irreducibles are primes.
+\end{lemma}
 \newpage
 \blindtext
 

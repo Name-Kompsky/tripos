@@ -3,6 +3,11 @@
 \else
 \fi
 
+\ifx \ntitle\undefined
+  \def\ntitle{Template}
+\else
+\fi
+
 \ifx \nauthoremail\undefined
   \def\nauthoremail{qk206@cam.ac.uk}
 \else
@@ -138,6 +143,7 @@
 \newtheorem*{application}{Application}
 
 
+\iffalse
 %re-declare a math operator
 %https://tex.stackexchange.com/a/175272/26707
 \makeatletter
@@ -158,6 +164,7 @@
 }
 \@onlypreamble\RedeclareMathOperator
 \makeatother
+\fi
 
 %operator macros
 %matrix
@@ -167,6 +174,7 @@
 
 %algebra
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\im}{Im}
 \DeclarePairedDelimiter{\generation}{\langle}{\rangle}

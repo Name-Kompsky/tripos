@@ -2924,7 +2924,7 @@ Naturally, we want to find nice forms to which a general bilinear form is congru
 \begin{note}\leavevmode
   \begin{itemize}
   \item \(A \in \M_n(\F)\) is symmetric if \(A = A^T\). Then \(\varphi\) is symmetric if and only if \([\varphi]_{\basis B}\) is symmetric for any basis \(\basis B\), if and only if \([\varphi]_{\basis B}\) is symmetric for one \(\basis B\).
-  \item To be able to represent \(\varphi\) by a diagonal matrix, \(\varphi\) needs to be symmetric:
+  \item To be able to be represented by a diagonal matrix, \(\varphi\) needs to be symmetric:
     \[
       [\varphi]_{\basis B} = P^TAP = D \Rightarrow D^T = D = P^TA^TP \Rightarrow A = A^T
     \]
@@ -3186,8 +3186,8 @@ Equivalently,
   \begin{itemize}
   \item \emph{positive definite} if \(\varphi(u, u) > 0\) for all \(u \in V\setminus \{0\}\).
   \item \emph{positive semi-definite} if \(\varphi(u, u) \geq 0\) for all \(u \in V\setminus \{0\}\).
-  \item \emph{positive definite} if \(\varphi(u, u) < 0\) for all \(u \in V\setminus \{0\}\).
-  \item \emph{positive semi-definite} if \(\varphi(u, u) \leq 0\) for all \(u \in V\setminus \{0\}\).
+  \item \emph{negative definite} if \(\varphi(u, u) < 0\) for all \(u \in V\setminus \{0\}\).
+  \item \emph{negative semi-definite} if \(\varphi(u, u) \leq 0\) for all \(u \in V\setminus \{0\}\).
   \item \emph{indefinite} if none of the above.
   \end{itemize}
 \end{definition}
@@ -3195,7 +3195,7 @@ Equivalently,
 The same terminologies apply to quadratic forms.
 
 \begin{eg}
-  The bilinear form on \(\R^n\) represented by \(\begin{psmallmatrix} I_p & 0 \\ 0 & 0 \end{psmallmatrix} \in \M_n(\R)\) is positive definite is \(p = n\) and positive semi-definite if \(p < n\).
+  The bilinear form on \(\R^n\) represented by \(\begin{psmallmatrix} I_p & 0 \\ 0 & 0 \end{psmallmatrix} \in \M_n(\R)\) is positive definite if \(p = n\) and positive semi-definite if \(p < n\).
 \end{eg}
 
 \begin{definition}[Signature]\index{bilinear!signature}
@@ -3367,8 +3367,8 @@ We have special bilinear forms that are symmetric. The analogue for sesquilinear
 
 As before, if and only if this holds for one basis.
 
-\begin{proof}
-  \begin{itemize}\leavevmode
+\begin{proof}\leavevmode
+  \begin{itemize}
   \item \(\Rightarrow\): Let \(\basis B = \{v_1, \dots, v_n\}\) and \(A = [\varphi]_{\basis B} = (a_{ij})\). Then
     \begin{align*}
       a_{ij} &= \varphi(v_i, v_j) \\
@@ -3379,8 +3379,7 @@ As before, if and only if this holds for one basis.
     \begin{align*}
       \varphi \left( \sum \lambda_iv_i, \sum \mu_jv_j \right) &= \lambda^T A \conj \mu \\
                                                               &= \lambda^T \conj A^T \conj \mu \\
-                                                              &= \conj \mu^T \conj A \lambda \\
-                                                              &= \left( \conj{\mu^T A \conj \lambda} \right)^T \\
+                                                              &= \conj \mu^T \conj A \lambda \text{ taking transpose of a scalar} \\
                                                               &= \conj{\mu^T A \conj \lambda} \\
                                                               &= \conj{\varphi \left( \sum \mu_jv_j, \sum \lambda_iv_i \right)}
     \end{align*}
@@ -3638,7 +3637,7 @@ Let \(\F = \R\) or \(\C\) in this chapter.
   \]
 \end{proof}
 
-\begin{theorem}[Gram-Schmidt Orthogonalisation Process]\index{Gram-Schmidt}
+\begin{theorem}[Gram-Schmidt Orthonormalisation Process]\index{Gram-Schmidt}
   Let \(V\) be an inner product space and \(\{v_1, v_2, \dots \}\) be a countable set of linearly indpendent vectors in \(V\). Then there exists a sequence \(e_1, e_2, \dots\) orthonormal such that
   \[
     \text{span} \{v_1, \dots, v_k\} = \text{span} \{e_1, \dots, e_k\}
@@ -3736,11 +3735,11 @@ Given these terminologies, Gram-Schmidt may be equivalently formulated as follow
   If \(w \in W, u \in W^\perp\) then \(\ip{w, u} = 0\) so it remains to show that \(V = W + W^\perp\).
 
   Let \(\{e_1, \dots, e_k\}\) be an orthonormal basis for \(W\). By a previous lemma we can extend it to an orthonormal basis \(\{e_1, \dots, e_n\}\) of \(V\). Note that \(e_{k + 1}, \dots, e_n \in W^\perp\).
-
-  \begin{note}
-    Complementary space is, in general, not unique but orthogonal complement is.
-  \end{note}
 \end{proof}
+
+\begin{note}
+  Complementary space is, in general, not unique but orthogonal complement is.
+\end{note}
 
 A concept closely related to orthogonal complement is
 
@@ -3772,7 +3771,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
     \[
       \pi(v) = \sum_{i = 1}^k \ip{v, e_i} e_i
     \]
-  \item \(\norm{v - \pi(v)} \leq \norm{v - w}\) for all \(v \in V\), \(w \in W\) with equiality if and only if \(\pi(v) = w\). Equivalently, \(\pi(v)\) is the closed point in \(W\) to \(v\).
+  \item \(\norm{v - \pi(v)} \leq \norm{v - w}\) for all \(v \in V\), \(w \in W\) with equiality if and only if \(\pi(v) = w\). Equivalently, \(\pi(v)\) is the closest point in \(W\) to \(v\).
   \end{enumerate}
 \end{lemma}
 
@@ -3803,7 +3802,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
   \[
     \ip{(u_1, u_2), (v_1, v_2)} = \ip{u_1, v_1} + \ip{u_2, v_2}.
   \]
-  In practice we often suppress the distinction between internal and extensal (orthogonal) direct sums.
+  In practice we often suppress the distinction between internal and external (orthogonal) direct sums.
 \end{remark}
 
 \subsection{Adjoints}
@@ -3827,7 +3826,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
 \begin{proof}
   Let \(\basis B = \{v_1, \dots, v_n\}, \basis C = \{w_1, \dots, w_m\}\) and as usual, let
   \begin{align*}
-    A &= [\alpha]_{\basis B, \basis V} = (a_{ij}) \\
+    A &= [\alpha]_{\basis B, \basis C} = (a_{ij}) \\
     \conj A^T &= C = (c_{ij})
   \end{align*}
   where \(c_{ij} = \conj{a_{ij}}\).
@@ -3885,7 +3884,7 @@ Let \(V = W\) throughout this section.
 \end{definition}
 
 \begin{definition}[Isometry]\index{isometry}
-  Let \(V\) abe an inner product space and \(\alpha \in L(V)\). Let \(\alpha^*\) be the adjoint of \(\alpha\). \(\alpha\) is an \emph{isometry} if it satisfies one of the equivalent properties below:
+  Let \(V\) be an inner product space and \(\alpha \in L(V)\). Let \(\alpha^*\) be the adjoint of \(\alpha\). \(\alpha\) is an \emph{isometry} if it satisfies one of the equivalent properties below:
   \begin{itemize}
   \item For all \(u, v \in V\), \(\ip{\alpha u, \alpha v} = \ip{u, v}\),
   \item \(\alpha^{-1} = \alpha^*\).
@@ -3918,8 +3917,7 @@ The equivalences should be quite obvious and in case you don't find it so,
   \]
   for all \(v \in V\).
 \end{remark}
-
-The might appear to you to be closer to the casual definition of an ``isometry''.
+which might be closer to the intuitive definition of an ``isometry''.
 
 \begin{lemma}
   Let \(V\) be a finite-dimensional real (complex, respectively) inner product space and \(\alpha \in L(V)\). Then
