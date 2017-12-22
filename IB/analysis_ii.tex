@@ -3014,7 +3014,8 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
     \[
       \nop{\D f|_x - \D f|_0} < \frac{1}{2}
     \]
-    whenever \(\norm x < 2 \delta\), i.e.\ \(\nop{\D f|_x - \iota} < \frac{1}{2}\) for \(x \in B_{2\delta}(0)\) and thus for \(x \in B_{\delta}(0)\), i.e.\ \(\nop{\D N_y|_x} < \frac{1}{2}\).
+    whenever \(\norm x < \delta\), i.e.\ \(\nop{\D N_y|_x} = \nop{\D f|_x - \iota} < \frac{1}{2}\).
+    %whenever \(\norm x < 2 \delta\), i.e.\ \(\nop{\D f|_x - \iota} < \frac{1}{2}\) for \(x \in B_{2\delta}(0)\) and thus for \(x \in B_{\delta}(0)\), i.e.\ \(\nop{\D N_y|_x} < \frac{1}{2}\).
 
     By \Cref{prop:operator norm bounded implies Lipschitz}, \(N_y|_{B_\delta(0)}\) is \(\frac{1}{2}\)-Lipschitz.
   \end{proof}
@@ -3044,14 +3045,14 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
   \[
     N_y|_{\cl B_\delta(0)}: \cl B_\delta(0) \to B_\delta(0)
   \]
-  is \(\frac{1}{2}\)-Lipschitz and is thus a contraction map for.
+  is \(\frac{1}{2}\)-Lipschitz and is thus a contraction map.
 
   \begin{proposition}
     Let \(\varepsilon\) and \(\delta\) be as above. If \(y \in B_\varepsilon(0)\) there is a unique \(x \in B_\delta(0)\) with \(f(x) = y\).
   \end{proposition}
 
   \begin{proof}
-    Check the hypotheses for \nameref{thm:contraction}: \(\R^n\) is complete and \(\cl B_\delta(0) \subseteq \R^n\) is closed so \(\cl B_\delta(0)\) is a complete metric space. \nameref{thm:contraction} applied to \(N_y|_{\cl B_\delta(0)}\) shows that there is a unique \(x \in \cl B_\delta(0)\) with \(N_y(x) = x\), i.e.\ there is a unique \(x \in \cl B_\delta(0)\) with \(f(x) = y\). To remove the bar on top of the ball, apply \(N_y\) again so we get
+    Check the hypotheses for \nameref{thm:contraction}: \(\R^n\) is complete and \(\cl B_\delta(0) \subseteq \R^n\) is closed so \(\cl B_\delta(0)\) is a complete metric space. \nameref{thm:contraction} applied to \(N_y|_{\cl B_\delta(0)}: \cl B_\delta(0) \to \cl B_\delta(0)\) shows that there is a unique \(x \in \cl B_\delta(0)\) with \(N_y(x) = x\), i.e.\ there is a unique \(x \in \cl B_\delta(0)\) with \(f(x) = y\). To remove the bar on top of the ball, apply \(N_y\) again so we get
     \[
       x = N_y(x) \in B_\delta(0).
     \]
@@ -3090,7 +3091,7 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
   \end{corollary}
 
   \begin{proof}
-    \(g\) is \(K\)-Lipschitz so uniformly continuous.
+    \(g\) is \(2\)-Lipschitz so uniformly continuous.
   \end{proof}
 
   Suppose \(y \in U_2, g(y) = x\). We want to show \(\D g|_y = (\D f|_x)^{-1}\). Note that although \(\D f|_0\) is invertible, we don't know about \(\D f|_x\) yet.
@@ -3334,7 +3335,7 @@ With these fancy languages, our previous result could be succintly stated as fol
 \end{theorem}
 
 \begin{remark}
-  Sards Theorem asserts that in a sense, most points in \(\R^m\) are not critical values.
+  In differential geometry, Sard's Theorem asserts that in a sense, most points in \(\R^m\) are not critical values.
 \end{remark}
 
 \subsection{Solving ODEs}

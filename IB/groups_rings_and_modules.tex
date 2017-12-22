@@ -170,8 +170,8 @@ This implies that \(\varphi(e_G) = e_H\) and \(\varphi(g^{-1}) = \varphi(g)^{-1}
   If \(\varphi\) is an isomorphism then the inverse \(\varphi^{-1}: H \to G\) is also an isomorphism.
 \end{ex}
 
-\begin{theorem}[1st Isomorphism Theorem]\index{tbd}
-  Let \(\varphi: G \to H\) be a homomorphism . Then \(\ker \varphi \leq G\), \(\im \varphi \leq G\) and
+\begin{theorem}[1st Isomorphism Theorem]\index{isomorphism theorem}
+  Let \(\varphi: G \to H\) be a homomorphism. Then \(\ker \varphi \leq G\), \(\im \varphi \leq G\) and
   \[
     G/\ker \varphi \cong \im \varphi.
   \]
@@ -1258,7 +1258,7 @@ We say \(I \ideal R\) is \emph{proper} if \(I \neq R\).
 
 This is a nice result. However, the proof is too cumbersum to be generalised as we have to check well-definedness for each case. Instead, we have the following theorems stating the general results for abstract rings and ideals. The proofs are similar to those for groups and are omitted.
 
-\begin{theorem}[1st Isomorphism Theorem]
+\begin{theorem}[1st Isomorphism Theorem]\index{isomorphism theorem}
   Let \(\varphi: R \to S\) be a ring isomorphism. Then \(\ker \varphi \ideal R, \im \varphi \leq S\) and
   \begin{align*}
     R/\ker \varphi &\to \im \varphi \\
@@ -1510,7 +1510,7 @@ Let \(R\) be an integral domain in this section.
 
 We begin with several definitions. Note that for every statement about an element of the ring there is an equivalent one in terms of ideals.
 
-\begin{definition}[Unit, divisibility, associates, irreducible, prime]\index{tbd}\leavevmode
+\begin{definition}[Unit, divisibility, associates, irreducible, prime]\index{unit}\index{associate}\index{irreducible}\index{prime}\leavevmode
   \begin{itemize}
   \item An element \(a \in R\) is a \emph{unit} if there is \(b \in R\) such that \(ab = 1_R\). Equivalently, \((a) = R\).
   \item \(a \in R\) \emph{divides} \(b \in R\) if there is a \(c \in R\) such that \(b = ac\). Equivalently, \((b) \subseteq (a)\). Write \(a \divides b\).
@@ -1521,7 +1521,7 @@ We begin with several definitions. Note that for every statement about an elemen
 \end{definition}
 
 \begin{remark}
-  Being a unit/irreducible/prime dependes not only on the element but also on the ambient ring: \(2X \in \Z[X]\) is not irreducible but \(2X \in \Q[X]\) is.
+  Being a unit/irreducible/prime depends not only on the element but also on the ambient ring: \(2X \in \Z[X]\) is not irreducible but \(2X \in \Q[X]\) is.
 \end{remark}
 
 \begin{lemma}
@@ -1549,7 +1549,7 @@ We begin with several definitions. Note that for every statement about an elemen
     N: R &\to \Z_{\geq 0} \\
     a + b\sqrt{-5} &\mapsto a^2 +5b^2
   \end{align*}
-  so \(N(z) = z\conj z\). Note \(N(r_1r_2) = N(r_1)N(r_2)\). If \(r\) is a unit then there esists \(s \in R\) such that \(rs = 1\), then \(N(r)N(s) = N(1) = 1\), so \(N(r) = 1\). So \(r = a + b \sqrt{-5}\) such that \(a^2 + 5b^2 = 1\). The only possibility is \(r = \pm 1\). Claim that \(2 \in R\) is irreducible:
+  so \(N(z) = z\conj z\). Note \(N(r_1r_2) = N(r_1)N(r_2)\). If \(r\) is a unit then there exists \(s \in R\) such that \(rs = 1\), then \(N(r)N(s) = N(1) = 1\), so \(N(r) = 1\). So \(r = a + b \sqrt{-5}\) such that \(a^2 + 5b^2 = 1\). The only possibility is \(r = \pm 1\). Claim that \(2 \in R\) is irreducible:
 
   \begin{proof}
     Let \(2 = ab\) so \(N(a)N(b) = 4\). \(N(a) = 1, 2\) or \(4\). But \(N(a) \neq 2\) so \(N(a) = 1\) or \(4\), \(N(b) = 4\) or \(1\) so \(a\) or \(b\) is a unit.
@@ -1560,7 +1560,7 @@ We begin with several definitions. Note that for every statement about an elemen
   \[
     (1 + \sqrt{-5})(1 - \sqrt{-5}) = 1 + 5 = 6 = 2 \cdot 3
   \]
-  so \(2 \divides (1 + \sqrt{-5})(1 - \sqrt{-5})\) but \(N(1 \pm \sqrt{-5} = 6\) is \emph{not} divisible by \(N(2) = 4\) so \(2 \ndivides 1 \pm \sqrt{-5}\). Thus \(2 \in R\) is not prime.
+  so \(2 \divides (1 + \sqrt{-5})(1 - \sqrt{-5})\) but \(N(1 \pm \sqrt{-5}) = 6\) is \emph{not} divisible by \(N(2) = 4\) so \(2 \ndivides 1 \pm \sqrt{-5}\). Thus \(2 \in R\) is not prime.
 
   We also find that \(6 = 2 \cdot 3 = (1 + \sqrt{-5})(1 - \sqrt{-5})\) has two different factorisations into irreducibles.
 \end{eg}
@@ -1629,8 +1629,458 @@ We will show that PIDs are UFDs.
 \begin{lemma}
   If \(R\) is a PID then irreducibles are primes.
 \end{lemma}
-\newpage
-\blindtext
+
+\begin{proof}
+  Let \(p \in R\) be irreducible and suppose \(s \divides ab\). Need to show that \(p \divides a\) or \(p \divides b\). Suppose \(p \ndivides a\). Consider \((p, a) \ideal R\). As \(R\) is a PID, there exists \(d \in R\) such that \((d) = (p, a)\), so \(p = q_1d, a = q_2d\). As \(p\) is irreducible, either \(q_1\) or \(d\) is a unit. If \(q_1\) is a unit then \(a = q_2d = q_2(q_1^{-1}p)\) so \(p \divides a\). Thus \(d\) must be a unid and \((p, a) = (d) = R\). THus \(1_R = rp + sa\) for some \(r\) and \(s\). \(b = brp + abs\) so \(p \divides b\).
+\end{proof}
+
+\begin{lemma}
+  Let \(R\) be a PID and \(I_1 \subseteq I_2 \subseteq I_2 \subseteq \cdots\) be an increasing sequence of ideal. Then there exists \(N \in \N\) such that for all \(n \geq N\), \(I_n = I_{n + 1}\).
+\end{lemma}
+
+\begin{definition}[Noetherian]\index{ascending chain condition}\index{Noetherian}
+  The above condition is the \emph{ascending chain condition}. A chain satisfying the above condition is \emph{Noetherian}.
+\end{definition}
+
+\begin{proof}
+  Let \(I = \bigcup_{n = 1}^\infty I_n\) wich is again an ideal so \(I = (a)\) for some \(a \in R\). Then \(a \in I\) so there exists \(N \in \N\) such that \(a \in I_N\). Then
+  \[
+    (a) \subseteq I_N \subseteq I_{N + 1} \dots \subseteq (a)
+  \]
+  so equality throughout.
+\end{proof}
+
+\begin{theorem}
+  PID is UFD.
+\end{theorem}
+
+\begin{proof}
+  Let \(R\) be a PID. The proof consists of two parts: first show the existence of factorisation in \(R\) (the proof thereof generalises to all Noetherian rings), and then show its uniqueness.
+  \begin{enumerate}
+  \item Suppose for contradiction there exists \(a \in R\) which cannot be written as a product of irreducibles. then \(a\) is not irreducible so \(a = a_1b_1\) with \(a_1, b_1\) not units and one of then cannot be written as a product of irreducibles (otherwise \(a\) would be), say it is \(a_1\). Hence \(a_1 = a_2b_2\) where \(a_2, b_2\) are not units and wlog \(a_2\) could not be written as a product of irreducibles. Continue this way. Now
+    \[
+      (a) \subseteq (a_1) \subseteq (a_2) \subseteq \cdots
+    \]
+    is an ascending chain so by ACC we must have \((a_N) = (a_{N + 1}\) for some \(N\), i.e.\ \(a_N = a_{N + 1}b_{N + 1}\) with \(b_{N + 1}\) a unit.
+  \item Let \(p_1 \cdots p_n = q_1 \cdots q_m\) be factorisations into irreducibles. Thus \(p_1 \divides q_1 \cdots q_n\). In a PID irreducibles are primes so \(p_1 \divides q_i\) for some \(i\). After reordering \(p_1 \divides q_1\) so \(q_1 = p_1 \cdot a\). As \(q_1\) is irreducible, \(a\) is a unit so \(p_1\) and \(q_1\) are associates. Now \(p_1(p_2 \cdots p_n - aq_2 \cdots q_m) = 0\). As \(R\) is an integral domain \(p_2 \cdots p_n = (aq_2) \cdots q_m\). Continue this way, we get \(n \leq m\) and \(1 = \text{(unit)} \cdot q_{n + 1} \cdots q_m\). Thus \(q_{n + 1}, \dots q_m\) are units. Absrud. Thus \(n = m\) and \(p_i\)'s and \(q_i\)'s are associates up to reordering.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[gcd, lcm]\leavevmode
+  \begin{itemize}
+  \item \(d\) is a \emph{greatest common divisor} (gcd) of \(a_1, \dots, a_n\), written \(d = \gcd(a_1, \dots, a_n)\) if \(d \divides a_i\) for all \(i\) and if \(d' \divides a_i\) for all \(i\) then \(d' \divides d\).
+  \item \(d\) is a \emph{lowest common multiple} (lcm) of \(a_1, \dots, a_n\), written \(d = \lcm(a_1, \dots, a_n)\) if \(a_i \divides m\) for all \(i\) and if \(a_i \divides d'\) for all \(i\) then \(d \divides d'\).
+    \end{itemize}
+\end{definition}
+
+It is easy to see that if gcd or lcm exists then it is unique up to associates.
+
+\begin{proposition}
+  If \(R\) is a UFD then gcd's and lcm's exist.
+\end{proposition}
+
+\begin{proof}
+  Write each \(a_i\) as a product
+  \[
+    a_i = u_i \cdot \prod_j p_j^{n_ij}
+  \]
+  where \(u_i\) is a unit and \(p_j\)'s are (the same) irreducibles which are not associates of each other. Set
+  \[
+    d = \prod_j p_j^{m_j}
+  \]
+  where \(m_j = \min_i n_{ij}\). Certainly \(d \divides a_i\) for all \(i\). If \(d' \divides a_i\) for all \(i\) then write
+  \[
+    d' = u \cdot \prod_j p_j^{t_j}
+  \]
+  for some \(t_j\). As \(d' \divides a\) we must have \(t_j \leq n_{ij}\) for all \(i\) so \(t_j \leq \min_i n_{ij} = m_j\) for all \(j\). Thus \(d' \divides d\).
+
+  The argument for lcm is similar.
+\end{proof}
+
+\subsection{Factoriation of polynomial rings}
+
+For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
+\begin{enumerate}
+\item any \(I \ideal \F[X]\) is principal, i.e.\ \(I = (f)\) for some \(f\);
+\item \(f \in \F[X]\) is irreducible if and only if \(f\) is prime;
+\item let \(f \in \F[X]\) be irreducible and \((f) \subseteq J \ideal \F[X]\) be a larger ideal. Then \(J = (g)\) for some \(g \in \F[X]\) so \((f) \subseteq (g)\), i.e.\ \(g \divides f\). But \(f\) is irreducible so either \(g\) is a unit, then \((g) = \F[X]\), or \(g\) is an associate of \(f\), so \((g) = (f)\). Thus \((f)\) is maximal;
+\item \((f) \text{prime} \Rightarrow f \text{prime} \Rightarrow f \text{irreducible} \Rightarrow (f) \text{maximal}\) so primes ideals of \(\F[X]\) are precisely the maximal ideals;
+\item \(f \in \F[X]\) is irreducible if and only if \((f)\) is maximal, if and only if \(\F[X]/(f)\) is a field.
+\end{enumerate}
+
+\begin{definition}[Content]\index{content}
+  Let \(R\) be a UFD and
+  \[
+    f = a_0 + a_1X + \dots a_nX^n \in R[X]
+  \]
+  with \(a_n \neq 0\). The \emph{content} is
+  \[
+    c(f) = \gcd(a_0, \dots, a_n).
+  \]
+\end{definition}
+
+\begin{definition}[Primitive]\index{primitive}
+  \(f\) above is \emph{primitive} if \(c(f)\) is a unit, i.e.\ \(a_i\)'s are coprime.
+\end{definition}
+
+\begin{theorem}[Gauss' Lemma]\index{Gauss' Lemma}
+  \label{thm:Gauss' lemma}
+  Let \(R\) be a UFD and \(F\) be its field of fractions. Let \(f \in R[X]\) be primitive. Then \(f\) is irreducible in \(R[X]\) if and only if \(f\) is irreducible in \(F[X]\).
+\end{theorem}
+
+\begin{eg}
+  Let \(f = 1 + X + X^3 \in \Z[X]\). \(c(f) = 1\) so \(f\) is primitive. Suppose \(f = gh\), a product of reducibles in \(\Z[X]\). As \(f\) is primitive, neither \(g\) nor \(h\) can be a constant polynomial so they have degree \(1\) and \(2\) respectively. Wlog suppose \(g = b_0 + b_1X, h = c_0 + c_1X + c_2X^2 \in \Z[X]\). Expanding out and equating the coefficients, \(b_0c_0 = 1, b_1c_2 = 1\) so \(b_0b_1 = \pm 1\). Thus \(g\) has one of \(\pm 1\) as a root and so does \(f\). But it doesn't so such factorisation does not exist. Thus \(\Q[X]/(1 + X + X^3)\) is a field.
+\end{eg}
+
+\begin{lemma}
+  Let \(R\) be a UFD. If \(f, g \in F[X]\) are primitives then so is \(fg\).
+\end{lemma}
+
+\begin{proof}
+  Let
+  \begin{align*}
+    f &= a_0 + a_1X + \dots + a_nX^n \\
+    g &= b_0 + b_1X + \dots + b_mX^m
+  \end{align*}
+  with \(a_n, b_m \neq 0\). If \(fg\) is not primitive, then \(c(fg)\) is not a unit so there is an irreducible \(p \divides c(fg)\). As \(c(f)\) and \(c(g)\) are units, we have
+  \begin{align*}
+    & p \divides a_0, p \divides a_1, \dots, p \divides a_{k - 1}, p \ndivides a_k \\
+    & q \divides b_0, q \divides b_1, \dots, q \divides b_{\ell - 1}, q \ndivides b_\ell
+  \end{align*}
+  The coefficients of \(X^{k + \ell}\) if \(fg\) is
+  \[
+    \sum_{i + j = k + \ell} a_ib_j = \cdots + a_{k + 1}b_{\ell - 1} + a_kb_\ell + a_{k - 1}b_{\ell + 1} + \cdots
+  \]
+  where LHS is divisible by \(p\) so \(p \divides a_kb_\ell\) but \(p\) is prime so \(p \divides a_k\) or \(p \divides b_\ell\). Absurd. Thus \(c(fg)\) is a unit and \(fg\) is a primitive.
+\end{proof}
+
+\begin{corollary}
+  Let \(R\) be a UFD. Then \(c(fg)\) is an associate of \(c(f)c(g)\).
+\end{corollary}
+
+\begin{proof}
+  Let \(f = c(f) \cdot f_1, g = c(f) \cdot g_1\) with \(f_1, g_1\) primitive. Then
+  \[
+    fg = c(f)c(g) \cdot (f_1g_1)
+  \]
+  where \(f_1g_1\) is primitive by the lemma above. Thus \(c(f)c(g)\) is a gcd of the coefficients of \(fg\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Gauss' lemma}]
+  Let \(f \in R[X]\) be primitive. If \(f = gh\) is reducible in \(R[X]\) then \(g, h\) cannot be constants as otherwise \(f\) would not be primitive. Thus \(g, h \in F[X]\) are not units so \(f \in F[X]\) is reducible.
+
+  Suppose instead \(f\) is reducible in \(F[X]\), say \(f = gh\). We can ``clear the denominators'': find \(a, b \in R\) such that \(ag, bh \in R[X]\), then
+  \[
+    abf = (ag) \cdot (bh) \in R[X].
+  \]
+  Take contents, \(ag = c(ag) \cdot g_1, bh = c(bh) \cdot h_1\) with \(g_1, h_1\) primitive. Then
+  \[
+    ab \cdot f = c(ag)c(bf) \underbrace{g_1h_1}_{\text{primitive}}
+  \]
+  so \(ab\) is an associate of \(c(ag)c(bh)\) so \(c(ag)c(bh) = uab\) where \(u\) is a unit. Thus \(abf = uabg_1h_1\) and cancel to get \(f = (ug_1)h_1\) is reducible in \(R[X]\).
+\end{proof}
+
+\begin{definition}
+  Let \(R\) be a UFD and \(g \in R[X]\) primitive. Let \(I = (g) \ideal F[X]\) where \(F\) is the field of fraction of \(R\) and \(J = (g) \ideal R[X]\). Then
+  \[
+    J = I \subseteq R[X].
+  \]
+  Equivalently, if \(f \in R[X]\) is divisible by a primitive \(g \in F[X]\) then it is divisible by \(g\) in \(R[X]\).
+\end{definition}
+
+\begin{proof}
+  The \(\subseteq\) inclusion is clear. To show the other direction, let \(f = gh \in F[X]\). Clear denominators by find \(b \in R\) such that \(bh \in R[X]\) so \(bf = (bg) \cdot g \in R[X]\). Thus \(bf = c(bh)h_1g\) with \(h_1\) primitive. Now it follows that \(b \divides c(bh)\), as \(bc(f) = c(bh)\), so we get \(f = c(f) \cdot h_1g \in R[X]\). \(g\) divides \(f\) in \(R[X]\).
+\end{proof}
+
+\begin{theorem}
+  If \(R\) is a UFD then so is \(R[X]\).
+\end{theorem}
+
+\begin{proof}
+  To show existence, let \(f \in R[X]\) and write \(f = c(f) \cdot f_1\) with \(f_1\) primitive. As \(R\) is a UFD we can write \(c(f) = p_1 \cdots p_n \in R\)with \(p_i\) irrecucible in \(R\), so also irreducible in \(R[X]\). If \(f_1\) is not irreducible, write \(f_1 = f_2 \cdot f_3\)with \(f_2, f_3\) not units and are primitive. Thus \(f_2, f_3\) are not constants so have degree smaller than that of \(f_1\). If \(f_2\) or \(f_3\) is irreducible, factor again. The degree continues to strictly decrease and this stops eventually. So
+  \[
+    f = p_1 \cdots p_n q_1 \cdots q_m,
+  \]
+  a product of irreducibles.
+
+  Now for the uniqueness part, note \(p_1 \cdots p_n = c(f) \in R\), a UFD so the \(p_i\)'s are unique up to reordering and associates. Thus it suffices to show if \(q_1 \cdots q_m = r_1 \cdots r_\ell\) as products of primitive polynomials then \(m = \ell\) and the \(q_i\)'s and \(r_i\)'s are the same up to reordering and associates. Since \emph{\(F[X]\) is a PID and thus UFD}, \(q_1 \cdots q_m = r_1 \cdots r_\ell \in R[X] \subseteq F[X]\) implise that \(m = \ell\) and \(q_i\)'s equal to \(r_i\)'s in \(F[X]\). If \(q_1\) is an associate of \(r_1\) in \(F[X]\) then \(q_1 = ur_1\) for some unit \(u \in F[X]\). Then \(u \in F\) is a unit, write \(u = \frac{a}{b}\). Get \(bq_1 = ar_1 \in R[X]\). Taking contents, it follows that \(b\) is an associate of \(a\) in \(R\). Cancel to get \(q_1 = ar_1 \in R[X]\). Repeat for \(q_i\)'s and \(r_i\)'s.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Z[X]\) is a UFD.
+  \item If \(R\) is a UFD then so is \(R[X_1, \dots, X_n]\).
+  \end{enumerate}
+\end{eg}
+
+\begin{proposition}[Eisenstein's criterion]\index{Einsenstein's criterion}
+  Let \(R\) be a UFD and \(f = a_0 + a_1X + \dots + a_nX^n \in R[X]\) with \(a_n \neq 0\) be primitive. Suppose \(p \in R\) is an irreducible such that
+  \begin{itemize}
+  \item \(p \ndivides a_n\),
+  \item \(p \divides a_i\) for \(i = 0, 1, \dots, n - 1\),
+  \item \(p^2 \ndivides a_0\)
+  \end{itemize}
+  then \(f\) is irreducible in \(R[X]\), so also in \(F[X]\).
+\end{proposition}
+
+\begin{proof}
+  Let \(f = gh\) with
+  \begin{align*}
+    g &= r_0 + r_1X + \dots + r_kX^k \\
+    h &= s_0 + s_1X + \dots + r_\ell X^\ell
+  \end{align*}
+  with \(r_k, s_\ell \neq 0\). Then \(k + \ell = n\) and \(a_n = r_ks_\ell\). As \(p \ndivides a_n\), \(p \ndivides r_k\) and \(p \ndivides s_\ell\). Since \(p \divides a_0\) and \(p^2 \ndivides a_0\), suppose wlog that \(p \divides r_0, p \ndivides s_0\). Suppose \(p \divides r_0, p \divides r_1, p \divides r_{j - 1}, p \ndivides r_j\). Then
+  \[
+    a_j = s_0r_j + s_1r_{j - 1} + s_2r_{j - 2} + \dots + s_j r_0
+  \]
+  so \(p \ndivides a_j\) and by \(2\) \(j = n\). Thus \(\deg g = n\) and \(h\) is a constant. As \(f\) (and hence \(g\) and \(h\)) is a primitive \(h\) is a unit.
+\end{proof}
+
+\begin{eg}
+  For \(p \in \Z\) prime, \(f = X^m - p \in \Z[X]\) is irreducible in \(\Z[X]\) and \(\Q[X]\) so \(f\) does not have a root in \(\Q\). In particular, this shows that \(\sqrt[m]{p} \notin \Q\). This will be important in IID Galois Theory.
+\end{eg}
+
+\begin{eg}
+  For \(p \in \Z\) prime, let
+  \[
+    f = X^{p - 1} + X^{p - 1} + \dots + X + 1 \in \Z[X].
+  \]
+  Note that \((X - 1)f = X^p - 1\). Consider the ring isomorphism
+  \begin{align*}
+    \varphi: \Z[X] &\to \Z[X] \\
+    X &\mapsto X + 1
+  \end{align*}
+  Then
+  \[
+    \varphi(f) = \underbrace{X^{p - 1}}_{p \ndivides} + \underbrace{\binom{p}{1}}_{p \divides} Y^{p - 1} + \dots + \underbrace{\binom{p}{p - 2}}_{p \divides} Y + \underbrace{\binom{p}{p - 1}}_{= p}
+  \]
+  so Einsenstein's criterion says that \(\varphi(f)\) is irreducible, so is \(f\).
+\end{eg}
+
+\begin{remark}
+  The hypothesis of Einsenstein's criterion depends on the ambient ring while the conclusiohn does not. As a heuristics, we can apply ring isomorphisms to reduce the problem sometimes.
+\end{remark}
+
+\subsection{Gaussian integers}
+
+Recall
+\[
+  \Z[i] = \{a + bi: a, b \in \Z\} \leq \C.
+\]
+It has a norm \(N(a + ib) = a^2 + b^2\), making it a ED, and thus a PID and UFD. In particular primes and irreducibles agree. The units in \(\Z[i]\) are \(\pm 1, \pm i\) as they are the only elements of norm \(1\). In addition, we have the following observations:
+\begin{enumerate}
+\item \(2 = (1 + i)(1 - i)\) is \emph{not} a prime.
+\item \(N(3) = 9\). If \(3 = xy\) then \(9 = N(x)N(y)\). Either \(x\) or \(y\) is a unit or \(N(x) = N(y) = 3\). But the norm is never \(3\) so \(3\) \emph{is} a prime.
+\item \(5 = (2 + i)(2 - i)\) is \emph{not} a prime.
+\item \(7\) \emph{is} a prime.
+\end{enumerate}
+
+\begin{proposition}
+  A prime \(p \in \Z\) is a prime in \(\Z[i]\) if and only if \(p \neq a^2 + b^2\) for \(a, b \in \Z\).
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Rightarrow\): If \(p = a^2 + b^2 = (a + ib)(a - ib)\), it is reducible and thus not a prime.
+  \item \(\Leftarrow\): Note \(N(p) = p^2\). If \(p\) factors as \(uv\) with \(u, v\) not units then \(N(u) = N(v) = p\). Write \(u = a + ib\), we have \(p = N(u) = a^2 + b^2\).
+  \end{itemize}
+\end{proof}
+
+Now we prove a lemma regarding the multiplicative group of a finite field:
+
+\begin{lemma}
+  Let \(\F_p = \Z/p\Z\) be a field with \(p\) elements and \(p\) prime. Then \(\F_p^\times = \F_p \setminus \{0\}\) is a group under multiplication and is isomorphic to \(C_{p - 1}\).
+\end{lemma}
+
+\begin{proof}
+  Certainly \(\F_p^\times\) is an abelian group of order \(p - 1\). By the classification theorem of finite abelain groups, \(\F_p^\times\) is either cyclic or contains \(C_m \times C_m\) as a subgroup for some \(m \geq 2\).
+
+  Suppose \(C_m \times C_m \leq \F_p^\times\). Consider \(f = X^m - 1 \in \F_p[X]\). Each element of \(C_m \times C_m \leq \F_p^\times \subseteq \F_p\) gives a root of \(f\) so it has at least \(m^2\) distinct roots. But as \(\F_p[X]\) is a ED and thus UFD, it can be factorised into at most \(m\) unique irreducibles. Thus it has at most \(m\) distinct roots in \(\F_p\). Thus there is no subgroup \(C_m \times C_m\) in \(\F_p^\times\) and \(\F_p^\times\) is cyclic.
+\end{proof}
+
+\begin{proposition}
+  The primes in \(\Z[i]\) are, up to associates,
+  \begin{enumerate}
+  \item prime \(p \in \Z\) with \(p = 3 \mod 4\),
+  \item \(z \in \Z[i]\) such that \(N(z) = p\) where \(p\) is a prime and \(p = 2\), or \(p = 1 \mod 4\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  First show what we claimed are indeed primes, i.e.\ irreducibles:
+  \begin{enumerate}
+  \item if \(p = 3 \mod 4\), \(p \neq a^2 + b^2\) so \(p \in \Z[i]\) is a prime.
+  \item suppose \(z = uv\) then \(N(u)N(v) = p\) so \(N(u)\) or \(N(v) = 1\). \(u\) or \(v\) is a unit so \(z\) is irreducible.
+  \end{enumerate}
+
+  Now let \(z \in \Z[i]\) be a prime. Then \(\conj z\) is irreducible too so \(N(z) = z\conj z\) is a factorisation of \(N(z)\) into irreducibles in \(\Z[i]\). Let \(p \in \Z\) be a prime dividing \(N(z)\).
+  \begin{itemize}
+  \item Case 1: \(p = 3 \mod 4\). Then \(p\) is irreducible in \(\Z[i]\). As \(p \divides N(z)\), \(p \divides z\) or \(p \divides \conj z\). Wlog \(p \divides z\). As \(p\) and \(z\) are both irreducibles, they are associates.
+  \item Case 2: \(p = 2\), or \(p = 1 \mod 4\). If \(p = 1 \mod 4\), consider \(\F_p^\times \cong C_{p - 1} = C_{4k}\). It has a unique element of order \(2\), namely \([-1]\). As \(4 \divides p - 1\), there is also an element \([a] \in \F_p^\times\) order \(4\). Then \([a^2]\) has order \(2\) and thus \(a^2 = -1 \mod p\). Thus there exists \(b \in \Z\) such that \(a^2 + 1 = pb\), \(p \divides (a + i)(a - i)\).
+
+    If \(p = 2\) then \(p \divides (1 + i)(1 - i)\).
+
+    But \(p \ndivides a + i, p \ndivides a - i\) so \(p \in \Z[i]\) is not prime and thus not irreducible. Hence \(p = z_1z_2\) with \(z_1, z_2\) not units. \(p^2 = N(p) = N(z_1)N(z_2)\), \(N(z_1) = N(z_2) = p\) so \(p = z_1\conj{z_1} = z_2\conj{z_2}\). But also \(p = z_1z_2\) so \(z_2 = \conj z_1\).
+
+    We choose \(p\) such that \(p \divides N(z)\) so \(z_1\conj{z_1} \divides z \conj{z}\) and \(z\) is irreducible so \(z_1 \divides z\) or \(z_1 \divides \conj z\). \(z_1\) or \(\conj{z_1}\) is an associate of \(z\). \(N(z) = N(z_1)\) or \(N(\conj{z_1} = p\).
+  \end{itemize}
+\end{proof}
+
+\begin{corollary}
+  An integer \(n \in \Z > 0\) can be written as \(a^2 + b^2\), \(a, b \in \Z\) if and only if when we write \(n = p_1^{n_1}p_2^{n_2}\cdots p_k^{n_k}\) with \(p_i\)'s distinct, if \(p_i = 3 \mod 4\) then \(n_i\)'s are distinct.
+\end{corollary}
+
+\begin{proof}
+  Let \(n = a^2 + b^2 = (a + ib)(a - ib) = N(a + ib)\). Let \(z = a + ib\). Then \(z = \alpha_1\cdots \alpha_s\) as a product of irreducibles (i.e.\ primes) in \(\Z[i]\). Then \(n = N(\alpha_1)\cdots N(\alpha_s)\). Each \(\alpha_i\) is either a prime \(p\) congruent to \(3\) mod \(4\) so \(N(\alpha_i) = p^2\), or has \(N(\alpha_i) = q\), a prime not congruent to \(3\) mod \(4\). Thus \(n\) can be written as a product of primes as claimed.
+
+  Conversely, suppose \(n = p_1^{n_1} \cdots p_k^{n_k}\) with \(n_i\) even if \(p = 3 \mod 4\). For each \(i\) if \(p_i = 3 \mod 4\) then \(N(p_i) = p_i^2\), \(p_i^{n_i} = N(p_i^{n_i/2})\). As \(n\) is a product of norms of Gaussian integers, it is the norm of a Gaussian integer so is a sum of squares.
+\end{proof}
+
+\begin{eg}
+  In how many ways can \(65\) be written as a sum of two squares?
+  
+  \(65 = 5 \times 13\), \(5 = 1^2 + 2^2 = (2 + i) \conj{(2 + i)}\), \(13 = 2^2 + 3^2 = (2 + 3i)\conj{(2 + 3i)}\) so
+    \begin{align*}
+      65 &= (2 + i)(2 + 3i)\conj{(2 + i)}\conj{(2 + 3i)} \\
+         &= N((2 + i)(2 + 3i)) = N(1 + 8i) = 1^2 + 8^2 \\
+         &= N((2 + i)(2 - 3i)) = N(7 - 4i) = 7^2 + 4^2
+    \end{align*}
+\end{eg}
+
+\begin{ex}[Challenge]
+  Find conditions such that \(n = a^2 + 2b^2\) and \(a^2 + 3b^2\) in \(\Z[\sqrt{-2}]\) and \(\Z[\sqrt{-3}]\).
+\end{ex}
+
+\subsection{Algebraic integers}
+
+\begin{definition}[Algebraic integer]\index{algebraic integer}
+  A complex number \(\alpha \in \C\) is an \emph{algebraic integer} if it is a root oof a monic polynomial with integer coefficients.
+\end{definition}
+
+If \(\alpha\) is an algebraic integer, let \(\Z[\alpha] \leq \C\) be the smallest subring containing \(\alpha\), i.e.\ it is the image of the ring homomorphism
+\begin{align*}
+  \varphi: \Z[X] &\to \C \\
+  X &\mapsto \alpha
+\end{align*}
+Thus by 1st Isomorphism Theorem \(\Z[\alpha] \cong \Z[X]/I\) where \(I = \ker \varphi\).
+
+\begin{proposition}[Minimal polynomial]\index{minimal polynomial}
+  If \(\alpha\) is an algebraic integer then \(I = \ker \varphi\) is principal and is generated by an irreducible \(f_\alpha \in \Z[X]\), the \emph{minimal polynomial} of \(\alpha\).
+\end{proposition}
+
+\begin{proof}
+  As \(\alpha\) is an algebraic integer, it is a root of some \(f \in \Z[X]\) so \(f \in I\). Let \(f_\alpha \in I\) be a polynomial of minimal degree, which we may assume is positive. We want to show that
+  \begin{enumerate}
+  \item \(I = (f_\alpha)\),
+  \item \(f_\alpha\) is irreducible.
+  \end{enumerate}
+
+  \begin{enumerate}
+  \item Let \(h \in I\). Now \(\Q[X]\) is a ED so we can write \(h = qf_\alpha + r \in \Q[X]\) with \(r = 0\) or \(\deg r < \deg f_\alpha\). Clearing denominators, there is an \(a \in \Z\) such that \(aq, qr \in \Z[X]\), so \(ah = (aq) f_\alpha + ar \in \Z[X]\). \(\alpha\) is a root of \(h\) and of \(f_\alpha\) so is also a root of \(ar\). As \(f_\alpha\) has minimal degree among polynomials with \(\alpha\) as a root, we must have \(ar = 0\). Thus \(ah = (aq) f_\alpha\). Now \(c(ah) = a \cdot c(h)\), \(c((aq)f_\alpha) = c(aq)\) so \(\alpha \divides c(aq)\) so \(aq = a\conj q\) with \(\conj q \in \Z[X]\). Cancelling shows that \(\conj q = q\). Thus \(h = \conj q f_\alpha\) so \(h \in (f_\alpha)\).
+  \item \(\Z[X]/(f_\alpha) \cong \Z[\alpha] \leq \C\). As \(\C\) is an integral domain, so is \(\Z[\alpha]\). Thus \((f_\alpha)\) is prime. Thus \(f_\alpha \in \Z[X]\) is a prime and hence irreducible.
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\alpha = i\), \(f_\alpha = X^2 + 1\).
+  \item \(\alpha = \sqrt 2\), \(f_\alpha = X^2 - 2\).
+  \item \(\alpha = \frac{1 + \sqrt{-3}}{2}\), \(f_\alpha = X^2 - X + 1\).
+  \item Less trivially, for \(d \in \Z\), \(X^5 - X + d\) has a unique real root \(\alpha\). This \(\alpha\) cannot be constructed using \((Z, +, \times, \sqrt{\phantom{x}}\). c.f.\ IID Galois Theory.
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  If \(\alpha\) is an algebraic integer and \(\alpha \in \Q\) then \(\alpha \in \Z\).
+\end{lemma}
+
+\begin{proof}
+  \(f_\alpha \in \Z[X]\) is irreducible and primitive. By \nameref{thm:Gauss' lemma} \(f_\alpha \in \Q[X]\) is also irreducible. But if \(\alpha \in \Q\), \(X - \alpha \divides f_\alpha\) in \(\Q[X]\) so \(f_\alpha = X - a\). But \(f_\alpha \in \Z[X]\) so \(\alpha \in \Z\).
+\end{proof}
+
+\subsection{Hilbert Basis Theorem}
+
+Recall that a ring \(R\) satisfies the ascending chain condition (ACC) if whenever
+\[
+  I_1 \subseteq I_2 \subseteq \cdots
+\]
+ais an increasing sequence of ideals then there exists \(N \in \N\) such that for all \(n \geq N\), \(I_n = I_{n + 1}\).
+
+A ring satisfying ACC is called \emph{Noetherian}.
+
+We have shown that a PID is Noetherian.
+
+\begin{lemma}
+  A ring \(R\) is Noetherian if and only if every ideal of \(R\) if finitely generated.
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\Leftarrow\): Let \(I_1 \subseteq I_2 \subseteq \cdots\) be an ascending chain of ideal and \(I = \bigcup_n I_n\). Then \(I = (a_1, \dots, a_n)\) for some \(a_i \in R\). For all \(i\) there exists \(n_i \in \N\) such that \(a_i \in I_{n_i}\) so
+    \[
+      (a_1, \dots, a_n) \subseteq I_{\max_i n_i} \subseteq I.
+    \]
+    Take \(N = \max_i n_i\) and the result follows.
+  \item Suppose \(R\) is Noetherian and \(I \ideal R\). Choose \(a_1 \in I\). If \(I = (a_1)\) then done, so suppose not. Then choose \(a_2 \in I \setminus (a_1)\). If \(I = (a_1, a_2)\) then done, so suppose not. If we are never finished by this process then we get
+    \[
+      (a_1) \subseteq (a_1, a_2) \subseteq \cdots
+    \]
+    which is impossible as \(R\) is Noetherian. Thus \(I = (a_1, \dots, a_n)\) for some \(n\).
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}[Hilbert Basis Theorem]\index{Hilbert Basis Theorem}
+  If \(R\) is Noetherian then so is \(R[X]\).
+\end{theorem}
+
+\begin{proof}
+  Let \(J \ideal R[X]\). Let \(f_1 \in J\) be of minimal minimal degree. If \(J = (f_1)\) then done, else choose \(f_2 \in J \setminus (f_1)\) of minimal degree. Suppose we have
+  \[
+    (f_1) \subseteq (f_1, f_2) \subseteq \cdots 
+  \]
+  as an ascending chain of non-stabilising ideas. Let \(a_i \in R\) be the coefficient of the largest power of \(X\) in \(f_i\) and consider
+  \[
+    (a_1) \subseteq (a_1, a_2) \subseteq \cdots \ideal R.
+  \]
+  As \(R\) is Noetherian this chain stabilises, i.e.\ there exists \(m \in \N\) such that all \(a_i\)'s lie in \((a_1, \dots, a_m)\). In particular, \(a_{m + 1} = \sum_{i = 1}^m a_ib_i\) for some \(b_i \in R\). Let
+  \[
+    g = \sum_{i = 1}^m b_if_iX^{\deg f_{m + 1} - \deg f_i}
+  \]
+  which has leading term
+  \[
+    \sum_{i = 1}^m b_ia_iX^{\deg f_{m + 1}} = a_{m + 1}X^{\deg f_{m + 1}}.
+  \]
+  Thus \(\deg f_{m + 1} - g < \deg f_{m + 1}\). But \(g \in (f_1, \dots, f_m)\) but \(f_{m + 1} \notin (f_1, \dots, f_m)\) so \(f_{m + 1} - g \notin (f_1, \dots, f_m)\). This contradicts the minimality of the degree of \(f_{m + 1}\).
+\end{proof}
+
+\begin{eg}
+  \(\Z[X_1, \dots, X_n]\), \(\F[X_1, \dots, X_n]\) are Noetherian.
+\end{eg}
+
+\begin{lemma}
+  A quotient of a Noetherian ring is Noetherian.
+\end{lemma}
+
+\begin{corollary}
+  Any ring which may be generated by finitely many elements is Noetherian.
+\end{corollary}
+
+\begin{eg}[Non-example]
+  \(\Z[X_1, X_2, \dots]\) is \emph{not} Noetherian since
+  \[
+    (X_1) \subseteq (X_1, X_2) \subseteq \cdots
+  \]
+  is an non-stabilising ascending chain.
+\end{eg}
+
+\begin{remark}
+  Supose \(\mathcal F \subseteq \F[X_1, \dots, X_n]\) is a set of polynomials. \(\alpha = (a_1, \dots, a_n) \in \F^n\) is a solution of \(\mathcal F\) if and only if \(\mathcal F\) is contained in the kernel of
+  \begin{align*}
+    \varphi_a: \F[X_1, \dots, X_n] &\to \F \\
+    X_i &\mapsto a_i
+  \end{align*}
+  As \(\F[X_1, \dots, X_n]\) is Noetherian, \((\mathcal F) = (f_1, \dots, f_m)\) for finitely many \(f_i\)'s. \(\alpha\) is a simultaneous solution to \(\mathcal F\) if and only if \(\ker \varphi_\alpha \supseteq (\mathcal F) = (f_1, \dots, f_m)\), if and only if \(\alpha\) is a simultaneous solution to \(f_1, \dots, f_n\). That is to say, we only have to consider a finite family of polynomials of which \(\alpha\) is a root. This is important in algebraic geometry.
+\end{remark}
 
 \section{Modules}
 
@@ -1708,7 +2158,7 @@ We will show that PIDs are UFDs.
   If \(R = \F\) is a field and \(V\) and \(W\) are \(\F\)-modules (i.e. \(\F\)-vector spaces), then a map is an \(\F\)-module homomorphism if and only if it is an \(\F\)-linear map.
 \end{eg}
 
-\begin{theorem}[First Isomorphism Theorem]\index{tbd}
+\begin{theorem}[1st Isomorphism Theorem]\index{isomorphism theorem}
   If \(f: M \to N\) is an \(R\)-module homomorphism then
   \begin{align*}
     \ker f &= \{m \in M: f(m) = 0\} \leq M \\
@@ -1720,7 +2170,7 @@ We will show that PIDs are UFDs.
   \]
 \end{theorem}
 
-\begin{theorem}[Second Isomorphism Theorem]\index{tbd}
+\begin{theorem}[2nd Isomorphism Theorem]
   Let \(A, B \leq M\) be submodules. Then
   \begin{align*}
     A + B &= \{m \in M: m = a + b, a \in A, b \in B\} \leq M \\
@@ -1732,7 +2182,7 @@ We will show that PIDs are UFDs.
   \]
 \end{theorem}
 
-\begin{theorem}[Third Isomorphism Theorem]\index{tbd}
+\begin{theorem}[3rd Isomorphism Theorem]
   Let \(N \leq L \leq M\) be a chain of submodules. Then
   \[
     \frac{M/N}{L/N} \cong M/L.
@@ -1844,7 +2294,7 @@ We will show that PIDs are UFDs.
   implies that \(r_i = 0\) for all \(1 \leq i \leq k\).
 \end{definition}
 
-\begin{definition}[Free generation]\index{tbd}
+\begin{definition}[Free generation]
   A subset \(S \subseteq M\) \emph{generates \(M\) freely} if
     \begin{enumerate}
     \item \(S\) generates \(M\).
@@ -2010,7 +2460,7 @@ For this section assume \(R\) to be a Euclidean domain and let \(\varphi: R \set
 
 What follows would be very similar to what we have learned in IB Linear Algebra --- in fact identical except a single modification:
 
-\begin{definition}[Elementary row operation]\index{tbd}
+\begin{definition}[Elementary row operation]
   \emph{Elementary row operation} on an \(m \times n\) matrix \(m\) with entries in \(R\) are
   \begin{enumerate}
   \item Add \(c \in R\) times the \(i\)th row to the \(j\)th row where \(i \neq j\). This can be realised by left multiplication by \(mI + C\) where \(C\) is \(c\) in \((i,j)\)th position and \(0\) elsewhere.
@@ -2316,7 +2766,7 @@ Recall that we have remarked that a submodule of a finitely genereated module ma
 
 Now we are ready for the big theorem in this course:
 
-\begin{theorem}[Classification Theorem for Finitely Generated Modules over Euclidean Domain]\index{tbd}
+\begin{theorem}[Classification Theorem for Finitely Generated Modules over Euclidean Domain]\index{Structural Theorem for modules}
   \label{thm:module over ED}
   Let \(R\) be a Euclidean domain and \(M\) a finitely generated \(R\)-modules. Then
   \[
