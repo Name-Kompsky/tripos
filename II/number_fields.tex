@@ -1,0 +1,173 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Number Fields}
+\def\nlecturer{J.\ Thorne}
+
+\def\nterm{Lent}
+\def\nyear{2018}
+
+\input{header}
+
+\makeindex
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Motivation}
+
+Recall the following example from IB Groups, Rings and Modules:
+
+\begin{theorem}
+  Let \(p\) be an odd prime, then \(p = a^2 + b^2\) if and only if \(p = 1 \mod 4\).
+\end{theorem}
+
+\begin{proof}
+  If \(p = a^2 + b^2\) then \(p = 0, 1 \text{ or } 2 \mod 4\) so this condition is necessary.
+
+  Suppose instead \(p = 1 \mod 4\), then \(\binom{-1}{p} = 1\) so there exists \(a \in \Z\) such that \(a^2 = 1 \mod p\), or \(p \divides a^2 + 1\). We can factor \(a^2 + 1 = (a + i)(a - i) \in \Z[i]\). We know from IB Groups, Rings and Modules that \(\Z[i]\) is a UFD. As \(p \divides (a + i)(a - i)\), if \(p\) is irreducible in \(\Z[i]\)  then \(p \divides a + i\) or \(p \divides a - i\). Thus \(p \in \Z[i]\) is reducible so \(p = z_1z_2\) with \(z_1z_2 \in \Z[i]\). If \(z_1 = A + Bi\) where \(A, B \in \Z\) then \(A^2 + B^2 = p\).
+\end{proof}
+
+\begin{notation}
+  If \(R \subseteq S\) are rings and \(\alpha \in S\) then
+  \[
+    R[\alpha] = \left\{ \sum{i = 0}^n a_i\alpha^i \in s: a_i \in R \right\}
+  \]
+  which is the smallest subring of \(S\) containing both \(R\) and \(\alpha\).
+\end{notation}
+
+Another example is given \(p\) an odd prime, does the equation
+\[
+  x^p + y^p = z^p
+\]
+have solutions such that \(x, y, z \in \Z, xyz \neq 0\)?
+
+\begin{theorem}[Kummer, 1850]
+  If \(\Z[e^{2\pi i/p}]\) is a UFD then there are no solutions.
+\end{theorem}
+
+The strategy is to factor
+\[
+  x^p + y^p = \prod_{j = 0}^{p - 1} (x + e^{2\pi ij/p}j) \in \Z[e^{2\pi i/p}].
+\]
+We now know that \(\Z[e^{2\pi i/p}]\) is a UFD if and only if \(p \leq 19\), so unfortunately this does not lead us very far. Instead, we have the more power theorem
+
+\begin{theorem}[Kummer, 1850]
+  If \(p\) is a \emph{regular} prime then there are no solutions.
+\end{theorem}
+
+We will define regular prime later in this course. This theorem is more powerful that the previous one. To give an idea, if \(p < 100\) then \(p\) is regular if and only if \(p \neq 37, 59, 67\).
+
+Given a number field, this course studies the ring of integers. In the end of the course we will come back to Kummer's theorem.
+
+\section{Rings of integers}
+
+Recall that a field extension \(L/K\) is an inclusion \(K \subseteq L\) of fields. The degree of \(L/K\) is
+\[
+  [L:K] = \dim_K L.
+\]
+We say \(L/K\) is finite if \([L:K] < \infty\).
+
+\begin{definition}[Number field]\index{number field}
+  A \emph{number field} is a finite extension \(L/\Q\).
+\end{definition}
+
+Here are two ways to construct number fields:
+\begin{enumerate}
+\item Let \(\alpha \in \C\) be an algebraic number. Then \(L = \Q(\alpha)\) is a number field.
+\item Let \(K\) be a number field \(K\) and \(f(x) \in K[x]\) be irreducible. Then \(L = K[x]/(f(x))\) is a number field. Recall Tower Law from IID Galois Theory:
+  \[
+    [L:\Q] = [L:K][K:\Q] < \infty.
+  \]
+\end{enumerate}
+Note that the first one comes with an embedding in \(\C\), but the second one doesn't (and in general there are more than one).
+
+\begin{definition}[Algebraic integer]\index{algebraic integer}\leavevmode
+  \begin{enumerate}
+  \item Let \(L/K\) be a field extension. We say \(\alpha \in L\) is \emph{algebraic} over \(K\) if there exists a monic polynomial \(f(x) \in K[x]\) such that \(f(\alpha) = 0\).
+  \item Let \(L/\Q\) be a field extension. We say \(\alpha \in L\) is an \emph{algebraic integer} if there exists a monic polynomial \(f(x) \in \Z[x]\) such that \(f(\alpha) = 0\).
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Minimal polynomial]\index{minimal polynomial}
+  Let \(L/K\) be a field extension and let \(\alpha \in L\) be an algebraic over \(K\). We call the \emph{minimal polynomial} of \(\alpha\) over \(K\) the monic polynomial \(f_\alpha(x) \in K[x]\) of the least degree such that \(f_\alpha(\alpha) = 0\).
+\end{definition}
+
+Note that \(f_\alpha(x)\) is well-defined: firstly there exists some monic \(f(x) \in K[x]\) such that \(f(\alpha) = 0\) since \(\alpha\) is algebraic. If \(f_\alpha(x), f_\alpha'(x) \in K[x]\) both satisfy the definition of minimal plynomial then we apply the polynomial division algorithm to write
+\[
+  f_\alpha(x) = q(x)f_\alpha'(x) + r(x)
+\]
+where \(p(x), r(x) \in K[x]\) and \(\deg r < \deg f_\alpha'\). Evaluate at \(\alpha\), we get
+\[
+  0 = f_\alpha(\alpha) = p(\alpha)f_\alpha'(\alpha) + r(\alpha) = r(\alpha)
+\]
+so by minimality of \(\deg f_\alpha'\), \(r = 0\). Then \(\deg f_\alpha = \deg f_\alpha'\) and they are both monic so \(p = 1\). \(f_\alpha = f_\alpha'\).
+
+\begin{lemma}
+  Let \(L/\Q\) be a field extension and let \(\alpha \in L\) to be an algebraic integer. Then
+  \begin{enumerate}
+  \item the minimal polynomial \(f_\alpha(x)\) of \(\alpha\) over \(\Q\) lies in \(\Z[x]\);
+  \item if \(g(x) \in \Z[x]\) satisfies \(g(\alpha) = 0\) then there exists \(q(x) \in \Z[x]\) such that \(g(x) = f_\alpha(x)q(x)\);
+  \item the kernel of the ring homomorphism
+    \begin{align*}
+      \Z[x] &\to L \\
+      f(x) &\mapsto f(\alpha)
+    \end{align*}
+    equals to \((f_\alpha(x))\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Recall from IB Groups, Rings and Modules that given \(f(x) = \sum_{i = 0}^n a_ix^i \in \Z[x]\), we define the content to be
+    \[
+      c(f) = \gcd(a_n, \dots, a_0).
+    \]
+    Gauss' Lemma says that if \(f(x), g(x) \in \Z[x]\) then \(c(fg) = c(f)c(g)\).
+
+    Since \(\alpha \in L\) is an algebraic integer, there exists a monic \(f(x) \in \Z[x]\) such that \(f(\alpha) = 0\). Thus \(c(f) = 1\). Apply polynomial division in \(\Q[x]\) to get
+    \[
+      f(x) = p(x)f_\alpha(x) + r(x)
+    \]
+    where \(p(x), r(x) \in \Q[x]\). Same as before, we must have \(r(x) = 0\) so \(f(x) = p(x)f_\alpha(x)\). Now choose integers \(n, m \geq 1\) such that \(np(x) \in \Z[x], c(np) = 1\) and \(mf_\alpha(x) \in \Z[x], c(mf_\alpha) = 1\). Then
+    \[
+      nmf(x) = np(x) \cdot mf_\alpha(x).
+    \]
+    Take contents,
+    \[
+      nm = c(nmf(x)) = c(np \cdot mf_\alpha) = c(np)c(mf_\alpha) = 1.
+    \]
+    Thus \(n = m = 1\) so \(f_\alpha(x) \in \Z[x]\).
+  \item This is similar to the previous one. Let \(g(x) \in \Z[x]\) be such that \(g(\alpha) = 0\). wlog \(g(x) \neq 0\) and \(c(g) = 1\). We deduce \(g(x) = q(x)f_\alpha(x)\) where \(q(x) \in \Q[x]\). Choose \(k \geq 1\) such that \(kq(x) \in \Z[x]\) and \(c(kq) = 1\). Then
+    \[
+      k = c(kg) = c(kq \cdot f_\alpha) = c(kq) c(f_\alpha) = 1
+    \]
+    so \(q(x) \in \Z[x]\).
+  \item Reformulation of (2).
+  \end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+\printindex
+
+
+\iffalse
+Reading
+
+Marcus, Number Fields
+secret notes: https://www.dpmms.cam.ac.uk/~jat58/nfl2018
+\fi
+\end{document}

@@ -100,7 +100,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
    The convergence with respect to $\|\cdot\|_1$ means
    \begin{align*}
      & \left( \sum_{i=1}^m |v_{n,i}-v_i| \right) \to 0 \\
-     \Longleftrightarrow & \left( |v_{n,i}-v_i \right)\to 0 \text{ for all } 1\leq i\leq m \\ 
+     \Longleftrightarrow & \left( |v_{n,i}-v_i| \right)\to 0 \text{ for all } 1\leq i\leq m \\ 
     \Longleftrightarrow & (v_{n,i})\to v_i \text{ for all } 1\leq i\leq m.
   \end{align*}
 \end{ex}
@@ -3302,7 +3302,7 @@ The theorem says that there are local coordinates \((y_1, \dots, y_n)\) on \(\R^
       & \hspace{1.6em} V \subseteq \R^{n - m} \ar[ul, "g"] \ar[u, "\iota"', shift left=5]
     \end{tikzcd}
   \]
-  Let \(V = \iota^{-1}(U')\), which is open since \(\iota\) is continuous. \(g: V \to \R^n\) is given by \(g = h^{-1} \compose \iota\). Then \(g\) is injective since both \(h^{-1}\) and \(\iota\) are, and \(f(x) = y_0\) if and only if \(h(x) = (y_0, z)\), if and only if \(f(x) \in \im g\).
+  Let \(V = \iota^{-1}(U')\), which is open since \(\iota\) is continuous. \(g: V \to \R^n\) is given by \(g = h^{-1} \compose \iota\). Then \(g\) is injective since both \(h^{-1}\) and \(\iota\) are, and \(f(x) = y_0\) if and only if \(h(x) = (y_0, z)\), if and only if \(x \in \im g\).
 \end{proof}
 
 We have the tools ready for (stating) our theorem. Before that let's introduce some terminologies. Let \(f: \R^n \to \R^m\).
@@ -3419,7 +3419,7 @@ We showed back in \Cref{thm:completeness of function space with uniform norm} th
 \end{corollary}
 
 \begin{proof}
-  Suppose \((\V x_k)\) is a Cauchy sequence in \(X_\varepsilon\). Write \(\V x_k(t) = (x_{k, 1}(t), \dots, x_{k, n}(t))\). Then for \(1 \leq i \leq n\), \((x_{k, i})\) is Cauchy in \(C[-\varepsilon, \varepsilon]\). Thus there exists \(y_i \in [-\varepsilon, \varepsilon]\) such that \((x_{k, i}) \to y_i\). Then \((\V x_k) \to \V y = (y_1(t), \dots, y_n(t))\) in \(X_\varepsilon\) so \(X_\varepsilon\) is complete.
+  Suppose \((\V x_k)\) is a Cauchy sequence in \(X_\varepsilon\). Write \(\V x_k(t) = (x_{k, 1}(t), \dots, x_{k, n}(t))\). Then for \(1 \leq i \leq n\), \((x_{k, i})\) is Cauchy in \(C[-\varepsilon, \varepsilon]\). Thus there exists \(y_i \in C[-\varepsilon, \varepsilon]\) such that \((x_{k, i}) \to y_i\). Then \((\V x_k) \to \V y = (y_1(t), \dots, y_n(t))\) in \(X_\varepsilon\) so \(X_\varepsilon\) is complete.
 \end{proof}
 
 Before we look for a contraction map note that the equation \(\V x'(t) = \V V(\V x(t))\) is \emph{not} good for iteration since differentiation is a map \(C^r \to C^{r - 1}\). Instead, consider the integral equation
@@ -3444,7 +3444,7 @@ Before we look for a contraction map note that the equation \(\V x'(t) = \V V(\V
   \]
   Thus if \(\V x\) satisfies \eqref{eqn:ODE integral} then \(\V x'(t) = \V V(\V x(t))\) so \(\V x\) satisfies \eqref{eqn:ODE}.
 
-  Conversely, if \(\V x'(t) = \V V(\V x(t))\), \(\V x\) is differentiable and thus continuous so \(V x \in X_\varepsilon\). Moreover \(\V x'(t) = \V V(\V x(t))\) is continuous (since \(\V V \compose \V x\) is) so \(\V x(t)\) is \(C^1\). Integrating both sides of \eqref{eqn:ODE} gives \eqref{eqn:ODE integral}.
+  Conversely, if \(\V x'(t) = \V V(\V x(t))\), \(\V x\) is differentiable and thus continuous so \(\V V \in X_\varepsilon\). Moreover \(\V x'(t) = \V V(\V x(t))\) is continuous (since \(\V V \compose \V x\) is) so \(\V x(t)\) is \(C^1\). Integrating both sides of \eqref{eqn:ODE} gives \eqref{eqn:ODE integral}.
 \end{proof}
 
 Consider the map
@@ -3537,7 +3537,7 @@ By the corollary, the equation
 \begin{equation*}
   \label{eqn:ODE tilde}
   \tilde \V x'(t) = \widetilde \V V(\tilde \V x(t)), \, \tilde \V x(0) = \V x(0) = \V x_0
-  \tag{***}
+  \tag{\(\ast\ast\ast\)}
 \end{equation*}
 has a unique solution on \([-\varepsilon, \varepsilon]\) when \(\varepsilon < 1/M\). Since \(\widetilde \V V\) is continuous, there exists \(M'\) such that \(\norm{\widetilde \V V(\V p)}_2 \leq M'\) for all \(\V p \in \cl B_2(\V x_0)\), i.e.\ \(\norm{\widetilde \V V(\V p)} \leq M'\) for all \(\V p \in \R^n\). Choose \(\varepsilon < \min\{1/M, 1/M'\}\).
 
@@ -3563,7 +3563,7 @@ So for \(t \in [-\varepsilon, \varepsilon]\),
 \end{align*}
 i.e.\ \(\tilde \V x\) solves \eqref{eqn:ODE}.
 
-Conversely, a solution to \eqref{eqn:ODE} on \([\varepsilon, \varepsilon]\) gives a solution to \eqref{eqn:ODE tilde}.
+Conversely, a solution to \eqref{eqn:ODE} on \([-\varepsilon, \varepsilon]\) gives a solution to \eqref{eqn:ODE tilde}.
 
 In summary, we have proved that
 
@@ -3599,7 +3599,7 @@ or have many solutions
 
 But we can reduce a general ODE into a form we are familiar with, namely first order equation:
 \begin{enumerate}
-\item Eliminate \(t\) (as a term in the equation) at cost of adding extra variables. We have already shown how to do this before. For example,
+\item Eliminate \(t\) (as a term in the equation) at the cost of adding an extra variable. We have already shown how to do this before. For example,
   \[
     t^2(y')^2 + y^3 = \sin t
   \]

@@ -1,0 +1,80 @@
+\documentclass[a4paper]{article}
+
+\def\npart{IB}
+
+\def\ntitle{Complex Methods}
+\def\nlecturer{R.\ E.\ Hunt}
+
+\def\nterm{Lent}
+\def\nyear{2018}
+
+\input{header}
+
+\makeindex
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Analytic Functions}
+
+\subsection{The Complex Plane and the Riemann Sphere}
+
+Any \(z \in \C\) can be written in the form \(x + iy\) where \(x = \Re z\) and \(y = \Im z\), \(x, y \in \R\) or \(re^{i\theta}\) where the \emph{modulus} \(|z| = r = \sqrt{x^2 + y^2}\) and the argument \(\theta = \arg z\) satisfies \(y = x\tan \theta\). The argument is defined only up to multiples of \(2\pi\). The \emph{principal value of the argument} is the value of \(\theta\) in the range \((-\pi, \pi]\). Note that the formula \(\tan^{-1} \frac{y}{x}\) gives the correct value for the principal value of \(\theta\) only if \(x > 0\). If \(x \leq 0\) then it might be out by \(\pm \pi\) (consider \(1 + i\) and \(1 - i\)).
+
+An \emph{open set} \(D\) is a subset of \(\C\) which does not include its boundary\footnote{Hint: this is an applied course.}.
+
+A \emph{neighbourhood} of a point \(z\) is an open set containing \(z\).
+
+A \emph{domain} is an open set that is connected (i.e.\ cannot be split into wto disjoint open subsets). A \emph{simply-connected domain} is one with no holes (i.e.\ any curve lying in the domain can be shrunk continuouly to a point without leaving the domain).
+
+Note that a hole could be caused merely be a particular function under consideration being undefined at a single point, e.g.\ \(\frac{1}{z}\).
+
+The \emph{extended complex plane} is \(\C^* = \C \cup \{\infty\}\). We can reach the ``point at infinity'' be going off in any direction in the plane, and all are equivalent. Conceptually we may use the \emph{Riemann sphere}, which is a sphere resting on the complex plane with its ``south pole'' \(S\) at \(z = 0\). For any point \(z \in \C\), drawing a line through the ``north pole'' \(N\) of the sphere to \(z\) and noting where this line intersects the sphere specifies an equivalent point \(P\) on the sphere. Then \(\infty\) is equivalent to the ``north pole'' itself.
+
+To investigate properties of \(\infty\) we use the substitution \(\zeta = \frac{1}{z}\). A function \(f(z)\) is said to have a particular property at infinity if \(f(\frac{1}{z})\) has the same property at \(0\).
+
+\subsection{Complex Differentiation}
+
+Recall the definition of differentiation for a real function \(f(x)\):
+\[
+  f'(x) = \lim_{\delta x \to 0} \frac{f(x + \delta x) - f(x)}{\delta x}.
+\]
+It is implicit that the limit must be the same whichever direction we approach from. Consider \(|x|\) at \(x = 0\) for example: if we approach from the right (\(\delta x \to 0^+\)) then the limit is \(+1\), whereas from the left (\(\delta x \to 0^-\)) it is \(-1\). Because these limits are different we say that \(|x|\) is not differentiable at \(x = 0\).
+
+Now extend the defintion to complex function \(f(z)\). \(f\) is \emph{differentiable} at \(z\) if
+\[
+  f'(z) = \lim_{\delta z \to 0} \frac{f(z + \delta z) - f(z)}{\delta z}
+\]
+exists (and is therefore independent of direction of approach --- but now there is an infinity of possible directions).
+
+We say that \(f\) is \emph{analytic} at a point \(z\) if there exists a neighbourhood of \(z\) throughtout which \(f'\) exists. The term \emph{regular} and \emph{holomorphic} are also used. A function which is analytic throughtout \(\C\) is called \emph{entire}.
+
+A \emph{singularity} of \(f\) is a point at which it is not analytic, or not even defined.
+
+The property of analyticity is in fact a surprisingly strong one. For example, two consequenses include
+\begin{enumerate}
+\item if a function is analytic then it is differentiable infinitely many times (c.f.\ the existence of real functions which can be differentiated \(N\) times but no more, for any given \(N\));
+\item a bounded entire function is constant (c.f.\ \(\tanh x\) for \(x \in \R\), which is bounded but not constant).
+\end{enumerate}
+
+\subsection{Cauchy-Riemann Equations}
+
+Separate \(f\) and \(z\) into real and imaginary parts:
+\[
+  f(z) = u(x, y) + iv(x, y)
+\]
+where \(z = x + iy\) and \(u, v\) are real functions. Suppose that \(f\) is differentiable at \(z\). We may take \(\delta z\) in any direction. First take it to be real, \(\delta x = \delta x\). Then
+\begin{align*}
+  f'(z) &= \lim_{\delta x \to 0} \frac{f(z + \delta x) - f(z)}{\delta x} \\
+        &= \lim_{\delta x \to 0} \frac{u(x + \delta x, y) + iv(x + \delta x, y) - u(x, y) - iv(x, y)}{\delta x} \\
+        &= \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x}
+\end{align*}
+
+
+
+\printindex
+
+\end{document}

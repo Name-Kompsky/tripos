@@ -1,0 +1,170 @@
+\documentclass[a4paper]{article}
+
+\def\npart{IB}
+
+\def\ntitle{Geometry}
+\def\nlecturer{A.\ G.\ Kovalev}
+
+\def\nterm{Lent}
+\def\nyear{2018}
+
+\input{header}
+
+\DeclareMathOperator{\Isom}{Isom}
+
+\makeindex
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Eucldiean Geometry}
+
+Let \((\cdot, \cdot)\) be the standard inner product, a.k.a.\ dot product on the Euclidean space \(\R^n\) where for \(x, y \in \R^n\),
+\[
+  (x, y) = x \cdot y = \sum_{i = 1}^{n}x_iy_i.
+\]
+This induces the Euclidean norm
+\[
+  \norm x = \sqrt{(x, x)}.
+\]
+Also define the Euclidean distance function
+\[
+  d(x, y) = \norm{x - y}
+\]
+which makes \(\R^n\) a metric space.
+
+\begin{definition}[Isometry]\index{isometry}
+  A map \(f: \R^n \to \R^n\) is an \emph{isometry} of \(\R^n\) if
+  \[
+    \forall P, Q \in \R^n,\, d(f(P), f(Q)) = d(P, Q).
+  \]
+\end{definition}
+
+Recall that an \(n \times n\) matrix \(A\) is \emph{orthogonal} if
+\[
+  A^TA = AA^T = I.
+\]
+For any square matrix \(A\) we have
+\[
+  (Ax, Ay) = (Ax)^T(Ay) = x^TA^TAy = (x, A^TAy)
+\]
+so we find that \(A\) is orthogonal if and only if \((Ax, Ay) = (x, y)\) for all \(x, y \in \R^n\).
+
+Another point of view:
+\[
+  (x, y) = \frac{1}{2}(\norm{x + y}^2 -  \norm x^2 - \norm y^2)
+\]
+so \(A\) is orthogonal if and only if \(\norm{Ax} = \norm x\) for all \(x \in \R^n\).
+
+An example of isometry: let \(f(x) = Ax + b\) where \(b \in \R^n\), then
+\[
+  d(f(x), f(y)) = \norm{A(x - y)}.
+\]
+So \(f\) is an isometry if and only if \(A\) is orthogonal.
+
+Surprisingly, it turns out all isometries have this form:
+
+\begin{theorem}
+  Every isometry \(f: \R^n \to \R^n\) is of the form \(f(x) = Ax + b\) for some orthogonal matrix \(A\) and some vector \(b \in \R^n\).
+\end{theorem}
+
+\begin{proof}
+  Let \(e_1, \dots, e_n \in \R^n\) be the standard basis of \(\R^n\). Let \(b = f(0)\), \(a_i = f(e_i) - b\) for \(i = 1, \dots, n\). We want to show that \(a_i\)'s form an orthonormal basis. Firstly
+  \[
+    \norm{a_i} = \norm{f(e_i) - f(0)} = d(f(e_i), f(0)) = d(e_i, 0) = \norm{e_i} = 1
+  \]
+  so they have unit length. For \(i \neq j\),
+  \begin{align*}
+    (a_i, a_j) &= -\frac{1}{2}(\norm{a_i - a_j}^2 - \norm{a_i}^2 - \norm{a_j}^2) \\
+               &= -\frac{1}{2}(\norm{f(e_i) - f(e_j)}^2 - 2 \\
+               &= -\frac{1}{2}(\norm{e_i - e_j}^2 - 2) \\
+               &= 0
+  \end{align*}
+  Thus \(a_i\)'s form an orthonormal basis of \(\R^n\) and it follows that the matrix \(A\) with columns \(a_i, \dots, a_n\) is orthogonal.
+
+  Let \(g(x) = Ax + b\) which is an isometry. We have \(g(x) = f(x)\) for \(x = 0, e_1, \dots, e_n\). In addition,
+  \[
+    g^{-1}(x) = A^{-1}(x - b) = A^T(x - b)
+  \]
+  is an isometry so the composition \(h = g^{-1} \compose f\) is an isometry fixing \(0, e_1, \dots, e_n\). It then suffices to show \(h = \id\). Consider \(x = \sum_{i = 1}^n x_ie_i \in \R^n\). Let \(y = h(x) = \sum_{i = 1}^n y_ie_i\). Then
+\begin{align*}
+  d(x, e_i)^2 &= \norm x^2 + 1 - 2x_i \\
+  d(x, 0)^2 &= \norm x^2 \\
+  d(y, e_i)^2 &= \norm y^2 + 1 - 2y_i \\
+  d(y, 0)^2 &= \norm y^2
+\end{align*}
+Since \(h\) is an isometry, \(h(0) = 0\), \(h(e_i) = e_i\) and \(h(x) = y\), we have \(\norm x = \norm y\) so \(x_i = y_i\) for all \(i\). Thus \(h(x) = x\) for all \(x \in \R^n\).
+\end{proof}
+
+\begin{remark}
+  \[
+    \Isom(\R^n) = \{\text{all isometries of } \R^n\}
+  \]
+  is a group by composition. This is also known as the group of rigid motions of \(\R^n\).
+\end{remark}
+
+\begin{eg}[Reflections in an affine hyperplane \(H \subset \R^n\)]
+  Let
+  \[
+    H = \{x \in \R^n: u \cdot x = c\}
+  \]
+  where \(\norm u = 1\) and \(c \in \R\). Observe that \(u\) is perpendicular to \(H\) and so is a normal vector. The reflection in \(H\) is defined to be
+  \[
+    R_H: x \mapsto x - 2(x \cdot u - c)u.
+  \]
+  It is an exercise in example sheet to show that this is an isometry. Observe that if \(x \in H\) then \(R_H(x) = x\). If \(a \in H, t \in \R\) then
+  \[
+    R_H(a + tu) = (a + tu) - 2tu = a - tu.
+  \]
+  Thus \(R_h\) fixes exactly the points in \(H\).
+
+  Conversely, suppose \(S \in \Isom(\R^n)\) and \(S\) fixes every point in \(H\). Let \(a \in H\) and defind translation by \(a\) as
+  \[
+    T_a(x) = x + a
+  \]
+  which is clearly an isometry. Conjugate \(S\) by \(T_a\), we get
+  \[
+    R = T_{-a}ST_a \in \Isom(\R^n)
+  \]
+  and \(R\) fixes \(H' = T_{-a}(H)\). We choose to work with \(H'\) since \(0 \in H'\), making it a subspace of \(\R^n\). Explicitly, if \(H = \{x: x\cdot u = c\}\) then \(H' = \{x: x \cdot u = 0\}\). Then for all \(x \in H'\),
+  \[
+    (Ru, x) = (Ru, Rx) = (u, x) = 0.
+  \]
+  Thus \(Ru\) is orthogonal to \(H'\), i.e.\ lies in the orthogonal complement of \(H'\) in \(\R^n\). Thus \(Ru = \lambda u\) for some \(\lambda \in R\) such that \(\lambda^2 = 1\). So \(\lambda = \pm 1\).
+
+  Since \(R\) fixes \(0 \in \R^n\), \(R\) is linear by the previous theorem and either \(R = \id\) or \(R\) is given by the matrix
+  \[
+    \begin{pmatrix}
+      -1 & & \\
+      & 1 & \\
+      & & \ddots \\
+      & & & 1
+    \end{pmatrix}
+  \]
+  i.e.\ \(R_{H'}\). If \(R = \id\) then \(S = \id\). If \(R = R_{H'}\) then \(S = T_aR_{H'}T_{-a}\). Check that
+  \[
+    S: x \mapsto x - a \mapsto (x - a) - 2(x \cdot u - a \cdot u) u \mapsto x - 2(x \cdot u - c)u
+  \]
+  is a reflection. Thus if \(S \in \Isom(\R^n)\) fixing \(H\) and \(S \neq \id \) then \(R\) is the reflection in \(H\).
+\end{eg}
+
+
+
+\printindex
+
+\iffalse
+Other courses that might be useful: topology, part of analysis II (differentiability in R^n and inverse function theorem)
+
+Leads to: IID Differential Geometry
+
+Reading List
+
+P.\ Wilson, Curverd Spaces, CUP 2008
+From classical geometries to elementary differential geometry
+\fi
+
+
+\end{document}

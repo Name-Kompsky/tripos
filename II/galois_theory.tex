@@ -58,7 +58,7 @@ This course requires quite a lot of IB Groups, Rings and Modules but no content 
 \end{definition}
 
 \begin{eg}
-  \(\Q \leq \R, \R \leq \C, \Q \leq \Q(\sqrt 2) = \{\lambda + \mu \sqrt 2, \lambda, \mu \in \Q\}\) and \(\Q(i) = \{\lambda + \mu i, \lambda, \mu \in \Q\} \leq \C\) are all field extensions.
+  \(\Q \leq \R, \R \leq \C, \Q \leq \Q(\sqrt 2) = \{\lambda + \mu \sqrt 2: \lambda, \mu \in \Q\}\) and \(\Q(i) = \{\lambda + \mu i: \lambda, \mu \in \Q\} \leq \C\) are all field extensions.
 \end{eg}
 
 Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space with addition given by the field and scalar multiplication given by the multiplication in the field \(L\).
@@ -68,7 +68,7 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
 \end{definition}
 
 \begin{definition}[Finite extension]\index{field extension!finite}
-  If \(|L:K| < \infty\) the extension if \emph{finite}. Otherwise it is \emph{infinite}.
+  If \(|L:K| < \infty\) the extension is \emph{finite}. Otherwise it is \emph{infinite}.
 \end{definition}
 
 \begin{eg}\leavevmode
@@ -80,6 +80,7 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
 \end{eg}
 
 \begin{theorem}[Tower Law]
+  \label{thm:tower}
   Suppose \(K \leq L \leq M\) are field extensions. Then
   \[
     |M:K| = |M:L||L:K|.
@@ -89,7 +90,7 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
 \begin{proof}
   Assume \(|M:L| < \infty, |L:K| < \infty\). Then we take an \(L\)-basis \(\{f_i\}_{i = 1}^b\) and a \(K\)-basis \(\{e_j\}_{j = 1}^a\).
 
-  Now take \(m \in M\). \(m \sum_{i = 1}^{b} \mu_if_i\) for some \(\mu_i \in L\). For each \(\mu_i\), we can write \(\mu_i = \sum_{j = 1}^{\infty} \lambda_{ij}e_j\) for some \(\lambda_{ij} \in K\). Thus
+  Now take \(m \in M\). \(m = \sum_{i = 1}^{b} \mu_if_i\) for some \(\mu_i \in L\). For each \(\mu_i\), we can write \(\mu_i = \sum_{j = 1}^{\infty} \lambda_{ij}e_j\) for some \(\lambda_{ij} \in K\). Thus
   \[
     m = \sum_{i = 1}^{b} \sum_{j = 1}^{a} \lambda_{ij} f_ie_j
   \]
@@ -110,6 +111,186 @@ Suppose \(K \leq L\) is a field extension. Then \(L\) is a \(K\)-vector space wi
     |\Q(\sqrt 2, i):\Q| = 4 = 2 \cdot 2 = |\Q(\sqrt 2, i):\Q(\sqrt 2)||\Q(\sqrt 2):\Q|.
   \]
 \end{eg}
+
+What are the intermediate fields between \(\Q\) and \(\Q(i, \sqrt 2)\)? Obviously we have \(\Q(\sqrt 2), \Q(i)\) and \(\Q(i\sqrt 2)\). Are there any more?
+
+To answer, this, the Galois correspondence arising in the \nameref{thm:fundamental} gives an \emph{order-reversing} bijection between the lattice of intermediate subfields and the subgroups of a group of ring automorphisms of the extension field (\(\Q(i, \sqrt 2)\) here) that fix the smaller field eleemnt-wise.
+
+Ring automorphisms of \(\Q(i, \sqrt 2)\) that fixes \(\Q\) include the identity \(e: \sqrt 2 \mapsto \sqrt 2, i \mapsto i\) and complex conjugation \(g: \sqrt \mapsto \sqrt 2, i \mapsto -i\). Notice that \(i\) and \(-i\) play the same role in the field \(\Q(i, \sqrt 2)\) --- they are both roots of \(t^2 + 1 = 0\). There is another automorphism
+\begin{align*}
+  h: \sqrt 2 &\mapsto -\sqrt 2 \\
+  i &\mapsto i
+\end{align*}
+which switches the roots of \(t^2 - 2 = 0\). Notice that the composition
+\begin{align*}
+  gh: \sqrt 2 &\mapsto -\sqrt 2 \\
+  i &\mapsto -i
+\end{align*}
+These form a group of order \(4\), which equals to \(|\Q(i, \sqrt 2): \Q|\).
+
+\[
+  \begin{tikzcd}
+    & \Q(i, \sqrt 2) \ar[dl, dash, "2"] \ar[d, dash, "2"] \ar[dr, dash, "2"] \\
+    \Q(\sqrt 2) \ar[dr, dash, "2"] & \Q(i) \ar[d, dash, "2"] & \Q(i\sqrt 2) \ar[dl, dash, "2"] \\
+    & \Q
+  \end{tikzcd}
+  \quad
+  \begin{tikzcd}
+    & \{e\} \ar[dl, dash, "2"] \ar[d, dash, "2"] \ar[dr, dash, "2"] \\
+    \{e, g\} \ar[dr, dash, "2"] & \{e, h\} \ar[d, dash, "2"] & \{e, gh\} \ar[dl, dash, "2"] \\
+    & \{e, g, h, gh\}
+  \end{tikzcd}
+\]
+
+The recipe for producing an intermediate subfield from a subgroup is to take the elements of \(\Q(i, \sqrt 2)\) which are fixed by all elements of the subgroup. For example, \(\Q(i\sqrt 2)\) is the field of elements fixed by both \(e\) and \(gh\). This correspondence doesn't always work for all finite field extensions: it only works for \emph{Galois extensions}.
+
+In the correspondence, normal extensions correspond to normal subgroups. In this example all subgroups are normal and hence the extensions are normal.
+
+We will also prove \nameref{thm:primitive}, which in the context of finite extensions of \(\Q\) tells us that they are necessarily of the form \(\Q(\alpha)\) for some \(\alpha\). For example, \(\Q(i, \sqrt 2) = \Q(i + \sqrt 2)\).
+
+We now do a review of IB Groups, Rings and Modules.
+
+Suppose \(K \leq L\) is a field extension. Take \(\alpha \in L\). Define
+\[
+  I_\alpha = \{f \in K[t]: f(\alpha) = 0\}.
+\]
+
+\begin{definition}[Algebraic, transcendental]
+  \(\alpha\) is \emph{algebraic} over \(K\) is \(I_\alpha \neq \{0\}\). Otherwise \(\alpha\) is \emph{transcendental} over \(K\).
+\end{definition}
+
+\begin{definition}[Algebraic extension]\index{extension!algebraic}
+  \(L\) is \emph{algebraic over} \(K\) if for all \(\alpha \in L\), \(\alpha\) is algebraic over \(K\).
+\end{definition}
+
+\begin{remark}
+  \(I_\alpha\) is the kernel of the ring homomorphism
+  \begin{align*}
+    K[t] &\to L \\
+    f &\mapsto f(\alpha)
+  \end{align*}
+  evaluation at \(\alpha\). It follows that \(I_\alpha\) is an ideal of \(K[t]\).
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\sqrt 2\) is algebraic over \(Q\) since it is a root of \(t^2 - 2\).
+  \item \(\pi\) is transendental over \(\Q\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  Let \(K \leq L\) be a finite field extension. Then \(L\) is algebraic over \(K\).
+\end{lemma}
+
+\begin{proof}
+  Let \(|L:K| = n\). Take \(\alpha \in L\). Consider \(1, \alpha, \alpha^2, \dots, \alpha^n\). These must be linearly dependent in the \(n\)-dimensional \(K\)-vector space \(L\) so
+  \[
+    \sum_{i = 0}^n \lambda_i\alpha^i = 0
+  \]
+  for some \(\lambda_i \in K\) not all zero. Then \(\alpha\) is a root of \(f(t) = \sum_{i = 0}^n \lambda_it^i\). Thus \(\alpha\) is algebraic over \(K.\)
+\end{proof}
+
+The non-zero ideal \(I_\alpha\) (where \(\alpha\) is algebraic over \(K\)) is principal since \(K[t]\) is a PID. Then
+
+\begin{definition}[Minimal polynomial]\index{minimal polynomial}
+  \(I_\alpha = (f_\alpha(t))\) and \(f_\alpha(t)\) can be assumed to be monic. Such a monic \(f_\alpha(t)\) is the \emph{minimal polynomial} of \(\alpha\) over \(K\).
+\end{definition}
+
+\begin{remark}
+  Multiplication by \(\alpha\) within the field \(L\) gives a \(K\)-linear map \(L \to L\), an automorphism of \(L\) if \(\alpha \neq 0\).
+
+  In IB Groups, Rings and Modules, we proved that the minimal polynomial of a linear map is unique.
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The minimal polynomial of \(\sqrt 2\) over \(\Q\) is \(t^2 - 2\).
+  \item The minimal polynomial of \(\sqrt 2\) over \(\R\) is \(t - \sqrt 2\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  Suppose \(K \leq L\) is a field extension, \(\alpha \in L\) and \(\alpha\) is algebraic over \(K\). Then the minimal polynomial \(f_\alpha(t)\) of \(\alpha\) over \(K\) is irreducible in \(K[t]\) and so \(I_\alpha\) is a prime ideal.
+\end{lemma}
+
+\begin{proof}
+  Suppose not and \(f_\alpha(t) = p(t)q(t)\). We must show that either \(p(t)\) or \(q(t)\) is a unit in \(K[t]\). Note that \(0 = f(\alpha) = p(\alpha)q(\alpha)\) and so \(p(\alpha) = 0\) or \(q(\alpha) = 0\). Assume wlog \(p(\alpha) = 0\). Thus \(p(t) \in I_\alpha\) and so \(p(t) = f_\alpha(t)r(t)\) since \(I_\alpha = (f_\alpha(t))\). Thus \(f_\alpha(t) = f_\alpha(t)r(t)q(t)\) and so \(r(t)q(t) = 1\) in \(K[t]\). Thus \(q(t)\) is a unit as required.
+
+  Recall that irreducible elements in an integral domain are prime and generate prime ideals of \(K[t]\). Thus \(I_\alpha\) is a prime ideal.
+\end{proof}
+
+\begin{definition}[Generated field]
+  Suppose \(K \leq L\) is a field extension and \(\alpha \in L\). \(K(\alpha)\) is defined to be the smallest subfield of \(L\) containing \(K\) and \(\alpha\). It is called the \emph{field generated} by \(K\) and \(\alpha\).
+\end{definition}
+
+\begin{definition}[Simple extension]\index{extension!simple}
+  \(L\) is a \emph{simple extension} if \(L = K(\beta)\) for some \(\beta \in L\).
+\end{definition}
+
+Given \(\alpha_1, \dots, \alpha_n \in L\), \(K \leq L\), \(K(\alpha_1, \dots, \alpha_n)\) is the smallest intermediate field containing \(\alpha_1, \dots, \alpha_n\). It is the field generated by \(K\) and \(\alpha_1, \dots, \alpha_n\). On the other hand, \(K[\alpha] = \im (K[t] \to L, f \mapsto f(\alpha))\) is the ring generated by \(K\) and \(\alpha\).
+
+\begin{theorem}
+  Suppose \(K \leq L\) is a field extension and \(\alpha \in L\) is algebraic. Then
+  \begin{enumerate}
+  \item \(K(\alpha) = K[\alpha] = \im (f \mapsto f(\alpha))\).
+  \item \(|K(\alpha):K| = \deg f_\alpha(f)\) where \(f_\alpha(t)\) is the minimal polynomial of \(\alpha\) over \(K\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Clearly \(K[\alpha] \leq K(\alpha)\). We need to show that if \(0 \neq \beta \in K[\alpha]\) then it is a unit in \(K[\alpha]\) and so \(K[\alpha]\) is a field. Let \(\beta = g(\alpha)\) for some \(g(t) \in K[t]\). Since \(\beta = g(\alpha) \neq 0\), \(g(t) \notin I_\alpha = (f_\alpha(t))\). Therefore \(f_\alpha(t) \ndivides g(t)\). Since \(f_\alpha(t)\) is irreducible and \(K[t]\) is a PID, there exists \(r(t), s(t) \in K[t]\) with
+    \[
+      r(t)f_\alpha(t) + s(t)g(t) = 1 \in K[t].
+    \]
+    Thus \(s(\alpha)g(\alpha) = 1 \in K[\alpha]\) and thus \(\beta = g(\alpha)\) is a unit as required.
+  \item Let \(n = \deg f_\alpha(t)\). We will show that \(\{1, \alpha, \dots, \alpha^{n - 1}\}\) is a \(K\)-vector space basis of \(K[\alpha]\).
+    \begin{itemize}
+    \item spanning: suppose
+      \[
+        f_\alpha(t) = t^n + a_{n - 1}t^{n - 1} + \dots + a_0
+      \]
+      with \(a_i \in K\). Then
+      \[
+        \alpha^n = -a_{n - 1}\alpha^{n - 1} - \dots - a_0.
+      \]
+      This implies that \(\alpha^n\) is a linear combination of \(\{\alpha^i\}^{n - 1}_0\). An easy induction shows that \(a^m\) for \(m \geq n\) is likewise a linear combination of \(\{\alpha^i\}^{n - 1}_0\). Spanning thus follows.
+    \item linear independence: suppose there is a relation \(\sum_{i = 0}^{n - 1} \lambda_{i}\alpha^i = 0\). Let \(g(t) = \sum_{i = 0}^{n - 1}\lambda_it^i\). Since \(g(\alpha) = 0\), we have \(g(t) \in I_\alpha = (f_\alpha(t))\). Thus \(g(t) = 0\) or \(f_\alpha(t) \divides g(t)\). The latter is not possible by degree consideration. Thus \(g(t) = 0 \in K[\alpha]\) and all the \(\lambda_i\)'s are zero.
+    \end{itemize}
+  \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+  If \(K \leq L\) is a field extension and \(\alpha \in L\) then \(\alpha\) is algebraic over \(K\) if and only if \(K \leq K(\alpha)\) is finite.
+\end{corollary}
+
+\begin{proof}
+  Straightforward by combining previous results.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:divisibility of extension}
+  Let \(K \leq L\) be a field extension with \(|L:K| = n\) and \(\alpha \in L\). Then \(\deg f_\alpha(t) \divides n\).
+\end{corollary}
+
+\begin{proof}
+  By \nameref{thm:tower} on \(K \leq K(\alpha) \leq L\), we deduce that \(|K(\alpha):K|\) divides \(|L:K|\). The result follows from the corollary above.
+\end{proof}
+
+\subsection{Digression on (non-)constructability}
+
+In schedules it mentions ``other classical problems'' and we are in a position to tackle some of these using \Cref{cor:divisibility of extension}.
+
+A classical problem from Greek geometry concerns the existence or otherwise of constructions using ruler and compasses. Here ``ruler'' means single unmarked straightedge. If you're an expert you can divide a line between two points into arbitrarily many equal segments, bisect an angle and produce parallel lines. In addition, given a polygon, you can produce a square of the same area or double the area. However, you cannot
+\begin{enumerate}
+\item duplicate the cube (i.e.\ given a cube you cannot produce a cube of double the volume);
+\item trisect the angle \(\pi/3\);
+\item square a circle (i.e.\ given a circle you cannot construct a square of the same area).
+\end{enumerate}
+
+
+
 
 \blindtext
 

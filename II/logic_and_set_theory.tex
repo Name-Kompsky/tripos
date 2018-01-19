@@ -1,0 +1,81 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Logic and Set Theory}
+\def\nlecturer{I.\ B.\ Leader}
+
+\def\nterm{Lent}
+\def\nyear{2018}
+
+\input{header}
+
+\makeindex
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Propositional Logic}
+
+Let \(P\) be a set of \emph{primitive propositions}. Unless otherwise stated,
+\[
+  P = \{p_1, p_2, \dots \}.
+\]
+The \emph{language} or \emph{set of propositions} \(L = L(P)\) is defined inductively by
+\begin{enumerate}
+\item \( p \in P, p \in L\),
+\item \(\bot \in L\) (reads ``false''),
+\item if \(p, q \in L\) then \((p \implies q) \in L\).
+\end{enumerate}
+
+\begin{eg}
+  \((p_1 \implies \bot)\), \(((p_1 \implies p_2) \implies (p_1 \implies p_3))\), \(((p_1 \implies \bot) \implies \bot)\) are elements of \(L\).
+\end{eg}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item Each proposition is a finite union string of symbols from the alphabet \((, ), \implies, p_1, p_2, \dots\).
+  \item ``Inductively defined'' means more precisely that we set
+    \begin{align*}
+      L_1 &= P \cup \{\bot\} \\
+      L_{n + 1} &= L_n \cup \{(p \implies q): p, q \in L_n\}
+    \end{align*}
+    and then set \(L = L_1 \cup L_2 \cup \dots\). \(L_n\) can be seen as ``things born by time \(n\)''.
+  \item Each proposition is built up \emph{uniquely} from (1), (2) and (3). For example, \(((p_1 \implies p_2) \implies (p_1 \implies p_3))\) came from \((p_1 \implies p_2)\) and \((p_1 \implies p_3)\).
+  \end{enumerate}
+\end{note}
+
+Note that we often omit outer brackets or use different brackets for clarity.
+
+We can now define for example, \(\neg p\) (reads ``not \(p\)'') as an abbreviation for \(p \implies \bot\), \(p \lor q\) (reads ``\(p\) or \(q\)'') for \((\neg p) \implies q\), \(p \land q\) (reads \(p\) and \(q\)'') for \(\neg (p \implies (\neg q))\).
+
+
+
+
+
+\printindex
+
+\iffalse
+logic is the interplay of syntax and semantics
+set: stuff with sets, universe of sets
+
+Contents
+
+1: Propositional logic
+2: Well-ordering and ordinals
+3: Posets and Zorn's Lemma
+4: Predicate logic
+5: Set theory
+6: Cardinals
+
+Reading:
+Johnstone, Notes on logic and set theory
+van Dalen, Logic and structure
+Hainal & Hamburger, Set theory
+Forster, Logic, induction and sets
+\fi
+
+\end{document}

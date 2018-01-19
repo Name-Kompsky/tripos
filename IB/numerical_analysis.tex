@@ -1,0 +1,115 @@
+\documentclass[a4paper]{article}
+
+\def\npart{IB}
+
+\def\ntitle{Numerical Analysis}
+\def\nlecturer{H.\ Fawzi}
+
+\def\nterm{Lent}
+\def\nyear{2018}
+
+\input{header}
+
+\makeindex
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Numerical analysis is the study of \emph{algorithms} for continuous mathematics. Examples of problems in continuous mathematics are:
+\begin{itemize}
+\item solve \(f(x) = 0\) where \(f: \R^n \to \R\),
+\item solve \(\frac{dx}{dt} = f(x)\) where \(f: \R^n \to \R^n\)
+\item optimisation: find \(\min f(x)\) where \(x \in \R^n, f: \R^n \to \R\).
+\end{itemize}
+
+A note on complexity: we measure the complexity of an algorithm by the number of \emph{elementary operations} (\(+, \times, -, /\)) it needs.
+
+Big \(O\) notation: for example \(O(n), O(n^2)\), where \(n\) is input size. We also have complexity \(O(f(n))\) if the number of operations is at most \(cf(n)\) where \(c > 0\).
+
+\section{Polynomial Interpolations}
+
+Denote a degree \(n\) polynomial by
+\[
+  p(x) = p_0 + p_1x + \dots + p_nx^n
+\]
+and let \(P_n[x]\) be the vector space of polynomials of degree at most \(n\). The interpolation problem is, given \(x_0, x_1, \dots, x_n \in \R\) and \(f_0, f_1, \dots, f_n \in \R\), find \(p \in P_n[x]\) such that \(p(x_i) = f_i\) for \(i = 0, \dots, n\).
+
+\subsection{Lagrange formula}
+
+Claim that
+\[
+  p(x) = \sum_{k = 0}^{n} f_k \underbrace{\prod_{\ell \neq k}^{ } \frac{x - x_\ell}{x_k - x_\ell}}_{L_k(x)}
+\]
+solves the problem.
+
+Note that \(L_k(x_j) = \begin{cases} 1 & j = k \\ 0 &j \neq k \end{cases}\) and the result easily follows.
+
+Now we prove the uniqueness of the solution. Assume \(q \in P_n[x]\) is another polynomial that interpolates the data. Then \(p - q\) has \(n + 1\) zeros. But a non-zero polynomial in \(P_n[x]\) has at most \(n\) zeros. Thus \(p - q\) must be zero.
+
+This is an easy solution but what is its complexity? For each \(k\), the complexity of evaluating \(L_k(x)\) is \(O(n)\) so the total complexity of evaluating \(p(x)\) is \(O(n^2)\).
+
+\subsubsection{Error of polynomial interpolation}
+
+Let \(C^s[a, b]\) be the space of functions \([a, b] \to \R\) that are \(s\) times continuously differnetiable.
+
+\begin{theorem}
+  Let \(f \in C^{n + 1}[a, b]\) and let \(p \in P_n[x]\) interpolate \(f\) at distinct \(x_0, \dots x_n\) , i.e.\ \(p(x_i) = f(x_i)\) for \(i = 0, \dots, n\). Then for all \(x \in [a, b]\), there exists \(\xi \in [a, b]\) such that
+  \[
+    f(x) - p(x) = \frac{1}{(n + 1)!} f^{(n + 1)}(\xi) \prod_{i = 0}^n (x - x_i).
+  \]
+\end{theorem}
+
+The last term \(\prod_{i = 0}^n (x - x_i)\) is called the \emph{nodal polynomial}.
+
+\begin{proof}
+  If \(x = x_i\) for some \(i\) then the result is trivially true. Assume \(x\) is distinct from \(x_i\)'s for all \(i\). Define
+  \[
+    \varphi(t) = f(t) - \left(p(t) + (f(x) - p(x)) \frac{\prod_{i = 0}^n(t - x_i)}{\prod_{i = 0}^n(x - x_i)} \right).
+  \]
+  Note that the second term is by construction the interpolating polynomial of \(f\) at \(x_0, \dots, x_n\) and \(x\). Thus
+  \[
+    \varphi(x_0) = \varphi(x_1) = \dots = \varphi(x_n) = \varphi(x) = 0
+  \]
+  so \(\varphi\) has \(n + 2\) zeros. Recall from IA Analysis I Rolle's Theorem: if \(g \in C^1[a, b]\) such that \(g(a) = g(b)\) then there exists \(\alpha \in (a, b)\) such that \(g'(\alpha) = 0\). Apply it to \(\varphi\), we deduce that \(\varphi'\) has \(n + 1\) zeros. Inductively we find that \(\varphi^{(n + 1)}\) has \(1\) zero, i.e.\ there exists \(\xi \in [a, b]\) such that \(\varphi^{(n + 1)}(\xi) = 0\). Thus
+  \[
+    0 = \varphi^{(n + 1)}(\xi) = f^{(n + 1)}(\xi) - \left( \underbrace{p^{(n + 1)}(\xi)}_{= 0} + (f(x) - p(x)) \frac{(n + 1)!}{\prod_{i = 0}^n(x - x_i)} \right).
+  \]
+  Rearrange,
+  \[
+    f(x) - p(x) = \frac{1}{(n + 1)!}f^{(n + 1)}(\xi) \prod_{i = 0}^n(x - x_i).
+  \]
+\end{proof}
+
+\begin{eg}
+  \([a, b] = [-5, 5]\), \(x_j = -5 + 10 \frac{j}{n}\) for \(j = 0, \dots, n\). Plot \(\prod_{i = 0}^n(x - x_i)\), we note that it vanishes at \(x_i\)'s but blows up near the endpoints.
+\end{eg}
+
+This is called \emph{Runge's phenomenon}. If one attempts to interpolate \(f(x) = \frac{1}{1 + x^2}\) using equispaced points on \([-5, 5]\) and plots the error \(f(x) - p(x)|\).
+
+Thus equispaced points may not be the most suitable to minimise the error. The remedy is to look for points \(x_0, \dots, x_n\) such that \(|\prod_{i = 0}^n(x - x_i)|\) is small. This leads us to \emph{Chebyshev points}. For example in the previous case we should choose
+\[
+  x_j = 5 \cos \frac{(n - j)\pi}{n}.
+\]
+This choice of points is the one that minimises
+\[
+  \max_{x \in [a, b]} \left| \prod_{i =0}^n(x - x_i) \right|.
+\]
+
+
+
+
+
+\printindex
+
+\iffalse
+http://damtp.cam.ac.uk/user/hf323/L18-IB-NA/
+\fi
+
+\end{document}

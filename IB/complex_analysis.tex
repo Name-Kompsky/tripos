@@ -1,0 +1,135 @@
+\documentclass[a4paper]{article}
+
+\def\npart{IB}
+
+\def\ntitle{Complex Analysis}
+\def\nlecturer{G.\ P.\ Paternain}
+
+\def\nterm{Lent}
+\def\nyear{2018}
+
+\input{header}
+
+\newcommand*{\D}{\mathcal{D}}
+
+\makeindex
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Basic notions}
+
+Some preliminary notations/definitions:
+
+\begin{notation}\leavevmode
+  \begin{itemize}
+  \item \(D(a, r)\) is the open disc of radius \(r > 0\) and centred at \(a \in \C\).
+  \item \(U \subseteq \C\) is open if for any \(a \in U\), there exists \(\varepsilon > 0\) such that \(D(a, \varepsilon) \subseteq U\).
+  \item A \emph{curve} is a continuous map from a closed interval \(\varphi: [a, b] \to \C\). It is continuously differentiably, i.e.\ \(C^1\), if \(\varphi'\) exists and is continuous on \([a, b]\).
+  \item An open set \(U \subseteq \C\) is \emph{path-connected} if for every \(z, w \in U\) there exists a curve \(\varphi: [0, 1] \to U\) with endpoints \(z, w\).
+  \end{itemize}
+\end{notation}
+
+\begin{definition}[Domain]\index{domain}
+  A \emph{domain} is an non-empty path-connected open subset of \(\C\).
+\end{definition}
+
+The goal of this course is to study functions \(f: U \to \C\) where \(U \subseteq \C\) is open or is a domain. Given such an \(f\), we may write
+\[
+  f(x + iy) = u(x, y) + iv(x, y)
+\]
+where \(u, v: U \to \R\) are the real and imaginary part of \(f\). Here we use \((x, y) \in \R^2\) to denote the coordinates of \(a + bi \in \C\).
+
+\begin{definition}[Differentiable, holomorphic]\index{differentiable}\index{holomorphic}\leavevmode
+  \begin{enumerate}
+  \item \(f: U \to \C\) is differentiable at \(w \in U\) if the limit
+    \[
+      f'(w) = \lim_{z \to w} \frac{f(z) - f(w)}{z - w}
+    \]
+    exists. \(f'(w)\) is called the \emph{derivative} of \(f\) at \(w\).
+  \item \(f\) is \emph{holomorphic} at \(w\) if there exists \(\varepsilon > 0\) such that \(f\) is differentiable at all points of \(D(w, \varepsilon)\). \(f\) is holomorphic on \(U\) if it is differentiable at all \(w \in U\). Equivalent, \(f\) is holomorphic at at all \(w \in U\).
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item There is an alternative term \emph{analytic}. In actuality, it is the same as holomorphic for complex functions. However, it comes with a flavour associated with the Taylor expansion and sometimes defined in terms of such. Later in the course we will prove that the definitions are equivalent.
+  \item Complex differentiation follows the same rules as real differentiation. For example, sums of differentiable functions are differentiable, product, quotient, chain rules etc also hold.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[Entire]\index{entire}
+  An \emph{entire} function is a holomorphic function \(f: \C \to \C\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Polynomials are entire functions.
+  \item If \(p(z)\) and \(q(z)\) are polynomials with \(q(z)\) not identically zero, then \(\frac{p}{q}\) is holomorphic on \(\C \setminus \{\text{zeros of } q\}\).
+  \end{enumerate}
+\end{eg}
+
+In IB Analysis II we studied function from \(\R^n\) to \(\R^m\) and their differentiability. Indeed a complex function \(\C \to \C\) can be view as a function \(\R^2 \to \R^2\) so how does complex differentiability relates to differentiablitiy in \(\R^2\)? It turns out that in addition to satisfy the differentiability on \(\R^2\), the function has to satisfy a particular partial differential equation.
+
+Recall that \(u\) is differentiable at \((c, d) \in U\) if there exists \((\lambda, \mu) \in \R^2\) such that
+\[
+  \frac{u(x, y) - u(c, d) - (\lambda(x - c) + \mu(y -d))}{\sqrt{(x - c)^2 + (y - d)^2}} \to 0
+\]
+as \((x, y) \to (c, d)\). In this case \(\D u(c, d) = (\lambda, \mu)\) is the derivative of \(u\) at \((c, d)\). If this holds then \(\lambda = u_x(c, d)\) and \(\mu = u_y(c, d)\), the partical derivatives of \(u\) at \((c, d)\).
+
+\begin{theorem}[Cauchy-Riemann equations]\index{Cauchy-Riemann}
+  \(f: U \to \C\) is differentiable at \(w = c + id \in U\) if and only if the functions \(u\) and \(v\) are differentiable at \((c, d)\) and
+  \begin{align*}
+    u_x(c, d) &= v_y(c, d) \\
+    u_y(c, d) &= -v_x(c, d)
+  \end{align*}
+  in which case
+  \[
+    f'(w) = u_x(c, d) + iv_x(c, d).
+  \]
+\end{theorem}
+
+\begin{proof}
+  From the definition, \(f\) will be differentiable at \(w\) with derivative \(f'(w) = p + iq\) if and only if
+  \[
+    \lim_{z \to w} \frac{f(z) - f(w) - f'(w)(z - w)}{|z - w|} = 0
+  \]
+  or equivalently, splitting into real and imaginary parts,
+  \begin{align*}
+    \lim_{(x, y) \to (c, d)} \frac{u(x, y) - u(c, d) - (p(x - c) - q(y - d))}{\sqrt{(x - c)^2 + (y - d)^2}} &= 0 \\
+    \lim_{(x, y) \to (c, d)} \frac{v(x, y) - v(c, d) - (q(x - c) + p(y - d))}{\sqrt{(x - c)^2 + (y - d)^2}} &= 0
+  \end{align*}
+  since \(f'(w)(z - w) = (p(x - c) - q(y - d)) + i(q(x - c) + p(y - d))\). So \(f\) is differentiable at \(w\) with derivative \(f'(w) = p + iq\) if and only if \(u\) and \(v\) are differentiable at \((c, d)\) with
+  \begin{align*}
+    \D u(c, d) &= (p, -q) \\
+    \D v(c, d) &= (q, p)
+  \end{align*}
+  hence the result.
+\end{proof}
+
+\begin{eg}
+  Let \(f(z) = \conj z\). Then \(f(x + iy) = x - iy\), \(u(x, y) = x, v(x, y) = -y\). We have
+  \[
+    u_x = 1 \neq -1 = v_y
+  \]
+  so \(f\) is not differentiable anywhere in \(\C\).
+\end{eg}
+
+
+
+
+
+\printindex
+
+\iffalse
+past lecture notes:
+T. Scholl, K. Carne
+
+Book
+Ahlfors, Complex Analysis
+\fi
+
+\end{document}

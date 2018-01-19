@@ -59,7 +59,7 @@ The additive unit of $V$ is denoted by $\V 0$.
   \label{eg:matrix as V}
   \begin{enumerate}
   \item $\forall n \in \mathbb{N}, \mathbb{F}^n$ is the space of column vectors of length $n$ with entries in $\mathbb{F}$. It is an vector space by entry-wise addition and entry-wise scalar multiplication.
-  \item $\\M_{m,n}(\mathbb{F})$, the set of $m\times n$ matrices with entries in $\mathbb{F}$, with the operation defined as entry-wise addition.
+  \item $\M_{m,n}(\mathbb{F})$, the set of $m\times n$ matrices with entries in $\mathbb{F}$, with the operation defined as entry-wise addition.
     \item For any set $X$, $\mathbb{R}^X = \{f: X \to \mathbb{R}\}$, the set of $\mathbb{R}$-valued functions on $X$, with addition and scalar multiplication defined pointwise. For instance, $(f_1+f_2)(x) = f_1(x)+f_2(x)$.
   \end{enumerate}
 \end{eg}
@@ -201,7 +201,7 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   \[
     \sum_{i=1}^n \lambda_i = 0 \Rightarrow \lambda_i = 0 \: \forall i
   \]
-  A subset $S \subset V$ is \emph{linearly independent} if every finite subset of $S$ is linearly independent.
+  A subset $S \subseteq V$ is \emph{linearly independent} if every finite subset of $S$ is linearly independent.
 
   A subset if \emph{linearly dependent} if it is not linearly independent.
 \end{definition}
@@ -444,16 +444,16 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   \begin{enumerate}
   \item Given an \(n\times m\) matrix \(A\) with coefficients in \(\F\), the map \(\alpha: \F^m\to \F^n, v\to Av\).
   \item Differentiation \(D: P(\R) \to P(\R), f\mapsto \frac{df}{dx}\).
-  \item Integration \(I: C[0,1] \to C[0,1], f\to I(f)\) where \(I(f)(x) = \int_0^x f(t)dt\).
+  \item Integration \(I: C[0,1] \to C[0,1], f \mapsto I(f)\) where \(I(f)(x) = \int_0^x f(t)dt\).
   \item Fix \(x\in [0,1]\), the map \(C[0,1]\to \R, f\mapsto f(x)\).
   \end{enumerate}
 \end{eg}
 
-\begin{note}[Category of \(\mathbf{Vect}_\F\)]
+\begin{note}[Categority of \(\mathbf{Vect}_\F\)]
   Suppose \(U, V, W\) are \(\F\)-vector spaces, then
   \begin{enumerate}
   \item \(\id: V\to V\) is linear.
-  \item \(U \stackrel{\alpha}{\to} V \stackrel{\beta}{\to} W\), if \(\alpha, \beta\) are linear then so is \(\beta \compose \alpha\).
+  \item Given \(U \stackrel{\alpha}{\to} V \stackrel{\beta}{\to} W\), if \(\alpha, \beta\) are linear then so is \(\beta \compose \alpha\).
   \end{enumerate}
 \end{note}
 
@@ -505,7 +505,10 @@ which is an isomorphism.
 \end{proof}
 
 \begin{remark}
-  Choosing an isomorphism \(V \cong \F^n\) is equivalent to choosing a basis for \(V\). i.e.\ there is a bijection \(\{\alpha\in\Hom(V,\F^n), \alpha\text{ bijective}\} \leftrightarrow \{\text{bases of } V\} \).
+  Choosing an isomorphism \(V \cong \F^n\) is equivalent to choosing a basis for \(V\), i.e.\ there is a bijection
+  \[
+    \{\alpha\in\Hom(V,\F^n), \alpha\text{ bijective}\} \leftrightarrow \{\text{bases of } V\}.
+  \]
 \end{remark}
 
 \begin{theorem}
@@ -855,7 +858,7 @@ Let \(Q\) be the change-of-basis matrix from \(\basis C'\) to \(\basis C\). Then
 \begin{proof}
   Fix \(r\) such that \(\dim N(\alpha) = n-r\). Fix a basis for \(N(\alpha)\), say \(v_{r+1},\dots,v_n\). Extend this to a basis \(\basis B\) for \(V\), say \(v_1,\dots,v_r,v_{r+1},\dots,v_n\). Now \(\alpha(v_1),\dots,\alpha(v_r)\) is a basis for \(\im(\alpha)\):
   \begin{itemize}
-  \item span: \(\alpha(v_1),\dots, \alpha(v_n)\) certainly span \(\im(\alpha)\). Since \(v_{r+1},\dot,v_n \in \ker \alpha\), \(\alpha(v_{r+1}),\dots,\alpha(v_n) = 0\) so we can remove them from the spanning set.
+  \item span: \(\alpha(v_1),\dots, \alpha(v_n)\) certainly span \(\im(\alpha)\). Since \(v_{r+1}, \dots ,v_n \in \ker \alpha\), \(\alpha(v_{r+1}),\dots,\alpha(v_n) = 0\) so we can remove them from the spanning set.
   \item linear independence: assume \(\sum_{i=1}^{n}\lambda_i \alpha(v_i) =\V 0 \). Then \(\alpha \big(\sum_{i=1}^n\lambda_iv_i\big) =\V0\). This implies that
     \[
       \sum_{i=1}^{n}\lambda_iv_i = \sum_{j=r+1}^{n}\mu_jv_j.
@@ -930,7 +933,7 @@ Let \(Q\) be the change-of-basis matrix from \(\basis C'\) to \(\basis C\). Then
     \begin{pmatrix}
       I_r & 0 \\
       0 & 0
-    \end{pmatrix}_{n,m}
+    \end{pmatrix}_{m, n}
   \) where \(P\) and \(Q\) are invertible. Take transpose of the whole equation:
   \[
     \begin{pmatrix}
@@ -981,7 +984,7 @@ Note a special case for change of basis: \(V = W\), \(\basis C = \basis B\) and 
 \end{note}
 
 \begin{definition}[Elementary matrix]\index{matrix!elementary}
-The elementary row (column, respectively) operations have corresponding elementary matrices, which are the results of performing these column (row, respectively) operations on \(I_n\) (\(I_m\), respectively):
+The elementary column (row, respectively) operations have corresponding elementary matrices, which are the results of performing these column (row, respectively) operations on \(I_n\) (\(I_m\), respectively):
 \begin{enumerate}
 \item
   \[
@@ -1023,7 +1026,7 @@ An elementary column (row, respectively) operation on \(A\in \M_{m,n}(\F)\) can 
 Given the elementary matrices, we can give a constructive proof that any \(m\times n\) matrix is equivalent to \(\begin{pmatrix} I_r & 0 \\ 0 & 0 \end{pmatrix}\) for some \(r\):
 
 \begin{proof}[Constructive proof of Theorem~\ref{thm:upper corner matrix}]
-  Start with \(A\). If all entries of \(A\) are zero then done. If not the some \(a_{ij} = \lambda \neq 0\). Perform the following:
+  Start with \(A\). If all entries of \(A\) are zero then done. If not then some \(a_{ij} = \lambda \neq 0\). Perform the following:
   \begin{enumerate}
   \item swap row \(1\) and \(i\), swap column \(1\) and \(j\) so \(\lambda\) is in position \((1,1)\),
   \item multiply column \(1\) by \(1/\lambda\) to get \(1\) in position \((1,1)\),
@@ -1239,7 +1242,7 @@ It turns out dual spaces have maps between them. Before studying them in detail,
   \begin{align*}
     \alpha^*(\gamma_r)(b_s) &= \gamma_r \compose \alpha(b_s) \\
                             &= \gamma_r(\alpha(b_s)) \\
-                            &= \gamma(r) \Big( \sum_{t}^{ }a_{ts}c_t \Big) \\
+                            &= \gamma_r \Big( \sum_{t}^{ }a_{ts}c_t \Big) \\
                             &= \sum_{t}^{ } a_{ts} \gamma_r(c_t) \\
                             &= a_{rs} \\
                             &= \Big( \sum_{i}^{ } a_{ri}\beta_i \Big) (b_s)
@@ -1384,7 +1387,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 
 \begin{proof}\leavevmode
   \begin{itemize}
-  \item Let \(\theta \in V^*\), \(\theta \in (U_1+U_2)^\ann\) if and only if \(\theta(u_1+u_2) = 0\) for all \(u_1\in U_1, u_2 \in U_2\), if and only if \(\theta(u) = 0\) for all \(u \in U_1 \cup U_2\), so \(\theta\in U_2^\ann \cap U_2^\ann\).
+  \item Let \(\theta \in V^*\), \(\theta \in (U_1+U_2)^\ann\) if and only if \(\theta(u_1+u_2) = 0\) for all \(u_1\in U_1, u_2 \in U_2\), if and only if \(\theta(u) = 0\) for all \(u \in U_1 \cup U_2\), so \(\theta\in U_1^\ann \cap U_2^\ann\).
   \item Apply \(^\ann\) to the first result and use the previous lemma.
   \end{itemize}
 \end{proof}
@@ -1444,7 +1447,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \end{note}
 
 \begin{lemma}
-  Let \(\basis B = \{e_1,\dots, e_m\}\) be a basis for \(U\), \(\basis B^* = \{\varphi_1,\dots, \varphi_m\}\) a basis for \(U^*\), \(\basis C = \{f_1,\dots, f_n\}, \basis C^* = \{\eta_1,\dots, \eta_n\}\) for \(V\) and \(V^*\). If \([\varphi]_{\basis B, \basis C} = A\) then
+  Let \(\basis B = \{e_1,\dots, e_m\}\) be a basis for \(U\), \(\basis B^* = \{\varepsilon_1,\dots, \varepsilon_m\}\) a basis for \(U^*\), \(\basis C = \{f_1,\dots, f_n\}, \basis C^* = \{\eta_1,\dots, \eta_n\}\) for \(V\) and \(V^*\). If \([\varphi]_{\basis B, \basis C} = A\) then
   \begin{align*}
     [\varphi_L]_{\basis B, \basis C^*} &= A^T, \\
     [\varphi_R]_{\basis C, \basis B^*} &= A. \\
@@ -1454,7 +1457,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \begin{proof}
   \begin{align*}
     \varphi_L(e_i)(f_j) = A_{ij} &\Longrightarrow \varphi_L(e_i) = \sum_{j}^{ }A_{ij}\eta_j \\
-    \varphi_R(f_j)(e_i) = A_{ij} &\Longrightarrow \varphi_R(f_j) = \sum_{i}^{ }A_{ij}\varepsilon_j
+    \varphi_R(f_j)(e_i) = A_{ij} &\Longrightarrow \varphi_R(f_j) = \sum_{i}^{ }A_{ij}\varepsilon_i
   \end{align*}
 \end{proof}
 
@@ -1481,7 +1484,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \end{proof}
 
 \begin{corollary}
-  If \(\varphi\) is non-degenerate then \(U\) and \(V\) are finite-dimensional and \(\dim U = \dim V\).
+  If \(\varphi\) is non-degenerate and \(U\) and \(V\) are finite-dimensional then \(\dim U = \dim V\).
 \end{corollary}
 
 \begin{corollary}
@@ -1692,7 +1695,7 @@ For example, if \(\{e_i\}\) is a standard basis for \(\F^n\) then
   \end{itemize}
 \end{proof}
 
-In the rest of the section we are going to prove that the converse is also true, i.e.\ all volume forms are determinants up to a scaling constant.
+In the rest of the section we are going to prove that the converse is also true, i.e.\ all volume forms are determinant up to a scaling constant.
 
 \begin{lemma}
   Let \(d\) be a volume form. Then swapping two entries changes the sign:
@@ -1704,7 +1707,7 @@ In the rest of the section we are going to prove that the converse is also true,
 \begin{proof}
   \begin{align*}
     0 &= d(v_1, \dots, v_{i-1}, v_i + v_j, v_{i+1}, \dots, v_{j-1}, v_i + v_j, v_{j + 1}, \dots, v_n) \\
-      &= \underbrace{(v_1, \dots, v_i, \dots, v_i, \dots, v_n)}_{ = 0} + d(v_1, \dots, v_j, \dots, v_i, \dots, v_n) \\
+      &= \underbrace{d(v_1, \dots, v_i, \dots, v_i, \dots, v_n)}_{ = 0} + d(v_1, \dots, v_j, \dots, v_i, \dots, v_n) \\
       &+ d(v_1, \dots, v_i, \dots, v_j, \dots, v_n) + \underbrace{d(v_1, \dots, v_j, \dots, v_j, \dots, v_n)}_{ = 0} \\
   \end{align*}
   Rearrange.
@@ -1749,10 +1752,15 @@ The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma
 \end{proposition}
 
 \begin{proof}
-  Let \(d_A: \F^n \times \dots \F^n \to \F, (v_1, \dots, v_n) \to \det(Av_1|\cdots|Av_n)\), then \(d_A\) is a volume form:
+  Let
+  \begin{align*}
+    d_A: \F^n \times \dots \times \F^n \to \F \\
+    (v_1, \dots, v_n) \to \det(Av_1|\cdots|Av_n)
+  \end{align*}
+  then \(d_A\) is a volume form:
   \begin{itemize}
-  \item Multilinear: \(v_i \mapsto A_{v_i}\) is linear and \(\det\) is multilinear.
-  \item Alternating: \(v_i = v_j\) implies \(A_{v_i} = A_{v_j}\) and \(\det\) is alternating.
+  \item multilinear: \(v_i \mapsto Av_i\) is linear and \(\det\) is multilinear.
+  \item alternating: \(v_i = v_j\) implies \(A_{v_i} = A_{v_j}\) and \(\det\) is alternating.
   \end{itemize}
   It follows that
   \begin{align*}
@@ -1908,7 +1916,7 @@ can be intepreted as the signed area of the parallelogram spanned by the column 
     
 Similarly in \(\R^3\) the determinant of a matrix is the signed volume of the parallelepiped spanned by the column vectors of the matrix.
 
-For higher dimensions, although it can be difficult to visualise, the same interpretation still works: consier a hypercube \(H = [0, 1]^n \subseteq \R^n\). Then a map \(A \in \M_n(\F)\) sends
+For higher dimensions, although difficult to visualise, the same interpretation still works: consier a hypercube \(H = [0, 1]^n \subseteq \R^n\). Then a map \(A \in \M_n(\F)\) sends
 \begin{align*}
   H &\to A(H) \\
   \sum_{i = 1}^{n} t_ie_i &\mapsto \sum_{i = 1}^{n}t_i A^{(i)}
@@ -2076,7 +2084,7 @@ Although in theory we could invert the matrix to solve the system of equations, 
 
 \subsection{Definitions}
 
-Let \(V\) be an \(\F\)-vector space with \(\dim V = n < \infty\). Let \(\basis B =\{v_1, \dots, v_n\}\) be a basis and \(\alpha \in L(V) = L(V, V)\). The general problem studied in this section is to choose a basis \(\basis B\) such that \([\alpha]_{\basis B}\) has ``nice forms'', for example, to be amenable to \(\det\) and \(\tr\).
+Let \(V\) be an \(\F\)-vector space with \(\dim V = n < \infty\). Let \(\basis B =\{v_1, \dots, v_n\}\) be a basis and \(\alpha \in L(V) = L(V, V)\). The general problem studied in this chapter is to choose a basis \(\basis B\) such that \([\alpha]_{\basis B}\) has ``nice forms'', for example, to be amenable to \(\det\) and \(\tr\).
 
 Suppose there is another basis \(\basis B'\) with change-of-basis matrix \(P\). Recall that
 \[
@@ -2096,7 +2104,7 @@ A slightly weaker, albeit still ``nice'' enough form is
   \(\alpha \in L(V)\) is \emph{triangulable} if there exists \(\basis B\) such that \([\alpha]_{\basis B}\) is upper triangular.
 \end{definition}
 
-Equivalent, rephrasing using lanugages of matrices, \(A \in \M_n(\F)\) is diagonalisable (triangulable, respectively) if it is conjugate to a diagonal (upper triangle, respectively) matrix.
+Equivalent, rephrasing using languages of matrices, \(A \in \M_n(\F)\) is diagonalisable (triangulable, respectively) if it is conjugate to a diagonal (upper triangle, respectively) matrix.
 
 \begin{definition}[Eigenvalue, eigenvector, eigenspace]\index{eigenvalue}\leavevmode
   \begin{enumerate}
@@ -2255,7 +2263,7 @@ Conjugate matrices have the same characteristic polynomial.
 \end{notation}
 
 \begin{theorem}
-  Let \(V\) be an finite-dimensional \(\F\)-vector space. Let \(\alpha \in L(V)\). Then \(\alpha\) is diagonalisable if and only if \(p(\alpha) = 0\) for some \(p \in \F[t]\) which is the product of distinct linear factors.
+  Let \(V\) be a finite-dimensional \(\F\)-vector space. Let \(\alpha \in L(V)\). Then \(\alpha\) is diagonalisable if and only if \(p(\alpha) = 0\) for some \(p \in \F[t]\) which is the product of distinct linear factors.
 \end{theorem}
 
 \begin{proof}\leavevmode
@@ -2266,7 +2274,7 @@ Conjugate matrices have the same characteristic polynomial.
     \]
     Let \(\basis B\) be a basis of eigenvectors. For \(v \in \basis B\), \(\alpha(v) = \lambda_i v\) for some \(i\). Thus
     \[
-      0 = (\alpha - \lambda_i \iota) v = p(\alpha)(v) = 0.
+      0 = (\alpha - \lambda_i \iota) v \Rightarrow p(\alpha)(v) = 0.
     \]
     As this holds for all \(v \in \basis B\), \(p(\alpha) = 0\).
   \item \(\Leftarrow\): Suppose \(p(\alpha) = 0\) for this \(p\), which is monic wlog. Claim that
@@ -2338,7 +2346,7 @@ Conjugate matrices have the same characteristic polynomial.
     \]
     where \(V_i = \ker(\alpha - \lambda_i\iota)\). Claim that \(\beta(V_j) \leq V_j\): suppose \(v \in V_j\),
     \[
-      \alpha\beta (v) = \beta\alpha (v) = \beta\lambda_j v = \lambda_j \beta(v).
+      \alpha\beta (v) = \beta\alpha (v) = \beta(\lambda_j v) = \lambda_j \beta(v).
     \]
 
     As \(\beta\) is diagonalisable, there is a polynomial \(p\) with distinct linear factors such that \(p(\beta) = 0\). Now
@@ -2707,7 +2715,7 @@ In the rest of this section assume \(\F = \C\) unless stated otherwise.
 \begin{proof}[Sketch of proof]
   Let
   \[
-    p_j(t) = \prod_{i \neq j}^{ } (t - \lambda_1)^{c_i}.
+    p_j(t) = \prod_{i \neq j}^{ } (t - \lambda_i)^{c_i}.
   \]
   The \(p_j\) have no common factor so by Euclidean algorithm we can find \(q_1, \dots, q_k \in \C[t]\) such that
   \[
@@ -2715,7 +2723,7 @@ In the rest of this section assume \(\F = \C\) unless stated otherwise.
   \]
   Let \(\pi_j = q_j(\alpha)p_j(\alpha) \in L(V)\). Note \(\sum_{j = 1}^{k} \pi_j = \iota\).
   \begin{enumerate}
-  \item As \(m_\alpha(\alpha) = 0\), \((\alpha - \lambda_i \iota)^{c_j} \pi_j = 0\) so \(\im \pi_j \leq V_j\).
+  \item As \(m_\alpha(\alpha) = 0\), \((\alpha - \lambda_j \iota)^{c_j} \pi_j = 0\) so \(\im \pi_j \leq V_j\).
   \item Suppose \(v \in V\), \(v = \iota(v) = \sum \pi_j(v)\) so \(V = \sum_j V_j\).
   \item To show the sum is direct, \(\pi_i \pi_j = 0\) for \(i \neq j\) so
     \[
@@ -2859,7 +2867,7 @@ In the rest of this section assume \(\F = \C\) unless stated otherwise.
 
 We can use the diagonalisation to calculate powers of matrices:
 \[
-  A^n = (P^{-1}JP)^n = P^{-1}J^nP = P
+  A^n = (P^{-1}JP)^n = P^{-1}J^nP = P^{-1}
   \begin{pmatrix}
     1 & n \\
     0 & 1
@@ -3094,7 +3102,7 @@ The note after the definition of symmetric bilinear form shows that being symmet
 \end{eg}
 
 \begin{corollary}
-  Let \(\varphi\) be a symmetric bilinear form on \(V\), a finite-dimensional \(\C\)-vector space. There there is a basis \(\basis B = \{v_1, \dots v_n\}\) of \(V\) such that
+  Let \(\varphi\) be a symmetric bilinear form on \(V\), a finite-dimensional \(\C\)-vector space. Then there is a basis \(\basis B = \{v_1, \dots v_n\}\) of \(V\) such that
   \[
     [\varphi]_{\basis B} =
     \begin{pmatrix}
@@ -3195,7 +3203,7 @@ Equivalently,
 The same terminologies apply to quadratic forms.
 
 \begin{eg}
-  The bilinear form on \(\R^n\) represented by \(\begin{psmallmatrix} I_p & 0 \\ 0 & 0 \end{psmallmatrix} \in \M_n(\R)\) is positive definite if \(p = n\) and positive semi-definite if \(p < n\).
+  A bilinear form on \(\R^n\) represented by \(\begin{psmallmatrix} I_p & 0 \\ 0 & 0 \end{psmallmatrix} \in \M_n(\R)\) is positive definite if \(p = n\) and positive semi-definite if \(p < n\).
 \end{eg}
 
 \begin{definition}[Signature]\index{bilinear!signature}
@@ -3278,14 +3286,14 @@ In our previous notation, the kernel is simply
 \]
 
 \begin{caution}
-  There is a subspace \(T\) of dimension \(n - (p + q) + \min(p, q)\) such that \(\varphi|_{T \times T} = 0\): say \(p \geq q\),
+  There is a subspace \(T\) of dimension \(n - (p + q) + \min(p, q)\) such that \(\varphi|_T = 0\): say \(p \geq q\),
   \[
     T = \spans{v_1 + v_{p + 1}, \dots, v_q + v_{p + q}, v_{p + q + 1}, \dots, v_n}.
   \]
 \end{caution}
 
 \begin{ex}
-  Check that \(T\) above is the largest possible dimension of such a space.
+  Check that \(T\) above is the largest possible such space.
 \end{ex}
 
 \subsection{Sesquilinear Form}
@@ -3419,7 +3427,7 @@ Lastly,
 
   For existence, if \(\varphi(u, u) = 0\) for all \(u\) then by polarisation identity \(\varphi(u, v) = 0\) so done. Assume not. There exists \(e_1\) such that \(\varphi(e_1, e_1) \neq 0\). Rescale to have
   \[
-    v_1 = \frac{e_1}{\sqrt{\norm{\varphi(e_1, e_1)}}}
+    v_1 = \frac{e_1}{\sqrt{|\varphi(e_1, e_1)|}}
   \]
   so \(\varphi(v_1, v_1) = \pm 1\). Note that we used the fact that \(\varphi(e_1, e_1) \in \R\).
 
@@ -3553,7 +3561,7 @@ Let \(\F = \R\) or \(\C\) in this chapter.
     0 &\leq \norm{tu - v}^2 \\
       &= \ip{tu - v, tu - v} \\
       &= \norm{tu}^2 - t \ip{u, v} - \conj t \conj{\ip{u, v}} + \norm v^2 \\
-    \intertext{by setting \(t = \conj{\ip{u, v}}/\norm v^2\),}
+    \intertext{by setting \(t = \conj{\ip{u, v}}/\norm u^2\),}
       &\leq - \frac{|\ip{u, v}|^2}{\norm u^2} + \norm v^2
   \end{align*}
   Rearrange.
@@ -3866,7 +3874,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
       W^* \ar[r, "\text{dual of } \alpha"'] & V^*
     \end{tikzcd}
   \]
-  In the fancy language of category theory, this essentially says that adjoint and dual are naturally isomorphic as contravariant functors.
+  In the fancy language of category theory, this essentially says that adjoint and dual are naturally isomorphic as contravariant functors, with components \(\psi_{R, -}\).
 \end{remark}
 
 \subsection{Self-adjoint Maps \& Isomoetries}
@@ -3915,9 +3923,8 @@ The equivalences should be quite obvious and in case you don't find it so,
   \[
     \norm{\alpha v} = \norm{v}
   \]
-  for all \(v \in V\).
+  for all \(v \in V\), which might be closer to the intuitive definition of an ``isometry''.
 \end{remark}
-which might be closer to the intuitive definition of an ``isometry''.
 
 \begin{lemma}
   Let \(V\) be a finite-dimensional real (complex, respectively) inner product space and \(\alpha \in L(V)\). Then
@@ -4016,7 +4023,7 @@ For infinite dimensional space, we may not have any eigenvalues (although in whi
   \[
     \ip{\alpha u, v_1} = \ip{u, \alpha v_1} = \ip{u, \lambda v_1} = \lambda \ip{u, v_1} = 0
   \]
-  so \(\alpha u \in U\), i.e.\ \(\alpha\) is \(U\)-stable. \(\alpha|_U \in L(U)\) is obviously self-adjoint so by induction hypothesis there is an orthonormal basis \(v_2, \dots, v_n\) of \(U\) which are eigenvectors for \(\alpha|_U\). Adjoining \(\frac{v_1}{\norm{v_1}}\) gives an orthonormal basis of eigenvectors of \(\alpha\).
+  so \(\alpha\) is \(U\)-stable. \(\alpha|_U \in L(U)\) is obviously self-adjoint so by induction hypothesis there is an orthonormal basis \(v_2, \dots, v_n\) of \(U\) which are eigenvectors for \(\alpha|_U\). Adjoining \(\frac{v_1}{\norm{v_1}}\) gives an orthonormal basis of eigenvectors of \(\alpha\).
 \end{proof}
 
 \begin{corollary}
@@ -4070,7 +4077,7 @@ The other important map is isometry. Let \(\F = \C\) throughout this subsection.
   \[
     \ip{\alpha u, v_1} = \ip{u, \alpha^{-1} v_1} = \conj \lambda^{-1} \ip{u, v_1} = 0
   \]
-  so \(\alpha u \in U\) and \(\alpha\) is \(U\)-stable. By induction on dimension, \(U\) has an orthonormal basis of eigenvectors of \(\alpha|_U\), say \(v_2, \dots, v_n\). Thus \(v_1, \dots, v_n\) is an orthonormal basis of eigenvectors of \(\alpha\).
+  so \(\alpha\) is \(U\)-stable. By induction on dimension, \(U\) has an orthonormal basis of eigenvectors of \(\alpha|_U\), say \(v_2, \dots, v_n\). Thus \(v_1, \dots, v_n\) is an orthonormal basis of eigenvectors of \(\alpha\).
 \end{proof}
 
 \begin{remark}\leavevmode
