@@ -2,13 +2,15 @@
 
 \def\npart{II}
 
-\def\ntitle{Geometry}
+\def\ntitle{Differential Geometry}
 \def\nlecturer{M.\ Dafermos}
 
 \def\nterm{Lent}
 \def\nyear{2018}
 
 \input{header}
+
+\DeclareMathOperator{\codim}{codim}
 
 \makeindex
 
@@ -18,6 +20,104 @@
 
 \tableofcontents
 
+\section{Smooth Manifolds}
+
+\begin{definition}[Smooth]\index{smooth}
+  Let \(U \subseteq \R^n\) be an open set and \(f: U \to \R^m\). \(f\) is said to be \emph{smooth} if
+  \[
+    \frac{\p^{|\alpha|} f}{\p x^\alpha}
+  \]
+  exists for all multi-indices \(\alpha\).
+\end{definition}
+
+\begin{notation}
+  A multi-index \(\alpha = (\alpha_1, \dots, \alpha_n)\) is a tuple of non-negative integers and \(|\alpha| = \sum_{i = 1}^n \alpha_i\).
+\end{notation}
+
+\begin{definition}[Smooth]\index{smooth}
+  Let \(X \subseteq \R^n\) be a subset. \(f: X \to \R^m\) is \emph{smooth} if for all \(x \in X\), there exists \(U \subseteq \R^n\), \(x \in U\) such that there exists smooth \(\tilde f: U \to \R^m\) extending \(f|_{X \cap U}\). i.e.\ the following diagram commutes
+  \[
+    \begin{tikzcd}
+      U \ar[r, "\tilde f"] & \R^m \\
+      U \cap X \ar[u, "\iota"] \ar[ur, "f"']
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+    \item This is a local property.
+    \item \(X\) is a topological space with subspace topology induced from \(\R^n\). \(f\) is smooth implies that \(f\) is continuous.
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}[Diffeomorphism]\index{diffeomorphism}
+  Let \(X \subseteq \R^n\) and \(Y \subseteq \R^m\). A map \(f: X \to Y\) is a \emph{diffeomorphism} if \(f\) is smooth and bijective and its inverse \(f^{-1}: Y \to X\) is also smooth.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Diffeomorphism implies homeomorphism (with repsect to the subspace topology).
+  \item Diffeomorphism is an equivalence relation.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[Manifold]\index{manifold}
+  A \emph{\(k\)-dimensional manifold} is a set \(X \subseteq \R^N\) such that for all \(x \in X\) there exists \(V \subseteq X\) open, \(x \in V\) such that \(V\) is diffeomorphic to an open subset \(U \subseteq \R^k\), i.e.\ \(X\) is locally diffeomorphic to \(\R^k\).
+\end{definition}
+
+\begin{remark}
+  The diffeomorphism \(\varphi: U \to V\) is called a \emph{local parameterisation} and its inverse \(\varphi^{-1}: V \to U\) is called \emph{coordinate charts}. More specifically, let \(x_i: \R^k \to \R\) be the projection of the \(i\)th coordinate and we have \emph{local coordinate} \(x_i \compose \varphi^{-1}: V \to \R\). However, sometimes we abuse the notation and just write \(x_i: V \to \R\) for the above map.
+\end{remark}
+
+\begin{notation}
+  Write \(\dim X = k\) if \(X\) is a \(k\)-dimensional manifold.
+\end{notation}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\R^N\) is an \(N\)-dim manifold. For example, \(\varphi: \R^N \stackrel{\id}{\to} \R^N\).
+  \item An open subset \(V \subseteq \R^N\) is an \(N\)-dim manifold, for example by taking \(\varphi\) to be the restriction \(\id|_V\).
+  \item In general, if \(X\) is a manifold and \(V \subseteq X\) is an open subset then \(V\) is also a manifold.
+  \item The \(n\)-sphere, \(S^n \subseteq \R^{n + 1} = \{x_1^2 + \dots + x_{n + 1}^2 = 1\}\) is an \(n\)-dim manifold. Suppose \(x \in S^n\) lies in the upper half hyperplane define by \(x_{n + 1} > 0\). Take
+    \[
+      V = S^n \cap \{x_{n + 1} > 0\},\, U = \{(x_1, \dots, x_n): \sum_{i = 1}^n x_i^2 < 1\} = B(\V 0, 1) \subseteq \R^n
+    \]
+    and define
+    \begin{align*}
+      \varphi: U &\to V \\
+      (x_1, \dots, x_n) &\mapsto \left(x_1, \dots, x_n, +\sqrt{1 - (x_1^2 + \dots + x_n^2)}\right)
+    \end{align*}
+    Let's do a reality check: the map consists of algebraic operations so is smooth. It is easy to check that the image lies in \(V\). Its inverese is the projection onto the first \(n\) coordinates, which is the restriction of a smooth function so also smooth.
+
+    Similarly, if \(x\) lies in \(\{x_{n + 1} < 0\}\), change \(+\) to \(-\) in the last coordinate of \(\varphi\) will do. This accounts for ``most'' points, with the exception of those on the equator. However, there is nothing special about \(x_{n + 1}\) so we may repeat for the other coordinates. As
+    \[
+      S^n = \bigcup_{i = 1}^{n + 1} \left( (S^n \cap \{x_i > 0\}) \cup (S^n \cap \{x_i < 0\}) \right)
+    \]
+    (which in English says that at least one coordinate is non-zero), we have covered \(S^n\) so done.
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}
+  Suppose \(X \subseteq \R^n\) and \(Y \subseteq \R^m\) are manifolds. Show that \(X \times Y \subseteq \R^n \times \R^m = \R^{n + m}\) is a manifold of dimension \(\dim X + \dim Y\).
+\end{ex}
+
+\begin{definition}[Submanifold]\index{manifold!submanifold}
+  Let \(X \subseteq \R^N\) be a manifold. A manifold \(Y \subseteq \R^N\) such that \(Y \subseteq X\) is a \emph{submanifold} of \(X\).
+\end{definition}
+
+\begin{remark}
+  By definition, all manifolds are submanifolds of \(\R^N\) for some \(N\).
+\end{remark}
+
+Note that we have yet shown that the dimension of a manifold is well-defined but we will do so in a while. Assuming so, we define
+
+\begin{definition}[Codimension]\index{codimension}
+  The \emph{codimension} of \(Y\) in \(X\) is
+  \[
+    \codim_X(Y) = \dim X - \dim Y.
+  \]
+\end{definition}
 
 
 

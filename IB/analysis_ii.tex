@@ -1826,7 +1826,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
   \par}
 \end{joke}
 
-\begin{definition}[\(C^1\) space]\index{C1@\(C^1\)}
+\begin{definition}[\(C^1\) space]\index{Ck@\(C^k\)}
   \(F: U \to \R\) is \(C^1\) if all the partial derivatives \(\D_i F\) exist and are continuous on \(U\). Denote
   \[
     C^1(U) = \{F: U \to \R: F \text{ is } C^1\}.
@@ -1932,7 +1932,7 @@ Recall from IB Linear Algebra that given \(V, W\) vector spaces,
   Thus \(F\) is differentiable at \(a\).
 \end{proof}
 
-\begin{definition}[\(C^1\) space]\index{C1@\(C^1\)}
+\begin{definition}[\(C^1\) space]\index{Ck@\(C^k\)}
   \(f = (f_1, \dots, f_m): U \to \R^n\) is \(C^1\) if \(f_i\) is \(C^1\) for all \(i\).
 \end{definition}
 
@@ -2253,7 +2253,7 @@ is the \emph{Hessian matrix}  of \(F\) at \(a\).
   \]
 \end{eg}
 
-\begin{definition}[\(C^2\) space]\index{C2@\(C^2\)}
+\begin{definition}[\(C^2\) space]\index{Ck@\(C^k\)}
   \(F: U \to \R\) is \(C^2\) if \(F\) is \(C^1\) and all second partial derivatives \(\D_{ij} F\) exist and are continuous on \(U\). If so \(F \in C^2(U)\).
 \end{definition}
 
@@ -3397,7 +3397,7 @@ The tangent vector to \(\V x(t)\) at time \(t\) is \(\V x'(t) = \V V(\V x(t))\),
       y_0(0) &= 0 \\
       (y_1(0), \dots, y_n(0)) &= \V x_0
     \end{align*}
-    This is an equation of type \eqref{eqn:ODE} with \(\widetilde \V V(\V p) = (1, \V V(\V p))\). Any solution satisfies \(y_0(t) = t\) so \(\V x(t) = (y_1(t), \dots, y_n(t))\) is a solution to \eqref{eqn:time-dependent ODE}.
+    This is an equation of type \eqref{eqn:ODE} with \(\widetilde{\V V}(\V p) = (1, \V V(\V p))\). Any solution satisfies \(y_0(t) = t\) so \(\V x(t) = (y_1(t), \dots, y_n(t))\) is a solution to \eqref{eqn:time-dependent ODE}.
     Therefore we can reduce the problem of solving equations of type \eqref{eqn:time-dependent ODE} to the problem of solving equations of type \eqref{eqn:ODE}.
   \end{enumerate}
 \end{remark}
@@ -3518,37 +3518,37 @@ As a common trick, choose a \emph{cut-off function} \(\rho: [0, \infty) \to \R\)
   \end{tikzpicture}
 \end{center}
 
-Now let \(\widetilde \V V(\V p) = \V V(\V p)\rho(\norm{\V p - \V x_0})\). Intuitively this weight \(\rho\) localises \(\V V\) to the ball \(\cl B_1(\V x_0)\).
+Now let \(\widetilde{\V V}(\V p) = \V V(\V p)\rho(\norm{\V p - \V x_0})\). Intuitively this weight \(\rho\) localises \(\V V\) to the ball \(\cl B_1(\V x_0)\).
 
 \begin{lemma}
-  \(\widetilde \V V\) is Lipschitz.
+  \(\widetilde{\V V}\) is Lipschitz.
 \end{lemma}
 
 \begin{proof}
-  \(\widetilde \V V\) is \(C^1\) so the map
+  \(\widetilde{\V V}\) is \(C^1\) so the map
   \begin{align*}
     \R^n &\to L(\R^n, \R^n) \to \R^n \\
-    \V p &\mapsto \D \widetilde \V V|_{\V p} \mapsto \nop{\D \widetilde \V V|_{\V p}}
+    \V p &\mapsto \D \widetilde{\V V}|_{\V p} \mapsto \nop{\D \widetilde{\V V}|_{\V p}}
   \end{align*}
-  is continuous. \(\cl B_2(\V x_0)\) is compact so there exists \(M\) such that \(\nop{\D \widetilde \V V|_{\V p}} \leq M\) for all \(\V p \in \cl B_2(\V x_0)\). On the other hand \(\widetilde \V V(\V p) = 0\) for \(\V p \notin \cl B_2(\V x_0)\) so \(\D \widetilde \V V|_{\V p} = 0\). Thus \(\nop{\D \widetilde \V V|_{\V p}} \leq M\) for all \(\V p \in \R^n\) so \(\widetilde \V V\) is \(M\)-Lipschitz.
+  is continuous. \(\cl B_2(\V x_0)\) is compact so there exists \(M\) such that \(\nop{\D \widetilde{\V V}|_{\V p}} \leq M\) for all \(\V p \in \cl B_2(\V x_0)\). On the other hand \(\widetilde{\V V}(\V p) = 0\) for \(\V p \notin \cl B_2(\V x_0)\) so \(\D \widetilde{\V V}|_{\V p} = 0\). Thus \(\nop{\D \widetilde{\V V}|_{\V p}} \leq M\) for all \(\V p \in \R^n\) so \(\widetilde{\V V}\) is \(M\)-Lipschitz.
 \end{proof}
 
 By the corollary, the equation
 \begin{equation*}
   \label{eqn:ODE tilde}
-  \tilde \V x'(t) = \widetilde \V V(\tilde \V x(t)), \, \tilde \V x(0) = \V x(0) = \V x_0
+  \tilde{\V x'}(t) = \widetilde{\V V}(\tilde{\V x}(t)), \, \tilde{\V x}(0) = \V x(0) = \V x_0
   \tag{\(\ast\ast\ast\)}
 \end{equation*}
-has a unique solution on \([-\varepsilon, \varepsilon]\) when \(\varepsilon < 1/M\). Since \(\widetilde \V V\) is continuous, there exists \(M'\) such that \(\norm{\widetilde \V V(\V p)}_2 \leq M'\) for all \(\V p \in \cl B_2(\V x_0)\), i.e.\ \(\norm{\widetilde \V V(\V p)} \leq M'\) for all \(\V p \in \R^n\). Choose \(\varepsilon < \min\{1/M, 1/M'\}\).
+has a unique solution on \([-\varepsilon, \varepsilon]\) when \(\varepsilon < 1/M\). Since \(\widetilde{\V V}\) is continuous, there exists \(M'\) such that \(\norm{\widetilde{\V V}(\V p)}_2 \leq M'\) for all \(\V p \in \cl B_2(\V x_0)\), i.e.\ \(\norm{\widetilde{\V V}(\V p)} \leq M'\) for all \(\V p \in \R^n\). Choose \(\varepsilon < \min\{1/M, 1/M'\}\).
 
 \begin{lemma}
-  With \(\varepsilon\) and \(\tilde \V x\) as above, \(\norm{\tilde \V x(t) - \V x_0}_2 < 1\) for all \(t \in [-\varepsilon, \varepsilon]\).
+  With \(\varepsilon\) and \(\tilde{\V x}\) as above, \(\norm{\tilde{\V x}(t) - \V x_0}_2 < 1\) for all \(t \in [-\varepsilon, \varepsilon]\).
 \end{lemma}
 
 \begin{proof}
   \begin{align*}
-    \norm{\tilde \V x(t) - \V x_0}_2 &= \norm*{\int_0^t \widetilde \V V(\tilde \V x(s)) ds}_2 \\
-                                     &\leq \left| \int_0^t \norm{\widetilde \V V(\tilde \V x(s))}_2 ds \right| \\
+    \norm{\tilde{\V x}(t) - \V x_0}_2 &= \norm*{\int_0^t \widetilde{\V V}(\tilde{\V x}(s)) ds}_2 \\
+                                     &\leq \left| \int_0^t \norm{\widetilde{\V V}(\tilde{\V x}(s))}_2 ds \right| \\
                                      &\leq M'|t| \\
                                      &\leq M'\varepsilon \\
                                      &< 1
@@ -3557,11 +3557,11 @@ has a unique solution on \([-\varepsilon, \varepsilon]\) when \(\varepsilon < 1/
 
 So for \(t \in [-\varepsilon, \varepsilon]\),
 \begin{align*}
-  \tilde \V x'(t) &= \widetilde \V V(\tilde \V x(t)) \\
-                  &= \V V(\tilde \V x(t)) \rho(\norm{\tilde \V x(t) - \V x_0}_2) \\
-                  &= \V V(\tilde \V x(t))
+  \tilde{\V x'}(t) &= \widetilde{\V V}(\tilde{\V x}(t)) \\
+                  &= \V V(\tilde{\V x}(t)) \rho(\norm{\tilde{\V x}(t) - \V x_0}_2) \\
+                  &= \V V(\tilde{\V x}(t))
 \end{align*}
-i.e.\ \(\tilde \V x\) solves \eqref{eqn:ODE}.
+i.e.\ \(\tilde{\V x}\) solves \eqref{eqn:ODE}.
 
 Conversely, a solution to \eqref{eqn:ODE} on \([-\varepsilon, \varepsilon]\) gives a solution to \eqref{eqn:ODE tilde}.
 
