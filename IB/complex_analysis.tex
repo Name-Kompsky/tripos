@@ -118,7 +118,126 @@ as \((x, y) \to (c, d)\). In this case \(\D u(c, d) = (\lambda, \mu)\) is the de
   so \(f\) is not differentiable anywhere in \(\C\).
 \end{eg}
 
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item We could have discovered Cauchy-Riemann as follows: let \(z = w + h\) where \(h \in \R\). Then
+    \[
+      f'(w) = \lim_{h \to 0} \frac{f(w + h) - f(w)}{h} = u_x(c, d) + iv_x(c, d).
+    \]
+    Let \(z = w + ih\), we get
+    \[
+      f'(w) = \lim_{h \to 0} \frac{f(w + ih) - f(w)}{h} = v_y(c, d) - iu_y(c, d).
+    \]
+    As \(f\) is assumed to be differentiable, these two must agree.
+  \item Later on we'll see that if \(f\) is holomorphic, so is \(f'\). This will imply right away that all partial derivatives of \(u\) and \(v\) exist and are continuous, i.e.\ \(C^\infty\). Thus
+    \begin{align*}
+      u_{xx} &= v_{yx} \\
+      u_{yy} &= -v_{xy}
+    \end{align*}
+    By symmetry of second derivatives, we get that \(u\) satisfies the Laplace equation
+    \[
+      u_{xx} + u_{yy} = 0.
+    \]
+    Hence \(f\) is holomorphic implies that the real and imaginary parts are harmonic functions.
+  \end{enumerate}
+\end{remark}
 
+\begin{corollary}
+  Let \(f = u + iv: U \to \C\). Suppose the functions \(u\) and \(v\) have continuous partial derivatives everywhere in \(U\) and satisfy Cauchy-Riemann equations. Then \(f\) is holomorphic in \(U\).
+\end{corollary}
+
+\begin{proof}
+  From IB Analysis II, \(u\) and \(v\) are differentiable. The result follows from the previous theorem.
+\end{proof}
+
+\begin{corollary}
+  Let \(f: D \to \C\) be holomorphic on a domain \(D\) and suppose \(f'(z) = 0\) for all \(z \in D\). Then \(f\) is constant on \(D\).
+\end{corollary}
+
+\begin{proof}
+  Follows from the analogous result for differentiable functions on a path-connected subset of \(\R^2\) (Mean Value Inequality from IB Analysis II).
+\end{proof}
+
+\section{Power Series}
+
+Recall that
+
+\begin{theorem}[Radius of convergence]\index{radius of convergence}
+  Let \(c_n\) be a sequence of complex numbers. Then there exists a unique \(R \in [0, \infty]\), the \emph{radius of convergence} of the series, such that
+  \[
+    \sum_{n = 0}^\infty c_n(z - a)^n,\, z, a \in \C
+  \]
+  converges absolutely if \(|z - a| < R\) and diverges if \(|z - a| > R\). If \(0 < r < R\) then the series converges uniformly on \(\{|z - a| \leq r\}\). The radius of convergence is given by
+  \[
+    R = \sup\{r \geq 0: |c_n|r^n \to 0\}.
+  \]
+\end{theorem}
+
+\begin{theorem}
+  Let \(f(z) = \sum_{n = 0}^\infty c_n(z - a)^n\) be a complex power series with radius of convergence \(R > 0\). Then
+  \begin{enumerate}
+  \item \(f\) is holomorphic on \(D(a, R)\),
+  \item its derivative is given by the series \(\sum_{n = 1}^\infty nc_n(z - a)^{n - 1}\), which also has radius of convergence \(R\),
+  \item \(f\) has derivatives of all orders on \(D(a, R)\) and \(f^{(n)}(a) = n!c_n\),
+  \item if \(f\) vanishes identically on some disc \(D(a, \varepsilon)\) then \(c_n = 0\) for all \(n\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  wlog assume \(a = 0\). Claim that \(\sum_{n = 1}^\infty nc_nz^{n - 1}\) has radius of convergence \(R\).
+
+  \begin{proof}
+    \(|nc_n| \geq |c_n|\) so its radius of convergence \(R'\) is at most \(R\).
+
+    Suppose \(0 \leq r < R\) and pick \(\rho \in (r, R)\). Then \(\sum |c_n|\rho^n\) converges and
+    \[
+      \frac{n|c_n|r^{n - 1}}{|c_n|\rho^n} = \frac{n}{r}\underbrace{\left(\frac{r}{\rho}\right)^n}_{< 1} \to 0
+    \]
+    so by comparison test \(\sum nc_nr^{n - 1}\) converges and hence \(R' = R\).
+  \end{proof}
+
+  To show the derivative is of the desired form we shall do something clever. Consider the continous function
+  \[
+    h_n(z, w) = \sum_{j = 0}^{n - 1} z^j w^{n - 1 - j} =
+    \begin{cases}
+      \frac{z^n - w^n}{z - w} & \text{if } z \neq w \\
+      nw^{n - 1} & \text{if } z = w
+    \end{cases}
+  \]
+  for \(n \geq 1\). Consider the series
+  \begin{equation}
+    \label{eqn:hzw}
+    \sum_{n = 1}^\infty c_nh_n(z, w).
+    \tag{\(\ast\)}
+  \end{equation}
+  Claim that for every \(r < R\), \eqref{eqn:hzw} converges uniformly on the set \(\{(z, w): |z|, |w| \leq r\}\).
+
+  \begin{proof}
+    \(|c_nh_n(z, w)| \leq |c_n|nr^{n - 1} = M_n\). Since we know \(\sum M_n < \infty\), by Weierstrass M-test \eqref{eqn:hzw} converges uniformly.
+  \end{proof}
+
+  Thus it converges to a continuous function \(g(z, w)\). By definition
+  \[
+    g(z, w) =
+    \begin{cases}
+      \sum_{n = 1}^\infty c_n \frac{z^n - w^n}{z - w} = \frac{f(z) - f(w)}{z - w} & \text{if } z \neq w \\
+      \sum_{n = 1}^\infty c_nnw^{n - 1} & \text{if } z = w
+    \end{cases}
+  \]
+  As \(g\) is continuous, fixing \(w\) and letting \(z \to w\) we get
+  \[
+    \lim_{z \to w} \frac{f(z) - f(w)}{z - w} = \sum_{n = 1}^\infty nc_nw^{n - 1}.
+  \]
+  So \(f'(w)\) exists and equals to \(g(w, w)\) as desired. This proves (1) and (2). (3) follows by induction on \(n\). Finally if \(f\) vanishes identically on a disc about \(a\) then \(f^{(n)} = 0\) for all \(n\) and by (3) \(c_n = 0\) for all \(n\).
+\end{proof}
+
+\begin{proposition}[Weierstrass M-test]
+  Let \(f_n\) be a sequence of functions such that \(|f_n(x)| \leq M_n\) for all \(x \in A\). If \(\sum M_n < \infty\) then \(\sum f_n(x)\) converges uniformly on \(A\).
+\end{proposition}
+
+\begin{proof}
+  Exercise.
+\end{proof}
 
 
 

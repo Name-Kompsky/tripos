@@ -52,8 +52,128 @@ Note that we often omit outer brackets or use different brackets for clarity.
 
 We can now define for example, \(\neg p\) (reads ``not \(p\)'') as an abbreviation for \(p \implies \bot\), \(p \lor q\) (reads ``\(p\) or \(q\)'') for \((\neg p) \implies q\), \(p \land q\) (reads \(p\) and \(q\)'') for \(\neg (p \implies (\neg q))\).
 
+\subsection{Semantic Entailment}
 
+\begin{definition}[Valuation]\index{valuation}
+  A \emph{valuation} is a function \(v: L \to \{0, 1\}\) such that
+  \begin{enumerate}
+  \item \(v(\bot) = 0\),
+  \item \(v(p \implies q) = \begin{cases} 0 & \text{if } v(p) = 1, v(q) = 0 \\ 1 & \text{otherwise} \end{cases}\) for all \(p, q \in L\).
+  \end{enumerate}
+\end{definition}
 
+\begin{remark}
+  On \(\{0, 1\}\), we could define a constant \(\bot\) by \(\bot = 0\) and an operation \(\implies\) by
+  \[
+    (a \implies b) =
+    \begin{cases}
+      0 & \text{if } a = 1, b = 0 \\
+      1 & \text{otherwise}
+    \end{cases}
+  \]
+  Then a valuation is a function \(L \to \{0, 1\}\) that preserves the structure (\(\bot\) and \(\implies\)), i.e.\ it is a homomorphism.
+\end{remark}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item If \(v\) and \(v'\) are valuations with \(v(p) = v'(p)\) for all \( \in P\), then \(v = v'\).
+  \item For any \(w: P \to \{0, 1\}\), there exists a valuation \(v\) with \(v(p) = w(p)\) for all \(p \in P\).
+  \end{enumerate}
+\end{proposition}
+
+In other words, a valuation is determined by its values on \(P\) and any values will do.
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item We have for all \(p \in L_1\), \(v(p) = v'(p)\). But if \(v(p) = v'(p)\) and \(v(q) = v'(q)\) then \(v(p \implies q) = v'(p \implies q)\) so \(v = v'\) on \(L_2\). Continue inductively, we have \(v = v'\) on \(L_n\) for all \(n\).
+  \item Set \(v(p) = w(p)\) for all \(p \in P\) and \(v(\bot) = 0\). This defines \(v\) on \(L_1\). Having defined \(v\) on \(L_2\), use \(v(p \implies q) \begin{cases} 0 & \text{if } v(p) = 1, v(q) = 0 \\ 1 & \text{otherwise} \end{cases}\) to define \(v\) on \(L_{n + 1}\).
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}
+  In a valuation given by
+  \begin{align*}
+    v(p_1) &= 1 \\
+    v(p_2) &= 1 \\
+    v(p_n) &= 0 \text{ for all } n \geq 3
+  \end{align*}
+  we have \(v(\underbrace{(p_1 \implies p_2)}_{1} \implies \underbrace{p_3}_{0}) = 0\).
+\end{eg}
+
+\begin{definition}[Tautology]\index{Tautology}
+  \(p\) is a \emph{tautology}, written \(\models p\) if \(v(p) = 1\) for all valuations \(p\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(p \implies (q \implies p)\). ``A true statement is implied by anything''. Alternatively, we could make a truth table
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{c|c|c|c}
+        \(v(p)\) & \(v(q)\) & \(v(q \implies p)\) & \(v(p \implies (q \implies p))\) \\\hline
+        1 & 1 & 1 & 1 \\
+        1 & 0 & 1 & 1 \\
+        0 & 1 & 0 & 1 \\
+        0 & 0 & 1 & 1
+      \end{tabular}
+      \caption{Truth table}
+    \end{table}
+  \item \((\neg \neg p) \implies p\), i.e.\ \(((p \implies \bot) \implies \bot) \implies p\). ``Law of excluded middle''.
+  \item \((p \implies (q \implies r)) \implies ((p \implies q) \implies (p \implies r))\). This is an example where writing down a truth table is not so desirable. Instead, this is not a tautology only if we have \(v\) with
+    \begin{align*}
+      v(p \implies (q\implies r)) &= 1 \\
+      v((p \implies q) \implies (q \implies r)) &= 0
+    \end{align*}
+    so \(v(p \implies q) = 1, v(p \implies r) = 0\) whence \(v(p) = 1, v(r) = 0\), so also \(v(q) = 1\). But then \(v(q \implies r) = 0\) so \(v(p \implies (q \implies r)) = 0\). Absurd.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Entailment]\index{entailment}
+  For \(S \subseteq L, t \in L\), we say \(s\) \emph{entails} or \emph{semantically implies} \(t\), written \(S \models t\), if \(v(s) = 1\) for all \(s \in S\) then \(v(t) = 1\) for each valuation \(v\).
+\end{definition}
+
+This says whenever all of \(S\) is true, \(t\) is true as well.
+
+\begin{eg}
+  \(\{p \implies q, q \implies r\} \models (p \implies r)\). Indeed, suppose not. So have \(v\) with \(v(p \implies q) = v(q \implies r) = 1, v(p \implies r) = 0\). Then \(v(p) = 1, v(r) = 0\), whence \(v(q) = 0\) (from \(v(q \implies r) = 1\)), so \(v(p \implies q) = 0\). Absurd.
+\end{eg}
+
+\begin{definition}[Model]\index{model}
+  If \(v(t) = 1\), we say \(t\) is \emph{true in \(v\)} or that \(v\) is a \emph{model} of \(t\).
+
+  For \(S \subseteq L\), \(v\) is a \emph{model} of \(S\) if \(v(s) = 1\) for all \(s \in S\).
+\end{definition}
+
+Using this terminology, \(S \implies t\) says that every model of \(S\) is a model of \(t\).
+
+\begin{note}
+  \(\models t\) is equivalent to \(\emptyset \models t\).
+\end{note}
+
+\subsection{Syntactic Implication}
+
+For a notion of ``proof'', we'll need axioms and deduction rules. As axioms, we'll take
+\begin{enumerate}
+\item \(p \implies (q \implies p)\) for all \(p, q \in L\).
+\item \((p \implies (q \implies r)) \implies ((p \implies q) \implies (p \implies r))\) for all \(p, q, r \in L\).
+\item \((\neg \neg p) \implies p\) for all \(p \in L\).
+\end{enumerate}
+
+\begin{note}
+  We have already checked that these are all tautologies. Sometimes we say 3 axiom schemes to mean 3 infinite sets of axioms.
+\end{note}
+
+As deduction rules, we'll take just \emph{modus ponens}: from \(p\) and \((p \implies q)\) we can deduce \(q\).
+
+\begin{definition}[Proof]\index{proof}
+  For \(S \subseteq L\) and \(t \in L\), a \emph{proof} of \(t\) from \(S\) consists of a finite sequence \(t_1, \dots, t_n\) of propositions, with \(t_n = t\) such that for every \(i\), the proposition \(t_i\) is an axiom, or a member of \(S\), or there exists \(j, k < i\) with \(t_j = (t_k \implies t_i)\).
+
+  We say \(S\) is the \emph{hypotheses} or \emph{premises} and \(t\) is the \emph{conclusion}.
+\end{definition}
+
+\begin{definition}
+  If there is a proof of \(t\) from \(S\), say \(S\) \emph{proves} or \emph{syntactically implies} \(t\), written \(S \yields t\). If \(\emptyset \yields t\), say \(t\) is a \emph{theorem}, written \(\yields t\).
+\end{definition}
 
 
 \printindex

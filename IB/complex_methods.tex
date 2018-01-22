@@ -72,9 +72,109 @@ where \(z = x + iy\) and \(u, v\) are real functions. Suppose that \(f\) is diff
         &= \lim_{\delta x \to 0} \frac{u(x + \delta x, y) + iv(x + \delta x, y) - u(x, y) - iv(x, y)}{\delta x} \\
         &= \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x}
 \end{align*}
+Now take \(\delta z\) to be pure imaginary, \(\delta z = i\delta y\). Then
+\begin{align*}
+  f'(z) &= \lim_{\delta y \to 0} \frac{f(z + i\delta y) - f(z)}{i\delta y} \\
+        &= \lim_{\delta y \to 0} \frac{u(x, y + \delta y) + iv(x, y + \delta y) - u(x, y) - iv(x, y)}{i\delta y} \\
+        &= -i\frac{\p u}{\p y} + \frac{\p v}{\p y}.
+\end{align*}
+The two values for \(f'(z)\) are the same since \(f\) is differentiable. THus
+\begin{align*}
+  \frac{\p u}{\p x} &= \frac{\p v}{\p u} \\
+  \frac{\p u}{\p y} &= -\frac{\p v}{\p x}
+\end{align*}
+This is know as the \emph{Cauchy-Riemann equations}. The converse (that a function satisfying the Cauchy-Riemann equaitons is differentiable) is also true as long as we impose additional requirements, for example that the partial derivative \(u_x, u_y, v_x, v_y\) are continuous functions of \(x\) and \(y\), in the sense descreibed in IB Analysis II.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f(z) = z\) is entire. Here \(u = x, v = y\) and the Cauchy-Riemann equations are satisfied.
+  \item \(f(z) = e^z = e^x(\cos y + i \sin y)\) is entire since
+    \begin{align*}
+      \frac{\p u}{\p x} &= e^x \cos y = \frac{\p v}{\p y} \\
+      \frac{\p u}{\p y} &= -e^x \sin y = -\frac{\p v}{\p x}
+    \end{align*}
+    The derivative is
+    \[
+      f'(z) = e^x \cos y + ie^x \sin y = e^x
+    \]
+    as expected.
+  \item \(f(z) = z^n\), where \(n\) is a positive integer, is entire. Write \(z = r(\cos \theta + i \sin \theta)\) we obtain \(u = r^n \cos n\theta, v = r^n \sin n\theta\). We can check the Cauchy-Riemann equaitions using \(r = \sqrt{x^2 + y^2}\) and \(\tan \theta = \frac{y}{x}\). The derivative is \(nz^{n - 1}\) as we would expect!
+  \item Any rational function, i.e.\ \(f(z) = \frac{P(z)}{Q(z)}\) where \(P\) and \(Q\) are polynomials, is analytic except at points where \(Q(z) = 0\). For instance \(f(z) = \frac{z}{z^2 + 1}\) is analytic except at \(\pm i\).
+  \item Many standard real functions can be extended naturally to complex functions and obey the usual rule for their derivatives. For example \(f(z) = \sin z = \frac{e^{iz} - e^{-iz}}{2i}\) has derivative \(f'(z) = \cos z\). We can also write
+    \begin{align*}
+      \sin z &= \sin (x + iy) \\
+             &= \sin x \cos iy + \cos x \sin iy \\
+             &= \sin x \cosh y + i \cos x \sinh y
+    \end{align*}
+    This applies to other trigonometric functions.
+
+    \(\log z = \log |z| + i \arg z\) has derivative \(\frac{1}{z}\).
+
+    The product, quotient and chain rules hold in exactly the same way as for real function.
+  \end{enumerate}
+\end{eg}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f(z) = \Re z\) has \(u = x, v = 0\) but \(\frac{\p u}{\p x} = 1 \neq 0 = \frac{\p u}{\p y}\) so \(\Re z\) is nowhere analytic.
+  \item \(f(z) = |z|\) has \(u = \sqrt{x^2 + y^2}, v = 0\) and is nowhere analytic.
+  \item \(f(z) = \conj z = x - iy\) is nowhere analytic.
+  \item \(f(z) = |z|^2 = x^2 + y^2\). The Cauchy-Riemann equaitions are satisfied only at the origin, so \(f\) is only differentiable at \(z = 0\). However it is not analytic there because there is no neighbourhood of \(0\) throughout which \(f\) is differentiable.
+  \end{enumerate}
+\end{eg}
+
+\subsection{* Analytic Continuation}
+
+If we are given the values of an analytic function in some restricted region --- which could be rather small, such as a short curve somewhere in the complex plane --- then there is a unique extension of the function to the rest of \(\C\) that is still analytic. (No proof given here.) The extension might have some singularities, and might be multivalued.
+
+This fact can be useful in extending the domain of definition of a function. We shall see an example in Section 5.2.
+
+\subsection{Harmonic Functions}
+
+If \(f(z) = u + iv\) is analytic, then
+\[
+  \frac{\p^2 u}{\p x^2} = \frac{\p}{\p x} \frac{\p u}{\p x} = \frac{\p}{\p x} \frac{\p v}{\p y} = -\frac{\p^2 u}{\p y^2}
+\]
+so \(u\) satisfies Laplace's equaiotn in two dimension, \(\gradient^2 u = 0\). Similarly so does \(v\). A function satisfying Laplace's equation in an open set is said to be \emph{harmonic} there.
+
+Functions \(u\) and \(v\) satisfying the Cauchy-Riemann equations are called \emph{harmonic conjugates}. If we know one then we can find the other, up to a constant. For example, consider \(u(x, y) = x^2 - y^2\), which is easily verified to be harmonic. Its harmonic conjugate \(v\) satisfies
+\begin{align*}
+  \frac{\p v}{\p y} &= 2x \implies v = 2xy + g(x) \\
+  \frac{\p v}{\p x} &= 2y \implies 2y + g'(x) = 2y
+\end{align*}
+so \(g = \alpha\) for some constant \(\alpha\). The corresponding analytic function whose real part is \(u\) is therefore
+\[
+  f(z) = x^2 - y^2 + 2ixy + i\alpha = (x + iy)^2 + i\alpha = z^2 + i\alpha.
+\]
+
+If the domain is not simply-connected then this method might give a solution that is multi-valued. For example, if \(u = \frac{1}{2} \log(x^2 + y^2)\), which is harmonic in the domain \(|z| > 0\), the corresponding \(f(z)\) is \(\log z\), which is multi-valued (see \Cref{sec:multi-valued functions}).
+
+We end this section by a geometric obseravation:
+
+\begin{proposition}
+  Contours of harmonic conjugate functions are perpendicular to each other:
+\end{proposition}
+
+\begin{proof}
+  \(\gradient u\) is perpendicular to contours of \(u\) (i.e.\ curves \(u = \) constant), using a result from IA Vector Calculus. Similarly \(\gradient v\) is perpendicular to contour of \(v\). But
+  \begin{align*}
+    \gradient u \cdot \gradient v &= \frac{\p u}{\p x}\frac{\p v}{\p x} + \frac{\p u}{\p y}\frac{\p v}{\p y} \\
+                                  &= \frac{\p u}{\p x}\left(-\frac{\p u}{\p y}\right) + \frac{\p u}{\p y}\frac{\p u}{\p x} \\
+                                  &= 0
+  \end{align*}
+  and the result follows.
+\end{proof}
+
+\subsection{Multi-valued functions}\label{sec:multi-valued functions}
+
+For \(z = re^{i\theta}\) we define \(\log z = \log r + i\theta\). There are thus infinitely many values of \(\log z\), for \(\theta\) may take an infinity of values. For example,
+\[
+  \log i = \frac{\pi i}{2} \text{ or } \frac{5\pi i}{2} \text{ or } -\frac{3\pi i}{2} \text{ or } \dots
+\]
+depending on which choice of \(\theta\) we make.
 
 
 
-\printindex
+
 
 \end{document}
