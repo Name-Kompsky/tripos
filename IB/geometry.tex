@@ -11,6 +11,7 @@
 \input{header}
 
 \DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\mesh}{mesh}
 
 \makeindex
 
@@ -150,6 +151,172 @@ Since \(h\) is an isometry, \(h(0) = 0\), \(h(e_i) = e_i\) and \(h(x) = y\), we 
   \]
   is a reflection. Thus if \(S \in \Isom(\R^n)\) fixing \(H\) and \(S \neq \id \) then \(R\) is the reflection in \(H\).
 \end{eg}
+
+\begin{remark}
+  One can show that every isometry of \(\R^n\) is a composition of at most \(n + 1\) reflections (see example sheet 1).
+\end{remark}
+
+From the previous theorem, the subgroup
+\[
+  \{f \in \Isom(\R^n): f(0) = 0\} = \{f(x) = Ax: AA^T = I\}
+\]
+is naturally isomorphic to \(O(n)\), the \emph{orthogonal group}\index{orthogonal group}.
+
+As for every \(A \in O(n)\), \((\det A)^2 = 1\), we must have \(\det A = \pm 1\). We call \(\{A \in O(n): \det A = 1\}\) the \emph{special orthgonal group}\index{orthogonal group!special}, denoted \(SO(n)\).
+
+\begin{eg}[\(O(2)\)]
+  \[
+    A =
+    \begin{pmatrix}
+      a & c \\
+      b & d
+    \end{pmatrix}
+    \in O(2) \Leftrightarrow a^2 + c^2 = 1, b^2 + d^2 = 1, ab + cd = 0
+  \]
+  Set \(a = \cos \theta, c = \sin \theta\) and \(b = - \sin \varphi, d = \cos \varphi\) for some \(0 \leq \theta, \varphi \leq 2\pi\). Then we deduce
+  \[
+    \tan \theta = \tan \varphi \in \R \cup \{\infty\}
+  \]
+  so
+  \[
+    \theta = \varphi \text{ or } \theta = \varphi \pm \pi.
+  \]
+  The first case corresponds to
+  \[
+    A =
+    \begin{pmatrix}
+      \cos \theta & -\sin \theta \\
+      \sin \theta & \cos \theta
+    \end{pmatrix}
+  \]
+  which is the rotation through \(\theta\) about \(0\). As \(\det A = 1\), \(A \in SO(2)\). The second case gives
+  \[
+    A =
+    \begin{pmatrix}
+      \cos \theta & \sin \theta \\
+      \sin \theta & - \cos \theta
+    \end{pmatrix}
+  \]
+  which we claim is a relfection: it fixes the line \(\ell\) which passes through the origin and forms an angle \(\theta/2\) with the positive \(x\)-axis. \(\det A = -1\) so \(A \notin SO(2)\).
+\end{eg}
+
+\begin{remark}[Orientation]\index{orientation}
+  For a finite-dimensional vector space, its \emph{orientation} is an equivalence class of bases --- let \(v_1, \dots, v_n\) and \(v_1', \dots, v_n'\) be two bases, and \(A = (A_{ij})\) be the respective change-of-basis from \(\{v_i\}\) to \(\{v_i'\}\). These bases are equivalent, i.e.\ give the \emph{same orientation}, if \(\det A > 0\).
+\end{remark}
+
+\begin{definition}
+  An isometry \(f(x) = Ax + b\) is said to be \emph{orientation-preserving} if \(\det A = 1\), and \emph{orientation-reversing} if \(\det A = -1\).
+\end{definition}
+
+\begin{eg}{\(O(3)\)}
+Let's study \(O(3)\) in detail. Consider first the case \(\det A = 1\), then
+\[
+  \det(A - I) = \det(A^T -I) = \det(A(A^T - I)) = \det(I - A).
+\]
+Since \(A\) is a \(3 \times 3\) matrix, we must have \(\det (A - I) = 0\) so \(+1\) is an eigenvalue. Thus there exists \(v_1 \in \R^3, \norm{v_1} = 1\) such that \(Av_1 = v_1\). Set \(W = \generation{v_1}^\perp\), a plane. Then for \(w \in W\),
+\[
+  (Aw, v_1) = (Aw, Av_1) = (w, v_1) = 0
+\]
+so \(A\) is \(W\)-stable. Thus \(A|_W\) is a \emph{rotation} of the \(2\) dimensional space \(W\). Choose \(v_2, v_3\) to be an orthonormal basis of \(W\), then \(A\) has matrix representation with respect to \(v_1, v_2, v_3\)
+\[
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & \cos \theta & -\sin \theta \\
+    0 & \sin \theta & \cos \theta
+  \end{pmatrix}
+\]
+
+Now suppose \(\det A = -1\). Then \(-A\) in some basis is of the above matrix form. Thus \(A\) is of the form
+\[
+  \begin{pmatrix}
+    -1 & 0 & 0 \\
+    0 & \cos \varphi & -\sin \varphi \\
+    0 & \sin \varphi & \cos \varphi
+  \end{pmatrix}
+\]
+where \(\varphi = \theta + \pi\). This is a \emph{rotated reflection} (in particular a pure reflection when \(\varphi = 0\)).
+\end{eg}
+
+\section{Curves in \texorpdfstring{\(\R^n\)}{ℝ\^{}n}}
+
+\begin{definition}[Curve]\index{curve}
+  A \emph{curve} \(T\) in \(\R^n\) is a continuous map \(\Gamma: [a, b] \to \R^n\).
+\end{definition}
+
+A \emph{dissection} \(\mathcal D\) is a sequence
+\[
+  a = t_0 < t_1 < \dots, t_N = b \in [a, b].
+\]
+Set \(P_i = T(t_i)\) and let
+\[
+  s_{\mathcal D} = \sum_i \norm{P_iP_{i + 1}}.
+\]
+
+\begin{definition}[Length]\index{length}
+  The \emph{length} of a curve \(\Gamma\) is
+  \[
+    \ell = \sup_{\mathcal D} s_{\mathcal D}
+  \]
+  if this supremum exists (i.e.\ finite).
+\end{definition}
+
+If \(\mathcal D'\) is a refinement of \(\mathcal D\) (has extra points added), then \(s_{\mathcal D} \leq s_{\mathcal D'}\) by triangle inequality. Let
+\[
+  \mesh \mathcal D = \max_i(t_i - t_{i - 1}).
+\]
+Then if \(\ell\) exists, we have
+\[
+  \ell = \lim_{\mesh \mathcal D \to 0} s_{\mathcal D}.
+\]
+
+\begin{note}
+  In fact we have
+  \[
+    \ell = \min\{\tilde \ell: \tilde \ell \geq s_{\mathcal D} \text{ for all } \mathcal D\}.
+  \]
+\end{note}
+
+\begin{proposition}
+  If \(\Gamma\)  is continuously differentiable, then
+  \[
+    \ell(\Gamma) = \int_a^b \norm{\Gamma'(t)} dt.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Assume \(n = 3\) to avoid excessive notation. Let
+  \[
+    \Gamma(t) = (f_1(t), f_2(t), f_3(t)).
+  \]
+  If \(s \neq t \in [a, b]\), applying Mean Value Theorem to each \(f_i\) gives us
+  \[
+    \frac{f_i(t) - f_i(s)}{t - s} = f'_i(\xi_i)
+  \]
+  for some \(s < \xi_i < t\). \(f_i'\) are uniformly continuous on \([a, b]\) so for all \(\varepsilon > 0\) there exists \(\delta > 0\) such that
+  \[
+    |t - s| < \delta \implies |f_i'(\xi_i) - f_i'(\xi)| < \frac{\varepsilon}{3} \, \forall \xi \in (s, t).
+  \]
+  So for all \(\xi \in (s, t)\),
+  \begin{align*}
+    \norm*{\frac{\Gamma(s) - \Gamma(t)}{s - t} - \Gamma'(\xi)} &= \norm{(f_1'(\xi_1), f_2'(\xi_2), f_3'(\xi_3)) - (f_1'(\xi), f_2'(\xi), f_3'(\xi))} \\
+                                                               &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} +\frac{\varepsilon}{3} \\
+                                                               &= \varepsilon
+  \end{align*}
+  i.e.
+  \[
+    \norm{(\Gamma(t) - \Gamma(s)) - (t - s)\Gamma'(\xi)} < \varepsilon(t - s)
+  \]
+  for all \(\xi \in (s, t)\). Specialise to \(t = t_i, s= t_{i - 1}, \xi = \frac{t_i + t_{i - 1}}{2}\) and sum over \(i\), we get
+  \[
+    \sum_i \norm*{(\Gamma(t_i) - \Gamma(t_{i - 1})) - (t_i - t_{i - 1}) \Gamma'\left(\frac{t_i + t_{i - 1}}{2}\right)} < \sum_i \varepsilon(t_i - t_{i - 1}) = \varepsilon(b - a).
+  \]
+  Now if \(\mesh \mathcal D < \delta\) then the reverse triangle inequality gives
+  \[
+    \left|s_{\mathcal D}  - \sum_i (t_i - t_{i - 1}) \norm*{\Gamma'\left(\frac{t_i + t_{i - 1}}{2}\right)}\right| < \varepsilon (b - a).
+  \]
+\end{proof}
+
+
 
 
 

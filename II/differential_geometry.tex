@@ -119,6 +119,133 @@ Note that we have yet shown that the dimension of a manifold is well-defined but
   \]
 \end{definition}
 
+\subsection{Tangent space}
+
+\begin{definition}[Differential]\index{differential}
+  Let \(U \subseteq \R^n\) and \(f: U \to \R^m\) be a smooth map. The \emph{differential} of \(f\) at \(x \in U\), \(df_x\) is a linear map
+  \begin{align*}
+    df_x: \R^n &\to \R^m \\
+    h &\mapsto \lim_{t \to 0} \frac{f(x + th) - f(x)}{t}
+  \end{align*}
+\end{definition}
+
+Explicitly, \(df_x\) is represented by the matrix
+\[
+  \left( \frac{\p f}{\p x_j} \right) \text{ where } f =
+  \begin{pmatrix}
+    f_1 \\
+    \vdots \\
+    f_m
+  \end{pmatrix}
+  .
+\]
+It then follows that
+\[
+  df_x(h) = \left(\frac{\p f}{\p x_j}\right)
+  \begin{pmatrix}
+    h_1 \\
+    \vdots \\
+    h_n
+  \end{pmatrix}
+  .
+\]
+
+\begin{proposition}[Chain rule]
+  Let \(f: U \to V, g: V \to \R^p\) be smooth maps where \(U \subseteq \R^n, V \subseteq \R^m\). Let \(x \in U\) and \(f(x) \in V\). Then
+  \[
+    d(g \compose f)_x = dg_{f(x)} \compose df_x.
+  \]
+\end{proposition}
+
+The aim of this section is to define differentials of maps between manifolds. Before that we have to find where differential lives. Certainly in \(\R^n\) it is a linear map living in a linear space.
+
+Let \(X \subseteq \R^N\) be a \(k\)-dim manifold and \(x \in X\). Let \(\varphi\) be a local parameterisation around \(x\). Wlog assume \(\varphi^{-1}(x) = 0\). Note that \(\varphi\) is defined on an open subset of \(\R^k\) so we can do calculus on it (this is false for \(\varphi^{-1}\) as \(V \subseteq \R^N\) may not be open). We can define
+\[
+  d\varphi_0: \R^k \to \R^N.
+\]
+
+\begin{definition}[Tangent space]\index{tangent space}
+  The \emph{tangent space} of \(X\) at \(x\), denoted \(T_xX\), is \(d\varphi_0(\R^k)\), a subspace of \(\R^N\).
+\end{definition}
+
+For this to be a good definition, we need to show that it is independent of \(\varphi\) and \(\dim d\varphi_0(\R^k) = k\).
+
+Suppose \(\varphi: U \to V\) and \(\tilde \varphi: \tilde U \to \tilde V\) are parameterisations around \(x\), again assumming wlog \(\varphi(0) = x = \tilde \varphi(0)\). By taking intersection we can assume \(V = \tilde V\). Write
+\[
+  \varphi = \tilde \varphi \compose \underbrace{(\tilde \varphi^{-1} \compose \varphi)}_{U \to \tilde U}.
+\]
+The term in the parenthesis is a map between open subsets of \(\R^k\) so we can do calculus on it. By chain rule
+\[
+  d\varphi_0 = d\tilde \varphi_0 \compose d(\tilde \varphi^{-1} \compose \varphi)_0.
+\]
+Note that \(\varphi^{-1} \compose \tilde \varphi\) is the inverse of \(\tilde \varphi^{-1} \compose \varphi\) so by applying chain rule to \(\id\), we get
+\[
+  \id = d(\varphi^{-1} \compose \tilde \varphi)_0 \compose d(\tilde \varphi^{-1} \compose \varphi)_0
+\]
+so both of them are invertible. Thus
+\[
+  d\varphi_0(\R^k) = d\tilde \varphi_0(\R^k).
+\]
+
+Next we want to show \(\dim d\varphi_0(\R^k) = k\). Certainly linear algebra tells us that it is at most \(k\). By definition there exists a smooth \(\psi: W \to \R^k\), where \(W \subseteq \R^N\) is an open subset containing \(x\) such that
+\[
+  \psi|_{X \cap W} = \varphi^{-1}.
+\]
+Assume wlog \(V \subseteq X \cap W\). Then
+\[
+  \id_U = \psi \compose \varphi
+\]
+so by chain rule
+\[
+  \id = d\psi_x \compose d\varphi_0.
+\]
+Thus \(d\varphi_0(\R^k)\) is \(k\)-dimensional.
+
+\begin{remark}
+  The functions \(\varphi^{-1} \compose \tilde \varphi\) are called \emph{transition functions} and will appear later in the course.
+\end{remark}
+
+\begin{corollary}
+  The dimension of a manifold is well-defined.
+\end{corollary}
+
+\begin{ex}
+  If \(X \subseteq \R^N\) is a manifold and \(Y\) is a submanifold of \(X\) then
+  \[
+    T_yY \leq T_yX
+  \]
+  for all \(y \in Y\). In particular \(\codim_X(Y) \geq 0\).
+\end{ex}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(T_x\R^N = \R^N\).
+  \item Let \(X\) be an open subset of \(\R^N\). Then \(T_xX = \R^N\).
+  \item Let
+    \[
+      X = \{(x_1, x_2, \dots, x_k, 0, \dots, 0)\} \subseteq \R^N
+    \]
+    which can be seen as the image of the embedding \(\varphi: \R^k \to \R^N\). This is a \(k\)-dim manifold. This is a linear map so \(d\varphi_x = \varphi\). Thus \(T_xX = X\). In general, this holds if \(\varphi\) is an injective linear map.
+  \item Let \(S^n \subseteq \R^{n + 1}\). Given a point \(x \in S^n\) with \(x_{n + 1} > 0\), use the parameterisation
+    \begin{align*}
+      \varphi: B(\V 0, 1) &\to \R^{n + 1} \\
+      (x_1, \dots, x_n) &\mapsto \left(x_1, \dots, x_n, + \sqrt{1 - x_1^2 - \dots - x_n^2}\right)
+    \end{align*}
+    Then
+    \[
+      \im d\varphi_{(x_1, \dots, x_n)} = \text{span}\left\{\frac{\p \varphi}{\p x_1}, \dots, \frac{\p \varphi}{\p x_n}\right\}.
+    \]
+    We have
+    \[
+      \frac{\p \varphi}{\p x_i} = \left(0, \dots, 1, \dots, 0, -\frac{x_i}{x_{n + 1}}\right)
+    \]
+    and we can verify that for all \(i\),
+    \[
+      \frac{\p \varphi}{\p x_i} \cdot (x_1, \dots, x_n, x_{n + 1}) = 0
+    \]
+    so \(T_xS^n\) is \(\{v: v \cdot x = 0\} \subseteq \R^{n + 1}\).
+  \end{enumerate}
+\end{eg}
 
 
 
