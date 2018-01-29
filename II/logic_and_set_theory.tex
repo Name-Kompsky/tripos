@@ -86,7 +86,7 @@ In other words, a valuation is determined by its values on \(P\) and any values 
 \begin{proof}\leavevmode
   \begin{enumerate}
   \item We have for all \(p \in L_1\), \(v(p) = v'(p)\). But if \(v(p) = v'(p)\) and \(v(q) = v'(q)\) then \(v(p \implies q) = v'(p \implies q)\) so \(v = v'\) on \(L_2\). Continue inductively, we have \(v = v'\) on \(L_n\) for all \(n\).
-  \item Set \(v(p) = w(p)\) for all \(p \in P\) and \(v(\bot) = 0\). This defines \(v\) on \(L_1\). Having defined \(v\) on \(L_2\), use \(v(p \implies q) \begin{cases} 0 & \text{if } v(p) = 1, v(q) = 0 \\ 1 & \text{otherwise} \end{cases}\) to define \(v\) on \(L_{n + 1}\).
+  \item Set \(v(p) = w(p)\) for all \(p \in P\) and \(v(\bot) = 0\). This defines \(v\) on \(L_1\). Having defined \(v\) on \(L_2\), use \(v(p \implies q) = \begin{cases} 0 & \text{if } v(p) = 1, v(q) = 0 \\ 1 & \text{otherwise} \end{cases}\) to define \(v\) on \(L_{n + 1}\).
   \end{enumerate}
 \end{proof}
 
@@ -174,6 +174,98 @@ As deduction rules, we'll take just \emph{modus ponens}: from \(p\) and \((p \im
 \begin{definition}
   If there is a proof of \(t\) from \(S\), say \(S\) \emph{proves} or \emph{syntactically implies} \(t\), written \(S \yields t\). If \(\emptyset \yields t\), say \(t\) is a \emph{theorem}, written \(\yields t\).
 \end{definition}
+
+Missed a lecture
+
+\begin{theorem}[Model Existence Lemma]
+  Let \(S \subseteq L\) be consistent, then \(S\) has a model.
+\end{theorem}
+
+The idea is to would like to define a valuation \(v\) by \(v(p) = 1\) if and only if \(p \in S\). As \(1\) is preserved under \(\implies\), a more sensible aim is \(v(p) = 1\) if and only if \(S \yields p\).
+
+But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow'' \(S\) to contain one of \(p\) or \(\neg p\) for each \(p \in L\) (while remaining consistent).
+
+\begin{proof}
+  Claim that for any consistent \(S \subseteq L\), \(S \cup \{p\}\) or \(S \cup \{\neg p\}\) is consistent:
+
+  \begin{proof}
+    If not, then \(S \cup \{p\} \yields \bot\) and \(S \cup \{\neg p\} \yields \bot\). But then \(S \yields (p \implies \bot)\) by deduction theorem, i.e.\ \(S \yields \neg p\). Then \(S \yields \bot\). Absurd.
+  \end{proof}
+
+  Now as \(L\) is countable, we can list \(L\) as \(t_1, t_2, \dots \). Put \(S_0 = S\). Set \(S_1 = S_0 \cup \{t_1\}\) or \(S_0 \cup \{\neg t_1\}\) such that \(S_1\) is consistent. Then Let \(S_2 = S_1 \cup \{t_2\}\) or \(S_1 \cup \{\neg t_2\}\) such that \(S_2\) is consistent and continue inductively. Let \(\cl S = S_0 \cup S_1 \cup \dots\). Then \(\cl S \supseteq S\) and \(\cl S\) is consistent (as each \(S_n\) is consistent and proofs are finite). For all either \(p \in L\) we have \(p \in \cl S\) or \(\neg p \in \cl S\). Also \(\cl S\) is \emph{deductively closed}, meaning that if \(\cl S \yields p\) then \(p \in \cl S\). Indeed if \(p \notin \cl S\) then \(\neg p \in \cl S\), so \(\cl S \yields p, \cl S \yields (\neg p)\), whence \(\cl S \yields \bot\). Absurd.
+
+  Define a valuation
+  \begin{align*}
+    v: L &\to \{0, 1\} \\
+    p &\mapsto
+        \begin{cases}
+          1 & p \in \cl S \\
+          0 & \text{otherwise}
+        \end{cases}
+  \end{align*}
+  Indeed, \(v(\bot) = 0\) as \(\bot \notin \cl S\). For \(v(p \implies q)\):
+  \begin{itemize}
+  \item if \(v(p) = 1, v(q) = 0\), we have \(p \in \cl S, q \notin \cl S\), and we want \(v(p \implies q) = 0\), i.e.\ \((p \implies q) \notin \cl S\). But if \((p \implies q) \in \cl S\) then \(\cl S \yields q\), \(q \in \cl S\). Absurd.
+  \item if \(v(q) = 1\), we have \(q \in \cl S\), and we want \(v(p \implies q) \in \cl S\), i.e.\ \((p \implies q) \in \cl S\). But \(\yields q \implies (p \implies q)\) so \(\cl S \yields (p \implies q)\).
+  \item if \(v(p) = 0\), we have \(p \implies \cl S\). Then \((\neg p) \in \cl S\). We want \((p \implies q) \in \cl S\). Thus we need \((p \implies \bot) \yields (p \implies q)\), which by Deduction theorem is equivalent to \(\{p \implies \bot, p\} \yields q\). Thus suffices to show that \(\bot \yields q\). But we have \(\yields (\neg \neg q) \implies q\), and \(\yields (\bot \implies (\neg \neg q))\). Thus \(\yields (\bot \implies q)\), i.e.\ \(\bot \implies q\). Done.
+  \end{itemize}
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Sometimes this is called Completeness Theorem.
+  \item What would happen if \(P\) is uncountable? In fact, the result still holds if \(P\) is uncountable. See Chapter 3.
+  \end{enumerate}
+\end{remark}
+
+By remark before the above theorem, we now have
+
+\begin{corollary}[Adequacy]
+  Let \(S \subseteq L, t \in L\). Then if \(S \models t\) then \(S \yields t\).
+\end{corollary}
+
+\begin{theorem}[Completeness Theorem]\index{Completeness Theorem}
+  Let \(S \subseteq L, t \in L\). Then \(S \yields t\) if and only if \(S \models t\).
+\end{theorem}
+
+\begin{proof}
+  By soundness and adequacy.
+\end{proof}
+
+Some consequences:
+
+\begin{corollary}[Compactness Theorem]
+  Let \(S \subseteq L, t \in L\) with \(S \models t\). Then there exists a finite \(S' \subseteq S\) with \(S' \models t\).
+\end{corollary}
+
+\begin{proof}
+  Trivial if we replace \(\models\) with \(\yields\) as proofs are finite.
+\end{proof}
+
+Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then some finite \(S' \subseteq S\) has no model. Equivalently,
+
+\begin{corollary}[Compactness Theorem, equivalent form]
+  Let \(S \subseteq L\). If every finite finite subset of \(S\) has a model then \(S\) has a model.
+\end{corollary}
+
+\begin{proof}
+  This is equivalent to the previous corollary because \(S \models t\) if and only if \(S \cup \{\neg t\}\) has no model and \(S' \models t\) if and only if \(S' \cup \{\neg p\}\) has no model.
+\end{proof}
+
+\begin{corollary}[Decidability Theorem]
+  There is an algorithm to determine (in finite time) whether or not, for a given \(S \subseteq L, t\in L\), we have \(S \yields t\).
+\end{corollary}
+
+\begin{remark}
+  Highly non-obvious.
+\end{remark}
+
+\begin{proof}
+  Trivial to decide if \(S \models t\), just by drawing a truth table.
+\end{proof}
+
+
+
 
 
 \printindex

@@ -364,7 +364,7 @@ A classical problem from Greek geometry concerns the existence or otherwise of c
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item Let \(\Q \leq L\) be an algebraic extension. Then \(L\) is separable over \(\Q\).
-  \item Let \(L = \F_p(X)\), the field of rational functiions in \(X\) over \(\F_p\). It has \(K = \F_p(X^p)\) as a subfield. Then \(K \leq L\) is not separable:
+  \item Let \(L = \F_p(X)\), the field of rational functions in \(X\) over \(\F_p\). It has \(K = \F_p(X^p)\) as a subfield. Then \(K \leq L\) is not separable:
     \begin{proof}
       Observe that if \(f(t) = t^p - X^p \in K[t]\) then \(f'(t) = 0\). But \(t^p - X^p = (t - X)^p \in L[t]\). However, \(f(t) \in K[t]\) is irreducible: suppose \(f(t) = g(t)h(t) \in K[t] \subseteq L[t]\), we get \(g(t) = (t - X)^r\) for some \(0 < r < p\) if the factorisation is non-trivial. But this would mean \(X^r \in K\). However \(r\) and \(p\) are coprime so there exist \(a, b \in \Z\) such that \(ar + bp = 1\), so \(X = (X^r)^a (X^p)^b \in K\). Thus we would have \(X = u(X^p)/v(X^p)\), absurd.
 
@@ -400,7 +400,7 @@ A classical problem from Greek geometry concerns the existence or otherwise of c
 \end{proof}
 
 \begin{eg}
-  Let \(K = \Q, L = \Q(\sqrt[3]{2}\). Then \(\alpha = \sqrt[3]{2}\) has minimal polynomial \(f_\alpha(t) = t^3 - 2\) over \(\Q\). There is only one \(K\)-homomorphism \(M = K(\sqrt[3]{2} = L \to L\), i.e.\ the identity map.
+  Let \(K = \Q, L = \Q(\sqrt[3]{2})\). Then \(\alpha = \sqrt[3]{2}\) has minimal polynomial \(f_\alpha(t) = t^3 - 2\) over \(\Q\). There is only one \(K\)-homomorphism \(M = K(\sqrt[3]{2}) \to L\), i.e.\ the identity map.
 \end{eg}
 
 \begin{corollary}
@@ -413,9 +413,9 @@ A classical problem from Greek geometry concerns the existence or otherwise of c
 
 \begin{lemma}
   \label{lem:homomorphic extension of algebraic extension}
-  Let \(K \leq M\) be a field extension and \(M_1 = M(\alpha_1)\), where \(\alpha_1\) is algebraic over \(M\). Let \(f(t)\) be the minimal polynomial of \(\alpha\) over \(M\) and let \(K \leq L\). Let \(\phi: M \to L\) be a \(K\)-homomorphism. Then there is a one-to-one correspondence
+  Let \(K \leq M\) be a field extension and \(M_1 = M(\alpha)\), where \(\alpha\) is algebraic over \(M\). Let \(f(t)\) be the minimal polynomial of \(\alpha\) over \(M\) and let \(K \leq L\). Let \(\phi: M \to L\) be a \(K\)-homomorphism. Then there is a one-to-one correspondence
   \[
-    \{\text{extension } \phi_1: M \to L \text{ of } \phi\} \leftrightarrow \{\text{root of } \phi(f(t)) \text{ in } L\}.
+    \{\text{extension } \phi_1: M_1 \to L \text{ of } \phi\} \leftrightarrow \{\text{root of } \phi(f(t)) \text{ in } L\}.
   \]
 \end{lemma}
 
@@ -424,11 +424,11 @@ A classical problem from Greek geometry concerns the existence or otherwise of c
 \end{remark}
 
 \begin{proof}
-  \(f(t) \in M[t]\) is irreducible so \(\phi(f(t)) \in \phi(M)[t]\) is irreducible. Any extension \(\phi_1: M \to L\) of \(\phi\) produces a root \(\phi_1(\alpha_1)\) of \(\phi(f(t))\).
+  \(f(t) \in M[t]\) is irreducible so \(\phi(f(t)) \in \phi(M)[t]\) is irreducible. Any extension \(\phi_1: M_1 \to L\) of \(\phi\) produces a root \(\phi_1(\alpha)\) of \(\phi(f(t))\).
 
   Conversely, given a root \(\gamma\) of \(\phi(f(t))\) in \(L\),
   \[
-    M_1 = M(\alpha_1) \cong M[t]/(f(t)) \cong \phi(M)[t]/(\phi(f(t))) \cong \phi(M)(\gamma) \leq L
+    M_1 = M(\alpha) \cong M[t]/(f(t)) \cong \phi(M)[t]/(\phi(f(t))) \cong \phi(M)(\gamma) \leq L
   \]
   so we get an extension \(\phi_1\) of \(\phi\) as required.
 \end{proof}
@@ -464,7 +464,7 @@ A classical problem from Greek geometry concerns the existence or otherwise of c
 \end{remark}
 
 \begin{theorem}
-  Let \(K \leq N\) be a field extension with \(|N:K| = n\) and \(N = (K(\alpha_1, \dots, \alpha_n)\). Then TFAE:
+  Let \(K \leq N\) be a field extension with \(|N:K| = n\) and \(N = K(\alpha_1, \dots, \alpha_n)\). Then TFAE:
   \begin{enumerate}
   \item \(K \leq N\) is separable.
   \item Each \(\alpha_i\) is separable over \(K(\alpha_1, \dots, \alpha_{i - 1})\).
@@ -679,7 +679,7 @@ We met this definition before:
 
 \begin{proof}\leavevmode
   \begin{itemize}
-  \item \(\Rightarrow\): suppose \(K \leq M\) is normal. Pick \(\alpha_1, \dots, \alpha_r \in M\) such that \(M = K(\alpha_1, \dots, \alpha_k)\). Let \(f_{\alpha_i}(t)\) be the minimal polynomial of \(\alpha_i\) over \(K\). Let \(f(t) = \prod_{n = 1}^{r} f_{\alpha_i}(t)\).
+  \item \(\Rightarrow\): suppose \(K \leq M\) is normal. Pick \(\alpha_1, \dots, \alpha_r \in M\) such that \(M = K(\alpha_1, \dots, \alpha_k)\). Let \(f_{\alpha_i}(t)\) be the minimal polynomial of \(\alpha_i\) over \(K\). Let \(f(t) = \prod_{n = 1}^{k} f_{\alpha_i}(t)\).
 
     By normality, each \(f_{\alpha_i}(t)\) splits over \(M\) and so is \(f(t)\). \(M\) is the splitting field of \(f(t)\) over \(K\) since if \(\beta_1, \dots, \beta_m\) are the roots of \(f(t)\) then \(M = K(\beta_1, \dots, \beta_m)\).
   \item \(\Leftarrow\): suppose \(M\) is a splitting field for \(f(t)\) over \(K\). Then \(M = K(\beta_1, \dots, \beta_m)\) where \(\beta_j\) are the roots of \(f(t)\) over \(M\). Take \(\alpha \in M\). Let \(f_\alpha(t)\) be the minimal polynomial of \(\alpha\) over \(K\). Let \(M \leq L\) be large enough so that \(f_\alpha(t)\) splits over \(L\).
@@ -843,7 +843,7 @@ The fixed field is a field and \(K \leq L^H \leq L\).
         & \generation{\sigma, \tau} \cong D_6
       \end{tikzcd}
     \]
-    The subgroup \(H\) of order \(3\) is normal but those of order \(2\) are not so the map \(\gal(\Q(\sqrt[3]{2}, \omega)/\Q) \to \gal(\Q(\omega)/\Q)\), i.e.\ \(D_6 \mapsto C_2\), generated by conjugation has kernel \(\generation{\sigma}\).
+    The subgroup \(H\) of order \(3\) is normal but those of order \(2\) are not so the map \(\gal(\Q(\sqrt[3]{2}, \omega)/\Q) \to \gal(\Q(\omega)/\Q)\), i.e.\ \(D_6 \to C_2\), generated by conjugation has kernel \(\generation{\sigma}\).
     \end{enumerate}
 \end{eg}
 
@@ -1010,7 +1010,7 @@ Moreover if \(\phi\) fixes each \(\alpha_i\) it also fixes all elements of \(L\)
   Let \(f(t) = t^5 - 6t + 3 \in \Q[t]\), then claim \(\gal(f) \cong S_5\):
 
   \begin{proof}
-    \(f(t)\) is irreducible by Einsenstein with \(p = 3\). We want to show that \(f(t)\) has \(3\) real roots (so \(2\) non-real roots) and apply the previous theorem.
+    \(f(t)\) is irreducible by Eisenstein with \(p = 3\). We want to show that \(f(t)\) has \(3\) real roots (so \(2\) non-real roots) and apply the previous theorem.
 
     Now we apply knowledge from analysis:
     \[
@@ -1095,7 +1095,7 @@ with the first two being subgroups of \(A_4\). From looking at the discriminant 
   \[
     \red f(t) = t^4 - t - 1 = (t + 4)(t^3 + 3t^2 + 2t + 5)
   \]
-  the second factor is irreducible over \(\F_7\) since it has no roots in \(\F_7\). By \Cref{thm:mod p reduction} \(\gal(f)\) contains an element of cycle type \((1, 3)\), i.e.\ a \(3\)-cycle. We deduce that \(\gal(f) \cong S_4\) as it is the only transitive subgroup of \(S_4\) that contains an odd permutation and a \(3\) cycle.
+  the second factor is irreducible over \(\F_7\) since it has no roots in \(\F_7\). By \Cref{thm:mod p reduction} \(\gal(f)\) contains an element of cycle type \((1, 3)\), i.e.\ a \(3\)-cycle. We deduce that \(\gal(f) \cong S_4\) as it is the only transitive subgroup of \(S_4\) that contains an odd permutation and a \(3\)-cycle.
 \end{eg}
 
 \subsection{Galois Theory of Finite Fields}
@@ -1166,7 +1166,7 @@ Observe that all subgroups of cyclic groups are normal and therefore all our int
 \subsection{Cyclotomic Extensions}
 
 \begin{definition}[Cyclotomic extension]\index{field extension!cyclotomic}
-  Suppose \(\ch K = 0\) or \(p\) is prime wher \(p \ndivides m\). The \emph{\(m\)th cyclotomic extension} of \(K\) is the splitting field \(L\) of \(t^m - 1\).
+  Suppose \(\ch K = 0\) or \(p\) is prime where \(p \ndivides m\). The \emph{\(m\)th cyclotomic extension} of \(K\) is the splitting field \(L\) of \(t^m - 1\).
 \end{definition}
 
 \begin{remark}
@@ -1420,7 +1420,7 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
   \[
     f(t) = (t^3 + \sqrt{-3}) (t^3 - \sqrt{-3})
   \]
-  so the splitting field \(L\) of \(f(t)\) over \(\Q(\xi)\) is a proper subgroup of \(\Z/6\Z\). We have the following Galois correspondence:
+  so the Galois group of the splitting field \(L\) of \(f(t)\) over \(\Q(\xi)\) is a proper subgroup of \(\Z/6\Z\). We have the following Galois correspondence:
   \[
     \begin{array}[h]{ccc}
       L & 1 & \\
@@ -1459,7 +1459,7 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
        \Q & \gal(L/\Q)
      \end{array}
    \]
-   Let \(\beta\) be a root of \(f(t)\). Then \(\Q \leq \Q(\beta) \leq L\) so \(5 \divides |L:\Q|\) and thus \(5 \divides |\gal(\L/\Q(\xi))|\). Since we also have \(\gal(L/\Q(\xi)) \embed \Z/5\Z\), it follows that \(\gal(L/\Q(\xi)) \cong \Z/5\Z\).
+   Let \(\beta\) be a root of \(f(t)\). Then \(\Q \leq \Q(\beta) \leq L\) so \(5 \divides |L:\Q|\) and thus \(5 \divides |\gal(L/\Q(\xi))|\). Since we also have \(\gal(L/\Q(\xi)) \embed \Z/5\Z\), it follows that \(\gal(L/\Q(\xi)) \cong \Z/5\Z\).
 
    We can thus deduce that \(f(t)\) remains irreducible over \(\Q(\xi)\) and \(|\gal(L/\Q)| = 20\). By irreducibility of \(f(t)\) over \(\Q\), \(\gal(L/\Q)\) is a transitive subgroup of \(S_5\). By \Cref{lem:transitive subgroups of Sn}, it is isomorphic to \(H_{20}\), the subgroup generated by a \(5\)-cycle and a \(4\)-cycle. By \nameref{thm:fundamental},
    \[
@@ -1800,7 +1800,7 @@ which is abelian if \(L_i \leq L_{i + 1}\) is cyclotomic and cyclic if \(L_i \le
     \]
   \item \(S_4\) is soluble since
     \[
-      1 \normal V_4 \normal A_4 \normal S_5.
+      1 \normal V_4 \normal A_4 \normal S_4.
     \]
     and \(A_4/V_4 \cong C_3\), \(S_4/A_4 \cong C_2\).
   \item \(A_5\) is not soluble: we have proved in IA Groups and again in IB Groups, Rings and Modules that \(A_5\) is simple, and therefore any normal subgroup is \(1\) or \(A_5\). Then any chain of normal subgroups would have non-abelian quotients and thus \(A_5\) is not soluble.
@@ -1953,7 +1953,7 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
   \end{lemma}
 
   \begin{proof}
-    Suppose we have a sequence as above and want to extend this into a Galois extension of the same form. (Assume \(\ch K = 0\)). By \nameref{thm:primitive} \(L_m = K(\alpha_1)\) for some \(\alpha_1\). Let \(g(t)\) be the minimal polynomial of \(\alpha_1\) over \(K\) with splitting field \(M\). Thus \(M = K(\alpha_1, \alpha_2, \dots, \alpha_n)\) where \(\alpha_1, \dots, \alpha_n\) are roots of \(g(t)\). There are \(K\)-homomorphisms \(\phi_i: M \to M, \alpha_1 \mapsto \alpha_i\) extending \(K\)-homomorphisms \(K(\alpha_1) \to K(\alpha_i) \leq M\). The tower
+    Suppose we have a sequence as above and want to extend this into a Galois extension of the same form (assume \(\ch K = 0\)). By \nameref{thm:primitive} \(L_m = K(\alpha_1)\) for some \(\alpha_1\). Let \(g(t)\) be the minimal polynomial of \(\alpha_1\) over \(K\) with splitting field \(M\). Thus \(M = K(\alpha_1, \alpha_2, \dots, \alpha_n)\) where \(\alpha_1, \dots, \alpha_n\) are roots of \(g(t)\). There are \(K\)-homomorphisms \(\phi_i: M \to M, \alpha_1 \mapsto \alpha_i\) extending \(K\)-homomorphisms \(K(\alpha_1) \to K(\alpha_i) \leq M\). The tower
     \[
       K \leq \phi_1(K) \leq \phi_2(L_1) \leq \dots \leq \phi_1(L_m) = K(\alpha_1)
     \]
@@ -2017,7 +2017,7 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
     \]
     so \(|L:K| = 8\). The Galois group is a transitive subgroup of \(S_4\) of order \(8\). It is the dihedral group.
 
-    In particular the roots \(\pm \sqrt{-2 \pm \sqrt 2}\) are two conjugate pairs so complex conjugateion gives double transposition.
+    In particular the roots \(\pm \sqrt{-2 \pm \sqrt 2}\) are two conjugate pairs so complex conjugation gives double transposition.
   \item \(f(t) = t^4 + 2t + 2\) which is irreducible by Eisenstein over \(\Q\). A quick (hmm) calculation shows that the discriminant is \(101 \cdot 4^2\) which is not a square. Thus the Galois group contains an odd permutation.
 
     The resolvent cubic \(g(t) = t^3 - 8t - 4\) is irreducible mod \(5\). Therefore there is a \(3\)-cycle in the Galois group. We deduce that \(\gal(f) = S_4\).
@@ -2059,12 +2059,12 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
 \end{proof}
 
 \begin{eg}[Algebraic number]
-  Let \(\mathbb A = \{\alpha \in \C: \alpha \text{algebraic over } \Q\}\). It is a subfield of \(\C\): if \(\alpha\) and \(\beta\) are algebraic over \(\Q\) then \(|\Q(\alpha, \beta): \Q| < \infty\). So if \(\gamma = \alpha + \beta, \alpha - \beta, \alpha\beta\) or \(\alpha/\beta\) for \(\beta \neq 0\) we get \(\Q(\gamma) \leq \Q(\alpha, \beta)\) and so \(|\Q(\gamma):\Q| < \infty\) so \(\gamma\) is algebraic over \(Q\) and so \(\gamma \in \mathbb A\). Therefore \(\mathbb A = \cl Q\) is an algebraic closure of \(\Q\).
+  Let \(\mathbb A = \{\alpha \in \C: \alpha \text{ algebraic over } \Q\}\). It is a subfield of \(\C\): if \(\alpha\) and \(\beta\) are algebraic over \(\Q\) then \(|\Q(\alpha, \beta): \Q| < \infty\). So if \(\gamma = \alpha + \beta, \alpha - \beta, \alpha\beta\) or \(\alpha/\beta\) for \(\beta \neq 0\) we get \(\Q(\gamma) \leq \Q(\alpha, \beta)\) and so \(|\Q(\gamma):\Q| < \infty\) so \(\gamma\) is algebraic over \(\Q\) and so \(\gamma \in \mathbb A\). Therefore \(\mathbb A = \cl \Q\) is an algebraic closure of \(\Q\).
 \end{eg}
 
-Like construction of many other objects in this course, we want to prove the existence and uniqueness of algebraic closures. In general we need to appeal to Zorn's Lemma. This will be covered in IID Logic and Set, and it fact it is equivalent to both Axiom of Choice and to the Well-ordering Principle.
+Like construction of many other objects in this course, we want to prove the existence and uniqueness of algebraic closures. In general we need to appeal to Zorn's Lemma. This will be covered in IID Logic and Set Theory, and it fact it is equivalent to both Axiom of Choice and Well-ordering Principle.
 
-We will do a quick ad hoc statement of Zorn's Lemma here and relegate the main discussion to IID Logic and Set.
+We will do a quick ad hoc statement of Zorn's Lemma here and relegate the main discussion to IID Logic and Set Theory.
 
 \begin{definition}[Partial order]
   \((\zeta, \leq)\) is a \emph{partial order} on a set \(\zeta\) is
@@ -2112,7 +2112,7 @@ Recall a result derived from Zorn's Lemma in IB Groups, Rings and Modules:
   \[
     \tilde f(t) = f(t) - \prod_{j = 1}^{\deg f} (t - X_{f, j}) \in K[X_s: s \in \zeta][t].
   \]
-  Let \(I \ideal K[X_s: s \in \zeta]\) be the ideal generated by all the coefficients of all the \(\tilde f(t)\)'s, which we denote by \(a_{f, \ell}\) for \(0 \leq \ell < \deg f\). Claim that \(I \neq K[X_s: s \in \zeta]\):
+  Let \(I \ideal K[X_s: s \in \zeta]\) be the ideal generated by coefficients of all the \(\tilde f(t)\)'s, which we denote by \(a_{f, \ell}\) for \(0 \leq \ell < \deg f\). Claim that \(I \neq K[X_s: s \in \zeta]\):
   \begin{proof}
     Suppose \(1 \in I\) for contradiction. We thus have a relation
     \begin{equation*}
@@ -2159,7 +2159,7 @@ Recall a result derived from Zorn's Lemma in IB Groups, Rings and Modules:
 \end{proof}
 
 \begin{theorem}
-  Suppose \(\theta: K \to L\) is a ring homomorphism and \(L\) is algebraically closed. Suppose \(K \leq M\) is an algebraic extension, then \(\theta\) can abe extended to a homomorphism \(\phi: M \to L\), i.e.\ \(\phi|_K = \theta\).
+  Suppose \(\theta: K \to L\) is a ring homomorphism and \(L\) is algebraically closed. Suppose \(K \leq M\) is an algebraic extension, then \(\theta\) can be extended to a homomorphism \(\phi: M \to L\), i.e.\ \(\phi|_K = \theta\).
 \end{theorem}
 
 \begin{proof}
@@ -2196,7 +2196,7 @@ Recall a result derived from Zorn's Lemma in IB Groups, Rings and Modules:
 With this theorem we can finally show
 
 \begin{theorem}[Uniqueness of Algebraic Closure]
-  If \(K \leq L_1, K \leq L_2\) are two algebraical closures of \(K\), there exists an isomorphism \(\phi: L_1 \to L_2\).
+  If \(K \leq L_1, K \leq L_2\) are two algebraic closures of \(K\), there exists an isomorphism \(\phi: L_1 \to L_2\).
 \end{theorem}
 
 \begin{proof}
@@ -2205,7 +2205,7 @@ With this theorem we can finally show
 
 \subsection{Symmetric Polynomials \& Invariant Theory}
 
-In the build-up of \nameref{thm:fundamental} we met \nameref{thm:artin}, which says that if \(K \leq L\), \(H\) is a finite subgroup of \(\aut_K(L)\) and \(M = L^H\) then \(M \leq L\) is a Galois extendion and \(H = \gal(L/M)\).
+In the build-up of \nameref{thm:fundamental} we met \nameref{thm:artin}, which says that if \(K \leq L\), \(H\) is a finite subgroup of \(\aut_K(L)\) and \(M = L^H\) then \(M \leq L\) is a Galois extension and \(H = \gal(L/M)\).
 
 \begin{eg}
   Let \(L = K(X_1, \dots, X_n)\). Let \(S_n\) be the permutation group on the \(X_i\)'s. These permutations induce \(K\)-automorphisms of \(L\). By \nameref{thm:artin}, \(M = L^{S_n} \leq L\) is Galois and \(\gal(L/M) = S_n\). Thus \(S_n\) is a Galois group of \emph{some} field extension.
@@ -2248,7 +2248,7 @@ where
 \end{theorem}
 
 \begin{proof}
-  Certainly the \(s_i\)'s are fixed by \(S_n\) so \(M_1 = K(s_1, \dots, s_n) \leq M\). Observe that \(L\) is the splitting field for \(f(t) = \prod_{i = 1}^n (t - X_i)\) over \(M_1\). But \(f(t)\) has degree \(n\) and so by a propostion we proved in example sheet, the degree of the splitting field over \(M_1\) is at most \(n!\). \nameref{thm:artin} implies that \(|L:M| = |S_n| = n!\) so \(M_1 = M\).
+  Certainly the \(s_i\)'s are fixed by \(S_n\) so \(M_1 = K(s_1, \dots, s_n) \leq M\). Observe that \(L\) is the splitting field for \(f(t) = \prod_{i = 1}^n (t - X_i)\) over \(M_1\). But \(f(t)\) has degree \(n\) and so by a proposition we proved in example sheet, the degree of the splitting field over \(M_1\) is at most \(n!\). \nameref{thm:artin} implies that \(|L:M| = |S_n| = n!\) so \(M_1 = M\).
 
   To show the algebraic independence of \(s_i\)'s, we make use of the idea of transcendence bases and transcendence degree: we may consider the algebraically independent subsets of \(L\) and partially order them by inclusion. Note that the union of a chain is algebraically independent and thus an upper bound of the chain. By Zorn's Lemma there is a maximal algebraically independent subset, which is a \emph{transcendence basis}.\index{transcendence basis} The \emph{transcendence degree} of \(L\) over \(K\) is the cardinality of such a set, which is well-defined by Steinitz Exchange Lemma for infinite sets, and is denoted \(\trdeg_K(L)\).
 

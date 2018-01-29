@@ -173,8 +173,77 @@ For \(z = re^{i\theta}\) we define \(\log z = \log r + i\theta\). There are thus
 \]
 depending on which choice of \(\theta\) we make.
 
+Missed a lecture
 
+Note that aa branch cut alone does not specify a branch (compare (b) above, with the principal branch which is a different branch even though it has the same branch cut) nor is a single value of the fucntion sufficient by itself (compare (a) and (c) above).
 
+\subsubsection{Riemann Surfaces*}
 
+Riemann imagined different branches as separate copies of \(\C\), stacked on top of each other but each one joined to the next at the branch cut. THis structure is a \emph{Riemann surface}.
+
+\subsubsection{Multiple Branch Cuts}
+
+When there is more than one branch point we may need more than one branch cut. FOr \(f(z) = (z(z - 1))^{1/3}\) there are branch points at \(0\) and \(1\), se we need two branch cuts. A possibility is shown below. Then no curve can wrap round either \(0\) or \(1\).
+
+For any \(z\) write \(z = re^{i\theta}\) and \(z - 1 = r_1e^{i\theta_1}\) with \(\theta \in (-\pi, \pi], \theta_1 \in [0, 2\pi)\) and define
+\[
+  f(z) = \sqrt[3]{rr_1} e^{i(\theta + \theta_1)/3}
+\]
+This is continuous so long as we don't cross either cut. Sometimes we need fewer branch cuts than we might think. See the worked example.
+
+\subsection{Möbius Maps}
+
+The Möbius map \(z \mapsto w = \frac{az + b}{cz + d}\) where \(ad - bc \neq 0\), is analytic except at \(z = -\frac{d}{c}\). It is useful to consider it as a map \(\C^* \to \C^*\) with
+\begin{align*}
+  -\frac{d}{c} &\mapsto \infty \\
+  \infty &\mapsto \frac{a}{c}
+\end{align*}
+It is then bijective, the inverse being \(w \mapsto z = \frac{-dw + b}{cw - a}\), another Möbius map.
+
+\begin{definition}[Circline]
+  A \emph{circline} is either a circle or a line.
+\end{definition}
+
+Möbius maps take circlines to circlines.
+
+\begin{proof}
+  Any circline can be expressed as a circle of Apollonius
+  \[
+    |z - z_1| = \lambda|z - z_2|
+  \]
+  where \(z_1, z_2  \in \C, \lambda \in \R_{> 0}\). This is a result from IA Vectors and Matrices. The case \(\lambda = 1\) corresponds to a line and \(\lambda \neq 1\) to a circle. Apply a Möbius map,
+  \begin{align*}
+    \left| \frac{-dw + b}{cw - a} - z_1 \right| &= \lambda \left| \frac{-dw + b}{cw - a} - z_2 \right| \\
+    |(cz_1 + d) - (az_1 + b)| &= \lambda|(cz_1 + d)w - (az_2 + b)| \\
+    |w - w_1| &= \lambda \left| \frac{cz_2 + d}{cz_1 + d} \right| |w - w_2|
+  \end{align*}
+  where \(w_1 = \frac{az_1 + b}{cz_1 + d}, w_2 = \frac{az_2 + b}{cz_2 + d}\), which is another circle of Apollonius.
+
+  The proof failsif either \(cz_1 + d = 0\) or \(cz_2 + d = 0\), but in either of these cases the equation trivially defines a circle.
+\end{proof}
+
+Geometrically it is clear that choosing three distinct points in \(\C^*\) uniquely specifies a circline (if one of the points is \(\infty\) then we have specified the straight line through the other two points).
+
+Given \(\alpha, \beta, \eta, \alpha', \beta', \gamma' \in \C^*\) we can find a Möbius map which sends \(\alpha \mapsto \alpha'\) etc.
+
+\begin{proof}
+  The map
+  \[
+    f_1(z) = \frac{\beta - \gamma}{\beta - \alpha}\frac{z - \alpha}{z - \gamma}
+  \]
+  sends \(\alpha \mapsto 0, \beta \mapsto 1, \gamma \mapsto \infty\). Let \(f_2(z)\) be defined analogously for the primed version. Then \(f_2^{-1} \compose f_1\) is the required mapping. It is also a Möbius map as they are closed under composition.
+\end{proof}
+
+Putting all these results together, we conclude that we can find a Möbius map taking any given circline to any other.
+
+\subsection{Conformal Maps}
+
+\begin{definition}[Conformal map]
+  A \emph{conformal map} \(f: U \to V\), where \(U, V\) are \emph{open} subsets of \(\C\), is one which is analytic with non-zero derivative in \(U\).
+\end{definition}
+
+Though not part of the definition, it is usual (and helpful) to require that \(f\) be one-to-one from \(U\) to \(V\).
+
+An alternative definition is that a conformal map is one that preserves the angle (in both magnitude and orientation) between intersecting curves. We shall show that our definition implies this. The converse is also true (proof omittted) so the two definitions are equivalent.
 
 \end{document}

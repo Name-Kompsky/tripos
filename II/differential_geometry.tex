@@ -22,6 +22,8 @@
 
 \section{Smooth Manifolds}
 
+\subsection{Definitions}
+
 \begin{definition}[Smooth]\index{smooth}
   Let \(U \subseteq \R^n\) be an open set and \(f: U \to \R^m\). \(f\) is said to be \emph{smooth} if
   \[
@@ -246,6 +248,156 @@ Thus \(d\varphi_0(\R^k)\) is \(k\)-dimensional.
     so \(T_xS^n\) is \(\{v: v \cdot x = 0\} \subseteq \R^{n + 1}\).
   \end{enumerate}
 \end{eg}
+
+Now we go on to define differential of maps between manifolds. Let \(f: X \to Y\) be a smooth map of manifolds where \(X \subseteq \R^n, Y \subseteq \R^m\). Let \(\varphi:U \to V\) and \(\tilde \varphi: \tilde U \to \tilde V\) be local parameterisations around \(x\) and \(f(x)\), where \(U \subseteq \R^k, \tilde U \subseteq \R^\ell\). wlog we assume \(\varphi(0) = x, \tilde \varphi(0) = f(x)\). We also assume \(f(V) \subseteq \tilde V\).
+
+We can thus define a map \(\tilde \varphi^{-1} \compose f \compose \varphi: U \to \tilde U\) and do calculus on it. As \(T_xX = \im d\varphi_0\) and \(d\varphi_0\) is an injective map, we can define the inverse of its restriction to the image, denoted by
+\[
+  (d\varphi_0)^{-1}: T_xX \to \R^k.
+\]
+
+\begin{definition}[Differential]\index{differential}
+  The \emph{differential map} of \(f\) at \(x \in X\), denoted \(df_x\), is a linear map \(df_x: T_xX \to T_{f(x)}Y\), defined as the composition
+  \[
+    d\tilde \varphi_0 \compose d(\tilde \varphi^{-1} \compose f \compose \varphi)_0 \compose (d\varphi_0)^{-1}.
+  \]
+
+\[
+  \begin{tikzcd}
+    T_xX \ar[r, "df_0"] & T_{f(x)}Y \\
+    \R^k \ar[u, "d\varphi_0"] \ar[r, "d(\tilde \varphi^{-1} \compose f \compose \varphi)_0"'] & \R^\ell \ar[u, "d\tilde\varphi_0"']
+  \end{tikzcd}
+\]
+\end{definition}
+
+Now as everything else we defined in differential geometry, we have to check that it is independent of parameterisation. It will be a horrible job, and one that you would want to do only (at most) once in your lifetime.
+
+Let \(\psi, \tilde \psi\) be another pair of parameterisations. Define \(\varphi\) in terms of transition maps
+\[
+  \varphi = \psi \compose (\psi^{-1} \compose \varphi).
+\]
+By chain rule,
+\[
+  d\varphi_0 = d\psi_0 \compose d(\psi^{-1} \compose \varphi)_0
+\]
+so
+\[
+  (d\varphi_0)^{-1} = (d(\psi^{-1} \compose \varphi)_0)^{-1} \compose (d\psi_0)^{-1} = d(\varphi^{-1} \compose \psi)_0 \compose (d\psi_0)^{-1}
+\]
+where the last equality comes from applying chain rule to 
+\[
+  (\varphi^{-1} \compose \psi) \compose (\psi^{-1} \compose \varphi) = \id.
+\]
+Thus
+\begin{align*}
+  df_x &= d\tilde \varphi_0 \compose d(\tilde \varphi^{-1} \compose f \compose \varphi)_0 \compose (d\varphi_0)^{-1} \\
+       &= d\tilde \varphi_0 \compose d(\tilde \varphi^{-1} \compose f \compose \varphi)_0 \compose d(\varphi^{-1} \compose \psi)_0 \compose (d\psi_0)^{-1} \\
+       &= d\tilde \varphi_0 \compose d(\tilde \varphi^{-1} \compose f \compose \psi)_0 \compose (d\varphi_0)^{-1} \\
+       &= \cdots \\
+       &= d\tilde \psi_0 \compose d(\tilde \psi^{-1} \compose f \compose \psi)_0 \compose (d\psi_0)^{-1}
+\end{align*}
+where the omitted lines are similar and are left as an exercise.
+
+\begin{proposition}[Chain rule]
+  Let \(X, Y, Z\) be manifolds, \(f: X \to Y, g: Y \to Z\) smooth. Then for all \(x \in X\),
+  \[
+    d(g \compose f)_x = dg_{f(x)} \compose df_x.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Tedious exercise using transition maps and chain rule on maps between Euclidean spaces.
+\end{proof}
+
+\begin{theorem}[Inverse Function Theorem]\index{inverse function theorem}
+  Let \(f: X \to Y\) be a smooth map between manifolds. If \(df_x: T_xX \to T_{f(x)}Y\) is an isomorphism (which implies that in particular \(\dim X = \dim Y\)), then \(f\) is a local diffeomorphism. In other words, there exists an open subset \(V \subseteq X\) such that \(f|_V: V \to Y\) is a diffeomorphism onto its image.
+\end{theorem}
+
+\begin{proof}
+  This is easy using Inverse Function Theorem from analysis. Let \(\varphi, \tilde \varphi\) be local parameterisations around \(x\) and \(f(x)\) respectively. Then \(d(\tilde \varphi^{-1} \compose f \compose \varphi)_0\) is surjection \(\R^k \to \R^k\) so \(\tilde \varphi^{-1} \compose f \compose \varphi\) is a local diffeomorphism of Euclidean spaces. Thus \(f\) is a local diffeomorphism of manifolds.
+\end{proof}
+
+\begin{ex}
+  Suppose \(Y\) is a submanifold of \(X\) and \(f: X \to Z\) is a smooth map between manifolds. Then for all \(y \in Y\), show
+  \[
+    d(f|_Y)_y = df_y|_{T_yY}.
+  \]
+\end{ex}
+
+\begin{ex}
+  Let \(f: X \to Y, g: X \to Z\) be smooth maps between manifolds. We can define map
+  \begin{align*}
+    (f, g): X &\to Y \times Z \\
+    x &\mapsto (f(x), g(x))
+  \end{align*}
+  Show that this map is smooth and for all \(x \in X\),
+  \[
+    d(f, g)|_x = (df_x, dg_x).
+  \]
+  Thus if differential is thought as a matrix, the map to the product space has differential made of blocks of matrices.
+\end{ex}
+
+\subsection{Pre-image theorem}
+
+We defined manifolds in terms of charts but in reality, the pre-image theorem actually gives the most convenient way to define a manifold. First define some terminologies:
+
+\begin{definition}[Critial point, critial value, regular value]\index{critical point}\index{critical value}\index{regular value}
+  Let \(f: X \to Y\) be a smooth map between manifolds.
+  \begin{itemize}
+  \item A \emph{critical point} of \(f\) is a point \(x\) such that \(df_x: T_xX \to T_{f(x)}Y\) fails to be surjective. We denote the set of all critical points \(C\).
+  \item A \emph{critical value} of \(f\) is a point \(y \in Y\) such that there exists \(x \in X\) critical and \(f(x) = y\), i.e.\ the set of critical values is \(f(C) \subseteq Y\).
+  \item \(y \in Y\) is a \emph{regular value} if \(y\) is not a critical value, i.e.\ \(y \in Y \setminus f(C)\).
+  \end{itemize}
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(\dim X < \dim Y\) then \(C = X\).
+  \item If \(f^{-1}(y) = \emptyset\), i.e.\ \(y \notin f(X)\) then \(y\) is a regular value.
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}[Pre-image theorem]
+  Let \(f: X \to Y\) be a smooth map between manifolds. Given \(y\) a regular value of \(f\), \(f^{-1}(y) \subseteq X\) is a submanifold of \(X\) with codimension equal to the dimension of \(Y\), i.e.
+  \[
+    \dim X - \dim (f^{-1}(y)) = \dim Y.
+  \]
+\end{theorem}
+
+\begin{remark}
+  Suppose \(X\) is non-empty (which we may add to our definition of manifolds). Then this theorem gives a proof that \(\codim \geq 0\) for this particular case.
+\end{remark}
+
+\begin{proof}
+  Let \(x \in f^{-1}(y)\). Suppose \(X, Y \subseteq \R^N\) and \(q = \dim X - \dim Y\). By surjectivity and rank-nullity, \(\dim \ker df_x = g\). It is an exercise in linear algebra to show that there exists a linear map \(T: \R^N \to \R^q\) such that \(\ker T \cap \ker df_x = 0\). Now define
+  \begin{align*}
+    F: X &\to Y \times \R^q \\
+    x &\mapsto (f(x), T(x))
+  \end{align*}
+  Then by the exercises above \(F\) is smooth with differential \(dF_x = (df_x, dT_x)\) and \(d(T|_X)_x = dT|_{T_xX} = T|_{T_xX}\) so \(dF_x = (df_x, T)\) which is an isomorphism. Thus by Inverse Function Theorem \(F\) is a diffeomorphism around \(x\). There exists an open neighbourhood of \(x\) \(V \subseteq X\) such that
+  \[
+    F|_V: V \to f(V) \times \underbrace{T(V)}_{= U \subseteq \R^q}
+  \]
+  is a diffeomorphism. Then
+  \[
+    \varphi = (F|_V)^{-1}|_{\{y\} \times U}: U \to V
+  \]
+  is a local parameterisation of \(f^{-1}(y)\).
+\end{proof}
+
+\begin{corollary}
+  Suppose \(\dim X = \dim Y\) and \(y\) is a regular value of some \(f: X \to Y\). Then \(f^{-1}(y)\) is a manifold of dimension \(0\)
+\end{corollary}
+
+If \(Z \subseteq \R^N\) is a manifold of dimension \(0\), then it is a collection of discrete points, i.e.\ for each \(z \in Z\), there exists an open neighbourhood of \(z\) whose intersection with \(Z\) is \(\{z\}\). Thus if \(X\) is in addition compact, then \(f^{-1}(y)\) is a finite set of points.
+
+\begin{theorem}[Stack of records theorem]
+  Under the above assumptions, there exist open neighbourhoods \(W_i\) of \(x_i\)'s such that
+  \[
+    f^{-1}\left(\bigcap_{i = 1}^n f(W_i) \setminus f(X \setminus \bigcup_{i = 1}^n W_i)\right)
+  \]
+  is a disjoint union of open neighbourhoods of \(x_i\)'s and the restriction of \(f\) on each of which is a diffeomorphism.
+\end{theorem}
 
 
 

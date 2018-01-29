@@ -11,6 +11,7 @@
 \input{header}
 
 \renewcommand*{\O}{\mathcal{O}}
+\DeclareMathOperator{\n}{N}
 
 \makeindex
 
@@ -27,13 +28,13 @@
 Recall the following example from IB Groups, Rings and Modules:
 
 \begin{theorem}
-  Let \(p\) be an odd prime, then \(p = a^2 + b^2\) if and only if \(p = 1 \mod 4\).
+  Let \(p\) be an odd prime, then \(p = a^2 + b^2\) if and only if \(p = 1 \pmod 4\).
 \end{theorem}
 
 \begin{proof}
-  If \(p = a^2 + b^2\) then \(p = 0, 1 \text{ or } 2 \mod 4\) so this condition is necessary.
+  If \(p = a^2 + b^2\) then \(p = 0, 1 \text{ or } 2 \pmod 4\) so this condition is necessary.
 
-  Suppose instead \(p = 1 \mod 4\), then \(\binom{-1}{p} = 1\) so there exists \(a \in \Z\) such that \(a^2 = 1 \mod p\), or \(p \divides a^2 + 1\). We can factor \(a^2 + 1 = (a + i)(a - i) \in \Z[i]\). We know from IB Groups, Rings and Modules that \(\Z[i]\) is a UFD. As \(p \divides (a + i)(a - i)\), if \(p\) is irreducible in \(\Z[i]\)  then \(p \divides a + i\) or \(p \divides a - i\). Thus \(p \in \Z[i]\) is reducible so \(p = z_1z_2\) with \(z_1z_2 \in \Z[i]\). If \(z_1 = A + Bi\) where \(A, B \in \Z\) then \(A^2 + B^2 = p\).
+  Suppose instead \(p = 1 \pmod 4\), then \(\binom{-1}{p} = 1\) so there exists \(a \in \Z\) such that \(a^2 = 1 \pmod p\), or \(p \divides a^2 + 1\). We can factor \(a^2 + 1 = (a + i)(a - i) \in \Z[i]\). We know from IB Groups, Rings and Modules that \(\Z[i]\) is a UFD. As \(p \divides (a + i)(a - i)\), if \(p\) is irreducible in \(\Z[i]\)  then \(p \divides a + i\) or \(p \divides a - i\). Thus \(p \in \Z[i]\) is reducible so \(p = z_1z_2\) with \(z_1z_2 \in \Z[i]\). If \(z_1 = A + Bi\) where \(A, B \in \Z\) then \(A^2 + B^2 = p\).
 \end{proof}
 
 \begin{notation}
@@ -68,7 +69,7 @@ We will define regular prime later in this course. This theorem is more powerful
 
 Given a number field, this course studies the ring of integers. In the end of the course we will come back to Kummer's theorem.
 
-\section{Rings of integers}
+\section{Ring of integers}
 
 Recall that a field extension \(L/K\) is an inclusion \(K \subseteq L\) of fields. The degree of \(L/K\) is
 \[
@@ -293,9 +294,148 @@ Let \(L\) be a number field.
   Hence if \(\beta \in \C\) and \((\sigma_0f_\alpha)(\beta) = 0\), \((\sigma_0f_\alpha')(\beta) \neq 0\).
 \end{proof}
 
+\begin{notation}
+  If \(\sigma: L \to \C\) is a complex embedding, then \(\conj \sigma\) is also a complex embedding where \(\conj \sigma(\alpha) = \conj{\sigma(\alpha)}\). In the other words, complex conjugation is an automorphism of \(\C\) and we can post-compose it with any field embedding.
 
+  If \(\sigma = \conj \sigma\) then \(\sigma(L) \subseteq \R\). Otherwise \(\sigma \neq \conj \sigma\) and \(\sigma(L)\) is not contained in \(\R\). We write \(r\) for the number of complex embeddings \(\sigma\) such that \(\sigma = \conj \sigma\) and \(s\) for the number of pairs of embeddings \(\{\sigma, \conj \sigma\}\) where \(\sigma \neq \conj \sigma\). It then follows that
+  \[
+    r + 2s = [L:\Q].
+  \]
+\end{notation}
 
+\begin{eg}[Quadratic field]\index{quadratic field}
+  Let \(d \in \Z\) be squarefree and \(d \neq 0, 1\). Let\
+  \[
+    \Q(\sqrt d) = \Q[x]/(x^2 - d).
+  \]
+  If \(d > 0\) then \(r = 2, s = 0\), which we call real quadratic field. If \(d < 0\) then \(r = 0, s = 1\), which we call imaginary quadratic field.
+\end{eg}
 
+\begin{eg}
+  Let \(m \in \Z\) be cubefree and \(m \neq -1, 0, 1\). Let
+  \[
+    \Q(\sqrt[3]{m}) = \Q[x]/(x^3 - m).
+  \]
+  Then \(r = 1, s = 1\).
+\end{eg}
+
+\begin{definition}[Trace \& norm]\index{trace}\index{norm}
+  Let \(L/K\) be a extension of number fields and let \(\alpha \in L\). Let \(m_\alpha\) be the \(K\)-linear map
+  \begin{align*}
+    m_\alpha: L &\to L \\
+    \beta &\mapsto \alpha\beta
+  \end{align*}
+  Then we define the \emph{trace} of \(\alpha\) to be
+  \[
+    \tr_{L/K}(\alpha) = \tr m_\alpha \in K
+  \]
+  and the \emph{norm} of \(\alpha\) to be
+  \[
+    \n_{L/K}(\alpha) = \det m_\alpha \in K.
+  \]
+\end{definition}
+
+\begin{lemma}
+  If \(L/K\) is an extension of number fields and \(\alpha \in L\), then
+  \begin{enumerate}
+  \item \(\tr_{L/K}(\alpha) = [L:K(\alpha)] \tr_{K(\alpha)/K}(\alpha)\).
+  \item \(\n_{L/K}(\alpha) = \n_{K(\alpha)/K}(\alpha)^{[L:K(\alpha)]}\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  There is an isomorphism \(L \cong K(\alpha)^{[L:K(\alpha)]}\) of \(K(\alpha)\)-vector spaces.
+\end{proof}
+
+\begin{lemma}
+  Let \(L/K\) be an extension of number fields and let \(\alpha \in L\). Let \(\sigma_0: K \to \C\) be a complex embedding and \(\sigma_1, \dots, \sigma_n: L \to \C\) be complex embeddings extending \(\sigma_0\). Then
+  \begin{align*}
+    \sigma_0(\tr_{L/K}(\alpha)) &= \sum_{i = i}^n \sigma_i(\alpha) \\
+    \sigma_0(\n_{L/K}(\alpha)) &= \prod_{i = 1}^n \sigma_i(\alpha)
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  wlog \(L = K(\alpha)\). Let \(f_\alpha(x) \in K[x]\) be the minimal polynomial of \(\alpha\) over \(K\). Recall that
+  \[
+    (\sigma_0f_\alpha)(x) = \prod_{i = 1}^n (x - \sigma_i(\alpha)).
+  \]
+  Write \(f_\alpha(x) = x^n + a_1x^{n - 1} + \dots + a_n\). Then
+  \begin{align*}
+    \sigma_0(a_1) &= - \sum_{i = 1}^n \sigma_i(\alpha) \\
+    \sigma_0(a_n) &= (-1)^n \prod_{i = 1}^n \sigma_i(\alpha)
+  \end{align*}
+  Let \(g(x) \in K[x]\) be the characteristic polynomial of \(m_\alpha\). If \(g(x) = x^n + b_1x^{n - 1} + \dots + b_n\) then
+  \begin{align*}
+    b_1 &= -\tr m_\alpha = -\tr_{L/K}(\alpha) \\
+    b_n &= (-1)^n\det m_\alpha = (-1)^n \n_{L/K}(\alpha)
+  \end{align*}
+  so done if we can show \(f_\alpha(x) = g(x)\). By Cayley-Hamilton, \(g(m_\alpha) = 0\) so \(g(\alpha) = 0\). Thus \(f_\alpha(x) = g(x)\).
+\end{proof}
+
+\begin{corollary}
+  If \(\alpha \in \O_L\) then \(\tr_{L/K}(\alpha), \n_{L/K}(\alpha) \in \O_L\).
+\end{corollary}
+
+\begin{proof}
+  We have the following characterisation of ring of integers: if \(\beta \in K\) then \(\beta \in \O_L\) if and only if \(\sigma_0(\beta) \in \O_\C\) as for all \(f(x) \in \Z[x]\), \(f(\beta) = 0\) if and only if \(f(\sigma_0(\beta)) = 0\).
+
+  By the lemma, \(\sigma_0 \tr_{L/K}(\alpha) = \sigma_1(\alpha) + \dots + \sigma_n(\alpha)\). If \(\alpha \in \O_L\) then \(\sigma_i(\alpha) \in \O_\C\) for all \(i\). But \(\O_\C\) is a ring so \(\sigma_0 \tr_{L/K}(\alpha) \in \O_\C\). Thus \(\tr_{L/K}(\alpha) \in \O_L\). Similar for norm.
+\end{proof}
+
+\begin{proposition}[Classification of ring of integers of quadratic fields]
+  Let \(d \in \Z\) be squarefree and \(d \neq 0, 1\). Let \(L = \Q(\sqrt d)\). Then
+  \[
+    \O_L =
+    \begin{cases}
+      \Z[\sqrt d] & \text{if } d = 2, 3 \pmod 4 \\
+      \Z[\frac{1 + \sqrt d}{2}] & \text{if } d = 1 \pmod 4
+    \end{cases}
+  \]
+\end{proposition}
+
+\begin{proof}
+  We have a nice characterisation of algebraic integers in the case of quadratic fields: if \(\alpha \in L\), then \(\alpha \in \O_L\) if and only if \(\tr_{L/\Q}(\alpha), \n_{L/\Q}(\alpha) \in \Z\). (Why?)
+
+  Let \(\alpha \in L\). Write \(\alpha = \frac{u}{2} + \frac{v}{2}\sqrt d\) where \(u, v \in \Q\). If \(\alpha \in \O_L\) then
+  \begin{align*}
+    \tr_{L/\Q}(\alpha) &= u \in \Z \\
+    \n_{L/\Q}(\alpha) &= \frac{1}{4}(u + v\sqrt d)(u - v\sqrt d) = \frac{1}{4}(u^2 - dv^2) \in \Z
+  \end{align*}
+  so \(u^2 - dv^2 \in 4\Z\), \(dv^2 \in \Z\). Write \(v = \frac{r}{s}\) where \(r, s \in \Z\) and are coprime. Then \(dr^2 \in s^2\Z\) so \(s^2 \divides dr^2\). If \(p\) is a prime and \(p \divides s\) then \(p^2 \divides d\). But this is absurd as \(d\) is squarefree. Thus \(v \in \Z\).
+
+  We have shown that if \(\alpha \in \O_L\) then \(\alpha = \frac{u}{2} + \frac{v}{2}\sqrt d\) where \(u, v \in \Z\) and \(u^2 = dv^2 \pmod 4\). Split into cases:
+  \begin{enumerate}
+  \item \(d = 2, 3 \pmod 4\): \(u^2 = 0, 1 \pmod 4, v^2 = 0, 1 \pmod 4\). Consider the congruence \(u^2 =dv^2 \pmod 4\) shows that both \(u, v \in 2\Z\). Hence \(\alpha \in \Z[\sqrt d]\). Thus \(\O_L = \Z[\sqrt d]\).
+  \item \(d = 1 \pmod 4\): \(u^2 = v^2 \pmod 4\) so \(u = v \pmod 2\). Hence
+    \[
+      \O_L \subseteq \left\{ \frac{u}{2} + \frac{v}{2}\sqrt d: u, v \in \Z, u = v \pmod 2 \right\} \cong \Z\oplus\Z\cdot \left(\frac{1 + \sqrt d}{2} \right).
+    \]
+    It thus remains to show that \(\frac{1 + \sqrt d}{2}\) is an algebraic integer. But we know
+    \begin{align*}
+      \tr_{L/\Q} \frac{1 + \sqrt d}{2} &= 1 \\
+      \n_{L/\Q} \frac{1 + \sqrt d}{2} &= \frac{1 - d}{4} \in \Z
+    \end{align*}
+    so done.
+  \end{enumerate}
+\end{proof}
+
+Recall that if \(R\) is a ring, then a \emph{unit} in \(R\) is an element \(u \in R\) such that there exists \(v \in R\) such that \(uv = 1\). The set
+\[
+  R^\times = \{u \in R: u \text{ is a unit}\}
+\]
+form a group under multiplication.
+
+\begin{lemma}
+  If \(L\) is a number field then
+  \[
+    \O_L^\times = \{\alpha \in \O_L: \n_{L/\Q}(\alpha) = \pm 1\}.
+  \]
+\end{lemma}
+
+\begin{remark}
+  We'll prove later in the course that \(\O_L^\times\) is a finite group if and only if \(L = \Q\) or \(L\) is an imaginary quadratic field.
+\end{remark}
 
 
 \printindex

@@ -10,6 +10,8 @@
 
 \input{header}
 
+\newcommand*{\inner}{\innerproduct}
+
 \makeindex
 
 \begin{document}
@@ -41,7 +43,7 @@ Denote a degree \(n\) polynomial by
 \]
 and let \(P_n[x]\) be the vector space of polynomials of degree at most \(n\). The interpolation problem is, given \(x_0, x_1, \dots, x_n \in \R\) and \(f_0, f_1, \dots, f_n \in \R\), find \(p \in P_n[x]\) such that \(p(x_i) = f_i\) for \(i = 0, \dots, n\).
 
-\subsection{Lagrange formula}
+\subsection{Lagrange formula}\index{Langrange formula}
 
 Claim that
 \[
@@ -156,7 +158,7 @@ This observation is generalised by
   Let \(p \in P_n[x]\) interpolate \(f\) at \(x_0, \dots, x_n\). Then function \(f - p\) has \(n + 1\) zeros in \([a, b]\). Applying Rolle's Theorem \(n\) times, we get that \((f - p)^{(n)}\) has at least one zero in \([a, b]\). Let \(\xi \in [a, b]\) be such that \(f^{(n)}(\xi) - p^{(n)}(\xi) = 0\). As \(p\) has degree \(n\), \(p^{(n)}(x) = n! \cdot \text{ leading coefficient}\). The result thus follows.
 \end{proof}
 
-\begin{theorem}[Newton's interpolation formula]
+\begin{theorem}[Newton's interpolation formula]\index{Newton's formula}
   Let \(x_0, \dots, x_n\) be pairwise distinct and let
   \[
     p(x) = f[x_0] + f[x_0, x_1](x - x_0) + \dots + f[x_0, \dots, x_n]\prod_{i = 0}^{n - 1}(x - x_i).
@@ -208,6 +210,142 @@ Having obtained the divided differences, we can use Horner's scheme to evaluate 
        &+ (x - x_{n - 1})f[x_0, x_1, \dots, x_n])).
 \end{align*}
 This way the evaluation requires \(O(n)\) operations.
+
+\section{Orthogonal Polynomials}
+
+
+Missed a lecture
+
+\subsection{Least-squares Polynomial Fitting}
+
+\begin{question}
+Fix a scalar product on \([a, b]\) of the form
+\[
+  \inner{f, g} = \int_a^b w(x)f(x)g(x) dx
+\]
+where \(w: [a, b] \to \R\) is positive. Given \(f \in C[a, b]\), find \(p \in P_n[x]\) such that
+  \[
+    \norm{f - g}^2 = \inner{f - p, f - p}
+  \]
+  is minimised.
+\end{question}
+
+Let \(\hat p_n\) be the polynomial of degree \(n\) minimising \(\norm{f - g}^2\).
+
+\begin{theorem}
+  Let \(p_0, p_1, p_2\) be orthogonal polynomials with respect to \(\inner{\cdot, \cdot}\). Then
+  \[
+    \hat p_n = \sum_{k = 0}^n \frac{\inner{f, p_k}}{\inner{p_k, p_k}} p_k.
+  \]
+\end{theorem}
+
+\begin{proof}
+  We know that any \(p \in P_n[x]\) can be written as
+  \[
+    p = \sum_{i = 0}^n c_kp_k
+  \]
+  where \(c_0, \dots, c_n \in \R\). Then
+  \begin{align*}
+    \inner{f - p, f - p} &= \inner*{f - \sum_{k = 0}^n c_kp_k, f - \sum_{k = 0}^n c_kp_k} \\
+                         &= \inner{f, f} - 2\inner*{f, \sum_{k = 0}^n c_kp_k} + \inner*{\sum_{k = 0}^n c_kp_k, \sum_{k = 0}^n c_kp_k} \\
+                         &= \inner{f, f} - 2\inner*{f, \sum_{k = 0}^n c_kp_k} + \sum_{k = 0}^n \sum_{k' = 0}^n c_kc_{k'}\underbrace{\inner{p_k, p_k}}_{= 0 \text{ if } k \neq k'} \\
+                         &= \inner{f, f} - 2\inner*{f, \sum_{k = 0}^n c_kp_k} + \sum_{k = 0}^n c_k^2 \inner{p_k, p_k}
+  \end{align*}
+  As usual, to minimise the quantity we take derivative with respect to \(c_i\)'s:
+  \[
+    \frac{\p}{\p c_k} \inner{f - p, f - p} = -2 \inner{f, p_k}  + 2c_k \inner{p_k, p_k}.
+  \]
+  Set the derivative to \(0\), we get
+  \[
+    c_k = \frac{\inner{f, p_k}}{\inner{p_k, p_k}}.
+  \]
+\end{proof}
+
+In this case, the minimal error is
+\[
+  \norm{f - \hat p_n}^2 = \inner{f - \hat p_n, f - \hat p_n} = \inner{f, f} - \sum_{k = 0}^n \frac{\inner{f, p_k}^2}{\inner{p_k, p_k}} = \inner{f, f} - \inner{\hat p_n, \hat p_n}.
+\]
+The can be interpreted as the generalised Pythagoras Theorem for inner product spaces.
+
+It is obvious that \(\norm{f - \hat p_n}^2\) is a non-increasing function of \(n\), but
+\begin{question}
+  Does \(\norm{f - \hat p_n}^2 \to 0\) as \(n \to \infty\)?
+\end{question}
+
+The answer is yes can can be proved using Weierstrass theorem, which we state without giving a proof:
+
+\begin{theorem}[Weierstrass]
+  Let \(f \in C[a, b]\) where \([a, b]\) is bounded. For all \(\varphi > 0\), there exists a polynomial \(p\) of high enough degree such that
+  \[
+    |f(x) - p(x)| < \varepsilon
+  \]
+  for all \(x \in [a, b]\).
+\end{theorem}
+
+Using Weierstass theorem, we can prove the claim above. For any \(p\) we have
+\[
+  norm{f - p}^2 = \int_a^b w(x)(f(x) - p(x))62 dx \leq \left(\max_{x \in [a, b]} |f(x) - p(x)| \right)^2 \int_a^b w(x) d(x).
+\]
+Give any \(\delta > 0\), by Weierstrass theorem applied with \(\varphi = \sqrt{\delta/\int_a^b w(x) dx}\), there is a polynomial \(p\) of degree \(N\) such that
+\[
+  |(x) - p(x)| < \varepsilon
+\]
+for all \(x \in [a, b]\). Then for any \(N \geq n\),
+\[
+  \norm{f - \hat p_N}^2 \leq \norm{f - p}^2 \leq \varepsilon^2 \int_a^b w(x) dx = \delta
+\]
+as required.
+
+\begin{theorem}[Parseval identity]\index{Parseval identity}
+  \[
+    \sum_{k = 0}^\infty \frac{\inner{f, p_k}^2}{\inner{p_k, p_k}} = \inner{f, f}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Reformulation of the above claim.
+\end{proof}
+
+\subsection{Least-squares fitting to discrete data}
+
+Give the value of a function at pairwise distinct points \(x_1, \dots, x_m\), the goal of this section is to find \(p \in P_n[x]\) that minimises
+\[
+  \sum_{k = 1}^m (f(x_k) - p(x_k))^2.
+\]
+This can be thought as a generalisation of the problem studied in chapter 1, where \(m = n + 1\) and the minimised error is always \(0\). In the generalised setting, \(n \leq m - 1\) (and usual much smaller).
+
+This question can be reformulated as in terms of orthogonal polynomial, where the inner product is defined to be
+\[
+  \inner{g, h} = \sum_{k = 1}^m g(x_k)h(x_k)
+\]
+since
+\[
+  \inner{f - p, f - p} = \sum_{k = 0}^n (f(x_k) - p(x_k))^2.
+\]
+
+We can proceed as follow (\(n \leq m - 1\)):
+\begin{enumerate}
+\item use three-term recurrence for the inner product to compute orthogonal polynomials \(p_0, \dots, p_n\).
+\item Form
+  \[
+    \hat p_n = \sum_{k = 0}^n \frac{\inner{f, p_k}}{\inner{p_k, p_k}}p_k.
+  \]
+\end{enumerate}
+The reason we require \(n \leq m - 1\) is for positive definiteness.
+
+\subsection{Gaussian Quadrature}
+
+\begin{question}
+  Let \(w: [a, b] \to \R\) be positive. We want to approximate \(\int_a^b w(x)f(x) dx\) where \(f \in C[a, b]\).
+\end{question}
+A \emph{quadrature formula} is an approximation of the above expression
+\[
+  \int_a^b w(x)f(x) dx \approx \sum_{k = 1}^\nu b_kf(c_k)
+\]
+where \(b_k\) are \emph{weights} and \(c_k\) are \emph{nodes}.
+
+
+
 
 
 

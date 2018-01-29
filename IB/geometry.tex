@@ -23,6 +23,8 @@
 
 \section{Eucldiean Geometry}
 
+\subsection{Isometries}
+
 Let \((\cdot, \cdot)\) be the standard inner product, a.k.a.\ dot product on the Euclidean space \(\R^n\) where for \(x, y \in \R^n\),
 \[
   (x, y) = x \cdot y = \sum_{i = 1}^{n}x_iy_i.
@@ -80,7 +82,7 @@ Surprisingly, it turns out all isometries have this form:
   so they have unit length. For \(i \neq j\),
   \begin{align*}
     (a_i, a_j) &= -\frac{1}{2}(\norm{a_i - a_j}^2 - \norm{a_i}^2 - \norm{a_j}^2) \\
-               &= -\frac{1}{2}(\norm{f(e_i) - f(e_j)}^2 - 2 \\
+               &= -\frac{1}{2}(\norm{f(e_i) - f(e_j)}^2 - 2) \\
                &= -\frac{1}{2}(\norm{e_i - e_j}^2 - 2) \\
                &= 0
   \end{align*}
@@ -120,7 +122,7 @@ Since \(h\) is an isometry, \(h(0) = 0\), \(h(e_i) = e_i\) and \(h(x) = y\), we 
   \[
     R_H(a + tu) = (a + tu) - 2tu = a - tu.
   \]
-  Thus \(R_h\) fixes exactly the points in \(H\).
+  Thus \(R_H\) fixes exactly the points in \(H\).
 
   Conversely, suppose \(S \in \Isom(\R^n)\) and \(S\) fixes every point in \(H\). Let \(a \in H\) and defind translation by \(a\) as
   \[
@@ -237,7 +239,7 @@ Now suppose \(\det A = -1\). Then \(-A\) in some basis is of the above matrix fo
 where \(\varphi = \theta + \pi\). This is a \emph{rotated reflection} (in particular a pure reflection when \(\varphi = 0\)).
 \end{eg}
 
-\section{Curves in \texorpdfstring{\(\R^n\)}{ℝ\^{}n}}
+\subsection{Curves in \texorpdfstring{\(\R^n\)}{ℝ\^{}n}}
 
 \begin{definition}[Curve]\index{curve}
   A \emph{curve} \(T\) in \(\R^n\) is a continuous map \(\Gamma: [a, b] \to \R^n\).
@@ -314,7 +316,145 @@ Then if \(\ell\) exists, we have
   \[
     \left|s_{\mathcal D}  - \sum_i (t_i - t_{i - 1}) \norm*{\Gamma'\left(\frac{t_i + t_{i - 1}}{2}\right)}\right| < \varepsilon (b - a).
   \]
+  Finally, as \(\norm{\Gamma'(t)}\) is a continuous function of \(t\), it is integrable so the summation converges to \(\int_a^b \norm{\Gamma'(t)} dt\) as \(\mesh \mathcal D \to 0\). Thus
+  \[
+    \ell(\Gamma) = \lim_{\mesh \mathcal D \to 0} s_{\mathcal D} = \int_a^b \norm{\Gamma'(t)} dt
+  \]
+  as required.
 \end{proof}
+
+\section{Spherical Geometry}
+
+\begin{notation}
+  Let \(S^2 \subseteq \R^3\) be the unit sphere with centre \(0\). A \emph{great circle}\index{great circle}, sometimes also called a \emph{(spherical) line}, is \(S^2 \cap \text{a plane through } 0\). For all non-antipodal pair of points \(P, Q \in S^2\), there is a unique line in \(S^2\) passing through \(P\) and \(Q\). It is given by the intersection of \(S^2\) and the plane through \(P, Q, 0\).
+\end{notation}
+
+\begin{definition}[Distance on sphere]
+  For \(P, Q \in S^2\), the \emph{distance} \(d(P, Q)\) is the length of the shorter of two line segments \(PQ\) along the great circle through \(P, Q\). \(d(P, Q) = \pi\) if \(P\) and \(Q\) are antipodal.
+\end{definition}
+
+\begin{note}
+  \begin{align*}
+    d(P, Q) &= \text{angle between } \V P = OP \text{ and } \V Q = OQ \\
+            &= \cos^{-1} (\V P \cdot \V Q)
+  \end{align*}
+\end{note}
+
+\begin{definition}[Spherical triangle]\index{spherical triangle}
+  A \emph{sperical triangle}, \(ABC\) say, is defined like a Euclidean triangle but with \(AB, AC, BC\) line segments on \(S^2\) with lengths \(< \pi\).
+\end{definition}
+
+\begin{notation}
+  \(\V A = OA\) etc.
+\end{notation}
+
+Set
+\begin{align*}
+  n_1 &= \frac{\V C \times \V B}{\sin a} \\
+  n_2 &= \frac{\V A \times \V C}{\sin b} \\
+  n_3 &= \frac{\V B \times \V A}{\sin c}
+\end{align*}
+which are the unit normals to the plane \(OBC\), \(OAC\), \(OAB\) pointing out of the solid \(OABC\). \(\alpha, \beta, \gamma\) are the angles between the planes defining sides of \(ABC\).
+
+\begin{note}
+  The angle between \(n_2\) and \(n_3\) is \(\pi + \alpha\) so \(n_2 \cdot n_3 = -\cos \alpha\). Similarly for the other two terms.
+\end{note}
+
+\begin{theorem}[Spehrical cosine rule]
+  \[
+    \sin a \sin b \cos \gamma = \cos c - \cos a \cos b.
+  \]
+\end{theorem}
+
+\begin{proof}
+  We use
+  \[
+    (\V C \times \V B) \cdot (\V A \times \V C) = (\V A \cdot \V C)(\V B \cdot \V C) - (\V C \cdot \V C)(\V B \cdot \V A)
+  \]
+  which we derived in IA Vector Calculus. Note that \(|\V C| = 1\) and
+  \begin{align*}
+    -\cos \gamma &= n_1 \cdot n_2 \\
+                 &= \frac{\V C \times \V B}{\sin a} \cdot \frac{\V A \times \V C}{\sin b} \\
+                 &= \frac{(\V A \cdot \V C)(\V B \cdot \V C) - (\V B \cdot \V A)}{\sin a \sin b} \\
+                 &= \frac{\cos b \cos a - \cos c}{\sin a \sin b}
+  \end{align*}
+\end{proof}
+
+\begin{corollary}[Spherical Pythagoras Theorem]
+  If \(\gamma = \frac{\pi}{2}\) then
+  \[
+    \cos c = \cos a \cos b.
+  \]
+\end{corollary}
+
+\begin{theorem}[Spherical sine rule]
+  \[
+    \frac{\sin a}{\sin \alpha} = \frac{\sin b}{\sin \beta} = \frac{\sin c}{\sin \gamma}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Use the identity
+  \[
+    (\V A \times \V C) \times (\V C \times \V B) = (\V C \cdot (\V B \times \V A)) \V C.
+  \]
+
+  Note that LHS equals to
+  \[
+    -(n_1 \times n_2) \sin a \sin b
+  \]
+  and note that the angle between \(n_1\) and \(n_2\) is \(\pi + \gamma\).
+
+  Consider the plane through \(0\) that is orthogonal to \(\V C\). We find
+  \[
+    n_1 \times n_2 = \V C \sin \gamma.
+  \]
+  Thus the coefficient of \(\V C\) is
+  \[
+    \V C \cdot (\V B \times \V A) = -\sin a \sin b \sin \gamma.
+  \]
+  By the symmetry cof triple product, it also equals to
+  \[
+    \V A \cdot (\V C \times \V B) = -\sin b \sin c \sin \alpha.
+  \]
+  Equating them we get
+  \[
+    \frac{\sin c}{\sin \gamma} = \frac{\sin a}{\sin \alpha}.
+  \]
+\end{proof}
+
+\begin{remark}
+  Observe that for small \(a, b, c\), piece of \(S^2\) is approximated better and better by piece of \(\R^2\). Formally,
+  \begin{align*}
+    \sin a &= a + O(a^3) \\
+    \cos a &= 1 - \frac{a^2}{2} + O(a^4)
+  \end{align*}
+  Thus we can obtain Euclidean version of cosine and sine rule by setting \(a, b, c\) small:
+  \begin{align*}
+    ab\cos \gamma &= (1 - \frac{c^2}{2}) - (1 - \frac{a^2}{2})(1 - \frac{b^2}{2}) + O(\norm{(a, b, c)}^3) \\
+    c^2 + 2ab \cos \gamma &= a^2 + b^2 + O(\norm{(a, b, c)}^3)
+  \end{align*}
+\end{remark}
+
+Now we discuss the metric property of spherical geometry. If \(\gamma = \pi\) then \(\V C\) lines in the line segment \(AB\) so \(c = a + b\). Otherwise, from Spherical cosine rule,
+\[
+  \cos c > \cos a \cos b - \sin a \sin b = \cos(a + b).
+\]
+As \(\cos\) is decresasing on \([0, \pi]\) and \(0 < c < \pi\), \(0 < a + b < 2\pi\), we have
+\[
+  c < a + b.
+\]
+This gives us
+
+\begin{corollary}[Spherical triangle inequality]
+  \[
+    d(P, Q) + d(Q, R) \geq d(P, R)
+  \]
+  with equality if \(Q\) is in line segment \(PR\) of shorter length.
+\end{corollary}
+Thus we have shown that \((S^2, d)\) is a metric space.
+
+
 
 
 

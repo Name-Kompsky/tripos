@@ -239,6 +239,164 @@ Recall that
   Exercise.
 \end{proof}
 
+Missed a lecture
+
+\subsection{Conformal maps}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Möbius maps \(f(z) = \frac{az + b}{cz + d}\) where \(ad - bc \neq 0\). It is a bijection from \(\C \cup \{\infty\}\) to itself. It maps circles/lines to circles/lines.
+  \item \(z \mapsto z^n\), \(\{z \in \C\setminus\{0\}: 0 < \arg z < \pi/n\} \to \{z \in \C: \Im z > 0\}\). The inverse, \(z^{1/n}\) using the principal branch, is also a conformal map.
+  \item \(\exp\) maps conformally the strip \(\{z \in \C: \Re(z) \in (-\pi, \pi)\}\) to \(\C\subseteq\{z \leq 0\}\), with inverse \(\log z\) with principal branch cut.
+  \end{enumerate}
+\end{eg}
+
+We will just state an important theorem here which will be proved later:
+
+\begin{theorem}[Riemann mapping theorem]
+  Let \(D \subseteq \C\) be any domain bounded by a simple closed curve. Then there exists a conformal equivalence \(D \to D(0, 1)\) between \(D\) and \(D(0, 1)\).
+
+  More generally, this holds for any simply connected domain which is not all \(\C\).
+\end{theorem}
+
+\section{Complex Integration I}
+
+\subsection{Integration along curves}
+
+Let \(f: [a, b] \to \C\) be a continuous map, then its integral is simply the sum of the integral of the real and imaginary part:
+\[
+  \int_a^b f(t) dt = \int_a^b \Re f(t) dt + i \int_a^b \Im f(t) dt.
+\]
+
+\begin{proposition}
+  \[
+    \left| \int_a^b f(t) dt \right| \leq (b - a) \sup_{t \in [a, b]} |f(t)|
+  \]
+  with equality if and only if \(f\) is constant.
+\end{proposition}
+
+\begin{proof}
+  Let \(\theta = \arg \int_a^b f(t)d(t)\) and let \(M = \sup_{t \in [a, b]} |f(t)|\). Clearly
+  \[
+    \int_a^b f(t) dt = \left| \int_a^b f(t) dt\right| e^{i\theta}
+  \]
+  so
+  \begin{align*}
+    \left|\int_a^b f(t)dt\right| &= e^{-i\theta} \int_a^b f(t) dt \\
+                                 &= \int_a^b e^{-i\theta}f(t)dt \\
+                                 &= \int_a^b \Re(e^{-i\theta}f(t)) dt \\
+                                 &\leq \int_a^b|f(t)|dt \\
+                                 &\leq M(b - a)
+  \end{align*}
+  If the equality holds then \(|f(t)| = M\) is constant by the last inequality, and it follows from the second last inequality that \(\arg f(t) = \theta\) so \(f\) is constant.
+\end{proof}
+
+If \(\gamma: [a, b] \to \C\) is a \(C^1\) curve, we can define its length as follow. Write \(\gamma(t) = x(t) + iy(t)\) and define the length to be
+\[
+  \int_a^b |\gamma'(t)|dt = \int_a^b \sqrt{x'(t) + y'(t)} dt.
+\]
+
+\begin{definition}[Simple curve]
+  We say \(\gamma\) is \emph{simple} if \(\gamma(t_1) \neq \gamma(t_2)\) unless \(t_1 = t_2\) or \(\{t_1, t_2\} = \{a, b\}\).
+\end{definition}
+
+\begin{definition}[Integration along a curve]\index{integration along a cruve}
+  Suppose \(f: U \to \C\) is continuous with \(U \subseteq \C\) an open subset. Let \(\gamma: [a, b] \to U\) be a \(C^1\) curve. The \emph{integral of \(f\) along \(\gamma\)} is
+  \[
+    \int_\gamma f(z)dz = \int_a^b f(\gamma(t))\gamma'(t) dt.
+  \]
+\end{definition}
+
+Some basic properties:
+\begin{enumerate}
+\item linearity:
+  \[
+    \int_\gamma (c_1f_1(z) + c_2f_2(z))dz = c_1 \int_\gamma f_1(z) dz + c_2 \int_\gamma f_2(z) dz.
+  \]
+\item additivity: if \(a < a' < b\),
+  \[
+    \int_\gamma f(z)dz = \int_{\gamma|_{[a, a']}} f(z) dz + \int_{\gamma|_{[a', b]}} f(z)dz.
+  \]
+\item inverse path: define the inverse path of \(\gamma\) to be
+  \begin{align*}
+    -\gamma: [-b, -a] &\to U \\
+    t &\mapsto \gamma(-t)
+  \end{align*}
+  then
+  \[
+    \int_{-\gamma} f(z)dz = -\int_\gamma f(z)dz.
+  \]
+\item independence of reparameterisation: if \(\phi: [a', b'] \to [a, b]\) is \(C^1\) and \(\phi(a') = a, \phi(b') = b\), then let \(\delta = \gamma \compose \phi: [a', b'] \to U\), we have
+  \[
+    \int_\gamma f(z) dz = \int_\delta f(z)dz.
+  \]
+\end{enumerate}
+All except the last one is trivial. A quick check
+\begin{align*}
+  \int_\delta f(z)dz &= \int_{a'}^{b'} f(\delta(t))\delta'(t) dt \\
+                     &= \int_{a'}^{b'} f(\gamma(\phi(t))) \gamma'(\phi(t)) \phi'(t) dt \\
+                     &= \int_a^b f(\gamma(s))\gamma'(s) ds \\
+                     &= \int_{\gamma}^{ } f(z) dz
+\end{align*}
+
+In reality, we may encounter curves that are not \(C^1\), for example along the sides of a square. However, they are made of pieces of \(C^1\) curves. In a sense that will be address by the definition below, this is the worst case we will encoutner in this counter.
+
+\begin{definition}[Piecewise \(C^1\)]
+ Let \(\gamma: [a, b] \to \C\) be a continuous curve. Suppose we have
+\[
+  a = a_0 < a_1 < \dots < a_n = b
+\]
+such that \(\gamma|_{[a_{i - 1}, a_i]}\) is \(C^1\) for \(1 \leq i \leq n\). Then we say that \(\gamma\) is \emph{piecewise differentiable} or \emph{piecewise \(C^1\)}.
+\end{definition}
+
+Then we define
+\[
+  \int_\gamma f(z) dz = \sum_{i = 1}^n \int_{\gamma_i} f(z)dz.
+\]
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f(z) = z^n\) where \(n \in \Z\). Form now on define the \emph{punctured complex plane} to be \(\C^* = \C \setminus \{0\}\). Let \(U = \C^*\). Let
+    \begin{align*}
+      \gamma: [0, 2\pi] &\to U \\
+      t &\mapsto e^{it}
+    \end{align*}
+    which is a circle around the origin. Then
+    \[
+      \int_\gamma f(z) dz =
+      \int_0^{2\pi} e^{int}ie^{it} dt
+      = i\int_0^{2\pi} e^{i(n + 1)t} dt
+      =
+      \begin{cases}
+        2\pi i & \text{if } n = -1 \\
+        0 & \text{otherwise}
+      \end{cases}
+    \]
+    In the case \(n = -1\) \(f\) is not defined at \(0\), which is encircled by the closed path.
+  \item \(f(z) = z^2\). \(\gamma = \gamma_1 + \gamma_2\) where
+    \begin{align*}
+      \gamma_1: [-R, R] &\to \C \\
+      t &\mapsto t \\
+      \gamma_2:[0, 1] &\to \C \\
+      t &\mapsto Re^{i\pi t}
+    \end{align*}
+    Then
+    \begin{align*}
+      &\phantom{=} \int_\gamma f(z)dz \\
+      &= \int_{\gamma_1} f(z)dz + \int_{\gamma_2} f(z) dz \\
+      &= \int_{-R}^R t^2dt + \int_0^1 R^2e^{2\pi it}i\pi Re^{i\pi t} dt \\
+      &= \frac{2R^3}{3} - \frac{2R^3}{3} \\
+      &= 0 
+    \end{align*}
+  \end{enumerate}
+\end{eg}
+
+In general, for a holomorphic function, if the closed path does not include a pole of the function then the integral along the curve is \(0\).
+
+
+
+
+
 
 
 \printindex
