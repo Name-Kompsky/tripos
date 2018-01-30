@@ -339,10 +339,151 @@ The reason we require \(n \leq m - 1\) is for positive definiteness.
   Let \(w: [a, b] \to \R\) be positive. We want to approximate \(\int_a^b w(x)f(x) dx\) where \(f \in C[a, b]\).
 \end{question}
 A \emph{quadrature formula} is an approximation of the above expression
-\[
+\begin{equation}
+  \label{eqn:quadrature}
   \int_a^b w(x)f(x) dx \approx \sum_{k = 1}^\nu b_kf(c_k)
-\]
+  \tag{\(\ast\)}
+\end{equation}
 where \(b_k\) are \emph{weights} and \(c_k\) are \emph{nodes}.
+
+We require the quadrature formula to be exact for \(f \in P_n[x]\).
+
+Claim that if the quadrature formula \eqref{eqn:quadrature} is exact for any \(f \in P_n[x]\) then necessarily \(n \leq 2\nu - 1\).
+
+\begin{proof}
+  We will construct a polynomial of degree \(2\nu\) such that LHS and RHS are different. Let
+  \[
+    f(x) = \prod_{k = 1}^\nu (x - c_k)^2
+  \]
+  which has degree \(2\nu\). RHS is equal to \(0\) while LHS is \(\int_a^b w(x)f(x)dx > 0\).
+\end{proof}
+
+Can we find quadrature formula that is exact for all polynomials of degree \(\leq 2\nu - 1\)? Yes, and this is Gaussian quadrature.
+
+Let
+\[
+  \inner{f, g} = \int_a^b w(x)f(x)g(x) dx
+\]
+and let \(p_0, p_1, p_2\) be orthogonal polynomials associated to this inner product.
+
+\begin{theorem}
+  For any \(n \geq 0\), \(p_n\) has \(n\) real distinct roots in \([a, b]\).
+\end{theorem}
+
+\begin{proof}
+  Let \(\xi_1, \dots, \xi_m \in (a, b)\) be the points where \(p_n\) changes sign and let
+  \[
+    q(x) = \prod_{i = 1}^m (x - \xi_i).
+  \]
+  Note that \(p_n(x)q(x)\) has constant sign in \([a, b]\), i.e.\ in this step we make even root have even multiplicity. Since \(p_nq\) has constant sign on \([a, b]\),
+  \[
+    |\inner{p_n, q}| = \left| \int_a^b w(x)p_n(x)q(x) dx \right| = \int_a^b w(x) |p_n(x)q(x)| dx > 0
+  \]
+  This implies that \(\deg q \geq n\) so \(m \geq n\). But \(m \leq n\) because \(p_n\) has degree \(n\). Thus \(p_n\) has \(n\) distinct real roots in \((a, b)\).
+\end{proof}
+
+Given nodes \(c_1, \dots, c_\nu\), define the \emph{interpolatory weights}\index{interpolatory weights}
+\begin{equation}
+  \label{eqn:weight}
+  b_k = \int_a^b w(x) \prod_{j = 1, j \neq k}^\nu \frac{x - c_j}{c_k - c_j} dx
+  \tag{\(\ast\ast\)}
+\end{equation}
+for \(k = 1, \dots, \nu\).
+
+\begin{theorem}\leavevmode
+  \begin{enumerate}
+  \item The quadrature formula with weights given by \eqref{eqn:weight} is exact for polynomials of degree up to \(\nu - 1\).
+  \item If furthermore the \(c_k\)'s are the roots of \(p_\nu\), then the quadrature formula is exact for polynomials up to degree \(2\nu - 1\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(f \in P_{n - 1}[x]\). Write \(f\) in terms of its interpolating formula at the \(c_k\)'s,
+    \[
+      f(x) = \sum_{k = 1}^\nu f(c_k) \prod_{j \neq k}^\nu \frac{x - c_j}{c_k - c_j}.
+    \]
+    Then
+    \begin{align*}
+      \int_a^b w(x)f(x) dx &= \int_a^b w(x) \sum_{k = 1}^\nu f(c_k) \prod_{j \neq k}^\nu \frac{x - c_j}{c_k - c_j} \\
+      &= \sum_{k = 1}^\nu f(c_k) \int_a^b w(x) \prod_{j \neq k} \frac{x - c_j}{c_k - c_j} dx
+    \end{align*}
+  \item Assume now that \(c_1, \dots, c_\nu\) are the roots of \(p_\nu\). Let \(f \in P_{2\nu - 1}[x]\). We can write
+    \[
+      f = p_\nu q + r
+    \]
+    with \(\deg r \leq \nu - 1, \deg q \leq \nu - 1\). Then
+    \begin{align*}
+      \int_a^b w(x)f(x) dx &= \int_a^b w(x)p_\nu(x) q(x) dx + \int_a^b w(x)r(x) dx \\
+                           &= \inner{p_\nu, q} + \sum_{k = 1}^\nu b_k r(c_k) \\
+                           &= 0 + \sum_{k = 1}^\nu b_kf(c_k)
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\subsection{Peano Kernel Theorem}
+
+How do the errors behave when we use the quadrature formula to approximate a function that is not a polynomial, or a polynomial of higher degree?
+
+The error from a quadrature formula is
+\[
+  L(f) = \int_a^b w(x)f(x) dx - \sum_{k = 1}^\nu b_kf(c_k)
+\]
+Assume \(L(f) = 0\) for all \(f \in P_n[x]\). The goal is to bound error \(|L(f)|\) for \(f \notin P_n[x]\). Recall from IA Analysis I the Taylor expansion formula with integral remainder
+\[
+  f(x) = \sum_{i = 1}^n f^{(i)}(a) \frac{(x - a)^i}{i!} + \frac{1}{n!} \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta.
+\]
+Call the first part \(g(x)\). Since \(g \in P_n[x]\), \(L(g) = 0\). Thus by linearity of \(L\) we get
+\[
+  L(f) = L\left( x \mapsto \frac{1}{n!} \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta \right).
+\]
+Let
+\[
+  (x - \theta)_+^n =
+  \begin{cases}
+    (x - \theta)^n & \text{if } \theta \leq x \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+Then
+\begin{align*}
+  \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta & = \int_a^b \mathbb{1}(\theta \leq x) (x - \theta)^n f^{(n + 1)}(\theta) d\theta \\
+                                                      &= \int_a^b (x - \theta)_+^n f^{(n + 1)}(\theta) d\theta
+\end{align*}
+so
+\[
+  L(f) = \frac{1}{n!} \int_a^b K(\theta)f^{(n + 1)}(\theta)
+\]
+where
+\[
+  K(\theta) = L(x \mapsto (x - \theta)_+^n)
+\]
+is the \emph{Peano kernel}\index{Peano kernel}.
+
+\begin{eg}
+  Simpson's rule
+  \[
+    \int_{-1}^1 f(x)dx \approx \frac{1}{3} [f(-1) + 4f(0) + f(1)].
+  \]
+  Then
+  \[
+    L(f) = \int_{-1}^1 f(x)dx - \frac{1}{3}[f(-1) + 4f(0) + f(1)]
+  \]
+  Can check that \(L(f) = 0\) for all \(f \in P_2[x]\). The Peano kernel for \(L\) is
+  \[
+    K(\theta) = L(x \mapsto (x - \theta)_+^2) =
+    \begin{cases}
+      -\theta(1 + \theta)^2 & \text{if } \theta \leq 0 \\
+      -\theta(1 - \theta)^2 & \text{if } \theta \geq 0
+    \end{cases}
+  \]
+  For any \(f \in C^3[-1, 1]\),
+  \begin{align*}
+    |L(f)| &= \frac{1}{2}\left| \int_{-1}^1 K(\theta)f^{(3)}(\theta)d\theta \right| \\
+           &\leq \frac{1}{2} \max_{\theta \in [-1, 1]} |f^{(3)}(\theta)| \int_{-1}^1|K(\theta)| d\theta \\
+    &\leq \frac{1}{36} \max_{\theta \in [-1, 1]} |f^{(3)}(\theta)|
+  \end{align*}
+\end{eg}
 
 
 

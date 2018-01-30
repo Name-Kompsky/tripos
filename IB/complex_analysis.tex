@@ -239,9 +239,141 @@ Recall that
   Exercise.
 \end{proof}
 
-Missed a lecture
+\begin{definition}[Exponential]\index{exponential}
+  The \emph{complex exponential} function is defined as
+  \[
+    e^z = \exp(z) = \sum_{n = 0}^\infty \frac{z^n}{n!}.
+  \]
+\end{definition}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(e^z\) is an entire function and \((e^z)' = e^z\).
+  \item For all \(z, w \in \C\), \(e^{z + w} = e^ze^w\) and \(e^z \neq 0\).
+  \item If \(z = x+ iy\), \(e^z = e^x (\cos y + i \sin y)\).
+  \item \(\exp(z) = 1\) if and only if \(z \in 2\pi i \Z\).
+  \item If \(w \in \C\), there exists \(z \in \C\) such that \(e^z = w\) if and only if \(w \neq 0\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Similar to the proof in IA Analysis I.
+\end{proof}
+
+We also define
+\begin{align*}
+  \cos z &= \frac{e^{iz} + e^{-iz}}{2} \\
+  \sin z &= \frac{e^{iz} - e^{-iz}}{2i} \\
+  \cosh z &= \frac{e^z + e^{-z}}{2} \\
+  \sinh z &= \frac{e^z - e^{-z}}{2}
+\end{align*}
+
+\begin{definition}[Logarithm]\index{logarithm}
+  If \(z \in \C\), we say that \(w \in \C\) is a \emph{logarithm} of \(z\) if \(\exp(w) = z\).
+\end{definition}
+
+From above we know \(z\) has a logarithm if and only if \(z \neq 0\). However, unlike in the real case, \(z\) would have an infinite number of logarithms, all different by an integer multiplier of \(2\pi\).
+
+\begin{definition}[Branch of logarithm]
+  Let \(U \subseteq \C\setminus \{0\}\) be open. We say that a continuous function \(\lambda: U \to \C\) is a \emph{branch of logarithm} if \(e^{\lambda(z)} = z\).
+\end{definition}
+
+\begin{remark}
+  Any branch of logarithm is in fact automatically holomorphic:
+  \begin{align*}
+    \frac{\lambda(z) - \lambda(w)}{z - w}
+    &= \frac{\lambda(z) - \lambda(w)}{e^{\lambda(z)} - e^{\lambda(w)}} \\
+    \intertext{Let \(\lambda(w) = k, \lambda(z) = k + h\). Due to continuity of \(\lambda\), \(\lambda(z) - \lambda(w) = h \to 0\) so}
+    &= \frac{h}{e^{k + h} - e^k} \\
+    &\to \frac{1}{e^k} \\
+    &= \frac{1}{w}
+  \end{align*}
+  as \(z \to w\). Thus \(\lambda\) is holomorphic and \(\lambda'(z) = \frac{1}{w}\).
+
+  %the argument would have given differential exists for inverse function. If we know the invere was continuous. ONe can describe the inverse function theorem (with the argumentabove the continuity of the inverse is needed.
+\end{remark}
+
+One useful choice of branch is
+\begin{definition}[Principal branch of logarithm]\index{principal branch of logarithm}
+  Let \(U = \C \setminus \{x \in \R: x\leq 0\} = \R_{\leq 0}\). The \emph{principal branch of logarithm} is the function
+  \begin{align*}
+    \log: U &\to \C \\
+    z &\mapsto \log |z| + i \arg(z)
+  \end{align*}
+  where \(\arg(z)\) takes the unique argument of \(z\) in the interval \((-\pi, \pi)\).
+\end{definition}
+
+Check that this is indeed a branch of logarithm: the projection onto \(S^1\) \(\C \setminus \{0\} \to S^1, z \mapsto z/|z|\) is continuous and maps \(U\) to \(S^1 \setminus \{-1\}\). \((-\pi, \pi) \to S^1 \setminus \{-1\}, \theta \mapsto e^{i\theta}\) is a homeomorphism so has a continuous inverse. Thus \(z \mapsto \arg(z)\) is continuous. Also
+\[
+  \exp(\log z) = e^{i \log |z|}(\cos \arg(z) + i \sin \arg(z)) = z.
+\]
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(\log z\) is holomorphic on \(U\) with derivative \(\frac{1}{z}\).
+  \item If \(|z| < 1\) then
+    \[
+      \log(1 + z) = \sum_{n = 1}^\infty \frac{(-1)^{n - 1}z^n}{n}.
+    \]
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item See remarks above.
+  \item Note that
+    \begin{align*}
+      \frac{d \log(1 + z)}{dz}
+      &= \frac{1}{1 + z} \\
+      \frac{d}{dz} \sum_{n = 1}^\infty \frac{(-1)^{n - 1}z^n}{n}
+      &= \sum_{n = 1}^\infty (-1)^{n - 1}z^{n -1}
+        = \frac{1}{1 + z}
+    \end{align*}
+    Thus their difference is constant. Now set \(z = 0\).
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  There is no way to extend \(\log z\) to a holomorphic (or even just continuous) function on \(\C \setminus \{0\}\) since
+  \begin{align*}
+    \lim_{\theta \to -\pi} \log e^{i\theta} &= -i\pi \\
+    \lim_{\theta \to \pi} \log e^{i\theta} &= i\pi \\
+  \end{align*}
+  Later on we will see that there is no branch of logarithm on \(\C \setminus \{0\}\).
+\end{remark}
+
+We can also define fractional/complex powers by the formula
+\[
+  z^\alpha = \exp (\alpha \log z)
+\]
+for \(z \in U\). See example sheet.
+
 
 \subsection{Conformal maps}
+
+Let \(f: U \to \C\) be a holomorphic function on an open set \(U\) and suppose \(w \in U\) and \(f'(w) \neq 0\). In this section we study the property of \(f\) in neighbourhoods of \(w\). Take two \(C^1\)-curves \(\gamma_i: [0, 1] \to U\), \(i = 1, 2\) such that \(\gamma_i(0) = w, \gamma_i'(0) \neq 0\). Define the angle between \(\gamma_1, \gamma_2\) to be
+\[
+  \operatorname{angle}(\gamma_1, \gamma_2) = \arg(\gamma_1'(0)) - \arg(\gamma_2'(0)).
+\]
+Here \(\arg(z) = \in \in [0, 2\pi)\) for \(z = re^{i\theta}\). Consider the image \(\delta_i(t) = f(\gamma_i(t))\). The new angle is
+\[
+  \operatorname{angle}(\delta_1, \delta_2) = \arg((f \compose \gamma_1)'(0)) - \arg((f \compose \gamma_2)'(0)).
+\]
+Now recall that
+\[
+  \arg(z) - \arg(w) = \arg(\frac{z}{w})
+\]
+so
+\[
+  \frac{(f \compose \gamma_1)'(0)}{(f \compose \gamma_2)'(0)}
+  = \frac{f'(w)\gamma_1'(0)}{f'(w)\gamma_2'(0)}
+  = \frac{\gamma_1'(0)}{\gamma_2'(0)}
+\]
+since \(f'(w) \neq 0\). Thus \(f\) preserves angles at \(w\). We say \(f\) is \emph{conformal}\index{conformal} at \(w\) in this case.
+
+\begin{definition}[Conformal equivalence]\index{conformal equivalence}
+  If \(f: D \to \C\) is holomorphic on a domain \(D\) with \(f' \neq 0\) everywhere and \(f\) injective, we say \(f\) is a \emph{conformal equivalence}.
+\end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -393,8 +525,157 @@ Then we define
 
 In general, for a holomorphic function, if the closed path does not include a pole of the function then the integral along the curve is \(0\).
 
+\begin{proposition}
+  For any continuous \(f: U \to \C\) and any curve \(\gamma: [a, b] \to U\),
+  \begin{align*}
+    \left| \int_\gamma f(z)dz \right| &\leq \ell(\gamma) \underbrace{\sup_\gamma |f|}_{\sup_{t \in [a, b]} |f(\gamma(t))|}.
+  \end{align*}
+\end{proposition}
 
+\begin{proof}
+  wlog assume \(\gamma\) is \(C^1\),
+  \begin{align*}
+    \left| \int_\gamma f(z)dz \right| &= \left| \int_a^bf(\gamma(t))\gamma'(t)dt \right| \\
+                                      &\leq \int_a^b |f(\gamma(t))||\gamma'(t)| dt \\
+                                      &\leq \sup_\gamma|f| \int_a^b |\gamma'(t)| dt \\
+                                      &= \sup_\gamma|f| \ell(f)
+  \end{align*}
+\end{proof}
 
+\begin{theorem}[Fundamental Theorem of Calculus]\index{Fundamental Theorem of Calculus}
+  Suppose \(f: U \to \C\) is continuous and suppose there exists \(F(z)\) such that for all \(z \in U\), \(F'(z) = f(z)\). Then for any curve \(\gamma: [a, b] \to U\), we have
+  \[
+    \int_\gamma f(z) dz = F(\gamma(b)) - F(\gamma(a)).
+  \]
+\end{theorem}
+
+\begin{note}
+  \(F\) is called an \emph{anti-derivative} of \(f\) on \(U\).
+\end{note}
+
+\begin{proof}
+  \begin{align*}
+    \int_\gamma f(z)dz
+    &= \int_a^b f(\gamma(t))\gamma'(t) dt \\
+    &= \int_a^b (F \compose \gamma)'(t) dt \\
+    &= F(\gamma(b)) - F(\gamma(a))
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  If \(\gamma\) is closed (\(\gamma(b) = \gamma(a)\)) and \(f\) is continuous and has an anti-derivative \(F\) on  \(U\), then
+  \[
+    \int_\gamma f(z)dz = 0.
+  \]
+\end{corollary}
+
+\begin{eg}
+  \(f(z) = z^n\) where \(n \in \Z\) defined on \(\C^\times\). If \(n \neq -1\),
+  \[
+    f(z) = \frac{d}{dz} \left( \frac{z^{n + 1}}{n + 1} \right)
+  \]
+  so the integral along any closed curve is \(0\).
+
+  However, if \(n = -1\) we do not have an anti-derivative on all \(\C^*\) and we computed last time
+  \[
+    \int_\gamma \frac{dz}{z} = 2\pi i.
+  \]
+  This is because we can't define \(\log\) as an anti-derivative of \(\frac{1}{z}\) on all \(\C^*\).
+\end{eg}
+
+Now we prove a converse to the corollary:
+
+\begin{proposition}
+  Let \(U \subseteq \C\) be a domain. If \(f: U \to \C\) is continuous and \(\int_\gamma f(z)dz = 0\) for all closed curves \(\gamma\) on \(U\), then \(f\) has an anti-derivative \(F\) on \(U\), i.e.\ there exists \(F\) such that \(F' = f\).
+\end{proposition}
+
+\begin{proof}
+  Given that \(U\) is path-connected, the immediate choice of \(F\) coming to mind is
+  \[
+    F(w) = \int_{\gamma_w} f(z)dz
+  \]
+  where \(\gamma_w: [0, 1] \to U\) is a path from a fixed point \(a_0\) to \(w\). Note that \(F\) is \emph{independent} of the choice of \(\gamma_w\) precisely because of the hypothesis.
+
+  Now claim that \(F\) is holomorphic and \(F' = f\). Since \(U\) is open, there exists \(r > 0\) such that \(D(w, r) \subseteq U\). Let \(h\) be such that \(|h| < r\) and let \(\delta_h\) be the radial path from \(w\) to \(w + h\). Note that \(\delta_n \subseteq D(w, r)\). Let \(\gamma = \gamma_w \cdot \delta_h \cdot (-\gamma_{w + h})\) where \(\cdot\) denotes path concatenation. Then
+  \[
+    0 = \int_\gamma f(z) dz = F(w) + \int_{\delta_h} f(z)dz - F(w + h).
+  \]
+  Now
+  \begin{align*}
+    \left| \frac{F(w + h) - F(w)}{h} - f(w) \right|
+    &= \frac{1}{|h|} \left| \int_{\delta_h} (f(z) - f(w)) dz \right| \\
+    &\leq \frac{\ell(\delta_h)}{|h|} \sup_{z \in \delta_h} |f(z) - f(w)| \\
+    &\to 1 \cdot 0
+  \end{align*}
+  as \(h \to 0\) since \(f\) is continuous.
+\end{proof}
+
+This proposition, or the proof thereof contains an idea can be applied to more general circumstances. We first define
+
+\begin{definition}[Star-shaped]\index{star-shaped}
+  A domain \(U\) is \emph{star-shaped} (or called a star domain) if there exists \(p \in U\) such that for all \(a \in U\), the straight segment from \(a\) to \(p\) is contained in \(U\).
+\end{definition}
+
+We thus have
+\[
+  \text{disc} \implies \text{convex} \implies \text{star-shape} \implies \text{domain}.
+\]
+
+\begin{corollary}
+  If \(U\) is star-shaped, \(f: U \to \C\) is continuous and \(\int_\gamma f(z)dz = 0\) for all triangles \(\gamma \subseteq U\) then \(f\) has an anti-derivative on \(U\).
+\end{corollary}
+
+A triangle is, as one might infer, a closed curve made of three straight line segments.
+
+\begin{proof}
+  Let \(a_0 = a\) and \(\delta_w\) and \(\delta_{w + h}\) be straight line segments in the previous proof.
+\end{proof}
+
+\begin{theorem}[Cauchy's Theorem for triangles]\index{Cauchy's theorem}
+  Let \(U\) be a domain and \(T\) be a triangle contained in \(U\). If \(f: U \to \C\) is holomorphic, then
+  \[
+    \int_{\p T} f(z)dz = 0.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(y = |\int_{\p T} f(z)dz|\), \(\ell = \ell(\p T)\). Let \(T = T^0 = T_1 \cup \dots T_4\) be a subdivision into 4 equal triangles all with the same orientation. Then
+  \[
+    \int_{\p T} f(z)dz = \sum_{i = 1}^4 \int_{\p T_i} f(z)dz
+  \]
+  since internal lines cancel in pair. Thus there exists \(i\) such that
+  \[
+    \left| \int_{\p T_i} f(z)dz \right| \geq \frac{y}{4}.
+  \]
+  Let \(T^1 = T_i\) for this \(i\) and repeat. We produce a sequence
+  \[
+    T^0, T^1, \dots
+  \]
+  such that
+  \[
+    \left| \int_{\p T^i} f(z)dz \right| \geq \frac{y}{4^i}
+  \]
+  and
+  \[
+    \ell(\p T^i) = \frac{\ell}{2^i}.
+  \]
+  Now as \(T\) is compact, the \(T^i\) are closed nested sets, they have non-empty intersection, i.e.\ there exists
+  \[
+    z_0 \in \bigcap_{i = 0}^\infty T^i.
+  \]
+  As \(f\) is differentiable at \(z_0\), given \(\varepsilon > 0\), there exists \(\delta > 0\) such that \(|w - z_0| < \delta\) implies
+  \[
+    |f(w) - f(z_0) - (w - z_0) f'(z_0)| < \varepsilon |w - z_0|.
+  \]
+  Pick \(n\) such that \(T^n \subseteq D(z_0, \delta)\). Then
+  \begin{align*}
+    \frac{y}{4^n} &\leq \left| \int_{\p T^n} f(z)dz \right| \\
+                  &= \left| \int_{\p T^n} (f(z) - \underbrace{f(z_0) - (z - z_0)f'(z_0))}_{\text{holomophic so vanishes}} dz \right| \\
+                  &\leq \ell(\p T^n) \varepsilon \sup_{z \in \p T^n} |z - z_0| \\
+                  &= \frac{\varepsilon \ell^2}{t^n}.
+  \end{align*}
+  Thus \(y \leq \ell^2 \varepsilon\). Since \(\varepsilon\) is arbitrary, \(y = 0\).
+\end{proof}
 
 
 

@@ -264,6 +264,115 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
   Trivial to decide if \(S \models t\), just by drawing a truth table.
 \end{proof}
 
+\section{Well-orderings and Ordinals}
+
+\begin{definition}[Total order]\index{total order}
+  A \emph{total order} or \emph{linear order} on a set \(X\) is a relation \(<\) on \(X\) that is
+  \begin{enumerate}
+  \item irreflexive: for all \(x\), not \(x < x\),
+  \item transitive: for all \(x, y, z\), \(x < y, y < z\) implies \(x < z\),
+  \item trichotomous: for all  \(x, y\), \(x < y, x = y\) or \(y < x\).
+  \end{enumerate}
+\end{definition}
+
+\begin{note}
+  Two of 3 cannot hold: if \(x < y, y < x\) then \(x < x\), absurd.
+\end{note}
+
+\begin{notation}
+  We write \(x \leq y\) if \(x < y\) or \(x = y\). Write \(y > x\) if \(x < y\) etc.
+
+  In terms of \(\leq\), a total order is
+  \begin{enumerate}
+  \item reflexive: for all \(x\), \(x \leq x\),
+  \item transitive: for all \(x, y, z\), \(x \leq y, y \leq z\) implies \(x \leq z\),
+  \item antisymmetric: for all \(x, y\), \(x \leq y, y \leq\) implies \(x = y\),
+  \item trichotomous: for all \(x, y\), \(x \leq y\) or \(y \leq x\).
+  \end{enumerate}
+\end{notation}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\N\) with usual order\footnote{In this course \(0 \in \N\). Write \(\N^+\) for \(\N \setminus \{0\}\).}.
+  \item \(\Q\) and \(\R\) with usual order.
+  \item \(\N^+\) with divisibility is \emph{not a total order} as for example, \(2\) and \(3\) are not related.
+  \item Given a set \(S\), the power set \(\mathcal P(S)\) with \(x \leq y\) if \(x \subseteq y\) is \emph{not} a total order for \(|S| > 1\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Well-ordering]\index{well-ordering}
+  A total order is a \emph{well-ordering} if every non-empty subset has a least element: for all \(S \subseteq X\), if \(X \neq \emptyset\) then exists \(x \in S\) such that \(x \leq y\) for all \(y \in S\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\N\) with usual order.
+  \item \(\Z\) with usual order is \emph{not} a well-ordering. Similar for \(\Q\) and \(\R\).
+  \item \(\{x \in \Q: x \geq 0\}\) is \emph{not} a well-ordering. For example, \(\{x \in \Q: x > 0\}\) does not have a least element.
+  \item \(\{1 - 1/n: n = 2, 3, \dots\}\) is a well-ordering. This can be thought of \(\N\) squashed into \([0, 1]\).
+  \item \(\{1 - 1/n: n = 2, 3, \dots\} \cup \{1\}\) is a well-ordering.
+  \item In fact, we can take the union of 5 with any real larger than \(1\) and still have a well-ordering.
+  \item \(\{1 - 1/n: n = 2, 3, \dots\} \cup \{2 - 1/n: n = 2, 3, \dots\}\), i.e.\ two copies of 5, is still a well-ordering.
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}
+  \(X\) is well-ordered if and only if there is no \(x_1 \geq x_2 \geq x_3 > \dots\) in \(X\). Indeed, if there is such a sequence then \(S = \{x_1, x_2, \dots\}\) has no least element.
+\end{remark}
+
+\begin{corollary}
+  If \(S \subseteq X\) has no least element, then for each \(x \in S\) there exists \(x' \in S\) with \(x' < x\). Thus we have \(x > x' > x'' > \dots\).
+\end{corollary}
+
+\begin{definition}[Order isomorphism]\index{order isomorphism}
+  Total orders \(X\) and \(Y\) are \emph{isomorphic} if there exists a bijection \(f: X \to Y\) that is order-preserving, i.e.\ for all \(x < x'\), \(f(x) < f(x')\).
+\end{definition}
+
+\begin{eg}
+  1 and 6 above are isomorphic. 7 and 8 are isomorphic. 6 and 7 are not isomorphic: for example, one has a greatest element and the other one doesn't.
+\end{eg}
+
+\begin{proposition}[Proof by induction]\index{proof by induction}
+  Let \(X\) be a well-ordering and \(S \subseteq X\) be such that if \(y \in S\) for all \(y < x\) then \(x \in S\) for each \(x \in X\), then \(S = X\).
+
+  Equivalently, if \(p(x)\) is a property such that for all \(x\), if \(p(y)\) for all \(y < x\) then \(p(x)\), then \(p(x)\) for all \(x \in X\).
+\end{proposition}
+
+\begin{proof}
+  If \(S \neq X\) then let \(x\) be the least element in \(X \setminus S\). Then \(x \notin X\). But \(y \in S\) for all \(y < x\). Absurd.
+\end{proof}
+
+An application:
+
+\begin{proposition}
+  Let \(X\) and \(Y\) be isomorphic well-orderings. Then there is a \emph{unique} isomorphism from \(X\) to \(Y\).
+\end{proposition}
+
+\begin{remark}
+  This is false for total orders in general. For example, From \(\Z\) to \(\Z\) we could take identity or \(x \mapsto x - 5\).
+\end{remark}
+
+\begin{proof}
+  Let \(f, g\) be isomorphisms. We will show \(f(x) = g(x)\) for all \(x \in X\) by induction. Thus we may assume \(f(y) = g(y)\) for all \(y < x\) and want \(f(x) = g(x)\).
+
+  Let \(a\) be the least element of \(Y \setminus \{f(y): y \in X\}\), which is non-empty. Then we must have \(f(x) = a\): if \(f(x) > a\) then some \(x' > x\) has \(f(x') > f(x)\), contracting \(f\) being order-preserving. Same holds for \(g\). Thus \(f(x) = g(x)\).
+\end{proof}
+
+\begin{definition}[initial segment]\index{initial segment}
+  In a total order \(X\), an \emph{initial segment} \(I\) is a subset of \(X\) such that \(x \in I, y < x\) implies \(y \in I\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item For any \(x \in X\), set \(I_x = \{y \in X: y < x\}\).
+  \item Not every initial segment is of this form. For example, in \(\R\) take \(\{x: x \leq 3\}\), or in \(\Q\), take \(\{x: x^2 < 2 \text{ or } x < 0\}\).
+  \end{enumerate}
+\end{eg}
+
+\begin{note}
+  In a well-ordering, every proper initial segment \(I\) is of the form \(I_x\) for some \(x\). Indeed, let \(x\) be the least element of \(X \setminus I\). Then \(y < x\) implies \(y \in I\) (by definition of \(y\)). Also if \(y \in I\) then must have \(y < x\): if \(y = x\) or \(y > x\) then \(x \in I\) which is a contradiction.
+\end{note}
+
 
 
 
