@@ -12,6 +12,7 @@
 
 \renewcommand*{\O}{\mathcal{O}}
 \DeclareMathOperator{\n}{N}
+\DeclareMathOperator{\disc}{disc}
 
 \makeindex
 
@@ -304,7 +305,7 @@ Let \(L\) be a number field.
 \end{notation}
 
 \begin{eg}[Quadratic field]\index{quadratic field}
-  Let \(d \in \Z\) be squarefree and \(d \neq 0, 1\). Let\
+  Let \(d \in \Z\) be square-free and \(d \neq 0, 1\). Let\
   \[
     \Q(\sqrt d) = \Q[x]/(x^2 - d).
   \]
@@ -312,7 +313,7 @@ Let \(L\) be a number field.
 \end{eg}
 
 \begin{eg}
-  Let \(m \in \Z\) be cubefree and \(m \neq -1, 0, 1\). Let
+  Let \(m \in \Z\) be cube-free and \(m \neq -1, 0, 1\). Let
   \[
     \Q(\sqrt[3]{m}) = \Q[x]/(x^3 - m).
   \]
@@ -378,13 +379,13 @@ Let \(L\) be a number field.
 \end{corollary}
 
 \begin{proof}
-  We have the following characterisation of ring of integers: if \(\beta \in K\) then \(\beta \in \O_L\) if and only if \(\sigma_0(\beta) \in \O_\C\) as for all \(f(x) \in \Z[x]\), \(f(\beta) = 0\) if and only if \(f(\sigma_0(\beta)) = 0\).
+  We have the following characterisation of ring of integers: if \(\beta \in L\) then \(\beta \in \O_L\) if and only if \(\sigma_0(\beta) \in \O_\C\) as for all \(f(x) \in \Z[x]\), \(f(\beta) = 0\) if and only if \(f(\sigma_0(\beta)) = 0\).
 
   By the lemma, \(\sigma_0 \tr_{L/K}(\alpha) = \sigma_1(\alpha) + \dots + \sigma_n(\alpha)\). If \(\alpha \in \O_L\) then \(\sigma_i(\alpha) \in \O_\C\) for all \(i\). But \(\O_\C\) is a ring so \(\sigma_0 \tr_{L/K}(\alpha) \in \O_\C\). Thus \(\tr_{L/K}(\alpha) \in \O_L\). Similar for norm.
 \end{proof}
 
 \begin{proposition}[Classification of ring of integers of quadratic fields]
-  Let \(d \in \Z\) be squarefree and \(d \neq 0, 1\). Let \(L = \Q(\sqrt d)\). Then
+  Let \(d \in \Z\) be square-free and \(d \neq 0, 1\). Let \(L = \Q(\sqrt d)\). Then
   \[
     \O_L =
     \begin{cases}
@@ -402,7 +403,7 @@ Let \(L\) be a number field.
     \tr_{L/\Q}(\alpha) &= u \in \Z \\
     \n_{L/\Q}(\alpha) &= \frac{1}{4}(u + v\sqrt d)(u - v\sqrt d) = \frac{1}{4}(u^2 - dv^2) \in \Z
   \end{align*}
-  so \(u^2 - dv^2 \in 4\Z\), \(dv^2 \in \Z\). Write \(v = \frac{r}{s}\) where \(r, s \in \Z\) and are coprime. Then \(dr^2 \in s^2\Z\) so \(s^2 \divides dr^2\). If \(p\) is a prime and \(p \divides s\) then \(p^2 \divides d\). But this is absurd as \(d\) is squarefree. Thus \(v \in \Z\).
+  so \(u^2 - dv^2 \in 4\Z\), \(dv^2 \in \Z\). Write \(v = \frac{r}{s}\) where \(r, s \in \Z\) and are coprime. Then \(dr^2 \in s^2\Z\) so \(s^2 \divides dr^2\). If \(p\) is a prime and \(p \divides s\) then \(p^2 \divides d\). But this is absurd as \(d\) is square-free. Thus \(v \in \Z\).
 
   We have shown that if \(\alpha \in \O_L\) then \(\alpha = \frac{u}{2} + \frac{v}{2}\sqrt d\) where \(u, v \in \Z\) and \(u^2 = dv^2 \pmod 4\). Split into cases:
   \begin{enumerate}
@@ -436,6 +437,153 @@ form a group under multiplication.
 \begin{remark}
   We'll prove later in the course that \(\O_L^\times\) is a finite group if and only if \(L = \Q\) or \(L\) is an imaginary quadratic field.
 \end{remark}
+
+\begin{proof}
+  Norm is multiplicative so
+  \[
+    \n_{L/\Q}(\alpha\beta) = \n_{L/\Q}(\alpha)\n_{L/\Q}(\beta)
+  \]
+  for all \(\alpha, \beta \in L\). If \(\alpha \in \O_L^\times\) then there exists \(\beta \in \O_L\) such that \(\alpha\beta = 1\). Thus \(\n_{L/\Q}(\alpha)\n_{L/\Q}(\beta) = 1\). As they are both integers,
+  \[
+    \n_{L/\Q}(\alpha) \in \Z^\times = \{\pm 1\}.
+  \]
+
+  Conversely, suppose \(\alpha \in \O_L\) and \(\n_{L/\Q}(\alpha) = \pm 1\). Then \(\alpha^{-1} \in L\). Let \(\sigma_1, \dots, \sigma_n: L \to \C\) be distinct complex embeddings of \(L\). Then
+  \[
+    \n_{L/\Q}(\alpha) = \prod_{i = 1}^n \sigma_i(\alpha) = \pm 1
+  \]
+  so
+  \[
+    \sigma_1(\alpha^{-1}) = \pm \prod_{i = 2}^n \sigma_i(\alpha) \in \O_\C
+  \]
+  so \(\alpha^{-1} \in \O_L\).
+\end{proof}
+
+\section{Discriminants and integral bases}
+
+Let \(L\) be a number field, \(n = [L:\Q]\) and \(\sigma_1, \dots, \sigma_n: L \to \C\) be distinct complex embeddings of \(L\).
+
+\begin{definition}[Discriminant]\index{discriminant}
+  Let \(\alpha_1, \dots, \alpha_n \in L\). Then their \emph{discriminant} is
+  \[
+    \disc(\alpha_1, \dots, \alpha_n) = \det D^2
+  \]
+  where \(D \in \matrixring_{n \times n}(\C)\) is \(D_{ij} = \sigma_i(\alpha_j)\).
+\end{definition}
+
+\begin{note}
+  This is independent of the choice of ordering of \(\sigma_i\)'s and \(\alpha_j\)'s, as changing them amounts to permuting the rows and columns, which change \(\det D\) by a sign.
+\end{note}
+
+\begin{lemma}
+  Let \(\alpha_1, \dots, \alpha_n \in L\). Then
+  \[
+    \disc(\alpha_1, \dots, \alpha_n) = \det T
+  \]
+  where \(T \in \matrixring_{n \times n}(\Q)\) is \(T_{ij} = \tr_{L/\Q}(\alpha_i\alpha_j)\).
+\end{lemma}
+
+\begin{proof}
+  \[
+    T_{ij}
+    = \sum_{k = 1}^n \sigma_k(\alpha_i\alpha_j)
+    = \sum_{k = 1}^n D_{ki}D_{kj}
+    = (D^TD)_{ij}
+  \]
+\end{proof}
+
+\begin{corollary}
+  \(\disc(\alpha_1, \dots, \alpha_n) \in \Q\) and if further \(\alpha_1, \dots, \alpha_n \in \O_L\) then \(\disc(\alpha_1, \dots, \alpha_n) \in \Z\).
+\end{corollary}
+
+\begin{proof}
+  \(\disc(\alpha_1, \dots, \alpha_n) = \det T \in \Q\).
+
+  If \(\alpha_i\)'s are in \(\O_L\), then \(D_{ij} \in \O_\C\) for all \(i, j\). As \(\det\) is a polynomial, \(\disc(\alpha_1, \dots, \alpha_n) \in \O_\C \cap \Q = \Z\).
+\end{proof}
+
+\begin{proposition}
+  Let \(\alpha_1, \dots, \alpha_n \in L\). Then \(\disc(\alpha_1, \dots, \alpha_n) \neq 0\) if and only if \(\alpha_i\)'s form a \(\Q\)-basis of \(L\).
+\end{proposition}
+
+\begin{proof}
+  Suppose \(\alpha_i\)'s do not form a basis, i.e.\ they satisfy a non-trivial relation. Then the columns of the matrix \(D_{ij} = \sigma_i(\alpha_j)\) are linearly dependent so \(\disc(\alpha_1, \dots, \alpha_n) = 0\).
+
+  Conversely, suppose \(\alpha_1, \dots, \alpha_n\) are linearly independent. Then \(\disc(\alpha_1, \dots, \alpha_n) \neq 0\) if and only if \(\det T \neq 0\), if and only if the symmetric bilinear form
+  \begin{align*}
+    \phi: L \times L &\to \Q \\
+    (\alpha, \beta) &\mapsto \tr_{L/\Q}(\alpha\beta)
+  \end{align*}
+  is non-degenerate. In other words, for all \(\alpha \in L^\times\), there exists \(\beta \in L\) such that \(\varphi(\alpha, \beta) \neq 0\). But if \(\alpha \in L^\times\) then \(\phi(\alpha, \alpha^{-1}) = \tr_{L/\Q}(1) = n \neq 0\).
+\end{proof}
+
+\begin{definition}[Integral basis]\index{integral basis}
+  We say \(\alpha_1, \dots, \alpha_n \in L\) form an \emph{integral basis} for \(\O_L\) if
+  \begin{enumerate}
+  \item \(\alpha_1, \dots, \alpha_n \in \O_L\),
+  \item \(\alpha_1, \dots, \alpha_n\) generate \(\O_L\) as a \(\Z\)-module.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  If \(\alpha_1, \dots, \alpha_n\) form an integral basis for \(\O_L\) then the function
+  \begin{align*}
+    f: \Z^n &\to \O_L \\
+    (m_1, \dots, m_n) &\mapsto \sum_{i = 1}^n m_i\alpha_i
+  \end{align*}
+  is an isomorphism of \(Z\)-modules.
+\end{lemma}
+
+\begin{proof}
+  \(f\) is clearly a surjective homomorphism so remains to show it is injective. Observe that \(\alpha_1, \dots, \alpha_n\) form a \(\Q\)-basis of \(L\): we know that if \(\beta \in L\) then there exists \(N \geq 1, N \in \Z\) such that \(N\beta \in \O_L\). Write
+  \[
+    N\beta = \sum_{i = 1}^n m_i\alpha_i
+  \]
+  for some \(m_i \in \Z\). Thus \(\beta = \sum_{i = 1}^m \frac{m_1}{N} \alpha_i\). Thus \(\alpha_i\)'s span \(L\) and thus form a basis of \(L\).
+
+  If \(f(m_1, \dots, m_n) = 0\) then \(\sum_{i = 1}^n m_i\alpha_i = 0\) so \(m_i = 0\) by linear independent of \(\alpha_i\)'s.
+\end{proof}
+
+We will soon prove that every number field has an integral basis.
+
+\begin{lemma}[Sandwich lemma]\leavevmode
+  \begin{enumerate}
+  \item If \(H \leq G\) are abelian groups and \(G \cong \Z^a\) for some integer \(a \geq 0\), then \(H \cong \Z^b\) for some \(b \leq a\).
+  \item If \(K \leq H \leq G\) are abelian groups and \(K \cong \Z^a, G \cong \Z^a\) for some \(a \geq 0\), then \(H \cong \Z^a\).
+  \item If \(H \leq G\) are abelian groups and \(H \cong \Z^a, G \cong \Z^a\) for some \(a \geq 0\) then \(G/H\) is finite.
+  \end{enumerate}
+\end{lemma}
+
+This is a generalisation of results about finite dimensional vector spaces (i.e.\ finitely generated free modules over fields) to finitely generated free \(\Z\)-modules.
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(G/H\) is a finitely generated abelian group. By the classification, \(G/H \cong \Z^n \oplus A\) where \(A\) is a finite abelian group. Choose \(p\) prime such that \(p \ndivides |A|\). Then the map
+    \begin{align*}
+      f: G/H &\to G/H \\
+      x + H &\mapsto px + H
+    \end{align*}
+    is injective. Consider the map
+    \begin{align*}
+      f': H/pH &\to G/pG \\
+      x + pH &\mapsto x + pG
+    \end{align*}
+    Claim this map is also injective: if \(x \in H, x \in pG\) then \(x = py\) for some \(y \in G\). Then \(y + H \in \ker f = H\). Thus \(x \in pH\).
+
+    By classification \(H \cong \Z^b\). As \(f'\) is injective, \(|H/pH| \leq |G/pG|\), i.e.\ \(p^b \leq p^a\) so \(b \leq a\).
+  \item Apply 1 to \(K \leq H\) and \(H \leq G\) to get \(H \cong \Z^b\) where \(a \leq b \leq a\) so \(a = b\).
+  \item Again \(G/H\) is finitely generated so by classification \(G/H \cong \Z^N \oplus A\) where \(A\) is a finite abelian group. Let \(p\) be a prime such that \(p \ndivides |A|\). The same proof as in 1 shows that \(f': H/pH \to G/pG\) is injective. Since \(|H/pH| = |G/pG| = p^a\), \(f'\) is an isomorphism. Thus (?)
+    \[
+      G/H + pG \cong (\Z/p\Z)^N
+    \]
+    There is a surjective homomorphism \(G/pG \to G/H + pG\) which has kernel containing the image of \(f'\). Hence the map is surjective with kernel \(G/pG\). This forces \(N = 0\).
+  \end{enumerate}
+\end{proof}
+
+
+
+
+
 
 
 \printindex

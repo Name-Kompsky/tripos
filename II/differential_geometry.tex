@@ -386,7 +386,7 @@ We defined manifolds in terms of charts but in reality, the pre-image theorem ac
 \end{proof}
 
 \begin{corollary}
-  Suppose \(\dim X = \dim Y\) and \(y\) is a regular value of some \(f: X \to Y\). Then \(f^{-1}(y)\) is a manifold of dimension \(0\)
+  Suppose \(\dim X = \dim Y\) and \(y\) is a regular value of some \(f: X \to Y\). Then \(f^{-1}(y)\) is a manifold of dimension \(0\).
 \end{corollary}
 
 If \(Z \subseteq \R^N\) is a manifold of dimension \(0\), then it is a collection of discrete points, i.e.\ for each \(z \in Z\), there exists an open neighbourhood of \(z\) whose intersection with \(Z\) is \(\{z\}\). Thus if \(X\) is in addition compact, then \(f^{-1}(y)\) is a finite set of points.
@@ -399,6 +399,92 @@ If \(Z \subseteq \R^N\) is a manifold of dimension \(0\), then it is a collectio
   is a disjoint union of open neighbourhoods of \(x_i\)'s and the restriction of \(f\) on each of which is a diffeomorphism.
 \end{theorem}
 
+Given a regular value \(y\), \(T_xf^{-1}(y) = \ker df_x\). See example sheet 1.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(S^n \subseteq \R^{n + 1}\) and
+  \begin{align*}
+    f: S^n &\to \R \\
+    (x_1, \dots, x_{n + 1}) &\mapsto x_1^2 + \dots + x_{n + 1}^2
+  \end{align*}
+  which is smooth. We have
+  \[
+    df = (2x_1, \dots, 2x_{n + 1})
+  \]
+  which is surjective everywhere on \(S^n\). Thus by pre-image theorem \(f^{-1}(1) \subseteq \R^{n + 1}\) is a manifold of dimension \(1\), which is precisely \(S^n\).
+\item Let \(O(n)\) be the set of \(n \times n\) orthogonal matrices, i.e.\ matrices \(A\) such that \(AA^T = I\). \(O(n)\) can be seen as a subset of \(\matrixring_n(\R) = \R^{n^2}\). Claim that \(O(n)\) is a manifold of dimension \(\frac{n(n - 1)}{2}\).
+
+  Let \(S(n) \subseteq \matrixring_n(\R)\) be the subset of symmetric matrices. This is a subspace of \(\R^{n^2}\) so clearly a submanifold of dimension \(\frac{n(n + 1)}{2}\). Consider that map
+  \begin{align*}
+    f: \matrixring_n &\to S(n) \\
+    A &\mapsto AA^T
+  \end{align*}
+  which is a smooth map. As \(f^{-1}(I) = O(n)\), if \(I\) is a regular value of \(f\) then \(O(n)\) is a manifold of dimension \(\frac{n(n - 1)}{2}\).
+  \begin{align*}
+    df_A(H) &= \lim_{s \to 0} \frac{(A + sH)(A + sH)^T - AA^T}{s} \\
+            &= AH^T + HA^T
+  \end{align*}
+  Given \(C \in S(n)\), \(H = \frac{CA}{2}\) satisfies \(df_A(H) = C\) so \(df_A\) is surjective.
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}
+  In addition to being a manifold, \(O(n)\) is a group under matrix multiplication. The group operations are smooth. We call it a \emph{Lie group}.
+
+  It is also worthing pointing out that \(O(n)\) is not connected, as seen from the continuous map \(\det: O(n) \to \{\pm 1\}\). The connected component of identity is called \emph{special orthogonal group}
+  \[
+    SO(n) = \{A \in O(n): \det A = 1\}.
+  \]
+  Objects that preserve geometric objects are themselves geometric objects.
+\end{remark}
+
+\begin{definition}
+  A set \(S \subseteq \R^n\) is said to be \emph{measure \(0\)} if for all \(\varepsilon > 0\) there exists a countable collection of cubes \(C_m\) such that \(S \subseteq \bigcup C_m\) and \(\sum \operatorname{volume} C_m < \varepsilon\).
+\end{definition}
+
+\begin{definition}
+  Let \(X\) be an \(n\)-dim manfiold and \(S \subseteq X\). \(S\) has \emph{measure \(0\)} if for all local parameterisations \(\varphi: U \to V \subseteq X\), \(\varphi^{-1}(V \cap S) \subseteq \R^n\) is of measure \(0\).
+\end{definition}
+
+This is well-defined since we can show any manifold can be parameterised by a chart of countably many parameterisations and the countable union of measure \(0\) subsets in \(\R^n\) has measure \(0\).
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item An open subset \(V \subseteq X\) is not of measure \(0\).
+  \item Suppose \(Y \subseteq X\) is a submanifold of \(X\) and \(\dim Y < \dim Y\). Then \(Y\) is of measure \(0\) in \(X.\)
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}[Sard's Theorem]
+  Let \(f: X \to Y\) be a smooth map between manifolds. Then the set of critical values of \(f\) is of measure \(0\) in \(Y\).
+\end{theorem}
+
+\begin{corollary}
+  Regular values are dense.
+\end{corollary}
+
+\subsection{Transversality}
+
+Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) is a submanifold.
+
+\begin{definition}[Transversality]\index{transversality}
+  \(f\) is \emph{transversal to \(\Z\)}, denoted \(f \pitchfork Z\), if for all \(x \in f^{-1}(Z)\),
+  \[
+    \im df_x + T_{f(x)}Z = T_{f(x)}Y.
+  \]
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(f(X) \cup Z = \emptyset\) then \(f\) is vacuously transversal.
+  \item This is a generalisation of regular value: if \(Z = \{y\}\) then \(f \pitchfork Z\) if and only if \(y\) is a regular value of \(f\) since the tangent space of a dimension \(0\) manifold is \(0\).
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}[Transversality theorem]\index{transversality theorem}
+  Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) is a submanifold. If \(f \pitchfork Z\) then \(f^{-1}(Z) \subseteq X\) is a submanifold of \(X\) with codimension equal to \(\codim_Y(Z)\).
+\end{theorem}
 
 
 

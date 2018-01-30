@@ -73,7 +73,7 @@ The last term \(\prod_{i = 0}^n (x - x_i)\) is called the \emph{nodal polynomial
 \begin{proof}
   If \(x = x_i\) for some \(i\) then the result is trivially true. Assume \(x\) is distinct from \(x_i\)'s for all \(i\). Define
   \[
-    \varphi(t) = f(t) - \left(p(t) + (f(x) - p(x)) \frac{\prod_{i = 0}^n(t - x_i)}{\prod_{i = 0}^n(x - x_i)} \right).
+    \varphi(t) = f(t) - \left(p(t) + (f(x) - p(x)) \prod_{i = 0}^n \frac{t - x_i}{x - x_i} \right).
   \]
   Note that the second term is by construction the interpolating polynomial of \(f\) at \(x_0, \dots, x_n\) and \(x\). Thus
   \[
@@ -213,24 +213,176 @@ This way the evaluation requires \(O(n)\) operations.
 
 \section{Orthogonal Polynomials}
 
+\subsection{Definitions}
 
-Missed a lecture
+\begin{definition}[Inner product]\index{inner product}
+  An \emph{inner product} is a function \(\inner{\cdot, \cdot}: V \times V \to \R\) where \(V\) is a real vector space which is
+  \begin{enumerate}
+  \item symmetric: for all \(x, y \in V\), \(\inner{x, y} = \inner{y, x}\),
+  \item positive-definite: for all \(x \in V\), \(\inner{x, x} \geq 0\) with equality if and only if \(x = 0\),
+  \item linear: for all \(x, y, z \in V\), \(a, b \in \R\), \(\inner{ax + by, z} = a\inner{x, z} + b\inner{y, z}\).
+  \end{enumerate}
+\end{definition}
 
-\subsection{Least-squares Polynomial Fitting}
+\begin{definition}[Orthogonality]
+  Given an inner product, \(x, y \in V\) are \emph{orthogonal} if \(\inner{x, y} = 0\).
+\end{definition}
+
+In this section, let \(V = C[a, b]\) and let \(w \in V\) be a positive function and define an inner product
+\[
+  \inner{f, g} = \int_a^b w(x)f(x)g(x) dx.
+\]
+It is easy to verify the axioms of inner product.
+
+\begin{definition}[Orthogonal polynomial]\index{orthogonal polynomial}
+  Given an inner product in \(V = P[x]\), the \emph{orthogonal polynomials} are a sequence of polynomials \(p_0, p_1, \dots\) such that
+  \begin{enumerate}
+  \item \(\deg p_n = n\) for all \(n \geq 0\) and
+  \item \(\inner{p_n, p_m} = 0\) for all \(n \neq m\).
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  For any \(n \geq 0\), \(\{p_0, \dots, p_n\}\) is an orthogonal basis of \(P_n[x]\).
+\end{remark}
+
+The next theorem shows that this object with the desired property does exist:
+
+\begin{theorem}
+  For every \(n \geq 0\) there exists a unique monic orthogonal polynomial \(p_n\) of degree \(n\).
+\end{theorem}
+
+\begin{proof}
+  Let \(p_0(x) = 1\) and proceed by induction on \(n\). Suppose \(p_0, \dots, p_n\) satisfy the induction hypothesis. To define \(p_{n + 1}\) let \(q(x) = x^{n + 1} \in P_{n + 1}[x]\) and conduct Gram-Schmidt on \(q(x)\):
+  \[
+    p_{n + 1}(x) = q(x) - \sum_{k = 0}^n \frac{\inner{q, p_k}}{\inner{p_k, p_k}}p_k(x).
+  \]
+  Clearly \(p_{n + 1} \in P_{n + 1}[x]\) and is monic. The orthogonality is a consequence of Gram-Schmidt.
+
+  To prove uniqueness, suppose there exists \(\tilde p_{n + 1} \in P_{n + 1}[x]\) also monic orthogonal. Then \(p = p_{n + 1} - \tilde p_{n + 1} \in P_n[x]\) and thus we have
+  \[
+    0 = \inner{p_{n + 1}, p} - \inner{\tilde p_{n + 1}, p} = \inner{p, p}
+  \]
+  so \(p = 0\).
+\end{proof}
+
+\begin{eg}[Legendre polynomials]\index{Legendre polynomial}
+  Define an inner product
+  \[
+    \inner{f, g} = \int_{-1}^1 f(x)g(x) dx
+  \]
+  for \(f, g \in P[x]\). The orthogonal polynomials arising from the scalar product is called \emph{Legendre polynomials}. The first few terms in the sequence are
+  \begin{align*}
+    p_0(x) &= 1 \\
+    p_1(x) &= x \\
+    p_2(x) &= x^2 - \frac{1}{3} \\
+    p_3(x) &= x^3 - \frac{3}{5}x \\
+    f_4(x) &= x^4 - \frac{30}{35}x^2 + \frac{3}{35}
+  \end{align*}
+\end{eg}
+
+Some well-known examples of orthogonal polynomials:
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c||c|c|c|}
+    \hline
+    Name & Notation & \([a, b]\) & \(w(x)\) \\ \hline
+    Legendre & \(P_n\) & \([-1, 1]\) & \(1\) \\ \hline
+    Chebyshev & \(T_n\) & \([-1, 1]\) & \((1 - x^2)^{-1/2}\) \\ \hline
+    Laguerre & \(L_n\) & \([0, \infty)\) & \(e^{-x}\) \\ \hline
+    Hermite & \(H_n\) & \((-\infty, \infty)\) & \(e^{-x^2}\) \\ \hline
+  \end{tabular}
+  \caption{Common orthogonal polynomials}
+\end{table}
+
+\subsection{Three-term recurrence relation}
+
+Gram-Schmidt gives us a way to construct orthogonal polynomials, but it suffers from loss of accuracy due to imprecisions in the calculation of scalar products. A considerably better procedure follows from our next theorem, which relies on the mild assumption that the inner product satisfies
+\[
+  \inner{xp, q} = \inner{p, xq}
+\]
+for all \(p, q \in P[x]\).
+
+\begin{theorem}
+  Assume the scalar product on \(P[x]\) satisfies \(\inner{xp, q} = \inner{p, xq}\) for all \(p, q \in P[x]\). The orthogonal polynomials are given by
+  \begin{align*}
+    p_{-1}(x) &= 0 \\
+    p_{0}(x) &= 1 \\
+    p_{n + 1}(x) &= (x - \alpha_n)p_n(x) - \beta_np_{n - 1}(x),\, n \geq 0
+  \end{align*}
+  where
+  \begin{align*}
+    \alpha_n &= \frac{\inner{p_n, xp_n}}{p_n, p_n} \\
+    \beta_n &= \frac{\inner{p_n, p_n}}{\inner{p_{n - 1}, p_{n - 1}}}
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Let \(n \geq 0\) and \(\psi(x) = p_{n + 1}(x) - (x - \alpha_n)p_n(x) + \beta_np_{n - 1}(x)\). Since \(p_n\) and \(p_{n + 1}\) are monic, it follows that \(\psi \in P_n[x]\). Moreover, because of orthogonality of \(p_{n - 1}, p_n, p_{n + 1}\),
+  \[
+    \inner{\psi, p_\ell} = 0
+  \]
+  for \(\ell = 0, \dots, n - 2\) by linearity. Because of monicity, \(q = xp_{n - 1} - p_n \in P_{n - 1}[x]\). Thus from the definition of \(\alpha_n\) and \(\beta_n\),
+  \begin{align*}
+    \inner{\psi, p_{n - 1}} &= -\inner{p_n, xp_{n - 1}} + \beta_n\inner{p_{n - 1}, p_{n - 1}} = -\inner{p_n, p_n} + \beta_n\inner{p_{n - 1}, p_{n - 1}} = 0 \\
+    \inner{\psi, p_n} &= -\inner{xp_n, p_n} + \alpha_n\inner{p_n, p_n} = 0
+  \end{align*}
+  Every \(p \in P_n[x]\) that obeys \(\inner{p, p_\ell} = 0\) for all \(0 \leq \ell \leq n\) must necessarily be the zero polynomials. Thus \(\psi = 0\) and the result follows.
+\end{proof}
+
+\begin{eg}[Chebyshev polynomials]\index{Chebyshev polynomial}
+  Define an inner product on \(C[-1, 1]\)
+  \[
+    \inner{f, g} = \int_{-1}^1 \frac{f(x)g(x)}{\sqrt{1 - x^2}} dx
+  \]
+  and define
+  \begin{align*}
+    T_n &\in P_n[x] \\
+    T_n(\cos\theta) &= \cos(n\theta)
+  \end{align*}
+  The first three terms are thus
+  \begin{align*}
+    T_0(x) &= 1 \\
+    T_1(x) &= x \\
+    T_2(x) &= 2x^2 - 1
+  \end{align*}
+  The inner product can be easily found by a change of vairable:
+  \begin{align*}
+    \inner{T_n, T_m}
+    &= \int_{-1}^1 \frac{T_n(x)T_m(x)}{\sqrt{1 - x^2}} dx \\
+    &= \int_0^\pi \cos n\theta \cos m\theta d\theta \\
+    &= \frac{1}{2} \int_0^\pi (\cos (n + m)\theta + \cos (n - m)\theta) d\theta \\
+    &= 0
+  \end{align*}
+  whenever \(n \neq m\).
+
+  The recurrence relation for Chebyshev polynomials is paricularly simple:
+  \[
+    T_{n + 1}(x) = 2xT_n(x) - T_{n - 1}(x)
+  \]
+  which can be verified at once from the identity
+  \[
+    \cos(n + 1)\theta + \cos(n - 1)\theta = 2\cos \theta \cos (n\theta).
+  \]
+  Note that \(T_n\)'s are not monic. To obtain monic polynomials take \(T_n/2^{n - 1}\) for \(n \geq 1\).
+\end{eg}
+
+
+\subsection{Least-squares polynomial fitting}
 
 \begin{question}
-Fix a scalar product on \([a, b]\) of the form
+Fix a scalar product on \(C[a, b]\) of the form
 \[
   \inner{f, g} = \int_a^b w(x)f(x)g(x) dx
 \]
 where \(w: [a, b] \to \R\) is positive. Given \(f \in C[a, b]\), find \(p \in P_n[x]\) such that
   \[
-    \norm{f - g}^2 = \inner{f - p, f - p}
+    \norm{f - p}^2 = \inner{f - p, f - p}
   \]
   is minimised.
 \end{question}
 
-Let \(\hat p_n\) be the polynomial of degree \(n\) minimising \(\norm{f - g}^2\).
+Let \(\hat p_n\) be the polynomial of degree \(n\) minimising \(\norm{f - p}^2\).
 
 \begin{theorem}
   Let \(p_0, p_1, p_2\) be orthogonal polynomials with respect to \(\inner{\cdot, \cdot}\). Then
@@ -272,7 +424,7 @@ It is obvious that \(\norm{f - \hat p_n}^2\) is a non-increasing function of \(n
   Does \(\norm{f - \hat p_n}^2 \to 0\) as \(n \to \infty\)?
 \end{question}
 
-The answer is yes can can be proved using Weierstrass theorem, which we state without giving a proof:
+The answer is yes and can be proved using Weierstrass theorem, which we state without giving a proof:
 
 \begin{theorem}[Weierstrass]
   Let \(f \in C[a, b]\) where \([a, b]\) is bounded. For all \(\varphi > 0\), there exists a polynomial \(p\) of high enough degree such that
@@ -284,11 +436,11 @@ The answer is yes can can be proved using Weierstrass theorem, which we state wi
 
 Using Weierstass theorem, we can prove the claim above. For any \(p\) we have
 \[
-  norm{f - p}^2 = \int_a^b w(x)(f(x) - p(x))62 dx \leq \left(\max_{x \in [a, b]} |f(x) - p(x)| \right)^2 \int_a^b w(x) d(x).
+  \norm{f - p}^2 = \int_a^b w(x)(f(x) - p(x))^2 dx \leq \left(\max_{x \in [a, b]} |f(x) - p(x)| \right)^2 \int_a^b w(x) d(x).
 \]
 Give any \(\delta > 0\), by Weierstrass theorem applied with \(\varphi = \sqrt{\delta/\int_a^b w(x) dx}\), there is a polynomial \(p\) of degree \(N\) such that
 \[
-  |(x) - p(x)| < \varepsilon
+  |f(x) - p(x)| < \varepsilon
 \]
 for all \(x \in [a, b]\). Then for any \(N \geq n\),
 \[
@@ -308,22 +460,22 @@ as required.
 
 \subsection{Least-squares fitting to discrete data}
 
-Give the value of a function at pairwise distinct points \(x_1, \dots, x_m\), the goal of this section is to find \(p \in P_n[x]\) that minimises
+Given the value of a function at pairwise distinct points \(x_1, \dots, x_m\), the goal of this section is to find \(p \in P_n[x]\) that minimises
 \[
   \sum_{k = 1}^m (f(x_k) - p(x_k))^2.
 \]
-This can be thought as a generalisation of the problem studied in chapter 1, where \(m = n + 1\) and the minimised error is always \(0\). In the generalised setting, \(n \leq m - 1\) (and usual much smaller).
+This can be thought as a generalisation of the interpolation problem, where \(m = n + 1\) and the minimised error is always \(0\). In the generalised setting, \(n \leq m - 1\) (and usual much smaller).
 
 This question can be reformulated as in terms of orthogonal polynomial, where the inner product is defined to be
 \[
   \inner{g, h} = \sum_{k = 1}^m g(x_k)h(x_k)
 \]
-since
+since then
 \[
   \inner{f - p, f - p} = \sum_{k = 0}^n (f(x_k) - p(x_k))^2.
 \]
 
-We can proceed as follow (\(n \leq m - 1\)):
+We can proceed as follow, given \(n \leq m - 1\):
 \begin{enumerate}
 \item use three-term recurrence for the inner product to compute orthogonal polynomials \(p_0, \dots, p_n\).
 \item Form
@@ -333,12 +485,12 @@ We can proceed as follow (\(n \leq m - 1\)):
 \end{enumerate}
 The reason we require \(n \leq m - 1\) is for positive definiteness.
 
-\subsection{Gaussian Quadrature}
+\subsection{Gaussian quadrature}
 
 \begin{question}
   Let \(w: [a, b] \to \R\) be positive. We want to approximate \(\int_a^b w(x)f(x) dx\) where \(f \in C[a, b]\).
 \end{question}
-A \emph{quadrature formula} is an approximation of the above expression
+A \emph{quadrature formula}\index{quadrature} is an approximation of the above expression
 \begin{equation}
   \label{eqn:quadrature}
   \int_a^b w(x)f(x) dx \approx \sum_{k = 1}^\nu b_kf(c_k)
@@ -358,7 +510,7 @@ Claim that if the quadrature formula \eqref{eqn:quadrature} is exact for any \(f
   which has degree \(2\nu\). RHS is equal to \(0\) while LHS is \(\int_a^b w(x)f(x)dx > 0\).
 \end{proof}
 
-Can we find quadrature formula that is exact for all polynomials of degree \(\leq 2\nu - 1\)? Yes, and this is Gaussian quadrature.
+Can we find a quadrature formula that is exact for all polynomials of degree \(\leq 2\nu - 1\)? Yes, and this is \emph{Gaussian quadrature}\index{quadrature!Gaussian}.
 
 Let
 \[
@@ -375,7 +527,7 @@ and let \(p_0, p_1, p_2\) be orthogonal polynomials associated to this inner pro
   \[
     q(x) = \prod_{i = 1}^m (x - \xi_i).
   \]
-  Note that \(p_n(x)q(x)\) has constant sign in \([a, b]\), i.e.\ in this step we make even root have even multiplicity. Since \(p_nq\) has constant sign on \([a, b]\),
+  Note that \(p_n(x)q(x)\) has constant sign in \([a, b]\), i.e.\ in this step we make every root have even multiplicity. Since \(p_nq\) has constant sign on \([a, b]\),
   \[
     |\inner{p_n, q}| = \left| \int_a^b w(x)p_n(x)q(x) dx \right| = \int_a^b w(x) |p_n(x)q(x)| dx > 0
   \]
@@ -401,12 +553,12 @@ for \(k = 1, \dots, \nu\).
   \begin{enumerate}
   \item Let \(f \in P_{n - 1}[x]\). Write \(f\) in terms of its interpolating formula at the \(c_k\)'s,
     \[
-      f(x) = \sum_{k = 1}^\nu f(c_k) \prod_{j \neq k}^\nu \frac{x - c_j}{c_k - c_j}.
+      f(x) = \sum_{k = 1}^\nu f(c_k) \prod_{j \neq k} \frac{x - c_j}{c_k - c_j}.
     \]
     Then
     \begin{align*}
-      \int_a^b w(x)f(x) dx &= \int_a^b w(x) \sum_{k = 1}^\nu f(c_k) \prod_{j \neq k}^\nu \frac{x - c_j}{c_k - c_j} \\
-      &= \sum_{k = 1}^\nu f(c_k) \int_a^b w(x) \prod_{j \neq k} \frac{x - c_j}{c_k - c_j} dx
+      \int_a^b w(x)f(x) dx &= \int_a^b w(x) \sum_{k = 1}^\nu f(c_k) \prod_{j \neq k} \frac{x - c_j}{c_k - c_j} dx \\
+                           &= \sum_{k = 1}^\nu f(c_k) \int_a^b w(x) \prod_{j \neq k} \frac{x - c_j}{c_k - c_j} dx
     \end{align*}
   \item Assume now that \(c_1, \dots, c_\nu\) are the roots of \(p_\nu\). Let \(f \in P_{2\nu - 1}[x]\). We can write
     \[
@@ -447,10 +599,10 @@ Let
 \]
 Then
 \begin{align*}
-  \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta & = \int_a^b \mathbb{1}(\theta \leq x) (x - \theta)^n f^{(n + 1)}(\theta) d\theta \\
+  \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta & = \int_a^b 𝟙_{\theta \leq x} (x - \theta)^n f^{(n + 1)}(\theta) d\theta \\
                                                       &= \int_a^b (x - \theta)_+^n f^{(n + 1)}(\theta) d\theta
 \end{align*}
-so
+Assuming we can exchange \(L\) and the integral, we get
 \[
   L(f) = \frac{1}{n!} \int_a^b K(\theta)f^{(n + 1)}(\theta)
 \]
@@ -467,9 +619,9 @@ is the \emph{Peano kernel}\index{Peano kernel}.
   \]
   Then
   \[
-    L(f) = \int_{-1}^1 f(x)dx - \frac{1}{3}[f(-1) + 4f(0) + f(1)]
+    L(f) = \int_{-1}^1 f(x)dx - \frac{1}{3}[f(-1) + 4f(0) + f(1)].
   \]
-  Can check that \(L(f) = 0\) for all \(f \in P_2[x]\). The Peano kernel for \(L\) is
+  We can check that \(L(f) = 0\) for all \(f \in P_2[x]\). The Peano kernel for \(L\) is
   \[
     K(\theta) = L(x \mapsto (x - \theta)_+^2) =
     \begin{cases}
