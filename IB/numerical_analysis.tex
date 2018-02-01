@@ -581,7 +581,7 @@ The error from a quadrature formula is
 \[
   L(f) = \int_a^b w(x)f(x) dx - \sum_{k = 1}^\nu b_kf(c_k)
 \]
-Assume \(L(f) = 0\) for all \(f \in P_n[x]\). The goal is to bound error \(|L(f)|\) for \(f \notin P_n[x]\). Recall from IA Analysis I the Taylor expansion formula with integral remainder
+Assume \(L(f) = 0\) for all \(f \in P_n[x]\). The goal is to bound error \(|L(f)|\) for \(f \in C^{n + 1}[a, b]\). Recall from IA Analysis I the Taylor expansion formula with integral remainder
 \[
   f(x) = \sum_{i = 1}^n f^{(i)}(a) \frac{(x - a)^i}{i!} + \frac{1}{n!} \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta.
 \]
@@ -612,8 +612,7 @@ where
 \]
 is the \emph{Peano kernel}\index{Peano kernel}.
 
-\begin{eg}
-  Simpson's rule
+\begin{eg}[Simpson's rule]
   \[
     \int_{-1}^1 f(x)dx \approx \frac{1}{3} [f(-1) + 4f(0) + f(1)].
   \]
@@ -625,17 +624,136 @@ is the \emph{Peano kernel}\index{Peano kernel}.
   \[
     K(\theta) = L(x \mapsto (x - \theta)_+^2) =
     \begin{cases}
-      -\theta(1 + \theta)^2 & \text{if } \theta \leq 0 \\
-      -\theta(1 - \theta)^2 & \text{if } \theta \geq 0
+      -\frac{1}{3}\theta(1 + \theta)^2 & \text{if } -1 \leq \theta \leq 0 \\
+      -\frac{1}{3}\theta(1 - \theta)^2 & \text{if } 0 \leq \theta \leq 0 \\
+      0 & \text{otherwise}
     \end{cases}
   \]
+  Assume \(0 \leq \theta \leq 1\) for example,
+  \begin{align*}
+    K(\theta)
+    &= L(x \mapsto (x - \theta)_+^2) \\
+    &= \int_{-1}^1 (x - \theta)_+^2 dx - \frac{1}{3} \left[(-1 - \theta)_+^2 + 4(0 - \theta)_+^2 + (1 - \theta)_+^2 \right] \\
+    &= \int_\theta^1 (x - \theta)^2 dx - \frac{1}{3}[0 + 0 + (1 - \theta)^2] \\
+    &= \frac{(x - \theta)^3}{3}\Big|_0^1 - \frac{1}{3}(1 - \theta)^2 \\
+    &= -\frac{1}{3}\theta(1 - \theta)^2
+  \end{align*}
   For any \(f \in C^3[-1, 1]\),
   \begin{align*}
     |L(f)| &= \frac{1}{2}\left| \int_{-1}^1 K(\theta)f^{(3)}(\theta)d\theta \right| \\
            &\leq \frac{1}{2} \max_{\theta \in [-1, 1]} |f^{(3)}(\theta)| \int_{-1}^1|K(\theta)| d\theta \\
-    &\leq \frac{1}{36} \max_{\theta \in [-1, 1]} |f^{(3)}(\theta)|
+           &\leq \frac{1}{36} \norm{f^{(3)}(\theta)}_\infty
+  \end{align*}
+
+  In particular, applying the result to \(P_2[x]\) tells us that the quadrature is exact for polynomials of degree \(2\) or smaller.
+\end{eg}
+
+In fact Peano Kernel Theorem applies to other kind of numerical algorithms as well.
+
+\begin{eg}[Numerical differentiation]
+  \[
+    f'(0) \approx = -\frac{3}{2}f(0) + 2f(1) - \frac{1}{2}f(2).
+  \]
+  We can check that the formula is exact for \(f(x) = 1, x, x^2\) so by linearity this extends to all elements of \(P_2[x]\). The error is
+  \[
+    L(f) = f'(0) - [-\frac{3}{2}f(0) + 2f(1) - \frac{1}{2}f(2)]
+  \]
+  so
+  \[
+    K(\theta) = L(x \mapsto (x - \theta)_+^2) =
+    \begin{cases}
+      2\theta - \frac{3}{2}\theta^2 & \text{if } 0 \leq \theta \leq 1 \\
+      \frac{1}{2}(2 - \theta)^2 & \text{if } 1 \leq \theta \leq 2 \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  For any \(f \in C^3[0, 2]\),
+  \begin{align*}
+    |K(L)|
+    &= \frac{1}{2} \left| \int_0^2 K(\theta)f^{(3)}(0)d\theta d\theta \right| \\
+    &\leq \frac{1}{2} \int_0^2 |K(\theta)||f^{(3)}(\theta)|fd\theta \\
+    &\leq \frac{1}{2} \norm{f^{(3)}}_\infty \int_0^2 |K(\theta)| d\theta \\
+    &\leq \frac{1}{3} \norm{f^{(3)}}_\infty
   \end{align*}
 \end{eg}
+
+\section{Ordinary Differential Equations}
+
+Given an ordinary differential equation of the form
+\[
+  \frac{dy}{dt} = y' = f(t, y),\, y(0) = y_0,\, t \geq 0
+\]
+where \(f: \R \times \R^N \to \R^N, y \in \R^N\), we want to solve it by compute \(y(t_n)\) where \(t_n = nh\). \(h\) can be thought as the time step.
+
+\subsection{One-step methods}
+
+A one-step method is defined as a map
+\[
+  y_{n + 1} = \varphi_h(t_n, y_n)
+\]
+where \(y_n\) is our approximation for \(y(nh)\). The map only depends on one previous value, ergo the name.
+
+\subsubsection{Euler method}\index{Euler method}
+
+The \emph{Euler method} is a one-step method defined by
+
+\[
+  y_{n + 1} = y_n + hf(t_n, y_n), n \geq 0.
+\]
+The ``deviation'' is
+\begin{align*}
+  y((n + 1)h)
+  &= y(nh + h) \\
+  &\approx y(nh) + hy'(nh) \\
+  &= y_n + hf(t_n, y_n)
+\end{align*}
+
+\begin{definition}[Convergence of algorithm]
+  We say that a method \emph{converges} if given \(t^* > 0\),
+  \[
+    \lim_{h \to 0} \max_{0 \leq n \leq \floor{\frac{t^*}{h}}} \norm{y_n(h) - y(nh)} = 0.
+  \]
+\end{definition}
+
+\begin{theorem}
+  Assume \(f\) is Lipschitz in the second argument. Then Euler's method is convergent.
+\end{theorem}
+
+\begin{proof}
+  Let \(e_n(h) = y_n(h) - y(nh)\). Then
+  \begin{align*}
+    e_{n + 1}(h)
+    &= y_{n + 1}(h) - y((n + 1)h) \\
+    &= [y_n(h) + h f(nh, y_n(h))] - [y(nh) + hy'(nh) + \eta(h)] \\
+    \intertext{where we Taylor expand the second term and \(\eta(h) \sim O(h^2)\)}
+    &= y_n(h) - y(nh) + h(f(nh, y_n(h) - y'(nh)) - \eta(h) \\
+    &= e_n(h) + h[f(nh, y_n(h)) - f(nh, y(nh))] - \eta(h)
+  \end{align*}
+  Assume the Lipschitz constant is \(\lambda\), we thus get
+  \begin{align*}
+    \norm{e_{n + 1}(h)}
+    &\leq \norm{e_n(h)} + \lambda \norm{y_n(h) - y(nh)} + \norm{\eta(h)} \\
+    &\leq \norm{e_n(h)}(1 + h\lambda) + Ch^2
+  \end{align*}
+  Continue recursively,
+  \begin{align*}
+    \norm{e_n(h)}
+    &\leq \norm{e_{n - 1}(h)}(1 + h\lambda) + Ch^2 \\
+    &\leq \norm{e_{n - 2}(h)}(1 + h\lambda)^2 + Ch^2(1 + h\lambda) + Ch^2 \\
+    &\leq \cdots \\
+    &\leq \underbrace{\norm{e_0(h)}}_0 (1 + h\lambda)^n + Ch^2 \sum_{j = 0}^{n - 1} (1 + h\lambda)^j \\
+    &\leq Ch^2 \frac{(1 + h\lambda)^n - 1}{h\lambda} \\
+    &= \frac{Ch}{\lambda} [(1 + h\lambda)^n - 1] \\
+    \intertext{As \(e^x \geq 1 + x\),}
+    &\leq \frac{Ch}{\lambda} (e^{h\lambda n} - 1) \\
+    \intertext{Since \(n \leq \frac{t^*}{h}\),}
+    &\leq \frac{Ch}{\lambda}(e^{\lambda t^*} - 1) \\
+    &\to 0
+  \end{align*}
+  as \(h \to 0\).
+\end{proof}
+
+
 
 
 

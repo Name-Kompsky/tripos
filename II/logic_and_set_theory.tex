@@ -355,7 +355,7 @@ An application:
 \begin{proof}
   Let \(f, g\) be isomorphisms. We will show \(f(x) = g(x)\) for all \(x \in X\) by induction. Thus we may assume \(f(y) = g(y)\) for all \(y < x\) and want \(f(x) = g(x)\).
 
-  Let \(a\) be the least element of \(Y \setminus \{f(y): y \in X\}\), which is non-empty. Then we must have \(f(x) = a\): if \(f(x) > a\) then some \(x' > x\) has \(f(x') > f(x)\), contracting \(f\) being order-preserving. Same holds for \(g\). Thus \(f(x) = g(x)\).
+  Let \(a\) be the least element of \(Y \setminus \{f(y): y \in X\}\), which is non-empty. Then we must have \(f(x) = a\): if \(f(x) > a\) then some \(x' > x\) has \(f(x') = a < f(x)\), contradicting \(f\) being order-preserving. Same holds for \(g\). Thus \(f(x) = g(x)\).
 \end{proof}
 
 \begin{definition}[initial segment]\index{initial segment}
@@ -372,6 +372,98 @@ An application:
 \begin{note}
   In a well-ordering, every proper initial segment \(I\) is of the form \(I_x\) for some \(x\). Indeed, let \(x\) be the least element of \(X \setminus I\). Then \(y < x\) implies \(y \in I\) (by definition of \(y\)). Also if \(y \in I\) then must have \(y < x\): if \(y = x\) or \(y > x\) then \(x \in I\) which is a contradiction.
 \end{note}
+
+The aim to show every subset of a well-ordered \(X\) is isomorphic to an initial segment.
+
+\begin{note}
+  This is false for total orders. For example, \(\{1, 5, 9\} \subseteq \Z\), or \(\Q \subseteq \R\).
+\end{note}
+
+Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\) to the smallest element of \(X\) and continue this way. But how do we show every element of \(Y\) is mapped to somewhere? Instead, we should work backwards: given  \(y \in Y\), map \(y\) to the smallest element in \(X\) that is not mapped to.
+
+\begin{theorem}[Definition by recursion]\index{definition of recursion}
+  Let \(X\) be well-ordered, \(Y\) any set and \(G: \mathcal P(X \times Y) \to Y\). Then there exists \(f: X \to Y\) such that \(f(x) = G(f|_{I_x})\) for all \(x \in X\). Moreover \(f\) is unique.
+\end{theorem}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item For \(f: A \to B\) and \(C \subseteq A\), the \emph{restriction} of \(f\) to \(C\) is
+    \[
+      f|_C = \{(x, f(x)): x \in C\}.
+    \]
+  \item Slogan: to define \(f(x)\), make use of \(f|_{I_x}\), i.e.\ the values of \(f(y)\) for \(y < x\).
+  \end{enumerate}
+\end{note}
+
+\begin{proof}
+  First we show existence. Define ``\(h\) is an attempt'' to mean \(h: I \to Y\) where \(I \subseteq X\) is some initial segment, and for all \(x \in I\) we have \(h(x) = G(h|_{I_x})\). Note that if \(h\) and \(h'\) are both attempts defined at \(x\) then \(h(x) = h'(x)\): by induction on \(x\), since if \(h(y) = h'(y)\) for all \(y < x\), then \(h(x) = h'(x)\).
+
+  Also for all \(x \in X\) there exists an attempt defined at \(X\), by induction on \(x\). Indeed we want an attempt defined at \(x\), given that for all \(y < x\) there exists an attempt defined at \(y\). So for each \(y < x\) we have a unique attempt \(h_y\) defined on \(\{z: z\leq y\}\) (unique by what we just showed). Let
+  \[
+    h = \bigcup_{y < x} h(y),
+  \]
+  an attempt defined on \(I_x\) (which is single-valued by uniqueness) so
+  \[
+    h' = h \cup \{(x, G(h))\}
+  \]
+  is an attempt defined at \(x\). Now set \(f(x) = y\) if there exists an attempt \(h\) defined at \(x\) with \(h(x) = y\) (also single-valued).
+
+  For uniqueness, if \(f\) and \(f'\) are both suitable then \(f(x) = f'(x)\) for all \(x \in X\) (by induction on \(X\)) --- since if \(f(y) = f'(y)\) for all \(y < x\) then \(f(x) = f'(x)\).
+\end{proof}
+
+A typical application:
+
+\begin{proposition}[Subset collapse]
+  Let \(X\) be well-ordered, \(Y \subseteq X\). Then \(Y\) is isomorphic to an initial segment of \(X\). Moreover, the initial segment is unique.
+\end{proposition}
+
+\begin{proof}
+  To have an isomorphism \(f: Y \to I \subseteq X\), we need precisely that for all \(x \in Y\), \(f(x) = \min X \setminus \{f(y): y < x\}\). So done (existence and uniqueness) by the previous theorem. Note that \(X \setminus \{f(y): y < x\} \neq \emptyset\), because \(f(y) \leq y\) for all \(y\) by induction so \(x \notin \{f(y): y < x\}\).
+\end{proof}
+
+A note to the pedantic: in proving the set \(X \setminus \{f(y): y < x\}\) is non-empty, we seem to use a circular argument by assuming \(f\) exists. But this is just a shorthand for the longer version: define
+\[
+  f(x) =
+  \begin{cases}
+    \min X \setminus \{f(y): y < x\} & \text{if } X \setminus \{f(y): y < x\} \neq \emptyset \\
+    \text{cabbage} & \text{otherwise}
+  \end{cases}
+\]
+and then proceed to show \(f(x) \neq \text{cabbage}\) for all \(x \in X\).
+
+In particular, a well-ordered \(X\) cannot be isomorphic to a proper initial segment of \(X\), by uniqueness in subset collapse.
+
+So far we have proved that if two well-orderings are isomorphic there is a unique isomorphism, and that a subset of a well-ordering is isomorphic to a (unique) initial segment. The question now is, how do different general well-orderings relate to each other?
+
+\begin{definition}
+  Say \(X \leq Y\) if \(X\) is isomorphic to an initial segment of \(Y\).
+\end{definition}
+
+\begin{eg}
+  Let \(X = \N\), \(Y = \{1 - 1/n: n = 2, 3, \dots\} \cup \{1\}\), then \(X \leq Y\).
+\end{eg}
+
+What we would hope, is that there is a total order on the set of all well-orderings. And indeed
+
+\begin{theorem}
+  Let \(X, Y\) be well-orderings, then \(X \leq Y\) or \(Y \leq X\).
+\end{theorem}
+
+\begin{proof}
+  Suppose \(Y \nleq X\), to obtain \(f: X \to Y\) that is an isomorphic with an initial segment of \(Y\), need for all \(x \in X\),
+  \[
+    f(x) = \min Y \setminus \{f(y): y < x\}.
+  \]
+  (we can't have \(Y = \{f(y): y < x\}\) as then \(Y\) is isomorphic to \(I_x\)). Done by the theorem.
+\end{proof}
+
+\begin{proposition}
+  Let \(X, Y\) be well-orderings with \(X \leq Y\) and \(Y \leq X\) then \(X\) and \(Y\) are isomorphic.
+\end{proposition}
+
+\begin{proof}
+  Let \(f\) be an isomorphism from \(X\) to an initial segment of \(Y\) and \(g\) from \(Y\) to \(X\). Then \(g \compose f: X \to X\) is an initial segment of \(X\) (as an initial segment of an initial segment is an initial segment). so \(g \compose f = \id\) by uniqueness in subset collapse. Similarly \(f \compose g = \id_Y\) . Thus \(X\) is isomorphic to \(Y\).
+\end{proof}
 
 
 

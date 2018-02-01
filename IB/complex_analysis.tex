@@ -471,7 +471,7 @@ All except the last one is trivial. A quick check
                      &= \int_{\gamma}^{ } f(z) dz
 \end{align*}
 
-In reality, we may encounter curves that are not \(C^1\), for example along the sides of a square. However, they are made of pieces of \(C^1\) curves. In a sense that will be address by the definition below, this is the worst case we will encoutner in this counter.
+In reality, we may encounter curves that are not \(C^1\), for example along the sides of a square. However, they are made of pieces of \(C^1\) curves. In a sense that will be address by the definition below, this is the worst case we will encounter in this course.
 
 \begin{definition}[Piecewise \(C^1\)]
  Let \(\gamma: [a, b] \to \C\) be a continuous curve. Suppose we have
@@ -527,9 +527,10 @@ In general, for a holomorphic function, if the closed path does not include a po
 
 \begin{proposition}
   For any continuous \(f: U \to \C\) and any curve \(\gamma: [a, b] \to U\),
-  \begin{align*}
-    \left| \int_\gamma f(z)dz \right| &\leq \ell(\gamma) \underbrace{\sup_\gamma |f|}_{\sup_{t \in [a, b]} |f(\gamma(t))|}.
-  \end{align*}
+  \[
+    \left| \int_\gamma f(z)dz \right| \leq \ell(\gamma) \cdot \sup_\gamma|f|
+  \]
+  where \(\sup_\gamma |f| = \sup_{t \in [a, b]} |f(\gamma(t))|\).
 \end{proposition}
 
 \begin{proof}
@@ -538,7 +539,7 @@ In general, for a holomorphic function, if the closed path does not include a po
     \left| \int_\gamma f(z)dz \right| &= \left| \int_a^bf(\gamma(t))\gamma'(t)dt \right| \\
                                       &\leq \int_a^b |f(\gamma(t))||\gamma'(t)| dt \\
                                       &\leq \sup_\gamma|f| \int_a^b |\gamma'(t)| dt \\
-                                      &= \sup_\gamma|f| \ell(f)
+                                      &= \sup_\gamma|f| \cdot \ell(f)
   \end{align*}
 \end{proof}
 
@@ -570,7 +571,7 @@ In general, for a holomorphic function, if the closed path does not include a po
 \end{corollary}
 
 \begin{eg}
-  \(f(z) = z^n\) where \(n \in \Z\) defined on \(\C^\times\). If \(n \neq -1\),
+  \(f(z) = z^n\) where \(n \in \Z\) defined on \(\C^*\). If \(n \neq -1\),
   \[
     f(z) = \frac{d}{dz} \left( \frac{z^{n + 1}}{n + 1} \right)
   \]
@@ -621,7 +622,7 @@ We thus have
   \text{disc} \implies \text{convex} \implies \text{star-shape} \implies \text{domain}.
 \]
 
-\begin{corollary}
+\begin{corollary}\label{cor:anti-derivative}
   If \(U\) is star-shaped, \(f: U \to \C\) is continuous and \(\int_\gamma f(z)dz = 0\) for all triangles \(\gamma \subseteq U\) then \(f\) has an anti-derivative on \(U\).
 \end{corollary}
 
@@ -630,6 +631,8 @@ A triangle is, as one might infer, a closed curve made of three straight line se
 \begin{proof}
   Let \(a_0 = a\) and \(\delta_w\) and \(\delta_{w + h}\) be straight line segments in the previous proof.
 \end{proof}
+
+\subsection{Cauchy's Theorem, weak version}
 
 \begin{theorem}[Cauchy's Theorem for triangles]\index{Cauchy's theorem}
   Let \(U\) be a domain and \(T\) be a triangle contained in \(U\). If \(f: U \to \C\) is holomorphic, then
@@ -670,12 +673,139 @@ A triangle is, as one might infer, a closed curve made of three straight line se
   Pick \(n\) such that \(T^n \subseteq D(z_0, \delta)\). Then
   \begin{align*}
     \frac{y}{4^n} &\leq \left| \int_{\p T^n} f(z)dz \right| \\
-                  &= \left| \int_{\p T^n} (f(z) - \underbrace{f(z_0) - (z - z_0)f'(z_0))}_{\text{holomophic so vanishes}} dz \right| \\
+                  &= \left| \int_{\p T^n} (f(z) - \underbrace{f(z_0) - (z - z_0)f'(z_0))}_{\text{has anti-derivaative so vanishes}} dz \right| \\
                   &\leq \ell(\p T^n) \varepsilon \sup_{z \in \p T^n} |z - z_0| \\
-                  &= \frac{\varepsilon \ell^2}{t^n}.
+                  &\leq \frac{\varepsilon \ell^2}{4^n}.
   \end{align*}
   Thus \(y \leq \ell^2 \varepsilon\). Since \(\varepsilon\) is arbitrary, \(y = 0\).
 \end{proof}
+
+\begin{corollary}[Convex Cauchy]
+  Let \(f\) be a holomorphic function on a star-domain \(U\). Then
+  \[
+    \int_\gamma f(z)dz = 0
+  \]
+  for all closed curves in \(U\).
+\end{corollary}
+
+\begin{proof}
+  By the previous theorem, \(\int_{\p T} f(z)dz = 0\) for all triangles \(T \subseteq U\). By \Cref{cor:anti-derivative}, \(f\) has an anti-derivative \(F\) on \(U\). Then the Fundamental Theorem of Calculus says
+  \[
+    \int_\gamma f(z)dz = 0
+  \]
+  for all closed paths \(\gamma\) in \(U\).
+\end{proof}
+
+Actually, we can prove the same result even if \(f\) is not assumed to be holomorphic on finitely many points:
+
+\begin{proposition}
+  Let \(U\) be a star-domain and \(S \subseteq U\) be a finite set. Let \(f: U \to \C\) be continuous on \(U\) and holomorphic on \(U \setminus S\). Then the conclusion of the convex Cauchy theorem stil holds.
+\end{proposition}
+
+\begin{proof}
+  It suffices to prove that the integral along a triangle is zero for all triangles in \(U\). Subdivide a triangle \(T\) into \(4^n\) equal triangles as before. Let \(M = \sup_T |f|\). Let \(T' \subseteq T\) be a subtriangle. If \(T' \cap S = \emptyset\) then the integral is zero by Cauchy. Otherwise, for any \(T'\),
+  \[
+    \left| \int_{\p T'} f(z)dz \right| \leq \ell(\p T') M 2^{-n} 
+  \]
+  so
+  \begin{align*}
+    \left| \int_{\p T} f(z)dz \right|
+    &= \left|\sum_{T'} \int_{\p T'} f(z) dz \right| \\
+    &\leq \sum_{T'}\left| \int_{\p T'} f(z)dz \right| \\
+    &\leq 6|S|\ell M 2^{-n}
+  \end{align*}
+  where the last line is because a point can belong to at most \(6\) triangles. Let \(n \to \infty\) gives the result.
+\end{proof}
+
+In fact, we will later prove that \(f\) is also holomorphic on \(S\).
+
+\subsection{Cauchy Integral Formula, weak version}
+
+\begin{theorem}[Cauchy integral formula for a disc]\index{Cauchy integral formula}
+  Let \(D = D(a, r)\) be a disc and \(f: D \to \C\) holomorphic. For every \(w \in D\) and \(\rho\) with \(|w - a| < \rho < r\),
+  \[
+    f(w) = \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{z - w} dz.
+  \]
+\end{theorem}
+
+This is a surprising result as the value of a holomorphic inside a disc is completely determined by its value on the boundary.
+
+\begin{proof}
+  Consider the function
+  \[
+    g(z) =
+    \begin{cases}
+      \frac{f(z) - f(w)}{z - w} & \text{if } z \neq w \\
+      f'(w) & \text{if } z = w
+    \end{cases}
+  \]
+
+Then \(g\) is continuous on \(D\) and holomorphic on \(D \setminus \{w\}\). Thus by the previous result
+\[
+  \int_{|z - a| = \rho} g(z)dz = 0.
+\]
+It would be easy if the path is a circle around \(w\) but unfortuntely it isn't. Instead, 
+\begin{align}
+  \int_{|z - a| = \rho} \frac{f(z)}{z - w} dz
+  &= \int_{|z - a| = \rho} \frac{f(w)}{z - w} dz \\
+  &= \sum_{n = 0}^\infty \int_{|z - a| = \rho} \frac{f(w)(w - a)^n}{(z - a)^{n + 1}} dz \\
+  &= \int_{|z - a| = \rho} \frac{f(w)}{z - a} dz \\
+  &= 2\pi i f(w)
+\end{align}
+where (3) is justified by using the example of \(z^n\) before and (2) is justified by the geometric series
+\[
+  \frac{1}{z - w}
+  = \frac{1}{(z - a)\left( 1- \frac{w - a}{z - a} \right)}
+  = \sum_{n = 0}^\infty \frac{(w - a)^n}{(z - a)^{n + 1}}
+\]
+which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well as the following easy lemma:
+
+\begin{lemma}
+  If \(f_n: U \to \C\) and \(f: U \to \C\) are continuous and \(\gamma: [a, b] \to U\) is a curve such that \(f_n \to f\) uniformly on \(\gamma([a, b])\), then
+  \[
+    \int_\gamma f_n(z)dz \to \int_\gamma f(z) dz.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(M_n = \sup_\gamma |f_n - f|\). By uniform convergence \(\lim_{n \to \infty} M_n = 0\). Hence
+  \[
+    \left| \int_\gamma f_n(z) dz - \int_\gamma f(z) dz \right|
+    \leq M_n \ell(\gamma) \to 0
+  \]
+  as \(n \to \infty\).
+\end{proof}
+\end{proof}
+
+\begin{corollary}[Mean-value property]\index{Mean-value Property}
+  If \(f: D(w, R) \to \C\) is holomorphic, then for every \(0 < r < R\),
+  \[
+    f(w) = \int_0^1 f(w + re^{2\pi it})dt.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Take \(w = a\) in the previous theorem and parameterise the circle of integration as \(\gamma(t) = w + re^{2\pi it}, t \in [0, 1]\).
+\end{proof}
+
+\subsection{Application of Cauchy Integration Formula}
+
+\begin{theorem}[Liouville]\index{Liouville's Theorem}
+  Every bounded entire function is constant.
+\end{theorem}
+
+\begin{proof}
+  Suppose \(f: \C \to \C\) is entire such that \(|f| \leq M\) and let \(w \in \C\). Then if \(R > |w|\),
+  \begin{align*}
+    |f(w) - f(0)|
+    &=\frac{1}{2\pi}\left| \int_{|z| = R} f(z) \left( \frac{1}{z - w} - \frac{1}{z} \right) dz \right| \\
+    &= \frac{1}{2\pi} \left| \int_{|z| = R} \frac{wf(z)}{z(z - w)} dz \right| \\
+    &\leq \frac{1}{2\pi}\frac{2\pi R|w|M}{R(R - |w|)} \\
+    &\to 0
+  \end{align*}
+  as \(R \to \infty\).
+\end{proof}
+
 
 
 
