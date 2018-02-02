@@ -482,11 +482,120 @@ Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) i
   \end{enumerate}
 \end{remark}
 
+\begin{eg}
+  Let \(X = \R, Y = \R^2\), \(f(t) = (0, t)\) and \(\Z \subseteq Y\) is the \(x\)-axis. Then \(df_0 = \binom{0}{1}\) and \(T_{(w, 0)}Z = \{\binom{w}{0}\}\) so \(\Im df_0 + T_{(w, 0)}Z = \R^2\) so \(f \pitchfork Z\).
+\end{eg}
+
+\begin{eg}
+  Let \(f(t) = (t, t^2)\). Then \(df_0 = \binom{1}{0}\) so
+  \[
+    \Im df_0 + T_{(w, 0)}Z \neq \R^2
+  \]
+  so \(f\) is not transversal to \(Z\).
+\end{eg}
+
+The corresponding generalisation of pre-image theorem is
+
 \begin{theorem}[Transversality theorem]\index{transversality theorem}
   Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) is a submanifold. If \(f \pitchfork Z\) then \(f^{-1}(Z) \subseteq X\) is a submanifold of \(X\) with codimension equal to \(\codim_Y(Z)\).
 \end{theorem}
 
+\begin{remark}
+  It is enough to show that for all \(x \in Z\), there exists \(V \subseteq Z\) open such that \(f^{-1}(V)\) is a submanifold of \(X\), i.e.\ we can work locally to deduce global result. This is because if \(\{V_i\}_{i \in I}\) is a cover of \(Z\) then
+  \[
+    f^{-1}(Z) = \bigcup_{i \in I} f^{-1}(V_i).
+  \]
+\end{remark}
 
+\begin{proof}
+  Given \(x \in Z\), let \(\codim_Y Z = k\). Claim that there exist \(V \subseteq Z\) open containing \(x\): there exists \(\tilde V \subseteq Y\) open such that
+  \[
+    V = Z \cap \tilde V =
+    \begin{cases}
+      h_1 = 0 \\
+      h_2 = 0 \\
+      \vdots \\
+      h_k = 0
+    \end{cases}
+  \]
+  where \(k_i: \tilde V \to \R\) and moreover \(Z \cap \tilde V = h^{-1}(0)\) and \(0\) is a regular value of \(h\). This is basically saying that a submanifold of codimension \(k\) can be expressed as the pre-image of \(0\) and \(0\) is a regular value. This is left as an exercise.
+
+  Now we prove the theorem. wlog assume \(Z = Z \cap \tilde V\). Consider \(h \compose f: X \to \R^k\). Its differential is
+  \[
+    d(h \compose f)_x = dh_{f(x)} \compose df_x.
+  \]
+  Claim that \(0\) is a regular value of \(h \compose f\): \(x \in (h \compose f)^{-1}(0)\) if and only if \(x \in f^{-1}(Z)\). Recall that \(T_yZ = \ker dh_y\) (see example sheet). From transversality we know
+  \[
+    \Im df_x + T_{f(x)}Z = T_{f(x)}Y
+  \]
+  so
+  \[
+    \Im df_x + \ker dh_{f(x)} = T_{f(x)}Y.
+  \]
+  Apply \(dh_{f(x)}\) to both sides, we get
+  \[
+    \Im dh_{f(x)} \compose df_x = \Im dh_{f(x)} = \R^k
+  \]
+  where the last equality is by surjectivity.
+
+  Therefore \((h \compose f)^{-1}(0) \subseteq X\) is a submanifold of codimension \(k\). So does \(f^{-1}(Z)\).
+\end{proof}
+
+Suppose the special case where \(X\) and \(Z\) are both submanifolds of \(Y\), i.e.\ \(f = \iota X \to Y\). Then \(\iota \pitchfork Z\) if and only if
+\[
+  \Im d\iota_x + T_{\iota(x)}Z = T_{\iota(x)}Y
+\]
+which can be rewritten as
+\[
+  T_xX + T_xZ = T_xY.
+\]
+In this case write \(X \pitchfork Z\) (which is clearly a symmetric relation).
+
+\begin{eg}
+  If \(f \pitchfork Z\), it is not necessarily the case that \(f(X) \pitchfork Z\). Consider \(X = \R, Y = \R^2\), \(f(t) = (0, t^2)\) and \(Z \subseteq Y\) is the \(x\)-axis. Then \(f^{-1}(Z) \cap X\) is a submanifold of \(X\) of dimension \(0\).
+\end{eg}
+
+\begin{corollary}
+  Under special case \(\iota^{-1}(Z) \subseteq X\), the \(X \cap Z\) is a submanifold of \(Y\) with codimension
+  \[
+    \codim_Y(X \cap Z) = \codim_Y X + \codim_Y Z.
+  \]
+\end{corollary}
+
+\subsection{Manifolds with boundary}
+
+\begin{notation}
+  \(\H^n = \{x_1, \dots, x_n\}: x_i \geq 0\} \subseteq \R^n\).
+\end{notation}
+
+\begin{definition}[Manifold with boundary]\index{manifold!manifold with boundary}
+  \(X \subseteq \R^N\) is an \(n\)-dimensional \emph{manifold with boundary} if for all \(x \in X\) there exists \(V \subseteq X\) open, \(U \subseteq \H^n\) open and \(\varphi: U \to V\) a diffeomorphism.
+\end{definition}
+
+It is possible that \(U \subseteq \R^N\) is open.
+
+\begin{definition}[Boundary]\index{boundary}
+  The \emph{boundary} of \(X\), denoted \(\p X\), is defined to be
+  \[
+    \p X = \{x: \exists \varphi \text{ as above such that } x = \varphi(x_1, \dots, x_{n - 1}, 0)\}.
+  \]
+  Equivalently, \(x \in \varphi(U \cap \p \H^n)\) where \(\p \H^n = \{(x_1, \dots, x_{n - 1}, 0\}\).
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The above definition is consistent, i.e.\ independent of parameterisation: if \(x \in \varphi(U \cap \p H^n)\) for some \(\varphi\) then it holds for all \(\varphi\) such that \(x \in \Im \varphi\).
+  \item \(\H^n\) is an \(n\)-dimensional manifold with boundary.
+  \item Boundary of manifolds is not the same as topological boundary, defined to be the difference of the closure and the interior.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The closed unit ball \(B_n \subseteq \R^n\) is a manifold with bounday, whose boundary is \(\p B_n = S^{n - 1}\).
+  \item Any manifold is a manifold with boundary (without boundary).
+  \end{enumerate}
+\end{eg}
 
 \printindex
 

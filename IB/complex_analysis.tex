@@ -401,6 +401,7 @@ Let \(f: [a, b] \to \C\) be a continuous map, then its integral is simply the su
 \]
 
 \begin{proposition}
+  \label{prop:absolute value integral inequality}
   \[
     \left| \int_a^b f(t) dt \right| \leq (b - a) \sup_{t \in [a, b]} |f(t)|
   \]
@@ -587,6 +588,7 @@ In general, for a holomorphic function, if the closed path does not include a po
 Now we prove a converse to the corollary:
 
 \begin{proposition}
+  \label{prop:existence of anti-derivative}
   Let \(U \subseteq \C\) be a domain. If \(f: U \to \C\) is continuous and \(\int_\gamma f(z)dz = 0\) for all closed curves \(\gamma\) on \(U\), then \(f\) has an anti-derivative \(F\) on \(U\), i.e.\ there exists \(F\) such that \(F' = f\).
 \end{proposition}
 
@@ -699,6 +701,7 @@ A triangle is, as one might infer, a closed curve made of three straight line se
 Actually, we can prove the same result even if \(f\) is not assumed to be holomorphic on finitely many points:
 
 \begin{proposition}
+  \label{prop:Cauchy with holes}
   Let \(U\) be a star-domain and \(S \subseteq U\) be a finite set. Let \(f: U \to \C\) be continuous on \(U\) and holomorphic on \(U \setminus S\). Then the conclusion of the convex Cauchy theorem stil holds.
 \end{proposition}
 
@@ -778,6 +781,7 @@ which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well a
 \end{proof}
 
 \begin{corollary}[Mean-value property]\index{Mean-value Property}
+  \label{cor:mean-value property}
   If \(f: D(w, R) \to \C\) is holomorphic, then for every \(0 < r < R\),
   \[
     f(w) = \int_0^1 f(w + re^{2\pi it})dt.
@@ -806,6 +810,113 @@ which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well a
   as \(R \to \infty\).
 \end{proof}
 
+\begin{theorem}[Fundamental Theorem of Algebra]\index{Fundamental Theorem of Algebra}
+  Every non-constant polynomials with complex coefficients has a complex root.
+\end{theorem}
+
+\begin{proof}
+  Let \(p(z) = z^n + c_{n - 1}z^{n - 1} + \dots + c_0\) be a polynomial of degree \(n > 0\). Then \(|p(z)| \to \infty\) as \(z \to \infty\), so there exists \(R > 0\) such that \(|p(z)| > 1\) for all \(|z| > R\).
+
+  Now consider \(f(z) = \frac{1}{p(z)}\). If \(p\) does not have a zero then \(f\) is an entire function. Moreover, since \(f\) is bounded on \(\{z: |z| \leq R\}\) by continuity and \(|f(z)| < 1\) if \(|z| > R\). By Liouville's Theorem \(f\) is constant. Absurd.
+\end{proof}
+
+\begin{theorem}[Local maximum modulus principle]\index{local maximum modulus principle}
+  Let \(f: D(a, r) \to \C\) be holomorphic. If for every \(z \in D(a, r)\), \(|f(z)| \leq |f(a)|\) then \(f\) is constant.
+\end{theorem}
+
+Thus on a open domain \(U\), if the function \(f\) extends analytically to the boundary \(\p U\) then the maximum can only achieved on the boundary \(U\), unless \(f\) is constant.
+
+\begin{proof}
+  By \nameref{cor:mean-value property} we have for \(0 < \rho < r\),
+  \[
+    |f(a)|
+    = \left| \int_0^1 f(a + \rho e^{2\pi it}) dt \right|
+    \leq \sup_{|z - a| = \rho} |f(z)|
+    \leq |f(a)|
+  \]
+  Hence equality holds, and by \Cref{prop:absolute value integral inequality} \(|f(z)| = |f(a)|\) for all \(z\) on \(|z - a| = \rho\). Since \(\rho\) is arbitrary, \(|f(z)| = |f(a)|\) for all \(z \in D(a, r)\). Thus \(f\) is constant (see example sheet 1).
+\end{proof}
+
+\begin{theorem}[Taylor expansion]\index{Taylor expansion}
+  \label{thm:Taylor}
+  Let \(f: D(a, r) \to \C\) be holomorphic. Then \(f\) has a convergent power series on \(D(a, r)\):
+  \[
+    f(z) = \sum_{n = 0}^\infty c_n (z - a)^n
+  \]
+  where
+  \[
+    c_n = \frac{f^{(n)}(a)}{n!} = \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - a)^{n + 1}} dz
+  \]
+  for any \(0 < \rho < r\).
+\end{theorem}
+
+An immediate corollary is that holomorphic functions are analytic. The converse is trivial so the two terms are synonymous semantically, although the choice of terminology may enunciate your standing point: the term ``holomorphic'' is preferred in pure mathematics, while ``analytic'' is used more often in applied mathematics.
+
+\begin{proof}
+  If \(|w - a| < \rho < r\) then by Cauchy integral formula
+  \begin{align*}
+    f(w) &= \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{z - w} dz \\
+         &= \frac{1}{2\pi i} \int_{|z - a| = \rho} \sum_{n = 0}^\infty \frac{(w - a)^n}{(z - a)^{n + 1}} dz \\
+         &= \sum_{n = 0}^\infty \underbrace{\left( \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - a)^{n + 1}} dz \right)}_{c_n} (w - a)^n
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  If \(f\) is holomorphic in \(U\) then its derivatives of all orders exist and are holomorphic.
+\end{corollary}
+
+\begin{proof}
+  Taylor expansion plus theory on power series.
+\end{proof}
+
+The next theorem is a converse to Cauchy:
+
+\begin{corollary}[Morera]\index{Morera's Theorem}
+  Let \(U\) be a domain and \(f: U \to \C\) continuous. If \(\int_\gamma f(z) dz = 0\) for every closed paths in \(U\), then \(f\) is holomorphic in \(U\).
+\end{corollary}
+
+\begin{proof}
+  By \Cref{prop:existence of anti-derivative}, \(f\) has an anti-derivative \(F\). \(F\) is holomorphic and \(F' = f\) so \(f\) is holomorphic on \(U\).
+\end{proof}
+
+This gives us something we promised a while ago in \Cref{prop:Cauchy with holes}: we see that \(f\) ends up being holomorphic also on \(S\).
+
+\begin{proposition}[Cauchy integral formula for derivatives]\index{Cauchy integral formula!derivatives}
+  Use the same notation as in \nameref{thm:Taylor}, we have
+  \[
+    f^{(n)}(w) = \frac{n!}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - w)^{n + 1}} dz.
+  \]
+\end{proposition}
+
+\begin{proof}
+\[
+  \frac{d}{dz} \left( \frac{f(z)}{z - w} \right)
+  = \frac{f'(z)}{z - w} - \frac{f(z)}{(z - w)^2}
+\]
+Now integrate over \(|z - a| = \rho\), since anti-derivative of \(\frac{d}{dz} \frac{f(z)}{z - w}\) exists,
+\[
+  0 = \int_{|z - a| = \rho}  \frac{d}{dz} \left( \frac{f(z)}{z - w} \right)dz
+  = \int_{|z - a| = \rho} \frac{f'(z)}{z - w} dz - \int_{|z - a| = \rho} \frac{f(z)}{(z - w)^2} dz
+\]
+Now apply Cauchy integral formula to the first term. Inductively, we derive
+\[
+  f^{(n)}(w) = \frac{n!}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - w)^{n + 1}} dz.
+\]
+\end{proof}
+
+Note the subtlety between this and Taylor's theorem: Taylor's theorem gives us the coefficient of the power series expansion around \(z\) (which holds trivially at \(z\)) while Cauchy integral formula tells us the value of derivatives of any order at a point in the disc.
+
+\subsection{Uniform limits of holomorphic functions}
+
+We want to construct new holomorphic functions from old ones. Recall in IB Analysis II uniform limit theorem tells us that the uniform limit of continuous functions is continuous. We are going to adopt the same idea except one catch: continuity is a local property so if we can produce an cover on each element of which a given sequence of functions converges uniformly, then the resulting function by patching everything together is continuous on the entire space. This is a weaker requirement than uniform convergence and indeed sometimes this is the best that we can do, illustrated by the example below.
+
+\begin{definition}[Locally uniform convergence]\index{locally uniform convergence}
+  Let \(U\) be an open domain and \(f_n: U \to \C\) be a sequence of functions. We say that \(\{f_n\}\) is \emph{locally uniformly convergent} in \(U\) if for any \(a \in U\) there exists \(r > 0\) such that \(D(a, r) \subseteq U\) on which \(\{f_n\}\) is uniformly convergent.
+\end{definition}
+
+\begin{eg}
+  Let \(U = D(0, 1)\) and \(f_n(z) = \frac{1}{1 - z^n}\). Note that \(f_n \to 1\) pointwise as \(n \to \infty\). It is not uniformly convergent on \(D(0, 1)\) but it is locally uniformly convergent. In fact it is uniformly convergent on any \(|z| \leq \rho < 1\).
+\end{eg}
 
 
 

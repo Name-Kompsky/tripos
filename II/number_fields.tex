@@ -471,8 +471,15 @@ Let \(L\) be a number field, \(n = [L:\Q]\) and \(\sigma_1, \dots, \sigma_n: L \
   where \(D \in \matrixring_{n \times n}(\C)\) is \(D_{ij} = \sigma_i(\alpha_j)\).
 \end{definition}
 
+\begin{notation}
+  Sometimes we use the alternative notation
+  \[
+    \Delta(\alpha_1, \dots, \alpha_n) = \disc(\alpha_1, \dots, \alpha_n).
+  \]
+\end{notation}
+
 \begin{note}
-  This is independent of the choice of ordering of \(\sigma_i\)'s and \(\alpha_j\)'s, as changing them amounts to permuting the rows and columns, which change \(\det D\) by a sign.
+  This is independent of the choice of ordering of \(\sigma_i\)'s and \(\alpha_j\)'s, as changing them amounts to permuting the rows and columns, which changes \(\det D\) by a sign.
 \end{note}
 
 \begin{lemma}
@@ -514,7 +521,7 @@ Let \(L\) be a number field, \(n = [L:\Q]\) and \(\sigma_1, \dots, \sigma_n: L \
     \phi: L \times L &\to \Q \\
     (\alpha, \beta) &\mapsto \tr_{L/\Q}(\alpha\beta)
   \end{align*}
-  is non-degenerate. In other words, for all \(\alpha \in L^\times\), there exists \(\beta \in L\) such that \(\varphi(\alpha, \beta) \neq 0\). But if \(\alpha \in L^\times\) then \(\phi(\alpha, \alpha^{-1}) = \tr_{L/\Q}(1) = n \neq 0\).
+  is non-degenerate. In other words, for all \(\alpha \in L^\times\), there exists \(\beta \in L\) such that \(\phi(\alpha, \beta) \neq 0\). But if \(\alpha \in L^\times\) then \(\phi(\alpha, \alpha^{-1}) = \tr_{L/\Q}(1) = n \neq 0\).
 \end{proof}
 
 \begin{definition}[Integral basis]\index{integral basis}
@@ -531,7 +538,7 @@ Let \(L\) be a number field, \(n = [L:\Q]\) and \(\sigma_1, \dots, \sigma_n: L \
     f: \Z^n &\to \O_L \\
     (m_1, \dots, m_n) &\mapsto \sum_{i = 1}^n m_i\alpha_i
   \end{align*}
-  is an isomorphism of \(Z\)-modules.
+  is an isomorphism of \(\Z\)-modules.
 \end{lemma}
 
 \begin{proof}
@@ -578,6 +585,221 @@ This is a generalisation of results about finite dimensional vector spaces (i.e.
     \]
     There is a surjective homomorphism \(G/pG \to G/H + pG\) which has kernel containing the image of \(f'\). Hence the map is surjective with kernel \(G/pG\). This forces \(N = 0\).
   \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+  There exists an integral basis for \(\O_L\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\beta_1, \dots, \beta_n \in L\) be a \(\Q\)-basis for \(L\). wlog \(\beta_1, \dots, \beta_n \in \O_L\). Then \(\O_L \supseteq \bigoplus_{i = 1}^n \beta_i\Z\).
+
+  Recall that
+  \begin{align*}
+    \phi: L \times L &\to \Q \\
+    (\alpha, \beta) &\mapsto \tr_{L/\Q}(\alpha\beta)
+  \end{align*}
+  is a non-degenerate symmetric bilinear form. Let \(\beta_1^*, \dots, \beta_n^*\) be the dual basis, i.e.\ \(\tr_{L/\Q}(\beta_i \beta_j^*) = \delta_{ij}\). If \(\alpha \in \O_L\) then we can write
+  \[
+    \alpha = \sum_{i = 1}^n a_i\beta_i^*
+  \]
+  where \(a_i \in \Q\). We know \(\alpha\beta_i \in \O_L\) hence
+  \[
+    \tr_{L/\Q}(\alpha\beta_i)
+    = \sum_{j = 1}^n \tr_{L/\Q}(a_j\beta_j^*\beta_i)
+    = \sum_{j = 1}^n a_j \tr_{L/\Q} (\beta_j^*\beta_i)
+    = a_i
+    \in \Z
+  \]
+  so \(\O_L \subseteq \bigoplus_{i = 1}^n \beta_i^*\Z\). Thus by Sandwich lemma there is an isomorphism \(\O_L \cong \Z^n\).
+\end{proof}
+
+If \(\alpha_1, \dots, \alpha_n\) and \(\beta_1, \dots, \beta_n\) are both integral basis for \(\O_L\), then there exists \(A \in \matrixring_{n \times n}(\Z)\) such that
+\[
+  \beta_j = \sum_{i = 1}^n A_{ij}\alpha_i
+\]
+for each \(1 \leq j \leq n\). Moreover, we must have \(\det A = \pm 1\) and thus \(A \in \GL_n(\Z)\). Let \(D_{ij} = \sigma_i(\alpha_j), D_{ij}' = \sigma_i(\beta_j)\) and then \(\disc(\beta_1, \dots, \beta_n) = \det (D')^2\). We have
+\[
+  D_{ij}'
+  = \sum_{k = 1}^n \sigma_i(A_{kj}\alpha_k)
+  = \sum_{k = 1}^n \sigma_i(\alpha_k) A_{kj}
+  = (DA)_{ij}
+\]
+We thus conclude that
+\[
+  \disc(\beta_1, \dots, \beta_n)
+  = \det (D')^2
+  = \det (DA)^2
+  = \det D^2
+  = \disc(\alpha_1, \dots, \alpha_n).
+\]
+
+\begin{definition}[Discriminant]\index{discriminant}
+  The \emph{discriminant} \(D_L\) of a number field \(L\) is \(\disc(\alpha_1, \dots, \alpha_n)\) where \(\alpha_1, \dots, \alpha_n\) is any integral basis for \(\O_L\).
+\end{definition}
+
+\begin{proposition}
+  Let \(L = \Q(\alpha)\) and let \(f(x) \in \Q[x]\) be the minimal polynomial of \(\alpha\) over \(\Q\). Then
+  \[
+    \disc(1, \alpha, \alpha^2, \dots, \alpha^{n - 1})
+    = \prod_{i < j} (\sigma_i(\alpha) - \sigma_j(\alpha))^2
+    = (-1)^{\binom{n}{2}} \n_{L/\Q}(f'(\alpha)).
+  \]
+\end{proposition}
+
+\begin{note}
+  In IID Galois Theory, we defined
+  \[
+    \disc f = \prod_{i < j} (\sigma_i(\alpha) - \sigma_j(\alpha))^2.
+  \]
+\end{note}
+
+\begin{proof}
+  Let \(D_{ij} = \sigma_i(\alpha^{j - 1})\). Then \(D \in \matrixring_{n \times n}(\C)\) and \(\disc(1, \alpha, \dots, \alpha^{n -1}) = \det D^2\). \(D\) is a Vandermonde matrix with
+  \[
+    \det D = \prod_{i < j} (\sigma_j(\alpha) - \sigma_i(\alpha)).
+  \]
+
+  For the second equality, note that
+  \[
+    \n_{L/\Q}(f'(\alpha))
+    = \prod_{i = 1}^n \sigma_i(f'(\alpha))
+    = \prod_{i = 1}^n f'(\sigma_i(\alpha)).
+  \]
+  Also since \(f(x) = \prod_{i = 1}^n (x - \sigma_i(\alpha))\), \(f'(x) = \sum_{i = 1}^n\prod_{j \neq i} (x - \sigma_j(\alpha))\). Substitute into the above formula to get
+  \[
+    \n_{L/\Q}(f'(\alpha))
+    = \prod_{i = 1}^n \prod_{j \neq i} (\sigma_i(\alpha) - \sigma_j(\alpha))
+    = (-1)^{\binom{n}{2}} \prod_{i < j}(\sigma_i(\alpha) - \sigma_j(\alpha))^2.
+  \]
+\end{proof}
+
+\begin{note}
+  If \(\alpha \in \O_L\) and \(\Z[\alpha] = \O_L\) then \(1, \alpha, \dots, \alpha^{n -1}\) is an integral basis for \(\O_L\). We can then use the above proposition to calculate \(D_L\).
+\end{note}
+
+\begin{eg}
+  Let \(d \in \Z\) be square-free and \(\alpha \neq 0, 1\). Let \(L = \Q(\sqrt d)\). Then
+  \[
+    D_L =
+    \begin{cases}
+      4d & \text{if } d = 2, 3 \pmod 4 \\
+      d & \text{if } d = 1 \pmod 4
+    \end{cases}
+  \]
+  If \(d = 2, 3 \pmod 4\) then \(\O_L = \Z[\sqrt d]\). Apply the proposition to \(f(t) = t^2 - d\) to get
+  \[
+    D_L = \disc(1, \sqrt d) = -N_{L/\Q}(2\sqrt d) = 4d.
+  \]
+
+  On the other hand if \(d = 1 \pmod 4\) then \(\O_L = \Z[\alpha]\) where \(\alpha  = \frac{1 + \sqrt d}{2}\). Apply the proposition to \(f(t) = t^2 - t + \frac{1 - d}{4}\), \(f'(x) = 2x - 1\), \(f'(\alpha) = \sqrt d\). Thus
+  \[
+    D_L = -N_{L/\Q}(\sqrt d) = d.
+  \]
+\end{eg}
+
+\begin{proposition}
+  If \(\alpha_1, \dots, \alpha_n \in \O_L\) are such that \(\disc(\alpha_1, \dots, \alpha_n)\) is a non-zero square-free integer then \(\alpha_1, \dots, \alpha_n\) form an integral basis for \(\O_L\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\beta_1, \dots, \beta_n\) be an integral basis for \(\O_L\). Then there exists \(A \in \matrixring_{n \times n}(\Z)\) such that
+  \[
+    \alpha_j = \sum_{i = 1}^n A_{ij}\beta_i
+  \]
+  for \(1 \leq j \leq n\). Then
+  \[
+    \disc(\alpha_1, \dots, \alpha_n) = \det A^2 \disc(\beta_1, \dots, \beta_n)
+  \]
+  using a previous argument. If \(\disc(\alpha_1, \dots, \alpha_n)\) is square-free and non-zero then \(\det A = \pm 1\) so \(A \in \GL_n(\Z)\). Thus \(\alpha_1, \dots, \alpha_n\) must generate \(\O_L\) and thus form an integral basis.
+\end{proof}
+
+\begin{eg}
+  Let \(f(t) = t^3 - t - 1\). Use the formula
+  \[
+    \disc(t^3 + at + b) = -4a^3 - 27b^2
+  \]
+  to get \(\disc(f) = -23\), which is square-free (and non-zero of course). If \(L = \Q(\alpha)\) where \(\alpha\) is a root of \(f(t)\) then \(\O_L = \Z[\alpha]\).
+\end{eg}
+
+We have defined integral basis for rings of integers. In fact, we can generalise it to ideals of the ring:
+
+\begin{definition}[Integral basis]\index{integral basis}
+  Let \(I \subseteq \O_L\) be a non-zero ideal. Then elements \(\alpha_1, \dots, \alpha_n \in L\) form an \emph{integral basis} for \(I\) if
+  \begin{enumerate}
+  \item \(\alpha_1, \dots, \alpha_n \in I\),
+  \item \(\alpha_1, \dots, \alpha_n\) generate \(I\) as a \(\Z\)-module.
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  Let \(I \subseteq \O_L\) be a non-zero ideal. Then there exists an integral basis for \(I\).
+\end{proposition}
+
+\begin{proof}
+  By definition \(I \subseteq \O_L \cong \Z^n\). Let \(\alpha_1, \dots, \alpha_n \in \O_L\) be an integral basis for \(\O_L\). Let \(a \in I\) be non-zero. Then \((a) \subseteq I\) and thus
+  \[
+    \bigoplus_{i = 1}^n a\alpha_i\Z \subseteq I \subseteq \O_L.
+  \]
+  By Sandwich lemma \(I \cong \Z^n\) as a \(\Z\)-module. Thus there exists an integral basis for \(I\).
+\end{proof}
+
+\begin{definition}[Norm]\index{norm}
+  If \(I \subseteq \O_L\) is a non-zero ideal then its \emph{norm} is
+  \[
+    \n(I) = [\O_L:I].
+  \]
+\end{definition}
+
+Note that norm is finite by Sandwich lemma.
+
+\begin{definition}[Discriminant]\index{discriminant}
+  If \(I \subseteq \O_L\) is a non-zero ideal then its \emph{discriminant} is
+  \[
+    \disc(I) = \disc(\alpha_1, \dots, \alpha_n)
+  \]
+  where \(\alpha_1, \dots, \alpha_n\) is any integral basis for \(I\).
+\end{definition}
+
+Note that the same argument for discriminant of ring of integers shows that this is well-defined.
+
+\begin{lemma}
+  If \(I \subseteq \O_L\) is a non-zero ideal then
+  \[
+    \disc(I) = \disc(\O_L) \cdot \n(I)^2.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(\alpha_1, \dots, \alpha_n\) be an integral basis for \(\O_L\) and \(\beta_1, \dots, \beta_n\) be an integral basis for \(I\). Then there exists \(A \in \matrixring_{n \times n}(\Z)\) such that
+  \[
+    \beta_j = \sum_{i = 1}^n A_{ij}\alpha_i
+  \]
+  for \(1 \leq j \leq n\) and
+  \[
+    \disc(\beta_1, \dots, \beta_n) = \disc(\alpha_1, \dots, \alpha_n) \det A^2.
+  \]
+  It thus suffices to show that \(\det A^2 = [\O_L:I]^2\). In fact we'll show that if \(B \in \matrixring_{n \times n}(\Z)\) and \(\det B \neq 0\) then
+  \[
+    |\Z^n/B\Z^n| = |\det B|.
+  \]
+  Then the result follows from \(\O_L \cong \Z^n\).
+
+  \begin{proof}
+    Recall from IB Groups, Rings and Modules that there exists \(P, Q \in \GL_n(\Z)\) such that
+    \[
+      PBQ = D = \operatorname{diag}(d_1, \dots, d_n)
+    \]
+    where \(d_i \in \Z\) (Smith normal form). Thus
+    \[
+      \Z^n/B\Z^n \cong \Z^n/D\Z^n \cong \bigoplus_{i = 1}^n \Z/d_i\Z
+    \]
+    so
+    \[
+      |\Z^n/B\Z^n| = |\Z^n/D\Z^n| = \prod_{i = 1}^n |d_i|.
+    \]
+    On the other hand \(|\det B| = |\det D| = \prod_{i = 1}^n |d_i|\).
+  \end{proof}
 \end{proof}
 
 

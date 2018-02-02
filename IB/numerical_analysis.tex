@@ -687,15 +687,13 @@ where \(f: \R \times \R^N \to \R^N, y \in \R^N\), we want to solve it by compute
 
 \subsection{One-step methods}
 
-A one-step method is defined as a map
+A \emph{one-step method} is defined as a map
 \[
   y_{n + 1} = \varphi_h(t_n, y_n)
 \]
 where \(y_n\) is our approximation for \(y(nh)\). The map only depends on one previous value, ergo the name.
 
-\subsubsection{Euler method}\index{Euler method}
-
-The \emph{Euler method} is a one-step method defined by
+The \emph{Euler method}\index{Euler method} is a one-step method defined by
 
 \[
   y_{n + 1} = y_n + hf(t_n, y_n), n \geq 0.
@@ -753,7 +751,128 @@ The ``deviation'' is
   as \(h \to 0\).
 \end{proof}
 
+\subsection{Multistep methods}
 
+An \emph{\(s\)-step method} is defined by a recursion rule
+\[
+  \sum_{\ell = 0}^s \rho_\ell y_{n + \ell} = h \sum_{\ell = 0}^s \sigma_\ell f(t_{n + \ell}, y_{n + \ell})
+\]
+where \(\rho_s = 1\).
+
+The method is called \emph{explicit} if \(\sigma_s = 0\). Otherwise it is called \emph{implicit}.
+
+For example for Euler's method,
+\[
+  y_{n + 1} - y_n = hf(t_n, y_n)
+\]
+\(s = 1, \rho_1 = 1, \rho_0 = -1, \sigma_1 = 0, \sigma_s = 1\).
+This is an explicit method.
+
+By constrast, the implicit Euler method is
+\[
+  y_{n + 1} - y_n = hf(t_{n + 1}, y_{n + 1}).
+\]
+
+An example of a \(2\)-step method is \emph{\(2\)-step Adams-Bashforth} defined by
+\[
+  y_{n + 2} - y_{n + 1} = h \left( \frac{3}{2}f(t_{n + 1}, y_{n + 1}) - \frac{1}{2}f(t_n, y_n) \right)
+\]
+
+\begin{definition}[Order]\index{order}
+  The \emph{order} of a multistep method is the biggest integer \(p \geq 0\) such that
+  \[
+    \sum_{\ell = 0}^s \sigma_s y(t_{n + \ell}) - h \sum_{\ell = 0}^s \sigma_\ell y'(t_{n + \ell}) = O(h^{p + 1})
+  \]
+  for all sufficiently smooth functions \(y\).
+\end{definition}
+
+If we think \(y'(t_{n + \ell}) = f(t_{n + \ell}, y(t_{n + \ell}))\), this is the error of starting at the previous iteration, i.e.\ the ``local error''.
+
+Now we calculate the order of Euler method.
+\begin{align*}
+  y(t_{n + 1}) - y(t_n) - hy'(t_n)
+  &= y(t_n + h) - y(t_n) - hy'(t_n) \\
+  &= y(t_n) + hy'(t_n) + O(h^2) - y(t_n) -hy'(t_n) \\
+  &= O(h^2)
+\end{align*}
+so it has order \(1\).
+
+Another example: the \emph{theta-method} is given by
+\[
+  y_{n + 1} = y_n + h[\theta f(t_n, y_n) + (1 - \theta) f(t_{n + 1}, y_{n + 1})]
+\]
+which can thought as a parameterised Euler method, with the parameter \(\theta\) controlling the ``explicitness''. For \(\theta = \frac{1}{2}\), it is given a special name Trapezoidal rule.
+
+The order of the theta-method is
+
+\begin{align*}
+  &\phantom{={} } y(t_{n + 1}) - y(t_n) - h[\theta y'(t_n, y_n) + (1 - \theta) y'(t_{n + 1})] \\
+  &= y(t_n) + hy'(t_n) + \frac{h^2}{2} y''(t_n) + \frac{h^3}{3!}y'''(t_n) + O(h^4) \\
+  &\quad - y(t_n) - h[\theta y'(t_n) + (1 - \theta)(y'(t_n) + hy''(t_n) + \frac{h^2}{2} y'''(t_n) + O(h^3))] \\
+  &= h^2 \left( \frac{y''(t_n)}{2} - (1 - \theta)y''(t_n) \right) + O(h^3) \\
+  &= y''(t_n)(\theta - \frac{1}{2})h^2 + O(h^3)
+\end{align*}
+Thus if \(\theta = \frac{1}{2}\) then it has order \(2\), otherwise order \(1\)\footnote{Strictly speaking we conclude that the order when \(\theta = \frac{1}{2}\) is at least \(2\). To show the order is \(2\) we need to in addition show that the coefficient of \(h^3\) does not vanish.}.
+
+\begin{theorem}
+  Let \(\rho(w) = \sum_{\ell = 0}^s \rho_\ell w^\ell\) and \(\sigma(w) = \sum_{\ell = 0}^s \sigma_\ell w^\ell\). Then the order of the multistep method is the largest integer \(p \geq 0\) such that
+  \[
+    \rho(e^z) - z \sigma(e^z) = O(z^{p + 1})
+  \]
+  as \(z \to 0\).
+\end{theorem}
+
+\begin{proof}
+  This is just tedious exercise using Taylor expansion. For analytic \(y\), we have
+  \begin{align*}
+    &\phantom{={} } \sum_{\ell = 0}^s \rho_\ell y(t_{n + \ell}) - h \sum_{\ell = 0}^s \sigma_\ell y'(t_{n + \ell}) \\
+    &= \sum_{\ell = 0}^s \rho_\ell \sum_{k = 0}^\infty \frac{(\ell h)^k}{k!} y^{(k)}(t_n) - h \sum_{\ell = 0}^s \sigma_\ell \sum_{k = 0}^\infty \frac{(\ell h)^k}{k!} y^{(k + 1)}(t_n) \\
+    &= \sum_{\ell = 0}^s \rho_\ell y(t_n) + \sum_{k = 1}^\infty \frac{h^k}{k!} \left[\sum_{\ell = 0}^s \rho_\ell \ell^k y^{(k)}(t_n) - \sum_{\ell = 0}^s \sigma_\ell \ell^{k - 1} ky^{(k)}(t_n) \right] \\
+    &= \sum_{\ell = 0}^s \rho_\ell y(t_n) + \sum_{k = 1}^\infty \frac{h^k}{k!} \left[ \sum_{\ell = 0}^s \rho_\ell \ell^k - \sum_{\ell = 0}^s \sigma_\ell \ell^{k - 1} k \right] y^{(k)}(t_n)
+  \end{align*}
+  This shows that the method has order \(p\) if and only if
+  \begin{align*}
+    \sum_{\ell = 0}^s \rho_\ell &= 0 \\
+    \sum_{\ell = 0}^s \rho^\ell \ell^k - \sum_{\ell = 0}^s \sigma_\ell \ell^{k - 1}k &= 0
+  \end{align*}
+  for all \(1 \leq k \leq p\).
+
+  Now repeat the same for the exponentials,
+  \begin{align*}
+    &\phantom{={} } \rho(e^z) - z\rho(e^z) \\
+    &= \sum_{\ell = 0}^s \rho_\ell e^{\ell z} - z \sum_{\ell = 0}^s \sigma_\ell e^{\ell z} \\
+    &= \sum_{\ell = 0}^s \rho_\ell \sum_{k = 0}^\infty \frac{(\ell z)^k}{k!} - z\sum_{\ell = 0}^s \sigma_\ell \sum_{k = 0}^\infty \frac{(\ell z)^k}{k!} \\
+    &= \sum_{\ell = 0}^s \rho_\ell + \sum_{k = 1}^\infty \frac{z^k}{k!} \left[ \sum_{\ell = 0}^s \rho_\ell \ell^k - \sum_{\ell = 0}^s \sigma_\ell \ell^{k - 1}k \right]
+  \end{align*}
+  which is of \(O(z^{p + 1})\) if and only if
+  \begin{align*}
+    \sum_{\ell = 0}^s \rho_\ell &= 0 \\
+    \sum_{\ell = 0}^s \rho_\ell \ell^k - \sum_{\ell = 0}^s \sigma_\ell \ell^{k - 1}k &= 0
+  \end{align*}
+  for all \(1 \leq k \leq p\), which is exactly the same condition as before. The result thus follows.
+\end{proof}
+
+\begin{eg}[Adams-Bashforth]
+  Recall
+  \[
+    y_{n + 2} - y_{n + 1} = h \left( \frac{3}{2}f(t_{n + 1}, y_{n + 1}) - \frac{1}{2}f(t_n, y_n) \right).
+  \]
+  We have
+  \begin{align*}
+    \rho(w) &= w^2 - w \\
+    \sigma(w) &= \frac{3}{2}w - \frac{1}{2}
+  \end{align*}
+  Thus the exponential formula says
+  \begin{align*}
+    \rho(e^z) -z\sigma(e^z)
+    &= e^{2z} - e^z - z (\frac{3}{2}e^z - \frac{1}{2}) \\
+    &= 1 + 2z + \frac{(2z)^2}{2} + \frac{(2x)^3}{3!} \\
+    &\quad - (1 + z + \frac{z^2}{2} + \frac{z^3}{3!}) \\
+    &\quad -z(\frac{3}{2} + \frac{3z}{2} + \frac{3z^2}{4} - \frac{1}{2}) + O(z^4) \\
+    &= z^3(\frac{8}{6} - \frac{1}{6} - \frac{3}{4}) + O(z^4)
+  \end{align*}
+  so it has order \(2\).
+\end{eg}
 
 
 

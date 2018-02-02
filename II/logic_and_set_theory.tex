@@ -175,9 +175,104 @@ As deduction rules, we'll take just \emph{modus ponens}: from \(p\) and \((p \im
   If there is a proof of \(t\) from \(S\), say \(S\) \emph{proves} or \emph{syntactically implies} \(t\), written \(S \yields t\). If \(\emptyset \yields t\), say \(t\) is a \emph{theorem}, written \(\yields t\).
 \end{definition}
 
-Missed a lecture
+\begin{eg}
+  \(\{p \implies q, q \implies r\} \yields p \implies r\)
+  \begin{enumerate}
+  \item \((q \implies r) \implies (p \implies (q \implies r))\), A1
+  \item \(q \implies r\), hypothesis
+  \item \(p \implies (q \implies r)\), MP
+  \item \((p \implies (q \implies r)) \implies ((p \implies q) \implies (p \implies r))\), A2
+  \item \((p \implies q) \implies (p \implies r)\), MP
+  \item \(p \implies q\), hypothesis
+  \item \(p \implies r\), MP
+  \end{enumerate}
+\end{eg}
 
-\begin{theorem}[Model Existence Lemma]
+\begin{eg}
+  \(\yields p \implies p\)
+  \begin{enumerate}
+  \item \(p \implies ((p \implies p) \implies p)\), A1
+  \item \((p \implies ((p \implies p) \implies p)) \implies ((p \implies (p \implies p)) \implies (p \implies p))\), A2
+  \item \((p \implies (p \implies p)) \implies (p \implies p)\), MP
+  \item \(p \implies (p \implies p)\), A1
+  \item \(p \implies p\), MP
+  \end{enumerate}
+\end{eg}
+
+The following theorem allows us to prove things much more easily:
+
+\begin{theorem}[Deduction theorem]\label{deduction theorem}
+  Let \(S \subseteq L\) and \(p, q \in L\). Then \(S \yields p \implies q\) if and only if \(S \cup \{p\} \yields q\).
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\impliedby\): Given a proof of \(p \implies q\) from \(S\), append the lines
+    \begin{enumerate}
+    \item \(p\), hypothesis
+    \item \(q\), MP
+    \end{enumerate}
+    to obtain a proof of \(q\) from \(S \cup \{p\}\).
+  \item \(\implies\): Let \(t_1, \dots, t_n = q\) be a proof of \(q\) from \(S \cup \{p\}\). We'll show that \(S \yields p \implies t_i\) for all \(i\). Split into cases
+    \begin{itemize}
+    \item \(t_i\) is an axiom: write down
+      \begin{enumerate}
+      \item \(t_i \implies (p \implies t_i)\), A1
+      \item \(t_i\), axiom
+      \item \(p \implies t_i\), MP
+      \end{enumerate}
+    \item \(t_i \in S\): identical as above.
+    \item \(t_i = p\): write down the proof \(p \implies p\).
+    \item \(t_i\) is obtained by MP: there exist \(j, k < i\) such that \(t_k = (t_j \implies t_i)\). By induction \(S \yields p \implies t_j\) and \(S \yields p \implies t_k\). Now write down
+      \begin{enumerate}
+      \item \((p \implies (t_j \implies t_i)) \implies ((p \implies t_j) \implies (t \implies t_i))\), A1
+      \item \(p \implies (t_j \implies t_i)\), known
+      \item \((p \implies t_j) \implies (p \implies t_i)\), MP
+      \item \(p \implies t_j\), known
+      \item \(p \implies t_i\), MP
+      \end{enumerate}
+    \end{itemize}
+    and we can conclude \(S \yields p \implies t_i\) for all \(i\).
+  \end{itemize}
+\end{proof}
+
+\begin{eg}
+  In order to show \(\{p \implies q, q \implies r\} \yields p \implies r\), it suffices to show \(\{p \implies q, q \implies r, p\} \yields r\) by Deduction theorem, which is easy by using MP twice.
+\end{eg}
+
+Now we have two turnstiles \(\models\) and \(\yields\), how are they related? The aim of the rest of the chapter is to prove
+
+\begin{theorem}[Completeness theorem]
+  \(S \models t\) if and only if \(S \yields t\).
+\end{theorem}
+
+We break this down into two directions:
+\begin{itemize}
+\item \(\implies\): adequacy
+\item \(\impliedby\): soundness
+\end{itemize}
+
+The easy part is
+
+\begin{proposition}[Soundness]\index{soundness}
+  If \(S \yields t\) then \(S \models t\).
+\end{proposition}
+
+\begin{proof}
+  Given \(v\) that models \(s\) and a proof \(t_1, \dots, t_n = t\) of \(S \yields t\), we will show that \(v(t_i) = 1\) for all \(i\).
+
+  If \(t_i\) is an axiom they \(v(t_i) = 1\) since it is tautology. If \(t_i\) is a hypothesis then \(v(t_i) = 1\) by assumption. Finally, if \(t_i\) is obtained by MP, say from \(t_j \implies t_i\), since \(v(t_j) = 1\) and \(v(t_j \implies t_i) = 1\) by induction, \(v(t_i) = 1\).
+\end{proof}
+
+Note that soundness holds whenever our axioms are tautologies.
+
+To prove adequacy, which is a bit harder, we need a few lemmas.
+
+\begin{definition}[Consistency]\index{consistency}
+  \(S\) is \emph{inconsistent} if \(S \yields \bot\). Otherwise \(S\) is \emph{consistent}.
+\end{definition}
+
+\begin{theorem}[Model existence lemma]
   Let \(S \subseteq L\) be consistent, then \(S\) has a model.
 \end{theorem}
 
@@ -213,18 +308,18 @@ But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item Sometimes this is called Completeness Theorem.
+  \item Sometimes this is called Completeness theorem.
   \item What would happen if \(P\) is uncountable? In fact, the result still holds if \(P\) is uncountable. See Chapter 3.
   \end{enumerate}
 \end{remark}
 
 By remark before the above theorem, we now have
 
-\begin{corollary}[Adequacy]
+\begin{corollary}[Adequacy]\index{adequacy}
   Let \(S \subseteq L, t \in L\). Then if \(S \models t\) then \(S \yields t\).
 \end{corollary}
 
-\begin{theorem}[Completeness Theorem]\index{Completeness Theorem}
+\begin{theorem}[Completeness theorem]\index{Completeness theorem}
   Let \(S \subseteq L, t \in L\). Then \(S \yields t\) if and only if \(S \models t\).
 \end{theorem}
 
@@ -381,7 +476,7 @@ The aim to show every subset of a well-ordered \(X\) is isomorphic to an initial
 
 Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\) to the smallest element of \(X\) and continue this way. But how do we show every element of \(Y\) is mapped to somewhere? Instead, we should work backwards: given  \(y \in Y\), map \(y\) to the smallest element in \(X\) that is not mapped to.
 
-\begin{theorem}[Definition by recursion]\index{definition of recursion}
+\begin{theorem}[Definition by recursion]\index{definition by recursion}
   Let \(X\) be well-ordered, \(Y\) any set and \(G: \mathcal P(X \times Y) \to Y\). Then there exists \(f: X \to Y\) such that \(f(x) = G(f|_{I_x})\) for all \(x \in X\). Moreover \(f\) is unique.
 \end{theorem}
 
@@ -464,6 +559,104 @@ What we would hope, is that there is a total order on the set of all well-orderi
 \begin{proof}
   Let \(f\) be an isomorphism from \(X\) to an initial segment of \(Y\) and \(g\) from \(Y\) to \(X\). Then \(g \compose f: X \to X\) is an initial segment of \(X\) (as an initial segment of an initial segment is an initial segment). so \(g \compose f = \id\) by uniqueness in subset collapse. Similarly \(f \compose g = \id_Y\) . Thus \(X\) is isomorphic to \(Y\).
 \end{proof}
+
+\subsection{Constructing well-orderings}
+
+So far we have very few examples of well-orderings, so we wish to build new well-orderings from old.
+
+\begin{notation}
+  Write \(X < Y\) if \(X \leq Y\) but \(X\) is not isomorphic to \(Y\). Equivalently, \(X < Y\) if and only if \(X\) is isomorphic to a proper initial segment of \(Y\).
+\end{notation}
+
+\begin{eg}
+  If \(X = \N\), \(Y = \{1 - 1/n: n = 1, \dots, \} \cup \{1\}\) then \(X < Y\).
+\end{eg}
+
+We can produce new well-orderings by
+\begin{itemize}
+\item make a bigger one: a simplistic way to make a bigger well-ordering is, given a well-ordering \(X\), choose \(x \notin X\) and set \(x > y\) for all \(y \in X\). This is a well-ordering on \(X \cup \{x\}\), written \(X^+\). Clearly \(X < X^+\).
+\item put some together: let \((X, <_X)\) and \((Y, <_Y)\) be well-orderings. Say \(Y\) \emph{extends} \(X\) if \(X \subseteq Y\), \(<_X, <_Y\) agree on \(X\), and \(X\) is an initial segment of \((Y, <_Y)\).
+\end{itemize}
+
+Well-orderings \(\{X_i: i \in I\}\) are \emph{nested} if for all \(i, j \in I\), \(X_i\) extends \(X_j\) or \(X_j\) extends \(X_i\).
+
+\begin{proposition}
+  \label{prop:nested well-orderings}
+  Let \(\{X_i: i \in I\}\) be a nested family of well-orderings. Then there exists well-ordering \(X\) with \(X \geq X_i\) for all \(i\).
+\end{proposition}
+
+\begin{proof}
+  Let \(X = \bigcup_{i \in I} X_i\), with \(x < y\) if there exists \(i\) such that \(x, y \in X_i\) and \(x <_i y\), where \(<_i\) is the well-ordering on \(X_i\). Then \(<\) is a well-defined total order on \(X\). Given \(S \subseteq X\) non-empty, choose \(i\) with \(S \cap X_i \neq \emptyset\). Then \(S \cap X_i\) has a minimal element, which must also be a minimal element of \(S\) as \(X_i\) is an initial segment of \(X\). Also \(X \geq X_i\) for all \(i\).
+\end{proof}
+
+\subsection{Ordinals}
+
+We have shown that well-orderings can be compared, but are they totally ordered? This is a question that is not yet very meaningful, since we can have isomorphic well-orderings that are not equal. Now we employ a technique commonly used in studying collection of abstract mathematical objects --- we identify well-orderings that are isomorphic as the same and work with equivalence classes of them.\footnote{Technically, we are working with proper classes instead of sets, for example, by considering the collection of all singletons. See later.}
+
+\begin{definition}[Ordinal]\index{ordinal}
+  An \emph{ordinal} is a well-ordered set, with two well-ordered sets regarded as the same if they are isomorphic.
+\end{definition}
+
+\begin{definition}[Order-type]\index{order-type}
+  If \(X\) is a well-ordering corresponding to ordinal \(\alpha\), say \(X\) has \emph{order-type} \(\alpha\).
+\end{definition}
+
+\begin{eg}
+  With slight abuse of notation, for each \(k \in \N\), write \(k\) for the order-type of the (unique) well-ordering of a set of size \(k\), and write \(\omega\) for the order-type of \(\N\). So in \(\R\), \(\{1, 3, 7\}\) has order-type \(3\), and \(\{1 - 1/n: n = 2, 3, \dots\}\) has order-type \(\omega\).
+\end{eg}
+
+\begin{notation}
+  For \(X\) of order-type \(\alpha\) and \(Y\) of order-type \(\beta\), write \(\alpha \leq \beta\) if \(X \leq Y\). This is well-defined. Similarly \(\alpha < \beta\) and so on.
+\end{notation}
+
+Equipped with these definitions, we now know for all \(\alpha, \beta\), \(\alpha \leq \beta\) or \(\beta \leq \alpha\) and if \(\alpha \leq \beta, \beta \leq \alpha\) then \(\alpha = \beta\), i.e.\ ordinals are total ordered. But are they well-ordered?
+
+\begin{theorem}
+  Let \(\alpha\) be an ordinal. Then the ordinals \(< \alpha\) form a well-ordered set with order-type \(\alpha\).
+\end{theorem}
+
+For example, the ordinals \(< \omega\) are \(0, 1, 2, \dots\).
+
+\begin{proof}
+  Let \(X\) have order-type \(\alpha\). The well-orderings \(< X\) are precisely (up to isomorphisms) the proper initial segments of \(X\), i.e.\ the \(I_x\) for \(x \in X\). But these are isomorphic to \(X\) itself via \(I_x \mapsto x\).
+\end{proof}
+
+\begin{notation}
+  We often write \(I_\alpha = \{\beta \text{ ordinal}: \beta < \alpha\}\) for this special well-ordered set with order-type \(\alpha\).
+\end{notation}
+
+\begin{proposition}
+  \label{prop:set of ordinals is well-ordered}
+  Let \(S\) be a non-empty set of ordinals. Then \(S\) has a least element.
+\end{proposition}
+
+\begin{proof}
+  Choose \(\alpha \in S\). If \(\alpha\) is minimal in \(S\) then done. If not, then \(S \cap I_\alpha \neq 0\), so we have a minimal element of \(S \cap I_\alpha\), which is therefore minimal in \(S\).
+\end{proof}
+
+Given the porposition, it is very tempting to conclude that all well-orderings form a well-order. But there is one technicality that we haven't checked, that well-orders are defined on a set. Unfortunately,
+
+\begin{theorem}[Burali-Forti Paradox]\index{Burali-Forti Paradox}
+  The ordinals do not form a set.
+\end{theorem}
+
+\begin{proof}
+  Suppose not. Let \(X\) be the set of all ordinals. Then \(X\) is a well-ordering, say of order-type \(\alpha\). So \(X\) is isomorphic to \(I_\alpha\), a \emph{proper} initial segment of \(X\). Absurd.
+\end{proof}
+
+This is saying that the collection of all well-orderings is too big to be a set, and thus to become a well-ordering. However, this does not prevent us from working locally with a set of well-orderings.
+
+Recall two ways of constructing well-orderings. Given \(\alpha\), we have \(\alpha^+ > \alpha\). Also if \(\{\alpha_i: i \in I\}\) is a set of ordinals, then there exists \(\alpha\) with \(\alpha \geq \alpha_i\) for all \(i\), by applying \Cref{prop:nested well-orderings} to the nested family \(\{I_{\alpha_i}: i \in I\}\).
+
+In fact, there is a least upper bound for \(\{\alpha_i: i \in I\}\) --- by applying \Cref{prop:set of ordinals is well-ordered} to the set
+\[
+  \{\beta \leq \alpha: \beta \text{ an upper bound of } \alpha_i\}.
+\]
+This is denoted \(\sup_{i \in I} \alpha_i\).
+
+\begin{eg}
+  \(\sup \{2, 4, \dots\} = \omega\).
+\end{eg}
 
 
 
