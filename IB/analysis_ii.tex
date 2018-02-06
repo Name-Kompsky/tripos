@@ -19,9 +19,6 @@
 \theoremstyle{definition}
 \newtheorem*{joke}{Joke}
 
-
-\makeindex
-
 \begin{document}
 
 % TODO: rewrite \norm
@@ -353,7 +350,7 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
     \par}
 \end{joke}
 
-\begin{definition}[Lipschitz equivalence]\index{norm!Lipschitz equivalence}
+\begin{definition}[Lipschitz equivalence]\index{Lipschitz equivalence}
   \label{def:Lipschitz equivalence}
   If \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\), they are said to be \emph{Lipschitz equivalent} if
   \begin{align*}
@@ -413,7 +410,7 @@ which are both vector space.
   \]
 \end{definition}
 
-\begin{definition}[Uniform convergence]\index{convergence!uniform}
+\begin{definition}[Uniform convergence]\index{uniform convergence}
   If \(f, f_n: A\to \R\), we say \(f(x) \to f\) \emph{uniformly on \(A\)} if \((f_n-f) \in B(A)\) for all \(n\) and \((\|f_n-f\|_\infty)\to0\).
 \end{definition}
     In other words,
@@ -595,7 +592,7 @@ where \(a_i,z,c\in C\) is called a \emph{power series}. \(C\) is the \emph{centr
 for all \(i\geq N\) and \(\sum_{i=N}^{\infty}\alpha^i \) converges. By the lemma \(\sum_{i=N}^{\infty}a_i(z-c)^i \) converges.
 \end{proof}
 
-\begin{definition}[Radius of convergence]\index{power series!radius of convergence}
+\begin{definition}[Radius of convergence]\index{radius of convergence}
   \[
     R := \sup \{ |z-c|: \sum_{i=0}^{\infty}a_i (z-c)^i \text{ converges}\}
   \]
@@ -1135,7 +1132,7 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
   Since the uniform limit of continuous functions is continuous, \((f_n) \to f \in C[a, b]\). \((C[a, b], \norm \cdot_\infty)\) is complete.
 \end{proof}
 
-\begin{definition}[Normed subspace]\index{norm!normed subspace}
+\begin{definition}[Normed subspace]\index{normed subspace}
   Let \((V, \norm \cdot)\) and \((V', \norm \cdot')\) be two normed vector spaces. We say \(V\) is a \emph{normed vector subspace} of \(V'\) if
   \begin{enumerate}
   \item \(V \leq V'\) as a vector space,
@@ -1165,7 +1162,7 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
 
 Suppose \(V\) and \(W\) are normed spaces and \(X \subseteq V\),
 
-\begin{definition}[Uniform continuity]\index{continuity!uniform}
+\begin{definition}[Uniform continuity]\index{uniform continuity}
   \(f: W \to W\) is \emph{uniformly continuous} if
   \[
     \forall \varepsilon>0, \, \exists \delta>0 \, \forall v, w \in X, \, \norm{v - w} < \delta \Rightarrow \norm{f(v) - f(w)} < \varepsilon.
@@ -2091,7 +2088,7 @@ In IA Analysis I, we proved the Mean Value Theorem which is an important result 
   for \(t \in [0, 1]\).
 \end{definition}
 
-\begin{theorem}[Mean Value Inequality]
+\begin{theorem}[Mean Value Inequality]\index{Mean value inequality}
   Suppose \(U \subseteq \R^n\) is open and convex. If \(F: U \to \R\) is differentiable and satisfies
   \[
     \norm*{\gradient F|_a} \leq M
@@ -3315,7 +3312,7 @@ We have the tools ready for (stating) our theorem. Before that let's introduce s
   \(y \in \R^m\) is a \emph{critical value} of \(f\) if any \(x \in f^{-1}(y)\) is a critical point.
 \end{definition}
 
-\begin{definition}[Singular]\index{singular}
+\begin{definition}[Singular]\index{singular point}
   If \(x \in f^{-1}(y)\) is a critical point then \(x\) is a \emph{singular point} of \(f^{-1}(y)\).
 
   If \(y\) is a critical value of \(f\) then \(f^{-1}(y)\) is \emph{singular}.

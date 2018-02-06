@@ -12,8 +12,6 @@
 
 \newcommand*{\inner}{\innerproduct}
 
-\makeindex
-
 \begin{document}
 
 \input{titlepage}
@@ -266,7 +264,7 @@ The next theorem shows that this object with the desired property does exist:
   so \(p = 0\).
 \end{proof}
 
-\begin{eg}[Legendre polynomials]\index{Legendre polynomial}
+\begin{eg}[Legendre polynomials]\index{orthogonal polynomial!Legendre}
   Define an inner product
   \[
     \inner{f, g} = \int_{-1}^1 f(x)g(x) dx
@@ -312,7 +310,7 @@ for all \(p, q \in P[x]\).
   \end{align*}
   where
   \begin{align*}
-    \alpha_n &= \frac{\inner{p_n, xp_n}}{p_n, p_n} \\
+    \alpha_n &= \frac{\inner{p_n, xp_n}}{\inner{p_n, p_n}} \\
     \beta_n &= \frac{\inner{p_n, p_n}}{\inner{p_{n - 1}, p_{n - 1}}}
   \end{align*}
 \end{theorem}
@@ -330,7 +328,7 @@ for all \(p, q \in P[x]\).
   Every \(p \in P_n[x]\) that obeys \(\inner{p, p_\ell} = 0\) for all \(0 \leq \ell \leq n\) must necessarily be the zero polynomials. Thus \(\psi = 0\) and the result follows.
 \end{proof}
 
-\begin{eg}[Chebyshev polynomials]\index{Chebyshev polynomial}
+\begin{eg}[Chebyshev polynomials]\index{orthogonal polynomial!Chebyshev}
   Define an inner product on \(C[-1, 1]\)
   \[
     \inner{f, g} = \int_{-1}^1 \frac{f(x)g(x)}{\sqrt{1 - x^2}} dx
@@ -356,7 +354,7 @@ for all \(p, q \in P[x]\).
   \end{align*}
   whenever \(n \neq m\).
 
-  The recurrence relation for Chebyshev polynomials is paricularly simple:
+  The recurrence relation for Chebyshev polynomials is particularly simple:
   \[
     T_{n + 1}(x) = 2xT_n(x) - T_{n - 1}(x)
   \]
@@ -427,14 +425,14 @@ It is obvious that \(\norm{f - \hat p_n}^2\) is a non-increasing function of \(n
 The answer is yes and can be proved using Weierstrass theorem, which we state without giving a proof:
 
 \begin{theorem}[Weierstrass]
-  Let \(f \in C[a, b]\) where \([a, b]\) is bounded. For all \(\varphi > 0\), there exists a polynomial \(p\) of high enough degree such that
+  Let \(f \in C[a, b]\) where \([a, b]\) is bounded. For all \(\varepsilon > 0\), there exists a polynomial \(p\) of high enough degree such that
   \[
     |f(x) - p(x)| < \varepsilon
   \]
   for all \(x \in [a, b]\).
 \end{theorem}
 
-Using Weierstass theorem, we can prove the claim above. For any \(p\) we have
+Using Weierstrass theorem, we can prove the claim above. For any \(p\) we have
 \[
   \norm{f - p}^2 = \int_a^b w(x)(f(x) - p(x))^2 dx \leq \left(\max_{x \in [a, b]} |f(x) - p(x)| \right)^2 \int_a^b w(x) d(x).
 \]
@@ -488,7 +486,7 @@ The reason we require \(n \leq m - 1\) is for positive definiteness.
 \subsection{Gaussian quadrature}
 
 \begin{question}
-  Let \(w: [a, b] \to \R\) be positive. We want to approximate \(\int_a^b w(x)f(x) dx\) where \(f \in C[a, b]\).
+  Let \(w: [a, b] \to \R\) be positive. We want to approximate the integral \(\int_a^b w(x)f(x) dx\) where \(f \in C[a, b]\).
 \end{question}
 A \emph{quadrature formula}\index{quadrature} is an approximation of the above expression
 \begin{equation}
@@ -583,7 +581,7 @@ The error from a quadrature formula is
 \]
 Assume \(L(f) = 0\) for all \(f \in P_n[x]\). The goal is to bound error \(|L(f)|\) for \(f \in C^{n + 1}[a, b]\). Recall from IA Analysis I the Taylor expansion formula with integral remainder
 \[
-  f(x) = \sum_{i = 1}^n f^{(i)}(a) \frac{(x - a)^i}{i!} + \frac{1}{n!} \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta.
+  f(x) = \sum_{i = 0}^n f^{(i)}(a) \frac{(x - a)^i}{i!} + \frac{1}{n!} \int_a^x (x - \theta)^n f^{(n + 1)}(\theta) d\theta.
 \]
 Call the first part \(g(x)\). Since \(g \in P_n[x]\), \(L(g) = 0\). Thus by linearity of \(L\) we get
 \[
@@ -604,7 +602,7 @@ Then
 \end{align*}
 Assuming we can exchange \(L\) and the integral, we get
 \[
-  L(f) = \frac{1}{n!} \int_a^b K(\theta)f^{(n + 1)}(\theta)
+  L(f) = \frac{1}{n!} \int_a^b K(\theta)f^{(n + 1)}(\theta) dx
 \]
 where
 \[
@@ -652,7 +650,7 @@ In fact Peano Kernel Theorem applies to other kind of numerical algorithms as we
 
 \begin{eg}[Numerical differentiation]
   \[
-    f'(0) \approx = -\frac{3}{2}f(0) + 2f(1) - \frac{1}{2}f(2).
+    f'(0) \approx -\frac{3}{2}f(0) + 2f(1) - \frac{1}{2}f(2).
   \]
   We can check that the formula is exact for \(f(x) = 1, x, x^2\) so by linearity this extends to all elements of \(P_2[x]\). The error is
   \[
@@ -669,7 +667,7 @@ In fact Peano Kernel Theorem applies to other kind of numerical algorithms as we
   \]
   For any \(f \in C^3[0, 2]\),
   \begin{align*}
-    |K(L)|
+    |L(f)|
     &= \frac{1}{2} \left| \int_0^2 K(\theta)f^{(3)}(0)d\theta d\theta \right| \\
     &\leq \frac{1}{2} \int_0^2 |K(\theta)||f^{(3)}(\theta)|fd\theta \\
     &\leq \frac{1}{2} \norm{f^{(3)}}_\infty \int_0^2 |K(\theta)| d\theta \\
@@ -754,9 +752,10 @@ The ``deviation'' is
 \subsection{Multistep methods}
 
 An \emph{\(s\)-step method} is defined by a recursion rule
-\[
+\begin{equation}
+  \label{eqn:multi-step}
   \sum_{\ell = 0}^s \rho_\ell y_{n + \ell} = h \sum_{\ell = 0}^s \sigma_\ell f(t_{n + \ell}, y_{n + \ell})
-\]
+\end{equation}
 where \(\rho_s = 1\).
 
 The method is called \emph{explicit} if \(\sigma_s = 0\). Otherwise it is called \emph{implicit}.
@@ -874,8 +873,136 @@ Thus if \(\theta = \frac{1}{2}\) then it has order \(2\), otherwise order \(1\)\
   so it has order \(2\).
 \end{eg}
 
+\subsubsection{Convergence of multistep methods}
 
+\begin{definition}[Root condition]\index{root condition}
+  We say that a polynomial \(\rho(w) = \sum_{\ell = 0}^s \rho_\ell w^\ell\) satisfies the \emph{root condition} if all the roots of \(\rho\) lie inside the unit disc \(\{z \in \C: |z| \leq 1\}\) and any root with modulus \(1\) is simple.
+\end{definition}
 
+\begin{theorem}[Dahlquist equivalence theorem]\index{Dahquist equivalence theorem}
+  The general \(s\)-step method given by \eqref{eqn:multi-step} is convergent if and only if it has order \(p \geq 1\) and \(\rho(w) = \sum_{\ell = 0}^s \rho_\ell w^\ell\) satisfies the root condition.
+\end{theorem}
+
+\begin{eg}[Adams-Bashforth]
+  \[
+    y_{n + 2} - y_{n + 1} = h \left( \frac{3}{2} f(t_{n + 1}, t_{n + 2}) - \frac{1}{2}f(t_n, y_n) \right).
+  \]
+  We have checked last time that the order is 2. \(\rho(w) = w^2 - w\) with roots \(0\) and \(1\) so the method satisfies the root condition and converges.
+\end{eg}
+
+\begin{eg}
+  Consider
+  \[
+    y_{n + 2} - 2y_{n + 1} + y_n = 0.
+  \]
+  To find the order,
+  \begin{align*}
+    y(t_{n + 2}) - 2y(t_{n + 1}) + y(t_n)
+    &= y(t_n + 2h) - 2y(t_n + h) + y(t_n) \\
+    &= \dots \\
+    &= O(h^2)
+  \end{align*}
+  and further computation shows \(p = 1\). \(\rho(w) = w^2 - 2w + 1\) so \(1\) is a root of multiplicity 2 so root condition is not satisfied.
+\end{eg}
+
+To construct a convergent \(s\)-step method, follow the two step:
+\begin{enumerate}
+\item Choose a polynomial \(\rho\) of degree \(s\) that satisfies the root condition and \(\rho(1) = 0\).
+\item To get an implicit method, take \(\sigma(w)\) to be the \(s\)-degree truncation of Taylor expansion of \(\frac{\rho(w)}{\log w}\) around \(w = 1\) (which exists since \(\rho(1) = 0\)). For an explicit method, take \(\sigma\) to be the \((s - 1)\)-degree Taylor truncation of \(\frac{\rho(w)}{\log w}\).
+\end{enumerate}
+
+We verify that the order \(\geq s\): for an implicit method, by construction
+\[
+  \sigma(w) = \frac{\rho(w)}{\log w} + O(|w - 1|^{s + 1})
+\]
+as \(w \to 1\). Substitute \(w = e^z\) and since \(e^z - 1 = z + O(z^2)\)
+\[
+  \sigma(e^z) = \frac{\rho(e^z)}{z} + O(z^{s + 1})
+\]
+as \(z \to 0\). So the order \(\geq s + 1\). In the case of an explicit method order \(\geq s\).
+
+\begin{eg}
+  \(s = 2, \rho(w) = w^2 - w\) satisfies the root equation.
+  \begin{align*}
+    \frac{\rho(w)}{\log w}
+    &= \frac{w(w - 1)}{\log w} \\
+    &= \frac{(v + 1)v}{\log (1 + v)} \\
+    &= \frac{(v + 1)v}{ v - \frac{v^2}{2} + \frac{v^3}{3} + O(v^4)} \\
+    &= \dots \\
+    &= 1 + \frac{3}{2}v + \frac{5}{12}v^2 + O(v^3)
+  \end{align*}
+  Thus
+  \[
+    \sigma(w) = 1 + \frac{3}{2}(w - 1) + \frac{5}{12}(w - 1)^2
+  \]
+  for an implicit method (which is called Adams-Moutton method) and
+  \[
+    \sigma(w) = 1 + \frac{3}{2}(w - 1) = -\frac{1}{2} + \frac{3}{2}w
+    \]
+    which gives Adams-Bashforth method.
+\end{eg}
+
+\subsection{Backward differentiation formula}
+
+\begin{definition}[Backward differentiation formula]\index{backward differentiation formula}
+  A \emph{backward differentiation formula} (BDF) is an \(s\)-step methods with
+  \begin{equation}
+    \label{eqn:BDF}
+    \sigma(w) = \sigma_sw^s.
+  \end{equation}
+\end{definition}
+
+\begin{theorem}
+  For \eqref{eqn:BDF} to have order \(s\), we must have
+  \[
+    \rho(w) = \sigma_s \sum_{\ell = 1}^s \frac{1}{\ell} w^{s - \ell}(w - 1)^\ell
+  \]
+  with \(\sigma_s = \left( \sum_{\ell = 1}^s \frac{1}{\ell} \right)^{-1}\).
+\end{theorem}
+
+\begin{proof}
+  We want \(\rho\) to satisfy
+  \[
+    \rho(w) - \sigma_sw^s\log w = O(|w - 1|^{s + 1})
+  \]
+  as \(w \to 1\).
+\end{proof}
+We have
+\[
+  \log w
+  = -\log \frac{1}{w}
+  = -\log \left( 1 - \frac{w - 1}{w} \right)
+  = \sum_{\ell = 1}^\infty \frac{1}{\ell} \left( \frac{w - 1}{w} \right)^\ell.
+\]
+But our choice of \(\rho\) is precisely the first \(s\)-terms in this expansion. The value of \(\sigma_s\) is chosen such that \(\rho_s = 1\).
+
+\begin{eg}
+  Let \(s = 2, \sigma_s = (1 + \frac{1}{2})^{-1} = \frac{2}{3}\), then
+  \[
+    \sigma(w) = \frac{2}{3}(w(w - 1) + \frac{1}{2}(w - 1)^2) = w^2 - \frac{4}{3}w + \frac{1}{3}
+  \]
+  which gives \(2\)-step BDF
+  \[
+    y_{n + 2} - \frac{4}{3}y_{n + 1} + \frac{1}{3}y_n = \frac{2}{3}h f(t_{n + 2}, y_{n + 2}).
+  \]
+\end{eg}
+
+\subsection{Runge-Kutta methods}
+
+Suppose we want to solve the ODE
+\[
+  y' = f(t, y),\, y(0) = y_0.
+\]
+The solution of this ODE satisfies
+\begin{align*}
+  y(t_{n + 1})
+  &= y(t_n) + \int_{t_n}^{t_{n + 1}} y'(\tau) d\tau \\
+  &= y(t_n) + \int_{t_n}^{t_{n + 1}} f(\tau, y(\tau)) d\tau \\
+  &= y(t_n) + h \int_0^1 f(t_n + \alpha h, y(t_n + \alpha h)) d\alpha \\
+\intertext{at this point we can apply quadrature formulas}
+  &\approx y(t_n) + h \sum_{j = 1}^\nu b_j f(t_n + c_j h, y(t_n + c_j h)) d\alpha
+\end{align*}
+and Runge-Kutta will give estimates to the \(y_n\)'s.
 
 
 

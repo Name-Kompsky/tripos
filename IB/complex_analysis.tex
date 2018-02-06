@@ -12,7 +12,6 @@
 
 \newcommand*{\D}{\mathcal{D}}
 
-\makeindex
 
 \begin{document}
 
@@ -28,7 +27,7 @@ Some preliminary notations/definitions:
   \begin{itemize}
   \item \(D(a, r)\) is the open disc of radius \(r > 0\) and centred at \(a \in \C\).
   \item \(U \subseteq \C\) is open if for any \(a \in U\), there exists \(\varepsilon > 0\) such that \(D(a, \varepsilon) \subseteq U\).
-  \item A \emph{curve} is a continuous map from a closed interval \(\varphi: [a, b] \to \C\). It is continuously differentiably, i.e.\ \(C^1\), if \(\varphi'\) exists and is continuous on \([a, b]\).
+  \item A \emph{curve} is a continuous map from a closed interval \(\varphi: [a, b] \to \C\). It is continuously differentiable, i.e.\ \(C^1\), if \(\varphi'\) exists and is continuous on \([a, b]\).
   \item An open set \(U \subseteq \C\) is \emph{path-connected} if for every \(z, w \in U\) there exists a curve \(\varphi: [0, 1] \to U\) with endpoints \(z, w\).
   \end{itemize}
 \end{notation}
@@ -37,15 +36,17 @@ Some preliminary notations/definitions:
   A \emph{domain} is an non-empty path-connected open subset of \(\C\).
 \end{definition}
 
+\subsection{Complex differentiation}
+
 The goal of this course is to study functions \(f: U \to \C\) where \(U \subseteq \C\) is open or is a domain. Given such an \(f\), we may write
 \[
   f(x + iy) = u(x, y) + iv(x, y)
 \]
 where \(u, v: U \to \R\) are the real and imaginary part of \(f\). Here we use \((x, y) \in \R^2\) to denote the coordinates of \(a + bi \in \C\).
 
-\begin{definition}[Differentiable, holomorphic]\index{differentiable}\index{holomorphic}\leavevmode
+\begin{definition}[Differentiable, holomorphic]\index{complex differentiable}\index{holomorphic}\leavevmode
   \begin{enumerate}
-  \item \(f: U \to \C\) is differentiable at \(w \in U\) if the limit
+  \item \(f: U \to \C\) is \emph{differentiable} at \(w \in U\) if the limit
     \[
       f'(w) = \lim_{z \to w} \frac{f(z) - f(w)}{z - w}
     \]
@@ -158,7 +159,7 @@ as \((x, y) \to (c, d)\). In this case \(\D u(c, d) = (\lambda, \mu)\) is the de
   Follows from the analogous result for differentiable functions on a path-connected subset of \(\R^2\) (Mean Value Inequality from IB Analysis II).
 \end{proof}
 
-\section{Power Series}
+\subsection{Power Series}
 
 Recall that
 
@@ -347,7 +348,6 @@ We can also define fractional/complex powers by the formula
   z^\alpha = \exp (\alpha \log z)
 \]
 for \(z \in U\). See example sheet.
-
 
 \subsection{Conformal maps}
 
@@ -615,7 +615,7 @@ Now we prove a converse to the corollary:
 
 This proposition, or the proof thereof contains an idea can be applied to more general circumstances. We first define
 
-\begin{definition}[Star-shaped]\index{star-shaped}
+\begin{definition}[Star-shaped domain]\index{domain!star-shaped}
   A domain \(U\) is \emph{star-shaped} (or called a star domain) if there exists \(p \in U\) such that for all \(a \in U\), the straight segment from \(a\) to \(p\) is contained in \(U\).
 \end{definition}
 
@@ -644,7 +644,7 @@ A triangle is, as one might infer, a closed curve made of three straight line se
 \end{theorem}
 
 \begin{proof}
-  Let \(y = |\int_{\p T} f(z)dz|\), \(\ell = \ell(\p T)\). Let \(T = T^0 = T_1 \cup \dots T_4\) be a subdivision into 4 equal triangles all with the same orientation. Then
+  Let \(y = |\int_{\p T} f(z)dz|\), \(\ell = \ell(\p T)\). Let \(T = T^0 = T_1 \cup \dots \cup T_4\) be a subdivision into 4 equal triangles all with the same orientation. Then
   \[
     \int_{\p T} f(z)dz = \sum_{i = 1}^4 \int_{\p T_i} f(z)dz
   \]
@@ -872,6 +872,7 @@ An immediate corollary is that holomorphic functions are analytic. The converse 
 The next theorem is a converse to Cauchy:
 
 \begin{corollary}[Morera]\index{Morera's Theorem}
+  \label{cor:Morera}
   Let \(U\) be a domain and \(f: U \to \C\) continuous. If \(\int_\gamma f(z) dz = 0\) for every closed paths in \(U\), then \(f\) is holomorphic in \(U\).
 \end{corollary}
 
@@ -881,7 +882,7 @@ The next theorem is a converse to Cauchy:
 
 This gives us something we promised a while ago in \Cref{prop:Cauchy with holes}: we see that \(f\) ends up being holomorphic also on \(S\).
 
-\begin{proposition}[Cauchy integral formula for derivatives]\index{Cauchy integral formula!derivatives}
+\begin{proposition}[Cauchy integral formula for derivatives]\index{Cauchy integral formula!for derivatives}
   Use the same notation as in \nameref{thm:Taylor}, we have
   \[
     f^{(n)}(w) = \frac{n!}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - w)^{n + 1}} dz.
@@ -908,7 +909,7 @@ Note the subtlety between this and Taylor's theorem: Taylor's theorem gives us t
 
 \subsection{Uniform limits of holomorphic functions}
 
-We want to construct new holomorphic functions from old ones. Recall in IB Analysis II uniform limit theorem tells us that the uniform limit of continuous functions is continuous. We are going to adopt the same idea except one catch: continuity is a local property so if we can produce an cover on each element of which a given sequence of functions converges uniformly, then the resulting function by patching everything together is continuous on the entire space. This is a weaker requirement than uniform convergence and indeed sometimes this is the best that we can do, illustrated by the example below.
+We want to construct new holomorphic functions from old ones. Recall in IB Analysis II uniform limit theorem tells us that the uniform limit of continuous functions is continuous. We are going to adopt the same idea except one catch: continuity is a local property so if we can produce a cover on each element of which a given sequence of functions converges uniformly, then the resulting function by patching everything together is continuous on the entire space. This is a weaker requirement than uniform convergence and indeed sometimes this is the best that we can do, illustrated by the example below.
 
 \begin{definition}[Locally uniform convergence]\index{locally uniform convergence}
   Let \(U\) be an open domain and \(f_n: U \to \C\) be a sequence of functions. We say that \(\{f_n\}\) is \emph{locally uniformly convergent} in \(U\) if for any \(a \in U\) there exists \(r > 0\) such that \(D(a, r) \subseteq U\) on which \(\{f_n\}\) is uniformly convergent.
@@ -918,6 +919,77 @@ We want to construct new holomorphic functions from old ones. Recall in IB Analy
   Let \(U = D(0, 1)\) and \(f_n(z) = \frac{1}{1 - z^n}\). Note that \(f_n \to 1\) pointwise as \(n \to \infty\). It is not uniformly convergent on \(D(0, 1)\) but it is locally uniformly convergent. In fact it is uniformly convergent on any \(|z| \leq \rho < 1\).
 \end{eg}
 
+\begin{proposition}
+  A sequence of functions \(f_n: U \to \C\) is locally uniformly convergent if and only if it converges uniformly on all compact subsets of \(U\).
+\end{proposition}
+
+\begin{proof}
+  If \(f_n \to f\) uniformly on all compact subsets, then given \(a \in U\) and \(r > 0\) such that \(\cl{D(a, r)} \subseteq U\), then \(f_n \to f\) uniformly on \(D(a, r)\), hence \(f_n \to f\) locally uniformly.
+
+  Conversely, if \(f_n \to f\) locally uniformly on \(U\), let \(K \subseteq U\) be a compact set. For each \(a \in K\) there exists \(D(a, r) \subseteq U\) on which \(f_n \to f\) uniformly. As \(K\) is compact, there exists a finite set \(S \subseteq U\) such that \(K \subseteq \bigcup_{a \in S} D(a, r)\). Hence \(f_n \to f\) converges uniformly on \(K\).
+\end{proof}
+
+\begin{theorem}
+  Let \(\{f_n\}\) be a sequence of holomorphic functions on \(U\) which is locally uniformly convergent. Then the limit function \(f\) is holomorphic and the sequence \(\{f_n'\}\) converges locally uniformly to \(f'\) on \(U\).
+\end{theorem}
+
+This is a generalisation of the corresponding statements about power series.
+
+\begin{proof}
+  The key here is to use the following characterisation of holomorphicity: a function is holomorphic on a domain if and only if its integral along any closed path vanishes (if given by Morera's theorem, only if given by Convex Cauchy's Theorem).
+  
+  Let \(D = D(a, r) \subseteq U\) be any disc. Then by Convex Cauchy, for any closed curve \(\gamma\) in \(D\), \(\int_\gamma f_n(z) dz = 0\). Now \(f_n \to f\) uniformly on \(\gamma\) since \(\gamma([a, b])\) is compact. Since \(f\) is continuous,
+  \[
+    0 = \int_\gamma f_n(z) dz \to \int_\gamma f(z) dz = 0
+  \]
+  so by \nameref{cor:Morera} \(f\) is holomorphic on \(D\).
+
+  Next, by Cauchy's integral formula for derivatives, for any \(w \in D(a, r/2)\),
+  \[
+    |f'(w) - f_n'(w)|
+    = \frac{1}{2\pi} \left| \int_{|z - a| = r} \frac{f(z) - f_n(z)}{(z - w)^2} \right|
+    \leq \frac{2\pi r}{2\pi} \frac{\sup_{|z - a| = r} |f(z) - f_n(z)|}{r^2/4}.
+  \]
+  Since \(f_n \to f\) uniformly on \(|z - a| = r\) we see that \(f_n' \to f'\) uniformly on \(D(a, r/2)\). Done.
+\end{proof}
+
+\begin{eg}[Riemann zeta function]
+  The Riemann zeta function is the map
+  \[
+    \zeta(s) = \sum_{n = 1}^\infty \frac{1}{n^s}.
+  \]
+  To find where the function is defined, i.e.\ the series is convergent,
+  \[
+    |n^s| = |e^{s \log n}| = n^{\Re(s)}
+  \]
+  so if \(\Re(s) > 1\) the series is absolutely convergent. Moreover, if \(\Re(s) \geq \sigma > 1\), by comparison test with \(\sum \frac{1}{n^\sigma}\) we have uniform convergence on \(\{s: \Re(s) \geq \sigma\}\). Thus by the previous theorem \(\zeta(s)\) defines a holomorphic function on \(\Re(s) > 1\).
+\end{eg}
+
+\subsection{Zeros of holomorphic functions}
+
+Consider \(f: D(w, R) \to \C\) holomorphic and write \(f\) as a power series
+\[
+  f(z) = \sum_{n = 0}^\infty c_n(z - w)^n.
+\]
+If \(f\) is not identically zero then not all \(c_n\)'s are zero. Let
+\[
+  m = \min\{n \in \Z, n \geq 0: c_n \neq 0\}.
+\]
+Then
+\[
+  f(z) = (z - w)^m g(z)
+\]
+where \(g(z) = \sum_{n = 0}^\infty c_n(z - w)^{n - m}\) is holomorphic on \(D(w, R)\) and \(g(w) \neq 0\). If \(m > 0\) we say that \(f\) has a \emph{zero of order \(m\)}\index{order of zero} at \(z = w\). Clearly \(m\) is the least \(n\) such that \(f^{(n)}(w) \neq 0\).
+
+\begin{theorem}[Principle of isolated zeros]\index{Principle of isolated zeros}
+  Let \(f: D(w, R) \to \C\) be holomorphic and not identically zero. Then there exists \(0 < r \leq R\) such that \(f(z) \neq 0\) for \(0 < |z - w| < r\).
+\end{theorem}
+
+\begin{proof}
+  Suppose \(f(w) \neq 0\) then by continuity there exists \(r > 0\) such that \(f(z) \neq 0\) for \(z \in D(w, r)\).
+
+  Otherwise, \(f\) has a zero of some order \(m > 0\) at \(z = w\). Hence \(f(z) = (z - w)^mg(z)\) where \(g\) is holomorphic and \(g(w) \neq 0\). Hence there exist \(r > 0\) such that \(g\) is non-zero on \(D(w, r)\) and then \(f(z) \neq 0\) for \(0 < |z - w| < r\).
+\end{proof}
 
 
 

@@ -11,8 +11,7 @@
 \input{header}
 
 \DeclareMathOperator{\codim}{codim}
-
-\makeindex
+\DeclareMathOperator{\Int}{Int}
 
 \begin{document}
 
@@ -430,13 +429,12 @@ Given a regular value \(y\), \(T_xf^{-1}(y) = \ker df_x\). See example sheet 1.
 \end{eg}
 
 \begin{remark}
-  In addition to being a manifold, \(O(n)\) is a group under matrix multiplication. The group operations are smooth. We call it a \emph{Lie group}.
+  In addition to being a manifold, \(O(n)\) is a group under matrix multiplication. The group operations are smooth. We call it a \emph{Lie group}. In this case, objects that preserve geometric objects (i.e.\ transformations) are themselves geometric objects.
 
   It is also worthing pointing out that \(O(n)\) is not connected, as seen from the continuous map \(\det: O(n) \to \{\pm 1\}\). The connected component of identity is called \emph{special orthogonal group}
   \[
     SO(n) = \{A \in O(n): \det A = 1\}.
   \]
-  Objects that preserve geometric objects are themselves geometric objects.
 \end{remark}
 
 \begin{definition}
@@ -469,7 +467,7 @@ This is well-defined since we can show any manifold can be parameterised by a ch
 Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) is a submanifold.
 
 \begin{definition}[Transversality]\index{transversality}
-  \(f\) is \emph{transversal to \(\Z\)}, denoted \(f \pitchfork Z\), if for all \(x \in f^{-1}(Z)\),
+  \(f\) is \emph{transversal to \(Z\)}, denoted \(f \transversal Z\), if for all \(x \in f^{-1}(Z)\),
   \[
     \im df_x + T_{f(x)}Z = T_{f(x)}Y.
   \]
@@ -477,13 +475,13 @@ Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) i
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item If \(f(X) \cup Z = \emptyset\) then \(f\) is vacuously transversal.
-  \item This is a generalisation of regular value: if \(Z = \{y\}\) then \(f \pitchfork Z\) if and only if \(y\) is a regular value of \(f\) since the tangent space of a dimension \(0\) manifold is \(0\).
+  \item If \(f(X) \cap Z = \emptyset\) then \(f\) is vacuously transversal to \(Z\).
+  \item This is a generalisation of regular value: if \(Z = \{y\}\) then \(f \transversal Z\) if and only if \(y\) is a regular value of \(f\) since the tangent space of a dimension \(0\) manifold is \(0\).
   \end{enumerate}
 \end{remark}
 
 \begin{eg}
-  Let \(X = \R, Y = \R^2\), \(f(t) = (0, t)\) and \(\Z \subseteq Y\) is the \(x\)-axis. Then \(df_0 = \binom{0}{1}\) and \(T_{(w, 0)}Z = \{\binom{w}{0}\}\) so \(\Im df_0 + T_{(w, 0)}Z = \R^2\) so \(f \pitchfork Z\).
+  Let \(X = \R, Y = \R^2\), \(f(t) = (0, t)\) and \(Z \subseteq Y\) is the \(x\)-axis. Then \(df_0 = \binom{0}{1}\) and \(T_{(w, 0)}Z = \operatorname{span}\{\binom{w}{0}\}\) so \(\Im df_0 + T_{(w, 0)}Z = \R^2\) so \(f \transversal Z\).
 \end{eg}
 
 \begin{eg}
@@ -497,17 +495,15 @@ Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) i
 The corresponding generalisation of pre-image theorem is
 
 \begin{theorem}[Transversality theorem]\index{transversality theorem}
-  Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) is a submanifold. If \(f \pitchfork Z\) then \(f^{-1}(Z) \subseteq X\) is a submanifold of \(X\) with codimension equal to \(\codim_Y(Z)\).
+  Suppose \(f: X \to Y\) is a smooth map between manifolds and \(Z \subseteq Y\) is a submanifold. If \(f \transversal Z\) then \(f^{-1}(Z) \subseteq X\) is a submanifold of \(X\) with codimension equal to \(\codim_Y(Z)\).
 \end{theorem}
 
-\begin{remark}
+\begin{proof}
   It is enough to show that for all \(x \in Z\), there exists \(V \subseteq Z\) open such that \(f^{-1}(V)\) is a submanifold of \(X\), i.e.\ we can work locally to deduce global result. This is because if \(\{V_i\}_{i \in I}\) is a cover of \(Z\) then
   \[
     f^{-1}(Z) = \bigcup_{i \in I} f^{-1}(V_i).
   \]
-\end{remark}
 
-\begin{proof}
   Given \(x \in Z\), let \(\codim_Y Z = k\). Claim that there exist \(V \subseteq Z\) open containing \(x\): there exists \(\tilde V \subseteq Y\) open such that
   \[
     V = Z \cap \tilde V =
@@ -518,7 +514,7 @@ The corresponding generalisation of pre-image theorem is
       h_k = 0
     \end{cases}
   \]
-  where \(k_i: \tilde V \to \R\) and moreover \(Z \cap \tilde V = h^{-1}(0)\) and \(0\) is a regular value of \(h\). This is basically saying that a submanifold of codimension \(k\) can be expressed as the pre-image of \(0\) and \(0\) is a regular value. This is left as an exercise.
+  where \(k_i: \tilde V \to \R\) and moreover \(Z \cap \tilde V = h^{-1}(0)\) and \(0\) is a regular value of \(h\). This is basically saying that a submanifold of codimension \(k\) can be expressed as the pre-image of \(0\) where \(0\) is a regular value. This is left as an exercise.
 
   Now we prove the theorem. wlog assume \(Z = Z \cap \tilde V\). Consider \(h \compose f: X \to \R^k\). Its differential is
   \[
@@ -541,7 +537,7 @@ The corresponding generalisation of pre-image theorem is
   Therefore \((h \compose f)^{-1}(0) \subseteq X\) is a submanifold of codimension \(k\). So does \(f^{-1}(Z)\).
 \end{proof}
 
-Suppose the special case where \(X\) and \(Z\) are both submanifolds of \(Y\), i.e.\ \(f = \iota X \to Y\). Then \(\iota \pitchfork Z\) if and only if
+Consider the special case where \(X\) and \(Z\) are both submanifolds of \(Y\), i.e.\ \(f = \iota: X \to Y\). Then \(\iota \transversal Z\) if and only if
 \[
   \Im d\iota_x + T_{\iota(x)}Z = T_{\iota(x)}Y
 \]
@@ -549,14 +545,14 @@ which can be rewritten as
 \[
   T_xX + T_xZ = T_xY.
 \]
-In this case write \(X \pitchfork Z\) (which is clearly a symmetric relation).
+In this case write \(X \transversal Z\) (which is clearly a symmetric relation).
 
 \begin{eg}
-  If \(f \pitchfork Z\), it is not necessarily the case that \(f(X) \pitchfork Z\). Consider \(X = \R, Y = \R^2\), \(f(t) = (0, t^2)\) and \(Z \subseteq Y\) is the \(x\)-axis. Then \(f^{-1}(Z) \cap X\) is a submanifold of \(X\) of dimension \(0\).
+  If \(f \transversal Z\), it is not necessarily the case that \(f(X) \transversal Z\). Consider \(X = \R, Y = \R^2\), \(f(t) = (0, t^2)\) and \(Z \subseteq Y\) is the \(x\)-axis. Then \(f^{-1}(Z) \cap X\) is a submanifold of \(X\) of dimension \(0\).
 \end{eg}
 
 \begin{corollary}
-  Under special case \(\iota^{-1}(Z) \subseteq X\), the \(X \cap Z\) is a submanifold of \(Y\) with codimension
+  If \(\iota^{-1}(Z) \subseteq X\), then \(X \cap Z\) is a submanifold of \(Y\) with codimension
   \[
     \codim_Y(X \cap Z) = \codim_Y X + \codim_Y Z.
   \]
@@ -565,28 +561,33 @@ In this case write \(X \pitchfork Z\) (which is clearly a symmetric relation).
 \subsection{Manifolds with boundary}
 
 \begin{notation}
-  \(\H^n = \{x_1, \dots, x_n\}: x_i \geq 0\} \subseteq \R^n\).
+  \(\H^n = \{(x_1, \dots, x_n): x_i \geq 0\} \subseteq \R^n\).
 \end{notation}
 
 \begin{definition}[Manifold with boundary]\index{manifold!manifold with boundary}
-  \(X \subseteq \R^N\) is an \(n\)-dimensional \emph{manifold with boundary} if for all \(x \in X\) there exists \(V \subseteq X\) open, \(U \subseteq \H^n\) open and \(\varphi: U \to V\) a diffeomorphism.
+  \(X \subseteq \R^n\) is an \(n\)-dimensional \emph{manifold with boundary} if for all \(x \in X\) there exists \(V \subseteq X\) open, \(U \subseteq \H^n\) open and \(\varphi: U \to V\) a diffeomorphism.
 \end{definition}
 
-It is possible that \(U \subseteq \R^N\) is open.
+It is possible that \(U\) is also open in \(\R^n\).
 
-\begin{definition}[Boundary]\index{boundary}
+\begin{definition}[Boundary, interior]\index{boundary}\index{interior}
   The \emph{boundary} of \(X\), denoted \(\p X\), is defined to be
   \[
     \p X = \{x: \exists \varphi \text{ as above such that } x = \varphi(x_1, \dots, x_{n - 1}, 0)\}.
   \]
-  Equivalently, \(x \in \varphi(U \cap \p \H^n)\) where \(\p \H^n = \{(x_1, \dots, x_{n - 1}, 0\}\).
+  Equivalently, \(x \in \varphi(U \cap \p \H^n)\) where \(\p \H^n = \{(x_1, \dots, x_{n - 1}, 0)\}\).
+
+  The \emph{interior} of \(X\), denoted \(\Int X\), is defined to be \(X \setminus \p X\).
 \end{definition}
+
+
 
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item The above definition is consistent, i.e.\ independent of parameterisation: if \(x \in \varphi(U \cap \p H^n)\) for some \(\varphi\) then it holds for all \(\varphi\) such that \(x \in \Im \varphi\).
   \item \(\H^n\) is an \(n\)-dimensional manifold with boundary.
-  \item Boundary of manifolds is not the same as topological boundary, defined to be the difference of the closure and the interior.
+  \item Boundary of manifolds is \emph{not} the same as topological boundary, defined to be the set difference between the closure and the interior.
+  \item For any manifold with boundary \(X\), \(\p X\) and \(\Int X\) are manifolds without boundary of dimension \(\dim X - 1\) and \(\dim X\) respectively. This can be seen by restricting image of \(\varphi\) to \(\p \H\) and \(\Int \H\) respectively.
   \end{enumerate}
 \end{remark}
 
@@ -596,6 +597,81 @@ It is possible that \(U \subseteq \R^N\) is open.
   \item Any manifold is a manifold with boundary (without boundary).
   \end{enumerate}
 \end{eg}
+
+\begin{ex}[Classification of \(1\)-dim connected manifolds with boundary]
+  Show that any \(1\)-dim connected manifolds is up to diffeomorphism one of
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \(X\) & \(\p X\) & Compactness \\ \hline
+      \(S^1\) & \(\emptyset\) & Yes \\ \hline
+      \((0, 1)\) & \(\emptyset\) & No \\ \hline
+      \([0, 1)\) & \(\{0\}\) & No \\ \hline
+      \([0, 1]\) & \(\{0, 1\}\) & Yes \\ \hline
+    \end{tabular}
+    \caption{\(1\)-dim manifolds}
+  \end{table}
+\end{ex}
+
+\begin{lemma}
+  Let \(X\) be an \(n\)-dim manifold (without boundary) and \(f: X \to \R\) smooth. Suppose \(0\) is a regular value of \(f\). Then \(\{x \in X: f(x) \geq 0\} \subseteq X\) is a submanifold with boundary whose boundary is \(\{x \in X: f(x) = 0\}\).
+\end{lemma}
+
+\begin{proof}
+  Immediate from pre-image theorem. Suppose \(x \in X\) such that \(f(x) > 0\) then \(x \in f^{-1}((0, \infty)\) which is open in \(X\). If \(f(x) = 0\), just proceed as in pre-image theorem and consider \((F|_U)^{-1}: I \times T(U) \to U\) restricted to \(I \cap \{t \geq 0\}\).
+\end{proof}
+
+\begin{eg}
+  Let
+  \begin{align*}
+    f: \R^n &\to \R \\
+    (x_1, \dots, x_n) &\mapsto 1 - \sum_{i = 1}^n x_i^2
+  \end{align*}
+  Then \(B^n = f^{-1}((0, \infty))\) is a manifold with boundary.
+\end{eg}
+
+Note that with the definition of tangent space as before, for all \(x \in X\) (even those on the bounday), we have
+\[
+  \dim dT_xX = \dim X.
+\]
+
+Also for \(x \in \p X\),
+\[
+  T_x\p X \leq T_xX.
+\]
+
+Next up is an extension of pre-image theorem
+
+\begin{theorem}
+  Let \(X\) be a manifold with boundary and \(f: X \to Y\) be a smooth map betwween manifolds. Suppose \(y \in Y\) is a regular value of \(f\) and \(f|_{\p X}\), then \(f^{-1}(y)\) is a submanifold with boundary of \(X\), with boundary \(\p f^{-1}(y) = f^{-1}(y) \cap \p X\).
+\end{theorem}
+In this case \(\dim X > \dim Y\).
+
+\begin{proof}
+  Note that if \(x \in f^{-1} \cap \Int X\) we can apply pre-image theorem. Thus assume \(x \in f^{-1}(y) \cap \p X\). As an open set in \(\H^n\) with non-empty intersection with its boundary is diffeomorphic to \(\H^n\), assume wlog \(X = \H^n\) and similarly \(Y = \R^m\), where \(\dim X = n, \dim Y = m\).
+
+  Given such an \(x\), there exists \(U\) open in \(\R^n\) containing \(x\) such that there exists \(F: U \to \R^m\) smooth such that \(F|_{U \cap \H^n} = f|_U\). \(y\) is a regular value of \(f\) so \(df_x\) is surjective. For \(U\) small enough, \(df_z\) surjective for all \(z \in U \cap \H^n\). Then \(dF_z\) is surjective for all \(z \in U\). Then \(y\) is a regular value of \(U\).
+
+  We want \(f^{-1}(y) \cap U\) to be a manifold with boundary. Claim that the set equal to \(F^{-1} \cap \H^n\). \(F^{-1}(y)\) is a manifold by pre-image theorem. Introduce projection map
+  \begin{align*}
+    \pi: \R^n &\to \R \\
+    (x_1, \dots, x_n) &\mapsto x_n
+  \end{align*}
+  Then \(F^{-1}(y) \cap \H^n = F^{-1}(y) \{x: \pi(x) \geq 0\} = \{x: (\pi|_{f^{-1}(y)})^{-1}(x) \geq 0\}\). All we need to do is to show \(0\) is a regular value of the map \((\pi|_{f^{-1}(y)})^{-1}\). But from example sheet
+  \[
+    d\pi|_{f^{-1}(y)} = \pi|_{T_xF^{-1}(x)} = \pi|_{\ker dF_x} = \pi|_{\ker df_x}.
+  \]
+  Thus just need to show \(\ker df_x \neq \R^{n - 1} = T_x\p X\). Done by assumption on \(f\).
+\end{proof}
+
+
+
+
+
+
+
+
 
 \printindex
 

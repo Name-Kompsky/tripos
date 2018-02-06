@@ -28,10 +28,13 @@
 \usepackage{empheq}
 \usepackage{amssymb}
 \let\mathbbalt\mathbb
+\let\pitchforkold\pitchfork
 \usepackage{unicode-math}
 \let\mathbb\mathbbalt%reset to original \mathbb
+\let\pitchfork\pitchforkold
 
 \usepackage{imakeidx}
+\makeindex[intoc]
 
 %to address the problem that Latin modern doesn't have unicode support for setminus
 %https://tex.stackexchange.com/a/55205/26707
@@ -280,3 +283,4 @@
 
 %differential geometry
 \renewcommand*{\H}{\mathbb{H}}
+\newcommand*{\transversal}{\pitchfork}

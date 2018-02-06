@@ -22,8 +22,6 @@
 \DeclareMathOperator{\Ann}{Ann}
 \DeclareMathOperator{\fit}{Fit}
 
-\makeindex
-
 \begin{document}
 
 \input{titlepage}
@@ -53,7 +51,7 @@
 \end{definition}
 
 \begin{lemma}
-  If \(H \subseteq G\) is non-emphty and for all \(a, b \in H\), \(a \cdot b^{-1} \in H\) then \(H \leq G\).
+  If \(H \subseteq G\) is non-empty and for all \(a, b \in H\), \(a \cdot b^{-1} \in H\) then \(H \leq G\).
 \end{lemma}
 
 \begin{eg}\leavevmode
@@ -68,7 +66,7 @@ If \(H \leq G\), \(g \in G\), we define the \emph{left \(H\)-coset} of \(G\) to 
 \[
   gH = \{gh: h \in H\}.
 \]
-As we have seen in IA Groups, the \(H\)-cosets form a patition of \(G\) and are in bijection with each other via
+As we have seen in IA Groups, the \(H\)-cosets form a partition of \(G\) and are in bijection with each other via
 \begin{align*}
   H &\leftrightarrow gH \\
   h &\mapsto gh \\
@@ -218,7 +216,7 @@ This implies that \(\varphi(e_G) = e_H\) and \(\varphi(g^{-1}) = \varphi(g)^{-1}
   Let \(H \leq G\) and \(K \normal G\). Then
   \begin{align*}
     HK &\leq G \\
-    H &\cap K \normal H \\
+    H \cap K &\normal H \\
     HK/K &\cong H/(H \cap K)
   \end{align*}
 \end{theorem}
@@ -420,7 +418,7 @@ If \(G_X = \{e\}\), i.e.\ \(\varphi\) is injective then we say \(\varphi\) is a 
     \end{align*}
     \(G_X = \{g \in G: gh = h \text{ for all } G\} = \{e\}\) so \(\varphi\) is a permutation representation. This is
 
-    \begin{theorem}[Cayley's]
+    \begin{theorem}[Cayley]\index{Cayley's theorem}
       Every group is isomorphic to a subgroup of a symmetric group.
     \end{theorem}
   \item If \(G\) is a group and \(H \leq G\), we have
@@ -434,9 +432,10 @@ If \(G_X = \{e\}\), i.e.\ \(\varphi\) is injective then we say \(\varphi\) is a 
 
 \begin{theorem}
   Let \(G\) be a finite group and \(H \leq G\) with index \(n\). Then there is a \(K \normal G, K \leq H\) such that \(G/K\) is isomorphic to a subgroup of \(S_n\). In particular
-  \[
-    |G/K| \divides n!, \, n \divides |G/K|.
-  \]
+  \begin{align*}
+    |G/K| &\divides n! \\
+    n &\divides |G/K|
+  \end{align*}
 \end{theorem}
 
 \begin{proof}
@@ -495,7 +494,7 @@ Some futher definitions we have already met in IA Groups:
   \]
 \end{definition}
 
-\begin{theorem}[Orbit-stabiliser]\index{Orbit-stabiliser Theorem}
+\begin{theorem}[Orbit-stabiliser]\index{Orbit-stabiliser theorem}
   \label{thm:orbit-stabiliser}
   If \(G\) acts on \(X\), for all \(x \in X\) there is a bijection
   \begin{align*}
@@ -2286,7 +2285,7 @@ We have shown that a PID is Noetherian.
   \]
 \end{eg}
 
-\begin{definition}[Independence]\index{independenc}
+\begin{definition}[Independence]\index{independence}
   Let \(m_1, \dots m_k \in M\). They are \emph{independent} if
   \[
     \sum_i r_i \cdot m_i = 0

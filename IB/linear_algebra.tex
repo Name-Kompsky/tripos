@@ -22,8 +22,6 @@
 \theoremstyle{definition}
 \newtheorem*{caution}{Caution}
 
-\makeindex
-
 \begin{document}
 
 \input{titlepage}
@@ -1394,7 +1392,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 
 \section{Bilinear Form I}
 
-\begin{definition}[Bilinear form]\index{bilinear}
+\begin{definition}[Bilinear form]\index{bilinear form}
   Let \(U\) and \(V\) be \(\F\)-vector spaces. A map \(\varphi: U \times V \to \F\) is \emph{bilinear} if it is linear in both arguments, i.e.
   \begin{align*}
     \forall u \in U, \, \varphi(u, -) &\in V^* \\
@@ -3306,7 +3304,7 @@ The dot product on a real vector space comes naturally as a bilinear form. Howev
 \]
 is not bilinear: the second coordinate transforms by ``conjugate-linearity'' instead of linearity. Among many other examples of the same spirit, this serves as a motivation to modify the definition of bilinear forms for \(\C\)-vector spaces:
 
-\begin{definition}[Sesquilinear form]\index{sesquilinear}
+\begin{definition}[Sesquilinear form]\index{sesquilinear form}
   Let \(V\) and \(W\) be \(\C\)-vector spaces. A \emph{sesquilinear form} is a function \(\varphi: V \times W \to \C\) such that
   \begin{align*}
     \varphi(\lambda_1v_1 + \lambda_2v_2, w) &= \lambda_1 \varphi(v_1, w) + \lambda_2 \varphi(v_2, w) \\
@@ -3349,7 +3347,7 @@ Naturally we would expect a sesquilinear form, just like a bilinear form, to hav
 
 We have special bilinear forms that are symmetric. The analogue for sesquilinear form is
 
-\begin{definition}[Hermitian form]\index{Hermitian}
+\begin{definition}[Hermitian form]\index{Hermitian form}
   A sesquilinear form \(\varphi: V \times V \to \C\) is \emph{Hermitian} if
   \[
     \varphi(u, v) = \conj{\varphi(v,u)}.

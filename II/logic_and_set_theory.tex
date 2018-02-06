@@ -10,8 +10,6 @@
 
 \input{header}
 
-\makeindex
-
 \begin{document}
 
 \input{titlepage}
@@ -361,6 +359,8 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
 
 \section{Well-orderings and Ordinals}
 
+\subsection{Definitions}
+
 \begin{definition}[Total order]\index{total order}
   A \emph{total order} or \emph{linear order} on a set \(X\) is a relation \(<\) on \(X\) that is
   \begin{enumerate}
@@ -634,7 +634,7 @@ For example, the ordinals \(< \omega\) are \(0, 1, 2, \dots\).
   Choose \(\alpha \in S\). If \(\alpha\) is minimal in \(S\) then done. If not, then \(S \cap I_\alpha \neq 0\), so we have a minimal element of \(S \cap I_\alpha\), which is therefore minimal in \(S\).
 \end{proof}
 
-Given the porposition, it is very tempting to conclude that all well-orderings form a well-order. But there is one technicality that we haven't checked, that well-orders are defined on a set. Unfortunately,
+Given the proposition, it is very tempting to conclude that all well-orderings form a well-order. But there is one technicality that we haven't checked, that well-orders are defined on a set. Unfortunately,
 
 \begin{theorem}[Burali-Forti Paradox]\index{Burali-Forti Paradox}
   The ordinals do not form a set.
@@ -646,7 +646,7 @@ Given the porposition, it is very tempting to conclude that all well-orderings f
 
 This is saying that the collection of all well-orderings is too big to be a set, and thus to become a well-ordering. However, this does not prevent us from working locally with a set of well-orderings.
 
-Recall two ways of constructing well-orderings. Given \(\alpha\), we have \(\alpha^+ > \alpha\). Also if \(\{\alpha_i: i \in I\}\) is a set of ordinals, then there exists \(\alpha\) with \(\alpha \geq \alpha_i\) for all \(i\), by applying \Cref{prop:nested well-orderings} to the nested family \(\{I_{\alpha_i}: i \in I\}\).
+Recall the two ways of constructing well-orderings. Given \(\alpha\), we have \(\alpha^+ > \alpha\). Also if \(\{\alpha_i: i \in I\}\) is a set of ordinals, then there exists \(\alpha\) with \(\alpha \geq \alpha_i\) for all \(i\), by applying \Cref{prop:nested well-orderings} to the nested family \(\{I_{\alpha_i}: i \in I\}\).
 
 In fact, there is a least upper bound for \(\{\alpha_i: i \in I\}\) --- by applying \Cref{prop:set of ordinals is well-ordered} to the set
 \[
@@ -657,6 +657,95 @@ This is denoted \(\sup_{i \in I} \alpha_i\).
 \begin{eg}
   \(\sup \{2, 4, \dots\} = \omega\).
 \end{eg}
+
+\subsection{Some ordinals}
+
+\Cref{tab:ordinals} shows some ordinals in increasing order. In each row from left to right, adjacent values are successors to each other. The pattern in each row is the ``obvious'' one that the reader should be able to infer and the beginning entry of a row is the supremum of all entries in the previous row.
+
+{%localise the effect
+  \renewcommand{\arraystretch}{2.5}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{cccccccc}
+    \(0\) & \(1\) & \(2\) & \(\dots\) \\
+    \(\omega\) & \(\omega + 1\) & \(\omega + 2\) & \(\dots\) \\
+    \(\omega 2\) & \(\omega2 + 1\) & \(\omega2 + 2\) & \(\dots\) & \(\omega3\) & \(\dots\) & \(\omega4\) & \(\dots\) \\
+    \(\omega^2\) & \(\omega^2 + 1\) & \(\dots\) & \(\omega^2 + \omega\) & \(\dots\) & \(\omega^2 + \omega2\) & \(\dots\) \\
+    \(\omega^22\) & \(\dots\) & \(\omega^23\) & \(\dots\) & \(\omega^24\) & \(\dots\) \\
+    \(\omega^3\) & \(\dots\) & \(\omega^4\) & \(\dots\) & \(\omega^5\) & \(\dots\) \\
+    \(\omega^\omega\) & \(\omega^\omega + 1\) & \(\dots\) & \(\omega^\omega + \omega\) & \(\dots\) & \(\omega^\omega2\) & \(\dots\) & \(\omega^\omega3\) \\
+    \(\omega^{\omega + 1}\) & \(\dots\) & \(\omega^{\omega + 1}\) & \(\dots\) & \(\omega^{\omega + 2}\) & \(\dots\) \\
+    \(\omega^{\omega2}\) & \(\dots\) & \(\omega^{\omega 3}\) & \(\dots\) \\
+    \(\omega^{\omega^\omega}\) & \(\dots\) & \(\omega^{\omega^{\omega^\omega}}\) & \(\dots\) \\
+    \(\varepsilon_0\) & \(\varepsilon_0 + 1\) & \(\dots\) & \(\varepsilon_0 + \omega\) & \(\dots\) & \(\varepsilon_0 + \omega^\omega\) & \(\dots\) \\
+    \(\varepsilon_02\) & \(\dots\) & \(\varepsilon_0\omega\) & \(\varepsilon_0\omega^\omega\) & \(\dots\) \\
+    \(\varepsilon_0^2\) & \(\dots\) & \(\varepsilon_0^3\) & \(\dots\) & \(\varepsilon_0^4\) & \(\dots\) \\
+    \(\varepsilon_0^\omega\) & \(\dots\) & \(\varepsilon_0^{\omega^\omega}\) & \(\dots\) \\
+    \(\varepsilon_0^{\varepsilon_0}\) & \(\dots\) & \(\varepsilon_0^{\varepsilon_0^{\varepsilon_0}}\) & \(\dots\) \\
+    \(\varepsilon_1\) & \(\dots\)
+  \end{tabular}
+  \caption{Some ordinals}
+  \label{tab:ordinals}
+\end{table}
+}
+
+
+Some points to notice:
+\begin{itemize}
+\item we write \(\omega2 = \sup\{\omega + 1, \omega + 2, \dots\}\). The rationale for this unintuitive notation will soon be clear.
+\item everything in this table so far is countable, as they are derived by operations such as union, subset, cartesian product on countable sets.
+\end{itemize}
+
+Is there an uncountable ordinal? In other words, is there an uncountable well-ordered set?
+
+For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortunately, no. We are always going to fail if we try to put a well-ordering on \(\R\). But
+
+\begin{theorem}
+  There is an uncountable ordinal.
+\end{theorem}
+
+\begin{proof}
+  The idea is to take the supremum of all countable ordinals, but first we have to check that it is a set, meaning that we can build it from existing sets using rules such as intersection, cartesian product, images of functions etc.
+
+  Let
+  \[
+    R = \{A \in \mathcal P(\N \times \N): A \text{ is a well-ordering of a subset of } \N\}.
+  \]
+  Let \(S\) be the image of \(R\) under the function ``order-type'', i.e.\ \(S\) is the set of all order-types of well-orderings of \(\N\) (or subsets thereof). It is the set of all countable ordinals.
+
+  Let \(\omega_1 = \sup S\). Then \(\omega_1\) is uncountable: if not then \(\omega_1 \in S\) so \(\omega_1\) would be the greatest member of \(S\), which contradicts \(\omega_1 < \omega_1^+\). Note that by construction \(\omega_1\) is the \emph{least uncountable ordinal}.
+\end{proof}
+
+\(\omega_1\) has some strange properties, for example
+\begin{enumerate}
+\item \(\omega_1\) is uncountable, but for any \(\alpha < \omega\), we have \(\{\beta: \beta < \alpha\}\) countable.\footnote{It would perhaps be less surprising if one considers that given \(\alpha < \omega\), \(\{\beta: \beta < \alpha\}\) is finite.}
+\item If \(\alpha_1, \alpha_2, \dots < \omega_1\) is a sequence, then it is \emph{bounded} in \(\omega_1\): \(\sup\{\alpha_1, \alpha_2, \dots,\}\) is countable so \(< \omega_1\).
+\end{enumerate}
+
+\begin{theorem}[Harthogs' Lemma]\index{Harthogs' Lemma}
+  For any set \(X\), there is an ordinal that does not inject into \(X\).
+\end{theorem}
+
+\begin{proof}
+  Same proof as above, with \(\mathcal P(X, X)\) in place of \(\mathcal P(\N, \N)\).
+\end{proof}
+
+\begin{notation}
+  We often write \(\gamma(X)\) for least such ordinal. For example, \(\gamma(\omega) = \omega_1\).
+\end{notation}
+
+\subsection{Successors and Limits}
+
+Given an ordinal \(\alpha\), does \(\alpha\) has a greatest element?
+
+If yes, say \(\beta\) is greatest. Then \(\gamma < \beta\) or \(\gamma = \beta\) implies \(\gamma < \alpha\) and \(\gamma < \alpha\) implies \(\gamma < \beta\) or \(\gamma = \beta\) (as we can't have \(\gamma > \beta\)). So \(\alpha = \beta^+\). Call \(\alpha\) a \emph{successor}\index{successor}.
+
+If no, then for every \(\beta < \alpha\), then there exists \(\gamma < \alpha\) such that \(\gamma > \beta\). Thus \(\alpha = \sup\{\beta: \beta < \alpha\}\) (note that this is false in general without the absence of greatest element hypothesis, e.g.\ \(\omega + 5\)). Call \(\alpha\) a \emph{limit}\index{limit}.
+
+\begin{eg}
+  \(5\) and \(\omega + 5\) are successors. \(\omega\) and \(\omega + \omega\) are limits. \(0\) is a limit by definition.
+\end{eg}
+
 
 
 
