@@ -820,7 +820,8 @@ which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well a
   Now consider \(f(z) = \frac{1}{p(z)}\). If \(p\) does not have a zero then \(f\) is an entire function. Moreover, since \(f\) is bounded on \(\{z: |z| \leq R\}\) by continuity and \(|f(z)| < 1\) if \(|z| > R\). By Liouville's Theorem \(f\) is constant. Absurd.
 \end{proof}
 
-\begin{theorem}[Local maximum modulus principle]\index{local maximum modulus principle}
+\begin{theorem}[Local maximum principle]\index{local maximum principle}
+  \label{thm:local maximum principle}
   Let \(f: D(a, r) \to \C\) be holomorphic. If for every \(z \in D(a, r)\), \(|f(z)| \leq |f(a)|\) then \(f\) is constant.
 \end{theorem}
 
@@ -982,6 +983,7 @@ Then
 where \(g(z) = \sum_{n = 0}^\infty c_n(z - w)^{n - m}\) is holomorphic on \(D(w, R)\) and \(g(w) \neq 0\). If \(m > 0\) we say that \(f\) has a \emph{zero of order \(m\)}\index{order of zero} at \(z = w\). Clearly \(m\) is the least \(n\) such that \(f^{(n)}(w) \neq 0\).
 
 \begin{theorem}[Principle of isolated zeros]\index{Principle of isolated zeros}
+  \label{thm:principle of isolated zeros}
   Let \(f: D(w, R) \to \C\) be holomorphic and not identically zero. Then there exists \(0 < r \leq R\) such that \(f(z) \neq 0\) for \(0 < |z - w| < r\).
 \end{theorem}
 
@@ -990,6 +992,197 @@ where \(g(z) = \sum_{n = 0}^\infty c_n(z - w)^{n - m}\) is holomorphic on \(D(w,
 
   Otherwise, \(f\) has a zero of some order \(m > 0\) at \(z = w\). Hence \(f(z) = (z - w)^mg(z)\) where \(g\) is holomorphic and \(g(w) \neq 0\). Hence there exist \(r > 0\) such that \(g\) is non-zero on \(D(w, r)\) and then \(f(z) \neq 0\) for \(0 < |z - w| < r\).
 \end{proof}
+
+\subsection{Analytic continuation}
+
+The section discusses some results coming from the interplay of holomorphic functions and general topology.
+
+\begin{theorem}[Uniqueness of analytic continuation]\index{analytic continuation}
+  Let \(D' \subseteq D\) be domains and \(f: D' \to \C\) analytic. Then there is at most one analytic function \(g: D \to \C\) such that \(g(z) = f(z)\) for \(z \in D'\).
+\end{theorem}
+
+\begin{proof}
+  This is really an exercise in connectedness. Let \(g_1, g_2: D \to \C\) be analytic continuations of \(f\). Then \(h = g_1 - g_2: D \to \C\) is analytic and \(h(z) = 0\) on \(D'\). We'll prove that \(h = 0\) on \(D\). Let
+  \begin{align*}
+    D_0 &= \{w \in D: h \text{ is identically zero on some open disc } D(w, r)\} \\
+    D_1 &= \{w \in D: h^{(n)}(w) \neq 0 \text{ for some } n \geq 0\}
+  \end{align*}
+  We saw last time that \(D = D_0 \cup D_1, D_0 \cap D_1 = \emptyset\). Moreover, \(D_0\) and \(D_1\) are open. But \(D_0 \supseteq D'\) so is non-zero. By (path-)connectedness of \(D\), \(D_0 = D\).
+\end{proof}
+
+\begin{corollary}[Identity principle]\index{Identity principle}
+  Let \(f, g: D \to \C\) be analytic functions on a domain. If
+  \[
+    S = \{z \in D: f(z) = g(z)\}
+  \]
+  contains a non-isolated point then \(f = g\) on \(D\).
+\end{corollary}
+
+\begin{proof}
+  Let \(w\) be such a non-isolated point. \(f - g\) is holomorphic in \(D\) and vanishes on \(S\) so it has a non-isolated zero. Thus by \Cref{thm:principle of isolated zeros} \(f - g\) vanishes on an open disc with centre \(w\) and by the previous theorem \(f = g\) on \(D\).
+\end{proof}
+
+\begin{remark}
+  Given \(f: D' \to \C\) analytic and \(D \supseteq D'\), extending \(f\) could be a tough problem if impossible.
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f(z) = \sum_{n = 0}^\infty z^n\) defines an analytic function on \(D(0, 1)\) and extends to \(\frac{1}{1 - z}\) on \(\C \setminus \{1\}\).
+  \item \(\sum_{n = 1}^\infty z^{n!}\) defines an analytic function on \(D(0, 1)\) but cannot be extended analytically to a domain larger than \(D(0, 1)\). \(|z| = 1\) is called the \emph{natural boundary}. See example sheet 2.
+  \item \(\zeta(s) = \sum_{n = 1}^\infty \frac{1}{n^s}\) defines an analytic function in \(\{s: \Re s > 1\}\) and has an analytic continuation to \(\C \setminus \{1\}\) but it takes effort to prove!
+  \end{enumerate}
+\end{eg}
+
+\begin{corollary}[Global maximum principle]\index{global maximum principle}
+  Let \(U \subseteq \C\) be a bounded domain. Let \(\cl U\) be the closure of \(U\) and \(f: \cl U \to \C\) continuous and holomorphic in \(U\). Then \(|f|\) attains a maximum on \(\cl U \setminus U\).
+\end{corollary}
+
+\begin{proof}
+  Recall that if \(U\) is bounded then \(\cl U\) is bounded and closed so \(|f|\) attains a maximum on \(\cl U\). Suppose the maximum is achieved at \(a \in U\). Then \Cref{thm:local maximum principle} says that \(f\) is constant on \(D(a, r)\) for some \(r > 0\). Thus \(f\) is constant on \(U\) and hence on \(\cl U\).
+\end{proof}
+
+\section{Complex Integration II}
+
+In this section we are going to prove the general form of Cauchy's theorem, by formalising ``number of loops'' of a path around a point (which is easy to do for \(C^1\) curves but difficult in the continuous case), and subsequently observe the interplay between holomorphic functions and the global topology.
+
+\subsection{Winding nubmer}
+
+Suppose \(\gamma: [a, b] \to \C\) is a closed curve (which is assumed to be \(C^1\) in this course) and \(w \in \C\) which is not in \(\gamma([a, b])\). We would like to make sense of the intuitive notion ``number of times \(\gamma\) winds around \(w\)''.
+
+\begin{definition}[Choice of argument]\index{choice of argument}
+  A continuous \emph{choice of argument} on \(\gamma\) is a continuous map \(\theta: [a, b] \to \R\) such that \(\gamma(t) = w + r(t)e^{i\theta(t)}\) for \(t \in [a, b]\), where \(r(t) = |\gamma(t) - w| > 0\).
+\end{definition}
+
+\begin{definition}[Winding number/index]\index{winding number}\index{index}
+  We define
+  \[
+    I(\gamma, w) = \frac{\theta(b) - \theta(a)}{2\pi}
+  \]
+  to be the \emph{index} of \(\gamma\) with respect to \(w\) or the \emph{winding number} of \(\gamma\) with respect to \(w\).
+\end{definition}
+
+We first show it is well-defined. If \(\theta\) and \(\theta'\) both satisfy the equation in the definition above and are both continuous, then their difference is a continuous function with values in \(2\pi\Z\), so it is constant. Hence if such \(\theta\) exists \(I(\gamma, w)\) is well-defined.
+
+Next we show that a choice of argument does exist:
+
+\begin{lemma}
+  Let \(\gamma: [a, b] \to \C \setminus \{w\}\) be a closed curve. Then there exists \(\theta: [a, b] \to \R\) continuous (in fact piecewise \(C^1\)) such that
+  \[
+    \gamma(t) = w + r(t) e^{i\theta(t)}
+  \]
+  for all \(t \in [a, b]\) where \(r(t) = |\gamma(t) - w|\).
+\end{lemma}
+
+\begin{proof}
+  Wlog assume \(\gamma\) is \(C^1\). Define
+  \[
+    h(t) = \int_a^t \frac{\gamma'(s)}{\gamma(s) - w} ds.
+  \]
+  From IA Analysis I \(h'(t) = \frac{\gamma'(t)}{\gamma(t) - w}\) so
+  \[
+    \frac{d}{dt} \left( (\gamma(t) - w) e^{-h(t)} \right)
+    = \gamma'(t)e^{-h(t)} + (\gamma(t) - w)e^{-h(t)}(-h'(t))
+    =0
+  \]
+  so \(\gamma(t) = w + (\gamma(a) - w)e^{h(t)}\) so if we set \(\theta(t) = \arg (\gamma(a) - w) + \Im h(t)\) then it is \(C^1\).
+\end{proof}
+
+\begin{remark}
+  A continuous \(\theta\) exists assuming only \(\gamma\) is continuous (but it is a bit harder).
+\end{remark}
+
+\begin{lemma}
+  Let \(\gamma: [a, b] \to \C \setminus \{w\}\) be a closed curve. Then
+  \[
+    I(\gamma, w) = \frac{1}{2\pi i} \int_\gamma \frac{dz}{z - w}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Write \(\gamma(t) = w + r(t)e^{i\theta(t)}\). Then
+  \begin{align*}
+    \int_\gamma \frac{dz}{z - w}
+    &= \int_a^b \frac{\gamma'(t)}{\gamma(t) - w} dt \\
+    &= \int_a^b (\frac{r'}{r} + i\theta') dt \\
+    &= \log r(t) + i\theta(t) \big|_a^b \\
+    &= i(\theta(b) - \theta(a)) \\
+    &= 2\pi i I(\gamma, w)
+  \end{align*}
+\end{proof}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(I(\gamma, w)\) is constant on each path-component of \(\C \setminus \gamma([a, b])\).
+  \item If \(w\) is in the unique unbounded component of \(\C \setminus \gamma([a, b])\) then \(I(\gamma,w) = 0\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  We know \(I(\gamma, \cdot): \C \setminus \gamma([a, b]) \to \Z\) takes value in \(\Z\) which is a discrete space so we would like to show it is continuous, which then implies that \(I(\gamma, \cdot)\) is constant on each path-connected component.
+
+  Take \(D(w, r)\) such that \(\cl{D(w, r)} \subseteq \C \setminus \gamma([a, b])\). Then for all \(h \in D(w, r)\),
+  \begin{align*}
+    |I(\gamma, w + h) - I(\gamma, w)|
+    &= \frac{1}{2\pi} \left| \int_\gamma\left( \frac{1}{z - w- h} - \frac{1}{z - w} \right) dz \right| \\
+    &= \frac{1}{2\pi} \left| \int_\gamma \frac{h}{(z - w - h)(z - w)} dz \right| \\
+    &= \frac{|h|}{2\pi} \left| \int_\gamma \frac{dz}{(z - w - h)(z - w)} \right| \\
+    &\leq \frac{|h|}{2\pi} \ell M \\
+    &\to 0
+  \end{align*}
+  as \(h \to 0\) where \(M = \sup \frac{1}{|z - w - h||z - w|}\) exists by continuity on a compact set.
+
+  For the second part, let
+  \[
+    w \in \{z \in \C: |z| > 2 \max_{u \in \gamma([a, b])} |u|\}.
+  \]
+  Then
+  \[
+    |I(\gamma, w)|
+    = \frac{1}{2\pi} \left| \int_\gamma \frac{dz}{z - w} \right|
+    \leq \frac{1}{2\pi} \frac{\ell}{|w|/2} \to 0
+  \]
+  as \(|w| \to \infty\).
+\end{proof}
+
+\subsection{General form of Cauchy's theorem}
+
+The winding number \(I(\gamma, w)\) can be seen as a function taking two arguments. We have seen that \(I\) is continuous with resepct to \(w\). What if we perturb \(\gamma\) a little bit? Hopefully the winding number should also be continuous in this case. It turns out that to be true, and an immediate corollary of which is that we can generalise Cauchy's theorem to a much larger class of closed curves. But before that, we have to define what it means for one curve to change continuously to another. 
+
+\begin{definition}[Homotopy]\index{homotopy}
+  Let \(\phi, \psi: [a, b] \to U\) be two piecewise \(C^1\) closed paths. A \emph{homotopy} from \(\phi\) to \(\psi\) is a map \(F: [0, 1] \times [a, b] \to U\) such that
+  \begin{itemize}
+  \item \(F\) is continuous,
+  \item \(F|_{\{0\} \times [a, b]} = \phi, F|_{\{1\} \times [a, b]} = \psi\),
+  \item for all \(s \in [0, 1]\), \(F_s(t) = F(s, t): [a, b] \to U\) is a closed piecewise \(C^2\) curve.
+  \end{itemize}
+\end{definition}
+
+Equipped with this definition, we can now make rigorous the notion of simple-connectedness, without resorting to some sloppy definition using ``absence of a hole''.
+
+\begin{definition}[Simply connected]\index{simply connected}
+  A domain \(U\) is \emph{simply connected} if every piecewise \(C^1\) closed path is homotopic to a constant path.
+\end{definition}
+
+\begin{eg}
+  A star-domain is simply-connected. Suppose \(p \in U\) is such that for all \(w \in U\) the staright segment from \(p\) to \(w\) lies in \(U\). Given a path \(\gamma\),
+  \[
+    F(s, t) = s \gamma(t) + (1 - s)p
+  \]
+  is a homotopy.
+\end{eg}
+
+\begin{definition}[Elementary deformation]\index{elementary deformation}
+  Let \(\phi, \psi: [0, 1] \to U\) be closed piecewise \(C^1\) curves. We say that \(\psi\) is an \emph{elementary deformation} of \(\phi\) if there exists \(0 = x_1 < x_1 < \dots < x_n = 1\) and convex open sets \(C_1, \dots, C_n\) in \(U\) such that for all \(t \in [x_{i - 1}, x_i]\), \(\phi(t), \psi(t) \in C_i\).
+\end{definition}
+
+Next up is a key technical proposition:
+
+\begin{proposition}
+  If \(\phi\) and \(\psi\) are homotopic closed paths in the domain \(U\), then there are \(\phi = \phi_0, \phi_1, \dots, \phi_N = \psi\) such that \(\phi_{t + 1}\) is an elementary deformation of \(\phi_t\).
+\end{proposition}
+
+This says that given two homotopic paths, we can find finitely many intermediate paths, each of which is an elementary deformation of the previous one. Elementary deformation localises paths to convex open sets on which the weak Cauchy's theorem applies, ergo allowing us to deduce the general Cauchy's theorem.
 
 
 

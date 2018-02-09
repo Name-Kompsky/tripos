@@ -10,8 +10,12 @@
 
 \input{header}
 
+\theoremstyle{definition}
+\newtheorem*{fact}{Fact}
+
 \DeclareMathOperator{\Isom}{Isom}
 \DeclareMathOperator{\mesh}{mesh}
+\newcommand*{\inner}{\innerproduct}
 
 \begin{document}
 
@@ -668,6 +672,257 @@ which is in fact surjective, so an isomrphism.
   \]
   is a double cover.
 \end{remark}
+
+\section{Triangulations and the Euler number}
+
+First introduce one more ``geometry'': the locally Euclidean torus.
+
+\begin{definition}[Torus]\index{torus}
+  The \emph{torus} \(T\) is the set \(\R^2/\Z^2\)of equivalence classes of \((x, y) \in \R^2\) with equivalence relation
+  \[
+    (x_1, y_1) \sim (x_2, y_2) \Leftrightarrow x_1 - x_2, y_1, y_2 \in \Z.
+  \]
+\end{definition}
+
+Thus a point in \(T\) is a coset \((x, y) + \Z^2\) of the subgroup \(\Z^2\) of \((\R^2, +)\).
+
+For a closed square \(Q \subseteq \R^2\) with side length \(1\), \(T\) is obtained by identifying the opposite sides.
+
+Define the distance \(d\), for \(P_1, P_2 \in T\)
+\[
+  d(P_1, P_2) = \min \{|v_1 - v_2|: v_1, v_2 \in \R^2, v_i + \Z^2 = P_i\}.
+\]
+It is easy to check \((T, d)\) is a metric space.
+
+Let \(Q^0\) be the interior of \(Q\). The natural map
+\begin{align*}
+  f: Q^0 &\to T \\
+  v &\mapsto v + \Z^2
+\end{align*}
+is a bijection onto an open set \(U = f(Q^0) \subseteq T\). Moreover \(f: Q^0 \to U\) is a homeomorphism. Let \(P \in Q\). \(f\) restricted to small open disc about \(P\) is an \emph{isometry} onto the image. Such \(d\) (on \(T\)) is said to correspond to a \emph{locally Euclidean metric} on \(T\).
+
+\(T\) maybe embedded in \(\R^3\) but the distance function we get by considering curves on \(T \subseteq \R^3\) is \emph{not} the same as the locally Euclidean distance.
+
+\begin{definition}[Topological triangle]\index{topological triangle}
+  A \emph{topological triangle} on \(X = S^2\) or \(T\) (or in general, any metric space \(X\)) is the image \(R \subseteq X\) of a closed Euclidean triangle \(\triangle \subseteq \R^2\) under a homeomorphism \(\triangle \to R\).
+\end{definition}
+
+For example, any spherical triangle is a topological triangle, by using radial projection from \(0\) to an affine plane in \(\R^2\).
+
+\begin{definition}[Topological triangulation]\index{topological triangulation}
+  A \emph{(topological) triangulation} \(\tau\) of \(X\) is a finite collection of topologtical triangles which cover \(X\) and satisfy
+  \begin{enumerate}
+  \item every two topological triangles of \(\tau\) are either disjoint, or meet in exactly one edge, or meet in exactly one vertex.
+  \item each edge belongs to exactly two triangles.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Euler number]\index{Euler number}
+  The \emph{Euler number} \(e = e(X, \tau)\) is
+  \[
+    e = F - E + V
+  \]
+  where \(F = \# \text{faces in } \tau\), \(E = \#\text{edges in } \tau\) and \(V = \# \text{vertices in } \tau\).
+\end{definition}
+
+\begin{fact}[From algebraic topology]
+  \(e\) is independent of the choice of \(\tau\), i.e.\ \(e = e(X)\).
+\end{fact}
+
+\begin{eg}
+  (See pictures.)
+
+  In both examples we use \emph{geodesic triangles}, i.e.\ used spherical triangles on \(S^2\) and Euclidean triangles on \(Q^0\).
+\end{eg}
+
+\begin{proposition}
+  Each geodesic triangulation of \(S^2\), repsectively \(T\), has \(e = 2\), respectively \(0\).
+\end{proposition}
+
+\begin{remark}
+  The results also hold without the geodesic assumption but we will not prove it in this course.
+\end{remark}
+
+\begin{proof}
+  Denote the faces \(\triangle_1, \dots, \triangle_F\) and \(\tau_i = \alpha_i + \beta_i + \gamma_i\), \(i = 1, \dots, F\) the interior angles. Then \(\sum_{i = 1}^F \tau_i = 2\pi V\). Also \(3F = 2E\) so \(F = 2E - 2F\).
+  \begin{itemize}
+  \item \(S^2\): Gauss-Bonnet says \(\operatorname{area} \triangle_i = \tau_i - \pi\) so
+    \begin{align*}
+      4\pi
+      &= \sum_{i = 1}^F \operatorname{area} \triangle_i \\
+      &= \sum_{i = 1}^F (\tau_i - \pi) \\
+      &= 2\pi V - \pi F \\
+      &= 2\pi V - 2\pi E + 2\pi F \\
+      &= 2\pi V
+    \end{align*}
+    so \(e = 2\).
+  \item \(T\): \(\tau_i = \pi\) for all \(i\) so
+    \begin{align*}
+      2\pi V &= \sum_{i = 1}^F \tau_i = \pi F \\
+      2V &= F = 2 E - 2F
+    \end{align*}
+    thus \(e = 0\).
+  \end{itemize}
+\end{proof}
+
+\begin{remark}
+  We can use topological polygonal decomposition of \(X\) and the proposition above still holds. The Euler's formula for \(S^2\) is
+  \[
+    V - E + F = 2.
+  \]
+\end{remark}
+
+\section{Hyperbolic geometry}
+
+There are three ``classical'' types of ``geometries'' and we have seen two of them: Euclidean and spherical. The third type is hyperbolic geometry. We shall require the concept of \emph{Riemannian metric} on an open \(U \subseteq \R^2\).
+
+
+\subsection{Revision of differentiability}
+
+It would be convenient to recall from IA Analysis I and IB Analysis I facts about the derivatives and make precise sense of the \emph{differentials}.
+
+Let \(U \subseteq \R^n\) be an open set, \(f = (f_1, \dots, f_m): U \to \R^m\). \(f\) is smooth, i.e.\ \(C^\infty\), if each \(f_i\) has continuous partial derivatives of every order. In particular, \(C^\infty\) implies the existence of continuous derivatives of 1st order so it is differentiable.
+
+The derivatives of \(f\) at \(a \in U\) is a linear map \(df_a: \R^n \to \R^m\) such that
+\[
+  \lim_{h \to 0} \frac{\norm{f(a + h) - f(a) - df_a \cdot h}}{\norm h} = 0.
+\]
+If \(m = 1\), \(df_a\) is determined by
+\[
+  \left( \frac{\p f}{\p x_1}(a), \dots, \frac{\p f}{\p x_n}(a) \right)
+\]
+via
+\[
+  df_a: (h_1, \dots, h_n) \mapsto \sum_{i = 1}^n \frac{\p f}{\p x_i}(a) h_ii.
+\]
+
+For general \(m\), we may use the \emph{Jacobian matrix}
+\[
+  J(f)_a = \left( \frac{\p f_i}{\p x_j}(a) \right)
+\]
+and use matrix multiplication
+\[
+  h \mapsto J(f)_ah.
+\]
+
+\begin{eg}
+  Consider a holomorphic, i.e.\ analytic function function of complex variable \(f: U \to \C\) where \(U \subseteq \C\) is open, with derivative \(f'(z)\) such that
+  \[
+    \lim_{w \to 0} \frac{|f(z + w) - f(z) - f'(z)w|}{|w|} = 0.
+  \]
+  Suppose \(f'(z) = a + ib\) and \(w = h_1 + ih_2\), then
+  \[
+    f'(z)w = (ah_1 - bh_2) + i(ah_2 + bh_1)
+  \]
+  Now identify \(\C \cong \R^2\), \(f: U \to \R^2\) has derivative \(df_z: \R^2 \to \R^2\) given by
+  \[
+    \begin{pmatrix}
+      a & -b \\
+      b & a
+    \end{pmatrix}
+  \]
+\end{eg}
+
+Chain rule: let \(U \subseteq \R^n, V \subseteq \R^p\) both open, \(f: U \to \R^m, g: V \to U\) both smooth. THen \(f \compose: V \to \R^m\) has for all \(p \in V\),
+\[
+  d(f \compose g)_p = (df)_{g(p)} \compose (dg)_p
+\]
+or in terms or Jacobians,
+\[
+  J(f \compose g)_p = J(f)_{g(p)} \cdot J(g)_p
+\]
+where \(\cdot\) denotes matrix multiplication.
+
+\subsection{Riemannian metrics on open sets in \texorpdfstring{\(\R^2\)}{ℝ\^{}2}}
+
+Use the coordinates \((u, v) \in \R^2\). Let \(V \subseteq \R^2\) be open.
+
+\begin{definition}[Riemannian metric]\index{Riemannian metric}
+  A \emph{Riemannian meric} is define by giving \(C^\infty\) functions \(E, F, G: V \to \R\) such that
+  \[
+    \begin{pmatrix}
+      E(p) & F(p) \\
+      F(p) & G(p)
+    \end{pmatrix}
+  \]
+  is a positive-definite matrix for all \(p \in V\).
+\end{definition}
+
+Hence a Riemannian metric defines an inner product \(\inner{\cdot, \cdot}_p\) on \(\R^2\).
+
+\begin{remark}
+  There are two ways to view \(\R^2\): one way is the standard vector space \(\R^2\), which has a distinguished zero vector. The other is the affine space \(\A^2\) (space of points) with operation
+  \[
+    \text{point } + \text{ vector } = \text{ point}.
+  \]
+  So the inner product could be thought of an operation on the affine space, with \(p\) identified as the zero.
+\end{remark}
+
+Let \(e_1, e_2\) be the standard basis of \(\R^2\). Then given the inner product defined above,
+\begin{align*}
+  \inner{e_1, e_1}_p &= E(p) \\
+  \inner{e_1, e_2}_p &= F(p) \\
+  \inner{e_2, e_2}_p &= G(p)
+\end{align*}
+
+\begin{notation}
+  Use \(E du^2 + 2F dudv + G dv^2\) to denote a family of inner products.
+
+  For pedagogical purpose it might be helpful to explain the origin of the notation \(du, db\). Let \(u, v: V \to \R\) be the components of the coordinates, which are \(C^\infty\). Since they are linear maps, their derivatives are just themselves, i.e.\ for all \(p \in V\)
+  \begin{align*}
+    (du)_p: \R^2 &\to \R \\
+    (h_1, h_2) &\mapsto h_1 \\
+    (dv)_p: \R^2 &\to \R \\
+    (h_1, h_2) &\mapsto h_2
+  \end{align*}
+  Since the derivatives do not depend on \(p\), we write \(du, dv\) for brevity, which are elements of the dual space \((\R^2)^*\). Furthermore, \(du, dv\) form the \emph{dual} basis to standard basis \(e_1, e_2\) of \(\R^2\). Then \(du^2, dudv, dv^2\) are symmetric bilinear forms on \(\R^2\), with
+  \begin{align*}
+    du^2(h, k) &= du(h) du(k) \\
+    dudv(h, k) &= \frac{1}{2}(du(h)dv(k) + du(k)dv(k)) \\
+    dv^2(h, k) &= \dots
+  \end{align*}
+  with matrices given by ...
+
+  and so \(Edu^2 + 2Fdudv + Gdv^2\) is indeed the bilinear form \(\begin{psmallmatrix} E & F \\ F & G \end{psmallmatrix}\).
+\end{notation}
+
+\begin{definition}[Length]\index{length}
+  The \emph{length with repsect to a Riemannian metric} of smooth curve \(\gamma = (\gamma_1, \gamma_2): [0, 1] \to V \subseteq \R^2\) is
+  \[
+    \int_0^1 \inner{\dot \gamma, \dot \gamma}_{\gamma(t)}dt = \int_0^1 (E \dot \gamma_1^2 + 2F \dot \gamma_1 \dot \gamma_2 + G \dot \gamma_2^2)^{1/2} dt.
+  \]
+\end{definition}
+
+Note that this is compatible with the definition of length in Euclidean metric, with \(E = G = 1, F = 0\).
+
+\begin{definition}
+  The \emph{area with respect to a Riemannian metric} of a region \(W \subseteq V\) is defined as
+  \[
+    \int_W (EG - F^2)^{1/2} dudb
+  \]
+  whenever the integral exists.
+\end{definition}
+
+Note that \(EG - F^2 = \det \begin{psmallmatrix} E & F \\ F & G \end{psmallmatrix}\), the Gram determinant.
+
+\begin{eg}
+  Let \(V = \R^2\) with Riemannian metric
+  \[
+    \frac{4 (du^2 + dv^2)}{(1 + u^2 + v^2)^2}.
+  \]
+  Recall the stereographic projection
+  \begin{align*}
+    \pi: S^2 \setminus \{N\} &\to \R^2 \\
+    (x, y, z) &\mapsto (u, v)
+  \end{align*}
+  For all \(P \neq N \in S^2\) have \(\pi(P) \in \R^2\) then the Riemannian metric above give \(\inner{\dot, \dot}_{\pi(p)}\).
+
+  The \emph{tangent plane} to \(S^2\) at \(P\) is
+  \[
+    \{x \in \R^3: x \cdot OP = 0\}.
+  \]
+  Then \((d\pi^{-1})_{\pi(p)}\) identifies \(\inner{\cdot, \cdot}_{\pi(p)}\) with restriction of standard inner product on \(R^2\) to the tangent plane.
+\end{eg}
 
 
 

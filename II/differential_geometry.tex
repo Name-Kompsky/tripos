@@ -665,7 +665,154 @@ In this case \(\dim X > \dim Y\).
   Thus just need to show \(\ker df_x \neq \R^{n - 1} = T_x\p X\). Done by assumption on \(f\).
 \end{proof}
 
+If \(f \transversal Z\) and \(f|_{\p X} \transversal Z\)
+\blindtext
 
+\subsection{Degree mod \(2\)}
+
+Let \(X\) be a manifold and \(Y\) be a manifold with boundary.
+
+\begin{definition}[Smooth homotopy]\index{smooth homotopy}
+  Two smooth maps \(f, g: X \to Y\) are said to be \emph{smoothly homotopic} if there exists a smooth map \(F: [0, 1] \times X \to Y\) such that \(F|_{\{0\} \times X} = f\) and \(F|_{\{1\} \times X} = g\).
+\end{definition}
+
+\begin{notation}
+  For \(t \in [0, 1]\), \(f_t = F|_{\{t\} \times X}\). It is a restriction of a smooth map so is smooth.
+\end{notation}
+
+\begin{remark}
+  \(f\) smoothly homeomorphic to \(g\) is an equivalence relation. See example sheet. This is slightly less trivial than its topological counterpart since arbitrary reparameterisation is not necessarily smooth.
+\end{remark}
+
+\begin{definition}[Smooth isotopy]\index{smooth isotopy}
+  If \(f\) and \(g\) above are smoothly homotopic diffeomorphisms and \(f_t\) is a diffeomrophism for all \(t \in [0, 1]\) then we say that \(F\) is a \emph{smooth isotopy} and \(f\) and \(g\) are \emph{smoothly isotopic}.
+\end{definition}
+
+\begin{remark}
+  This is also an equivalence relation.
+\end{remark}
+
+\begin{lemma}[Homogeneity lemma]\index{homogeneity lemma}
+  Let \(X\) be a connected manifold, \(y, z \in X\). Then there exists a map \(\varphi: X \to X\) smoothly isotopic to the identity such that \(\varphi(y) = z\).
+\end{lemma}
+
+This says that in differential topology, there is no ``particular'' point in a connected component of a manifold.
+
+\begin{proof}[Sketch of proof]
+  Say \(y\) and \(z\) isotopic if there exists such a \(\varphi\). This defines an equivalence relation \(\sim\) on \(X\). It then suffices, by connectivity, to show that the equivalence classes are open. Given \(y \in X\), must find an open neighbourhood \(V\) of \(y\) such that for all \(z \in V\), \(z \sim y\).
+
+  Suffices to show given \(z \in \cl B(0, 1) \subseteq \R^n\), there exists \(F: \R^n \times [0, 1] \to \R^n\) smooth isotopy of diffeomorphisms such that  \(f_0 = \id_{\R^n}\) and \(f_1(0) = z\) with \(f_t|_{\R^n\setminus \cl B(0, 2)}\) (by considering a chart covering ???, we can pushforward the map and extend it by identity outside the ball to ensure smoothness).
+
+  One way to do this is to use cut-off function and ODE theory.
+\end{proof}
+
+\begin{lemma}
+  Let \(X\) be a compact manifold, \(Y\) a manifold and \(\dim X = \dim Y\). Let \(f, g: X \to Y\) be smoothly homotopic. Let \(y\) be a regular value of both \(f\) and \(g\). Then
+  \[
+    \# f^{-1}(y) = \# g^{-1}(y) \pmod 2.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(F: X \times [0, 1] \to Y\) be the smooth homotopy between \(f\) and \(g\). Assume first \(y\) is a regular value of \(F\). Note that
+  \[
+    \p(X \times [0, 1]) = \{0\} \times X \cup \{1\} \times X
+  \]
+  so denote
+  \[
+    F|_{\p(X \times [0, 1])} = f \cup g.
+  \]
+  Then by generalised pre-image theorem, \(F^{-1}(y)\) is a manifold with boundary, whose boundary is
+  \[
+    \p F^{-1}(y) = F^{-1} \cap \p(X \times [0, 1]) = \left( \bigcup_{x \in f^{-1}(y)}\{0\} \times \{x\}\right) \cup \left( \bigcup_{x \in g^{-1}(y)}\{1\} \times \{x\}\right).
+  \]
+  By assumption \(F^{-1}(y)\) is a compact \(1\)-dim manifold, which by classification above is a union of disjoint circles or closed intervales. But both of these have even number of boundary points so
+  \[
+    \# \p F^{-1}(y) = \# f^{-1}(y) + \# g^{-1}(y) = 0 \pmod 2.
+  \]
+
+  Suppose instead \(y\) is not a regular value of \(F\). Consider an open neighbourhood \(V \subseteq Y\) of \(y\). By Sard's Theorem the sets of critical values of \(f, g\) and \(F\) are all of measure \(0\), so is the union of them. Then there exist \(\tilde y \in V\) that is a regular value of \(f, g, F\). But by stack of records theorem there exists \(V\) containing \(y\) such that \(f^{-1}(V) = \bigcup_{i = 1}^n U_i\) such that \(f|_{U_i}: U_i \to V\) is a diffeomorphism. 
+\end{proof}
+
+\begin{theorem}[Degree mod \(2\)]
+  If \(y\) and \(z\) are regular values of \(f\) then
+  \[
+    \# f^{-1}(y) = f^{-1}(z) \pmod (2).
+  \]
+\end{theorem}
+
+\begin{proof}
+  \blindtext
+\end{proof}
+
+Putting everyting together, under the assumptions above, we have \(f^{-1}(y)\) does not depend on the choice of regular value \(y\). Moreover if \(g\) is smoothly homotopic to \(f\) then \(g^{-1}(z) = f^{-1}(y) \pmod 2\) for any regular value \(z\) of \(g\).
+
+\begin{definition}[Degree mod \(2\)]\index{degree mod \(2\)}
+  Suppose \(X\) is a compact manifold, \(Y\) a connected manifold and \(\dim X = \dim Y\). Let \(f: X \to Y\) be a smooth map. Then the \emph{degree mod \(2\)} of \(f\), denoted \(\deg_2(f)\), is defiend to be \(\# f^{-1}(y) \pmod 2\) for some regular value \(y\) of \(f\).
+\end{definition}
+
+By Sard's theorem, there exists a regular value and by theorems above, this is well-defined. Moreover, this only depends on the homotopy class of \(f\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(X, Y = S^n\), \(f: X \to Y\) be a constant map. Then \(\deg_2 f = 0\) since we can find \(y \in Y \setminus \Im f\) and \(\# f^{-1}(y) = 0\).
+  \item Let \(X, Y = S^n\), \(\id: X \to Y\) be the identity. Then \(\deg_2 \id = 1\). Thus \(f\) and \(\id\) are not smoothly homotopic.
+  \end{enumerate}
+\end{eg}
+
+\begin{corollary}
+  There does not exist a smooth retraction \(B^n \to \p B^n= S^{n - 1}\), i.e.\ a map \(f: B^n \to \p B^n\) such that \(f|_{\p B^n}: \p B^n \to \p B^n\) is the identity.
+\end{corollary}
+
+\begin{proof}
+  Suppose not. Define
+  \begin{align*}
+    F: S^{n - 1} \times [0, 1] &\to S^{n - 1} \\
+    (x, t) &\mapsto f(tx)
+  \end{align*}
+  whose smoothness is left as an exercise. Then \(F\) is an homotopy of \(f\) and \(\id\). Absurd.
+\end{proof}
+
+\begin{corollary}[Brouwer's fixed point theorem]\index{Brouwer's fixed point theorem}
+  Let \(f: B^n \to B^n\) be smooth. Then there exists \(x_0 \in B^n\) such that \(f(x_0) = x_0\).
+\end{corollary}
+
+\begin{proof}
+  Suppose \(f\) is smooth without fixed point. Then the ray from \(f(x)\) to \(x\) intersects \(\p B^n\) at precisely one point, say \(g(x)\). Claim that \(g\) is smooth (left as an exercise). If \(x \in \p B^n\) then \(g(x) = x\). Then \(g\) is a smooth retraction. Absurd.
+\end{proof}
+
+\begin{corollary}[Brouwer's fixed point theorem]\index{Brouwer's fixed point theorem}
+  Same true with continuous assumption.
+\end{corollary}
+
+\begin{proof}
+  Weierstrass approximation theorem.
+\end{proof}
+
+\subsubsection{Intersection number mod 2}
+
+Let \(X\) be a compact manifold, \(Y\) be a manifold, \(Z \subseteq Y\) a closed subset. Suppose \(f: X \to Y\) is smooth and \(f \transversal Z\) and \(\dim X + \dim Z = \dim Y\).
+
+\begin{definition}
+  The \emph{intersection number mod 2} is
+  \[
+    I_2(f, Z) = \# f^{-1}(Z) \pmod 2.
+  \]
+\end{definition}
+
+Claim that if \(f\) and \(g\) are smoothly homotopic and \(g \transversal Z\) then \(I_2(f, Z) = I_2(g, Z)\).
+
+In the speical case \(X \subseteq Y\), we have \(X \transversal Z\) and denote it \(I_2(X, Z)\).
+
+\begin{eg}
+  Let \(Y\) be a torus. Let \(X\) and \(Z\) be the two ``perpendicular circles'' on \(Y\). Then \(I_2(X, Z) = 1\).
+\end{eg}
+
+It turns out we can still define intersection number \emph{without} the assumption \(X \transversal Z\).
+
+\begin{eg}
+  Suppose \(\dim Y\) is even and \(\dim X\) is \(\frac{\dim Y}{2}\). Note that \(X\) is not transversal to \(X\). Let \(Y\) be the Möbius band and \(X\) a central circle, \(I_2(X, X) = 1\).
+\end{eg}
 
 
 
@@ -679,7 +826,7 @@ In this case \(\dim X > \dim Y\).
 Classical differential geometry concerning geometries of curves and surfaces, from a modern point of view
 
 Contents:
-I: notions of smmoth \(k\)-dim manifolds. We study differntial topology.
+I: notions of smmoth \(k\)-dim manifolds. We study differential topology.
 
 Geometry is concerned with the study of rigid motions
 

@@ -1000,9 +1000,249 @@ The solution of this ODE satisfies
   &= y(t_n) + \int_{t_n}^{t_{n + 1}} f(\tau, y(\tau)) d\tau \\
   &= y(t_n) + h \int_0^1 f(t_n + \alpha h, y(t_n + \alpha h)) d\alpha \\
 \intertext{at this point we can apply quadrature formulas}
-  &\approx y(t_n) + h \sum_{j = 1}^\nu b_j f(t_n + c_j h, y(t_n + c_j h)) d\alpha
+  &\approx y(t_n) + h \sum_{j = 1}^\nu b_j \underbrace{f(t_n + c_j h, y(t_n + c_j h))}_{\approx k_j}
 \end{align*}
-and Runge-Kutta will give estimates to the \(y_n\)'s.
+and Runge-Kutta will give estimates to the \(k_j\)'s.
+
+The \emph{explicit Runge-Kutta method}\index{Runge-Kutta method} is
+\[
+  y_{n + 1} = y_n + h \sum_{\ell = 1}^\nu b_\ell k_\ell
+\]
+with
+\begin{align*}
+  k_1 &= f(t_n, y_n) \\
+  k_2 &= f(t_n + c_2h, y_n + c_2hk_1) \\
+      &\vdots \\
+  k_\nu &= f(t_n + c_\nu h, y_n + h \sum_{j = 1}^{\nu - 1} a_{j, \nu} k_j)
+\end{align*}
+where \(\sum_{j = 1}^{\nu - 1} a_{j, \nu} = c_\nu\).
+
+\begin{eg}
+  \(\nu = 2\). We have
+  \[
+    y_{n + 1} = y_n + h(b_1k_1 + b_2k_2)
+  \]
+  where
+  \begin{align*}
+    k_1 &= f(t_n, y_n) \\
+    k_2 &= f(t_n + c_2h, y_n + c_2hk_1)
+  \end{align*}
+  The order of the Runge-Kutta method is defined to be the largest integer \(p \geq 0\) such that
+  \[
+    y(t_{n + 1}) - y(t_n) - h(b_1k_1 + b_2k_2) = O(h^{p + 1})
+  \]
+  where \(y\) is the solution of the ODE. For the above case we have
+  \begin{align*}
+    k_1 &= f(t_n, y(t_n)) = y'(t_n) \\
+    k_2 &= f(t_n + c_2h, y(t_n + c_2h)) \\
+        &= f(t_n + c_2h, y(t_n) + c_2hy'(t_n) + O(h^2)) \\
+        &= f(t_n, y(t_n)) + \frac{\p f}{\p t} c_2h + \frac{\p f}{\p y} (c_2hy'(t_n) + O(h^2)) + O(h^2) \\
+        &= f(t_n, y(t_n)) + hc_2 \underbrace{\left( \frac{\p f}{\p t} + \frac{\p f}{\p y} y'(t_n) \right)}_{y''(t_n)} + O(h^2)
+  \end{align*}
+  Thus after some calculation we find that
+  \begin{align*}
+    &\phantom{={}}y(t_{n + 1}) - y(t_n) - h(b_1k_1 + b_2k_2) \\
+    &= hy'(t_n)(1 - b_1 - b_2) + h^2y''(t_n)(\frac{1}{2} - b_2c_2) + O(h^3)
+  \end{align*}
+  Thus if
+  \begin{align*}
+    1 - b_1 - b_2 &= 0 \\
+    \frac{1}{2} - b_2c_2 &= 0
+  \end{align*}
+  the method has order \(\geq 2\).
+\end{eg}
+
+Now let's prove that the order cannot be \(\geq 3\), by exhibiting a ODE whose analytic solution is known. Consider
+\begin{align*}
+  y' &= y \\
+  y(0) &= 1
+\end{align*}
+The solution of this ODE is \(y(t) = e^t\). Thus
+\begin{align*}
+  k_1 &= f(t_n, y(t_n)) = y(t_n) = e^{t_n} \\
+  k_2 &= f(t_n + c_2h, y(t_n) + c_2hk_1) = y(t_n) + c_2hk_1 = e^{t_n}(1 + c_2h)
+\end{align*}
+so
+\begin{align*}
+  &\phantom{={}}y(t_{n + 1}) - y(t_n) - h(b_1k_1 + b_2k_2) \\
+  &= e^{t_n + h} - e^{t_n} - he^{t_n}(b_1 + b_2(1 + c_2h)) \\
+  &= e^{t_n}(e^h - 1 -h(b_1 + b_2(1 + c_2h))) \\
+  &= e^{t_n}(h + \frac{h^2}{2} + \frac{h^3}{6} + O(h^3) - h(b_1 + b_2) - h^2b_2c_2) \\
+  &= e^{t_n}(h(1 - b_1 - b_2) + h^2(\frac{1}{2} - b_2c_2) + \frac{h^3}{6} + O(h^3))
+\end{align*}
+which has a non-vanishing \(h^3\) term.
+
+In general, a Runge-Kutta method has the form
+\[
+  y_{n + 1} = y_n + h \sum_{\ell = 1}^\nu b_\ell k_\ell
+\]
+where
+\[
+  k_\ell = f(t_n + c_\ell h, y_n + h \sum_{j = 1}^\nu a_{\ell, j} k_j)
+\]
+and \(\sum_{j = 1}^\nu a_{\ell, j} = c_\ell\).
+
+For explicit Runge-Kutta method, \(a_{\ell, j} = 0\) for \(j \geq \ell\), i.e.\ the matrix \(a_{\ell, j}\) is lower triangular.
+
+\subsection{Stiffness}
+
+Consider the ODE
+\[
+  y' = \lambda y, \, y(0) = 1.
+\]
+The solution is \(y(t) = e^{\lambda t}\) and if \(\lambda < 0\), \(\lim_{t \to \infty} y(t) = 0\). If we solve our ODE using a numerical method, we want \(\lim_{n \to \infty} y_n = 0\).
+
+For example, explicit Euler gives
+\[
+  y_n = (1  + h\lambda)^n
+\]
+which goes to zero as \(n \to \infty\) if and only if \(|1 + h\lambda| < 1\), i.e.\ \(h < \frac{2}{|\lambda|}\).
+
+On the other hand, implicit Euler gives
+\[
+  y_{n + 1} = (1 - h\lambda)^{-n}
+\]
+which goes to \(0\) as \(n \to \infty\) for any \(h > 0\).
+
+\begin{definition}[Linear stability domain]\index{linear stability domain}
+  Consider a numerical method for the ODE
+  \[
+    y' = \lambda y, \, y(0) = 1
+  \]
+  that produces sequence \((y_n)_{n \geq 0}\). The \emph{linear stability domain} of the method is
+  \[
+    \mathcal D = \{h\lambda \in \C: \lim_{n \to \infty} y_n = 0\}.
+  \]
+\end{definition}
+
+\begin{definition}[\(A\)-stable]\index{\(A\)-stable}
+  We say the method is \emph{\(A\)-stable} if \(\C^- \subseteq \mathcal D\) where \(\C^- = \{z \in \C: \Re z < 0\}\).
+\end{definition}
+
+\begin{eg}
+  For explicit Euler method,
+  \[
+    \mathcal D = \{h\lambda \in \C: |1 + h\lambda| < 1\}
+    = \{z \in \C: |1 + z| < 1\}.
+  \]
+  which is \(A\)-stable.
+  
+  For the implicit Euler method,
+  \[
+    \mathcal D
+    = \{z \in \C: |(1 - z)^{-1}| < 1\}
+    = \{z \in \C: |1 - z| > 1\}
+  \]
+  which is \(A\)-stable.
+\end{eg}
+
+\begin{eg}[Trapezoidal rule]
+  \[
+    y_{n + 1} = y_n + \frac{h}{2}(f(t_n, y_n), f(t_{n + 1}, y_{n + 1}))
+  \]
+  Assume \(f(t, y) = \lambda y\) so
+  \begin{align*}
+    y_{n + 1}(1 - \frac{1}{2}h\lambda) &= (1 + \frac{1}{2}h\lambda)y_n \\
+    y_n &= \left( \frac{1 + \frac{1}{2}h\lambda}{1 - \frac{1}{2}h\lambda} \right)^n y_0
+  \end{align*}
+  so the linear stability domain is
+  \[
+    \mathcal D = \{z \in \C: \Re z < 0\}.
+  \]
+  Thus trapezoidal rule is \(A\)-stable.
+\end{eg}
+
+\begin{theorem}[Second Dahlquist barrier]\index{second Dahlquist barrier}
+  Any \(A\)-stable multistep method has order \(\leq 2\).
+\end{theorem}
+
+This is a bad news for multistep methods. One way to get around this is to relax \(A\)-stability. Recall the backward differentiation formula (BDF) is an \(s\)-step method with \(\sigma(w) = \sigma_sw^s\). It is almost \(A\)-stable (see pictures in lecture).
+
+\subsubsection{Stiffness and Runge-Kutta}
+
+Consider the \(2\)-stage implicit Runge-Kutta method
+\[
+  y_{n + 1} = y_n + \frac{1}{4}h(k_1 + 3k_2)
+\]
+where
+\begin{align*}
+  k_1 &= f(t_n, y_n + \frac{1}{4}h (k_1 - k_2)) \\
+  k_2 &= f(t_n, + \frac{2}{3}h, y_n + \frac{1}{12}h (3k_1 + 5k_2))
+\end{align*}
+
+Let's compute its linear stability domain. Assume \(f(t, y) = \lambda y\) so
+\begin{align*}
+  k_1 &= \lambda y_n + \frac{1}{12}\lambda h (k_1 - K_2) \\
+  k_2 &= \lambda y_n + \frac{1}{12}\lambda h(3k_1 + 5k_2)
+\end{align*}
+Solve to get
+\[
+  \begin{pmatrix}
+    k_1 \\
+    k_2
+  \end{pmatrix}
+  = \frac{\lambda y_n}{1 - \frac{2}{3}h \lambda + \frac{1}{6}(h\lambda)^2}
+  \begin{pmatrix}
+    1 - \frac{2}{3}h\lambda \\
+    1
+  \end{pmatrix}
+\]
+The solution to the original problem is
+\[
+  y_{n + 1} = \frac{1 + \frac{1}{3}h\lambda}{1 - \frac{2}{3}h\lambda + \frac{1}{6}(h\lambda)^2}y_n
+\]
+so the linear stability domain is the region where the modulus of the factor is small than \(1\), i.e.
+\[
+  \mathcal D = \{z \in \C: |r(z)| < 1\}
+\]
+where \(r(z) = \frac{1 + \frac{1}{3}z}{1 - \frac{2}{3}z + \frac{1}{6}z^2}\). To show it is \(A\)-stable, we use maximum modulus principle from IB Complex Analysis. First notice that \(r(z)\) is a rational function with poles \(2 \pm \sqrt 2 i\). As \(r(z)\) is analytic in the negative real half plane, \(\max|r(z)|\) is attained at the boundary of the domain, i.e.\ \(i\R\). For all \(t \in \R\),
+\[
+  |r(it)| = \frac{|1 + \frac{1}{3}it|}{|1 - \frac{2}{3}it - \frac{1}{6}t^2|}
+\]
+so \(|r(it)|^2 \leq 1\) if and only if
+\[
+  1 + \frac{1}{9}t^2 \leq (1 - \frac{1}{6}t^2)^2 + (\frac{2}{3}t)^2,
+\]
+if and only if
+\[
+  \frac{1}{36}t^4 \geq 0.
+\]
+Thus the method is \(A\)-stable.
+
+Let's show that our implicit Runge-Kutta method has order \(\geq 3\). We will restrict our attention to only scalar autonomous equations \(y' = f(t)\). Let \(y\) be the solution of our ODE. Write \(y\) for \(y_n\). Then
+\begin{align*}
+  k_1 &= f(y + \frac{1}{4}h(k_1 - k_2)) \\
+      &= f(y) + \frac{1}{4}h(k_1 - k_2) f' + \frac{1}{32}h^2(k_1 - k_2)^2 f'' + O(h^3) \\
+  k_2 &= f(y + \frac{1}{12}h(3k_1 + 5k_2) \\
+      &= f(y) + \frac{1}{12}h(3k_1 + 5k_2)f' + \frac{1}{288}h^2(3k_1 + 5k_2)^2 f'' + O(h^3)
+\end{align*}
+It is difficult and tedious to solve this directly, but we could use a trick to extract the coefficients iterataively. To first order
+\begin{align*}
+  k_1 &= f(y) + O(h) \\
+  k_2 &= f(y) + O(h)
+\end{align*}
+Plug in to get
+\begin{align*}
+  k_1 &= f(y) + O(h^2) \\
+  k_2 &= f(y) + \frac{8}{12}h f'f(y) + O(h^2)
+\end{align*}
+Plug in again,
+\begin{align*}
+  k_1 &= f(y) - \frac{1}{6}h^2 (f')^2f(y) + O(h^3) \\
+  k_2 &= f(y) + \frac{2}{3}h f' f(y) + h^2(\frac{5}{18} (f')^2 f(y) + \frac{2}{9} f'' f(y)^2) + O(h^3)
+\end{align*}
+Use these values to compute local error,
+\begin{align*}
+  \cdots
+\end{align*}
+
+\blindtext
+
+
+
+
+
+
 
 
 

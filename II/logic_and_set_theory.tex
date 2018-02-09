@@ -746,6 +746,163 @@ If no, then for every \(\beta < \alpha\), then there exists \(\gamma < \alpha\) 
   \(5\) and \(\omega + 5\) are successors. \(\omega\) and \(\omega + \omega\) are limits. \(0\) is a limit by definition.
 \end{eg}
 
+\subsection{Ordinal arithmetics}
+
+Missed a lecture
+
+\begin{definition}[Ordinal multiplication (inductive)]\index{ordinal multiplication}
+  Define \(\alpha\beta\) recursively by
+  \begin{itemize}
+  \item \(\alpha 0 = 0\),
+  \item \(\alpha(\beta^+) = \alpha\beta + \alpha\),
+  \item \(\alpha\lambda = \sup\{\alpha\gamma: \gamma < \lambda\}\) for \(\lambda\) a non-zero limit,
+  \end{itemize}
+\end{definition}
+
+\begin{eg}
+  \begin{align*}
+    \omega 1 &= \omega 0 + \omega = 0 + \omega = \omega \\
+    \omega 2 &= \omega 1 + \omega = \omega + \omega \\
+    \omega\omega &= \sup \{\omega\gamma: \gamma < \omega\} = \sup \{0, \omega, \omega + \omega, \dots\} \\
+    2 \omega &= \sup \{2\gamma: \gamma < \omega\} = \omega
+  \end{align*}
+  In particular this shows multiplication is not commutative.
+\end{eg}
+
+\begin{definition}[Ordinal multiplication (synthetic)]\index{ordinal multiplication}
+  \(\alpha\beta\) is the order-type of \(\alpha \times \beta\), with \((x, y) < (z, w)\) if either \(y < w\) or \(y = w\) and \(x < z\).
+\end{definition}
+
+We can check that the definitions agree and associativity of multiplication etc.
+
+\begin{definition}[Ordinal exponentiation]\index{ordinal exponentiation}
+  Define \(\alpha^\beta\) recursively by
+  \begin{itemize}
+  \item \(\alpha^0 = 1\),
+  \item \(\alpha^{\beta^+} = \alpha^\beta \cdot \alpha\),
+  \item \(\alpha^\lambda = \sup\{\alpha^\gamma: \gamma < \lambda\}\) for \(\lambda\) a non-zero limit.
+  \end{itemize}
+\end{definition}
+
+\begin{eg}
+  \begin{align*}
+    \omega^1 &= \omega^0 \cdot \omega = 1 \cdot \omega = \omega \\
+    \omega^2 &= \omega^1 \cdot \omega = \omega \cdot \omega \\
+    2^\omega &= \sup\{2^\gamma: \gamma < \omega\} = \omega
+  \end{align*}
+  Note that \(2^\omega\) is countable.
+\end{eg}
+
+Similarly we can define towers and other arithmetic operations inductively. It is left as an exercise.
+
+\section{Posets and Zorn's Lemma}
+
+\subsection{Partial orders}
+
+\begin{definition}[Poset]\index{poset}
+  A \emph{partially ordered set} or \emph{poset} is a pair \((X, \leq)\) where \(X\) is a set and \(\leq\) is a relation on \(X\) that is
+  \begin{enumerate}
+  \item reflexive: for all \(x\), \(x \leq x\),
+  \item transitive: for all \(x, y, z\), \(x \leq y, y \leq z\) implies \(x \leq z\),
+  \item antisymmetry: for all \(x, y\), \(x \leq y, y \leq x\) implies \(x = y\).
+  \end{enumerate}
+\end{definition}
+
+\begin{notation}
+  Write \(x < y\) if \(x \leq y, x \neq y\).
+
+  In terms of \(<\), a poset is
+  \begin{enumerate}
+  \item irreflexive: for all \(x\), not \(x < x\),
+  \item transitive: for all \(x, y, z\), \(x < y, y < z\) implies \(x < z\).
+  \end{enumerate}
+\end{notation}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Any total order.
+  \item \(\N^+\) with ``divides''.
+  \item For any set \(S\), \(\mathcal P(S)\) with \(x \leq y\) if \(x \subseteq y\).
+  \item Any \(X \subseteq \mathcal P(S)\) with same relation as above. This specialises to, for example, all subspaces of a given vector space.
+  \item We can draw a \emph{Hasse diagram}: for a poset \(X\) consists of a drawing of the posets of \(X\), with an upward line from \(x\) to \(y\) if \(y\) covers \(x\), meaning \(y > x\) and no \(z\) such that \(y > z > x\). For example
+    \[
+      \begin{tikzcd}
+        c \ar[dr, dash] & & & & e \ar[dl, dash] \\
+        & b \ar[dr, dash] & & d \ar[dl, dash] \\
+        & & a
+      \end{tikzcd}
+    \]
+    Hasse diagrams can be useful to visualise a poset (e.g.\ \(\N\)), or useless (e.g.\ \(\Q\)).
+  \item In
+    \[
+      \begin{tikzcd}
+        & c \ar[dl, dash] \ar[dr, dash] \\
+        b \ar[ddr, dash] & & c \ar[d, dash] \\
+        & & d \ar[dl, dash] \\
+        & a
+      \end{tikzcd}
+    \]
+    \(b\) and \(d\) are unrelated so there is no sense of ``height'' or ``rank''.
+  \item
+    \[
+      \begin{tikzcd}
+        & c \ar[dl, dash] \ar[dr, dash] \\
+        b \ar[d, dash] \ar[drr, dash] & & e \ar[d, dash] \ar[dll, dash] \\
+        a & & d
+      \end{tikzcd}
+    \]
+  \item A set in which in which no two elements are related is a poset.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Chain]\index{chain}
+  In a poset \(X\), a \emph{chain} is a set \(S \subseteq X\) that is totally ordered: for all \(x, y \in S\), \(x \leq y\) or \(y \leq x\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Any subset of 1 above.
+  \item In 2, \(\{1, 2, 4, 8, 16\}\).
+  \item In 5, \(\{a, b, c\}\) or \(\{a, c\}\) but not \(\{b, d\}\).
+  \item In 8, only singletons and \(\emptyset\).
+  \end{enumerate}
+\end{eg}
+
+\begin{note}
+  Chains can be uncoutable, e.g.\ \((\R, \leq)\).
+\end{note}
+
+\begin{definition}[Anti-chain]\index{anti-chain}
+  Give a poset \(X\), \(S \subseteq X\) is an \emph{anti-chain} if no two elements are related: for all \(x, y \in S\), \(x \neq y\) implies that not \(x < y\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item In 2: the set of primes.
+  \item In 5, \(\{c, e\}\) or \(\{c, e\}\), or \(\{b\}\).
+  \item In 8, every subset.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Upper bound]\index{upper bound}
+  Give a poset \(X\), \(S \subseteq X\), an \emph{upper bound} for \(S\) is any \(x \in X\) such that \(x \geq y\) for all \(y \in S\).
+\end{definition}
+
+\begin{definition}[Least upper bound]\index{least upper bound}\index{supremum}
+  Say \(X\) is a \emph{least upper bound} or \emph{supremum} for \(S\) if \(x\) is an upper bound for \(S\) and \(x \leq y\) for every upper bound \(y\) for \(S\). Write \(x = \sup S\) or \(x = \bigvee S\), the ``join'' of \(S\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item In \(\R\), \(\{x: x^2 < 2\}\) has \(7\) as an upper bound and \(\sqrt 2\) as a supremum. This shows that \(\sup S\) need not be in \(S\).
+  \item In \(\R\), the set \(\Z\) has no upper bound.
+  \item In \(\Q\), \(\{x: x^2 < 2\}\) has \(7\) as an upper bound but no supremum.
+  \item In 5, \(\{a, b\}\) has upper bounds \(b\) and \(c\) and supremum \(b\).
+  \item In 5, \(\{b, d\}\) has no upper bound.
+  \item In 7, \(\{b, d\}\) has upper bounds \(c, b, e\) but no supremum.
+  \end{enumerate}
+\end{eg}
+
 
 
 
