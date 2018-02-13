@@ -1238,6 +1238,130 @@ Use these values to compute local error,
 
 \blindtext
 
+\subsection{Implementation of ODE methods}
+
+\subsubsection{Error control}
+
+Milne device:
+
+Given the trapezoidal rule
+\[
+  y_{n + 1} = y_n + \frac{1}{2}h(f(t_n, y_n) + f(t_{n + 1}, y_{n + 1}),
+\]
+we want to get an estimate of \(y_{n + 1} - y(t_{n + 1})\),
+\begin{align*}
+  y(t_{n + 1}) - y_{n + 1}
+  &= -\frac{1}{12}h^3y'''(t_n) + O(h^4)
+\end{align*}
+where \(-\frac{1}{12}\) is called the \emph{error constant} of the trapezoidal rule.
+
+We secretly run another method in the background:
+Adams-Bashforth
+\[
+  y_{n + 1} = y_n + \dots
+\]
+has order \(2\). By expansion,
+\[
+  y(t_{n + 1}) - y_{n + 1} = \frac{5}{12}h^3y'''(t_n) + O(h^4)
+\]
+so the error constant is \(\frac{5}{12}\).
+
+Then
+\[
+  y_{n + 1}^{\text{AB}} - y_{n + 1}^{\text{TR}} = (-\frac{1}{12} - \frac{5}{12})h^3y'''(t_n) + O(h^4)
+\]
+so
+\[
+  h^3y'''(t_n) \approx -2(t_{n + 1}^{\text{AB}} - y_{n + 1}^{\text{TR}}.
+\]
+Plugging into the eqution for trapezoidal rule,
+\[
+  y_{n + 1}^{\text{TR}} - y(t_{n + 1}) \approx \frac{1}{6} (y_{n + 1}^{\text{TR}} - y_{n + 1}^{\text{AB}}.
+\]
+
+More generally, we work with a pair of multistep methods of the same order
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{cc}
+    predictor & explicit \\
+    corrector & implicity
+  \end{tabular}
+\end{table}
+
+There are two goals for having a predictor:
+\begin{enumerate}
+\item get initial guess when solving algebraic equation for the (implicit) corrector method.
+\item error control: provide an estimate of the error incurred by the corrector.
+\end{enumerate}
+
+Let \(tol > 0\) be the error tolerance probided by user. Let \(\norm{\text{error}}\) be the estimate of the local error as computed in the previous.
+\begin{enumerate}
+\item \blindtext
+\end{enumerate}
+
+\subsubsection{Embedded Runge-Kutta}
+
+The two-step Runge-Kutta method is
+\begin{align*}
+  k_1 &= f(t_n, y_n) \\
+  k_2 &= f(t_n + \frac{1}{2}h, y_n + \frac{1}{2}hk_1) \\
+  y_{n + 1}^1 &= y_n + hk_2
+\end{align*}
+which has order \(2\). We can further define
+\begin{align*}
+  k_3 &= f(t_n + h, y_n - h + 2hk_1) \\
+  y_{n + 1}^2 &= y_n + \frac{1}{6}h(k_1 + hk_2 + k_3)
+\end{align*}
+which has order \(3\). Then we can use the second method as the ``true'' value of the function to estimate the error the first method, i.e.
+\[
+  y_{n + 1}^1 - y(t_{n + 1}) \approx y_{n + 1}^1 - y_{n + 2}^2.
+\]
+
+Zadunaisky device: the idea is to define another ODE
+\begin{equation}
+  \label{eqn:Zadunaisky2}
+  z' = g(t, z)
+  \tag{\(\ast\)}
+\end{equation}
+``close'' to our ODE
+\begin{equation}
+  \label{eqn:Zadunaisky1}
+  y' = f(t, y)
+  \tag{\(\ast\ast\)}
+\end{equation}
+and such that we know the exact solution to \eqref{eqn:Zadunaisky2}. Our estimate of the error will be
+\[
+  y_{n + 1} - y(t_{n + 1}) \approx z_{n + 1} - z(t_{n + 1})
+\]
+where the first term on RHS is what we get by running the numerical method for \eqref{eqn:Zadunaisky2} and the second term is its analytic solution, which is known.
+
+Let \(y_n, y_{n - 1}, \dots, y_{n - p}\) be past solution values define by running the numerical method for \eqref{eqn:Zadunaisky1}. Let \(d\) be a degree \(p\) polynomial that interpolates these the values \(d(t_{n - k}) = y_{n - k}\) for \(0 \leq k \leq p\). Our approximate ODE is
+\[
+  z' = f(t, z) + (d' - f(t, d))
+\]
+where the second term on RHS is small since \(d \approx y\) and \(y' = f(t, y)\). The solution of this ODE is just \(z = d\).
+
+That's all we are going to talk about error control.
+
+There is one problem we still haven't discussed: solving nonlinear algebraic equations.
+
+An implicit \(s\)-step method has the form
+\[
+  y_{n + s} = h \sigma_s f(t_{n + s}, y_{n + s}) + v
+\]
+where \(v\) only depends on previous values \(y_n, \dots, y_{n + s - 1}\). One way is to use \emph{functional iteration} or \emph{fixed point iteration}:
+\begin{enumerate}
+\item given initial guess \(y_{n + s}^0\) for \(y_{n + s}\) (for example from predictor method)
+\item iteration
+  \[
+    y_{n + s}^{j + 1} = h \sigma_s f(t_{n + s}, y_{n + s}^j) + v.
+  \]
+\item (Hope it converges to the actual value.)
+\end{enumerate}
+
+
+
+
 
 
 

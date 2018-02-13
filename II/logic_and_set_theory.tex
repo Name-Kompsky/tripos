@@ -903,7 +903,114 @@ Similarly we can define towers and other arithmetic operations inductively. It i
   \end{enumerate}
 \end{eg}
 
+\begin{definition}[Completeness]\index{completeness}
+  A poset is \emph{complete} if every subset has a supremum.
+\end{definition}
 
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \((\R, \leq)\) is not complete as \(\Z\) has no supremum. Thus completeness in posets is different to that from analysis.
+  \item \([0, 1]\) is complete.
+  \item \((0, 1)\) is not complete as \((0, 1)\) itself has no supremum.
+  \item \(\mathcal P(S)\) is always complete --- \(\{A_i\}_{i \in I}\) has supremum \(\bigcup_{i \in I} A_i\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Order-preserving map]\index{order-preserving map}
+  A function \(f: X \to X\) where \(X\) is a poset is \emph{order-preserving} if \(f(x) \leq f(y)\) for all \(x \leq y\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item On \(\N\), \(f(x) = x + 1\).
+  \item On \([0, 1]\), \(f(x) = \frac{1 + x}{2}\), ``halve to the distance to \(1\)''.
+  \item On \(\mathcal P(S)\), \(f(A) = A \cup \{i\}\) for some fixed \(i \in S\).
+  \end{enumerate}
+\end{eg}
+
+From above not every order-preserving function has a fixed point. But just as in Contraction Mapping Theorem, we can add condition to the space to make this happen. Unsurprisingly, this condition is completeness:
+
+\begin{theorem}[Knaster-Tarski fixed point theorem]\index{Knaster-Tarski fixed point theorem}
+  Let \(X\) be a complete poset. Then every order-preserving function \(f: X \to X\) has a fixed point.
+\end{theorem}
+
+\begin{proof}
+  Let \(E = \{x \in X: x \leq f(x)\}\) and \(s = \sup E\). To show \(f(s) = s\), we show both \(s \leq f(s)\) and \(s \geq f(x)\).
+  \begin{itemize}
+  \item \(s \leq f(s)\): suffices to show \(f(s)\) is an upper bound for \(E\) (as \(s\) is the least upper bound). But
+    \[
+      x \in E \implies x \leq s \implies f(x) \leq f(s) \implies x \leq f(x) \leq f(s).
+    \]
+  \item \(s \geq f(s)\): suffices to show \(f(s) \in E\) (as \(s\) is an upper bound). We know \(s \leq f(s)\), so \(f(s) \leq f(f(s))\) since \(f\) is order preserving.
+  \end{itemize}
+\end{proof}
+
+\begin{note}
+  In any complete poset \(X\), we have a greatest element, namely \(\sup X\). We also have a least element, namely \(\sup \emptyset\).
+\end{note}
+
+A typical application of Knaster-Tarski is
+
+\begin{theorem}[Schröder-Berstein theorem]\index{Schröder-Berstein theorem}
+  Let \(A, B\) be sets such that there is an injection \(f: A \to B\) and injection \(g: B \to A\), then there exists a bijection from \(A\) to \(B\).
+\end{theorem}
+
+\begin{proof}
+  Seek partitions \(A = P \cup Q, B = R \cup S\) such that \(f(P) = R, g(S) = Q\). Then done by seting \(h = \begin{cases} f & \text{on } R \\ g^{-1} & \text{on } Q \end{cases}\).
+
+  Note that we are done once we fix \(P\): \(R = f(P), S = B \setminus f(P), Q = g(B \setminus f(P))\). i.e.\ we seek \(P \subseteq A\) such that
+  \[
+    A \setminus (g(B \setminus f(P))) = P.
+  \]
+  Define
+  \begin{align*}
+    \theta: \mathcal P(A) &\to \mathcal P(A) \\
+    P &\mapsto A \setminus (g(B \setminus f(P)))
+  \end{align*}
+  Then since \(\mathcal P(A)\) is complete, \(\theta\) is order-preserving (since it takes complement twice), there exists a fixed point by Knaster-Tarski.
+\end{proof}
+
+\subsection{Zorn's Lemma}
+
+\begin{definition}
+  An element \(x\) in a poset \(X\) is \emph{maximal} if there exists no \(y \in X\) such that \(y > x\).
+\end{definition}
+
+\begin{eg}
+  In example 5 before, \(c, e\) are both maximal.
+\end{eg}
+
+Posets need not have a maximal element, for example \(\N, \Q, \R\) with the ususal order. We notice something in common: in each of thoses cases, there exists a chain without an upper bound.
+
+\begin{theorem}[Zorn's lemma]\index{Zorn's lemma}
+  Let \(X\) be a (non-empty) set in which every chain has an upper bound, then \(X\) has a maximal element.
+\end{theorem}
+
+\begin{proof}
+  Suppose not, then for each \(x \in X\) there exists \(x' \in X\) with \(x' > x\). Also for any chain \(C\) we have an upper bound \(u(C)\). Pick \(x \in X\). Define \(x_\alpha \in X\) for each \(\alpha \in \gamma(X)\) recursively by
+  \begin{align*}
+    x_0 &= x \\
+    x_{\alpha + 1} &= x_\alpha' \\
+    x_{\lambda} &= u(\{x_\alpha: \alpha < \lambda\}) \text{ for \(\lambda\) a nonzero limit}
+  \end{align*}
+  Then \(\alpha \mapsto x_\alpha\) is an injection \(\gamma(X) \to X\). Absurd.
+\end{proof}
+
+A typical application of Zorn's lemma: does every vector space \(V\) have a basis? Recall that a basis is a linearly independent (no non-trival finite relation) spanning (every element is a finite linear combination thereof) set.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(V = \R[X]\) be the space of all real polynomials. Then \(\{X^i\}_{i \in \N}\) is a basis.
+  \item Let \(V\) be the set of all real sequences with pointwise addition. We might guess
+    \begin{align*}
+      \ell_1 &= (1, 0, 0, \dots) \\
+      \ell_2 &= (0, 1, 0, \dots) \\
+      \vdots
+    \end{align*}
+    is a basis. Unfortunately they are linearly independent but not spanning, e.g.\ \((1, 1, 1, \dots)\) is not in the span. It is actually easy to check that there is no countable basis. It also turns out that there is no \emph{explicit} basis.
+  \item \(\R\) as a \(\Q\)-vector space has a basis called a \emph{Hamel basis}.
+  \end{enumerate}
+\end{eg}
 
 
 

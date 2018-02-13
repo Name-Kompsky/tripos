@@ -383,7 +383,7 @@ since \(f'(w) \neq 0\). Thus \(f\) preserves angles at \(w\). We say \(f\) is \e
   \end{enumerate}
 \end{eg}
 
-We will just state an important theorem here which will be proved later:
+We will just state an important theorem here which will not be proven in this course:
 
 \begin{theorem}[Riemann mapping theorem]
   Let \(D \subseteq \C\) be any domain bounded by a simple closed curve. Then there exists a conformal equivalence \(D \to D(0, 1)\) between \(D\) and \(D(0, 1)\).
@@ -702,7 +702,7 @@ Actually, we can prove the same result even if \(f\) is not assumed to be holomo
 
 \begin{proposition}
   \label{prop:Cauchy with holes}
-  Let \(U\) be a star-domain and \(S \subseteq U\) be a finite set. Let \(f: U \to \C\) be continuous on \(U\) and holomorphic on \(U \setminus S\). Then the conclusion of the convex Cauchy theorem stil holds.
+  Let \(U\) be a star-domain and \(S \subseteq U\) be a finite set. Let \(f: U \to \C\) be continuous on \(U\) and holomorphic on \(U \setminus S\). Then the conclusion of the convex Cauchy theorem still holds.
 \end{proposition}
 
 \begin{proof}
@@ -851,7 +851,7 @@ Thus on a open domain \(U\), if the function \(f\) extends analytically to the b
   for any \(0 < \rho < r\).
 \end{theorem}
 
-An immediate corollary is that holomorphic functions are analytic. The converse is trivial so the two terms are synonymous semantically, although the choice of terminology may enunciate your standing point: the term ``holomorphic'' is preferred in pure mathematics, while ``analytic'' is used more often in applied mathematics.
+An immediate corollary is that holomorphic functions are analytic. The converse is trivial so the two terms are semantically synonymous, although the choice of terminology may enunciate your standing point: the term ``holomorphic'' is preferred in pure mathematics, while ``analytic'' is used more often in applied mathematics.
 
 \begin{proof}
   If \(|w - a| < \rho < r\) then by Cauchy integral formula
@@ -980,7 +980,7 @@ Then
 \[
   f(z) = (z - w)^m g(z)
 \]
-where \(g(z) = \sum_{n = 0}^\infty c_n(z - w)^{n - m}\) is holomorphic on \(D(w, R)\) and \(g(w) \neq 0\). If \(m > 0\) we say that \(f\) has a \emph{zero of order \(m\)}\index{order of zero} at \(z = w\). Clearly \(m\) is the least \(n\) such that \(f^{(n)}(w) \neq 0\).
+where \(g(z) = \sum_{n = m}^\infty c_n(z - w)^{n - m}\) is holomorphic on \(D(w, R)\) and \(g(w) \neq 0\). If \(m > 0\) we say that \(f\) has a \emph{zero of order \(m\)}\index{order of zero} at \(z = w\). Clearly \(m\) is the least \(n\) such that \(f^{(n)}(w) \neq 0\).
 
 \begin{theorem}[Principle of isolated zeros]\index{Principle of isolated zeros}
   \label{thm:principle of isolated zeros}
@@ -1023,7 +1023,7 @@ The section discusses some results coming from the interplay of holomorphic func
 \end{proof}
 
 \begin{remark}
-  Given \(f: D' \to \C\) analytic and \(D \supseteq D'\), extending \(f\) could be a tough problem if impossible.
+  Given \(f: D' \to \C\) analytic and \(D \supseteq D'\), extending \(f\) could be a tough problem if not impossible.
 \end{remark}
 
 \begin{eg}\leavevmode
@@ -1147,14 +1147,14 @@ Next we show that a choice of argument does exist:
 
 \subsection{General form of Cauchy's theorem}
 
-The winding number \(I(\gamma, w)\) can be seen as a function taking two arguments. We have seen that \(I\) is continuous with resepct to \(w\). What if we perturb \(\gamma\) a little bit? Hopefully the winding number should also be continuous in this case. It turns out that to be true, and an immediate corollary of which is that we can generalise Cauchy's theorem to a much larger class of closed curves. But before that, we have to define what it means for one curve to change continuously to another. 
+The winding number \(I(\gamma, w)\) can be seen as a function taking two arguments. We have shown that \(I\) is continuous with resepct to \(w\). What if we perturb \(\gamma\) a little bit? Hopefully the winding number should also be continuous in this case. It turns out to be true, and an immediate corollary of which is that we can generalise Cauchy's theorem to a much larger class of closed curves. But before that, we have to define what it means for one curve to change continuously to another. 
 
 \begin{definition}[Homotopy]\index{homotopy}
   Let \(\phi, \psi: [a, b] \to U\) be two piecewise \(C^1\) closed paths. A \emph{homotopy} from \(\phi\) to \(\psi\) is a map \(F: [0, 1] \times [a, b] \to U\) such that
   \begin{itemize}
   \item \(F\) is continuous,
   \item \(F|_{\{0\} \times [a, b]} = \phi, F|_{\{1\} \times [a, b]} = \psi\),
-  \item for all \(s \in [0, 1]\), \(F_s(t) = F(s, t): [a, b] \to U\) is a closed piecewise \(C^2\) curve.
+  \item for all \(s \in [0, 1]\), \(F_s(t) = F(s, t): [a, b] \to U\) is a closed piecewise \(C^1\) curve.
   \end{itemize}
 \end{definition}
 
@@ -1173,7 +1173,7 @@ Equipped with this definition, we can now make rigorous the notion of simple-con
 \end{eg}
 
 \begin{definition}[Elementary deformation]\index{elementary deformation}
-  Let \(\phi, \psi: [0, 1] \to U\) be closed piecewise \(C^1\) curves. We say that \(\psi\) is an \emph{elementary deformation} of \(\phi\) if there exists \(0 = x_1 < x_1 < \dots < x_n = 1\) and convex open sets \(C_1, \dots, C_n\) in \(U\) such that for all \(t \in [x_{i - 1}, x_i]\), \(\phi(t), \psi(t) \in C_i\).
+  Let \(\phi, \psi: [0, 1] \to U\) be closed piecewise \(C^1\) curves. We say that \(\psi\) is an \emph{elementary deformation} of \(\phi\) if there exists \(0 = x_0 < x_1 < \dots < x_n = 1\) and convex open sets \(C_1, \dots, C_n\) in \(U\) such that for all \(t \in [x_{i - 1}, x_i]\), \(\phi(t), \psi(t) \in C_i\).
 \end{definition}
 
 Next up is a key technical proposition:
@@ -1182,7 +1182,136 @@ Next up is a key technical proposition:
   If \(\phi\) and \(\psi\) are homotopic closed paths in the domain \(U\), then there are \(\phi = \phi_0, \phi_1, \dots, \phi_N = \psi\) such that \(\phi_{t + 1}\) is an elementary deformation of \(\phi_t\).
 \end{proposition}
 
-This says that given two homotopic paths, we can find finitely many intermediate paths, each of which is an elementary deformation of the previous one. Elementary deformation localises paths to convex open sets on which the weak Cauchy's theorem applies, ergo allowing us to deduce the general Cauchy's theorem.
+This says that given two homotopic paths, we can find finitely many intermediate paths, each of which is an elementary deformation of the previous one. Elementary deformation localises paths to convex open sets on which convex Cauchy's theorem applies, ergo allowing us to deduce the general Cauchy's theorem.
+
+\begin{proof}
+  This is an exercise in uniform continuity. Let \(F\) be the homotopy between \(\phi\) and \(\psi\). \(\im F\) is a compact set and \(\C \setminus U\) is closed so
+  \[
+    \operatorname{dist}(\im F, \C \setminus U) = \varepsilon > 0.
+  \]
+  For this \(\varepsilon\), \(D(F(s, t), \varepsilon) \subseteq U\) for all \((s, t)\). Since \(F\) is uniformly continuous, there exists \(\delta > 0\) such that
+  \begin{equation}
+    \label{eqn:uniform continuity}
+    \norm{(s', t') - (s, t)} < \delta \implies |F(s', t') - F(s, t)| < \varepsilon.
+    \tag{\(\ast\)}
+  \end{equation}
+  Pick \(n\) such that \(\frac{1 + (b - a)}{n} < \delta\) and let \(x_j = a + \frac{b - a}{n}j\) for \(1 \leq j \leq n\). Let
+  \[
+    \phi_i = F|_{\{\frac{i}{n}\} \times [a, b]}
+  \]
+  and
+  \[
+    C_{ij} = D(F(\frac{i}{n}, x_j), \varepsilon) \subseteq U.
+  \]
+  By \eqref{eqn:uniform continuity} we check that if \(s \in [\frac{i - 1}{n}, \frac{i}{n}], t \in [x_{j - 1}, x_j]\) then \(F(s, t) \subseteq C_{ij}\). Then \(\phi_i\) is an elementary deformation of \(\phi_{i - 1}\).
+\end{proof}
+
+\begin{theorem}[Homotopy form of Cauchy's theorem]\index{Cauchy's theorem}
+  \label{thm:homotopic Cauchy}
+  Let \(f: U \to \C\) be holomorphic on a domain \(U\). If \(\phi\) and \(\psi\) are homotopic closed paths, then
+  \[
+    \int_\phi f(z) dz = \int_\psi f(z) dz.
+  \]
+
+  In particular if \(\phi\) is homotopic to a constant then
+  \[
+    \int_\phi f(z) dz = 0.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Suppose first \(\psi\) is an elementary deformation of \(\phi\). Let \(\phi_i = \phi|_{[x_{i - 1}, x_i]}, \psi_i = \psi|_{[x_{i - 1}, x_i]} \subseteq C_i\) where \(C_i \subseteq U\) is convex. Let \(\gamma_i\) be the straight segment connecting \(\phi(x_i)\) to \(\psi(x_i)\), which is contained in \(C_i\) by convexity. Now the concatenation
+  \[
+    \phi_i \cdot \gamma_i \cdot (-\psi_i) \cdot (-\gamma_{i - 1})
+  \]
+  lies in \(C_i\) and by convex Cauchy, the integral along this closed path vanishes.
+
+  Sum over \(1 \leq i \leq n\), we see that integrals over the \(\gamma_i\)'s cancel and thus
+  \[
+    \int_\phi f(z) dz = \int_\psi f(z) dz.
+  \]
+  Now invoke the technical proposition.
+\end{proof}
+
+Again this hightlights an idea that permeates this course: from complex analysis alone one gets local results about holomorphic functions. By use topological machinaries such as connectedness, compactness and in this section, homotopy, one can then extend them to global results.
+
+\begin{corollary}
+  Let \(U\) be a simply connected domain and \(f: U \to \C\) holomorphic. Then
+  \[
+    \int_\gamma f(z)dz = 0
+  \]
+  for all closed paths \(\gamma\) in \(U\).
+\end{corollary}
+
+\begin{proof}
+  Trivial.
+\end{proof}
+
+\begin{remark}
+  Let \(\phi, \psi: [a, b] \to U\) be two closed homotopic curves in a domain \(U\). If we take \(w \in \C \setminus U\), then the function \(\frac{1}{z - w}\) is holomorphic in \(U\) and by \nameref{thm:homotopic Cauchy}, \(I(\phi, w) = I(\psi, w)\).
+\end{remark}
+
+\section{Laurent expansion, Singularities and the Residue theorem}
+
+\subsection{Laurent expansion}
+
+\begin{theorem}
+  Let \(f\) be a holomorphic function on an annulus
+  \[
+    A = \{z \in \C: r < |z - a| < R\}
+  \]
+  where \(0 \leq r < R \leq \infty\). Then
+  \begin{enumerate}
+  \item \(f\) has a unique convergent expansion in \(A\) of the form
+    \[
+      f(z) = \sum_{n = -\infty}^\infty c_n(z - a)^n,
+    \]
+  \item for any \(\rho \in (r, R)\), the coefficient \(c_n\) is given by
+    \[
+      c_n = \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - a)^{n + 1}} dz,
+    \]
+  \item if \(r < \rho' \leq \rho < R\), then the series converges uniformly on the set
+    \[
+      \{z \in \C: \rho' \leq |z - a| \leq \rho\}
+    \]
+    and thus locally uniformly on \(A\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  As in the proof of Cauchy integral formula, consider the function
+  \[
+    g(z) =
+    \begin{cases}
+      \frac{f(z) - f(w)}{z - w} & \text{if } z \neq w \\
+      f'(w) & \text{if } z = w
+    \end{cases}
+  \]
+  \(g\) is holomorphic on \(A\) by a corollary of \nameref{cor:Morera}. Choose
+  \[
+    r < \rho_2 < |w - a| < \rho_1 < R
+  \]
+  and consider circles
+  \begin{align*}
+    C_1: |z - a| &= \rho_1 \\
+    C_2: |z - a| &= \rho_2
+  \end{align*}
+  which are homotopic on \(A\). By \nameref{thm:homotopic Cauchy},
+  \[
+    \int_{C_1} g(z) dz = \int_{C_2} g(z) dz
+  \]
+  so
+  \[
+    \int_{C_1} \frac{f(z)}{z - w} dz - f(w) \underbrace{\int_{C_2} \frac{dz}{z - w}}_{2\pi i I(C_1, w) = 2\pi i}
+    = \int_{C_2} \frac{f(z)}{z - w} dz - f(w) \underbrace{\int_{C_2} \frac{dz}{z - w}}_{2\pi i I(C_2, w) = 0}
+  \]
+  so
+  \begin{align*}
+    f(w)
+    &= \frac{1}{2\pi i} \left( \int_{C_1} \frac{f(z)}{z - w} dz - \int_{C_2} \frac{f(z)}{z - w} dz \right)
+  \end{align*}
+\end{proof}
+
 
 
 

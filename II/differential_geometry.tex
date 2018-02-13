@@ -814,6 +814,78 @@ It turns out we can still define intersection number \emph{without} the assumpti
   Suppose \(\dim Y\) is even and \(\dim X\) is \(\frac{\dim Y}{2}\). Note that \(X\) is not transversal to \(X\). Let \(Y\) be the Möbius band and \(X\) a central circle, \(I_2(X, X) = 1\).
 \end{eg}
 
+\subsection{Abstract manifolds}
+
+\begin{definition}[Smooth manifold]\index{manifold!abstract smooth manifold}
+  A \emph{smooth \(n\)-dimensional manifold} is a Hausdorff, second-countable topological space \(X\) together with a collection of maps \(\varphi: U_\alpha \to V_\alpha\) where \(U_\alpha \subseteq \R^n, V_\alpha \subseteq X\), called \emph{charts}, with the following properties:
+  \begin{enumerate}
+  \item \(\varphi_\alpha: U_\alpha \to V_\alpha\) are homeomorphisms,
+  \item \(\bigcup_\alpha V_\alpha = X\),
+  \item \(\varphi_\beta^{-1} \compose \varphi_\alpha|_{\varphi_\alpha^{-1}(U_\alpha \cap V_\beta)}\) are diffeomorphisms for all \(\alpha, \beta\),
+  \item lastly, it is conventional to require the collection of charts to be maximal, i.e.\ if \(\{\varphi_\alpha\}_\alpha \cup \{\tilde \varphi\}\) satisfies 1, 2, 3 then \(\tilde \varphi = \varphi_\alpha\) for some \(\alpha\).
+  \end{enumerate}
+\end{definition}
+
+Note that Hausdorffness and second-countability are hereditary properties.
+
+We can now define smooth maps \(X \to \R^m\) and smooth maps between manifolds, similar as before. Also compatibility condition requires us only to check smoothness on an open cover of \(X\).
+
+What about differentials and tangent spaces? Since our manifold \(X\) is no longer sitting inside an Euclidean space, the differential of a chart is not very meaningful. This is point where the abstract theory diverges from what we have learned. In III Differential Geometry you will learn to do it properly using tangent bundles.
+
+\begin{definition}[Immersion, submersion, embedding]\index{immersion}\index{submersion}\index{embedding}
+  A smooth map \(f: X \to Y\) between manifolds is an \emph{immersion} if \(df_x\) is injective for all \(x \in X\), a \emph{submersion} if \(df_x\) is surjective for all \(x \in X\), and an \emph{embedding} if it is an immersion and a homeomorphism onto its image.
+\end{definition}
+
+\begin{theorem}[Whitney embedding theorem]\index{Whitney embedding theorem}
+  Let \(X\) be a smooth manifold. Then there exists an embedding \(f: X \to \R^{2n + 1}\).
+\end{theorem}
+
+Thus the abstract formulation of manifold is not any more general than the one we begin with.
+
+In fact, Whitney proved the better upper bound \(\R^{2n}\), which is in fact a sharp bound.
+
+\section{Geometry}
+
+\begin{definition}[Regular curve]
+  Let \(X\) be a manifold. A \emph{regular curve} in \(X\) is a smooth immersion \(\gamma: I \to X\) where \(I \subseteq \R\) is an interval, i.e.\ \(d\gamma_t(1) \neq 0\).
+\end{definition}
+
+\begin{notation}
+  We write \(\dot \gamma(t) = d\gamma_t\).
+\end{notation}
+
+\begin{ex}
+  Suppose \(X = \R^3\) and \(\gamma(t) = (x(t), y(t), z(t))\), show that \(\dot \gamma(t) = (\dot x(t), \dot y(t), \dot z(t))\).
+\end{ex}
+
+\begin{definition}[Arc-length]\index{arc-length}
+  Let \(\gamma: I \to \R^3\) is a regular curve and \(t_0 \in I\). The \emph{arc-length} of \(\gamma\) (measured from \(t_0\)) is
+  \[
+    s(t) = \int_{t_0}^t |\dot \gamma(t')| dt'
+  \]
+  where \(|\cdot|\) is the Euclidean norm.
+\end{definition}
+
+\begin{definition}
+  Arc-length is invariant to reparameterisation: a reparameterisation of \(\gamma\) is a map \(\hat \gamma(\hat t)\) such that \(t = t(\hat t)\) is a diffeomorphism, i.e.\ the following diagram commutes:
+  \[
+    \begin{tikzcd}
+      I \ar[r, "\gamma"] & \R^3 \\
+      \hat I \ar[u] \ar[ur, "\hat \gamma"']
+    \end{tikzcd}
+  \]
+  Wlog suppose \(\frac{dt}{d\hat t} > 0\). Let \(t_0 = t(\hat t_0)\), then
+  \[
+    s(t)
+    = \int_{t_0}^t |\hat \gamma(t')| dt'
+    = \int_{t_0}^t \left| \frac{d\gamma}{dt'} \right| dt'
+    = \int_{\hat t_0}^{\hat t} \left| \frac{d\gamma}{d\hat t'} \right| dt'
+    = s(\hat t)
+  \]
+\end{definition}
+
+Note that \(s'(t) = |\hat \gamma(t)| \neq 0\) by Fundmental Theorem of Calculus. Thus by Inverse Function Theorem and connectivity \(s(t)\) is a diffeomorphism, i.e.\ can be inverted to \(t(s)\). Thus we can reparameterise any regular curve by \(s\). We will write \(\gamma(s)\) for \(\gamma(t(s))\).
+
 
 
 
