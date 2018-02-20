@@ -22,12 +22,15 @@ Let \(P\) be a set of \emph{primitive propositions}. Unless otherwise stated,
 \[
   P = \{p_1, p_2, \dots \}.
 \]
-The \emph{language} or \emph{set of propositions} \(L = L(P)\) is defined inductively by
-\begin{enumerate}
-\item \( p \in P, p \in L\),
-\item \(\bot \in L\) (reads ``false''),
-\item if \(p, q \in L\) then \((p \implies q) \in L\).
-\end{enumerate}
+
+\begin{definition}[Language]\index{language}
+  The \emph{language} or \emph{set of propositions} \(L = L(P)\) is defined inductively by
+  \begin{enumerate}
+  \item \( p \in P, p \in L\),
+  \item \(\bot \in L\) (reads ``false''),
+  \item if \(p, q \in L\) then \((p \implies q) \in L\).
+  \end{enumerate}
+\end{definition}
 
 \begin{eg}
   \((p_1 \implies \bot)\), \(((p_1 \implies p_2) \implies (p_1 \implies p_3))\), \(((p_1 \implies \bot) \implies \bot)\) are elements of \(L\).
@@ -98,7 +101,7 @@ In other words, a valuation is determined by its values on \(P\) and any values 
   we have \(v(\underbrace{(p_1 \implies p_2)}_{1} \implies \underbrace{p_3}_{0}) = 0\).
 \end{eg}
 
-\begin{definition}[Tautology]\index{Tautology}
+\begin{definition}[Tautology]\index{tautology}
   \(p\) is a \emph{tautology}, written \(\models p\) if \(v(p) = 1\) for all valuations \(p\).
 \end{definition}
 
@@ -412,7 +415,7 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
 \end{eg}
 
 \begin{remark}
-  \(X\) is well-ordered if and only if there is no \(x_1 \geq x_2 \geq x_3 > \dots\) in \(X\). Indeed, if there is such a sequence then \(S = \{x_1, x_2, \dots\}\) has no least element.
+  \(X\) is well-ordered if and only if there is no \(x_1 > x_2 > x_3 > \dots\) in \(X\). Indeed, if there is such a sequence then \(S = \{x_1, x_2, \dots\}\) has no least element.
 \end{remark}
 
 \begin{corollary}
@@ -477,7 +480,7 @@ The aim to show every subset of a well-ordered \(X\) is isomorphic to an initial
 Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\) to the smallest element of \(X\) and continue this way. But how do we show every element of \(Y\) is mapped to somewhere? Instead, we should work backwards: given  \(y \in Y\), map \(y\) to the smallest element in \(X\) that is not mapped to.
 
 \begin{theorem}[Definition by recursion]\index{definition by recursion}
-  Let \(X\) be well-ordered, \(Y\) any set and \(G: \mathcal P(X \times Y) \to Y\). Then there exists \(f: X \to Y\) such that \(f(x) = G(f|_{I_x})\) for all \(x \in X\). Moreover \(f\) is unique.
+  Let \(X\) be well-ordering, \(Y\) any set and \(G: \mathcal P(X \times Y) \to Y\). Then there exists \(f: X \to Y\) such that \(f(x) = G(f|_{I_x})\) for all \(x \in X\). Moreover \(f\) is unique.
 \end{theorem}
 
 \begin{note}\leavevmode
@@ -491,7 +494,7 @@ Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\
 \end{note}
 
 \begin{proof}
-  First we show existence. Define ``\(h\) is an attempt'' to mean \(h: I \to Y\) where \(I \subseteq X\) is some initial segment, and for all \(x \in I\) we have \(h(x) = G(h|_{I_x})\). Note that if \(h\) and \(h'\) are both attempts defined at \(x\) then \(h(x) = h'(x)\): by induction on \(x\), since if \(h(y) = h'(y)\) for all \(y < x\), then \(h(x) = h'(x)\).
+  First we show existence. Define ``\(h\) is an attempt'' to mean \(h: I \to Y\) where \(I \subseteq X\) is some initial segment, and for all \(x \in I\) we have \(h(x) = G(h|_{I_x})\). Note that if \(h\) and \(h'\) are both attempts defined at \(x\) then \(h(x) = h'(x)\): by induction on \(x\), if \(h(y) = h'(y)\) for all \(y < x\), then \(h(x) = h'(x)\).
 
   Also for all \(x \in X\) there exists an attempt defined at \(X\), by induction on \(x\). Indeed we want an attempt defined at \(x\), given that for all \(y < x\) there exists an attempt defined at \(y\). So for each \(y < x\) we have a unique attempt \(h_y\) defined on \(\{z: z\leq y\}\) (unique by what we just showed). Let
   \[
@@ -538,7 +541,7 @@ So far we have proved that if two well-orderings are isomorphic there is a uniqu
   Let \(X = \N\), \(Y = \{1 - 1/n: n = 2, 3, \dots\} \cup \{1\}\), then \(X \leq Y\).
 \end{eg}
 
-What we would hope, is that there is a total order on the set of all well-orderings. And indeed
+What we would hope is that there is a total order on the set of all well-orderings. Firstly we have
 
 \begin{theorem}
   Let \(X, Y\) be well-orderings, then \(X \leq Y\) or \(Y \leq X\).
@@ -574,11 +577,11 @@ So far we have very few examples of well-orderings, so we wish to build new well
 
 We can produce new well-orderings by
 \begin{itemize}
-\item make a bigger one: a simplistic way to make a bigger well-ordering is, given a well-ordering \(X\), choose \(x \notin X\) and set \(x > y\) for all \(y \in X\). This is a well-ordering on \(X \cup \{x\}\), written \(X^+\). Clearly \(X < X^+\).
+\item add a bigger element: a simple yet bona fide way to make a bigger well-ordering is, given a well-ordering \(X\), choose \(x \notin X\) and set \(x > y\) for all \(y \in X\). This is a well-ordering on \(X \cup \{x\}\), written \(X^+\). Clearly \(X < X^+\).
 \item put some together: let \((X, <_X)\) and \((Y, <_Y)\) be well-orderings. Say \(Y\) \emph{extends} \(X\) if \(X \subseteq Y\), \(<_X, <_Y\) agree on \(X\), and \(X\) is an initial segment of \((Y, <_Y)\).
 \end{itemize}
 
-Well-orderings \(\{X_i: i \in I\}\) are \emph{nested} if for all \(i, j \in I\), \(X_i\) extends \(X_j\) or \(X_j\) extends \(X_i\).
+A family of well-orderings \(\{X_i: i \in I\}\) are \emph{nested} if for all \(i, j \in I\), \(X_i\) extends \(X_j\) or \(X_j\) extends \(X_i\).
 
 \begin{proposition}
   \label{prop:nested well-orderings}
@@ -644,7 +647,7 @@ Given the proposition, it is very tempting to conclude that all well-orderings f
   Suppose not. Let \(X\) be the set of all ordinals. Then \(X\) is a well-ordering, say of order-type \(\alpha\). So \(X\) is isomorphic to \(I_\alpha\), a \emph{proper} initial segment of \(X\). Absurd.
 \end{proof}
 
-This is saying that the collection of all well-orderings is too big to be a set, and thus to become a well-ordering. However, this does not prevent us from working locally with a set of well-orderings.
+This is saying that the collection of all well-orderings is too big to be a set, and thus to be a well-ordering. However, this does not prevent us from working locally with a set of well-orderings.
 
 Recall the two ways of constructing well-orderings. Given \(\alpha\), we have \(\alpha^+ > \alpha\). Also if \(\{\alpha_i: i \in I\}\) is a set of ordinals, then there exists \(\alpha\) with \(\alpha \geq \alpha_i\) for all \(i\), by applying \Cref{prop:nested well-orderings} to the nested family \(\{I_{\alpha_i}: i \in I\}\).
 
@@ -660,7 +663,7 @@ This is denoted \(\sup_{i \in I} \alpha_i\).
 
 \subsection{Some ordinals}
 
-\Cref{tab:ordinals} shows some ordinals in increasing order. In each row from left to right, adjacent values are successors to each other. The pattern in each row is the ``obvious'' one that the reader should be able to infer and the beginning entry of a row is the supremum of all entries in the previous row.
+\Cref{tab:ordinals} shows some ordinals in increasing order. In each row from left to right, adjacent values are successors to each other. The pattern in each row is the ``obvious'' one that the reader should be able to infer. The beginning entry of a row is the supremum of all entries in the previous row.
 
 {%localise the effect
   \renewcommand{\arraystretch}{2.5}
@@ -674,7 +677,7 @@ This is denoted \(\sup_{i \in I} \alpha_i\).
     \(\omega^22\) & \(\dots\) & \(\omega^23\) & \(\dots\) & \(\omega^24\) & \(\dots\) \\
     \(\omega^3\) & \(\dots\) & \(\omega^4\) & \(\dots\) & \(\omega^5\) & \(\dots\) \\
     \(\omega^\omega\) & \(\omega^\omega + 1\) & \(\dots\) & \(\omega^\omega + \omega\) & \(\dots\) & \(\omega^\omega2\) & \(\dots\) & \(\omega^\omega3\) \\
-    \(\omega^{\omega + 1}\) & \(\dots\) & \(\omega^{\omega + 1}\) & \(\dots\) & \(\omega^{\omega + 2}\) & \(\dots\) \\
+    \(\omega^{\omega + 1}\) & \(\dots\) & \(\omega^{\omega + 2}\) & \(\dots\) & \(\omega^{\omega + 3}\) & \(\dots\) \\
     \(\omega^{\omega2}\) & \(\dots\) & \(\omega^{\omega 3}\) & \(\dots\) \\
     \(\omega^{\omega^\omega}\) & \(\dots\) & \(\omega^{\omega^{\omega^\omega}}\) & \(\dots\) \\
     \(\varepsilon_0\) & \(\varepsilon_0 + 1\) & \(\dots\) & \(\varepsilon_0 + \omega\) & \(\dots\) & \(\varepsilon_0 + \omega^\omega\) & \(\dots\) \\
@@ -693,7 +696,7 @@ This is denoted \(\sup_{i \in I} \alpha_i\).
 Some points to notice:
 \begin{itemize}
 \item we write \(\omega2 = \sup\{\omega + 1, \omega + 2, \dots\}\). The rationale for this unintuitive notation will soon be clear.
-\item everything in this table so far is countable, as they are derived by operations such as union, subset, cartesian product on countable sets.
+\item everything in this table so far is countable, as they are built from operations such as union, subset, cartesian product on countable sets.
 \end{itemize}
 
 Is there an uncountable ordinal? In other words, is there an uncountable well-ordered set?
@@ -719,10 +722,10 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
 \(\omega_1\) has some strange properties, for example
 \begin{enumerate}
 \item \(\omega_1\) is uncountable, but for any \(\alpha < \omega\), we have \(\{\beta: \beta < \alpha\}\) countable.\footnote{It would perhaps be less surprising if one considers that given \(\alpha < \omega\), \(\{\beta: \beta < \alpha\}\) is finite.}
-\item If \(\alpha_1, \alpha_2, \dots < \omega_1\) is a sequence, then it is \emph{bounded} in \(\omega_1\): \(\sup\{\alpha_1, \alpha_2, \dots,\}\) is countable so \(< \omega_1\).
+\item If \(\alpha_1, \alpha_2, \dots < \omega_1\) is a sequence, then it is \emph{bounded} in \(\omega_1\): \(\sup\{\alpha_1, \alpha_2, \dots\}\) is countable so \(< \omega_1\).
 \end{enumerate}
 
-\begin{theorem}[Harthogs' Lemma]\index{Harthogs' Lemma}
+\begin{theorem}[Hartogs' lemma]\index{Hartogs' lemma}
   For any set \(X\), there is an ordinal that does not inject into \(X\).
 \end{theorem}
 
@@ -824,7 +827,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
   \item \(\N^+\) with ``divides''.
   \item For any set \(S\), \(\mathcal P(S)\) with \(x \leq y\) if \(x \subseteq y\).
   \item Any \(X \subseteq \mathcal P(S)\) with same relation as above. This specialises to, for example, all subspaces of a given vector space.
-  \item We can draw a \emph{Hasse diagram}: for a poset \(X\) consists of a drawing of the posets of \(X\), with an upward line from \(x\) to \(y\) if \(y\) covers \(x\), meaning \(y > x\) and no \(z\) such that \(y > z > x\). For example
+  \item We can draw a \emph{Hasse diagram} for a poset \(X\): it consists of a drawing of elemnents of \(X\), with an upward line from \(x\) to \(y\) if \(y\) covers \(x\), meaning \(y > x\) and no \(z\) such that \(y > z > x\). For example
     \[
       \begin{tikzcd}
         c \ar[dr, dash] & & & & e \ar[dl, dash] \\
@@ -851,7 +854,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
         a & & d
       \end{tikzcd}
     \]
-  \item A set in which in which no two elements are related is a poset.
+  \item A set in which no two elements are related is a poset.
   \end{enumerate}
 \end{eg}
 
@@ -869,7 +872,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
 \end{eg}
 
 \begin{note}
-  Chains can be uncoutable, e.g.\ \((\R, \leq)\).
+  Chains can be uncountable, e.g.\ \((\R, \leq)\).
 \end{note}
 
 \begin{definition}[Anti-chain]\index{anti-chain}
@@ -879,7 +882,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item In 2: the set of primes.
-  \item In 5, \(\{c, e\}\) or \(\{c, e\}\), or \(\{b\}\).
+  \item In 5, \(\{c, e\}\) or \(\{c, d\}\), or \(\{b\}\).
   \item In 8, every subset.
   \end{enumerate}
 \end{eg}
@@ -931,6 +934,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
 From above not every order-preserving function has a fixed point. But just as in Contraction Mapping Theorem, we can add condition to the space to make this happen. Unsurprisingly, this condition is completeness:
 
 \begin{theorem}[Knaster-Tarski fixed point theorem]\index{Knaster-Tarski fixed point theorem}
+  \label{thm:Knaster-Tarski}
   Let \(X\) be a complete poset. Then every order-preserving function \(f: X \to X\) has a fixed point.
 \end{theorem}
 
@@ -1011,6 +1015,334 @@ A typical application of Zorn's lemma: does every vector space \(V\) have a basi
   \item \(\R\) as a \(\Q\)-vector space has a basis called a \emph{Hamel basis}.
   \end{enumerate}
 \end{eg}
+
+\begin{theorem}
+  Every vector space has a basis.
+\end{theorem}
+
+\begin{proof}
+  We seek a maximal linearly independent set. Let \(V\) be a vector space and
+  \[
+    X = \{A \subseteq V: A \text{ linearly independent}\}
+  \]
+  ordered by \(\subseteq\). If we can find a maximal element of \(X\), then done: if \(M\) is not spanning then choose \(x \notin \generation M\) and then \(M \cup \{x\}\) is linearly independent. Absurd.
+
+  We have \(X \neq \emptyset\) as \(\emptyset \in X\). Given a chain \(\{A_i: i \in I\}\) in \(X\), put \(A = \bigcup_{i \in I} A_i\). Then \(A \supseteq A_i\) for all \(i\), so just need to check \(A \in X\), i.e.\ \(A\) is linearly independent. Suppose not, so
+  \[
+    \sum_{i = 1}^n \lambda_ix_i = 0
+  \]
+  for some \(x_i \in A\), \(\lambda_i\) not all \(0\). We have \(x_1 \in A_{i_1}, \dots, x_n \in A_{i_n}\) for some \(i_1, \dots, i_n \in I\). But \(A_{i_1}, \dots, A_{i_n} \subseteq A_{i_k}\) for some \(k\) (as \(A_{i_1}, \dots, A_{i_n}\) are nested), contradicting \(A_{i_k}\) linearly independent.
+\end{proof}
+
+\begin{note}
+  The only ``actual math'' (i.e.\ linear algebra) in the proof was the ``then done'' part.
+\end{note}
+
+Another application of Zorn's lemma: completeness theorem when the primitive language is uncountable.
+
+\begin{theorem}[Completeness theorem]\index{Completeness theorem}
+  Let \(S \subseteq L(P)\) where \(P\) is any set. Then \(S\) is consistent implies that \(S\) has a model.
+\end{theorem}
+
+\begin{proof}
+  We seek a maximal consistent \(\cl S \supseteq S\). Then done: for each \(t \in L(P)\) haave \(\cl S \cup \{t\}\) or \(\cl S \cup \{\neg t\}\) consistent, whence \(t \in \cl S\) or \(\neg t \in \cl S\). By maximality of \(\cl S\), and now define
+  \begin{align*}
+    v(t) =
+    \begin{cases}
+      1 & \text{if } t \in \cl S \\
+      0 & \text{if } t \notin \cl S
+    \end{cases}
+  \end{align*}
+
+  Let
+  \[
+    X = \{T \subseteq L(P): T \text{ consistent}, T \supseteq S\}
+  \]
+  ordered by \(\subseteq\). Then \(X \neq \emptyset\) as \(S \in X\). Given a non-empty chain \(\{T_i: i \in I\}\) in \(X\), take \(T = \bigcup_{i \in I} T_i\), then \(T \supseteq T_i\) for all \(i\) so just need \(T \in X\). We have \(S \subseteq T\) (as \(I \neq \emptyset\)) and \(T\) is consistent: suppose \(T \yields \bot\). Then \(\{t_1, \dots, t_n\} \yields \bot\) for some \(t_1, \dots, t_n \in T\) (as proofs are finite). Since \(t_1 \in T_{i_1}, \dots, t_n \in T_{i_n}\) for some \(i_1, \dots, i_n \in I\), but \(T_{i_1}, \dots, T_{i_n} \subseteq T_{i_k}\) for some \(k\) (as they are nested), \(T_{i_k} \yields \bot\). Absurd.
+\end{proof}
+
+One final application:
+
+\begin{theorem}[Well-ordering principle]\index{well-ordering principle}
+  Every set can be well-ordered.
+\end{theorem}
+
+\begin{remark}
+  This is very surprising for, for example, \(\R\), until you remember Hartogs' lemma.
+\end{remark}
+
+\begin{proof}
+  Let \(S\) be the set. Let
+  \[
+    X = \{(A, R): A \subseteq S, R \text{ a well-ordering of } A\}
+  \]
+  ordered by
+  \[
+    (A, R) \leq (A', R') \text{ if } (A', R') \text{ extends } (A, R).
+  \]
+  \(X \neq \emptyset\) as \((\emptyset, \emptyset) \in X\). Given a chain \(\{(A_i, R_i): i \in I\}\), we have
+  \[
+    (\bigcup_{i \in I} A_i, \bigcup_{i \in I} R_i) \in X
+  \]
+  extending each \((A_i, R_i)\) (from chapter 2). Thus by Zorn's lemma, \(X\) has a maximal element \((A, R)\). Must have \(A = S\): if not, choose \(x \in S \setminus A\) and ``take successor'': well-order \(A \cup \{x\}\) by setting \(x > a\) for all \(a \in A\), contradicting the maximality of \((A, R)\).
+\end{proof}
+
+\begin{remark}
+  Proof of Zorn's lemma was easy because we knew ordinals, recursion  and Hartog's lemma.
+\end{remark}
+
+\subsection{Zorn's lemma and Axiom of choice}
+
+In the proof of Zorn's lemma, we chose for each \(x \in X\) an \(x' > x\) --- i.e.\ we made infinitely many arbitrary choices (note that this has nothing to do with Hartog's lemma. We made infinitely many choices even by the time we get to \(x_\omega\)). We did the same in IA Numbers and Sets, in proving that the countable union of countable sets is countable: we chose for each set in the family an ordering whereof.
+
+In terms of ``rules for building sets'', this is appealing to \emph{axiom of choice}, which says that we may choose an element of each set in a family of non-empty sets. More precisely,
+
+\begin{theorem}[Axiom of choice]\index{axiom of choice}
+  If \(\{A_i: i \in I\}\) is a family of non-empty sets then it has a \emph{choice function}, i.e.\ a function \(f: I \to \bigcup_{i \in I} A_i\) such that \(f(i) \in A_i\) for all \(i\).
+\end{theorem}
+
+This is of different character to the other set-building rules, such as union, power set etc in that the object whose existence is asserted is not uniquely specified by its properties, unlike, for example, union of sets. Thus often one points out when one has used Axiom of choice.
+
+\begin{remark}
+  Axiom of choice is trivial if \(|I| = 1\) (\(A \neq \emptyset\) means by definition that there exists \(x \in A\)). By induction, it is true for \(I\) finite. However, it turns out that, for general \(I\), axiom of choice \emph{cannot} be deduced from the other set-theoretic rules.
+\end{remark}
+
+In Zorn's lemma, we used axiom of choice. Is there a proof of Zorn's lemma without axiom of choice? No, because we can deduce axiom of choice from Zorn's lemma.
+
+\begin{proof}[Proof oz axiom of choice from Zorn's lemma]
+  Given a family \(\{A_i: i \in I\}\) of non-empty sets, a \emph{partial choice function} is an \(f: J \to \bigcup_{i \in I} A_i\) where \(J \subseteq I\) such that \(f(j) \in A_j\) for all \(j \in J\). Let
+  \[
+    (J, f) \leq (J', f') \text{ if } J \subseteq J' \text{ and } f'|_J = f.
+  \]
+  This poset is non-empty as \((\emptyset, \emptyset)\) is an element. Given a chain \(\{(J_q, f_q)\}_{q \in Q}\), we have \(\bigcup_{q \in Q} (J_q, f_q)\) as an upper bound. Thus by Zorn's lemma there exists a maximal element \((J, f)\). We must have \(J = I\), as if not we choose \(i \in I \setminus J, x \in A_i\), and put \(J' = J \cup \{i\}, f' = f \cup \{(i, x)\}\). Absurd.
+\end{proof}
+
+In conclusion, Zorn's lemma \(\Leftrightarrow\) axiom of choice (in the presence of the set-building rules).
+
+Actually, there is a three-way equivalence: we have shown Zorn's lemma implies well-ordering principle, and well-ordering principle implies axiom of choice trivially (\(\bigcup_{i \in I} A_i\) is well-ordered and let \(f(i)\) be least element of \(A_i\)). Therefore
+\[
+  \text{Zorn's lemma } \Leftrightarrow \text{ axiom of choice } \Leftrightarrow \text{ well-ordering principle}.
+\]
+
+\begin{ex}
+  Show that axiom of choice implies well-ordering principle directly.
+\end{ex}
+
+\begin{note}
+  Zorn's lemma is hard to prove from first principles because we need theory of ordinals, recursions and Hartogs' lemma, not because of its equivalence with axiom of choice.
+\end{note}
+
+\subsection{*Bourbaki-Witt theorem}
+
+On one hand we have Zorn's lemma, which is a local (conditions on chains) to global (maximal element) principle, and on the other hand we have \nameref{thm:Knaster-Tarski}, a global fixed point theorem based on assumptions of the ambient space (completeness). The Bourbaki-Witt theorem is a ``midpoint'' between the two.
+
+\begin{definition}[Chain-complete]\index{Chain complete}
+  A poset \(X\) is \emph{chain-complete} if \(X \neq \emptyset\) and every non-empty chain has a supremum.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Any complete poset.
+  \item Any finite poset.
+  \item Given a vector space \(V\), \(\{A \subseteq V: A \text{ is linearly independent}\}\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Inflationary]\index{inflationary}
+  A function \(f: X \to X\) is \emph{inflationary} if \(f(x) \geq x\) for all \(x\).
+\end{definition}
+
+\begin{theorem}[Bourbaki-Witt]\index{Bourbaki-Witt theorem}
+  Suppose \(X\) is chain-complete and \(f: X \to X\) inflationary. Then \(f\) has a fixed point.
+\end{theorem}
+
+Bourbaki-Witt follows immediately from Zorn's lemma: take maximal \(x\) and since \(f(x) \geq x\), we must have equality.
+
+However, intriguingly, we can prove Bourbaki-Witt \emph{without} axiom of choice: injecting \(\gamma(X)\) into \(X\) by explicitly set \(x_{\alpha + 1} = f(x_\alpha)\) and \(x_\alpha = \sup\{x_\beta: \beta < \alpha\}\) for a non-zero limit \(\alpha\) and derive a contradiction. We circumvent the issue of choice by exhibit an explicit upper bound.
+
+\begin{note}
+  In chapter 2, we never used axiom of choice except in remark that well-ordering is equivalent to the absence of decreasing sequece, and that \(\omega_1\) does not have a countable supremum.
+\end{note}
+
+In fact, it is easy to deduce Zorn's lemma from Bourbaki-Witt (with axiom of choice) so we can view it as the ``choice-free version of Zorn's lemma''.
+
+\section{Predicate logic}
+
+We studied propositional logic in chapter 1 but it is not powerful enough to express objects outside of primitive propositions. In this chapter we will introduce predicate logic, which is more intricate but more powerful. Before that we will have an overview of the theory we will develop.
+
+A mathematical \emph{structure} is a set with functions and relations defined on it. A function has an \emph{arity} associated to it, which is the number of arguments it take. For example, recall that a group is a set \(A\) equipped with functions \(m: A^2 \to A\) (arity \(2\)), and \(i: A \to A\) (arity \(1\)), and a constant \(e \in A\), which could be seen as a function of arity \(0\), such that
+\begin{align*}
+  & (\forall x, y \in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
+  & (\forall x \in A) (m(x, e) = x \land m(e, x) = x) \\
+  & (\forall x \in A) (m(x, i(x)) = e \land m(i(x), x) = e)
+\end{align*}
+
+As another example, a poset is a structure with relation: it is a set \(A\) equipped with a predicate (i.e.\ relation) \((\leq) \subseteq A^2\) such that
+\begin{align*}
+  & (\forall x \in A) (x \leq x) \\
+  & (\forall x, y, z \in A) ((x \leq y \land y \leq z) \implies (x \leq z)) \\
+  & (\forall x, y \in A) ((x \leq y \land y \leq x) \implies (x = y))
+\end{align*}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Propostional logic & Predicate logic & Example in groups \\ \hline
+    language & language & group axioms \\ \hline
+    valuation & structure & \(m, i, e\) \\ \hline
+    model of \(S\) & same & structure in which each \(s \in S\) holds \\ \hline
+    \(S \models t\) & same & group axioms \(\models m(e, e) = e\) \\ \hline
+    \(S \yields t\) & same* & \\ \hline
+  \end{tabular}
+  \caption{Comparison of concepts in propositional and predicate logic}
+\end{table}
+
+The axioms and deduction rules in predicate logic is going to be more complicated. For example, it includes an axiom that says ``if \(p(x)\) holds for all \(x\) and \(t\) is an instance of \(t\) then \(p(t)\)''.
+
+\subsection{Definitions}
+
+\begin{definition}[Language]
+  A \emph{language} \(L(\Omega, \Pi, \alpha)\) is the set of \emph{formulae}, defined by
+  \begin{itemize}
+  \item \emph{variables}: \(x_1, x_2, \dots\). We sometimes use \(x, y, \dots\),
+  \item \emph{terms}: defined inductively by
+    \begin{enumerate}
+    \item each variable is an a term,
+    \item if \(f \in \Omega, \alpha(f) = n\) and \(t_1, \dots, t_n\) are terms then \(ft_1, \dots t_n\) is a term. We usually write \(f(t_1, \dots, t_n)\).
+    \end{enumerate}
+    \begin{eg}
+      In the language of groups, we have \(\Omega = (m, i, e)\), with arities \(2, 1, 0\) respectively. \(\Pi = \emptyset\).
+
+      Some terms: \(x_1, m(x_1, x_1), e, m(e, e), m(x_1, i(x_1))\).
+    \end{eg}
+  \item \emph{atomic formulae}: consists of
+    \begin{enumerate}
+    \item \(\bot\),
+    \item \((s = t)\) for any terms \(s, t\),
+    \item \(\phi(t_1, \dots, t_n)\) for any \(\phi \in \Pi, \alpha(\phi) = n\) and any terms \(t_1, \dots, t_n\).
+    \end{enumerate}
+  \item \emph{formulae}: defined inductively by
+    \begin{enumerate}
+    \item each atomic formula is a formula,
+    \item if \(p, q\) are formulae then so is \((p \implies q)\),
+    \item if \(p\) is a formula, \(x\) is a variable, then \((\forall x) p\) is a formula,
+      \begin{eg}\leavevmode
+        \begin{enumerate}
+        \item group:
+          \begin{align*}
+            & (\forall x) (m(x, x) = e), \\
+            & (\forall x) (m(x, x) = e) \implies (\exists y)(m(y, y) = x).
+          \end{align*}
+        \item poset: \((\forall x) (x \leq x)\).
+        \end{enumerate}
+      \end{eg}
+      \begin{note}\leavevmode
+        \begin{enumerate}
+        \item A formula is a string of symbols.
+        \item Just as in chapter 1 we defined symbols such as \(\neg\), \(\land\) and \(lor\) in terms of \(\bot\), we write \((\exists x) p\) for \(\neg (\forall x) (\neg p)\).
+        \end{enumerate}
+      \end{note}
+    \end{enumerate}
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Closed]\index{closed}
+  A term is \emph{closed} if it contains no variables.
+\end{definition}
+
+\begin{eg}
+  \(e, m(e, e), m(e, m(e, e))\) are closed terms, but \(m(x, i(x))\) isn't.
+\end{eg}
+
+\begin{definition}[Bound \& free variable]\index{bound}\index{free}
+  An occurrence of variable \(x\) in formula \(p\) is \emph{bound} if it is inside the brackets of a ``\(\forall x\)'' quantifier. Otherwise it is \emph{free}.
+\end{definition}
+
+\begin{eg}
+  In \(m(x, x) = e \implies (\exists y) (m(y, y) = e)\), \(x\) is free and \(y\) is bounded.
+\end{eg}
+
+\begin{note}
+  It is possible to have a variable that is both free and bound in a formula. For example,
+  \[
+    (m(x, x) = e) \implies (\forall x)(\forall y) (m(x, y) = m(y, x)).
+  \]
+  But promise to \emph{never} use it!
+\end{note}
+
+\begin{definition}[Sentence]\index{sentence}
+  A \emph{sentence} is a formula without free variables.
+\end{definition}
+
+\begin{eg}
+  \((\forall x) (m(x, e) = x)\).
+\end{eg}
+
+\begin{definition}[Substitution]\index{substitution}
+  For a formula \(p\), a variable \(x\) and a term \(t\), the \emph{substitution} \(p[t/x]\) is obtained by replacing each free occurrence of \(x\) with \(e\).
+\end{definition}
+
+Do not worry too much about the word ``free'', it is there to prevent us from doing stupid things in stupid formula such as the bad example above where a variable is both free and bound. Just follow your common sense!
+
+\begin{eg}
+  If \(p\) is the statement \((\exists y) (m(y, y) = x)\) then \(p[t/x]\) is
+  \[
+    (\exists y) (m(y, y) = t).
+  \]
+\end{eg}
+
+\subsection{Semantic entailment}
+
+\begin{definition}[\(L\)-structure]\index{L-structre@\(L\)-structure}
+  An \emph{\(L\)-structure} is a non-empty set \(A\) equipped with
+  \begin{enumerate}
+  \item for each \(f \in \Omega\) with \(\alpha(f) = n\), a function \(f_A: A^n \to A\),
+  \item for each \(\phi \in \subset\) with \(\alpha(\phi) = n\), a relation \(\phi_A \in A^n\).
+  \end{enumerate}
+\end{definition}
+
+See later for why ``non-empty''.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(L\) is the language of groups, then an \(L\)-structure is a set \(A\) with functions \(m_A: A^2 \to A, i_A: A \to A, e_A \in A\). Note that \(A\) need not be a group.
+  \item Suppose \(L\) is the language of posets, then an \(L\)-structure is a set \(A\) with a relation \((\leq_A) \in A^2\).
+  \end{enumerate}
+\end{eg}
+
+We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \(p\) in structure \(A\). For example, \((\forall x) (m(x, x) = e)\) should be ``true in \(A\)'' if \(\forall a \in A, m_A(a, a) = e_A\). Informally this can be done by inserting ``\(\in A\)'' and subscripting \(A\), and saying it aloud.
+
+\begin{definition}[Interpretation]\index{interpretation}
+  For an \(L\)-structure \(A\), define \emph{interpretation} of \(A\) \(p_A \in \{0, 1\}\) for a sentence \(p\) recursively by
+  \begin{enumerate}
+  \item closed term: define \(t_A\) recursively by \((ft_1, \dots, f_n)_A = f_A(t_{1_A}, \dots, t_{n_A})\) for any \(f \in \Omega, \alpha(f) = n\) and closed terms \(t_1, \dots, t_n\).
+    \begin{eg}
+      \(m(e, i(e))_A = m_A(e_A, i_A(e_A))\). Note that \(e_A\) is already defined.
+    \end{eg}
+  \item atomic formulae: define \(p_A \in \{0, 1\}\) for \(p\) atomic by
+    \begin{enumerate}
+    \item \(\bot_A = 0\),
+    \item \((s = t)_A = \begin{cases} 1 & \text{if } s_A = t_A \\ 0 & \text{otherwise} \end{cases}\) for closed terms \(s, t\).
+    \item \(\phi(t_1, \dots, t_n) = \begin{cases} 1 & \text{if } (t_{1_A}, \dots, t_{n_A}) \in \phi_A \\ 0 & \text{otherwise} \end{cases}\) for each \(\phi \in \Pi, \alpha(\phi) = n\) and closed terms \(t_1, \dots, t_n\).
+    \end{enumerate}
+  \item sentence: \(p_A\) defined inductively by
+    \begin{enumerate}
+    \item \((p \implies q)_A = \begin{cases} 0 & \text{if } p_A = 1, q_A = 0 \\ 1 & \text{otherwise} \end{cases}\)
+    \item \(((\forall x) p)_A = \begin{cases} 1 & \text{if } p[\overline a/x]_A = 1 \text{ for all } a \in A \\ 0 & \text{otherwise} \end{cases}\) where, for each \(a \in A\), add constant symbol \(\overline a\) to \(L\) obtaining \(L'\), and made an \(L'\)-structure by setting \(\overline a_A = a\).
+    \end{enumerate}
+  \end{enumerate}
+\end{definition}
+
+If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variables of \(p\)}}\). For example, if \(p\) is the formula \((\exists y) (m(y, y) = x)\), then
+\[
+  p_A = \{a \in A: \exists b \in A \text{ with } m_A(b, b) = e\}.
+\]
+
+
+
+  
+
 
 
 

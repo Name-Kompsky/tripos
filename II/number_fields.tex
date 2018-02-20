@@ -14,6 +14,7 @@
 \DeclareMathOperator{\n}{N}
 \DeclareMathOperator{\disc}{disc}
 \DeclareMathOperator{\Cl}{Cl}%ideal class group
+\newcommand*{\red}[1]{\overline{#1}}%reduction mod
 
 \makeindex
 
@@ -196,7 +197,7 @@ so by minimality of \(\deg f_\alpha'\), \(r = 0\). Then \(\deg f_\alpha = \deg f
   \[
     \Z[\alpha, \beta] \cong \Z^r \oplus T
   \]
-  for some \(r \geq 1\) and finite abelian group \(T\). In fact \(T = 0\): if \(\gamma \in T\) then \(|T|\gamma = 0\) by Lagrange's Theorem. But \(\Z[\alpha, \beta] \subseteq L\), a \(\Q\)-vector space, so this forces \(\gamma = 0\). We can therefore fix an isomorphism
+  for some \(r \geq 1\) and finite abelian group \(T\). In fact \(T = 0\): if \(\gamma \in T\) then \(|T|\gamma = 0\) by Lagrange. But \(\Z[\alpha, \beta] \subseteq L\), a \(\Q\)-vector space, so this forces \(\gamma = 0\). We can therefore fix an isomorphism
   \[
     \Z[\alpha, \beta] \cong \Z^r
   \]
@@ -695,7 +696,7 @@ We thus conclude that
 
   On the other hand if \(d = 1 \pmod 4\) then \(\O_L = \Z[\alpha]\) where \(\alpha  = \frac{1 + \sqrt d}{2}\). Apply the proposition to \(f(t) = t^2 - t + \frac{1 - d}{4}\), \(f'(x) = 2x - 1\), \(f'(\alpha) = \sqrt d\). Thus
   \[
-    D_L = -N_{L/\Q}(\sqrt d) = d.
+    D_L = -\n_{L/\Q}(\sqrt d) = d.
   \]
 \end{eg}
 
@@ -872,7 +873,7 @@ But this does not go terribly wrong. In fact, any non-zero \(x \in \O_L\) which 
 The way to get around this is to consider multiplication of ideals insteads of elements. Recall that if \(R\) is a ring and \(I, J\) are ideal of \(R\), we can define
 \begin{align*}
   IJ &= \left\{ \sum_{i = 1}^k a_ib_i: a_i \in I, b_i \in J \right\} \\
-  I + J &= \{ a + b: a \in I, b \in J\}
+  I + J &= \{ a + b: a \in I b \in J \}
 \end{align*}
 
 \begin{definition}[Irreducible ideal]\index{irreducible ideal}
@@ -888,16 +889,16 @@ One caveat: even if \(\alpha \in \O_L\) is irreducible, the principal ideal \((\
 The aim of this chapter is to prove that factorisation of ideals into prime ideals is unique. Recall from IB Groups, Rings and Modules
 
 \begin{definition}[Prime ideal]\index{prime ideal}
-  Let \(R\) is a ring. We say that a proper ideal \(P \subseteq \R\) is \emph{prime} if for all \(x, y \in R\), \(xy \in P \implies x \in P \text{ or } y \in P\).
+  Let \(R\) is a ring. We say that a proper ideal \(\mathfrak p \subseteq \R\) is \emph{prime} if for all \(x, y \in R\), \(xy \in \mathfrak p \implies x \in \mathfrak p \text{ or } y \in \mathfrak p\).
 \end{definition}
 
 The following lemma gives us a way to characterise prime ideals:
 \begin{lemma}
-  Let \(R\) be a ring and \(I, J, P \subseteq R\) be ideals. Suppose \(P\) is prime and \(IJ \subseteq P\) then \(I \subseteq P\) or \(J \subseteq P\).
+  Let \(R\) be a ring and \(I, J, \mathfrak p \subseteq R\) be ideals. Suppose \(\mathfrak p\) is prime and \(IJ \subseteq \mathfrak{p}\) then \(I \subseteq \mathfrak{p}\) or \(J \subseteq \mathfrak{p}\).
 \end{lemma}
 
 \begin{proof}
-  Wlog \(I \nsubseteq P\). Choose \(x \in I \setminus P\). For all \(y \in J\), \(xy \in IJ \subseteq P\) so \(y \in P\).
+  Wlog \(I \nsubseteq \mathfrak{p}\). Choose \(x \in I \setminus \mathfrak{p}\). For all \(y \in J\), \(xy \in IJ \subseteq \mathfrak{p}\) so \(y \in \mathfrak{p}\).
 \end{proof}
 
 Note that the converse is trivially true, so we can think about a prime ideal as a ``prime element'' among all ideals, instead of breaking the ideal apart and talking about properties of elements in the ideal.
@@ -905,17 +906,17 @@ Note that the converse is trivially true, so we can think about a prime ideal as
 From now on let \(L\) be a number field.
 
 \begin{lemma}
-  Any non-zero prime ideal \(P \subseteq \O_L\) is a maximal ideal.
+  Any non-zero prime ideal \(\mathfrak{p} \subseteq \O_L\) is a maximal ideal.
 \end{lemma}
 
 \begin{proof}
   Recall that if \(R\) is a ring and \(I\) is a proper ideal of \(R\), then \(I\) is prime if and only if \(R/I\) is an integral domain and \(I\) is maximal if and only if \(R/I\) is a field.
 
-  If \(P \subseteq \O_L\) is a non-zero prime ideal, then \(\O_L\) is a finite integral domain as its cardinality is \(\n(P)\). Any finite integral domain is a field.
+  If \(\mathfrak{p} \subseteq \O_L\) is a non-zero prime ideal, then \(\O_L\) is a finite integral domain as its cardinality is \(\n(\mathfrak{p})\). Any finite integral domain is a field.
 \end{proof}
 
 \begin{lemma}
-  If \(I \subseteq \O_L\) is a non-zero proper ideal then there exists non-zero prime ideals \(P_1, \dots, P_r \subseteq \O_L\) such that \(P_1 \cdots P_r \subseteq I\).
+  If \(I \subseteq \O_L\) is a non-zero proper ideal then there exists non-zero prime ideals \(\mathfrak{p}_1, \dots, \mathfrak{p}_r \subseteq \O_L\) such that \(\mathfrak{p}_1 \cdots \mathfrak{p}_r \subseteq I\).
 \end{lemma}
 
 \begin{proof}
@@ -929,14 +930,14 @@ From now on let \(L\) be a number field.
     \n(I + (x)) &< \n(I) \\
     \n(I + (y)) &< \n(I)
   \end{align*}
-  By minimality of \(\n(I)\), we can find non-zero prime ideals \(P_1, \dots, P_r, Q_1, \dots, Q_s\) such that
+  By minimality of \(\n(I)\), we can find non-zero prime ideals \(\mathfrak{p}_1, \dots, \mathfrak{p}_r, \mathfrak{q}_1, \dots, \mathfrak{q}_s\) such that
   \begin{align*}
-    P_1, \dots, P_r &\subseteq I + (x) \\
-    Q_1, \dots, Q_s &\subseteq I + (y)
+    \mathfrak{p}_1, \dots, \mathfrak{p}_r &\subseteq I + (x) \\
+    \mathfrak{q}_1, \dots, \mathfrak{q}_s &\subseteq I + (y)
   \end{align*}
   so
   \[
-    P_1 \cdots P_rQ_1 \cdots Q_s \subseteq (I + (x))(I + (y)) \subseteq I^2 + xI + yI + (xy) \subseteq I.
+    \mathfrak{p}_1 \cdots \mathfrak{p}_r\mathfrak{q}_1 \cdots \mathfrak{q}_s \subseteq (I + (x))(I + (y)) \subseteq I^2 + xI + yI + (xy) \subseteq I.
   \]
   Absurd.
 \end{proof}
@@ -946,13 +947,13 @@ From now on let \(L\) be a number field.
 \end{lemma}
 
 \begin{proof}
-  Let \(\alpha \in I \setminus \{0\}\). Let \(P_1, \dots, P_r \subseteq \O_L\) be non-zero prime ideals such that \(P_1 \dots P_r \subseteq (\alpha)\). Wlog \(r\) is minimal among all such expressions. Let \(P\) be a maximal ideal containing \(I\). Then
+  Let \(\alpha \in I \setminus \{0\}\). Let \(\mathfrak{p}_1, \dots, \mathfrak{p}_r \subseteq \O_L\) be non-zero prime ideals such that \(\mathfrak{p}_1 \dots \mathfrak{p}_r \subseteq (\alpha)\). Wlog \(r\) is minimal among all such expressions. Let \(\mathfrak{p}\) be a maximal ideal containing \(I\). Then
   \[
-    P \supseteq I \supseteq (\alpha) \supseteq P_1 \cdots P_r
+    \mathfrak{p} \supseteq I \supseteq (\alpha) \supseteq \mathfrak{p}_1 \cdots \mathfrak{p}_r
   \]
-  so \(P \supseteq P_i\) for some \(i\). After reordering, assume \(P \supseteq P_1\). Since non-zero prime ideals are maximal, we have \(P = P_1\). Since \(r\) is minimal, we have \(P_2 \cdots P_r \nsubseteq (\alpha)\). Choose \(\beta \in P_2 \cdots P_r \setminus (\alpha)\). Claim that the element \(\gamma = \frac{\beta}{\alpha}\) has the desired property: if \(\gamma \in \O_L\) then \(\beta = \alpha\gamma \in (\alpha)\). Absurd. In addition
+  so \(\mathfrak{p} \supseteq \mathfrak{p}_i\) for some \(i\). After reordering, assume \(\mathfrak{p} \supseteq \mathfrak{p}_1\). Since non-zero prime ideals are maximal, we have \(\mathfrak{p} = \mathfrak{p}_1\). Since \(r\) is minimal, we have \(\mathfrak{p}_2 \cdots \mathfrak{p}_r \nsubseteq (\alpha)\). Choose \(\beta \in \mathfrak{p}_2 \cdots \mathfrak{p}_r \setminus (\alpha)\). Claim that the element \(\gamma = \frac{\beta}{\alpha}\) has the desired property: if \(\gamma \in \O_L\) then \(\beta = \alpha\gamma \in (\alpha)\). Absurd. In addition
   \[
-    \gamma I = \frac{\beta}{\alpha}I \subseteq \frac{1}{\alpha} P_2 \cdots P_r I \subseteq \frac{1}{\alpha} P_1\cdots P_r \subseteq \O_L.
+    \gamma I = \frac{\beta}{\alpha}I \subseteq \frac{1}{\alpha} \mathfrak{p}_2 \cdots \mathfrak{p}_r I \subseteq \frac{1}{\alpha} \mathfrak{p}_1\cdots \mathfrak{p}_r \subseteq \O_L.
   \]
 \end{proof}
 
@@ -978,7 +979,7 @@ From now on let \(L\) be a number field.
   This shows that \(IJ = (\alpha)\).
 \end{proof}
 
-Now we have the machinery to discuss ``division'' of ideals:
+Now we have the machinery to define ``division'' of ideals:
 
 \begin{corollary}
   If \(I, J, K \subseteq \O_L\) are non-zero ideals and \(IJ = IK\) then \(J = K\).
@@ -1007,29 +1008,29 @@ Now we have the machinery to discuss ``division'' of ideals:
 Finally, the theorem we have promised:
 
 \begin{theorem}
-  If \(I \subseteq \O_L\) is a non-zero ideal, then there exist prime ideals \(P_1, \dots, P_r \subseteq \O_L\) such that
+  If \(I \subseteq \O_L\) is a non-zero ideal, then there exist prime ideals \(\mathfrak{p}_1, \dots, \mathfrak{p}_r \subseteq \O_L\) such that
   \[
-    I = P_1\cdots P_r.
+    I = \mathfrak{p}_1\cdots \mathfrak{p}_r.
   \]
   Moreover, the expression is unique up to reordering.
 \end{theorem}
 
 \begin{proof}
-  We show existence by contradiction. Suppose \(I\) is an ideal which cannot be written as a product of primes, and with \(\n(I)\) minimal subject to this condition. We can find a maximal ideal \(P \supseteq I\), which is also prime. Then \(P \divides I\) so we can write \(I = PJ\) for some \(J \subseteq \O_L\). Then \(J \divides I\), hence \(J \supseteq I\). If \(J = I\) then we get \(I = IP\) and hence \(\O_L = P\), contradicting the maximality of \(P\). Therefore \(J \supsetneq I\), hence \(N(J) < N(I)\). By minimality of \(N(I)\), we can write \(J = P_2 \cdots P_r\) where \(P_i \subseteq \O_L\) are prime ideals. Hence
+  We show existence by contradiction. Suppose \(I\) is an ideal which cannot be written as a product of primes, and with \(\n(I)\) minimal subject to this condition. We can find a maximal ideal \(\mathfrak{p} \supseteq I\), which is also prime. Then \(\mathfrak{p} \divides I\) so we can write \(I = \mathfrak{p}J\) for some \(J \subseteq \O_L\). Then \(J \divides I\), hence \(J \supseteq I\). If \(J = I\) then we get \(I = I\mathfrak{p}\) and hence \(\O_L = \mathfrak{p}\), contradicting the maximality of \(\mathfrak{p}\). Therefore \(J \supsetneq I\), hence \(N(J) < N(I)\). By minimality of \(N(I)\), we can write \(J = \mathfrak{p}_2 \cdots \mathfrak{p}_r\) where \(\mathfrak{p}_i \subseteq \O_L\) are prime ideals. Hence
   \[
-    I = PJ = PP_2 \cdots P_r.
+    I = \mathfrak{p}J = \mathfrak{p}\mathfrak{p}_2 \cdots \mathfrak{p}_r.
   \]
   Absurd.
 
-  For the uniqueness part, suppose \(P_1, \dots, P_r\) and \(Q_1, \dots, Q_s\) are non-zero ideals in \(\O_L\) such that
+  For the uniqueness part, suppose \(\mathfrak{p}_1, \dots, \mathfrak{p}_r\) and \(\mathfrak{q}_1, \dots, \mathfrak{q}_s\) are non-zero ideals in \(\O_L\) such that
   \[
-    P_1 \cdots P_r = Q_1 \cdots Q_s.
+    \mathfrak{p}_1 \cdots \mathfrak{p}_r = \mathfrak{q}_1 \cdots \mathfrak{q}_s.
   \]
-  Then \(P_1 \divides Q_1 \cdots Q_s\) so \(P_1 \supseteq Q_i\) for some \(1 \leq i \leq s\). Wlog \(P_1 \supseteq Q_1\). But both \(P_1\) and \(Q_1\) are maximal so \(P_1 = Q_1\). Cancel to get
+  Then \(\mathfrak{p}_1 \divides \mathfrak{q}_1 \cdots \mathfrak{q}_s\) so \(\mathfrak{p}_1 \supseteq \mathfrak{q}_i\) for some \(1 \leq i \leq s\). Wlog \(\mathfrak{p}_1 \supseteq \mathfrak{q}_1\). But both \(\mathfrak{p}_1\) and \(\mathfrak{q}_1\) are maximal so \(\mathfrak{p}_1 = \mathfrak{q}_1\). Cancel to get
   \[
-    P_2\cdots P_r = Q_2 \cdots Q_s.
+    \mathfrak{p}_2\cdots \mathfrak{p}_r = \mathfrak{q}_2 \cdots \mathfrak{q}_s.
   \]
-  Continue in this way to obtain \(r = s\) and \(P_i = Q_i\) after reordering.
+  Continue in this way to obtain \(r = s\) and \(\mathfrak{p}_i = \mathfrak{q}_i\) after reordering.
 \end{proof}
 
 Before going to construct prime ideals and do arithmetics on them, we first define
@@ -1037,7 +1038,7 @@ Before going to construct prime ideals and do arithmetics on them, we first defi
 \begin{definition}[Ideal class group]\index{ideal class group}
   The \emph{ideal class group} is defined to be
   \[
-    \Cl(\O_L) = \{I \subseteq \O_L \text{ non-zero ideals}\}/\sim
+    \Cl(\O_L) = \{I \subseteq \O_L \text{ non-zero ideal}\}/\sim
   \]
   where \(I \sim J\) if there exists \(\alpha \in L^\times\) such that \(\alpha I = J\).
 
@@ -1080,20 +1081,22 @@ Before going to construct prime ideals and do arithmetics on them, we first defi
   \item \(1 \implies 2\): See IB Groups, Rings and Modules.
   \item \(2 \implies 3\): Suffices to show every ideal \(I \subseteq \O_L\) is principal. We know that we can write
     \[
-      I = P_1 \cdots P_r
+      I = \mathfrak{p}_1 \cdots \mathfrak{p}_r
     \]
-    as a product of prime ideals. As products of principal ideals are principal, it suffices to show that every prime ideal of \(\O_L\) is principal. Let \(P \subseteq \O_L\) be a prime ideal and \(\alpha \in P\) non-zero, and let
+    as a product of prime ideals. As products of principal ideals are principal, it suffices to show that every prime ideal of \(\O_L\) is principal. Let \(\mathfrak{p} \subseteq \O_L\) be a prime ideal and \(\alpha \in \mathfrak{p}\) non-zero, and let
     \[
       \alpha = \alpha_1 \cdots \alpha_r
     \]
     be a factorisation of \(\alpha\) into irreducibles. Recall that if a ring is a UFD then irreducible elements are prime. Since
     \[
-      P \supseteq (\alpha) = (\alpha_1) \cdots (\alpha_r)
+      \mathfrak{p} \supseteq (\alpha) = (\alpha_1) \cdots (\alpha_r)
     \]
-    so \(P \divides P_1 \cdots P_r\) where \(P_i = (\alpha_i)\). Since \(\alpha_i\)'s are prime, \(P_i\) is a prime ideal. Hence we must have \(P = P_i = (\alpha_i)\) for some \(i\). Thus \(P\) is principal.
+    so \(\mathfrak{p} \divides \mathfrak{p}_1 \cdots \mathfrak{p}_r\) where \(\mathfrak{p}_i = (\alpha_i)\). Since \(\alpha_i\)'s are prime, \(\mathfrak{p}_i\) is a prime ideal. Hence we must have \(\mathfrak{p} = \mathfrak{p}_i = (\alpha_i)\) for some \(i\). Thus \(\mathfrak{p}\) is principal.
   \item \(3 \implies 1\): Let \(I \subseteq \O_L\) be a non-zero ideal. Since \(\Cl(\O_L)\) is trivial, we have \([I] = [\O_L]\), so there exists \(\alpha \in L^\times\) such that \(\alpha \O_L = I\). We have \(\alpha \cdot 1 = \alpha \in I \subseteq \O_L\) so \(\alpha \in \O_L\). Then \(I = (\alpha)\) is principal.
   \end{itemize}
 \end{proof}
+
+Thus \(\Cl(\O_L)\) can be seen as the obstruction to \(\O_L\) being a UFD.
 
 \begin{lemma}
   If \(I, J \subseteq \O_L\) are non-zero ideals then
@@ -1107,9 +1110,370 @@ which says that ideals of \(\O_L\) behaves like principal ideals under norm.
   Example sheet.
 \end{proof}
 
+\section{Dedekind's criterion}
 
+If \(\mathfrak{p} \subseteq \O_L\) is a non-zero prime ideal, then there is a unique prime number \(p \in \Z_{\geq 0}\) such that \(p \in \mathfrak{p}\) since
+\[
+  (p) = \ker (\Z \to \O_L/\mathfrak{p}).
+\]
+Then \(\mathfrak p \divides p \O_L\) and \(\n(\mathfrak p) = p^f\) for some \(f \geq 1\).
 
+\begin{lemma}
+  Let \(p\) be a prime number and factor
+  \[
+    p \O_L = \prod_{i = 1}^r \mathfrak{p}_i^{e_i}
+  \]
+  where \(\mathfrak{p}_1, \dots, \mathfrak{p}_r\) are distinct prime ideals of \(\O_L\) and \(e_i \geq 1\). Define \(f_i \geq 1\) by \(\n(\mathfrak{p}_i) = p^{f_i}\). Then
+  \[
+    \sum_{i = 1}^r e_if_i = [L:\Q].
+  \]
+  In particular, \(r \leq [L:\Q]\).
+\end{lemma}
 
+\begin{proof}
+  Apply norm to get
+  \[
+    p^{[L:\Q]} = \n(p\O_L) = \prod_{i = 1}^r \n(\mathfrak{p}_i)^{e_1} = p^{\sum_{i = 1}^r e_if_i}.
+  \]
+\end{proof}
+
+\begin{definition}[Ramification]\index{ramified}\index{inert}\index{split completely}
+  Let \(p\) be a prime number and let \(p\O_L = \prod_{i = 1}^r \mathfrak{p}_i^{e_i}\) be the factorisation as above.
+  \begin{enumerate}
+  \item We say \(p\) \emph{ramifies} in \(L\) if \(e_i > 1\) for some \(i\). We say \(p\) is \emph{totally ramified} if \(r = 1\) and \(e_1 = [L:\Q]\), i.e.\ \(p\O_L = \mathfrak{p}_1^{[L:\Q]}\).
+  \item We say \(p\) is \emph{inert} in \(L\) if \(r = 1\) and \(e_1 = 1\), i.e.\ \(p\O_L\) is prime.
+  \item We say \(p\) \emph{splits completely} in \(L\) if \(r = [L:\Q]\) and \(e_i = f_i = 1\) for all \(i\).
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Dedekind's criterion]\index{Dedekind's criterion}
+  Let \(\alpha \in \O_L\) be such that \(L = \Q(\alpha)\). Let \(f(x) \in \Z[x]\) be its minimal polynomial and let \(p\) be a prime integer such that \(p \ndivides [\O_L:\Z[\alpha]]\). Let \(\red f(x) = f(x) \pmod p\) and factor
+  \[
+    \red f(x) = \prod_{i = 1}^r \red g_i(x)^{e_i} \in \F_p[x]
+  \]
+  where \(\red g_1(x), \dots, \red g_r(x) \in \F_p[x]\) are distinct monic irreducible polynomials. Let \(g_i(x) \in \Z[x]\) be any polynomial with \(g_i(x) \pmod p = \red g_i(x)\), and define
+  \[
+    \mathfrak{p}_i = (p, g_i(\alpha)) \subseteq \O_L,
+  \]
+  an ideal of \(\O_L\). Let \(f_i = \deg \red g_i(x)\).
+
+  Then \(\mathfrak{p}_1, \dots, \mathfrak{p}_r\) are disjoint prime ideals of \(\O_L\) and
+  \begin{align*}
+    p\O_L &= \prod_{i = 1}^r \mathfrak{p}^{e_i} \\
+    \n(\mathfrak{p}_i) &= p^{f_i}
+  \end{align*}
+\end{theorem}
+
+\begin{eg}
+  Let \(L = \Q(\sqrt{-11})\) and \(p = 5\). As \(-11 = 1 \pmod 4\), \(\O_L = \Z[\frac{1 + \sqrt{-11}}{2}]\). Thus \(\Z[\sqrt{-11}] \subseteq \O_L\) has index \(2\) as an additive subgroup. Therefore we can apply Dedekind's criterion to \(\alpha = \sqrt{-11}\). \(f(x) = x^2 + 11\).
+  \[
+    \red f(x) = f(x) \pmod 5 = x^2 + 1 = (x + 2)(x + 3) \in \F_5[x]
+  \]
+  so \(5\O_L = \mathfrak p \mathfrak q\) where
+  \begin{align*}
+    \mathfrak p &= (5, \sqrt{-11} + 2) \\
+    \mathfrak q &= (5, \sqrt{-11} + 3)
+  \end{align*}
+  and \(\mathfrak p, \mathfrak q\) are distinct prime ideals of \(\O_L\). Thus \(5\) splits completely in \(\Q(\sqrt{-11})\).
+\end{eg}
+
+\begin{proof}
+  Recall that if \(R\) is a ring and \(I \subseteq R\) is an ideal, then there is a bijection
+  \begin{align*}
+    \{\text{ideals } J \subseteq R \text{ containing } I\} &\leftrightarrow \{\text{ideals } K \text{ of } R/I\} \\
+    J &\mapsto J/I \subseteq R/I
+  \end{align*}
+  Furthermore there is an isomorphism
+  \[
+    R/J \cong (R/I)/(J/I).
+  \]
+  We have \(\Z[\alpha] \subseteq \O_L\) of finite index. Let \(A = \Z[\alpha], \varphi: A \embed \O_L\). By reduction mod \(p\), get a ring homomorphism
+  \begin{align*}
+    \red \varphi: A/pA &\to \O_L/p\O_L \\
+    \beta + pA &\mapsto \beta + p\O_L
+  \end{align*}
+  Claim that \(\red \varphi\) is an isomorphism. Since both the domain and the codomain have the same cardinality \(p^{[L:\Q]}\), it suffices to show \(\red \varphi\) is surjective. Let \(N = [\O_L:\Z[\alpha]]\). We can find \(a, b \in \Z\) such that \(aN + bp = 1\). If \(\beta \in \O_L\) then \(N\beta \in \Z[\alpha]\) by Lagrange, and \(\beta = aN\beta + bp\beta\) so \(\red \varphi(aN\beta + pA) = \beta + p\O_L\).
+
+  Therefore
+  \begin{align*}
+    \{\text{ideals in } \O_L \text{ containing } p\} &\leftrightarrow \{\text{ideals of } A/pA\} \\
+    (p) \subseteq I \leftrightarrow I \ni p
+  \end{align*}
+  We have
+  \begin{align*}
+    A = \Z[\alpha] &\cong \Z[x]/(f(x)) \\
+    \alpha &\mapsfrom x
+  \end{align*}
+  Reduction mod \(p\) gives an isomorphism
+  \[
+    A/pA \cong \Z[x]/(pf(x)) \cong \F_p[x]/(\red f(x)).
+  \]
+  We have \(\red f(x) = \prod_{i = 1}^r \red g_i(x)^{e_1}\), so there are homomorphisms
+  \[
+    \F_p[x]/(\red f(x)) \to \F_p[x]/(\red g_i(x))
+  \]
+  given by quotienting by the ideal \((\red g_i(x)) \supseteq (\red f(x))\).
+
+  Define \(\mathfrak p_i \subseteq \O_L\) to be the ideal containing \(p\) such that \(\mathfrak p_1/(p)\) is the kernel of the ring homomorphism
+  \[
+    \begin{tikzcd}
+    \O_L/p\O_L
+    \ar[r, "\red \varphi^{-1}"]
+    & A/pA
+    \ar[r, "\cong"]
+    & \F_p[x]/(\red f(x))
+    \ar[r]
+    & \F_p[x]/(\red g_i(x))
+    \end{tikzcd}
+  \]
+  This ring homomorphism is surjective and its image is a field of cardinality \(p^{f_i}\). Hence \(\O_L/\mathfrak p_i\) is a finite field of cardinality \(p^{f_i}\) so \(\mathfrak p_i\) is a prime ideal of norm
+  \[
+    \n(\mathfrak p_i) = p^{f_i}.
+  \]
+
+  The \(\mathfrak p_i\)'s are distinct because their images in \(\O_L/p\O_L\) are distinct, as if \(i \neq j\) then \((\red g_i(x), \red g_j(x))\) is the unit ideal of \(\F_p[x]\). To show \(\mathfrak p_i = (p, g_i(x))\), it suffices to show \(\mathfrak p_i/(p) \subseteq \O_L/p\O_L\) is generated by \(\red g_i(\alpha)\).
+
+  This is equivalent to showing
+  \[
+    \ker(\F_p[x]/(\red f(x)) \to \F_p[x]/(\red g_i(x))
+  \]
+  is generated by \(\red g_i(x)\). This is true by definition.
+
+  It remains to show
+  \[
+    \mathfrak p_1^{e_1} \cdots \mathfrak p_r^{e_r} = p\O_L.
+  \]
+  \begin{align*}
+    \mathfrak p_1^{e_1} \cdots \mathfrak p_r^{e_r}
+    &= (p, g_1(\alpha))^{e_1} \cdots (p, g_r(\alpha))^{e_r} \\
+    &\subseteq (p, g_1(\alpha)^{e_1}) \cdots (p, g_r(\alpha)^{e_r}) \\
+    &\subseteq (p, g_1(\alpha)^{e_1} \cdots g_r(\alpha)^{e_r}) \\
+    &= (p, f(\alpha)) \\
+    &= (p)
+  \end{align*}
+  by noting that
+  \[
+    (x, y)^n = (x^n, x^{n - 1}y, \dots, y^n) \subseteq (x, y^n).
+  \]
+  Take norm,
+  \begin{align*}
+    \n(\mathfrak p_1^{e_q} \cdots \mathfrak p_r^{e_r})
+    &= \prod_{i = 1}^r \n(\mathfrak p_i)^{e_i} \\
+    &= p^{\sum_{i = 1}^re_if_i} \\
+    &= p^{\deg f} \\
+    &= p^{[L:\Q]} \\
+    &= \n(p)
+  \end{align*}
+  so equality holds.
+\end{proof}
+
+One application is the classification of prime ideals in ring of integers of quadratic fields:
+
+\begin{proposition}
+  Let \(d\) be a square-free integer, \(d \neq 0, 1\), \(L = \Q(\sqrt d)\) and let \(p\) be a prime number. Then
+  \begin{enumerate}
+  \item if \(p\) is odd then
+    \begin{enumerate}
+    \item if \(p \divides d\), then \((p) = \mathfrak p^2\) so \(p\) ramifies in \(L\).
+    \item if \(p \ndivides d\) and \(\legendre{d}{p} = 1\) then \((p) = \mathfrak p \mathfrak q\) so \(p\) splits completely in \(L\).
+    \item if \(p \ndivides d\) and \(\legendre{d}{p} = -1\) then \((p)\) is prime and thus inert in \(L\).
+    \end{enumerate}
+  \item if \(p = 2\) then
+    \begin{enumerate}
+    \item if \(d = 2, 3 \pmod 4\) then \(2\) ramifies in \(L\).
+    \item if \(d = 1 \pmod 8\) then \(2\) splits completely in \(L\).
+    \item if \(d = 5 \pmod 8\) then \(2\) is inert in \(L\).
+    \end{enumerate}
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  The case for \(p\) odd is similar to the worked example above and is left as an exercise. We just do the case for \(p = 2\). If \(d = 2, 3 \pmod 4\) then \(\O_L = \Z[\sqrt d]\) so by Dedekind's criterion, we must factor \(x^2 - d \pmod 2\). But
+  \[
+    x^2 - d = (x - d)^2 \pmod 2.
+  \]
+
+  If \(d = 1 \pmod 4\) then \(\O_L = \Z[\frac{1 + \sqrt d}{2}]\) so we must factor \(x^2 + x + \frac{1 - d}{4} \pmod 2\). If \(d = 1 \pmod 8\) then
+  \[
+    x^2 + x = x(x + 1) \pmod 2.
+  \]
+  If \(d = 5 \pmod 8\) then the polynomial is irreducible.
+\end{proof}
+
+\section{Geometry of numbers}
+
+\begin{definition}[Lattice]\index{lattice}
+  If \(V\) is a finite-dimensional \(\R\)-vector space, then a \emph{lattice} in \(V\) is a subgroup of the form
+  \[
+    \Lambda = \bigoplus_{i = 1}^n \Z v_i
+  \]
+  where \(v_1, \dots, v_n\) is a basis of \(V\) as an \(\R\)-vector space.
+\end{definition}
+
+This is a generalisation of the ususal lattice \(\Z^n \subseteq \R^n\).
+
+\begin{definition}[Covolume]\index{covolume}
+  If \(V\) is a finite-dimensional real inner product space and \(\Lambda \subseteq V\) is a lattice, then the \emph{covolume} of \(\Lambda\) is
+  \[
+    A(\Lambda) = \operatorname{vol}\left( \left\{ \sum_{i = 1}^n t_iv_i: t_i \in [0, 1]\right\}\right)
+  \]
+  where \(\Lambda = \bigoplus_{i = 1}^n \Z v_i\).
+\end{definition}
+
+It is an exercise to check that it is independent of the choice of basis (that generate \(\Lambda\)).
+
+We first consider only a fixed imaginary quadratic field \(L = \Q(\sqrt d)\) where \(d < 0\) is square-free. Let \(\sigma: L \to \C\) be a complex embedding. Our first observation is that \(\sigma(\O_L)\) is a lattice in \(\C\):
+\begin{enumerate}
+\item if \(d = 2, 3 \pmod 4\), then \(\sigma(\O_L) = \Z \oplus \Z\sqrt d\).
+\item if \(d = 1 \pmod 4\), then \(\sigma(\O_L) = \Z \oplus \Z \frac{1 + \sqrt d}{2}\).
+\end{enumerate}
+
+More generally, if \(I \subseteq \O_L\) is a non-zero ideal then \(\sigma(I)\) is a lattice in \(\C\).
+
+\begin{lemma}
+  If \(I \subseteq \O_L\) is a non-zero ideal then
+  \[
+    A(I) = \frac{1}{2}\sqrt{|\disc(I)|} = \frac{\n(I)}{2}\sqrt{|D_L|}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(\alpha_1, \alpha_2\) be an integral basis for \(I\). Then
+  \[
+    \sigma(I) = \Z\sigma(\alpha_1) \oplus \Z\sigma(\alpha_2).
+  \]
+  If \(\sigma\alpha_1 = x_1 + iy_1, \sigma\alpha_2 = x_2 + iy_2\) where \(x_i, y_i\)'s are real, then
+  \[
+    A(\sigma(I))
+    = \left| \det
+      \begin{pmatrix}
+        x_1 & x_2 \\
+        y_1 & y_2
+      \end{pmatrix}
+    \right|
+  \]
+  which is the area of the parallelogram spanned by the two vectors. Also by definition,
+  \begin{align*}
+    \disc(I)
+    &= \det
+    \begin{pmatrix}
+      x_1 + iy_1 & x_2 + iy_2 \\
+      x_1 - iy_1 & x_2 - iy_2
+    \end{pmatrix}
+    ^2 \\
+    &= \det
+    \begin{pmatrix}
+      x_1 + iy_1 & x_2 + iy_2 \\
+      2x_1 & 2x_2
+    \end{pmatrix}
+    ^2 \\
+    &= (2i)^2 \det
+    \begin{pmatrix}
+      y_1 & y_2 \\
+      x_1 & x_2
+    \end{pmatrix}
+    ^2
+  \end{align*}
+\end{proof}
+
+To demonstrate how to actually compute and use covolume, we state a theorem whose general version will be proved later in the course:
+
+\begin{theorem}[Special case of Minkowski's theorem]
+  Let \(\Lambda \subseteq \R^2\) be a lattice and let \(S = D(0, r) \subseteq \R^2\) be the closed disc of radius \(r\). Then if \(\operatorname{area}(S) \geq 4A(\Lambda)\) then there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda \in S\).
+\end{theorem}
+
+The surprising thing about this theorem is that it is independent of the shape of the lattice.
+
+In particular, there exists \(\lambda \in  \Lambda \setminus \{0\}\) such that
+\[
+  |\lambda|^2 \leq \frac{4}{\pi} A(\Lambda).
+\]
+
+\begin{corollary}
+  If \(I \subseteq \O_L\) is a non-zero ideal then there exists \(\alpha \in I \setminus \{0\}\) such that
+  \[
+    \n(\alpha) \leq c_L \n(I)
+  \]
+  where \(c_L = \frac{2}{\pi}\sqrt{|D_L|}\).
+\end{corollary}
+
+\begin{proof}
+  We apply the theorem to \(\sigma(I) \subseteq \C\) to get there exists \(\lambda \in \sigma(I) \setminus \{0\}\) such that
+  \[
+    |\lambda|^2 \leq \frac{4}{\pi} \frac{\n(I)}{2} \sqrt{|D_L|} = c_L \n(I).
+  \]
+  If \(\alpha \in I\) is such that \(\sigma(\alpha) = \lambda\) then
+  \[
+    \n(\alpha)
+    = \sigma(\alpha) \conj{\sigma(\alpha)}
+    = |\sigma(\alpha)|^2
+    = |\lambda|^2.
+  \]
+\end{proof}
+
+\begin{corollary}
+  If \([I] \in \Cl(\O_L)\) then there exist \(J \in [I]\) such that
+  \[
+    \n(J) \leq c_L.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Choose \(K \in [I]^{-1}\) such that \(IK\) is principal. Apply the previous corollary to find \(\alpha \in K \setminus \{0\}\) such that
+  \[
+    \n(\alpha) \leq c_L \n(K).
+  \]
+  As \((\alpha) \subseteq K\), \(K \divides (\alpha)\) so there exist \(J \subseteq \O_L\) non-zero such that \(JK = (\alpha)\). Then done since \([J] = [K]^{-1} = [I]\) and
+  \[
+    \n(J) = \frac{\n(\alpha)}{\n(K)} \leq c_L.
+  \]
+\end{proof}
+
+Finally we can prove our first result in algebraic number theory:
+
+\begin{theorem}
+  The group \(\Cl(\O_L)\) is finite.
+\end{theorem}
+
+In fact, we will later prove that this is true for any number field \(L\).
+
+\begin{proof}
+  We've shown that every class \([I] \in \Cl(\O_L)\) has a representative of norm \(\leq c_L\). Thus suffices to show that for every \(m \in \Z, m \geq 1\), the number of ideals \(I \subseteq \O_L\) of norm \(\n(I) = m\) is finite.
+
+  If \(\n(I) = m\) then \([\O_L:I] = m\) so by Lagrange \(m \in I\). Thus \(I\) comes from an ideal of the finite ring \(\O_L/m\O_L\).
+\end{proof}
+
+\begin{note}
+  We see \(\Cl(\O_L)\) is generated by ideal classes \([\mathfrak p]\) where \(\mathfrak p \subseteq \O_L\) is a non-zero prime ideal of norm \(\n(\mathfrak p) \leq c_L\). To see this, any class has the form \([I]\) where \(\n(I) \leq c_L\). If \(I = \prod_{i = 1}^r \mathfrak p_i^{e_i}\) then
+  \begin{align*}
+    [I] &= \prod_{i = 1}^r [\mathfrak p_i]^{e_i} \\
+    \n(I) &= \prod_{i = 1}^r \n(\mathfrak p_i)^{e_i}
+  \end{align*}
+  Thus \(\n(\mathfrak p_i) \leq \n(I) \leq c_L\).
+\end{note}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(d = -7\). As \(d = 1 \pmod 4\), \(D_L = d\) based on our results in previous chapters. Thus
+    \[
+      c_L = \frac{2}{\pi} \sqrt 7 < \frac{2}{3} \sqrt 7 < 2
+    \]
+    so \(\Cl(\O_L)\) is generated by ideals of norm \(< 2\). There are none except \(\O_L\). Thus \(\Cl(\O_L)\) is trivial. Hence \(\O_L = \Z[\frac{1 + \sqrt{-7}}{2}]\) is a UFD.
+  \item \(d = -5\). We already knew this is not a UFD. \(D_L = 4d\) so
+    \[
+      c_L = \frac{2}{\pi}\sqrt{20} = \frac{4}{\pi}\sqrt 5 < \frac{4}{3} \sqrt 5 < 3
+    \]
+    so \(\Cl(\O_L)\) is generated by prime ideals \(\mathfrak p \subseteq \O_L\) of norm \(\n(\mathfrak p) = 2\). We know by Dedekind's criterion that \(2\O_L = \mathfrak p^2\). Thus \(\Cl(\O_L)\) is generated by \([\mathfrak p]\) and \([\mathfrak p]^2 = [2\O_L] = [\O_L]\) is the trivial class. Hence there are two possibilities:
+    \begin{enumerate}
+    \item if \(\mathfrak p\) is principal then \(\Cl(\O_L)\) is trivial.
+    \item if \(\mathfrak p\) is not principal then \(\Cl(\O_L) \cong \Z/(2)\).
+    \end{enumerate}
+    But we already knew that \(\O_L\) is not a UFD so \(\Cl(\O_L)\) is not trivial so must have
+    \[
+      \Cl(\O_L) \cong \Z/(2).
+    \]
+  \end{enumerate}
+\end{eg}
 
 
 

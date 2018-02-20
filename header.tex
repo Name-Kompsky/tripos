@@ -185,8 +185,8 @@
 \DeclareMathOperator{\aut}{Aut}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\SL}{SL}
-\DeclareMathOperator{\PSL}{PSL}
 \DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\PSL}{PSL}
 \DeclareMathOperator{\SU}{SU}
 \DeclareMathOperator{\SO}{SO}
 \DeclareMathOperator{\PSU}{PSU}
@@ -258,14 +258,14 @@
 \newcommand*{\ideal}{\trianglelefteq}
 
 %fields
-\renewcommand*{\C}{\mathbb{C}}
-\newcommand*{\R}{\mathbb{R}}
-\newcommand*{\Q}{\mathbb{Q}}
-\newcommand*{\Z}{\mathbb{Z}}
-\newcommand*{\N}{\mathbb{N}}
-\newcommand*{\F}{\mathbb{F}}
+\renewcommand*{\C}{{\mathbb{C}}}
+\newcommand*{\R}{{\mathbb{R}}}
+\newcommand*{\Q}{{\mathbb{Q}}}
+\newcommand*{\Z}{{\mathbb{Z}}}
+\newcommand*{\N}{{\mathbb{N}}}
+\newcommand*{\F}{{\mathbb{F}}}
 %not really but I think this belongs here
-\newcommand*{\A}{\mathbb{A}}
+\newcommand*{\A}{{\mathbb{A}}}
 
 %asymptotic
 \newcommand*{\bigO}{O}
@@ -286,3 +286,6 @@
 %differential geometry
 \renewcommand*{\H}{\mathbb{H}}
 \newcommand*{\transversal}{\pitchfork}
+
+%number theory
+\newcommand*{\legendre}[2]{\genfrac{(}{)}{}{}{#1}{#2}}%Legendre symbol

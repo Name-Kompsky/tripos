@@ -11,6 +11,7 @@
 \input{header}
 
 \newcommand*{\D}{\mathcal{D}}
+\DeclareMathOperator*{\res}{Res}
 
 
 \begin{document}
@@ -794,7 +795,7 @@ which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well a
 
 \subsection{Application of Cauchy Integration Formula}
 
-\begin{theorem}[Liouville]\index{Liouville's Theorem}
+\begin{theorem}[Liouville]\index{Liouville's theorem}
   Every bounded entire function is constant.
 \end{theorem}
 
@@ -872,7 +873,7 @@ An immediate corollary is that holomorphic functions are analytic. The converse 
 
 The next theorem is a converse to Cauchy:
 
-\begin{corollary}[Morera]\index{Morera's Theorem}
+\begin{corollary}[Morera]\index{Morera's theorem}
   \label{cor:Morera}
   Let \(U\) be a domain and \(f: U \to \C\) continuous. If \(\int_\gamma f(z) dz = 0\) for every closed paths in \(U\), then \(f\) is holomorphic in \(U\).
 \end{corollary}
@@ -1010,7 +1011,7 @@ The section discusses some results coming from the interplay of holomorphic func
   We saw last time that \(D = D_0 \cup D_1, D_0 \cap D_1 = \emptyset\). Moreover, \(D_0\) and \(D_1\) are open. But \(D_0 \supseteq D'\) so is non-zero. By (path-)connectedness of \(D\), \(D_0 = D\).
 \end{proof}
 
-\begin{corollary}[Identity principle]\index{Identity principle}
+\begin{corollary}[Identity principle]\index{identity principle}
   Let \(f, g: D \to \C\) be analytic functions on a domain. If
   \[
     S = \{z \in D: f(z) = g(z)\}
@@ -1233,7 +1234,7 @@ This says that given two homotopic paths, we can find finitely many intermediate
   Now invoke the technical proposition.
 \end{proof}
 
-Again this hightlights an idea that permeates this course: from complex analysis alone one gets local results about holomorphic functions. By use topological machinaries such as connectedness, compactness and in this section, homotopy, one can then extend them to global results.
+Again this hightlights an idea that permeates this course: from complex analysis alone one gets local results about holomorphic functions. By using topological machinaries such as connectedness, compactness and in this section, homotopy, one can then extend them to global results.
 
 \begin{corollary}
   Let \(U\) be a simply connected domain and \(f: U \to \C\) holomorphic. Then
@@ -1263,9 +1264,11 @@ Again this hightlights an idea that permeates this course: from complex analysis
   where \(0 \leq r < R \leq \infty\). Then
   \begin{enumerate}
   \item \(f\) has a unique convergent expansion in \(A\) of the form
-    \[
+    \begin{equation}
+      \label{eqn:Laurent}
       f(z) = \sum_{n = -\infty}^\infty c_n(z - a)^n,
-    \]
+      \tag{\(\ast\)}
+    \end{equation}
   \item for any \(\rho \in (r, R)\), the coefficient \(c_n\) is given by
     \[
       c_n = \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - a)^{n + 1}} dz,
@@ -1306,12 +1309,361 @@ Again this hightlights an idea that permeates this course: from complex analysis
     = \int_{C_2} \frac{f(z)}{z - w} dz - f(w) \underbrace{\int_{C_2} \frac{dz}{z - w}}_{2\pi i I(C_2, w) = 0}
   \]
   so
-  \begin{align*}
+  \[
     f(w)
-    &= \frac{1}{2\pi i} \left( \int_{C_1} \frac{f(z)}{z - w} dz - \int_{C_2} \frac{f(z)}{z - w} dz \right)
-  \end{align*}
+    = \frac{1}{2\pi i} \left( \int_{C_1} \frac{f(z)}{z - w} dz - \int_{C_2} \frac{f(z)}{z - w} dz \right)
+    = f_1 + f_2.
+  \]
+
+  To deal with \(f_1\), we proceed exactly as in the proof of the Taylor series:
+  \[
+    \frac{1}{z - w}
+    = \sum_{n = 0}^\infty \frac{(w - a)^n}{(z - a)^{n + 1}}
+  \]
+  uniformly as \(\left| \frac{w - a}{z - a} \right| < 1\). Thus use uniform convergence to get
+  \[
+    f_1(w) = \sum_{n = 0}^\infty c_n(w - a)^n
+  \]
+  where
+  \[
+    c_n = \frac{1}{2\pi i} \int_{C_1} \frac{f(z)}{(z - a)^{n + 1}} dz.
+  \]
+  To deal with \(f_2\) we use the same trick with the role of \(z\) and \(w\) reversed:
+  \[
+    -\frac{1}{z - w}
+    = \frac{1/(w - a)}{1 - \frac{z - a}{w - a}}
+    = \sum_{m = 1}^\infty \frac{(z - a)^{m - 1}}{(w - a)^m}
+  \]
+  uniformly for \(z \in C_2\) as \(\left| \frac{z - a}{w - a} \right| < 1\). Thus
+  \[
+    f_2(w) = \sum_{m = 1}^\infty d_m (w - a)^{-m}
+  \]
+  where
+  \[
+    d_m = \frac{1}{2\pi i} \int_{C_2} \frac{f(z)}{(z - a)^{-m + 1}} dz.
+  \]
+  Write \(n = -m\), we get \eqref{eqn:Laurent}.
+
+  Suppose we have
+  \[
+    f(z) = \sum_{n = -\infty}^\infty c_n(z - a)^n
+  \]
+  on \(A\) and let \(r < \rho' \leq \rho < R\), then \(\sum_{n = 0}^\infty c_n(z - a)^n\) must have radius of convergence \(\geq R\), so converges uniformly on \(|z - a| \leq \rho\). Likewise set \(u = (z - a)^{-1}\), then \(\sum_{n = 1}^\infty c_{-n}u^n\) must have radius of convergence \(\geq \frac{1}{r}\), so converges uniformly on \(|u| \leq \frac{1}{\rho'}\), hence \eqref{eqn:Laurent} converges uniformly in \(\rho' \leq |z - a| \leq \rho\).
+
+  By uniform convergence of \eqref{eqn:Laurent}, we can integrate term-by-term over every closed curve in \(A\), so
+  \[
+    \int_{|z - a| = \rho} \frac{f(z)}{(z - a)^{m + 1}}
+    = \sum_{n = -\infty}^\infty \int_{|z - a| = \rho} (z - a)^{n - m - 1} dz
+    = 2\pi i c_m
+  \]
+  so this implies also that the expansion is unique and completes the proof.
 \end{proof}
 
+\subsection{Isolated singularities}
+
+\begin{definition}[Isolated singularity]\index{isolated singularity}
+  \(f\) has an \emph{isolated singularity} at \(a\) if \(f: D(a, R) \setminus \{a\} \to \C\) is holomorphic.
+\end{definition}
+
+For such a function, we know we can write it in Laurent expansion
+\[
+  f(z) = \sum_{n = -\infty}^\infty c_n(z - a)^n.
+\]
+There are three cases:
+
+\begin{definition}[Removable singularity, pole \& essential singularity]\index{removable singularity}\index{pole}\index{essential singularity}\leavevmode
+  \begin{enumerate}
+  \item \(c_n = 0\) for all \(n < 0\). In this case we just get a power series which converges on all \(D(a, R)\) and defines an analytic function on \(D(a, R)\). We say that \(f\) has a \emph{removable singularity} at \(a\).
+  \item There exists \(k > 0\) such that \(c_{-k} \neq 0\) but \(c_n = 0\) for all \(n < -k\). We say that \(f\) has a \emph{pole} of order \(k\) at \(z = a\).
+  \item \(c_n \neq 0\) for infinitely many negative \(n\). We say that \(f\) has an \emph{essential singularity} at \(z = a\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f(z) = \frac{\sin z}{z}\) has a removable singularity at \(0\). To see this, expand \(\sin z\) in Taylor series as usual, and get a (Laurent) series by dividing by \(z\). As Luarent series is unique, this is the series representation.
+  \item \(\frac{e^z}{z^{100}}\) and \(\frac{1}{z^9}\) have a pole at \(0\), by the same argument as above but replace ``power series'' by ``Laurent series''.
+  \item \(e^{1/z}\) has an essential singularity at \(0\).
+  \end{enumerate}
+\end{eg}
+
+In IID Riemann Surfaces we will learn that poles correpsond to normal points of another holomorphic function, and it is only the essential singularities that stand out.
+
+\begin{proposition}
+  \(f\) has a removable singularity at \(z = a\) if and only if
+  \[
+    \lim_{z \to a} (z - a)f(z) = 0.
+  \]
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): Write
+    \[
+      (z - a)f(z) = \sum_{n = 0}^\infty c_n(z - a)^{n + 1}
+    \]
+    so it vanishes as \(z = a\).
+  \item \(\impliedby\): Consider
+    \[
+      g(z) =
+      \begin{cases}
+        (z - a)^2f(z) & \text{if } z \neq a \\
+        0 & \text{if } z = a
+      \end{cases}
+    \]
+    We see that \(g\) is holomorphic and \(g'(a) = 0\) so
+    \[
+      g(z) = \sum_{n = 2}^\infty c_n(z -a)^n
+    \]
+    so
+    \[
+      f(z) = \sum_{n = 0}^\infty c_{n + 2}(z - a)^n
+    \]
+    and hence \(f\) has a removable singularity at \(z = a\).
+  \end{itemize}
+\end{proof}
+
+\begin{proposition}
+  \(f\) has a pole at \(z = a\) if and only if \(|f(z)| \to \infty\) as \(z \to a\). Moreover, TFAE
+  \begin{enumerate}
+  \item \(f\) has a pole of order \(k\) at \(z = a\),
+  \item \(f(z) = (z - a)^{-k}g(z)\) where \(g: D(a, R) \to \C\) is holomorphic and \(g(a) \neq 0\).
+  \item \(f(z) = \frac{1}{h(z)}\) where \(h\) is holomorphic at \(z = a\) with \(a\) a zero of order \(k\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \implies 2\): Using Laurent expansion for \(f\) and multiply by \((z - a)^k\), we get a power series with non-zero constant term defining \(g\).
+  \item \(2 \implies 1\): The Laurent series for \(f\) is obtained by \((z - a)^{-k}\) times the Taylor series for \(g\).
+  \item \(2 \Longleftrightarrow 3\): \(g\) is holomorphic at \(z = a\) with \(g(a) \neq 0\) if and only if \(\frac{1}{g}\) is holomorphic at \(z = a\).
+  \end{itemize}
+
+  Finally suppose \(f\) has a pole at \(z = a\). Then by 2 \(|f| \to \infty\) as \(z \to a\). Conversely if \(|f| \to \infty\) as \(z \to a\), then for some \(r > 0\), \(f\) is non-zero for \(0 < |z - a| < r\). Therefore \(\frac{1}{f}\) is holomorphic for \(0 < |z - a| < r\) and \(\frac{1}{f} \to 0\) as \(z \to a\). By the previous proposition \(\frac{1}{f}\) has a removable singularity at \(z = a\). Thus there is a holomorphic \(h\) on \(D(a, r)\) with \(\frac{1}{h} = f\) for \(0 < |z - a| < r\). As \(\frac{1}{f} \to 0\) as \(z \to a\), \(h\) has a zero at \(z = a\).
+\end{proof}
+
+\begin{corollary}
+  \(f\) has an essential singularity at \(z = a\) if and only \(|f|\) has no limit (in \([0, \infty]\)) as \(z \to a\).
+\end{corollary}
+
+\begin{proof}
+  Direct consequence of the previous two propositions.
+\end{proof}
+
+Actually we can say a bit more about how ``wild'' an essential singuarlity can be:
+
+\begin{theorem}[Casorati-Weierstrass]\index{Casorati-Weierstrass}
+  Let \(f: D(a, R) \setminus \{a\} \to \C\) be holomorphic with an essential singularity at \(z = a\). Then for any \(w \in \C\) and \(r > 0, \varepsilon > 0\), there exists \(z\) such that \(0 < |z - a| < r\) and \(|f(z) - w| < \varepsilon\).
+\end{theorem}
+
+\begin{proof}
+  See example sheet. A long hint: if there eixsts \(\varepsilon > 0, r > 0\) such that
+  \[
+    f(D(a, r) \setminus \{0\}) \subseteq \C \setminus D(w, \varepsilon),
+  \]
+  consider \(g(z) = \frac{1}{f(z) - w}\). We have \(|g| < \varepsilon\). As it is bounded it must have a removable singularity at \(a\), so does \(f\). Absurd.
+\end{proof}
+
+With Laurent series defined and shown to be unique and uniformly continuous, we can integrate a holomorphic function term-by-term. Just as before, along a closed paths, only the \(\frac{1}{z - a}\) term survives. We thus define
+
+\begin{definition}[Residue]\index{residue}
+  Let \(f: D(a, R) \setminus \{a\} \to \C\) be holomorphic with Laurent expansion \(\sum_{n = -\infty}^\infty c_n(z - a)^n\). The \emph{residue} of \(f\) at \(z = a\) is
+  \[
+    \res_{z = a} f = c_{-1}.
+  \]
+\end{definition}
+
+\begin{definition}[Principal part]\index{principal part}
+  The \emph{principal part} of \(f\) at \(z = a\) is the series
+  \[
+    \sum_{n = -\infty}^{-1} c_n(z - a)^n
+  \]
+  holomorphic in \(\C \setminus \{a\}\).
+\end{definition}
+
+\begin{definition}[Meromorphic]\index{meromorphic}
+  If \(D\) is a domain and \(S \subseteq D\) is a set of isolated points in \(D\), then a holomorphic function \(f: D \setminus S \to C\) with at worst poles at \(D\) is called \emph{meromorphic}.
+\end{definition}
+
+\begin{remark}
+  As hinted before, a meromorphic function \(f\) can be seen as a holomorphic function \(f: D \to \C_\infty = \C \cup \{\infty\}\), sending poles to \(\infty\), between Riemann surfaces.
+\end{remark}
+
+\begin{proposition}
+  If \(\gamma\) is a closed curve in \(D(a, R) \setminus \{a\}\) and \(f: D(a, r) \setminus \{a\} \to \C\) holomorphic then
+  \[
+    \int_\gamma f(z) dz = 2\pi i I(\gamma, a) \res_{z = a} f.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Using uniform convergence of the Laurent expansion, we can integrate term-by-term and thus reduce the problem to computing \(\int_\gamma (z - a)^n dz\). Since \(\frac{(z - a)^{n + 1}}{n + 1}\) is an anti-derivative of \((z - a)^n\) for \(n \neq -1\), the only term that survives is
+  \[
+    c_{-1} = \int_\gamma \frac{dz}{z - a} = 2\pi i I(\gamma, a) \res_{z = a} f.
+  \]
+\end{proof}
+
+\begin{theorem}[Cauchy's residue theorem]\index{Cauchy's residue theorem}
+  \label{thm:residue}
+  Let \(U\) be a simply connected domain and \(\{z_i\}_{i = 1}^k\) be a finite set of points in \(U\). Let \(f: U \setminus \{z_i\}_{i = 1}^k \to \C\) be holomorphic and let \(\gamma\) be a closed curve not passing through the \(z_i\)'s. Then
+  \[
+    \int_\gamma f(z)dz = 2\pi i \sum_{i = 1}^k I(\gamma, z_i) \res_{z = z_i} f.
+  \]
+\end{theorem}
+
+\begin{proof}
+  The idea is to write the Laurent expansion at a singular point as the sum of the ``problematic part'', i.e.\ the principal part, and the ``good part'', i.e.\ the power series part, and apply the previous proposition and Cauchy's theorem respectively.
+
+  At \(z_i\), \(f(z) = \sum_{n = -\infty}^\infty c_n^i (z - z_i)^n\) with principal part \(g_i(z) = \sum_{n = -\infty}^{-1} c_n^i(z - z_i)^n\). Recall that \(g_i\) defines a holomorphic function on \(\C \setminus \{z_i\}\) and hence on \(U \setminus \{z_i\}\). Thus \(f - \sum_{i = 1}^kg_i\) is holomorphic in \(U \setminus \{z_i\}_{i = 1}^k\) with \emph{removable} singularties at \(z_i\). Thus by \nameref{thm:homotopic Cauchy},
+  \[
+    \int_\gamma (f(z) - \sum_{i = 1}^k g_i(z)) dz = 0.
+  \]
+  By the proposition above,
+  \[
+    \int_\gamma g_i(z) dz = 2\pi i I(\gamma, z_i) \res_{z = z_i} g_i = 2\pi i I(\gamma, z_i) \res_{z = z_i} f.
+  \]
+\end{proof}
+
+\subsection{Application and Techniques of integration}
+
+In this section we will discuss how to actually use \nameref{thm:residue} to compute integrals, which often involve simple geometric curves such as semicircles and rectangles. We will also solve some trickey real integral by clever use of \nameref{thm:residue}.
+
+Firstly, the following observations are useful for computing residues:
+\begin{enumerate}
+\item if \(f\) has a simple pole (i.e.\ order \(1\)) at \(z = a\) then the Laurent expansion is \(f(z) = \frac{c_{-1}}{z - a} + c_0 + \cdots\) so
+  \[
+    \res_{z = a}f = \lim_{z \to a} (z - a)f(z).
+  \]
+\item if \(f = \frac{g}{h}\) where \(g\) and \(h\) are holomorphic at \(z = a\), \(g(a) \neq 0\) and \(h\) has a simple zero at \(a\), then
+  \[
+    \res_{z = a} f
+    = \lim_{z \to a} \frac{(z - a)g(z)}{h(z)}
+    =  \frac{g(a)}{h'(a)}.
+  \]
+\item if \(f(z) = (z - a)^{-k}g(z)\) with \(g\) holomorphic, then
+  \[
+    \res_{z = a}f
+    = \text{ coefficient of } (z - a)^{k - 1} \text{ in the Taylor series of } g
+    = \frac{g^{(k - 1)}(a)}{(k - 1)!}.
+  \]
+\end{enumerate}
+
+The main ``skill'' is to choose the right integrand and the right paths. Some lemma also help us deform paths into more amenable forms.
+
+\begin{eg}
+  Consider
+  \[
+    \int_{-\infty}^\infty \frac{\cos x}{1 + x + x^2} dx.
+  \]
+  Let \(f(z) = \frac{e^{iz}}{1 + z + z^2}\) and \(\gamma = \gamma_R + \) where \(\gamma_R\) is the semicircle in the upper half plane around the origin of radius \(R\). \(f\) has a simple pole at \(w = e^{2\pi i/3}\) with index \(I(\gamma_R, w) = 1\). By \nameref{thm:residue},
+  \begin{align*}
+    \int_{\gamma_R} f(z) dz = 2\pi i \res_{z = w} f,
+  \end{align*}
+  where the residue can be computed using rules from last time.
+
+  Let \(z = Re^{it}\) where \(t \in [0, 2\pi]\). Then
+  \begin{align*}
+    \left| \int_{\gamma_R} f(z) dz \right|
+    &= \left| \int_0^\pi f(Re^{it})Rie^{it} dt \right| \\
+    &\leq R \int_0^\pi |f(Re^{it})| dt \\
+    &= R \int_o^\pi \frac{\overbrace{|e^{-R\sin t}|}^{\leq 1}}{\underbrace{|1 + Re^{it} + R^2e^{2it}|}_{\geq R^2 - R - 1}} dt \\
+    &\leq \frac{R\pi}{R^2 - R - 1} \\
+    &\to 0
+  \end{align*}
+  as \(R \to \infty\). Therefore
+  \[
+    \int_{-\infty}^\infty \frac{\cos x}{1 + x + x^2} dx = \Re (2\pi i \res_{z = w} f) = \frac{2\pi}{\sqrt 3} \cos \frac{1}{2} e^{-\sqrt 3/2}.
+  \]
+\end{eg}
+
+Instead of doing it every time, we prove two lemmas:
+
+\begin{lemma}
+  Let \(f\) be a holomorphic function on \(D(a, r) \setminus \{a\}\) with a simple pole at \(a\). If \(0 < \varepsilon < r\) and let \(\gamma_\varepsilon: [\alpha, \beta] \to \C, t \mapsto a + \varepsilon e^{it}\). Then
+  \[
+    \lim_{\varepsilon \to 0} \int_{\gamma_\varepsilon} f(z) dz = (\beta - \alpha) i \res_{z - a} f.
+  \]
+\end{lemma}
+
+This allows us to ``jump'' over a pole.
+
+\begin{proof}
+  As \(f\) has a simple pole, write
+  \[
+    f(z) = \frac{c}{z - a} + g(z)
+  \]
+  where \(g(z)\) is holomorphic on \(D(a, r)\). Thus \(c = \res_{z = a} f\). Then
+  \[
+    \left| \int_{\gamma_\varepsilon} g(z) dz \right| \leq (\beta - \alpha) \varepsilon \sup_{z \in \gamma_\varepsilon} |g(z)| \to 0
+  \]
+  as \(\varepsilon \to 0\) since \(g\) is bounded on a neighbourhood of \(a\) by continuity. Then
+  \[
+    \int_{\gamma_\varepsilon} \frac{c}{z - a} dz = c \int_\alpha^\beta \frac{\varepsilon e^{it}}{\varepsilon e^{it}} dt = (\beta - \alpha)ic.
+  \]
+\end{proof}
+
+\begin{lemma}[Jordan]\index{Jordan's lemma}
+  If \(f\) is holomorphic on \(\{|z| > r\}\) and \(zf(z)\) is bounded for large \(|z|\), then for all \(\alpha > 0\),
+  \[
+    \int_{\gamma_R} f(z)e^{i\alpha z} dz \to 0
+  \]
+  as \(R \to \infty\) where \(\gamma_R(t) = Re^{it}, t \in [0, \pi]\).
+\end{lemma}
+
+This comes very handy when one computes Fourier transforms. Also this can be used to solve our above example almost trivially.
+
+\begin{proof}
+  We know \(|f(z)| \leq \frac{c}{|z|}\) for large \(|z|\). Observe that on \([0, \frac{\pi}{2}]\) the function \(\frac{\sin t}{t}\) is decreasing. Thus \(\sin t \geq \frac{2t}{\pi}\) for \(t \in [0, \frac{\pi}{2}]\). Then on the path \(z = Re^{it}\),
+  \[
+    |e^{i\alpha z}| = e^{-R\alpha\sin t} \leq
+    \begin{cases}
+      e^{\frac{-R\alpha 2t}{\pi}} & 0 \leq t \leq \frac{\pi}{2} \\
+      e^{\frac{-R\alpha 2t'}{\pi}} & 0 \leq t' = \pi - t \leq \frac{\pi}{2} \\
+    \end{cases}
+  \]
+so
+\begin{align*}
+  \left| \int_0^{\pi/2} e^{i\alpha R e^{it}} f(Re^{it}) iRe^{it} dt \right|
+  &\leq \int_0^{\pi/2} e^{-\frac{2Rt\alpha}{\pi}}c dt \\
+  &= \frac{c\pi}{2R \alpha} (1 - e^{-R \alpha}) \\
+  &\to 0
+\end{align*}
+as \(R \to \infty\).
+\end{proof}
+
+\begin{eg}
+  Consider
+  \[
+    \int_0^\infty \frac{\sin x}{x} dx.
+  \]
+  A naive \(f(z) = \frac{e^{iz}}{z}\) would pass through the pole at \(z = 0\). Consider the semicircular path with a cutout \(\gamma_\varepsilon\) at the origin. This path contains no singularity so has integral zero. By Jordan's, \(\int_{\gamma_R} f(z) dz \to 0\) as \(R \to \infty\). Also by the previous lemma,
+  \[
+    \int_{\gamma_\varepsilon} f(z) dz \to - \pi i \res_{z = 0} f = -\pi i.
+  \]
+  Putting everyting together,
+  \[
+    \int_0^\infty \frac{\sin x}{x} dx = \frac{\pi}{2}.
+  \]
+\end{eg}
+
+\begin{eg}
+  Consider
+  \[
+    I = \int_0^{\pi/2} \frac{dt}{1 + \sin^2 t}.
+  \]
+  Note \(I = \frac{1}{4} int_0^{\pi/2} \frac{dt}{1 + \sin^2 t}\). On the unit circle \(z = e^{it}\),
+  \[
+    \sin t = \frac{e^{it} - e^{-it}}{2i} = \frac{z - \frac{1}{z}}{2i}.
+  \]
+  Thus
+  \begin{align*}
+    I
+    &= \frac{1}{4} \int_{|z| = 1} \frac{dz}{(1 + \frac{z - 1/z}{-4})iz} \\
+    &= \int_{|z| = 1} \underbrace{\frac{iz}{z^4 - 6z^2 + 1}}_f dz \\
+    &= 2\pi i \cdot i (\res_{z = 1 - \sqrt 2} f + \res_{z = -1 + \sqrt 2} f) \\
+    &= \frac{\pi\sqrt 2}{4}
+  \end{align*}
+\end{eg}
 
 
 

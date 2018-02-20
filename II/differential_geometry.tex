@@ -866,15 +866,14 @@ In fact, Whitney proved the better upper bound \(\R^{2n}\), which is in fact a s
   where \(|\cdot|\) is the Euclidean norm.
 \end{definition}
 
-\begin{definition}
-  Arc-length is invariant to reparameterisation: a reparameterisation of \(\gamma\) is a map \(\hat \gamma(\hat t)\) such that \(t = t(\hat t)\) is a diffeomorphism, i.e.\ the following diagram commutes:
-  \[
-    \begin{tikzcd}
-      I \ar[r, "\gamma"] & \R^3 \\
-      \hat I \ar[u] \ar[ur, "\hat \gamma"']
-    \end{tikzcd}
-  \]
-  Wlog suppose \(\frac{dt}{d\hat t} > 0\). Let \(t_0 = t(\hat t_0)\), then
+Arc-length is invariant to reparameterisation: a reparameterisation of \(\gamma\) is a map \(\hat \gamma(\hat t)\) such that \(t = t(\hat t)\) is a diffeomorphism, i.e.\ the following diagram commutes:
+\[
+  \begin{tikzcd}
+    I \ar[r, "\gamma"] & \R^3 \\
+    \hat I \ar[u] \ar[ur, "\hat \gamma"']
+  \end{tikzcd}
+\]
+Wlog suppose \(\frac{dt}{d\hat t} > 0\). Let \(t_0 = t(\hat t_0)\), then
   \[
     s(t)
     = \int_{t_0}^t |\hat \gamma(t')| dt'
@@ -882,12 +881,126 @@ In fact, Whitney proved the better upper bound \(\R^{2n}\), which is in fact a s
     = \int_{\hat t_0}^{\hat t} \left| \frac{d\gamma}{d\hat t'} \right| dt'
     = s(\hat t)
   \]
-\end{definition}
 
 Note that \(s'(t) = |\hat \gamma(t)| \neq 0\) by Fundmental Theorem of Calculus. Thus by Inverse Function Theorem and connectivity \(s(t)\) is a diffeomorphism, i.e.\ can be inverted to \(t(s)\). Thus we can reparameterise any regular curve by \(s\). We will write \(\gamma(s)\) for \(\gamma(t(s))\).
 
+Missed a lecture
 
+Frenet equations
 
+\[
+  \begin{pmatrix}
+    \dot t \\
+    \dot n \\
+    \dot b
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    0 & k & 0 \\
+    -k & 0 & -\tau \\
+    0 & \tau & 0 
+  \end{pmatrix}
+  \begin{pmatrix}
+    t \\
+    n \\
+    b
+  \end{pmatrix}
+\]
+
+The curvature \(k\) and torsion \(\tau\) is invariant under isometries. 
+
+\begin{theorem}[Fundamental theorem of curves in \(\R^3\)]\index{Fundamental theorem of curves in \(\R^3\)}
+  Given smooth function \(k > 0\) and \(\tau(s)\), \(s \in I\), there exists a regular curve \(\alpha: I \to \R^3\) such that \(s\) is the arclength, \(k(s)\) is the curvature and \(\tau(s)\) is the torision of \(\alpha\).
+
+  Moreover, given \(k = \tilde k, \tau = \tilde \tau\), then there exists an isometry of \(\R^3\) such that
+  \[
+    \tilde \gamma = R \compose \gamma + b.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(b = \tilde \gamma(0) - \gamma(0)\) and we can assume \(\tilde \gamma(0) = \gamma(0) = 0\). Given two orthonormal basis \(\{t(0), s(0), n(0)\}\) and \(\{\tilde t(0), \tilde s(0), \tilde n(0)\}\) in the same orientation, it is an exercise in Euclidean geometry to show that there exists an element \(R \in \SO(3)\) sending the first triplet to the second.
+
+  To avoid excessive notation, replace \(\gamma\) with \(R \compose \gamma\). Then \(\gamma(s)\) and \(\tilde \gamma(s)\) satisfy the Frenet equations, which is a linear ODE, with the same initial condition. Thus by uniqueness of solutions of ODE \(\gamma = \tilde \gamma\).
+\end{proof}
+
+Geometric intuition: curvature measures the turning of the tangent, \(k\) the magnitude and \(n\) measures the direction. Torsion measures the non-planiness of a curve.
+
+\begin{proposition}
+  Given a regular curve \(\gamma(s)\), \(\tau = 0\) if and only if \(\gamma\) lies in a plane.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(\tau = 0\). Then \(\dot b = 0\) so \((t \wedge n)' = 0\). Let \(\Pi\) be the plane spanned by \(t\) and \(n\) and so \(\Pi(s) = \Pi_0\) is constant.
+
+  Consider the plane \(\gamma(0) + \Pi\), claim \(\gamma(I) \subseteq \gamma(0) + \Pi_0\): this is equivalent to claiming that \(\gamma(s) - \gamma(0) \in \Pi\) for all \(s\). But
+  \[
+    \gamma(s) - \gamma(0) = \int_0^s \gamma'(u)du = \int_0^s t(u)du \in \Pi.
+  \]
+
+  The other direction is left as an exercise.
+\end{proof}
+
+\begin{definition}[Plane curve]\index{plane curve}
+  A regular curve is said to be a \emph{plane curve} if its image lies in a plane \(\Pi \subseteq \R^3\).
+\end{definition}
+
+Wlog we will consider all plane curves as maps \(\gamma: I \to \R^2\).
+
+For regular plane curves, there is an alternative definition of the curvature:
+
+\begin{definition}[Signed curvature]\index{signed curvature}
+  Let \(\gamma(s)\) be a plane curve in \(\R^2\) parameterised by arc-length \(s\). \(t = \dot \gamma(s)\) is the tangent. Pick \(n(s)\) so that \(t, n\) has the usual orientation (exercise: exhibit such \(n\)). Then \(\dot t(s) \cdot t(s) = 0\) so define \emph{signed curvature} \(k(s)\) to be such that
+  \[
+    \dot t(s) = k(s)n(s)
+  \]
+  where \(k(s) \in \R\), i.e.\ not necessarily non-vanishing.
+\end{definition}
+
+Note the subtleties in the order of terms being defined: in general regular curves we defined \(k(s)\) and \(n(s)\) in terms of \(\dot t(s)\) but for plane curves, we fixed \(n(s)\) first (using orientation of orthonormal basis) and then define \(k(s)\) to be the signed magitude of \(\dot t(s)\).
+
+\begin{ex}
+  Define the Frenet formulae for plane curves:
+  \begin{align*}
+    \dot t(s) &= k(s)n(s) \\
+    \dot n(s) &= -k(s)t(s)
+  \end{align*}
+\end{ex}
+
+\subsection{Isoperimetric inequality in the plane}
+
+The is the first global result we meet in differential geometry. Let \(\gamma\) be a smooth simple closed curve in \(\R^2\), i.e.\ \(\gamma: S^1 \to \R^2\) is a smooth embedding. Thanks to
+
+\begin{theorem}[Jordan curve theorem]
+  \(\gamma(S^1)\) is the boundary of a bounded, simply-connected open set in \(\R^2\).
+\end{theorem}
+we let \(\Omega\) be the bouned open set (alternatively assume \(\cl \Omega\) is a \(2\)-manifold with boundary in \(\R^2\) with boundary diffeomorphic to \(S^1\)).
+
+\begin{note}
+  We want to define \(\alpha(\R) = \alpha(S^1)\).
+  
+  Let \(\alpha: \R \to \R^2\) be a regular curve parameterised by arc-length. Let \(L\) be the first \(s > 0\) such that \(\alpha(L) = \alpha(0)\). Then \(\alpha\) be periodic with period \(L\). \(L\) is the arc-length of \(\gamma\).
+\end{note}
+
+\begin{theorem}[Isoperimetric inequality]\index{isoperimetric inequality}
+  \[
+    L^2 \geq 4\pi \operatorname{area}(\Omega)
+  \]
+  with equality if and only if \(\gamma\) is a circle.
+\end{theorem}
+
+\begin{remark}
+  It suffices to assume \(\alpha\) is \(C^1\).
+\end{remark}
+
+Write \(\alpha(s) = (x(s), y(s))\) where \(x(s)\) and \(y(s)\) are \(C^1\) functions. Let \(\V V: \R^2 \to \R^2\) be the identity and think of it as a vector field. By divergence theorem applied to \(\V V\) in \(\Omega\),
+\begin{align*}
+  2 \operatorname{area}(\Omega)
+  &= \int_\Omega \divergence \V V \\
+  &= \int_0^L \V V \cdot (-n) ds \\
+  &\leq \int_0^L \norm{\V V(s)} ds \\
+  &\leq \left( \int_0^L \norm{\V V(s)}^2 ds \int_0^L 1^2 ds \right)^{1/2}
+\end{align*}
 
 
 

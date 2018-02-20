@@ -10,6 +10,8 @@
 
 \input{header}
 
+\usepackage[boxed]{algorithm2e}
+
 \newcommand*{\inner}{\innerproduct}
 
 \begin{document}
@@ -728,8 +730,8 @@ The ``deviation'' is
   Assume the Lipschitz constant is \(\lambda\), we thus get
   \begin{align*}
     \norm{e_{n + 1}(h)}
-    &\leq \norm{e_n(h)} + \lambda \norm{y_n(h) - y(nh)} + \norm{\eta(h)} \\
-    &\leq \norm{e_n(h)}(1 + h\lambda) + Ch^2
+    &\leq \norm{e_n(h)} + h\lambda \norm{y_n(h) - y(nh)} + \norm{\eta(h)} \\
+    &= \norm{e_n(h)}(1 + h\lambda) + Ch^2
   \end{align*}
   Continue recursively,
   \begin{align*}
@@ -1343,6 +1345,8 @@ where the second term on RHS is small since \(d \approx y\) and \(y' = f(t, y)\)
 
 That's all we are going to talk about error control.
 
+\subsection{Solving nonllinear algebraic equations using Newton-Raphson}
+
 There is one problem we still haven't discussed: solving nonlinear algebraic equations.
 
 An implicit \(s\)-step method has the form
@@ -1358,6 +1362,334 @@ where \(v\) only depends on previous values \(y_n, \dots, y_{n + s - 1}\). One w
   \]
 \item (Hope it converges to the actual value.)
 \end{enumerate}
+
+\section{Numerical Linear Algebra}
+
+\subsection{LU factorisation}
+
+\begin{definition}[LU factorisation]\index{LU factorisation}
+  Let \(A\) be a real \(n \times n\) matrix. An \emph{LU factorisation} of \(A\) is a factorisation \(A = LU\) where \(L\) is unit lower triangluar, i.e.\ \(L_{ij} = 0\) for \(j > i\), \(L_{ii} = 1\) for \(1 \leq i \leq n\) and \(U\) is upper triangular, i.e.\ \(U_{ij} = 0\) if \(j < i\).
+\end{definition}
+
+\begin{application}\leavevmode
+  \begin{enumerate}
+  \item Determinant: given \(A = LU\), the determinant can be computed by
+    \[
+      \det A = (\det L)(\det U) = \prod_{i = 1}^n L_{ii} \prod_{i = 1}^n U_{ii} = \prod_{i = 1}^n U_{ii}
+    \]
+    which is much faster than using the usual definition
+    \[
+      \det A = \sum_{\sigma \in S_n} \sgn(\sigma) A_{1, \sigma(1)} \cdots A_{n, \sigma(n)}
+    \]
+    which has \(n!\) terms in the sum and prohibitively computationally expensive.
+  \item Testing non-singularity: \(A\) is singular if and only if \(\det A = 0\), if and only if there exists \(i \in \{1, \dots, n\}\) such that \(U_{ii} = 0\).
+  \item Solving linear equations: suppose \(Ax = b\) with \(x\) unknown. Then it suffices to solve
+    \begin{align*}
+      Ux &= y \\
+      Ly &= b
+    \end{align*}
+    which are triangular systems and can be solved using (forward/backward) substitution (the cost of which is \(O(n^2)\)).
+  \end{enumerate}
+\end{application}
+
+Let \(\ell_1, \dots, \ell_n\) be columns of \(L\) and \(u_1^T, \dots, u_n^T\) be rows of \(U\) so
+\[
+  A = LU = (\ell_1 \ \cdots \  \ell_n)
+  \begin{pmatrix}
+    u_1^T \\
+    \vdots \\
+    u_n^T
+  \end{pmatrix}
+  = \sum_{i = 1}^n \ell_i u_i^T
+\]
+Note that \(\ell_k\) has \(1\) at \(k\)th component and \(0\) at \(i\)th component for \(i < k\). Similarly \(u_k\) has \(0\) at \(i\)th component for \(i < k\). Thus the first \(k - 1\) rows and columns of \(\ell_k u_k^T\) are \(0\). Thus the only contribution to the first row and column of \(A\) comes from \(\ell_1u_1^T\), implying that
+\begin{align*}
+  u_1^T &= \text{1st row of } A \\
+  \ell_1 &= \frac{1}{A_{11}} \cdot \text{1st column of } A
+\end{align*}
+Subsequently, let \(A_1 = A - \ell_1u_1^T\). The only contribution to the second row and column of \(A_1\) comes from \(\ell_2u_2^T\) so
+\begin{align*}
+  u_2^T &= \text{2nd row of } A_1 \\
+  \ell_2 &= \frac{1}{(A_1)_{22}} \cdot \text{2nd column of } A_2
+\end{align*}
+
+The general algorithm is
+
+\begin{algorithm}
+  \(A_0 = A\)\;
+  \For{\(k = 1\) \KwTo \(n\)}{
+    \(u_k^T =\) \(k\)th row of \(A_{k -1 }\)\;
+    \(\ell_k = \frac{1}{(A_{k - 1})_{kk}} \cdot\) \(k\)th column of \(A_{k - 1}\)\;
+    \(A_k = A_{k - 1} - \ell_ku_k^T\)\;
+  }
+  \caption{LU factorisation}
+\end{algorithm}
+
+Complexity analysis: the dominant cost is the last line in the for loop, where the number of multiplications needed to form \(\ell_ku_k^T\) is \((n - k + 1)^2\) so the total cost is
+\[
+  \sum_{k = 1}^n (n - k + 1)^2 = \sum_{j = 1}^n j^2 = O(n^3).
+\]
+
+A quick remark for implementation: we don't have to store \(A_k\)'s so it is possible to have even smaller spatial complexity.
+
+A note on the comparison with Gaussian elimination: the matrix \(A_k\) constructed in the algorithm is of the form
+\[
+  \begin{pmatrix}
+    0 & 0 \\
+    0 & *
+  \end{pmatrix}
+\]
+and the lower right block is exactly the same as the one obtained after \(k\) steps of Gaussian elimination.
+
+\subsection{Pivoting}
+
+In the factorisation algorithm above, what happens if \((A_{k - 1})_{kk} = 0\)? Indeec, not all matrices are LU factorisable. We have to \emph{pivot}.
+
+\begin{algorithm}
+  \(A_0 = A\)\;
+  \For{\(k = 1\) \KwTo \(n\)}{
+     let \(p \geq k\) be such that \((A_{k - 1})_{kk} \neq 0\)\;
+     let \(P_k\) be the permutation matrix that swaps positions \(k\) and \(p\)\;
+     \(l_k = \frac{1}{(P_kA_{k - 1})_{kk}} \cdot\) \(k\)th column of \(P_kA_{k - 1}\)\;
+     \(u_k^T = \) \(k\)th row of \(P_kA_{k - 1}\)\;
+    \(A_k = P_kA_{k - 1} - l_ku_k^T\)\;
+  }
+  \caption{LU factorisation with pivoting}
+\end{algorithm}
+
+If we unfold the algorithm, we get
+\begin{align*}
+  A_1 &= P_1A - \ell_1u_1^T \\
+  A_2 &= P_2A_1 - \ell_2u_2^T = P_2P_1A - P_2\ell_1u_1^T - \ell_2u_w^T \\
+  \vdots \\
+  A_n &= P_{n - 1} \cdots P_1A - P_{n - 1} \cdots P_2 \ell_1 u_1^T - \cdots - \ell_nu_n^T
+\end{align*}
+by noting that \(P_n = I\). Since \(A_n = 0\), we get
+\[
+  PA = \tilde L U
+\]
+where
+\begin{align*}
+  P &= P_{n - 1} \cdots P_1 \\
+  \tilde L &= (\tilde \ell_1 \  \cdots \  \tilde \ell_n)
+\end{align*}
+and
+\[
+  \tilde \ell_k = P_{n - 1} \cdots P_{k + 1} \ell_k.
+\]
+Note that \(\tilde \ell_k\) has \(1\) at \(k\)th component and \(0\) for \(1, \dots, k - 1\) since the permutations only act on the components \(k + 1, \dots, n\). Thus \(L\) is a unit lower triangular matrix.
+
+\begin{note}
+  The algorithm can still fail if \((A_{k - 1})_{pk} = 0\) for all \(p \geq k\). But we can make a choice \(\ell_k\) to be the have \(1 \) in \(k\)th component and \(0\) elsewhere, and \(u_k^T\) to be \(k\)th row of \(A_{k - 1}\) so \(A_{k - 1} - \ell_ku_k^T\) has its \(k\)th row and column \(0\) (the factorisatoin in this case is not unique and we made a choice in \(\ell_k\)).
+\end{note}
+
+Pivoting is not only needed to avoid the algorithm to fail but also to prevent round-off errors from accummulating. Thus it is always used for numerical stability of the algorithm. A common choice of pivot is to take \(p\) such that \(|(A_{k - 1})_{pk}|\) is maximum for all \(p \geq k\). With such a choice of pivot, all entries of \(L\) have abolute value \(\leq 1\).
+
+\subsection{Symmetric matrices}
+
+A symmetric matrix \(A\) is such that \(A_{ij} = A_{ji}\) for all \(i, j\). We aim to factorise it in a way to exhibit this symmetry. 
+
+\begin{definition}[LDL\textsuperscript{T} factorisation]\index{LDL\textsuperscript{T} factorisation}
+  An \emph{LDL\textsuperscript{T} factorisation} of a symmetric matrix \(A\) is
+  \[
+    A = LDL^T
+  \]
+  where \(L\) is unit lower triangular and \(D\) is diagonal.
+\end{definition}
+
+Note that this is a special case of LU factorisation where \(U = DL^T\).
+
+We can construct an LDL\textsuperscript{T} factorisation using an algorithm very similar to the LU factorisation (without pivoting), with the final result being
+\[
+  A = D_{11}\ell_1\ell_1^T + \cdots + D_{nn}\ell_n\ell_n^T = LDL^T
+\]
+where
+\[
+  L = \ell_1\ell_1^T + \dots + \ell_n\ell_n^T.
+\]
+
+\begin{algorithm}
+  \(A_0 = A\)\;
+  \For{\(k = 1\) \KwTo \(n\)}{
+    \(\ell_k = \frac{1}{(A_{k - 1})_{kk}} \cdot\) \(k\)th column of \(A_{k - 1}\)\;
+    \(D_{kk} = (A_{k - 1})_{kk}\)\;
+    \(A_k = A_{k - 1} - D_{kk}\ell_k\ell_k^T\)\;
+  }
+  \caption{LDL\textsuperscript{T} factoriation}
+\end{algorithm}
+
+We will run into similar problems if all elements in a row below certain element is zero. We can still use pivoting, but note that to preserve the symmetry we must act it on both the rows and columns. Instead, in this section we will discuss cases where our naïve algorithm always works.
+
+Recall that a symmetric positive definite matrix \(A\) is such that
+\[
+  x^TAx > 0
+\]
+for all \(x \in \R^n \setminus \{0\}\).
+
+\begin{theorem}
+  A symmetric matrix \(A\) is positive definite if and only if it has an LDL\textsuperscript{T} factorisation where \(D_{kk} > 0\) for all \(1 \leq k \leq n\).
+\end{theorem}
+
+\begin{proof}
+  This is exactly the same as the proof in IB Linear Algebra, but in a numerical analysis flavour.
+  \begin{itemize}
+  \item \(\impliedby\): Assume \(A = LDL^T\) of the form given. For any \(x \in \R^n \setminus \{0\}\),
+    \[
+      x^TAx = x^TLDL^Tx = y^TDy = \sum_{k = 1}^n D_{kk}u_k^2 > 0
+    \]
+    where \(y = L^Tx \neq 0\) since \(x \neq 0\) and \(L\) is non-singular.
+  \item We will show that at each step of the algorithm, \((A_{k - 1})_{kk} > 0\). Proceed by induction. If \(k = 1\),
+    \[
+      (A_0)_{11} = A_{11} = e_1^TAe_1 > 0.
+    \]
+    By definition
+    \[
+      A_{k - 1} = A - D_{11}\ell_1\ell_1^T - \dots - D_{k - 1}\ell_{k - 1}\ell_{k - 1}^T.
+    \]
+    Define \(x \in \R^n\) as the solution of the linear system
+    \[
+      \begin{pmatrix}
+        & & \ell_1^T \\
+        & & \cdots \\
+        & & \ell_{k - 1}^T \\
+        0 & \cdots & 0 & 1 \\
+        & & & & 1 \\
+        & & & & & \ddots \\
+        & & & & & & 1
+      \end{pmatrix}
+      x =
+      \begin{pmatrix}
+        0 \\
+        \vdots \\
+        0 \\
+        1 \\
+        0 \\
+        \vdots \\
+        0
+      \end{pmatrix}
+    \]
+    which has a unique solution as the matrix is non-singular. Then by construction
+    \begin{align*}
+      (A_{k - 1})_{kk}
+      &= x^TA_{k - 1}x \\
+      &= x^T(A - \sum_{j = 1}^{k - 1}D_{jj}\ell_j\ell_j^T)x \\
+      &= x^tAx - \underbrace{\sum_{j = 1}^{k - 1} D_{jj} (\ell_j^Tx)^2}_{= 0} \\
+      &= x^TAx \\
+      & > 0
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+For a positive definite matrix \(A = LDL^T\) with \(D_{kk} > 0\), let
+\[
+  D^{1/2} = \operatorname{diag}(D_{11}^{1/2}, \dots, D_{nn}^{1/2}).
+\]
+Then
+\[
+  A = LD^{1/2}D^{1/2}L^T = \tilde L \tilde L^T
+\]
+where \(\tilde L = LD^{1/2}\) is lower triangular. This the \emph{Cholesky factorisation}\index{Cholesky factorisation}.
+
+\subsection{Sparse matrices}
+
+Informally, a \emph{sparse matrix}\index{sparse matrix} is one with ``many'' zeros.
+
+\begin{eg}
+  A matrix \(A\) is \emph{banded}\index{banded} if \(A_{ij} = 0\) whenever \(|i - j| > r\) for some fixed \(r\). For examlple, if \(r = 1\) then \(A\) is diagonal. If \(r = 2\) then \(A\) is tridiagonal.
+\end{eg}
+
+We want the LU factorisation of a sparse matrix to inherit this property.
+
+\begin{theorem}
+  Let \(A = LU\) be an LU factorisation of \(A\) (without pivoting). Then
+  \begin{enumerate}
+  \item all leading zeros in the rows of \(A\) to the left of the diagonal are inherited by \(L\),
+  \item all leading zeros in the columns of \(A\) above the diagonal are inherited by \(U\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  We assume that the LU factorisation algorithm terminates without failing, which implies that \((A_{k - 1})_{kk} = U_{kk} \neq 0\).
+
+  Assume \(A_{i, 1} = A_{i, 2} = \dots = A_{i, j} = 0\) where \(j < 0\). We want to show
+  \[
+    L_{i, 1} = A_{i, 2} = \dots = L_{i, j} = 0.
+  \]
+  But
+  \[
+    0 = A_{i, 1} = L_{i, 1}\underbrace{U_{11}}_{\neq 0} + \underbrace{L_{1, 2}U_{2, 1} + \dots}_{= 0}
+  \]
+  so \(L_{i, 1} = 0\). Similarly
+  \[
+    0 = A_{i, 2} = \underbrace{L_{i, 1}}_{= 0}U_{1, 2} + L_{1, 2}\underbrace{U_{2, 2}}_{\neq 0} + \underbrace{L_{1, 3}U_{3, 2} + \dots}_{= 0}
+  \]
+  so \(L_{12} = 0\) and so on. The statement about columns are exactly the same.
+\end{proof}
+
+\begin{application}
+  If \(A\) is banded with bandwidth \(r\), then an LU factorisation of \(A\) inherits this bounded structure.
+\end{application}
+
+For banded matrices with bandwidth \(r\), an LU facorisation can be computed in \(O(r^2n)\) time, and a linear system can be solved (given an LU factorisation) in \(O(rn)\) time. To see this,
+
+\begin{algorithm}
+  \(A_0 = A\)\;
+  \For{\(k = 1\) \KwTo \(n\)}{
+    \(\ell_k = \frac{1}{(A_{k - 1})_{kk}} \cdot\) \(k\)th column of \(A_{k - 1}\)\;
+    \(U_k^T = \) \(k\)th row of \(A_{k - 1}\)\;
+    \(A_k = A_{k - 1} - \ell_ku_k^T = A_{k - 1} - \sum_{i = k}^{k + r - 1}\ell_{ik}u_{ki}\)\;
+  }
+  \caption{LU factorisation for \(r\)-banded matrix}
+\end{algorithm}
+so we only need \(r^2\) multiplications to form \(\ell_ku_k^T\).
+
+Recall that to solve a linear system \(Ax = b\) given LU factorisation \(A = LU\), we instead solve
+\begin{align*}
+  Ux &= y \\
+  Ly &= b
+\end{align*}
+using substitutions, which in general takes \(O(n^2)\) opeartions. If \(A\) is \(r\)-banded, in each step at most \(r\) opeartions is needed so the complexity is \(O(rn)\).
+
+For a general sparse matrice \(A\), however, an LU factorisation can have significantly more nonzero elements than \(A\). Ideally we want an LU factorisation that minimises \emph{fill-ins}\index{fill-in}, which is a zero entry of \(A\) that is nonzero in \(L\) or \(U\). One way to minimise fill-ins is via pivoting.
+
+\subsection{QR factorisation}
+
+Recall from IB Linear Algebra: we endow \(\R^n\) with the Euclidean inner product
+\[
+  \inner{x, y} = \sum_{i = 1}^n x_iy_i = x^Ty.
+\]
+Two vectors are called \emph{orthogonal} if \(x^Ty = 0\). An \emph{orthonormal} system \((q_1, \dots, q_m)\) in \(\R^n\) is a system such that
+\[
+  q_i^Tq_j =
+  \begin{cases}
+    1 & \text{if } i = j \\
+    0 & \text{if } i \neq j
+  \end{cases}
+\]
+A matrix \(Q \in \matrixring_{n, n}(\R)\) is \emph{orthogonal} if its columns form an orthonormal basis of \(\R^n\). Equivalently, a matrix \(Q\) is orthogonal if any one of the following holds:
+\begin{itemize}
+\item \(Q^TQ = I\),
+\item \(Q^{-1} = Q^T\),
+\item \(QQ^T = I\).
+\end{itemize}
+
+\begin{remark}
+  If \(Q \in \matrixring_{n, n}(\R)\) is orthogonal then \(\det Q = \pm 1\).
+\end{remark}
+
+\begin{definition}[QR factorisation]\index{factorisation}
+  Let \(A \in \matrixring_{m, n}(\R)\). A QR \emph{factorisation} of \(A\) is a factorisation \(A = QR\) where
+  \begin{itemize}
+  \item \(Q \in \matrixring_{m, m}(\R)\) is orthogonal,
+  \item \(R \in \matrixring_{m, n}(\R)\) is upper triangular.
+  \end{itemize}
+
+  In the case where \(m \geq n\), a \emph{reduced QR factorisation} is \(A = QR\) where
+  \begin{itemize}
+  \item \(Q \in \matrixring_{m, n}(\R)\) has orthogonal columns,
+  \item \(R \in \matrixring_{n, m}(\R)\) is upper triangular.
+  \end{itemize}
+\end{definition}
 
 
 

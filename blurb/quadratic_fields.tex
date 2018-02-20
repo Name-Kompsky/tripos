@@ -1,0 +1,178 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Quadratic fields}
+\def\ndate{}
+
+\input{header}
+
+\renewcommand*{\O}{\mathcal{O}}
+\DeclareMathOperator{\n}{N}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\Cl}{Cl}%ideal class group
+\newcommand*{\red}[1]{\overline{#1}}%reduction mod
+
+\begin{document}
+
+\maketitle
+
+Let \(d \in \Z\) be square-free and \(d \neq 0, 1\). Then
+\[
+  L = \Q(\sqrt d) = \Q[x]/(x^2 - d)
+\]
+is a degree \(2\) extension over \(\Q\). It is called a \emph{quadratic field}. If \(d > 0\) then there are two real embeddings, in which case we call \(L\) a real quadratic field. Otherwise \(L\) is an imaginary quadratic field. Note that in using this notation, we implicitly assume that there is a complex embedding \(\sigma: L \to \C\).
+
+\paragraph{Ring of integers}
+
+A particularly nice characterisation of algebraic intgers in a quadratic field is \(\alpha \in \O_L\) if and only if \(\n_{L/\Q}(\alpha), \tr_{L/\Q}(\alpha) \in \Z\).
+
+Suppose \(\alpha = \frac{u}{2} + \frac{v}{2}\sqrt d \in \O_L\) where \(u, v \in \Q\). Then multiplication by \(\alpha\) has with respect to the basis \(\{1, \sqrt d\}\) matrix representation
+\[
+  \frac{1}{2}
+  \begin{pmatrix}
+    u & vd \\
+    v & u
+  \end{pmatrix}
+\]
+so
+\begin{align*}
+  \n_{L/\Q}(\alpha) &= \frac{1}{4}(u^2 - v^2d) \in \Z \\
+  \tr_{L/\Q}(\alpha) &= u \in \Z
+\end{align*}
+
+so \(v^2d \in \Z\). Suppose \(v = \frac{r}{s}\) is an expression in coprime integers. Then \(d^2r^2 \in s^2\Z\) so \(s^2 \divides d^2r^2\). If \(p\) is a prime dividing \(s\) then \(p^2 \divides d^2\). As \(d\) is square-free, \(p \divides d\). Absurd. Thus \(v \in \Z\) and
+\[
+  \Z[\sqrt d] \subseteq \O_L \subseteq \frac{1}{2}\Z[\sqrt d].
+\]
+
+\begin{itemize}
+\item If \(d = 2, 3 \pmod 4\) then \(u^2 = 0, 1 \pmod 4, v^2 = 0, 1 \pmod 4\). As \(u^2 = v^2d \pmod 4\), \(u, v \in 2\Z\) so \(\alpha \in \Z[\sqrt d]\). Thus \(\O_L = \Z[\sqrt d]\).
+\item If \(d = 1 \pmod 4\) then \(u^2 = v^2 \pmod 4\) so \(u = v \pmod 2\). Thus
+  \[
+    \O_L \subseteq \left\{ \frac{u}{2} + \frac{v}{2}\sqrt d: u = v \pmod 2 \right\} = \Z \oplus \Z \frac{1 + \sqrt d}{2}.
+  \]
+  Now check that \(\frac{1 + \sqrt d}{2} \in \O_L\) so we conclude that \(\O_L = \Z[\frac{1 + \sqrt d}{2}]\).
+\end{itemize}
+
+\paragraph{Discriminant}
+
+Recall that
+\[
+  D_L
+  = \det (\sigma_i(\alpha_j))^2
+  = \det (\tr_{L/\Q}(\alpha_i\alpha_j))
+  = (-1)^{\binom{n}{2}}\n_{L/\Q}(f'(\alpha))
+\]
+where \(\{\alpha_i\}\) is an integral basis, \(\{\sigma_i\}\) are the complex embeddings, \(\alpha\) is a generator of \(\O_L\) as a \(\Z\)-algebra and \(f\) is the minimal polynomial whereof.
+
+\begin{itemize}
+\item If \(d = 2, 3 \pmod 4\) then \(\alpha = \sqrt d, f(x) = x^2 - d\). Thus
+  \[
+    D_L = -\n_{L/\Q}(2\sqrt d) = 4d.
+  \]
+  Alternatively, since \(\tr_{L/\Q}(1) = 2, \tr_{L/\Q}(\sqrt d) = 0\), we can easily compute the matrix \(\tr_{L/\Q}(\alpha_i\alpha_j)\).
+\item If \(d = 1 \pmod 4\) then \(\alpha = \frac{1 + \sqrt d}{2}, f(x) = x^2 + x + \frac{1 - d}{4}\). Thus
+  \[
+    D_L = -\n_{L/\Q}(\sqrt d) = d.
+  \]
+\end{itemize}
+
+\paragraph{Factorisation of ideals}
+
+Recall that Dedekind's criterion says that subject to certain divisibility condition, given \(L = \Q(\alpha)\) and \(\alpha \in \O_L\) with minimal polynomial \(f(x)\) and \(p\) prime, if
+\[
+  \red f(t) = \prod_{i = 1}^r \red g_i(t)^{e_i} \in \F_p[x]
+\]
+is a factorisation into irreducibles then
+\[
+  (p) = \prod_{i = 1}^r \mathfrak{p}_i^{e_i}
+\]
+is a factorisation into prime ideals.
+
+\begin{itemize}
+\item If \(p = 2\),
+  \begin{itemize}
+  \item if \(d = 2, 3 \pmod 4\) then let \(\alpha = \sqrt d\) so
+    \[
+      \red f(x) = x^2 - d = (x - d)^2 \in \F_2[x]
+    \]
+    so \((2) = \mathfrak{p}^2\), i.e.\ ramifies.
+  \item if \(d = 1 \pmod 8\) then let \(\alpha = \frac{1 + \sqrt d}{2}\) so
+    \[
+      \red f(x) = x^2 + x + \frac{1 - d}{4} = x^2 + x = x(x + 1) \in \F_2[x]
+    \]
+    so \((2) = \mathfrak{p}\mathfrak{q}\), i.e.\ splits completely.
+  \item if \(d = 5 \pmod 8\) then \(\red f(x) \in \F_2[x]\) is irreducible so \(2\) is inert.
+  \end{itemize}
+\item If \(p\) is odd, let \(\alpha = \sqrt d\) and \(f(x) = x^2 - d\) so
+  \begin{itemize}
+  \item if \(\legendre{d}{p} = 0\) then \((p) = \mathfrak{p}^2\), i.e.\ ramifies.
+  \item if \(\legendre{d}{p} = 1\) then \((p) = \mathfrak{p}\mathfrak{q}\), i.e.\ splits completely.
+  \item if \(\legendre{d}{p} = -1\) then \(p\) is inert.
+  \end{itemize}
+\end{itemize}
+
+\paragraph{Lattice}
+
+Recall that the covolume of a lattice formed by an ideal of the ring of integers is the volume of the parallelepiped spanned by its \(\Z\)-basis.
+
+Given an \emph{imaginary} quadratic field \(L\), claim that
+\[
+  A(I) = \frac{1}{2}\sqrt{|\disc(I)|} = \frac{\n(I)}{2}\sqrt{|D_L|}
+\]
+for \(I \subseteq \O_L\).
+
+\begin{proof}
+  Let \(\alpha_1 = x_1 + iy_1, \alpha_2 = x_2 + iy_2\) be an integral basis for \(I\). Then
+  \[
+    A(I) = \left| \det
+      \begin{pmatrix}
+        x_1 & x_2 \\
+        y_1 & y_2
+      \end{pmatrix}
+    \right|.
+  \]
+  Meanwhile
+  \[
+    \disc(I)
+    = \det
+    \begin{pmatrix}
+      x_1 + iy_1 & x_2 + iy_2 \\
+      x_1 - iy_1 & x_2 - iy_2
+    \end{pmatrix}
+    ^2
+    = (2i)^2 \det
+    \begin{pmatrix}
+      x_1 & x_2 \\
+      y_1 & y_2
+    \end{pmatrix}
+    ^2
+    .
+  \]
+\end{proof}
+
+By Minkowski' theorem and using multiplicativity of norms, we can deduce that for any number field \(L\), the ideal class group \(\Cl(\O_L)\) is finite and can be generated by the class of prime ideals \(\mathfrak{p}\) with \(\n(\mathfrak{p}) \leq c_L\) where \(c_L = \frac{2}{\pi}\sqrt{|D_L|}\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(d = -7\). As \(d = 1 \pmod 4\), \(D_L = -7\). Thus
+    \[
+      c_L = \frac{2}{\pi} \sqrt 7 < \frac{2}{3} \sqrt 7 < 2
+    \]
+    so \(\Cl(\O_L)\) is generated by ideals of norm \(< 2\). There are none except \(\O_L\). Thus \(\Cl(\O_L)\) is trivial. Hence \(\O_L = \Z[\frac{1 + \sqrt{-7}}{2}]\) is a UFD.
+  \item \(d = -5\). \(D_L = -20\) so
+    \[
+      c_L = \frac{2}{\pi}\sqrt{20} = \frac{4}{\pi}\sqrt 5 < \frac{4}{3} \sqrt 5 < 3
+    \]
+    so \(\Cl(\O_L)\) is generated by prime ideals \(\mathfrak p \subseteq \O_L\) of norm \(\n(\mathfrak p) = 2\). We know by Dedekind's criterion that \(2\O_L = \mathfrak p^2\). Thus \(\Cl(\O_L)\) is generated by \([\mathfrak p]\) and \([\mathfrak p]^2 = [2\O_L] = [\O_L]\) is the trivial class. Hence there are two possibilities:
+    \begin{enumerate}
+    \item if \(\mathfrak p\) is principal then \(\Cl(\O_L)\) is trivial.
+    \item if \(\mathfrak p\) is not principal then \(\Cl(\O_L) \cong \Z/(2)\).
+    \end{enumerate}
+    But we already knew that \(\O_L\) is not a UFD so \(\Cl(\O_L)\) is not trivial so must have
+    \[
+      \Cl(\O_L) \cong \Z/(2).
+    \]
+  \end{enumerate}
+\end{eg}
+
+\end{document}
