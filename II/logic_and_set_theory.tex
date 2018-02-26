@@ -330,7 +330,7 @@ By remark before the above theorem, we now have
 
 Some consequences:
 
-\begin{corollary}[Compactness Theorem]
+\begin{corollary}[Compactness theorem]\index{compactness theorem}
   Let \(S \subseteq L, t \in L\) with \(S \models t\). Then there exists a finite \(S' \subseteq S\) with \(S' \models t\).
 \end{corollary}
 
@@ -340,7 +340,7 @@ Some consequences:
 
 Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then some finite \(S' \subseteq S\) has no model. Equivalently,
 
-\begin{corollary}[Compactness Theorem, equivalent form]
+\begin{corollary}[Compactness theorem, equivalent form]
   Let \(S \subseteq L\). If every finite finite subset of \(S\) has a model then \(S\) has a model.
 \end{corollary}
 
@@ -348,7 +348,7 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
   This is equivalent to the previous corollary because \(S \models t\) if and only if \(S \cup \{\neg t\}\) has no model and \(S' \models t\) if and only if \(S' \cup \{\neg p\}\) has no model.
 \end{proof}
 
-\begin{corollary}[Decidability Theorem]
+\begin{corollary}[Decidability theorem]\index{decidability theorem}
   There is an algorithm to determine (in finite time) whether or not, for a given \(S \subseteq L, t\in L\), we have \(S \yields t\).
 \end{corollary}
 
@@ -800,7 +800,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
 
 \section{Posets and Zorn's Lemma}
 
-\subsection{Partial orders}
+\subsection{Partial Orders}
 
 \begin{definition}[Poset]\index{poset}
   A \emph{partially ordered set} or \emph{poset} is a pair \((X, \leq)\) where \(X\) is a set and \(\leq\) is a relation on \(X\) that is
@@ -1091,7 +1091,7 @@ One final application:
   Proof of Zorn's lemma was easy because we knew ordinals, recursion  and Hartog's lemma.
 \end{remark}
 
-\subsection{Zorn's lemma and Axiom of choice}
+\subsection{Zorn's Lemma and Axiom of Choice}
 
 In the proof of Zorn's lemma, we chose for each \(x \in X\) an \(x' > x\) --- i.e.\ we made infinitely many arbitrary choices (note that this has nothing to do with Hartog's lemma. We made infinitely many choices even by the time we get to \(x_\omega\)). We did the same in IA Numbers and Sets, in proving that the countable union of countable sets is countable: we chose for each set in the family an ordering whereof.
 
@@ -1293,9 +1293,9 @@ Do not worry too much about the word ``free'' in the above definition, it is the
   \]
 \end{eg}
 
-\subsection{Semantic entailment}
+\subsection{Semantic Entailment}
 
-\begin{definition}[\(L\)-structure]\index{L-structre@\(L\)-structure}
+\begin{definition}[Structure]\index{structure}
   An \emph{\(L\)-structure} is a non-empty set \(A\) equipped with
   \begin{enumerate}
   \item for each \(f \in \Omega\) with \(\alpha(f) = n\), a function \(f_A: A^n \to A\),
@@ -1391,7 +1391,7 @@ If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variab
   \end{enumerate}
 \end{eg}
 
-\subsection{Syntactic implication}
+\subsection{Syntactic Implication}
 
 As before, we need some logical axioms. There are 7 of them: 3 from propositional logic, 2 for \(=\), 2 for \(\forall\).
 
@@ -1468,7 +1468,7 @@ As deduction rules we have
   \end{itemize}
 \end{proof}
 
-\subsection{*Completeness theorem}
+\subsection{*Gödel Completeness Theorem}
 
 \begin{proposition}[Soundness]\index{soundness}
   Let \(S \subseteq L, p \in L\). Then if \(S \yields p\) then \(S \models p\).
@@ -1481,6 +1481,7 @@ As deduction rules we have
 For adequacy, want if \(S \models p\) then \(S \yields p\), i.e.\ if \(S \cup \{\neg p\} \models \bot\) then \(S \cup (\neg p) \yields \bot\).
 
 \begin{theorem}[Model existence lemma]\index{model existence lemma}
+  \label{thm:model existence lemma}
   Let \(S \subseteq L\) be a set of sentences. Then if \(S\) is consistent then it has a model.
 \end{theorem}
 
@@ -1514,15 +1515,131 @@ Unlike most other proofs we have met in tripos, this proof has not one, not two,
     \end{tikzcd}
   \]
 
-  Put \(\cl S = S_1 \cup S_2 \cup \dots\) in language \(\cl L = L(\Omega \cup C_1 \cup C_2 \cup \dots, \Pi)\). Check
+  Put \(\cl S = S_1 \cup S_2 \cup \dots\) in language \(\cl L = L(\cl \Omega, \Pi)\) where \(\cl \Omega = \Omega \cup C_1 \cup \cdots\). Check
   \begin{itemize}
-  \item \(\cl S\) is consistent: if \(\cl S \yields \bot\) then some \(S_n \yields \bot\) as proof are finite. Absurd.
+  \item \(\cl S\) is consistent: if \(\cl S \yields \bot\) then some \(S_n \yields \bot\) as proofs are finite. Absurd.
   \item \(\cl S\) is complete: given sentence \(p \in \cl L\), have \(p \in L_n\) for some \(n\) as \(p\) contains only finitely many constants. So \(S_{n + 1} \yields p\) or \(S_{n + 1} \yields (\neg p)\).
   \item \(\cl S\) has witnesses (for itself): given \((\exists x) p \in \cl S\), have \((\exists x)p \in S_n\) for some \(n\). So \(p[t/x] \in T_n\) for some closed term \(t\) whence \(p[t/x] \in \cl S\).
   \end{itemize}
+
+  On set of closed terms of \(\cl L\), define \(s \sim t\) if \(\cl S \yields (s = t)\), clearly an equivalence relation. Let the set of equivalence classes be \(A\). Make \(A\) into an \(\cl L\)-structure by setting
+  \begin{itemize}
+  \item \(f_A([t_1], \dots, [t_n]) = [ft_1, \dots, t_n]\) for each \(f \in \cl \Omega, \alpha(f) = n\), closed terms \(t_1, \dots, t_n\),
+  \item \(\phi_A = \{([t_1], \dots, [t_n]): \cl S \yields \phi(t_1, \dots, t_n)\}\) for each \(\phi \in \Pi, \alpha(\phi) = n\), closed terms \(t_1, \dots, t_n\).
+  \end{itemize}
+  Claim that \(p_A = 1\) if and only if \(\cl S \yields p\) for each sentence \(p \in \cl L\) (then done since if \(A\) is a model of \(\cl S\) then it a model of \(S\)).
+
+  \begin{proof}
+    An easy induction:
+    \begin{enumerate}
+    \item atomic sentences:
+      \begin{enumerate}
+      \item \(\bot\): \(\bot_A = 0\) and \(\cl S \nyields \bot\).
+      \item \(s = t\): \(\cl S \yields (s = t)\) if and only if \([s] = [t]\) by definition of \(\sim\), if and only if \(s_A = t_A\) by definition of operation on \(A\), if and only if \((s = t)_A = 1\).
+      \item \(\phi(t_1, \dots, t_n)\): exactly the same.
+      \end{enumerate}
+    \item induction step:
+      \begin{enumerate}
+      \item \(p \implies q\): \(\cl S \yields (p \implies q)\) if and only if \(\cl S \yields (\neg p)\) or \(\cl S \yields q\) (only if: if not then \(\cl S \yields p, \cl S \yields (\neg q)\) (as \(\cl S\) is complete), whence \(\cl S \yields \neg(p \implies q)\)), if and only if \(p_A = 0\) or \(q_A = 1\) by induction, if and only if \((p \implies q)_A = 1\).
+      \item \((\exists x) p\): \(\cl S \yields (\exists x) p\) if and only if \(\cl S \yields p[t/x]\) for some closed term \(t\) (only if: \(\cl S\) has witnesses), if and only if \(p[t/x]_A = 1\) for some closed term \(t\) by induction, if and only if \(((\exists x) p)_A = 1\) (if: \(A\) is the set of equivalence classes of closed terms).
+      \end{enumerate}
+    \end{enumerate}
+  \end{proof}
 \end{proof}
 
+By remark before, have
 
+\begin{corollary}[Adequacy]\index{adequacy}
+  Let \(S \subseteq L, p \in L\). Then if \(S \models p\) then \(S \implies p\).
+\end{corollary}
+
+\begin{theorem}[Gödel completeness theorem for first-order logic]\index{completeness}\index{Gödel completeness theorem for first-order logic}
+  Let \(S\) be a set of sentences and \(p\) a sentence in language \(L\), then \(S \models p\) if and only if \(S \yields p\).
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\impliedby\): soundness.
+  \item \(\implies\): adequacy.
+  \end{itemize}
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(L\) is countable (i.e.\ \(\Omega\) and \(\Pi\) are countable) then Zorn's lemma is not needed in the first step.
+  \item ``First-order'' means that variables range over elements of our structure, not, for example, subsets thereof.
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}[Compactness]\index{compactness theorem}
+  Let \(S \subseteq L\) be a set of sentences. Then if every finite subset of \(S\) has a model then \(S\) has a model.
+\end{theorem}
+
+\begin{proof}
+  Trivial if we replace \(\models\) with \(\yields\) as proof are finite.
+\end{proof}
+
+\begin{note}
+  Unlike in propositional logic, there is no decidability theorem, since we don't know how to check if \(S \models t\).
+\end{note}
+
+Some consequences of compactness/completeness: let's think about axiomatisability of theories. We axiomatised the theory for groups, fields and graphs easily. Can we axiomatise the class of finite groups? In other words, we want some sentences \(S\) (in language of groups) such that a structure is a model for \(S\) if and only it is a finite group.
+
+We may attempt to find some theorem that holds only for finite groups. For example, from IA Groups we may say that finiteness of conjugacy classes is a property of finite groups, but it also holds for the infinite group \(\Z\). We may go to IB Groups, Rings and Modules and even IID Representation Theory to find some more theorems, but they also holds for some infinite groups. This gives us the inkling that maybe we should look in the other direction. In fact,
+
+\begin{corollary}
+  The class of finite groups cannot be axiomatised (in language of groups).
+\end{corollary}
+
+\begin{remark}
+  It is amazing that we can actually \emph{prove} this, as opposed to ``believing it might be true''.
+\end{remark}
+
+\begin{proof}
+  Suppose \(S\) axiomatises finite groups. Add to \(S\) the sentences
+  \begin{align*}
+    & (\exists x_1) (\exists x_1) (\neg(x_1 = x_2)) \text{ (``order at least 2'')} \\
+    & (\exists x_1) (\exists x_2) (\exists x_3) (\neg(x_1 = x_2) \land \neg(x_2 = x_3) \land \neg(x_3 = x_1)) \text{ (``order at least 3'')} \\
+    & \quad \vdots
+  \end{align*}
+  Then every finite subset has a model (e.g.\ \(\Z/n\Z\) for \(n\) sufficiently large), but the set itself has no model, contradicting compactness.
+\end{proof}
+
+Similarly,
+
+\begin{corollary}
+  Let \(S\) be a theory in a language \(L\). Then if \(S\) has arbitrarily large finite models, then it has an infinite model.
+\end{corollary}
+
+\begin{proof}
+  Add sentences as in the previous proof and apply compactness.
+\end{proof}
+
+The takeaway is: finiteness is not a first-order property.
+
+\begin{corollary}[Upward Löwenheim-Skolem]\index{upward Löwenheim-Skolem theorem}
+  If a theory \(S\) has in infinite model then it has an uncountable model.
+\end{corollary}
+
+\begin{proof}
+  Add uncountably many constants \(\{c_i\}_{i \in I}\) to the language and add to \(S\) the set of sentences ``\(\neg(c_i = c_j)\)'' for each distinct \(i, j \in I\). Then any finite subset has a model (e.g.\ any infinite model of \(S\)), so the whole set has a model by compactness.
+\end{proof}
+
+Similarly, we could find a model into which \(\mathcal P (\mathcal P(\R))\) injects, by letting it be the indexing set.
+
+\begin{eg}
+  We know there is an infinite field \(\Q\), thus there exists a field of the same size as \(\mathcal P (\mathcal P(\R))\).
+\end{eg}
+
+\begin{corollary}[Downward Löwenheim-Skolem]\index{downward Löwenheim-Skolem theorem}
+  Let \(S\) be a theory in a countable language \(L\). Then if \(S\) has a model then it has a countable model.
+\end{corollary}
+
+\begin{proof}
+  The model constructed in \nameref{thm:model existence lemma} in \(\cl S\) is countable.
+\end{proof}
+
+Note that this \emph{is} examinable.
 
 
 

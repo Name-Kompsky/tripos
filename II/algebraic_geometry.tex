@@ -1,0 +1,168 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Algebraic Geometry}
+\def\nlecturer{I.\ Grojnowski}
+
+\def\nterm{Lent}
+\def\nyear{2018}
+
+\input{header}
+
+\DeclareMathOperator{\Cl}{Cl}
+\renewcommand*{\P}{\mathbb{P}}
+\let\div\relax
+\AtBeginDocument{DeclareMathOperator{\div}{div}}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Algebraic curves}
+
+\begin{eg}
+  \(E^0 = \{y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\}, \lambda_1\lambda_2\lambda_3 \neq 0, \lambda_i \neq \lambda_j\) for \(i \neq j\). Let \(E = \cl{E^0} \subseteq \P^2\). The closure is
+  \[
+    y^2t = (x - \lambda_1z)(x - \lambda_2z)(x - \lambda_3z).
+  \]
+  Each point on the other chart when \(z = 0\). Unique extra point \(x = z = 0, y \neq 0\), \(P_\infty = [0:1:0]\). We will compute \(L(nP_\infty)\). To begin, let's compute \(\div(x), div(y)\).
+  \begin{align*}
+    x &= 0 \text{ when } y = \pm \sqrt{-\lambda_1\lambda_2\lambda_3} = \pm c \\
+    x &= \infty \text{ at } P_\infty
+  \end{align*}
+  At \(y = \pm c, \frac{\p f}{\p y} (0, \pm c) \neq 0\) so \(x\) is a local parameter so
+  \[
+    \div(x) = [0: c: 1] + [0: -c: 1] + n_\infty P_\infty.
+  \]
+  Let \(\deg \div(x) = 0\), so \(n_\infty = -2\). Similarly,
+  \[
+    \div(y) = \sum_{i = 1}^3 [\lambda_i: 0: -1] - 3 P_\infty.
+  \]
+  Hence \(x \in L(2 P_\infty), y \in L(3 P_\infty)\).
+
+  Example \(xy \in L(5P_\infty)\), Claim \(L(P_\infty) = k\). Granting claim, get \(\dim L(nP_\infty) \leq n\) for \(n \geq 1\) by proposition v. But
+  \begin{align*}
+    1, x &\in L(2P_\infty) \\
+    1, x, y &\in L(3P_\infty) \\
+    1, x, y, x^2 &\in L(4P_\infty) \\
+    1, x, y, x^2, xy &\in L(5P_\infty)
+  \end{align*}
+  Claim that these are linearly independent, so \(\dim L(nP_\infty) = n\) for \(n \leq 5\): this is obvious in \(k(x) \supseteq L(nP_\infty)\).
+  \[
+    1, x, y, x^2, xy, x^3, y^2 \in L(6P_\infty)
+  \]
+  but these are not linearly independent by our general result, or more importantly, \(y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) is the linear relation between them.
+  \begin{ex}\leavevmode
+    \begin{enumerate}
+    \item Show that \(xx^i, x^iy\) are linearly independent and hence
+    \item \(\dim L(nP_\infty) = n\) for all \(n \geq 1\).
+    \end{enumerate}
+  \end{ex}
+
+  Observe how this compares with \(\P^1\), when \(\dim L(nP) = n + 1\) for \(n \geq 0\).
+
+  Proof of claim that \(L(P_\infty) = k\): if not, \(L(P_\infty) = k + kt\) for some \(t \in k(E)\), then
+  \[
+    t^n \in L(nP_\infty) \setminus L((n - 1)P_\infty)
+  \]
+  so \(1, t, \dots, t^n \in L(nP_\infty)\) and are linearly independent so must be a basis (as \(\dim L(nP_\infty) \leq n + 1\)). But \(x \in L(2P_\infty), y \in L(3P_\infty)\), so \(x = a't^2 + b't + c = (at + b)^2 + d\) by completing the square if \(\ch k \neq 2\). Replace \(t\) with \(at + b\), so \(x = t^2 + d\) and \(y = g_3(t)\) for some cubic polynomial in \(t\). But that
+  \[
+    g_3(t)^2 = \prod_{i = 1}^3 (t^2 - (\lambda_i - d)).
+  \]
+  Now \(\lambda_i\)'s are distinct, so \(\lambda_i - d\) are distinct, so RHS is not a square in \(k[t]\), absurd.
+\end{eg}
+
+Given \(D \in \div X\) where \(X\) is a smooth projective curve, \(\ell(D) = \dim L(D) \geq 1\), put \(m = \ell (D) - 1\). Choose a basis \(f_0, \dots, f_m\) of \(L(D)\). Get a rational map \(\alpha_D = [f_0: \dots: f_n], X \to \P^m = \P(L(D)^*)\). As \(X\) is a smooth projective curve, \(\alpha_D\) extends to a morphism \(\alpha_D: X \to \P^m\). Notice that if \(D' = D + \div(g)\), \(f_0g, \dots, f_mg\) is a basis of \(L(D')\) but
+\[
+  [f_0g: \dots: f_mg] = [f_0: \dots: f_m]
+\]
+so \(\alpha_D: X \to \P^m = \P(L(D)^*)\) equals to \(\alpha_{D'}: X \to \P^m = \P(L(D')^*)\), i.e.\ the map only depends on the class of \(D\) in \(\Cl(X)\).
+
+\begin{eg}
+  \(X = \P^1, D = n(\alpha), \ell(D) = n + 1\). Choose a basis \(1, t, \dots, t^n\) of \(L(n(\infty))\), then
+  \[
+    \alpha_D(t) = [1:t: \dots: t^n]: \P^1 \to \P^n.
+  \]
+  i.e.
+  \[
+    \alpha_D[x_0: x_1] = [1: \frac{x_1}{x_0}: \dots: \frac{x_1^n}{x_0^n}] = [x_0^n: x_0^{n - 1}x_1: \dots: x_1^n].
+  \]
+\end{eg}
+
+\begin{definition}[Embedding]\index{embedding}
+  An \emph{embedding} is a morphism \(\alpha: X \to Y\) with the property that \(X\) is isomorphic to \(\alpha(X)\) via \(\alpha\).
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show that the above \(\alpha_{n(\infty)}: \P^1 \to \P^n\) is an embedding.
+  \item Show that the morphism
+    \begin{align*}
+      alpha: \P^1 &\to \P^2 \\
+      t &\mapsto [1: t^2: t^3]
+    \end{align*}
+    is injective but \emph{not} an embedding.
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}
+  Let \(X = E\) be elliptical curve, \(D = nP_\infty\). Show
+  \begin{align*}
+    \alpha_{P_\infty}: E &\to \P^0 \\
+    \alpha_{2P_\infty}: E &\to \P^1 \\
+    (x, y) &\mapsto x \\
+    \alpha_{3P_\infty}: E &\to P^2 \\
+    (x, y) &\mapsto (x, y)
+  \end{align*}
+
+  basis of \(L(2P_\infty)\) \(1, x\), basis of \(L(3P_\infty)\) \(1, x, y\).
+  
+  Notice that \(\alpha_{3P_\infty}\)  is an embedding \(E \subseteq \R^2\) but \(\alpha_{2P_\infty}, \alpha_{P_\infty}\) are not.
+\end{ex}
+
+\begin{theorem}[Embedding criteria]
+  \(\alpha_D: X \to \P^m\) is an embedding if and only if for all \(p, q \in X\), \(\ell(D - p - q) = \ell(D) - 2\). When this happens, \(X\) is a curve in \(\P^m\) of degree \(\deg D\).
+\end{theorem}
+
+We have not yet defined the degree of a curve \(X \subseteq \P^m\). Suppose \(X \subseteq \P V, \dim V = m + 1\), \(X\) smooth. Let \(H \subseteq \P V\) be a hyperplane and suppose \(X \nsubseteq H\). Then \(X \cap H\) is a closed subvariety of \(X\), so a finite set of points, and we define
+\[
+  [X \cap H] \in \div X
+\]
+to be these points ``counted with multiplicity''. Define \(\deg X\) ot be \(\deg [X \cap H]\) which will depend on \(X \subseteq \P^m\) but no other choices.
+
+\begin{eg}
+  Let \(H = \{x_0 = 0\}\) for some linear function \(x_0 \in V^*\). If \(p \in X \cap H\), want to define \(v_p(x_0)\). But \(x_0 \in k(X)\). Pick \(x_1 \in V^*\) wit \(x_1(p) \neq 0\). Now \(\frac{x_0}{x_1} \in k(X)\). Then \(v_p(\frac{x_0}{x_1}\) makes sense, and
+  \[
+    v_p(\frac{x_0}{x_1'}) = v_p(\frac{x_0}{x_1}) + v_p(\frac{x_1}{x_1'}).
+  \]
+  If \(x_1'\) is another function in \(V^*\) with \(x_1'(p) \neq 0\) but then the last term is \(0\). So define
+  \[
+    n_p = v_p(\frac{x_0}{x_1})
+  \]
+  which is independent of choice of \(x_1\).
+\end{eg}
+
+\begin{definition}
+  Let \([H \cap X] = \sum_{p \in H \cap X} n_pP \in \div (X), [H \cap X] \geq 0\). Define
+  \[
+    \deg X = \deg [H \cap X].
+  \]
+\end{definition}
+
+If we pick \(H' = \{x_0' = 0\}, X \nsubseteq H'\).
+\[
+  v_p(\frac{x_0}{x_1'}) = v_p(\frac{x_0}{x_1}) + v_p(\frac{x_1}{x_1'})
+\]
+so \([H \cap X] = [H' \cap X] + \div (\frac{x_0}{x_0'})\), i.e.\ \([H \cap X] = [H' \cap X]\) are equal in \(\Cl(X)\).
+
+\begin{lemma}
+  Let \(X = Z(F) \subseteq \P^2\) where \(F\) is a homogeneous polynomial of degree \(d\), then
+  \[
+    \deg Z(F) = \deg F.
+  \]
+\end{lemma}
+\printindex
+\end{document}
