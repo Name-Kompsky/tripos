@@ -15,6 +15,7 @@
 \DeclareMathOperator{\disc}{disc}
 \DeclareMathOperator{\Cl}{Cl}%ideal class group
 \newcommand*{\red}[1]{\overline{#1}}%reduction mod
+\DeclareMathOperator{\vol}{vol}
 
 \makeindex
 
@@ -398,7 +399,7 @@ Let \(L\) be a number field.
 \end{proposition}
 
 \begin{proof}
-  We have a nice characterisation of algebraic integers in the case of quadratic fields: if \(\alpha \in L\), then \(\alpha \in \O_L\) if and only if \(\tr_{L/\Q}(\alpha), \n_{L/\Q}(\alpha) \in \Z\). (Why?)
+  We have a nice characterisation of algebraic integers in quadratic fields: if \(\alpha \in L\), then \(\alpha \in \O_L\) if and only if \(\tr_{L/\Q}(\alpha), \n_{L/\Q}(\alpha) \in \Z\). (Why?)
 
   Let \(\alpha \in L\). Write \(\alpha = \frac{u}{2} + \frac{v}{2}\sqrt d\) where \(u, v \in \Q\). If \(\alpha \in \O_L\) then
   \begin{align*}
@@ -821,7 +822,7 @@ Note that the same argument for discriminant of ring of integers shows that this
     &= \left( \prod_{i = 1}^n \sigma_i(\alpha) \right)^2 \det(\sigma_i(\alpha_j))^2 \\
     &= \n_{L/\Q}(\alpha)^2 \det(\O_L)
   \end{align*}
-  On the other had, we showed last time that for any non-zero ideal \(J \subseteq \O_L\),
+  On the other hand, we showed last time that for any non-zero ideal \(J \subseteq \O_L\),
   \[
     \disc(J) = \n(J)^2 \disc(\O_L)
   \]
@@ -838,7 +839,7 @@ Note that the same argument for discriminant of ring of integers shows that this
 
 In fact later we will show \(\n\) is multiplicative for all ideals.
 
-\section{Unique factorisation in \texorpdfstring{\(\O_L\)}{O_{}L}}
+\section{Unique factorisation in \texorpdfstring{\(\O_L\)}{O\_L}}
 
 Recall that a ring \(R\) is a \emph{unique factorisation domain} (UFD) if
 \begin{enumerate}
@@ -1147,6 +1148,7 @@ Then \(\mathfrak p \divides p \O_L\) and \(\n(\mathfrak p) = p^f\) for some \(f 
 \end{definition}
 
 \begin{theorem}[Dedekind's criterion]\index{Dedekind's criterion}
+  \label{thm:Dedekind}
   Let \(\alpha \in \O_L\) be such that \(L = \Q(\alpha)\). Let \(f(x) \in \Z[x]\) be its minimal polynomial and let \(p\) be a prime integer such that \(p \ndivides [\O_L:\Z[\alpha]]\). Let \(\red f(x) = f(x) \pmod p\) and factor
   \[
     \red f(x) = \prod_{i = 1}^r \red g_i(x)^{e_i} \in \F_p[x]
@@ -1197,7 +1199,7 @@ Then \(\mathfrak p \divides p \O_L\) and \(\n(\mathfrak p) = p^f\) for some \(f 
   Therefore
   \begin{align*}
     \{\text{ideals in } \O_L \text{ containing } p\} &\leftrightarrow \{\text{ideals of } A/pA\} \\
-    (p) \subseteq I \leftrightarrow I \ni p
+    (p) \subseteq I &\leftrightarrow I \ni p
   \end{align*}
   We have
   \begin{align*}
@@ -1206,7 +1208,7 @@ Then \(\mathfrak p \divides p \O_L\) and \(\n(\mathfrak p) = p^f\) for some \(f 
   \end{align*}
   Reduction mod \(p\) gives an isomorphism
   \[
-    A/pA \cong \Z[x]/(pf(x)) \cong \F_p[x]/(\red f(x)).
+    A/pA \cong \Z[x]/(p, f(x)) \cong \F_p[x]/(\red f(x)).
   \]
   We have \(\red f(x) = \prod_{i = 1}^r \red g_i(x)^{e_1}\), so there are homomorphisms
   \[
@@ -1214,7 +1216,7 @@ Then \(\mathfrak p \divides p \O_L\) and \(\n(\mathfrak p) = p^f\) for some \(f 
   \]
   given by quotienting by the ideal \((\red g_i(x)) \supseteq (\red f(x))\).
 
-  Define \(\mathfrak p_i \subseteq \O_L\) to be the ideal containing \(p\) such that \(\mathfrak p_1/(p)\) is the kernel of the ring homomorphism
+  Define \(\mathfrak p_i \subseteq \O_L\) to be the ideal containing \(p\) such that \(\mathfrak p_i/(p)\) is the kernel of the ring homomorphism
   \[
     \begin{tikzcd}
     \O_L/p\O_L
@@ -1315,7 +1317,7 @@ This is a generalisation of the ususal lattice \(\Z^n \subseteq \R^n\).
 \begin{definition}[Covolume]\index{covolume}
   If \(V\) is a finite-dimensional real inner product space and \(\Lambda \subseteq V\) is a lattice, then the \emph{covolume} of \(\Lambda\) is
   \[
-    A(\Lambda) = \operatorname{vol}\left( \left\{ \sum_{i = 1}^n t_iv_i: t_i \in [0, 1]\right\}\right)
+    A(\Lambda) = \vol\left( \left\{ \sum_{i = 1}^n t_iv_i: t_i \in [0, 1)\right\}\right)
   \]
   where \(\Lambda = \bigoplus_{i = 1}^n \Z v_i\).
 \end{definition}
@@ -1376,10 +1378,10 @@ More generally, if \(I \subseteq \O_L\) is a non-zero ideal then \(\sigma(I)\) i
   \end{align*}
 \end{proof}
 
-To demonstrate how to actually compute and use covolume, we state a theorem whose general version will be proved later in the course:
+To demonstrate how to actually compute and use covolume, we state a theorem whose general version will be proved later:
 
 \begin{theorem}[Special case of Minkowski's theorem]
-  Let \(\Lambda \subseteq \R^2\) be a lattice and let \(S = D(0, r) \subseteq \R^2\) be the closed disc of radius \(r\). Then if \(\operatorname{area}(S) \geq 4A(\Lambda)\) then there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda \in S\).
+  Let \(\Lambda \subseteq \R^2\) be a lattice and let \(S = D(0, r) \subseteq \R^2\) be the closed disk of radius \(r\). Then if \(\operatorname{area}(S) \geq 4A(\Lambda)\) then there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda \in S\).
 \end{theorem}
 
 The surprising thing about this theorem is that it is independent of the shape of the lattice.
@@ -1466,15 +1468,371 @@ In fact, we will later prove that this is true for any number field \(L\).
     so \(\Cl(\O_L)\) is generated by prime ideals \(\mathfrak p \subseteq \O_L\) of norm \(\n(\mathfrak p) = 2\). We know by Dedekind's criterion that \(2\O_L = \mathfrak p^2\). Thus \(\Cl(\O_L)\) is generated by \([\mathfrak p]\) and \([\mathfrak p]^2 = [2\O_L] = [\O_L]\) is the trivial class. Hence there are two possibilities:
     \begin{enumerate}
     \item if \(\mathfrak p\) is principal then \(\Cl(\O_L)\) is trivial.
-    \item if \(\mathfrak p\) is not principal then \(\Cl(\O_L) \cong \Z/(2)\).
+    \item if \(\mathfrak p\) is not principal then \(\Cl(\O_L) \cong \Z/2\Z\).
     \end{enumerate}
     But we already knew that \(\O_L\) is not a UFD so \(\Cl(\O_L)\) is not trivial so must have
     \[
-      \Cl(\O_L) \cong \Z/(2).
+      \Cl(\O_L) \cong \Z/2\Z.
     \]
   \end{enumerate}
 \end{eg}
 
+Having a grasp of the tools we have, we will now move on to a general number field \(L\).
+
+First we have a theorem that does not necessarily have any relation with number fields:
+
+\begin{theorem}[Minkowski]\index{Minkowski's theorem}
+  \label{thm:Minkowski}
+  Let \(\Lambda \subseteq \R^n\) be a lattice and let \(E \subseteq \R^n\) be a measurable subset which is convex and centrally symmetric, i.e.\ \(E = -E = \{x \in \R^n: -x \in E\}\). Then
+  \begin{enumerate}
+  \item if \(\vol(E) > 2^n A(\Lambda)\), then there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda \in E\).
+  \item if \(\vol(E) \geq 2^n A(\Lambda)\) and \(E\) is compact, then there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda \in E\).
+  \end{enumerate}
+\end{theorem}
+
+Note that the special case we used above corresponds to \(n = 2\) and \(E\) closed disk.
+
+\begin{proof}
+  Let \(\Lambda = \bigoplus_{i = 1}^n \Z v_i, P = \left\{ \sum_{i = 1}^n t_iv_i: t_i \in [0, 1) \right\}\). Then \(\vol(P) = A(\Lambda)\) and \(\R^n = \bigcup_{\lambda \in \Lambda} (P + \lambda)\). Then
+  \begin{enumerate}
+  \item
+    \begin{align*}
+      \vol(P)
+      &< \frac{1}{2^n} \vol(E) \\
+      &= \vol(\frac{1}{2}E) \\
+      &= \sum_{\lambda \in \Lambda} \vol(\frac{1}{2}E \cap (\lambda + P)) \\
+      &= \sum_{\lambda \in \Lambda} \vol((\frac{1}{2}E - \lambda) \cap P)
+    \end{align*}
+    Claim that there exists \(\lambda, \mu \in \Lambda\) distinct such that \((\frac{1}{2}E - \lambda) \cap (\frac{1}{2}E - \mu)\) is non-empty: if not, the sets \(\frac{1}{2}E - \lambda\) are pariwise disjoint so
+    \[
+      \vol(P) < \sum_{\lambda \in \Lambda} \vol((\frac{1}{2}E - \lambda) \cap P) \leq \vol(P),
+    \]
+    absurd. Hence there exists \(z, w \in E\) such that \(\frac{z}{2} - \lambda = \frac{w}{2} - \mu\). Thus
+    \[
+      \lambda - \mu = \frac{z}{2} - \frac{w}{2} = \frac{z}{2} + \frac{-w}{2}.
+    \]
+    As \(E\) is centrally symmetric, \(-w \in E\). Finally as \(E\) is convex, \(\frac{z}{2} + \frac{-w}{2} \in E\). Thus \(\lambda - \mu \in (\Lambda \setminus \{0\}) \cap E\).
+  \item Given the further assumption that \(E\) is compact, \(E\) is closed and bounded. \(\vol(E) \geq 2^n A(\Lambda)\) implies that for \(m \geq 1\)
+    \[
+      \vol((1 + \frac{1}{m})E) > 2^n A(\Lambda).
+    \]
+    By 1, for all \(m \in \N\) there exists \(\lambda_m \in (\Lambda \setminus \{0\}) \cap ((1 + \frac{1}{m})E)\). \((1 + \frac{1}{m}) E \subseteq 2E\) and \(2E \cap \Lambda\) is finite as \(2E\) is bounded. By pigenhole principle, we can assume there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda_m = \lambda\) for all \(m \geq 1\). \(E\) is closed and \(\lambda \in (1 + \frac{1}{m})E\) for all \(m \geq 1\). Thus \(\lambda \in E\).
+  \end{enumerate}
+\end{proof}
+
+Now let \(L\) be a number field. Let \(n = [L:\Q]\) and \(\tau_1, \dots, \tau_r: L \to \R\) be real embeddings of \(L\) and \(\sigma_1, \conj \sigma_1, \dots, \sigma_s, \conj \sigma_s: L \to \R\) be complex embeddings. We have \(n = r + 2s\).
+
+Define a map
+\begin{align*}
+  S: L &\to \R^r \times \C^s \\
+  \alpha &\mapsto (\tau_1(\alpha), \dots, \tau_r(\alpha), \sigma_1(\alpha), \dots, \sigma_s(\alpha))
+\end{align*}
+This is a homomorphism of additive groups.
+
+\begin{lemma}
+  If \(I \subseteq \O_L\) is a non-zero ideal then \(S(I)\) is a lattice.
+\end{lemma}
+
+\begin{proof}
+  Let \(\alpha_1, \dots,\alpha_n\) be an integral basis of \(I\). Then
+  \[
+    S(I) = \bigoplus_{i = 1}^n \Z S(\alpha_i)
+  \]
+  and \(\R^r \times \C^s\) is an \(n\)-dimensional \(\R\)-vector space. So we must show that \(S(\alpha_1), \dots, S(\alpha_n)\) are independent, or equivalently that
+  \[
+    \det
+    \begin{pmatrix}
+      \tau_1(\alpha_1) & \cdots & \tau_1(\alpha_n) \\
+      \vdots & & \vdots \\
+      \tau_r(\alpha_1) & \cdots & \tau_r(\alpha_n) \\
+      \Re \sigma_1(\alpha_1) & \cdots & \Re \sigma_1(\alpha_n) \\
+      \Im \sigma_1(\alpha_1) & \cdots & \Im \sigma_1(\alpha_n) \\
+      \vdots & & \vdots \\
+      \Re \sigma_s(\alpha_1) & \cdots & \Re \sigma_s(\alpha_n) \\
+      \Re \sigma_s(\alpha_1) & \cdots & \Re \sigma_s(\alpha_n) \\
+    \end{pmatrix}
+    \neq 0.
+  \]
+  Note that for \(z \in \C\), we have
+  \[
+    \begin{pmatrix}
+      z \\
+      \conj z
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      1 & i \\
+      1 & -i
+    \end{pmatrix}
+    \begin{pmatrix}
+      \Re z \\
+      \Im z
+    \end{pmatrix}
+    .
+  \]
+  So this determinant equals to
+  \[
+    \left( \frac{1}{-2i} \right)^s \det
+    \begin{pmatrix}
+      \tau_1(\alpha_1) & \cdots & \tau_1(\alpha_n) \\
+      \vdots & & \vdots \\
+      \tau_r(\alpha_1) & \cdots & \tau_r(\alpha_n) \\
+      \sigma_1(\alpha_1) & \cdots & \sigma_1(\alpha_n) \\
+      \conj \sigma_1(\alpha_1) & \cdots & \conj \sigma_1(\alpha_n) \\
+      \vdots & & \vdots \\
+      \sigma_s(\alpha_1) & \cdots & \sigma_s(\alpha_n) \\
+      \conj \sigma_s(\alpha_1) & \cdots & \conj \sigma_s(\alpha_n) \\
+    \end{pmatrix}
+    \neq 0
+  \]
+  as \(\disc(I) \neq 0\).
+\end{proof}
+
+\begin{lemma}
+  If \(I \subseteq \O_L\) is a non-zero ideal, then
+  \[
+    A(S(I)) = \frac{1}{2^s} \sqrt{|\disc(I)|} = \frac{\n(I)}{2^s} \sqrt{|D_L|}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Same calculation with determninants as before.
+\end{proof}
+
+\begin{proposition}
+  If \(I \subseteq \O_L\) is a non-zero ideal then there exists \(\alpha \in I \setminus \{0\}\) such that
+  \[
+    \n(\alpha) \leq c_L \n(I)
+  \]
+  where
+  \[
+    c_L = \left( \frac{4}{\pi} \right)^s \frac{n!}{n^n} \sqrt{|D_L|}.
+  \]
+\end{proposition}
+
+\begin{definition}[Minkowski constant]\index{Minkowski constant}
+  \(c_L\) above is called the \emph{Minkowski constant} of \(L\).
+\end{definition}
+
+\begin{proof}
+  Apply \nameref{thm:Minkowski} to the lattice \(S(I)\) and the region, which might not be the most intuitive choice,
+  \[
+    B_{r, s}(t) = \left\{ (x, z) \in \R^r \times \C^s: \sum_{i = 1}^r |x_i| + 2 \sum_{i = 1}^s |z_i| \leq t \right\}.
+  \]
+  Check that it is convex, centrally symmetric and compact. If
+  \[
+    \vol(B_{r, s}(t)) \geq 2^n A(S(I))
+  \]
+  then there exists \(\alpha \in I \setminus \{0\}\) such that \(S(\alpha) \in B_{r, s}(t)\).
+
+  Now we use AM-GM inequality to bound \(\n(\alpha)\):
+  \begin{align*}
+    \n(\alpha)^{1/n}
+    &= \left( \prod_{i = 1}^r |\tau_i(\alpha)| \prod_{i = 1}^s |\sigma_i(\alpha)|^2 \right)^{1/n} \\
+    &\leq \frac{1}{n} \left( \sum_{i = 1}^r |\tau_i(\alpha)| + 2 \sum_{i = 1}^s |\sigma_i(\alpha)| \right) \\
+    &\leq \frac{t}{n}
+  \end{align*}
+  and therefore \(\n(\alpha) \leq \frac{t^n}{n^n}\). To get the optimal bound, choose \(t\) so that
+  \[
+    \vol(B_{r, s}(t)) = 2^nA(S(I)).
+  \]
+  It is an elementary exercise to show that
+  \[
+    \vol(B_{r, s}(t)) = 2^r \left( \frac{\pi}{2} \right)^s \frac{t^n}{n!}
+  \]
+  by induction on \(r\) and \(s\). Thus
+  \[
+    2^r \left( \frac{\pi}{2} \right)^s \frac{t^n}{n!} = 2^n A(S(I)) = 2^{r + 2s} \n(I) \sqrt{|D_L|}.
+  \]
+  Rearrange,
+  \[
+    \n(\alpha) \leq \frac{t^n}{n^n} = c_L \n(I).
+  \]
+\end{proof}
+
+Similar corollaries:
+
+\begin{corollary}
+  For any class \([I] \in \Cl(\O_L)\), there exists \(J \in [I]\) such that
+  \[
+    \n(J) \leq c_L.
+  \]
+\end{corollary}
+
+\begin{corollary}
+  The group \(\Cl(\O_L)\) is finite and generated by \([\mathfrak{p}]\) where \(\mathfrak{p}\) is a prime ideal of norm \(\n(\mathfrak{p}) \leq c_L\).
+\end{corollary}
+
+\begin{proof}
+  Exactly the same as before.
+\end{proof}
+
+\begin{remark}
+  In practice, the Minkowski constant is a very effective bound.
+\end{remark}
+
+\begin{eg}\leavevmode
+  Let \(f(x) = x^5 - x + 1\). This is irreducible module \(5\), so over \(\Q\). Let \(L = \Q(\alpha)\) where \(\alpha\) is a root of \(f(x)\). In this case \(r = 1, s = 2\). The discrimiant is
+  \[
+    \disc f = 2869 = 19 \cdot 151
+  \]
+  which is square-free. Thus \(\O_L = \Z[\alpha]\) and \(D_L = \disc f\). Thus
+  \[
+    c_L = \left( \frac{4}{\pi} \right)^2 \frac{5!}{5^5} \sqrt{2869} < 4.
+  \]
+  Hence \(\Cl(\O_L)\) is generated by prime ideals \(\mathfrak{p}\) of norm \(\n(\mathfrak{p}) = 2\) or \(3\). But by \nameref{thm:Dedekind}, such primes exists if and only if \(f(x)\) has a root in \(\F_2\) or \(\F_3\). In this case there are not such roots so \(\Cl(\O_L)\) is trivial so \(\Z[\alpha]\) is a UFD.
+\end{eg}
+
+\begin{eg}
+  Let \(L = \Q(\sqrt{10})\). Then
+  \[
+    c_L = \frac{1}{2} \sqrt{4 \cdot 10} = \sqrt{10} < 4.
+  \]
+  Thus \(\Cl(\O_L)\) is generated by \([\mathfrak{p}]\) where \(\n(\mathfrak{p}) = 2\) or \(3\). By Dedekind's criterion,
+  \begin{align*}
+    (2) &= \mathfrak p_2^2 \\
+    (3) &= \mathfrak p_3 \mathfrak p_3'
+  \end{align*}
+  where
+  \begin{align*}
+    \mathfrak p_2 &= (2, \sqrt{10}) \\
+    \mathfrak p_3 &= (3, 1 + \sqrt{10}) \\
+    \mathfrak p_3' &= (3, 1 - \sqrt{10})
+  \end{align*}
+  To find relations in \(\Cl(\O_L)\), we can calculate the norm. For example,
+  \[
+    \n(2 + \sqrt{10}) = |4 - 10| = 6
+  \]
+  so
+  \[
+    (2 + \sqrt{10}) = \mathfrak p_2 \mathfrak p_3 \text{ or } \mathfrak p_2 \mathfrak p_3'.
+  \]
+  In either case we see that \([\mathfrak p_2]\) generates \(\Cl(\O_L)\) so \(\Cl(\O_L)\) is either trivial or isomorphic to \(\Z/2\Z\), with the second case occurring if and only if \(\mathfrak p_2\) is not principal. \(\mathfrak p_2\) is principal if and only if there exists \(a + b \sqrt{10} \in \O_L\) such that \((a + b \sqrt{10}) = \mathfrak p_2\). Taking norm,
+  \[
+    a^2 - 10b^2 = \pm 2.
+  \]
+  Reduce modulo \(5\), either \(2\) or \(-2\) is a quadratic residue. Absurd. Thus \(\mathfrak p_2\) is not principal and
+  \[
+    \Cl(\O_L) \cong \Z/2\Z.
+  \]
+\end{eg}
+
+\begin{eg}
+  Let \(L = \Q(\sqrt{-17})\). Then
+  \[
+    c_L = \frac{4}{\pi} \cdot \frac{1}{2} \cdot \sqrt{4 \cdot 17} = \frac{4}{\pi} \sqrt{17} < \frac{4}{3} \sqrt{17} < 6
+  \]
+  So \(\Cl(\O_L)\) is generated by primes of norm \(2, 3\) or \(5\).
+
+  By Dedekind's criterion,
+  \begin{itemize}
+  \item \(x^2 + 17 = x^2 + 2 \pmod 5\) so \((5)\) is prime of norm \(25\).
+  \item \(x^2 + 17 = x^2 - 1 \pmod 3\) so
+    \[
+      (3) = \mathfrak q_3 \mathfrak q_3'
+    \]
+    where
+    \begin{align*}
+      \mathfrak q_3 &= (3, 1 + \sqrt{-17}) \\
+      \mathfrak q_3' &= (3, 1 - \sqrt{-17})
+    \end{align*}
+  \item \(x^2 + 17 = (x + 1)^2 \pmod 2\) so
+    \[
+      (2) = \mathfrak q_2^2
+    \]
+    where
+    \[
+      \mathfrak q_2 = (2, 1 + \sqrt{-17}).
+    \]
+  \end{itemize}
+  Now compute, for example, the norm
+  \[
+    \n(1 + \sqrt{-17}) = 18 = 2 \cdot 3^2.
+  \]
+  Note that \(1 + \sqrt{-17} \in \mathfrak q_3\) so \(\mathfrak q_3 \divides (1 + \sqrt{-17})\). So we must have one of
+  \begin{align*}
+    (1 + \sqrt{-17}) &= \mathfrak q_2 \mathfrak q_3 \mathfrak q_3' \\
+    (1 + \sqrt{-17}) &= \mathfrak q_2 \mathfrak q_3^2
+  \end{align*}
+  Note that they result in different structures of \(\Cl(\O_L)\). To decide between these, we compute
+  \begin{align*}
+    \mathfrak q_3^2
+    &= (9, 3 + 3 \sqrt{-17}, (1 + \sqrt{-17})^2) \\
+    &= (9, 3 + 3 \sqrt{-17}, -16 + 2 \sqrt{-17}) \\
+    &= (9, 3 + 3 \sqrt{-17}, 2 + 2 \sqrt{-17}) \\
+    &= (9, 1 + \sqrt{-17})
+  \end{align*}
+  We see \(1 + \sqrt{-17} \in \mathfrak q_3^2\) so we have \((1 + \sqrt{-17}) = \mathfrak q_2 \mathfrak q_3^2\).\footnote{In this specific case, one can take a shortcut by noting that \(\mathfrak q_3 \mathfrak q_3' = (3)\) which does not divide \((1 + \sqrt{-17})\).}
+
+  We see \([\mathfrak q_3]\) generates \(\Cl(\O_L)\) and if \(\mathfrak q_2\) is not principal then \(\Cl(\O_L) \cong \Z/4\Z\). But \(\mathfrak q_2\) is principal if and only if we can solve
+  \[
+    a^2 + 17b^2 = 2
+  \]
+  in \(\Z\). This is impossible so
+  \[
+    \Cl(\O_L) \cong \Z/4\Z.
+  \]
+\end{eg}
+
+\begin{remark}
+  There are many open questions about ideal class groups, even for quadratic fields.
+  \begin{itemize}
+  \item We know: \(|\Cl(\O_{\Q(\sqrt d)})| \to \infty\) as \(d \to -\infty\) through square-free integers. In particular, there are only finitely many imaginary quadratic fields of given cardinality. For example, there are exactly \(9\) imaginary quadratic fields with trivial ideal class group. See example sheet for the existence (the uniqueness part is much more difficult).
+  \item We don't know: are there infinitely many real quadratic fields of trivial ideal class group?
+  \item Cohen-Lenstra heuristics: let \(p\) be an odd prime and \(A\) be a finite abelian group of \(p\)-power order. Then for \(d < 0\) square-free, conjecture that
+    \[
+      \prob(\Cl(\O_{\Q(\sqrt d)})_p \cong A) = \frac{\prod_{i = 1}^\infty (1 - \frac{1}{p^i})}{|\aut(A)|}.
+      \]
+      where for a finite abelian group \(M\), \(M_p\) is the (unique) \(p\)-Sylow subgroup and the probability on LHS is defined to be
+      \[
+        \lim_{x \to \infty} \frac{|\{ d < 0: |d| < x, d \text{ square-free}, \Cl(\O_{\Q(\sqrt d)})_p \cong A \}|}{|\{ d < 0: |d| < x, d \text{ square-free} \}|}.
+      \]
+  \end{itemize}
+\end{remark}
+
+\section{Dirichlet's unit theorem}
+
+Let \(L\) be a number field of degree \(n\) and Let \(\tau_1, \dots, \tau_r: L \to \R\) be real embeddedings, \(\sigma_1, \dots, \sigma_s, \conj \sigma_1, \dots, \conj \sigma_s: L \to \C\) be distinct complex embeddings.
+
+\begin{theorem}[Dirichlet's unit theorem]\index{Dirichlet's unit theorem}
+  There is an isomorphism
+  \[
+    \O_L^\times \cong \mu_L \times \Z^{r + s - 1}
+  \]
+  where \(\mu_L \subseteq \O_L^\times\) is the finite cyclic group of roots of unity in \(\O_L^\times\).
+\end{theorem}
+
+In fact, the proof shows more: define a map \(\ell: \O_L^\times \to \R^{r + s}\) by
+\[
+  \alpha \mapsto (\log |\tau_1(\alpha)|, \dots, \log |\tau_r(\alpha)|, 2\log |\sigma_1(\alpha)|, \dots, 2\log |\sigma_s(\alpha)|).
+\]
+Then this is a homomorphism of abelian groups, and \(\ell(\O_L^\times)\) is contained in the hyperplane
+\[
+  H = \{ \V x \in \R^{r + s}: \sum_{i = 1}^{r + s} x_i = 0\} \subseteq \R^{r + s}.
+\]
+This implies that if \(\alpha \in \O_L^\times\) then
+\[
+  \log \n(\alpha) = \sum_{i = 1}^r \log |\tau_i(\alpha)| + 2 \sum_{i = 1}^s \log |\sigma_i(\alpha)| = 0.
+\]
+
+The proof the theorem will show \(\ell(\O_L^\times)\) is a lattice in \(H\).
+
+\begin{eg}
+  \(\O_L^\times\) is finite if and only if \(r + s = 1\), i.e.
+  \begin{itemize}
+  \item \(r = 1, s = 0\), so \(L = \Q\). 
+  \item \(r = 0, s = 1\), so \(L = \Q(\sqrt d)\) where \(d < 0\) is square-free.
+  \end{itemize}
+  The first case where \(\O_L^\times\) is infinite is \(L = \Q(\sqrt d)\), \(d > 0\) square-free. Then \(r + s - 1 = 1\), so \(\ell(\O_L^\times)\) is infinite cyclic. Fix \(\sigma: \Q(\sqrt d) \to \R\) to be the real embedding with \(\sigma(\sqrt d) > 0\). \(\sigma(\mu_L) \subseteq \R^\times\) so \(\mu_L = \{\pm 1\}\). In this case we can consider the map
+  \begin{align*}
+    \ell': \O_L^\times &\to \R \\
+    \alpha &\mapsto \log |\sigma(\alpha)|
+  \end{align*}
+  We know that \(\ell'(\O_L^\times) \subseteq \R\) is a lattice. In particular, there is a unique characterised unit \(\alpha \in \O_L^\times\) satisfying \(\sigma(\alpha) > 0, \log |\sigma(\alpha)| > 0\) and as small as possible. In other words, \(\alpha \in \O_L^\times\) is the unit for which \(\sigma(\alpha) > 1\) and \(\sigma(\alpha)\) is minimal with respect to this property. We call \(\alpha \) the \emph{fundamental unit}\index{fundamental unit} of \(L = \Q(\sqrt d)\). Then we have
+  \[
+    \O_L^\times = \{\pm \alpha^n: n \in \Z\}.
+  \]
+\end{eg}
 
 
 

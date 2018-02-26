@@ -1002,7 +1002,133 @@ Write \(\alpha(s) = (x(s), y(s))\) where \(x(s)\) and \(y(s)\) are \(C^1\) funct
   &\leq \left( \int_0^L \norm{\V V(s)}^2 ds \int_0^L 1^2 ds \right)^{1/2}
 \end{align*}
 
+Missed a lecture
 
+\subsection{Riemannian metric}
+
+something something Riemannian metric. See printed notes.
+
+\begin{definition}[Isometry]\index{isometry}
+  Let \(X\) and \(Y\) be (Riemannian) manifolds with Riemannian metrics \(g_p\) and \(\tilde g_q\) respectively. We say \(X\) and \(Y\) are \emph{isometric} if there exists \(f: X \to Y\) smooth such that
+  \[
+    df_x: T_xX \to T_{f(x)}Y
+  \]
+  is an isometry of inner product spaces, i.e.\ for all \(v, w \in T_xX\),
+  \[
+    g_x(v, w) = \tilde g_{f(x)}(df_x(v), df_x(w)).
+  \]
+  Furthermore \(df_x\) is invertible.
+\end{definition}
+
+Note that conventions vary. If \(df_x\) is not required to be invertible then \(f\) is usually called an \emph{isometric embedding}.
+
+\begin{definition}[Local isometry]\index{isometry}
+  Two Riemannian manifolds \(X\) and \(Y\) are \emph{locally isometric} around \(p \in X\) if there exist \(V \ni p\) open in \(X\) and \(W\) open in \(Y\) such that \(f: V \to W\) is an isometry.
+\end{definition}
+
+\begin{question}\leavevmode
+  \begin{enumerate}
+  \item When are two surfaces \(X\) and \(Y\) (say embedded in \(\R^3\)) locally isometric? Globally isometric?
+  \item When is \(X\) locally isometric to the plane? (intrinsic geometry)
+  \item When do \(X\) and \(Y\) differ by a Euclidean isometry, i.e.\ \(Y = R(X) + b\) where \(R \in \SO(3)\)? (extrinsic geometry)
+  \end{enumerate}
+\end{question}
+
+Let \(X\) be a Riemannian \(2\)-manifold. Let \(\varphi: U \to V\) be a local parameterisation. Define
+\begin{align*}
+  E(u, v) &= g(\varphi_u, \varphi_u) > 0 \\
+  F(u, v) &= g(\varphi_u, \varphi_v) \\
+  G(u, v) &= g(\varphi_v, \varphi_v) > 0
+\end{align*}
+with \(EG - F^2 > 0\) and \(E, F, G\) smooth. Claim that \(\begin{psmallmatrix} E & F \\ F & G \end{psmallmatrix}\) defines a Riemannian metric.
+
+A converse question is, given such \(E, F, G\), does there exist a local parameterisation \(\varphi: U \to V\) such that \(E, F, G\) are coefficients of \(I_p\)? The answer is positive for analytic functions, but in more general settings this is still an open problem. Thus it is possible that local Riemannian geometry is richer than Euclidean geometry.
+
+
+First fundamental form
+
+\begin{eg}[Embedded torus]
+  
+\end{eg}
+
+\begin{ex}
+  Do for general surfaces of revolution.
+\end{ex}
+
+\begin{definition}
+  Let \(X\) be a surface in \(\R^3\). Let \(\varphi: U \to V\) be a local parameterisation. Let \(\Omega \subseteq V\) be an open set with smooth boundary. Then the area of \(\Omega\) is
+  \[
+    \int_{\varphi^{-1}(\Omega)} |\varphi_u \times \varphi_v| dudv.
+  \]
+\end{definition}
+
+Claim that the definition is independent of parameterisation. Use chain rule for change of variable.
+
+\begin{ex}
+  \[
+    \operatorname{area} \Omega = \int_{\varphi^{-1}(\Omega)} \sqrt{EG - F^2} dudv
+  \]
+  so the area depends only on the first fundamental form. Thus an isometry preserves area. In the other words, area is an intrinsic geometric property.
+\end{ex}
+
+\begin{remark}
+  Using partition of unity, we can drop the restriction that \(\Omega\) lies in the range of a local parameterisation. In fact there exists a Borel measure on \(X\), denoted \(dA\), such that
+  \[
+    \operatorname{area} (\Omega) = \int_\Omega dA.
+  \]
+  Subsequently, we can define the integral of any smooth (actually measurable) map with respect to the measure.
+
+  Note that \(E \subseteq X\) has measure zero as defined before if and only if \(E\) has measure \(0\) with respect to \(dA\).
+\end{remark}
+
+\begin{eg}
+  The area of the embedded torus \(X\) define before is
+  \[
+    \operatorname{area}(X)
+    = \int_0^{2\pi}\int_0^{2\pi} r(a + r\cos u) dudv
+    = 4\pi^2 a r.
+  \]
+\end{eg}
+
+\subsection{Gauss map}
+
+Let \(X\) be a surface in \(\R^3\). Let \(\varphi: U \to V\) be a local parameterisation. Given \(p \in X\), \(\varphi_u, \varphi_v\) form a basis for \(T_pX\). Define a map
+\begin{align*}
+  f: V &\to S^2 \\
+  p &\mapsto \frac{(\varphi_u \times \varphi_v)(\varphi^{-1}(p))}{|(\varphi_u \times \varphi_v)(\varphi^{-1}(p))|}
+\end{align*}
+which is a smooth map such that \(f(p) \perp T_pX\).
+
+Note that the map with such property is not unique, for example taking it negative value.
+
+\begin{definition}[Gauss map]\index{Gauss map}
+  Let \(X\) be a surface in \(\R^3\). A \emph{Gauss map} of \(X\) is a smooth map \(N: X \to S^2\) such that \(N(p) \perp T_pX\) for all \(p \in X\).
+\end{definition}
+
+\begin{note}
+  Let \(X\) be connected. If there exists a Gauss map then there exists precisely 2 Gauss maps \(N, -N\). Moreover
+  \[
+    N = \pm \frac{\varphi_u \times \varphi_v}{|\varphi_u \times \varphi_v|}
+  \]
+  in a local chart.
+\end{note}
+
+\begin{definition}[Orientability]\index{orientability}
+  If there exists a Gauss map, we say \(X\) is \emph{orientable}. \((X, N)\) is called an \emph{oriented surface}.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item There exists non-orientable surface, such as the Möbius band.
+  \item The above definition is an extrinsic one. It is possible to characterise orientability intrinsically using transition maps.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}
+  The sphere is orientable, with \(N = \pm \id\).
+\end{eg}
+
+Let \(X\) be an orientable surface and \(N: X \to S^2\) a Gauss map. Consider the differential \(dN_p: T_pX \to T_{N(p)}S^2\). Since \(N(p) \perp T_pX\) by definition, and \(N(p) \perp T_{N(p)} S^2\) by the observation in the example above, we can identify \(T_pX = T_{N(p)}S^2\). Thus we can treat \(dN_p: T_pX \to T_pX\) as an endormorphism of an inner product space. Next time we will show that it is self-adjoint with respect to the first fundamental form.
 
 
 \printindex

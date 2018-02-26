@@ -129,7 +129,7 @@ In other words, a valuation is determined by its values on \(P\) and any values 
   \end{enumerate}
 \end{eg}
 
-\begin{definition}[Entailment]\index{entailment}
+\begin{definition}[Semantic entailment]\index{semantic entailment}
   For \(S \subseteq L, t \in L\), we say \(s\) \emph{entails} or \emph{semantically implies} \(t\), written \(S \models t\), if \(v(s) = 1\) for all \(s \in S\) then \(v(t) = 1\) for each valuation \(v\).
 \end{definition}
 
@@ -202,7 +202,7 @@ As deduction rules, we'll take just \emph{modus ponens}: from \(p\) and \((p \im
 
 The following theorem allows us to prove things much more easily:
 
-\begin{theorem}[Deduction theorem]\label{deduction theorem}
+\begin{theorem}[Deduction theorem]\index{deduction theorem}
   Let \(S \subseteq L\) and \(p, q \in L\). Then \(S \yields p \implies q\) if and only if \(S \cup \{p\} \yields q\).
 \end{theorem}
 
@@ -238,7 +238,7 @@ The following theorem allows us to prove things much more easily:
 \end{proof}
 
 \begin{eg}
-  In order to show \(\{p \implies q, q \implies r\} \yields p \implies r\), it suffices to show \(\{p \implies q, q \implies r, p\} \yields r\) by Deduction theorem, which is easy by using MP twice.
+  In order to show \(\{p \implies q, q \implies r\} \yields p \implies r\), it suffices to show \(\{p \implies q, q \implies r, p\} \yields r\) by deduction theorem, which is easy by using MP twice.
 \end{eg}
 
 Now we have two turnstiles \(\models\) and \(\yields\), how are they related? The aim of the rest of the chapter is to prove
@@ -277,7 +277,7 @@ To prove adequacy, which is a bit harder, we need a few lemmas.
   Let \(S \subseteq L\) be consistent, then \(S\) has a model.
 \end{theorem}
 
-The idea is to would like to define a valuation \(v\) by \(v(p) = 1\) if and only if \(p \in S\). As \(1\) is preserved under \(\implies\), a more sensible aim is \(v(p) = 1\) if and only if \(S \yields p\).
+The idea is to define a valuation \(v\) by \(v(p) = 1\) if and only if \(p \in S\). As \(1\) is preserved under \(\implies\), a more sensible aim is \(v(p) = 1\) if and only if \(S \yields p\).
 
 But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow'' \(S\) to contain one of \(p\) or \(\neg p\) for each \(p \in L\) (while remaining consistent).
 
@@ -288,7 +288,7 @@ But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow
     If not, then \(S \cup \{p\} \yields \bot\) and \(S \cup \{\neg p\} \yields \bot\). But then \(S \yields (p \implies \bot)\) by deduction theorem, i.e.\ \(S \yields \neg p\). Then \(S \yields \bot\). Absurd.
   \end{proof}
 
-  Now as \(L\) is countable, we can list \(L\) as \(t_1, t_2, \dots \). Put \(S_0 = S\). Set \(S_1 = S_0 \cup \{t_1\}\) or \(S_0 \cup \{\neg t_1\}\) such that \(S_1\) is consistent. Then Let \(S_2 = S_1 \cup \{t_2\}\) or \(S_1 \cup \{\neg t_2\}\) such that \(S_2\) is consistent and continue inductively. Let \(\cl S = S_0 \cup S_1 \cup \dots\). Then \(\cl S \supseteq S\) and \(\cl S\) is consistent (as each \(S_n\) is consistent and proofs are finite). For all either \(p \in L\) we have \(p \in \cl S\) or \(\neg p \in \cl S\). Also \(\cl S\) is \emph{deductively closed}, meaning that if \(\cl S \yields p\) then \(p \in \cl S\). Indeed if \(p \notin \cl S\) then \(\neg p \in \cl S\), so \(\cl S \yields p, \cl S \yields (\neg p)\), whence \(\cl S \yields \bot\). Absurd.
+  Now as \(L\) is countable, we can list \(L\) as \(t_1, t_2, \dots \). Put \(S_0 = S\). Set \(S_1 = S_0 \cup \{t_1\}\) or \(S_0 \cup \{\neg t_1\}\) such that \(S_1\) is consistent. Then let \(S_2 = S_1 \cup \{t_2\}\) or \(S_1 \cup \{\neg t_2\}\) such that \(S_2\) is consistent and continue inductively. Let \(\cl S = S_0 \cup S_1 \cup \dots\). Then \(\cl S \supseteq S\) and \(\cl S\) is consistent (as each \(S_n\) is consistent and proofs are finite). For all \(p \in L\) either we have \(p \in \cl S\) or \(\neg p \in \cl S\). Also \(\cl S\) is \emph{deductively closed}, meaning that if \(\cl S \yields p\) then \(p \in \cl S\). Indeed if \(p \notin \cl S\) then \(\neg p \in \cl S\), so \(\cl S \yields p, \cl S \yields (\neg p)\), whence \(\cl S \yields \bot\). Absurd.
 
   Define a valuation
   \begin{align*}
@@ -302,15 +302,15 @@ But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow
   Indeed, \(v(\bot) = 0\) as \(\bot \notin \cl S\). For \(v(p \implies q)\):
   \begin{itemize}
   \item if \(v(p) = 1, v(q) = 0\), we have \(p \in \cl S, q \notin \cl S\), and we want \(v(p \implies q) = 0\), i.e.\ \((p \implies q) \notin \cl S\). But if \((p \implies q) \in \cl S\) then \(\cl S \yields q\), \(q \in \cl S\). Absurd.
-  \item if \(v(q) = 1\), we have \(q \in \cl S\), and we want \(v(p \implies q) \in \cl S\), i.e.\ \((p \implies q) \in \cl S\). But \(\yields q \implies (p \implies q)\) so \(\cl S \yields (p \implies q)\).
-  \item if \(v(p) = 0\), we have \(p \implies \cl S\). Then \((\neg p) \in \cl S\). We want \((p \implies q) \in \cl S\). Thus we need \((p \implies \bot) \yields (p \implies q)\), which by Deduction theorem is equivalent to \(\{p \implies \bot, p\} \yields q\). Thus suffices to show that \(\bot \yields q\). But we have \(\yields (\neg \neg q) \implies q\), and \(\yields (\bot \implies (\neg \neg q))\). Thus \(\yields (\bot \implies q)\), i.e.\ \(\bot \implies q\). Done.
+  \item if \(v(q) = 1\), we have \(q \in \cl S\), and we want \(v(p \implies q) = 1\), i.e.\ \((p \implies q) \in \cl S\). But \(\yields q \implies (p \implies q)\) so \(\cl S \yields (p \implies q)\).
+  \item if \(v(p) = 0\), we have \(p \notin \cl S\). Then \((\neg p) \in \cl S\). We want \((p \implies q) \in \cl S\). Thus we need \((p \implies \bot) \yields (p \implies q)\), which by deduction theorem is equivalent to \(\{p \implies \bot, p\} \yields q\). Thus suffices to show that \(\bot \yields q\). But we have \(\yields (\neg \neg q) \implies q\), and \(\yields (\bot \implies (\neg \neg q))\). Thus \(\yields (\bot \implies q)\), i.e.\ \(\bot \implies q\). Done.
   \end{itemize}
 \end{proof}
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item Sometimes this is called Completeness theorem.
-  \item What would happen if \(P\) is uncountable? In fact, the result still holds if \(P\) is uncountable. See Chapter 3.
+  \item Sometimes this is called completeness theorem.
+  \item What would happen if \(P\) is uncountable? In fact, the result still holds if \(P\) is uncountable. See chapter 3.
   \end{enumerate}
 \end{remark}
 
@@ -320,7 +320,7 @@ By remark before the above theorem, we now have
   Let \(S \subseteq L, t \in L\). Then if \(S \models t\) then \(S \yields t\).
 \end{corollary}
 
-\begin{theorem}[Completeness theorem]\index{Completeness theorem}
+\begin{theorem}[Completeness theorem]\index{completeness theorem}
   Let \(S \subseteq L, t \in L\). Then \(S \yields t\) if and only if \(S \models t\).
 \end{theorem}
 
@@ -479,7 +479,7 @@ The aim to show every subset of a well-ordered \(X\) is isomorphic to an initial
 
 Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\) to the smallest element of \(X\) and continue this way. But how do we show every element of \(Y\) is mapped to somewhere? Instead, we should work backwards: given  \(y \in Y\), map \(y\) to the smallest element in \(X\) that is not mapped to.
 
-\begin{theorem}[Definition by recursion]\index{definition by recursion}
+\begin{theorem}[Definition by recursion]\index{definition by recursion}\index{definition by recursion|seealso {definition by recursion}}
   Let \(X\) be well-ordering, \(Y\) any set and \(G: \mathcal P(X \times Y) \to Y\). Then there exists \(f: X \to Y\) such that \(f(x) = G(f|_{I_x})\) for all \(x \in X\). Moreover \(f\) is unique.
 \end{theorem}
 
@@ -639,7 +639,7 @@ For example, the ordinals \(< \omega\) are \(0, 1, 2, \dots\).
 
 Given the proposition, it is very tempting to conclude that all well-orderings form a well-order. But there is one technicality that we haven't checked, that well-orders are defined on a set. Unfortunately,
 
-\begin{theorem}[Burali-Forti Paradox]\index{Burali-Forti Paradox}
+\begin{theorem}[Burali-Forti paradox]\index{Burali-Forti paradox}
   The ordinals do not form a set.
 \end{theorem}
 
@@ -753,7 +753,7 @@ If no, then for every \(\beta < \alpha\), then there exists \(\gamma < \alpha\) 
 
 Missed a lecture
 
-\begin{definition}[Ordinal multiplication (inductive)]\index{ordinal multiplication}
+\begin{definition}[Ordinal multiplication (inductive)]
   Define \(\alpha\beta\) recursively by
   \begin{itemize}
   \item \(\alpha 0 = 0\),
@@ -772,13 +772,13 @@ Missed a lecture
   In particular this shows multiplication is not commutative.
 \end{eg}
 
-\begin{definition}[Ordinal multiplication (synthetic)]\index{ordinal multiplication}
+\begin{definition}[Ordinal multiplication (synthetic)]
   \(\alpha\beta\) is the order-type of \(\alpha \times \beta\), with \((x, y) < (z, w)\) if either \(y < w\) or \(y = w\) and \(x < z\).
 \end{definition}
 
 We can check that the definitions agree and associativity of multiplication etc.
 
-\begin{definition}[Ordinal exponentiation]\index{ordinal exponentiation}
+\begin{definition}[Ordinal exponentiation]
   Define \(\alpha^\beta\) recursively by
   \begin{itemize}
   \item \(\alpha^0 = 1\),
@@ -1040,7 +1040,7 @@ A typical application of Zorn's lemma: does every vector space \(V\) have a basi
 
 Another application of Zorn's lemma: completeness theorem when the primitive language is uncountable.
 
-\begin{theorem}[Completeness theorem]\index{Completeness theorem}
+\begin{theorem}[Completeness theorem]\index{completeness theorem}
   Let \(S \subseteq L(P)\) where \(P\) is any set. Then \(S\) is consistent implies that \(S\) has a model.
 \end{theorem}
 
@@ -1136,7 +1136,7 @@ Actually, there is a three-way equivalence: we have shown Zorn's lemma implies w
 
 On one hand we have Zorn's lemma, which is a local (conditions on chains) to global (maximal element) principle, and on the other hand we have \nameref{thm:Knaster-Tarski}, a global fixed point theorem based on assumptions of the ambient space (completeness). The Bourbaki-Witt theorem is a ``midpoint'' between the two.
 
-\begin{definition}[Chain-complete]\index{Chain complete}
+\begin{definition}[Chain-complete]\index{chain complete}
   A poset \(X\) is \emph{chain-complete} if \(X \neq \emptyset\) and every non-empty chain has a supremum.
 \end{definition}
 
@@ -1198,14 +1198,14 @@ As another example, a poset is a structure with relation: it is a set \(A\) equi
   \caption{Comparison of concepts in propositional and predicate logic}
 \end{table}
 
-The axioms and deduction rules in predicate logic is going to be more complicated. For example, it includes an axiom that says ``if \(p(x)\) holds for all \(x\) and \(t\) is an instance of \(t\) then \(p(t)\)''.
+The axioms and deduction rules in predicate logic is going to be more complicated. For example, it includes an axiom that says ``if \(p(x)\) holds for all \(x\) then we can substitute \(t\) for \(x\)''.
 
 \subsection{Definitions}
 
-\begin{definition}[Language]
-  A \emph{language} \(L(\Omega, \Pi, \alpha)\) is the set of \emph{formulae}, defined by
+\begin{definition}[Language]\index{language}
+  A \emph{language} \(L(\Omega, \Pi, \alpha)\) is the set of \emph{formulæ}, defined by
   \begin{itemize}
-  \item \emph{variables}: \(x_1, x_2, \dots\). We sometimes use \(x, y, \dots\),
+  \item \emph{variables}\index{variable}: \(x_1, x_2, \dots\). We sometimes use \(x, y, \dots\),
   \item \emph{terms}: defined inductively by
     \begin{enumerate}
     \item each variable is an a term,
@@ -1216,16 +1216,16 @@ The axioms and deduction rules in predicate logic is going to be more complicate
 
       Some terms: \(x_1, m(x_1, x_1), e, m(e, e), m(x_1, i(x_1))\).
     \end{eg}
-  \item \emph{atomic formulae}: consists of
+  \item \emph{atomic formulæ}: consists of
     \begin{enumerate}
     \item \(\bot\),
     \item \((s = t)\) for any terms \(s, t\),
     \item \(\phi(t_1, \dots, t_n)\) for any \(\phi \in \Pi, \alpha(\phi) = n\) and any terms \(t_1, \dots, t_n\).
     \end{enumerate}
-  \item \emph{formulae}: defined inductively by
+  \item \emph{formulæ}\index{formula}: defined inductively by
     \begin{enumerate}
     \item each atomic formula is a formula,
-    \item if \(p, q\) are formulae then so is \((p \implies q)\),
+    \item if \(p, q\) are formulæ then so is \((p \implies q)\),
     \item if \(p\) is a formula, \(x\) is a variable, then \((\forall x) p\) is a formula,
       \begin{eg}\leavevmode
         \begin{enumerate}
@@ -1237,15 +1237,16 @@ The axioms and deduction rules in predicate logic is going to be more complicate
         \item poset: \((\forall x) (x \leq x)\).
         \end{enumerate}
       \end{eg}
-      \begin{note}\leavevmode
-        \begin{enumerate}
-        \item A formula is a string of symbols.
-        \item Just as in chapter 1 we defined symbols such as \(\neg\), \(\land\) and \(lor\) in terms of \(\bot\), we write \((\exists x) p\) for \(\neg (\forall x) (\neg p)\).
-        \end{enumerate}
-      \end{note}
     \end{enumerate}
   \end{itemize}
 \end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item A formula is a string of symbols.
+  \item Just as in chapter 1 we defined symbols such as \(\neg\), \(\land\) and \(lor\) in terms of \(\bot\), we write \((\exists x) p\) for \(\neg (\forall x) (\neg p)\).
+  \end{enumerate}
+\end{note}
 
 \begin{definition}[Closed]\index{closed}
   A term is \emph{closed} if it contains no variables.
@@ -1255,7 +1256,7 @@ The axioms and deduction rules in predicate logic is going to be more complicate
   \(e, m(e, e), m(e, m(e, e))\) are closed terms, but \(m(x, i(x))\) isn't.
 \end{eg}
 
-\begin{definition}[Bound \& free variable]\index{bound}\index{free}
+\begin{definition}[Bound \& free variable]\index{variable!bound}\index{variable!free}
   An occurrence of variable \(x\) in formula \(p\) is \emph{bound} if it is inside the brackets of a ``\(\forall x\)'' quantifier. Otherwise it is \emph{free}.
 \end{definition}
 
@@ -1283,7 +1284,7 @@ The axioms and deduction rules in predicate logic is going to be more complicate
   For a formula \(p\), a variable \(x\) and a term \(t\), the \emph{substitution} \(p[t/x]\) is obtained by replacing each free occurrence of \(x\) with \(e\).
 \end{definition}
 
-Do not worry too much about the word ``free'', it is there to prevent us from doing stupid things in stupid formula such as the bad example above where a variable is both free and bound. Just follow your common sense!
+Do not worry too much about the word ``free'' in the above definition, it is there to prevent us from doing stupid things in stupid formula such as the bad example above where a variable is both free and bound. Just follow your common sense!
 
 \begin{eg}
   If \(p\) is the statement \((\exists y) (m(y, y) = x)\) then \(p[t/x]\) is
@@ -1298,11 +1299,11 @@ Do not worry too much about the word ``free'', it is there to prevent us from do
   An \emph{\(L\)-structure} is a non-empty set \(A\) equipped with
   \begin{enumerate}
   \item for each \(f \in \Omega\) with \(\alpha(f) = n\), a function \(f_A: A^n \to A\),
-  \item for each \(\phi \in \subset\) with \(\alpha(\phi) = n\), a relation \(\phi_A \in A^n\).
+  \item for each \(\phi \in \Pi\) with \(\alpha(\phi) = n\), a relation \(\phi_A \in A^n\).
   \end{enumerate}
 \end{definition}
 
-See later for why ``non-empty''.
+See later note on page~\pageref{note:empty structure} for why ``non-empty''.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -1311,7 +1312,7 @@ See later for why ``non-empty''.
   \end{enumerate}
 \end{eg}
 
-We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \(p\) in structure \(A\). For example, \((\forall x) (m(x, x) = e)\) should be ``true in \(A\)'' if \(\forall a \in A, m_A(a, a) = e_A\). Informally this can be done by inserting ``\(\in A\)'' and subscripting \(A\), and saying it aloud.
+We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \(p\) in an \(L\)-structure \(A\). For example, \((\forall x) (m(x, x) = e)\) should be ``true in \(A\)'' if \(\forall a \in A, m_A(a, a) = e_A\). Informally this can be done by inserting ``\(\in A\)'' and subscripting \(A\), and saying it aloud. This recipe captures the essence of the definition of interpretation and is perfectly valid, except that it precludes, for example, the entire French community from studying predicate logic. Thus we rephrase it in the language common to all mathematicians:
 
 \begin{definition}[Interpretation]\index{interpretation}
   For an \(L\)-structure \(A\), define \emph{interpretation} of \(A\) \(p_A \in \{0, 1\}\) for a sentence \(p\) recursively by
@@ -1320,7 +1321,7 @@ We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \
     \begin{eg}
       \(m(e, i(e))_A = m_A(e_A, i_A(e_A))\). Note that \(e_A\) is already defined.
     \end{eg}
-  \item atomic formulae: define \(p_A \in \{0, 1\}\) for \(p\) atomic by
+  \item atomic formulæ: define \(p_A \in \{0, 1\}\) for \(p\) atomic by
     \begin{enumerate}
     \item \(\bot_A = 0\),
     \item \((s = t)_A = \begin{cases} 1 & \text{if } s_A = t_A \\ 0 & \text{otherwise} \end{cases}\) for closed terms \(s, t\).
@@ -1329,7 +1330,7 @@ We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \
   \item sentence: \(p_A\) defined inductively by
     \begin{enumerate}
     \item \((p \implies q)_A = \begin{cases} 0 & \text{if } p_A = 1, q_A = 0 \\ 1 & \text{otherwise} \end{cases}\)
-    \item \(((\forall x) p)_A = \begin{cases} 1 & \text{if } p[\overline a/x]_A = 1 \text{ for all } a \in A \\ 0 & \text{otherwise} \end{cases}\) where, for each \(a \in A\), add constant symbol \(\overline a\) to \(L\) obtaining \(L'\), and made an \(L'\)-structure by setting \(\overline a_A = a\).
+    \item \(((\forall x) p)_A = \begin{cases} 1 & \text{if } p[\overline a/x]_{\overline A} = 1 \text{ for all } a \in A \\ 0 & \text{otherwise} \end{cases}\) where, for each \(a \in A\), add constant symbol \(\overline a\) to \(L\) obtaining \(L'\), and made an \(L'\)-structure \(\overline A\) by setting \(\overline a_{\overline A} = a\).
     \end{enumerate}
   \end{enumerate}
 \end{definition}
@@ -1338,6 +1339,192 @@ If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variab
 \[
   p_A = \{a \in A: \exists b \in A \text{ with } m_A(b, b) = e\}.
 \]
+
+\begin{definition}[Model]\index{model}
+  If \(p_A = 1\), say \(p\) is \emph{true} is \(A\), or \(p\) \emph{holds} in \(A\), or \(A\) is a \emph{model} of \(p\).
+\end{definition}
+
+\begin{definition}[Semantic entailment]\index{semantic entailment}
+  For \(T\) a \emph{theory} (set of sentences), say \(T\) \emph{semantically entails} \(p\), written \(T \models p\), if every model of \(T\) is a model of \(p\).
+\end{definition}
+
+\begin{definition}
+  \(p\) is a \emph{tautology} if \(\emptyset \models p\) (or written \(\models p\)), i.e.\ \(p\) holds in every \(L\)-structure.
+\end{definition}
+
+\begin{eg}
+  \(\models (\forall x) (x = x)\).
+\end{eg}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Theory of groups: \(\Omega = \{m, i, e\}, \Pi = \emptyset\). Let \(T\) be the usual group axioms, i.e.
+    \begin{align*}
+      & (\forall x, y \in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
+      & (\forall x \in A) (m(x, e) = x \land m(e, x) = x) \\
+      & (\forall x \in A) (m(x, i(x)) = e \land m(i(x), x) = e)
+    \end{align*}
+    Then an \(L\)-structure is a model of \(T\) if and only if \(T\) is a group. Note that there are two implications here (compare with, for example, a group is a model of the sentence representing associativity). We say \(T\) \emph{axiomatises the class of groups} of \emph{axiomatises the theory of groups}. Sometimes call the elements of \(T\) the \emph{axioms}\index{axiom} of \(T\).
+  \item Theory of fields: \(\Omega = \{+, \times, -, 0, 1\}, \Pi = \emptyset\). Note that multiplicative inverse is not among them. \(T\) is
+    \begin{align*}
+      & \{ \text{abeilian group under } (+, - 0) \\
+      & \times \text{ is commutative, associative, and distributive over } + \\
+      & (\forall x) (1x = x) \\
+      & \neg (1 = 0) \\
+      & (\forall x) (\neg(x = 0)) \implies (\exists y)(xy = 1) \}
+    \end{align*}
+    Then \(T\) axiomatises the class of fields. Then \(T\) models ``inverses are unique'', i.e.
+    \[
+      T \models (\forall x) (\neg (x = 0)) \implies ((\forall y) (\forall z) ((yx = 1) \land (zx = 1) \implies (y = z))).
+    \]
+  \item Theory of posets: \(\Omega = \emptyset, \Pi = \{\leq\}\). \(T\) is
+    \begin{align*}
+      & \{ (\forall x) (x \leq x) \\
+      & (\forall x) (\forall y) (\forall z) ((x \leq y \land y \leq z) \implies x \leq z) \\
+      & (\forall x) (\forall y) ((x \leq y) \land (y \leq x) \implies x = y) \}
+    \end{align*}
+  \item Theory of graphs: \(\Omega = \emptyset, \Pi = \{a\}\) where \(a\) means ``is adjacent to''. \(T\) is
+    \begin{align*}
+      & \{ (\forall x) (\neg a(x, x)) \\
+      & (\forall x) (\forall y) (a(x, y) \implies a(y, x)) \}
+    \end{align*}
+  \end{enumerate}
+\end{eg}
+
+\subsection{Syntactic implication}
+
+As before, we need some logical axioms. There are 7 of them: 3 from propositional logic, 2 for \(=\), 2 for \(\forall\).
+
+\begin{enumerate}
+\item \(p \implies (q \implies p)\) for any formulæ \(p, q\).
+\item \((p \implies (q \implies r)) \implies ((p \implies q) \implies (p \implies r))\) for any formulæ \(p, q, r\).
+\item \((\neg\neg p) \implies p\) for any formula \(p\).
+\item \((\forall x) (x = x)\) for any variable \(x\).
+\item \((\forall x) (\forall y) ((x = y) \implies (p \implies p[y/x]))\) for any variables \(x, y\) and formula \(p\) in which \(y\) does not occur bound.
+\item \((\forall x) (p) \implies p[t/x]\) for any vairable \(x\), term \(t\) and formula \(p\) with no variable in \(t\) occurring bound in \(p\).
+\item \(((\forall x) (p \implies q)) \implies (p \implies (\forall x) q)\) for any variable \(x\) and formulæ \(p, q\) with \(x\) not occurring free in \(p\).
+\end{enumerate}
+
+As deduction rules we have
+\begin{enumerate}
+\item moduls ponens: from \(p, p \implies q\) can deduce \(q\).
+\item generalisation: from \(p\) can deduce \((\forall x) p\), if \(x\) does not occur free in any premise used to prove \(p\).
+\end{enumerate}
+
+\begin{definition}[Proof]\index{proof}
+  For \(S \subseteq L, p \in L\), a \emph{proof} of \(p\) from \(S\) is a finite sentence of formulæ, ending with \(p\), such that each line is one of
+  \begin{itemize}
+  \item a logical axiom,
+  \item a sentence of \(S\),
+  \item following from earlier lines by modus ponens or generalisation.
+  \end{itemize}
+  Write \(S \yields p\) if there exists a proof of \(p\) from \(S\).
+\end{definition}
+
+\begin{note}\leavevmode
+  \label{note:empty structure}
+  \begin{enumerate}
+  \item Each logical axiom is a tautology.
+  \item If we allow the empty structure \(A\) (for a language with no constants), then \((\forall x) \bot \) holds in \(A\), and \(\bot\) deos not hold in \(A\), so
+    \[
+      ((\forall x) \bot) \implies \bot
+    \]
+    does not hold in \(A\), which is an instance of axiom 6. To resolve the issue, we can either obfuscate our axioms by adding more technical restrictions (of the form, for example, ``with \(x\) occurring bounded''), or simply ban empty structure.
+  \end{enumerate}
+\end{note}
+
+\begin{eg}
+  \(\{x = y, x = z\} \yields y = z\). The idea is to use axiom 5, with \(p\) being \(x = x\). But there are two quantifiers so we use axiom 6 to kill them.
+  \begin{enumerate}
+  \item \((\forall x) (\forall y) (x = y \implies (x = z \implies y = z))\), A5
+  \item \((\forall x) (\forall y) (x = y \implies (x = z \implies y = z)) \implies (\forall y)(x = y \implies (x = z \implies y = z))\), A6
+  \item \((\forall y) (x = y \implies (x = z \implies y = z))\), MP
+  \item \((\forall y) (x = y \implies (x = z \implies y = z)) \implies (x = y \implies (x = z \implies y = z))\), A6
+  \item \(x = y \implies (x = z \implies y = z)\), MP
+  \item \(x = y\), hypothesis
+  \item \(x = z \implies y = z\), MP
+  \item \(x = z\), hypothesis
+  \item \(y = z\), MP
+  \end{enumerate}
+\end{eg}
+
+\begin{proposition}[Deduction theorem]\index{deduction theorem}
+  Let \(S \subseteq L, p, q \in L\). Then \(S \yields (p \implies q)\) if and only if \(S \cup \{p\} \yields q\).
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): write down \(p\) and apply MP to obtain \(S \cup \{p\} \yields q\).
+  \item As before, show \(S \yields p \implies t_i\) for each \(t_i\) in the proof of \(S \cup \{p\} \yields q\). The only new case is generalisation. So in proof of \(q\) from \(S \cup \{p\}\) we have line
+    \begin{enumerate}
+    \item \(r\)
+    \item \((\forall x) r\)
+    \end{enumerate}
+    and have a proof of \((p \implies r)\) from \(S\), and we want \(S \yields (p \implies (\forall x) r)\). But in proof of \(r\) from \(S \cup \{p\}\), no premise had \(x\) free. Thus in proof of \((p \implies r)\) from \(S\), no proof had \(x\) free either. Hence \(S \yields (\forall x) (p \implies r)\) by generalisation. Now
+    \begin{itemize}
+    \item if \(x\) does not occur free in \(p\), have \(S \yields (p \implies (\forall x) r)\) by A6 and MP,
+    \item if \(x\) does occur free in \(p\), proof of \(r\) from \(S \cup \{p\}\) cannot have used \(p\). So in fact \(S \yields (\forall x)r\), whence \(S \yields (p \implies (\forall x)r)\) by A1.
+    \end{itemize}
+  \end{itemize}
+\end{proof}
+
+\subsection{*Completeness theorem}
+
+\begin{proposition}[Soundness]\index{soundness}
+  Let \(S \subseteq L, p \in L\). Then if \(S \yields p\) then \(S \models p\).
+\end{proposition}
+
+\begin{proof}
+  Have proof of \(p\) from \(S\) and a model \(A\) of \(S\), want \(p_A = 1\). This is an easy induction down the lines of the proof.
+\end{proof}
+
+For adequacy, want if \(S \models p\) then \(S \yields p\), i.e.\ if \(S \cup \{\neg p\} \models \bot\) then \(S \cup (\neg p) \yields \bot\).
+
+\begin{theorem}[Model existence lemma]\index{model existence lemma}
+  Let \(S \subseteq L\) be a set of sentences. Then if \(S\) is consistent then it has a model.
+\end{theorem}
+
+Note that some people call it the completeness theorem since it contains the majority of the work.
+
+Unlike most other proofs we have met in tripos, this proof has not one, not two, but five key ideas:
+\begin{enumerate}
+\item To build a model out of a language, we first need a candidate structure. If you think about it carefully, we have no choice but to let \(A\) be a set of closed terms of \(L\), with ``obvious'' operations like \((1 + 1) +_A (1 + 1) = (1 + 1) + (1 + 1)\) in the example of fields.
+\item Say \(S\) is the theory of fields, taking our above definition, \((1 + 1) + 1 \neq 1 + (1 + 1)\), but \(S \yields ((1 + 1) + 1 = 1 + (1 + 1))\). The solution is to quotient by
+  \[
+    s \sim t \text{ if } S \yields (s = t).
+  \]
+\item Suppose \(S\) is the theory of fields of characteristic \(2\) or \(3\), i.e.\ usual field axioms and \((1 + 1 = 0) \lor (1 + 1 + 1 = 0)\). Then \(S \nyields (1 + 1 = 0)\), so \([1 + 1] \neq [0]\). Also \(S \nyields (1 + 1 + 1 = 0)\), so \([1 + 1 + 1] \neq [0]\). Thus our structure does not satisfy \((1 + 1 = 0) \lor (1 + 1 + 1 = 0)\). Actually this is similar to the failure in attempting to define a valuation of a set \(S\) when we are proving model existence lemma for propositional logic: there are propositions implied by \(S\) but not in \(S\). Thus we need to extend \(S\) to be maximal consistent.
+\item Suppose \(S\) is the theory of fields with a square root of \(2\), i.e.\ usual field axioms and \((\exists x) (xx = 1 + 1)\). In our constrution, maybe no closed term has \([tt] = [1 + 1]\). Thus \(S\) lacks ``witnesses''. Solution? For each \((\exists x) p\) in \(S\) add new constant \(c\) to language and add \(p[c/x]\) to \(S\).
+\item Now our set may be no longer consistent, so loop back to step 3. But are we certain that the process will terminate?
+\end{enumerate}
+
+\begin{proof}
+  Suppose we have \(S\) consistent contained in \(L_0 = L(\Omega, \Pi)\). Extend to maximal consistent \(S_1\) by Zorn's lemma. So for each sentence \(p \in L\), we have either \(p \in S_1\) or \((\neg p) \in S_1\). Thus \(S_1\) is complete (for every \(p\), either \(S_1 \yields p\) or \(S_1 \yields (\neg p)\).
+
+  Now add witnesses: for each \((\exists x) p \in S\), add new constant \(c\) and axiom \(p[c/x]\). We obtain \(T_1\), in language \(L_1 = L(\Omega \cup C_1, \Pi)\), where \(C\) is the set of all the \(c\)'s, that ``has witnesses'' for \(S_1\) (if \((\exists x)p \in S\), then some closed term \(t\) has \(p[t/x] \in T_1\)). Easy to check \(T_1\) is consistent.
+
+  Now extend \(T_1\) to maximally consistent \(S_2\) in \(L_1\). Add witnesses, obtaining \(T_2\) in language \(L_2 = L(\Omega \cup C_2 \cup C_2, \Pi)\). Continue inductively.
+  \[
+    \begin{tikzcd}
+      L_0 & L_1 & L_2 & \cdots \\
+      S \ar[d, hook] \\
+      S_1 \ar[r, squiggly] & T_1 \ar[d, hook] \\
+      & S_2 \ar[r, squiggly] & T_2 \ar[d, hook] \\
+      & & S_3 \ar[r, squiggly] & \cdots
+    \end{tikzcd}
+  \]
+
+  Put \(\cl S = S_1 \cup S_2 \cup \dots\) in language \(\cl L = L(\Omega \cup C_1 \cup C_2 \cup \dots, \Pi)\). Check
+  \begin{itemize}
+  \item \(\cl S\) is consistent: if \(\cl S \yields \bot\) then some \(S_n \yields \bot\) as proof are finite. Absurd.
+  \item \(\cl S\) is complete: given sentence \(p \in \cl L\), have \(p \in L_n\) for some \(n\) as \(p\) contains only finitely many constants. So \(S_{n + 1} \yields p\) or \(S_{n + 1} \yields (\neg p)\).
+  \item \(\cl S\) has witnesses (for itself): given \((\exists x) p \in \cl S\), have \((\exists x)p \in S_n\) for some \(n\). So \(p[t/x] \in T_n\) for some closed term \(t\) whence \(p[t/x] \in \cl S\).
+  \end{itemize}
+\end{proof}
+
+
+
+
 
 
 

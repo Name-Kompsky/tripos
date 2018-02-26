@@ -14,6 +14,9 @@
 
 \newcommand*{\inner}{\innerproduct}
 
+% TODO
+% add blank matrices
+
 \begin{document}
 
 \input{titlepage}
@@ -43,7 +46,7 @@ Denote a degree \(n\) polynomial by
 \]
 and let \(P_n[x]\) be the vector space of polynomials of degree at most \(n\). The interpolation problem is, given \(x_0, x_1, \dots, x_n \in \R\) and \(f_0, f_1, \dots, f_n \in \R\), find \(p \in P_n[x]\) such that \(p(x_i) = f_i\) for \(i = 0, \dots, n\).
 
-\subsection{Lagrange formula}\index{Langrange formula}
+\subsection{Lagrange formula}\index{Lagrange formula}
 
 Claim that
 \[
@@ -740,7 +743,7 @@ The ``deviation'' is
     &\leq \norm{e_{n - 2}(h)}(1 + h\lambda)^2 + Ch^2(1 + h\lambda) + Ch^2 \\
     &\leq \cdots \\
     &\leq \underbrace{\norm{e_0(h)}}_0 (1 + h\lambda)^n + Ch^2 \sum_{j = 0}^{n - 1} (1 + h\lambda)^j \\
-    &\leq Ch^2 \frac{(1 + h\lambda)^n - 1}{h\lambda} \\
+    &= Ch^2 \frac{(1 + h\lambda)^n - 1}{h\lambda} \\
     &= \frac{Ch}{\lambda} [(1 + h\lambda)^n - 1] \\
     \intertext{As \(e^x \geq 1 + x\),}
     &\leq \frac{Ch}{\lambda} (e^{h\lambda n} - 1) \\
@@ -802,12 +805,12 @@ Another example: the \emph{theta-method} is given by
 \[
   y_{n + 1} = y_n + h[\theta f(t_n, y_n) + (1 - \theta) f(t_{n + 1}, y_{n + 1})]
 \]
-which can thought as a parameterised Euler method, with the parameter \(\theta\) controlling the ``explicitness''. For \(\theta = \frac{1}{2}\), it is given a special name Trapezoidal rule.
+which can thought as a parameterised Euler method, with the parameter \(\theta\) controlling the ``explicitness''. For \(\theta = \frac{1}{2}\), it is given a special name: trapezoidal rule.
 
 The order of the theta-method is
 
 \begin{align*}
-  &\phantom{={} } y(t_{n + 1}) - y(t_n) - h[\theta y'(t_n, y_n) + (1 - \theta) y'(t_{n + 1})] \\
+  &\phantom{={} } y(t_{n + 1}) - y(t_n) - h[\theta y'(t_n) + (1 - \theta) y'(t_{n + 1})] \\
   &= y(t_n) + hy'(t_n) + \frac{h^2}{2} y''(t_n) + \frac{h^3}{3!}y'''(t_n) + O(h^4) \\
   &\quad - y(t_n) - h[\theta y'(t_n) + (1 - \theta)(y'(t_n) + hy''(t_n) + \frac{h^2}{2} y'''(t_n) + O(h^3))] \\
   &= h^2 \left( \frac{y''(t_n)}{2} - (1 - \theta)y''(t_n) \right) + O(h^3) \\
@@ -840,7 +843,7 @@ Thus if \(\theta = \frac{1}{2}\) then it has order \(2\), otherwise order \(1\)\
 
   Now repeat the same for the exponentials,
   \begin{align*}
-    &\phantom{={} } \rho(e^z) - z\rho(e^z) \\
+    &\phantom{={} } \rho(e^z) - z\sigma(e^z) \\
     &= \sum_{\ell = 0}^s \rho_\ell e^{\ell z} - z \sum_{\ell = 0}^s \sigma_\ell e^{\ell z} \\
     &= \sum_{\ell = 0}^s \rho_\ell \sum_{k = 0}^\infty \frac{(\ell z)^k}{k!} - z\sum_{\ell = 0}^s \sigma_\ell \sum_{k = 0}^\infty \frac{(\ell z)^k}{k!} \\
     &= \sum_{\ell = 0}^s \rho_\ell + \sum_{k = 1}^\infty \frac{z^k}{k!} \left[ \sum_{\ell = 0}^s \rho_\ell \ell^k - \sum_{\ell = 0}^s \sigma_\ell \ell^{k - 1}k \right]
@@ -867,7 +870,7 @@ Thus if \(\theta = \frac{1}{2}\) then it has order \(2\), otherwise order \(1\)\
   \begin{align*}
     \rho(e^z) -z\sigma(e^z)
     &= e^{2z} - e^z - z (\frac{3}{2}e^z - \frac{1}{2}) \\
-    &= 1 + 2z + \frac{(2z)^2}{2} + \frac{(2x)^3}{3!} \\
+    &= 1 + 2z + \frac{(2z)^2}{2} + \frac{(2z)^3}{3!} \\
     &\quad - (1 + z + \frac{z^2}{2} + \frac{z^3}{3!}) \\
     &\quad -z(\frac{3}{2} + \frac{3z}{2} + \frac{3z^2}{4} - \frac{1}{2}) + O(z^4) \\
     &= z^3(\frac{8}{6} - \frac{1}{6} - \frac{3}{4}) + O(z^4)
@@ -1595,7 +1598,7 @@ where \(\tilde L = LD^{1/2}\) is lower triangular. This the \emph{Cholesky facto
 Informally, a \emph{sparse matrix}\index{sparse matrix} is one with ``many'' zeros.
 
 \begin{eg}
-  A matrix \(A\) is \emph{banded}\index{banded} if \(A_{ij} = 0\) whenever \(|i - j| > r\) for some fixed \(r\). For examlple, if \(r = 1\) then \(A\) is diagonal. If \(r = 2\) then \(A\) is tridiagonal.
+  A matrix \(A\) is \emph{banded}\index{banded matrix} if \(A_{ij} = 0\) whenever \(|i - j| > r\) for some fixed \(r\). For examlple, if \(r = 1\) then \(A\) is diagonal. If \(r = 2\) then \(A\) is tridiagonal.
 \end{eg}
 
 We want the LU factorisation of a sparse matrix to inherit this property.
@@ -1677,7 +1680,7 @@ A matrix \(Q \in \matrixring_{n, n}(\R)\) is \emph{orthogonal} if its columns fo
   If \(Q \in \matrixring_{n, n}(\R)\) is orthogonal then \(\det Q = \pm 1\).
 \end{remark}
 
-\begin{definition}[QR factorisation]\index{factorisation}
+\begin{definition}[QR factorisation]\index{QR factorisation}
   Let \(A \in \matrixring_{m, n}(\R)\). A QR \emph{factorisation} of \(A\) is a factorisation \(A = QR\) where
   \begin{itemize}
   \item \(Q \in \matrixring_{m, m}(\R)\) is orthogonal,
@@ -1687,21 +1690,258 @@ A matrix \(Q \in \matrixring_{n, n}(\R)\) is \emph{orthogonal} if its columns fo
   In the case where \(m \geq n\), a \emph{reduced QR factorisation} is \(A = QR\) where
   \begin{itemize}
   \item \(Q \in \matrixring_{m, n}(\R)\) has orthogonal columns,
-  \item \(R \in \matrixring_{n, m}(\R)\) is upper triangular.
+  \item \(R \in \matrixring_{n, n}(\R)\) is upper triangular.
   \end{itemize}
 \end{definition}
 
+% add blank matrices
 
+\paragraph{Application fo QR factorisation to linear system solving}
 
+Suppose \(A\) is \(n \times n\). \(Ax = b\) is equivalent to
+\begin{align*}
+  Rx &= y \\
+  Qy &= b
+\end{align*}
+but \(Q\) is orthogonal so \(Q^{-1} = Q^T\) so
+\begin{align*}
+  Rx &= y \\
+  y &= Q^Tb
+\end{align*}
+which takes \(O(n^2)\) operations.
 
+\paragraph{Gram-Schmidt algorithm}
+\index{Gram-Schmidt}
 
+Assume \(m \geq n\), and we want to construct a reduced QR factorisation. Let \(a_1, \dots, a_n \in \R^n\) be the columns of \(A\). We want to find \(q_1, \dots, q_n \in \R^m\) such that
+\begin{enumerate}
+\item \(q_k\) is a linear combination of \(a_1, \dots, a_k\),
+\item \((q_1, \dots, q_n)\) is an orthonormal system.
+\end{enumerate}
 
+\begin{enumerate}
+\item \(q_1 = \frac{a_1}{\norm{a_1}}, R_{11} = \norm{a_1}\).
+\item \(d_2 = a_2 - (a_2^Tq_1)q_1\), \(q_2 = \frac{d_2}{\norm{d_2}}\). \(R_{12} = a_2^Tq_1, R_{22} = \norm{d_2}\).
+\end{enumerate}
 
+\begin{algorithm}
+  \(q_1 = \frac{a_1}{\norm{a_1}}\)\;
+  \(R_{11} = \norm{a_1}\)\;
+  \For{\(j = 2\) \KwTo \(n\)}{
+    \(d_j = a_j - \sum_{i = 1}^{j - 1} (a_j^Tq_i)q_i\)\;
+    \(q_j = \frac{d_j}{\norm{d_j}}\)\;
+    \For{\(i \leq j - 1\)}{
+      \(R_{ij} = a_j^Tq_i\)\;
+    }
+    \(R_{jj} = \norm{d_j}\)\;
+  }
+  \caption{Gram-Schmidt}
+\end{algorithm}
 
+\paragraph{Cost of algorithm}
 
+Assume the columns of \(A\) to be linearly independent, at each iteration \(j\) we have to compute \(\sim j\) inner products between vectors in \(\R^m\), so \(O(mj)\) operations at each iteration. Thus the total cost is \(O(m(1 + \dots + n)) = O(mn^2)\).
 
+However, note that this version of Gram-Schmidt is not numerically stable.
 
+Gram-Schmidt is ``triangular orthogonalisation'' process, i.e.\ use triangular operations to put a matrix into orthogonal form. The next two algorithms are instances of ``orthogonal triangularisation'', i.e.\ use orthognal transformations to turn a matrix into a triangular one.
 
+\subsubsection{Givens algorithm}
+
+We seek orthogonal transformations \(\Omega_1, \dots, \Omega_k\) such that \(R = \Omega_k \cdots \Omega_1 A\) is upper triangular. Then \(A = QR\) where \(Q = (\Omega_k \cdots \Omega_1)^T\) is orthogonal.
+
+\paragraph{Givens rotations}
+
+Recall that clockwise rotation through \(\theta\) in \(\R^2\) is given by
+\[
+  \begin{pmatrix}
+    \cos \theta & \sin \theta \\
+    -\sin \theta & \cos \theta
+  \end{pmatrix}
+\]
+
+\begin{definition}[Givens rotation matrix]\index{Givens rotation matrix}
+  A \emph{Givens rotation martrix} \(\Omega \in \R^{m \times m}\) is specified by \(1 \leq p < q \leq m\) and \(\theta \in [-\pi, \pi)\) and defined by
+  \begin{align*}
+    \Omega_{p, p} &= \cos \theta \\
+    \Omega_{p, q} &= \sin \theta \\
+    \Omega_{q, p} &= -\sin \theta \\
+    \Omega_{q, q} &= \cos \theta \\
+    \Omega_{i, j} &=
+                    \begin{cases}
+                      1 & \text{if } i = j \\
+                      0 & \text{otherwise}
+                    \end{cases}
+  \end{align*}
+  Denote it as \(\Omega^{[p, q]}\).
+\end{definition}
+
+\begin{eg}
+  Let \(m = 4\).
+  \begin{align*}
+    \Omega^{[1, 2]} &=
+    \begin{pmatrix}
+      \cos \theta & \sin \theta \\
+      -\sin \theta & \cos \theta \\
+      & & 1 \\
+      & & & 1
+    \end{pmatrix}
+    \\
+    \Omega^{[2, 4]} &=
+    \begin{pmatrix}
+      1 \\
+      & \cos \theta & & \sin \theta \\
+      & & 1 & \\
+      & - \sin \theta & & \sin \theta
+    \end{pmatrix}
+  \end{align*}
+\end{eg}
+
+\blindtext
+
+\begin{theorem}
+  Let \(A \in \R^{m \times n}\). Let \(1 \leq p < q \leq m\) and \(j \in \{1, \dots, n\}\). There is a Givens rotation matrix \(\Omega^{[p, q]}\) such that
+  \[
+    (\Omega^{[p, q]}A)_{q, j} = 0.
+  \]
+  Furthermore, the rows of \(\Omega^{[p, q]}A\), except for the \(p\)th and \(q\)th row, are identical to those of \(A\). The \(p\)th and \(q\)th rows of \(\Omega^{[p, q]}A\) are linear combinations of the \(p\)th and \(q\)th row of \(A\).
+\end{theorem}
+
+\begin{proof}
+  \((A_{p, j}, A_{q, j}) \in \R^2\) is a vector and we can find a clockwise rotation through \(\theta\) sending to the direction along postiive \(x\)-axis. \(\theta\) satisfies
+  \begin{align*}
+    \cos \theta &= \frac{A_{p,j}}{\sqrt{A_{p, j}^2 + A_{q, j}^2}} \\
+    \sin \theta &= \frac{A_{q,j}}{\sqrt{A_{p, j}^2 + A_{q, j}^2}}
+  \end{align*}
+  Then
+  \[
+    \begin{pmatrix}
+      \cos \theta & \sin \theta \\
+      -\sin \theta & \cos \theta
+    \end{pmatrix}
+    \begin{pmatrix}
+      A_{p, j} \\
+      A_{q, j}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      \ast \\
+      0
+    \end{pmatrix}
+  \]
+\end{proof}
+
+The \emph{Givens algorithm}\index{Givens algorithm} is given by
+
+\begin{algorithm}
+  \For{\(j = 1\) \KwTo \(n\)}{
+    \For{\(i = j + 1\) \KwTo \(m\)}{
+      Find a Givens rotation such that \((\Omega^{[j, i]}A)_{i, j} = 0\)\;
+      \(A := \Omega^{[j, i]}A\)\;
+    }
+  }
+  \caption{Givens algorithm}
+\end{algorithm}
+
+At the end of the algorithm, \(A\) is upper triangular. Note that this does not explicitly compute \(Q\). To do so we 
+
+\begin{algorithm}
+  \(Q := I\)\;
+  \For{\(j = 1\) \KwTo \(n\)}{
+    \For{\(i = j + 1\) \KwTo \(m\)}{
+      Find a Givens rotation such that \((\Omega^{[j, i]}A)_{i, j} = 0\)\;
+      \(A := \Omega^{[j, i]}A\)\;
+      \(Q := \Omega^{[j, i]}Q\)\;
+    }
+  }
+  \(Q := Q^T\)\;
+  \caption{Givens algorithm, with \(Q\) stored}
+\end{algorithm}
+
+But in practice this is rarely necessary. For example in solving linear equations, it suffices to act on the RHS by the \(\Omega\)'s, which can be done so by adding a few lines to the original code.
+
+\subsubsection{Householder algorithm}
+
+The reflection in \(\R^2\) sending a vector \(v\) to \(u\) is
+\[
+  Hv =  - 2 \frac{u^Tv}{\norm u^2}u = \underbrace{(I - 2 \frac{uu^T}{\norm u^2})}_{\text{Householder reflection matrix}} v.
+\]
+We can check that \(H^TH = I\).
+
+Given a vector \(v_1\), we want \(Hv_1\) to be a multiple of \(e_1\). In general we are free to choose the sign. If we want it to be in \(+e_1\) direction, choose \(u_1 = a_1 - \norm{a_1}e_1\). Otherwise, choose \(u_1 = a_1 - (-\norm{a_1}e_1)\).
+
+Use notation
+\[
+  A_{k:m, j} =
+  \begin{pmatrix}
+    A_{k, j} \\
+    \vdots \\
+    A_{m, j}
+  \end{pmatrix}
+  \in \R^{m - k + 1}
+\]
+Suppose \(A \in \R^{m \times n}, m \geq n\),
+
+\begin{algorithm}
+  \For{\(k = 1\) \KwTo \(n\)}{
+    \(\tilde a_k = A_{k:m, k} = (A_{k, k}, \dots, A_{m, k})^T\)\;
+    \(\tilde u_k = \tilde a_k + \sgn(A_{k, k}) \norm{\tilde a_k} \tilde e_1\)\;
+    \For{\(j = k\) \KwTo \(n\)}{
+      \(A_{k:m, j} = A_{k:m, j} - 2 \frac{\tilde u^T A_{k:m, j}}{\norm{tilde u}^2} \tilde u\)\;
+    }
+  }
+  \caption{Householder algorithm}
+\end{algorithm}
+
+This algorithm transforms \(A\) into upper triangular form by a series of orthogonal transformations. Like for the Givens algorithm, the matrix \(Q\) is not explicitly. If necessary, we can initialise an identity matrix, left multiply by the matrix operation corresponding to the operation in each inner loop, and finally take the transpose to get \(Q\).
+
+\paragraph{Cost of Householder algorithm}
+
+For each \(k = 1\) to \(n\), and \(j\) from \(k + 1\) to \(n\), we have to compute the inner product \(\tilde u^T A_{k:m, j}\), which has \(m - k + 1 = O(n)\) multiplications. Thus the total cose is \(O(mn^2)\), same as Givens.
+
+\subsection{Least-square problem}
+
+Suppose \(A \in \R^{m \times m}, b \in \R^m\) \(m \geq n\). We want to find \(x\) such that \(Ax \approx b\). A popular choice is the \emph{least-squares}\index{least-squares approximation} approximation, aiming to minimise \(\norm{Ax - b}^2\).
+
+\begin{theorem}
+  \(x\) is a solution to the least-squares problem if and only if
+  \[
+    A^T(Ax - b) = 0.
+  \]
+\end{theorem}
+
+The equation is called \emph{normal equation}.
+
+\begin{proof}
+  Let
+  \[
+    f(x) = \norm{Ax - b}^2 = (Ax - b)^T(Ax - b) = x^TA^TAx - 2b^TAx + b^Tb.
+  \]
+  Then
+  \[
+    \gradient f(x) = 2A^TAx - 2A^Tb.
+  \]
+  Thus at optimality we have \(\gradient f(x) = 0\), so \(A^TAx = A^Tb\).
+
+  Since \(f\) is (by assumption) convex, it is also a sufficient condition for optimality.
+\end{proof}
+
+Note that \(A^T(Ax - b) = 0\) if and only if \(Ax - b\) is orthogonal to all the columns of \(A\). Suppose
+\[
+  A = (a_1 \ | \ \cdots \ | \ a_n),
+\]
+then this is equivalent to \(a_i^T(Ax - b) = 0\) for all \(i\). Geometrically, \(Ax\) is the projection of \(b\) onto the subspace spanned by \(a_1, \dots, a_n\).
+
+\subsubsection{Solving least-squares problem using QR factorisation}
+
+Assume \(A = QR\) is a reduce QR factorisation. By definition \(Q\) has orthonormal columns and these columns span the same subspace as the columns of \(A\). Thus
+\begin{align*}
+  A^T(Ax - b) = 0
+  &\Leftrightarrow Q^T(Ax - b) = 0 \\
+  &\Leftrightarrow Q^TAx = Q^Tb \\
+  &\Leftrightarrow Rx = Q^Tb
+\end{align*}
+Check these conditions carefully using column space. The end result is a triangular system that can be solved using back substitution in \(O(n^2)\) operations.
 
 \printindex
 

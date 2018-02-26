@@ -138,11 +138,13 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{axiom}[theorem]{Axiom}
 
 \surroundwithmdframed[style=leftbar]{theorem}
 \surroundwithmdframed[style=leftbar]{proposition}
 \surroundwithmdframed[style=leftbar]{lemma}
 \surroundwithmdframed[style=leftbar]{corollary}
+\surroundwithmdframed[style=leftbar]{axiom}
 
 \theoremstyle{definition}
 
@@ -234,7 +236,7 @@
 \newcommand*{\ndivides}{\nmid}
 %vector, i.e. mathbf
 %https://tex.stackexchange.com/a/45746/26707
-\newcommand*{\V}[1]{\ensuremath{\symbf{#1}}}
+\newcommand*{\V}[1]{{\ensuremath{\symbf{#1}}}}
 %closure
 \newcommand*{\cl}[1]{\overline{#1}}
 %conjugate
@@ -282,6 +284,7 @@
 
 %logic
 \newcommand*{\yields}{\vdash}
+\newcommand*{\nyields}{\nvdash}
 
 %differential geometry
 \renewcommand*{\H}{\mathbb{H}}

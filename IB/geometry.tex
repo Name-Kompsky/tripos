@@ -926,6 +926,245 @@ Note that \(EG - F^2 = \det \begin{psmallmatrix} E & F \\ F & G \end{psmallmatri
 
 Missed 2 lectures
 
+Let
+\[
+  G_D = \{\text{Möbius transformations sending \(D\) onto \(D\)}\} \cong \PSL(2, \R).
+\]
+
+\begin{enumerate}
+\item \(G_D\) acts transitively on the hyperbolic lines in \(D\) (and on paris \(\ell, P \in \ell\)).
+\item The length-minimizing curves on \(D\) are segments of hyperbolic lines parameterised monotonically.
+\end{enumerate}
+
+Recall the notation \(\rho(\cdot, \cdot)\), the hyperbolic distance makes sense on \(H\) and on \(D\).
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item Rotations \(z \mapsto e^{i\theta}z\), \(\theta \in \R\) are in \(G_D\).
+  \item If \(a \in D\), then
+    \[
+      g(z) = \frac{z - a}{1 - \conj a z}
+    \]
+    is in \(G_D\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item The map is clearly linear and preserves both \(|z|\) and \(|dz|\), and thus the metric
+    \[
+      \frac{4|dz|^2}{(1 - |z|^2)^2}.
+    \]
+  \item \(g\) send \(\{|\zeta| = 1\}\) to itself: if \(|\zeta| = 1\) then
+    \[
+      |1 - \conj a \zeta| = |\conj \zeta (1 - \conj a \zeta)| = |\conj \zeta - \conj a| = |\zeta - a| \neq 0
+    \]
+    unless \(a = 0\) in which case \(g(z) = z\). Thus \(|g(\zeta) = 1\). Also \(g(a) = 0\) so \(g \in G_D\).
+  \end{enumerate}
+\end{proof}
+
+This does not exhaust all elements of \(G_D\) yet. But in example sheet we will show every \(g \in G_D\) is of the form
+\[
+  g(z) = e^{i\theta} \frac{z - a}{1 - \conj a z}
+\]
+for some \(a \in D, \theta \in R\), and \(G_D \subset \Isom(D)\) is a subgroup of index \(2\).
+
+\begin{proposition}
+  If \(0 \leq r < 1\) then
+  \[
+    \rho(0, r) = \rho(0, e^{i\theta}r) = 2 \tanh^{-1} r.
+  \]
+
+  In general, for \(z_1, z_2 \in D\),
+  \[
+    \rho(z_1, z_2) = 2 \tanh^{-1} \left| \frac{z_1 - z_2}{1 - \conj z_1 z_2} \right|.
+  \]
+\end{proposition}
+
+\begin{proof}
+  The first equality is clear from the above lemma. Now let \(\gamma(t) = t, 0 \leq t \leq r\), a hyperbolic line segment through \(0\) and \(r\). Then from definitions the length is
+  \[
+    \rho(0, r) = \int_0^r \frac{2}{1 - t^2} dt = 2 \tanh^{-1} r.
+  \]
+
+  For the general case, let \(\ell\) be the hyperbolic line through \(z_1, z_2\). Apply
+  \[
+    g(z) = \frac{z - z_1}{1 - \conj z_1 z}
+  \]
+  which is an isometry by the above lemma. Then \(g(\ell)\) is a diameter. Further rotate about \(0\) to achieve \(g(z_2) = r \in \R_+\). Then
+  \[
+    r = |g(z_2)| = \left| \frac{z_2 - z_2}{1 - \conj z_1 z_2} \right|
+  \]
+  and
+  \[
+    \rho(z_1, z_2) = \rho(0, r) = 2 \tanh^{-1} r.
+  \]
+\end{proof}
+
+\begin{remark}
+  When there is a ``distinguished'' point, it is sometimes convenient to send it to \(0 \in D\) (and then use the disc model).
+\end{remark}
+
+In Euclidean geometry, we know that there is a unique line through a give point perpendicular to a given line. Similarly, we will show that
+
+\begin{proposition}
+  For all points \(P\) and hyperbolic lines \(\ell\) such that \(P \notin \ell\), there exists a unique \(\ell', P \in \ell'\) such that \(\ell'\) meet \(\ell\) orthogonally, in \(Q\) say, and
+  \[
+    \rho(P, Q) \leq \rho(P, \tilde Q)
+  \]
+  for all \(\tilde Q \in \ell\), with equality if and only if \(\tilde Q = Q\).
+\end{proposition}
+
+\begin{proof}
+  Example sheet.
+  %Wlog \(P = 0 \in D\).
+\end{proof}
+
+The next lemma concerns ``reflections'' in hyperbolic plane:
+
+\begin{lemma}
+  Suppose \(g\) is an isometry of \(H\) and \(g\) fixes every point in \(L^+ \subseteq H\). Then either \(g = \id_H\) or \(g(z) = - \conj z\), i.e.\ reflection in the \(y\)-axis.
+\end{lemma}
+
+\begin{proof}
+  Let \(P \in H, P \notin L^+\). Then there exists a unique \(\ell \neq P, \ell' \perp L^+\). Theus \(\ell'\) must be a semi-circle. Let \(Q = \ell \cap L^+\). As \(g(Q) = Q\), \(\rho(P, Q) = \rho(g(P), Q)\). Then \(g(P) \in \ell'\) by the properties of \(\ell'\) and the uniqueness of \(\ell'\). Thus we must have either \(g(P) = P\) or \(g(P) = P'\).
+
+  Suffices to show if \(g(P) = P\) then \(g = \id_H\) (for if \(g(P) = P'\) then compose with the isometry \(z \mapsto -\conj z\)). Let \(g(P) = R\). Wlog \(P \in H^+ = \{z \in H: \Re z > 0\}\) and consider any \(A \in H^+\). If \(g(A) = A'\) then \(\rho(A', P) = \rho(A, P)\). But
+  \[
+    \rho(A', P) = \rho(A', B) + \rho(B, P) = \rho(A, B) + \rho(B, P) = \rho(A, P)
+  \]
+  and \(B \in \ell_{AP}\), contradicting the triangle inequality.
+\end{proof}
+
+We call \(R: H \to H, z \mapsto -\conj z\) the (hyperbolic) relfection in \(L^+\). Now we can extend the definition to every hyperbolic line: for each hyperbolic line \(\ell \in H\) with \(T \in \PSL(2, \R)\) chosen such that \(T(\ell) = L^+\), we call
+\[
+  R_\ell = T^{-1}RT
+\]
+the reflection in \(\ell\). By proposition above, \(R_\ell\) is the unique non-identity isometry of \(H\) fixing \(\ell\).
+
+\begin{ex}
+  It is instructive to write out the reflections in \(\ell \subseteq D\) using an isometry \(D \to H\) and Q4 on example sheet 2.
+\end{ex}
+
+\subsection{Hyperbolic triangle}
+
+\begin{definition}[Hyperbolic triangle]\index{hyperbolic triangle}
+  A \emph{hyperbolic triangle} \(\triangle\) is the region bounded by 3 hyperbolic line segments, including the extreme cases of vertices ``at infinity'' (i.e.\ in \(\R \cup \{\infty\}\) for \(H\), in \(\{|\zeta| = 1\}\) for \(D\)) (in this case the angle is \(0\)).
+\end{definition}
+
+\begin{theorem}[Gauss-Bonnet for hyperbolic triangle]\index{Gauss-Bonnet}
+  For each \(T = \triangle ABC\) with angles \(\alpha, \beta, \gamma \geq 0\), then
+  \[
+    \operatorname{area} T = \pi - \alpha - \beta - \gamma.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Use the \(H\) model. Recall that for a region \(R \subseteq H\), the area is computed as
+  \[
+    \int\int_R \frac{dxdy}{y^2}.
+  \]
+  First do the case when \(\gamma = 0\), so \(C\) is ``at infinity'' (\(in\R\) or \(\infty\)). Wlog \(C = \infty\) (apply \(g \in \PSL(2, \R)\). Then \(AC\) and \(BC\) are in vertical half-lines and \(AB\) is an arc of semi-circle. Use \(z \mapsto z + a, a \in \R\) to ensure the semi-circle is centred at \(0\), \(z \mapsto bz, z > 0\) to achieve radius \(1\). Thus wlog
+  \[
+    AB \subseteq (\{x^2 + y^2 = 1\} \cap \{y > 0\}).
+  \]
+  Then
+  \begin{align*}
+    \operatorname{area} T
+    &= \int_{\cos(\pi - \alpha)}^{\cos \beta} \int_{(1 - x^2)^{1/2}}^\infty \frac{dydx}{y^2} \\
+    &= \int_{\cos (\pi - \alpha)}^{\cos \beta} \frac{1}{(1 - x^2)^{1/2}}dx \\
+    &= -\arccos \Big|_{\cos (\pi - \alpha)}^{\cos \beta} \\
+    &= \pi - \alpha - \beta
+  \end{align*}
+  as required.
+
+  In general, using \(H\) again, we can apply \(g \in \PSL(2, \R)\) to move \(AC\) into a vertical half-line. Then as before, move \(AB\) into \(\{x^2 + y^2 = 1\}\) (and \(AC\) remains vertical). Consider \(\triangle_1 = AB\infty, \triangle_2 = CB\infty\). Apply the previous result to get
+  \begin{align*}
+    \operatorname{area} \triangle_1 &= \pi - \alpha - (\beta + \delta) \\
+    \operatorname{area} \triangle_2 &= \pi - \delta - (\pi - \gamma)
+  \end{align*}
+  so
+  \[
+    \operatorname{area} T = \operatorname{area} \triangle_1 - \operatorname{area}_2 \pi - \alpha - \beta - \gamma.
+  \]
+\end{proof}
+
+There are cosine and sine rules for hyperbolic triangles. See example sheet. Here is another observation: any two lines in \(S^2\) (great circles) always meet (in 2 points), any two lines in \(\R^2\) meet (in 1 point) if and only if not parallel.
+
+\begin{definition}[Parallel, ultraparallel]
+  Using the \(D\) model, two hyperbolic lines \(\ell_1, \ell_2 \subseteq D\) are \emph{parallel} if they meet only at \(\{|\zeta| = 1\}\).
+
+  They are \emph{ultraparallel} if and only if they do not meet anywhere in \(\{|\zeta| \leq 1\}\).
+\end{definition}
+
+\begin{axiom}[Euclid's parallel axiom (5th axiom)]
+  Given a line \(\ell\) and \(P \notin \ell\), there exists a unique line \(\ell' \ni P\) with \(\ell \cap \ell' = \emptyset\).
+\end{axiom}
+
+It fails in both \(S^2\) and hyperbolic plane --- but for very different reasons!
+
+\subsection{THe hyperboloid model}
+
+Consider \emph{Lorenzian} inner product \(\inner{\cdot, \cdot}\) on \(\R^3\) with matrix
+\[
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & -1
+  \end{pmatrix}
+\]
+with signature \(p = 2, q = 1\).
+
+Set
+\[
+  %q(\V x) = \inner{\V x, \V x} = x^2 + y^2 - z^2\)
+\]
+and
+\begin{align*}
+  S &= \{\V x \in \R^3: q(\V x) = -1\} \\
+  S^+ &= S \cap \{z > 0\}
+\end{align*}
+
+Define a projection from the upper sheet of the hyperboloid to the unit disc in the complex plane
+\begin{align*}
+  \pi: S^+ \to D \subseteq \C \\
+  (x, y, z) &\mapsto \frac{x + iy}{1 + z} = y + iv
+\end{align*}
+
+Put \(r^2 = u^2 + v^2\) and by striaghforward calculation,
+\begin{align*}
+  \sigma = \pi^{-1}: D &\mapsto S^+ \\
+  (u, v) &\mapsto \frac{1}{1 - r^2} (2u, 2v, 1 + r^2) 
+\end{align*}
+
+Now we can check the inner product on the tangent plane to \(S^+\) at \(\sigma(u, v)\) spanned by
+\begin{align*}
+  \sigma_u &= d\sigma(e_1) = \frac{2}{(1 - r^2)^2} (1 + u^2 - v^2, 2uv, 2u) \\
+  \sigma_v &=  d\sigma(e_2) = \frac{2}{(1 - r^2)^2} (2uv, 1 + v^2 - u^2, 2v)
+\end{align*}
+The restriction of Lorenzian \(\inner{\cdot, \cdot}\) to the span of \(\sigma_u, \sigma_v\) assigns to each \((u, v) \in D\) a symmetric bilinear form on \(\R^2\) with
+\begin{align*}
+  E &= \inner{\sigma_u, \sigma_u} = \frac{4}{(1 - r^2)^2} \\
+  F &= 0 \\
+  G &= E
+\end{align*}
+which is exactly the Poincare disc model of the hyperplane.
+
+\section{Smooth embedded surfaces}
+
+\begin{definition}[Smooth embedded surface]\index{Smooth embedded surface}
+  \(S \subseteq \R^3\) is a (parameterise) \emph{smooth embedded surface} if for all \(P \in S\), there is an open neighhood \(U = W \cap S\) and a map \(\sigma: V \to U\) from \(V \subseteq \R^2\) such that
+  \begin{enumerate}
+  \item \(\sigma\) is a homeomorphism of \(V\) into \(U\),
+  \item \(\sigma(u, v)\) is \(C^\infty\),
+  \item at each \(Q = \sigma(P)\), the vectors \(\frac{\p \sigma}{\p u}(P), \frac{\p \sigma}{\p v}(P)\) are linearly independent.
+  \end{enumerate}
+\end{definition}
+
+\((u, v) \in V \subseteq \R^2\) are \emph{smooth coordinates} on \(U \subseteq S\). The subspace in \(\R^2\) spanned by\(\frac{\p \sigma}{\p u}(P), \frac{\p \sigma}{\p v}(P)\) is the \emph{tangent space} to \(S\) at \(\sigma(P)\). \(\sigma\) is a \emph{smoth parameterisation} of \(U \subseteq S\).
+
+
+
 
 
 

@@ -12,7 +12,7 @@
 
 \newcommand*{\D}{\mathcal{D}}
 \DeclareMathOperator*{\res}{Res}
-
+\DeclareMathOperator*{\ord}{ord}
 
 \begin{document}
 
@@ -82,7 +82,7 @@ Recall that \(u\) is differentiable at \((c, d) \in U\) if there exists \((\lamb
 \]
 as \((x, y) \to (c, d)\). In this case \(\D u(c, d) = (\lambda, \mu)\) is the derivative of \(u\) at \((c, d)\). If this holds then \(\lambda = u_x(c, d)\) and \(\mu = u_y(c, d)\), the partical derivatives of \(u\) at \((c, d)\).
 
-\begin{theorem}[Cauchy-Riemann equations]\index{Cauchy-Riemann}
+\begin{theorem}[Cauchy-Riemann equations]\index{Cauchy-Riemann equations}
   \(f: U \to \C\) is differentiable at \(w = c + id \in U\) if and only if the functions \(u\) and \(v\) are differentiable at \((c, d)\) and
   \begin{align*}
     u_x(c, d) &= v_y(c, d) \\
@@ -160,7 +160,7 @@ as \((x, y) \to (c, d)\). In this case \(\D u(c, d) = (\lambda, \mu)\) is the de
   Follows from the analogous result for differentiable functions on a path-connected subset of \(\R^2\) (Mean Value Inequality from IB Analysis II).
 \end{proof}
 
-\subsection{Power Series}
+\subsection{Power series}
 
 Recall that
 
@@ -638,6 +638,7 @@ A triangle is, as one might infer, a closed curve made of three straight line se
 \subsection{Cauchy's Theorem, weak version}
 
 \begin{theorem}[Cauchy's Theorem for triangles]\index{Cauchy's theorem}
+  \label{thm:weak Cauchy}
   Let \(U\) be a domain and \(T\) be a triangle contained in \(U\). If \(f: U \to \C\) is holomorphic, then
   \[
     \int_{\p T} f(z)dz = 0.
@@ -676,7 +677,7 @@ A triangle is, as one might infer, a closed curve made of three straight line se
   Pick \(n\) such that \(T^n \subseteq D(z_0, \delta)\). Then
   \begin{align*}
     \frac{y}{4^n} &\leq \left| \int_{\p T^n} f(z)dz \right| \\
-                  &= \left| \int_{\p T^n} (f(z) - \underbrace{f(z_0) - (z - z_0)f'(z_0))}_{\text{has anti-derivaative so vanishes}} dz \right| \\
+                  &= \left| \int_{\p T^n} (f(z) - \underbrace{f(z_0) - (z - z_0)f'(z_0)}_{\text{has anti-derivative so } = 0}) dz \right| \\
                   &\leq \ell(\p T^n) \varepsilon \sup_{z \in \p T^n} |z - z_0| \\
                   &\leq \frac{\varepsilon \ell^2}{4^n}.
   \end{align*}
@@ -707,7 +708,7 @@ Actually, we can prove the same result even if \(f\) is not assumed to be holomo
 \end{proposition}
 
 \begin{proof}
-  It suffices to prove that the integral along a triangle is zero for all triangles in \(U\). Subdivide a triangle \(T\) into \(4^n\) equal triangles as before. Let \(M = \sup_T |f|\). Let \(T' \subseteq T\) be a subtriangle. If \(T' \cap S = \emptyset\) then the integral is zero by Cauchy. Otherwise, for any \(T'\),
+  It suffices to prove that the integral along a triangle is zero for all triangles in \(U\). Subdivide a triangle \(T\) into \(4^n\) equal triangles as before. Let \(M = \sup_T |f|\). Let \(T' \subseteq T\) be a subtriangle. If \(T' \cap S = \emptyset\) then the integral is zero by \nameref{thm:weak Cauchy}. Otherwise, for any \(T'\),
   \[
     \left| \int_{\p T'} f(z)dz \right| \leq \ell(\p T') M 2^{-n} 
   \]
@@ -726,13 +727,14 @@ In fact, we will later prove that \(f\) is also holomorphic on \(S\).
 \subsection{Cauchy Integral Formula, weak version}
 
 \begin{theorem}[Cauchy integral formula for a disc]\index{Cauchy integral formula}
+  \label{thm:Cauchy integral formula}
   Let \(D = D(a, r)\) be a disc and \(f: D \to \C\) holomorphic. For every \(w \in D\) and \(\rho\) with \(|w - a| < \rho < r\),
   \[
     f(w) = \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{z - w} dz.
   \]
 \end{theorem}
 
-This is a surprising result as the value of a holomorphic inside a disc is completely determined by its value on the boundary.
+This is a surprising result as the value of a holomorphic function inside a disc is completely determined by its value on the boundary.
 
 \begin{proof}
   Consider the function
@@ -781,7 +783,7 @@ which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well a
 \end{proof}
 \end{proof}
 
-\begin{corollary}[Mean-value property]\index{Mean-value Property}
+\begin{corollary}[Mean-value property]\index{mean-value Property}
   \label{cor:mean-value property}
   If \(f: D(w, R) \to \C\) is holomorphic, then for every \(0 < r < R\),
   \[
@@ -796,6 +798,7 @@ which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well a
 \subsection{Application of Cauchy Integration Formula}
 
 \begin{theorem}[Liouville]\index{Liouville's theorem}
+  \label{thm:Liouville}
   Every bounded entire function is constant.
 \end{theorem}
 
@@ -812,21 +815,21 @@ which converge uniformly as a function of \(z\) on \(|z - a| = \rho\), as well a
 \end{proof}
 
 \begin{theorem}[Fundamental Theorem of Algebra]\index{Fundamental Theorem of Algebra}
-  Every non-constant polynomials with complex coefficients has a complex root.
+  Every non-constant polynomial with complex coefficients has a complex root.
 \end{theorem}
 
 \begin{proof}
   Let \(p(z) = z^n + c_{n - 1}z^{n - 1} + \dots + c_0\) be a polynomial of degree \(n > 0\). Then \(|p(z)| \to \infty\) as \(z \to \infty\), so there exists \(R > 0\) such that \(|p(z)| > 1\) for all \(|z| > R\).
 
-  Now consider \(f(z) = \frac{1}{p(z)}\). If \(p\) does not have a zero then \(f\) is an entire function. Moreover, since \(f\) is bounded on \(\{z: |z| \leq R\}\) by continuity and \(|f(z)| < 1\) if \(|z| > R\). By Liouville's Theorem \(f\) is constant. Absurd.
+  Now consider \(f(z) = \frac{1}{p(z)}\). If \(p\) does not have a zero then \(f\) is an entire function. Moreover, since \(f\) is bounded on \(\{z: |z| \leq R\}\) by continuity and \(|f(z)| < 1\) if \(|z| > R\). By \nameref{thm:Liouville} \(f\) is constant. Absurd.
 \end{proof}
 
-\begin{theorem}[Local maximum principle]\index{local maximum principle}
+\begin{theorem}[Local maximum principle]\index{maximum principle!local}
   \label{thm:local maximum principle}
   Let \(f: D(a, r) \to \C\) be holomorphic. If for every \(z \in D(a, r)\), \(|f(z)| \leq |f(a)|\) then \(f\) is constant.
 \end{theorem}
 
-Thus on a open domain \(U\), if the function \(f\) extends analytically to the boundary \(\p U\) then the maximum can only achieved on the boundary \(U\), unless \(f\) is constant.
+Thus on a open domain \(U\), if the function \(f\) extends analytically to the boundary \(\p U\) then the maximum can only be achieved on the boundary \(U\), unless \(f\) is constant.
 
 \begin{proof}
   By \nameref{cor:mean-value property} we have for \(0 < \rho < r\),
@@ -855,7 +858,7 @@ Thus on a open domain \(U\), if the function \(f\) extends analytically to the b
 An immediate corollary is that holomorphic functions are analytic. The converse is trivial so the two terms are semantically synonymous, although the choice of terminology may enunciate your standing point: the term ``holomorphic'' is preferred in pure mathematics, while ``analytic'' is used more often in applied mathematics.
 
 \begin{proof}
-  If \(|w - a| < \rho < r\) then by Cauchy integral formula
+  If \(|w - a| < \rho < r\) then by \nameref{thm:Cauchy integral formula}
   \begin{align*}
     f(w) &= \frac{1}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{z - w} dz \\
          &= \frac{1}{2\pi i} \int_{|z - a| = \rho} \sum_{n = 0}^\infty \frac{(w - a)^n}{(z - a)^{n + 1}} dz \\
@@ -885,6 +888,7 @@ The next theorem is a converse to Cauchy:
 This gives us something we promised a while ago in \Cref{prop:Cauchy with holes}: we see that \(f\) ends up being holomorphic also on \(S\).
 
 \begin{proposition}[Cauchy integral formula for derivatives]\index{Cauchy integral formula!for derivatives}
+  \label{prop:Cauchy integral formula for derivatives}
   Use the same notation as in \nameref{thm:Taylor}, we have
   \[
     f^{(n)}(w) = \frac{n!}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - w)^{n + 1}} dz.
@@ -901,7 +905,7 @@ Now integrate over \(|z - a| = \rho\), since anti-derivative of \(\frac{d}{dz} \
   0 = \int_{|z - a| = \rho}  \frac{d}{dz} \left( \frac{f(z)}{z - w} \right)dz
   = \int_{|z - a| = \rho} \frac{f'(z)}{z - w} dz - \int_{|z - a| = \rho} \frac{f(z)}{(z - w)^2} dz
 \]
-Now apply Cauchy integral formula to the first term. Inductively, we derive
+Now apply \nameref{thm:Cauchy integral formula} to the first term. Inductively, we derive
 \[
   f^{(n)}(w) = \frac{n!}{2\pi i} \int_{|z - a| = \rho} \frac{f(z)}{(z - w)^{n + 1}} dz.
 \]
@@ -938,15 +942,15 @@ We want to construct new holomorphic functions from old ones. Recall in IB Analy
 This is a generalisation of the corresponding statements about power series.
 
 \begin{proof}
-  The key here is to use the following characterisation of holomorphicity: a function is holomorphic on a domain if and only if its integral along any closed path vanishes (if given by Morera's theorem, only if given by Convex Cauchy's Theorem).
+  The key here is to use the following characterisation of holomorphicity: a function is holomorphic on a domain if and only if its integral along any closed path vanishes (if given by \nameref{cor:Morera}, only if given by \nameref{thm:weak Cauchy}).
   
-  Let \(D = D(a, r) \subseteq U\) be any disc. Then by Convex Cauchy, for any closed curve \(\gamma\) in \(D\), \(\int_\gamma f_n(z) dz = 0\). Now \(f_n \to f\) uniformly on \(\gamma\) since \(\gamma([a, b])\) is compact. Since \(f\) is continuous,
+  Let \(D = D(a, r) \subseteq U\) be any disc. Then by \nameref{thm:weak Cauchy}, for any closed curve \(\gamma\) in \(D\), \(\int_\gamma f_n(z) dz = 0\). Now \(f_n \to f\) uniformly on \(\gamma\) since \(\gamma([a, b])\) is compact. Since \(f\) is continuous,
   \[
     0 = \int_\gamma f_n(z) dz \to \int_\gamma f(z) dz = 0
   \]
   so by \nameref{cor:Morera} \(f\) is holomorphic on \(D\).
 
-  Next, by Cauchy's integral formula for derivatives, for any \(w \in D(a, r/2)\),
+  Next, by \nameref{prop:Cauchy integral formula for derivatives} for any \(w \in D(a, r/2)\),
   \[
     |f'(w) - f_n'(w)|
     = \frac{1}{2\pi} \left| \int_{|z - a| = r} \frac{f(z) - f_n(z)}{(z - w)^2} \right|
@@ -983,7 +987,7 @@ Then
 \]
 where \(g(z) = \sum_{n = m}^\infty c_n(z - w)^{n - m}\) is holomorphic on \(D(w, R)\) and \(g(w) \neq 0\). If \(m > 0\) we say that \(f\) has a \emph{zero of order \(m\)}\index{order of zero} at \(z = w\). Clearly \(m\) is the least \(n\) such that \(f^{(n)}(w) \neq 0\).
 
-\begin{theorem}[Principle of isolated zeros]\index{Principle of isolated zeros}
+\begin{theorem}[Principle of isolated zeros]\index{principle of isolated zeros}
   \label{thm:principle of isolated zeros}
   Let \(f: D(w, R) \to \C\) be holomorphic and not identically zero. Then there exists \(0 < r \leq R\) such that \(f(z) \neq 0\) for \(0 < |z - w| < r\).
 \end{theorem}
@@ -1035,7 +1039,7 @@ The section discusses some results coming from the interplay of holomorphic func
   \end{enumerate}
 \end{eg}
 
-\begin{corollary}[Global maximum principle]\index{global maximum principle}
+\begin{corollary}[Global maximum principle]\index{maximum principle!global}
   Let \(U \subseteq \C\) be a bounded domain. Let \(\cl U\) be the closure of \(U\) and \(f: \cl U \to \C\) continuous and holomorphic in \(U\). Then \(|f|\) attains a maximum on \(\cl U \setminus U\).
 \end{corollary}
 
@@ -1047,7 +1051,7 @@ The section discusses some results coming from the interplay of holomorphic func
 
 In this section we are going to prove the general form of Cauchy's theorem, by formalising ``number of loops'' of a path around a point (which is easy to do for \(C^1\) curves but difficult in the continuous case), and subsequently observe the interplay between holomorphic functions and the global topology.
 
-\subsection{Winding nubmer}
+\subsection{Winding number}
 
 Suppose \(\gamma: [a, b] \to \C\) is a closed curve (which is assumed to be \(C^1\) in this course) and \(w \in \C\) which is not in \(\gamma([a, b])\). We would like to make sense of the intuitive notion ``number of times \(\gamma\) winds around \(w\)''.
 
@@ -1234,7 +1238,7 @@ This says that given two homotopic paths, we can find finitely many intermediate
   Now invoke the technical proposition.
 \end{proof}
 
-Again this hightlights an idea that permeates this course: from complex analysis alone one gets local results about holomorphic functions. By using topological machinaries such as connectedness, compactness and in this section, homotopy, one can then extend them to global results.
+Again this hightlights an idea that permeates this course: complex analysis alone, i.e.\ the study of holomorphic functions gives local results. By using topological machinaries such as connectedness, compactness and in this section, homotopy, one can then extend them to global results.
 
 \begin{corollary}
   Let \(U\) be a simply connected domain and \(f: U \to \C\) holomorphic. Then
@@ -1312,7 +1316,7 @@ Again this hightlights an idea that permeates this course: from complex analysis
   \[
     f(w)
     = \frac{1}{2\pi i} \left( \int_{C_1} \frac{f(z)}{z - w} dz - \int_{C_2} \frac{f(z)}{z - w} dz \right)
-    = f_1 + f_2.
+    = f_1(w) + f_2(w).
   \]
 
   To deal with \(f_1\), we proceed exactly as in the proof of the Taylor series:
@@ -1352,7 +1356,7 @@ Again this hightlights an idea that permeates this course: from complex analysis
 
   By uniform convergence of \eqref{eqn:Laurent}, we can integrate term-by-term over every closed curve in \(A\), so
   \[
-    \int_{|z - a| = \rho} \frac{f(z)}{(z - a)^{m + 1}}
+    \int_{|z - a| = \rho} \frac{f(z)}{(z - a)^{m + 1}} dz
     = \sum_{n = -\infty}^\infty \int_{|z - a| = \rho} (z - a)^{n - m - 1} dz
     = 2\pi i c_m
   \]
@@ -1387,7 +1391,7 @@ There are three cases:
   \end{enumerate}
 \end{eg}
 
-In IID Riemann Surfaces we will learn that poles correpsond to normal points of another holomorphic function, and it is only the essential singularities that stand out.
+In IID Riemann Surfaces we will learn that poles correpsond to normal points of a holomorphic function defined on a Riemann surface, and it is only the essential singularities that stand out.
 
 \begin{proposition}
   \(f\) has a removable singularity at \(z = a\) if and only if
@@ -1452,7 +1456,7 @@ In IID Riemann Surfaces we will learn that poles correpsond to normal points of 
 
 Actually we can say a bit more about how ``wild'' an essential singuarlity can be:
 
-\begin{theorem}[Casorati-Weierstrass]\index{Casorati-Weierstrass}
+\begin{theorem}[Casorati-Weierstrass]\index{Casorati-Weierstrass theorem}
   Let \(f: D(a, R) \setminus \{a\} \to \C\) be holomorphic with an essential singularity at \(z = a\). Then for any \(w \in \C\) and \(r > 0, \varepsilon > 0\), there exists \(z\) such that \(0 < |z - a| < r\) and \(|f(z) - w| < \varepsilon\).
 \end{theorem}
 
@@ -1482,11 +1486,11 @@ With Laurent series defined and shown to be unique and uniformly continuous, we 
 \end{definition}
 
 \begin{definition}[Meromorphic]\index{meromorphic}
-  If \(D\) is a domain and \(S \subseteq D\) is a set of isolated points in \(D\), then a holomorphic function \(f: D \setminus S \to C\) with at worst poles at \(D\) is called \emph{meromorphic}.
+  If \(D\) is a domain and \(S \subseteq D\) is a set of isolated points in \(D\), then a holomorphic function \(f: D \setminus S \to \C\) with at worst poles at \(D\) is called \emph{meromorphic}.
 \end{definition}
 
 \begin{remark}
-  As hinted before, a meromorphic function \(f\) can be seen as a holomorphic function \(f: D \to \C_\infty = \C \cup \{\infty\}\), sending poles to \(\infty\), between Riemann surfaces.
+  As hinted before, a meromorphic function \(f: D \setminus S \to \C\) can be extended to a holomorphic function \(f: D \to \C_\infty = \C \cup \{\infty\}\), sending poles to \(\infty\), between Riemann surfaces.
 \end{remark}
 
 \begin{proposition}
@@ -1497,7 +1501,7 @@ With Laurent series defined and shown to be unique and uniformly continuous, we 
 \end{proposition}
 
 \begin{proof}
-  Using uniform convergence of the Laurent expansion, we can integrate term-by-term and thus reduce the problem to computing \(\int_\gamma (z - a)^n dz\). Since \(\frac{(z - a)^{n + 1}}{n + 1}\) is an anti-derivative of \((z - a)^n\) for \(n \neq -1\), the only term that survives is
+  Using uniform convergence of the Laurent expansion, we can integrate term-by-term and thus reduce the problem of computing \(\int_\gamma (z - a)^n dz\). Since \(\frac{(z - a)^{n + 1}}{n + 1}\) is an anti-derivative of \((z - a)^n\) for \(n \neq -1\), the only term that survives is
   \[
     c_{-1} = \int_\gamma \frac{dz}{z - a} = 2\pi i I(\gamma, a) \res_{z = a} f.
   \]
@@ -1524,7 +1528,7 @@ With Laurent series defined and shown to be unique and uniformly continuous, we 
   \]
 \end{proof}
 
-\subsection{Application and Techniques of integration}
+\subsection{Application and techniques of integration}
 
 In this section we will discuss how to actually use \nameref{thm:residue} to compute integrals, which often involve simple geometric curves such as semicircles and rectangles. We will also solve some trickey real integral by clever use of \nameref{thm:residue}.
 
@@ -1548,14 +1552,14 @@ Firstly, the following observations are useful for computing residues:
   \]
 \end{enumerate}
 
-The main ``skill'' is to choose the right integrand and the right paths. Some lemma also help us deform paths into more amenable forms.
+The main ``skill'' is to choose the right integrand and the right path. Somes lemma also help us deform paths into more amenable forms.
 
 \begin{eg}
   Consider
   \[
     \int_{-\infty}^\infty \frac{\cos x}{1 + x + x^2} dx.
   \]
-  Let \(f(z) = \frac{e^{iz}}{1 + z + z^2}\) and \(\gamma = \gamma_R + \) where \(\gamma_R\) is the semicircle in the upper half plane around the origin of radius \(R\). \(f\) has a simple pole at \(w = e^{2\pi i/3}\) with index \(I(\gamma_R, w) = 1\). By \nameref{thm:residue},
+  Let \(f(z) = \frac{e^{iz}}{1 + z + z^2}\) and \(\gamma = \gamma_R + \gamma_0\) where \(\gamma_R\) is the semicircle in the upper half plane around the origin of radius \(R\). \(f\) has a simple pole at \(w = e^{2\pi i/3}\) with index \(I(\gamma, w) = 1\). By \nameref{thm:residue},
   \begin{align*}
     \int_{\gamma_R} f(z) dz = 2\pi i \res_{z = w} f,
   \end{align*}
@@ -1566,7 +1570,7 @@ The main ``skill'' is to choose the right integrand and the right paths. Some le
     \left| \int_{\gamma_R} f(z) dz \right|
     &= \left| \int_0^\pi f(Re^{it})Rie^{it} dt \right| \\
     &\leq R \int_0^\pi |f(Re^{it})| dt \\
-    &= R \int_o^\pi \frac{\overbrace{|e^{-R\sin t}|}^{\leq 1}}{\underbrace{|1 + Re^{it} + R^2e^{2it}|}_{\geq R^2 - R - 1}} dt \\
+    &= R \int_0^\pi \frac{\overbrace{|e^{-R\sin t}|}^{\leq 1}}{\underbrace{|1 + Re^{it} + R^2e^{2it}|}_{\geq R^2 - R - 1}} dt \\
     &\leq \frac{R\pi}{R^2 - R - 1} \\
     &\to 0
   \end{align*}
@@ -1576,12 +1580,12 @@ The main ``skill'' is to choose the right integrand and the right paths. Some le
   \]
 \end{eg}
 
-Instead of doing it every time, we prove two lemmas:
+The key idea is that the integral along the semicircle \(\gamma_R\) vanishes as \(R \to \infty\).
 
 \begin{lemma}
   Let \(f\) be a holomorphic function on \(D(a, r) \setminus \{a\}\) with a simple pole at \(a\). If \(0 < \varepsilon < r\) and let \(\gamma_\varepsilon: [\alpha, \beta] \to \C, t \mapsto a + \varepsilon e^{it}\). Then
   \[
-    \lim_{\varepsilon \to 0} \int_{\gamma_\varepsilon} f(z) dz = (\beta - \alpha) i \res_{z - a} f.
+    \lim_{\varepsilon \to 0} \int_{\gamma_\varepsilon} f(z) dz = (\beta - \alpha) i \res_{z = a} f.
   \]
 \end{lemma}
 
@@ -1598,11 +1602,12 @@ This allows us to ``jump'' over a pole.
   \]
   as \(\varepsilon \to 0\) since \(g\) is bounded on a neighbourhood of \(a\) by continuity. Then
   \[
-    \int_{\gamma_\varepsilon} \frac{c}{z - a} dz = c \int_\alpha^\beta \frac{\varepsilon e^{it}}{\varepsilon e^{it}} dt = (\beta - \alpha)ic.
+    \int_{\gamma_\varepsilon} \frac{c}{z - a} dz = c \int_\alpha^\beta \frac{i\varepsilon e^{it}}{\varepsilon e^{it}} dt = (\beta - \alpha)ic.
   \]
 \end{proof}
 
 \begin{lemma}[Jordan]\index{Jordan's lemma}
+  \label{lem:Jordan}
   If \(f\) is holomorphic on \(\{|z| > r\}\) and \(zf(z)\) is bounded for large \(|z|\), then for all \(\alpha > 0\),
   \[
     \int_{\gamma_R} f(z)e^{i\alpha z} dz \to 0
@@ -1610,7 +1615,7 @@ This allows us to ``jump'' over a pole.
   as \(R \to \infty\) where \(\gamma_R(t) = Re^{it}, t \in [0, \pi]\).
 \end{lemma}
 
-This comes very handy when one computes Fourier transforms. Also this can be used to solve our above example almost trivially.
+This comes very handy when one computes Fourier transforms. Also this makes our first example almost trivial.
 
 \begin{proof}
   We know \(|f(z)| \leq \frac{c}{|z|}\) for large \(|z|\). Observe that on \([0, \frac{\pi}{2}]\) the function \(\frac{\sin t}{t}\) is decreasing. Thus \(\sin t \geq \frac{2t}{\pi}\) for \(t \in [0, \frac{\pi}{2}]\). Then on the path \(z = Re^{it}\),
@@ -1636,11 +1641,11 @@ as \(R \to \infty\).
   \[
     \int_0^\infty \frac{\sin x}{x} dx.
   \]
-  A naive \(f(z) = \frac{e^{iz}}{z}\) would pass through the pole at \(z = 0\). Consider the semicircular path with a cutout \(\gamma_\varepsilon\) at the origin. This path contains no singularity so has integral zero. By Jordan's, \(\int_{\gamma_R} f(z) dz \to 0\) as \(R \to \infty\). Also by the previous lemma,
+  Let \(f(z) = \frac{e^{iz}}{z}\). A naïve choice of semicircular path would pass through the pole at \(z = 0\). Instead consider the semicircular path with a cutout \(\gamma_\varepsilon\) at the origin. This path contains no singularity so has integral zero. By \nameref{lem:Jordan}, \(\int_{\gamma_R} f(z) dz \to 0\) as \(R \to \infty\). Also by the previous lemma,
   \[
     \int_{\gamma_\varepsilon} f(z) dz \to - \pi i \res_{z = 0} f = -\pi i.
   \]
-  Putting everyting together,
+  Putting everything together,
   \[
     \int_0^\infty \frac{\sin x}{x} dx = \frac{\pi}{2}.
   \]
@@ -1651,21 +1656,152 @@ as \(R \to \infty\).
   \[
     I = \int_0^{\pi/2} \frac{dt}{1 + \sin^2 t}.
   \]
-  Note \(I = \frac{1}{4} int_0^{\pi/2} \frac{dt}{1 + \sin^2 t}\). On the unit circle \(z = e^{it}\),
+  Note \(I = \frac{1}{4} \int_0^{2\pi} \frac{dt}{1 + \sin^2 t}\). On the unit circle \(z = e^{it}\),
   \[
     \sin t = \frac{e^{it} - e^{-it}}{2i} = \frac{z - \frac{1}{z}}{2i}.
   \]
   Thus
   \begin{align*}
     I
-    &= \frac{1}{4} \int_{|z| = 1} \frac{dz}{(1 + \frac{z - 1/z}{-4})iz} \\
+    &= \frac{1}{4} \int_{|z| = 1} \frac{dz}{(1 + (\frac{(z - 1/z)^2}{-4})iz} \\
     &= \int_{|z| = 1} \underbrace{\frac{iz}{z^4 - 6z^2 + 1}}_f dz \\
     &= 2\pi i \cdot i (\res_{z = 1 - \sqrt 2} f + \res_{z = -1 + \sqrt 2} f) \\
     &= \frac{\pi\sqrt 2}{4}
   \end{align*}
 \end{eg}
 
+\section{The Argument Principle, Local degree, Open mapping theorem \& Rouche's theorem}
 
+We will use \nameref{thm:residue} to develop a better understanding of the holomorphic functions.
+
+\begin{proposition}
+  Let \(f\) have a zero (pole, respectively) of order \(k\) at \(z = a\). Then \(\frac{f'(z)}{f(z)}\) has a simple pole at \(z = a\) with residue \(k\) (\(-k\), respectively).
+\end{proposition}
+
+\begin{proof}
+  If \(f\) has a zero of order \(k\) at \(z = a\), then
+  \[
+    f(z) = (z - a)^k g(z)
+  \]
+  where \(g(z)\) is holomorphic and non-zero at \(z = a\). Then
+  \[
+    \frac{f'(z)}{f(z)} = \frac{k}{z - a} + \frac{g'(z)}{g(z)}.
+  \]
+  Hence the result. The pole case is similar.
+\end{proof}
+
+\begin{theorem}[Argument principle]\index{argument principle}
+  \label{thm:argument principle}
+  Let \(U\) be a simply connected domain and suppose \(f\) is meromorphic on \(U\) with finitely many zeros \(\{z_1, \dots, z_k\}\) and poles \(\{w_1, \dots, w_\ell\}\). Let \(\gamma\) be a closed curve in \(U\) such that \(z_i, w_j \notin \gamma\). Then
+  \[
+    \frac{1}{2\pi i} \int_\gamma \frac{f'(z)}{f(z)} dz
+    = \sum_{i = 1}^k I(\gamma, z_i) \ord_{z_i}(f)
+    - \sum_{j = 1}^\ell I(\gamma, w_j) \ord_{w_j}(f)
+  \]
+  where \(\ord_{z_i} f\) and \(\ord_{w_j} f\) denote the order of the zeros and poles.
+\end{theorem}
+
+\begin{proof}
+  Apply \nameref{thm:residue} to \(\frac{f'}{f}\). If \(f\) has no zero or pole at \(z\) then \(\frac{f'}{f}\) has no singularity at \(z\). Otherwise apply the previous proposition.
+\end{proof}
+
+\begin{remark}
+  Let \(\Gamma = f \compose \gamma\), then \(0 \notin \Gamma\). If we perform the substitution \(w = f(z)\) in the above integral we get
+  \[
+    \frac{1}{2\pi i} \int_\Gamma \frac{dw}{w} = I(\Gamma, 0).
+  \]
+\end{remark}
+
+\begin{definition}[Bounded domain]\index{bounded domain}
+  Let \(U\) be a domain and \(\gamma\) a closed curve in \(U\). The curve \(\gamma\) \emph{bounds} a domain \(D\) if \(I(\gamma, w) = 1\) for all \(w \in D\) and \(I(\gamma, w) = 0\) for all \(w \notin D \cup \gamma\).
+\end{definition}
+
+As a side note, we have the famous theorem (which we will definitely not prove) which gives a precise definition of the ``interior'' of a closed curve:
+
+\begin{theorem}[Jordan curve theorem]
+  Every simple closed curve admits an orientation such that it bounds a domain provided \(U\) is simply connected.
+\end{theorem}
+
+If \(\gamma\) bounds \(D\), then we get
+\[
+  I(\Gamma, 0) = N - P
+\]
+where
+\begin{align*}
+  N &= \#\text{zeros of \(f\) in \(D\) counted with mutiplicity} \\
+  P &= \#\text{poles of \(f\) in \(D\) counted with multiplicity}
+\end{align*}
+
+\begin{definition}[Local degree]\index{local degree}
+  If \(f\) is nonconstant and holomorphic at \(z = a\) and \(b = f(a)\), we say that the \emph{local degree} of \(f\) at \(z = a\) is the order of zero of \(f(z) - b\) at \(z = a\). We denote it by \(\deg_a f\), which is a positive integer.
+\end{definition}
+
+\begin{proposition}
+  The local degree of \(f\) at \(z = a\) equals to \(I(f \compose \gamma, f(a))\) for any circle \(\gamma(t) = a + re^{2\pi it}, t \in [0, 1]\) of sufficiently small radius.
+\end{proposition}
+
+\begin{proof}
+  Given the previous discussion, just apply \nameref{thm:argument principle} to \(f(z) - f(a)\). As it has isolated zeros it is non-zero for \(0 < |z - a| \leq r\) if \(r\) is sufficiently small.
+\end{proof}
+
+\begin{theorem}[Local mapping degree]\index{local mapping degree}
+  \label{thm:local mapping degree}
+  Let \(f: D(a, r) \to \C\) be holomorphic and non-constant with local degree \(\deg_a f = d > 0\). Then if \(r > 0\) is sufficiently small then there exists \(\varepsilon > 0\) such that for every \(w\) with \(0 < |w - f(a)| \leq \varepsilon\), the equation
+  \[
+    f(z) = w
+  \]
+  has exactly \(d\) distinct real roots in \(D(a, r)\).
+\end{theorem}
+
+Thus degree is indeed a local property. Consequently in Riemann surfaces, any holomorphic function has a local model \(z \mapsto z^d\).
+
+\begin{proof}
+  Let \(b = f(a)\) and let \(r > 0\) be such that \(f(z) - b\) and \(f'(z)\) are both non-zero for \(0 < |z - a| \leq r\). Let \(\gamma\) be the circle of centre \(z = a\) and radius \(r\). Then \(\Gamma = f \compose \gamma\) is a closed curve missing \(b\). Choose \(\varepsilon > 0\) such that \(D(b, \varepsilon)\) does not intersect \(\Gamma\). Then if \(w \in D(b, \varepsilon)\), the number of zeros counted with multiplicity of \(f(z) - w\) in \(D(a, r)\) equals to \(I(\gamma, w)\) by \nameref{thm:argument principle}. But \(I(\Gamma, w) = I(\Gamma, b) = d\). Since \(r\) is chosen so that \(f'\) is non-zero on \(D(a, r) \setminus \{a\}\), the zeros are all simple.
+\end{proof}
+
+\begin{corollary}[Open mapping theorem]\index{open mapping theorem}
+  \label{cor:open mapping theorem}
+  A non-constant holomorphic function \(f: U \to \C\) maps open sets to open sets.
+\end{corollary}
+
+\begin{proof}
+  Let \(V \subseteq U\) be open. Need to prove that given \(a \in V\), there is a disc around \(f(a)\) inside \(f(V)\). But by \nameref{thm:local mapping degree}, we can choose \(r, \varepsilon > 0\) such that \(D(a, r) \subseteq V\) and \(D(f(a), \varepsilon) \subseteq f(V)\).
+\end{proof}
+
+\begin{remark}
+  This gives the inverse function theorem: if \(f'(a) \neq 0\), \(\deg_a f = 1\), \nameref{thm:local mapping degree} says that there is a local inverse \(g\) and \nameref{cor:open mapping theorem} implies that \(g\) is continuous. Moreover, \(g\) is holomorphic by the argument in proof of differentiability of power series, which is the same as in IA Analysis I.
+\end{remark}
+
+\begin{theorem}[Rouché]\index{Rouché's theorem}
+  \label{thm:Rouche}
+  Let \(\gamma\) bound a domain \(D\) and let \(f\) and \(g\) be holomorphic in \(U \supseteq D\). If \(|f| > |g|\) on \(\gamma\), then \(f\) and \(f + g\) have the same number of zeros in \(D\) counted with multiplicty.
+\end{theorem}
+
+\begin{proof}
+  Let \(h = f + g\). Note that by hypothesis \(f\) and \(h\) have no zeros on \(\gamma\). Consider \(F = h/f\) which is defined on \(\gamma\). Observe that \(|h - f| < |f|\) on \(\gamma\) so \(|F - 1| < 1\) on \(\gamma\). Then \(\Gamma = F \compose \gamma\) lies inside \(D(1, 1)\). \(0\) is in the unbounded component of \(\C \setminus \im \Gamma\) so \(I(\Gamma, 0) = 0\). Thus
+  \begin{align*}
+    0
+    &= \frac{1}{2\pi i} \int_\gamma \frac{F'(z)}{F(z)} dz \\
+    &= \frac{1}{2\pi i} \int_\gamma \frac{h'}{h} - \frac{f'}{f} dz \\
+    &= I(h \compose \gamma, 0) - I(f \compose \gamma, 0) \\
+    &= \#\text{zeros of } h - \#\text{zeros of } f
+  \end{align*}
+  where the last line is by \nameref{thm:argument principle}.
+\end{proof}
+
+\begin{eg}
+  Let \(p(z) = \underbrace{z^4}_f + \underbrace{5z + 3}_g\). On \(|z| = 2\),
+  \begin{align*}
+    |f| &= |z^4| = 16 \\
+    |g| &= |6z + 3| \leq 6|z| + 3 = 15
+  \end{align*}
+  so \(|f| > |g|\). Thus by \nameref{thm:Rouche}, \(p\) has \(4\) zeros inside \(|z| < 2\). Now consider \(p(z) = \underbrace{z^4 + 3}_g + \underbrace{6z}_f\) on \(|z| = 1\), verify that
+  \begin{align*}
+    |f| &= |6z| = 6 \\
+    |g| &= |z^4 + 3| \leq |z^4| + 3 = 4
+  \end{align*}
+  so \(p\) has 1 root inside \(|z| < 1\). Thus we conclude that \(p\) has 3 roots in \(1 \leq |z| < 2\) and 1 root in \(|z| < 1\).
+\end{eg}
 
 \printindex
 
