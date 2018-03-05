@@ -10,6 +10,8 @@
 
 \input{header}
 
+\DeclareMathOperator{\dom}{dom}%domain of a function
+
 \begin{document}
 
 \input{titlepage}
@@ -273,7 +275,7 @@ To prove adequacy, which is a bit harder, we need a few lemmas.
   \(S\) is \emph{inconsistent} if \(S \yields \bot\). Otherwise \(S\) is \emph{consistent}.
 \end{definition}
 
-\begin{theorem}[Model existence lemma]
+\begin{theorem}[Model existence lemma]\index{model existence lemma}
   Let \(S \subseteq L\) be consistent, then \(S\) has a model.
 \end{theorem}
 
@@ -741,9 +743,9 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
 
 Given an ordinal \(\alpha\), does \(\alpha\) has a greatest element?
 
-If yes, say \(\beta\) is greatest. Then \(\gamma < \beta\) or \(\gamma = \beta\) implies \(\gamma < \alpha\) and \(\gamma < \alpha\) implies \(\gamma < \beta\) or \(\gamma = \beta\) (as we can't have \(\gamma > \beta\)). So \(\alpha = \beta^+\). Call \(\alpha\) a \emph{successor}\index{successor}.
+If yes, say \(\beta\) is greatest. Then \(\gamma < \beta\) or \(\gamma = \beta\) implies \(\gamma < \alpha\) and \(\gamma < \alpha\) implies \(\gamma < \beta\) or \(\gamma = \beta\) (as we can't have \(\gamma > \beta\)). So \(\alpha = \beta^+\). Call \(\alpha\) a \emph{successor}\index{successor ordinal}.
 
-If no, then for every \(\beta < \alpha\), then there exists \(\gamma < \alpha\) such that \(\gamma > \beta\). Thus \(\alpha = \sup\{\beta: \beta < \alpha\}\) (note that this is false in general without the absence of greatest element hypothesis, e.g.\ \(\omega + 5\)). Call \(\alpha\) a \emph{limit}\index{limit}.
+If no, then for every \(\beta < \alpha\), then there exists \(\gamma < \alpha\) such that \(\gamma > \beta\). Thus \(\alpha = \sup\{\beta: \beta < \alpha\}\) (note that this is false in general without the absence of greatest element hypothesis, e.g.\ \(\omega + 5\)). Call \(\alpha\) a \emph{limit}\index{limit ordinal}.
 
 \begin{eg}
   \(5\) and \(\omega + 5\) are successors. \(\omega\) and \(\omega + \omega\) are limits. \(0\) is a limit by definition.
@@ -752,6 +754,8 @@ If no, then for every \(\beta < \alpha\), then there exists \(\gamma < \alpha\) 
 \subsection{Ordinal arithmetics}
 
 Missed a lecture
+
+\blindtext
 
 \begin{definition}[Ordinal multiplication (inductive)]
   Define \(\alpha\beta\) recursively by
@@ -1097,9 +1101,9 @@ In the proof of Zorn's lemma, we chose for each \(x \in X\) an \(x' > x\) --- i.
 
 In terms of ``rules for building sets'', this is appealing to \emph{axiom of choice}, which says that we may choose an element of each set in a family of non-empty sets. More precisely,
 
-\begin{theorem}[Axiom of choice]\index{axiom of choice}
+\begin{axiom}[Axiom of choice]\index{axiom of choice}
   If \(\{A_i: i \in I\}\) is a family of non-empty sets then it has a \emph{choice function}, i.e.\ a function \(f: I \to \bigcup_{i \in I} A_i\) such that \(f(i) \in A_i\) for all \(i\).
-\end{theorem}
+\end{axiom}
 
 This is of different character to the other set-building rules, such as union, power set etc in that the object whose existence is asserted is not uniquely specified by its properties, unlike, for example, union of sets. Thus often one points out when one has used Axiom of choice.
 
@@ -1117,11 +1121,11 @@ In Zorn's lemma, we used axiom of choice. Is there a proof of Zorn's lemma witho
   This poset is non-empty as \((\emptyset, \emptyset)\) is an element. Given a chain \(\{(J_q, f_q)\}_{q \in Q}\), we have \(\bigcup_{q \in Q} (J_q, f_q)\) as an upper bound. Thus by Zorn's lemma there exists a maximal element \((J, f)\). We must have \(J = I\), as if not we choose \(i \in I \setminus J, x \in A_i\), and put \(J' = J \cup \{i\}, f' = f \cup \{(i, x)\}\). Absurd.
 \end{proof}
 
-In conclusion, Zorn's lemma \(\Leftrightarrow\) axiom of choice (in the presence of the set-building rules).
+In conclusion, Zorn's lemma \(\iff\) axiom of choice (in the presence of the set-building rules).
 
 Actually, there is a three-way equivalence: we have shown Zorn's lemma implies well-ordering principle, and well-ordering principle implies axiom of choice trivially (\(\bigcup_{i \in I} A_i\) is well-ordered and let \(f(i)\) be least element of \(A_i\)). Therefore
 \[
-  \text{Zorn's lemma } \Leftrightarrow \text{ axiom of choice } \Leftrightarrow \text{ well-ordering principle}.
+  \text{Zorn's lemma } \iff \text{ axiom of choice } \iff \text{ well-ordering principle}.
 \]
 
 \begin{ex}
@@ -1166,7 +1170,7 @@ However, intriguingly, we can prove Bourbaki-Witt \emph{without} axiom of choice
 
 In fact, it is easy to deduce Zorn's lemma from Bourbaki-Witt (with axiom of choice) so we can view it as the ``choice-free version of Zorn's lemma''.
 
-\section{Predicate logic}
+\section{Predicate Logic}
 
 We studied propositional logic in chapter 1 but it is not powerful enough to express objects outside of primitive propositions. In this chapter we will introduce predicate logic, which is more intricate but more powerful. Before that we will have an overview of the theory we will develop.
 
@@ -1364,7 +1368,7 @@ If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variab
       & (\forall x \in A) (m(x, e) = x \land m(e, x) = x) \\
       & (\forall x \in A) (m(x, i(x)) = e \land m(i(x), x) = e)
     \end{align*}
-    Then an \(L\)-structure is a model of \(T\) if and only if \(T\) is a group. Note that there are two implications here (compare with, for example, a group is a model of the sentence representing associativity). We say \(T\) \emph{axiomatises the class of groups} of \emph{axiomatises the theory of groups}. Sometimes call the elements of \(T\) the \emph{axioms}\index{axiom} of \(T\).
+    Then an \(L\)-structure is a model of \(T\) if and only if \(T\) is a group. Note that there are two implications here (compare with, for example, a group is a model of the sentence representing associativity). We say \(T\) \emph{axiomatises the class of groups} or \emph{axiomatises the theory of groups}. Sometimes call the elements of \(T\) the \emph{axioms}\index{axiom} of \(T\).
   \item Theory of fields: \(\Omega = \{+, \times, -, 0, 1\}, \Pi = \emptyset\). Note that multiplicative inverse is not among them. \(T\) is
     \begin{align*}
       & \{ \text{abeilian group under } (+, - 0) \\
@@ -1468,7 +1472,7 @@ As deduction rules we have
   \end{itemize}
 \end{proof}
 
-\subsection{*Gödel Completeness Theorem}
+\subsection{Gödel Completeness Theorem*}
 
 \begin{proposition}[Soundness]\index{soundness}
   Let \(S \subseteq L, p \in L\). Then if \(S \yields p\) then \(S \models p\).
@@ -1554,6 +1558,7 @@ By remark before, have
 \end{corollary}
 
 \begin{theorem}[Gödel completeness theorem for first-order logic]\index{completeness}\index{Gödel completeness theorem for first-order logic}
+  \label{thm:Gödel completeness theorem}
   Let \(S\) be a set of sentences and \(p\) a sentence in language \(L\), then \(S \models p\) if and only if \(S \yields p\).
 \end{theorem}
 
@@ -1617,8 +1622,8 @@ Similarly,
 
 The takeaway is: finiteness is not a first-order property.
 
-\begin{corollary}[Upward Löwenheim-Skolem]\index{upward Löwenheim-Skolem theorem}
-  If a theory \(S\) has in infinite model then it has an uncountable model.
+\begin{corollary}[Upward Löwenheim-Skolem]\index{Löwenheim-Skolem theorem!upward}
+  If a theory \(S\) has an infinite model then it has an uncountable model.
 \end{corollary}
 
 \begin{proof}
@@ -1631,7 +1636,7 @@ Similarly, we could find a model into which \(\mathcal P (\mathcal P(\R))\) inje
   We know there is an infinite field \(\Q\), thus there exists a field of the same size as \(\mathcal P (\mathcal P(\R))\).
 \end{eg}
 
-\begin{corollary}[Downward Löwenheim-Skolem]\index{downward Löwenheim-Skolem theorem}
+\begin{corollary}[Downward Löwenheim-Skolem]\index{Löwenheim-Skolem theorem!downward}
   Let \(S\) be a theory in a countable language \(L\). Then if \(S\) has a model then it has a countable model.
 \end{corollary}
 
@@ -1639,7 +1644,214 @@ Similarly, we could find a model into which \(\mathcal P (\mathcal P(\R))\) inje
   The model constructed in \nameref{thm:model existence lemma} in \(\cl S\) is countable.
 \end{proof}
 
-Note that this \emph{is} examinable.
+Note that this theorem and its proof \emph{are} examinable.
+
+\subsection{Peano Arithmetic}
+
+We try to make the usual axioms of \(\N\) into a first-order theory.
+
+\begin{definition}[Peano arithmetic]\index{Peano arithmetic}
+  \emph{Peano arithmetic} (PA) or \emph{formal number theory} has language \(L\) consist of \(\Omega = \{0, s, + ,\times\}\) where \(\alpha(0) = 0\), \(\alpha(s) = 1\) is the \emph{successor}, \(\alpha(+) = \alpha(\times) = 2\). \(\Pi = \emptyset\). The axioms are
+  \begin{enumerate}
+  \item \((\forall x) \neg(s(x) = 0)\).
+  \item \((\forall x)(\forall y) (s(x) = s(y) \implies x = y)\).
+  \item \((\forall y_1)\cdots (\forall y_n) ((p[0/x] \land (\forall x) (p \implies p[s(x)/x])) \implies (\forall x) p)\) where the quantifiers in front are parameters, for each formula \(p\) and free variables \(x, y_1, \dots, y_n\).
+  \item \((\forall x) (x + 0 = x)\).
+  \item \((\forall x) (\forall y) (x + s(y) = s(x + y))\).
+  \item \((\forall x) (x \times 0 = 0)\).
+  \item \((\forall x)(\forall y) (x \times s(y) = s \times y + x)\).
+  \end{enumerate}
+\end{definition}
+
+\begin{note}
+  The 3rd axiom is the induction axiom. Our first guess would have been
+  \[
+    (p[0/x] \land (\forall x) (p \implies p[s(x)/x])) \implies (\forall x) p,
+  \]
+  but then we miss properties like \(x \geq y\) where \(y\) is chosen earlier.
+\end{note}
+
+PA has an infinite model \(\N\) so by upward Löwenheim-Skolem, it has an uncountable model, which is not isomorphic to \(\N\). Doesn't this contradict the fact that the usual axioms characterise \(\N\) uniquely?
+
+The answer is no: axiom 3 is only ``first-order'' induction. Even in \(\N\) itself, it refers to only countably many subsets, as opposed to true induction, which talks about the uncountably many subsets of \(\N\).
+
+Note that in PA the only constant is \(0\). We write \(1 = s(0), 2 = 1 + 1 = s(1)\) etc.
+
+\begin{definition}[Definable]\index{definable}
+  A subset \(S \subseteq \N\) is called \emph{definable} if there exists a formula \(p \in L\) and free variable \(x\) such that for all \(m \in \N\) we have \(m \in S\) if and only if \(p[m/x]\) holds in \(\N\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The set of square numbers. \(p(x)\) is \((\exists x) (y \times y = x)\).
+  \item The set of primes. \(p(x)\) is \(\neg (x = 0) \land \neg (x = 1) \land (\forall y) (y \divides x \implies y = 1 \lor y = x)\) where \(y \divides x\) means \((\exists z) (y \times z = x)\). 
+  \item Powers of \(2\). \(p(x)\) is \((\forall x) ((y \divides x \land y \text{ prime}) \implies y = 2)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}
+  Write down the defining formula for the following sets:
+  \begin{enumerate}
+  \item powers of \(4\).
+  \item powers of \(6\).
+  \end{enumerate}
+\end{ex}
+
+The key question we are concerned with is: is PA a complete theory? In other words, for each sentence \(p\), is it true that PA \(\yields p\) or PA \(\nyields \neg p\)?
+
+\begin{theorem}[Gödel incompleteness theorem]\index{Gödel incompleteness theorem}
+  PA is not complete.
+\end{theorem}
+
+Take \(p\) with PA \(\nyields p\) and PA \(\nyields \neg p\). Then we have \(p\) or \(\neg p\) holds in \(\N\), although we cannot prove it. Thus there the conclusion is there exists a sentence \(p\) such that \(p\) is true in \(\N\) but PA \(\nyields p\).
+
+Note that this \emph{doesn't} contradict \nameref{thm:Gödel completeness theorem} which says that if \(p\) is true in \emph{all} models of PA then PA \(\yields p\).
+
+\section{Set Theory}
+
+The aim of this chapter is to answer the question, what does ``the universe of set'' look like? The key starting point is to view set theory as just another first order theory. There are many formulations of set theory and we will take Zermelo-Fraenkel set theory.
+
+\subsection{Zermelo-Fraenkel Set Theory}
+
+\begin{definition}[Zermelo-Fraenkel set theory]\index{Zermelo-Fraenkel set theory}
+  \emph{Zermelo-Fraenkel set theory} (ZF) has language \(L\) consisting of \(\Omega = \emptyset, \Pi = \{\in\}, \alpha(\in) = 2\) with the ZF axioms (to be stated below).
+\end{definition}
+
+There are 9 ZF axioms in total: 2 to get started, 4 to build things and the last 3 might not be the things we would have thought of at first.
+
+\begin{axiom*}[Axiom of extension]
+  \[
+    (\forall x) (\forall y) ((\forall z) (z \in x \iff z \in y) \implies x = y).
+  \]
+\end{axiom*}
+``If two sets have the same member, then they are equivalent.''
+
+\begin{note}
+  The converse is also true, which is an instance of logical axiom.
+\end{note}
+
+\begin{axiom*}[Axiom of separation]
+  \[
+    (\forall t_1) \cdots (\forall t_n) (\forall x) (\exists y) (\forall z) (z \in y \iff (z \in x \land p(z)))
+  \]
+  for each formula \(p(x)\) and free variables \(x, t_1, \dots, t_n\).
+\end{axiom*}
+``We can form a subset of a set.'' More precisely, given a set \(x\) and a property \(z\), we can form \(\{z \in x: p(z)\}\).
+
+\begin{note}
+  We do want parameters, e.g.\ to have \(\{z \in x: t \in z\}\) where \(t\) is chosen earlier.
+\end{note}
+
+\begin{axiom*}[Axiom of empty set]
+  \[
+    (\exists x) (\forall y) \neg (y \in x).
+  \]
+\end{axiom*}
+``There is a set with no member.''
+
+We write \(\emptyset\) for the unique (by axiom of extension) such set \(x\). This is just an abbreviation: \(p(\emptyset)\) means \((\exists x) ((\forall y) (\neg y \in x) \land p(x))\).
+
+Similarly, we write \(\{z \in x: p(z)\}\) for sets formed by axiom of separation.
+
+\begin{axiom*}[Axiom of pair set]
+  \[
+    (\forall x) (\forall y) (\exists z) (\forall t) (t \in z \iff t = x \land t = y).
+  \]
+\end{axiom*}
+``We can form \(\{x, y\}\).''
+
+We write \(\{x, y\}\) for this set, and \(\{x\}\) for \(\{x, x\}\). Now we can defined an ordered pair:
+
+\begin{definition}[Ordered pair]\index{ordered pair}
+  An \emph{ordered pair} \((x, y)\) is \(\{\{x\}, \{x, y\}\}\).
+
+  \(x\) is an ordered pair if \((\exists y) (\exists z) (x = (y, z))\).
+\end{definition}
+
+It is easy to check that \((x, y) = (t, u) \implies (x = t \land y = u)\) using axioms we have so far.
+
+\begin{definition}[Function]\index{function}
+  \(f\) is a \emph{function} if
+  \[
+    (\forall x) (x \in f \implies x \text{ ordered pair}) \land (\forall x) (\forall y) (\forall z) ((x, y) \in f \land (x, z) \in f \implies y = z).
+  \]
+
+  The \emph{domain} of a function \(f\), written \(x = \dom f\), is such that
+  \[
+    (f \text{ a function}) \land (\forall z) (z \in x \iff (\exists t) ((z, t) \in t)).
+  \]
+
+  Write \(f: x \to y\) for
+  \[
+    (f \text{ a function}) \land (x = \dom f) \land (\forall z) ((\exists t) (t, z) \in f) \implies z \in y.
+  \]
+\end{definition}
+
+\begin{axiom*}[Axiom of union]
+  \[
+    (\forall x) (\exists y) (\forall z) (z \in y \iff (\exists t) (z \in t \land t \in x)).
+  \]
+\end{axiom*}
+``We can form unions.''
+
+\begin{axiom*}[Axiom of power set]
+  \[
+    (\forall x) (\exists y) (\forall z) (z \in y \iff z \subseteq x).
+  \]
+  where \(z \subseteq x\) means \((\forall t) (t \in z \implies t \in x)\).
+\end{axiom*}
+``We can form power sets.''
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item We write \(\bigcup x\) and \(\mathcal P(x)\) for the two sets. We also write \(x \cup y\) for \(\bigcup \{x, y\}\) etc.
+  \item No extra axiom is needed for intersections: we can form \(\bigcap x\) (with \(x \neq \emptyset\)) as a subset of \(y\) for any \(y \in x\), which can be done by axiom of separation.
+  \item We can now form Cartesian product of sets \(x \times y\) as a suitable subset of \(\mathcal P(\mathcal P(x \cup y))\): since if \(t \in x, y \in y\) then \((t, u) = \{\{t\}, \{t, u\}\} \in \mathcal P(\mathcal P(x \cup y))\).
+  \item Similarly we can form the set of all functions from \(x\) to \(y\), as a subset of \(\mathcal P(x \times y)\).
+  \end{enumerate}
+\end{note}
+
+The axioms so far should be quite intuitive. The next three are more subtle. Note that so far a model \(V\) of ZF must be infinite. For example, write \(x^+ = x \cup \{x\}\), then it is easy to check \(\emptyset, \emptyset^+, \emptyset^{++}, \dots\) are all distinct. We often write \(0\) for \(\emptyset\), \(1\) for \(\emptyset^+\), \(2\) for \(\emptyset^{++}\) etc, so
+\begin{align*}
+  1 &= \{0\} \\
+  2 &= \{0, 1\} \\
+  3 &= \{0, 1, 2\} \\
+  \vdots
+\end{align*}
+But this shows that \(V\) is infinite, which is not the question we are interested in. We want to know whether \(V \) has an infinite set, e.g.\ an \(x\) such that \(\emptyset \in x, \emptyset^+ \in x\) etc.
+
+\begin{definition}[Successor set]\index{successor set}
+  \(x\) is a \emph{successor set} if
+  \[
+    (\emptyset \in x) \land (\forall y) (y \in x \implies y^+ \in x).
+  \]
+\end{definition}
+
+\begin{axiom*}[Axiom of infinity]
+  \[
+    (\exists x) (x \text{ a successor set}).
+  \]
+\end{axiom*}
+``There is an infinite set.''
+
+Note that any intersection of successor sets is a successor set, so there exists a least one. Call it \(\omega\). This will be our version in \(V\) of \(\N\). Therefore
+\[
+  (\forall x) (x \in \omega) \iff (\forall y) (y \text{ a successor set} \implies x \in y).
+\]
+Note that if \(x \subseteq \omega\) is a successor set then \(x = \omega\) by definition, i.e.
+\[
+  (\forall x) (x \subseteq \omega \land \emptyset \in x \land (\forall y) (y \in x \implies x)) \implies x = \omega.
+\]
+This is genuine induction in \(V\) over all subsets \(x \subseteq \omega\), as opposed to first order induction in PA.
+
+It is also easy to check that
+\begin{align*}
+  & (\forall x) (x \in \omega) \implies \neg (x^+ = \emptyset) \\
+  & (\forall x) (\forall y) (x \in \omega \land y \in \omega \land x^+ = y^+) \implies x = y
+\end{align*}
+Thus \(\omega\) satisfies (in \(V\)) all the usual axioms for the natural numbers.
+
+Subsequently, we say \(x\) is finite if \((\exists y) (y \in \omega \land x \text{ bijects with } y)\). Then \(x\) is countable if \(x\) is finite or \(x\) bijects with \(\omega\).
 
 
 

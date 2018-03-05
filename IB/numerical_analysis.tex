@@ -1446,12 +1446,12 @@ and the lower right block is exactly the same as the one obtained after \(k\) st
 
 \subsection{Pivoting}
 
-In the factorisation algorithm above, what happens if \((A_{k - 1})_{kk} = 0\)? Indeec, not all matrices are LU factorisable. We have to \emph{pivot}.
+In the factorisation algorithm above, what happens if \((A_{k - 1})_{kk} = 0\)? Indeed, not all matrices are LU factorisable. We have to \emph{pivot}\index{pivot}.
 
 \begin{algorithm}
   \(A_0 = A\)\;
   \For{\(k = 1\) \KwTo \(n\)}{
-     let \(p \geq k\) be such that \((A_{k - 1})_{kk} \neq 0\)\;
+     let \(p \geq k\) be such that \((A_{k - 1})_{pk} \neq 0\)\;
      let \(P_k\) be the permutation matrix that swaps positions \(k\) and \(p\)\;
      \(l_k = \frac{1}{(P_kA_{k - 1})_{kk}} \cdot\) \(k\)th column of \(P_kA_{k - 1}\)\;
      \(u_k^T = \) \(k\)th row of \(P_kA_{k - 1}\)\;
@@ -1463,7 +1463,7 @@ In the factorisation algorithm above, what happens if \((A_{k - 1})_{kk} = 0\)? 
 If we unfold the algorithm, we get
 \begin{align*}
   A_1 &= P_1A - \ell_1u_1^T \\
-  A_2 &= P_2A_1 - \ell_2u_2^T = P_2P_1A - P_2\ell_1u_1^T - \ell_2u_w^T \\
+  A_2 &= P_2A_1 - \ell_2u_2^T = P_2P_1A - P_2\ell_1u_1^T - \ell_2u_2^T \\
   \vdots \\
   A_n &= P_{n - 1} \cdots P_1A - P_{n - 1} \cdots P_2 \ell_1 u_1^T - \cdots - \ell_nu_n^T
 \end{align*}
@@ -1483,10 +1483,10 @@ and
 Note that \(\tilde \ell_k\) has \(1\) at \(k\)th component and \(0\) for \(1, \dots, k - 1\) since the permutations only act on the components \(k + 1, \dots, n\). Thus \(L\) is a unit lower triangular matrix.
 
 \begin{note}
-  The algorithm can still fail if \((A_{k - 1})_{pk} = 0\) for all \(p \geq k\). But we can make a choice \(\ell_k\) to be the have \(1 \) in \(k\)th component and \(0\) elsewhere, and \(u_k^T\) to be \(k\)th row of \(A_{k - 1}\) so \(A_{k - 1} - \ell_ku_k^T\) has its \(k\)th row and column \(0\) (the factorisatoin in this case is not unique and we made a choice in \(\ell_k\)).
+  The algorithm can still fail if \((A_{k - 1})_{pk} = 0\) for all \(p \geq k\). But we can make a choice so that \(\ell_k\) have \(1 \) in \(k\)th component and \(0\) elsewhere, and \(u_k^T\) to be \(k\)th row of \(A_{k - 1}\) so \(A_{k - 1} - \ell_ku_k^T\) has its \(k\)th row and column \(0\) (the factorisation in this case is not unique and we made a choice in \(\ell_k\)).
 \end{note}
 
-Pivoting is not only needed to avoid the algorithm to fail but also to prevent round-off errors from accummulating. Thus it is always used for numerical stability of the algorithm. A common choice of pivot is to take \(p\) such that \(|(A_{k - 1})_{pk}|\) is maximum for all \(p \geq k\). With such a choice of pivot, all entries of \(L\) have abolute value \(\leq 1\).
+Pivoting is not only needed to prevent the algorithm from failing but also to prevent round-off errors from accummulating. Thus it is always used for numerical stability of the algorithm. A common choice of pivot is to take \(p\) such that \(|(A_{k - 1})_{pk}|\) is maximum for all \(p \geq k\). With such a choice of pivot, all entries of \(L\) have abolute value \(\leq 1\).
 
 \subsection{Symmetric matrices}
 

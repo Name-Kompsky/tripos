@@ -12,6 +12,7 @@
 
 \DeclareMathOperator{\codim}{codim}
 \DeclareMathOperator{\Int}{Int}
+\newcommand*{\inner}{\innerproduct}
 
 \begin{document}
 
@@ -1129,6 +1130,74 @@ Note that the map with such property is not unique, for example taking it negati
 \end{eg}
 
 Let \(X\) be an orientable surface and \(N: X \to S^2\) a Gauss map. Consider the differential \(dN_p: T_pX \to T_{N(p)}S^2\). Since \(N(p) \perp T_pX\) by definition, and \(N(p) \perp T_{N(p)} S^2\) by the observation in the example above, we can identify \(T_pX = T_{N(p)}S^2\). Thus we can treat \(dN_p: T_pX \to T_pX\) as an endormorphism of an inner product space. Next time we will show that it is self-adjoint with respect to the first fundamental form.
+
+
+\blindtext
+
+\subsection{Theorema Egregium}
+
+Since \(\{\varphi_u, \varphi_v, N\}\) form an orthonormal basis, we can express \(\varphi_{uu}, \varphi_{uv}\) etc as unique linear combinations of them. But what are the indices? Recall that
+\[
+  e = - \inner{\varphi_u, N_u} = \inner{\varphi_{uu}, N}
+\]
+and \(N\) is orthogonal to \(\varphi_U, \varphi_v\) so we have
+\[
+  \varphi_{uu}(u, v) = \Gamma_{11}^1(u, v) \varphi_u + \Gamma_{11}^2 \varphi_v + eN
+\]
+and etc.
+
+\begin{definition}
+  \(\Gamma_{ij}^k\) are called the \emph{Christoffel symbols}.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The Christoffel symbols are symmetric with repsect to lower indices, i.e.\ \(\Gamma_{ij}^k = \Gamma_{ji}^k\).
+  \item \(\Gamma_{ij}^k = A(E, F, G, \p E, \dots, \p G)\) where \(A\) is a universal function. Take the inner product of the above relations with \(\varphi_u\) and recoginising \(\inner{\varphi_u, \varphi_u} = E\), we get
+    \begin{align*}
+      \Gamma_{11}^1 E + \Gamma_{1}^2 F &= \inner{\varphi_{uu}, \varphi_u} = \frac{1}{2} \p_u \inner{\varphi_u, \varphi_u} = \frac{1}{2} \p_u E \\
+      \Gamma_{11}^1 F + \Gamma_{1}^2 G &= \inner{\varphi_{uu}, \varphi_v} = \p_u \inner{\varphi_u, \varphi_v} - \inner{\varphi_u, \varphi_{vu}} = \p_u F - \frac{1}{2} \p_v E
+    \end{align*}
+    Write it in matrix form,
+    \[
+      \begin{pmatrix}
+        E & F \\
+        F & G
+      \end{pmatrix}
+      \begin{pmatrix}
+        \Gamma_{11}^1 \\
+        \Gamma_{11}^2
+      \end{pmatrix}
+      =
+      \begin{pmatrix}
+        \frac{1}{2} \p_u E \\
+        \p_u F - \frac{1}{2} \p_v E
+      \end{pmatrix}
+    \]
+    We can repeat for the other \(\Gamma_{ij}^k\)'s.
+  \end{enumerate}
+\end{remark}
+
+Let's go on and continue differentiating. Differentiate * with respect to \(v\) and ** with respect to \(u\), and by symmetry of partial derivatives,
+\begin{align*}
+  &\p_v \Gamma_{11}^1 \varphi_u + \p_v \Gamma_{11}^2 \varphi_v + (\p_v e) N + \Gamma_{11}^1 \varphi_{uv} + \Gamma_{11}^2 \varphi_{vv} + e N_v \\
+  =& \p_u \Gamma_{12}^1 \varphi_u + \p_u \Gamma_{12}^2 \varphi_v + (\p_u f) N + \Gamma_{12}^1 \varphi_{uu} + \Gamma_{12}^2 \varphi_{vu} + f N_u
+\end{align*}
+Expand this in our favourite basis \(\{\varphi_u, \varphi_v, N\}\), we get three equations, each for a basis element. The first three components on each side are already in this form. Look up in * and **, we get
+\begin{align*}
+  \p_v \Gamma_{11}^2
+\end{align*}
+
+\blindtext
+
+And after some algebra we find that \(K\) can be expressed purely in terms of the first fundamental form and its derivative.
+
+\section{Critical points of length and curve}
+
+Suppose \(X \subseteq \R^3\) is a surface and \(p, q \in X\). Let \(\Omega(p, q)\) be the set of all regular paths from \(p\) to \(q\). Then the length could be seen as a functional on \(\Omega(p, q)\). Since length depends only on the first fundamental form, i.e.\ an intrinsic geometric quantity, it turns out that the curves minimising the length functional are also special and intrinsic to the surface. They are called \emph{geodesic}.
+
+Similarly, area is also a functional on the space of all surfaces. The area-miniming surfaces are called \emph{minimal surfaces} and eventually we can derive an equation depending on the mean curvature.
+
 
 
 \printindex

@@ -1153,7 +1153,7 @@ which is exactly the Poincare disc model of the hyperplane.
 \section{Smooth embedded surfaces}
 
 \begin{definition}[Smooth embedded surface]\index{Smooth embedded surface}
-  \(S \subseteq \R^3\) is a (parameterise) \emph{smooth embedded surface} if for all \(P \in S\), there is an open neighhood \(U = W \cap S\) and a map \(\sigma: V \to U\) from \(V \subseteq \R^2\) such that
+  \(S \subseteq \R^3\) is a (parameterised) \emph{smooth embedded surface} if for all \(P \in S\), there is an open neighbourhood \(U = W \cap S\) and a map \(\sigma: V \to U\) from \(V \subseteq \R^2\) such that
   \begin{enumerate}
   \item \(\sigma\) is a homeomorphism of \(V\) into \(U\),
   \item \(\sigma(u, v)\) is \(C^\infty\),
@@ -1161,7 +1161,264 @@ which is exactly the Poincare disc model of the hyperplane.
   \end{enumerate}
 \end{definition}
 
-\((u, v) \in V \subseteq \R^2\) are \emph{smooth coordinates} on \(U \subseteq S\). The subspace in \(\R^2\) spanned by\(\frac{\p \sigma}{\p u}(P), \frac{\p \sigma}{\p v}(P)\) is the \emph{tangent space} to \(S\) at \(\sigma(P)\). \(\sigma\) is a \emph{smoth parameterisation} of \(U \subseteq S\).
+\((u, v) \in V \subseteq \R^2\) are \emph{smooth coordinates} on \(U \subseteq S\). The subspace in \(\R^2\) spanned by\(\frac{\p \sigma}{\p u}(P), \frac{\p \sigma}{\p v}(P)\) is the \emph{tangent space} to \(S\) at \(\sigma(P)\). \(\sigma\) is a \emph{smooth parameterisation} of \(U \subseteq S\).
+
+\begin{proposition}
+  Suppose \(\sigma: V \to U, \tilde \sigma: \tilde V \to U\) are smooth parameterisations, then
+  \[
+    \varphi: \sigma^{-1} \compose \tilde \sigma: \tilde V \to V
+  \]
+  is a diffeomorphism.
+\end{proposition}
+
+\begin{proof}
+  It suffices to consider \(\varphi\) on some neighbourhood of \(P = (u_0, v_0) \in \tilde V\). The Jacobian matrix of \(\sigma\), \(\begin{psmallmatrix} x_u & x_v \\ y_u & y_v \\ z_u & z_v \end{psmallmatrix}\) has rank 2 at each \((u, v) \in \tilde V\). Wlog
+  \[
+    \det
+    \begin{pmatrix}
+      x_u & x_v \\
+      y_u & y_v
+    \end{pmatrix}
+    \neq 0
+  \]
+  at \((u_0, v_0)\). Let \(F(u, v) = \begin{psmallmatrix} x(u, x) \\ y(u, v) \end{psmallmatrix}\), then by Inverse function theorem, \(F\) maps some open \(N \subseteq \R^2, (u_0, v_0) \in N\), diffeomorphically onto an open \(N' \subseteq \R^2\).
+  \[
+    \begin{tikzcd}
+      & \sigma(N) \ar[d, "\pi"] \\
+      N \ar[ur, "\sigma"] \ar[r, "F"] & N' & \tilde N \ar[ul, "\tilde \sigma"'] \ar[l, "\tilde F"']
+    \end{tikzcd}
+  \]
+  Here \(\sigma(N)\) is open in \(S\) as \(\sigma\) is a homeomorphism. \(\pi = F \compose \sigma^{-1}\) is bijective as \(\sigma, F\) are so. \(\tilde N = \tilde \sigma^{-1}(\sigma(N)) \subseteq \tilde V\) is open and \(\tilde F = \pi \compose \tilde \sigma\). \(\pi^{-1}: N' \to \sigma(N)\) is well-defined. Furthermore, \(\pi(x, y, z) = (x, y)\) is linear, so smooth. Now
+  \[
+    \varphi = \sigma^{-1} \compose \tilde \sigma = (\sigma^{-1} \compose \pi^{-1}) \compose (\pi \compose \tilde \sigma) = F^{-1} \compose \tilde F
+  \]
+  on \(\tilde N\) is smooth as \(F^{-1}\) and \(\tilde F\) are.
+
+  Similarly (by symmetry of notation) \(\varphi^{-1}\) is smooth.
+\end{proof}
+
+Recall that if \(P \in V, Q \in \sigma(P)\), then the tangent space \(T_QS\) is the span of \(\sigma_u(P), \sigma_v(P)\).
+
+\begin{corollary}
+  The tangent plane \(T_QS\) is independent of \(\sigma\).
+\end{corollary}
+
+\begin{proof}
+  Use the same notation as the previous propositoin. Then
+  \[
+    \tilde \sigma(\tilde u, \tilde v) = \sigma(\varphi_1(\tilde u, \tilde v), \varphi_2(\tilde u, \tilde v))
+  \]
+  where \(\varphi = (\varphi_1, \varphi_2)\) by defintion. By chain rule,
+  \begin{align*}
+    \tilde \sigma_{\tilde u} &= (\varphi_1)_{\tilde u} \sigma_u + (\varphi_2)_{\tilde u} \sigma_v \\
+    \tilde \sigma_{\tilde v} &= (\varphi_1)_{\tilde v} \sigma_u + (\varphi_2)_{\tilde v} \sigma_v
+  \end{align*}
+  The Jacobian of \(\varphi\) is just the matrix composed of the coefficients in parenthesis and thus \(\varphi\) is invertible. Thus \(\sigma_u, \sigma_v\) and \(\tilde \sigma_{\tilde u}, \tilde \sigma_{\tilde v}\) have the same span.
+\end{proof}
+
+\begin{remark}
+  We can compute
+  \[
+    \tilde \sigma_{\tilde u} \times \tilde \sigma_{\tilde v} = \det(J(\varphi)) \sigma_u \times \sigma_v.
+  \]
+\end{remark}
+
+\begin{definition}[Unit normal]\index{unit normal}
+  The \emph{unit normal} to \(S\) at \(Q\) is
+  \[
+    N = N_Q = \frac{\sigma_u \times \sigma_v}{\norm{\sigma_u \times \sigma_v}}(P).
+  \]
+\end{definition}
+
+By the above remark, \(N\) is well-defined up to a sign.
+
+\begin{definition}[Chart]\index{chart}
+  \(\phi: \sigma^{-1}: U \to V\) where \(U \subseteq S, V \subseteq \R^2\) is a \emph{chart}.
+\end{definition}
+
+\begin{eg}
+  For \(S^2\), the two stereographic projections, from \(\begin{psmallmatrix} 0 \\ 0 \\ \pm 1 \end{psmallmatrix}\) are charts. Their domains cover \(S^2\).
+\end{eg}
+
+\begin{definition}[First fundamental form]\index{first fundamental form}
+  If \(S \subseteq \R^3\) is an embedded surface, then \(T_QS\) at each \(Q \in S\) has an induced inner product from \(\R^3\) --- the resulting family of inner products on tangent planes is called the \emph{first fundamental form} of \(S\).
+\end{definition}
+
+Given a parameterisation \(\sigma: V \to U \subseteq S, P \in V, a, b \in \R^2\), set
+\[
+  \inner{a, b}_P = \inner{d\sigma_P(a), d\sigma_P(b)}_{\R^3}.
+\]
+With respect to the standard basis \(e_1, e_2\) of \(\R^2\), RHS becomes
+\begin{equation}
+  \label{eqn:Riemmanian metric}
+  Edu^2 + 2Fdudv + Gdv^2
+  \tag{\(\ast\)}
+\end{equation}
+with
+\begin{align*}
+  E &= \inner{\sigma_u, \sigma_u} \\
+  F &= \inner{\sigma_u, \sigma_v} \\
+  G &= \inner{\sigma_v, \sigma_v}
+\end{align*}
+are \(C^\infty\) functrions of \((u, v) \in V\). Thus we have recovered our previous defintion of Riemannian metric. Thus the Riemannian metric \eqref{eqn:Riemannian metric} on \(V\) is also called the first fundamental form corresponding to a parameterisatio \(\sigma\).
+
+(first fundamental form is abstract but invariant to parameterisation, while Riemannian metric is easier to do computations with)
+
+\begin{definition}[Length, energy]\index{length}\index{energy}
+  Given a smooth curve \(\Gamma: [a, b] \to S \subseteq \R^2\), define the \emph{length} of \(\Gamma\) to be
+  \[
+    \int_a^b \norm{\Gamma'(t)} dt
+  \]
+  and the \emph{energy} to be
+  \[
+    \int_a^b \norm{\Gamma'(t)}^2 dt.
+  \]
+\end{definition}
+
+If \(\Gamma([a, b]) \subseteq U = \sigma(N)\) for some parameterisation \(\sigma\), then there exists a unique \(\gamma: [a, b] \to V\) such that \(\Gamma = \sigma \compose \gamma\). Thus it suffices to consider \(\gamma\), a curve ``in \(\R^2\)''. Write \(\gamma = (\gamma_1, \gamma_2)\), then
+\[
+  \Gamma'(t) = (d\sigma)_{\gamma(t)} (\dot \gamma_1(t)e_1 + \dot \gamma_2(t)e_2).
+\]
+Thus
+\begin{align*}
+  \Gamma'(t) &= \dot \gamma_1(t) \sigma_u|_{\gamma(t)} + \dot \gamma_2(t) \sigma_v|_{\gamma(t)} \\
+  \norm{\gamma'(t)} &= \inner{\dot \gamma, \dot \gamma}^{1/2}_{\gamma(t)} = (E \dot \gamma_1^2 + 2F \dot \gamma_1 \dot \gamma_2 + G \dot \gamma_2^2)^{1/2}.
+\end{align*}
+With these expressions, we can write
+\begin{align*}
+  \operatorname{length}(\gamma) &= \int_a^b (E \dot \gamma_1^2 + 2F \dot \gamma_1 \dot \gamma_2 + G \dot \gamma_2^2)^{1/2} dt \\
+  \operatorname{energy}(\gamma) &= \int_a^b (E \dot \gamma_1^2 + 2F \dot \gamma_1 \dot \gamma_2 + G \dot \gamma_2^2) dt
+\end{align*}
+
+\begin{definition}[Area]\index{area}
+  Given a parameterisation \(\sigma: V \to U \subseteq S \subseteq \R^3\) of \(S\) and a region \(T \pi U\), the \emph{area} of \(T\) is
+  \[
+    \int_{\theta(T)} \sqrt{EG - F^2} dudv
+  \]
+  where \(\theta = \sigma^{-1}\) is a chart, whenever RHS is defined.
+\end{definition}
+
+We state without proof a proposition:
+
+\begin{proposition}
+  The area defined as above is independent of parameterisation.
+\end{proposition}
+In particular, this shows that if the area does not exist in one parameterisation, then it does not exist in others as well.
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item In examples we encounter in this course, often \(\sigma(V) = U\) is dense in \(S\). Then area of \(S\) is just the integral over \(V\).
+  \item The area and lengths on \(S\) are invariant under isometries.
+  \end{enumerate}
+\end{remark}
+
+\section{Geodesics}
+
+Let \(V \subseteq \R^2_{u, v}\) be open, \(Edu^2 + 2Fdudv + Gdv^2\) a Riemannian metric on \(V\), \(\gamma = (\gamma_1, \gamma_2): [a, b] \to V\) a smooth curve.
+
+\begin{definition}[Geodesic]\index{geodesic}
+  \(\gamma\) is a \emph{geodesic} if
+  \begin{align*}
+    \frac{d}{dt} (E \dot \gamma_1 + F \dot \gamma_2) &= \frac{1}{2} (E_u \dot \gamma_1^2 + 2F_u \dot \gamma_1 \dot \gamma_2 + G_u \dot \gamma_2^2) \\
+    \frac{d}{dt} (F \dot \gamma_1 + G \dot \gamma_2) &= \frac{1}{2} (E_v \dot \gamma_1^2 + 2F_v \dot \gamma_1 \dot \gamma_2 + G_v \dot \gamma_2^2)
+  \end{align*}
+  holds for all \(t \in [a, b]\).
+\end{definition}
+
+To recoginise the importance of the definition, we need some knowledge from calculus of variantion.
+
+\begin{definition}[Proper variation]\index{proper variation}
+  Let \(\gamma(a) = p, \gamma(b) = q\). A \emph{proper variation} of \(\gamma\) is a \(C^\infty\) map \(h: [a, b] \times (-\varepsilon, \varepsilon) \to V\) such that
+  \begin{align*}
+    h(t, 0) &= \gamma(t) \quad \forall t \in [a, b] \\
+    h(a, \tau) &= p, h(b, \tau) = q \quad \forall \tau \in (-\varepsilon, \varepsilon)
+  \end{align*}
+  and put \(\gamma_\tau(t) = h(t, \tau)\), \(\gamma_\tau: [a, b] \to V\) is a \(C^\infty\) curve.
+\end{definition}
+
+\begin{proposition}
+  \(\gamma\) satisfies the geodesic ODE's if and only if \(\gamma\) is a stationary point for the energy for all proper variations (in the sense of Euler-Lagrange).
+\end{proposition}
+
+\begin{proof}
+  Relabel \(\gamma(t) = (u(t), v(t))\). Recall that energy can be written as
+  \[
+    \int_a^b (E(u, v) \dot u^2 + 2F(u, v) \dot u \dot v + G(u, v) \dot v^2) dt
+    = \int_a^b I(u, v, \dot u, \dot v) dt
+  \]
+  for some formal expression \(I\) taking 4 variables. Euler-Lagrange equations assert that \(\gamma\) is stationary if and only if
+  \begin{align*}
+    \frac{d}{dt} \frac{\p I}{\p \dot u} &= \frac{\p I}{\p u} \\
+    \frac{d}{dt} \frac{\p I}{\p \dot v} &= \frac{\p I}{\p v}
+  \end{align*}
+  which in our case of \(\gamma\) is
+  \begin{align*}
+    2 \frac{d}{dt} (E \dot u + F \dot v) &= E_u \dot u^2 + 2F_u \dot u \dot v + G_u \dot v^2 \\ 
+    2 \frac{d}{dt} (F \dot u + G \dot v) &= E_v \dot u^2 + 2F_v \dot u \dot v + G_v \dot v^2
+  \end{align*}
+  and the result follows.
+\end{proof}
+
+Let \(S \subseteq \R^3\) be an embedded surface and \(\sigma: V \to U\) be a parameterisation and \(\theta = \sigma^{-1}\) be a chart. Let \(\Gamma: [a, b] \to U\) be a smooth cruve in \(S\). Then \(\gamma = \theta \compose \Gamma\) is a smooth curve in \(V\).
+
+Now we can define geodesic in an equivalent but more synthetic way:
+
+\begin{definition}[Geodesic]\index{geodesic}
+  \(\Gamma\) is a \emph{geodesic curve} on \(S\) if and only if \(\gamma\) is a geodesic in \(V\). Thus \(\Gamma\) is a stationary point for the energy \(\int_a^b \norm{\Gamma'(t)}^2 dt\).
+\end{definition}
+
+Note that this is independent of the choice of chart \(\theta\).
+
+\begin{corollary}
+  If the curve \(\Gamma\) minimises the energy for curves joining \(P = \Gamma(a)\) and \(Q = \Gamma(b)\) in \(S\), then \(\Gamma\) is a geodesic.
+\end{corollary}
+
+\begin{proof}
+  For all \(a \leq a_1 < b_1 \leq b\), \(\Gamma_1 = \Gamma|_{[a_1, b_1]}\) minimises energy for all curves from \(\Gamma(a_1)\) to \(\Gamma(b_1)\). If \(a_1, b_1\) are so that \(\Gamma([a_1, b_1]) \subseteq U\) for some chart \(\theta: U \to V\) then \(\Gamma_1\) is a geodesic by the previous proposition. Now just vary \(a_1, b_1\) to get a cover of \([a, b]\).
+\end{proof}
+
+So far we have characterised geodesic as energy-minimising curves. There are some valid reasons that this is helpful. To get to the more intuitive understanding of geodesic as length-minimising curve, we need a techinical lemma:
+
+\begin{lemma}
+  Let \(V \subseteq \R^2\) open and endowed with a Riemannian metric. Let \(P, Q \in V\) and consider \(C^\infty\) curves \(\gamma: [0, 1] \to V\) with \(\gamma(0) = P, \gamma(1) = Q\). Then such \(\gamma_0\) minimises energy if and only if \(\gamma_0\) minimised the length and has constant speed.
+\end{lemma}
+
+\begin{proof}
+  Recall Cauchy-Schwarz for \(f, g \in C[a, b]\):
+  \[
+    \left( \int_a^b fg \right)^2 \leq \int_a^b f^2 \cdot \int_a^b g^2
+  \]
+  with equality if and only if \(g = \lambda f\) for some \(f \in \R\) or \(f = 0\).
+
+  Put \(f = 1, g = \norm{\dot \gamma}\) (with respect to the Riemannian metric), \(a = 0, b = 1\). Then
+  \[
+    (\operatorname{length} \gamma)^2 \leq \operatorname{energy} \gamma
+  \]
+  with equality if and only if \(\norm{\dot \gamma}\) is constant. If the length is \(\ell\) then the minimal energy is \(\ell^2\), occurs precisely when \(\norm{\dot \gamma}\) is constant.
+\end{proof}
+
+This gives a necessary condition for geodesic and one naturally wonders if it is also sufficient. It turns out that it is a pretty close guess but one has to be more careful:
+
+\begin{fact}
+  \(\Gamma\) is a geodesic if and only if it locally minimises the energy and also if and only if it locally minimises energy the length and has constant speed. In this case, ``locally minimises'' means that for all \(t_0\), there exists \(\varepsilon > 0\) such that \(\Gamma|_{[t_0 - \varepsilon, t_0 + \varepsilon]}\) minimises the desired quantity. This is not a caprice of our own but comes from ODE theory.j
+\end{fact}
+
+\begin{fact}
+  The geodesic ODE's imply that \(\norm{\Gamma'(t)}\) is constant, see example sheet 3.
+\end{fact}
+
+\begin{remark}
+  Given that \(\begin{psmallmatrix} E & F \\ F & G \end{psmallmatrix}\) is invertible, the geodesic ODE's are equivalent to
+  \[
+    (\ddot u, \ddot v) = F(v, u, \dot u, \dot v)
+  \]
+  Following from standard theory of ODE's. For all \(P = (u_0, v_0) \in V\), for all \(\V a = (a_0, b_0) \in \R^2\), there exists a unique geodesic \(\gamma(t), |t| \varepsilon\) with \(\gamma(0) = P, \dot \gamma(0) = \V a\).
+\end{remark}
+
+\begin{eg}
+  Consider the surface \(S^2\). For all \(P \in S^2\), for all tangent at \(P\), there exists a unique great circle as arcs \(< \pi\) are lenth-minimising. Great circles are all the geodesics on \(S^2\).
+\end{eg}
+
 
 
 

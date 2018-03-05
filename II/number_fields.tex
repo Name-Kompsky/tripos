@@ -1105,7 +1105,6 @@ Thus \(\Cl(\O_L)\) can be seen as the obstruction to \(\O_L\) being a UFD.
     \n(IJ) = \n(I)\n(J).
   \]
 \end{lemma}
-which says that ideals of \(\O_L\) behaves like principal ideals under norm.
 
 \begin{proof}
   Example sheet.
@@ -1138,7 +1137,7 @@ Then \(\mathfrak p \divides p \O_L\) and \(\n(\mathfrak p) = p^f\) for some \(f 
   \]
 \end{proof}
 
-\begin{definition}[Ramification]\index{ramified}\index{inert}\index{split completely}
+\begin{definition}[Ramification]\index{ramification}\index{inert}\index{split completely}
   Let \(p\) be a prime number and let \(p\O_L = \prod_{i = 1}^r \mathfrak{p}_i^{e_i}\) be the factorisation as above.
   \begin{enumerate}
   \item We say \(p\) \emph{ramifies} in \(L\) if \(e_i > 1\) for some \(i\). We say \(p\) is \emph{totally ramified} if \(r = 1\) and \(e_1 = [L:\Q]\), i.e.\ \(p\O_L = \mathfrak{p}_1^{[L:\Q]}\).
@@ -1295,7 +1294,7 @@ One application is the classification of prime ideals in ring of integers of qua
     x^2 - d = (x - d)^2 \pmod 2.
   \]
 
-  If \(d = 1 \pmod 4\) then \(\O_L = \Z[\frac{1 + \sqrt d}{2}]\) so we must factor \(x^2 + x + \frac{1 - d}{4} \pmod 2\). If \(d = 1 \pmod 8\) then
+  If \(d = 1 \pmod 4\) then \(\O_L = \Z[\frac{1 + \sqrt d}{2}]\) so we must factor \(x^2 - x + \frac{1 - d}{4} \pmod 2\). If \(d = 1 \pmod 8\) then
   \[
     x^2 + x = x(x + 1) \pmod 2.
   \]
@@ -1617,7 +1616,7 @@ This is a homomorphism of additive groups.
 \begin{proof}
   Apply \nameref{thm:Minkowski} to the lattice \(S(I)\) and the region, which might not be the most intuitive choice,
   \[
-    B_{r, s}(t) = \left\{ (x, z) \in \R^r \times \C^s: \sum_{i = 1}^r |x_i| + 2 \sum_{i = 1}^s |z_i| \leq t \right\}.
+    B_{r, s}(t) = \left\{ (\V x, \V z) \in \R^r \times \C^s: \sum_{i = 1}^r |x_i| + 2 \sum_{i = 1}^s |z_i| \leq t \right\}.
   \]
   Check that it is convex, centrally symmetric and compact. If
   \[
@@ -1642,7 +1641,7 @@ This is a homomorphism of additive groups.
   \]
   by induction on \(r\) and \(s\). Thus
   \[
-    2^r \left( \frac{\pi}{2} \right)^s \frac{t^n}{n!} = 2^n A(S(I)) = 2^{r + 2s} \n(I) \sqrt{|D_L|}.
+    2^r \left( \frac{\pi}{2} \right)^s \frac{t^n}{n!} = 2^n A(S(I)) = 2^{r + s} \n(I) \sqrt{|D_L|}.
   \]
   Rearrange,
   \[
@@ -1672,7 +1671,7 @@ Similar corollaries:
 \end{remark}
 
 \begin{eg}\leavevmode
-  Let \(f(x) = x^5 - x + 1\). This is irreducible module \(5\), so over \(\Q\). Let \(L = \Q(\alpha)\) where \(\alpha\) is a root of \(f(x)\). In this case \(r = 1, s = 2\). The discrimiant is
+  Let \(f(x) = x^5 - x + 1\). This is irreducible modulo \(5\), so over \(\Q\). Let \(L = \Q(\alpha)\) where \(\alpha\) is a root of \(f(x)\). In this case \(r = 1, s = 2\). The discrimiant is
   \[
     \disc f = 2869 = 19 \cdot 151
   \]
@@ -1711,7 +1710,7 @@ Similar corollaries:
   \[
     a^2 - 10b^2 = \pm 2.
   \]
-  Reduce modulo \(5\), either \(2\) or \(-2\) is a quadratic residue. Absurd. Thus \(\mathfrak p_2\) is not principal and
+  Reduce modulo \(5\), neither \(2\) or \(-2\) is a quadratic residue. Absurd. Thus \(\mathfrak p_2\) is not principal and
   \[
     \Cl(\O_L) \cong \Z/2\Z.
   \]
@@ -1795,6 +1794,7 @@ Similar corollaries:
 Let \(L\) be a number field of degree \(n\) and Let \(\tau_1, \dots, \tau_r: L \to \R\) be real embeddedings, \(\sigma_1, \dots, \sigma_s, \conj \sigma_1, \dots, \conj \sigma_s: L \to \C\) be distinct complex embeddings.
 
 \begin{theorem}[Dirichlet's unit theorem]\index{Dirichlet's unit theorem}
+  \label{thm:Dirichlet unit}
   There is an isomorphism
   \[
     \O_L^\times \cong \mu_L \times \Z^{r + s - 1}
@@ -1815,7 +1815,7 @@ This implies that if \(\alpha \in \O_L^\times\) then
   \log \n(\alpha) = \sum_{i = 1}^r \log |\tau_i(\alpha)| + 2 \sum_{i = 1}^s \log |\sigma_i(\alpha)| = 0.
 \]
 
-The proof the theorem will show \(\ell(\O_L^\times)\) is a lattice in \(H\).
+The proof of the theorem will show \(\ell(\O_L^\times)\) is a lattice in \(H\).
 
 \begin{eg}
   \(\O_L^\times\) is finite if and only if \(r + s = 1\), i.e.
@@ -1833,6 +1833,234 @@ The proof the theorem will show \(\ell(\O_L^\times)\) is a lattice in \(H\).
     \O_L^\times = \{\pm \alpha^n: n \in \Z\}.
   \]
 \end{eg}
+
+How to find fundamental units?
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(d = 2, 3 \pmod 4\) and \(v \in \O_L^\times\) satisfies \(v > 1\), then
+    \[
+      v = a + b \sqrt d
+    \]
+    where \(a \geq b \geq 1\).
+  \item If \(d = 1 \pmod 4\) and \(v \in \O_L^\times\) satisfies \(v > 1\), then
+    \[
+      v = \frac{1}{2}(a + b\sqrt d)
+    \]
+    where \(a \geq b \geq 1\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(v' = a - b \sqrt d\). Then
+    \[
+      vv' = a^2 - db^2 = \n_{L/\Q}(v) = \pm 1
+    \]
+    so \(v > 1\) implies that \(|v'| < 1\). Hence
+    \begin{align*}
+      v + v' &= 2a > 0 \\
+      v - v' &= 2b \sqrt d > 0
+    \end{align*}
+    As \(a, b\) are integers, we must have \(a \geq 1, b \geq 1\). Also
+    \[
+      \left( \frac{a}{b} \right)^2 = d \pm \frac{1}{b^2} \geq 1
+    \]
+    as \(d \geq 2\).
+  \item Let \(v' = \frac{1}{2}(a - b\sqrt d)\). Then \(vv' = \pm 1\) and \(a^2 - db^2 = \pm 4\). Then
+    \begin{align*}
+      v + v' &= a > 0 \\
+      v - v' &= b\sqrt d > 0
+    \end{align*}
+    so \(a \geq 1, b \geq 1\). Also
+    \[
+      \left( \frac{a}{b} \right)^2 = d \pm \frac{4}{b^2} \geq 1
+    \]
+    as \(d \geq 5\).
+  \end{enumerate}
+\end{proof}
+
+We can use this to find the fundamental unit in a quadratic field \(\Q(\sqrt d)\) where \(d \in \Z\) is positive square-free.
+\begin{enumerate}
+\item \(d = 2, 3 \pmod 4\): let \(u = a + b \sqrt d\). Let \(u^k = a_k + b_k \sqrt d\). Then we have the relation
+  \begin{align*}
+    u^{k + 1}
+    &= u \cdot u^k \\
+    &= (a_1 + b_1 \sqrt d)(a_k + b_k \sqrt d) \\
+    &= (a_1a_k + d b_1b_k) + (b_1a_k + a_1b_k) \sqrt d
+  \end{align*}
+  Hence
+  \[
+    b_{k + 1} = b_1a_k + a_1b_k > b_k
+  \]
+  so the sequence \((b_k)_{k \in \N}\) is strictly increasing.
+
+  We can therefore characterise \(u\) as follow: let \(b \in \N\) be the least positive integer such that \(db^2 + 1\) or \(db^2 - 1\) is of the form \(a^2\) for some \(a \in \N\). Then \(u = a + b \sqrt d\).
+
+\item \(d = 1 \pmod 4\): let \(u = \frac{1}{2}(a + b \sqrt d)\). Let \(u^k = \frac{1}{2}(a_k + b_k\sqrt d)\). Then
+  \[
+    b_{k + 1} = \frac{1}{2}(a_1b_k + b_1 a_k) \geq \frac{1}{2} (a_1 + b_1)b_k \geq b_k.
+  \]
+  We see \(b_{k + 1} \geq b_k\), with equality if and only if \(a_k = b_k\) and \(a_1 = b_1 = 1\). Note that if \(a_1 = b_1 = 1\) then
+  \[
+    \n(u) = \left| \frac{1 - d}{4} \right| = 1
+  \]
+  so \(d = 5\).
+  \begin{enumerate}
+  \item \(d > 5\): the sequence \((b_k)_{k \in \N}\) is strictly increasing. The fundamental unit can therefore be found as follow: let \(b \in \N\) be the least integer such that \(db^2 + 4\) or \(db^2 - 4\) is of the form \(a^2\) for some \(a \in \N\). Then \(\frac{1}{2}(a + b\sqrt d)\) is the fundamental unit.
+
+  \item \(d = 5\): the sequence \((b_k)_{k \in \N}\) is non-decreasing and each value \(b_i\) can appear at most twice (as occurrence corresponds to solutions to \(db_i^2 \pm 4 = a_i^2\)). We can therefore characterise the fundamental unit \(u\) as follow: let \(b \in \N\) be the least positive integer for which \(db^2 + 4 = a^2\) or \(db^2 - 4 = a'^2\) for \(a, a' \in \N\). Recall that the fundamental unit is the least unit with \(u > 1\). Of these two possibilities, choose the unit with the smaller value of \(a\) or \(a'\). In this case, \(b = 1\) gives \(d + 4 = 3^2, d - 4 = 1^2\) so \(\frac{1}{2} (1 + \sqrt 5)\) is the fundamental unit.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(d = 2\). Then \(b = 1\) works since \(2 - 1 = 1^2\) so \(1 + \sqrt 2\) is a fundamental unit.
+  \item \(d = 7\).
+    \begin{align*}
+      & b = 1: 7 \pm 1 \text{ not a square} \\
+      & b = 2: 4 \cdot 7 \pm 1 \text{ not a square} \\
+      & b = 3: 9 \cdot 7 + 1 = 8^2
+    \end{align*}
+    so \(8 + 3 \sqrt 7\) is a fundamental unit.
+  \end{enumerate}
+\end{eg}
+
+\begin{note}
+  This procedure is not always efficient. For example, the fundamental unit in \(\Q(\sqrt{22})\) is \(197 + 42\sqrt{22}\). There is a more efficient algorithm which uses continued fraction, but it is not discussed in this course.
+\end{note}
+
+Now we start the proof of \nameref{thm:Dirichlet unit}, which in non-examinable.
+
+\begin{proof}[Proof of \nameref{thm:Dirichlet unit}]
+  Recall the setup: let \(L\) be a number field, \(\tau_1, \dots, \tau_r: L \to \R\) are the real embeddings and \(\sigma_1, \conj \sigma_1, \dots, \sigma_s, \conj \sigma_s: L \to \C\) are the complex embeddings of \(L\). Define a map \(\ell: \O_L^\times \to \R^{r + s}\) by
+  \[
+    \alpha \mapsto (\log |\tau_1(\alpha)|, \dots, \log |\tau_r(\alpha)|, 2\log |\sigma_1(\alpha)|, \dots, 2\log |\sigma_s(\alpha)|).
+  \]
+  The image is contained inside the subspace
+  \[
+    H = \{ \V x \in \R^{r + s}: \sum_{i = 1}^{r + s} x_i = 0\}.
+  \]
+
+  \begin{lemma}
+    Extend \(\ell\) to \(\O_L\). Let \(\alpha \in \O_L \setminus \{0\}\) such that \(\ell(\alpha) = (a_1, \dots, a_{r + s})\). Fix an integer \(1 \leq k \leq r + s\). Then there exists \(\beta \in \O_L \setminus \{0\}\) such that if \(\ell(\beta) = (b_1, \dots, b_{r + s}) \in \R^{r + s}\) then \(b_i < a_i\) if \(i \neq k\). Moreover,
+    \[
+      \n(\beta) \leq \left( \frac{2}{\pi} \right)^s \sqrt{|D_L|}.
+    \]
+  \end{lemma}
+
+  \begin{proof}
+    This proof is similar to the derivation of Minkowski constant but using a slightly different convex body. Let \(c_1, \dots, c_{r + s} \in \R_{> 0}\) and let
+    \[
+      E = \{(\V x, \V z) \in \R^r \times \C^s: |x_i| \leq c_i, |z_i|^2 \leq c_{r + i}\}.
+    \]
+    Then if \(\vol(E) \geq 2^{r + 2s} A(S(\O_L)) = 2^{r + s} \sqrt{|D_L|}\), then by \nameref{thm:Minkowski} there exists \(\beta \in \O_L \setminus \{0\}\) such that \(S(\beta) \in E\). In particular,
+    \[
+      \n(\beta) = \prod_{i = 1}^r |\tau_i(\beta)| \prod_{i = 1}^s |\sigma_i(\beta)|^2 \leq \prod_{i = 1}^{r + s} c_i.
+    \]
+    We choose \(c_i\) so that \(0 < c_i < e^{a_i}\) if \(i \neq k\) and
+    \[
+      \vol(E) = \pi^s 2^r \prod_{i = 1}^{r + s} c_i = 2^{r + s} \sqrt{|D_L|}.
+    \]
+    The first property gives \(b_i < a_i\) if \(i \neq k\) while the second gives
+    \[
+      \n(\beta) \leq \prod_{i = 1}^{r + s} c_i = \left( \frac{2}{\pi} \right)^s \sqrt{|D_L|}.
+    \]
+  \end{proof}
+
+  \begin{corollary}
+    \label{cor:Dirichlet corollary 2}
+    Fix an integer \(1 \leq k \leq r + s\). Then there exists \(\varepsilon \in \O_L^\times\) such that if \(\ell(\varepsilon) = (a_1, \dots, a_{r + s})\) then \(a_i < 0\) if \(i \neq k\) and \(a_k > 0\).
+  \end{corollary}
+
+  \begin{proof}
+    By the lemma we can find elements \(\alpha_1, \alpha_2, \dots \in \O_L \setminus \{0\}\) such that
+    \[
+      \n(\alpha_i) \leq \left( \frac{2}{\pi} \right)^s \sqrt{|D_L|}
+    \]
+    for all \(i \in \N\) and if \(\ell(\alpha_i) = (b_{i, 1}, \dots, b_{i, r + s})\) then \(b_{i + 1, j} < b_{i, j}\) if  \(j \neq k\) for all \(i \geq 1\). The ideals \((\alpha_i)\) have bounded norm, so are finite in number. So there exist \(N < M\) such that \((\alpha_N) = (\alpha_M)\). Then the element
+    \[
+      \varepsilon = \frac{\alpha_N}{\alpha_M}
+    \]
+    has the desired property.
+  \end{proof}
+
+  \begin{lemma}
+    \label{lem:Dirichlet lemma 3}
+    Let \(N \geq 1\) and \(A \in \matrixring_{N \times N} (\R)\) be such that
+    \begin{enumerate}
+    \item \(\sum_{i = 1}^N A_{ij} = 0\) for \(1 \leq j \leq N\),
+    \item \(A_{ij} > 0\) if \(i = j\) and \(A_{ij} < 0\) if \(i \neq j\),
+    \end{enumerate}
+    then \(A\) has rank \(N - 1\).
+  \end{lemma}
+
+  \begin{proof}
+    The rank is at most \(N - 1\). We show that the first \(N - 1\) rows of \(A\) are independent. Suppose there exists \(t_i \in \R\) for \(1 \leq i < N\), not all zero, such that
+    \[
+      \sum_{i = 1}^{N - 1} t_i A_{ij} = 0
+    \]
+    for \(1 \leq j \leq N\). Wlog after rescaling, there exists \(1 \leq k < N\) such that \(t_k = 1\) and \(t_i \leq 1\) if \(i \neq k\). Then
+    \[
+      0 = \sum_{i = 1}^{N - 1} t_iA_{ik}
+      \geq \sum_{i = 1}^{N - 1} A_{ik}
+      > \sum_{i = 1}^N A_{ik}
+      = 0
+    \]
+    Absurd.
+  \end{proof}
+
+  \begin{lemma}
+    \label{lem:Dirichlet lemma 4}
+    Fix \(B > 0\). Let
+    \[
+      X_B = \{\alpha \in \O_L: \forall \sigma: L \to \C, |\sigma(\alpha)| \leq B\},
+    \]
+    then \(X_B\) is finite.
+  \end{lemma}
+
+  \begin{proof}
+    Recall the map \(S: \O_L \to \R^r \times \C^s\). \(S(\O_L)\) is a lattice in \(\R^r \times \C^s\). \(S(X_B)\) is the intersection of the lattice \(S(\O_L)\) with a compact subset of \(\R^r \times \C^s\) so must be finite.
+  \end{proof}
+
+  Finally we get something we promised earlier:
+
+  \begin{proposition}
+    \(\ell(\O_L^\times)\) form a lattice in \(H \leq \R^{r + s}\).
+  \end{proposition}
+
+  \begin{proof}
+    We must show that there exist units \(v_1, \dots, v_{r + s - 1} \in \O_L^\times\) such that their images under \(\ell\) span \(H\) as an \(\R\)-vector space and generate \(\ell(\O_L^\times)\) as an abelian group.
+
+    By \Cref{cor:Dirichlet corollary 2}, we can find \(\varepsilon_1, \dots, \varepsilon_{r + s} \in \O_L^\times\) such that if \(\ell(\varepsilon_j) = (A_{1, j}, \dots, A_{r + s, j})\) then \(A_{i, j} < 0\) if \(i \neq j\) and \(A_{i, j} > 0\) if \(i = j\). By \Cref{lem:Dirichlet lemma 3}, the matrix \(A\) has rank \(r + s - 1\) so we can find \(v_1, \dots, v_{r + s - 1} \in \O_L^\times\) such that \(\ell(v_1), \dots, \ell(v_{r + s - 1})\) span \(H\) as an \(\R\)-vector space.
+
+    Let \(\Lambda = \bigoplus_{i = 1}^{r + s - 1} \Z \ell(v_i) \leq H\) which is a lattice. Then \(\Lambda \leq \ell(\O_L^\times)\) and if \(u \in \O_L^\times\) then there exists \(\lambda \in \Lambda\) such that
+    \[
+      \ell(u) - \lambda \in \left\{ \sum_{i = 1}^{r + s - 1} t_i \ell(v_i): t_i \in [0, 1) \text{ for all } 1 \leq i \leq r + s - 1 \right\} = P.
+    \]
+    But the set of units \(\ell^{-1}(P)\) is finite by \Cref{lem:Dirichlet lemma 4}. Hence the quotient \(\ell(\O_L^\times)/\Lambda\) is finite. By Lagrange, there exists \(N \in \Z, N \geq 1\) such that \(N \cdot \ell(\O_L^\times) \leq \Lambda\). Hence
+    \[
+      \Lambda \leq \ell(\O_L^\times) \leq \frac{1}{N} \Lambda.
+    \]
+    By sandwich lemma, \(\ell(\O_L^\times)\) is a free abelian group of rank \(r + s - 1\). In particular, it is a lattice in \(H\).
+  \end{proof}
+
+  Let's now finish the proof the unit theorem, i.e.\ show there is an isomorphism
+  \[
+    \O_L^\times \cong \mu_L \times \Z^{r + s - 1}
+  \]
+  where \(\mu_L\) is the (finite) group of roots of unity in \(L\). Note that \(\mu_L = \ker \ell\): if \(\zeta \in \mu_L\) then \(\zeta^N = 1\) for some \(N \geq 1\). Hence \(\ell(\zeta^N) = N\cdot \ell(\zeta) = 0\). As \(\ell(\zeta) \in \R^{r + s}\), a vector space, we have \(\ell(\zeta) = 0\). Conversely, if \(\alpha \in \O_L^\times\) and \(\ell(\alpha) = 0\) then for all \(\sigma: L \to \C, |\sigma(\alpha)| = 1\). By \Cref{lem:Dirichlet lemma 4} \(\ker \ell\) is finite. By Lagrange it consists of roots of unity.
+
+  Choose \(v_1, \dots, v_{r + s - 1} \in \O_L^\times\) such that \(\ell(v_1), \dots, \ell(v_{r + s - 1})\) is a \(\Z\)-basis of \(\ell(\O_L^\times)\). Define a map
+  \begin{align*}
+    \mu_L \times \Z^{r + s - 1} &\to \O_L^\times \\
+    (\zeta, n_1, \dots, n_{r + s - 1}) &\mapsto \zeta v_1^{n_1} \cdots v_{r + s - 1}^{n_{r + s - 1}}
+  \end{align*}
+  It is an exercise to check this is an isomorphism.
+\end{proof}
+
+Now back to examinable material.
+
 
 
 

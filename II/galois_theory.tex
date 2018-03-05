@@ -1170,22 +1170,22 @@ Observe that all subgroups of cyclic groups are normal and therefore all our int
 \end{definition}
 
 \begin{remark}
-  \(f(t) = t^m - 1\) and \(f'(t) = mt^{m - 1}\) have no common roots and so the roots of \(f(t)\) are distinct, which are the \(m\)th roots of unity. They form a finite subgroup \(\mu_m\) of \(L^\times\) and hence by (1.28) \Cref{tbf} a cyclic group \(\generation \xi\). Thus \(L = K(\xi)\) is a simple extension.
+  \(f(t) = t^m - 1\) and \(f'(t) = mt^{m - 1}\) have no common roots and so the roots of \(f(t)\) are distinct, which are the \(m\)th roots of unity. They form a finite subgroup \(\mu_m\) of \(L^\times\) and hence by (1.28) \Cref{tbf} a cyclic group \(\generation \zeta\). Thus \(L = K(\zeta)\) is a simple extension.
 \end{remark}
 
 \begin{definition}[Primitive root of unity]
-  An element \(\xi \in \mu_m\) is a \emph{primitive} \(m\)th root of unity if \(\mu_m = \generation \xi\).
+  An element \(\zeta \in \mu_m\) is a \emph{primitive} \(m\)th root of unity if \(\mu_m = \generation \zeta\).
 \end{definition}
 
 Choosing a primitive \(m\)th root of unity determines an isomorphism
 \[
   \mu_m \to \Z/m\Z.
 \]
-Note that \(\xi^i\) is a generator of \(\mu_m\) if and only if \((i, m) = 1\) and so the primitive roots of unity correspond to elements of \((\Z/m\Z)^\times\), the unit group of \(\Z/m\Z\).
+Note that \(\zeta^i\) is a generator of \(\mu_m\) if and only if \((i, m) = 1\) and so the primitive roots of unity correspond to elements of \((\Z/m\Z)^\times\), the unit group of \(\Z/m\Z\).
 
-Now consider Galois groups of cyclotomic extensions. We will see that they must be abelian. Observe \(f(t) = t^m - 1\) is separable and so the extension \(K \leq L\) is Galois. Let \(G = \gal(L/K)\). An element \(\sigma \in G\) sends a primitive \(m\)th root of unity \(\xi\) to another \(m\)th root of unity \(\xi^i\) where \((i, m) = 1\). Then \(\xi \mapsto \xi^i\) determines a \(K\)-homomorphism
+Now consider Galois groups of cyclotomic extensions. We will see that they must be abelian. Observe \(f(t) = t^m - 1\) is separable and so the extension \(K \leq L\) is Galois. Let \(G = \gal(L/K)\). An element \(\sigma \in G\) sends a primitive \(m\)th root of unity \(\zeta\) to another \(m\)th root of unity \(\zeta^i\) where \((i, m) = 1\). Then \(\zeta \mapsto \zeta^i\) determines a \(K\)-homomorphism
 \[
-  K(\xi) \to K(\xi)
+  K(\zeta) \to K(\zeta)
 \]
 which is an injective map.
 
@@ -1193,9 +1193,9 @@ which is an injective map.
   Define
   \begin{align*}
     \theta: G &\to (\Z/m\Z)^\times \\
-    \sigma &\mapsto i \text{ where } \sigma(\xi) = \xi^i
+    \sigma &\mapsto i \text{ where } \sigma(\zeta) = \zeta^i
   \end{align*}
-  It is a group homomorphism since if \(\sigma(\xi) = \xi^i, \phi(\xi) = \xi^j\) then \((\sigma\phi)(\xi) = \sigma(\xi^j) = \xi^{ij}\).
+  It is a group homomorphism since if \(\sigma(\zeta) = \zeta^i, \phi(\zeta) = \zeta^j\) then \((\sigma\phi)(\zeta) = \sigma(\zeta^j) = \zeta^{ij}\).
 \end{definition}
 
 Thus \(G\) is abelian and we regard \(G\) as a subgroup of \((\Z/m\Z)^\times\).
@@ -1203,7 +1203,7 @@ Thus \(G\) is abelian and we regard \(G\) as a subgroup of \((\Z/m\Z)^\times\).
 \begin{definition}[Cyclotomic polynomial]\index{cyclotomic polynomial}
   The \emph{\(m\)th cyclotomic polynomial} is
   \[
-    \Phi_m(t) = \prod_{i \in (\Z/m\Z)^\times} (t - \xi^i),
+    \Phi_m(t) = \prod_{i \in (\Z/m\Z)^\times} (t - \zeta^i),
   \]
   the product of the linear factors of \(t^m - 1\) corresponding to the primitive \(m\)th roots of unity.
 \end{definition}
@@ -1211,7 +1211,7 @@ Thus \(G\) is abelian and we regard \(G\) as a subgroup of \((\Z/m\Z)^\times\).
 \begin{remark}
   \begin{align*}
     f(t) &= t^m - 1 \\
-         &= \prod_{i \in \Z/m\Z} (t - \xi^i) \\
+         &= \prod_{i \in \Z/m\Z} (t - \zeta^i) \\
          &= \prod_{d \divides m} \Phi_d(t)
   \end{align*}
 \end{remark}
@@ -1292,9 +1292,9 @@ So far we have worked exclusively with finite fields with non-zero characteristi
   \label{thm:cyclotomic extension of Q}
   For all \(m > 0\), \(\Phi_m(t)\) is irreducible in \(\Z[t]\) and hence in \(\Q[t]\). Thus \(\theta\) is an isomorphism and
   \[
-    \gal(\Q(\xi)/\Q) \cong (\Z/m\Z)^\times
+    \gal(\Q(\zeta)/\Q) \cong (\Z/m\Z)^\times
   \]
-  where \(\xi\) is a primitive \(m\)th root of unity.
+  where \(\zeta\) is a primitive \(m\)th root of unity.
 \end{theorem}
 
 \begin{remark}
@@ -1304,21 +1304,21 @@ So far we have worked exclusively with finite fields with non-zero characteristi
 \begin{proof}
   Gauss' Lemma implies that irreducibility in \(\Z[t]\) gives irreducibility in \(\Q[t]\). \Cref{lem:irreducibility of cyclotomic} says that irreducibility corresponds to surjectivity of \(\theta\). Thus it is left to show that \(\Phi_m(t)\) is irreducible in \(\Z[t]\).
 
-  Suppose not and \(\Phi_m(t) = g(t)h(t)\) in \(\Z[t]\), with \(g(t)\) irreducible and monic with \(\deg g(t) < \deg \Phi_m(t)\). Let \(\Q \leq L\) be the \(m\)th cyclotomic extension and \(\xi\) be a primitive \(m\)th root and unity and also a root of \(g(t)\). Claim that if \(p \ndivides m\) and \(p\) is prime then \(\xi^p\) is also a root of \(g(t)\) in \(L\):
+  Suppose not and \(\Phi_m(t) = g(t)h(t)\) in \(\Z[t]\), with \(g(t)\) irreducible and monic with \(\deg g(t) < \deg \Phi_m(t)\). Let \(\Q \leq L\) be the \(m\)th cyclotomic extension and \(\zeta\) be a primitive \(m\)th root and unity and also a root of \(g(t)\). Claim that if \(p \ndivides m\) and \(p\) is prime then \(\zeta^p\) is also a root of \(g(t)\) in \(L\):
 
   \begin{proof}
-    Suppose not, then \(\xi^p\) is also a primitive \(m\)th root of unity (since \(p \ndivides m\)) and a root of \(\Phi_m(t)\). The supposition implies that \(\xi^p\) is a root of \(h(t)\). Define
+    Suppose not, then \(\zeta^p\) is also a primitive \(m\)th root of unity (since \(p \ndivides m\)) and a root of \(\Phi_m(t)\). The supposition implies that \(\zeta^p\) is a root of \(h(t)\). Define
     \[
       r(t) = h(t^p),
     \]
-    then \(r(\xi) = 0\). But \(g(t)\) is the minimal polynomial of \(\xi\) over \(\Q\) and so \(g(t) \divides r(t)\) in \(\Q[t]\). By Gauss' Lemma \(r(t) = g(t)s(t)\) with \(s(t) \in \Z[t]\). Now reduce mod \(p\),
+    then \(r(\zeta) = 0\). But \(g(t)\) is the minimal polynomial of \(\zeta\) over \(\Q\) and so \(g(t) \divides r(t)\) in \(\Q[t]\). By Gauss' Lemma \(r(t) = g(t)s(t)\) with \(s(t) \in \Z[t]\). Now reduce mod \(p\),
     \[
       \red r(t) = \red g(t) \red s(t).
     \]
     But \(\red r(t) - \red h(t^p) = (\red h(t))^p\). If \(\red a(t)\) is any irreducible factor of \(\red g(t)\) in \(\F_p[t]\) then \(\red a(t) \divides (\red h(t))^p\) and so \(\red a(t) \divides \red h(t)\). But then \((\red a(t))^2 \divides \red g(t) \red h(T) = \red \Phi_m(t)\). So \(\red \Phi_m(t)\) has a repeated root and thus \(t^m - 1\) has repeated roots mod \(p\). Absurd.
   \end{proof}
   
-  So the claim is true. Now consider a root \(\gamma\) of \(h(t)\). It is also a primitive \(m\)th root of unity and \(\gamma = \xi^i\) for some \(i\) coprime with \(m\). Factorise it as \(i = p_1 \cdots p_k\) with \(p_j\) prime and not necessarily distinct and \(p_j \ndivides m\). Apply the claim repeatedly, we get that \(\gamma\) is also a root of \(g(t)\) and so \(\Phi_m(t)\) has a repeated root. Absurd. Thus \(\Phi_m(t)\) is irreducible over \(\Q\).
+  So the claim is true. Now consider a root \(\gamma\) of \(h(t)\). It is also a primitive \(m\)th root of unity and \(\gamma = \zeta^i\) for some \(i\) coprime with \(m\). Factorise it as \(i = p_1 \cdots p_k\) with \(p_j\) prime and not necessarily distinct and \(p_j \ndivides m\). Apply the claim repeatedly, we get that \(\gamma\) is also a root of \(g(t)\) and so \(\Phi_m(t)\) has a repeated root. Absurd. Thus \(\Phi_m(t)\) is irreducible over \(\Q\).
 \end{proof}
 
 \begin{definition}[Cyclic extension]\index{field extension!cyclic}
@@ -1333,7 +1333,7 @@ So far we have worked exclusively with finite fields with non-zero characteristi
   \begin{enumerate}
   \item We saw in \Cref{cor:galois group of finite fields} that for finite fields \(\F \leq L\) is cyclic.
   \item Cyclotomic extensions are abelian.
-  \item \Cref{thm:cyclotomic extension of Q} says \(\gal(\Q(\xi)/\Q) \cong  (\Z/m\Z)^\times\) and so if \(m = 8\), \(\Q \leq \Q(\xi)\) is a non-cyclic abelian extension.
+  \item \Cref{thm:cyclotomic extension of Q} says \(\gal(\Q(\zeta)/\Q) \cong  (\Z/m\Z)^\times\) and so if \(m = 8\), \(\Q \leq \Q(\zeta)\) is a non-cyclic abelian extension.
   \end{enumerate}
 \end{eg}
 
@@ -1343,37 +1343,37 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
 
 \begin{theorem}
   \label{thm:splitting field of tm - lambda}
-  Let \(f(t) = t^m - \lambda \in K[t]\) and \(\ch K \ndivides m\). Then the splitting field \(L\) of \(f(t)\) over \(K\) contains a primitive \(m\)th root of unity \(\xi\) and \(\gal(L/K(\xi))\) is cyclic of order dividing \(m\). Moreover \(f(t)\) is irreducible over \(K(\xi)\) if and only if \(|L:K(\xi)| = m\).
+  Let \(f(t) = t^m - \lambda \in K[t]\) and \(\ch K \ndivides m\). Then the splitting field \(L\) of \(f(t)\) over \(K\) contains a primitive \(m\)th root of unity \(\zeta\) and \(\gal(L/K(\zeta))\) is cyclic of order dividing \(m\). Moreover \(f(t)\) is irreducible over \(K(\zeta)\) if and only if \(|L:K(\zeta)| = m\).
 \end{theorem}
 
 \begin{remark}
   We have the following Galois correspondence
   \[
-    \begin{array}[h]{c}
-      L \\
-      | \\
-      K(\xi) \\
-      | \\
-      K
-    \end{array}
-    \qquad
     \left.
     \begin{array}[h]{c}
       \text{cyclic }\left\{
       \begin{array}[h]{c}
-      1 \\
-      | \\
-      \gal(L/K(\xi))
+        L \\
+        | \\
+        K(\zeta)
       \end{array}
       \right. \\
       \hspace{37pt} | \\
-      \hspace{37pt} \gal(L/K)
+      \hspace{37pt} K
     \end{array}
-    \right\} \text{abelian}
+  \right\} \text{abelian}
+  \qquad
+    \begin{array}[h]{c}
+      1 \\
+      | \\
+      \gal(L/K(\zeta)) \\
+      | \\
+      \gal(L/K)
+    \end{array}
   \]
-  with \(\gal(L/K(\xi)) \normal \gal(L/K)\). By \nameref{thm:fundamental}
+  with \(\gal(L/K(\zeta)) \normal \gal(L/K)\). By \nameref{thm:fundamental}
   \[
-    \gal(L/K)/\gal(L/K(\xi)) \cong \gal(K(\xi)/K)
+    \gal(L/K)/\gal(L/K(\zeta)) \cong \gal(K(\zeta)/K)
   \]
   which is abelian.
 \end{remark}
@@ -1385,61 +1385,61 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
   \]
   are \(m\) distinct \(m\)th roots of unity in \(L\) and so
   \[
-    t^m - \lambda = (t - \beta)(t - \xi\beta)(t - \xi^2\beta) \cdots (t - \xi^{n - 1}\beta) \in L[t]
+    t^m - \lambda = (t - \beta)(t - \zeta\beta)(t - \zeta^2\beta) \cdots (t - \zeta^{n - 1}\beta) \in L[t]
   \]
-  where \(\beta = \alpha_1\) and \(\xi\) is a primitive \(m\)th root of unity. Thus
+  where \(\beta = \alpha_1\) and \(\zeta\) is a primitive \(m\)th root of unity. Thus
   \[
-    L = K(\xi, \beta).
+    L = K(\zeta, \beta).
   \]
 
-  Let \(\sigma \in \gal(L/K(\xi))\). It is determined by its action on \(\beta\). Note that \(\sigma(\beta)\) is also a root of \(t^m - \lambda\) so \(\sigma(\beta) = \xi^{j(\sigma)}\beta\) where \(0 \leq j(\sigma) < m\). Also if \(\sigma, \tau \in \gal(L/K(\xi))\) then
+  Let \(\sigma \in \gal(L/K(\zeta))\). It is determined by its action on \(\beta\). Note that \(\sigma(\beta)\) is also a root of \(t^m - \lambda\) so \(\sigma(\beta) = \zeta^{j(\sigma)}\beta\) where \(0 \leq j(\sigma) < m\). Also if \(\sigma, \tau \in \gal(L/K(\zeta))\) then
   \[
-    \tau\sigma(\beta) = \tau(\xi^{j(\sigma)}\beta) = \xi^{j(\sigma)}\tau(\beta) = \xi^{j(\sigma)}\xi^{j(\tau)}\beta
+    \tau\sigma(\beta) = \tau(\zeta^{j(\sigma)}\beta) = \zeta^{j(\sigma)}\tau(\beta) = \zeta^{j(\sigma)}\zeta^{j(\tau)}\beta
   \]
-  where the second inequality comes from the fact that \(\xi\) is fixed by \(\tau\). Thus there is a group homomorphism
+  where the second inequality comes from the fact that \(\zeta\) is fixed by \(\tau\). Thus there is a group homomorphism
   \begin{align*}
-    \Theta: \gal(L/K(\xi)) &\to \Z/m\Z \\
+    \Theta: \gal(L/K(\zeta)) &\to \Z/m\Z \\
     \sigma &\mapsto j(\sigma)
   \end{align*}
-  Note that \(j(\sigma) = 0\) only if \(\sigma\) is the identity and so \(\Theta\) is injective. Thus \(\gal(L/K(\xi))\) is isomorphic to a subgroup of \(\Z/m\Z\), so a cyclic group of order dividing \(m\).
+  Note that \(j(\sigma) = 0\) only if \(\sigma\) is the identity and so \(\Theta\) is injective. Thus \(\gal(L/K(\zeta))\) is isomorphic to a subgroup of \(\Z/m\Z\), so a cyclic group of order dividing \(m\).
 
   Finally,
   \[
-    |L:K(\xi)| = |\gal(L/K(\xi))| \leq m
+    |L:K(\zeta)| = |\gal(L/K(\zeta))| \leq m
   \]
-  with equality precisely when the action of \(\gal(L/K(\xi))\) is transitive on the roots and that is when \(t^m - \lambda\) is irreducible over \(K(\xi)\) by \Cref{lem:galois orbits}.
+  with equality precisely when the action of \(\gal(L/K(\zeta))\) is transitive on the roots and that is when \(t^m - \lambda\) is irreducible over \(K(\zeta)\) by \Cref{lem:galois orbits}.
 \end{proof}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(f(t) = t^6 + 3\) over \(\Q\). Let \(\xi = - \omega\) be a primitive \(6\)th root of unity where \(\omega\) is a primitive cubic root of unity. Then
+  \item \(f(t) = t^6 + 3\) over \(\Q\). Let \(\zeta = - \omega\) be a primitive \(6\)th root of unity where \(\omega\) is a primitive cubic root of unity. Then
   \[
-    \Q(\xi) = \Q(\omega) = \Q(\frac{1}{2}(1 + \sqrt{-3})) = \Q(\sqrt{-3}).
+    \Q(\zeta) = \Q(\omega) = \Q(\frac{1}{2}(1 + \sqrt{-3})) = \Q(\sqrt{-3}).
   \]
-  \(f(t)\) is irreducible over \(\Q\) by Eisenstein with \(3\). However over \(\Q(\xi) = \Q(\sqrt{-3})\) \(f(t)\) factorises as
+  \(f(t)\) is irreducible over \(\Q\) by Eisenstein with \(3\). However over \(\Q(\zeta) = \Q(\sqrt{-3})\) \(f(t)\) factorises as
   \[
     f(t) = (t^3 + \sqrt{-3}) (t^3 - \sqrt{-3})
   \]
-  so the Galois group of the splitting field \(L\) of \(f(t)\) over \(\Q(\xi)\) is a proper subgroup of \(\Z/6\Z\). We have the following Galois correspondence:
+  so the Galois group of the splitting field \(L\) of \(f(t)\) over \(\Q(\zeta)\) is a proper subgroup of \(\Z/6\Z\). We have the following Galois correspondence:
   \[
     \begin{array}[h]{ccc}
       L & 1 & \\
       | & | & 3 \\
-      \Q(\xi) & \gal(L/\Q(\xi)) & \\
+      \Q(\zeta) & \gal(L/\Q(\zeta)) & \\
       | & | & 2 \\
       \Q & \gal(L/\Q) &
     \end{array}
   \]
    Note that
    \begin{align*}
-     \gal(L/\Q(\xi)) &\cong \Z/3\Z \embed \Z/6\Z \\
-     \gal(\Q(\xi)/\Q) &= \generation{i \mapsto -i} \cong \Z/2\Z
+     \gal(L/\Q(\zeta)) &\cong \Z/3\Z \embed \Z/6\Z \\
+     \gal(\Q(\zeta)/\Q) &= \generation{i \mapsto -i} \cong \Z/2\Z
    \end{align*}
 
    Let \(\beta\) be a root of \(f(t)\). Then the roots are
    \[
      \begin{array}[h]{cccccc}
-       \beta & \xi \beta & \xi^2 \beta & \xi^3 \beta & \xi^4 \beta & \xi^5 \beta \\ \hline \hline
+       \beta & \zeta \beta & \zeta^2 \beta & \zeta^3 \beta & \zeta^4 \beta & \zeta^5 \beta \\ \hline \hline
        \beta & & \omega^2 \beta & & \omega\beta & \\ \hline
        & - \omega \beta & & - \beta & & - \omega^2 \beta
      \end{array}
@@ -1449,21 +1449,21 @@ Rather than consider the \(m\)th root of unity, in this section we consider Galo
      \tau \sigma \tau^{-1} = \sigma^{-1},
    \]
    we get dihedral relation so \(\gal(L/\Q)\) is dihedral of order \(6\).
- \item \(f(t) = t^5 - 2\) over \(\Q\). It is irreducible by Eisenstein. Let \(L\) be the splitting field of \(f(t)\) over \(\Q\) and \(\xi\) be a primitive \(5\)th root of unity. We have the following Galois correspondence:
+ \item \(f(t) = t^5 - 2\) over \(\Q\). It is irreducible by Eisenstein. Let \(L\) be the splitting field of \(f(t)\) over \(\Q\) and \(\zeta\) be a primitive \(5\)th root of unity. We have the following Galois correspondence:
    \[
      \begin{array}[h]{ccc}
        L & 1 & \\
        | & | & 5 \\
-       \Q(\xi) & \gal(L/\Q(\xi)) & \\
+       \Q(\zeta) & \gal(L/\Q(\zeta)) & \\
        | & | & 4 \\
        \Q & \gal(L/\Q)
      \end{array}
    \]
-   Let \(\beta\) be a root of \(f(t)\). Then \(\Q \leq \Q(\beta) \leq L\) so \(5 \divides |L:\Q|\) and thus \(5 \divides |\gal(L/\Q(\xi))|\). Since we also have \(\gal(L/\Q(\xi)) \embed \Z/5\Z\), it follows that \(\gal(L/\Q(\xi)) \cong \Z/5\Z\).
+   Let \(\beta\) be a root of \(f(t)\). Then \(\Q \leq \Q(\beta) \leq L\) so \(5 \divides |L:\Q|\) and thus \(5 \divides |\gal(L/\Q(\zeta))|\). Since we also have \(\gal(L/\Q(\zeta)) \embed \Z/5\Z\), it follows that \(\gal(L/\Q(\zeta)) \cong \Z/5\Z\).
 
-   We can thus deduce that \(f(t)\) remains irreducible over \(\Q(\xi)\) and \(|\gal(L/\Q)| = 20\). By irreducibility of \(f(t)\) over \(\Q\), \(\gal(L/\Q)\) is a transitive subgroup of \(S_5\). By \Cref{lem:transitive subgroups of Sn}, it is isomorphic to \(H_{20}\), the subgroup generated by a \(5\)-cycle and a \(4\)-cycle. By \nameref{thm:fundamental},
+   We can thus deduce that \(f(t)\) remains irreducible over \(\Q(\zeta)\) and \(|\gal(L/\Q)| = 20\). By irreducibility of \(f(t)\) over \(\Q\), \(\gal(L/\Q)\) is a transitive subgroup of \(S_5\). By \Cref{lem:transitive subgroups of Sn}, it is isomorphic to \(H_{20}\), the subgroup generated by a \(5\)-cycle and a \(4\)-cycle. By \nameref{thm:fundamental},
    \[
-     \gal(L/\Q)/\gal(L/\Q(\xi)) \cong \gal(\Q(\xi)/\Q) \cong (\Z/5\Z)^\times
+     \gal(L/\Q)/\gal(L/\Q(\zeta)) \cong \gal(\Q(\zeta)/\Q) \cong (\Z/5\Z)^\times
    \]
    which is cyclic and contains a \(4\)-cycle. Thus without a priori knowledge of \(H_{20}\) we know our subgroup of \(S_5\) contains a \(4\)-cycle.
  \end{enumerate}
@@ -1501,19 +1501,19 @@ We need the following to prove the theorem:
   \label{proof:kummer theory}
   Let \(\gal(G/K) = \generation \sigma\) which has order \(m\). Observe that \(\{\sigma^i\}_{i = 0}^{m - 1}\) are distinct maps \(L \to L\) and we can apply \nameref{lem:linear independence of group characters}: there exists \(\alpha \in L\) such that
   \[
-    \beta = \alpha + \xi \sigma(\alpha) + \dots + \xi^{m - 1} \sigma^{m - 1}(\alpha) \neq 0
+    \beta = \alpha + \zeta \sigma(\alpha) + \dots + \zeta^{m - 1} \sigma^{m - 1}(\alpha) \neq 0
   \]
-  where \(\xi\) is a primitive \(m\)th root of unity.
+  where \(\zeta\) is a primitive \(m\)th root of unity.
 
-  Observe that \(\sigma(\beta) = \xi^{-1} \beta = \beta\) and so \(\beta \in K\), the fixed field of \(\gal(L/K)\). Also \(\sigma(\beta^m) = \sigma(\beta)^m = \beta^m\). Let \(\lambda = \beta^m \in K\). Then
+  Observe that \(\sigma(\beta) = \zeta^{-1} \beta = \beta\) and so \(\beta \in K\), the fixed field of \(\gal(L/K)\). Also \(\sigma(\beta^m) = \sigma(\beta)^m = \beta^m\). Let \(\lambda = \beta^m \in K\). Then
   \[
-    t^m - \lambda = (t - \beta)(t - \xi\beta)\cdots(t - \xi^{m - 1}\beta) \in L[t]
+    t^m - \lambda = (t - \beta)(t - \zeta\beta)\cdots(t - \zeta^{m - 1}\beta) \in L[t]
   \]
-  so \(K(\beta)\) is the splitting field of \(t^m - \lambda\) over \(K\) (recall \(\xi \in K\)).
+  so \(K(\beta)\) is the splitting field of \(t^m - \lambda\) over \(K\) (recall \(\zeta \in K\)).
 
   Observe also that \(\{\sigma^i\}_{i = 0}^{m - 1}\) are distinct \(K\)-automorphisms and so \(|K(\beta):K| \geq m\). Therefore
   \[
-    L = K(\beta) = K(\xi\beta).
+    L = K(\beta) = K(\zeta\beta).
   \]
 \end{proof}
 
@@ -1980,25 +1980,25 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
   \]
   But quotients of soluble group are soluble so \(\gal(L/K)\) is soluble.
 
-  Conversely, assume \(\ch K = 0\) and suppose \(G = \gal(f)\) over \(K\) is soluble. Let \(L\) be the splitting field of \(f(t)\) over \(K\) and so \(|G| = |L:K| = n\). Set \(m = n!\) and let \(\xi\) be a primitive \(m\)th root of unity and consider \(L(\xi)\).
+  Conversely, assume \(\ch K = 0\) and suppose \(G = \gal(f)\) over \(K\) is soluble. Let \(L\) be the splitting field of \(f(t)\) over \(K\) and so \(|G| = |L:K| = n\). Set \(m = n!\) and let \(\zeta\) be a primitive \(m\)th root of unity and consider \(L(\zeta)\).
 
   \[
     \begin{tikzcd}
-      & L(\xi) \ar[dl, dash, "\leq n"'] \ar[dr, dash] & \\
-      K(\xi) \ar[dr, dash] & & L \ar[dl, dash, "n"] \\
+      & L(\zeta) \ar[dl, dash, "\leq n"'] \ar[dr, dash] & \\
+      K(\zeta) \ar[dr, dash] & & L \ar[dl, dash, "n"] \\
       & K &
     \end{tikzcd}
   \]
 
-  Our proof is similar to that used for cubics. Observe that \(|L(\xi):K(\xi)| \leq n\): by \nameref{thm:primitive} \(L = K(\alpha)\) for some \(\alpha\) with minimal polynomial \(g(t)\) of degree \(n\). Then \(L(\xi) = K(\xi)(\alpha)\) and the minimal polynomial of \(\alpha\) over \(K(\xi)\) divides \(g(t)\) and so has degree less than or equal to \(n\).
+  Our proof is similar to that used for cubics. Observe that \(|L(\zeta):K(\zeta)| \leq n\): by \nameref{thm:primitive} \(L = K(\alpha)\) for some \(\alpha\) with minimal polynomial \(g(t)\) of degree \(n\). Then \(L(\zeta) = K(\zeta)(\alpha)\) and the minimal polynomial of \(\alpha\) over \(K(\zeta)\) divides \(g(t)\) and so has degree less than or equal to \(n\).
 
-  Note that \(\gal(L(\xi)/L)\) is abelian since the extension is cyclotomic. Then \(\gal(L(\xi)/K)\) is soluble since the subgroup \(\gal(L(\xi)/L\) is soluble and the quotient group \(\gal(L/K) \cong \gal(L(\xi)/K)/\gal(L(\xi)/L)\) is also soluble. Then the subgroup \(\gal(L(\xi)/K(\xi))\) is soluble. Thus there is a chain of subgroups
+  Note that \(\gal(L(\zeta)/L)\) is abelian since the extension is cyclotomic. Then \(\gal(L(\zeta)/K)\) is soluble since the subgroup \(\gal(L(\zeta)/L\) is soluble and the quotient group \(\gal(L/K) \cong \gal(L(\zeta)/K)/\gal(L(\zeta)/L)\) is also soluble. Then the subgroup \(\gal(L(\zeta)/K(\zeta))\) is soluble. Thus there is a chain of subgroups
   \[
-    1 = G_m \normal \cdots \normal G_1 \normal G_0 \normal \gal(L(\xi)/K(\xi))
+    1 = G_m \normal \cdots \normal G_1 \normal G_0 \normal \gal(L(\zeta)/K(\zeta))
   \]
   with \(G_i/G_{i + 1}\) cyclic (since for a finite group cyclic is equivalent to abelian in the definition of a soluble group). Now use \nameref{thm:fundamental} to get a corresponding chain of fields
   \[
-    L(\xi) = K_m \geq \dots \geq K_1\geq K(\xi)
+    L(\zeta) = K_m \geq \dots \geq K_1\geq K(\zeta)
   \]
   with each \(K_i \leq K_{i + 1}\) Galois with cyclic Galois group.
 
