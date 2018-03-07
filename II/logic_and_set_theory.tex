@@ -1851,7 +1851,111 @@ It is also easy to check that
 \end{align*}
 Thus \(\omega\) satisfies (in \(V\)) all the usual axioms for the natural numbers.
 
-Subsequently, we say \(x\) is finite if \((\exists y) (y \in \omega \land x \text{ bijects with } y)\). Then \(x\) is countable if \(x\) is finite or \(x\) bijects with \(\omega\).
+Subsequently, we say \(x\) is \emph{finite} if \((\exists y) (y \in \omega \land x \text{ bijects with } y)\). Then \(x\) is \emph{countable} if \(x\) is finite or \(x\) bijects with \(\omega\). \(x\) is \emph{infinite} if it is not finite.
+
+\begin{axiom*}[Axiom of foundation]
+  \[
+    (\forall x) (x \neq \emptyset \implies (\exists y) (y \in x \land (\forall z) (z \in x \implies \neg (z \in y)).
+  \]
+\end{axiom*}
+``Sets are built up from simpler sets.'', or every (non-empty) set has an \(\in\)-minimal member.
+
+The intuition behind is like this: we want to disallow \(x \in x\) to avoid possible contradiction, \(x \in y \land y \in x\) to agree with our intuition that ``sets have a hierarchy'', and also infinite chains \(\dots \in x_3 \in x_2 \in x_1 \in x_0\). What is common to all of them is that they do not have a \(\in\)-minimal element: \(\{x\}\), \(\{x, y\}\) and \(\{x_0, x_1, \dots\}\) respectively do not have such an element in the above examples.
+
+This is not always essential.
+
+For our next axiom, we want if for each \(i \in I\) we have \(A_i\), then we can take \(\{A_i: i \in I\}\). But how do we know that \(\{A_i: i \in I\}\) is a set?
+One may say that ``\(i \mapsto A_i\)'' looks like a function, so the image is a set
+
+This one is different from previous axioms we have. So far every axiom allows us to build a new set ``near'' the one in the universe we starting with, e.g.\ power set, union set are. However, this one goes far out to \(V\) from \(I\).
+
+Thus what we really want to say is ``the image of a set, under something that looks like a function, is a set.'' See \Cref{sec:classes} for a discussion on how to make this idea concrete using classes.
+
+\begin{axiom*}[Axiom of replacement]
+  \begin{align*}
+    & (\forall t_1) \cdots (\forall t_n) \underbrace{((\forall x) (\forall y) (\forall z) ((p \land p[z/y]) \implies y = z))}_{p \text{ a function-class}} \\
+    \implies & \underbrace{((\forall x) (\exists y) (\forall z) (z \in y \iff (\exists t) (t \in x \land p[t/x, z/y])))}_{\text{image of \(x\) under \(p\) is a set}}
+  \end{align*}
+  for each formula \(p\), free variables \(x, y, t_1, \dots, t_n\).
+\end{axiom*}
+``The image of a set under a function-class is a set.''
+
+Intuitively we think this axiom exactly as what the slogan says, but since classes are not part of the structure, formally we have to substitute the function-class with the (first order) rule.
+
+Note that this holds also for partial functions.
+
+\begin{eg}
+  For any set \(x\), can form \(\{\{t\}: t \in x\}\), with function-class \(t \mapsto \{t\}\). This is a ``bad'' example as we don't actually need axiom of replacement to know this is a set. See later for ``good'' examples.
+\end{eg}
+
+Those are all the ZF axioms.
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item Sometimes axiom of separation is called ``axiom of comprehension'' and axiom of foundation is called ``axiom of regularity''.
+  \item ZF axioms do not include axiom of choice. ZF~\(+\)~AC is called ZFC where
+    \begin{axiom*}[Axiom of choice]
+      \begin{align*}
+        & (\forall f) (f \text{ a function} \land (\forall x) (x \in \dom f \implies \neg (f(x) = \emptyset)) \\
+        \implies & (\exists g) (g \text{ a function} \land \dom g = \dom f \land (\forall x) (x \in \dom f \implies g(x) \in f(x)))).
+      \end{align*}
+    \end{axiom*}
+    ``Every family of (non-empty) sets has a choice function.''
+  \end{enumerate}
+\end{note}
+
+Now we have the axioms, what does a model \((V, \in)\) of ZF look like?
+
+\begin{remark}
+  We have not proven ZF is consistent, i.e.\ there exists a model of ZF. Sadly, by one of Gödel incomplete theorem ZF~\(\nyields\)~''ZF has no model'', so no proof in ordinary maths (including ZF, ZFC etc).
+\end{remark}
+
+In this course, every theorem we prove about ZF will be preceded with the premise that, either explicitly or implicitly, it holds in a model of ZF. Thus incompleteness does not pose a problem to our theory, although to make some practical sense out of the theory, we better have some faith in the existence of such a model!
+
+
+\appendix
+
+\section{Classes}
+\label{sec:classes}
+
+\(x \mapsto \{x\}\) for all \(x\) looks like a function, but isn't because the ``domain'' is too big: every function \(f\) has a domain \(\dom f\) (defined as a suitable subset of \(V \cap f\)) and this ``function'' would have domain \(V\), absurd as there is no universal set, i.e. \(\neg (\exists x) (\forall y) (y \in x)\) (Russel's paradox).
+
+\begin{definition}[Class]\index{class}
+  For an \(L\)-structure \(V\), a collection \(C\) of elements of \(V\) is called a \emph{class} if there is a formula \(p\), free variables \(x\) (parameterised), such that \(x \in C\) if and only if \(p(x)\) holds in \(V\).
+\end{definition}
+
+Here ``collection'' is simply a subset, in the true maths world. But to avoid confusion with subset in the sense of ZF we give it an alias.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(V\) is a class. Take \(p(x)\) to be \(x = x\).
+  \item For any \(t\), \(\{x: t \in x\}\) is a class. Take \(p(x)\) to be \(t \in x\). This shows that we need parameter \(t\).
+  \item Every set \(y\) is a class. Take \(p(x)\) to be \(x \in y\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Proper class]\index{class!proper}
+  If \(C\) is not a set (in \(V\)), i.e.\ \(\neg (\exists y) (\forall x) (x \in y \iff p(x))\), say \(C\) is a \emph{proper class}.
+\end{definition}
+
+\begin{eg}
+  \(V\) is a proper class, as is \(\{x: x \text{ infinite}\}\).
+\end{eg}
+
+Similarly,
+
+\begin{definition}[Function-class]\index{function-class}
+  A \emph{function-class} is a collection \(F\) of ordered pairs from \(V\) such that for each formula \(p\), free vaiables \(x, y\) (parameterised), we have
+  \begin{enumerate}
+  \item \((x, y) \in F\) if and only if \(p(x, y)\),
+  \item if \((x, y) \in F, (x, z) \in F\) then \(y = z\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}
+  \(x \mapsto \{x\}\) is a function-class. Take \(p(x, y)\) to be \(y = \{x\}\).
+\end{eg}
+
 
 
 

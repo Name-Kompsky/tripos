@@ -1416,8 +1416,127 @@ This gives a necessary condition for geodesic and one naturally wonders if it is
 \end{remark}
 
 \begin{eg}
-  Consider the surface \(S^2\). For all \(P \in S^2\), for all tangent at \(P\), there exists a unique great circle as arcs \(< \pi\) are lenth-minimising. Great circles are all the geodesics on \(S^2\).
+  Consider the surface \(S^2\). For all \(P \in S^2\), for all tangent at \(P\), there exists a unique great circle as arcs \(< \pi\) are length-minimising. Great circles are all the geodesics on \(S^2\).
 \end{eg}
+
+Recall that
+\begin{enumerate}
+\item We defined the geodesic curves on a surface \(S \subseteq \R^3\) as solutions of certain ODE of 2nd order.
+\item Equivalently, we can determine a geodesic \(\Gamma(t)\) uniquely by the initial condition
+\begin{align*}
+  \Gamma(0) &= P \in S \\
+  \dot \Gamma(0) &= \V a \in T_PX
+\end{align*}
+where \(\Gamma: [0, T] \to S, \gamma = \sigma \compose \Gamma\).
+\item If \(\Gamma(t)\) minimises the length between its end points and \(\norm{\dot \Gamma(t)}\) is constant, then \(\Gamma(t)\) is a geodesic. This is a sufficient but not necessary condition.
+\end{enumerate}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Arcs of great circles on \(S^2\) are precisely the geodesics.
+  \item Similarly on a hyperbolic plane, the geodesics are precisely the hyperbolic line segments.The can also be computed directly. See example sheet.
+  \end{enumerate}
+\end{eg}
+
+As solutions of geodesic ODEs depend smoothly on the initial conditions, we may use this to construct around \(P \in S\) \emph{geodesic polar coordinates}\index{geodesic polar coordinates} (i.e. a particular chart). We will do an informal construction here while the more technical details will be left to IID Differential Geometry.
+
+\begin{proof}[Sketch of construction]
+  Let \(\psi: U \to V\) be a chart. Let \(P \in U\). May assume wlog \(\psi(P) = 0 \in V\).Denote by \(\theta\) the polar angle coordinate on \(\R^2 \setminus \{0\}\). For each value of \(\theta\), there exists a unique geodesic \(\gamma^\theta: (-\varepsilon, \varepsilon) \to V\) with
+  \begin{align*}
+    \gamma^\theta (0) &= 0 \\
+    \dot \gamma^\theta(0) &= \cos \theta e_1 + \sin \theta e_2
+  \end{align*}
+  Set \(\sigma(r, \theta) = \gamma^\theta(r)\). Then we can show
+  \begin{enumerate}
+  \item \(\sigma\) is smooth on
+    \[
+      W = \{(r, \theta): 0 < r < \varepsilon_0, \theta_0 < \theta < \theta_0 + 2\pi\}.
+    \]
+  \item For all \(\theta_0\), \(\psi^{-1} \compose \sigma: W \to S\) is a valid parameterisation. Respectivly, \(\sigma^{-1} \compose \psi\) is a valid chart on \(S\).
+  \end{enumerate}
+  The values \((r, \theta)\) of the chart are geodesic polar coordinates on some open \(U \subseteq S\). Note that \(P \notin U\).
+\end{proof}
+
+\begin{theorem}[Gauss' lemma]\index{Gauss' lemma}
+  Geodesic circles \(\{r = r_0\} \subseteq W\) are perpendicular to their radii, i.e.\ to \(\gamma^\theta(t)\) and the induced Riemannian metric on \(W\) (i.e.\ first fundamental form with respect to \(\sigma(r, \theta)\)) is
+  \[
+    dr^2 + G(r, \theta) d\theta^2.
+  \]
+\end{theorem}
+
+\begin{definition}[Atlas]\index{atlas}
+  An \emph{atlas} on \(S\) is a collection of charts covering \(S\).
+\end{definition}
+
+For example, the family of geodesic polar charts is an atlas. There are two more examples of interesting atlases in example sheet.
+
+\subsection{Surfaces of revolution}
+
+In this section, \(S\) will be obtained by rotating a plane curve around a straight line \(\ell\). Wlog \(\ell\) is the \(z\)-axis in \(\R^3\) and the curve is in the \((x, z)\)-plane. Let
+\begin{align*}
+  \eta: (a, b) &\to \R^3 \\
+  u &\mapsto (f(u), 0, g(u))
+\end{align*}
+where \(a\) and \(b\) may be infinite such that
+\begin{enumerate}
+\item \(\norm{\eta'(u)} = 1\) (see example sheet 3),
+\item \(f(u) > 0\) for all \(u\),
+\item \(\eta\) is a homeomorphism onto its image (this is to rule out for example, figure 8 or oscillating curve).
+\end{enumerate}
+
+Define \(S\) as the image of
+\[
+  \sigma(u, v) = (f(u) \cos v, f(u) \sin v, g(u)), a < u < b, 0 \leq v \leq 2\pi
+\]
+and for all \(\alpha \in \R\), the restriction \(\sigma^\alpha: (a, b) \times (\alpha, \alpha + 2\pi)\) is a homeomorphism onto its image.
+
+Then
+\begin{align*}
+  \sigma_u &= (f' \cos v, f' \sin v, g') \\
+  \sigma_v &= (-f \sin v, f \cos v, 0) \\
+  \sigma_u \times \sigma_v &= (-fg' \cos v, -fg' \sin v, ff') \\
+  \norm{\sigma_u \times \sigma_v} &= f^2(f'^2 + g'^2) = f^2 \neq 0
+\end{align*}
+Thus \(\sigma^\alpha\) is a valid parameterisation and \(S\) is a valid embedded surface.
+
+\begin{definition}[Parallel \& meridian]\index{parallel}\index{meridian}
+  Curves on \(S\) of the form \(\gamma(t) = \sigma(u_0, t)\) are \emph{parallels} and \(\gamma(t) = \sigma(t, v_0)\) are \emph{meridians}.
+\end{definition}
+
+The first fundamental form with respect to \(\sigma\) is
+\begin{align*}
+  E &= \norm{\sigma_u}^2 = f'^2 + g'^2 = 1 \\
+  F &= \sigma_u \cdot \sigma_v = 0 \\
+  G &= \norm{\sigma_v}^2 = f^2
+\end{align*}
+i.e.\ \(du^2 + f^2(u) dv^2\). The geodesic equations on \(S\) are
+\begin{align*}
+  \ddot u &= f \cdot \frac{df}{du} \cdot \dot v^2 \\
+  \frac{d}{dt} (f^2 \dot v) &= 0
+\end{align*}
+
+Which of them is a geodesic?
+
+\begin{proposition}
+  Assume \(\norm{\dot \gamma}_V = 1\) where \(\gamma: I \to V \subseteq \R^2\), i.e.\ if \(\gamma = (u(t), v(t))\) then \(\dot u^2 + f^2(u)\dot v^2 = 1\). Then
+  \begin{enumerate}
+  \item every meridian \(\gamma\) is geodesic.
+  \item a parallel \(\gamma\) is a geodesic if and only if
+    \[
+      \frac{df}{du}(u_0) = 0,
+    \]
+    i.e.\ \(u_0\) is a stationary/critical point of \(f\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(v = v_0 \) is constant so the second equation holds. As \(\dot v = 0\), \(|\dot u(t)| = 1\) so \(\ddot u = 0\) and the first equation also holds.
+  \item Suppose \(u = u_0\). Then \(f^2 \dot v^2 = 1\) whence \(\dot v = \pm \frac{1}{f(u_0)} \neq 0\) is a constant so the second equation holds. Then the first equation holds if and only if \(\frac{df}{du} (u_0) = 0\).
+  \end{enumerate}
+\end{proof}
+
+
 
 
 

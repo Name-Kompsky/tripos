@@ -2059,7 +2059,166 @@ Now we start the proof of \nameref{thm:Dirichlet unit}, which in non-examinable.
   It is an exercise to check this is an isomorphism.
 \end{proof}
 
-Now back to examinable material.
+\section{Cyclotomic fields and the Fermat equation}
+
+An warm-up exercise:
+
+\begin{question}
+  Find all Pythagorean triples \(x^2 + y^2 = z^2\) where \(x, y, z \in \Z\) not all zero.
+\end{question}
+
+Wlog \(\gcd(x, y, z) = 1\). Consider the parity: if \(2\) divides both \(x\) and \(y\) then \(2\) divides \(z\), so assume \(x\) is odd, \(y\) is even. The idea is to factor the equation in \(\Z[i]\) to get
+\[
+  (x + iy)(x - iy) = z^2.
+\]
+Claim that the ideals \((x + iy)\) and \((x - iy)\) of \(\Z[i]\) are coprime, i.e.\ there is no prime ideal \(\mathfrak p \in \Z[i]\) which divides both of them: if \(\mathfrak p\) divides both then \(\mathfrak p \divides (2x), \mathfrak p \divides (2y)\). If \(\ell\) is an odd prime such that \(\ell \divides \n(\mathfrak p)\) then this implies \(\ell \divides 2x, \ell \divides 2y\) so \(\ell \divides x\) and \(\ell \divides y\), impossible. Thus \(\mathfrak p \divides (2)\), hence \(\mathfrak p \divides (z^2)\), so \(2 \divides z\), absurd. Thus there is no such prime \(\mathfrak p\).
+
+Using the identity \((x + iy)(x - iy) = (z)^2\), we see that \((x + iy)\) must be the square of another ideal. Using the fact that \(\Z[i]\) is a UFD, we get
+\[
+  (x + iy) = (a + ib)^2 = (a^2 - b^2 + 2ab i)
+\]
+where \(a, b \in \Z\). Hence \(x + iy = u(a^2 - b^2 + 2abi)\) for some \(u \in \Z[i]^\times = \{\pm 1, \pm i\}\). It is left as an exercise to show that there exists \(A, B \in \Z\) such that
+\begin{align*}
+  x &= A^2 - B^2 \\
+  y &= 2AB \\
+  z &= A^2 + B^2
+\end{align*}
+
+The aim of this section is to do something similar for
+\[
+  x^p + y^p = z^p
+\]
+where \(p\) is an odd prime.
+
+
+From now on \(p\) is an odd prime.
+
+\begin{definition}[Cyclotomic field]\index{cyclotomic field}
+  The \emph{\(p\)th cyclotomic field} is \(K = \Q(\zeta_p)\) where \(\zeta_p = e^{2\pi i/p} \in \C\).
+\end{definition}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \((1 - \zeta_p)^{p - 1} = (p)\) in \(\O_K\), \(\n(1 - \zeta_p) = p\) and \((1 - \zeta_p) \subseteq \O_K\) is a prime ideal.
+  \item Let \(f_p(x) = \frac{x^p - 1}{x - 1} \in \Z[x]\). Then \(f_p(x)\) is irreducible and \([K:\Q] = p - 1\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  We can factorise
+  \[
+    f_p(x) = \prod_{j = 1}^{p - 1} (x - \zeta_p^i).
+  \]
+  In particular, \(f_p(\zeta_p) = 0\) and \([K: \Q] \leq p - 1\). We also have
+  \[
+    f_p(1) = p = \prod_{j = 1}^{p - 1} (1 - \zeta_p^i).
+  \]
+  Claim that for \(1 \leq j < p\),  we have \((1 - \zeta_p^j) = (1 - \zeta_p)\) as ideals of \(\O_K\). We show this by exhibiting inclusion both ways:
+  \[
+    \frac{1 - \zeta_p^j}{1 - \zeta_p} = 1 + \zeta_p + \dots + \zeta_p^{j - 1} \in \O_K
+  \]
+  so \(1 - \zeta_p^j \in (1 - \zeta_p)\). Choose \(k \in \Z, k \geq 1\) such that \(jk = 1 \pmod p\), then
+  \[
+    \frac{1 - \zeta_p}{1 - \zeta_p^j} = \frac{1 - \zeta_p^{jk}}{1 - \zeta_p^j} = 1 + \zeta_p^j + \dots + \zeta_p^{j(k - 1)} \in \O_K
+  \]
+  so \(1 - \zeta_p \in (1 - \zeta_p^j)\).
+
+  Thus \((p) = (1 - \zeta_p)^{p - 1}\) is an ideal in \(\O_K\). It follows that \(p^{[K: \Q]} = \n(1 - \zeta_p)^{p - 1}\). But since we already know \([K: \Q] \leq p - 1\), we must have \(\n(1 - \zeta_p) = p\) and \([K: \Q] = p - 1\).
+\end{proof}
+
+\begin{lemma}
+  \[
+    \disc(1, \zeta_p, \dots, \zeta_p^{p - 2}) = (-1)^{\frac{p - 1}{2}} p^{p - 2}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  We know 
+  \[
+    \disc(1, \zeta_p, \dots, \zeta_p^{p - 2}) = (-1)^{\binom{p - 1}{2}} \n_{K/\Q} (f'_p(\zeta_p)),
+  \]
+  but
+  \[
+    f'_p(x) = \frac{(x - 1) p x^{p - 1} - (x^p - 1)}{(x - 1)^2}
+  \]
+  so \(f'_p(\zeta_p) = \frac{p\zeta_p^{-1}}{\zeta_p - 1}\) and its norm is
+  \[
+    \n_{K/\Q}(f'_p(\zeta_p)) = \frac{p^{p - 1} \n_{K/\Q}(\zeta_p)^{-1}}{\n_{K/\Q}(\zeta_p - 1)}.
+  \]
+  Now notice that every embedding \(\sigma: K \to \C\) is purely complex so they appear in conjugate pairs. Thus for any \(\alpha \in K^\times\), \(\n_{K/\Q}(\alpha) \in \Q\) is positive. We already know
+  \begin{align*}
+    |\n_{K/\Q}(\zeta_p - 1)| &= \n(1 - \zeta_p) = p \\
+    |\n_{K/\Q}(\zeta_p)| &= \n(\zeta_p) = 1
+  \end{align*}
+  so putting everything together,
+  \[
+    \disc(1, \zeta_p, \dots, \zeta_p^{p - 2}) = (-1)^{\frac{p - 1}{2}} \frac{p^{p - 1}}{p} = (-1)^{\frac{p - 1}{2}} p^{p - 2}.
+  \]
+\end{proof}
+
+\begin{proposition}
+  \[
+    \O_K = \Z[\zeta_p].
+  \]
+\end{proposition}
+
+\begin{proof}
+  We already know \([\O_K: \Z[\zeta_p]] < \infty\) and
+  \[
+    \disc(\O_K) [\O_K: \Z[\zeta_p]]^2 = \disc(1, \zeta_p, \dots, \zeta_p^{p - 2}) = \pm p^{p - 2}.
+  \]
+  Hence \(\Z[\zeta_p] \subseteq \O_K\) if of \(p\)-power index, which we are going to prove to be \(1\). Look at the quotient ring \(\O_K/(1 - \zeta_p)\), which has order \(\n(1 - \zeta_p) = p\) so is just the finite field of \(p\) elements. Thus the characteristic homomorphism \(\Z \to \O_K/(1 - \zeta_p)\) is surjective. Hence for any \(z_0 \in \O_K\), there exists \(a_0 \in \Z, z_1 \in \O_K\) such that
+  \[
+    z_0 = a_0 + (1 - \zeta_p)z_1.
+  \]
+  Repeat for \(z_1\), there exists \(a_1 \in \Z, z_2 \in \O_K\) such that
+  \begin{align*}
+    z_0 &= a_0 + (1 - \zeta_p)(a_1 + (1 - \zeta_p)z_2) \\
+        &= a_0 + (1 - \zeta_p)a_1 + (1 - \alpha_p)^2z_2
+  \end{align*}
+  By induction, we see we can write
+  \[
+    z_0 = \underbrace{a_0 + (1 - \zeta_p)a_1 + \dots + (1 - \zeta_p)^{n - 1}a_{n - 1}}_{\in \Z[1 - \zeta_p]} + (1 - \zeta_p)^n z_n
+  \]
+  where \(a_1, \dots, a_{n - 1} \in \Z, z_n \in \O_K\) for any \(n \geq 1\), i.e.
+  \[
+    \O_K = \Z[1 - \zeta_p] + (1 - \zeta_p)^n \O_K
+  \]
+  for any \(n \geq 1\).
+
+  Observe that \(\Z[1 - \zeta_p] = \Z[\zeta_p]\) and \((1 - \zeta_p)^{(p - 1)N} \O_K = p^N \O_K\) for any \(N \geq 1\). Thus
+  \[
+    \O_K = \Z[\zeta_p] + p^N\O_K.
+  \]
+  We know \(\Z[\zeta_p] \subseteq \O_K\) has \(p\)-power index, so by Lagrange there exists \(N \geq 1\) such that \(p^N \O_K \subseteq \Z[\zeta_p]\). Hence
+  \[
+    \O_K = \Z[\zeta_p] + p^N\O_K = \Z[\zeta_p].
+  \]
+\end{proof}
+
+What are the units in this ring? There are the obvious one \(pm 1\) but are there any else?
+
+\begin{lemma}
+  If \(\ell\) is a prime number, then \(\ell\) ramifies in \(K\) if and only if \(\ell = p\).
+\end{lemma}
+
+\begin{proof}
+  Recall that by definition, \(\ell\) ramifies in \(K\) if and only if there exists \(\mathfrak p \subseteq \O_K\) prime such that \(\mathfrak p^2 \divides \ell \O_K\).
+
+  We've seen that \((1 - \zeta_p)^{p - 1} = p\O_K\), so \(p\) is ramified in \(K\). Let \(\ell \neq p\) be a prime. Since \(\Z[\zeta_p] = \O_K\), \nameref{thm:Dedekind} tells us that \(\ell\) is ramified in \(K\) if and only if \(f_p(x) \pmod \ell\) has a repeated root. We know \(\disc f_p = \pm p^{p - 1}\), hence \(\disc(f_p \pmod \ell) \neq 0\) so \(f_p(x) \pmod \ell\) does not have any repeated roots.
+\end{proof}
+
+\begin{proposition}
+  Let \(\mu_K \subseteq \O_K^\times\) be the group of roots of unity in \(K\). Then
+  \[
+    \mu_K = \{\pm \zeta_p^i: 0 \leq i < p\}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  \(\{\pm \zeta_p^i: 0 \leq i < p\} \subseteq \mu_K\) is a subgroup of order \(2p\) so it suffices to show \(|\mu_K| = 2p\). If \(\ell \neq p\) is an odd prime and \(\ell \divides |\mu_K|\) then \(\zeta_\ell \in \Q(\zeta_p)\) so \(\Q(\zeta_\ell) \subseteq \Q(\zeta_p)\). In particular \(\ell\) is ramified in \(\O_{\Q(\zeta_\ell)}\), so there exists a prime ideal \(\mathfrak p \subseteq \O_{\Q(\zeta_\ell)}\) such that \(\mathfrak p^2 \divides \ell \O_{\Q(\zeta_\ell)}\). Then \(p^2 \O_K \divides \ell \O_K\) so \(\ell\) is ramified in \(K\), absurd.
+\end{proof}
+
 
 
 
