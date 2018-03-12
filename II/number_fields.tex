@@ -2174,7 +2174,7 @@ From now on \(p\) is an odd prime.
   Repeat for \(z_1\), there exists \(a_1 \in \Z, z_2 \in \O_K\) such that
   \begin{align*}
     z_0 &= a_0 + (1 - \zeta_p)(a_1 + (1 - \zeta_p)z_2) \\
-        &= a_0 + (1 - \zeta_p)a_1 + (1 - \alpha_p)^2z_2
+        &= a_0 + (1 - \zeta_p)a_1 + (1 - \zeta_p)^2z_2
   \end{align*}
   By induction, we see we can write
   \[
@@ -2196,7 +2196,7 @@ From now on \(p\) is an odd prime.
   \]
 \end{proof}
 
-What are the units in this ring? There are the obvious one \(pm 1\) but are there any else?
+What are the roots of unity in this ring? The \(\zeta_p^i\)'s certainly are. Stare at it a bit longer and you will find their negatives are as well. We use the following lemma to show that's all of them.
 
 \begin{lemma}
   If \(\ell\) is a prime number, then \(\ell\) ramifies in \(K\) if and only if \(\ell = p\).
@@ -2205,7 +2205,7 @@ What are the units in this ring? There are the obvious one \(pm 1\) but are ther
 \begin{proof}
   Recall that by definition, \(\ell\) ramifies in \(K\) if and only if there exists \(\mathfrak p \subseteq \O_K\) prime such that \(\mathfrak p^2 \divides \ell \O_K\).
 
-  We've seen that \((1 - \zeta_p)^{p - 1} = p\O_K\), so \(p\) is ramified in \(K\). Let \(\ell \neq p\) be a prime. Since \(\Z[\zeta_p] = \O_K\), \nameref{thm:Dedekind} tells us that \(\ell\) is ramified in \(K\) if and only if \(f_p(x) \pmod \ell\) has a repeated root. We know \(\disc f_p = \pm p^{p - 1}\), hence \(\disc(f_p \pmod \ell) \neq 0\) so \(f_p(x) \pmod \ell\) does not have any repeated roots.
+  We've seen that \((1 - \zeta_p)^{p - 1} = p\O_K\), so \(p\) is ramified in \(K\). Let \(\ell \neq p\) be a prime. Since \(\Z[\zeta_p] = \O_K\), \nameref{thm:Dedekind} tells us that \(\ell\) is ramified in \(K\) if and only if \(f_p(x) \pmod \ell\) has a repeated root. We know \(\disc f_p = \pm p^{p - 2}\), hence \(\disc(f_p \pmod \ell) \neq 0\) so \(f_p(x) \pmod \ell\) does not have any repeated roots.
 \end{proof}
 
 \begin{proposition}
@@ -2216,7 +2216,180 @@ What are the units in this ring? There are the obvious one \(pm 1\) but are ther
 \end{proposition}
 
 \begin{proof}
-  \(\{\pm \zeta_p^i: 0 \leq i < p\} \subseteq \mu_K\) is a subgroup of order \(2p\) so it suffices to show \(|\mu_K| = 2p\). If \(\ell \neq p\) is an odd prime and \(\ell \divides |\mu_K|\) then \(\zeta_\ell \in \Q(\zeta_p)\) so \(\Q(\zeta_\ell) \subseteq \Q(\zeta_p)\). In particular \(\ell\) is ramified in \(\O_{\Q(\zeta_\ell)}\), so there exists a prime ideal \(\mathfrak p \subseteq \O_{\Q(\zeta_\ell)}\) such that \(\mathfrak p^2 \divides \ell \O_{\Q(\zeta_\ell)}\). Then \(p^2 \O_K \divides \ell \O_K\) so \(\ell\) is ramified in \(K\), absurd.
+  \(\{\pm \zeta_p^i: 0 \leq i < p\} \subseteq \mu_K\) is a subgroup of order \(2p\) so it suffices to show \(|\mu_K| = 2p\). If \(\ell \neq p\) is an odd prime and \(\ell \divides |\mu_K|\) then since \(\mu_K\) is cyclic, \(\zeta_\ell \in K\) so \(\Q(\zeta_\ell) \subseteq K\). As \((1 - \zeta_\ell)^{\ell - 1} \O_{\Q(\zeta_\ell)} = \ell \O_{\Q(\zeta_\ell)}\), we get \((1 - \zeta_\ell)^{\ell - 1} \O_K = \ell \O_K\), contradicting the fact that \(\ell\) is unramified in \(K\).
+
+  Similarly if \(4 \divides |\mu_K|\) then \(i \in K\) and hence \((1 + i)^2 \O_K = 2\O_K\), contradicting the fact that \(2\) is unramified in \(K\).
+
+  If \(p^2 \divides |\mu_K|\), then \(\omega = e^{2\pi i/p^2} \in K\). Let \(f(x) = \frac{x^{p^2} - 1}{x^p - 1} \in \Z[x]\), then
+  \[
+    f(x) = \prod_{\substack{1 \leq a \leq p^2 \\ p \ndivides a}} (x - \omega^a).
+  \]
+  Then
+  \[
+    f(1) = p = \prod_{\substack{1 \leq a \leq p^2 \\ p \ndivides a}} (1 - \omega^a).
+  \]
+  By the same argument as for \(\zeta_p\), \((1 - \omega^a) \O_K = (1 - \omega) \O_K\) if \((a, p) = 1\). Hence
+  \[
+    p \O_K = (1 - \omega)^{\phi(p^2)} = (1 - \omega)^{p(p - 1)}.
+  \]
+  Taking norm, get \(p^{p - 1} = \n(1 - \omega)^{p(p - 1)}\), absurd. Thus \(|\mu_K| = 2p\).
+\end{proof}
+
+\begin{lemma}[Kummer]\index{Kummer's lemma}
+  If \(u \in \O_K^\times\), there exists \(g \in \Z\) such that
+  \[
+    \zeta_p^g u \in K \cap \R.
+  \]
+\end{lemma}
+
+For those familiar with Galois theory, we have the tower of fields
+\[
+  \begin{tikzcd}
+    K = \Q(\zeta_p) \ar[d, dash, "2"] \\
+    K \cap \R = \Q(\zeta_p + \zeta_p^{-1}) \ar[d, dash, "\frac{p - 1}{2}"] \\
+    \Q
+  \end{tikzcd}
+\]
+
+\begin{proof}
+  % Essentially suffices to prove the Galois group is abelian.
+  Claim that if \(\sigma: K \to \C\) is a complex embedding, then for all \(\alpha \in K\), \(\sigma(\conj \alpha) = \conj{\sigma(\alpha)}\): suffices to check this for \(\alpha = \zeta_p\). If \(\sigma(\zeta_p) = \zeta_p^a\) then
+  \[
+    \sigma(\conj{\zeta_p}) = \sigma(\zeta_p^{-1}) = \zeta_p^{-a} = \conj{\zeta_p^a} = \conj{\sigma(\zeta_p)}.
+  \]
+
+  If \(u \in \O_K^\times\), then for any embedding \(\sigma: K \to \C\),
+  \[
+    |\sigma(u/\conj u)| = |\sigma(u) \conj{\sigma(u)}^{-1}| = 1.
+  \]
+  Hence \(u/\conj u \in \mu_K\), so we can write \(u/\conj u = (-1)^b \zeta_p^k\) for some \(b \in \{0, 1\}, k \in \Z\). After replacing \(k\) by \(k + p\), wlog \(k = 2g\). Then \(u = \conj u (-1)^b \zeta_p^{2g}\).
+
+  Now look at the residue ring \(\O_K/(1 - \zeta_p) \cong \Z/p\Z\). The ideal \((1 - \zeta_p)\O_K\) is stable under complex conjugation, so complex conjugation induces an automorphism of \(\O_K/(1 - \zeta_p)\). As \(\Z \to \O_K/(1 - \zeta_p)\) is surjective, this automorphism is trivial, so for all \(\alpha \in \O_K\), \(\alpha = \conj \alpha \mod{(1 - \zeta_p)\O_K}\). Hence for all \(u \in \O_K^\times\),
+  \begin{align*}
+    u &= \conj u \mod{(1 - \zeta_p)} \\
+      &= \conj u (-1)^b \zeta_p^{2g} = \conj u (-1)^b \mod{(1 - \zeta_p)}
+  \end{align*}
+  Since \(u \in \O_K^\times\), \(u \neq 0 \pmod{(1 - \zeta_p)}\) so must have \(b = 0\). Hence \(u = \conj u \zeta_p^{2g}\), so \(\zeta_p^{-g} u = \conj{\zeta_p^{-g} u} \in K \cap \R\).
+\end{proof}
+
+\begin{lemma}
+  If \(\alpha \in \O_K\), then there exists \(a \in \Z\) such that
+  \[
+    \alpha^p = a \mod{p\O_K}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  For all \(\alpha \in \O_K\), there exist \(b \in \Z\) such that \(\alpha = b \mod{(1 - \zeta_p)}\). Note the identity
+  \[
+    \alpha^p - b^p = \prod_{i = 0}^{p - 1}(\alpha - \zeta_p^i b).
+  \]
+  For any \(i \geq 0\),
+  \[
+    \alpha - \zeta_p^i b = \alpha - b = 0 \mod{(1 - \zeta_p)}.
+  \]
+  Hence
+  \[
+    \alpha^p - b^p \in (1 - \zeta_p)^p \subseteq (1 - \zeta_p)^{p - 1} = p\O_K.
+  \]
+\end{proof}
+
+We now discuss Fermat's Last Theorem:
+
+\begin{theorem}[Wiles, 1994]
+  Let \(n \geq 3\) be an integer, and let \(x, y, z \in \Z\) be such that
+  \[
+    x^n + y^n = z^n
+  \]
+  then \(xyz = 0\).
+\end{theorem}
+
+A little history: in early 19th century, there are many false proofs of this theorem relying on the false assumption that \(\Z[e^{2\pi i/n}]\) is a UFD. In 1840s, Kummer invented the theory of ideal factorisation in number fields in order to try to give a correct proof, which worked for a large class of primes. The complete proof was announced by Wiles in 1993 in a room less than 100 yards from where we are now. Despite the geographical proximity, we are NOT going to prove it in this course!
+
+\begin{definition}[Regular prime]\index{regular prime}
+  An prime \(p\) is \emph{regular} if
+  \[
+    p \ndivides |\Cl(\Z[\zeta_p])|.
+  \]
+\end{definition}
+
+\begin{theorem}[Kummer]
+  Let \(p\) be an regular prime, then Fermat's Last Theorem holds in exponent \(n = p\).
+\end{theorem}
+
+Again we will not prove this. Instead we will prove
+
+\begin{theorem}
+  Let \(p\) be an odd regular prime. Let \(x, y, z \in \Z\) be such that \(p \ndivides xyz\). Then
+  \[
+    x^p + y^p \neq z^p.
+  \]
+\end{theorem}
+
+Kummer called this the ``first case'' of Fermat's Last Theorem. He dealt with the ``second case'' (where \(p \divides xzy\)) using similar techniques.
+
+\begin{proof}
+  Let \(x, y, z \in \Z\) such that \(x^p + y^p + z^p = 0\), \(p \ndivides xyz\). Wlog \(\gcd(x, y, z) = 1\). Then we factor
+  \[
+    x^p + y^p = \prod_{i = 0}^{p - 1} (x + \zeta_p^i y) = -z^p \in \Z[\zeta_p].
+  \]
+  Claim that the ideals \((x + \zeta_p^i y)\) are pairwise coprime:
+  \begin{proof}
+    Suppose \(\mathfrak q \subseteq \O_K\) is a prime ideal dividing \((x + \zeta_p^i y)\) and \((x + \zeta_p^j y)\) where \(0 \leq i < j < p\). Then
+    \[
+      \mathfrak q \divides ((\zeta_p^i - \zeta_p^j) y) = (1 - \zeta_p)(y).
+    \]
+    If \(\mathfrak q \divides (y)\) then \(\mathfrak q \divides (z)\) so \(\mathfrak q \divides (x)\). Taking norm, we get \(\ell \divides \gcd(x, y, z)\) where \(\n(\mathfrak q) = \ell^f\), absurd.
+
+    If \(\mathfrak q \divides (1 - \zeta_p) \). Hence \(\mathfrak q = (1 - \zeta_p)\) and \((1 - \zeta_p) \divides (z)\) so \(p \divides z\), absurd.
+  \end{proof}
+
+  Thus by
+  \[
+    \prod_{i = 0}^{p - 1} (x + \zeta_p^i y) = (z)^p
+  \]
+  there exists an ideal \(I \subseteq \O_K\) such that \((x + \zeta_p y) = I^p\). Since \(p\) is regular, i.e.\ \(p \ndivides |\Cl(\O_K)|\), this implies that \(I\) is principal. If \(I = (\delta)\) then \((x + \zeta_py) = (\delta^p)\), so there exists \(u \in \O_K^\times\) such that \(x + \zeta_p y = u \delta^p\). By previous lemmas, there exists \(v \in \O_K^\times \cap \R, g \in \Z, a \in \Z\) such that
+  \[
+    u \delta^p = \zeta_p^g va \mod{p\O_K}.
+  \]
+  Hence \(\zeta_p^{-g} (x + \zeta_p y) = va \mod{p\O_K}\).
+
+  Observe that \(va \in \O_K \cap \R\) so is invariant under complex conugation. Hence
+  \[
+    \zeta_p^{-g} (x + \zeta_p y) = \zeta_p^g (x + \zeta_p^{-1} y) \mod{p\O_K}
+  \]
+  so
+  \[
+    \zeta_p^{-g} x + \zeta_p^{1 - g} y - \zeta_p^g x - \zeta_p^{g - 1} y = 0 \mod{p\O_K}.
+  \]
+  What is \(g\)? First note that \(g \neq 0, 1 \pmod p\): if \(g = 0 \pmod p\), then
+  \[
+    x + \zeta_p y - x - \zeta_p^{-1} y = \zeta_p(1 - \zeta_p^{-2}) y = 0 \mod (1 - \zeta_p)^{p - 1}
+  \]
+  and hence \(y \in (1 - \zeta_p)^{p - 2}\), so \(p \divides y\). Similar if \(g = 1 \pmod p\).
+
+  Now observe that two of \(-g, 1 - g, g, g - 1\) must be congruent module \(p\), as otherwise the identity
+  \[
+    \zeta_p^{-g} x + \zeta_p^{1 - g} y - \zeta_p^g x - \zeta_p^{g - 1} y = 0 \mod{p\O_K}
+  \]
+  together with the fact the \(\{\zeta_p^i\}_{i = 1}^{p - 1}\) is an integral basis of \(\Z[\zeta_p]\), forces \(p \divides x, p \divides y\), absurd.
+
+  Since \(g \neq 0, 1 \pmod p\), the only possibility is \(-g = g - 1 \pmod p\), i.e.\  \(2g = 1 \pmod p\). Hence
+  \begin{align*}
+    & \quad \zeta_p^{-g}(x + \zeta_p y - \zeta_p^{2g} x - \zeta_p^{2g - 1} y) \\
+    &= \zeta_p^{-g} (x + \zeta_p y - \zeta_p x - y) \\
+    &= \zeta_p^{-g} (x - y) (1 - \zeta_p) \\
+    &= 0 \mod{(1 - \zeta_p)^{p - 1}}
+  \end{align*}
+  Thus \(x - y = 0 \mod{(1 - \zeta_p)^{p - 2}}\), hence \(x = y \pmod p\). Recall the equation
+  \[
+    x^p + y^p + z^p = 0
+  \]
+  is symmetric in \(x, y, z\) so the same argument also give \(y = z \pmod p\), hence
+  \[
+    3x^p = 0 \pmod p.
+  \]
+  If \(p \neq 3\) then \(p \divides x\), absurd. If \(p = 3\) then reduce modulo \(9\) shows there are no solutions, which is left as an exercise.
 \end{proof}
 
 

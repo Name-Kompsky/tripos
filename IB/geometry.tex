@@ -1233,7 +1233,7 @@ Recall that if \(P \in V, Q \in \sigma(P)\), then the tangent space \(T_QS\) is 
 By the above remark, \(N\) is well-defined up to a sign.
 
 \begin{definition}[Chart]\index{chart}
-  \(\phi: \sigma^{-1}: U \to V\) where \(U \subseteq S, V \subseteq \R^2\) is a \emph{chart}.
+  \(\phi = \sigma^{-1}: U \to V\) where \(U \subseteq S, V \subseteq \R^2\) is a \emph{chart}.
 \end{definition}
 
 \begin{eg}
@@ -1359,7 +1359,7 @@ To recoginise the importance of the definition, we need some knowledge from calc
   and the result follows.
 \end{proof}
 
-Let \(S \subseteq \R^3\) be an embedded surface and \(\sigma: V \to U\) be a parameterisation and \(\theta = \sigma^{-1}\) be a chart. Let \(\Gamma: [a, b] \to U\) be a smooth cruve in \(S\). Then \(\gamma = \theta \compose \Gamma\) is a smooth curve in \(V\).
+Let \(S \subseteq \R^3\) be an embedded surface and \(\sigma: V \to U\) be a parameterisation and \(\theta = \sigma^{-1}\) be a chart. Let \(\Gamma: [a, b] \to U\) be a smooth curve in \(S\). Then \(\gamma = \theta \compose \Gamma\) is a smooth curve in \(V\).
 
 Now we can define geodesic in an equivalent but more synthetic way:
 
@@ -1534,6 +1534,176 @@ Which of them is a geodesic?
   \item \(v = v_0 \) is constant so the second equation holds. As \(\dot v = 0\), \(|\dot u(t)| = 1\) so \(\ddot u = 0\) and the first equation also holds.
   \item Suppose \(u = u_0\). Then \(f^2 \dot v^2 = 1\) whence \(\dot v = \pm \frac{1}{f(u_0)} \neq 0\) is a constant so the second equation holds. Then the first equation holds if and only if \(\frac{df}{du} (u_0) = 0\).
   \end{enumerate}
+\end{proof}
+
+\section{Gaussian curvature}
+
+Let's begin by considering a \(1\)-dimensional example. Let \(\eta: [0, \ell] \to \R^2\) be a smooth curve with \(\norm{\eta'} = 1\). Then
+\[
+  \eta' \cdot \eta'' = \frac{1}{2} (\eta' \cdot \eta')' = 0.
+\]
+Recall the \emph{curvature} \(\kappa\) at \(\eta(s)\) is determined by
+\[
+  \eta'' = \kappa n
+\]
+where \(\norm n = 1, n \cdot \eta' = 0\) is the unit normal and sign such that \(\kappa \geq 0\).
+
+When \(f: [c, d] \to [0, \ell]\) is smooth with \(f'(t) > 0\), we may reparameterise \(\gamma(t) = \eta(f(t))\). Then \(\dot \eta = \dot f(t)\eta'(f(t))\) and \(\norm{\dot \gamma}^2 = \dot f^2\). Also \(\eta''(f(t)) = \kappa n\) where \(\kappa\) is the curvature at \(f(t)\). Then by Taylor's theorem,
+\[
+  \gamma(t + \Delta t) - \gamma(t) = \dot f \eta'(f(t)) \cdot \Delta t \frac{1}{2} (\ddot f \eta'(f(t)) + \dot f^2 \eta''(f(t))) \Delta t^2 + \text{ high order terms}
+\]
+so
+\[
+  (\gamma(t + \Delta t) - \gamma(t)) \cdot n = \frac{1}{2} \kappa \norm{\dot \gamma}^2 \Delta t^2 + \text{ high order terms}.
+\]
+On the other hand,
+\[
+  \norm{\gamma(t + \Delta t) - \gamma(t)}^2 = \norm{\dot \gamma}^2 \Delta t^2 + \text{ high order terms}.
+\]
+Comparing these two equations, \(\kappa\) is the ratio of the leading (quadratic) terms of RHS and is independent of parameterisation of the curve.
+
+We want to generalise this to two dimension.
+
+Let \(\sigma: V \to U\) be a parameterisation of a surface \(S \subseteq \R^3\). Apply Taylor's theorem,
+\begin{align*}
+  &\sigma(u + \Delta u, v + \Delta v) - \sigma(u, v) \\
+  =& \sigma_u \Delta u + \Delta v \Delta v \\
+  +& \frac{1}{2} (\sigma_{uu} \Delta u^2 + 2 \sigma_{uv} \Delta u \Delta v + \sigma_{vv} \Delta v^2) + \dots
+\end{align*}
+The ``deviation from the tangent plane'' is
+\[
+  (\sigma(u + \Delta u, v + \Delta v) - \sigma(u, v)) \cdot \V N + \frac{1}{2} (L \Delta u^2 + 2M \Delta u \Delta v + N \Delta v^2) + \dots
+\]
+where
+\begin{align*}
+  L &= \sigma_{uu} \cdot \V N \\
+  M &= \sigma_{uv} \cdot \V N \\
+  N &= \sigma_{vv} \cdot \V N
+\end{align*}
+Recall that
+\[
+  \norm{\sigma(u + \Delta u, v + \Delta v) - \sigma(u, v)}^2 = E \Delta u^2 + 2F \Delta u \Delta v + G \Delta v^2 + \dots
+\]
+We want to take similarly the ``quotient'' of the leading coefficients as an invariant. To do so we define
+
+\begin{definition}[Second fundamental form]\index{second fundamental form}
+  The \emph{second fundamental form} for \(S\) (on \(V\) with respect to \(\sigma\) is
+  \[
+    L du^2 + 2M dudv + N dv^2
+  \]
+  where \(L, M, N\) are smooth maps as defined above.
+\end{definition}
+
+\begin{definition}[Gaussian curvature]\index{Gaussian curvature}
+  The \emph{Gaussian curvature} \(K\) of \(S\) at \(P \in S\) is
+  \[
+    K = \frac{LN - M^2}{EG - F^2}.
+  \]
+\end{definition}
+
+If \(K > 0\), the second fundamental form is positive or negative definite. If \(K < 0\) then it is indefinite. If \(K = 0\) then it is semi-definite.
+
+\begin{eg}[Informal]
+  The unit sphere \(S^2\) has \(K > 0\). A Pringle crisp has \(K < 0\).
+\end{eg}
+
+\begin{remark}
+  It can be checked, similar to the case of curves, that \(K\) is independent of the parameterisation \(\sigma\).
+\end{remark}
+
+\begin{proposition}
+  Let \(\V N = \frac{\sigma_u \times \sigma_v}{\norm{\sigma_u \times \sigma_v}}\), the unit normal for a surface local patch \(\sigma\). Then at each point,
+  \begin{align*}
+    \V N_u &= a \sigma_u + b \sigma_v \\
+    \V N_v &= c \sigma_u + d \sigma_v
+  \end{align*}
+  where
+  \[
+    -
+    \begin{pmatrix}
+      L & M \\
+      M & N
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+    \begin{pmatrix}
+      E & F \\
+      F & G
+    \end{pmatrix}.
+  \]
+  In particular, \(K = ad - bc\).
+\end{proposition}
+
+\begin{proof}
+  \(\norm{\V N} = 1\) so \(\V N \cdot \V N_u = \V N \cdot \V N_v = 0\) so the relations must hold for some \(a, b, c, d\). As \(\V N \cdot \sigma_u = 0\), \(\V N_u \cdot \sigma_u + \V N \cdot \sigma_{uu} = 0\) so \(\V N_n \cdot \sigma_u = -L\). Similarly \(\V N_u \cdot \sigma_v = -M = \V N_v \cdot \sigma_u\), \(\V N_v \cdot \sigma_v = -N\). Dot * with \(\sigma_u, \sigma_v\),
+  \begin{align*}
+    -L &= aE + bF \\
+    -M &= cE + dF \\
+    -M &= aF + bG \\
+    -N &= cF + dG
+  \end{align*}
+  which is **. Taking the determinants, obtain \(K = ad - bc\).
+\end{proof}
+
+\begin{theorem}
+  Suppose for a parameterisation \(\sigma: V \to U\) the first fundamental form is \(du^2 + G(u, v) dv^2\). Then
+  \[
+    K = -\frac{(\sqrt G)_{uu}}{\sqrt G}.
+  \]
+\end{theorem}
+We notice that this formula for Gaussian curvature depends on the first fundamental form only. In fact, the general case, found in example sheet 3, is not much more difficult.
+
+\begin{proof}
+  Set \(e = \sigma_u, f = \frac{\sigma_v}{\sqrt G}, \V N\) is an orthonormal basis of \(\R^3\) dependent on \((u, v)\). Take dot products, \(e \cdot e = 1\) so \(e \cdot e_u = 0 = e \cdot e_v\). Thus we may write
+  \begin{align*}
+    dagger
+    e_u &= \alpha f + \lambda_1 \V N \\
+    e_v &= \beta f + \lambda_2 \V N \\
+    f_u &= - \tilde \alpha e + \mu_1 \V N \\
+    f_v &= - \tilde \beta e + \mu_2 \V N
+  \end{align*}
+  Since \(e \cdot f = 0\), we have
+  \begin{align*}
+    e_u \cdot f + e \cdot f_u &= 0 \\
+    e_v \cdot f + e \cdot f_v &= 0
+  \end{align*}
+  so \(\alpha = \tilde \alpha, \beta = \tilde \beta\). But
+  \[
+    \alpha = e_u \cdot f = \sigma_{uu} \cdot \frac{\sigma_v}{\sqrt G} = [\underbrace{(\sigma_u \sigma_v)}_{= F = 0}_u - \frac{1}{2}(\sigma_u\sigma_u)_v = 0.
+  \]
+  Similarly
+  \[
+    \beta = e_v \cdot f = \sigma_{uv} \cdot \frac{\sigma_v}{\sqrt G} = \frac{G_u}{\sqrt G} = (\sqrt G)_u.
+  \]
+  Using dagger again,
+  \begin{align*}
+    & \lambda_1 \mu_2 - \lambda_2 \mu_2 \\
+    &= e_u \cdot f_v - e_v \cdot f_u \\
+    &= (e \cdot f_v)_u - \underbrace{(e \cdot f_u)}_{= -\tilde \alpha = 0}_v \\
+    &= -\beta_u \\
+    &= - (\sqrt G)_{uu}
+  \end{align*}
+  Now from * in the previous proposition,
+  \begin{align*}
+    & \V N_u \times \V N_v \\
+    &= (a \sigma_u + b \sigma_v) \times (c \sigma_u + d \sigma_v) \\
+    &= (ad - bc) \sigma_u \times \sigma_v \\
+    &= K \sigma_u \times \sigma_v \\
+    &= K \sqrt G e \times f \\
+    &= K \sqrt G \V N
+  \end{align*}
+  so
+  \begin{align*}
+    K \sqrt G
+    &= (\V N_u \times \V N_v) \cdot \V N \\
+    &= (\V N_n \times \V N_v) \cdot (e \times f) \\
+    &= (\V N \cdot e_u) (\V N \cdot f_v) - (\V N \cdot f_u) (\V \cdot e_v) \\
+    &= \lambda_1 \mu_2 - \lambda_2 \mu_1 \\
+    &= - (\sqrt G)_{uu}
+  \end{align*}
 \end{proof}
 
 

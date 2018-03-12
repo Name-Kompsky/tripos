@@ -11,6 +11,10 @@
 \input{header}
 
 \DeclareMathOperator{\dom}{dom}%domain of a function
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\card}{card}
+
+\newcommand*{\biject}{\leftrightarrow}
 
 \begin{document}
 
@@ -20,15 +24,12 @@
 
 \section{Propositional Logic}
 
-Let \(P\) be a set of \emph{primitive propositions}. Unless otherwise stated,
-\[
-  P = \{p_1, p_2, \dots \}.
-\]
+Let \(P\) be a set of \emph{primitive propositions}. Unless otherwise stated, \(P = \{p_1, p_2, \dots \}\).
 
 \begin{definition}[Language]\index{language}
   The \emph{language} or \emph{set of propositions} \(L = L(P)\) is defined inductively by
   \begin{enumerate}
-  \item \( p \in P, p \in L\),
+  \item for every \( p \in P\), \(p \in L\),
   \item \(\bot \in L\) (reads ``false''),
   \item if \(p, q \in L\) then \((p \implies q) \in L\).
   \end{enumerate}
@@ -40,7 +41,7 @@ Let \(P\) be a set of \emph{primitive propositions}. Unless otherwise stated,
 
 \begin{note}\leavevmode
   \begin{enumerate}
-  \item Each proposition is a finite union string of symbols from the alphabet \((, ), \implies, p_1, p_2, \dots\).
+  \item Each proposition is a finite string of symbols from the alphabet \((, ), \implies, p_1, p_2, \dots\).
   \item ``Inductively defined'' means more precisely that we set
     \begin{align*}
       L_1 &= P \cup \{\bot\} \\
@@ -53,7 +54,7 @@ Let \(P\) be a set of \emph{primitive propositions}. Unless otherwise stated,
 
 Note that we often omit outer brackets or use different brackets for clarity.
 
-We can now define for example, \(\neg p\) (reads ``not \(p\)'') as an abbreviation for \(p \implies \bot\), \(p \lor q\) (reads ``\(p\) or \(q\)'') for \((\neg p) \implies q\), \(p \land q\) (reads \(p\) and \(q\)'') for \(\neg (p \implies (\neg q))\).
+We can now define for example, \(\neg p\) (reads ``not \(p\)'') as an abbreviation for \(p \implies \bot\), \(p \lor q\) (reads ``\(p\) or \(q\)'') for \((\neg p) \implies q\), \(p \land q\) (reads ``\(p\) and \(q\)'') for \(\neg (p \implies (\neg q))\).
 
 \subsection{Semantic Entailment}
 
@@ -104,12 +105,12 @@ In other words, a valuation is determined by its values on \(P\) and any values 
 \end{eg}
 
 \begin{definition}[Tautology]\index{tautology}
-  \(p\) is a \emph{tautology}, written \(\models p\) if \(v(p) = 1\) for all valuations \(p\).
+  \(p\) is a \emph{tautology}, written \(\models p\) if \(v(p) = 1\) for all valuations \(v\).
 \end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(p \implies (q \implies p)\). ``A true statement is implied by anything''. Alternatively, we could make a truth table
+  \item \(p \implies (q \implies p)\). ``A true statement is implied by anything''. To show this we could write donw a truth table
     \begin{table}[h]
       \centering
       \begin{tabular}{c|c|c|c}
@@ -119,13 +120,12 @@ In other words, a valuation is determined by its values on \(P\) and any values 
         0 & 1 & 0 & 1 \\
         0 & 0 & 1 & 1
       \end{tabular}
-      \caption{Truth table}
     \end{table}
   \item \((\neg \neg p) \implies p\), i.e.\ \(((p \implies \bot) \implies \bot) \implies p\). ``Law of excluded middle''.
   \item \((p \implies (q \implies r)) \implies ((p \implies q) \implies (p \implies r))\). This is an example where writing down a truth table is not so desirable. Instead, this is not a tautology only if we have \(v\) with
     \begin{align*}
       v(p \implies (q\implies r)) &= 1 \\
-      v((p \implies q) \implies (q \implies r)) &= 0
+      v((p \implies q) \implies (p \implies r)) &= 0
     \end{align*}
     so \(v(p \implies q) = 1, v(p \implies r) = 0\) whence \(v(p) = 1, v(r) = 0\), so also \(v(q) = 1\). But then \(v(q \implies r) = 0\) so \(v(p \implies (q \implies r)) = 0\). Absurd.
   \end{enumerate}
@@ -147,7 +147,7 @@ This says whenever all of \(S\) is true, \(t\) is true as well.
   For \(S \subseteq L\), \(v\) is a \emph{model} of \(S\) if \(v(s) = 1\) for all \(s \in S\).
 \end{definition}
 
-Using this terminology, \(S \implies t\) says that every model of \(S\) is a model of \(t\).
+Using this terminology, \(S \models t\) says that every model of \(S\) is a model of \(t\).
 
 \begin{note}
   \(\models t\) is equivalent to \(\emptyset \models t\).
@@ -166,16 +166,20 @@ For a notion of ``proof'', we'll need axioms and deduction rules. As axioms, we'
   We have already checked that these are all tautologies. Sometimes we say 3 axiom schemes to mean 3 infinite sets of axioms.
 \end{note}
 
-As deduction rules, we'll take just \emph{modus ponens}: from \(p\) and \((p \implies q)\) we can deduce \(q\).
+As deduction rules, we'll take just \emph{modus ponens}\index{modus ponens}: from \(p\) and \((p \implies q)\) we can deduce \(q\).
 
-\begin{definition}[Proof]\index{proof}
+\begin{definition}[Proof]\index{proof}\index{hypothesis}\index{premise}\index{conclusion}
   For \(S \subseteq L\) and \(t \in L\), a \emph{proof} of \(t\) from \(S\) consists of a finite sequence \(t_1, \dots, t_n\) of propositions, with \(t_n = t\) such that for every \(i\), the proposition \(t_i\) is an axiom, or a member of \(S\), or there exists \(j, k < i\) with \(t_j = (t_k \implies t_i)\).
 
   We say \(S\) is the \emph{hypotheses} or \emph{premises} and \(t\) is the \emph{conclusion}.
 \end{definition}
 
-\begin{definition}
-  If there is a proof of \(t\) from \(S\), say \(S\) \emph{proves} or \emph{syntactically implies} \(t\), written \(S \yields t\). If \(\emptyset \yields t\), say \(t\) is a \emph{theorem}, written \(\yields t\).
+\begin{definition}[Syntactical implication]\index{syntactical implication}
+  If there is a proof of \(t\) from \(S\), say \(S\) \emph{proves} or \emph{syntactically implies} \(t\), written \(S \yields t\).
+\end{definition}
+
+\begin{definition}[Theorem]\index{theorem}
+  \(t\) is a \emph{theorem} if \(\emptyset \yields t\), written \(\yields t\).
 \end{definition}
 
 \begin{eg}
@@ -264,7 +268,7 @@ The easy part is
 \begin{proof}
   Given \(v\) that models \(s\) and a proof \(t_1, \dots, t_n = t\) of \(S \yields t\), we will show that \(v(t_i) = 1\) for all \(i\).
 
-  If \(t_i\) is an axiom they \(v(t_i) = 1\) since it is tautology. If \(t_i\) is a hypothesis then \(v(t_i) = 1\) by assumption. Finally, if \(t_i\) is obtained by MP, say from \(t_j \implies t_i\), since \(v(t_j) = 1\) and \(v(t_j \implies t_i) = 1\) by induction, \(v(t_i) = 1\).
+  If \(t_i\) is an axiom then \(v(t_i) = 1\) since it is tautology. If \(t_i\) is a hypothesis then \(v(t_i) = 1\) by assumption. Finally, if \(t_i\) is obtained by MP, say from \(t_j \implies t_i\), since \(v(t_j) = 1\) and \(v(t_j \implies t_i) = 1\) by induction, \(v(t_i) = 1\).
 \end{proof}
 
 Note that soundness holds whenever our axioms are tautologies.
@@ -279,16 +283,12 @@ To prove adequacy, which is a bit harder, we need a few lemmas.
   Let \(S \subseteq L\) be consistent, then \(S\) has a model.
 \end{theorem}
 
-The idea is to define a valuation \(v\) by \(v(p) = 1\) if and only if \(p \in S\). As \(1\) is preserved under \(\implies\), a more sensible aim is \(v(p) = 1\) if and only if \(S \yields p\).
+The idea is to define a valuation \(v\) by \(v(p) = 1\) if and only if \(p \in S\). As \(1\) is preserved under \(\models\) and thus \(\yields\), a more sensible aim is \(v(p) = 1\) if and only if \(S \yields p\).
 
 But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow'' \(S\) to contain one of \(p\) or \(\neg p\) for each \(p \in L\) (while remaining consistent).
 
 \begin{proof}
-  Claim that for any consistent \(S \subseteq L\), \(S \cup \{p\}\) or \(S \cup \{\neg p\}\) is consistent:
-
-  \begin{proof}
-    If not, then \(S \cup \{p\} \yields \bot\) and \(S \cup \{\neg p\} \yields \bot\). But then \(S \yields (p \implies \bot)\) by deduction theorem, i.e.\ \(S \yields \neg p\). Then \(S \yields \bot\). Absurd.
-  \end{proof}
+  Claim that for any consistent \(S \subseteq L\), \(S \cup \{p\}\) or \(S \cup \{\neg p\}\) is consistent: if not, then \(S \cup \{p\} \yields \bot\) and \(S \cup \{\neg p\} \yields \bot\). But then \(S \yields (p \implies \bot)\) by deduction theorem, i.e.\ \(S \yields \neg p\). Then \(S \yields \bot\). Absurd.
 
   Now as \(L\) is countable, we can list \(L\) as \(t_1, t_2, \dots \). Put \(S_0 = S\). Set \(S_1 = S_0 \cup \{t_1\}\) or \(S_0 \cup \{\neg t_1\}\) such that \(S_1\) is consistent. Then let \(S_2 = S_1 \cup \{t_2\}\) or \(S_1 \cup \{\neg t_2\}\) such that \(S_2\) is consistent and continue inductively. Let \(\cl S = S_0 \cup S_1 \cup \dots\). Then \(\cl S \supseteq S\) and \(\cl S\) is consistent (as each \(S_n\) is consistent and proofs are finite). For all \(p \in L\) either we have \(p \in \cl S\) or \(\neg p \in \cl S\). Also \(\cl S\) is \emph{deductively closed}, meaning that if \(\cl S \yields p\) then \(p \in \cl S\). Indeed if \(p \notin \cl S\) then \(\neg p \in \cl S\), so \(\cl S \yields p, \cl S \yields (\neg p)\), whence \(\cl S \yields \bot\). Absurd.
 
@@ -305,14 +305,14 @@ But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow
   \begin{itemize}
   \item if \(v(p) = 1, v(q) = 0\), we have \(p \in \cl S, q \notin \cl S\), and we want \(v(p \implies q) = 0\), i.e.\ \((p \implies q) \notin \cl S\). But if \((p \implies q) \in \cl S\) then \(\cl S \yields q\), \(q \in \cl S\). Absurd.
   \item if \(v(q) = 1\), we have \(q \in \cl S\), and we want \(v(p \implies q) = 1\), i.e.\ \((p \implies q) \in \cl S\). But \(\yields q \implies (p \implies q)\) so \(\cl S \yields (p \implies q)\).
-  \item if \(v(p) = 0\), we have \(p \notin \cl S\). Then \((\neg p) \in \cl S\). We want \((p \implies q) \in \cl S\). Thus we need \((p \implies \bot) \yields (p \implies q)\), which by deduction theorem is equivalent to \(\{p \implies \bot, p\} \yields q\). Thus suffices to show that \(\bot \yields q\). But we have \(\yields (\neg \neg q) \implies q\), and \(\yields (\bot \implies (\neg \neg q))\). Thus \(\yields (\bot \implies q)\), i.e.\ \(\bot \implies q\). Done.
+  \item if \(v(p) = 0\), we have \(p \notin \cl S\). Then \((\neg p) \in \cl S\). We want \((p \implies q) \in \cl S\). Thus we need \((p \implies \bot) \yields (p \implies q)\), which by deduction theorem is equivalent to \(\{p \implies \bot, p\} \yields q\). Thus suffices to show that \(\bot \yields q\). But we have \(\yields (\neg \neg q) \implies q\), and \(\yields (\bot \implies (\neg \neg q))\). Thus \(\yields (\bot \implies q)\), i.e.\ \(\bot \yields q\). Done.
   \end{itemize}
 \end{proof}
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item Sometimes this is called completeness theorem.
-  \item What would happen if \(P\) is uncountable? In fact, the result still holds if \(P\) is uncountable. See chapter 3.
+  \item Sometimes this is called completeness theorem as it contains the majority of the work.
+  \item What would happen if \(P\) is uncountable? In fact, the result still holds. See chapter 3.
   \end{enumerate}
 \end{remark}
 
@@ -395,8 +395,8 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
   \begin{enumerate}
   \item \(\N\) with usual order\footnote{In this course \(0 \in \N\). Write \(\N^+\) for \(\N \setminus \{0\}\).}.
   \item \(\Q\) and \(\R\) with usual order.
-  \item \(\N^+\) with divisibility is \emph{not a total order} as for example, \(2\) and \(3\) are not related.
-  \item Given a set \(S\), the power set \(\mathcal P(S)\) with \(x \leq y\) if \(x \subseteq y\) is \emph{not} a total order for \(|S| > 1\).
+  \item \(\N^+\) with divisibility is \emph{not} a total order as for example, \(2\) and \(3\) are not related.
+  \item Given a set \(S\), the power set \(\powerset(S)\) with \(x \leq y\) if \(x \subseteq y\) is \emph{not} a total order for \(|S| > 1\).
   \end{enumerate}
 \end{eg}
 
@@ -411,8 +411,8 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
   \item \(\{x \in \Q: x \geq 0\}\) is \emph{not} a well-ordering. For example, \(\{x \in \Q: x > 0\}\) does not have a least element.
   \item \(\{1 - 1/n: n = 2, 3, \dots\}\) is a well-ordering. This can be thought of \(\N\) squashed into \([0, 1]\).
   \item \(\{1 - 1/n: n = 2, 3, \dots\} \cup \{1\}\) is a well-ordering.
-  \item In fact, we can take the union of 5 with any real larger than \(1\) and still have a well-ordering.
-  \item \(\{1 - 1/n: n = 2, 3, \dots\} \cup \{2 - 1/n: n = 2, 3, \dots\}\), i.e.\ two copies of 5, is still a well-ordering.
+  \item In fact, we can take the union of 4 with any real larger than \(1\) and still have a well-ordering.
+  \item \(\{1 - 1/n: n = 2, 3, \dots\} \cup \{2 - 1/n: n = 2, 3, \dots\}\), i.e.\ two copies of 4, is still a well-ordering.
   \end{enumerate}
 \end{eg}
 
@@ -439,7 +439,7 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
 \end{proposition}
 
 \begin{proof}
-  If \(S \neq X\) then let \(x\) be the least element in \(X \setminus S\). Then \(x \notin X\). But \(y \in S\) for all \(y < x\). Absurd.
+  If \(S \neq X\) then let \(x\) be the least element in \(X \setminus S\). Then \(x \notin S\). But \(y \in S\) for all \(y < x\). Absurd.
 \end{proof}
 
 An application:
@@ -458,7 +458,7 @@ An application:
   Let \(a\) be the least element of \(Y \setminus \{f(y): y \in X\}\), which is non-empty. Then we must have \(f(x) = a\): if \(f(x) > a\) then some \(x' > x\) has \(f(x') = a < f(x)\), contradicting \(f\) being order-preserving. Same holds for \(g\). Thus \(f(x) = g(x)\).
 \end{proof}
 
-\begin{definition}[initial segment]\index{initial segment}
+\begin{definition}[Initial segment]\index{initial segment}
   In a total order \(X\), an \emph{initial segment} \(I\) is a subset of \(X\) such that \(x \in I, y < x\) implies \(y \in I\).
 \end{definition}
 
@@ -473,16 +473,16 @@ An application:
   In a well-ordering, every proper initial segment \(I\) is of the form \(I_x\) for some \(x\). Indeed, let \(x\) be the least element of \(X \setminus I\). Then \(y < x\) implies \(y \in I\) (by definition of \(y\)). Also if \(y \in I\) then must have \(y < x\): if \(y = x\) or \(y > x\) then \(x \in I\) which is a contradiction.
 \end{note}
 
-The aim to show every subset of a well-ordered \(X\) is isomorphic to an initial segment.
+The aim is to show every subset of a well-ordered \(X\) is isomorphic to an initial segment.
 
 \begin{note}
   This is false for total orders. For example, \(\{1, 5, 9\} \subseteq \Z\), or \(\Q \subseteq \R\).
 \end{note}
 
-Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\) to the smallest element of \(X\) and continue this way. But how do we show every element of \(Y\) is mapped to somewhere? Instead, we should work backwards: given  \(y \in Y\), map \(y\) to the smallest element in \(X\) that is not mapped to.
+Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\) to the smallest element of \(X\) and continue this way. But how do we show every element of \(Y\) is mapped somewhere? Instead, we should work backwards: given  \(y \in Y\), map \(y\) to the smallest element in \(X\) that is not mapped to.
 
 \begin{theorem}[Definition by recursion]\index{definition by recursion}\index{definition by recursion|seealso {definition by recursion}}
-  Let \(X\) be well-ordering, \(Y\) any set and \(G: \mathcal P(X \times Y) \to Y\). Then there exists \(f: X \to Y\) such that \(f(x) = G(f|_{I_x})\) for all \(x \in X\). Moreover \(f\) is unique.
+  Let \(X\) be well-ordering, \(Y\) any set and \(G: \powerset(X \times Y) \to Y\). Then there exists \(f: X \to Y\) such that \(f(x) = G(f|_{I_x})\) for all \(x \in X\). Moreover \(f\) is unique.
 \end{theorem}
 
 \begin{note}\leavevmode
@@ -513,7 +513,7 @@ Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\
 
 A typical application:
 
-\begin{proposition}[Subset collapse]
+\begin{proposition}[Subset collapse]\index{subset collapse}
   Let \(X\) be well-ordered, \(Y \subseteq X\). Then \(Y\) is isomorphic to an initial segment of \(X\). Moreover, the initial segment is unique.
 \end{proposition}
 
@@ -714,7 +714,7 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
 
   Let
   \[
-    R = \{A \in \mathcal P(\N \times \N): A \text{ is a well-ordering of a subset of } \N\}.
+    R = \{A \in \powerset(\N \times \N): A \text{ is a well-ordering of a subset of } \N\}.
   \]
   Let \(S\) be the image of \(R\) under the function ``order-type'', i.e.\ \(S\) is the set of all order-types of well-orderings of \(\N\) (or subsets thereof). It is the set of all countable ordinals.
 
@@ -732,7 +732,7 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
 \end{theorem}
 
 \begin{proof}
-  Same proof as above, with \(\mathcal P(X, X)\) in place of \(\mathcal P(\N, \N)\).
+  Same proof as above, with \(\powerset(X, X)\) in place of \(\powerset(\N, \N)\).
 \end{proof}
 
 \begin{notation}
@@ -829,8 +829,8 @@ Similarly we can define towers and other arithmetic operations inductively. It i
   \begin{enumerate}
   \item Any total order.
   \item \(\N^+\) with ``divides''.
-  \item For any set \(S\), \(\mathcal P(S)\) with \(x \leq y\) if \(x \subseteq y\).
-  \item Any \(X \subseteq \mathcal P(S)\) with same relation as above. This specialises to, for example, all subspaces of a given vector space.
+  \item For any set \(S\), \(\powerset(S)\) with \(x \leq y\) if \(x \subseteq y\).
+  \item Any \(X \subseteq \powerset(S)\) with same relation as above. This specialises to, for example, all subspaces of a given vector space.
   \item We can draw a \emph{Hasse diagram} for a poset \(X\): it consists of a drawing of elemnents of \(X\), with an upward line from \(x\) to \(y\) if \(y\) covers \(x\), meaning \(y > x\) and no \(z\) such that \(y > z > x\). For example
     \[
       \begin{tikzcd}
@@ -919,7 +919,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
   \item \((\R, \leq)\) is not complete as \(\Z\) has no supremum. Thus completeness in posets is different to that from analysis.
   \item \([0, 1]\) is complete.
   \item \((0, 1)\) is not complete as \((0, 1)\) itself has no supremum.
-  \item \(\mathcal P(S)\) is always complete --- \(\{A_i\}_{i \in I}\) has supremum \(\bigcup_{i \in I} A_i\).
+  \item \(\powerset(S)\) is always complete --- \(\{A_i\}_{i \in I}\) has supremum \(\bigcup_{i \in I} A_i\).
   \end{enumerate}
 \end{eg}
 
@@ -930,8 +930,8 @@ Similarly we can define towers and other arithmetic operations inductively. It i
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item On \(\N\), \(f(x) = x + 1\).
-  \item On \([0, 1]\), \(f(x) = \frac{1 + x}{2}\), ``halve to the distance to \(1\)''.
-  \item On \(\mathcal P(S)\), \(f(A) = A \cup \{i\}\) for some fixed \(i \in S\).
+  \item On \([0, 1]\), \(f(x) = \frac{1 + x}{2}\), ``halve the distance to \(1\)''.
+  \item On \(\powerset(S)\), \(f(A) = A \cup \{i\}\) for some fixed \(i \in S\).
   \end{enumerate}
 \end{eg}
 
@@ -972,10 +972,10 @@ A typical application of Knaster-Tarski is
   \]
   Define
   \begin{align*}
-    \theta: \mathcal P(A) &\to \mathcal P(A) \\
+    \theta: \powerset(A) &\to \powerset(A) \\
     P &\mapsto A \setminus (g(B \setminus f(P)))
   \end{align*}
-  Then since \(\mathcal P(A)\) is complete, \(\theta\) is order-preserving (since it takes complement twice), there exists a fixed point by Knaster-Tarski.
+  Then since \(\powerset(A)\) is complete, \(\theta\) is order-preserving (since it takes complement twice), there exists a fixed point by Knaster-Tarski.
 \end{proof}
 
 \subsection{Zorn's Lemma}
@@ -1136,7 +1136,7 @@ Actually, there is a three-way equivalence: we have shown Zorn's lemma implies w
   Zorn's lemma is hard to prove from first principles because we need theory of ordinals, recursions and Hartogs' lemma, not because of its equivalence with axiom of choice.
 \end{note}
 
-\subsection{*Bourbaki-Witt theorem}
+\subsection{Bourbaki-Witt theorem*}
 
 On one hand we have Zorn's lemma, which is a local (conditions on chains) to global (maximal element) principle, and on the other hand we have \nameref{thm:Knaster-Tarski}, a global fixed point theorem based on assumptions of the ambient space (completeness). The Bourbaki-Witt theorem is a ``midpoint'' between the two.
 
@@ -1412,7 +1412,7 @@ As before, we need some logical axioms. There are 7 of them: 3 from propositiona
 As deduction rules we have
 \begin{enumerate}
 \item moduls ponens: from \(p, p \implies q\) can deduce \(q\).
-\item generalisation: from \(p\) can deduce \((\forall x) p\), if \(x\) does not occur free in any premise used to prove \(p\).
+\item generalisation\index{generalisation}: from \(p\) can deduce \((\forall x) p\), if \(x\) does not occur free in any premise used to prove \(p\).
 \end{enumerate}
 
 \begin{definition}[Proof]\index{proof}
@@ -1630,10 +1630,10 @@ The takeaway is: finiteness is not a first-order property.
   Add uncountably many constants \(\{c_i\}_{i \in I}\) to the language and add to \(S\) the set of sentences ``\(\neg(c_i = c_j)\)'' for each distinct \(i, j \in I\). Then any finite subset has a model (e.g.\ any infinite model of \(S\)), so the whole set has a model by compactness.
 \end{proof}
 
-Similarly, we could find a model into which \(\mathcal P (\mathcal P(\R))\) injects, by letting it be the indexing set.
+Similarly, we could find a model into which \(\powerset (\powerset(\R))\) injects, by letting it be the indexing set.
 
 \begin{eg}
-  We know there is an infinite field \(\Q\), thus there exists a field of the same size as \(\mathcal P (\mathcal P(\R))\).
+  We know there is an infinite field \(\Q\), thus there exists a field of the same size as \(\powerset (\powerset(\R))\).
 \end{eg}
 
 \begin{corollary}[Downward Löwenheim-Skolem]\index{Löwenheim-Skolem theorem!downward}
@@ -1755,7 +1755,7 @@ Similarly, we write \(\{z \in x: p(z)\}\) for sets formed by axiom of separation
 
 \begin{axiom*}[Axiom of pair set]
   \[
-    (\forall x) (\forall y) (\exists z) (\forall t) (t \in z \iff t = x \land t = y).
+    (\forall x) (\forall y) (\exists z) (\forall t) (t \in z \iff t = x \lor t = y).
   \]
 \end{axiom*}
 ``We can form \(\{x, y\}\).''
@@ -1768,17 +1768,18 @@ We write \(\{x, y\}\) for this set, and \(\{x\}\) for \(\{x, x\}\). Now we can d
   \(x\) is an ordered pair if \((\exists y) (\exists z) (x = (y, z))\).
 \end{definition}
 
-It is easy to check that \((x, y) = (t, u) \implies (x = t \land y = u)\) using axioms we have so far.
+It is easy to check that \((x, y) = (t, u) \iff (x = t \land y = u)\) using axioms we have so far.
 
 \begin{definition}[Function]\index{function}
   \(f\) is a \emph{function} if
-  \[
-    (\forall x) (x \in f \implies x \text{ ordered pair}) \land (\forall x) (\forall y) (\forall z) ((x, y) \in f \land (x, z) \in f \implies y = z).
-  \]
+  \begin{align*}
+    &(\forall x) (x \in f \implies x \text{ an ordered pair}) \\
+    \land & (\forall x) (\forall y) (\forall z) ((x, y) \in f \land (x, z) \in f \implies y = z).
+  \end{align*}
 
   The \emph{domain} of a function \(f\), written \(x = \dom f\), is such that
   \[
-    (f \text{ a function}) \land (\forall z) (z \in x \iff (\exists t) ((z, t) \in t)).
+    (f \text{ a function}) \land (\forall z) (z \in x \iff (\exists t) ((z, t) \in f)).
   \]
 
   Write \(f: x \to y\) for
@@ -1804,10 +1805,10 @@ It is easy to check that \((x, y) = (t, u) \implies (x = t \land y = u)\) using 
 
 \begin{note}\leavevmode
   \begin{enumerate}
-  \item We write \(\bigcup x\) and \(\mathcal P(x)\) for the two sets. We also write \(x \cup y\) for \(\bigcup \{x, y\}\) etc.
+  \item We write \(\bigcup x\) and \(\powerset(x)\) for the two sets. We also write \(x \cup y\) for \(\bigcup \{x, y\}\) etc.
   \item No extra axiom is needed for intersections: we can form \(\bigcap x\) (with \(x \neq \emptyset\)) as a subset of \(y\) for any \(y \in x\), which can be done by axiom of separation.
-  \item We can now form Cartesian product of sets \(x \times y\) as a suitable subset of \(\mathcal P(\mathcal P(x \cup y))\): since if \(t \in x, y \in y\) then \((t, u) = \{\{t\}, \{t, u\}\} \in \mathcal P(\mathcal P(x \cup y))\).
-  \item Similarly we can form the set of all functions from \(x\) to \(y\), as a subset of \(\mathcal P(x \times y)\).
+  \item We can now form Cartesian product of sets \(x \times y\) as a suitable subset of \(\powerset(\powerset(x \cup y))\): since if \(t \in x, u \in y\) then \((t, u) = \{\{t\}, \{t, u\}\} \in \powerset(\powerset(x \cup y))\).
+  \item Similarly we can form the set of all functions from \(x\) to \(y\), as a subset of \(\powerset(x \times y)\).
   \end{enumerate}
 \end{note}
 
@@ -1840,9 +1841,9 @@ Note that any intersection of successor sets is a successor set, so there exists
 \]
 Note that if \(x \subseteq \omega\) is a successor set then \(x = \omega\) by definition, i.e.
 \[
-  (\forall x) (x \subseteq \omega \land \emptyset \in x \land (\forall y) (y \in x \implies x)) \implies x = \omega.
+  (\forall x) (x \subseteq \omega \land \emptyset \in x \land (\forall y) (y \in x \implies y^+ \in x)) \implies x = \omega.
 \]
-This is genuine induction in \(V\) over all subsets \(x \subseteq \omega\), as opposed to first order induction in PA.
+This is \emph{\(\omega\)-induction}\index{\(\omega\)-induction}. Note this is genuine induction in \(V\) over all subsets \(x \subseteq \omega\), as opposed to first order induction in PA.
 
 It is also easy to check that
 \begin{align*}
@@ -1858,18 +1859,15 @@ Subsequently, we say \(x\) is \emph{finite} if \((\exists y) (y \in \omega \land
     (\forall x) (x \neq \emptyset \implies (\exists y) (y \in x \land (\forall z) (z \in x \implies \neg (z \in y)).
   \]
 \end{axiom*}
-``Sets are built up from simpler sets.'', or every (non-empty) set has an \(\in\)-minimal member.
+``Sets are built up from simpler sets'', or every (non-empty) set has an \(\in\)-minimal member.
 
 The intuition behind is like this: we want to disallow \(x \in x\) to avoid possible contradiction, \(x \in y \land y \in x\) to agree with our intuition that ``sets have a hierarchy'', and also infinite chains \(\dots \in x_3 \in x_2 \in x_1 \in x_0\). What is common to all of them is that they do not have a \(\in\)-minimal element: \(\{x\}\), \(\{x, y\}\) and \(\{x_0, x_1, \dots\}\) respectively do not have such an element in the above examples.
 
-This is not always essential.
+For our next axiom, we want if for each \(i \in I\) we have \(A_i\), then we can take \(\{A_i: i \in I\}\). But how do we know that \(\{A_i: i \in I\}\) is a set? One may say that ``\(i \mapsto A_i\)'' looks like a function, so the image is a set. What recall that functions are also sets, but is this rule a set?
 
-For our next axiom, we want if for each \(i \in I\) we have \(A_i\), then we can take \(\{A_i: i \in I\}\). But how do we know that \(\{A_i: i \in I\}\) is a set?
-One may say that ``\(i \mapsto A_i\)'' looks like a function, so the image is a set
+This one is different from previous axioms we have. So far every axiom allows us to build a new set ``near'' the one in the universe we starting with, e.g.\ power set, union set. However, this one goes far out to \(V\) from \(I\).
 
-This one is different from previous axioms we have. So far every axiom allows us to build a new set ``near'' the one in the universe we starting with, e.g.\ power set, union set are. However, this one goes far out to \(V\) from \(I\).
-
-Thus what we really want to say is ``the image of a set, under something that looks like a function, is a set.'' See \Cref{sec:classes} for a discussion on how to make this idea concrete using classes.
+Thus what we really want to say is ``the image of a set, under something that looks like a function, is a set.'' See \Cref{sec:classes} for a discussion on how to formalise this idea using classes.
 
 \begin{axiom*}[Axiom of replacement]
   \begin{align*}
@@ -1894,23 +1892,348 @@ Those are all the ZF axioms.
   \begin{enumerate}
   \item Sometimes axiom of separation is called ``axiom of comprehension'' and axiom of foundation is called ``axiom of regularity''.
   \item ZF axioms do not include axiom of choice. ZF~\(+\)~AC is called ZFC where
-    \begin{axiom*}[Axiom of choice]
-      \begin{align*}
-        & (\forall f) (f \text{ a function} \land (\forall x) (x \in \dom f \implies \neg (f(x) = \emptyset)) \\
-        \implies & (\exists g) (g \text{ a function} \land \dom g = \dom f \land (\forall x) (x \in \dom f \implies g(x) \in f(x)))).
-      \end{align*}
-    \end{axiom*}
-    ``Every family of (non-empty) sets has a choice function.''
   \end{enumerate}
 \end{note}
-
-Now we have the axioms, what does a model \((V, \in)\) of ZF look like?
+\begin{axiom*}[Axiom of choice]
+  \begin{align*}
+    & (\forall f) (f \text{ a function} \land (\forall x) (x \in \dom f \implies \neg (f(x) = \emptyset)) \\
+    \implies & (\exists g) (g \text{ a function} \land \dom g = \dom f \land (\forall x) (x \in \dom f \implies g(x) \in f(x)))).
+  \end{align*}
+\end{axiom*}
+``Every family of (non-empty) sets has a choice function.''
 
 \begin{remark}
-  We have not proven ZF is consistent, i.e.\ there exists a model of ZF. Sadly, by one of Gödel incomplete theorem ZF~\(\nyields\)~''ZF has no model'', so no proof in ordinary maths (including ZF, ZFC etc).
+  We have not proven ZF is consistent, i.e.\ there exists a model of ZF. Sadly, by one of Gödel incomplete theorem ZF~\(\nyields\)~``ZF has a model'', so no proof in ordinary maths (including ZF, ZFC etc).
 \end{remark}
 
 In this course, every theorem we prove about ZF will be preceded with the premise that, either explicitly or implicitly, it holds in a model of ZF. Thus incompleteness does not pose a problem to our theory, although to make some practical sense out of the theory, we better have some faith in the existence of such a model!
+
+\subsection{Properties of ZF}
+
+\begin{definition}[Transitive]
+  \(x\) is \emph{transitive} if every member of a member of \(x\) is itself a member of \(x\):
+  \[
+    (\forall y) ((\exists z) (y \in z \land z \in x) \implies y \in x),
+  \]
+  i.e.\ \(\bigcup x = x\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(2 = \{\emptyset, \{\emptyset\}\}\) is transitive.
+  \item \(\omega\) is transitive as \(n = \{0, 1, \dots, n - 1\}\) for all \(n \in \omega\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  Every set \(x\) is contained in a transitive set.
+\end{lemma}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item It officially says: let \((V, \in)\) be a model of ZF, then in \(V\) this statement holds, or equivalently, ZF~\(\yields\)~the statement.
+  \item Any intersection of transitive sets is transitive, so we will know that there exists a \emph{least} transitive set containing \(x\), called the \emph{transitive closure}\index{transitive closure} of \(x\), written \(TC(x)\).
+  \end{enumerate}
+\end{remark}
+
+\begin{proof}
+  Consider \(x \cup (\bigcup x) \cup (\bigcup \bigcup x) \cup \dots\), which is the obvious step to take. This is a set by axiom of union applied to
+  \[
+    \{x, \bigcup x, \bigcup \bigcup x, \dots\},
+  \]
+  which is a set by axiom of replacement applied to the function-class
+  \begin{align*}
+    0 &\mapsto x \\
+    1 &\mapsto \bigcup x \\
+    2 &\mapsto \bigcup \bigcup x \\
+    \vdots
+  \end{align*}
+  But why is this a function-class? We can't use recursion since that would be circular logic. Again we use the clever idea of attempts.
+
+  Define ``\(f\) is an attempt'' to mean
+  \begin{align*}
+    & (f \text{ a function}) \land (\dom f \in \omega) \land (\dom f \neq \emptyset) \\
+    \land & (f(0) = x) \land (\forall n) (n \in \dom f \land n \neq 0 \implies f(n) = \bigcup f(n - 1)).
+  \end{align*}
+  Then attempts exist, i.e.
+   \[
+    (\forall n \in \omega) (\exists f) (f \text{ attempt} \land n \in \dom f)
+  \]
+  and are unqiue wherever they are defined, i.e.
+  \begin{align*}
+    & (\forall m \in \omega) (\forall f) (\forall f') ((f, f' \text{ attempts} \land n \in \dom f \land n \in \dom f') \\
+    \implies & f(n) = f'(n))
+  \end{align*}
+  by \(\omega\)-induction. So take \(p(y, z)\) to be
+  \[
+    (\exists f) (f \text{ an attempt} \land y \in \dom f \land f(y) = z).
+  \]
+\end{proof}
+
+\begin{remark}
+  This is a ``good'' use of axiom of replacement.
+\end{remark}
+
+Now let's take a look at axiom of foundation. THe slogan says ``sets are built out of simpler set'', but does it achieve what it claims to do, or are we just banning things randomly for no reason? Actually there exists a good test: if the slogan is true, then suppose \(p(y) \forall \in x\) implies \(p(x)\), we have \(p(x) \forall x\), 
+
+\begin{theorem}[Principle of \(\in\)-induction]\index{\(\in\)-induction}
+  Let \(p\) be a formula, free variables \(x, t_1, \dots, t_n\). Then
+  \[
+    (\forall t_1) \cdots (\forall t_n) ((\forall x) (\forall y) (y \in x \implies p(y)) \implies p(x)) \implies (\forall x) p(x)
+  \]
+  where \(p(y)\) means \(p[y/x]\), \(p(x)\) means \(p\).
+\end{theorem}
+
+\begin{proof}
+  Given \(t_1, \dots, t_n\), have \(p(y) \forall y \in x \implies p(x)\), and suppose \((\forall x) p(x)\) is not true, so \((\exists x) (\neg p(x))\). We want to say: ``choose \(\in\)-minimal of \(\{x: \neg p(x)\}\)'', then contradiction. But this might not be a set, e.g.\ if \(p(x)\) is \(x \neq x\). This is where transitive closure comes in.
+
+  Let \(t = TC(\{x\})\) so \(x \in t\) and \(\neg p(x)\). Let \(u = \{y \in t: \neg p(y)\}\) and let \(y\) be an \(\in\)-minimal element of \(u\). Then \(\neg p(y)\). But \((\forall z \in y) p(z)\) (as \(z \in y \implies z \in t\) and \(y\) is \(\in\)-minimal in \(n\)), contradiction.
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item We used existence of transitive closure in the proof, i.e.\ the lemma above.
+  \item In fact, \(\in\)-induction is equivalent to the axiom of foundation, as we can deduce axiom of foundation from \(\in\)-induction (in the presence of the other axioms): say ``\(x\) is regular'' if
+    \[
+      (\forall y) (x \in y \implies y \text{ has an \(\in\)-minimal element}).
+    \]
+    Then axiom of foundation says every set is regular. To prove this by \(\in\)-induction, given \(y\) regular for all \(y \in x\), want \(x\) to be regular. For \(x \in z\), if \(x\) is minimal then done.If not, some \(y \in x\) has \(y \in z\). But \(y\) is regular so \(z\) has a minimal element.
+  \end{enumerate}
+\end{remark}
+
+Now we have induction, what about recursion? We want ``\(f(x)\) defined in terms of the \(f(y)\) where \(y \in x\)''.
+
+\begin{theorem}[\(\in\)-recursion theorem]\index{\(\in\)-recursion}
+  Let \(G\) be a function-class everywhere defined. Then there is a function class \(F\) (i.e.\ \((x, y) \in F \iff p(x, y)\) for some formula \(p)\) such that
+  \[
+    (\forall x) (F(x) = G(F|_x)).
+  \]
+  Moreover, \(F\) is unique.
+\end{theorem}
+
+\begin{note}
+  \(F|_x = \{(z, F(z)): z \in x\}\) is a set by axiom of replacement.
+\end{note}
+
+\begin{proof}
+  Say ``\(f\) is an attempt'' if
+  \[
+    (f \text{ a function}) \land (\dom f \text{ transitive}) \land (\forall x) (x \in \dom f \implies f(x) = G(f|_x)).
+  \]
+  Note that \(f|_x\) is defined as \(\dom f\) is transitive. Then
+  \[
+    (\forall x) (f, f' \text{ attempts defined at } x \implies f(x) = f'(x))
+  \]
+  by \(\in\)-induction since if \(f\) and \(f'\) agree at all \(y \in x\) then they agree at \(x\). Also
+  \[
+    (\forall x) (\exists \text{ an attempt \(f\) defined at } x)
+  \]
+  by \(\in\)-induction. Indeed suppose \((\forall y \in x) (\exists \text{ an attempt defined at } x)\). So \(\forall y \in x\) there exists a unique attempt \(f_y\) defined of \(TC(\{y\})\). Put \(f = \bigcup_{y \in x} f_y\) and now put
+  \[
+    f' = f \cup \{(x, G(f|_x))\}.
+  \]
+  So done by taking \(q(x, y)\) to be
+  \[
+    (\exists f) (f \text{ an attempt} \land x \in \dom f \land f(x) = y).
+  \]
+  Uniqueness follows from \(\in\)-induction.
+\end{proof}
+
+\begin{note}
+  \(\in\)-induction and \(\in\)-recursion proofs look very similar to induction and recursion from chapter 2.
+\end{note}
+
+What properties of the ``relation-class'' \(\in\) (i.e.\ the formula \(p(x, y) = x \in y\)) have we used?
+
+\begin{enumerate}
+\item \(p\) is well-founded: every non-empty set has a \(p\)-minimal element. We used it to make everything work.
+\item \(p\) is local: \(\{y: p(y, x)\}\) is a set for each \(x\). We used this to build \(p\)-closure, i.e.\ transitive closure.
+\end{enumerate}
+
+So in fact we have \(p\)-induction and \(p\)-recursion for any \(p(x, y)\) that is well-founded and local. In particular, for a relation \(r\) on a set \(a\), trivially \(r\) is local (as \(a\) is a set), so to have \(r\)-induction and \(r\)-recursion, just need \(r\) to be well-founded. Thus with this view in mind, induction and recursion from chapter 2 are special cases of this.
+
+Recall that in chapter 2, we spend effort on induction so as to prove subset collapse. Here something similar happens: can we ``model'' a relation by \(\in\)?
+
+For example, let \(a = \{a_1, a_2, a_3\}\) and \(r = \{(a_1, a_2), (a_2, a_3)\}\). Can we build a set \(b\) with the same relations but using \(\in\)? i.e.\ can we find \(b = \{b_1, b_2, b_3\}\) and relation \(s\) defined by \(b_i s b_j \iff b_i \in b_j\), and \((a, r)\) is isomorphic to \((b, s)\)? Certainly yes. We put \(b_1 = \emptyset, b_2 = \{\emptyset\}, b_3 = \{\{\emptyset\}\}\). Then \(a_i r a_j \iff b_i s b_j\) for all \(i, j\). Moreover \(b\) is transitive.
+
+Can we do this for all relations? Well not for all, since for example, axiom of foundation forbides the relation \(x r x\).
+
+\begin{definition}[Extensionality]\index{extensionality}
+  A relation \(r\) on a set \(a\) is \emph{extensional} if
+  \[
+    (\forall x, y \in a) ((\forall z \in a) (z r x \iff z r y) \implies x = y).
+  \]
+\end{definition}
+
+\begin{eg}
+  \(a\) in the example above the definition, the relation \(\in\) on any transitive set.
+\end{eg}
+
+The analogue of subset collapse is
+
+\begin{theorem}[Mostowski's collapsing theorem]\index{Mostowski's collapsing theorem}
+  \label{thm:Mostowski}
+  Let \(r\) be a relation on a set \(a\) that is well-founded and extensional. Then there exists a transitive set \(b\) and bijection \(f: a \to b\) such that
+  \[
+    (\forall x, y \in a) (x r y \iff f(x) \in f(y)).
+  \]
+  Moreover \(b\) and \(f\) are unique.
+\end{theorem}
+
+\begin{proof}
+  This is basically \(r\)-recursion: once the images of all elements relate to \(a_n\) are fixed, we have no choice for \(f(a_n)\) but let it be the set of images of all those things.
+
+  Define \(f(x) = \{f(y): y r x\}\), which is a definition by \(r\)-recursion on the set \(a\), which should be the only sensible thing to try. Note that \(f\) is a function, not just a function-class, as it is an image of the set \(a\).
+
+  Let \(b = \{f(x): x \in a\}\), which is a set by axiom of replacement. Then \(b\) is transitive by definition of \(f\), and \(f\) is surjective by definition of \(b\). If we can show \(f\) injective, then we also have \(x r y \iff f(x) \in f(y)\). We will show that
+  \[
+    (\forall x \in a) (\forall y) (f(y) = f(x) \implies y = x)
+  \]
+  by \(r\)-induction on \(x\). So given \(y\) with \(f(y) = f(x)\), want \(y = x\), with the assumption that
+  \[
+    (\forall t) (\forall u) ((t, u \in a \land t r x \land f(u) = f(t)) \implies u = t).
+  \]
+  From \(f(y) = f(x)\), we have
+  \[
+    \{f(u): u r y\} = \{f(t): t r x\}
+  \]
+  whence \(\{u: u r y\} = \{t: t r x\}\) by induction assumption. Thus \(x = y\) as \(r\) is extensional.
+
+  For uniqueness, if \(f\) and \(f'\) are both suitable then \((\forall x \in a) (f(x) = f'(x))\) by \(r\)-induction.
+\end{proof}
+
+Now we can do something that is owed from chapter 2. We defined ordinals to be equivalent classes of well-orderings, with two well-orderings regarded the same if there is an order-isomorphisms between them. But a hiccup is that the set of all well-orderings do not form a set so ``equivalence class'' does not make sence. Now we can instead define it formally in the language of ZF.
+
+\begin{definition}[von Neumann ordinal]\index{ordinal!von Neumann}
+  An \emph{ordinal} or \emph{von Neumann ordinal} is a transitive set that is well-ordered by \(\in\).
+\end{definition}
+
+Note that by by axiom of foundation, we can say instead ``totally ordered by \(\in\)''.
+
+\begin{eg}
+  \(\emptyset\), \(\{\emptyset\}\), any \(n \in \omega\), \(\omega\) itself.
+\end{eg}
+
+\nameref{thm:Mostowski} tells us that any well-ordered \(X\) is order-isomorphic to a unique ordinal \(\alpha\). Say \(X\) has \emph{order-type} \(\alpha\).
+
+\begin{remark}[Irrelevant remark]
+  We know that for every ordinal \(\alpha\), have \(\{\beta: \beta < \alpha\}\) is a well-order of order-type \(\alpha\). Hence by definition of \(f\) in \nameref{thm:Mostowski},
+  \[
+    \alpha < \beta \iff \alpha \in \beta
+  \]
+  so \(\alpha = \{\beta: \beta < \alpha\}\),
+  % i.e.\ they are not only order-isomorphic but are exactly the same thing.
+  For example, \(\omega = \{0, 1, 2, \dots\}\).
+
+  Thus the successor for ordinal is the same as the successor for set. For example,
+  \begin{align*}
+    \alpha^+ &= \alpha \cup \{\alpha\} \\
+    \sup \{\alpha_i: i \in I\} &= \bigcup \{\alpha_i: i \in I\}
+  \end{align*}
+  although this might not be the most useful way to view things.
+\end{remark}
+
+\subsection{Picture of the Universe}
+
+In this section we build the universe of sets starting with \(\emptyset\) and taking power set many times.
+
+\begin{definition}[von Neumann hierarchy]\index{von Neumann hierarchy}
+  For each ordinal \(\alpha\), define set \(V_\alpha\) by recursion:
+  \begin{align*}
+    V_0 &= \emptyset \\
+    V_{\alpha + 1} &= \powerset(V_\alpha) \\
+    V_\lambda &= \bigcup_{\alpha < \lambda} V_\alpha \text{ for \(\lambda\) a non-zero limit}
+  \end{align*}
+\end{definition}
+
+How do we know this is the whole universe? We want to show every set \(x\) belongs to some \(V_\alpha\).
+
+\begin{lemma}
+  Each \(V_\alpha\) is transitive.
+\end{lemma}
+
+\begin{proof}
+  Induction on \(\alpha\):
+  \begin{itemize}
+  \item \(0\): done.
+  \item successors: given \(x \in y \in V_{\alpha + 1}\), have \(y \in \powerset(V_\alpha)\) so \(x \in V_\alpha\) so \(x \subseteq V_\alpha\), i.e.\ \(x \in \powerset(V_\alpha) = V_{\alpha + 1}\).
+  \item limits: any union of transitive sets is transitive.
+  \end{itemize}
+\end{proof}
+
+\begin{lemma}
+  \(V_\alpha \subseteq V_\beta\) whenever \(\alpha \leq \beta\).
+\end{lemma}
+
+\begin{proof}
+  Induction on \(\beta\) with \(\alpha\) fixed:
+  \begin{itemize}
+  \item \(\beta = \alpha\): done.
+  \item successors: given \(V_\alpha \subseteq V_\beta\), want \(V_\alpha \subseteq \powerset(V_\beta)\). But \(V_\beta \subseteq \powerset(V_\beta)\): \(x \in V_\beta\) implies \(x \subseteq V_\beta\) by transitivity of \(V_\beta\).
+  \item limits: obvious.
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  \[
+    (\forall x) (\exists \alpha) (x \in V_\alpha).
+  \]
+\end{theorem}
+
+The slogan is ``the universe is the union of sets'', or \(V = \bigcup_{\alpha \in ON} V_\alpha\) where \(ON\) is the class of ordinals. Note the subtlety hidden in the notation: you cannot take union of a family indexed by a proper class! (or even more pedantically, the result is not a set)
+
+\begin{note}\leavevmode
+  \begin{itemize}
+  \item \(x \subseteq V_\alpha \iff x \in V_{\alpha + 1}\).
+  \item If \(x \subseteq V_\alpha\), then there exists \emph{least} such \(\alpha\), which we call the \emph{rank}\index{rank} of \(x\).
+  \end{itemize}
+\end{note}
+
+\begin{eg}
+  \begin{align*}
+    \rank(\emptyset) &= 0 \\
+    \rank(\{\emptyset\}) &= 1 \\
+    \rank(\omega) &= \omega
+  \end{align*}
+  and \(\rank(\alpha) = \alpha\) for all ordinal \(\alpha\) by induction.
+\end{eg}
+
+\begin{proof}
+  We will show that \((\forall x) (\exists \alpha) (x \subseteq V_\alpha)\) by \(\in\)-induction. Given \(x\), for each \(y \in x\), we have \(y \subseteq V_\alpha\) for some \(\alpha\), so \(y \subseteq V_{\rank(y)}\), i.e.\ \(y \in V_{\rank(y) + 1}\). 
+  Let \(\alpha = \sup\{\rank(y) + 1: y \in x\}\), then \(x \subseteq V_\alpha\).
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item What the proof says essentially is
+    \[
+      \rank(x) = \sup\{\rank(y) + 1: y \in x\},
+    \]
+    which is the right way to think about rank. For example, \(\rank(\{6\})\) is \(7\) as \(\rank(6) = 6\) since it is cardinal.
+  \item Most of maths takes place in \(V_{\omega + 10}\), except in this course when we discussed order-types!
+  \end{enumerate}
+\end{remark}
+
+\section{Cardinals}
+
+We will discuss ``sizes'' of sets in this chapter. We will work predomiantly under ZFC, although we will not refrain ourselves from comparing and contrasting results if working under ZF.
+
+We want to define \(\card x\) so that \(\card x = \card y\) if and only if \(x \biject x\). We cannot define it naïvely by
+\[
+  \card x = \{y: y \biject x\}
+\]
+as this may not be a set. But we do know \(x \biject \alpha\) for some ordinal \(\alpha\) so we can define \(\card x\) to be the least such \(\alpha\). It follows that \(\card x = \card y\) if and only if \(x \biject y\).
+
+If we choose to work without axiom of choice, among all \(y\) that bijects with \(x\), we need to pick one. This seems impossible without choice, but we have the clever \emph{Scott trick}: define the \emph{essential rank} of \(x\) \(\operatorname{essrank}(x)\) to be the least rank of any \(y\) that bijects with \(x\), and then define \(\card x = \{y \subseteq V_{\operatorname{essrank}(n)}: y \biject x\}\).
+
+\begin{definition}[Cardinal]\index{cardinal}
+  \(m\) is a \emph{cardinal} or a \emph{cardinality} if \(m = \card x\) for some \(x\).
+\end{definition}
+
+For cardinals \(m\) and \(n\), say \(m \leq n\) if \(M\) injects into \(N\) for some \(M\) and \(N\) with \(\card M = m, \card N = n\) (which does not depend on the choice of \(M\) and \(N\)). Similarly, write \(m < n\) if \(m \leq n\) and \(m \neq n\). For example, \(\card \omega < \card \powerset(\omega)\).
+
+Note that if \(m \leq n, n \leq m\) then \(m = n\) by Schröder-Berstein. So \(\leq\) is a partial order, and even a total order (by well-ordering). Note that in ZF \(\leq\) need not be a total order.
+
 
 
 \appendix
@@ -1942,8 +2265,6 @@ Here ``collection'' is simply a subset, in the true maths world. But to avoid co
   \(V\) is a proper class, as is \(\{x: x \text{ infinite}\}\).
 \end{eg}
 
-Similarly,
-
 \begin{definition}[Function-class]\index{function-class}
   A \emph{function-class} is a collection \(F\) of ordered pairs from \(V\) such that for each formula \(p\), free vaiables \(x, y\) (parameterised), we have
   \begin{enumerate}
@@ -1955,15 +2276,6 @@ Similarly,
 \begin{eg}
   \(x \mapsto \{x\}\) is a function-class. Take \(p(x, y)\) to be \(y = \{x\}\).
 \end{eg}
-
-
-
-
-
-
-  
-
-
 
 
 

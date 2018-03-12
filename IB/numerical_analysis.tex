@@ -1862,7 +1862,7 @@ But in practice this is rarely necessary. For example in solving linear equation
 
 \subsubsection{Householder algorithm}
 
-The reflection in \(\R^2\) sending a vector \(u\) to \(-u\) is given by
+The reflection in \(\R^n\) sending a vector \(u\) to \(-u\) is given by
 \[
   H = I - 2 \frac{uu^T}{\norm u^2}.
 \]
@@ -1901,7 +1901,7 @@ For each \(k = 1\) to \(n\), and \(j\) from \(k + 1\) to \(n\), we have to compu
 
 \subsection{Least-square problem}
 
-Suppose \(A \in \R^{m \times m}, b \in \R^m\) \(m \geq n\). We want to find \(x\) such that \(Ax \approx b\). A popular choice is the \emph{least-squares}\index{least-squares approximation} approximation, aiming to minimise \(\norm{Ax - b}^2\).
+Suppose \(A \in \R^{m \times n}, b \in \R^m\) where \(m \geq n\). We want to find \(x\) such that \(Ax \approx b\). A popular choice is the \emph{least-squares}\index{least-squares approximation} approximation, aiming to minimise \(\norm{Ax - b}^2\).
 
 \begin{theorem}
   \(x\) is a solution to the least-squares problem if and only if
@@ -1932,14 +1932,12 @@ Note that \(A^T(Ax - b) = 0\) if and only if \(Ax - b\) is orthogonal to all the
 \]
 then this is equivalent to \(a_i^T(Ax - b) = 0\) for all \(i\). Geometrically, \(Ax\) is the projection of \(b\) onto the subspace spanned by \(a_1, \dots, a_n\).
 
-\subsubsection{Solving least-squares problem using QR factorisation}
-
 Assume \(A = QR\) is a reduce QR factorisation. By definition \(Q\) has orthonormal columns and these columns span the same subspace as the columns of \(A\). Thus
 \begin{align*}
-  A^T(Ax - b) = 0
-  &\Leftrightarrow Q^T(Ax - b) = 0 \\
-  &\Leftrightarrow Q^TAx = Q^Tb \\
-  &\Leftrightarrow Rx = Q^Tb
+  & A^T(Ax - b) = 0 \\
+  \iff & Q^T(Ax - b) = 0 \\
+  \iff & Q^TAx = Q^Tb \\
+  \iff & Rx = Q^Tb
 \end{align*}
 Check these conditions carefully using column space. The end result is a triangular system that can be solved using back substitution in \(O(n^2)\) operations.
 
