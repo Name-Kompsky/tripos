@@ -2392,6 +2392,165 @@ Kummer called this the ``first case'' of Fermat's Last Theorem. He dealt with th
   If \(p \neq 3\) then \(p \divides x\), absurd. If \(p = 3\) then reduce modulo \(9\) shows there are no solutions, which is left as an exercise.
 \end{proof}
 
+The rest of the course is non-examinable.
+
+The question now is how to decide if \(p\) is regular. Unfortunately Minkowski's bound is not very effective. To give an idea let \(h_p = |\Cl(\Z[\zeta_p])|\) be the class number. The table of class number of cyclotomic fields begins with
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c||c|c|}
+    \(p\) & \(h_p\) & \(p\) & \(h_p\) \\ \hline
+    3 & 1 & 37 & 37 \\ \hline
+    5 & 1 & 41 & 121 \\ \hline
+    7 & 1 & 43 & 211 \\ \hline
+    11 & 1 & 47 & 695 \\ \hline
+    13 & 1 & 53 & 4889 \\ \hline
+    17 & 1 & 59 & 41241 \\ \hline
+    19 & 1 & 61 & 76301 \\ \hline
+    23 & 3 & 67 & 853513 \\ \hline
+    29 & 8 & 71 & 3882809 \\ \hline
+    31 & 9 & 73 & 11957417 \\
+  \end{tabular}
+\end{table}
+
+We observe that \(h_p\) seems to grow quickly with \(p\). Also most primes seem to regular: of those in the table, all but \(p = 37, 59, 67\) are regular.
+
+Kummer gave a criterion to decide whether or not \(p\) is regular in terms of the Bernoulli numbers \(B_n\).
+
+\begin{definition}[Bernoulli number]\index{Bernoulli number}
+  For \(n \geq 0\), the \(n\)th \emph{Bernoulli number} is defined by the formula
+  \[
+    \frac{t}{1 - e^{-t}} = \sum_{n \geq 0} B_n \frac{t^n}{n!}.
+  \]
+\end{definition}
+
+Note that \(B_n \in \Q\). The first few Bernoulli numbers are
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c||c|c|}
+    \(n\) & \(B_n\) & \(n\) & \(B_n\) \\ \hline
+    0 & 1 & 6 & \(\frac{1}{42}\) \\ \hline
+    1 & \(\frac{1}{2}\) & 7 & 0 \\ \hline
+    2 & \(\frac{1}{6}\) & 8 & \(-\frac{1}{30}\) \\ \hline
+    3 & 0 & 9 & 0 \\ \hline
+    4 & \(-\frac{1}{30}\) & 10 & \(\frac{5}{66}\) \\ \hline
+    5 & 0 & 11 & 0 \\ \hline
+          & & 12 & \(- \frac{691}{2730}\) \\
+  \end{tabular}
+\end{table}
+
+\begin{theorem}[Kummer's criterion]\index{Kummer's criterion}
+  \label{thm:Kummer's criterion}
+  If \(p\) is an odd prime, then \(p\) is regular if and only if \(p\) does not divide the numerator of \(B_n\) for any \(n = 2, 4, \dots, p - 3\).
+\end{theorem}
+
+\begin{eg}
+  \(p = 691\) is prime. \(691\) divides the numerator of \(B_{12}\) so by \nameref{thm:Kummer's criterion} \(691 \divides h_{691}\).
+\end{eg}
+
+Alternatively we may define \(B_n\) as
+\[
+  B_n = -n\zeta(1 - n)
+\]
+where \(\zeta(s)\) is the Riemann zeta function. This is not coincidental. In fact the Riemann zeta function and its generalisation are closed related to the arithmetic of number fields.
+
+\begin{definition}[Dedekind zeta function]\index{Dedekind zeta function}
+  Let \(L\) be a number field. Its \emph{Dedekind zeta function} is
+  \[
+    \zeta_L(s) = \sum_{I \subseteq \O_L} \n(I)^{-s}
+  \]
+  where the sum is over all non-zero ideals.
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item One can show that the sum is absolutely convergent in the region \(\Re s > 1\) and it defines a holomorphic function there. This boils down to bound the number of ideals with certain norm.
+  \item If \(L = \Q\) then
+\[
+  \zeta_L(s) = \zeta(s) = \sum_{n \geq 1} n^{-s}
+\]
+is the usual Riemann zeta function. Other properties such as Euler product generalises as well.
+  \end{enumerate}
+\end{note}
+
+In general, unique factorisation of ideals gives an identity
+\[
+  \zeta_L(s) = \prod_{\mathfrak p \subseteq \O_K} (1 - \n(\mathfrak p)^{-s})^{-1}
+\]
+where the sum is over all non-zero prime ideals.
+
+\begin{definition}[Regulator]\index{regulator}
+  Let \(L\) be a number field. The \emph{regulator} of \(L\), \(R_L\), is defined as follow: let \(v_1, \dots, v_{r_1 + r_2 - 1} \in \O_L^\times\) generate the free abelian group \(\O_L^\times/\mu_L\). Let \(A\) be the matrix with columns \(\ell(v_1), \dots, \ell(v_{r_1 + r_2 - 1})\) where \(\ell: \O_L^\times \to \R^{r_1 + r_2}\) is the logarithmic map from the proof of Dedekind's unit theorem. Then \(R_L\) is the absolute value of any \((r_1 + r_2 - 1) \times (r_1 + r_2 - 1)\) minor of the matrix \(A\).
+\end{definition}
+
+The idea is that \(\ell(\O_L^\times)\) is a lattice in the hyperplane \(H\) and \(R_L\) is essentially the covolume of the lattice. This is a generalisation of fundamental unit.
+
+\begin{theorem}\leavevmode
+  \begin{enumerate}
+  \item \(\zeta_L(s)\) has a meromorphic continuation to all \(s \in \C\) with no poles except a simple pole at \(1\). It satisfies the functional equation
+    \[
+      \Lambda_L(s) = \Lambda_L(1 - s)
+    \]
+    where by definition
+    \[
+      \Lambda_L(s) = \zeta_L(s) |D_L|^{s/2} (\pi^{-s/2} \Gamma(s/2))^{r_1} \cdot (2 (2\pi)^{-s} \Gamma(s))^{r_1}
+    \]
+    where \(r_1\) is the number of real embeddings of \(L\) and \(r_2\) is the number of pairs of complex embeddings.
+  \item Analytic class number formula: the residue of \(\zeta_L(s)\) at \(s = 1\) is
+    \[
+      \frac{2^{r_1} (2\pi)^{r_2} h_L R_L}{w_L \sqrt{|D_L|}}
+    \]
+    where by definition \(h_L = |\Cl(\O_L)|\) and \(w_L = |\mu_L|\).
+  \end{enumerate}
+\end{theorem}
+
+What does this have to do with cyclotomic fields? Let \(p\) be an odd prime and \(K = \Q(\zeta_p)\) and \(E = K \cap \R = \Q(\zeta_p + \zeta_p^{-1})\).
+
+There exists factorisation
+\[
+  \zeta_K(s) = \prod_{\chi: (\Z/p\Z)^\times \to \C^\times} L(\chi, s)
+\]
+where \(\chi\) is a group character and \(L(\chi, s)\) is the Dirichlet \(L\)-function
+\[
+  L(\chi, s) = \prod_{\ell \neq p} (1 - \chi (\ell \mod p) \ell^{-s})^{-1}.
+\]
+There is a similar factorisation
+\[
+  \zeta_E(s) = \prod_{\chi: \chi(-1) = 1} L(\chi, s).
+\]
+
+In fact, if \(M/\Q\) is any finite Galois extension, then there is a factorisation
+\[
+  \zeta_M(s) = \prod_\rho L(\rho, s)^{\dim \rho}
+\]
+induced by irreducible representations \(\rho\) of \(\gal(M/\Q)\).
+
+Taking the quotient of these two factorisations gives
+\[
+  \frac{\zeta_K(s)}{\zeta_E(s)} = \prod_{\chi: \chi(-1) = -1} L(\chi, s).
+\]
+
+Note that both sides are holomorphic at \(s = 1\). \nameref{thm:Kummer's criterion} for the regularity of the prime \(p\) is proved by evaluating either side at \(s = 1\).
+
+On LHS, we can apply the analytic class number formula for \(K\) and \(E\) together to get
+\[
+  \frac{h_K R_K}{h_E R_E} \cdot \text{explicit factor}.
+\]
+Note that \(r_1 + r_2\) is the same for \(K\) and \(E\):
+\[
+  \begin{tikzcd}
+    & r_1 & r_2 \\
+    K \ar[d, dash] & 0 & \frac{p - 1}{2} \\
+    E \ar[d, dash] & \frac{p - 1}{2} & 0 \\
+    \Q & 1 & 0
+  \end{tikzcd}
+\]
+
+\(\O_L^\times\) is a subgroup of \(\O_K^\times\) of finite index and thus \(R_k/R_E\) is an integer which can be explicitly evaluated. Thus LHS is \(h_K/h_E \cdot \text{explicit factor}\).
+
+On RHS, each \(L(\chi, s)\) is holomorphic at \(s = 1\) and \(L(\chi, 1)\) can be evaluated explicitly in terms of (generalised) Bernoulli numbers using purely analytic techniques.
+
+With more work, this leads to Kummer's criterion for the \(p\)-divisibility of \(h_K\).
+
 
 
 
