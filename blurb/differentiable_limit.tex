@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Differentaible limit theorem}
+\def\ndate{}
+
+\input{header}
+
+\begin{document}
+
+\maketitle
+
+Uniform convergence of a seuqnce of differentiable functions in general implies neither the differtiability of the limit nor uniform convergence of the derivatives. However, if we assume uniform convergence of the derivatives, the result holds provided the original functions also converge. We present here two such propositions.
+
+All functions are from \(U = (0, 1)\) to \(\R\).
+
+\begin{proposition}
+  Suppose \(f_n\) is a sequence of differentiable functions converging uniformly to \(f\) and \(f'_n\) converges uniformly to \(g\). Then \(f\) is differentiable and \(f' = g\). In the other words,
+  \[
+    \frac{d}{dx} \lim_{n \to \infty} f_n(x) = \lim_{n \to \infty} f'_n(x).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Given \(c \in U\), define
+  \[
+    h_{n, c}(x) =
+    \begin{cases}
+      \frac{f_n(x) - f_n(c)}{x - c} & x \neq c \\
+      f'_n(c) & x = c
+    \end{cases}
+  \]
+  which is continuous by differentiability of \(f_n\) at \(x = c\). We have
+  \[
+    |h_{n, c}(x) - h_{m, c}(x)|
+    = \left| \frac{f_n(x) - f_m(x) - f_n(c) - f_m(c)}{x - c} \right|
+  \]
+  As \(f_n\) and \(f_m\) are differentiable, so is \(f_n - f_m\) so by Mean Value Theorem there exists \(\xi\) between \(x\) and \(c\) such that the above equals to
+  \[
+    |f_n'(\xi) - f_m'(\xi)| \to 0
+  \]
+  for sufficiently large \(n\) and \(m\). Thus \(h_{c, n}\) is uniformly Cauchy so converges uniformly to its pointwise limit
+  \begin{align*}
+    h_c(x) =
+    \begin{cases}
+      \frac{f(x) - f(c)}{x - c} & x \neq c \\
+      \lim_{n \to \infty} f_n'(c) & x = c
+    \end{cases}
+  \end{align*}
+  By Uniform Limit Theorem, \(h_c\) is continuous. Thus \(f\) is differentiable at \(c\). Since this holds for all \(c \in U\), \(f\) is differentaible with \(f' = g\).
+\end{proof}
+
+\begin{proposition}
+  Suppose \(f_n\) is a sequence of continuously differentiable functions, \(f_n'\) converges uniformly to \(g\) and there exists \(x_0 \in U\) such that \(\lim_{x \to \infty} f_n(x_0)\) exists. Then \(f_n\) converges uniformly to a continuously differentiable function \(f\) with \(f' = g\).
+\end{proposition}
+
+\begin{proof}
+  Given what we have proven above, it suffices to shown that \(f_n\) converges uniformly. By Fundamental Theorem of Algebra
+  \[
+    f_n(x) = \int_{x_0}^x f'_n(t) dt + f_n(x_0)
+  \]
+  so for all \(x \in U\)
+  \begin{align*}
+    &|f_n(x) - f_m(x)| \\
+    \leq& \int_{x_0}^x |f_n'(t) - f_m'(t)| dt + |f_n(x_0) - f_m(x_0)| \\
+    \leq& \norm{f'_n - f'_m}_\infty + |f_n(x_0) - f_m(x_0)| \\
+    \to&0
+  \end{align*}
+  for sufficiently large \(n\) and \(m\). Thus \(f_n\) converges uniformly to some \(f\) with \(f' = g\). Continuity of \(g\) follows from that of \(f_n'\).
+\end{proof}
+\end{document}

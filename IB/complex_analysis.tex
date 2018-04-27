@@ -80,7 +80,7 @@ Recall that \(u\) is differentiable at \((c, d) \in U\) if there exists \((\lamb
 \[
   \frac{u(x, y) - u(c, d) - (\lambda(x - c) + \mu(y -d))}{\sqrt{(x - c)^2 + (y - d)^2}} \to 0
 \]
-as \((x, y) \to (c, d)\). In this case \(\D u(c, d) = (\lambda, \mu)\) is the derivative of \(u\) at \((c, d)\). If this holds then \(\lambda = u_x(c, d)\) and \(\mu = u_y(c, d)\), the partical derivatives of \(u\) at \((c, d)\).
+as \((x, y) \to (c, d)\). In this case \(\D u(c, d) = (\lambda, \mu)\) is the derivative of \(u\) at \((c, d)\). If this holds then \(\lambda = u_x(c, d)\) and \(\mu = u_y(c, d)\), the partial derivatives of \(u\) at \((c, d)\).
 
 \begin{theorem}[Cauchy-Riemann equations]\index{Cauchy-Riemann equations}
   \(f: U \to \C\) is differentiable at \(w = c + id \in U\) if and only if the functions \(u\) and \(v\) are differentiable at \((c, d)\) and
@@ -290,14 +290,14 @@ From above we know \(z\) has a logarithm if and only if \(z \neq 0\). However, u
     &\to \frac{1}{e^k} \\
     &= \frac{1}{w}
   \end{align*}
-  as \(z \to w\). Thus \(\lambda\) is holomorphic and \(\lambda'(z) = \frac{1}{w}\).
+  as \(z \to w\). Thus \(\lambda\) is holomorphic and \(\lambda'(z) = \frac{1}{z}\).
 
   %the argument would have given differential exists for inverse function. If we know the invere was continuous. ONe can describe the inverse function theorem (with the argumentabove the continuity of the inverse is needed.
 \end{remark}
 
 One useful choice of branch is
 \begin{definition}[Principal branch of logarithm]\index{principal branch of logarithm}
-  Let \(U = \C \setminus \{x \in \R: x\leq 0\} = \R_{\leq 0}\). The \emph{principal branch of logarithm} is the function
+  Let \(U = \C \setminus \{x \in \R: x\leq 0\}\). The \emph{principal branch of logarithm} is the function
   \begin{align*}
     \log: U &\to \C \\
     z &\mapsto \log |z| + i \arg(z)
@@ -356,7 +356,7 @@ Let \(f: U \to \C\) be a holomorphic function on an open set \(U\) and suppose \
 \[
   \operatorname{angle}(\gamma_1, \gamma_2) = \arg(\gamma_1'(0)) - \arg(\gamma_2'(0)).
 \]
-Here \(\arg(z) = \in \in [0, 2\pi)\) for \(z = re^{i\theta}\). Consider the image \(\delta_i(t) = f(\gamma_i(t))\). The new angle is
+Here \(\arg(z) = \theta \in [0, 2\pi)\) for \(z = re^{i\theta}\). Consider the images \(\delta_i(t) = f(\gamma_i(t))\). The new angle is
 \[
   \operatorname{angle}(\delta_1, \delta_2) = \arg((f \compose \gamma_1)'(0)) - \arg((f \compose \gamma_2)'(0)).
 \]
@@ -380,7 +380,7 @@ since \(f'(w) \neq 0\). Thus \(f\) preserves angles at \(w\). We say \(f\) is \e
   \begin{enumerate}
   \item Möbius maps \(f(z) = \frac{az + b}{cz + d}\) where \(ad - bc \neq 0\). It is a bijection from \(\C \cup \{\infty\}\) to itself. It maps circles/lines to circles/lines.
   \item \(z \mapsto z^n\), \(\{z \in \C\setminus\{0\}: 0 < \arg z < \pi/n\} \to \{z \in \C: \Im z > 0\}\). The inverse, \(z^{1/n}\) using the principal branch, is also a conformal map.
-  \item \(\exp\) maps conformally the strip \(\{z \in \C: \Re(z) \in (-\pi, \pi)\}\) to \(\C\subseteq\{z \leq 0\}\), with inverse \(\log z\) with principal branch cut.
+  \item \(\exp\) maps conformally the strip \(\{z \in \C: \Im(z) \in (-\pi, \pi)\}\) to \(\C \setminus \{z \leq 0\}\), with inverse \(\log z\) with principal branch cut.
   \end{enumerate}
 \end{eg}
 
@@ -573,7 +573,7 @@ In general, for a holomorphic function, if the closed path does not include a po
 \end{corollary}
 
 \begin{eg}
-  \(f(z) = z^n\) where \(n \in \Z\) defined on \(\C^*\). If \(n \neq -1\),
+  Consider \(f(z) = z^n\) where \(n \in \Z\) defined on \(\C^*\). If \(n \neq -1\),
   \[
     f(z) = \frac{d}{dz} \left( \frac{z^{n + 1}}{n + 1} \right)
   \]
@@ -614,7 +614,7 @@ Now we prove a converse to the corollary:
   as \(h \to 0\) since \(f\) is continuous.
 \end{proof}
 
-This proposition, or the proof thereof contains an idea can be applied to more general circumstances. We first define
+This proposition, or the proof thereof contains an idea that can be applied to more general circumstances. We first define
 
 \begin{definition}[Star-shaped domain]\index{domain!star-shaped}
   A domain \(U\) is \emph{star-shaped} (or called a star domain) if there exists \(p \in U\) such that for all \(a \in U\), the straight segment from \(a\) to \(p\) is contained in \(U\).
@@ -1049,7 +1049,7 @@ The section discusses some results coming from the interplay of holomorphic func
 
 \section{Complex Integration II}
 
-In this section we are going to prove the general form of Cauchy's theorem, by formalising ``number of loops'' of a path around a point (which is easy to do for \(C^1\) curves but difficult in the continuous case), and subsequently observe the interplay between holomorphic functions and the global topology.
+In this section we are going to prove the general form of Cauchy's theorem, by formalising ``number of loops'' of a path around a point (which is as an aside, easy to do for \(C^1\) curves but difficult in the continuous case), and subsequently observe the interplay between holomorphic functions and the global topology.
 
 \subsection{Winding number}
 
@@ -1170,7 +1170,7 @@ Equipped with this definition, we can now make rigorous the notion of simple-con
 \end{definition}
 
 \begin{eg}
-  A star-domain is simply-connected. Suppose \(p \in U\) is such that for all \(w \in U\) the staright segment from \(p\) to \(w\) lies in \(U\). Given a path \(\gamma\),
+  A star-domain is simply-connected. Suppose \(p \in U\) is such that for all \(w \in U\) the straight segment from \(p\) to \(w\) lies in \(U\). Given a path \(\gamma\),
   \[
     F(s, t) = s \gamma(t) + (1 - s)p
   \]
@@ -1200,7 +1200,7 @@ This says that given two homotopic paths, we can find finitely many intermediate
     \norm{(s', t') - (s, t)} < \delta \implies |F(s', t') - F(s, t)| < \varepsilon.
     \tag{\(\ast\)}
   \end{equation}
-  Pick \(n\) such that \(\frac{1 + (b - a)}{n} < \delta\) and let \(x_j = a + \frac{b - a}{n}j\) for \(1 \leq j \leq n\). Let
+  Pick \(n\) such that \(\frac{1 + (b - a)}{n} < \delta\) and let \(x_j = a + \frac{b - a}{n}j\) for \(0 \leq j \leq n\). Let
   \[
     \phi_i = F|_{\{\frac{i}{n}\} \times [a, b]}
   \]
@@ -1238,7 +1238,7 @@ This says that given two homotopic paths, we can find finitely many intermediate
   Now invoke the technical proposition.
 \end{proof}
 
-Again this hightlights an idea that permeates this course: complex analysis alone, i.e.\ the study of holomorphic functions gives local results. By using topological machinaries such as connectedness, compactness and in this section, homotopy, one can then extend them to global results.
+Again this hightlights an idea that has been used throughout this course: complex analysis alone, i.e.\ the study of holomorphic functions gives local results. By using topological machinaries such as connectedness, compactness and in this section, homotopy, one can then extend them to global results.
 
 \begin{corollary}
   Let \(U\) be a simply connected domain and \(f: U \to \C\) holomorphic. Then
@@ -1352,7 +1352,7 @@ Again this hightlights an idea that permeates this course: complex analysis alon
   \[
     f(z) = \sum_{n = -\infty}^\infty c_n(z - a)^n
   \]
-  on \(A\) and let \(r < \rho' \leq \rho < R\), then \(\sum_{n = 0}^\infty c_n(z - a)^n\) must have radius of convergence \(\geq R\), so converges uniformly on \(|z - a| \leq \rho\). Likewise set \(u = (z - a)^{-1}\), then \(\sum_{n = 1}^\infty c_{-n}u^n\) must have radius of convergence \(\geq \frac{1}{r}\), so converges uniformly on \(|u| \leq \frac{1}{\rho'}\), hence \eqref{eqn:Laurent} converges uniformly in \(\rho' \leq |z - a| \leq \rho\).
+  on \(A\) and let \(r < \rho' \leq \rho < R\), then \(\sum_{n = 0}^\infty c_n(z - a)^n\) must have radius of convergence \(\geq r\), so converges uniformly on \(|z - a| \leq \rho\). Likewise set \(u = (z - a)^{-1}\), then \(\sum_{n = 1}^\infty c_{-n}u^n\) must have radius of convergence \(\geq \frac{1}{R}\), so converges uniformly on \(|u| \leq \frac{1}{R}\), hence \eqref{eqn:Laurent} converges uniformly in \(\rho' \leq |z - a| \leq \rho\).
 
   By uniform convergence of \eqref{eqn:Laurent}, we can integrate term-by-term over every closed curve in \(A\), so
   \[
@@ -1503,7 +1503,7 @@ With Laurent series defined and shown to be unique and uniformly continuous, we 
 \begin{proof}
   Using uniform convergence of the Laurent expansion, we can integrate term-by-term and thus reduce the problem of computing \(\int_\gamma (z - a)^n dz\). Since \(\frac{(z - a)^{n + 1}}{n + 1}\) is an anti-derivative of \((z - a)^n\) for \(n \neq -1\), the only term that survives is
   \[
-    c_{-1} = \int_\gamma \frac{dz}{z - a} = 2\pi i I(\gamma, a) \res_{z = a} f.
+    c_{-1} \int_\gamma \frac{dz}{z - a} = 2\pi i I(\gamma, a) \res_{z = a} f.
   \]
 \end{proof}
 
@@ -1608,7 +1608,7 @@ This allows us to ``jump'' over a pole.
 
 \begin{lemma}[Jordan]\index{Jordan's lemma}
   \label{lem:Jordan}
-  If \(f\) is holomorphic on \(\{|z| > r\}\) and \(zf(z)\) is bounded for large \(|z|\), then for all \(\alpha > 0\),
+  If \(f\) is holomorphic on \(\{|z| > 0\}\) and \(zf(z)\) is bounded for large \(|z|\), then for all \(\alpha > 0\),
   \[
     \int_{\gamma_R} f(z)e^{i\alpha z} dz \to 0
   \]
@@ -1663,16 +1663,16 @@ as \(R \to \infty\).
   Thus
   \begin{align*}
     I
-    &= \frac{1}{4} \int_{|z| = 1} \frac{dz}{(1 + (\frac{(z - 1/z)^2}{-4})iz} \\
-    &= \int_{|z| = 1} \underbrace{\frac{iz}{z^4 - 6z^2 + 1}}_f dz \\
+    &= \frac{1}{4} \int_{|z| = 1} \frac{dz}{(1 + \frac{(z - 1/z)^2}{-4})iz} \\
+    &= i \int_{|z| = 1} \underbrace{\frac{z}{z^4 - 6z^2 + 1}}_f dz \\
     &= 2\pi i \cdot i (\res_{z = 1 - \sqrt 2} f + \res_{z = -1 + \sqrt 2} f) \\
     &= \frac{\pi\sqrt 2}{4}
   \end{align*}
 \end{eg}
 
-\section{The Argument Principle, Local degree, Open mapping theorem \& Rouche's theorem}
+\section{The Argument principle, Local degree, Open mapping theorem \& Rouché's theorem}
 
-We will use \nameref{thm:residue} to develop a better understanding of the holomorphic functions.
+We will use \nameref{thm:residue} to develop a better understanding of holomorphic functions.
 
 \begin{proposition}
   Let \(f\) have a zero (pole, respectively) of order \(k\) at \(z = a\). Then \(\frac{f'(z)}{f(z)}\) has a simple pole at \(z = a\) with residue \(k\) (\(-k\), respectively).
@@ -1728,12 +1728,12 @@ If \(\gamma\) bounds \(D\), then we get
 \]
 where
 \begin{align*}
-  N &= \#\text{zeros of \(f\) in \(D\) counted with mutiplicity} \\
+  N &= \#\text{zeros of \(f\) in \(D\) counted with multiplicity} \\
   P &= \#\text{poles of \(f\) in \(D\) counted with multiplicity}
 \end{align*}
 
 \begin{definition}[Local degree]\index{local degree}
-  If \(f\) is nonconstant and holomorphic at \(z = a\) and \(b = f(a)\), we say that the \emph{local degree} of \(f\) at \(z = a\) is the order of zero of \(f(z) - b\) at \(z = a\). We denote it by \(\deg_a f\), which is a positive integer.
+  If \(f\) is non-constant and holomorphic at \(z = a\) and \(b = f(a)\), we say that the \emph{local degree} of \(f\) at \(z = a\) is the order of zero of \(f(z) - b\) at \(z = a\). We denote it by \(\deg_a f\), which is a positive integer.
 \end{definition}
 
 \begin{proposition}
@@ -1746,17 +1746,17 @@ where
 
 \begin{theorem}[Local mapping degree]\index{local mapping degree}
   \label{thm:local mapping degree}
-  Let \(f: D(a, r) \to \C\) be holomorphic and non-constant with local degree \(\deg_a f = d > 0\). Then if \(r > 0\) is sufficiently small then there exists \(\varepsilon > 0\) such that for every \(w\) with \(0 < |w - f(a)| \leq \varepsilon\), the equation
+  Let \(f: D \to \C\) be holomorphic and non-constant with local degree \(\deg_a f = d > 0\). Then if \(r > 0\) is sufficiently small then there exists \(\varepsilon > 0\) such that for every \(w\) with \(0 < |w - f(a)| \leq \varepsilon\), the equation
   \[
     f(z) = w
   \]
-  has exactly \(d\) distinct real roots in \(D(a, r)\).
+  has exactly \(d\) distinct roots in \(D(a, r)\).
 \end{theorem}
 
 Thus degree is indeed a local property. Consequently in Riemann surfaces, any holomorphic function has a local model \(z \mapsto z^d\).
 
 \begin{proof}
-  Let \(b = f(a)\) and let \(r > 0\) be such that \(f(z) - b\) and \(f'(z)\) are both non-zero for \(0 < |z - a| \leq r\). Let \(\gamma\) be the circle of centre \(z = a\) and radius \(r\). Then \(\Gamma = f \compose \gamma\) is a closed curve missing \(b\). Choose \(\varepsilon > 0\) such that \(D(b, \varepsilon)\) does not intersect \(\Gamma\). Then if \(w \in D(b, \varepsilon)\), the number of zeros counted with multiplicity of \(f(z) - w\) in \(D(a, r)\) equals to \(I(\gamma, w)\) by \nameref{thm:argument principle}. But \(I(\Gamma, w) = I(\Gamma, b) = d\). Since \(r\) is chosen so that \(f'\) is non-zero on \(D(a, r) \setminus \{a\}\), the zeros are all simple.
+  Let \(b = f(a)\) and let \(r > 0\) be such that \(f(z) - b\) and \(f'(z)\) are both non-zero for \(0 < |z - a| \leq r\). Let \(\gamma\) be the circle of centre \(z = a\) and radius \(r\). Then \(\Gamma = f \compose \gamma\) is a closed curve missing \(b\). Choose \(\varepsilon > 0\) such that \(D(b, \varepsilon)\) does not intersect \(\Gamma\). Then if \(w \in D(b, \varepsilon)\), the number of zeros counted with multiplicity of \(f(z) - w\) in \(D(a, r)\) equals to \(I(\Gamma, w)\) by \nameref{thm:argument principle}. But \(I(\Gamma, w) = I(\Gamma, b) = d\). Since \(r\) is chosen so that \(f'\) is non-zero on \(D(a, r) \setminus \{a\}\), the zeros are all simple.
 \end{proof}
 
 \begin{corollary}[Open mapping theorem]\index{open mapping theorem}
@@ -1769,12 +1769,12 @@ Thus degree is indeed a local property. Consequently in Riemann surfaces, any ho
 \end{proof}
 
 \begin{remark}
-  This gives the inverse function theorem: if \(f'(a) \neq 0\), \(\deg_a f = 1\), \nameref{thm:local mapping degree} says that there is a local inverse \(g\) and \nameref{cor:open mapping theorem} implies that \(g\) is continuous. Moreover, \(g\) is holomorphic by the argument in proof of differentiability of power series, which is the same as in IA Analysis I.
+  This gives the inverse function theorem: if \(f'(a) \neq 0\) then \(\deg_a f = 1\), and \nameref{thm:local mapping degree} says that there is a local inverse \(g\) and \nameref{cor:open mapping theorem} implies that \(g\) is continuous. Moreover, \(g\) is holomorphic by the argument in the proof of differentiability of power series, which is the same as in IA Analysis I.
 \end{remark}
 
 \begin{theorem}[Rouché]\index{Rouché's theorem}
   \label{thm:Rouche}
-  Let \(\gamma\) bound a domain \(D\) and let \(f\) and \(g\) be holomorphic in \(U \supseteq D\). If \(|f| > |g|\) on \(\gamma\), then \(f\) and \(f + g\) have the same number of zeros in \(D\) counted with multiplicty.
+  Let \(\gamma\) bound a domain \(D\) and let \(f\) and \(g\) be holomorphic in \(U \supseteq D\). If \(|f| > |g|\) on \(\gamma\), then \(f\) and \(f + g\) have the same number of zeros in \(D\) counted with multiplicity.
 \end{theorem}
 
 \begin{proof}

@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Limit points}
+\def\ndate{}
+
+\input{header}
+
+\usepackage{epigraph}
+
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Int}{Int}
+
+\begin{document}
+
+\maketitle
+
+\begin{quotation}
+  I should like to add a few words concerning the much disputed question of notation in vector analysis. There are, namely, a great many different symbols used for each of the vector operations, and it has been impossible, thus far, to bring about a generally accepted notation. At the meeting of natural scientists at Kassel (1903) a commission was set up for this purpose. Its members, however, were not able even to come to a complete understanding among themselves. Since their intentions were good, however, each member was willing to meet the others part way, so that the only result was that about three new notations came into existence!
+\end{quotation}
+
+\begin{flushright}
+  Felix Klein, \\
+  \emph{Elementary mathematics from an advanced standpoint}
+\end{flushright}
+
+Unless specified otherwise, suppose \((X, \tau)\) is a topological space and \(A \subseteq X\).
+
+\begin{definition}[Adherent point]
+  A point \(x \in X\) is a \emph{adherent point} of \(A\) if any open neighbourhood of \(x\) contains a point in \(A\).
+\end{definition}
+
+Contrast with
+
+\begin{definition}[Limit point]
+  A point \(x \in X\) is a \emph{limit point} of \(A\) if any open neighbourhood of \(x\) contains a point in \(A\) distinct from \(x\).
+\end{definition}
+
+For the sake of completeness we also define
+
+\begin{definition}[Isolated point]
+  \(x \in X\) is an \emph{isolaed point} of \(A\) if \(x \in A\) and there exists an open neighbourhood \(x\) that does not contain any other point in \(A\).
+\end{definition}
+
+\begin{ex}
+  Show that a point is an isolated point of \(A\) if and only if it is a non-limit adherent point.
+\end{ex}
+
+Next we investigate how limit points interact with closed subsets.
+
+\begin{proposition}
+  \(A \subseteq X\) is closed if and only if it contains all of its limit points.
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): Suppose \(x \in X \setminus A\) is a limit point of \(A\) for contradiction. As \(A \subseteq X\) is closed, \(X \setminus A\) is open so there exists an open neighbourhood of \(x\) \(U \subseteq X \setminus A\). Thus \(x\) is not a limit point of \(A\). Absurd.
+  \item \(\impliedby\): Suppose \(A \subseteq X\) is not closed, then \(X \setminus A\) is not open. Thus there exists \(x \in X \setminus A\) such that every open neighbourhood of \(x\) has non-empty intersection with \(A\). Thus \(x\) is a limit point of \(A\) that is not in \(A\).
+  \end{itemize}
+\end{proof}
+
+Given the exercise above, we can also show that
+
+\begin{corollary}
+  \(A \subseteq X\) is closed if and only if it contains all of its adherent points.
+\end{corollary}
+
+Recall that the closure of a subset \(A \subseteq X\) is the smallest closed subset containing \(A\), which is in particular closed and contains \(A\). We can use closure to characterise adherent/limit points.
+
+\begin{proposition}
+  \(x\) is an adherent point of \(A\) if and only if \(x \in \Cl A\).
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): Suppose \(x \notin \Cl A\), then \(x \notin A\) so \(x\) is not an isolated point of \(A\). As \(X \setminus \Cl A\) is open, there exist an open neighbourhood of \(x\) \(U \subseteq X \setminus \Cl A\). Thus \(x\) is not an adherent point of \(A\).
+  \item \(\impliedby\): Suppose \(x\) is not an adherent point of \(A\), then there exists an open neighourhood of \(x\) \(U \subseteq X \setminus A\). Thus \(X \setminus U \supseteq A\) is closed. By definition of closure \(\Cl A \subseteq X \setminus U\). Thus \(x \in U \subseteq X \setminus \Cl A\).
+  \end{itemize}
+\end{proof}
+
+Again using the exercise we can obtain a result abour limit point:
+
+\begin{corollary}
+  \(x\) is a limit point of \(A\) if and only if \(x \in \Cl (A \setminus \{x\})\).
+\end{corollary}
+
+Thus the closure of \(A\) can be defined equivalently as the union of \(A\) and its adherent point, or the union of \(A\) and its limit points.
+
+For the ease of discussion we make an ad hoc definition (which is not standard and perhaps not used anywhere else):
+
+\begin{definition}[Convergence point]
+  \(x \in X\) is a \emph{convergence point} of \(A\) if there exists a sequence \((x_n)\) in \(A\) such that \(x_n \to x\) in \(X\).
+\end{definition}
+
+%There is another related notion of the limit of a sequence in \(A\). This time it is more subtle:
+
+\begin{proposition}
+  A convergence point is an adherent point.
+\end{proposition}
+
+\begin{proof}
+  Suppose \((x_n)\) in \(A\) converges to \(x \in X\). Then for every open neighbourhood \(U\) of \(x\), there exists \(N\) such that whenever \(n \geq N\), \(x_n \in U\) by definition of convergence. In particular \(x_n \in U \subseteq A\). Thus \(x\) is an adherent point of \(A\).
+\end{proof}
+
+Subtlety comes when we attempt to phrase its converse:
+
+\begin{proposition}
+  If \(X\) is first-countable then an adherent point is a convergence point.
+\end{proposition}
+
+\begin{proof}
+  Let \(\{U_i\}\) be a sequence of descending open neighbourhoods of \(x\). As \(x\) is an adherent point of \(A\), for all \(i\) there exists \(x_i \in U_i \cap A\). Then \((x_i)\) is a sequence in \(A\). For any open neighbourhood \(V\) of \(x\), there exists \(N\) such that whenever \(n \geq N\), \(U_n \subseteq V\), so in particular \(x_n \in V\). Thus \(x_n \to x\).
+\end{proof}
+
+Before we show the necessity of first-countability in the proposition, note that we can establish connection between closedness and convergence points:
+
+\begin{corollary}
+  If \(A \subseteq X\) is closed then it cotains all of its convergence point.
+\end{corollary}
+
+\begin{corollary}
+  If \(X\) is first-countable and \(A\) contains all of its convergence point then \(A\) is closed.
+\end{corollary}
+
+\begin{eg}
+  We show by counterexample that first-countability is necessary in the proposition above. Let \(X = \{0, 1\}^\R\), which we can identify with all functions \(f: \R \to \{0, 1\}\). Let
+  \[
+    Y = \{f \in X: f = 0 \text{ on a cocountable subset}\} \subseteq X.
+  \]
+  Let \((g_i)\) be a sequence in \(Y\) which converges to \(g \in X\). We show \(g \in Y\):
+  \[
+    \{\alpha \in \R: g(\alpha) \neq 0\}
+    \subseteq \bigcup_{i = 1}^\infty \{\alpha \in \R: g_i(\alpha) \neq 0\}
+  \]
+  since any constantly zero sequence converges to zero. As RHS is the countable union of countable sets, it is countable so \(g \in Y\).
+
+  Finally we show \(Y \subseteq X\) is not closed by demonstrating its density. Recall that \(\Cl Y = X \setminus \Int (X \setminus Y)\), so it amounts to show that \(X \setminus Y\) has empty interior. Consider this basis of product topology on \(X\): given a function \(g: B_g \to \{0, 1\}\) where \(B_g \subseteq \R\) is countable, define
+  \[
+    U_g = \{f \in X: \forall \alpha \in B, f(\alpha) = g(\alpha)\}.
+  \]
+  This is a basis almost by definition of product topology. Now given any \(f \in X \setminus Y\), \(f = 1\) on an uncountable subset of \(\R\), so for any basis element \(U_g\) containing \(f\), there exists \(h \in U_g\) such that \(h(\alpha) = 1\) for at most finitely many \(\alpha \in \R\). In particular \(U_g \cap Y \neq \emptyset\). Thus \(X \setminus Y\) has empty interior.
+\end{eg}
+\end{document}

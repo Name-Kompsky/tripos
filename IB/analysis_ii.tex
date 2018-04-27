@@ -157,7 +157,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
     \begin{proof}
       If $(\V v_n)\to \V v$, then $(\|\V v_n - \V v\|) \to 0$. Now
     \[
-      0 \leq |\|\V v_n\| - \|\V v\|| \leq \|\V v_n - \V v\|
+      0 \leq |\norm{\V v_n} - \norm{\V v}| \leq \norm{\V v_n - \V v}
     \]
     by \nameref{lem:alternate triangle}. So $(|\|\V v_n - \V v\||) \to 0$ by squeeze rule, i.e.\ $\|\V v_n\| \to \|\V v\|$.
   \end{proof}
@@ -170,7 +170,7 @@ Now if I replace $\mathbb{R}$ by a real vector space $V$, what do I replace $|\c
 \end{lemma}
 
 \begin{proof}
-  By triangle inequality, $\|\V v- \V w\| - \|\V w\| \geq \|\V v \|$ so $\|\V v - \V w\| \geq \|\V w - \V v\| \geq \|\V w - \V v\|$.
+  By triangle inequality, \(\norm{\V v - \V w} + \norm{\V w} \geq \norm{\V v}\) so \(\norm{\V v - \V w} \geq \norm{\V v} - \norm{\V w}\) and \(\norm{\V v - \V w} \geq - \norm{\V v} + \norm{\V w}\) 
 \end{proof}
 
 More generally, if $X\subseteq V$ is a subset, we say $f:X\to W$ is continuous if
@@ -292,14 +292,14 @@ Let $(V, \|\cdot\|)$ be a normed vector space.
 \begin{proof}
   Suppose \(C\) is closed and \((v_n)\to v \notin C\). Then \(v\in V\setminus C\) is open, so \(\exists \varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\), i.e.\ \(B_\varepsilon(v) \cap C =\emptyset\). \((v_n)\to v\) so \(\exists N\) such that \(v_n\in B_\varepsilon(v)\) for all \(n>N\). Thus \(v_n \notin C\) for all \(n>N\). In other word, if \((v_n)\to v\), all but finitely many of \(v_n \notin C\).
 
-  Conversely, suppose \(C\) is not closed. Then \(V\setminus C\) is not open so \(\exists c \in V\setminus C\) such that there is no \(\varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\). In other words, \(B_\varepsilon(v) \cap V \neq \emptyset\) for all \(\varepsilon>0\). Pick \(v_n\in B_{1/n}(v)\cap C\) for all \(n>0\). Then \(\|v_n-v\|< 1/n\) so \((v_n)\to v\). All \(v_n \in C\) but \(v\in V\setminus C\).
+  Conversely, suppose \(C\) is not closed. Then \(V\setminus C\) is not open so \(\exists c \in V\setminus C\) such that there is no \(\varepsilon>0\) with \(B_\varepsilon(v) \subseteq V\setminus C\). In other words, \(B_\varepsilon(v) \cap C \neq \emptyset\) for all \(\varepsilon > 0\). Pick \(v_n\in B_{1/n}(v)\cap C\) for all \(n>0\). Then \(\|v_n-v\|< 1/n\) so \((v_n)\to v\). All \(v_n \in C\) but \(v\in V\setminus C\).
 \end{proof}
 
 \begin{eg}
   The set \(X=\{f\in C[0,1]: \forall x, f(x)>0\}\) is not closed with respect to \(\|\cdot\|_1\) or \(\|\cdot\|_\infty\) since \(f_n(x) = \frac{1}{n} \in X\), \((f_n) \to 0\) with respect to either norm but \(0 \notin X\).
 \end{eg}
 
-For future use, suppose \(U_\alpha \subseteq V, \alpha\in A\) are open subsets of \(V\). Given \(U = \bigcup_{\alpha\in A}U_\alpha\) and \(f: U \to W\),
+For future use, suppose for all \(\alpha \in A\), \(U_\alpha \subseteq V\) is open. Given \(U = \bigcup_{\alpha\in A}U_\alpha\) and \(f: U \to W\),
 
 \begin{proposition}
   If \(f|_{U_\alpha}:U_\alpha \to W\) is continuous for all \(\alpha \in A\), then \(f: U \to W\) is continuous.
@@ -371,7 +371,13 @@ Suppose \(\|\cdot\|\) and \(\|\cdot\|'\) are two norms on \(V\). Consider
 \end{corollary}
 
 \begin{proof}
-  Example proof: if \(f:(V, \|\cdot\|)\to W\) is continuous, \(f:(V,\|\cdot\|')\to W = f:(V, \|\cdot\|)\to W \compose \id_V:(V, \|\cdot\|) \to (V, \|\cdot\|')\).
+  Example proof: if \(f:(V, \|\cdot\|)\to W\) is continuous, then \(f':(V,\|\cdot\|') \to W\) is the composition
+  \[
+    \begin{tikzcd}
+      (V, \|\cdot\|') \ar[r, "\id_V"] & (V, \|\cdot\|) \ar[r, "f"] & W
+    \end{tikzcd}
+  \]
+  so continuous.
 \end{proof}
 
 \begin{eg}\leavevmode
@@ -455,7 +461,7 @@ which are both vector space.
   \item \(f_n(x)=x^n, f(x) = 1\text{ if } x=1, f(x)=0 \text{ if } x\neq 1\). Then \((f_n)\to f\) pointwise on \([0,1]\) but \(f_n\in C[0,1], f\notin C[0,1]\) so \((f_n)\nto f\) uniformly on \([0,1]\).
   \item \(g_n(x) = x^n(1-x), g(x) =0\). Then \((g_n)\to g\) uniformly.
 \begin{proof}
-  given \(\varepsilon>0, 1-\varepsilon<1\) so \((1-\varepsilon)^n\to 0\). Pick \(N\) such that \((1-\varepsilon)^n < \varepsilon\) for all \(n> N\). Then \(|f_n(x)| = |(1-x)x^n| \leq 1\cdot(1-\varepsilon)^n < \varepsilon\) for \(x\in[0,1-\varepsilon]\) and \(|f_n(x)| = |(1-x)x^n| < \varepsilon\cdot1^n=\varepsilon\) for \(x\in (1-\varepsilon,1]\). Thus \(|f_n(x)| < \varepsilon\) for all \(x\in[0,1]\).
+  Given \(\varepsilon>0, 1-\varepsilon<1\) so \((1-\varepsilon)^n\to 0\). Pick \(N\) such that \((1-\varepsilon)^n < \varepsilon\) for all \(n> N\). Then \(|f_n(x)| = |(1-x)x^n| \leq 1\cdot(1-\varepsilon)^n < \varepsilon\) for \(x\in[0,1-\varepsilon]\) and \(|f_n(x)| = |(1-x)x^n| < \varepsilon\cdot1^n=\varepsilon\) for \(x\in (1-\varepsilon,1]\). Thus \(|f_n(x)| < \varepsilon\) for all \(x\in[0,1]\).
 \end{proof}
   \end{itemize}
 \end{eg}
@@ -607,7 +613,7 @@ for all \(i\geq N\) and \(\sum_{i=N}^{\infty}\alpha^i \) converges. By the lemma
   z &\mapsto \sum_{i=0}^{n} a_i(z-c)^i
 \end{align*}
 
-\Cref{prop:pointwise convergence of series} says that \((P_n)\to f\) pointwise on \(B_R(c)\). As \(P_n\) are polynomials so they are continuous. A natural question is, is \(f\) continuous as well? We know this answer will be yes if we can prove that the convergence is uniform. How do we do that?
+\Cref{prop:pointwise convergence of series} says that \((P_n)\to f\) pointwise on \(B_R(c)\). As \(P_n\) are polynomials so they are continuous. A natural question is, is \(f\) continuous as well? We know this answer will be yes if we can prove that the convergence is uniform.
 
 \begin{theorem}
   With notations as above,
@@ -667,7 +673,7 @@ uniformly on \(\cl B_r(c)\) whenever \(r<R\).
   \]
 \end{proof}
 
-To summarise, power series are continuous on domain of convergence \(B_R(c)\).
+To summarise, power series are locally uniformly convergent and thus continuous on its domain of convergence \(B_R(c)\).
 
 \subsection{Integration \& Differentiation}
 
@@ -729,7 +735,7 @@ Now suppose \(f_n\in C[a,b]\) and \((f_n)\to f\) uniformly on \([a,b]\) so \(f\i
     |F_n(x) - F(x)| &= \Big| \int_{c}^{x} f_n(t) dt - \int_{c}^{x} f(t) dt \Big| \\
                     &\leq \Big| \int_{c}^{x} \big( f_n(t) - f(t) \big) dt \Big| \\
                     &\leq |x-c| \cdot\frac{\varepsilon}{b-a} \text{ by lemma} \\
-                    &= \varepsilon
+                    &\leq \varepsilon
   \end{align*}
   since \(x,c\in[a,b]\), \(|x-c|\leq b-a\). Thus \((F_n)\to F\) uniformly on \([a,b]\).
 \end{proof}
@@ -794,7 +800,7 @@ In other words, power series can be differentiated term-by-term.
   \]
   where we assume \(y\neq c\). Now
   \[
-    \lim_{i\to\infty} \frac{b_{i+1}}{b_i} = \lim_{i\to\infty} \frac{i+1}{i}\cdot\alpha = \alpha<1
+    \lim_{i\to\infty} \frac{i+1}{i}\cdot\alpha = \alpha<1
   \]
   so \(\sum_{i=1}^{\infty}\frac{i}{|x-c|}\alpha^i \) converges by ratio test. Since
   \[
@@ -830,7 +836,7 @@ Let \((V, \norm \cdot)\) be a normed vector space. If \((v_n)\) is a sequence in
 \end{definition}
 
 \begin{remark}
-  if \(\norm \cdot\) and \(\norm \cdot'\) are Lipschitz equivalent then \(A\) is bounded with respect to \(\norm \cdot\) if and only if with respect to \(\norm \cdot'\). It follows that boundedness in \(\R^n\) means with respect to any one of \(\norm \cdot_1, \norm \cdot_2, \norm \cdot_\infty\).
+  If \(\norm \cdot\) and \(\norm \cdot'\) are Lipschitz equivalent then \(A\) is bounded with respect to \(\norm \cdot\) if and only if with respect to \(\norm \cdot'\). It follows that boundedness in \(\R^n\) means with respect to any one of \(\norm \cdot_1, \norm \cdot_2, \norm \cdot_\infty\).
 \end{remark}
 
 Recall from IA Analysis I:
@@ -965,7 +971,7 @@ Let \(\norm \cdot\) be some norm on \(\R^m\).
 
 Recall that two norms \(\norm \cdot\) and \(\norm \cdot'\) on \(V\) are Lipschitz equivalent if there exists \(C\) such that
 \[
-  C\norm v \leq \norm v' \leq C \norm v
+  \frac{1}{C} \norm v \leq \norm v' \leq C \norm v
 \]
 for all \(v\in V\).
 
@@ -1147,7 +1153,7 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
     \begin{proof}
       Suppose \((v_n)\) is a sequence in \(V\) and \((v_n) \to v' \in V'\). Then \((v_n)\) is Cauchy in \(V\) so \((v_n) \to v \in V\). By uniqueness of limits \(v = v' \in V\) so \(V \subseteq V\) is closed.
     \end{proof}
-  \item If \((V, \norm \cdot)\) is a normed space then there exists a complete normed pace \((\cl V, \norm \cdot)\) which contains \(V\) as a dense subspace (dense means that any \(v \in V\) is a limit of sequence in \(V\)). This \(\cl V\) is the \emph{completion} of \(V\) and is unique up to isomorphism of normed space.
+  \item If \((V, \norm \cdot)\) is a normed space then there exists a complete normed space \((\cl V, \norm \cdot)\) which contains \(V\) as a dense subspace (dense means that any \(v \in V\) is a limit of sequence in \(V\)). This \(\cl V\) is the \emph{completion} of \(V\) and is unique up to isomorphism of normed space.
   \end{enumerate}
 \end{remark}
 
@@ -1163,7 +1169,7 @@ We saw before that \((C[0, 1], \norm \cdot_\infty)\) does not have Bolzano-Weier
 Suppose \(V\) and \(W\) are normed spaces and \(X \subseteq V\),
 
 \begin{definition}[Uniform continuity]\index{uniform continuity}
-  \(f: W \to W\) is \emph{uniformly continuous} if
+  \(f: X \to W\) is \emph{uniformly continuous} if
   \[
     \forall \varepsilon>0, \, \exists \delta>0 \, \forall v, w \in X, \, \norm{v - w} < \delta \Rightarrow \norm{f(v) - f(w)} < \varepsilon.
   \]
@@ -1223,7 +1229,7 @@ Clearly uniform convergence imples convergence but the converse is false.
 
 Recall from IA Analysis I: \(g: [a, b] \to \R \) is \emph{piecewise constant} if \(\exists a = a_0 < a_1 < \dots < a_n = b\) such that \(g(x) = c_i\) for all \(x\in (a_{i-1}, a_i)\). Let
 \[
-  P[a, b] = \{g: [a, b] \to \R: g \text{ is piecewise continuous} \}
+  P[a, b] = \{g: [a, b] \to \R: g \text{ is piecewise constant} \}
 \]
 
 \begin{notation}
@@ -1313,7 +1319,7 @@ It is natural to ask what is the generalisation of differentiation on \(\R\) to 
 Recall from multivariate calculus the partial derivative
 \begin{align*}
   \frac{\partial F}{\partial x_1} \Big|_{(a_1, a_2)} &= \D_1 F|_{(a_1, a_2)} \\
-                                                     &= \left( \frac{d}{dt} F(a_1 + t, a_2) \right) \big|_{t = 0} \\
+                                                     &= \left( \frac{d}{dt} F(a_1 + t, a_2) \right) \Big|_{t = 0} \\
                                                      &= \lim_{h \to 0} \frac{F(a_1 + h, a_2) - F(a_1, a_2)}{h}
 \end{align*}
 Similar for \(\frac{\partial F}{\partial x_2}\).
@@ -1337,7 +1343,7 @@ Similar for \(\frac{\partial F}{\partial x_2}\).
   \end{eg}
 \end{note}
 
-The existence of partial derivatives is not strong enough as \(\frac{\partial F}{\partial x_i}\) merely tells us about restriction of \(F\) to coordinate axes.
+The failure in the above attempt to define differentiability is because the existence of partial derivatives is not strong enough as \(\frac{\partial F}{\partial x_i}\) merely tells us about the behaviour of when \(F\) is restricted to coordinate axes.
 
 To answer Q1, recall that \(f: \R \to \R\), \(f'(a) = c\) means that
 \[
@@ -1405,7 +1411,7 @@ i.e.\ as a map \(\D F|_a\) is given by the matrix
   \[
     z = T(x_1, x_2) = 0 + 0 \cdot x_1 + 0 \cdot x_2 = 0
   \]
-  What a terrible approximation to \(F\)! No wonder \(F\) is not differentiable at \(0\).
+  which is, to say the least, a terrible approximation of \(F\).
 \end{eg}
 
 More generally,
@@ -1545,7 +1551,7 @@ Suppose \(V\) and \(W\) are normed spaces, \(U \subseteq V\) open, and \(v_0 \in
   Sequential characterisation of convergence.
 \end{proof}
 
-Recall that previously we have defined continuity of a function \emph{on a domain}. Here we define continuity of a function \emph{at a point}. Fortunately, these two notions of continuity are compatible:
+Recall that previously we have defined continuity of a function \emph{on a domain}. Here we define continuity of a function \emph{at a point}. Fortunately, these two notions of continuity agree:
 
 \begin{corollary}
   \(f\) is continuous if and only if \(f\) is continuous at every \(v \in U\).
@@ -1604,7 +1610,7 @@ Let \(U \subseteq \R^n\) be open and \(f: U \to \R^n\).
   \(f\) is differentiable if \(f\) is differentiable at all \(a \in U\).
 \end{definition}
 
-There are two ways to think about the derivative:
+There are two ways to think about derivatives:
 \begin{itemize}
 \item analyst way: \(\D f: U \to L(\R^n, \R^m), a \mapsto \D f|_a\). 
 \item geometer way: define the tangent bundle \(TU = U \times \R^n\) if \(U \subseteq \R^n\) is open, then
@@ -1965,7 +1971,7 @@ Let \(V_1, V_2, V_3\) be normed vector spaces, \(U_1 \subseteq V_1, U_2 \subsete
 
 Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \to \R^\ell\). If \(f\) is differentiable at \(a \in U_1\), \(\D f|_a \in L(\R^n, \R^m)\). If \(g\) is differentiable at \(f(a) \in U_2\), \(\D g|_{f(a)} \in L(\R^m, \R^\ell)\), so the composition
 \[
-  \D g|_{f(a)} \compose \D f|_a \in L(\R^n, \R^m).
+  \D g|_{f(a)} \compose \D f|_a \in L(\R^n, \R^\ell).
 \]
 
 \begin{theorem}[Chain rule]
@@ -1986,7 +1992,7 @@ Let \(U_1 \subseteq \R^n, U_2 \subseteq \R^m\) open, \(F: U_1 \to U_2, g: U_2 \t
   \]
   where \(L_2 = \D g|_{f(a)} \in L(\R^m, \R^\ell)\) and \(\lim_{r \to 0} B(r) = 0\).
   \begin{joke}
-    I had some trouble finding a good name for the infinitesimal variable. Certainly \(f\) or \(g\) can't be used althought they are close to \(h\). In the end I settled for \(r\), although it does not have much \(h\)-ness.
+    I had some trouble finding a good name for the infinitesimal variable. Certainly \(f\) or \(g\) can't be used although they are close to \(h\). In the end I settled for \(r\), although it does not have much \(h\)-ness.
   \end{joke}
   
   \begin{note}
@@ -2332,7 +2338,7 @@ is the \emph{Hessian matrix}  of \(F\) at \(a\).
 \end{proof}
 
 \begin{proof}[Proof of \nameref{thm:symmetry of mixed partials}]
-  This should be almost apparent from the symmetry of the expression on RHS above. Let \(G(x_1, x_2) = F((x_2, x_1)\). Then
+  This should be almost apparent from the symmetry of the expression on RHS above. Let \(G(x_1, x_2) = F(x_2, x_1)\). Then
   \begin{align*}
     \D_{12} F|_{(a_1, a_2)} &= \D_{21} G|_{(a_2, a_2)} \\
                             &= \lim_{h \to 0} \frac{1}{h^2} \left( G(a_1 + h, a_2 + h) - G(a_1, a_2 + h) - G(a_1 + h, a_2) + G(a_1, a_2) \right) \\
@@ -2370,7 +2376,7 @@ so \(\D^2 F|_a\) is a \emph{symmetric bilinear form}:
   \D^2 F|_a(v, w) = \D^2 F|_a(w, v).
 \]
 
-We could rephrase our theory for second derivatives developed so far using the language of linear maps, which gives an alternative descriptoin from a slightly different point: if \(f: U \to \R^m\) is \(C^2\), then
+We could rephrase our theory for second derivatives developed so far using the language of linear maps, which gives an alternative description from a slightly different point: if \(f: U \to \R^m\) is \(C^2\), then
 \begin{align*}
   \D f: U &\to L(\R^n, \R^m) \cong \matrixring_{m, n}(\R) \cong \R^{mn} \\
   \D (\D f)|_a &\in L(\R^n, L(\R^n, \R^m)).
@@ -2425,7 +2431,7 @@ Note that \(f: [0, 1] \to \R\).
   If \(G \in C^k(U)\), \(g(t) = G(x_0 + tv)\) then
   \begin{equation*}
     \label{eqn:taylor}
-    g'(t) = \D_v G|_{x_0 + v} = \D G|_{x_0 + v} (v).
+    g'(t) = \D_v G|_{x_0 + tv} = \D G|_{x_0 + tv} (v).
     \tag{\(\ast\)}
   \end{equation*}
   Proof is by induction on \(k\). \(k = 1\) is \eqref{eqn:taylor} with \(G = F\). In general define
@@ -2509,9 +2515,9 @@ All norms are Euclidean norms in this section since we require inner product.
   \]
   where the equality comes from Fundamental Theorem of Calculus. Let \(\beta(s) = \int_{0}^{s} \norm{\gamma(t)} dt\) then \(\beta'(s) = \norm{\gamma(s)}\).
 
-  Since \(\norm{\alpha(0)} = 0 \beta(0)\) and
+  Since \(\norm{\alpha(0)} = \beta(0)\) and
   \[
-    \frac{d}{ds} \norm{\alpha(s)} \leq \norm{\gamma(s)} = \frac{d}{ds} B(s),
+    \frac{d}{ds} \norm{\alpha(s)} \leq \norm{\gamma(s)} = \frac{d}{ds} \beta(s),
   \]
   \[
     \norm{\alpha(s)} \leq \beta(s)
@@ -2550,7 +2556,7 @@ In this chapter we take a short break from differential calculus (but don't forg
       \item \(d(v_1, v_3) = \norm{v_1 - v_3} \leq \norm{v_1 - v_2} + \norm{v_2 - v_3} = d(v_1, v_2) + d(v_2, v_3)\).
       \end{enumerate}
     \end{proof}
-  \item If \((x, d)\) is a metric space and \(Y \subseteq X\) then \((Y, d|_{Y \times Y})\) is metric space. We say \(Y\) is a \emph{subspace} of \(X\).
+  \item If \((X, d)\) is a metric space and \(Y \subseteq X\) then \((Y, d|_{Y \times Y})\) is metric space. We say \(Y\) is a \emph{subspace} of \(X\).
   \item For any set \(X\), let
     \[
       d(x, y) =
@@ -2745,7 +2751,7 @@ Form here on let \(V = (\R^n, \norm \cdot_2)\) and \(W = (\R^m, \norm \cdot_2)\)
 \end{proposition}
 
 \begin{proof}
-  The proof for the general case is similar to that of Mean Value Inequality is left as an exercise. Here we want to draw our attention to the case where \(f\) is \(C^1\) and show how it arises as a corollary of Mean Value Inequality.
+  The proof for the general case is similar to that of Mean Value Inequality and is left as an exercise. Here we want to draw our attention to the case where \(f\) is \(C^1\) and show how it arises as a corollary of Mean Value Inequality.
 
   Given \(x_0, x_1 \in U\), define
   \begin{align*}
@@ -2906,7 +2912,7 @@ In this final chapter we are going to learn methods to solve equations, first in
   \end{enumerate}
 \end{eg}
 
-The second example gives us another viewpoint for diffeomorphism: if \(f: U_1 \to U_2\) is a diffeomorphism then \((f_1(x), \dots, f_n(x))\) is a different coordinate system on \(U_1\). This is the basis of differential geometry.
+The second example gives us another way to interpret diffeomorphism: if \(f: U_1 \to U_2\) is a diffeomorphism then \((f_1(x), \dots, f_n(x))\) is a different coordinate system on \(U_1\). This is the basis of differential geometry.
 
 \begin{remark}\leavevmode
   \begin{enumerate}
@@ -2925,16 +2931,16 @@ The second example gives us another viewpoint for diffeomorphism: if \(f: U_1 \t
   \end{enumerate}
 \end{remark}
 
-In the rest of the section we are going to prove a single theorem. This theorem gives a sufficient condition for a local diffeomorphism. Roughly it says that if we are interested in determining whether a map is a diffeomorphism near a point, we only have to consider its invertibility at that point.
+In the rest of the section we are going to prove a single theorem. This theorem gives a sufficient condition for the existence of a local diffeomorphism. Roughly it says that if we are interested in determining whether a map is a diffeomorphism near a point, we only have to consider its invertibility at that point.
 
-This theorem is of enormous importance and is considered ``Theorem \(0\)'' of differential geometry:
+This theorem is of enormous importance and is considered Theorem \(0\) of differential geometry:
 
 \begin{theorem}[Inverse Function Theorem]\index{Inverse Function Theorem}
   \label{thm:inverse function}
   Suppose \(U \subseteq \R^n\) is open, \(f: U \to \R^n\) is \(C^1\) and \(x_0 \in U\) is such that \(\D f|_{x_0}\) is invertible, then there exists \(U_1 \subseteq U\), \(U_2 \subseteq \R^n\) open with \(x_0 \in U_1\) such that \(f|_{U_1}: U_1 \to U_2\) is a diffeomorphism.
 \end{theorem}
 
-As we said, this is a huge theorem and we will take two lectures to prove it so before we start to prove it let us discuss its intuition and implications.
+As said, this is a huge theorem and we will take two lectures to prove it so before we start to prove it let us discuss its intuition and implications.
 
 \begin{remark}\leavevmode
   \begin{enumerate}
@@ -2953,7 +2959,7 @@ As we said, this is a huge theorem and we will take two lectures to prove it so 
         \sin \theta & r \cos \theta
       \end{pmatrix}
     \]
-    and \(\det \D f|_{r, \theta} = r \neq 0\) (note that we excluded the origin in the definition, which is always a problem for polar coordinates). But \(f\) is not injective since \(f(r, \theta) = f(r, \theta + 2\pi)\). This shows that there is no global generalisation of the one-dimensional result and \nameref{thm:inverse function} is, in a sense, the best alternative we can have about the local generalisation thereof.
+    and \(\det \D f|_{r, \theta} = r \neq 0\) (note that we excluded the origin in the definition, which is always a problem for polar coordinates). But \(f\) is not injective since \(f(r, \theta) = f(r, \theta + 2\pi)\). This shows that there is no global generalisation of the one-dimensional result and \nameref{thm:inverse function} is, in a sense, the best alternative we can have in terms of the local generalisation thereof.
   \end{enumerate}
 \end{remark}
 
@@ -3257,7 +3263,7 @@ The answer lies in the derivative of the map. \(\D F|_{(x_1, x_2)} = (2x_1, - 2x
   for \(x \in U\).
 \end{theorem}
 
-The theorem says that there are local coordinates \((y_1, \dots, y_n)\) on \(\R^n\) near \(x_0\) such that \(y_i = h_i(x)\) and with respect to which \(f\) is the projection of first \(m\) coordinates.
+The theorem says that there are local coordinates \((y_1, \dots, y_n)\) on \(\R^n\) near \(x_0\) such that \(y_i = h_i(x)\), with respect to which \(f\) is the projection of the first \(m\) coordinates.
 
 \begin{proof}
   Let \(L_1 = \D f|_{x_0} \in L(\R^n, \R^m)\). \(L_1\) is surjective so \(\dim \ker L_1 = n - m\) by Rank-nullity. Pick \(L_2 \in L(\R^n, \R^{n - m})\) such that \(\ker L_2 \cap \ker L_1 = 0\). There are many possibilities for \(L_2\), for example the orthogonal projection onto \(\ker L_1 \cong \R^{n - m}\). Define
@@ -3361,7 +3367,7 @@ Given \(\V V: \R^n \to \R^n\) which is \(C^1\) (think of it as a vector field on
   \]
 \end{eg}
 
-Let's set up a physical model for \(n = 2\). Let \(\R^2\) be the surface of the ocean. \(\V V(\V p)\) is the velocity of the current at position \(\V p\). If I drop a robber duck in at position \(\V x_0\) at time \(t = 0\), then \(\V x(t)\) is the position of the duck at time \(t\). Then \eqref{eqn:ODE} says that \(\frac{d\V x}{dt}\), the velocity of the duck at time \(t\), equals to \(\V V(\V x(t))\), the velocity of the current at the duck's position, i.e.\ the duck moves at the same speed as the current. For this reason, solutions to \eqref{eqn:ODE} are often called \emph{flowlines} of \(\V V\).
+Let's set up a physical model for \(n = 2\). Let \(\R^2\) be the surface of the ocean. \(\V V(\V p)\) is the velocity of the current at position \(\V p\). If I drop a rubber duck in at position \(\V x_0\) at time \(t = 0\), then \(\V x(t)\) is the position of the duck at time \(t\). Then \eqref{eqn:ODE} says that \(\frac{d\V x}{dt}\), the velocity of the duck at time \(t\), equals to \(\V V(\V x(t))\), the velocity of the current at the duck's position, i.e.\ the duck moves at the same speed as the current. For this reason, solutions to \eqref{eqn:ODE} are often called \emph{flowlines} of \(\V V\).
 
 The tangent vector to \(\V x(t)\) at time \(t\) is \(\V x'(t) = \V V(\V x(t))\), i.e.\ the flowline \(\V x(t)\) is everywhere tangent to \(\V V\).
 
@@ -3371,7 +3377,7 @@ The tangent vector to \(\V x(t)\) at time \(t\) is \(\V x'(t) = \V V(\V x(t))\),
     \[
       \frac{dx}{dt} = x^2, \, x(0) = 1
     \]
-    has a solution \(x = \frac{1}{1 - t}\). There is no solution on \([0, t)\) for any \(t > 1\). This hints that we may not be able to get global solution, but only a local solution in an \(\varepsilon\)-neighbourhood of certain points.
+    has a solution \(x = \frac{1}{1 - t}\). There is no solution on \([0, t)\) for any \(t > 1\). This hints that we may not be able to get global solution, but only a local solution in an \(\varepsilon\)-neighbourhood of the starting point.
   \item Argurably a more realistic physical model would allow \(\V V\) to have time-dependence, i.e.
     \[
       \V V: \R \times \R^n \to \R^n
@@ -3596,7 +3602,7 @@ or have many solutions
 
 But we can reduce a general ODE into a form we are familiar with, namely first order equation:
 \begin{enumerate}
-\item Eliminate \(t\) (as a term in the equation) at the cost of adding an extra variable. We have already shown how to do this before. For example,
+\item Eliminate \(t\) (as a term in the equation) by introducing an extra variable. We have already shown how to do this before. For example,
   \[
     t^2(y')^2 + y^3 = \sin t
   \]

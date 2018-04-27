@@ -1,0 +1,108 @@
+\documentclass[a4paper]{article}
+
+\def\ntitle{Compactness in metric spaces}
+\def\ndate{}
+
+\input{header}
+
+\usepackage{epigraph}
+
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Int}{Int}
+
+\begin{document}
+
+\maketitle
+
+In this article we discuss the concept of compactness and sequential compactness, which are different in topological spaces but can be proven to be equivalent in metric spaces, as well as their interplay with completeness and total boundedness.
+
+Let \((X, d)\) be a non-empty metric space throughout. We start with a few definitions:
+
+\begin{definition}[Compactness]
+  \(X\) is \emph{compact} if every open cover of \(X\) admits a finite subcover.
+\end{definition}
+
+\begin{definition}[Sequential compactness]
+  \(X\) is \emph{sequentially compact} if every sequence in \(X\) has a convergent subsequence.
+\end{definition}
+
+\begin{definition}[Total boundedness]
+  \(X\) is \emph{totally bounded} if for all \(\varepsilon > 0\), there exists \(x_1, x_2, \dots, x_n \in X\) such that \(X = \bigcup_{i = 1}^n B(x_i, \varepsilon)\).
+\end{definition}
+
+\begin{definition}[Completeness]
+  \(X\) is \emph{complete} if every Cauchy sequence in \(X\) converges to a limit in \(X\).
+\end{definition}
+
+The first result is easy:
+
+\begin{proposition}
+  Compact metric spaces are sequentially compact.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(X\) is not sequentially compact and let \((x_n)\) be a sequence with no converging subsequence. Then in particular \(\{x_n\}\) is an infinite set. Then for any \(x \in X\), there exists \(\varepsilon_x > 0\) such that \(U_x = B(x, \varepsilon_x)\) contains only finitely many \(x_n\)'s. But then \(\{U_x\}_{x \in X}\) is an open cover of \(X\) with the property that any finite subset of it contains finitely many \(x_n\)'s, so in particular not a subcover.
+\end{proof}
+
+We need two lemmas before we establish the equivalence between the two definitions of compactness in metric spaces.
+
+\begin{lemma}
+  A sequentially compact metric space is totally bounded.
+\end{lemma}
+
+\begin{proof}
+  Suppose \(X\) is not totally bounded. Then there exists \(\varepsilon > 0\) and an infinite sequence \(x_n\) such that \(x_n \in X \setminus \bigcup_{i = 1}^{n - 1} B(x_i, \varepsilon)\). Thus \(d(x_n, x_m) > \varepsilon\) for all \(m \neq n\) so \((x_n)\) has no Cauchy subsequence, so no convergent subsequence. Thus \(X\) is not sequentially compact.
+\end{proof}
+
+\begin{lemma}[Lebesgue number lemma]
+  Suppose \(X\) is a sequentially compact metric space, then given an open cover \(\{U_\gamma\}_{\gamma \in \Gamma}\), there exists \(\varepsilon > 0\) such that for all \(x \in X\), \(B(x, \varepsilon) \subseteq U_\gamma\) for some \(\gamma \in \Gamma\).
+\end{lemma}
+
+\begin{proof}
+  Suppose for contradiction that there doesn't exist such \(\varepsilon\). Then for all \(n \in \N\), there exists \(x_n \in X\) such that \(B(x_n, \frac{1}{n})\) is not contained in any element of the open cover. By sequential compactness \(x_n\) has a convergent subsequence \(x_{n_k}\) converging to some \(x \in X\). Suppose \(x \in U_\gamma\) for some \(\gamma \in \Gamma\). As \(U_\gamma\) is open, there exists \(\delta > 0\) such that \(B(x, \delta) \subseteq U_\gamma\). As \(x_{n_k} \to x\), there exists \(N_1\) such that for all \(k \geq N_1\), \(d(x_{n_k}, x) < \frac{\delta}{2}\). Choose \(N_2 \geq \frac{2}{\delta}\). Then \(\frac{1}{n_{N_2}} \leq \frac{1}{N_2} < \frac{\delta}{2}\). Let \(N = \max(N_1, N_2)\), then for all \(y \in B(x_{n_N}, \frac{1}{n_N})\),
+  \[
+    d(y, x) \leq d(y, x_{n_N}) + d(x_{n_N}, x) < \delta
+  \]
+  so \(B(x_{n_N}, \frac{1}{n_N}) \subseteq U_\gamma\), absurd.
+\end{proof}
+
+It should be apparent now sequential compactness implies compactness:
+
+\begin{proposition}
+  Sequentially compact metric spaces are compact.
+\end{proposition}
+
+\begin{proof}
+  Given an open cover \(\{U_\gamma\}_{\gamma \in \Gamma}\), choose \(\varepsilon > 0\) as in Lebesgue number lemma. Then by the first lemma there exist \(x_1, \dots, x_n\) such that \(X = \bigcup_{i = 1}^n B(x_i, \varepsilon)\). As each \(B(x_i, \varepsilon)\) is contained in some \(U_i\), we have \(X \subseteq \bigcup_{i = 1}^n U_i\), so \(\{U_\gamma\}_{\gamma \in \Gamma}\) has a finite subcover.
+\end{proof}
+
+Although we have established the equivalence, it might still be instructive to look at how compactness directly implies Lebesgue number lemma (the total boundedness part is trivial):
+
+\begin{proof}
+  Given an open cover \(\{U_\gamma\}_{\gamma \in \Gamma}\), there exists a finite subset \(\Gamma' \subseteq \Gamma\) such that \(X = \bigcup_{\gamma \in \Gamma'} U_\gamma\). If any element of the subcover is \(X\) then done. Otherwise define \(C_\gamma = X \setminus U_\gamma\) which is non-empty closed. Define the function
+  \begin{align*}
+    d(\cdot, C_\gamma): X &\to \R \\
+    x &\mapsto \inf_{y \in C_\gamma} d(x, y)
+  \end{align*}
+  which is continuous. Further define
+  \begin{align*}
+    f: X &\to \R \\
+    x &\mapsto \frac{1}{2} \sum_{\gamma \in \Gamma'} d(x, C_\gamma)
+  \end{align*}
+  which is again continuous. As \(X\) is compact, it attains a minimum \(\delta > 0\) as \(\bigcup_{\gamma \in \Gamma'} C_i \neq \emptyset\). For any \(x \in X\), show \(B(x, \delta)\) is contained in some \(U_\gamma\): as \(f(x) \geq \delta\), there exists some \(i\) such that \(d(x, C_i) \geq \delta\), so \(B(x, \delta) \subseteq X \setminus C_i = U_i\).
+\end{proof}
+
+From now on we will use compactness and sequential compactness interchangeably.
+
+\begin{proposition}
+  A metric space is compact if and only if it is complete and totally bounded.
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): We have already shown the total boundedness part. For completeness, note that a Cauchy sequence with a convergent subsequence converges.
+  \item \(\impliedby\): This is basically line hunting, i.e.\ how we proved Bolzano-Weierstrass (essentially sequential compactness of closed bounded subsets of \(\R\)) by binary division. Suppose \((x_n)\) is a sequence in \(X\). If \(\{x_n\}\) is finite then done. Otherwise there exists \(y_1, \dots, y_m\) such that \(X = \bigcup_{i = 1}^m B(y_i, 1)\) so at least one of the balls contains infinitely many \(x_N\)'s, say \(y_1\). As subsets of a totally bounded space is totally bounded, there exists \(z_1, \dots, z_p \in B(y_1, 1)\) such that \(B(y_1, 1) = \bigcup_{i = 1}^p (B(z_i, \frac{1}{2}) \cap B(y_1, 1))\). Again there exists a least one ball containing infinitely many \(x_n\)'s. Continue iteratively and we can obtain a subsequence of \(x_n\) that is Cauchy. As \(X\) is complete the subsequence converges to some \(x \in X\).
+  \end{itemize}
+\end{proof}
+
+\end{document}

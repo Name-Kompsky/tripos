@@ -108,7 +108,7 @@ Recall that \(gH = g'H\) if and only if \(g^{-1}g' \in H\). In particular, if \(
 
 Given a subgroup \(H \leq G\), we want to define a group structure on its cosets. Argurably the most natural candidate for the group operation would be
 \begin{align*}
-  - \cdot -: G/H \times G &\to G/H \\
+  - \cdot -: G/H \times G/H & \to G/H \\
   (gH, g'H) &\mapsto gg'H
 \end{align*}
 But is this well-defined? Suppose \(g'H = g'hH\), then
@@ -169,7 +169,7 @@ This implies that \(\varphi(e_G) = e_H\) and \(\varphi(g^{-1}) = \varphi(g)^{-1}
 \end{ex}
 
 \begin{theorem}[1st Isomorphism Theorem]\index{isomorphism theorem}
-  Let \(\varphi: G \to H\) be a homomorphism. Then \(\ker \varphi \leq G\), \(\im \varphi \leq G\) and
+  Let \(\varphi: G \to H\) be a homomorphism. Then \(\ker \normal \leq G\), \(\im \varphi \leq G\) and
   \[
     G/\ker \varphi \cong \im \varphi.
   \]
@@ -184,7 +184,7 @@ This implies that \(\varphi(e_G) = e_H\) and \(\varphi(g^{-1}) = \varphi(g)^{-1}
   \[
     \begin{tikzcd}
       G \ar[r, "\varphi"] \ar[d, two heads] & H \\
-      G/\ker \varphi \ar[ur, dashed, "\phi"']
+      G/\ker \varphi \ar[ur, dashed, "\theta"']
     \end{tikzcd}
   \]
   Check this is well-defined: if \(g\ker \varphi = g'\ker \varphi\) then \(g^{-1}g' \in \ker \varphi\) so \(e_H = \varphi(g^{-1}g') = \varphi(g)^{-1}\varphi(g')\), \(\varphi(g) = \varphi(g')\) and \(\theta(g\ker \varphi) = \theta(g'\ker \varphi)\).
@@ -580,7 +580,7 @@ We will use these knowledge to make our first (and the only one in this course) 
   \]
   If \(\sigma \in A_n\) then \((123) \in H\). If \(\sigma \notin A_n\), let \(\sigma' = (45)\sigma \in A_n\). Here we use the fact that \(n \geq 5\). Then
   \[
-    (abc) = \sigma^{-1}(45)(123)(45)\sigma = (abc).
+    (abc) = \sigma'^{-1}(45)(123)(45)\sigma' = \sigma'^{-1}(123)\sigma'.
   \]
   Hence \(H\) contains all \(3\)-cycles and \(H = A_n\). It then suffices to show any non-trivial \(H \normal A_n\) contains a \(3\)-cycle. Split into different cases:
   \begin{itemize}
@@ -632,7 +632,7 @@ A finite group \(G\) is a \emph{\(p\)-group} if \(|G| = p^n\) for some prime \(p
 \end{lemma}
 
 \begin{proof}
-  Let \(G/Z(G) = \generation{gZ(G)}\). Then every coset is of the form \(g^rX(G)\), \(r \in \Z\). Thus every element of \(G\) is of the form \(g^rz\) where \(z \in Z(G)\). Then
+  Let \(G/Z(G) = \generation{gZ(G)}\). Then every coset is of the form \(g^rZ(G)\), \(r \in \Z\). Thus every element of \(G\) is of the form \(g^rz\) where \(z \in Z(G)\). Then
   \[
     g^rzg^{r'}z' = g^rg^{r'}zz' = g^{r + r'} z'z = g^{r'}z'g^rz
   \]
@@ -732,7 +732,7 @@ A finite group \(G\) is a \emph{\(p\)-group} if \(|G| = p^n\) for some prime \(p
 \end{lemma}
 
 \begin{proof}
-  Let \(P \leq G\) be the Sylow \(p\)-subgroup and \(g \in G\). As \(gPg^{-1} \leq \syl_p(G)\), \(gPg^{-1} = P\) so \(P \normal G\).
+  Let \(P \leq G\) be the Sylow \(p\)-subgroup and \(g \in G\). As \(gPg^{-1} \in \syl_p(G)\), \(gPg^{-1} = P\) so \(P \normal G\).
 \end{proof}
 
 \begin{eg}
@@ -898,7 +898,9 @@ A finite group \(G\) is a \emph{\(p\)-group} if \(|G| = p^n\) for some prime \(p
   \begin{proof}
     Consider
     \[
-      1 \to \PSL_2(\F_5) \stackrel{\varphi}{\to} S_6 \stackrel{\sgn}{\to} C_2.
+      \begin{tikzcd}
+        1 \ar[r] & \PSL_2(\F_5) \ar[r, "\varphi"] & S_6 \ar[r, "\sgn"] & C_2.
+      \end{tikzcd}
     \]
     Need to show \(\psi = \sgn \compose \varphi\) is trivial. We already know elements of odd order in \(\PSL_2(\F_5)\) has be be sent to \(1\).
 
@@ -927,12 +929,12 @@ A finite group \(G\) is a \emph{\(p\)-group} if \(|G| = p^n\) for some prime \(p
 A ring is \emph{commutative} if for all \(a, b\in R\), \(a \cdot b = b \cdot a\). We will only consider commutative rings in this course.
 
 \begin{definition}[Subring]\index{ring!subring}
-  If \((R, +, \cdot 0_R, 1_R)\) is a ring and \(S \subseteq R\), then it is a \emph{subring} if \(0_R, 1_R \in S\) and \(+, \cdot\) make \(S\) into a ring. Write \(S \leq R\).
+  If \((R, +, \cdot, 0_R, 1_R)\) is a ring and \(S \subseteq R\), then it is a \emph{subring} if \(0_R, 1_R \in S\) and \(+, \cdot\) make \(S\) into a ring. Write \(S \leq R\).
 \end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(\Z \leq \Q \leq \R \leq \C\) with usual \(0, +\) and \(\cdot\).
+  \item \(\Z \leq \Q \leq \R \leq \C\) with usual \(0, 1, +\) and \(\cdot\).
   \item \(\Z[i] = \{a + ib: a, b \in \Z\}\) is the subring of \emph{Gaussian integers}.
   \item \(\Q[\sqrt 2] = \{a + \sqrt 2 b: a, b \in \Q\} \leq \R\).
   \end{enumerate}
@@ -987,9 +989,7 @@ If every \(r \in R, r \neq 0_R\) is a unit, then \(R\) is a \emph{field}.
   \]
   as equal.
 
-  The \emph{degree} of \(f\) is the largest \(n\) such that \(a_n \neq 0\).
-
-  If in addition \(a_n = 1_R\), we say \(f\) is \emph{monic}.
+  The \emph{degree} of \(f\) is the largest \(n\) such that \(a_n \neq 0\). If in addition \(a_n = 1_R\), we say \(f\) is \emph{monic}.
 
   Write \(R[X]\) for the set of all polynomials over \(R\). If
   \[
@@ -1058,7 +1058,7 @@ If every \(r \in R, r \neq 0_R\) is a unit, then \(R\) is a \emph{field}.
   A function \(\varphi: R\to S\) between rings is a \emph{homomorphism} if
   \begin{itemize}
   \item \(\varphi(r_1 + r_2) = \varphi(r_1) + \varphi(r_2)\), i.e.\ \(\varphi:(R, +, 0_R) \to (S, +, 0_S)\) is a group homomorphism,
-  \item \(\varphi(r_1r_2) = \varphi(r_1)\varphi(r_2\),
+  \item \(\varphi(r_1r_2) = \varphi(r_1)\varphi(r_2)\),
   \item \(\varphi(1_R) = 1_S\).
   \end{itemize}
 
@@ -1103,12 +1103,12 @@ We say \(I \ideal R\) is \emph{proper} if \(I \neq R\).
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item If \(I \ideal R\) and \(1_r \in I\), for all \(r \in R\), \(r = r \cdot 1 \cdot 1_R \in I\) so \(I = R\).
+  \item If \(I \ideal R\) and \(1_R \in I\), then for all \(r \in R\), \(r = r \cdot 1_R \in I\) so \(I = R\).
 
     Equivalently, if \(I\) is a proper ideal then \(1_R \notin I\). Consequenctly, proper ideals are never subrings.
   \item This can be generalaised to units: if \(u\) is a unit in \(R\) with inverse \(v \in R\), then if \(u \in I\), so is \(1_R = u \cdot v \in R\) so \(I = R\).
 
-    Equivalently, if \(I\) is a proper ideal then it contains \emph{no} unit.
+    Equivalently, if \(I\) is a proper ideal then it contains no unit.
   \end{enumerate}
 \end{eg}
 
@@ -1126,10 +1126,10 @@ We say \(I \ideal R\) is \emph{proper} if \(I \neq R\).
 \begin{proof}
   \(n\Z\) is certainly an ideal.
 
-  Let \(I \ideal \Z\) be an ideal. Let \(n \in I\) be the smallest positive element. Then \(n\Z \subseteq I\). If this is not an equality, choose \(m \in I \setminus n\Z\). By Euclidean algorith, \(m = nq + r\) with \(0 \leq r < n\). So \(r = m - nq \in I\). But \(n\) is the smallest positive element in \(I\), so \(r = 0\). Thus \(m \in n\Z\).
+  Let \(I \ideal \Z\) be an ideal. Let \(n \in I\) be the smallest positive element. Then \(n\Z \subseteq I\). If this is not an equality, choose \(m \in I \setminus n\Z\). By Euclidean algorithm, \(m = nq + r\) with \(0 \leq r < n\). So \(r = m - nq \in I\). But \(n\) is the smallest positive element in \(I\), so \(r = 0\). Thus \(m \in n\Z\).
 \end{proof}
 
-\begin{definition}
+\begin{definition}[Generated ideal]\index{ideal!generated}
   For an element \(a \in R\), write
   \[
     (a) = \{a \cdot r: r \in R\} \ideal R,
@@ -1213,7 +1213,7 @@ We say \(I \ideal R\) is \emph{proper} if \(I \neq R\).
   Let \(\deg f = n, \deg g = m\) so
   \begin{align*}
     f &= a_0 + a_1X + \dots + a_nX^n \\
-    g &= b_0 + b_1X + \dots + b_nX^m
+    g &= b_0 + b_1X + \dots + b_mX^m
   \end{align*}
   with \(a_n, b_m \neq 0\).
 
@@ -1221,7 +1221,7 @@ We say \(I \ideal R\) is \emph{proper} if \(I \neq R\).
   \[
     f_1 = f - gX^{n - m} a_nb_m^{-1}
   \]
-  where \(b_m^{-1}\) exists since \(b_m \in F\) and \(b_m \neq 0\). THis has degree \(< n\). If \(n = m\) then
+  where \(b_m^{-1}\) exists since \(b_m \in F\) and \(b_m \neq 0\). This has degree \(< n\). If \(n = m\) then
   \[
     f = g(X^{n - m}a_nb_m^{-1}) + f_1
   \]
@@ -1254,7 +1254,7 @@ We say \(I \ideal R\) is \emph{proper} if \(I \neq R\).
   The key idea in the proof is to force \(X^2 + 1\) to vanish by quotient the polynomial ring by the generated ideal so that ``\(X = \pm i\)''. Similarly \(\Q[X]/(X^2 - 2) \cong \Q[\sqrt 2] \leq \R\).
 \end{remark}
 
-This is a nice result. However, the proof is too cumbersum to be generalised as we have to check well-definedness for each case. Instead, we have the following theorems stating the general results for abstract rings and ideals. The proofs are similar to those for groups and are omitted.
+This is a nice result. However, the proof is too cumbersome to be generalised as we have to check well-definedness for each case. Instead, we have the following theorems stating the general results for abstract rings and ideals. The proofs are similar to those for groups and are omitted.
 
 \begin{theorem}[1st Isomorphism Theorem]\index{isomorphism theorem}
   Let \(\varphi: R \to S\) be a ring isomorphism. Then \(\ker \varphi \ideal R, \im \varphi \leq S\) and
@@ -1468,7 +1468,7 @@ As we have mentioned before, \(\{0\}\) is a bona fide ring although it is a (tri
 \end{definition}
 
 \begin{eg}
-  The ideal \(n\Z\) is prime if and only if \(n\) is \(0\) or a prime number: if \(p\) is prime and \(a, b \in p\Z\) then \(p \divides ab\) so \(p \divides a\) or \(p \divides b\), i.e.\ \(a \in p\Z\) or \(b \in p\Z\). Conversely, if \(n = uv\) is composite, \(u < n\) then \(uv \in n\Z\) but \(u \neq n\Z\).
+  The ideal \(n\Z\) is prime if and only if \(n\) is \(0\) or a prime number: if \(p\) is prime and \(a, b \in p\Z\) then \(p \divides ab\) so \(p \divides a\) or \(p \divides b\), i.e.\ \(a \in p\Z\) or \(b \in p\Z\). Conversely, if \(n = uv\) is composite, \(u < n\) then \(uv \in n\Z\) but \(u \notin n\Z\).
 \end{eg}
 
 \begin{lemma}
@@ -1629,7 +1629,7 @@ We will show that PIDs are UFDs.
 \end{lemma}
 
 \begin{proof}
-  Let \(p \in R\) be irreducible and suppose \(s \divides ab\). Need to show that \(p \divides a\) or \(p \divides b\). Suppose \(p \ndivides a\). Consider \((p, a) \ideal R\). As \(R\) is a PID, there exists \(d \in R\) such that \((d) = (p, a)\), so \(p = q_1d, a = q_2d\). As \(p\) is irreducible, either \(q_1\) or \(d\) is a unit. If \(q_1\) is a unit then \(a = q_2d = q_2(q_1^{-1}p)\) so \(p \divides a\). Thus \(d\) must be a unid and \((p, a) = (d) = R\). THus \(1_R = rp + sa\) for some \(r\) and \(s\). \(b = brp + abs\) so \(p \divides b\).
+  Let \(p \in R\) be irreducible and suppose \(s \divides ab\). Need to show that \(p \divides a\) or \(p \divides b\). Suppose \(p \ndivides a\). Consider \((p, a) \ideal R\). As \(R\) is a PID, there exists \(d \in R\) such that \((d) = (p, a)\), so \(p = q_1d, a = q_2d\). As \(p\) is irreducible, either \(q_1\) or \(d\) is a unit. If \(q_1\) is a unit then \(a = q_2d = q_2(q_1^{-1}p)\) so \(p \divides a\). Thus \(d\) must be a unit and \((p, a) = (d) = R\). Thus \(1_R = rp + sa\) for some \(r\) and \(s\). \(b = brp + abs\) so \(p \divides b\).
 \end{proof}
 
 \begin{lemma}
@@ -1641,7 +1641,7 @@ We will show that PIDs are UFDs.
 \end{definition}
 
 \begin{proof}
-  Let \(I = \bigcup_{n = 1}^\infty I_n\) wich is again an ideal so \(I = (a)\) for some \(a \in R\). Then \(a \in I\) so there exists \(N \in \N\) such that \(a \in I_N\). Then
+  Let \(I = \bigcup_{n = 1}^\infty I_n\) which is again an ideal so \(I = (a)\) for some \(a \in R\). Then \(a \in I\) so there exists \(N \in \N\) such that \(a \in I_N\). Then
   \[
     (a) \subseteq I_N \subseteq I_{N + 1} \dots \subseteq (a)
   \]
@@ -1659,15 +1659,15 @@ We will show that PIDs are UFDs.
     \[
       (a) \subseteq (a_1) \subseteq (a_2) \subseteq \cdots
     \]
-    is an ascending chain so by ACC we must have \((a_N) = (a_{N + 1}\) for some \(N\), i.e.\ \(a_N = a_{N + 1}b_{N + 1}\) with \(b_{N + 1}\) a unit.
+    is an ascending chain so by ACC we must have \((a_N) = (a_{N + 1})\) for some \(N\), i.e.\ \(a_N = a_{N + 1}b_{N + 1}\) with \(b_{N + 1}\) a unit.
   \item Let \(p_1 \cdots p_n = q_1 \cdots q_m\) be factorisations into irreducibles. Thus \(p_1 \divides q_1 \cdots q_n\). In a PID irreducibles are primes so \(p_1 \divides q_i\) for some \(i\). After reordering \(p_1 \divides q_1\) so \(q_1 = p_1 \cdot a\). As \(q_1\) is irreducible, \(a\) is a unit so \(p_1\) and \(q_1\) are associates. Now \(p_1(p_2 \cdots p_n - aq_2 \cdots q_m) = 0\). As \(R\) is an integral domain \(p_2 \cdots p_n = (aq_2) \cdots q_m\). Continue this way, we get \(n \leq m\) and \(1 = \text{(unit)} \cdot q_{n + 1} \cdots q_m\). Thus \(q_{n + 1}, \dots q_m\) are units. Absrud. Thus \(n = m\) and \(p_i\)'s and \(q_i\)'s are associates up to reordering.
   \end{enumerate}
 \end{proof}
 
 \begin{definition}[gcd, lcm]\leavevmode
   \begin{itemize}
-  \item \(d\) is a \emph{greatest common divisor} (gcd) of \(a_1, \dots, a_n\), written \(d = \gcd(a_1, \dots, a_n)\) if \(d \divides a_i\) for all \(i\) and if \(d' \divides a_i\) for all \(i\) then \(d' \divides d\).
-  \item \(d\) is a \emph{lowest common multiple} (lcm) of \(a_1, \dots, a_n\), written \(d = \lcm(a_1, \dots, a_n)\) if \(a_i \divides m\) for all \(i\) and if \(a_i \divides d'\) for all \(i\) then \(d \divides d'\).
+  \item \(d\) is a \emph{greatest common divisor} (gcd) of \(a_1, \dots, a_n\), written \(\gcd(a_1, \dots, a_n)\), if \(d \divides a_i\) for all \(i\) and if \(d' \divides a_i\) for all \(i\) then \(d' \divides d\).
+  \item \(d\) is a \emph{lowest common multiple} (lcm) of \(a_1, \dots, a_n\), written \(\lcm(a_1, \dots, a_n)\), if \(a_i \divides m\) for all \(i\) and if \(a_i \divides d'\) for all \(i\) then \(d \divides d'\).
     \end{itemize}
 \end{definition}
 
@@ -1695,14 +1695,17 @@ It is easy to see that if gcd or lcm exists then it is unique up to associates.
   The argument for lcm is similar.
 \end{proof}
 
-\subsection{Factoriation of polynomial rings}
+\subsection{Factoriation in polynomial rings}
 
-For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
+For a field \(\F\) we know \(\F[X]\) is a ED, so also a PID and UFD so
 \begin{enumerate}
 \item any \(I \ideal \F[X]\) is principal, i.e.\ \(I = (f)\) for some \(f\);
 \item \(f \in \F[X]\) is irreducible if and only if \(f\) is prime;
 \item let \(f \in \F[X]\) be irreducible and \((f) \subseteq J \ideal \F[X]\) be a larger ideal. Then \(J = (g)\) for some \(g \in \F[X]\) so \((f) \subseteq (g)\), i.e.\ \(g \divides f\). But \(f\) is irreducible so either \(g\) is a unit, then \((g) = \F[X]\), or \(g\) is an associate of \(f\), so \((g) = (f)\). Thus \((f)\) is maximal;
-\item \((f) \text{prime} \Rightarrow f \text{prime} \Rightarrow f \text{irreducible} \Rightarrow (f) \text{maximal}\) so primes ideals of \(\F[X]\) are precisely the maximal ideals;
+\item
+  \[(f) \text{ prime} \implies f \text{ prime} \implies f \text{ irreducible} \implies (f) \text{ maximal}
+  \]
+  so prime ideals of \(\F[X]\) are precisely the maximal ideals;
 \item \(f \in \F[X]\) is irreducible if and only if \((f)\) is maximal, if and only if \(\F[X]/(f)\) is a field.
 \end{enumerate}
 
@@ -1727,7 +1730,7 @@ For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
 \end{theorem}
 
 \begin{eg}
-  Let \(f = 1 + X + X^3 \in \Z[X]\). \(c(f) = 1\) so \(f\) is primitive. Suppose \(f = gh\), a product of reducibles in \(\Z[X]\). As \(f\) is primitive, neither \(g\) nor \(h\) can be a constant polynomial so they have degree \(1\) and \(2\) respectively. Wlog suppose \(g = b_0 + b_1X, h = c_0 + c_1X + c_2X^2 \in \Z[X]\). Expanding out and equating the coefficients, \(b_0c_0 = 1, b_1c_2 = 1\) so \(b_0b_1 = \pm 1\). Thus \(g\) has one of \(\pm 1\) as a root and so does \(f\). But it doesn't so such factorisation does not exist. Thus \(\Q[X]/(1 + X + X^3)\) is a field.
+  Let \(f = 1 + X + X^3 \in \Z[X]\). \(c(f) = 1\) so \(f\) is primitive. Suppose \(f = gh\), a product of irreducibles in \(\Z[X]\). As \(f\) is primitive, neither \(g\) nor \(h\) can be a constant polynomial so they have degree \(1\) and \(2\) respectively. Wlog suppose \(g = b_0 + b_1X, h = c_0 + c_1X + c_2X^2 \in \Z[X]\). Expanding out and equating the coefficients, \(b_0c_0 = 1, b_1c_2 = 1\) so \(b_0b_1 = \pm 1\). Thus \(g\) has one of \(\pm 1\) as a root and so does \(f\). But it doesn't so such factorisation does not exist. Thus \(\Q[X]/(1 + X + X^3)\) is a field.
 \end{eg}
 
 \begin{lemma}
@@ -1743,9 +1746,9 @@ For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
   with \(a_n, b_m \neq 0\). If \(fg\) is not primitive, then \(c(fg)\) is not a unit so there is an irreducible \(p \divides c(fg)\). As \(c(f)\) and \(c(g)\) are units, we have
   \begin{align*}
     & p \divides a_0, p \divides a_1, \dots, p \divides a_{k - 1}, p \ndivides a_k \\
-    & q \divides b_0, q \divides b_1, \dots, q \divides b_{\ell - 1}, q \ndivides b_\ell
+    & p \divides b_0, p \divides b_1, \dots, p \divides b_{\ell - 1}, p \ndivides b_\ell
   \end{align*}
-  The coefficients of \(X^{k + \ell}\) if \(fg\) is
+  The coefficients of \(X^{k + \ell}\) in \(fg\) is
   \[
     \sum_{i + j = k + \ell} a_ib_j = \cdots + a_{k + 1}b_{\ell - 1} + a_kb_\ell + a_{k - 1}b_{\ell + 1} + \cdots
   \]
@@ -1778,16 +1781,16 @@ For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
   so \(ab\) is an associate of \(c(ag)c(bh)\) so \(c(ag)c(bh) = uab\) where \(u\) is a unit. Thus \(abf = uabg_1h_1\) and cancel to get \(f = (ug_1)h_1\) is reducible in \(R[X]\).
 \end{proof}
 
-\begin{definition}
+\begin{proposition}
   Let \(R\) be a UFD and \(g \in R[X]\) primitive. Let \(I = (g) \ideal F[X]\) where \(F\) is the field of fraction of \(R\) and \(J = (g) \ideal R[X]\). Then
   \[
-    J = I \subseteq R[X].
+    J = I \cap R[X].
   \]
   Equivalently, if \(f \in R[X]\) is divisible by a primitive \(g \in F[X]\) then it is divisible by \(g\) in \(R[X]\).
-\end{definition}
+\end{proposition}
 
 \begin{proof}
-  The \(\subseteq\) inclusion is clear. To show the other direction, let \(f = gh \in F[X]\). Clear denominators by find \(b \in R\) such that \(bh \in R[X]\) so \(bf = (bg) \cdot g \in R[X]\). Thus \(bf = c(bh)h_1g\) with \(h_1\) primitive. Now it follows that \(b \divides c(bh)\), as \(bc(f) = c(bh)\), so we get \(f = c(f) \cdot h_1g \in R[X]\). \(g\) divides \(f\) in \(R[X]\).
+  The \(\subseteq\) inclusion is clear. To show the other direction, let \(f = gh \in F[X]\). Clear denominators by find \(b \in R\) such that \(bh \in R[X]\) so \(bf = (bh) \cdot g \in R[X]\). Thus \(bf = c(bh)h_1g\) with \(h_1\) primitive. Now it follows that \(b \divides c(bh)\), as \(bc(f) = c(bh)\), so we get \(f = c(f) \cdot h_1g \in R[X]\). \(g\) divides \(f\) in \(R[X]\).
 \end{proof}
 
 \begin{theorem}
@@ -1795,7 +1798,7 @@ For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
 \end{theorem}
 
 \begin{proof}
-  To show existence, let \(f \in R[X]\) and write \(f = c(f) \cdot f_1\) with \(f_1\) primitive. As \(R\) is a UFD we can write \(c(f) = p_1 \cdots p_n \in R\)with \(p_i\) irrecucible in \(R\), so also irreducible in \(R[X]\). If \(f_1\) is not irreducible, write \(f_1 = f_2 \cdot f_3\)with \(f_2, f_3\) not units and are primitive. Thus \(f_2, f_3\) are not constants so have degree smaller than that of \(f_1\). If \(f_2\) or \(f_3\) is irreducible, factor again. The degree continues to strictly decrease and this stops eventually. So
+  To show existence, let \(f \in R[X]\) and write \(f = c(f) \cdot f_1\) with \(f_1\) primitive. As \(R\) is a UFD we can write \(c(f) = p_1 \cdots p_n \in R\) with \(p_i\) irreducible in \(R\), so also irreducible in \(R[X]\). If \(f_1\) is not irreducible, write \(f_1 = f_2 \cdot f_3\)with \(f_2, f_3\) not units and are primitive. Thus \(f_2, f_3\) are not constants so have degree smaller than that of \(f_1\). If \(f_2\) or \(f_3\) is irreducible, factor again. The degree continues to strictly decrease and this stops eventually. So
   \[
     f = p_1 \cdots p_n q_1 \cdots q_m,
   \]
@@ -1811,7 +1814,7 @@ For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
   \end{enumerate}
 \end{eg}
 
-\begin{proposition}[Eisenstein's criterion]\index{Einsenstein's criterion}
+\begin{proposition}[Eisenstein's criterion]\index{Eisenstein's criterion}
   Let \(R\) be a UFD and \(f = a_0 + a_1X + \dots + a_nX^n \in R[X]\) with \(a_n \neq 0\) be primitive. Suppose \(p \in R\) is an irreducible such that
   \begin{itemize}
   \item \(p \ndivides a_n\),
@@ -1841,7 +1844,7 @@ For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
 \begin{eg}
   For \(p \in \Z\) prime, let
   \[
-    f = X^{p - 1} + X^{p - 1} + \dots + X + 1 \in \Z[X].
+    f = X^{p - 1} + X^{p - 2} + \dots + X + 1 \in \Z[X].
   \]
   Note that \((X - 1)f = X^p - 1\). Consider the ring isomorphism
   \begin{align*}
@@ -1850,13 +1853,13 @@ For a field \(\F\) we have \(\F[X]\) is a ED, so also a PID and UFD so
   \end{align*}
   Then
   \[
-    \varphi(f) = \underbrace{X^{p - 1}}_{p \ndivides} + \underbrace{\binom{p}{1}}_{p \divides} Y^{p - 1} + \dots + \underbrace{\binom{p}{p - 2}}_{p \divides} Y + \underbrace{\binom{p}{p - 1}}_{= p}
+    \varphi(f) = \underbrace{X^{p - 1}}_{p \ndivides} + \underbrace{\binom{p}{1}}_{p \divides} X^{p - 1} + \dots + \underbrace{\binom{p}{p - 2}}_{p \divides} X + \underbrace{\binom{p}{p - 1}}_{= p}
   \]
-  so Einsenstein's criterion says that \(\varphi(f)\) is irreducible, so is \(f\).
+  so Eisenstein's criterion says that \(\varphi(f)\) is irreducible, so is \(f\).
 \end{eg}
 
 \begin{remark}
-  The hypothesis of Einsenstein's criterion depends on the ambient ring while the conclusiohn does not. As a heuristics, we can apply ring isomorphisms to reduce the problem sometimes.
+  The hypothesis of Eisenstein's criterion depends on the ambient ring while the conclusiohn does not. As a heuristics, we can apply ring isomorphisms to reduce the problem sometimes.
 \end{remark}
 
 \subsection{Gaussian integers}
@@ -1952,7 +1955,7 @@ Now we prove a lemma regarding the multiplicative group of a finite field:
 \subsection{Algebraic integers}
 
 \begin{definition}[Algebraic integer]\index{algebraic integer}
-  A complex number \(\alpha \in \C\) is an \emph{algebraic integer} if it is a root oof a monic polynomial with integer coefficients.
+  A complex number \(\alpha \in \C\) is an \emph{algebraic integer} if it is a root of a monic polynomial with integer coefficients.
 \end{definition}
 
 If \(\alpha\) is an algebraic integer, let \(\Z[\alpha] \leq \C\) be the smallest subring containing \(\alpha\), i.e.\ it is the image of the ring homomorphism
@@ -1974,7 +1977,7 @@ Thus by 1st Isomorphism Theorem \(\Z[\alpha] \cong \Z[X]/I\) where \(I = \ker \v
   \end{enumerate}
 
   \begin{enumerate}
-  \item Let \(h \in I\). Now \(\Q[X]\) is a ED so we can write \(h = qf_\alpha + r \in \Q[X]\) with \(r = 0\) or \(\deg r < \deg f_\alpha\). Clearing denominators, there is an \(a \in \Z\) such that \(aq, qr \in \Z[X]\), so \(ah = (aq) f_\alpha + ar \in \Z[X]\). \(\alpha\) is a root of \(h\) and of \(f_\alpha\) so is also a root of \(ar\). As \(f_\alpha\) has minimal degree among polynomials with \(\alpha\) as a root, we must have \(ar = 0\). Thus \(ah = (aq) f_\alpha\). Now \(c(ah) = a \cdot c(h)\), \(c((aq)f_\alpha) = c(aq)\) so \(\alpha \divides c(aq)\) so \(aq = a\conj q\) with \(\conj q \in \Z[X]\). Cancelling shows that \(\conj q = q\). Thus \(h = \conj q f_\alpha\) so \(h \in (f_\alpha)\).
+  \item Let \(h \in I\). Now \(\Q[X]\) is a ED so we can write \(h = qf_\alpha + r \in \Q[X]\) with \(r = 0\) or \(\deg r < \deg f_\alpha\). Clearing denominators, there is an \(a \in \Z\) such that \(aq, ar \in \Z[X]\), so \(ah = (aq) f_\alpha + ar \in \Z[X]\). \(\alpha\) is a root of \(h\) and of \(f_\alpha\) so is also a root of \(ar\). As \(f_\alpha\) has minimal degree among polynomials with \(\alpha\) as a root, we must have \(ar = 0\). Thus \(ah = (aq) f_\alpha\). Now \(c(ah) = a \cdot c(h)\), \(c((aq)f_\alpha) = c(aq)\) so \(a \divides c(aq)\) so \(aq = a\conj q\) with \(\conj q \in \Z[X]\). Cancelling shows that \(\conj q = q\). Thus \(h = \conj q f_\alpha\) so \(h \in (f_\alpha)\).
   \item \(\Z[X]/(f_\alpha) \cong \Z[\alpha] \leq \C\). As \(\C\) is an integral domain, so is \(\Z[\alpha]\). Thus \((f_\alpha)\) is prime. Thus \(f_\alpha \in \Z[X]\) is a prime and hence irreducible.
   \end{enumerate}
 \end{proof}
@@ -2048,7 +2051,7 @@ We have shown that a PID is Noetherian.
   \[
     \sum_{i = 1}^m b_ia_iX^{\deg f_{m + 1}} = a_{m + 1}X^{\deg f_{m + 1}}.
   \]
-  Thus \(\deg f_{m + 1} - g < \deg f_{m + 1}\). But \(g \in (f_1, \dots, f_m)\) but \(f_{m + 1} \notin (f_1, \dots, f_m)\) so \(f_{m + 1} - g \notin (f_1, \dots, f_m)\). This contradicts the minimality of the degree of \(f_{m + 1}\).
+  Thus \(\deg (f_{m + 1} - g) < \deg f_{m + 1}\). But \(g \in (f_1, \dots, f_m)\) but \(f_{m + 1} \notin (f_1, \dots, f_m)\) so \(f_{m + 1} - g \notin (f_1, \dots, f_m)\). This contradicts the minimality of the degree of \(f_{m + 1}\).
 \end{proof}
 
 \begin{eg}
@@ -2072,7 +2075,7 @@ We have shown that a PID is Noetherian.
 \end{eg}
 
 \begin{remark}
-  Supose \(\mathcal F \subseteq \F[X_1, \dots, X_n]\) is a set of polynomials. \(\alpha = (a_1, \dots, a_n) \in \F^n\) is a solution of \(\mathcal F\) if and only if \(\mathcal F\) is contained in the kernel of
+  Suppose \(\mathcal F \subseteq \F[X_1, \dots, X_n]\) is a set of polynomials. \(\alpha = (a_1, \dots, a_n) \in \F^n\) is a solution of \(\mathcal F\) if and only if \(\mathcal F\) is contained in the kernel of
   \begin{align*}
     \varphi_a: \F[X_1, \dots, X_n] &\to \F \\
     X_i &\mapsto a_i
@@ -2096,7 +2099,7 @@ We have shown that a PID is Noetherian.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item If \(R = \F\) is a field then an \(\R\)-module is precisely an \(\F\)-vector space.
+  \item If \(R = \F\) is a field then an \(R\)-module is precisely an \(\F\)-vector space.
   \item For any ring \(R\), \(R^n = \underbrace{R \times \dots \times R}_{n \text{ times}}\) is an \(\R\)-module via
     \[
       r \cdot (r_1, \dots, r_n) = (rr_1, \dots, rr_n).
@@ -2119,7 +2122,7 @@ We have shown that a PID is Noetherian.
                  -(\underbrace{m + \dots + m}_{n \text{ times}}) & n < 0 \\
                \end{cases}
     \end{align*}
-    so \(\cdot\) is uniquely determined by \(M\).
+    so \(\cdot\) is determined by the abelian structure on \(M\).
   \item Let \(\F\) be a field and \(V\) be a vector space over \(\F\). Let \(\alpha: V \to V\) be a linear map. Then we can make \(V\) into an \(\F[X]\)-module via
     \begin{align*}
       \F[X] \times V &\to V \\
@@ -2216,12 +2219,12 @@ We have shown that a PID is Noetherian.
 \begin{definition}[Finitely generated]\index{finitely generated}
   \(M\) is \emph{finitely generated} if there are \(m_1, \dots, m_n \in M\) such that
   \[
-    M = Rm_1 + \dots Rm_n = \{r_1m_1 + \dots + r_nm_r: r_i \in R\}.
+    M = Rm_1 + \dots Rm_n = \{r_1m_1 + \dots + r_nm_n: r_i \in R\}.
   \]
 \end{definition}
 
 \begin{lemma}
-  An \(R\)-module \(M\) is finitely generated if and only if there is a surjetion \(\varphi: R^n \surj M\) for some \(n\).
+  An \(R\)-module \(M\) is finitely generated if and only if there is a surjection \(\varphi: R^n \surj M\) for some \(n\).
 \end{lemma}
 
 \begin{proof}\leavevmode
@@ -2239,7 +2242,7 @@ We have shown that a PID is Noetherian.
                                  &= r_1 \varphi((1, 0, \dots, 0)) + \dots + r_n \varphi((0, \dots, 0, 1)) \\
       &= r_1m_1 + \dots + r_nm_n
     \end{align*}
-    As \(\varphi\) is surjective, \(M = Rm_1 + Rm_n\).
+    As \(\varphi\) is surjective, \(M = Rm_1 + \dots + Rm_n\).
   \end{itemize}
 \end{proof}
 
@@ -2249,16 +2252,18 @@ We have shown that a PID is Noetherian.
 
 \begin{proof}
   \[
-    R^n \overset{f}{\surj} M \overset{\pi}{\surj} M/N.
+    \begin{tikzcd}
+      R^n \ar[r, "f"] & M \ar[r, "\pi"] & M/N.
+    \end{tikzcd}
   \]
 \end{proof}
 
 \begin{note}
-  A module of a finitely generated \(R\)-module need \emph{not} to be finitely generated. For example,
+  A submodule of a finitely generated \(R\)-module need \emph{not} be finitely generated. For example,
   \[
     (X_1, X_2, \dots) \ideal \Z[X_1, X_2, \dots] = R
   \]
-  is an \(R\)-module but note finitely generated, as otherwise it would be a finitely generated ideal.
+  is an \(R\)-module but not finitely generated, as otherwise it would be a finitely generated ideal.
 \end{note}
 
 \begin{eg}
@@ -2292,7 +2297,7 @@ We have shown that a PID is Noetherian.
   implies that \(r_i = 0\) for all \(1 \leq i \leq k\).
 \end{definition}
 
-\begin{definition}[Free generation]
+\begin{definition}[Free generation]\index{free generation}\index{free module}
   A subset \(S \subseteq M\) \emph{generates \(M\) freely} if
     \begin{enumerate}
     \item \(S\) generates \(M\).
@@ -2310,7 +2315,7 @@ We have shown that a PID is Noetherian.
   We can show this extension is unique: given \(\theta_1, \theta_2: M \to N\) two extensions of \(\psi\), \(\theta_1 - \theta_2:M \to N\) is an \(R\)-module homomorphism so \(\ker(\theta_1 - \theta_2) \leq M\). But \(\theta_1, \theta_2\) both extend \(\psi\) so \(S \subseteq \ker(\theta_1 - \theta_2)\). As \(S\) generates \(M\), \(M \leq \ker(\theta_1 - \theta_2)\) so \(\theta_1 = \theta_2\).
 \end{note}
 
-An \(R\)-module which is freely generated by \(S \subseteq M\) is said to be \emph{free} and \(S\) is called a \emph{basis}
+An \(R\)-module which is freely generated by \(S \subseteq M\) is said to be \emph{free}\index{free module} and \(S\) is called a \emph{basis}\index{basis}.
 
 \begin{proposition}
   For a finite subset \(S = \{m_1, \dots, m_k\} \subseteq M\), TFAE:
@@ -2346,7 +2351,7 @@ An \(R\)-module which is freely generated by \(S \subseteq M\) is said to be \em
 \end{proof}
 
 \begin{eg}
-  Unlike vector spaces, a minimal generating set need not to be independent. For example \(\{2, 3\} \subseteq \Z\) generates \(\Z\) but is not linear independent as \((-3) \cdot 2 + (2) \cdot 3 = 0\).
+  Unlike vector spaces, a minimal generating set need not be independent. For example \(\{2, 3\} \subseteq \Z\) generates \(\Z\) but is not linear independent as \((-3) \cdot 2 + (2) \cdot 3 = 0\).
 \end{eg}
 
 However, like vector spaces, in case a module is freely generated, it is isomorphic to direct sums of copies of the ring:
@@ -2373,25 +2378,19 @@ If an \(R\)-module is generated by \(m_1, \dots, m_k\), we have seen before that
 \begin{definition}[Relation module]\index{relation module}
   The \emph{relation module} for the generators is
   \[
-    \ker f \leq \R^k.
+    \ker f \leq R^k.
   \]
 \end{definition}
 
 As \(M \cong R^k/\ker f\), knowing \(M\) is equivalent to knowing the relation module.
 
 \begin{definition}[Finitely presented]\index{finitely presented}
-  \(M\) is \emph{finitely presented} if there is a finitely generating set \(m_1, \dots, m_k\) for which the associated relation module is finitely generated.
+  \(M\) is \emph{finitely presented} if there is a finite generating set \(m_1, \dots, m_k\) for which the associated relation module is finitely generated.
 \end{definition}
 
 Let \(\{n_1, \dots, n_r\} \subseteq \ker f \leq R^k\) be a set of generators. Then
 \[
-  n_i =
-  \begin{pmatrix}
-    r_{1i} \\
-    r_{ri} \\
-    \vdots \\
-    r_{ki}
-  \end{pmatrix}
+  n_i = (r_{i1}, r_{i2}, \dots, r_{ik})
 \]
 and \(M\) is generated by \(m_1, \dots, m_k\) subject to relations
 \[
@@ -2416,7 +2415,7 @@ for \(1 \leq i\leq r\).
   \[
     r \cdot \sum a_im_i = \sum (ra_i)m_i \in IM.
   \]
-  Thus we have a quotient \(R\)-module \(M/IM\). We can make this into an \((R/I)\)-module via
+  Thus we have a quotient \(R\)-module \(M/IM\). We can make this into an \(R/I\)-module via
   \[
     (r + I) \cdot (m + IM) = rm + IM.
   \]
@@ -2429,17 +2428,11 @@ for \(1 \leq i\leq r\).
   This is a vector space isomorphism so \(n = m\).
 \end{proof}
 
-We have classified all finite abelian groups (well, at least we declared so), i.e.\ \(\Z\)-modules. What if we want to classify all \(R\)-modules? That is going to be the final goal we will build towards.
+We have classified all finite abelian groups (well, at least we claimed so), i.e.\ \(\Z\)-modules. What if we want to classify all \(R\)-modules? That is going to be the final goal we will build towards.
 
 Recall that \(M\) is finitely generated by \(m_1, \dots, m_k\) if and only if there is a surjection \(f: R^k \surj M\). \(M\) is finitely presentely if and only \(\ker f\) is finitely generated, say \(n_1, \dots, n_\ell\). Let
 \[
-  n_i =
-  \begin{pmatrix}
-    r_{1i} \\
-    r_{ri} \\
-    \vdots \\
-    r_{ki}
-  \end{pmatrix}
+  n_i = (r_{i1}, r_{i2}, \dots, r_{ik})
 \]
 then such an \(R\)-module \(M\) is determined by the matrix
 \[
@@ -2459,9 +2452,9 @@ For this section assume \(R\) to be a Euclidean domain and let \(\varphi: R \set
 What follows would be very similar to what we have learned in IB Linear Algebra --- in fact identical except a single modification:
 
 \begin{definition}[Elementary row operation]
-  \emph{Elementary row operation} on an \(m \times n\) matrix \(m\) with entries in \(R\) are
+  \emph{Elementary row operation} on an \(m \times n\) matrix with entries in \(R\) are
   \begin{enumerate}
-  \item Add \(c \in R\) times the \(i\)th row to the \(j\)th row where \(i \neq j\). This can be realised by left multiplication by \(mI + C\) where \(C\) is \(c\) in \((i,j)\)th position and \(0\) elsewhere.
+  \item Add \(\lambda \in R\) times the \(i\)th row to the \(j\)th row where \(i \neq j\). This can be realised by left multiplication by \(I + C\) where \(C\) is \(\lambda\) in \((j, i)\)th position and \(0\) elsewhere.
   \item Swapping the \(i\)th and \(j\)th row where \(i \neq j\). Realised by left multiplication by
   \[
     \begin{pmatrix}
@@ -2491,7 +2484,7 @@ What follows would be very similar to what we have learned in IB Linear Algebra 
   Defined analogously by replacing ``row'' with ``column''.
 \end{definition}
 
-Similary to IB Linear Algebra, we define an equivalence relation
+Similarly to IB Linear Algebra, we define an equivalence relation
 
 \begin{definition}[Equivalence]\index{equivalence}
   \(A, B \in \matrixring_{m, n}(R)\) are \emph{equivalent} if there is a sequence of elementary row and column operations taking \(A\) to \(B\).
@@ -2522,13 +2515,13 @@ If \(A\) and \(B\) are equivalent then there are invertible square matrices \(P\
 \end{theorem}
 
 \begin{proof}
-  This proof is going to be algorithmic. If \(A = 0\) we are done. Otherwise there is a \(A_{ij} \neq 0\). By swapping \(1\)st and \(i\)th row, and \(1\)st and \(i\)th column we may suppose \(A_{11} \neq 0\). We want to reduct \(\varphi(A_{11})\) as much as possible. Split into three cases:
+  This proof is going to be algorithmic. If the matrix \(A = 0\) we are done. Otherwise there is a \(A_{ij} \neq 0\). By swapping \(1\)st and \(i\)th row, and \(1\)st and \(j\)th column we may suppose \(A_{11} \neq 0\). We want to reduce \(\varphi(A_{11})\) as much as possible. Split into three cases:
   \begin{itemize}
   \item Case 1: if there is a \(A_{1j}\) not divisible by \(A_{11}\) then have
     \[
       A_{1j} = q A_{11} + r
     \]
-    with \(\varphi(r) < \varphi(A_{11})\). Add \(-q\) times the \(1\)st column to the \(j\)th. This makes the \((1,j)\)th entry \(r\). Swap \(i\)th and \(j\)th column to get \(A_{11} = r\). Thus we have \emph{stictly} decreased the \(\varphi\) value of the \((1, 1)\) entry.
+    with \(\varphi(r) < \varphi(A_{11})\). Add \(-q\) times the \(1\)st column to the \(j\)th. This makes the \((1,j)\)th entry \(r\). Swap \(1\)st and \(j\)th column to get \(A_{11} = r\). Thus we have \emph{strictly} decreased the \(\varphi\) value of the \((1, 1)\) entry.
   \item Case 2: if \(A_{11}\) does not divide some \(A_{i1}\), do the analogous to entries in the first column to strictly reduce \(\varphi(A_{11})\).
 
     As \(\varphi(A_{11})\) can only strictly decrease finitely many times, after some applications of Case 1 and 2 we can assumes \(A_{11}\) divides all the entries in the \(1\)st row and \(1\)st column. If \(A_{1j} = q A_{11}\) then we can add \(-q\) times the \(1\)st column to the \(j\)th row to make the \((i, j)\)th entry \(0\). Thus we obtain
@@ -2614,7 +2607,7 @@ If \(A\) and \(B\) are equivalent then there are invertible square matrices \(P\
   The \(d_i\)'s in Smith Normal Form are unique up to associates.
 \end{remark}
 
-Certainly Smith Normal Form is nice form and the algorithm guarantees that it exists and is unique. However, the computation is too cumbersome to be useful. However, if we could prove it is invariant under matrix conjugation, we may apply some clever tricks to extract the \(d_i\)'s in Smith Normal Form without explicitly computing them.
+Certainly Smith Normal Form is a nice form and the algorithm guarantees its existence and uniqueness (up to associates). However, the computation is too cumbersome to be useful. However, if we could prove it is invariant under matrix conjugation, we may apply some clever tricks to extract the \(d_i\)'s in Smith Normal Form without explicitly computing them.
 
 \begin{definition}[Minor]\index{minor}
   A \(k \times k\) \emph{minor} of a matrix \(A\) is the determinant of a matrix formed by forgetting all but \(k\) rows and \(k\) columns of \(A\).
@@ -2646,7 +2639,7 @@ Therefore from the above computation \(\fit_k(A)\) and \(\fit_{k - 1}(A)\) deter
 \end{lemma}
 
 \begin{proof}
-  It amounts to show that elementary operations does not change \(\fit_k(A) \ideal R\). We do the first type of row operation. Fix a \(k \times k\) submatrix \(C\) in \(A\). Recall the this row operation adds \(\lambda\) times the \(i\)th row to the \(j\)th row. Depending on \(i\) and \(j\), split into three cases:
+  It amounts to show that elementary operations does not change \(\fit_k(A) \ideal R\). We do the first type of row operation. Fix a \(k \times k\) submatrix \(C\) in \(A\). Recall that this row operation adds \(\lambda\) times the \(i\)th row to the \(j\)th row. Depending on \(i\) and \(j\), split into three cases:
   \begin{itemize}
   \item Case 1: if the \(j\)th row is not in \(C\) then \(C\) is unchanged, so is its determinant.
   \item Case 2: if the \(i\)th and \(j\)th rows are both in \(C\), the operation changes \(C\) by a row operation so its determinant is unchanged.
@@ -2658,7 +2651,7 @@ Therefore from the above computation \(\fit_k(A)\) and \(\fit_{k - 1}(A)\) deter
     \[
       \det C' = \det C \pm \lambda \det D
     \]
-    where \(D\) is the matrix obtained by replacing the \(j\)th row of \(C\) with \((f_1, \dots, f_k)\), which is a \(k \times k\) submatrix of \(A\) up to reordering (which is accounted for by the \(\pm\) sign), by multilinearity of \(\det\). So \(\det C' \in \fit_k(A)\) as it is a linear combination of minors. Therefore \(\fit_k(A') \subseteq \fit_k(A)\) where \(A'\) is obtained from \(A\) by this operation. As row operations are inertible, we must have equality.
+    where \(D\) is the matrix obtained by replacing the \(j\)th row of \(C\) with \((f_1, \dots, f_k)\), which is a \(k \times k\) submatrix of \(A\) up to reordering (which is accounted for by the \(\pm\) sign), by multilinearity of \(\det\). So \(\det C' \in \fit_k(A)\) as it is a linear combination of minors. Therefore \(\fit_k(A') \subseteq \fit_k(A)\) where \(A'\) is obtained from \(A\) by this operation. As row operations are invertible, we must have equality.
   \end{itemize}
 
   The other two types of row operations are similar but easier. Column operations follow analogously.
@@ -2698,7 +2691,7 @@ Therefore from the above computation \(\fit_k(A)\) and \(\fit_{k - 1}(A)\) deter
     \stackrel{\text{ER } 3}{\to}
     \begin{pmatrix}
       1 & 0 \\
-      0 & 6
+      0 & 5
     \end{pmatrix}
   \]
 
@@ -2744,9 +2737,9 @@ Recall that we have remarked that a submodule of a finitely genereated module ma
   \[
     A =
     \begin{pmatrix}
-      \uparrow & \uparrow & & \uparrow & \uparrow & & \uparrow \\
-      x_1 & x_2 & \cdots & x_m & 0 & \cdots & 0 \\
-      \downarrow & \downarrow & & \downarrow & \downarrow & & \downarrow \\
+      \uparrow & \uparrow & & \uparrow \\
+      x_1 & x_2 & \cdots & x_m \\
+      \downarrow & \downarrow & & \downarrow \\
     \end{pmatrix}
     \in \matrixring_{n, m}(R)
   \]
@@ -2837,7 +2830,7 @@ Now we are ready for the big theorem in this course:
 We can derive, as a corollary actually, what we stated earlier without proof
 
 \begin{theorem}[Structure Theorem for Finitely Generated Abelian Groups]
-  Any finitely generated abelian group is isomorphis to
+  Any finitely generated abelian group is isomorphic to
   \[
     C_{d_1} \times C_{d_2} \times \dots \times C_{d_r} \times C_\infty \times \dots \times C_\infty
   \]
@@ -2851,7 +2844,7 @@ We can derive, as a corollary actually, what we stated earlier without proof
   \]
 \end{proof}
 
-The above classification theorem decompose into modules whose relation modules' principal ideals form a descending chain by divisibility. It turns out it is also possible to decompose by the coprime factors of the relation modules. Before that let us prove something we have known for a (very) long time, but at a high level:
+The above classification theorem decompose into modules whose relation modules' principal ideals form a descending chain by divisibility. It turns out it is also possible to decompose by the coprime factors of the relation modules. Before that let us prove something we have known for a (very) long time, but at a higher level:
 
 \begin{lemma}[Chinese Remainder Theorem]
   Let \(R\) be a Euclidean domain and \(a, b \in R\) with \(\gcd(a, b) = 1\). Then
@@ -2986,11 +2979,11 @@ Recall that we have two classification theorems for modules over Euclidean domai
 \end{lemma}
 
 \begin{proof}
-  If \(f \in \C[X]\) is irreducible then Fundamental Theorem of Algebra says that \(f\) has a root \(\lambda\), i.e.\ \(f\) is a constant. Thus it is \(0\) or a unit, absurd. Thus \((X - \lambda) \divides f\), write \(f = (X - \lambda) g\). But \(f\) is irreducible so \(g\) is a unit. Thus \(f\) is an associate of \(X - \lambda\).
+  If \(f \in \C[X]\) is irreducible then Fundamental Theorem of Algebra says that \(f\) has a root \(\lambda\), or \(f\) is a constant. If it is constant then it is \(0\) or a unit, absurd. Thus \((X - \lambda) \divides f\), write \(f = (X - \lambda) g\). But \(f\) is irreducible so \(g\) is a unit. Thus \(f\) is an associate of \(X - \lambda\).
 \end{proof}
 
 \begin{remark}
-  The lemma is equivalent to the statement that \(\C\) is algebraically closed, which says that every polynomial with coefficients in \(\C\) factorises into linear factors in \(\C\). In fact, every field can be extended to an algebraically closed one. This will be discussed in detail in IID Galois Theory.
+  The lemma is equivalent to the statement that \(\C\) is algebraically closed, which says that every polynomial with coefficients in \(\C\) factorises into linear factors over \(\C\). In fact, every field can be extended to an algebraically closed one. This will be discussed in detail in IID Galois Theory.
 \end{remark}
 
 \begin{theorem}[Jordan Normal Form]\index{Jordan normal form}
@@ -3095,9 +3088,7 @@ Recall that we have two classification theorems for modules over Euclidean domai
   \end{enumerate}
 \end{remark}
 
-\subsection{Conjugacy}
-
-This section is non-examinable.
+\subsection{Conjugacy*}
 
 \begin{lemma}
   If \(\alpha: V \to V\) and \(\beta: W \to W\) are endomorphism of \(\F\)-vector spaces, then \(V_\alpha \cong W_\beta\) as \(\F[X]\)-modules if and only if there is an isomorphism \(\gamma: V \to W\) such that

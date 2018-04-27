@@ -689,15 +689,13 @@ This is denoted \(\sup_{i \in I} \alpha_i\).
     \(\varepsilon_0^{\varepsilon_0}\) & \(\dots\) & \(\varepsilon_0^{\varepsilon_0^{\varepsilon_0}}\) & \(\dots\) \\
     \(\varepsilon_1\) & \(\dots\)
   \end{tabular}
-  \caption{Some ordinals}
   \label{tab:ordinals}
 \end{table}
 }
 
-
 Some points to notice:
 \begin{itemize}
-\item we write \(\omega2 = \sup\{\omega + 1, \omega + 2, \dots\}\). The rationale for this unintuitive notation will soon be clear.
+\item we write \(\omega2 = \sup\{\omega + 1, \omega + 2, \dots\}\). The rationale for this unconventional notation will soon be clear.
 \item everything in this table so far is countable, as they are built from operations such as union, subset, cartesian product on countable sets.
 \end{itemize}
 
@@ -723,7 +721,7 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
 
 \(\omega_1\) has some strange properties, for example
 \begin{enumerate}
-\item \(\omega_1\) is uncountable, but for any \(\alpha < \omega\), we have \(\{\beta: \beta < \alpha\}\) countable.\footnote{It would perhaps be less surprising if one considers that given \(\alpha < \omega\), \(\{\beta: \beta < \alpha\}\) is finite.}
+\item \(\omega_1\) is uncountable, but for any \(\alpha < \omega\), we have \(\{\beta: \beta < \alpha\}\) countable.\footnote{It would perhaps be less surprising if one considers the analogy that, given \(\alpha < \omega\), \(\{\beta: \beta < \alpha\}\) is finite.}
 \item If \(\alpha_1, \alpha_2, \dots < \omega_1\) is a sequence, then it is \emph{bounded} in \(\omega_1\): \(\sup\{\alpha_1, \alpha_2, \dots\}\) is countable so \(< \omega_1\).
 \end{enumerate}
 
@@ -753,9 +751,103 @@ If no, then for every \(\beta < \alpha\), then there exists \(\gamma < \alpha\) 
 
 \subsection{Ordinal arithmetics}
 
-Missed a lecture
+\begin{definition}[Ordinal addition (inductive)]
+  Define \(\alpha + \beta\) recursively by
+  \begin{itemize}
+  \item \(\alpha + 0 = \alpha\),
+  \item \(\alpha + \beta^+ = (\alpha + \beta)^+\),
+  \item \(\alpha + \lambda = \sup \{\alpha + \gamma: \gamma < \lambda\}\) for \(\lambda\) a non-zero limit.
+  \end{itemize}
+\end{definition}
 
-\blindtext
+Since the ordinals do not form a set, we cannot do recursion on ordinals. Instead we do it ``locally'': for each \(\beta\) we define \(\alpha + \gamma\) for \(\{\gamma: \gamma < \beta\}\) recursively. Then by uniqueness of recursion addition is well-defined.
+
+\begin{eg}
+  \begin{align*}
+    \omega + 1 &= (\omega + 0)^+ = \omega^+ \\
+    \omega + 2 &= (\omega + 1)^+ = \omega^{++} \\
+    1 + \omega &= \sup \{1 + \gamma: \gamma < \omega\} = \sup \{1, 2, 3, \dots\} = \omega
+  \end{align*}
+\end{eg}
+
+We can see that addition is not commutative. The is because in the definition of addition recursion is done on the second argument. However ordinal addition remains associative.
+
+\begin{proposition}
+  Ordinal addition is asssociative, i.e.\ for all \(\alpha, \beta, \gamma\),
+  \[
+    (\alpha + \beta) + \gamma = \alpha + (\beta + \gamma).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Since addition is defined by recursion, it is natural to consider an induction proof. Fix \(\alpha\) and \(\beta\) and proceed by induction on \(\gamma\).
+  \begin{itemize}
+  \item \(\gamma = 0\): \(\alpha + (\beta + 0) = \alpha + \beta = (\alpha + \beta) + 0\).
+  \item \(\gamma = \delta^+\) is a successor:
+    \begin{align*}
+      \alpha + (\beta + \delta^+)
+      &= \alpha + (\beta + \delta)^+ \\
+      &= (\alpha + (\beta + \delta))^+ \\
+      &= ((\alpha + \beta) + \delta)^+ \\
+      &= (\alpha + \beta) + \delta^+ \\
+      &= (\alpha + \beta) + \gamma
+    \end{align*}
+  \item \(\gamma\) is a limit:
+    \begin{align*}
+      (\alpha + \beta) + \gamma
+      &= \sup \{(\alpha + \beta) + \lambda: \lambda < \gamma\} \\
+      &= \sup \{\alpha + (\beta + \lambda): \lambda < \gamma\}
+    \end{align*}
+    On the other hand, we need to evaluate \(\alpha + (\beta + \gamma)\). Claim \(\beta + \gamma\) is a limit, i.e.\ \(\beta + \gamma = \sup \{\beta + \lambda: \lambda < \gamma\}\): for any \(\beta + \lambda\), since \(\gamma\) is a limit, there exists \(\lambda'\) such that \(\lambda < \lambda' < \gamma\). Thus \(\beta + \lambda < \beta + \lambda'\). Thus \(\beta + \lambda\) is not the greatest element. Therefore
+    \[
+      \alpha + (\beta + \gamma) = \sup \{\alpha + \lambda: \lambda < \beta + \gamma\}.
+    \]
+
+    Now need to show that
+    \[
+      \sup \{\alpha + \lambda: \lambda < \beta + \gamma\} = \sup \{\alpha + (\beta + \lambda): \lambda < \gamma\} 
+    \]
+    Note that the two sets are not equal. For example, for \(\beta = 3, \gamma = \omega\), \(\alpha + 2\) is in LHS but not RHS.
+    \begin{itemize}
+    \item \(\geq\): by set inclusion \(\supseteq\).
+    \item \(\leq\): for \(\lambda < \beta + \gamma\), we have \(\lambda < \sup \{\beta + \lambda': \lambda' < \gamma\}\). Thus \(\lambda < \beta + \lambda'\) for some \(\lambda' < \gamma\). Thus \(\alpha + \lambda < \alpha + (\beta + \lambda)\).
+    \end{itemize}
+  \end{itemize}
+\end{proof}
+
+Note that in the proof we assumed that \(\beta < \gamma \implies \alpha + \beta < \alpha + \gamma\), which can be shown by induction on \(\gamma\). Note that similar to the noncommutativity of ordinal addition, the does not hold for addition on the right: \(1 < 2\) but \(1 + \omega = 2 + \omega\).
+
+The above definition is an inductive one, in which we used the recursive definition of ordinals to build addition bottom-up. Since ordinals can also be defined as order types of sets, there is an alternative definition of addition by constructing a set of the desired order type, and then declare it to be the sum of the two ordinals.
+
+\begin{definition}[Ordinal addition (synthetic)]
+  \(\alpha + \beta\) is the order type of \(\alpha \sqcup \beta\), the coproduct of the order \(\alpha\) and \(\beta\) (i.e.\ product order on \(\{0\} \times \alpha \cup \{1\} \times \beta\)).
+\end{definition}
+
+\begin{eg}
+  \begin{align*}
+    \omega + 1 &= \omega^+ \\
+    1 + \omega &= \omega
+  \end{align*}
+\end{eg}
+
+With this definition, associativity is trivial by associativity of union.
+
+\begin{proposition}
+  The inductive and synthetic definition of addition coincide.
+\end{proposition}
+
+\begin{proof}
+  Write \(+\) and \(+'\) for inductive and synthetic definition respectively. We want to show that \(\alpha + \beta = \alpha +' \beta\). Induct on \(\beta\).
+  \begin{itemize}
+  \item \(\beta = 0\): \(\alpha + 0 = \alpha = \alpha +' 0\).
+  \item successor ordinal: \(\alpha + \beta^+ = (\alpha + \beta)^+ = (\alpha +' \beta)^+ = (\alpha +' \beta^+\).
+  \item limit ordinal: \(\alpha + \beta = \sup \{\alpha + \lambda: \lambda < \beta\} = \sup \{\alpha +' \lambda: \lambda < \beta\} = \alpha +' \beta\) where the second equality is becaues taking \(\sup\) is the same as union.
+  \end{itemize}
+\end{proof}
+
+The synthetic definition is usually easier to work with since they provide an encapsulation of information. For example, it was easy to show associativity, and also easy to see noncommutativity. However, the inductive definition is easier if we want to do induction.
+
+Now we define multiplication.
 
 \begin{definition}[Ordinal multiplication (inductive)]
   Define \(\alpha\beta\) recursively by
@@ -1136,7 +1228,7 @@ Actually, there is a three-way equivalence: we have shown Zorn's lemma implies w
   Zorn's lemma is hard to prove from first principles because we need theory of ordinals, recursions and Hartogs' lemma, not because of its equivalence with axiom of choice.
 \end{note}
 
-\subsection{Bourbaki-Witt theorem*}
+\subsection{Bourbaki-Witt Theorem*}
 
 On one hand we have Zorn's lemma, which is a local (conditions on chains) to global (maximal element) principle, and on the other hand we have \nameref{thm:Knaster-Tarski}, a global fixed point theorem based on assumptions of the ambient space (completeness). The Bourbaki-Witt theorem is a ``midpoint'' between the two.
 
@@ -1506,9 +1598,9 @@ Unlike most other proofs we have met in tripos, this proof has not one, not two,
 \begin{proof}
   Suppose we have \(S\) consistent contained in \(L_0 = L(\Omega, \Pi)\). Extend to maximal consistent \(S_1\) by Zorn's lemma. So for each sentence \(p \in L\), we have either \(p \in S_1\) or \((\neg p) \in S_1\). Thus \(S_1\) is complete (for every \(p\), either \(S_1 \yields p\) or \(S_1 \yields (\neg p)\).
 
-  Now add witnesses: for each \((\exists x) p \in S\), add new constant \(c\) and axiom \(p[c/x]\). We obtain \(T_1\), in language \(L_1 = L(\Omega \cup C_1, \Pi)\), where \(C\) is the set of all the \(c\)'s, that ``has witnesses'' for \(S_1\) (if \((\exists x)p \in S\), then some closed term \(t\) has \(p[t/x] \in T_1\)). Easy to check \(T_1\) is consistent.
+  Now add witnesses: for each \((\exists x) p \in S\), add new constant \(c\) and axiom \(p[c/x]\). We obtain \(T_1\), in language \(L_1 = L(\Omega \cup C_1, \Pi)\), where \(C_1\) is the set of all the \(c\)'s, that ``has witnesses'' for \(S_1\) (if \((\exists x)p \in S\), then some closed term \(t\) has \(p[t/x] \in T_1\)). Easy to check \(T_1\) is consistent.
 
-  Now extend \(T_1\) to maximally consistent \(S_2\) in \(L_1\). Add witnesses, obtaining \(T_2\) in language \(L_2 = L(\Omega \cup C_2 \cup C_2, \Pi)\). Continue inductively.
+  Now extend \(T_1\) to maximally consistent \(S_2\) in \(L_1\). Add witnesses, obtaining \(T_2\) in language \(L_2 = L(\Omega \cup C_1 \cup C_2, \Pi)\). Continue inductively.
   \[
     \begin{tikzcd}
       L_0 & L_1 & L_2 & \cdots \\
@@ -2135,7 +2227,7 @@ Note that by by axiom of foundation, we can say instead ``totally ordered by \(\
 
 \subsection{Picture of the Universe}
 
-In this section we build the universe of sets starting with \(\emptyset\) and taking power set many times.
+In this section we build the universe of sets, where everything in mathematics takes place\footnote{One might be tempted to think of this as a model of ZFC, or at least modulo some set vs class technicality, but there are many reasons not to do so, one of them being the violation of axiom of foundation. Curiously, ``universe'' may also in other context refer to the opposite, namely a model of ZFC (of course assuming consistency whereof).}\footnote{If you don't understand the previous footnote then don't worry and move on, since it's probably not intended for you!}, starting with \(\emptyset\) and taking power set many times.
 
 \begin{definition}[von Neumann hierarchy]\index{von Neumann hierarchy}
   For each ordinal \(\alpha\), define set \(V_\alpha\) by recursion:
@@ -2180,7 +2272,7 @@ How do we know this is the whole universe? We want to show every set \(x\) belon
   \]
 \end{theorem}
 
-The slogan is ``the universe is the union of sets'', or \(V = \bigcup_{\alpha \in ON} V_\alpha\) where \(ON\) is the class of ordinals. Note the subtlety hidden in the notation: you cannot take union of a family indexed by a proper class! (or even more pedantically, the result is not a set)
+The slogan is ``the universe is the union of sets'', or the suggestive identity \(V = \bigcup_{\alpha \in ON} V_\alpha\) where \(ON\) is the class of ordinals. Note the subtlety hidden in the notation: you cannot take union of a family indexed by a proper class! (or more pedantically, nothing prevents you except that the result is not a set)
 
 \begin{note}\leavevmode
   \begin{itemize}
@@ -2209,14 +2301,16 @@ The slogan is ``the universe is the union of sets'', or \(V = \bigcup_{\alpha \i
     \[
       \rank(x) = \sup\{\rank(y) + 1: y \in x\},
     \]
-    which is the right way to think about rank. For example, \(\rank(\{6\})\) is \(7\) as \(\rank(6) = 6\) since it is cardinal.
+    which is the right way to think about rank. For example, \(\rank(\{6\})\) is \(7\) as \(\rank(6) = 6\) since it is an ordinal.
   \item Most of maths takes place in \(V_{\omega + 10}\), except in this course when we discussed order-types!
   \end{enumerate}
 \end{remark}
 
 \section{Cardinals}
 
-We will discuss ``sizes'' of sets in this chapter. We will work predomiantly under ZFC, although we will not refrain ourselves from comparing and contrasting results if working under ZF.
+We will discuss ``sizes'' of sets in this chapter. We will work predomiantly under ZFC, insofar not refraining ourselves from comparing and contrasting results under ZF.
+
+\subsection{Definitions}
 
 We want to define \(\card x\) so that \(\card x = \card y\) if and only if \(x \biject x\). We cannot define it naïvely by
 \[
@@ -2234,14 +2328,261 @@ For cardinals \(m\) and \(n\), say \(m \leq n\) if \(M\) injects into \(N\) for 
 
 Note that if \(m \leq n, n \leq m\) then \(m = n\) by Schröder-Berstein. So \(\leq\) is a partial order, and even a total order (by well-ordering). Note that in ZF \(\leq\) need not be a total order.
 
+What do the cardinals look like? Of course there are the finite (i.e.\ boring) ones. Note that not all ordinals are cardinals as for example \(\omega \biject \omega + 1\).
 
+\begin{definition}[Initial ordinal]\index{initial ordinal}
+  An ordinal \(\alpha\) is \emph{initial} if for all \(\beta < \alpha\), \(\beta\) does not biject with \(\alpha\).
+\end{definition}
+
+\begin{eg}
+  \(0, 1, 2, \dots, \omega, \omega_1, \gamma(X)\) for any set \(X\) are initial ordinals. However \(\omega^2\) is not initial as \(\omega^2 \biject \omega\).
+\end{eg}
+
+How do we get all the initial ordinals then? Obviously we have \(\omega = \omega_0, \omega_1 = \gamma(\omega_0), \omega_2 = \gamma(\omega_1), \dots\). Think a little longer and we find their supremum \(\omega_\omega = \sup \{\omega_n: n = 0, 1, \dots\}\) is also initial as otherwise...
+
+Define \(\omega_\alpha\), for each ordinal \(\alpha\), recursively by
+\begin{align*}
+  \omega_0 &= \omega \\
+  \omega_{\alpha + 1} &= \gamma(\omega_\alpha) \\
+  \omega_\lambda &= \sup \{\omega_\alpha: \alpha < \lambda\} \text{ for \(\lambda\) a non-zero limit}
+\end{align*}
+Then every \(\omega_\alpha\) is initial by induction.
+
+Also every infinite initial ordinal \(\delta\) is an \(\omega_\alpha\). Indeed, the \(\omega_\alpha\)'s are unbounded in the ordinals (e.g.\ \(\omega_\alpha \geq \alpha\) by induction) so there exists least \(\alpha\) with \(\omega_\alpha \geq \delta\), so \(\omega_\alpha = \delta\).
+
+\begin{definition}[Aleph number]\index{aleph number}\index{\(\aleph_\alpha\)}
+  Define the \emph{aleph number} for each ordinal \(\alpha\)
+  \[
+    \aleph_\alpha = \card(\omega_\alpha).
+  \]
+\end{definition}
+
+Thus \(\aleph_\alpha\)'s are the cardinalities of all infinite sets (in ZF: of all infinite well-orderable sets).
+
+\begin{eg}
+  \(\card(\omega) = \aleph_0\), \(\card(\omega_1) = \aleph_1\).
+\end{eg}
+
+\subsection{Cardinal Arithmetics}
+
+\begin{definition}[Cardinal arithmetic]
+  For cardinals \(m\) and \(n\), let \(m = \card M, n = \card N\) for some \(M\) and \(N\). Define
+  \begin{align*}
+    m + n &= \card(M \sqcup N) \\
+    mn &= \card(M \times N) \\
+    m^n &= \card(M^N)
+  \end{align*}
+  where \(M \sqcup N\) is the disjoint union and
+  \[
+    M^N = \{f: f \text{ a function from } N \text{ to } M\}.
+  \]
+\end{definition}
+
+\begin{note}
+  They are independent of choice of \(M\) and \(N\) and thus well-defined.
+\end{note}
+
+We can also define the sum over an indexed family
+\[
+  \sum_{i \in I} m_i = \card( \bigsqcup_{i \in I} M_i).
+\]
+Note that axiom of choice is needed for this to be well-defined.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\R \biject \powerset(\omega) \biject \{0, 1\}^\omega\) so \(\card(\R) = 2^{\aleph_0}\).
+  \item How many real sequences are there? In IA Numbers and Sets we have to fiddle aroud but this course provides a slick proof:
+    \[
+      \card(\R^\omega) = (2^{\aleph_0})^{\aleph_0} = 2^{\aleph_0 \aleph_0} = 2^{\aleph_0}.
+    \]
+    We are using obvious facts like:
+    \begin{enumerate}
+    \item \(m + n = n + m\) as \(M \sqcup N \biject N \sqcup M\).
+    \item \(mn = nm\) as \(M \times N \biject N \times M\).
+    \item \((m^n)^p = m^{np}\) as \((M^N)^P \biject M^{N \times P}\).
+    \item \(\aleph_0 \aleph_0 = \aleph_0\) as \(\omega \times \omega \biject \omega\).
+    \end{enumerate}
+  \end{enumerate}
+\end{eg}
+
+We know \(\aleph_0 \aleph_0 = \aleph_0\) but what about \(\aleph_1 \aleph_1\)? It turns out addition and multiplication of cardinals are trivially easy, thanks to
+
+\begin{theorem}
+  For all \(\alpha\),
+  \[
+    \aleph_\alpha \aleph_\alpha = \aleph_\alpha.
+  \]
+\end{theorem}
+
+\begin{proof}
+  We will show that \(\omega_\alpha \times \omega_\alpha \biject \omega_\alpha\) by induction. Since \(\omega_\alpha\) is an ordinal we naturally want to equip \(\omega_\alpha \times \omega_\alpha\) with a well-ordering. Product order doesn't work since it isn't a well-order. Recall that proof of \(\N \times \N \biject \N\) in IA Numbers and Sets: we traverse the half-lattice by following successive anti-diagonals. We use the same idea here, with anti-diagonals replaced by squares for easier of presentation.
+
+  Define a well-ordering on \(\omega_\alpha \times \omega_\alpha\) by ``going up in squares'': put \((x, y) < (z, t)\) if
+  \begin{itemize}
+  \item either \(\max\{x, y\} < \max\{z, t\}\) (bigger square beats smaller square),
+  \item or \(\max\{x, y\} = \max\{z, t\} = \beta\) (within a square) and one of
+    \begin{itemize}
+    \item \(y = t = \beta, x < z\),
+    \item  or \(x = z = \beta, y < t\),
+    \item or \(t = \beta, y < \beta\).
+    \end{itemize}
+  \end{itemize}
+ This is obviously a well-ordering.
+
+  Given \(r \in \omega_\alpha \times \omega_\alpha\), we have \(r \in \beta \times \beta\) for some \(\beta < \omega_\alpha\) (since \(\omega_\alpha\) is initial), so \(I_r \subseteq \beta \times \beta\) by definition of \(<\). But \(\beta \times \beta \biject \beta\) (or \(\beta\) is finite) by induction hypothesis (\(\omega_\alpha\) is initial). Thus \(I_r\) has order-type \(< \omega_\alpha\). Thus every proper initial segment of \((\omega, <)\) has order-type \(< \omega_\alpha\). Thus \((\omega, <)\) has order-type \(\leq \omega_\alpha\). Take cardinality, \(\aleph_\alpha \aleph_\alpha \leq \aleph_\alpha\). The other direction is trivial by, for example, the diagonal embedding.
+\end{proof}
+
+\begin{corollary}
+  Let \(\alpha \leq \beta\). Then
+  \[
+    \aleph_\alpha + \aleph_\beta = \aleph_\alpha \aleph_\beta = \aleph_\beta.
+  \]
+\end{corollary}
+So simply ``take the bigger one''. Cardinal addition and multiplication are boring!
+
+\begin{proof}
+  \[
+    \aleph_\beta \leq \aleph_\beta + \aleph_\alpha \leq \aleph_\beta + \aleph_\beta = 2\aleph_\beta \leq \aleph_\alpha \aleph_\beta \leq \aleph_\beta \aleph_\beta = \aleph_\beta.
+  \]
+\end{proof}
+
+\begin{eg}
+  For any infinite set \(X\) we have \(X \biject X \sqcup X\) (in ZFC).
+\end{eg}
+
+However, cardinal exponentiation is much harder. Just a warning: exponentiation is different for cardinals and ordinals.
+
+\begin{eg}
+  For ordinals, \(\omega^\omega\) is countable as by definition,
+  \[
+    \omega^\omega = \sup\{\omega, \omega^2, \dots \}
+  \]
+  On the other hand, for cardinals, by Cantor's diagonal argument
+  \[
+    \aleph_0^{\aleph_0} \geq 2^{\aleph_0} > \aleph_0.
+  \]
+\end{eg}
+
+To get an idea of how hard cardinal exponentiation is, \(2^{\aleph_0}\) might not even be an aleph in ZF. In ZFC, we can still ask the question if \(2^{\aleph_0} = \aleph_1\). Equivalently, if every \(S \subseteq \R\) is either countable or bijects with \(\R\).
+
+This is the \emph{continuum hypothesis}\index{continuum hypothesis}, and has proven to be independent of ZFC. Depending on your philosophical view, this is not so intuitively obvious as the other axioms in ZF or ZFC.
+
+Even today, not all implications about values of \(2^{\aleph_\alpha}\) are known. For example, if we are given that \(2^{\alpha_\alpha} = \aleph_{\alpha + 1}\) for \(\alpha = 0, 1, 2, \dots\), the best we can say, based on the results so far, is that \(2^{\aleph_\omega} \leq \aleph_{\omega_4}\).
+
+\section{Gödel Incompleteness Theorem*}
+
+The aim of this non-examinable section is to show PA is incomplete, i.e.\ there exists \(p\) such that PA~\(\nyields p\) and PA~\(\nyields \neg p\). It suffices to show that there exists \(p\), true in \(\N\), such that PA~\(\nyields p\). We are going to abbreviate ``true in \(\N\)'' as ``true'' and ``PA~\(\nyields p\)'' as ``not provable''.
+
+We try to find a \(p\) saying ``I am not provable'', i.e.\ \(p\) such that \(p\) is true if and only if \(p\) is not provable. Then done: if \(p\) is false then PA~\(\yields p\), so \(p\) holds in every model of PA, in particular in \(\N\), absurd. Thus \(p\) is true so not provable.
+
+The idea is to ``code up'' formulæ, proofs etc in PA, i.e.\ as natural numbers. At first glance it seems that we are doomed to fail since however we do it, ``\(p\) is not provable'' must be longer/more complicated than ``\(p\)''.
+
+Recall that a subset \(S \subseteq \N\) is \emph{definable} if there exists formula \(p(x)\) (which means a formula \(p\) with free variable \(x\)) such that \(m \in S\) if and only if \(p(m)\) is true. Similarly, \(f: \N \to \N\) is \emph{definable} if there exists a formula \(p(x, y)\) such that \(f(m) = n\) if and only if \(p(m, n)\).
+
+\begin{eg}
+  \(f(n) = 2n\) is definable: take \(p(x, y)\) to be ``\(y = x + x\)''.
+\end{eg}
+
+We should take as fact
+
+\begin{proposition}
+  Any function given by an algorithm is definable.
+\end{proposition}
+
+\begin{eg}
+  \(f(n) = 2^n\) is definable.
+\end{eg}
+
+\begin{proof}
+  A reference can be found in P.\ T.\ Johnstone Chapter 4 and 9.
+\end{proof}
+
+The language of PA has symbols \(s, 0, +, \times, =, \bot, \implies, \forall\), the two parentheses, as well as countably many variables \(\{x_1, x_2, \dots\}\). It is possbile to reduce them just two symbols \(x\) and \(\cdot '\), so \(x_1\) is \(x\), \(x_2\) is \(x'\), \(x_3\) is \(x''\) etc. There is a total of 12 of symbols.
+
+We can now code a formula by raising successive primes to the power of the successive symbols in \(p\). For example, if \(p\) is
+\[
+  (\forall x) (x = 0)
+\]
+then its code is
+\[
+  c(p) = 2^9 \cdot 3^8 \cdot 5^{11} \cdot 7^{10} \cdot 11^9 \cdot 13^{11} \cdot 17^5 \cdot 19^2 \cdot 23^{10}.
+\]
+
+Note that not every number codes a formula, for example \(2^7 \cdot 3^5\) is non sense.
+
+``\(m\) codes a formula'' is definable as there exists an algorithm.
+
+\begin{notation}
+  Write \(S_m\) for the formula coded by \(m\), and \(S_m = \bot\) if \(m\) does not code a formula.
+\end{notation}
+
+Note that ``\(m\) codes an axiom'' (logical or PA axiom) is definable. Also ``\(\ell, m, n\) code formula, with \(S_n\) following from \(S_\ell\) and \(S_m\) by modus ponens'' is definable, same for generalisation.
+
+Now move on to proofs. We code a sequence of statements by
+\[
+  S(p_1, \dots, p_n) = 2^{c(p_1)} \cdot 3^{c(p_2)} \cdots (n\text{th prime})^{c(p_n)}.
+\]
+Thus \(\theta(m, n) = \) ``\(m\) codes a proof of \(S_n\)'' is definable. Then \(\phi(n) = \) ``\(n\) codes a provable statement'' is definable since \(\phi(n) \iff (\exists m) \theta(m, n)\). Note that this is \emph{not} by algorithm, but because we can find a formula!
+
+Here comes in the clever part. Consider \(\chi(n) = \) ``\(n\) codes formula \(S_n\) with one free variable, and \(S_n(n)\) is not provable''. This is clearly definable, say by formula \(p(x)\) (\(p(n)\) is true if and only if \(\chi(n)\) where \(p\) is a formula of PA).
+
+Let \(N = c(p)\). Then \(\chi(N)\) asserts that: \(N\) codes a formula with one free variable (so far this is true, since \(N\) codes \(p(x)\)), and this formula, with variable set to \(N\) (namely \(p[N/x]\)) is not provable. So \(p(N)\) is true if and only if \(p(N)\) is not provable. Done!
+
+We have thus shown
+
+\begin{theorem}[Gödel incompleteness theorem]\index{Gödel incompleteness theorem}
+  PA is not complete.
+\end{theorem}
+
+But maybe PA is too weak. Could we add some clever sentences \(p\) to PA to make it complete? Maybe, for example, the \(p\) used in the proof above. The answer is no: just run the same proof with PA replaced by PA~\(\cup \{p\}\).
+
+However, we can certainly extend PA to a complete theory, in an almost trivial way by adding to the axioms
+\[
+  T = \{p: p \text{ true in } \N\}.
+\]
+Why does proof of the theorem fails?
+
+We have to rewind all the way to the beginning --- it can only be the case that \(T\) is not definable, i.e.
+
+\begin{theorem}
+  \[
+    \{m: m \text{ codes all true statements}\}
+  \]
+  is not definable.
+\end{theorem}
+
+The slogan is ``truth is not definable''.
+
+Another objection is why doesn't our proof of the incompleteness theorem (in particular, that \(p\) is true) formalise into a proof in PA that \(p\) is true? The answer is that we assumed the existence of a model of PA (namely \(\N\)), i.e.\ PA is consistent, which by completeness is \(\operatorname{con}(\text{PA}) = \) ``\(\bot\) is not provable''. Thus \(\text{PA} \cup \operatorname{con}(\text{PA}) \yields p\). So by deduction theorem, Gödel incompleteness theorem can be reformulated as
+
+\begin{theorem}
+  \[
+    \text{PA }\nyields \operatorname{con}(\text{PA}).
+  \]
+\end{theorem}
+
+How about ZF? Certainly ZF~\(\yields \operatorname{con}(\text{PA})\) (note that con(PA) means slightly different things than before: it now means that for all \(n \in \omega\), \(n\) does not code a proof of \(\bot\)). This is because ZF~\(\yields\) ``PA has a model'' (namely \(\omega\)).
+
+But copying proof of incompleteness theorem gives
+
+\begin{theorem}
+  ZF is not complete.
+\end{theorem}
+
+And by the same reasoning above,
+
+\begin{theorem}
+  \[
+    ZF \nyields con(ZF).
+  \]
+\end{theorem}
 
 \appendix
 
 \section{Classes}
 \label{sec:classes}
 
-\(x \mapsto \{x\}\) for all \(x\) looks like a function, but isn't because the ``domain'' is too big: every function \(f\) has a domain \(\dom f\) (defined as a suitable subset of \(V \cap f\)) and this ``function'' would have domain \(V\), absurd as there is no universal set, i.e. \(\neg (\exists x) (\forall y) (y \in x)\) (Russel's paradox).
+\(x \mapsto \{x\}\) for all \(x\) looks like a function, but isn't because the ``domain'' is too big: every function \(f\) has a domain \(\dom f\) (defined as a suitable subset of \(V \cap f\)) and this ``function'' would have domain \(V\), absurd as there is no universal set, i.e.\ \(\neg (\exists x) (\forall y) (y \in x)\) (Russel's paradox).
 
 \begin{definition}[Class]\index{class}
   For an \(L\)-structure \(V\), a collection \(C\) of elements of \(V\) is called a \emph{class} if there is a formula \(p\), free variables \(x\) (parameterised), such that \(x \in C\) if and only if \(p(x)\) holds in \(V\).
@@ -2276,8 +2617,6 @@ Here ``collection'' is simply a subset, in the true maths world. But to avoid co
 \begin{eg}
   \(x \mapsto \{x\}\) is a function-class. Take \(p(x, y)\) to be \(y = \{x\}\).
 \end{eg}
-
-
 
 \printindex
 

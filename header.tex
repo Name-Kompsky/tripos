@@ -22,6 +22,7 @@
 \author{\nauthor}
 \date{\ndate}
 
+\usepackage{microtype}
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{stmaryrd}%symbols used so far: \mapsfrom
@@ -108,17 +109,18 @@
 
 
 
-% todo: change mdframed to tcolorbox
+% TODO: mdframed often gives bad breaks that cause empty lines. Would like to switch to tcolorbox.
+% The current workaround is to set innerbottommargin=0pt.
 
 %\usepackage[theorems]{tcolorbox}
 
-%\newtcbtheorem[number within=section]{theorem}{Theorem}{}{}
 
 
 
 
 \usepackage[framemethod=tikz]{mdframed}
 \mdfdefinestyle{leftbar}{
+  %nobreak=true, %dirty hack
   linewidth=1.5pt,
   linecolor=gray,
   hidealllines=true,
@@ -127,7 +129,8 @@
   innerleftmargin=5pt,
   innerrightmargin=10pt,
   innertopmargin=-5pt,
-  innerbottommargin=5pt,
+  % innerbottommargin=5pt, % original
+  innerbottommargin=0pt, % temporary hack 
 }
 %\newmdtheoremenv[style=leftbar]{theorem}{Theorem}[section]
 %\newmdtheoremenv[style=leftbar]{proposition}[theorem]{proposition}
