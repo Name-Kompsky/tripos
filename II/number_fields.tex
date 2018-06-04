@@ -61,9 +61,9 @@ have solutions such that \(x, y, z \in \Z, xyz \neq 0\)?
 
 The strategy is to factor
 \[
-  x^p + y^p = \prod_{j = 0}^{p - 1} (x + e^{2\pi ij/p}j) \in \Z[e^{2\pi i/p}].
+  x^p + y^p = \prod_{j = 0}^{p - 1} (x + e^{2\pi ij/p}y) \in \Z[e^{2\pi i/p}].
 \]
-We now know that \(\Z[e^{2\pi i/p}]\) is a UFD if and only if \(p \leq 19\), so unfortunately this does not lead us very far. Instead, we have the more power theorem
+We now know that \(\Z[e^{2\pi i/p}]\) is a UFD if and only if \(p \leq 19\), so unfortunately this does not lead us very far. Instead, we have the more powerful theorem
 
 \begin{theorem}[Kummer, 1850]
   If \(p\) is a \emph{regular} prime then there are no solutions.
@@ -71,7 +71,7 @@ We now know that \(\Z[e^{2\pi i/p}]\) is a UFD if and only if \(p \leq 19\), so 
 
 We will define regular prime later in this course. This theorem is more powerful that the previous one. To give an idea, if \(p < 100\) then \(p\) is regular if and only if \(p \neq 37, 59, 67\).
 
-Given a number field, this course studies the ring of integers. In the end of the course we will come back to Kummer's theorem.
+This course studies the ring of integers of a number field, which is a finite extension of \(\Q\). In the end of the course we will come back to Kummer's theorem.
 
 \section{Ring of integers}
 
@@ -227,7 +227,7 @@ so by minimality of \(\deg f_\alpha'\), \(r = 0\). Then \(\deg f_\alpha = \deg f
   \[
     (\alpha\beta)^r + b_1(\alpha\beta)^{r - 1} + \dots + b_r = F_{\alpha\beta}(\alpha\beta) = 0
   \]
-  so \((\alpha\beta)^r \in \O_L\).
+  so \(\alpha\beta \in \O_L\).
 
   The argument to show \(\alpha + \beta \in \O_L\) is identical, replacing \(m_{\alpha\beta}\) by
   \begin{align*}

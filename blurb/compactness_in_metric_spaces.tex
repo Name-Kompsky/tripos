@@ -87,7 +87,7 @@ Although we have established the equivalence, it might still be instructive to l
   which is continuous. Further define
   \begin{align*}
     f: X &\to \R \\
-    x &\mapsto \frac{1}{2} \sum_{\gamma \in \Gamma'} d(x, C_\gamma)
+    x &\mapsto \frac{1}{|\Gamma'|} \sum_{\gamma \in \Gamma'} d(x, C_\gamma)
   \end{align*}
   which is again continuous. As \(X\) is compact, it attains a minimum \(\delta > 0\) as \(\bigcup_{\gamma \in \Gamma'} C_i \neq \emptyset\). For any \(x \in X\), show \(B(x, \delta)\) is contained in some \(U_\gamma\): as \(f(x) \geq \delta\), there exists some \(i\) such that \(d(x, C_i) \geq \delta\), so \(B(x, \delta) \subseteq X \setminus C_i = U_i\).
 \end{proof}

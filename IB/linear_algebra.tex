@@ -56,9 +56,9 @@ The additive unit of $V$ is denoted by $\V 0$.
 \begin{eg}\leavevmode
   \label{eg:matrix as V}
   \begin{enumerate}
-  \item $\forall n \in \mathbb{N}, \mathbb{F}^n$ is the space of column vectors of length $n$ with entries in $\mathbb{F}$. It is an vector space by entry-wise addition and entry-wise scalar multiplication.
+  \item For all $n \in \mathbb{N}, \mathbb{F}^n$ is the space of column vectors of length $n$ with entries in $\mathbb{F}$. It is an vector space by entry-wise addition and entry-wise scalar multiplication.
   \item $\M_{m,n}(\mathbb{F})$, the set of $m\times n$ matrices with entries in $\mathbb{F}$, with the operation defined as entry-wise addition.
-    \item For any set $X$, $\mathbb{R}^X = \{f: X \to \mathbb{R}\}$, the set of $\mathbb{R}$-valued functions on $X$, with addition and scalar multiplication defined pointwise. For instance, $(f_1+f_2)(x) = f_1(x)+f_2(x)$.
+  \item For any set $X$, $\mathbb{R}^X = \{f: X \to \mathbb{R}\}$, the set of $\mathbb{R}$-valued functions on $X$, with addition and scalar multiplication defined pointwise. For instance, $(f_1+f_2)(x) = f_1(x)+f_2(x)$.
   \end{enumerate}
 \end{eg}
 
@@ -163,7 +163,7 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
 \begin{definition}[Span]\index{span}
   Let $V$ be a $\F$-vector space, $S \subseteq V$ be a subset. The \emph{span} of $S$
   \[
-    \spans S = \Big\{\sum_{s\in S} \lambda_s s : \lambda_s \in F \Big\}
+    \spans S = \Big\{\sum_{s\in S} \lambda_s s : \lambda_s \in \F \Big\}
   \]
   is the set of all the finite linear combinations of elements (i.e.\ all but finitely many of the $\lambda$ are zero) of $S$.
 \end{definition}
@@ -199,9 +199,10 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   \[
     \sum_{i=1}^n \lambda_i = 0 \Rightarrow \lambda_i = 0 \: \forall i
   \]
+
   A subset $S \subseteq V$ is \emph{linearly independent} if every finite subset of $S$ is linearly independent.
 
-  A subset if \emph{linearly dependent} if it is not linearly independent.
+  A subset is \emph{linearly dependent} if it is not linearly independent.
 \end{definition}
 
 \begin{eg}
@@ -447,7 +448,7 @@ The union of a family of subspaces is \emph{almost never} a subspace. For exampl
   \end{enumerate}
 \end{eg}
 
-\begin{note}[Categority of \(\mathbf{Vect}_\F\)]
+\begin{note}[Categoricity of \(\mathbf{Vect}_\F\)]
   Suppose \(U, V, W\) are \(\F\)-vector spaces, then
   \begin{enumerate}
   \item \(\id: V\to V\) is linear.
@@ -634,7 +635,7 @@ A = (a_{ij}), a_{ij}\in\F, 1\leq i \leq m, 1\leq j \leq n.
 \end{proposition}
 
 \begin{proof}
-  See this \hyperref[eg:matrix as V]{example} for the proof of vector space axioms. For the dimension claim, a standard basis for \(\M_{m,n}(F)\) is
+  See the \hyperref[eg:matrix as V]{example} on page~\pageref{eg:matrix as V} for the proof of vector space axioms. For the dimensional claim, a standard basis for \(\M_{m,n}(F)\) is
   \[
     E_{ij}=
     \begin{pmatrix}
@@ -915,7 +916,7 @@ Let \(Q\) be the change-of-basis matrix from \(\basis C'\) to \(\basis C\). Then
       0 & 0
     \end{pmatrix}
     \) and matrix equivalence is transitive.
-  \item \(\Rightarrow\): Let \(\alpha:\F^n\to \F^m\) be the linear map represented by \(A\) with repect to, say, the standard basis. Since \(A'=Q^{-1}AP\) for some invertible \(P\) and \(Q\), \(A'\) represents the same \(\alpha\) with respect to another bases. \(r(\alpha)\) is defined in a basis-invariant way so \(r(A) = r(\alpha) = r(A')\).
+  \item \(\Rightarrow\): Let \(\alpha:\F^n\to \F^m\) be the linear map represented by \(A\) with respect to, say, the standard basis. Since \(A'=Q^{-1}AP\) for some invertible \(P\) and \(Q\), \(A'\) represents the same \(\alpha\) with respect to another bases. \(r(\alpha)\) is defined in a basis-invariant way so \(r(A) = r(\alpha) = r(A')\).
   \end{itemize}
 \end{proof}
 
@@ -1087,7 +1088,7 @@ gives
 \[
   A^{-1} = E_1E_2\dots E_c,
 \]
-one way to compute inverses.
+which is one way to compute inverses.
 
 \begin{proposition}
   Any invertible matrix can be written as a product of elementary ones.
@@ -1229,7 +1230,7 @@ It turns out dual spaces have maps between them. Before studying them in detail,
 \end{proof}
 
 \begin{proposition}
-  Let \(V\) and \(W\) be \(\F\)-vector spaces with bases \(\basis B\) and \(\basis C\) repectively. Let \(\basis B^*\) and \(\basis C^*\) be the dual bases. Consider \(\alpha\in L(V,W)\) with dual \(\alpha^*\), then
+  Let \(V\) and \(W\) be \(\F\)-vector spaces with bases \(\basis B\) and \(\basis C\) respectively. Let \(\basis B^*\) and \(\basis C^*\) be the dual bases. Consider \(\alpha\in L(V,W)\) with dual \(\alpha^*\), then
   \[
     [\alpha^*]_{\basis C^*,\basis B^*} = [\alpha]^T_{\basis B,\basis C}.
   \]
@@ -1257,7 +1258,7 @@ It turns out dual spaces have maps between them. Before studying them in detail,
 
 It follows that
 \begin{lemma}
-  Let \(V\) be a finite-dimensional \(\F\)-vector space with bases \(\basis E = \{e_1,\dots,e_n\}\) and \(\basis F = \{f_1,\dots,f_n\}\). They have correponding dual bases \(\basis E^* = \{\varepsilon_1,\dots, \varepsilon_n\}\) and \(\basis F^*\). If the change-of-basis matrix from \(\basis F\) to \(\basis E\) is \(P\) then the change-of-basis matrix from \(\basis F^*\) to \(\basis E^*\) is
+  Let \(V\) be a finite-dimensional \(\F\)-vector space with bases \(\basis E\) and \(\basis F\). They have correponding dual bases \(\basis E^*\) and \(\basis F^*\). If the change-of-basis matrix from \(\basis F\) to \(\basis E\) is \(P\) then the change-of-basis matrix from \(\basis F^*\) to \(\basis E^*\) is
   \[
     (P^{-1})^T.
   \]
@@ -1323,7 +1324,7 @@ Now we move on to more discussion about annhilator.
 
 \subsection{Double Dual}
 
-Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. The natrual (oops) next step is
+Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. The natural (oops) next step is
 
 \begin{definition}[Double dual]\index{vector space!double dual}
   The \emph{double dual} of \(V\) is
@@ -1332,13 +1333,13 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
   \]
 \end{definition}
 
-\begin{theorem}[Natural homomorphism of double dual]
+\begin{theorem}[Naturallity of double dual]
   If \(V\) is an \(\F\)-vector space, then the map
   \begin{align*}
     \hat \cdot: V &\to V^{**} \\
     v &\mapsto \hat v
   \end{align*}
-  where \(\hat v(\varepsilon) = \varepsilon(v)\), is an natural homomorphism. In particular when \(V\) is finite-dimensional this is a natural isomorphism.
+  where \(\hat v(\varepsilon) = \varepsilon(v)\), is a natural homomorphism. In particular when \(V\) is finite-dimensional this is a natural isomorphism.
 \end{theorem}
 
 \begin{proof}\leavevmode
@@ -1395,8 +1396,8 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \begin{definition}[Bilinear form]\index{bilinear form}
   Let \(U\) and \(V\) be \(\F\)-vector spaces. A map \(\varphi: U \times V \to \F\) is \emph{bilinear} if it is linear in both arguments, i.e.
   \begin{align*}
-    \forall u \in U, \, \varphi(u, -) &\in V^* \\
-    \forall v \in V, \, \varphi(-, v) &\in U^*
+    \forall u \in U, \, \varphi(u, -) &\in V^*, \\
+    \forall v \in V, \, \varphi(-, v) &\in U^*.
   \end{align*}
 \end{definition}
 
@@ -1490,7 +1491,7 @@ Let \(V\) be an \(\F\)-vector space. Then \(V^* = L(V,\F)\) is its dual space. T
 \end{corollary}
 
 \begin{definition}
-  For \(T \subseteq U, S \in V\),
+  For \(T \subseteq U, S \subseteq V\),
   \begin{align*}
     T^\perp &= \{ v\in V: \varphi(t, v) = 0 \, \forall t\in T \} \leq V \\
     \prescript{\perp}{}{S} &= \{ u\in U: \varphi(u, s) = 0 \, \forall s\in S \} \leq U
@@ -1500,7 +1501,7 @@ They are generalisation of annihilators.
 
 \begin{proposition}
   \label{prop:change of basis of bilinear form}
-  Suppose \(U\) have basese \(\basis B, \basis B'\) and \(V \) have bases \(\basis C, \basis C'\), \(P = [\id]_{\basis B', \basis B}, Q = [\id]_{\basis C',\basis C}\). Let \(\varphi: U \times V \to \F\) be a bilinear form. Then
+  Suppose \(U\) have bases \(\basis B, \basis B'\) and \(V \) have bases \(\basis C, \basis C'\), \(P = [\id]_{\basis B', \basis B}, Q = [\id]_{\basis C',\basis C}\). Let \(\varphi: U \times V \to \F\) be a bilinear form. Then
   \[
     [\varphi]_{\basis B',\basis C'} = P^T[\varphi]_{\basis B,\basis C}Q.
   \]
@@ -1555,7 +1556,7 @@ They are generalisation of annihilators.
 \end{lemma}
 
 \begin{proof}
-  Suppose \(A\) and \(B\) are conjugates, they there exists \(P\) such that \(B = P^{-1}AP\) so
+  Suppose \(A\) and \(B\) are conjugates, then there exists \(P\) such that \(B = P^{-1}AP\) so
   \[
     \tr(B) = \tr(P^{-1}AP) = \tr(APP^{-1}) = \tr(A).
   \]
@@ -1728,11 +1729,11 @@ In the rest of the section we are going to prove that the converse is also true,
 \begin{proof}
   \begin{align*}
     d(A^{(1)}, \dots, A^{(n)}) &= d \left( \sum_{i=1}^{n} a_{i1}e_i, A^{(2)}, \dots, A^{(n)} \right) \\
-                               &= \sum_{i = 1}^{n}a_{i1} d(e_i, A^{(2)}, \dots, A^{(n)}) \\
+                               &= \sum_{i = 1}^{n}a_{i_1} d(e_i, A^{(2)}, \dots, A^{(n)}) \\
                                &= \sum_{i}^{} \sum_{j}^{ } a_{i1} a_{j2} d(e_i, e_j, \dots, A^{(n)}) \\
                                &= \sum_{i_1, i_2, \dots, i_n}^{ } \prod_{k = 1}^{n} a_{{i_k},k} d(e_{i_1}, \dots e_{i_n})
 \end{align*}
-The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma \in S_N\) such that \(i_k = \sigma(k)\). Thus
+The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma \in S_n\) such that \(i_k = \sigma(k)\). Thus
 \begin{align*}
   d(A^{(1)}, \dots, A^{(n)}) = \sum_{\sigma \in S_n}^{ } \prod_{k = 1}^{n} a_{\sigma(k), k} \underbrace{d(e_{\sigma(1)}, \dots, e_{\sigma(n)})}_{= \varepsilon(\sigma) d(e_1, \dots, e_n)}
 \end{align*}
@@ -1750,15 +1751,15 @@ The last term is \(0\) unless all of \(i_k\) are distinct, i.e.\ exists \(\sigma
 \end{proposition}
 
 \begin{proof}
-  Let
+  Define
   \begin{align*}
-    d_A: \F^n \times \dots \times \F^n \to \F \\
-    (v_1, \dots, v_n) \to \det(Av_1|\cdots|Av_n)
+    d_A: \F^n \times \dots \times \F^n &\to \F \\
+    (v_1, \dots, v_n) &\mapsto \det(Av_1|\cdots|Av_n)
   \end{align*}
-  then \(d_A\) is a volume form:
+  which is a volume form:
   \begin{itemize}
   \item multilinear: \(v_i \mapsto Av_i\) is linear and \(\det\) is multilinear.
-  \item alternating: \(v_i = v_j\) implies \(A_{v_i} = A_{v_j}\) and \(\det\) is alternating.
+  \item alternating: \(v_i = v_j\) implies \(Av_i = Av_j\) and \(\det\) is alternating.
   \end{itemize}
   It follows that
   \begin{align*}
@@ -1836,7 +1837,7 @@ This is well-defined by the previous lemma.
   \begin{enumerate}
   \item \(\det \id = 1\),
   \item \(\det \alpha \compose \beta = \det \alpha \det \beta\),
-  \item \(\det \alpha \neq 0\) if and only if \(\alpha\) is invertible and in this case \(\det (\alpha^{-1}) = \frac{1}{\det \alpha}\).
+  \item \(\det \alpha \neq 0\) if and only if \(\alpha\) is invertible, in which case \(\det (\alpha^{-1}) = \frac{1}{\det \alpha}\).
   \end{enumerate}
 \end{theorem}
 
@@ -1864,7 +1865,7 @@ This is well-defined by the previous lemma.
     \det X &= \sum_{\sigma \in S_n}^{ }\varepsilon(\sigma) \prod_{i = 1}^{n} x_{\sigma(i), i} \\
     \intertext{Note that \(x_{\sigma(i), i} = 0\) if \(i \leq k\) and \(\sigma(i) > k\). Thus we are only concerned about \(\sigma\) under which these are in different orbits, i.e.\ \(\sigma = \sigma_1\sigma_2\) where \(\sigma_1 \in \sym_{\{1,\dots, k\}}\) and \(\sigma_2 \in \sym_{\{k+1, \dots, n\}}\).}
            &= \sum_{\sigma_1 \in \sym_{\{1, \dots, k\}}}^{ } \varepsilon(\sigma_1) \prod_{j = 1}^{k} a_{\sigma_1(j),j} \\
-           &\times \sum_{\sigma_2 \in \sym_{\{k+1, \dots, n\}}}^{ } \varepsilon(\sigma_1) \prod_{j = k + 1}^{n} a_{\sigma_2(j),j} \\
+           &\times \sum_{\sigma_2 \in \sym_{\{k+1, \dots, n\}}}^{ } \varepsilon(\sigma_2) \prod_{j = k + 1}^{n} a_{\sigma_2(j),j} \\
            &= \det A \det B
   \end{align*}
 \end{proof}
@@ -1949,7 +1950,7 @@ One could prove properties of \(\det\) by decomposing any matrix into elementary
 \end{lemma}
 
 \begin{remark}
-  It is possible to use one of the expressions above to define determinant iteratively, with base case \(\det a = a\) for \(n = 1\).
+  It is possible to use one of the expressions above to define determinant inductively, with base case \(\det a = a\) for \(n = 1\).
 \end{remark}
 
 \begin{eg}
@@ -2318,7 +2319,7 @@ Conjugate matrices have the same characteristic polynomial.
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item Morally speaking, \(\pi_j\) ``projects'' \(V\) to \(V_{\lambda_j}\).
+  \item \(\pi_j\) is the projection from \(V\) to \(V_{\lambda_j}\).
   \item The proof shows that for \(k\) distinct eigenvalues \(\lambda_1, \dots \lambda_k\) of \(\alpha\), the sum \(\sum_j V_{\lambda_j}\) is direct. The only way for diagonalisation to fail is if \(\sum_j V_{\lambda_j} \lneq V\).
   \end{enumerate}
 \end{remark}
@@ -2983,9 +2984,9 @@ Naturally, we want to find nice forms to which a general bilinear form is congru
 \end{proposition}
 
 \begin{proof}
-  First we prove the existence. Let \(\psi\) be a bilinear form on \(V\) such that \(Q(v) = \psi(v, v)\) for all \(v \in V\). We want to construct a symmetric bilinear form by adding \(\psi\) and its transpose. Let
+  First we prove the existence. Let \(\psi\) be a bilinear form on \(V\) such that \(Q(v) = \psi(v, v)\) for all \(v \in V\). We construct a symmetric bilinear form by adding \(\psi\) and its transpose. Let
   \[
-    \varphi(u, v) = \frac{1}{2}(\psi(u, v) + \psi(v, u)).
+    \varphi(u, v) = \frac{1}{2}(\psi(u, v) + \psi(v, u))
   \]
   (this is where we require \(\ch \F \neq 2\)) then it is bilinear and symmetric and
   \[
@@ -3147,7 +3148,7 @@ Equivalently,
   Q \left( \sum_{i = 1}^{n} \lambda_i v_i \right) = \sum_{i = 1}^{r} \lambda_i^2.
 \]
 
-We have derived a corollary for our favourite field \(\C\), and there is another one corresponding to our second favourite \(\R\):
+We have derived a corollary for our favourite field \(\C\), and there is another one corresponding to our second favourite field, \(\R\):
 
 \begin{corollary}
   Let \(\varphi\) be a symmetric bilinear form on \(V\), a finite-dimensional \(\R\)-vector space. There is a basis \(\basis B = \{v_1, \dots, v_n\}\) such that
@@ -3333,7 +3334,7 @@ Naturally we would expect a sesquilinear form, just like a bilinear form, to hav
 \end{proof}
 
 \begin{lemma}
-  Let \(\basis B, \basis B'\) be bases for \(V\), \(P = [\id]_{\basis B', \basis B}\) and \(\basis C, \basis C\) be bases for \(W\), \(Q = [\id]_{\basis C', \basis C}\). Then
+  Let \(\basis B, \basis B'\) be bases for \(V\), \(P = [\id]_{\basis B', \basis B}\) and \(\basis C, \basis C'\) be bases for \(W\), \(Q = [\id]_{\basis C', \basis C}\). Then
   \[
     [\varphi]_{\basis B', \basis C'} = P^T [\varphi]_{\basis B, \basis C} \conj Q.
   \]
@@ -3373,9 +3374,10 @@ We have special bilinear forms that are symmetric. The analogue for sesquilinear
 
 As before, if and only if this holds for one basis.
 
-\begin{proof}\leavevmode
+\begin{proof}
+  Let \(\basis B = \{v_1, \dots, v_n\}\) and \(A = [\varphi]_{\basis B} = (a_{ij})\).
   \begin{itemize}
-  \item \(\Rightarrow\): Let \(\basis B = \{v_1, \dots, v_n\}\) and \(A = [\varphi]_{\basis B} = (a_{ij})\). Then
+  \item \(\Rightarrow\):
     \begin{align*}
       a_{ij} &= \varphi(v_i, v_j) \\
              &= \conj{\varphi(v_j, v_i)} \\
@@ -3392,7 +3394,7 @@ As before, if and only if this holds for one basis.
   \end{itemize}
 \end{proof}
 
-Similarly we have polarisation identity for sesquilinear form: a Hermitian form \(\varphi\) on \(\C\)-vector space \(V\) is determined by
+Similarly we have polarisation identity for sesquilinear form: a Hermitian form \(\varphi\) on a \(\C\)-vector space \(V\) is determined by
 \begin{align*}
   Q: V &\to \R \\
   v &\mapsto \varphi(v, v)
@@ -3777,7 +3779,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
     \[
       \pi(v) = \sum_{i = 1}^k \ip{v, e_i} e_i
     \]
-  \item \(\norm{v - \pi(v)} \leq \norm{v - w}\) for all \(v \in V\), \(w \in W\) with equiality if and only if \(\pi(v) = w\). Equivalently, \(\pi(v)\) is the closest point in \(W\) to \(v\).
+  \item \(\norm{v - \pi(v)} \leq \norm{v - w}\) for all \(v \in V\), \(w \in W\) with equality if and only if \(\pi(v) = w\). Equivalently, \(\pi(v)\) is the closest point in \(W\) to \(v\).
   \end{enumerate}
 \end{lemma}
 
@@ -3804,7 +3806,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
 \begin{remark}
   We met internal and external direct sum before. There is an analogous distinction for orthogonal direct sum.
 
-  Given \(V_1, V_2\) two inner product spaces over \(\F\), we can define the \emph{external orthogonal} direct sum \(V_1 \oplus V_2\) by
+  Given \(V_1, V_2\) two inner product spaces over \(\F\), we can define the \emph{external orthogonal} direct sum \(V_1 \perp V_2\) by equipping \(V_1 \oplus V_2\) the inner product
   \[
     \ip{(u_1, u_2), (v_1, v_2)} = \ip{u_1, v_1} + \ip{u_2, v_2}.
   \]
@@ -3856,7 +3858,7 @@ So far we have discussed orthogonal complement only at an abstract level and we 
 \end{notation}
 
 \begin{caution}
-  We use the same notation \(\alpha^*\) for the adjoint and the dual of \(\alpha\). Hopefully the context should be clear which one is our concern.
+  We use the same notation \(\alpha^*\) for the adjoint and the dual of \(\alpha\). Hopefully the context should be clear which one is in use.
 \end{caution}
 
 \begin{remark}
@@ -3921,7 +3923,7 @@ The equivalences should be quite obvious and in case you don't find it so,
   \[
     \norm{\alpha v} = \norm{v}
   \]
-  for all \(v \in V\), which might be closer to the intuitive definition of an ``isometry''.
+  for all \(v \in V\), which might be closer to the intuition of an ``isometry''.
 \end{remark}
 
 \begin{lemma}

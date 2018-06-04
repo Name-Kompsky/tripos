@@ -110,7 +110,7 @@ This choice of points is the one that minimises
 \subsection{Divided difference and Newton's interpolation formula}
 
 \begin{definition}[Divided difference]\index{divided difference}
-  Given pairwise distinct points \(x_0, \dots, x_n\), let \(p \in P_n[x]\) that interpolates \(f \in C[a, b]\) at these points. The coefficient of \(x^n\) in \(p\) is called the \emph{divided difference} of \(f\) at \((x_0, \dots, x_n)\) and is denoted \(f[x_0, \dots, x_n]\).
+  Given pairwise distinct points \(x_0, \dots, x_n\), let \(p \in P_n[x]\) interpolate \(f \in C[a, b]\) at these points. The coefficient of \(x^n\) in \(p\) is called the \emph{divided difference} of \(f\) at \((x_0, \dots, x_n)\) and is denoted \(f[x_0, \dots, x_n]\).
 \end{definition}
 
 We know from the last lecture that the interpolent is
@@ -467,7 +467,7 @@ Given the value of a function at pairwise distinct points \(x_1, \dots, x_m\), t
 \[
   \sum_{k = 1}^m (f(x_k) - p(x_k))^2.
 \]
-This can be thought as a generalisation of the interpolation problem, where \(m = n + 1\) and the minimised error is always \(0\). In the generalised setting, \(n \leq m - 1\) (and usual much smaller).
+This can be thought as a generalisation of the interpolation problem, where \(m = n + 1\) and the minimised error is always \(0\). In the generalised setting, \(n \leq m - 1\) (and usually much smaller).
 
 This question can be reformulated as in terms of orthogonal polynomial, where the inner product is defined to be
 \[
@@ -554,7 +554,7 @@ for \(k = 1, \dots, \nu\).
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-  \item Let \(f \in P_{n - 1}[x]\). Write \(f\) in terms of its interpolating formula at the \(c_k\)'s,
+  \item Let \(f \in P_{\nu - 1}[x]\). Write \(f\) in terms of its interpolating formula at the \(c_k\)'s,
     \[
       f(x) = \sum_{k = 1}^\nu f(c_k) \prod_{j \neq k} \frac{x - c_j}{c_k - c_j}.
     \]
@@ -578,7 +578,7 @@ for \(k = 1, \dots, \nu\).
 
 \subsection{Peano Kernel Theorem}
 
-How do the errors behave when we use the quadrature formula to approximate a function that is not a polynomial, or a polynomial of higher degree?
+How does the error behave when we use the quadrature formula to approximate a function that is not a polynomial, or a polynomial of higher degree?
 
 The error from a quadrature formula is
 \[
@@ -727,7 +727,7 @@ The ``deviation'' is
     &= y_{n + 1}(h) - y((n + 1)h) \\
     &= [y_n(h) + h f(nh, y_n(h))] - [y(nh) + hy'(nh) + \eta(h)] \\
     \intertext{where we Taylor expand the second term and \(\eta(h) \sim O(h^2)\)}
-    &= y_n(h) - y(nh) + h(f(nh, y_n(h) - y'(nh)) - \eta(h) \\
+    &= y_n(h) - y(nh) + h[f(nh, y_n(h)) - y'(nh)] - \eta(h) \\
     &= e_n(h) + h[f(nh, y_n(h)) - f(nh, y(nh))] - \eta(h)
   \end{align*}
   Assume the Lipschitz constant is \(\lambda\), we thus get
@@ -785,7 +785,7 @@ An example of a \(2\)-step method is \emph{\(2\)-step Adams-Bashforth} defined b
 \begin{definition}[Order]\index{order}
   The \emph{order} of a multistep method is the biggest integer \(p \geq 0\) such that
   \[
-    \sum_{\ell = 0}^s \sigma_s y(t_{n + \ell}) - h \sum_{\ell = 0}^s \sigma_\ell y'(t_{n + \ell}) = O(h^{p + 1})
+    \sum_{\ell = 0}^s \rho_\ell y(t_{n + \ell}) - h \sum_{\ell = 0}^s \sigma_\ell y'(t_{n + \ell}) = O(h^{p + 1})
   \]
   for all sufficiently smooth functions \(y\).
 \end{definition}
@@ -827,7 +827,7 @@ Thus if \(\theta = \frac{1}{2}\) then it has order \(2\), otherwise order \(1\)\
 \end{theorem}
 
 \begin{proof}
-  This is just tedious exercise using Taylor expansion. For analytic \(y\), we have
+  This is just a tedious exercise using Taylor expansion. For analytic \(y\), we have
   \begin{align*}
     &\phantom{={} } \sum_{\ell = 0}^s \rho_\ell y(t_{n + \ell}) - h \sum_{\ell = 0}^s \sigma_\ell y'(t_{n + \ell}) \\
     &= \sum_{\ell = 0}^s \rho_\ell \sum_{k = 0}^\infty \frac{(\ell h)^k}{k!} y^{(k)}(t_n) - h \sum_{\ell = 0}^s \sigma_\ell \sum_{k = 0}^\infty \frac{(\ell h)^k}{k!} y^{(k + 1)}(t_n) \\
@@ -910,7 +910,7 @@ Thus if \(\theta = \frac{1}{2}\) then it has order \(2\), otherwise order \(1\)\
   and further computation shows \(p = 1\). \(\rho(w) = w^2 - 2w + 1\) so \(1\) is a root of multiplicity 2 so root condition is not satisfied.
 \end{eg}
 
-To construct a convergent \(s\)-step method, follow the two step:
+To construct a convergent \(s\)-step method, follow the two steps:
 \begin{enumerate}
 \item Choose a polynomial \(\rho\) of degree \(s\) that satisfies the root condition and \(\rho(1) = 0\).
 \item To get an implicit method, take \(\sigma(w)\) to be the \(s\)-degree truncation of Taylor expansion of \(\frac{\rho(w)}{\log w}\) around \(w = 1\) (which exists since \(\rho(1) = 0\)). For an explicit method, take \(\sigma\) to be the \((s - 1)\)-degree Taylor truncation of \(\frac{\rho(w)}{\log w}\).
@@ -940,7 +940,7 @@ as \(z \to 0\). So the order \(\geq s + 1\). In the case of an explicit method o
   \[
     \sigma(w) = 1 + \frac{3}{2}(w - 1) + \frac{5}{12}(w - 1)^2
   \]
-  for an implicit method (which is called Adams-Moutton method) and
+  for an implicit method (which is called Adams-Moulton method) and
   \[
     \sigma(w) = 1 + \frac{3}{2}(w - 1) = -\frac{1}{2} + \frac{3}{2}w
     \]
@@ -970,16 +970,15 @@ as \(z \to 0\). So the order \(\geq s + 1\). In the case of an explicit method o
   \[
     \rho(w) - \sigma_sw^s\log w = O(|w - 1|^{s + 1})
   \]
-  as \(w \to 1\).
+  as \(w \to 1\). We have
+  \[
+    \log w
+    = -\log \frac{1}{w}
+    = -\log \left( 1 - \frac{w - 1}{w} \right)
+    = \sum_{\ell = 1}^\infty \frac{1}{\ell} \left( \frac{w - 1}{w} \right)^\ell.
+  \]
+  But our choice of \(\rho\) is precisely the first \(s\)-terms in this expansion. The value of \(\sigma_s\) is chosen such that \(\rho_s = 1\).
 \end{proof}
-We have
-\[
-  \log w
-  = -\log \frac{1}{w}
-  = -\log \left( 1 - \frac{w - 1}{w} \right)
-  = \sum_{\ell = 1}^\infty \frac{1}{\ell} \left( \frac{w - 1}{w} \right)^\ell.
-\]
-But our choice of \(\rho\) is precisely the first \(s\)-terms in this expansion. The value of \(\sigma_s\) is chosen such that \(\rho_s = 1\).
 
 \begin{eg}
   Let \(s = 2, \sigma_s = (1 + \frac{1}{2})^{-1} = \frac{2}{3}\), then
@@ -1004,14 +1003,14 @@ The solution of this ODE satisfies
   &= y(t_n) + \int_{t_n}^{t_{n + 1}} y'(\tau) d\tau \\
   &= y(t_n) + \int_{t_n}^{t_{n + 1}} f(\tau, y(\tau)) d\tau \\
   &= y(t_n) + h \int_0^1 f(t_n + \alpha h, y(t_n + \alpha h)) d\alpha \\
-\intertext{at this point we can apply quadrature formulas}
+\intertext{at this point we can apply quadrature formulæ}
   &\approx y(t_n) + h \sum_{j = 1}^\nu b_j \underbrace{f(t_n + c_j h, y(t_n + c_j h))}_{\approx k_j}
 \end{align*}
 and Runge-Kutta will give estimates to the \(k_j\)'s.
 
 The \emph{explicit Runge-Kutta method}\index{Runge-Kutta method} is
 \[
-  y_{n + 1} = y_n + h \sum_{\ell = 1}^\nu b_\ell k_\ell
+  y_{n + 1} = y_n + h \sum_{j = 1}^\nu b_j k_j
 \]
 with
 \begin{align*}
@@ -1130,9 +1129,9 @@ which goes to \(0\) as \(n \to \infty\) for any \(h > 0\).
     \mathcal D = \{h\lambda \in \C: |1 + h\lambda| < 1\}
     = \{z \in \C: |1 + z| < 1\}.
   \]
-  which is \(A\)-stable.
+  which is not \(A\)-stable.
   
-  For the implicit Euler method,
+  For implicit Euler method,
   \[
     \mathcal D
     = \{z \in \C: |(1 - z)^{-1}| < 1\}
@@ -1161,7 +1160,7 @@ which goes to \(0\) as \(n \to \infty\) for any \(h > 0\).
   Any \(A\)-stable multistep method has order \(\leq 2\).
 \end{theorem}
 
-This is a bad news for multistep methods. One way to get around this is to relax \(A\)-stability. Recall the backward differentiation formula (BDF) is an \(s\)-step method with \(\sigma(w) = \sigma_sw^s\). It is almost \(A\)-stable (see pictures in lecture).
+This is a bad news for multistep methods. One way to get around this is to relax \(A\)-stability condition. Recall that the backward differentiation formula (BDF) is an \(s\)-step method with \(\sigma(w) = \sigma_sw^s\). It is almost \(A\)-stable (see pictures in lecture).
 
 \subsubsection{Stiffness and Runge-Kutta}
 
@@ -1214,14 +1213,14 @@ if and only if
 \]
 Thus the method is \(A\)-stable.
 
-Let's show that our implicit Runge-Kutta method has order \(\geq 3\). We will restrict our attention to only scalar autonomous equations \(y' = f(t)\). Let \(y\) be the solution of our ODE. Write \(y\) for \(y_n\). Then
+Let's show that our implicit Runge-Kutta method has order \(\geq 3\). We will restrict our attention to only scalar autonomous equations \(y' = f(t)\). Let \(y\) be the solution to our ODE. Write \(y\) for \(y_n\). Then
 \begin{align*}
   k_1 &= f(y + \frac{1}{4}h(k_1 - k_2)) \\
       &= f(y) + \frac{1}{4}h(k_1 - k_2) f' + \frac{1}{32}h^2(k_1 - k_2)^2 f'' + O(h^3) \\
   k_2 &= f(y + \frac{1}{12}h(3k_1 + 5k_2) \\
       &= f(y) + \frac{1}{12}h(3k_1 + 5k_2)f' + \frac{1}{288}h^2(3k_1 + 5k_2)^2 f'' + O(h^3)
 \end{align*}
-It is difficult and tedious to solve this directly, but we could use a trick to extract the coefficients iterataively. To first order
+It is difficult and tedious to solve this directly, but we could use a trick to extract the coefficients iteratively. To first order
 \begin{align*}
   k_1 &= f(y) + O(h) \\
   k_2 &= f(y) + O(h)
@@ -1247,7 +1246,7 @@ Use these values to compute local error,
 
 \subsubsection{Error control}
 
-Milne device:
+\paragraph{Milne device}
 
 Given the trapezoidal rule
 \[
@@ -1348,7 +1347,7 @@ where the second term on RHS is small since \(d \approx y\) and \(y' = f(t, y)\)
 
 That's all we are going to talk about error control.
 
-\subsection{Solving nonllinear algebraic equations using Newton-Raphson}
+\subsection{Solving nonlinear algebraic equations using Newton-Raphson}
 
 There is one problem we still haven't discussed: solving nonlinear algebraic equations.
 
@@ -1380,11 +1379,11 @@ where \(v\) only depends on previous values \(y_n, \dots, y_{n + s - 1}\). One w
     \[
       \det A = (\det L)(\det U) = \prod_{i = 1}^n L_{ii} \prod_{i = 1}^n U_{ii} = \prod_{i = 1}^n U_{ii}
     \]
-    which is much faster than using the usual definition
+    which is much faster than using starting ab initio from the definition
     \[
-      \det A = \sum_{\sigma \in S_n} \sgn(\sigma) A_{1, \sigma(1)} \cdots A_{n, \sigma(n)}
+      \det A = \sum_{\sigma \in S_n} \sgn(\sigma) \prod_{i = 1}^n A_{i, \sigma(i)}
     \]
-    which has \(n!\) terms in the sum and prohibitively computationally expensive.
+    which has \(n!\) terms in the sum and can be prohibitively expensive computationally.
   \item Testing non-singularity: \(A\) is singular if and only if \(\det A = 0\), if and only if there exists \(i \in \{1, \dots, n\}\) such that \(U_{ii} = 0\).
   \item Solving linear equations: suppose \(Ax = b\) with \(x\) unknown. Then it suffices to solve
     \begin{align*}
@@ -1428,14 +1427,15 @@ The general algorithm is
   \caption{LU factorisation}
 \end{algorithm}
 
-Complexity analysis: the dominant cost is the last line in the for loop, where the number of multiplications needed to form \(\ell_ku_k^T\) is \((n - k + 1)^2\) so the total cost is
+\paragraph{Complexity analysis}
+The dominant cost is the last line in the for loop, where the number of multiplications needed to form \(\ell_ku_k^T\) is \((n - k + 1)^2\) so the total cost is
 \[
   \sum_{k = 1}^n (n - k + 1)^2 = \sum_{j = 1}^n j^2 = O(n^3).
 \]
 
 A quick remark for implementation: we don't have to store \(A_k\)'s so it is possible to have even smaller spatial complexity.
 
-A note on the comparison with Gaussian elimination: the matrix \(A_k\) constructed in the algorithm is of the form
+The algorithm can be seen as a variant of Guassian elimination: the matrix \(A_k\) constructed in the algorithm is of the form
 \[
   \begin{pmatrix}
     0 & 0 \\
@@ -1534,7 +1534,7 @@ for all \(x \in \R^n \setminus \{0\}\).
 \end{theorem}
 
 \begin{proof}
-  This is exactly the same as the proof in IB Linear Algebra, but in a numerical analysis flavour.
+  This is exactly the same as the proof in IB Linear Algebra, but numerical analysis flavoured.
   \begin{itemize}
   \item \(\impliedby\): Assume \(A = LDL^T\) of the form given. For any \(x \in \R^n \setminus \{0\}\),
     \[
