@@ -1,0 +1,90 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Differential Geometry}
+\def\nlecturer{A.\ Kovalev}
+
+\def\nterm{Michaelmas}
+\def\nyear{2018}
+
+\input{header}
+
+\begin{document}
+
+\input{titlepage}
+
+\section{Manifolds}
+
+We want to generalise curves and surfaces in \(\R^2\). A curve is a map \(\gamma: \R \supseteq I \to \R^2\) or \(\R^3\) that satisfies certain properties we'll find out in a minute. Clearly continuity is necessary but not sufficent, as evidenced by the famous Peano space-filling curve. Smoothness is not quite enough either, as \(t \mapsto (t^2, t^3)\) has a cusp at the origin. The correct requirement will be that \(\gamma\) has regular parameterisation, i.e.\ \(|\dot \gamma(t)| \neq 0\) for all \(t\).
+
+Similarly, a surface should be defined as as a map \(r: \R^2 \supseteq D \to \R^3\) with a regular parameterisation, i.e.\ \(r \in C^\infty(D)\) and \(\left| \frac{\p r}{\p u} \times \frac{\p r}{\p v} \right| \neq 0\) for all \((u, v) \in D\).
+
+We may follow this route and generalise to (hyper)surfaces in \(\R^n\), which will be a generalisation of classical differential geometry of curves and surfaces in \(\R^3\). The good thing is that we can readily apply calculus and it is easy to construct these objects. However, it does suffer from the prolblem of different parameterisations give rise to different geometric objects, as well as some surface requiring more than one parameterisation. Although these can be bypassed more or less, the more serious drawback is the extra technical complexity determined by the higher dimension of the ambient space.
+
+A better concept is \emph{smooth manifolds}. We first begin with a review of topological structure, which every manifold possesses.
+
+\begin{definition}[topological space]
+  A \emph{topological space} \(M\) is a choice of class of the \emph{open sets} such that
+  \begin{enumerate}
+  \item \(\emptyset\) and \(M\) are open,
+  \item if \(U\) and \(U'\) are open then so is \(U \cap U'\),
+  \item for anly collection of open sets, the union is open.
+  \end{enumerate}
+\end{definition}
+
+In this course, we always require a topological space to be Hausdorff and second countable.
+
+\begin{definition}[local coordinate chart]\index{chart}
+  A \emph{local coordinate chart} on a topological space \(M\) is a homeomorphism \(\varphi: U \to V\) where \(U \subseteq M\) and \(V \subseteq \R^d\) are open. \(U\) is a \emph{coordinate neighbourhood}.
+\end{definition}
+
+\begin{definition}[\(C^\infty\)-differentiable structure]\index{differentiable structure}\index{atlas}
+  A \emph{\(C^\infty\)-differentiable structure} on a topological space \(M\) is a collection of charts \(\{\varphi_\alpha: U_\alpha \to V_\alpha\}\) where \(V_\alpha \subseteq \R^d\) for all \(\alpha\) such that
+    \begin{enumerate}
+    \item \(\{U_\alpha\}\) covers \(M\), i.e.\ \(M = \bigcup U_\alpha\),
+    \item compatibility condition: for all \(\alpha, \beta\), \(\varphi_\beta \compose \beta_\alpha^{-1}\) is \(C^\infty\) wherever defined, i.e.\ on \(\varphi_\alpha(U_\alpha \cap U_\beta)\),
+    \item maximality: if \(\varphi\) is compatible with all the \(\varphi_\alpha\)'s then \(\varphi\) is in the collection.
+    \end{enumerate}
+    
+    The collection of charts is called an \emph{atlas}.
+\end{definition}
+
+Note that 2 implies that \(\varphi_\beta \compose \varphi_\alpha^{-1}\) is a diffeomorphism.
+
+\begin{definition}[manifold]\index{manifold}
+  A \emph{manifold} is a Hausdorff, second countable topological space with a \(C^\infty\)-differentiable structure.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item In practice, we almost never specify the topological structure. Instead, we can induce a topology from a \(C^\infty\) structure by declaring \(D \subseteq M\) open if and only if for all \((\varphi_\alpha, U_\alpha)\), \(\varphi_\alpha(U_\alpha \cap D)\) is open in \(\R^d\).
+  \item We may replace \(C^\infty\) by \(C^k\) for \(k > 0\) finite. If we set \(k = 0\), the objects become topological manifolds. On the other hand, use \(\C^n\) and holomorphic maps we get complex manifolds.
+  \item Requirement of being Hausdorff and second countable are for rather technical reasons. In some cases we may drop Hausdorffness requirement, and such examples do arise naturally. However in that case we lose uniqueness of limits. Similarly non-second countable space, such as the disjoint union of uncountably many \(\R^n\), can become manifold-like structure if we relax the definition.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\R^d\) covered by the single chart \(\varphi = \id\).
+  \item Unit sphere \(S^n = \{\V x = (x_0, \dots, x_n) \in \R^{n + 1}: \sum_{i = 0}^n x_i^2 = 1\}\). The charts are stereographic projections
+    \begin{align}
+      \varphi(\V x) &= \frac{1}{1 - x_0} (x_1, \dots, x_n) \\
+      \psi(\V x) &= \frac{1}{1 + x_0} (x_1, \dots, x_n)
+    \end{align}
+    where \(\varphi\) is defined for all points on \(S^n\) except \(1\) and similar for \(\psi\). Suppose \(\varphi(P) = u, \psi(P) = v\), then by basic geometry \(v = \psi \compose \varphi^{-1}(u) = \frac{u}{\norm{u}^2}\).
+  \item Given \(M_1, M_2\) manifolds of dimension of \(d_1\) and \(d_2\), \(M_1 \times M_2\) is a manifold of dimension \(d_1 + d_2\). We define the \(n\)-torus to be \(T_n = S^1 \times \dots \times S^1\).
+  \item An open subset \(U\) of a manifold \(M\) is a manifold.
+  \end{enumerate}
+\end{eg}
+
+
+
+
+
+
+
+% https://www.dpmms.cam.ac.uk/~agk22/teaching.html
+
+\printindex
+\end{document}

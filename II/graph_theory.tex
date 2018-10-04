@@ -6,7 +6,7 @@
 \def\nlecturer{I.\ Leader}
 
 \def\nterm{Michaelmas}
-\def\nyear{2017}
+\def\nyear{2018}
 
 \input{header}
 
@@ -18,6 +18,31 @@
 \begin{document}
 
 \input{titlepage}
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Informally, a \emph{graph} consists of some vertices with some pairs of ``vertices'' joined by ``edges''. (More formal definition later)
+
+A few problems:
+\begin{enumerate}
+\item bridges of Königsberg (Euler, 18th century): is it possible to walk round the city crossing each bridge precisely once and returing to starting point? Convert it into a graph, the question becomes: is it possible to walk round the ``graph'', traversing each edge precisely once, finishing at the starting vertex?\footnote{This is actually a multigraph, with more than one edge joining two vertices.}
+\item four colour problem (first proposed in 19th century): how many colours are needed to colour a map? Denote each country by a vertex and connect two vertices by an edge if the countries are neighbours. Conjecture: let \(G\) be a graph that can be drawn in the plane with no crossings. Then the vertices of \(G\) can be coloured with \(4\) colours such that each edge has different coloured endpoints.
+\item simultaneous coset representation (1930s): let \(G\) be a finite group, \(H \leq G\). Lagrange's Theorem says that \(|H| \divides |G|\) and if \(|G|/|H| = n\) then there are \(a_1, \dots, a_n \in G\) such that \(a_1H, \dots, a_nH\) are the left cosets of \(H\). Similarly there exist \(b_1, \dots, b_n \in G\) such that \(Hb_1, \dots, Hb_n\) are the right cosets. We can ask the problem: can we make the \(a_i\)'s and \(b_i\)'s the same? i.e.\ can we find \(c_1, \dots, c_n \in G\) such that the left cosets of \(H\) are \(c_1H, \dots, c_nH\) and the rights cosets are \(Hc_1, \dots, Hc_n\)? Recall that if \(L\) is a left coset of \(H\) and \(g \in G\) then \(L = gH\) if and only if \(g \in L\). Take set \(X\) of vertices, one for each left coset, disjoint set \(Y\) of vertices, one for each right coset. For each \(g \in G\), add an edge from \(gH\) to \(Hg\). The problem now becomes: can we find a set of edges meeting each vertex precisely once?
+\item Fermat equation mod \(p\): Fermat asserted that \(x^n + y^n = z^n\) has no non-trivial solutions in integers if \(n \geq 3\). 
+
+  \begin{theorem}
+    Let \(n \in \N\). Then for any sufficiently large prime \(p\), there are \(x, y, z \neq 0 \pmod p\) with \(x^n + y^n = z^n \pmod p\).
+  \end{theorem}
+
+  The original proof involves lots of number theory and is hard. However we can reduce it to a graph theory problem. Let \(G = \Z_p^*\), multiplicative group of nonzero residues mod \(p\). Let \(H = \{g^n: g \in G\} \leq G\). We want \(x, y, z \in H\) with \(x + y = z\). We can check \(|H| \geq \frac{|G|}{n}\) so \(H\) has at most \(n\) left cosets. Suppose now in some left coset \(gH\) we have \(u, v, w \in gH\) with \(u + v = w\). Then \(g^{-1}u + g^{-1}v = g^{-1}w\) is a solution in \(H\). Thus we have reduced the theorem to the following combinatorial statement:
+
+  \begin{theorem}[Schur]
+    Let \(n\) be a positive integer. Then for any sufficiently large \(k\), if \([k] = \{1, 2, \dots, k\}\) is partitioned into \(n\) parts, then we can find \(u, v, w\) in the same part with \(u + v = w\).
+  \end{theorem}
+\end{enumerate}
+
 
 Revision of \(\bigO\) notation and its cousins: let \(f,g:\N\to (0,\infty)\). We say
 \begin{align*}
@@ -135,4 +160,7 @@ But what if some \emph{non-bipartite} graph is better? For example, \(G\) is not
 \end{proof}
 
 Hence if \(|G|=n, e(G) > floor \frac{n^2}{4}\) then \(G\) contains a \(\triangle\). Therefore \(\exx(n, \triangle) = \floor*{\frac{n^2}{4}}\).
+
+
+\printindex
 \end{document}

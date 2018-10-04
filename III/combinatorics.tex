@@ -1,14 +1,88 @@
 \documentclass[a4paper]{article}
 
-\def\npart{II}
+\def\npart{III}
 
-\def\ntitle{Galois Theory}
-\def\nlecturer{C.\ Brookes}
+\def\ntitle{Combinatorics}
+\def\nlecturer{I.\ B.\ Leader}
 
 \def\nterm{Michaelmas}
-\def\nyear{2017}
+\def\nyear{2018}
 
 \input{header}
+
+\begin{document}
+
+\input{titlepage}
+
+\section{Set Systems}
+
+\begin{definition}[set system]\index{set system}
+  Let \(X\) be a set. A \emph{set system} on \(X\) (or \emph{family of subsets}) of \(X\) is a family \(\mathcal A \subseteq \powerset (X)\).
+\end{definition}
+
+\begin{eg}
+  We write \(X^{(r)} = \{A \subseteq X: |A| = r\}\)
+\end{eg}
+
+In this course we almost deal exclusively with finite setss so unless otherwise stated, in this course we assume all sets are finite and \(X = [n] = \{1, 2, \dots, n\}\).
+
+For example, \(|X^{(r)}| = \binom{n}{r}\). More concretely, for example,
+\[
+  [4]^{[2]} = \{12, 13, 14, 23, 24, 34\}
+\]
+where \(12\) denotes \(\{1, 2\}\) to avoid heavy notation. Therefore \(|[4]^{[2]}| = 6\).
+
+What is the mental picture for power set? Often we make \(\powerset (X)\) into a graph, called \(Q_n\), by joining \(A\) to \(B\) if \(|A \Delta B| = 1\) where \(\Delta\) is the symmetric difference, i.e.\ if \(A = B \cup \{i\}\) for some \(i \notin B\) (or vice verse).
+
+\begin{eg}
+  \(Q_3\)
+\end{eg}
+
+\begin{eg}
+  General picture for \(Q_n\) where \(n\) is even:
+
+  and when \(n\) is odd:
+\end{eg}
+
+If we identify a set \(A \subseteq X\) with a \(\{0, 1\}\) sequence of length \(n\) (e.g.\ \(134 \leftrightarrow 1011000 \cdots 0\)), via \(A \leftrightarrow \mathbf{1}_A \text{ or } \chi_A\). In this way, we can represent \(Q_n\) as a \(n\)-dimensional cube:
+
+For this reason, \(Q_n\) is often called the \emph{hypercube} or \emph{discrete cube} or \emph{\(n\)-cube}. In this way, the study of a set system become the study of a graph.
+
+\subsection{Chains \& Antichains}
+
+\begin{definition}[chain]\index{chain}
+  A family \(\mathcal A \subseteq \powerset (X)\) is a \emph{chain} if for all \(A, B \in \mathcal A, A \subseteq B \text{ or } B \subseteq A\).
+\end{definition}
+
+\begin{eg}
+  \(\{12, 125, 123589\}\).
+\end{eg}
+
+On the other hand, we have
+
+\begin{definition}[antichain]\index{antichain}
+  A family \(\mathcal A \subseteq \powerset (X)\) is an \emph{antichain} if for all \(A, B \in \mathcal A\) with \(A \neq B\), \(A \nsubseteq B\).
+\end{definition}
+
+\begin{eg}
+  \(\{1, 467, 2456\}\).
+\end{eg}
+
+A natural question is: how large can a chain be? Obviously we can achieve \(|\mathcal A| = n + 1\). We also cannot exceed \(n + 1\) since a chain must meet each ``level'' \(X^{(r)}\) for \(0 \leq r \leq n\) in at most one place.
+
+A less trivial question is how large an antichain can be. We could achieve \(|\mathcal A| = n\) by enumerating all the singletons. It is maximal since adjoining any nonempty set to the family will result in an inclusion. However, it is not the largest antichain. Indeed, we could take \(\mathcal A = X^{(r)}\) for any \(r\). Thus we can achieve \(|\mathcal A| = \binom{n}{\floor{n/2}}\). Can we beat it?
+
+\printindex
+\end{document}
+
+% Three parts:
+% Chapter 1: set systems
+% Chapter 2: isoperimetric inequalities
+% Chapter 3: projections
+% Books: Combinatorics, Bollobas, CUP 1986, excellent for Chapter 1 and Chapter 2 (and gentle!) and for future development of the course;
+% Combinatorics of finite sets, Anderson, OUP 1987, simple and clear, good for Chapter 1
+
+\iffalse
 
 % TODO: clearup simple galois correspondence diagram
 
@@ -2266,7 +2340,7 @@ Note that it is the subgroup \emph{generated} by all such elements since it is n
 \end{proof}
 
 \begin{eg}[Algebraic number]
-  Let \(\mathbb A = \{\alpha \in \C: \alpha \text{ algebraic over } \Q\}\). It is a subfield of \(\C\): if \(\alpha\) and \(\beta\) are algebraic over \(\Q\) then \(|\Q(\alpha, \beta): \Q| < \infty\). So if \(\gamma = \alpha + \beta, \alpha - \beta, \alpha\beta\) or \(\alpha/\beta\) for \(\beta \neq 0\) we get \(\Q(\gamma) \leq \Q(\alpha, \beta)\) and so \(|\Q(\gamma):\Q| < \infty\) so \(\gamma\) is algebraic over \(\Q\) and so \(\gamma \in \mathbb A\). Therefore \(\mathbb A = \cl \Q\) is an algebraic closure of \(\Q\).
+  Let \(\mathcal A = \{\alpha \in \C: \alpha \text{ algebraic over } \Q\}\). It is a subfield of \(\C\): if \(\alpha\) and \(\beta\) are algebraic over \(\Q\) then \(|\Q(\alpha, \beta): \Q| < \infty\). So if \(\gamma = \alpha + \beta, \alpha - \beta, \alpha\beta\) or \(\alpha/\beta\) for \(\beta \neq 0\) we get \(\Q(\gamma) \leq \Q(\alpha, \beta)\) and so \(|\Q(\gamma):\Q| < \infty\) so \(\gamma\) is algebraic over \(\Q\) and so \(\gamma \in \mathcal A\). Therefore \(\mathcal A = \cl \Q\) is an algebraic closure of \(\Q\).
 \end{eg}
 
 Like construction of many other objects in this course, we want to prove the existence and uniqueness of algebraic closures. In general we need to appeal to Zorn's Lemma. This will be covered in IID Logic and Set Theory, and it fact it is equivalent to both Axiom of Choice and Well-ordering Principle.
@@ -2529,5 +2603,9 @@ Emmy Noether in 1920s consider other subgroups of \(S_n\) and showed that the in
   \(\C[X_1, \dots, X_n]^H\) where \(H \leq \GL(V)\) finite is isomorphic to a polynomial algebra if and only if \(H\) is generated by pesudoreflections, whose \(1\)-eigenspace has codimension \(1\).
 \end{theorem}
 
+
+
 \printindex
 \end{document}
+
+\fi
