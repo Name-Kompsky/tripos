@@ -1,0 +1,141 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Algebraic Topology}
+\def\nlecturer{H.\ Wilton}
+
+\def\nterm{Michaelmas}
+\def\nyear{2018}
+
+\input{header}
+
+\DeclareMathOperator{\rel}{rel}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+\begin{question}
+  Is the Hopf link really linked? More formally, is there a homeomorphism \(\R^3 \to \R^3\) taking \(H\) to \(U\)?
+\end{question}
+
+\(H\) can be realised as \(S^1 \amalg S^1 \to \R^3\). For \(U\), we can consider \(S^1 \amalg S^1\) as boundary of \(D^1 \amalg D^1\) and the map extends to a map to discs.
+
+So it makes sense to phrase the question as
+
+\begin{question}
+  Does the Hopf link \(\eta: S^1 \amalg S^1 \to \R^3\)extend to a map of discs?
+\end{question}
+
+This is an example of an \emph{extension problem}.
+
+Here is another example. Define the \(n\)-sphere \(S^{n - 1} := \{x \in \R^n: \sum_{i = 1}^n x_i^2 = 1\}\), which sits inside \(D^n = \{x \in \R^n: \sum_{i = 1}^n x_i^2 = 1\}\). We can ask:
+
+\begin{question}
+  Does the identity map \(\id_{S^{n - 1}}: S^{n - 1} \to S^{n - 1}\) factor through \(D^n\)?
+\end{question}
+
+To gain some intuition, let's consider small \(n\). For \(n = 1\), \(S^0 = \{-1, 1\}\). The answer is no by Intermediate Value Theorem, or connectedness from topology. For \(n = 2\), this answer is again no by winding number argument. What about \(n \geq 3\)?
+
+These problems are hard because we have to consider continuous maps between two spaces, which are in general very big and hard to compute. On the other hand, a comparable algebraic problem is
+
+\begin{question}
+  Does the map \(\id: \Z \to \Z\) factor through \(0\)?
+\end{question}
+
+Well that's much much easier!
+
+\section{The Fundamental Group}
+
+Throughout this course, ``maps'' mean continuous maps.
+
+\subsection{Deforming maps and spaces}
+
+\begin{definition}[homotopy]\index{homotopy}
+  Let \(f_0, f_1: X \to Y\) be maps. A \emph{homotopy} between \(f_0\) and \(f_1\) is a map \(F: X \times [0, 1] \to X\) such that \(F(x, 0) = f_0(x)\) and \(F(x, 1) = f_1(x)\) for all \(x \in X\).
+
+  If \(F\) exists, we say that \(f_0\) is \emph{homotopic} to \(f_1\) and write \(f_0 \simeq f_1\), or to emphasise the homotopy, \(f_0 \simeq_F f_1\).
+\end{definition}
+
+\begin{notation}
+  \(I = [0, 1]\). We often write \(f_t(x) = F(x, t)\).
+\end{notation}
+
+\begin{eg}
+  If \(Y\) is a convex region in \(\R^n\) then for any \(f_0, f_1: X \to Y\), the \emph{straight-line homotopy} \(F(x, y) = t f_1(x) + (1 - t) f_0(x)\) is a homotopy \(f_0 \simeq f_1\).
+\end{eg}
+
+\begin{definition}[relative homotopy]
+  If \(Z \subseteq X\) and \(F(z, t) = f_0(z) = f_1(z)\) for all \(z \in Z, t \in I\), then \(F\) is a \emph{homotopy relative to \(Z\)}, write \(f_0 \simeq_F f_1 \rel Z\).
+\end{definition}
+
+\begin{lemma}
+  The relation \(\simeq\) (\(\rel Z\)) is an equivalence relation on maps \(X \to Y\).
+\end{lemma}
+
+\begin{proof}
+  Reflexivity and symmetry are easy. For transitivity, suppose \(f_0 \simeq_{F_0} f_1 \simeq_{F_1} f_2\). Let
+  \[
+    F(x, t) =
+    \begin{cases}
+      F_0(x, 2t) & t \leq \frac{1}{2} \\
+      F_1(x, 2t - 1) & t \geq \frac{1}{2}
+    \end{cases}
+  \]
+  which is the homotopy we need.
+\end{proof}
+
+\begin{definition}[homotopy equivalence]\index{homotopy equivalence}
+  \(f: X \to Y\) and \(g: Y \to X\) is a \emph{homotopy equivalence} if \(g \compose f \simeq \id_X\) and \(f \compose g \simeq \id_Y\). In this case we say \(X\) is homotopy equivalent to \(Y\) and write \(X \simeq Y\).
+\end{definition}
+
+\begin{eg}
+  Let \(X = *\), the space with one point and \(Y = \R^n\). Let \(f: * \mapsto 0\), \(g\) be the unique map \(Y \to X\). Then \(g \compose f = \id_X\), and \(f \compose g = 0 \simeq \id_Y\) via the straightline homotopy. Therefore \(\R^n\) is homotopy equivalent to \(*\).
+\end{eg}
+
+\begin{definition}[contractible]\index{contractible}
+  A space \(X\) is \emph{contractible} if \(X \simeq *\).
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\printindex
+\end{document}
+
+% https://www.dpmms.cam.ac.uk/~hjrw2/teaching.html

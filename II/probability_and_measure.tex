@@ -1,0 +1,173 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Probability and Measure}
+\def\nlecturer{E.\ Breuillard}
+
+\def\nterm{Michaelmas}
+\def\nyear{2018}
+
+\input{header}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Lebesgue meaure}
+
+\subsection{Boolean algebra}
+
+\begin{definition}[Boolean algebra]\index{Boolean algebra}
+  Let \(X\) be a set. A \emph{Boolean algebra} on \(X\) is a family of subsets of \(X\) which
+  \begin{enumerate}
+  \item contains \(\emptyset\),
+  \item is stable under finite unions and complementation.
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item The \emph{trivial Boolean algebra} \(\mathcal B = \{\emptyset, X\}\).
+  \item The \emph{discrete Boolean algebra} \(\mathcal B = 2^X\), the family of all subsets of \(X\).
+  \item Less trivially, if \(X\) is a topological space, the family of \emph{constructible sets} forms a Boolean algebra, where a constructible set is the finite union of locally closed set, i.e.\ a set \(E = U \cap F\) where \(U\) is open and \(F\) is closed.
+  \end{itemize}
+\end{eg}
+
+\begin{definition}[finitely additive measure]\index{finitely additive measure}
+  Let \(X\) be a set and \(\mathcal B\) a Boolean algebra on \(X\). A \emph{finitely additive measure} on \((X, \mathcal B)\) is a function \(m: \mathcal B \to [0, +\infty]\) such that
+  \begin{enumerate}
+  \item \(m(\emptyset) = 0\),
+  \item \(m(E \cup F) = m(E) + m(F)\) where \(E \cap F = \emptyset\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Counting measure: \(m(E) = \#E\), the cardinality of \(E\) where \(\mathcal B\) is the discrete Boolean algebra of \(X\).
+  \item More generally, given \(f: X \to [0, +\infty]\), define for \(E \subseteq X\),
+    \[
+      m(E) = \sum_{e \in E} f(e).
+    \]
+  \item Suppose \(X = \coprod_{i = 1}^N X_i\), then define \(\mathcal B(X)\) to be the unions of \(X_i\)'s. Assign a weight \(a_i \geq 0\) to each \(X_i\) and define \(m(E) = \sum_{i: X_i \subseteq E} a_i\) for \(E \in \mathcal B\).
+  \end{enumerate}
+\end{eg}
+
+\subsection{Jordan measure}
+
+This section is a historic review and provides intuition for Lebesgue measure theory. We'll gloss over details of proofs in this section.
+
+\begin{definition}
+  A subset of \(\R^d\) is called \emph{elementary} if it is a finite union of \emph{boxes}, where a box is a set \(B = I_1 \times \dots I_d\) where each \(I_i\) is a finite interval of \(\R\).
+\end{definition}
+
+\begin{proposition}
+  Let \(B \subseteq \R^d\) be a box. Let \(\mathcal E(B)\) be the family of elementary subsets of \(B\). Then
+  \begin{enumerate}
+  \item \(\mathcal E(B)\) is a Boolean algebra on \(B\),
+  \item every \(E \in \mathcal E(B)\) is a disjoint finite union of boxes,
+  \item if \(E \in \mathcal E(B)\) can be written as disjoint finite union in two ways, \(E = \bigcup_{i = 1}^n B_i = \bigcup_{j = 1}^m B_j'\), then \(\sum_{i = 1}^n |B_i| = \sum_{j = 1}^m |B_j'|\) where \(|B| = \prod_{i = 1}^d |b_i - a_i|\) if \(B = I_1 \times \dots \times I_d\) and \(I_i\) has endpoints \(a_i, b_i\).
+  \end{enumerate}
+\end{proposition}
+
+Following this, we can define a finitely additive measure correponding to our intuition of length, area, volume etc:
+
+\begin{proposition}
+  Define \(m(E) = \sum_{i = 1}^n |B_i|\) if \(E\) is any elementary set and is the disjoint union of boxes \(B_i \subseteq \R^d\). Then \(m\) is a finitely additive measure on \(\mathcal E(B)\) for any box \(B\).
+\end{proposition}
+
+\begin{definition}
+  A subset \(E \subseteq \R^d\) is \emph{Jordan measurable} if for any \(\varepsilon > 0\) there are elementary sets \(A, B\), \(A \subseteq E \subseteq B\) and \(m(B \setminus A) < \varepsilon\).
+\end{definition}
+
+\begin{remark}
+  Jordan measurable sets are bounded.
+\end{remark}
+
+\begin{proposition}
+  If a set \(E \subseteq \R^d\) is Jordan measurable, then
+  \[
+    \sup_{A \subseteq E \text{ elementary}} \{m(A)\} = \inf_{B \supseteq E \text{ elementary}} \{m(B)\}.
+  \]
+  In which case we define the \emph{Jordan measure} of \(E\) as
+  \[
+    m(E) = \sup_{A \subseteq E} \{m(A)\}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Take \(A_n \subseteq E\) such that \(m(A_n) \nearrow \sup\) and \(B_n \supseteq E\) such that \(m(B_n) \searrow \inf\). Note that
+  \[
+    \inf \leq m(B_n) = m(A_n) + m(B_n \setminus A_n) \leq \sup + m(B \setminus A) \leq \sup + \varepsilon
+  \]
+  for arbitrary \(\varepsilon > 0\) so they are equal.
+\end{proof}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item If \(B\) is a box, the family \(\mathcal J(B)\) of Jordan measurable subsets of \(B\) is a Boolean algebra.
+  \item A subset \(E \subseteq [0, 1]\) is Jordan measurable if and only if \(\mathbf 1_E\), the indicator funciton on \(E\), is Riemann integrable.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Lebesgue measure}
+
+Although Jordan measure corresponds to the intuition of length, area and volume, it suffer from a few severe problems and issues:
+\begin{enumerate}
+\item unbounded sets in \(\R^d\) are not Jordan measurable.
+\item \(\mathbf 1_{\Q \cap [0, 1]}\) is not Riemann integrable, and therefore \(\Q \cap [0, 1]\) is not Jordan measurable.
+\item pointwise limits of Riemann integrable functions \(f_n := \mathbf 1_{\frac{1}{n!} \Z \cap [0, 1]} \to \mathbf 1_{\Q \cap [0, 1]}\) is not Riemann integrable.
+\end{enumerate}
+
+The idea of Lebesgue is to use countable covers by boxes.
+
+\begin{definition}
+  A subset \(E \subseteq \R^d\) is \emph{Lebesgue measurable} if for all \(\varepsilon > 0\), there exists a countable union of boxes \(C\) with \(E \subseteq C\) and \(m^*(C \setminus E) < \varepsilon\), where \(m^*\), the \emph{Lebesgue outer measure}, is defined as
+  \[
+    m^*(E) = \inf \{\sum_{i \geq 1} |B_i|: E \subseteq \bigcup_{i \geq 1} B_i, B_i \text{ boxes}\}.
+  \]
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\printindex
+\end{document}
+
+% http://www.statslab.cam.ac.uk/~james/Lectures/pm.pdf
+
+% Books: books listed on course handbook, as well as
+% Intorduction to meaure theory, T. Tao
+% Real and Complex analysis, W. Rudin
+
+% related courses: II Linear Analysis
+
+% schedule
+% wk 1: Lebesgue measure on \R^d
+% wk 2: abstract measure theory
+% wk 3: integration
+% wk 4: measure theoretical foundations of probability theory
+% wk 5: modes of convergence of random variables
+% wk 6: Hilbert space techniques, L^p spaces
+% wk 7: Fourier analysis, Gaussian random variables, Central Limit Theorem, Law of Large Number Theory
+% wk8: Ergodic Theorem

@@ -1,0 +1,175 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Linear Analysis}
+\def\nlecturer{R.\ Bauerschmidt}
+
+\def\nterm{Michaelmas}
+\def\nyear{2018}
+
+\input{header}
+
+\newtheorem*{fact}{Fact}
+
+\newcommand{\K}{{\mathbb{K}}} % field
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Normed spaces and linear operators}
+
+Unless stated, vector spaces are real or complex, and \(\K\) stands for \(\R\) or \(\C\).
+
+\subsection{Normed vector spaces}
+
+\begin{definition}[normed vector space]\index{normed vector space}
+  A \emph{normed vector space} \((X, \norm{\cdot})\) is a vector space \(X\) with a norm \(\norm{\cdot}: X \to \R, x \mapsto \norm x\) satisfying
+  \begin{enumerate}
+  \item positive-definite: \(\norm x \geq 0\) for all \(x \in X\) and \(\norm x = 0\) if and only if \(x = 0\),
+  \item positive homogeneity: \(\norm{\lambda x} = |\lambda| \norm x\) for all \(\lambda \in K\) and \(x \in X\),
+  \item triangle inequality: \(\norm{x + y} \leq \norm x + \norm y\) for all \(x, y \in X\).
+  \end{enumerate}
+\end{definition}
+
+In particular, every norm induces a \emph{metric} by \(d(x, y) = \norm{x - y}\).
+
+\begin{fact}
+Vector space operations and the norm are continuous maps, i.e.\ the following maps
+\begin{align*}
+  \K \times X &\to X \\
+  (\lambda, x) &\mapsto \lambda x \\
+  X \times X &\to X \\
+  (x, y) &\mapsto x + y \\
+  X &\to \R \\
+  x &\mapsto \norm x
+\end{align*}
+are continuous and the metric is translation invariant: \(d(x, y) = d(x + z, y + z)\) for all \(x, y, z \in X\).
+\end{fact}
+
+\begin{proof}
+  We only check scalar multiplication. The others are left as exercises. Since \(\K\) and \(X\) are both metric spaces, it suffices to check that \(\lambda_j \to \lambda\) in \(\K\) and \(x_j \to x\) in \(X\) implies \(\lambda_j x_j \to \lambda x\).
+
+  Indeed,
+  \begin{align*}
+    &\norm{\lambda_j x_j - \lambda x} \\
+    =& \norm{(\lambda_j - \lambda) x_j + \lambda(x_j - x)} \\
+    \leq& \norm{(\lambda_j - \lambda) x_j} + \norm{\lambda(x_j - x)} \\
+    =& |\lambda_j - \lambda| \norm{x_j} +|\lambda| \norm{x_j - x} \\
+    \to& 0
+  \end{align*}
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\ell_n^2 = (\R^n, \norm \cdot_2)\) where \(\norm x_2 = (\sum_{i = 1}^n |x_i|^2)^{1/2}\), i.e.\ Euclidean norm.
+  \item \(\ell_n^1 = (\R^n, \norm \cdot_1)\) where \(\norm x_1 = \sum_{i = 1}^n |x_i|\).
+  \item \(\ell_n^\infty = (\R^n, \norm \cdot_\infty)\) where \(\norm x_\infty = \max_i |x_i|\).
+  \end{enumerate}
+\end{eg}
+
+It is often useful to consider the \emph{unit ball} \(B = B(X) = \{x \in X: \norm x \leq 1\}\). (Pictures)
+
+\begin{fact}\leavevmode
+\begin{enumerate}
+\item \(B\) determines the norm through \(\norm x = \inf \{t > 0: x \in tB\}\).
+\item \(B\) is \emph{convex}: for all \(x, y \in B, \lambda \in (0, 1), \lambda x + (1 - \lambda) y \in B\).
+\end{enumerate}
+\end{fact}
+
+\begin{remark}
+  Any set \(B \subseteq \R^n\) which is a closed, bounded, symmetric (\(x \in B \implies -x \in B\)) neighbourhood of \(0\) defines a norm by the same formula as above and \(B\) is the unit ball of that norm, although we will not use this fact in the course.
+\end{remark}
+
+\subsection{The space \(\mathcal l^p\)}
+
+Let \(S = \{x = (x_i)_{i = 1}^\infty \subseteq \K\}\) be the set of scalar sequences with
+\begin{align*}
+  x + y &= (x_i)_i + (y_i)_i = (x_i + y_i)_i, \\
+  \lambda x &= \lambda (x_i)_i = (\lambda x_i)_i.
+\end{align*}
+
+\begin{definition}
+  For \(1 \leq p < \infty\), let \(\ell^p = \{x \in S: \sum_n |x_n|^p < \infty\}\) with norm \(\norm x_p = (\sum_n |x_n|^p)^{1/p}\). let \(\ell^\infty = \{x \in S: \sup_n |x_n| < \infty\}\) with norm \(\norm x_\infty = \sup_n |x_n|\). Finally, \(c_0 = \{x \in S: x_n \to 0\}\) with norm \(\norm x_\infty = \sup_n |x_n|\).
+\end{definition}
+
+We have yet proved \(\norm \cdot_p\) is a norm for general \(p\). The triangle inequality follows from Minkowski's inequality, discussed next.
+
+Recall that \(f: \R^+ \to \R\) is \emph{convex} if
+\[
+  f(\lambda t + (1 - \lambda) s) \leq \lambda f(t) + (1 - \lambda) f(s)
+\]
+for all \(s, t \in \R^+, \lambda \in (0, 1)\). Graphically, the graph of \(f\) lies below the secant between any two points on the graph. \(f\) is concave if \(-f\) is convex. Note that \(\log: \R^+ \to \R\) is a concave function.
+
+\begin{corollary}
+  Let \(1 < p, q < \infty\) with \(\frac{1}{p} + \frac{1}{q} = 1\). Then
+  \[
+    \frac{1}{p} |x|^p + \frac{1}{q} |y|^q \geq |x| \cdot |y|
+  \]
+  for all \(x, y \in \K\).
+\end{corollary}
+
+\begin{proof}
+  Set \(t = |x|^p, s = |y|^q, \lambda = \frac{1}{p}\). Then
+  \begin{align*}
+    &\frac{1}{p} |x|^p + \frac{1}{q} |y|^q \geq |x| |y| \\
+    \iff& \lambda t + (1 - \lambda) s \geq t^\lambda s^{1 - \lambda} \\
+    \iff& \log (\lambda t + (1 - \lambda) s) \geq \lambda \log t + (1 - \lambda) \log s
+  \end{align*}
+  which holds by concavity of \(\log\).
+\end{proof}
+
+\begin{theorem}[Hölder's inequality]\index{Hölder's inequality}
+  Let \(1 < p, q < \infty\) with \(\frac{1}{p} + \frac{1}{q} = 1\), let \(x \in \ell^p, y \in \ell^q\). Then \(xy = (x_ny_n)_n \in \ell^1\) and
+  \[
+    \norm{xy}_1 \leq \norm x_p \norm x_q.
+  \]
+\end{theorem}
+
+\begin{proof}
+  It suffcies to assumes that \(\norm x_p = 1 = \norm y_q\). By Hölder's inequality,
+  \[
+    \sum_{n = 1}^N |x_n y_n| \leq \frac{1}{p} \sum_{n = 1}^N |x_n|^p + \frac{1}{q} \sum_{n = 1}^N |y_n|^q.
+  \]
+  Take \(N \to \infty\),
+  \[
+    \norm{xy}_1 \leq \frac{1}{p} + \frac{1}{q} = 1 = \norm x_p \norm y_q.
+  \]
+\end{proof}
+
+\begin{theorem}[Minkowski's inequality]\index{Minkowski's inequality}
+  Let \(1 < p < \infty\) and let \(x, y \in \ell^p\). Then \(x + y \in \ell^p\) and \(\norm{x + y}_p \leq \norm x_p + \norm y_p\).
+\end{theorem}
+
+\begin{proof}
+  We call the power \(r\). Have
+  \begin{align*}
+    & \sum_n |x_n + y_n|^r \\
+    =& \sum_n |x_n + y_n|^{r - 1}|x_n + y_n| \\
+    \leq& \sum_n |x_n + y_n|^{r - 1} |x_n| + \sum_n |x_n + y_n|^{r - 1} |y_n| \\
+    \intertext{Applying Hölder's inequality for \(p = \frac{r}{r - 1}, q = r\) to the first term and similarly to the second term,}
+    \leq& \left( \sum_n |x_n + y_n|^r \right) ^{\frac{r - 1}{r}} \left( \sum_n |x_n|^r \right)^{\frac{1}{r}} + \left( \sum_n |x_n + y_n|^r \right) ^{\frac{r - 1}{r}} \left( \sum_n |y_n|^r \right)^{\frac{1}{r}}
+  \end{align*}
+  Divide by both sides by a common factor, get
+  \[
+    \norm{x + y}_r \leq \norm x_r + \norm y_r.
+  \]
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\printindex
+\end{document}
+
+% http://www.statslab.cam.ac.uk/~rb812/teaching/la2018/index.html

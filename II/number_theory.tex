@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Number Theory}
+\def\nlecturer{A.\ Scholl}
+
+\def\nterm{Michaelmas}
+\def\nyear{2018}
+
+\input{header}
+
+\DeclareMathOperator{\li}{li}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Number theory is the study of \(\Z\) and \(\Q\). It differs from other areas of mathematics of being an experimental science. We list three conjectures:
+
+\begin{enumerate}
+\item congruent number problem: suppose \(N \geq 1\) is an integer. Does there exist a right angle triangle whose sides are rational whose area is \(N\)? This is equivalent to find \(a, b, c \in \Q\) positive such that \(a^2 + b^2 = c^2, ab = 2N\).
+
+  We expect if \(N\) is of the form \(8n + 5, 8n + 6\) or \(8n + 7\) then there exist such \(a, b, c\). It turns out to be equivalen to an unsolved problem about elliptic curves, i.e.\ Birch-Swinnerton-Dyer conjecutre.
+\item twin prime conjecture: do there exist infinitely many primes \(p\) such that \(p + 2\) is prime? By a result of Chen in the 1950s, there exist infinitely many \(p\) such that \(p + 2\) is either prime or is the product of two primes. In 2014 it is proven that there exist infinitely many primes \(p\) such that \(\{p + 2, p + 4, \dots, p + 246\}\) contains at least one prime.
+\item let \(\pi(x) = \# \{\text{primes } p \leq x\}\), the prime counting function. Define \(\li (x) = \int_2^x \frac{dt}{\log t}\) which grow asymptotically as \(\frac{x}{\log x}\). Then prime number theory asserts that \(\frac{\pi(x)}{\li(x)} \to 1\) as \(x \to \infty\). The question: is it true that \(|\pi(x) - \li(x)| \leq \sqrt x \log x\)? It turns out it would follow from Riemann Hypothesis.
+\end{enumerate}
+
+Number theory is related to algebra, geometry and many other aspects of mathematics. However in this course, we will focus on elementary number theory. But that doesn't mean we won't be able to prove results with great importance or implication. In fact, by the end of the course, we will be able to prove Tchebychev's theorem: there exist \(c_1 > c_2 > 0\) such that
+\[
+  c_2 \frac{2}{\log x} < \pi(x) < c_1 \frac{x}{\log x}
+\]
+for all \(x > 2\), which is an approximation to the prime number theorem.
+
+\section{Euclid's algorithm and factoring}
+
+\begin{proposition}[division algorithm]
+  Given \(a, b \in \Z, b > 0\), then there exist \(q, r \in \Z\) with \(a = bq + r\) and \(0 \leq r < b\).
+\end{proposition}
+
+\begin{proof}
+  Let \(S = \{a - nb: n \in \Z\}\). Then \(S\) contains some nonnegative integers. Let \(r\) be the least element of \(S\), which is nonnegative. Then claim \(r < b\): if not, \(a - (n + 1) b = r - b \in S\) and \( 0 \leq r - b\). So \(a = nb + r, 0 \leq r < b\).
+\end{proof}
+
+\begin{notation}
+  If \(r = 0\), i.e.\ \(a = bq\) for some \(q \in \Z\), write \(b \divides a\), read as ``\(b\) is a divisor of \(a\)'' or ``\(b\) divides \(a\)''. Otherwise write \(b \ndivides a\).
+\end{notation}
+
+Let \(a_1, \dots, a_n \in \Z\), not all zero. Let
+\[
+  I = \{\lambda_1 a_1 + \dots + \lambda_n a_n: \lambda_i \in \Z\}.
+\]
+Note that \(I\) is an ideal of \(\Z\).
+
+\begin{lemma}
+  There exists a unique \(d \in \Z, d > 0\) such that \(I = \{md: m \in \Z\} = d\Z\).
+\end{lemma}
+
+\begin{proof}
+  Uniqueness is obvious. For existence, let \(d\) be the least positive element of \(I\). Then \(d\Z \subseteq I\). If \(a \in I\), write \(a = dq + r, 0 \leq r < d\). Then \(r = a - dq \in I\) so by minimality of \(d\), \(r = 0\), i.e.\ \(a = dq \in d\Z\).
+\end{proof}
+
+\begin{remark}
+  \(a_i \in I\) so for all \(a_i\), \(d \divides a_i\). On the other hand, if \(e \divides a_i\) for all \(i\) then \(e\) divides \(d = \lambda_1 a_1 + \dots \lambda_n a_n\) for some \(\lambda_i\)'s.
+\end{remark}
+
+\begin{notation}[greatest commmon divisor]\index{greatest common divisor}
+  Write \(d = (a_1, \dots, a_n) = \gcd(a_1, \dots, a_n)\), the \emph{greatest common divisor} of \(\{a_i\}\), justified by the previous remark.
+\end{notation}
+
+\begin{corollary}
+  Let \(a, b, c \in \Z\), \(a, b\) not both \(0\). Then there exist \(x, y \in \Z\) such that \(a x + b y = c\) if and only if \((a, b) \divides c\). Espeically, \((a, b) = 1\) if and only if there exist \(x, y \in \Z\) such that \(ax + by = 1\).
+\end{corollary}
+
+This ``algorithm'' is not very constructive since to find the GCD, we have to write down infinitely many numbers. So how to compute \(\gcd(a, b)\)? Assume \(a > b > 0\). Write
+\[
+  a = q_1b + r_1, 0 \leq r_1 < b.
+\]
+If \(r_1 = 0\) then stop, and \(\gcd(a, b) = b\). Otherwise write
+\[
+  b = q_2r_1 + r_2, 0 \leq r_2 < r_1.
+\]
+If \(r_2 = 0\) then stop. Iterate by
+\begin{align*}
+  r_1 &= q_3r_2 + r_3, 0 \leq r_3 < r_2, \\
+      &\vdots \\
+  r_{k -1} &= q_k r_{k - 1} + r_k , r_k \neq 0 \\
+  r_{k - 1} &= q_{k + 1} r_k + 0
+\end{align*}
+It has to terminate as \(r_1 > r_2 > \dots \geq 0\). Claim that \((a, b) = r_k\): indeed \(r_1 = a - q_1b\) so \((a, b) = (b, r_1) = (r_1, r_2) = \dots = (r_{k - 1}, r_k) = r_k\).
+
+This is know as \emph{Euclid's algorithm}\index{Euclid's algorithm}, which, besides being constructive, is very efficient.
+
+\begin{remark}
+  We know \((a, b) = d = ra + sb\) for some \(r, s \in \Z\). Euclid's algorithm also can find \(r\) and \(s\). (table of extended Euclid's algorithm)
+\end{remark}
+
+
+\printindex
+\end{document}
