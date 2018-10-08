@@ -101,6 +101,117 @@ This is know as \emph{Euclid's algorithm}\index{Euclid's algorithm}, which, besi
   We know \((a, b) = d = ra + sb\) for some \(r, s \in \Z\). Euclid's algorithm also can find \(r\) and \(s\). (table of extended Euclid's algorithm)
 \end{remark}
 
+\begin{prime}[prime, composite]
+  Recall \(n > 1\) is (a) \emph{prime} if its only positive divisors are \(1\) and \(n\). Otherwise say that \(n\) is \emph{composite}.
+\end{prime}
+
+\begin{lemma}
+  Let \(p\) be prime and \(a, b \in \Z\) with \(p \divides ab\). Then either \(p \divides a\) or \(p \divides b\).
+\end{lemma}
+
+\begin{proof}
+  Suppose \(p \ndivides a\), Then \((p, a) \divides p\) so \((p, a) = 1\). Then there exist \(x, y \in \Z\) such that \(ax + py = 1\). Then \(b = (ab) x + p (by)\) is divisible by \(p\).
+\end{proof}
+
+\begin{theorem}[Fundamental Theorem of Arithmetic]
+  Every integer larger than \(1\) can be written as a product of primes. The expression is unique up to order.
+\end{theorem}
+
+\begin{proof}
+  Existence is easy by induction on \(n\). For uniqueness, suppose
+  \[
+    n = p_1 \dots p_r = q_1 \dots q_s
+  \]
+  where \(p_i\)'s and \(q_i\)'s prime. Then \(p_1 \divides q_1 \dots q_s\) so by the above lemma \(p_1 = q_i\) for some \(i\). Reorder and assume \(p_1 = q_1\) so
+  \[
+    \frac{n}{p1} = p_2 \dots p_r = q_2 \dots q_s.
+  \]
+  Proceed by induction.
+\end{proof}
+
+\begin{remark}
+  If
+  \[
+    a = \prod_{i = 1}^k p_i^{\alpha_i}, b = \prod_{i = 1}^k p_i^{\beta_i}
+  \]
+  where \(p_i\)'s are distinct primes, then clearly
+  \[
+    (a, b) = \prod_{i = 1}^k p_i^{\gamma_i}
+  \]
+  where \(\gamma(i) = \min(\alpha_i, \beta_i)\). However, this is \emph{not} an efficient way to calculate GCDs --- Euclid's algorithm is much better.
+\end{remark}
+
+\begin{definition}
+  An algorithm with input an integer \(N > 0\) is \emph{polynomial-time} if it completes after \(\leq c (\log N)^b\) ``elementary operations'' (for example, add or multiply digits in some fixed base) for some constants \(b, c > 0\) (independent of \(N\)).
+\end{definition}
+
+\begin{eg}
+  Addition and multiplication (in the usual way) and computing GCDs using Euclid's algorithm are obviously polynomial time. It is perhaps slighly surprising that primality testing is also polynomial time.
+
+  On the other hand, factoring \(N\), by naïve way to test divisibility by numbers up to \(\sqrt N\), takes \(\sqrt N\) time. Later in the course, we will discuss better factoring algorithms (but \emph{not} polynomial-time), practial for \(N\) up to \(200\) decimal digits. Is there a polynomial-time algorithm for factoring? It is an unsolved problem and is generally believed to be no.
+\end{eg}
+
+\begin{theorem}[Euclid]
+  There are infinitely many primes.
+\end{theorem}
+
+\begin{proof}
+  IA Numbers and Sets.
+\end{proof}
+
+\section{Congruences}
+
+Diophantine equaitions, i.e.\ polynomial equations in \(\Z\) whose solutions are also in \(\Z\), such as \(x^n + y^n = z^n\), are often difficult to solve. If \(f(x, y, \dots) = 0\) then for every \(n\), \(f(x, y, \dots) = 0 \pmod n\) so it is useful to study the congruence first.
+
+Fix integer \(n \geq 1\) (the \emph{modulus}, and usually \(n > 1\)), recall that given \(a, b \in \Z\), \(a = b \pmod n\) (``\(a\) is congruent to \(b \mod n\)'') if \(n \divides a - b\). This defines an equivalence on \(\Z\). The equivalence classes are the sets \(a + n\Z\) (taking, say, \(a = 0, \dots, n - 1\)). Write \(\Z/n\Z\) for the set of equivalence classes. Then addition and multiplication are well-defined.
+
+\begin{lemma}
+  Let \(a \in \Z\). Then TFAE:
+  \begin{enumerate}
+  \item \((a, n) = 1\),
+  \item there exists \(x \in \Z\) such that \(a x = 1 \pmod n\),
+  \item (the equivalence class of) \(a\) is a generator of the group \((\Z/n\Z, +)\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \iff 2\): \((a, n) = 1\) if and only if there exists \(x, y \in \Z\) such that \(a x + n y = 1\), if and only if \(a x = 1 \pmod n\).
+  \item \(2 \iff 3\): \(a x = 1 \pmod n\) if and only if in the group \((\Z/n\Z, +)\), \(1\) is a multiple of \(a\), if and only if \(a\) is a generator of the group.
+  \end{itemize}
+\end{proof}
+
+\begin{notation}
+  For \(n > 1\), \((\Z/n\Z)^* = \) set of elements of \(\Z/n\Z\) with an inverse under multiplication, i.e.\ \emph{units} of \(\Z/n\Z\).
+\end{notation}
+
+By the lemma above,
+\[
+  (\Z/n\Z)^* = \{a + n\Z: (a, n) = 1\}
+\]
+and define
+
+\begin{definition}[Euler's \(\varphi\)-function]\index{Euler's \(\varphi\)-function}
+  \[
+    \varphi(n) = \# (\Z/n\Z)^* = \#\{a \in \Z: 1 \leq a \leq n: (a, n) = 1\}
+  \]
+  where \(\# S\) is the number of elements of \(S\).
+
+  We put \(\varphi(1) = 1\).
+\end{definition}
+
+\begin{theorem}[Fermat-Euler]
+  If \((a, n) = 1\) then \(a^{\varphi(n)} = 1 \pmod n\). Especially when \(n = p\) a prime, for all \(a \in \Z\), \(a^p = a \pmod p\).
+\end{theorem}
+
+\begin{proof}
+  \(\varphi(n) = \#G\) where \(G = ((\Z/n\Z)^*, \times)\). By Lagrange's theorem, the order of \(a\) in \(G\) divides \(\varphi(n)\).
+\end{proof}
+
+
+
+
+
 
 \printindex
 \end{document}

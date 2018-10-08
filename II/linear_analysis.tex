@@ -159,7 +159,141 @@ for all \(s, t \in \R^+, \lambda \in (0, 1)\). Graphically, the graph of \(f\) l
   \]
 \end{proof}
 
+\subsection{Banach spaces}
 
+\begin{definition}[Banach space]\index{Banach space}
+  A normed vector space is a \emph{Banach space} if it is \emph{complete} as a metric space, i.e.\ every Cauchy sequence converges.
+\end{definition}
+
+\begin{ex}
+  For \(1 \leq p \leq \infty\), the space \(\ell^p\) is complete.
+\end{ex}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Any finite dimensional normed space is a Banach space.
+  \item Let \(S\) be a set and let \(B(S)\) be the vector space of bounded functions on \(S\). Then \(B(S)\) is a Banach space with norm \(\norm f_\infty = \sup_{s \in S} |f(s)|\).
+  \item Let \(K\) be a compact Hausdorff space (for concreteness, take \([0, 1]\)) and let \(C(K)\) be the space of continuous functions on \(K\). Then \(C(K) \subseteq B(K)\) as every continuous function on \(K\) is bounded. Moreover \(C(K) \subseteq B(K)\) is closed as the uniform limit of a sequence of continuous functions is continuous. Therefore \(C(K)\) is a Banach space with norm \(\norm \cdot_\infty\).
+  \item Let \(U \subseteq \R^n\) be open bounded and let \(C^k(\cl U)\) be the space of functions \(f: \cl U \to \K\) \(k\)-times continuously differentiable on \(U\). Then \(C^k(\cl U)\) is a Banach space with norm
+    \[
+      \norm f_{C^k(\cl U)} = \max_{|\alpha| < k} \norm{D^\alpha f}_\infty,
+    \]
+    where
+    \[
+      D^\alpha(f(x)) = \frac{\partial^{|\alpha|} f}{\partial x_1^{\alpha_1} \dots \partial x_n^{\alpha_n}}
+    \]
+    where \(\alpha = (\alpha_1, \dots, \alpha_n) \in \N_0^n, |\alpha| = \sum_{i = 1}^n \alpha_i\).
+  \item Let \(X\) be the space of continuous functions on \([0, 1]\). Then for \(p \in [1, \infty)\),
+    \[
+      \norm f_p = \left( \int_0^1 |f(x)|^p dx \right)^{1/p}
+    \]
+    is a norm on \(X\). However, \(X\) is \emph{not} complete in this norm! In IID Probability and Measure, we will show that its completion has a very nice description, namely \(L^p\).
+  \item Let \(D = \{z \in \C: |z| < 1\}\) and let \(A(\cl D)\) be the space of continuous functions \(f: \cl D \to \C\) that are analytic in \(D\). Then \(A(\cl D)\) is complete with \(\norm \cdot_\infty\) because the uniform limit of a sequence of analytic functions is analytic.
+  \end{enumerate}
+\end{eg}
+
+In example 3 above we used the following fact:
+
+\begin{fact}
+  Let \(X\) be a normed space and \(Y \leq X\) a subspace. Then
+  \begin{enumerate}
+  \item if \(Y\) is complete then \(Y\) is closed in \(X\).
+  \item if \(X\) is complete and \(Y\) is closed then \(Y\) is complete.
+  \end{enumerate}
+\end{fact}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(x \in \cl Y\). Then there is \((y_n) \subseteq Y\) such that \(y_n \to x\). In particular, \((y_n)\) is Cauchy so converges to some \(y \in Y\) by completeness. Thus by uniqueness of limit \(x = y \in Y\).
+  \item Suppose \((y_n) \subseteq Y\). Then \((y_n)\) is Cauchy in \(X\). By completeness there is \(x \in X\) such that \(y_n \to x\). Since \(Y\) is closed, in fact \(x \in Y\).
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[separable]\index{separable}
+  A topological space is \emph{separable} if it has a countable dense subset.
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item For \(1 \leq p < \infty\), \(\ell^p\) is separable.
+  \item \(\ell^\infty\) is not separable.
+  \item \(c_0\) is separable.
+  \end{enumerate}
+\end{ex}
+
+\subsection{Bounded operators and the dual space}
+
+\begin{proposition}
+  Let \(X, Y\) be normed spaces, \(T: X \to Y\) linear, then TFAE:
+  \begin{enumerate}
+  \item \(T\) is continuous.
+  \item \(T\) is continuous at \(0\).
+  \item \(T\) is bounded, i.e.\ there is \(C > 0\) such that \(\norm{Tx} \leq C \norm x\) for all \(x \in X\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \implies 2\): obvious.
+  \item \(2 \implies 3\): since \(T\) is continuous at \(0\) and \(\{y \in Y: \norm y \leq 1\}\) is a neighbourhood of \(0 = T(0) \in Y\), there is \(\delta > 0\) such that \(\norm x < \delta\) implies that \(\norm{T x} \leq 1\). For any \(x \in X, x \neq 0\), by linearity,
+    \[
+      \norm{T x} = \frac{\norm x}{\delta} \norm{T \left(\delta \frac{x}{\norm x} \right)} \leq \frac{\norm x}{\delta}.
+    \]
+  \item \(3 \implies 1\): let \(\varepsilon > 0\). Set \(\delta = \frac{\varepsilon}{C}\). Then \(\norm{x - y} < \delta\) implies that
+    \[
+      \norm{Tx - Ty} = \norm{T(x - y)} \leq C \norm{x - y} \leq \varepsilon
+    \]
+    so \(T\) is (uniformly) continuous.
+  \end{itemize}
+\end{proof}
+
+The infimum of such \(C\) is called
+
+\begin{definition}[operator norm]\index{operator norm}
+  For \(T: X \to Y\) bounded linear, the \emph{operator norm} is
+  \[
+    \norm T = \norm T_{\text{op}} = \sup_{\norm x \leq 1} \norm{Tx}.
+  \]
+\end{definition}
+
+\begin{notation}
+  \(B(X, Y) = \{T: X \to Y \text{ bounded and linear}\}\).
+\end{notation}
+
+\begin{fact}
+  \(B(X, Y)\) is a normed space with norm given by the operator norm.
+\end{fact}
+
+\begin{proof}
+  Let \(T, S \in B(X, Y)\). Then
+  \[
+    \norm{(T + S)x} = \norm{Tx + Sx}
+    \leq \norm{Tx} + \norm{Sx}
+    \leq (\norm T + \norm S) \norm x
+  \]
+  so \(\norm{T + S} \leq \norm T + \norm S\).
+
+  The other axioms are clear.
+\end{proof}
+
+\begin{eg}
+  Let \(p \in (1, \infty)\).
+  \begin{enumerate}
+  \item Define
+    \begin{align*}
+      T: \ell^p &\to \ell^p \\
+      (x_1, x_2, \dots) &\mapsto (x_1, x_2, \dots, x_r, 0, 0, \dots)
+    \end{align*}
+    for some fixed \(r > 0\). Then \(T \in B(\ell^p, \ell^p)\) with \(\norm T = 1\).
+  \item Define
+    \begin{align*}
+      T: \ell^p &\to \ell^p \\
+      (x_1, x_2, \dots) &\mapsto (0, x_1, x_2, \dots ),
+    \end{align*}
+    called the right shift operator. Then \(T \in B(\ell^p, \ell^p)\) with \(\norm T = 1\). In fact, \(\norm{Tx} = \norm x\) for all \(x \in \ell^p\). This means that \(T\) is an isometry but not surjective.
+  \item 
+  \end{enumerate}
+\end{eg}
 
 
 

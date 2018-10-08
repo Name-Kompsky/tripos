@@ -52,7 +52,7 @@ These problems are hard because we have to consider continuous maps between two 
 
 Well that's much much easier!
 
-\section{The Fundamental Group}
+\section{The fundamental group}
 
 Throughout this course, ``maps'' mean continuous maps.
 
@@ -69,7 +69,7 @@ Throughout this course, ``maps'' mean continuous maps.
 \end{notation}
 
 \begin{eg}
-  If \(Y\) is a convex region in \(\R^n\) then for any \(f_0, f_1: X \to Y\), the \emph{straight-line homotopy} \(F(x, y) = t f_1(x) + (1 - t) f_0(x)\) is a homotopy \(f_0 \simeq f_1\).
+  If \(Y\) is a convex region in \(\R^n\) then for any \(f_0, f_1: X \to Y\), the \emph{straightline homotopy} \(F(x, y) = t f_1(x) + (1 - t) f_0(x)\) is a homotopy \(f_0 \simeq f_1\).
 \end{eg}
 
 \begin{definition}[relative homotopy]
@@ -103,6 +103,160 @@ Throughout this course, ``maps'' mean continuous maps.
 \begin{definition}[contractible]\index{contractible}
   A space \(X\) is \emph{contractible} if \(X \simeq *\).
 \end{definition}
+
+\begin{eg}
+  Let \(X = S^1, Y = \R^2 - \{0\}\). Let \(f: X \to Y\) be the natural inclusion nad \(g: Y \to X, x \mapsto \frac{x}{\norm x}\). Then
+  \begin{align*}
+    g \compose f &= \id_X \\
+    f \compose g(x) &= \frac{x}{\norm x} \in \R^2
+  \end{align*}
+  Although \(Y\) is not convex, for all \(x, t\), straightline homotopy \(F(x, t)\) between \(f \compose g\) and \(\id_Y\) satisfies \(F(x, t) \neq 0\) so \(f \compose g \simeq_F \id_Y\). Thus \(X \simeq Y\).
+\end{eg}
+
+\begin{definition}[retract, deformation retract]\index{retract}\index{deformation retract}
+  Let \(f: X \to Y\) and \(g: Y \to X\). If \(g \compose f = \id_X\) then \(X\) is a \emph{retract} of \(Y\).
+
+  If in addition \(f \compose g \simeq \id_Y \rel f(X)\) then we say \(X\) is a \emph{deformation retract} of \(Y\).
+\end{definition}
+
+Note that whenever we have \(g \compose f = \id_X\), \(f\) is injective so we can think \(X\) as being embedded in \(Y\). Informally, \(Y\) is ``as complicated'' as \(X\).
+
+\begin{lemma}
+  Homotopy equivalence is an equivalence on topological spaces.
+\end{lemma}
+
+\begin{proof}
+  Symmetry and reflexivity are obvious. For transitivity, consider
+  \[
+    \begin{tikzcd}
+      X \ar[r, "f", shift left] & Y \ar[l, "g", shift left] \ar[r, "f", shift left] & Z \ar[l, "g", shift left]
+    \end{tikzcd}
+  \]
+  Need to show that \(g \compose (g' \compose f') \compose f \simeq \id_X\) (and the other direction will follow similarly). By hypothesis \(g' \compose f' \simeq_{F'} \id_Y\). Now
+  \[
+    g(F'(f(x), t))
+  \]
+  is a homotopy
+  \[
+    g \compose g' \compose f' \compose f \simeq g \compose \id_Y \compose f = g \compose f \simeq \id_X.
+  \]
+\end{proof}
+
+\subsection{The fundamental group}
+
+\begin{definition}[path, loop]\index{path}\index{loop}
+  A \emph{path} (from \(x_0\) to \(x_1\)) is a continuous map \(\gamma: I \to X\) (with \(\gamma(0) = x_0, \gamma(1) = x_1\)).
+
+  A \emph{loop} (based at \(x_0\)) is a path from \(x_0\) to \(x_0\).
+\end{definition}
+
+\begin{definition}[homotopy of path]\index{homotopy of path}
+  Let \(\gamma_0, \gamma_1\) be paths from \(x_0\) to \(x_1\). A \emph{homotopy (of path)} from \(\gamma_0\) to \(\gamma_1\) is a homotopy
+  \[
+    \gamma_0 \simeq_F \gamma_1 \rel \{0, 1\}.
+  \]
+\end{definition}
+
+\begin{definition}[concatenation of path, constant path, inverse path]
+  Let \(\gamma\) be a path from \(x\) to \(y\) and \(\delta\) a path from \(y\) to \(z\).
+  \begin{enumerate}
+  \item The \emph{concatenation} of \(\gamma\) and \(\delta\) is
+    \[
+      (\gamma \cdot \delta) (t) =
+      \begin{cases}
+        \gamma(2t) & t \leq \frac{1}{2} \\
+        \delta(2t - 1) & t \geq \frac{1}{2}
+      \end{cases}
+    \]
+  \item The \emph{constant} path (at \(x\)) is \(c_x(t) = x\).
+  \item The \emph{inverse path} to \(\gamma\) is \(\overline \gamma(t) = \gamma(1 - t)\).
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[fundamental group]\index{fundamental group}
+  Let \(x_0 \in X\). Let
+  \[
+    \pi_1(X, x_0) = \{\text{loops based at } x_0\} / \simeq.
+  \]
+  This has a group structure with
+  \begin{itemize}
+  \item \([\gamma][\delta] = [\gamma \cdot \delta]\),
+  \item identity \([c_{x_0}]\),
+  \item \([\gamma]^{-1} = [\overline \gamma]\).
+  \end{itemize}
+
+  We call \(\pi_1(X, x_0)\) the \emph{fundamental group} of \(X\) (based at \(x_0\)).
+\end{theorem}
+
+\begin{proof}
+  To prove the theorem, we need to check that multiplication and inverses are well-defined and the group axioms are satisfied.
+
+  \begin{lemma}
+    If \(\gamma_0, \gamma_1\) are paths to \(y\) and \(\delta_0, \delta_1\) are paths from \(y\) and \(\gamma_0 \simeq \gamma_1, \delta_0 \simeq \delta_1\), then
+    \[
+      \gamma_0 \cdot \delta_0 \simeq \gamma_1 \cdot \delta_1.
+    \]
+
+    Also \(\overline \gamma_0 \simeq \overline \gamma_1\).
+  \end{lemma}
+
+  \begin{proof}
+    We only show for concatenation. Inverses are similar. Let \(\gamma_0 \simeq_F \gamma_1, \delta_0 \simeq_G \delta_1\). (proof by picture) Algebraically, the homotopy is given by
+    \[
+      H(s, t) =
+      \begin{cases}
+        F(s, 2t) & t \leq \frac{1}{2} \\
+        G(s, 2t - 1) & t \geq \frac{1}{2}
+      \end{cases}
+    \]
+  \end{proof}
+
+  Now we check that the group axioms are satisfied.
+
+  \begin{lemma}\leavevmode
+    \begin{enumerate}
+    \item \((\alpha \cdot \beta) \cdot \gamma \simeq \alpha \cdot (\beta \cdot \gamma)\).
+    \item \(\alpha \cdot c_x \simeq \alpha \simeq c_w \cdot \alpha\).
+    \item \(\alpha \cdot \overline \alpha \simeq c_w\).
+    \end{enumerate}
+  \end{lemma}
+
+  \begin{proof}
+    We show \(1\). The other two are similar. Let
+    \[
+      \delta =
+      \begin{cases}
+        \alpha(3t) & t \leq \frac{1}{3} \\
+        \beta(3t - 1) & \frac{1}{3} \leq t \leq \frac{2}{3} \\
+        \gamma(3t - 2) & \frac{2}{3} \leq t \leq 1
+      \end{cases}
+    \]
+    Let
+    \[
+      f_0(t) =
+      \begin{cases}
+        \frac{4}{3}t & t \leq \frac{1}{2} \\
+        \frac{1}{3} + \frac{2}{3} t & t \geq \frac{1}{2}
+      \end{cases}
+    \]
+    and
+    \[
+      f_1(t) =
+      \begin{cases}
+        \frac{2}{3}t & t \leq \frac{1}{2} \\
+        -\frac{1}{3} + \frac{4}{3}t & t \geq \frac{1}{2}
+      \end{cases}
+    \]
+    Note that \(f_0 \simeq f\) as \emph{paths} via the straightline homotopy in \(I\). But
+    \begin{align*}
+      (\alpha \cdot \beta) \cdot \gamma &= \delta \compose f_0 \\
+      \alpha \cdot (\beta \cdot \gamma) &= \delta \compose f_1
+    \end{align*}
+    so they are homotopic as path.
+  \end{proof}
+\end{proof}
+
+
 
 
 

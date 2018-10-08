@@ -15,9 +15,14 @@
 \newcommand*{\smallomg}{\omega}
 \DeclareMathOperator{\exx}{ex}
 
+\let\SO\undefined
+\usepackage{tkz-graph}
+
 \begin{document}
 
 \input{titlepage}
+
+\tableofcontents
 
 \setcounter{section}{-1}
 
@@ -39,9 +44,38 @@ A few problems:
   The original proof involves lots of number theory and is hard. However we can reduce it to a graph theory problem. Let \(G = \Z_p^*\), multiplicative group of nonzero residues mod \(p\). Let \(H = \{g^n: g \in G\} \leq G\). We want \(x, y, z \in H\) with \(x + y = z\). We can check \(|H| \geq \frac{|G|}{n}\) so \(H\) has at most \(n\) left cosets. Suppose now in some left coset \(gH\) we have \(u, v, w \in gH\) with \(u + v = w\). Then \(g^{-1}u + g^{-1}v = g^{-1}w\) is a solution in \(H\). Thus we have reduced the theorem to the following combinatorial statement:
 
   \begin{theorem}[Schur]
-    Let \(n\) be a positive integer. Then for any sufficiently large \(k\), if \([k] = \{1, 2, \dots, k\}\) is partitioned into \(n\) parts, then we can find \(u, v, w\) in the same part with \(u + v = w\).
+    Let \(k\) be a positive integer. Then for any sufficiently large \(n\), if \([n] = \{1, 2, \dots, n\}\) is partitioned into \(k\) parts, then we can find \(x, y, z\) in the same part with \(x + y = z\).
   \end{theorem}
 \end{enumerate}
+
+Let's consider small cases to gain some intuition first. For \(k = 1\), take \(n = 2\). It is trivial.
+
+For \(k = 2\), take \(n = 5\). Suppose \([5]\) is partitioned into \(A\) and \(B\). wlog \(|A| \geq 3\), say \(i < j < k\) in \(A\). If \(j - i \in A\) then \(i + (j - i) = j\) so done. Similarly if \(k - i \text{ or } k - j \in A\). Otherwise, \(j - i, k - j, k - i \in B\) and \((j - i) + (k - j) = k - i\) so done.
+
+For \(k = 3\), take \(n = 16\). Suppose \([16]\) is partitioned in \(A, B\) and \(C\). wlog \(|A| \geq 6\) and \(a_1 < \dots < a_6\) in \(A\). If \(a_j - a_i \in A\) for some \(i < j\) then done. If not, consider \(a_2 - a_1, a_3 - a_1, \dots, a_6 - a_1 \in B \cup C\) so wlog have \(2 \leq i < j < k < 6\) such that \(a_i - a_1, a_j - a_1, a_k - a_1 \in B\). Now if \(a_j - a_i \text{ or } a_k - a_j \text{ or } a_k - a_i \in B\) then done. Otherwise \(a_j - a_i, a_k - a_j, a_k - a_i \in C\) and so done.
+
+The ``if not'' part of \(k = 3\) feels quite like \(k = 2\) case, except that we are dealing with \(a_i - a_1\) instead of \(1, \dots, 5\). It is a bit tricky but we can do this by induction. This is left as an exercise.
+
+Note that what we care is the difference between the numbers. More specifically, we only care the difference between \emph{a pair} of numbers, instead of what the actual difference is. This prompts us to rephrase this as a graph theory problem. Let \([5] = A \cup B\), say \(A = \{1, 3, 5\}, B = \{2, 4\}\). Take the graph with vertices \(0, \dots, 5\) and all possible edges. Colour the edge \(ij (i < j)\) to represent which of \(A, B\) contains \(j - i\).
+
+\begin{center}
+\begin{tikzpicture}
+  \SetGraphUnit{3}
+  \SetUpEdge[color = blue]
+  \Vertices{circle}{0, 1, 2, 3, 4, 5}
+  \Edges(0, 1, 2, 3, 4, 5, 0)
+  \Edges(0, 3)
+  \Edges(1, 4)
+  \Edges(2, 5)
+  \SetUpEdge[color = orange]
+  \Edges(0, 2, 4, 0)
+  \Edges(1, 3, 5, 1)
+\end{tikzpicture}
+\end{center}
+
+Supoose we have a monochromatic triangle \(i < j < k\), then \(j - i, k - j, k - i\) are in the same part with \((k - j) + (j - i) = k - i\). This turns out to be exactly the setting we need to solve this problem. We will do this in chapter 1, alongside building the machinary we need.
+
+\iffalse
 
 
 Revision of \(\bigO\) notation and its cousins: let \(f,g:\N\to (0,\infty)\). We say
@@ -57,7 +91,132 @@ Also,
   f &\sim g \text{ if } f/g\to 1.
 \end{align*}
 
-\section{Extremal Graph Theory}
+
+\fi
+
+
+\section{Extremal graph theory}
+
+\subsection{Ramsey Theory}
+
+\begin{definition}[graph, vertex, edge]\index{graph}
+  A \emph{graph} \(G\) is an ordered pair \(G = (V, E)\) where \(V\) is a finite set and \(E\) is a set of unordered pairs of distinct elements of \(V\). The elements of \(V\) are the \emph{vertices} of \(G\) and those of \(E\) the \emph{edges}. Write \(V = V(E)\) and \(E = E(G)\).
+\end{definition}
+
+\begin{eg}
+  \(G = ([9], \{12, 13, 14, 23, 67, 68, 69\})\). We often use picture to represent a graph.
+  \begin{center}
+    \begin{tikzpicture}
+      \SetGraphUnit[3]
+      \Vertex{1}
+      \Vertex[x=1,y=0]{2}
+      \Vertex[x=0,y=-1]{3}
+      \Vertex[x=1,y=-1]{4}
+      \Edges(1, 2, 3, 1)
+      \Edges(1, 4)
+
+      \Vertex[x=2,y=0]{5}
+
+      \Vertex[x=3,y=0]{6}
+      \Vertex[x=4,y=0]{7}
+      \Vertex[x=3,y=-1]{8}
+      \Vertex[x=4,y=-1]{9}
+      \Edges(8,6,7)
+      \Edges(6,9)
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
+
+\begin{notation}
+  We denote the edge \(\{i, j\}\) by \(ij\).
+\end{notation}
+
+\begin{eg}
+  The \emph{complete graph of order \(n\)} \(K_n\) has \(V[K_n] = [n]\) and \(E(K_n) = \{ij: 1 \leq i < j \leq n\}\). For example, \(K_3\) is the \emph{triangle}\index{triangle}.
+  \begin{center}
+    \begin{tikzpicture}
+      \GraphInit[vstyle=Classic]
+      \Vertices[NoLabel]{circle}{1, 2, 3}
+      \Edges(1, 2, 3, 1)
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+      \GraphInit[vstyle=Classic]
+      \Vertices[NoLabel]{circle}{1, 2, 3, 4, 5}
+      \Edges(1, 2, 3, 4, 5, 1, 3, 5, 2, 4, 1)
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
+
+\begin{definition}[isomorphism]\index{isomorphism}
+  An \emph{isomorphism} from a graph \(G\) to a graph \(H\) is a bijection \(\phi: V(G) \to V(H)\) satisfying \(\phi(u) \phi(v) \in E(H)\) if and only if \(uv \in E(G)\). If such \(\phi\) exists, we say \(G\) and \(H\) are \emph{isomorphic} and write \(G \cong H\).
+\end{definition}
+
+\begin{definition}[subgraph]\index{subgraph}
+  A graph \(H\) is a \emph{subgraph} of a graph \(G\) if \(V(H) \subseteq V(G)\) and \(E(H) \subseteq E(G)\).
+
+  More loosely, we \(H\) is a subgraph of \(G\) is \(H \cong H'\) for some subgraph \(H'\) of \(G\).
+
+  Write \(H \subseteq G\) to mean \(H\) is a subgraph of \(G\).
+\end{definition}
+
+\begin{notation}
+  Write \(v \in G\) to mean \(v \in V(G)\).
+\end{notation}
+
+\begin{definition}[colouring]\index{colouring}
+  A \emph{\(k\)-colouring} of a graph \(G\) is a function \(c: E(G) \to [k]\).
+\end{definition}
+
+In proofs, if \(K\) is small, we often call colours blue, yellow, etc.\ rather than \(1, 2, \dots\).
+
+\begin{definition}[monochromatic]\index{monochromatic}
+  If \(G\) is \(k\)-coloured and \(H \subseteq G\), we say \(H\) is \emph{monochromatic} if \(c|_{E(H)}\) is constant.
+\end{definition}
+
+Now we are ready to tackle the colouring problem in the previous chapter.
+
+\begin{eg}
+  Suppose \(K_6\) is coloured blue/yellow. Pick \(v \in K_6\). \(v\) has \(5\) edges so some \(3\) are the same colour, wlog blue \(vw, vx, vy\). If any of \(wx, wy, xy\) is blue then we have a blue triangle. Otherwise \(wxy\) is a yellow triangle. Done.
+\end{eg}
+
+\begin{note}
+  Note that it doesn't work in \(K_5\), i.e.\ \(K_5\) can be \(2\)-coloured with no monochromatic triangle:
+  \begin{center}
+    \begin{tikzpicture}
+      \SetGraphUnit{3}
+      \Vertices{circle}{1, 2, 3, 4, 5}
+      \SetUpEdge[color = blue]
+      \Edges(1,2,3,4,5,1)
+      \SetUpEdge[color = orange]
+      \Edges(1,3,5,2,4,1)
+    \end{tikzpicture}
+  \end{center}
+\end{note}
+
+\begin{proposition}[Ramsey's Theorem for triangles]\index{Ramsey's Theorem}
+  Let \(k \in \N\). Then for \(n\) sufficiently large, if \(K_n\) is \(k\)-coloured we must have a monochromatic triangle.
+\end{proposition}
+
+\begin{proof}
+  Induction on \(k\). For \(k = 1\), \(n = 3\) works. For \(k > 1\), by induction hypothesis we can choose \(m\) such that if \(K_m\) is \((k - 1)\)-coloured then it has a monochromatic triangle. Now take \(n = k(m - 1) + 2\). Suppose \(K_n\) is \(k\)-coloured. Pick \(v \in K_n\). There are \(k(m - 1) + 2\) edges from \(v\) so some \(m\) are the same colour. wlog \(v\) is joint to a \(K_m\), \(H\), by blue edegs. If \(H\) contains a blue edge then we have a blue triangle with \(v\). If not then \(H\) is a \((k - 1)\)-coloured \(K_m\) so by definition of \(m\) it contains a monochromatic triangle.
+\end{proof}
+
+\begin{remark}
+  How big should we take \(n\)? Write \(f(k)\) for the smallest \(n\) that works. Then \(f(1) = 3\). If \(k > 1\), the proof tells us that \(f(k) \leq k(f(k - 1) - 1) + 2 \leq k f(k - 1)\). So by induction \(f(k) \leq 3k!\).
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+\clearpage
+
 
 \begin{question}
   How large must \(n\) be so that if edges of \(K_n\) are coloured blud and yellow then we always get mono \(K_s\)?

@@ -10,9 +10,13 @@
 
 \input{header}
 
+\DeclareMathOperator{\Gr}{Gr} % Grassmannian
+
 \begin{document}
 
 \input{titlepage}
+
+\tableofcontents
 
 \section{Manifolds}
 
@@ -72,19 +76,114 @@ Note that 2 implies that \(\varphi_\beta \compose \varphi_\alpha^{-1}\) is a dif
       \varphi(\V x) &= \frac{1}{1 - x_0} (x_1, \dots, x_n) \\
       \psi(\V x) &= \frac{1}{1 + x_0} (x_1, \dots, x_n)
     \end{align}
-    where \(\varphi\) is defined for all points on \(S^n\) except \(1\) and similar for \(\psi\). Suppose \(\varphi(P) = u, \psi(P) = v\), then by basic geometry \(v = \psi \compose \varphi^{-1}(u) = \frac{u}{\norm{u}^2}\).
-  \item Given \(M_1, M_2\) manifolds of dimension of \(d_1\) and \(d_2\), \(M_1 \times M_2\) is a manifold of dimension \(d_1 + d_2\). We define the \(n\)-torus to be \(T_n = S^1 \times \dots \times S^1\).
+    where \(\varphi\) is defined for all points on \(S^n\) except \((1, 0, \dots, 0)\) and similar for \(\psi\). Suppose \(\varphi(P) = u, \psi(P) = v\), then by basic geometry \(v = \psi \compose \varphi^{-1}(u) = \frac{u}{\norm{u}^2}\).
+  \item Given \(M_1, M_2\) manifolds of dimension of \(d_1\) and \(d_2\), \(M_1 \times M_2\) is a manifold of dimension \(d_1 + d_2\). We define the \emph{\(n\)-torus} to be \(T_n = \underbrace{S^1 \times \dots \times S^1}_{n}\).
   \item An open subset \(U\) of a manifold \(M\) is a manifold.
+  \item The \emph{real projective space},
+    \[
+      \R P^n = \{\text{all straight lines through \(0\) in } \R^{n + 1}\}.
+    \]
+    The points in the space are \(x_0 : \dots : x_n\) where \(x_i\)'s are not all zero. Note that
+    \[
+      x_0 : \dots : x_n = \lambda x_0 : \dots \lambda x_n
+    \]
+    for all \(\lambda \neq 0\). As per a previous remark, we shall induce the topology by a \(C^\infty\) structure. The charts are \((U_i, \varphi_i)\) where \(U_i = \{x_i \neq 0\}\), and
+    \[
+      \varphi_i(x_0 : \dots : x_n) = (\frac{x_0}{x_i}, \dots, \hat i, \dots, \frac{x_n}{x_i})
+    \]
+    where \(\hat i\) denotes that the \(i\)th coordinate is omitted. The \(U_i\)'s cover \(\R P^n\) so we are left to check compatibility. For \(i < j\),
+    \[
+      \varphi_j \compose \varphi_i^{-1} : (y_1, \dots, y_n)
+      \mapsto y_1 : \dots, \underbrace{1}_{i\text{th}} : y_n
+      \mapsto (\frac{y_1}{y_j}, \dots, \frac{1}{y_j}, \dots, \hat j, \dots, \frac{y_n}{y_j})
+    \]
+    is smooth. Since \(i\) and \(j\) are arbitrary, \(\R p^n\) is a \(n\)-manifold.
+
+    Similarly we can check \(\C P^n\) is a \(2n\)-manifold, and \(\H P^n\) is a \(4n\)-manifold (but this is a bit tricky due to noncommutativity).
+  \item Grassmannians (over \(\R\) or \(\C\)): we define \(\Gr(k, n)\) to be all \(k\)-dimensional subspaces of the \(n\)-dimensional vector space, which generalises the projective space. For real vector spaces for example, \(\R P^n = \Gr(1, n + 1)\). We can check \(\Gr(k, n)\) is a manifold of dimension \(k(n - k)\).
+
+    The construction is a bit technical so we will give example of one chart. Let \(U\) be the \(k\)-subspaces obtainable as the span of rows of \(k \times n\) matrices of the form \((I_k \quad *)\), and the local coordinate maps a basis of such \(k\)-subspace to the \(k \times (n - k)\) block \(*\). Since the frist \(k\) rows are linearly independent, we call \(U = U_{1 < 2 < \dots < k}\). More generally the domain of charts take the form \(U_{1 \leq i_1 < \dots < i_k \leq n}\). It is an exercise to check that this gives a valid \(C^\infty\) structure.
+  \item A non-example: define an equivalence relation \((x, y) \sim (\lambda x, \frac{y}{\lambda})\) for all \(\lambda \neq 0\) and define \(X := \R^2/\sim\). \(\{xy = c\}\) is one equivalence class if \(c \neq 0\). If \(c = 0\), \(\{xy = 0\}\) is three classes \(\{(x, 0): x \neq 0\}, \{(0, 0)\}, \{(0, y): y \neq 0\}\). Thus
+    \[
+      X \cong (-\infty, 0) \cup \{0', 0'', 0'''\} \cup (0, \infty).
+    \]
+    Define charts
+    \[
+      \varphi_i: (-\infty, 0) \cup 0^{(i)} \cup (0, \infty) \to \R
+    \]
+    in the obvious ways. We can check that it gives \(X\) a valid \(C^\infty\) structure, except that the induced topology is non-Hausdorff!
+  \item For a non-second countable example, see example sheet 1 Q12.
   \end{enumerate}
 \end{eg}
 
+\begin{definition}[smooth map]\index{smooth map}
+  Let \(M, N\) be manifolds, a continuous map \(f: M \to N\) is \emph{smooth} or \(C^\infty\) if for any \(p \in M\), there exists charts \((U, \varphi)\) on \(M\), \((V, \psi)\) on \(N\) such that \(p \in U, f(p) \in V\) and
+  \[
+    \psi \compose f \compose \varphi^{-1}
+  \]
+  is smooth wherever it is defined, i.e.\ on \(\varphi(U \cap f^{-1}(V)) \subseteq \R^n\) where \(n = \dim M\).
+\end{definition}
+
+\begin{remark}
+  Note that by continuity, \(\varphi(U \cap f^{-1}(V))\) is necessarily open. Of course we can do it differently by not requiring \(f\) to be continuous a priori but instead ask the above set to be open.
+\end{remark}
+
+For any charts \(\tilde \varphi, \tilde \psi\),
+\[
+  \tilde \psi \compose f \compose \tilde \varphi^{-1} = (\tilde \psi \compose \psi^{-1}) \compose (\psi \compose f \compose \varphi^{-1}) \compose (\varphi \compose \tilde \varphi^{-1})
+\]
+is a composition of smooth map so is smooth. Thus smoothness of a map is independent of charts.
+
+\begin{definition}[diffeomorphism]\index{diffeomorphism}
+  A smooth map \(f: M \to N\) is a \emph{diffeomorphism} if \(f\) is bijective and \(f^{-1}\) is smooth. If such \(f\) exists, \(M\) and \(N\) are \emph{diffeomorphism}.
+\end{definition}
+
+\begin{remark}\leavevmode
+\begin{enumerate}
+\item Our definition of smoothness is a generalisation of that in calculus. More precisely, \(f: \R^n \to \R^m\) is smooth if and only if it is smooth in the calculus sense.
+\item Any chart \(\varphi: U \to \R^d\) is a diffeomorphism onto its image.
+\item Composition of smooth maps is smooth.
+\end{enumerate}
+\end{remark}
+
+\section{Matrix Lie groups}
+
+We can view \(\GL(n, \R)\) as an array of numbers and thus embed it in \(\R^{n^2}\). Furthermore, by considering the determinant function it is an open subset so is an \(n^2\)-manifold. Matrix multiplication is obviously smooth. In the same vein we have \(\GL(n, \C)\), \(\SL(n, \R)\) etc as mannifolds with smooth multiplications.
+
+\begin{definition}[Lie group]\index{Lie group}
+  A group \(G\) is a \emph{Lie group} if \(G\) is a manifold and has a compatible group structure, i.e.\ the map \((\sigma, \tau) \mapsto \sigma\tau^{-1}\) is smooth.
+\end{definition}
+
+Before Lie groups, let's have a short digression in analysis to discuss the exponential map. For a complex \(n \times n\) matrix \(A = (a_{ij})\), define a norm
+\[
+  |A| = n \cdot \max_{ij} |a_{ij}|
+\]
+where the \(n\) in front is such that \(|AB| \leq |A| \cdot |B|\). We now define
+\[
+  \exp(A) := I + A + \frac{1}{2} A^2 + \dots + \frac{1}{n!} A^n + \dots
+\]
+
+Of course we have to check the series makes sense: in fact \(\exp A\) is absolutely convergent for all \(A\) as \(\left| \frac{A^n}{n!} \right| \leq \frac{|A|^n}{n!}\). The series is also uniformly convergent on any compact set, by Weierstrass \(M\)-test. Therefore \(\exp\) is a well-defined continuous map.
+
+In fact, the map is smooth although the proof is technical. A sketch of the proof is like this: note that \(f: A \to A^m\) is smooth for all \(m \in \N\). For \(m = 2\), \(df_A: H \mapsto HA + AH\) so \(\norm{df_A} \leq 2 |A|\) so for all \(m\),
+\[
+  \norm{df_A} \leq m |A|^{m - 1}
+\]
+
+We can thus term-by-term differentiate \(\exp\) and get a locally uniformly convergent series and use the above estimate to bound derivatives.
 
 
 
 
 
 
-% https://www.dpmms.cam.ac.uk/~agk22/teaching.html
+
+
+
+
+
 
 \printindex
 \end{document}
+
+% https://www.dpmms.cam.ac.uk/~agk22/teaching.html

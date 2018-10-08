@@ -100,7 +100,7 @@ Following this, we can define a finitely additive measure correponding to our in
 \begin{proof}
   Take \(A_n \subseteq E\) such that \(m(A_n) \nearrow \sup\) and \(B_n \supseteq E\) such that \(m(B_n) \searrow \inf\). Note that
   \[
-    \inf \leq m(B_n) = m(A_n) + m(B_n \setminus A_n) \leq \sup + m(B \setminus A) \leq \sup + \varepsilon
+    \inf \leq m(B_n) = m(A_n) + m(B_n \setminus A_n) \leq \sup + m(B_n \setminus A_n) \leq \sup + \varepsilon
   \]
   for arbitrary \(\varepsilon > 0\) so they are equal.
 \end{proof}
@@ -126,10 +126,175 @@ The idea of Lebesgue is to use countable covers by boxes.
 \begin{definition}
   A subset \(E \subseteq \R^d\) is \emph{Lebesgue measurable} if for all \(\varepsilon > 0\), there exists a countable union of boxes \(C\) with \(E \subseteq C\) and \(m^*(C \setminus E) < \varepsilon\), where \(m^*\), the \emph{Lebesgue outer measure}, is defined as
   \[
-    m^*(E) = \inf \{\sum_{i \geq 1} |B_i|: E \subseteq \bigcup_{i \geq 1} B_i, B_i \text{ boxes}\}.
+    m^*(E) = \inf \{\sum_{i \geq 1} |B_i|: E \subseteq \bigcup_{i \geq 1} B_i, B_i \text{ boxes}\}
   \]
+  for \emph{every} subset \(E \subseteq \R^d\).
 \end{definition}
 
+\begin{remark}
+  wlog in these definitions we may assume that boxes are open.
+\end{remark}
+
+% We are going to show that the family of Lebesgue measurable subsets is not only a Boolean algebra, but also stable under countable union. Next we are going to define the Lebesgue measure on the family, with the additive property (which is not possessed by Lebesgue outer measure). In fact, we can show that we cannot define a measure for \emph{all} subsets of a set.
+
+\begin{proposition}
+  \label{prop:Lebesgue measurable subset is Boolean algebra}
+  The family \(\mathcal L\) of Lebesgue measurable subsets of \(\R^d\) is a Boolean algebra stable under countable unions.
+\end{proposition}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(m^*\) is monotone: if \(E \subseteq F\) then \(m^*(E) \subseteq m^*(F)\).
+  \item \(m^*\) is countably subadditive: if \(E = \bigcup_{n \geq 1} E_n\) where \(E_n \subseteq \R^d\) then
+    \[
+      m^*(E) \leq \sum_{n \geq 1} m^*(E_n).
+    \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Monotonicity is obvious. For countable subadditivity, pick \(\varepsilon > 0\) and let \(C_n = \bigcup_{i \geq 1} C_{n, i}\) where \(C_{n, i}\) are boxes such that \(E_n \subseteq C_n\) and
+  \[
+    \sum_{i \geq 1} |C_{n, i}| \leq m^*(E_n) + \frac{\varepsilon}{2^n}.
+  \]
+  Then
+  \[
+    \sum_{n \geq 1} \sum_{i \geq 1} |C_{n, i}|
+    \leq \sum_{n \geq 1} (m^*(E_n) + \frac{\varepsilon}{2^n})
+    = \varepsilon + \sum_{n \geq 1} m^*(E_n)
+  \]
+  and \(E \subseteq \bigcup_{n \geq 1} C_n = \bigcup_{n \geq 1} \bigcup_{i \geq 1} C_{n, i}\) so
+  \[
+    m^*(E) \leq \varepsilon + \sum_{n \geq 1} m^*(E_n)
+  \]
+  for all \(\varepsilon > 0\).
+\end{proof}
+
+\begin{remark}
+  Note that \(m^*\) is \emph{not} additive on the family of all subsets of \(\R^d\). However, it will be on \(\mathcal L\), as we will show later.
+  % eg?
+\end{remark}
+
+\begin{lemma}
+  If \(A, B\) are disjoint compact subsets of \(\R^d\) then
+  \[
+    m^*(A \cup B) = m^*(A) + m^*(B).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \(\leq\) by the previous lemma so need to show \(\geq\). Pick \(\varepsilon > 0\). Let \(A \cup B \subseteq \bigcup_{n \geq 1} B_n\) where \(B_n\) are open boxes such that
+  \[
+    \sum_{n \geq 1} |B_n| \leq m^*(A \cup B) + \varepsilon.
+  \]
+  wlog we may assume that the side lengths of each \(B_n\) are \(< \frac{\alpha}{2}\), where
+  \[
+    \alpha = \inf \{\norm{x - y}_1: x \in A, y \in B\} > 0.
+  \]
+  where the inequality comes from the fact that \(A\) and \(B\) are compact and thus closed.
+
+  wlog we may discard the \(B_n\)'s that do not interesect \(A \cup B\). Then by construction
+  \[
+    \sum_{n \geq 1} |B_n| = \sum_{n \geq 1, B_n \cap A = \emptyset} |B_n| + \sum_{n \geq 1, B_n \cap B = \emptyset} |B_n|
+    \geq m^*(A) + m^*(B)
+  \]
+  so
+  \[
+    \varepsilon + m^*(A \cup B) \geq m^*(A) + m^*(B)
+  \]
+  for all \(\varepsilon\).
+\end{proof}
+
+\begin{lemma}
+  If \(E \subseteq \R^d\) has \(m^*(E) = 0\) then \(E \in \mathcal L\).
+\end{lemma}
+
+\begin{definition}[null set]\index{null set}
+  A set \(E \subseteq \R^d\) such that \(m^*(E) = 0\) is called a \emph{null set}.
+\end{definition}
+
+\begin{proof}
+  For all \(\varepsilon > 0\), there exist \(C = \bigcup_{n \geq 1} B_n\) where \(B_n\) are boxes such that \(E \subseteq C\) and \(\sum_{n \geq 1} |B_n| \leq \varepsilon\). But
+  \[
+    m^*(C \setminus E) \leq m^*(C) \leq \varepsilon.
+  \]
+\end{proof}
+
+\begin{lemma}
+  \label{lem:open and closed sets are Lebesgue measurable}
+  Every open subset of \(\R^d\) and every closed subset of \(\R^d\) is in \(\mathcal L\).
+\end{lemma}
+
+We will prove the lemma using the fact that the family of Lebesgue measurable subsets is stable under countable union, which itself \emph{does not} use this lemma. This lemma, however, will be used to show the stability under complementation. Since the proof is quite technical (it has more to do with general topology than measure theory), for brevity and fluency of ideas we present the proof the main proposition first.
+
+\begin{proof}[Proof of \Cref{prop:Lebesgue measurable subset is Boolean algebra}]
+  It is obvious that \(\emptyset \in \mathcal L\). To show it is stable under countable unions, start with \(E_n \in \mathcal L\) for \(n \geq 1\). Need to show \(E := \bigcup_{n \geq 1} E_n \in \mathcal L\).
+
+  Pick \(\varepsilon > 0\). By assumption there exist \(C_n = \bigcup_{i \geq 1} B_{n, i}\) where \(B_{n, i}\) are boxes such that \(E_n \subseteq C_n\) and
+  \[
+    m^*(C_n \setminus E_n) < \frac{\varepsilon}{2^n}.
+  \]
+  Now
+  \[
+    E = \bigcup_{n \geq 1} E_n \subseteq \bigcup_{n \geq 1} C_n =: C
+  \]
+  so \(C\) is again a countable union of boxes and \(C \setminus E \subseteq \bigcup_{n \geq 1} C_n \setminus E_n\).
+  so
+  \[
+    m^*(C \setminus E) \leq \sum_{n \geq 1} m^*(C_n \setminus E_n) \leq \sum_{n \geq 1} \frac{\varepsilon}{2^n} = \varepsilon
+  \]
+  by countable subadditivity so \(E \in \mathcal L\).
+
+  To show it is stable under complementation, suppose \(E \in \mathcal L\). By assumption there exist \(C_n\) a countable union of boxes with \(E \subseteq C_n\) and \(m^*(C_n \setminus E) \leq \frac{1}{n}\). wlog we may assume the boxes are open so \(C_n\) is open, \(C_n^c\) is closed so \(C_n^c \in \mathcal L\). Thus \(\bigcup_{n \geq 1} C_n^c \in \mathcal L\) by first part of the proof.
+
+  But
+  \[
+    m^*(E^c \setminus \bigcup_{n \geq 1} C_n^c)
+    \leq m^*(E^c \setminus C_n^c)
+    = m^*(C_n \setminus E)
+    \leq \frac{1}{n}
+  \]
+  so \(m^*(E^c \setminus \bigcup_{n \geq 1} C_n^c) = 0\) so \(E^c \setminus \bigcup_{n \geq 1} C_n^c \in \mathcal L\) since it is a null set. But
+  \[
+    E^c = (E^c \setminus \bigcup_{n \geq 1} C_n^c) \cup \bigcup_{n \geq 1} C_n^c,
+  \]
+  both of which are in \(\mathcal L\) so \(E^c \in \mathcal L\).
+\end{proof}
+
+\begin{proof}[Proof of \Cref{lem:open and closed sets are Lebesgue measurable}]
+  Every open set in \(\R^d\) is a countable union of boxes so is in \(\mathcal L\). It is more subtle for closed sets. %(in fact it is the key difference between this and Jordan measure).
+  The key observation is that every closed set is the countable union of compact subsets so we are left to show compact sets of \(\R^d\) are in \(\mathcal L\).
+
+  Let \(F \subseteq \R^d\) be compact. For all \(k \geq 1\), there exist \(O_k\) a countable union of open sets such that \(F \subseteq O_k := \bigcup_{i \geq 1} O_{k, i}\) where \(O_{k, i}\) are open boxes such that
+  \[
+    \sum_{i \geq 1} |O_{k, i}| \leq m^*(F) + \frac{1}{2^k}.
+  \]
+  By compactness there exist a finite subcover so we can assume \(O_k\) is a finite union of open boxes. Moreover, wlog assume that
+  \begin{enumerate}
+  \item the side lengths of \(O_{k, i}\) are \(\leq \frac{1}{2^k}\).
+  \item for each \(i\), \(O_{k, i}\) intersects \(F\).
+  \item \(O_{k + 1} \subseteq O_k\) (by replacing \(O_{k + 1}\) with \(O_{k + 1} \cap O_k\) iteratively).
+  \end{enumerate}
+  Then \(F = \bigcap_{k \geq 1} O_k\) and we are left to show \(m^*(O_k \setminus F) \to 0\). By additivity on disjoint compact sets,
+  \[
+    m^*(F) + m^*(\cl O_i \setminus O_{i + 1}) = m^*(F \cup (\cl O_i \setminus O_{i + 1}))
+  \]
+  so
+  \[
+    m^*(F) + m^*(\cl O_i \setminus O_{i + 1}) \leq m^*(\cl O_i)
+    \leq \sum_{j \geq 1} |O_{i, j}|
+    % = |O_i|
+    \leq m^*(F) + \frac{1}{2^i}
+  \]
+  so \(m^*(\cl O_i \setminus O_{i + 1}) \leq \frac{1}{2^i}\). Finally,
+  \[
+    m^*(O_k \setminus F)
+    = m^*(\bigcup_{i \geq k} (O_i \setminus O_{i + 1}))
+    \leq \sum_{i \geq k} m^*(O_i \setminus O_{i + 1})
+    \leq \sum_{i \geq k} \frac{1}{2^i}
+    = \frac{1}{2^{k - 1}}.
+  \]
+\end{proof}
 
 
 
