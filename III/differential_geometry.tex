@@ -169,8 +169,157 @@ In fact, the map is smooth although the proof is technical. A sketch of the proo
 \[
   \norm{df_A} \leq m |A|^{m - 1}
 \]
-
 We can thus term-by-term differentiate \(\exp\) and get a locally uniformly convergent series and use the above estimate to bound derivatives.
+
+It is easy to check that:
+\begin{enumerate}
+\item \(\exp (A^t) = (\exp A)^t\) where \(A^t\) is the transpose of \(A\).
+\item \(\exp (CAC^{-1}) = C (\exp A) C^{-1}\) for \(C\) nonsingular.
+\item \(\exp (A + B) \neq \exp A \exp B\) unless \(AB = BA\).
+\item \(\exp A \exp (-A) = I\) for any matrix \(A\).
+\end{enumerate}
+
+The second property prompts us to put \(A\) into Jordan normal form before computing \(\exp A\).
+
+Using the series
+\[
+  \log (I + A) = A - \frac{A^2}{2} + \dots + (-1)^{n + 1} \frac{A^n}{n} + \dots
+\]
+we can tackle this similarly to \(\exp\) to check \(\log(I + A)\) is smooth on \(\{|A| < 1\}\). We can also check
+\[
+  \exp (\log A) = A
+\]
+if \(|A - I| < 1\), with a proof given by manipulation of double indexed series, which is valid due to absolute convergence. The expression \(\log (\exp A)\) is more subtle. Clearly we need \(|\exp A - I| < 1\). But it is not sufficient: if
+\[
+  A_\theta =
+  \begin{pmatrix}
+    0 & -\theta \\
+    \theta & 0
+  \end{pmatrix}
+\]
+where \(\theta \in \R\), then
+\[
+  \exp(A_\theta) =
+  \begin{pmatrix}
+    \cos \theta & - \sin \theta \\
+    \sin \theta & \cos \theta
+  \end{pmatrix}
+\]
+Put \(\theta = 2\pi\), \(\exp A - I = 0\) but
+\[
+  \log (\exp A_{2\pi}) = 0 \neq A_{2\pi}.
+\]
+The reason is that the series is no longer absolutely convergent. If we add the additional condition that \(|A| < \log 2\) then
+\[
+  \log (\exp A) = A.
+\]
+It is left as an exercise. (Hint: \(|\exp |A| - 1| < 1\) implies absolute convergence.)
+
+\begin{eg}[orthogonal group]
+  Recall that
+  \[
+    O(n) = \{A \in \GL(n, \R), AA^t = I\}.
+  \]
+  Let \(A \in O(n)\) with \(|A - I| < 1\). Let \(B = \log A\) so \(e^B = A\). There exists \(0 < \varepsilon < 1\) such that whever \(|A - I| < \varepsilon\), have \(|B| < \log 2\) using continuity of \(\log\). Then
+  \[
+    e^B e^{B^t} = AA^t = I
+  \]
+  so
+  \[
+    e^B = A = (A^t)^{-1} = (e^{B^t})^{-1} = e^{-B^t}.
+  \]
+  Now \(|B^t| = |B| = \log 2\). Taking \(\log\), we find that \(B = -B^t\) so \(B\) is a skew-symmetric matrix.
+
+  Conversely, if \(B = - B^t\), \(|B| < \log 2\) then
+  \[
+    (e^B)^t = e^{B^t} = e^{-B} = (e^B)^{-1}
+  \]
+  so \(A = e^B \in O(n)\).
+
+\begin{proposition}
+  \(O(n)\) has a \(C^\infty\) structure making it a manifold and Lie group of dimension \(\frac{n(n - 1)}{2}\).
+\end{proposition}
+
+\begin{proof}
+  Put
+  \[
+    V_0 := \{B: B \text{ skew-symmetric}, |B| < \log 2\}
+  \]
+  and \(U := \exp (V_0)\), an open neighbourhood of \(I \in O(n)\). Let
+  \begin{align*}
+    h: U &\to V_0 \\
+    A &\mapsto \log A
+  \end{align*}
+  which is a well-defined homeomorphism onto \(V_0\), an open subset of the skew-symmetric matrices, which can be identified with \(\R^{n(n - 1)/2}\).
+
+  Now we construct the charts \((U_C, h_C)\). For all \(C = O(n)\), put \(U_C := \{CA: A \in U\}\), i.e.\ left translation of \(U\) by \(C\). Define
+  \begin{align*}
+    h_C: U_C &\to V_0 \\
+    A &\mapsto \log (C^{-1}A)
+  \end{align*}
+  which is a homeomorphism % ?
+  . To check they form an atlas, first note that \(C \in U_C\) so \(O(n) = \bigcup_{C \in O(n)} U_C\). Furthermore
+  \[
+    h_{C_2} \compose h_{C_1}^{-1} (B) = h_{C_2} (C_1 e^B) = \log (C_2^{-1}C_1 e^B)
+  \]
+  which is smooth since it is the composition of smooth maps. Thus \(O(n)\) is a manifold.
+
+  To check compatibility of group axioms, define
+  \begin{align*}
+    F: O(n) \times O(n) &\to O(n) \\
+    (A_1, A_2) &\mapsto A_1A_2^{-1}
+  \end{align*}
+  In local coordinates, it is
+  \begin{align*}
+    &h_{A_1A_2^{-1}} (F(h_{A_1}^{-1}(B_1), h_{A_2}^{-1}(B_2))) \\
+    =& \log [(A_1A_2^{-1})^{-1}A_1 e^{B_1} (A_2 e^{B_2})^{-1}] \\
+    =& \log (A_2 e^{B_1} e^{-B_2} A_2^{-1})
+  \end{align*}
+  which is smooth.
+\end{proof}
+\end{eg}
+
+The same construction works for toerh classical groups of matrices. See example sheet 1 Q4.
+
+\section{Tangent space to manifolds}
+
+Consider a curve in \(\R^n\), defined by a smooth parameterisation
+\[
+  x(t) = (x_i(t))_{i = 1}^n
+\]
+such that \(x(0) = p \in \R^n\). Then a tangent to the curve is velocity
+\[
+  \dot x(t) \in T_p\R^n \cong \R^n.
+\]
+Let \(y = y(x)\) be a \(C^\infty\) change of variables, i.e.\ a local coordinates. Then
+\[
+  \frac{d}{dt} \Big|_{t = 0} y(x(t)) = \underbrace{\frac{D y}{D x}}_{\text{Jacobian}}(p) \dot x(0)
+  = \left( \sum_{j = 1}^n \frac{\p y_i}{\p x_j} a_j \right)_{i = 1}^n
+\]
+
+\begin{definition}
+  A \emph{tangent vector} \(a\) to a manifold \(M\) at a point \(p \in M\) is the assignment to each chart \((U, \varphi)\), \(p \in U\) a \(n\)-tuple \((a_1, \dots, a_n) \in \R^n\) where \(n = \dim M\) so that for another chart \((U', \varphi')\), \(p \in U'\) with local coordinates \((x_1, \dots, x_n)\) and \((x_1', \dots, x_n')\), we have
+  \[
+    a_i' = \sum_{j = 1}^n \left( \frac{\p x_i'}{\p x_j} \right)_p a_j.
+  \]
+\end{definition}
+
+This is sometimes known as the tensorial definition of tangent space. Other equivalent definitions are: definitions using flows, using derivation on germs of smooth functions, or as dual of the cotangent space of the local ring of germs of functions.
+
+\begin{definition}[tangent space]\index{tangent space}
+  The \emph{tangent space} \(T_pM\) is the set of all tangent vectors to \(M\) at \(p\).
+\end{definition}
+
+It follows that \(T_pM\) is an \(n\)-dimensional real vector space. Thus \(T_pM \cong \R^n\) although this isomorphism is not canonical. But given a local coordinate chart with coordinates \((x_1, \dots, x_n)\), the tuple \((0, \dots, 1, \dots, 0)\) with \(1\) in \(i\)th position in \(\R^n\) has image under isomorphism \(\left( \frac{\p}{\p x_i} \right)_p\). Then the transformation law correpsonds to
+\[
+  \frac{\p}{\p x_j'} = \sum_{i = 1}^n \frac{\p x_i}{\p x_j'} \frac{\p}{\p x_i}
+\]
+where \((x_1', \dots, x_n')\) is another chart. This is precisely the change-of-basis formula in linear algebra.
+
+
+
+
+
 
 
 

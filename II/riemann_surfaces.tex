@@ -14,6 +14,8 @@
 
 \input{titlepage}
 
+\tableofcontents
+
 \section{Complex analysis \& Branching/Multivalued functions}
 
 \subsection{Holomorphicity}
@@ -121,8 +123,98 @@ More naturally,
 
 \end{proof}
 
+\begin{definition}[direct analytic continuation]\index{analytic continuation!direct}
+  A \emph{function element} in a domain \(U\) is a pair \((f, D)\) where \(D\) is a subdomain of \(U\) and \(f\) is an analytic function on \(D\). Two function elements \((f, D)\) and \((g, E)\) are equivalent, write \((f, D) \sim (g, E)\) if \(D \cap E \neq \emptyset\) and \(f = g\) on \(D \cap E\).
 
+  We say \((g, E)\) is a \emph{direct analytic continuation} of \((f, D)\).
+\end{definition}
 
+Why do we make such a definition? We know the power series
+\[
+  \sum_{r \geq 0} z^k = \frac{1}{1 - z}
+\]
+is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to natural boundary. However, \(\frac{1}{1 - z}\) is homomorphic  on \(\C \setminus \{1\}\) so sometimes the domain forced by definition of a function is not the maximal possible. In other words, sometimes we are looking at the ``correct'' function with a ``wrong'' domain.
+
+\begin{definition}[analytic continuation along path]\index{analytic continuation!along path}
+  We say \((g, E)\) is an \emph{analytic continuation of \((f, D)\) along \(\gamma\)} if \(\gamma: [0, 1] \to U\) and there exist function elements \((f_i, D_i)\), \(i \in \{0, \dots, n\}\) and \(0 = t_0 < t_2 < \dots < t_n = 1\) such that
+  \[
+    (f, D) = (f_0, D_0) \sim (f_1, D_1) \sim \dots \sim (f_{n - 1}, D_{n - 1}) \sim (f_n, D_n) = (g, E)
+  \]
+  and \(\gamma([t_j, t_{j + 1}]) \subseteq D_j\) for \(j \in \{0, \dots, n - 1\}\).
+
+  Write \((f, D) \approx_\gamma (g, E)\).
+\end{definition}
+
+\begin{remark}
+  As \(\C\) has a path-connected basis for the topology, domains are path-connected.
+\end{remark}
+
+\begin{definition}[analytic continuation]\index{analytic continuation}
+  We say \((g, E)\) is an \emph{analytic continuation} of \((f, D)\) if there exists a path \(\gamma\) such that \((f, D) \approx_\gamma (g, E)\). In this case we write \((f, D) \approx (g, E)\).
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \((f, D) \approx_\gamma (g, E)\) and \((f, D) \approx_\gamma (h, E)\) then \(g = h\) by repeated application of the identity principle. In other words, \(g\) is completely determined by \(f\) and \(\gamma\).
+  \item Analytic continuation is an equivalence relation (exercise), but direct analytic continuation is \emph{not} transitive, even if the pairwise intersections of the domains are nonempty. If fact, that is the whole point of analytic continuation along path.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[complete analytic function]\index{complete analytic function}
+  An equivalence class of function elements under \(\approx\) is a \emph{complete analytic function}.
+\end{definition}
+
+\begin{eg}[complex logarithm]
+  Let \(U = \C\) be the ambient space. Given \(\alpha < \beta\) in \(\R\), define
+  \[
+    E_{(\alpha, \beta)} := \{z = r^{i \theta}: r > 0, \alpha < \theta < \beta\}.
+  \]
+  Note \(\C \setminus \R_{\geq 0} = E_{(0, 2\pi)}\). If \(\beta - \alpha \leq 2\pi\), define
+  \[
+    f_{(\alpha, \beta)}(z) = \log r + i\theta
+  \]
+  where \(z = re^{i\theta}, \alpha < \theta < \beta\). Then \((f_{(\alpha, \beta)}, E_{(\alpha, \beta)})\) is a function element for any such \(\alpha, \beta\).
+
+  Let
+  \begin{align*}
+    A &= (-\frac{\pi}{2}, \frac{\pi}{2}) \\
+    B &= (\frac{\pi}{6}, \frac{7\pi}{6}) \\
+    C &= (\frac{5\pi}{6}, \frac{11\pi}{6})
+  \end{align*}
+  and \(\gamma: [0, 1] \to U, t \mapsto e^{2\pi i t}\) and choose
+  \[
+    0 = t_0 < t_1 = \frac{1}{6} < t_2 = \frac{1}{2} < t_3 = \frac{5}{6} < t_4 = 1
+  \]
+  and \((f_A, E_A), (f_B, E_B), (f_C, E_C)\) the corresponding function elements.
+
+  When the \emph{intervals} overlap, the function elements agree so
+  \[
+    (f_A, E_A) \sim (f_B, E_B) \sim (f_C, E_C),
+  \]
+  but
+  \[
+    f_C(z) = f_A(z) + 2\pi i, z \in E_A \cap E_C
+  \]
+  which shows nontransitivity of \(\sim\). In fact, \(f_A + 2\pi i \sim f_C\). However we see \((f_A, E_A) \approx_\gamma (f_C, E_C)\) and so \((f_A, E_A) \approx (f_C, E_C)\). By repeating the process with intervals moving to infinity to \(\R\), we see that all the \(\log r + (2\pi n + \theta) i\) are in the same class for \(\approx\). On the other hand, if \((f, D) \approx_\gamma (f_{A'}, E_{A'})\) for some interval \(A'\) then applying identity principle along the path to \(e^{f_i}\) shows that \(f\) is one of the branches of \(\log\).
+
+  Now we can define a space that contains all branches of logarithm. On \(U = \C \setminus \R_{\geq 0}\), define
+  \[
+    f_n(z) = \log n + (2\pi n + \theta)i
+  \]
+  where \(0 < \theta < 2\pi\). Then \((f_n, U)\) are function elements in the complete analytic function of \(\log\), and ``almost'' all of them. Take \(\Z\) copies of \(U\) and we can glue them along \(\R_{\geq 0}\). More precisely, for any \(n \in \Z\) and \(\alpha > 0\), there exists a neighbourhood \(V\) of \(\alpha\) and a function element \((g, V)\) such that
+  \[
+    (f_{n + 1}, E_{(0, \varepsilon)}) \sim (g, V) \sim (f_n, E_{(2\pi - \varepsilon, 2\pi)})
+  \]
+  for some \(\varepsilon > 0\).
+
+  This object is the ``gluing construction'' of the Riemann surface associated to \(\log\). Since these \((g, V)\) exist, the resulting surface \(R\) will admit a \emph{continuous} function \(f\) such that the following diagram commutes:
+  \[
+    \begin{tikzcd}
+      R \ar[r, "f"] \ar[d, "\pi"] & \C \ar[dl, "\exp"] \\
+      \C^*
+    \end{tikzcd}
+  \]
+\end{eg}
 
 
 % https://www.dpmms.cam.ac.uk/~hk439/teaching.html

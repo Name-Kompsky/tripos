@@ -3,7 +3,7 @@
 \def\npart{II}
 
 \def\ntitle{Graph Theory}
-\def\nlecturer{I.\ Leader}
+\def\nlecturer{P.\ Russel}
 
 \def\nterm{Michaelmas}
 \def\nyear{2018}
@@ -75,29 +75,9 @@ Note that what we care is the difference between the numbers. More specifically,
 
 Supoose we have a monochromatic triangle \(i < j < k\), then \(j - i, k - j, k - i\) are in the same part with \((k - j) + (j - i) = k - i\). This turns out to be exactly the setting we need to solve this problem. We will do this in chapter 1, alongside building the machinary we need.
 
-\iffalse
-
-
-Revision of \(\bigO\) notation and its cousins: let \(f,g:\N\to (0,\infty)\). We say
-\begin{align*}
-  f &= \bigO(g) \text{ if } f< Ag \text{ for some constant } A \\
-  f &= \Omg(g) \text{ if } g=\bigO(f) \\
-  f &= \bigT(g) \text{ if } f=\bigO(g) \text{ and } f = \Omg(g).
-\end{align*}
-Also,
-\begin{align*}
-  f &= \smallo(g) \text{ if } f/g\to 0 \text{ as } n\to \infty \\
-  f &= \smallomg(g) \text{ if } f/g\to \infty \\
-  f &\sim g \text{ if } f/g\to 1.
-\end{align*}
-
-
-\fi
-
-
 \section{Extremal graph theory}
 
-\subsection{Ramsey Theory}
+\subsection{Ramsey theory}
 
 \begin{definition}[graph, vertex, edge]\index{graph}
   A \emph{graph} \(G\) is an ordered pair \(G = (V, E)\) where \(V\) is a finite set and \(E\) is a set of unordered pairs of distinct elements of \(V\). The elements of \(V\) are the \emph{vertices} of \(G\) and those of \(E\) the \emph{edges}. Write \(V = V(E)\) and \(E = E(G)\).
@@ -194,7 +174,7 @@ Now we are ready to tackle the colouring problem in the previous chapter.
   \end{center}
 \end{note}
 
-\begin{proposition}[Ramsey's Theorem for triangles]\index{Ramsey's Theorem}
+\begin{proposition}[Ramsey theorem for triangles]\index{Ramsey theorem}
   Let \(k \in \N\). Then for \(n\) sufficiently large, if \(K_n\) is \(k\)-coloured we must have a monochromatic triangle.
 \end{proposition}
 
@@ -206,6 +186,123 @@ Now we are ready to tackle the colouring problem in the previous chapter.
   How big should we take \(n\)? Write \(f(k)\) for the smallest \(n\) that works. Then \(f(1) = 3\). If \(k > 1\), the proof tells us that \(f(k) \leq k(f(k - 1) - 1) + 2 \leq k f(k - 1)\). So by induction \(f(k) \leq 3k!\).
 \end{remark}
 
+\begin{corollary}[Schur's theorem]\index{Schur's theorem}
+  Let \(k \geq 1\). Then for \(n\) sufficiently larger, if \([n]\) is partitioned into \(k\) parts we can find \(x, y, z\) in the same part with \(x + y = z\).
+\end{corollary}
+
+\begin{proof}
+  Let \(n\) be such that if \(K_{n + 1}\) is \(k\)-coloured then there exists a monochromatic triangle. Partition
+  \[
+    [n] = A_1 \cup \dots \cup A_k.
+  \]
+  Now \(k\)-colour a \(K_{n + 1}\) with vertices \(0, \dots, n\) using colouring \(c\), with, for \(i < j\), \(j - i \in A_{c(ij)}\). Let \(h < i < j\) be a monochormatic triangle of colour \(u\), say. Then
+  \[
+    (i - h) + (j - i) = j - h
+  \]
+  and they are all in \(A_u\).
+\end{proof}
+
+We have shown that we can always find a monochromatic triangle, i.e.\ \(K_3\). What about \(K_4, K_5\) etc?
+
+\begin{eg}
+  Suppose \(K_{10}\) is coloured blue/yellow. Then there must be a blue triangle or a yellow \(K_4\).
+
+  \begin{proof}
+    Pick \(v \in K_{10}\), then
+    \begin{itemize}
+    \item either \(v\) is in \(4\) blue edges \(vw, vx, vy, vz\). If any edge is among \(w, x, y, z\) is blue, we have a blue triangle. Else \(wxyz\) is a yellow \(K_4\),
+      \begin{center}
+      \begin{tikzpicture}
+        \Vertices{circle}{v, w, x, y, z}
+        \SetUpEdge[color=blue]
+        \Edges(w, v, z)
+        \Edges(y, v, x)
+        \SetUpEdge[color=orange]
+        \Edges(w, x, y, z, w, y)
+        \Edges(x, z)
+      \end{tikzpicture}
+      \end{center}
+    \item or \(v\) is in \(6\) yellow edges. Let \(H\) be a \(K_6\) joined to \(v\) by yellow edges. We know \(H\) must have a monochromatic triangle. If it is a blue done. Otherwise together with \(v\) we have a yellow \(K_4\).
+    \end{itemize}
+  \end{proof}
+\end{eg}
+
+\begin{definition}[Ramsey number]\index{Ramsey number}
+  Let \(s, t \geq 2\). The \emph{Ramsey number} \(R(s, t)\) is the least \(n\) such that whenever \(K_n\) is coloured blue/yellow then we can find a blue \(K_s\) or a yellow \(K_t\) (if such an \(n\) exists). We write \(R(s) = R(s, s)\).
+\end{definition}
+
+\begin{theorem}[Ramsey]\index{Ramsey's theorem}
+  Let \(s, t \geq 2\). Then \(R(s, t)\) exists. Moreover, if \(s, t \geq 3\) then
+  \[
+    R(s, t) \leq R(s - 1, t) + R(s, t - 1).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Induction on \(s + t\). For \(s = 2\), \(R(2, t) = t\) and similarly for \(t = 2\), \(R(s, 2) = s\). For \(s, t \geq 3\), by induction hypothesis we can take
+  \begin{align*}
+    m &= R(s - 1, t) \\
+    n &= R(s, t -1)
+  \end{align*}
+  Colour \(K_{m + n}\) blue/yellow. Pick a vertex \(v \in K_{m + n}\). Then
+  \begin{itemize}
+  \item either \(v\) is in \(m\) blue edges. Let \(H\) be a \(K_m\) joined to \(v\) by blue. By definition of \(m\), \(H\) contains either a blue \(K_{s - 1}\), making a blue \(K_s\) with \(v\) or a yellow \(K_t\).
+  \item or \(v\) is in \(n\) yellow edges. Proceed as before with blue/yellow reversed.
+  \end{itemize}
+  Hence \(R(s, t)\) exists and moreover
+  \[
+    R(s, t) \leq R(s- 1, t) + R(s, t - 1).
+  \]
+\end{proof}
+
+How big is \(R(s)\)? We know \(R(2) = 2, R(3) = 6\) so
+\[
+  R(3, 4) \leq R(3) + R(2, 4) \leq 10.
+\]
+In fact, in example sheet we will show \(R(3, 4) = 9\). Then
+\[
+  R(4) = R(4, 4) \leq 2R(3, 4) = 18.
+\]
+It turns out to be a sharp, which we will also show on example sheet. What about \(R(5)\)? Nobody knows exactly. The bound as the time the note is taken is \(43 \leq R(5) \leq 48\). Although \(5\) seem innocuouly small, the computation required to find the exact Ramsey number is incredibly hard because as \(R(5) \approx 45\), \(K_{45}\) has \(\binom{45}{2} \approx 1000\) edges so there are approximately \(2^{1000}\) blue/yellow colourings.
+
+However, we can easily bound them:
+
+\begin{corollary}
+  Let \(s, t \geq 2\). Then \(R(s, t) \leq 2^{s + t}\). In particular, \(R(s) \leq 4^s\).
+\end{corollary}
+
+\begin{proof}
+  Induction on \(s + t\). For \(s = 2\) have \(R(2, t) = t \leq 2^{2 + t}\). Same for \(t = 2\). For \(s, t \geq 3\),
+  \[
+    R(s, t) \leq R(s - 1, t) + R(s, t - 1) \leq 2^{s - 1 + t} + 2^{s + t - 1} = 2^{s + t}.
+  \]
+\end{proof}
+
+\(R(s) \leq 4^s\) seems like a rather crude bound and indeed we start the induction with a very sloppy \(t \leq 2^t\). If we do it more carefully, we get \(R(s, t) \leq \binom{s + t - 2}{s - 1}\) so \(R(s) \leq \binom{2s - 2}{s - 1}\). Approximate, e.g.\ by Sterling formula and we get
+\[
+  R(s) = O(\frac{4^s}{\sqrt s}),
+\]
+which is the result by Erdos-Szekeres in 1930s. For 50 years no one is able to improve it. In the 1980s, Andrew Thomason shows \(R(s) = O(\frac{4^s}{s})\), which takes considerably more work. So far the best bound is found by David Conlon in the 2000s, for all \(k\), \(R(s) = O(\frac{4^s}{s^k})\). Is \(R(s) = O((4 - \varepsilon)^s)\) for some \(\varepsilon > 0\)? The answer is unknown.
+
+For a lower bound, however, see example sheet 1.
+
+What if we use more colours? First we can define the Ramsey number correspondingly:
+
+\begin{definition}[multicolour Ramsey number]\index{Ramsey number!multicolour}
+  Let \(k \geq 1\) and \(s \geq 2\). The \emph{multicolour Ramsey number} \(R_k(s)\) is the least \(n\) such that whenver \(K_n\) is \(k\)-coloured then there is a monochromatic \(K_s\) (if it exists).
+\end{definition}
+
+\begin{theorem}[multicolour Ramsey theorem]
+  Let \(k \geq 1, s \geq 2\), then \(R_k(s)\) exists.
+\end{theorem}
+
+\begin{proof}
+  Induction on \(k\). If \(k = 1\) then \(R_1(s) = s\). If \(k = 2\) then \(R_2(s) = R(s)\). For \(k \geq 3\), let \(n = R(s, R_{k - 1}(s))\) which exists by induction hypothesis and Ramsey theorem. Suppose \(K_n\) is \(k\)-coloured, give it now a blue/yellow colouring replacing colour 1 by blue and all others by yellow. Then
+  \begin{itemize}
+  \item either we have blue \(K_s\), i.e.\ colour 1 \(K_s\).
+  \item or yellow \(K_{R_{k - 1}(s)}\). In the original colouring this is \((k - 1)\)-coloured. So we have a monochromatic \(K_s\) inside it.
+  \end{itemize}
+\end{proof}
 
 
 
@@ -215,11 +312,28 @@ Now we are ready to tackle the colouring problem in the previous chapter.
 
 
 
-\clearpage
+
+
+\iffalse
+% 2017 lecture
+
+Revision of \(\bigO\) notation and its cousins: let \(f,g:\N\to (0,\infty)\). We say
+\begin{align*}
+  f &= \bigO(g) \text{ if } f< Ag \text{ for some constant } A \\
+  f &= \Omg(g) \text{ if } g=\bigO(f) \\
+  f &= \bigT(g) \text{ if } f=\bigO(g) \text{ and } f = \Omg(g).
+\end{align*}
+Also,
+\begin{align*}
+  f &= \smallo(g) \text{ if } f/g\to 0 \text{ as } n\to \infty \\
+  f &= \smallomg(g) \text{ if } f/g\to \infty \\
+  f &\sim g \text{ if } f/g\to 1.
+\end{align*}
+
 
 
 \begin{question}
-  How large must \(n\) be so that if edges of \(K_n\) are coloured blud and yellow then we always get mono \(K_s\)?
+  How large must \(n\) be so that if edges of \(K_n\) are coloured blue and yellow then we always get mono \(K_s\)?
 \end{question}
 
 Let \(G\) be ``blue subgraph'' of \(K_n\), i.e. all vertices, only blue edges.
@@ -319,6 +433,7 @@ But what if some \emph{non-bipartite} graph is better? For example, \(G\) is not
 \end{proof}
 
 Hence if \(|G|=n, e(G) > floor \frac{n^2}{4}\) then \(G\) contains a \(\triangle\). Therefore \(\exx(n, \triangle) = \floor*{\frac{n^2}{4}}\).
+\fi
 
 
 \printindex
