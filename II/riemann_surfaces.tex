@@ -214,10 +214,111 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
       \C^*
     \end{tikzcd}
   \]
+
+  The rigorous construction is as follow. Let \(R = \coprod _{k \in \Z} \C^*\) and a basis for the topology on \(R\) is
+  \begin{enumerate}
+  \item disks contained in a single sheet: \(D((\eta, k), r)\) disk of radius \(r\) about \(\eta \in \C \setminus \R_{\geq 0}\) at level \(k\), where \(r\) is sufficently small such that the disk does not interset \(\R_{\geq 0}\),
+  \item disks along \(\R_{\geq 0}\): for \(\eta > 0, k \in \Z, r < |\eta|\),
+    \[
+      A((\eta, k), r) = \{(z, k): |z - \eta| < r, \Im z \geq 0\} \amalg \{(z, k - 1), |z - \eta| < r, \Im z < 0\}.
+    \]
+  \end{enumerate}
+
+Check that this makes \(R\) into a Hausdorff, path-connected space. \(R\) comes with a natural projection \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\). This is a continuous map as the preimage of a small disk \(D(\eta, r) \subseteq \C^*\) is countably many copies of that disk, one for each sheet. This is precisely the definition of a covering space.
+\end{eg}
+
+\begin{definition}[covering space]\index{covering spce}
+  A \emph{covering space} of a topological space \(X\) is a continuous map \(p: \tilde X \to X\) where \(\tilde X\) and \(X\) are Hausdorff and path-connected and \(p\) is a local homeomorphism, i.e.\ for each \(\tilde x \in \tilde X\), there exists a neighbourhood \(\tilde N\) of \(\tilde x\) such that \(p|_{\tilde N}\) is a homeomorphism.
+
+    \(X\) is the \emph{base space} of \(p\).
+
+    The cover is \emph{regular} if for all \(x \in X\), there exists a neighbourhood of \(x\) such that \(p^{-1}(N)\) is a disjoint union of sets mapped homeomorphically by \(p\) to \(N\).
+\end{definition}
+
+\begin{note}
+  Whether including regularity in the definition of covering space is a matter of taste. It is ususally included in algebraic topology.
+\end{note}
+
+\begin{remark}
+  \(\pi: R \to \C^*\) is a regular cover.
+\end{remark}
+
+\begin{eg}[a non-regular cover]
+  Consider \(p: \tilde X \to \C^*, z \mapsto e^z\) where
+  \[
+    \tilde X = \{z \in \C: 0 < \Im z < 4\pi\}.
+  \]
+  It is a covering space but consider \(1 \in \C^*\). Any preimage of a sufficiently small disk centred at \(1\) will be the disjoint union of one disk at \(2\pi i\) and two half disks at \(0\) and \(4\pi i\) each. Thus \(p\) fails to be a regular cover as we choose the ``wrong'' domain.
+\end{eg}
+
+Define
+\begin{align*}
+  f: R &\to \C \\
+  (\eta, k) &\mapsto \log r + (2\pi k + \theta) i
+\end{align*}
+where \(\eta = re^{i\theta}, 0 \leq \theta < 2\pi\). Then \(f\) is a continuous bijection and the following diagram commutes:
+\[
+  \begin{tikzcd}
+    R \ar[r, "f"] \ar[d, "\pi"] & \C \ar[dl, "\exp"] \\
+    \C^*
+  \end{tikzcd}
+\]
+
+A similar construction can be done for the multivalued function \(z^{1/n}\) where \(n \in \N\). As a multivalued function,
+\[
+  (e^{i\theta})^{1/n} = r^{1/n} e^{i\theta/n} e^{2\pi ki/n}
+\]
+for \(k \in \Z/n\Z\). Define \(R_n = \coprod_{k \in \Z/n\Z} \C^*\) but gluing near modulo \(n\) (``top sheet to bottom sheet''). Then we have \(f_n, \pi_n\) such that the following diagram commutes:
+\[
+  \begin{tikzcd}
+    R_n \ar[r, "f_n"] \ar[d, "\pi_n"] & \C^* \ar[dl, "z \mapsto z^n"] \\
+    \C^*
+  \end{tikzcd}
+\]
+
+\begin{definition}[regular/singular point]\index{regular point}
+  Let \(f(z) = \sum_{k \geq 0} a_k z^k\) with radius of convergence \(1\). A point \(z \in \p D(0, 1)\) is \emph{regular} if there exists a neighbourhood \(N\) of \(z\) and a holomorphic \(g\) on \(N\) such that \(g = f\) on \(N \cap D(0, 1)\), i.e.\ \(g\) is a regular analytic continuation of \(f\).
+
+  If \(z \in \p D(0, 1)\) is not regular it is \emph{singular}.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The regular points of \(\p D(0, 1)\) form an open set in the subspace topology on \(\p D(0, 1)\).
+  \item \(z\) is regular does \emph{not} mean that the series converges at \(z\). Consider the classical example \(f(z) = \sum_{k \geq 0} z^k\), which is regular everywhere except \(z = 1\) (\(g(z) = \frac{1}{1 - z}\)).
+  \item The converse does not hold either. A series converges at \(z\) does not imply that it is regular there. For example, \(g(z) = \sum_{k \geq 2} \frac{z^k}{(k - 1)k}\) converges at all \(z \in \p D(0, 1)\). If it was regular at such a point then the second derivative \(g''(z) = \sum_{k \geq 0} z^k\) would also be regular at \(z\). But \(g''(z) \to \infty\) as \(z \to 1\) so \(f\) cannot agree on a neighbourhood of \(1\) with any holomorphic function.
+  \end{enumerate}
+\end{remark}
+
+However, regularity does affect radius of convergence:
+\begin{proposition}
+  Suppose \(f(z) = \sum_{k \geq 0} a_kz^k\) with radius of convergence \(1\). Then there exists a singular point on \(\p D(0, 1)\).
+\end{proposition}
+
+\begin{proof}
+  Suppose not so for each \(z \in \p D(0, 1)\) there exists a neighbourhood \(N_z\) of \(z\) and \(g_z\) on \(N_z\) holomorphic with \(g_z = f\) on \(N_z \cap D(0, 1)\). These extensions can be glued together by identity principle. As \(\p D(0, 1)\) is compact, there exists a finite collection of \(z_1, \dots, z_m \in \p D(0, 1)\) such that \(N_{z_i}\)'s cover \(\p D(0, 1)\). wlog let the neighbourhoods be disks. Then we can choose \(\delta > 0\) sufficiently small such that \(f\) is holomorphic on \(D(0, 1 + \delta)\). Contradiction.
+\end{proof}
+
+\begin{definition}[natural boundary]\index{natural boundary}
+  The disk boundary \(\p D(0, 1)\) is the \emph{natural boundary} for \(f\) if all points on the boundary are singular.
+\end{definition}
+
+\begin{eg}
+  \(f(z) = \sum_{k \geq 0} z^{k!}\) has natural boundary \(\p D(0, 1)\). Consider \(\omega = e^{2\pi i \frac{p}{q}}\) a root of unity. For \(0 < r < 1\),
+  \[
+    f(r \omega)
+    = \sum_{k \geq 0} r^{k!} \omega^{k!}
+    = \sum_{k \leq q - 1} r^{k!} \omega^{k!} + \sum_{k \geq q} r^{k!}
+  \]
+  so as \(r \to 1\) the last term goes to infinity so this cannot agree with a holomorphic function on a neighbourhood of \(\omega\). Since the closure of roots of unity is \(\p D(0, 1)\), every point is singular.
 \end{eg}
 
 
-% https://www.dpmms.cam.ac.uk/~hk439/teaching.html
+
+
+
 
 \printindex
 \end{document}
+
+% https://www.dpmms.cam.ac.uk/~hk439/teaching.html

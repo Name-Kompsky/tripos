@@ -256,8 +256,95 @@ Note that whenever we have \(g \compose f = \id_X\), \(f\) is injective so we ca
   \end{proof}
 \end{proof}
 
+\begin{eg}
+  Let \(X = \R^n, x_0 = 0\). Consider a loop \(\gamma\) in \(\R^n\) based at \(0\). The straightline homotopy shows that \(\gamma \simeq c_0\) as path. Therefore \(\pi_1(\R^n, 0) \cong 1\).
+\end{eg}
 
+\begin{lemma}
+  Let \(f: X \to Y\) be such that \(f(x_0) = y_0\). There is a well-defined homomorphism
+  \begin{align*}
+    f_*: \pi_1(X, x_0) &\to \pi_1(Y, y_0) \\
+    [\gamma] &\mapsto [f \compose \gamma]
+  \end{align*}
+  Furthermore,
+  \begin{enumerate}
+  \item if \(f \simeq f' \rel \{x_0\}\) then \(f_* = f_*'\).
+  \item if \(g: Y \to Z\) is another map then \(f_* \compose g_* = (f \compose g)_*\).
+  \item \((\id_X)_* = \id_{\pi_1(X, x_0)}\).
+  \end{enumerate}
+\end{lemma}
 
+\begin{proof}
+  Easy.
+\end{proof}
+
+We'd like to eliminate the dependence of \(\pi_1(X, x_0)\) on \(x_0\), at least when \(X\) is path-connected. Suppose \(x_0, x_1 \in X\). What do \(\pi_1(X, x_0)\) and \(\pi_1(X, x_1)\) have to do with each other, where \(X\) is path-connected?
+
+Fix \(\alpha\) a path from \(x_0\) to \(x_1\).
+
+\begin{lemma}
+  There is a well-defined group homomorphism
+  \begin{align*}
+    \alpha_\#: \pi_1(X, x_0) &\to \pi_1(X, x_1) \\
+    [\gamma] &\mapsto [\overline \alpha \cdot \gamma \cdot \alpha]
+  \end{align*}
+  Furthermore
+  \begin{enumerate}
+  \item if \(\alpha \simeq \alpha'\) then \(\alpha_\# = \alpha_\#'\),
+  \item \((c_{x_0})_\# = \id_{\pi_1(X, x_0)}\),
+  \item if \(\beta\) is a path from \(x_1\) to \(x_2\), \(\beta_\# \compose \alpha_\# = (\alpha \cdot \beta)_\#\).
+  \item if \(f: X \to Y\) then \((f \compose \alpha)_\# \compose f_* = f_* \compose \alpha_\#\).
+  \end{enumerate}
+\end{lemma}
+
+Now it makes sense to talk about isomorphism type of the fundamental group of a path-connected space.
+
+\begin{definition}[simply connected]\index{simply connected}
+  If \(X\) is path-connected and \(\pi_1(X, x_0) \cong 1\) for some (i.e.\ any) \(x_0 \in X\) then we say \(X\) is \emph{simply connected}.
+\end{definition}
+
+Our last task is to understand what homotopies that don't fix basepoints do to the fundamental group.
+
+\begin{lemma}
+  Suppose \(f, g: X \to Y\) is such that \(f \simeq_F g\). Define \(\alpha(t) = F(x_0, t)\), a path from \(f(x_0)\) to \(g(x_0)\). Then the following diagram commutes:
+\[
+  \begin{tikzcd}
+    & \pi_1(Y, f(x_0)) \ar[dd, "\alpha_\#"] \\
+    \pi_1(X, x_0) \ar[ur, "f_*"] \ar[dr, "g_*"] \\
+    & \pi_1(Y, g(x_0))
+  \end{tikzcd}
+\]
+i.e.\ \(g_* = \alpha_\# \compose f_*\).
+\end{lemma}
+
+\begin{proof}
+  Let \([\gamma] \in \pi_1(X, x_0)\). We need to show that
+  \[
+    [g \compose \gamma] = g_*[\gamma] = \alpha_\# \compose f_*[\gamma] = [\overline \alpha \cdot (f \compose \gamma) \cdot \alpha]
+  \]
+  which is saying
+  \[
+    g \compose \gamma \simeq \overline \alpha \cdot (f \compose \gamma) \cdot \alpha
+  \]
+  as paths. Consider
+  \begin{align*}
+    I \times I &\to Y \\
+    (s, t) &\mapsto F(\gamma(s), t)
+  \end{align*}
+  Let \(H\) be the straightline homotopy in \(I \times I\) between the yellow path and the brown path. Then \(G \compose H\) is the homotopy we need.
+\end{proof}
+
+\begin{theorem}
+  If \(f: X \to Y, g: Y \to X\) is a pair of homotopy equivalences and \(x_0 \in X\) then \(f_*: \pi_1(X, x_0) \to \pi_1(Y, f(x_0))\) is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+  Suffices to prove that \(f_*\) is bijective. Let \(g \compose f \simeq_F \id_X\) and \(\alpha\) be the path defined from \(F\) as above. Then
+  \[
+    g_* \compose f_* = (g \compose f)_* = \alpha_\# \compose \id_{\pi_1(X, x_0)} = \alpha_\#
+  \]
+  so \(f_*\) is injective. Similarly it is surjective.
+\end{proof}
 
 
 

@@ -291,9 +291,173 @@ The infimum of such \(C\) is called
       (x_1, x_2, \dots) &\mapsto (0, x_1, x_2, \dots ),
     \end{align*}
     called the right shift operator. Then \(T \in B(\ell^p, \ell^p)\) with \(\norm T = 1\). In fact, \(\norm{Tx} = \norm x\) for all \(x \in \ell^p\). This means that \(T\) is an isometry but not surjective.
-  \item 
+  \item Similarly define
+    \begin{align*}
+      S: \ell^p &\to \ell^p \\
+      (x_1, x_2, \dots) &\mapsto (x_2, x_3, \dots)
+    \end{align*}
+    with \(\norm S = 1\). Note that \(S\) is surjective but not injective. \(ST = \id \neq TS\).
+  \item Let \(p, q \in [1, \infty]\) with \(\frac{1}{p} + \frac{1}{q} = 1\). Fix \(y \in \ell^q\) and define
+    \begin{align*}
+      \phi_y: \ell^p & \to \K \\
+      x &\mapsto (x, y) := \sum_{n} x_yy_n
+    \end{align*}
+    i.e.\ \(\phi_y = (\cdot, y)\). By Hölder's inequality, this is well-defined and \(\norm{\phi_y} \leq \norm y_q\).
+  \item An unbounded map: let \(F\) be the space of finite real sequences with \(\norm \cdot_1\). Define
+    \begin{align*}
+      T: F &\to \R \\
+      (x_1, \dots, x_n, 0, 0, \dots) &\mapsto \sum_{i = 1}^n i x_i
+    \end{align*}
+    Then \(T\) is not bounded (i.e.\ not continuous) as \(\norm{T e_n} = n \to \infty\) as \(n \to \infty\).
+  \item Define
+    \begin{align*}
+      T: \ell^1 &\to \ell^2 \\
+      x &\mapsto x
+    \end{align*}
+    which has \(\norm T = 1\) because \(\sum_n |x_n| \leq 1\) implies \(\sum_n |x_n|^2 \leq 1\). But \(T\ell^1 \neq \ell^2\). Since \(T\ell^1\) is also dense in \(\ell^2\), \(T\ell^1\) is not closed in \(\ell^2\) and thus not complete.
   \end{enumerate}
 \end{eg}
+
+\begin{definition}[isomorphism, isometric isomorphism]\index{isomorphism}\index{isometric isomorphism}
+  Let \(X\) and \(Y\) be normed spaces. Then
+  \begin{enumerate}
+  \item an \emph{isomorphism} from \(X\) to \(Y\) is a map \(T: X \to Y\) that is a linear homeomorphism. Thus \(T \in B(X, Y)\) and \(T^{-1} \in B(X, Y)\), i.e.\ there are \(C_1, C_2 > 0\) such that
+    \[
+      C_1 \norm x \leq \norm{Tx} \leq C_2 \norm x
+    \]
+    for all \(x \in X\).
+  \item a bijective linear map \(T: X \to Y\) is an \emph{isometric isomorphism} if \(\norm{Tx} = \norm x\) for all \(x \in X\).
+  \end{enumerate}
+
+\end{definition}
+
+\begin{definition}[dual space]\index{dual space}
+  Let \(X\) be a normed space. Its \emph{dual space} is
+  \[
+    X^* = B(X, \K).
+  \]
+
+  A linear map \(X \to \K\) is called a \emph{functional}.
+\end{definition}
+
+\begin{theorem}
+  Let \(X\) and \(Y\) be normed spaces with \(Y\) complete. Then \(B(X, Y)\) is also complete. In particular \(X^* = B(X, \K)\) is complete.
+\end{theorem}
+
+\begin{proof}
+  Let \((T_n)_n \subseteq B(X, Y)\) be a Cauchy sequence. Then for every \(x \in X\), the sequence \((T_nx)_n \subseteq Y\) is Cauchy:
+  \[
+    \norm{T_n x - T_mx}
+    = \norm{(T_n - T_m) x}
+    \leq \underbrace{\norm{T_n - T_m}}_{< \frac{\varepsilon}{\norm x}} \norm x
+    \leq \varepsilon
+  \]
+  Since \(Y\) is complete, there is \(y \in Y\) such that \(T_nx \to y\). Set \(Tx = y\). Need to check \(T \in B(X, Y)\) and \(\norm{T_n - T} \to 0\).
+  \begin{itemize}
+  \item \(T\) is linear:
+    \begin{align*}
+      &T(\lambda x + \mu y) \\
+      =& \lim_{n \to \infty} T_n(\lambda x + \mu y) \\
+      =& \lim_{n \to \infty} (\lambda T_n x + \mu T_n y) \\
+      =& \mu T_x + \mu T_y
+    \end{align*}
+  \item \(T\) is bounded: for \(\norm x \leq 1\),
+    \begin{align*}
+      &\norm{Tx} \\
+      \leq& \norm{T_nx} + \norm{(T_n - T) x} \\
+      \leq& \norm{T_n} + \varepsilon \\
+      \leq& \sup_n \norm{T_n}
+    \end{align*}
+    which is bounded as \((T_n)_n\) is Cauchy.
+  \item \(T_n \to T\) in operator norm: for \(\norm x \leq 1\),
+    \begin{align*}
+      &\norm{T_n x - Tx} \\
+      \leq& \norm{(T_n - T_m) x} + \norm{(T_m - T) x} \\
+      \leq& \norm{T_n - T_m} + \varepsilon \\
+      \leq& \limsup_{n \to \infty} \norm{T_n - T_m} \\
+      \to& 0
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+\begin{eg}
+  Let \(p, q \in (1, \infty)\) with \(\frac{1}{p} + \frac{1}{q} = 1\). Then the map
+  \begin{align*}
+    \phi: \ell^q &\to (\ell^p)^* \\
+    y &\mapsto \phi_y = (\cdot, y)
+  \end{align*}
+  is an isometric isomorphism, i.e.\ \(\ell^q = (\ell^p)^*\).
+
+\end{eg}
+
+\begin{proof}
+  Clearly \(\phi\) is linear. We have already seen that \(\norm{\phi_y} \leq \norm y_q\). Claim that \(\norm{\phi_y} \geq \norm y_q\): note that LHS is a supremum so suffices to find \(\norm x \leq 1\) such that \(|\phi_y(x)| \geq \norm y_q\). Take
+  \[
+    x_n =
+    \begin{cases}
+      |y_n|^{q/p - 1} \overline y_n & y_n \neq 0 \\
+      0 & y_n = 0
+    \end{cases}
+  \]
+  Then
+  \[
+    \norm x_p^p = \sum_n |x_n|^p = \sum_n |y_n|^q = \norm y_q^q < \infty
+  \]
+  so \(x \in \ell^p\). We have
+  \[
+    \phi_y(x) = (x, y) \geq \sum_{n} |y_n|^{q/p + 1} = \sum_n |y_n|^q = \norm y_q^q = \norm y_q \norm y_q^{q - 1}.
+  \]
+  Note that
+  \[
+    \norm y_q^{q - 1} = \norm x_p^{\frac{p}{q}(q - 1)} = \norm x_p^{p (1 - \frac{1}{q})} = \norm x_p
+  \]
+  so
+  \[
+    |\phi_y(x)| = \norm y_q \norm x_p.
+  \]
+  Thus \(\phi\) is an isometry. It remains to check that \(\phi\) is surjective. Let \(T \in (\ell^p)^*\). Set \(y_n = Te_n\). Claim that \(y \in \ell^p\) and \(\norm y_q \leq \norm T\): define
+  \[
+    x_n =
+    \begin{cases}
+      |y_n|^{q/p - 1} \overline y_n & n \leq N \text{ and } y_n \neq 0 \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  We want to proceed as before but we don't know if \(y \in \ell^q\) this time so we only take the first \(N\) terms. Then \(\norm x_p^p = \sum_{n = 1}^N |y_n|^q\) so \(x \in \ell^p\) and
+  \[
+     Tx
+    = \sum_{n = 1}^N x_n Te_n
+    = \sum_{n = 1}^N x_n y_n
+    = \sum_{n = 1}^N |y_n|^q
+  \]
+  Rewrite the equation backward,
+  \[
+    \sum_{n = 1}^N |y_n|^q
+    = Tx
+    \leq \norm T \norm x_p
+    = \norm T \left( \sum_{n = 1}^N |y_n|^q \right)^{1/p}
+  \]
+  so
+  \[
+    \left( \sum_{n = 1}^N |y_n|^q \right)^{1 - 1/p} \leq \norm T
+  \]
+  so \(\norm y_q \leq \norm T\).
+
+  Finally, claim that \(T = \phi_y\): for all \(n\), by construction we know
+  \[
+    Te_n = \phi_y(e_n) = y_n.
+  \]
+  Since \(T\) and \(\phi_y\) are both continuous and linear, \(T = \phi_y\) on the span of \(\{e_n: n \geq 1\}\) which is just \(\ell^p\).
+\end{proof}
+
+\begin{remark}
+  Similarly, \((\ell^1)^* = \ell^\infty\) and \(c_0^* = \ell^1\) by the same argument. But the argument does \emph{not} show \((\ell^\infty)^* = \ell^1\) since \(\{e_n\}\) is not dense in \(\ell^\infty\), i.e.\ it is not separable.
+\end{remark}
+
+\begin{corollary}
+  For \(1 \leq p \leq \infty\), \(\ell^p\) is complete.
+\end{corollary}
+
 
 
 

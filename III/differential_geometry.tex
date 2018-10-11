@@ -11,6 +11,7 @@
 \input{header}
 
 \DeclareMathOperator{\Gr}{Gr} % Grassmannian
+\DeclareMathOperator{\Lie}{Lie} % Lie functor
 
 \begin{document}
 
@@ -279,7 +280,7 @@ It is left as an exercise. (Hint: \(|\exp |A| - 1| < 1\) implies absolute conver
 \end{proof}
 \end{eg}
 
-The same construction works for toerh classical groups of matrices. See example sheet 1 Q4.
+The same construction works for other classical groups of matrices. See example sheet 1 Q4.
 
 \section{Tangent space to manifolds}
 
@@ -300,7 +301,7 @@ Let \(y = y(x)\) be a \(C^\infty\) change of variables, i.e.\ a local coordinate
 \begin{definition}
   A \emph{tangent vector} \(a\) to a manifold \(M\) at a point \(p \in M\) is the assignment to each chart \((U, \varphi)\), \(p \in U\) a \(n\)-tuple \((a_1, \dots, a_n) \in \R^n\) where \(n = \dim M\) so that for another chart \((U', \varphi')\), \(p \in U'\) with local coordinates \((x_1, \dots, x_n)\) and \((x_1', \dots, x_n')\), we have
   \[
-    a_i' = \sum_{j = 1}^n \left( \frac{\p x_i'}{\p x_j} \right)_p a_j.
+    a_i' = \sum_{j = 1}^n \frac{\p x_i'}{\p x_j} (p) a_j.
   \]
 \end{definition}
 
@@ -310,14 +311,150 @@ This is sometimes known as the tensorial definition of tangent space. Other equi
   The \emph{tangent space} \(T_pM\) is the set of all tangent vectors to \(M\) at \(p\).
 \end{definition}
 
-It follows that \(T_pM\) is an \(n\)-dimensional real vector space. Thus \(T_pM \cong \R^n\) although this isomorphism is not canonical. But given a local coordinate chart with coordinates \((x_1, \dots, x_n)\), the tuple \((0, \dots, 1, \dots, 0)\) with \(1\) in \(i\)th position in \(\R^n\) has image under isomorphism \(\left( \frac{\p}{\p x_i} \right)_p\). Then the transformation law correpsonds to
+It follows that \(T_pM\) is an \(n\)-dimensional real vector space. Thus \(T_pM \cong \R^n\) although this isomorphism is not canonical. But given a local coordinate chart with coordinates \((x_1, \dots, x_n)\), the tuple \((0, \dots, 1, \dots, 0)\) with \(1\) in \(i\)th position in \(\R^n\) has image under isomorphism \(\frac{\p}{\p x_i} (p)\). Then the transformation law correpsonds to
 \[
   \frac{\p}{\p x_j'} = \sum_{i = 1}^n \frac{\p x_i}{\p x_j'} \frac{\p}{\p x_i}
 \]
-where \((x_1', \dots, x_n')\) is another chart. This is precisely the change-of-basis formula in linear algebra.
+where \((x_1', \dots, x_n')\) is another chart. This is precisely the chain rule for derivatives.
 
+Let \(a = \sum_i a_i \frac{\p}{\p x_i} (p) \in T_pM\) where \(x_i\)'s are local coordinates around \(p\). Then a first order \emph{derivation} at \(p\) is
+\begin{align*}
+  a: C^\infty(M) &\to \R \\
+  f &\mapsto \sum_i a_i \frac{\partial f}{\partial x_i} 
+\end{align*}
+(where we assume the same charts on RHS) is a well-defined map independent of choice of coordinates. We can interpret, with the \(x_i\)'s,
+\[
+  a(f) = \frac{d}{dt} \Big|_{t = 0} f(x(t))
+\]
+for all \(x: (-\varepsilon, \varepsilon) \to M\) smooth, \(x(0) = p\) and \(\dot x(0) = a\).
 
+Now for another choice \(\tilde x_i\) of local coordinates,
+\[
+  \frac{d}{dt} \Big|_{t = 0} f(\tilde x(t))
+  = \sum_j \frac{\partial f}{\partial \tilde x_j} (p) \dot{\tilde x}_j(0)
+  = \sum_{j, i} \frac{\partial f}{\partial \tilde x_j}(p) \frac{\partial \tilde x_j}{\partial x_i}(p) \dot x_i(0)
+\]
+by the transformation law for tangent vectors.% Thus the tensor transformation law is 
 
+The derivations satisfy Leibniz rule, i.e.\
+\[
+  a(fg) = a(f)g(p) + f(p)a(g).
+\]
+Conversely, every linear map \(a: C^\infty(M) \to \R\) satisfying the Leibniz rule arises from some \(a \in T_pM\). This is left as an exercise.
+
+\begin{eg}
+  An example from classical differential geometry. Consider a surface \(r: D \to S\) where \(D \subseteq \R^2\) and \(S = r(D) \subseteq \R^3\). Then \(S\) is a manifold with \(\varphi = r^{-1}\) as a chart. Then \(r_u, r_v\) at \(p \in S\) corresponds to \(\frac{\partial}{\partial u}, \frac{\partial}{\partial v}\) in our theory.
+\end{eg}
+
+\subsection{Lie algebra}
+
+For a Lie group, the tangent spaces get an ``infinitesimal'' version of the group multiplication.
+
+\begin{definition}
+  A \emph{Lie algebra} is a vector space with a bilinear multiplication \([\cdot, \cdot]\), i.e.\ a Lie bracket such that
+  \begin{enumerate}
+  \item anticommutativity: \([a, b] = -[b, a]\),
+  \item Jacobi identity: \([[a, b], c] + [[b, c], a] + [[c, a], b] = 0\).
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+  Let \(G\) be a Lie group of \(n \times n\) (real or complex) matrices such that \(\log\) defines a coordinate chart near \(I \in G\), i.e.\ the image of \(\log\) near \(I\) is an open set in some real vector subspace of \(\R^{n^2}\). Identify \(\mathfrak g = T_IG\) with the above open subset. Then \(\mathfrak g\) is a Lie algebra with
+  \[
+    [B_1, B_2] := B_1B_2 - B_2B_1
+  \]
+  for \(B_1, B_2 \in \mathfrak g\).
+\end{theorem}
+
+\begin{proof}
+  Check that \(\mathfrak g\) is a vector space and \([\cdot, \cdot]\) is anticommutative. The Jacobi identity holds for matrices (straightforward check).
+
+  What is left is to show \(B_1, B_2 \in \mathfrak g\) then \([B_1, B_2] \in \mathfrak g\). Consider
+  \[
+    A(t) = \exp (B_1 t) \exp (B_2 t) \exp(-B_1t) \exp (-B_2t),
+  \]
+  the commutator of two elements in \(G\). Then \(A(0) = I\). Expand \(\exp\), we get
+  \[
+    A(t) = I + [B_1, B_2] t^2 + o(t^2)
+  \]
+  as \(t \to 0\) so
+  \[
+    B(t) = \log A(t) = [B_1, B_2] t^2 + o(t^2).
+  \]
+  In addition \(\exp B(t) = A(t)\) holds for \(|t|\) sufficiently small so \(B(t) \in \mathfrak g\) as it is in the image of the \(\log\) chart. It follows that \(\frac{B(t)}{t^2} \in \mathfrak g\) for \(t \neq 0\) as \(\mathfrak g\) is a vector space. Thus
+  \[
+    [B_1, B_2] = \lim_{t \to 0} \frac{B(t)}{t^2} \in \mathfrak g
+  \]
+  as every vector subspace of matrix \(n, \C\) is a closed subset.
+\end{proof}
+
+\begin{eg}
+  For \(G = O(n)\), have \(\mathfrak g = \mathfrak o(n) = \{\text{skew-symmetric \(n \times n\) matrices}\}\) by previous work.
+\end{eg}
+
+\begin{definition}
+  \(\mathfrak g\) is called the \emph{Lie algebra} of \(G\), write \(\mathfrak g = \Lie(G)\).
+\end{definition}
+
+In fact we can show \(\Lie\) is a functor but we won't pursue in that direction.
+
+\begin{definition}[tangent bundle]\index{tangent bundle}
+  Let \(M\) be a smooth manifold. Then \(TM = \coprod_{p \in M} T_pM\) is the \emph{tangent bundle} of \(M\).
+\end{definition}
+
+\begin{theorem}
+  \(TM\) has a natural \(C^\infty\) structure, making it into a smooth manifold of \(\dim TM = 2 \dim M\).
+\end{theorem}
+
+\begin{proof}
+  We shall induce the topology from the \(C^\infty\) structure. Let \((U, \varphi)\) be a chart on \(M\). Consider \(U_T = \coprod_{p \in U} T_pM\) so \(TM = \bigcup U_T\). For \(a \in T_pM, \varphi(p) = (x_1, \dots, x_n)\) so that \(a = \sum_i a_i \frac{\partial  }{\partial x_i}\). Now define
+  \begin{align*}
+    \varphi_T: U_T &\to \R^n \times \R^n \\
+    a &\mapsto (\varphi(p), (a_i))
+  \end{align*}
+
+  To show compatibility, suppose \((U', \varphi')\) is another chart on \(M\) with local coordinates \(x_i'\) and efine \(\tilde \varphi'\) as above. Then
+  \[
+    \varphi_T' \compose \varphi_T^{-1}(x, a)
+    = (x', a')
+  \]
+  where \(x' = \varphi' \compose \varphi^{-1}(x)\) and \(a'\) is given by the translation law
+  \[
+    a' = \sum_j \frac{\partial x_i'}{\partial x_j} (x) a_j,
+  \]
+  so is smooth wherever defined.
+
+  Hausdorffness and second countability follows from that \(M\) and \(\R^n\) are manifolds.
+\end{proof}
+
+\begin{note}
+  Some remarks on the final statement regarding topological properties:
+  \begin{enumerate}
+  \item \(M\) is \(\sigma\)-compact, i.e.\ every open cover has a countable subcover.
+  \item A basis of topology of \(TM\) is given by \(\{B_1 \times B_2\}\) where \(B_1\) is open in some coordinate neighbourhood \(U \subseteq M\) and \(B_2\) is open in \(\R^n\).
+  \end{enumerate}
+\end{note}
+
+\begin{corollary}
+  The projection
+  \begin{align*}
+    \pi: TM &\to M \\
+    (p, a) &\mapsto p
+  \end{align*}
+  is smooth.
+\end{corollary}
+
+\begin{remark}
+  \(TM\) has locally a product structure but in general \(TM\) is not diffeomorphic to \(M \times \R^n\).
+\end{remark}
+
+\begin{definition}[vector field]\index{vector field}
+  A \emph{vector field} on a manifold \(M\) is a smooth map \(X: M \to TM\) such that \(\pi \compose X = \id_M\), i.e.\ \(X(p) \in T_pM\) for all \(p \in M\).
+\end{definition}
+
+\begin{eg}
+  Every manifold has at least one vector field: sending every point to \(0\). This is not the most interesting example, however.
+\end{eg}
 
 
 

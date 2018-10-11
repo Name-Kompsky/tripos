@@ -1,0 +1,245 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Category Theory}
+\def\nlecturer{P.\ T.\ Johnstone}
+
+\def\nterm{Michaelmas}
+\def\nyear{2018}
+
+\input{header}
+
+\renewcommand{\c}[1]{\mathbf{#1}}
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\mor}{mor}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+
+\newcommand{\Set}{{\c{Set}}}
+\newcommand{\Top}{{\c{Top}}}
+\newcommand{\Rel}{{\c{Rel}}}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Definitions and examples}
+
+\begin{definition}[category]\index{category}
+  A \emph{category} \(\c C\) consists of
+  \begin{enumerate}
+  \item a collection \(\ob \c C\) of \emph{objects} \(A, B, C, \dots\),
+  \item a collection \(\mor \c C\) of \emph{morphisms} \(f, g, h, \dots\),
+  \item two operations \(\dom\) and \(\cod\) assigning to each \(f \in \mor \c C\) a pair of objects, its \emph{domain} and \emph{codomain}. We write \(A \xrightarrow{f} B\) to mean \(f\) is a morphism and \(\dom f = A, \cod f = B\),
+  \item an operation assigning to each \(A \in \ob \c C\) a morhpism \(A \xrightarrow{1_A} A\),
+  \item a partial binary operation \((f, g) \mapsto fg\) on morphisms, such that \(fg\) is defined if and only if \(\dom f = \cod g\) and let \(\dom fg = \dom g, \cod fg = \cod f\) if \(fg\) is defined
+  \end{enumerate}
+  satisfying
+  \begin{enumerate}
+  \item \(f 1_A = f = 1_B f\) for any \(A \xrightarrow{f} B\),
+  \item \((fg) h = f(gh)\) whenever \(fg\) and \(gh\) are defined.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item This definition is independent of any model of set theory. If we're given a particuar model of set theory, we call \(\c C\) \emph{small} if \(\ob \c C\) and \(\mor \c C\) are sets.
+  \item Some texts say \(fg\) means \(f\) followed by \(g\) (we are not).
+  \item Note that a morphism \(f\) is an identity if and only if \(fg = g\) and \(hf = h\) whenever the compositions are defined so we could formulate the definitions entirely in terms of morphisms.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The category \(\Set\) has all sets as objects and all functions between sets as morphisms (strictly, morphisms \(A \to B\) are pairs \((f, B)\) where \(f\) is a set theoretic function).
+  \item The category \(\c{Gp}\) where objects are groups, morphisms are group homomorphisms. Similarly \(\c{Ring}\) is the category of rings and \(\c{Mod}_R\) is the category of \(R\)-modules.
+  \item The category \(\Top\) has all topological spaces as objects and continuous functions as morphisms. Similarly \(\c{Unif}\) the category of uniform spaces with uniformly continuous functions and \(\c{Mf}\) the category of manifolds with smooth maps.
+  \item The cateogry \(\c{Htpy}\) has same objects as \(\Top\) but morphisms are homotopy classes of continuous functions.
+
+    More generally, given \(\c C\) we call an equivalence relation \(\simeq\) on \(\mor \c C\) a \emph{congruence} if \(f \simeq g\) implies \(\dom f = \dom g, \cod f = \cod g\) and \(fh \simeq gh\) and vice versa. % ?
+    Then we have a set \(\c C / \simeq\) with the same objects as \(\c C\) but congruence classes as morphisms.
+  \item Given \(\c C\), the \emph{opposite category}\index{category!opposite} \(\c C^{\text{op}}\) has the same objects and morphisms as \(\c C\), but domain and codomain interchanged and \(fg\) in \(\c C^{\text{op}}\) is \(gf\) in \(\c C\).
+
+    This leads to \emph{duality principle}: if \(P\) is a valid statement about categories so is \(P^*\) attained by reversing all the arrows.
+  \item A small category with one object is a \emph{monoid}, i.e.\ a semigroup with \(1\). In particular, a group is a small category with one object, in which every morphism is an isomorphism (i.e.\ for all \(f\) there exists \(g\) such that \(fg\) and \(gf\) are identities).
+  \item A \emph{groupoid} is a category in which every morphism is an isomorphism. For example, for a topological space \(X\), the \emph{fundamental groupoid} \(\pi(X)\) has all points of \(X\) as objects and morphisms \(x \to y\) as homotopy classes rel \({0, 1}\) of paths \(\gamma: [0, 1] \to X\) with \(\gamma(1) = y\).
+  \item A \emph{discrete} category is one whose only morphisms are identities. A \emph{preorder} is a category \(\c C\) in which for any pair \((A, B)\) there exists at most one morphism \(A \to B\). A small preorder is a set equipped with a binary relation which is reflexive and transitive. In particular a partially ordered set is a partially ordered set is a small preorder in which the only isomorphisms are identities.
+  \item The category \(\Rel\) has the same objects as \(\Set\) but morphisms \(A \to B\) are arbitrary relations. Given \(R \subseteq A \times B, S \subseteq B \times C\), we define
+    \[
+      S \compose R = \{(a, c) \in A \times C: \exists b \in B \text{ s.t. } (a, b) \in R, (b, c) \in S\}.
+    \]
+    The identity \(1_A: A \to A\) is \(\{(a, a): a \in A\}\). Similarly, the category \(\c{Part}\) of sets and partial functions (i.e.\ relations such that for all \((a, b), (a, b') \in R\), \(b = b'\)) can be defined.
+  \item Let \(K\) be a field. The category \(\c{Mat}_K\) has natural numbers as objects and morphisms \(n \to p\) are \((p \times n)\) matrices with entries from \(K\). Composition is matrix multiplication.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[functor]\index{functor}
+  Let \(\c C, \c D\) be categories. A \emph{functor} \(F: \c C \to \c D\) consists of
+  \begin{enumerate}
+  \item a mapping \(A \mapsto F(A)\) from \(\ob \c C\) to \(\ob \c D\),
+  \item a mapping \(f \mapsto F(f)\) from \(\mor \c C\) to \(\mor \c D\) such that
+    \begin{align*}
+      \dom(F(f)) &= F(\dom f), \cod (Ff) = F \cod(f) \\
+      1_{F(A)} &= F(1_A), (F(f))(F(g)) = F(fg)
+    \end{align*}
+    wherever \(fg\) is defined.
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}
+  We write \(\c{Cat}\) for the category whose objects are all small categories and whose morphisms are functors between them.
+\end{eg}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item We have \emph{forgetful functors}\index{functor!forgetful} \(U: \c{Gp} \to \Set, \c{Ring} \to \Set, \Top \to \Set \dots\) and \(\c{Ring} \to \c{AbGp}\) (forget multiplication), \(\c{Ring} \to \c{Mon}\) (forget addition).
+  \item Given \(A\), the free group \(F(A)\) has the property given any group \(G\), any \(A \xrightarrow{f} U G\), there is a unique homomorphism \(FA \xrightarrow{\tilde f} G\) extending \(f\).
+
+    \(F\) is a functor \(\Set \to \c{Gp}\): given any \(A \xrightarrow{f} B\), we define \(F(f)\) to be the unique homomorphism extending \(A \xrightarrow{f} B \embed U FB\). Functoriality follows from uniqueness: given \(B \xrightarrow{g} C\), \(F(gf)\) and \((Fg)(Ff)\) are both homomorphisms extending
+    \[
+      A \xrightarrow{f} B \xrightarrow{g} C \embed U F C.
+    \]
+  \item Given a set \(A\), we write \(PA\) for the set of all subsets of \(A\). We can make \(P\) into a functor \(\Set \to \Set\): given \(A \xrightarrow{f} B\), we define
+    \[
+      Pf(A') = \{f(a): a \in A'\}
+    \]
+    for \(A' \subseteq A\).
+
+    But we also have a functor \(P^*: \Set \to \Set^{\text{op}}\) defined by
+    \[
+      P^*f(B') = \{a \in A: f(a) \in B'\}
+    \]
+    for \(B' \subseteq B\).
+  \item By a \emph{contravariant functor}\index{functor!contravariant} \(\c C \to \c D\) we mean a functor \(\c C \to \c D^{\text{op}}\) (or \(\c C^{\text{op}} \to \c D\). (A \emph{covariant functor} is one that doesn't reverse arrows)
+
+    Let \(K\) be a field. We have a functor \(\cdot^*: \c{Mod}_K \to \c{Mod}^{\text{op}}_K\) defined by
+    \[
+      V^* = \{\text{linear maps } V \to K\}
+    \]
+    and if \(V \xrightarrow{f} W\), \(f^*(\theta) = \theta f\).
+  \item We have a funtor \(\cdot^\text{op}: \c{Cat} \to \c{Cat}\) which is the identity on morphisms. (note that this is \emph{covariant})
+  \item A functor between monoids is a monoid homomorphism.
+  \item A functor between posets is an order-preserving map.
+  \item Let \(G\) be a group. A functor \(F: G \to \Set\) consists of a ast \(A = F*\) together with an action of \(G\) on \(A\), i.e.\ permutation representation of \(G\). Similarly a functor \(G \to \c{Mod}_K\) is a \(K\)-linear representation of \(G\).
+  \item The construction of the fundamental gropu \(\pi_1(X, x)\) of a space \(X\) with basepoint \(x\) is a functor
+    \[
+      \Top_* \to \c{Gp}
+    \]
+    where \(\Top_*\) is the category of spaces with a chosen basepoint.
+
+    Similarly, the fundamental groupoid is a functor
+    \[
+      \Top \to \c{Gpd}
+    \]
+    where \(\c{Gpd}\) is the category of groupoids and functors between them.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[natural transformation]\index{natural transformation}
+  Let \(\c C, \c D\) be categories and \(F, G: \c C \to \c D\) be two functors. A \emph{natural transformation} \(\alpha: F \to G\) consists of an assignment \(A \mapsto \alpha_A\) from \(\ob \c C\) to \(\mor \c D\) such that \(\dom \alpha_A = FA, \cod \alpha_A = GA\) for all \(A\), and for all \(A \xrightarrow{f} B\) in \(\c C\), the square
+  \[
+    \begin{tikzcd}
+      FA \ar[r, "Ff"] \ar[d, "\alpha_A"] & FB \ar[d, "\alpha_B"] \\
+      GA \ar[r, "Gf"] & GB
+    \end{tikzcd}
+  \]
+  commutes, i.e.\ \(\alpha_B(Ff) = (Gf)\alpha_A\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Given categories \(\c C, \c D\), we write \([\c C, \c D]\) for the category whose objects are functors \(\c C \to \c D\) and whose morphisms are natural transformations.
+  \item Let \(K\) be a field and \(V\) a vector space over \(K\). There is a linear map \(\alpha_V: V \to V^{**}\) given by
+    \[
+      \alpha_V(v)(\theta) = \theta(v)
+    \]
+    for \(\theta \in V^*\). This is the \(V\)-component of a natural transformation
+    \[
+      1_{\c{Mod}_K} \to \cdot^{**}: \c{Mod}_K \to \c{Mod}_K.
+    \]
+  \item For any set \(A\), we have a mapping \(\sigma_A: A \to PA\) sending \(a\) to \(\{a\}\). If \(f: A \to B\) then \(Pf(\{a\}) = \{f(a)\}\). So \(\sigma\) is a natural transformation \(1_\Set \to P\).
+  \item Let \(F: \Set \to \c{Gp}\) be the free group functor and \(U: \c{Gp} \to \Set\) the forgetful functor. The inclusions \(A \to UFA\) is a natural transformation \(1_\Set \to UF\).
+  \item Let \(G, H\) be groups and \(f, g: G \to H\) be two homomorphisms. Then a natural tranformation \(\alpha: f \to g\) corresponds to an element \(h = \alpha_*\) such that \(h f(x) = g(x) h\) for all \(x \in G\), or equivalently \(f(x) = h^{-1} g(x) h\), i.e.\ \(f\) and \(g\) are conjugate group homomorphisms.
+  \item Let \(A\) and \(B\) be two \(G\)-sets, regarded as functors \(G \to \Set\). A natural transformation \(A \to B\) is a function \(f\) satisfying \(f(g . a) = g. f(a)\) for all \(a \in A\), i.e.\ a \(G\)-equivariant map.
+  \end{enumerate}
+\end{eg}
+
+When we say ``natural isomorphism'', it is ambiguous and can formally mean two different things: one could mean there is a natural transformation going the other way which when composed produces identity, or each component is an isomorphism. It turns out they coincide:
+
+\begin{lemma}
+  Let \(F, G: \c C \to \c D\) be two functors and \(\alpha: F \to G\) a natural transformation. Then \(\alpha\) is an isomorphism in \([\c C, \c D]\) if and only if each \(\alpha_A\) is an isomorphism in \(\c D\).
+\end{lemma}
+
+\begin{proof}
+  Only if is trivial. For if, suppose each \(\alpha_A\) has an inverse \(\beta_A\). We need to prove the \(\beta\)'s satisfy the naturality condition: give \(f: A \to B\) in \(\c C\), we need to show that
+  \[
+    \begin{tikzcd}
+      GA \ar[r, "Gf"] \ar[d, "\beta_A"] & GB \ar[d, "\beta_B"] \\
+      FA \ar[r, "Ff"] & FB
+    \end{tikzcd}
+  \]
+  commutes. But
+  \[
+    (Ff) \beta_A = \beta_B \alpha_B(Ff) \beta_A
+    = \beta_B (GF) \alpha_A \beta_A
+    =\beta_B (Gf)
+  \]
+  by naturality of \(\alpha\).
+\end{proof}
+
+In study of algebraic theories (for example), we are interested in isomorphisms of objects and investigate the properties of objects ``up to isomorphism''. However, in category theory a weaker notion of isomorphism is often more useful:
+
+\begin{definition}[equivalence]\index{equivalence}
+  Let \(\c C\) and \(\c D\) be categories. By an \emph{equivalence} between \(\c C\) and \(\c D\) we mean a pair of functors \(F : \c C \to \c D, G: \c D \to \c C\) together with natural isomorphisms \(\alpha: 1_{\c C} \to GF, \beta: FG \to 1_{\c D}\). We write \(\c C \simeq \c D\) if \(\c C\) and \(\c D\) are equivalent.
+
+  We say a property \(P\) of categories is a \emph{category propery} if whenever \(\c C\) has \(P\) and \(\c C \simeq \c D\) then \(\c D\) has \(P\).
+\end{definition}
+
+For example, being a groupoid or a preorder are categorical properies, but being a group or a partial order are not.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The category \(\c{Part}\) is equivalent to the category \(\Set_*\) of pointed sets (and basepoint preserving functions). We define
+    \begin{align*}
+      F: \Set_* &\to \c{Part} \\
+      (A, a) &\mapsto A \setminus \{a\} \\
+    \end{align*}
+    and if \(f: (A, a) \to (B, b)\) then \(Ff(x) = f(x)\) if \(f(x) \neq b\) and undefined otherwise, and
+    \begin{align*}
+      G: \c{Part} &\to \Set_* \\
+      A &\mapsto A^+ = (A \cup \{A\}, A)
+    \end{align*}
+    and if \(f: A \to B\) is a partial function , we define
+    \[
+      x \mapsto
+      \begin{cases}
+        f(x) & \text{if } x \in A \text{ and } f(x) \text{ defined} \\
+        B & \text{otherwise}
+      \end{cases}
+    \]
+    Then \(FG\) is the identity on \(\c{Part}\) but \(GF\) is not. However there is an isomorphism
+    \[
+      (A, a) \to ((A \setminus \{a\})^+, A \setminus \{a\})
+    \]
+   sending \(a\) to \(A \setminus \{a\}\) and everything else to itself. This is natural. 
+
+   Note that there can be no isomorphism \(\Set_* \to \c{Part}\) since \(\c{Part}\) has a \(1\)-element isomorphism class \(\{\emptyset\}\) and \(\Set_*\) doesn't.
+ \item The category \(\c{fdMod}_K\) of finite-dimensional vector spaces over \(K\) is equivalent to \(\c{fdMod}_K^{\text{op}}\):  the functors in both directions are \(\cdot^*\) and both isomorphisms are the natural transformations given by double dual.
+ \item \(\c{fdMod}_K\) is also equivalent to \(\c{Mat}_K\): we write \(F: \c{Mat}_K \to \c{fdMod}_K\) by \(F(n) = K^n\), and \(F(A)\) is the map represented by \(A\) with respect to the standard basis. To define functor \(G\) the other way, choose a basis for each finite-dimensional vector space and define
+   \begin{align*}
+     G(V) &= \dim V \\
+     G(V \xrightarrow{f} W) &= \text{ matrix representing \(f\) w.r.t.\ chosen bases}
+   \end{align*}
+   \(GF\) is the identity, provided we choose the standard bases for the space \(K^n\). \(FG \neq 1\) but the chosen bases give isomorphisms \(FG(V) = K^{\dim V} \to V\) for each \(V\), which form a natural isomorphism.
+  \end{enumerate}
+\end{eg}
+
+
+
+
+
+\printindex
+\end{document}

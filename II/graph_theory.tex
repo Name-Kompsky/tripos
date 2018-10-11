@@ -3,7 +3,7 @@
 \def\npart{II}
 
 \def\ntitle{Graph Theory}
-\def\nlecturer{P.\ Russel}
+\def\nlecturer{P.\ A.\ Russel}
 
 \def\nterm{Michaelmas}
 \def\nyear{2018}
@@ -28,7 +28,7 @@
 
 \section{Introduction}
 
-Informally, a \emph{graph} consists of some vertices with some pairs of ``vertices'' joined by ``edges''. (More formal definition later)
+Informally, a \emph{graph} consists of some vertices with some pairs of ``vertices'' joined by ``edges''. (formal definition later)
 
 A few problems:
 \begin{enumerate}
@@ -174,7 +174,7 @@ Now we are ready to tackle the colouring problem in the previous chapter.
   \end{center}
 \end{note}
 
-\begin{proposition}[Ramsey theorem for triangles]\index{Ramsey theorem}
+\begin{proposition}[Ramsey theorem for triangles]\index{Ramsey theorem!for triangle}
   Let \(k \in \N\). Then for \(n\) sufficiently large, if \(K_n\) is \(k\)-coloured we must have a monochromatic triangle.
 \end{proposition}
 
@@ -231,7 +231,7 @@ We have shown that we can always find a monochromatic triangle, i.e.\ \(K_3\). W
   Let \(s, t \geq 2\). The \emph{Ramsey number} \(R(s, t)\) is the least \(n\) such that whenever \(K_n\) is coloured blue/yellow then we can find a blue \(K_s\) or a yellow \(K_t\) (if such an \(n\) exists). We write \(R(s) = R(s, s)\).
 \end{definition}
 
-\begin{theorem}[Ramsey]\index{Ramsey's theorem}
+\begin{theorem}[Ramsey]\index{Ramsey theorem}
   Let \(s, t \geq 2\). Then \(R(s, t)\) exists. Moreover, if \(s, t \geq 3\) then
   \[
     R(s, t) \leq R(s - 1, t) + R(s, t - 1).
@@ -292,7 +292,7 @@ What if we use more colours? First we can define the Ramsey number corresponding
   Let \(k \geq 1\) and \(s \geq 2\). The \emph{multicolour Ramsey number} \(R_k(s)\) is the least \(n\) such that whenver \(K_n\) is \(k\)-coloured then there is a monochromatic \(K_s\) (if it exists).
 \end{definition}
 
-\begin{theorem}[multicolour Ramsey theorem]
+\begin{theorem}[multicolour Ramsey theorem]\index{Ramsey theorem!multicolour}
   Let \(k \geq 1, s \geq 2\), then \(R_k(s)\) exists.
 \end{theorem}
 
@@ -304,7 +304,105 @@ What if we use more colours? First we can define the Ramsey number corresponding
   \end{itemize}
 \end{proof}
 
+\subsubsection{Infinite Ramsey theory}
 
+A short excursion into infinite analogue of Ramsey theorem. Before that we formally define
+
+\begin{definition}[infinite graph]\index{infinite graph}
+  An \emph{infinite graph} is an ordered pair \(G = (V, E)\) where \(V\) is an infinite set and \(E\) is a set of unordered pairs of distinct elements of \(V\).
+\end{definition}
+
+\begin{note}
+  An infinite graph is \emph{not} a graph. This is for the sake of brevity as we will deal mostly with finite graph in this course.
+\end{note}
+
+We carry across notations/terminologies from graphs to infinite graphs where possible.
+
+A \emph{not necessarily finite graph} is a graph or an infinite graph.
+
+\begin{definition}
+  The \emph{infinite complete graph} \(K_\infty\) is the infinite graph \(K_\infty\) with
+  \begin{align*}
+    V(K_\infty) &= \N \\
+    E(K_\infty) &= \{ij, i, j \in \N, i < j\}.
+  \end{align*}
+\end{definition}
+
+Suppose we finitely colour \(K_\infty\). What can we find monochromatically? By Ramsey, we get arbitrarily large monochromatic \(K_s\), which is \emph{not} the same as monochormatic \(K_\infty\). For example, we can connect disjoint blue \(K_s\) for \(s \geq 2\) using yellow edges and there is no blue \(K_\infty\). However in this colouring there is a yellow \(K_\infty\).
+
+\begin{theorem}[infinite Ramsey]\index{Ramsey theorem!infinite}
+  Let \(K_\infty\) be finitely coloured. Then it contains a monochromatic \(K_\infty\) subgraph.
+\end{theorem}
+
+\begin{proof}
+  Let \(c: E(K_\infty) \to [k]\) for some \(k\) be a colouring. Pick \(v_1 \in K_\infty\). \(v\) is in infinitely many edges but only finitely many colours so infinitely many of these edges are the same colour. Formally, we can pick an infinite \(A_1 \subseteq V(K_\infty)\) and a colour \(c_1\) such that for all \(w \in A\), \(c(v_1 w) = c_1\).
+
+  Similarly we can pick \(v_2 \in A_1\) and infinite \(A_2 \subseteq A_1\) and colour \(c_2\) such that for all \(w \in A_2\), \(c(v_2w) = c_2\) and so on. We obtain a sequence \(v_1, v_2, \dots, \) of distinct vertices and a sequence \(c_1, c_2, \dots\) of colours and a decreasing sequence \(A_1 \supseteq A_2 \supseteq \dots\) of inifite subsets of \(V(K_\infty)\) such that for all \(i \geq 1\), \(v_{i + 1} \in A_i\) and for all \(w \in A_i\), \(c(v_iw) = c_i\).
+
+  In particular if \(i < j\) then \(c(v_iv_j) = c_i\) so infinitely many of \(c_1, c_2, \dots\) must be the same, say \(n_1 < n_2 < \dots\) with \(c_{n_1} = c_{n_2} = \dots\). Now let \(H\) be the infinite complete subgraph with vertex set \(\{v_{n_i}: i \geq 1\}\). Suppose \(i < j\). Then \(n_i < n_j\) and so \(c(v_{n_i}v_{n_j}) = c_{n_i} = c_{n_1}\). Thus \(H\) is monochromatic.
+\end{proof}
+
+\begin{remark}
+  This is sometimes called a ``two-pass proof''.
+\end{remark}
+
+As a byproduct we have
+
+\begin{corollary}[Bolzano-Weierstrass]
+  A bounded real sequence has a convergent subsequence.
+\end{corollary}
+
+\begin{proof}
+  Any bounded monotone sequence converges so enough to show if \((x_n)\) is a real sequence then it must have a monotone subsequence.
+
+  Let \(G\) be \(K_\infty\) with vertex set \(\N\). Colour \(G\) blue/yellow by giving \(ij, i < j\) colour blue if \(x_i < x_j\) or yellow if \(x_i \geq x_j\). By infinite Ramsey theorem we have in infinite monochromatic complete subgraph \(H\), say with vertices \(n_1 < n_2 < \dots\). Consider the subsequence \((x_{n_j})\). If \(H\) is blue then \((x_{n_j})\) is (strictly increasing), while if \(H\) yellow then \((x_{n_j})\) is decreasing.
+\end{proof}
+
+\subsection{Basic definitions and concepts}
+
+\begin{eg}
+  Some examples of graphs:
+  \begin{enumerate}
+  \item Complete graph of order \(n\): \(K_n\) with \(V(K_n) = [n], E(K_n) = \{ij: 1 \leq i < j \leq n\}\).
+  \item Path of length \(n\): \(P_n\) with \(V(P_n) = \{0, \dots, n\}, E(P_n) = \{i(i + 1): 0 \leq i < n\}\).
+  \item Cycle of length \(n\): \(C_n\) with \(V(C_n) = [n], E(C_n) = \{i(i + 1): 1 \leq i < n\} \cup \{n1\}\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[order]\index{order}
+  Let \(G = (V, E)\) be a graph. The \emph{order} of \(G\) is \(|G| = |V|\).
+
+  We also write \(e(G) = |E|\). (sometimes call the \emph{size} of \(G\))
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(|K_n| = n, e(K_n) = \binom{n}{2}\).
+  \item \(|P_n| = n + 1, e(P_n) = n\).
+  \item \(|C_n| = n, e(C_n) = n\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[spanned subgraph]\index{subgraph!spanned}
+  Suppose \(G = (V, E)\) is a graph and \(U \subseteq V\). The subgraph of \(G\) \emph{spanned} or \emph{induced} by \(U\) is the subgraph \(G[U]\) of \(G\) with \(V(G[U]) = U, E(G[U]) = \{ij \in E: i, j \in U\}\).
+\end{definition}
+
+\begin{definition}[disjoint union]
+  Suppose \(G = (V, E), G' = (V', E')\) are graphs with \(V \cap V' = \emptyset\). The \emph{disjoint union} of \(G, G'\) is the graph \(G \cup G' = (V \cup V', E \cup E')\).
+\end{definition}
+
+Sometimes we use this terminology more loosely, when \(V\) and \(V'\) are not disjoint, to mean ``take isomorphic copies of \(G\) and \(G'\) with disjoint vertex sets and form their disjoint union''.
+
+\begin{eg}
+  \(C_5 \cup P_3\) (graph)
+  \iffalse
+  \begin{tikzpicture}
+    \Vertices{circle}{1, 2, 3, 4, 5, 6, 7, 8, 9}
+    \Edges(1, 2, 3, 4, 5, 1)
+    \Edges(6, 7, 8, 9)
+  \end{tikzpicture}
+  \fi
+\end{eg}
 
 
 
@@ -350,7 +448,7 @@ Alternatively, how big can the parameter be with \(G\) not having the property?
 
 \subsection{The Forbidden Subgraph Problem}
 
-Fix a graph \(H\) with at least one edge. Let \(n \geq |H|\). Clealy \(H \subseteq K_n\) but \(H \nsubseteq \stcomp{K_n}\). How many edges must a graph \(G\) of order \(n\) have to force \(H \subseteq G\)? Alternatively, if \(|G| = n\) and \(H \nsubseteq G\), how large can \(e(G)\) be?
+Fix a graph \(H\) with at least one edge. Let \(n \geq |H|\). Clearly \(H \subseteq K_n\) but \(H \nsubseteq \stcomp{K_n}\). How many edges must a graph \(G\) of order \(n\) have to force \(H \subseteq G\)? Alternatively, if \(|G| = n\) and \(H \nsubseteq G\), how large can \(e(G)\) be?
 
 \begin{definition}
   Define
