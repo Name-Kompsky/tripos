@@ -402,7 +402,7 @@ We will see later that the notion of equivalence defines an equivalence relation
 \end{proposition}
 
 \begin{proof}
-  
+  Given \(\tilde \in \tilde R\), we can find \(\tilde N\) of \(\tilde z\) on which \(\pi: \tilde \to N\) is a homeomorphism onto its image. Let \((V, \varphi)\) be a chart of the image \(\pi(\tilde z)\). Define \(U_{\tilde z} = \pi^{-1}(V) \cap \tilde B\) and \(\varphi_{\tilde z} = \varphi \compose \pi\). This defines a chart on some neighbourhood of \(\tilde z\) and \(\{(U_{\tilde z}, \varphi_{\tilde z}\}_{\tilde z \in \tilde R}\) defines an atlas: this is clearly a cover and the transition functions \(\varphi_{\tilde z} \compose \varphi_{\tilde w}^{-1}\) are the restrictions of transition functions for \(R\). \(\pi\) is analytic w.r.t.\ this conformal structure as the compositite maps are transition maps of \(R\). Uniqueness follows from a similar argument.
 \end{proof}
 
 \begin{eg}
@@ -413,7 +413,48 @@ We will see later that the notion of equivalence defines an equivalence relation
       \C^*
     \end{tikzcd}
   \]
+  As \(f\) is a bijection by construction, it has a global analytic inverse.
 \end{eg}
+
+\begin{definition}[conformal equivalence]\index{conformal equivalence}
+  An analytic map \(f: R \to S\) of Riemann surfaces is a \emph{conformal equivalence} if there exists \(g: S \to R\) analytic inverse to \(f\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f\) as above for the logarithm Riemann surface is a conformal equivalence: the inverse ofmf is continuous and locally it is given by \(\pi^{-1} \compose \exp\) so is analytic. Therefore \((R, \pi)\) and \((\C, \exp)\) cannot be ``told apart''.
+  \item \((\C, z)\) and \((\C, \conj z)\) are conformally equivalent as \(f(z) = \conj z\) is a conformal equivalence.
+  \item
+    \[
+      \begin{tikzcd}
+        R_n \ar[r, "f_n"] \ar[d, "\pi_n"] & \C^* \ar[dl, "z \mapsto z^n"] \\
+        \C^*
+      \end{tikzcd}
+    \]
+    Again there exists a unique conformal structure on \(R_n\) making \(\pi\) analytic. It follows that \(f\) is analytic. Note that one could imagine adding two points to \(R_n\) and replacing \(\C^*\) with \(\C \cup \{\infty\} = \C_\infty\). Doing so ruins \(\pi\) as a cover, but sometimes it's worth it (compactness!).
+  \item \(\C_\infty = \C \cup \{\infty\}\) equipped with the sphere topology via steoreographic projection. Define two charts: \((\C, z)\) and \((\C_\infty \setminus \{0\}, \frac{1}{z})\). The transition functions are \(\frac{1}{z}\) which are anlaytic on \(\C^*\). It makes \(\C_\infty\) a compact Riemann surface. This is sometimes denoted by \(\hat \C\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[analytic function]
+  If \(R\) is a Riemann surface, an analytic map \(f: R \to \C\) is an \emph{analytic function}.
+\end{definition}
+
+Therefore we use ``map'' to denote maps between Riemann surfaces and reserve ``function'' for a \(\C\)-valued map.
+
+Recall that
+
+\begin{theorem}[inverse function theorem]
+  Given analytic \(g\) on a domain \(V \subseteq \C\) and \(a \in V\) such that \(g'(a) \neq 0\), there exists a neighbourhood \(N\) of \(a\) such that \(g|_N : N \to g(N)\) is a conformal equivalence.
+\end{theorem}
+
+Consider an analytic function \(f: R \to \C\). Given \(p \in R\), choose a chart \((U, \varphi)\) with \(p \in U\). wlog \(f(p) = 0\). and write \(a = \varphi(p)\). Locally around \(a\), \(f \compose \varphi^{-1}\) is analytic so can be written as \(g(z)^r\) where \(g\) is a conformal equivalence: we can write any nonconstant analytic function sending \(a \mapsto 0\) as \((z - a)^r h(z)\) where \(h\) is analytic and nonzero on a neighbourhood of \(a\). Then there is a neighbourhood \(V\) of \(a\) such that \(h(V)\) does not intersect any ray from the origin. This allows us to define a logarithm on \(h(V)\) and \(r\)th root
+\[
+  \ell(z) := \exp( \frac{1}{r} \log h(z)).
+\]
+Then \(f \compose \varphi^{-1}\) is of the form \(g(z)^r\) where \(g(z) = (z - a)\ell(z)\). Then \(g'(a) = \ell(a) \neq 0\) so conformal.
+
+Define a chart on the intersection of \(\varphi(U)\) with domain of \(g\), together with the chart \(\psi = g \compose \phi\). Therfore up to translation, any analytic function on a Riemann surface is locally equivalent to a powering map.
 
 
 

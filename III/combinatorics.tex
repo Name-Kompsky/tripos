@@ -77,7 +77,7 @@ A natural question is: how large can a chain be? Obviously we can achieve \(|\ma
 
 A less trivial question is how large an antichain can be. We could achieve \(|\mathcal A| = n\) by enumerating all the singletons. It is maximal since adjoining any nonempty set to the family will result in an inclusion. However, it is not the largest antichain. Indeed, we could take \(\mathcal A = X^{(r)}\) for any \(r\). Thus we can achieve \(|\mathcal A| = \binom{n}{\floor{n/2}}\). Can we beat it?
 
-Why can meet each level at only one place? One way to see this is that each level is an antichain: as we can decompose \(Q_n\) into \(n + 1\) antichains, we cannot have a chain longer than that. Inspired by this, we try to decompose \(Q_n\) into chains.
+Pause for a moment and consider the longest chain problem. Why can a chain meet each level at only one place? One way to see this is that each level is an antichain: as we can decompose \(Q_n\) into \(n + 1\) antichains, we cannot have a chain longer than that. Inspired by this, we try to decompose \(Q_n\) into chains.
 
 \begin{theorem}[Sperner's lemma]\index{Sperner's lemma}
   Let \(\mathcal A \subseteq \powerset(X)\) where \(|X| = n\) be an antichain. Then
@@ -94,7 +94,7 @@ Why can meet each level at only one place? One way to see this is that each leve
   \end{enumerate}
   Then put these matchings together to form chains. Each passes through \(X^{(n/2)}\) so there are \(\binom{n}{\floor{n/2}}\) of them.
 
-  By taking complements, sufficient to prove 1. Consider the subgraph of \(Q_n\) spanned by \(X^{(r)} \cup X^{(r + 1)}\) which is bipartite. For any \(\mathcal B \subseteq X^{(r)}\), let \(\Gamma(\mathcal B)\) be the set of points in \(X^{(r + 1)}\) connected to \(B\). Then we have
+  By taking complements, sufficient to prove 1. Consider the subgraph of \(Q_n\) spanned by \(X^{(r)} \cup X^{(r + 1)}\) which is bipartite. For any \(\mathcal B \subseteq X^{(r)}\), let \(\Gamma(\mathcal B)\) be the neighbourhood (in \(X^{(r + 1)}\)) of \(\mathcal B\). Then we have
 
   \[
     \# (\mathcal B - \Gamma(\mathcal B) \text{ edges}) = |\mathcal B| (n - r)
@@ -121,7 +121,7 @@ The aim is to show that for \(\mathcal A\) an antichain,
 \[
   \sum_{r = 0}^n \frac{\mathcal A \cap X^{(r)}}{\binom{n}{r}} \leq 1.
 \]
-Note that this trivially implies Sperner's lemma. We will use the same setup but bound the numbers more carefully. To justify the following definition, we will write \(X^{(r)}\) above \(X^{(r - 1)}\).
+Note that this trivially implies Sperner's lemma. We will use the same setup but bound the numbers more carefully. To justify the following definition, we will write \(X^{(r)}\) above \(X^{(r - 1)}\) in \(Q_n\).
 
 \begin{definition}
   Let \(\mathcal A \subseteq X^{(r)}\) for some \(1 \leq r \leq n\). The \emph{shadow} or \emph{lower shadow} of \(\mathcal A\) is
@@ -141,7 +141,7 @@ Note that this trivially implies Sperner's lemma. We will use the same setup but
 \begin{lemma}[Local LYM]\index{local LYM}
   Let \(\mathcal A \subseteq X^{(r)}\) where \(1 \leq r \leq n\). Then
   \[
-    \frac{|\shadow A|}{\binom{n}{r - 1}} \geq \frac{|\mathcal A|}{\binom{n}{r}}.
+    \frac{|\shadow \mathcal A|}{\binom{n}{r - 1}} \geq \frac{|\mathcal A|}{\binom{n}{r}}.
   \]
 \end{lemma}
 
@@ -212,11 +212,11 @@ for all \(a \in \mathcal A, i \in A, j \notin A\). Hence \(\mathcal A = X^{(r)}\
 Again we can ask when we have equality in LYM inequality. This happens if and only if we have equality in each use of local LYM, so the ``first'' (greatest) \(r\) with \(\mathcal A_r \neq \emptyset\) must have \(\mathcal A_r = X^{(r)}\) so \(\mathcal A = X^{(r)}\). Thus we know equality in Sperner's lemma (\(\mathcal A = X^{(n/2)}\) for \(n\) even, similar for \(n\) odd)
 
 \begin{proof}[Proof 2]
-  Choose uniformly at random, a maximal chain \(\mathcal C\) (i.e.\ \(C_0 \subseteq C_1 \subseteq \dots \subseteq C_n\) with \(|C_i| = i\)). For a given \(r\)-set, \(\P(A \in \mathcal C) = \binom{n}{r}^{-1}\) as all \(r\)-sets are equally likely. Therefore
+  Choose uniformly at random a maximal chain \(\mathcal C\) (i.e.\ \(C_0 \subseteq C_1 \subseteq \dots \subseteq C_n\) with \(|C_i| = i\)). For a given \(r\)-set \(A\), \(\P(A \in \mathcal C) = \binom{n}{r}^{-1}\) as all \(r\)-sets are equally likely. Therefore
   \[
     \P(\mathcal A_r \text{ meets } \mathcal C) = \frac{|\mathcal A_r|}{\binom{n}{r}}
   \]
-  since events are disjoint. As they are independent,
+  since the events are disjoint. Furthermore for different \(r\) the events that \(\mathcal A\) meets \(X^r\) are also disjoint so
   \[
     \P(\mathcal A \text{ meets } \mathcal C) = \sum_{r = 0}^n \frac{|\mathcal A_r|}{\binom{n}{r}}
   \]
@@ -308,6 +308,119 @@ Ideally, we would compress
   \mathcal A \to \mathcal A' \to \mathcal A'' \to \dots \to \mathcal B
 \]
 where either \(\mathcal B = \mathcal C\), or \(\mathcal B\) is so similar to \(\mathcal C\) that we can see directly that \(|\shadow \mathcal B| \geq |\shadow \mathcal C|\).
+
+\paragraph{Colex prefers \(1\) to \(2\)}
+
+\begin{definition}[\(ij\)-compression]\index{\(ij\)-compression}
+  For \(1 \leq i < j \leq n\), the \emph{\(ij\)-compression} \(C_{ij}\) is defined by for \(A \subseteq X\),
+  \[
+    C_{ij} (A) =
+    \begin{cases}
+      A - j + i & \text{if } j \in A, i \notin A \\
+      A & \text{otherwise}
+    \end{cases}
+  \]
+  and for \(\mathcal A \subseteq \powerset(X)\),
+  \[
+    C_{ij} (\mathcal A) = \{C_{ij}(A): A \in \mathcal A\} \cup \{A \in \mathcal A: C_{ij}(A) \in \mathcal A\}.
+  \]
+\end{definition}
+
+\begin{eg}
+  If \(\mathcal A = \{123, 134, 234, 235, 247\}\), then
+  \[
+    C_{12}(\mathcal A) = \{123, 134, 234, 135, 147\}.
+  \]
+\end{eg}
+
+\(|C_{ij}(\mathcal A)| = |\mathcal A|\) and after the compression it looks ``more'' like colex than lex. Say \(\mathcal A\) is \emph{\(ij\)-compressed} if \(C_{ij}(\mathcal A) = \mathcal A\). It is also intuitively obvious that the operation is indeed a compression in the sense that it decreases the shadow.
+
+\begin{proposition}
+  Let \(\mathcal A \subseteq X^{(r)}\), \(1 \leq i < j \leq n\) then
+  \[
+    |\shadow C_{ij}(\mathcal A)| \leq |\shadow \mathcal A|.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Write \(\mathcal A'\) for \(C_{ij} (\mathcal A)\). We'll show that if \(B \subseteq \shadow \mathcal A' - \shadow \mathcal A\) then \(i \in B, j \neq B\) and \(B \cup j - i \in \shadow \mathcal A - \shadow \mathcal A'\) (so \(B\) has a preimage under \(C_{ij}\)). Then done.
+
+  We have \(B \cup x \in \mathcal A'\) for some \(x \notin B\) and \(B \cup x \notin \mathcal A\). Hence \(i \in B \cup x, j \notin B \cup x\) and \((B \cup x) \cup j - i \in \mathcal A\) (so \(B \cup x\) is the set that has been compressed). Note that \(x \neq i\) else \(B \cup j \in \mathcal A\), contradicting \(B \notin \shadow \mathcal A\).
+
+  Certainly \(B \cup j - i \in \shadow \mathcal A\). Claim that \(B \cup j - i \notin \shadow \mathcal A'\), thereby completing the proof: suppose \((B \cup j - i) \cup y \in \mathcal A'\). We cannot have \(y = i\), else \(B \cup j \in \mathcal A'\), whence \(B \cup j \in \mathcal A\), contradiction. Thus \(j \in (B \cup j - i) \cup y\) and \(i \notin (B \cup j - i) \cup y\), so \((B \cup j - i) \cup y \in \mathcal A\) and \(B \cup y \in \mathcal A\) by definition of \(C_{ij}\). Contradiction.
+\end{proof}
+
+\begin{remark}
+  We have actually showed that
+  \[
+    \shadow (C_{ij}(\mathcal A)) \subseteq C_{ij} (\shadow \mathcal A),
+  \]
+  ``shadow of compression lives inside compression of shadow''.
+\end{remark}
+
+\begin{definition}[left-compressed]\index{left-compressed}
+  Say \(\mathcal A \subseteq X^{(r)}\) is \emph{left-compressed} if \(C_{ij}(\mathcal A) = \mathcal A\) for all \(i < j\).
+\end{definition}
+
+\begin{proposition}
+  Let \(\mathcal A \subseteq X^{(r)}\). Then there exists left-compressed \(\mathcal B \subseteq X^{(r)}\) with \(|\mathcal B| = |\mathcal A|\) and \(|\shadow \mathcal B| \leq |\shadow \mathcal A|\).
+\end{proposition}
+
+\begin{proof}
+  Morally we only have to show that any sequence of compression terminate. Among all \(\mathcal B \subseteq X^{(r)}\) with \(|\mathcal B| = |\mathcal A|\) and \(|\shadow \mathcal B| \leq |\shadow \mathcal A|\), choose one with
+  \[
+    \sum_{\mathcal A \in \mathcal B} \sum_{x \in \mathcal A} x
+  \]
+  minimal. Then \(\mathcal B\) is left compressed, as if \(C_{ij}(\mathcal B) \neq \mathcal B\) then we contradict minimality.
+\end{proof}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item Alternatively, we may apply one \(C_{ij}\) then another and so on --- it must terminate.
+  \item In fact we can apply each \(C_{ij}\) at most once if we choose a sensible order.
+  \end{enumerate}
+\end{note}
+
+Certainly initial segments of colex are left-compressed. The converse is blatantly false, e.g.\ \(A = \{123, 124, 125, 126, 127\}\). We need to do more.
+
+\paragraph{colex prefers \(23\) to \(14\)}
+
+We can compress not only singletons but also sets of larger sizes:
+
+\begin{definition}[\(UV\)-compression]\index{\(UV\)-compression}
+  For \(U, V \subseteq X\) with \(|U| = |V|\) and \(U \cap V = \emptyset\), the \emph{\(UV\)-compression} \(C_{UV}\) is defined by for \(A \subseteq X\),
+  \[
+    C_{UV} (A) =
+    \begin{cases}
+      A \cup U - V & \text{if } V \subseteq A, U \cap A = \emptyset \\
+      A & \text{otherwise}
+    \end{cases}
+  \]
+  and for \(\mathcal A \subseteq X^{(r)}\),
+  \[
+    C_{UV} (\mathcal A) = \{C_{UV}(A): A \in \mathcal A\} \cup \{A \in \mathcal A: C_{UV}(A) \in \mathcal A\}.
+  \]
+\end{definition}
+
+\begin{eg}
+  If \(\mathcal A = \{123, 134, 235, 145, 146, 157\}\), then
+  \[
+    C_{23, 14}(\mathcal A) = \{123, 134, 235, 145, 236, 157\}.
+  \]
+\end{eg}
+
+Similar observation: \(|C_{UV}(\mathcal A)| = |\mathcal A|\). Say \(\mathcal A\) is \emph{\(UV\)-compressed if \(C_{UV}(\mathcal A) =\mathcal A\)}. Sadly, \(C_{UV}\) need \emph{not} decrease shadow --- e.g.\ \(\mathcal A = \{146, 467\}\) then \(C_{23, 14}(\mathcal A) = \{236, 467\}\) so \(|\shadow \mathcal A| = 5, |\shadow C_{23, 14}(\mathcal A)| = 6\). Intuitively, removing one elements and adding another sends an element to a ``close neighbour'' which shares largely the same shadow, but once we start doing \(UV\)-compression, some things are ``moved a long way''.
+
+For decades, people thought we could only do \(ij\)-compression and started compression. However, note that \(\mathcal A\) in the above example is not left-compressed. It turns out once you have done the ``smaller'' compressions, doing a larger compression always decrease the shadow. Formally,
+
+\begin{proposition}
+  Let \(\mathcal A \subseteq X^{(r)}\) and \(U,V \subseteq X\) with \(|U| = |V|\) and \(U \cap V = \emptyset\). Suppose that for all \(x \in U\) exists \(y \in V\) such that \(\mathcal A\) is \((U - x, V - y)\)-compressed then
+  \[
+    |\shadow C_{UV}(\mathcal A)| \leq |\shadow \mathcal A|.
+  \]
+\end{proposition}
+
+
 
 
 

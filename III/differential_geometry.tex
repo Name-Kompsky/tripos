@@ -701,6 +701,106 @@ At this point, the topological requirement may seem a bit mysterious and not cle
 
 A variant of the definition may omit \(N \subseteq M\) and instead require \(\psi: N \to M\) to be an embedding. If \(\psi\) is injective and the three properties hold then \(\psi(N) \subseteq M\) is an embedded submanifold.
 
+\begin{convention}
+  From now on submanifold means by default embedded submanifold.
+\end{convention}
+
+\begin{notation}
+  For manifolds \(M\) and \(N\) and \(\psi: N \to M\) an embedding, write \(\psi: N \embed M\), i.e.\ \(\psi(N)\) is a submanifold of \(M\).
+\end{notation}
+
+\begin{remark}
+  An immersion \(\psi: N \to M\) means that \(d\psi\) is injective everywhere. In this way we may obtain \(\psi(N) \subseteq M\) ``immersed with self-intersections''.
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item For curves and surfaces in \(\R^3\), \(\gamma: (0, 1) \to \R^3\) and \(r: U \to \R^3\) where \(U \subseteq \R^2\), the conditions mean that
+    \begin{enumerate}
+    \item \(\gamma\) and \(r\) are smooth,
+    \item they are regular parameterisations,
+    \item depending on what we are interested in, we may require them to be (topological) embeddings.
+    \end{enumerate}
+  \item The figure 8 example mentioned to distinguish embedded vs.\ immersed manifold may seem contrived. However, immersed (and not embedded) manifolds emerge naturally from \emph{irrational twist flow}. Consider the map
+    \begin{align*}
+      \R &\to S^1 \times S^1 \\
+      t &\mapsto (e^{it}, e^{i\alpha t})
+    \end{align*}
+    where \(\alpha \in \R \setminus \Q\). We can check that the map is injective and the image is dense in \(S^1 \times S^1\). In particular it is not a toplogical emedding so this is an immersion but not an embedding.
+  \end{enumerate}
+\end{eg}
+
+One frequently asked question is: is a submanifold of \(\R^n\) the same as \(f^{-1}(0)\) for some smooth map \(f: \R^n \to \R^k\)? In general, no! \(f^{-1}(0) \subseteq \R^n\) is closed. One can check that for every closed \(E \subseteq \R^2\) there exists a smooth \(f: \R^2 \to \R\) such that \(f^{-1}(0) = E\).
+
+\begin{definition}[regular value]\index{regular value}
+  Let \(f: M \to Y\) be a smooth map. \(q \in Y\) is a \emph{regular value} of \(f\) if for all \(p \in M\) such that \(f(p) = q\), \(df_p\) is surjective.
+\end{definition}
+Note that under this definition if \(q \notin f(M)\) then \(q\) is vacuuously a regular value of \(f\).
+
+\begin{theorem}
+  Let \(f: M \to Y\) be a smooth map and \(q \in Y\) is regular value of \(f\). If \(f^{-1}(q) \neq \emptyset\) then \(N = f^{-1}(q)\) is an embedded submanifold with
+  \[
+    \dim N = \dim M - \dim Y.
+  \]
+\end{theorem}
+This is geometer's implicit function theorem, also known as preimage theorem. We assume this theorem without proof, which can be found in the lecturer's online notes.
+
+\begin{remark}
+  By a result in differential topology, suppose \(M\) is a manifold and \(N \subseteq M\) is equipped with subspace topology. If there exists a smooth structure on \(N\) such that \(N \subseteq M\) is submanifold then this structure is unique. Thus it makes sense to say \(N\) is or isn't a submanifold of \(M\).
+\end{remark}
+
+% TODO
+% check this proposition and its proof
+
+\begin{proposition}
+  Let \(N \embed M\) and \(p \in N\). Then there eixsts a neighbourhood \(U\) of \(p\) in \(M\) and a smooth map \(f: U \to \R^d\) where \(d = \dim M - \dim N\) such that \(N \cap U = f^{-1}(0)\). \(d\) is called the \emph{codimension}\index{codimension} of \(N\) in \(M\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\varphi: U_0 \to \R^n\) is a chart on \(M\) where \(\varphi(p) = 0\) with local coordinates \((x_1, \dots, x_n)\). Let \(\psi: V_0 \to \R^\ell\) be a chart on \(N\) where \(\psi(p) = 0\) with local coordinates \((y_1, \dots, y_\ell)\). Then the inclusion \(\iota: N \to M\) has local exression
+  \[
+    x_i = x_i(y).
+    %?
+  \]
+  The derivative at \(0\)
+  \[
+    \left( \frac{\partial x_i}{\partial y_j} (0) \right)_{n \times \ell}
+  \]
+  has rank \(\ell\). wlog we may assume the top \(\ell \times \ell \) submatrix is nonsingular. Then by Inverse function theorem,
+  \[
+    y_j = y_j(x_1, \dots x_\ell)
+  \]
+  which is well-defined and smooth near \(0\). Then for \(i > \ell\),
+  \[
+    x_i = x_i(y(x_1, \dots, x_\ell))
+    = h_i(x_1, \dots, x_\ell).
+  \]
+  Then
+  \[
+    f_i(x) := x_i - h_i(x_1, \dots, x_\ell)
+  \]
+  for \(i > \ell\) gives a required \(f: U \to \R^d\) where \(d = n - \ell\), with Jacobian
+  \[
+    \frac{\partial f}{\partial x} =
+    \begin{pmatrix}
+      & & 1 & & 0 \\
+      & * & & \vdots \\
+      & & 0 & & 1
+    \end{pmatrix}
+  \]
+  so a regular value.
+\end{proof}
+
+This result cannot be improved: let \(M = \R P^2\) and \(N = \{x_0: x_1: x_2 \in \R P^2: x_2 = 0\}\) which can be identified with \(\R P^1 \cong S^1\). But \(N \neq f^{-1}(q)\) for all smooth \(f: \R P^2 \to P\) where \(P\) is a one-dimensional manifold, with \(q\) a regular value. A sketch of proof: if there exists such an \(f\) then there exsits some chart \(\psi\) on \(U\) around \(q\), \(\psi \compose f: U \to (-1, 1)\) and \(U \supseteq N\). Suppose for contradiction \(N = \{p: (\psi \compose f) (p) = 0\}\). \(\R P^2 \setminus N\) is homeomorphic to an open disk in \(\R^2\). \(\psi \compose f\) has \(0\) as a regular value, implying that \(\psi \compose f\) takes both positive and negative values. But \(\R P^2 \setminus N\) is connected so contradiction.
+
+\begin{theorem}[Whitney embedding theorem]\index{Whitney embedding theorem}
+  Every \(n\)-dimensional manifold \(M\) admits a smooth embedding to \(\R^{2n}\).
+\end{theorem}
+
+It is a hard theorem but it is very easy to show that there exists \(N\) such that \(M\) is a submanifold of \(\R^N\). In example sheet 1 Q9 we showed this for \(M\) compact. It is also not too difficult to set \(N = 2n + 1\), basically by embedding it in a sufficiently large space and whittle down the dimension. However the last step of improvement is truely an ingenious piece of work. The remarkability of this theorem is not to say that the intrinsic defintion of manifolds coincide with the extrinsic one, but the optimal dimension \(\R^{2n}\) of ambient space. This is a topological invariant measuring how ``complicated'' an geometric object is. For example, \(S^n\) can be embedded in \(\R^{n + 1}\) but \(\R p^2\) cannot be embedded in \(\R^3\). The Klein bottle does not embed in \(\R^3\) either.
+
+
+
 
 
 

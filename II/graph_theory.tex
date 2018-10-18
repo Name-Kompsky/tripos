@@ -13,7 +13,7 @@
 \newcommand*{\Omg}{\Omega}
 \newcommand*{\bigT}{\Theta}
 \newcommand*{\smallomg}{\omega}
-\DeclareMathOperator{\exx}{ex}
+\DeclareMathOperator{\exx}{ex} % forbidden subgraph notation
 
 \let\SO\undefined
 \usepackage{tkz-graph}
@@ -554,7 +554,7 @@ In fact, bipartite always wins but we need to do some work.
     e(K) = e(H) - d(v)
     \geq \frac{n^2}{4} - \frac{n}{2}
     = \frac{(n - 1)^2}{4} - \frac{1}{4}
-    = \floor{\frac{(n - 1)^2}{4}}
+    = \floor*{\frac{(n - 1)^2}{4}}
   \]
   so by induction hypothesis
   \[
@@ -574,6 +574,99 @@ What about forbidding \(K_4\)? Should we try ``tripartite'' graphs?
 
   It is \emph{complete \(r\)-partite} if \(u \in X_i, v \in X_j\) for \(i \neq j\) implies \(u \sim v\).
 \end{definition}
+
+Which \(r\)-bipartite graph of order \(n\) has most edges? Obviously such a \(G\) is complete \(r\)-bipartite. Suppose \(G\) has some two vertex classes \(X, Y\) with \(|X| \geq |Y| + 2\). Move a vertex \(v\) from \(X\) to \(Y\). We gain \(|X| - 1\) edges and lose \(|Y|\) edges. The net gain is \(|X| - 1 - |Y| \geq 1\), contradiction.
+
+\begin{definition}[Turán graph]\index{Turán graph}
+  The \emph{Turán graph} \(T_r(n)\) is the complete \(r\)-partite graph of order \(n\) with vertex classes as equal as possible. We write \(t_r(n) = e(T_r(n))\).
+\end{definition}
+
+\begin{eg}
+  \(T_2(n) = K_{\floor{n/2}, \ceil{n/2}}\) and \(t_2(n) = \floor*{\frac{n^2}{4}}\). Mantel's theorem can be rephrased as to get most edges with no \(K_3\), take \(T_2(n)\).
+\end{eg}
+
+Some properties of Turán graphs:
+\begin{enumerate}
+\item \(K_{r + 1} \nsubseteq T_r(n)\) but adding any edge to \(T_r(n)\) makes a \(K_{r + 1}\).
+\item If \(r \divides n\) then all vertex classes are the same size, namely \(\frac{n}{r}\). If \(r \ndivides n\), we have some small classes with \(\floor*{\frac{n}{r}}\) vertices and some large classes with \(\ceil*{\frac{n}{r}} = \floor*{\frac{n}{r}} + 1\) vertices
+\item Each vertex is joined to everyting except vertices in its own class. Therefore if \(r \divides n\) then \(T_r(n)\) is regular. If \(r \ndivides n\) then \(v \in T_r(n)\) in a large class has \(d(v) = \delta(T_r(n))\) whereas if \(v\) is in a small class, \(d(v) = \Delta(T_r(n)) = \delta(T_r(n)) + 1\). Hence in either case, give the order and average degree, the vertex degrees are as equal as possible.
+\item What happens if we delete \(v \in T_r(n)\) of minimum degree? Then \(v\) is in a large class so we get \(T_r(n - 1)\). Therefore
+  \[
+    t_r(n) - \delta(T_r(n)) = t_r(n - 1).
+  \]
+\item Suppose we want to add a vertex \(v\) to \(T_r(n - 1)\) of as large degree as possible without making a \(K_{r + 1}\). We can't join \(v\) to a vertex in every class. So best is to join \(v\) to everything except a small class. This makes \(T_r(n)\). The biggest degree we can achieve for \(v\) is \(t_r(n) - t_r(n - 1)\) and only way to do this is to make \(T_r(n)\).
+\end{enumerate}
+
+\begin{theorem}[Turán]\index{Turán's theorem}
+  Let \(|G| = n, e(G) \geq t_r(n)\) and \(K_{r + 1} \nsubseteq G\) (\(n \geq r + 1 \geq 3\)). Then \(G \cong T_r(n)\).
+\end{theorem}
+
+Note that Mantel's theorem is just a special case with \(r = 2\).
+
+\begin{proof}
+  Induction on \(n\). Suppose \(n = r + 1\). \(T_r(r + 1)\) has one class with two vertices and all other classes with one vertex, so \(T_r(r + 1)\) is \(K_{r + 1}\) minus an edge. For \(n > r + 1\), if necessary, delete edges from \(G\) to obtain \(H\) with \(|H| = n, e(H) = t_r(n)\) and \(K_{r + 1} \nsubseteq H\). Pick \(v \in H\) of minimum degree and let \(K = H - v\). Then \(|K| = n - 1\) and \(K_{r + 1} \nsubseteq K\). We know \(|H| = |T_r(n)|\) and \(e(H) = e(T_r(n))\) so
+  \[
+    \overline d(H) = \overline d(T_r(n)).
+  \]
+  But in \(T_r(n)\) vertex degrees are as equal as possible. Hence
+  \[
+    \delta(H) \leq \delta(T_r(n))
+  \]
+  and hence
+  \[
+    e(K) = e(H) - \delta(H) \geq t_r(n) - \delta(T_r(n)) = t_r(n - 1)
+  \]
+  so by induction hypothesis, \(K \cong T_r(n - 1)\). To recover \(H\) we need to add \(v\) to \(K\) of degree \(e(H) - e(K) = t_r(n) - t_r(n - 1)\) without making a \(K_{r + 1}\). So \(H \cong T_r(n)\). Adding an edge to \(H\) makes a \(K_{r + 1}\) so \(G = H \cong T_r(n)\).
+\end{proof}
+
+This is a special case of the \emph{forbidden subgraph problem}\index{forbidden subgraph problem}: fix a graph \(H\) with at least one edge. How many edges can a graph \(G\) of order \(n\) have yet not contain \(H\) as a subgraph?
+
+Write
+\[
+  \exx(n; H) = \max \{e(G): |G| = n, H \nsubseteq G\},
+\]
+then Turán's theorem can be stated as \(\exx(n, K_{r + 1}) = t_r(n)\).
+
+\subsubsection{Complete bipartite subgraphs}
+
+What is \(\exx(n; C_4)\)? Suppose we have \(|G| = n, e(G) = m\) and \(C_4 \nsubseteq G\). How large can \(m\) be? The idea is to count the number of \(P_2\)-subgraphs, \(A\), in \(G\) in two different ways. Each \(v \in G\) is the middle vertex of \(\binom{d(v)}{2}\) \(P_2\)'s so
+\[
+  A = \sum_{v \in G} \binom{d(v)}{2}.
+\]
+Alteernatively, as \(C_4 \nsubseteq G\), each pair of vertices are the end-vertices of at most one \(P_2\). (graph) so
+\[
+  A \leq \binom{n}{2}.
+\]
+It gives a bound on \(n\)
+\[
+  \binom{n}{2} \geq \sum_{v \in G} \binom{d(v)}{2}.
+\]
+The function \(x \mapsto \binom{x}{2}\) is convex so, writing \(\frac{m}{n} = a\),
+\[
+  \binom{n}{2} \geq \sum_{v \in G} \binom{d(v)}{2}
+  \geq n \binom{\frac{1}{n} \sum_{v \in G} d(v)}{2}
+  = n \binom{\frac{2m}{n}}{2}
+  = n \binom{2a}{2}
+\]
+so
+\[
+  \frac{n(n - 1)}{2} \geq \frac{n 2a (2 a - 1)}{2}.
+\]
+Rearrange to get
+\[
+  4a^2 - 2a - (n - 1) \leq 0
+\]
+so
+\[
+  a \leq \frac{2 + \sqrt{4 + 16 (n - 1)}}{8} = \frac{1}{4}(1 + \sqrt{4n - 3})
+\]
+so
+\[
+  m \leq \frac{n}{4} (1 + \sqrt{4n - 3}).
+\]
+
+
+
 
 
 
