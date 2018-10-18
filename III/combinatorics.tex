@@ -11,6 +11,7 @@
 \input{header}
 
 \newcommand{\shadow}{\partial}
+\renewcommand{\P}{\mathbb P}
 
 \begin{document}
 
@@ -209,6 +210,104 @@ for all \(a \in \mathcal A, i \in A, j \notin A\). Hence \(\mathcal A = X^{(r)}\
 \end{proof}
 
 Again we can ask when we have equality in LYM inequality. This happens if and only if we have equality in each use of local LYM, so the ``first'' (greatest) \(r\) with \(\mathcal A_r \neq \emptyset\) must have \(\mathcal A_r = X^{(r)}\) so \(\mathcal A = X^{(r)}\). Thus we know equality in Sperner's lemma (\(\mathcal A = X^{(n/2)}\) for \(n\) even, similar for \(n\) odd)
+
+\begin{proof}[Proof 2]
+  Choose uniformly at random, a maximal chain \(\mathcal C\) (i.e.\ \(C_0 \subseteq C_1 \subseteq \dots \subseteq C_n\) with \(|C_i| = i\)). For a given \(r\)-set, \(\P(A \in \mathcal C) = \binom{n}{r}^{-1}\) as all \(r\)-sets are equally likely. Therefore
+  \[
+    \P(\mathcal A_r \text{ meets } \mathcal C) = \frac{|\mathcal A_r|}{\binom{n}{r}}
+  \]
+  since events are disjoint. As they are independent,
+  \[
+    \P(\mathcal A \text{ meets } \mathcal C) = \sum_{r = 0}^n \frac{|\mathcal A_r|}{\binom{n}{r}}
+  \]
+  and of course it is less than \(1\).
+\end{proof}
+
+%how do we think of the first line (from which the rest follows)? inspired by the first proof of LYM %maybe no?
+
+\begin{remark}
+  Equivalently, the number of maximal chains is \(n!\) and the number of them containing a given \(r\)-set is \(r! (n - r)!\), so
+  \[
+    \sum_{r = 0}^n |\mathcal A_r| r! (n - r)! \leq n!
+  \]
+  so this is probability in disguise
+\end{remark}
+
+\section{Shadows}
+
+For \(\mathcal A \subseteq X^{(r)}\), we know \(|\shadow A| \geq |A| \frac{r}{n - r + 1}\) --- but equality is rare (only for \(\mathcal A = \emptyset\) or \(\mathcal A = X^{(r)}\)). The natural question is: given \(|\mathcal A|\), how should we choose \(\mathcal A \subseteq X^{(r)}\) to minimise \(|\shadow A|\)? Informally, this asks how ``tightly'' can we pack some \(r\)-sets.
+
+If \(|A| = \binom{k}{r}\), it is believable that we would take \(A = [k]^{(r)}\), which gives \([k]^{(r - 1)}\). What if \(\binom{k}{r} < |\mathcal A| <\binom{k + 1}{r}\), it is believable that we'd take \([k]^{(r)}\) and some other \(r\)-sets from \([k + 1]^{(r)}\). For example if \(\mathcal A \subseteq X^{(3)}\) with \(|\mathcal A| = \binom{7}{3} + \binom{4}{2}\), we would take
+\[
+  \mathcal A = [7]^{(3)} \cup \{A \cup \{8\}: A \in [4]^{(2)}\},
+\]
+i.e.\ take those in \([7]\) of size \(3\) so that they are as tightly packed as possible and then choose some other stuff.
+
+If we increment the size of \(\mathcal A\) by \(1\), it is believable that we should take the above \(\mathcal A\) and adjoin another element from \([4]\). Thus it seems that there is a total order on subsets of \(X\) of a given size, and we just take the first \(|\mathcal A|\).
+
+\subsection{Two total orderings on \(X^{(r)}\)}
+
+\begin{definition}[lexicographic order]\index{lexicographic order}
+  Given \(A, B \in X^{(r)}\), say \(A = a_1, \dots, a_r, B = b_1, \dots, b_r\), where we use the notation to mean \(a_1 < \dots < a_r\), say \(A < B\) in the \emph{lexicographic} or \emph{lex} order if for some \(i\) have \(a_i < b_i\) and \(a_j = b_j\) for all \(j < i\).
+\end{definition}
+
+Equivalently, \(a_i < b_i\), where \(i = \min\{j: a_j \neq b_i\}\). The slogan is ``use small number''.
+
+\begin{eg}
+  Lex on \([4]^{(2)}\):
+  \[
+    12, 13, 14, 23, 24, 34.
+  \]
+
+  Lex on \([6]^{(3)}\):
+  \begin{align*}
+    &123, 124, 125, 126, 134, 135, 136, 145, 146, 156, \\
+    &234, 235, 236, 245, 246, 256, 345, 346, 356, 456.
+  \end{align*}
+\end{eg}
+
+However, in the shadow minimisation problem we want to avoid large numbers as much as possible, i.e.\ keep the largest number as small as possible.
+
+\begin{definition}[colexicographic order]\index{colexicographic order}
+  Say \(A < B\) isn the \emph{colexicographic} or \emph{colex} order if for some \(i\) have \(a_i < b_i\) and \(a_j = b_j\) for all \(j > i\).
+\end{definition}
+
+Equivalently, \(a_i < b_i\) where \(i = \max\{j: a_j \neq b_j\}\). The slogan is ``avoid large number''. Equivalently, \(A < B\) if \(\sum_{i \in A} 2^i < \sum_{i \in B} 2^i\).
+
+\begin{eg}
+  Colex on \([4]^{(2)}\):
+  \[
+    12, 13, 23, 14, 24, 34.
+  \]
+
+  Colex on \([6]^{(2)}\):
+  \begin{align*}
+    &123, 124, 134, 234, 125, 135, 235, 145, 245, 345,\\
+    &126, 136, 236, 146, 246, 346, 156, 256, 356, 456.
+  \end{align*}
+\end{eg}
+
+\begin{note}
+  In colex, \([k]^{(r)}\) is an initial segment of \([k + 1]^{(r)}\), meaning that it is the first \(t\) elements for some \(t\). Therefore we could view colex as an enumeration of \(\N^{(r)}\). Try this with lex and see what happens!
+\end{note}
+
+Following our heuristics just now, the aim is to show initial segments of cloex minimise \(\shadow\), i.e.\ if \(\mathcal A \subseteq X^{(r)}\) and \(\mathcal C \subseteq X^{(r)}\) is the first \(|\mathcal A|\) \(r\)-sets in colex then \(|\shadow \mathcal A| \geq |\shadow \mathcal C|\), This is Kruskal-Katona theorem, the first theorem in combinatorics.
+In particular, \(|\mathcal A| = \binom{k}{r}\) implies \(|\shadow \mathcal A| \geq \binom{k}{r - 1}\). However, unless \(\mathcal A\) is written in very nice form, it is very difficult to estimate \(\shadow \mathcal A\).
+
+\subsection{Compressions}
+
+The idea is to ``replace'' \(\mathcal A \subseteq X^{(r)}\) with some \(\mathcal A' \subseteq X^{(r)}\) such that
+\begin{enumerate}
+\item \(|\mathcal A'| = |\mathcal A|\),
+\item \(|\shadow \mathcal A'| \leq |\shadow \mathcal A|\),
+\item \(\mathcal A'\) ``looks more like \(\mathcal C\)'' than \(\mathcal A\) did.
+\end{enumerate}
+
+Ideally, we would compress
+\[
+  \mathcal A \to \mathcal A' \to \mathcal A'' \to \dots \to \mathcal B
+\]
+where either \(\mathcal B = \mathcal C\), or \(\mathcal B\) is so similar to \(\mathcal C\) that we can see directly that \(|\shadow \mathcal B| \geq |\shadow \mathcal C|\).
 
 
 

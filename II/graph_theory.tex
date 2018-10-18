@@ -404,8 +404,176 @@ Sometimes we use this terminology more loosely, when \(V\) and \(V'\) are not di
   \fi
 \end{eg}
 
+We need a bit more notations/definitions. Let \(G = (V, E)\) be a graph. If \(U \subseteq V\), the graph \(G - U\) is defined to be \(G - U = G[V \setminus U]\). If \(U = \{v\}\), write \(G - v = G - U\).
 
+If \(F \subseteq E\), write \(G - F = (V, E \setminus F)\). If \(F = \{e\}\), write \(G - e = G - F\).
 
+The \emph{complement}\index{complement} of \(G\) is the graph \(\overline G\) with
+\begin{align*}
+  V(\overline G) &= G \\
+  E(\overline G) &= \{uv: u, v \in V, u \neq v, uv \neq E\}
+\end{align*}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The complement of the complement graph \(K_n\) is the \emph{empty graph} of order \(n\), \(\overline K_n\), with \(n\) vertices and no edges.
+  \item The complement of \(C_5\) is
+    \begin{center}
+    \begin{tikzpicture}
+      \Vertices{circle}{1, 2, 3, 4, 5}
+      \Edges(1, 3, 5, 2, 4, 1)
+    \end{tikzpicture}
+    \end{center}
+    which is isomorphic to \(C_5\). We say \(C_5\) is \emph{self-complementary}.
+  \end{enumerate}
+\end{eg}
+
+We say \(v, w \in G\) are \emph{adjacent}\index{adjacent} or \emph{neighbours} and write \(v \sim w\) if \(vw \in E\). The \emph{neighbourhodd} of \(v\) is
+\[
+  \Gamma(v) = \{w \in G: v \sim w\}.
+\]
+The \emph{degree}\index{degree} of \(v\) is the number of neighbours of \(v\): \(d(v) = |\Gamma(v)|\). More generally, if \(A \subseteq V\), the \emph{neighbourhood}\index{neighbourhood} of \(A\) is
+\[
+  \Gamma(A) = \bigcup_{v \in A} \Gamma(v).
+\]
+The \emph{minimum degree} of \(G\) is \(\delta(G) = \min_{v \in G} d(v)\). The \emph{maximum degree} of \(G\) is \(\Delta(G) = \max_{v \in G} d(v)\). The \emph{average degree} of \(G\) is
+\[
+  \overline d (G) = \frac{1}{|G|} \sum_{v \in G} d(v).
+\]
+
+Observe that
+\begin{enumerate}
+\item \(\delta(G) \leq \overline d(G) \leq \Delta(G)\). If either, i.e.\ both, are equalities we say \(G\) is \emph{regular}\index{graph!regular}. If \(G\) is regular, all vertices have the same degree. If that degree is \(r\), we say \(G\) is \emph{\(r\)-regular}.
+\begin{eg}
+  \(K_n\) is \((n - 1)\)-regular. \(\overline K_n\) is \(0\)-regular. \(C_n\) is \(2\)-regular. \(P_n\) is not regular for \(n \geq 2\) as \(\delta(P_n) = 1\) and \(\Delta(P_n) = 2\).
+\end{eg}
+\item \(2 e(G) = \sum_{v \in G} d(v)\). It is obvious as an edge has two ``ends''. A formal proof: let
+  \[
+    X = \{(e, v): e \in E, v \in e\}.
+  \]
+  To pick \((e, v) \in X\), we can choose \(e\) in \(e(G)\) ways then we choices for \(v\). So \(|X| = e(G) \times 2\). Alternatively, pick \(v\) first then, given \(v\), \(d(v)\) choices from \(e\) so \(|X| = \sum_{v\in G} d(v)\).
+
+  This gives \(e(G) = \frac{|G| \overline d(G)}{2}\).
+\end{enumerate}
+
+A \emph{path}\index{path} in \(G\) from \(v\) to \(w\) where \(v, w \in G\), is a sequence \(v_0, v_1, \dots, v_\ell\) of distinct vertices of \(G\) where \(v_0 = v, v_\ell = w\) and \(v_{i - 1} \sim v_i\) for \(1 \leq i \leq \ell\). Usually write this path as \(v_0v_1\dots v_\ell\). The \emph{length}\index{length} of the path is \(\ell\). A path of length \(\ell\) in \(G\) yields a subgraph isomorphic to \(P_\ell\). In particular \(v\) is a path (of length \(0\)) from \(v\) to \(v\).
+
+Define a relation \(\to\) on \(V(G)\) by \(v \to w\) if there is a path from \(v\) to \(w\). It is an equivalence relation (example sheet 2). The equivalence class of \(\to\) are the \emph{connected componenets}\index{connected componenets} of \(G\). Note \(G\) is the disjoint union of its components. If \(G\) has only one component, we say \(G\) is \emph{connected}\index{graph!connected}.
+
+\begin{eg}
+  A graph with three components (graph)
+\end{eg}
+
+A \emph{cycle of length \(n\)} in \(G\) is a subgraph of \(G\) isomorphic to \(C_n\). Often denote such by \(v_1v_2\dots v_nv_1\) where \(v_1, \dots v_n \in v(G)\) are distinct, \(v_{i - 1} \sim v_n\) for \(1 < i \leq n\) and \(v_n \sim v_1\). Note that unlike path, cycle does not have a starting point or direction. Thus there are many notations for some cycles, for example \(abcdea = dcbaed\).
+
+A final notation: we often write \(e \in G\) to mean \(e \in E(G)\) if unambiguous.
+
+\subsubsection{Bipartite graphs}
+
+\begin{definition}[bipartite graph]\index{bipartite graph}
+  A graph \(G = (V, E)\) is \emph{bipartite} if there is a partition \(V = X \cup Y\) such that any \(e \in E\) can be written \(e = xy\) where \(x \in X\), \(y \in Y\).
+
+  The \emph{complete bipartite graph} \(K_{m, n}\) has \(|X| = m, |Y| = n\) and \(xy \in E(K_{m, n})\) for all \(x \in X, y \in Y\).
+\end{definition}
+
+\begin{eg}
+  \(K_{2, 3}\)
+  \iffalse
+  \begin{center}
+    \begin{tikzpicture}
+      \Vertices{1, 2}
+    \end{tikzpicture}
+  \end{center}
+  \fi
+\end{eg}
+
+In general, \(|K_{m, n}| = m + n, e(K_{m, n}) = mn\). There is a more useful characterisation of bipartite graphs:
+
+\begin{proposition}
+  A graph \(G = (V, E)\) is bipartite if and only if it contains no odd cycles.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(G = (V, E)\) is bipartite and \(V = X \cup Y\) is a partition. Assume for contradiction \(v_1v_2 \dots v_nv_1\) is a cycle with \(n\) odd. wlog \(v_1 \in X\). Then \(v_2 \in Y, v_2 \in X, \dots, v_n \in X, v_1 \in Y\). Contradiction.
+
+  Suppose \(G\) has no odd cycles. wlog \(G\) is connected. Pick \(x \in G\). For \(y \in G\), define the distance from \(x\) to \(y\), \(d(x, y)\) to be the shortest path from \(x\) to \(y\). Let
+  \[
+    V_i = \{y \in G: d(x, y) = i\}
+  \]
+  for \(i \geq 0\). Let \(X = \bigcup_{i \text{ even}} V_i, Y = \bigcup_{i \text{ odd}} V_i\). Let \(uv \in E(G)\) with \(u \in V_j, v \in V_k\) where \(j \leq k\). Then must have \(k = j\) or \(k = j + 1\). Indeed there is a path of length \(j + 1\) from \(x\) to \(v\). 
+
+  Suppose \(k = j\). We want to say that \(x, u\) and \(v\) form a cycle of length \(2j + 1\), but they may intersect somewhere earlier in the path. The standard way to deal with it is to take the closest intersection. Let \(u_0u_1 \dots u_j\) and \(v_0v_1 \dots v_j\) be shortest paths from \(x\) to \(u\) and \(v\) respectively, so \(u_0 = v_0 = x\), \(u_j = u\), \(v_j = v\) and \(u_i, v_i \in V_i\) for \(0 \leq i \leq j\). In particular, \(h \neq i\) implies that \(u_h \neq v_i\). Pick \(i\) largest such that \(u_i = v_i\), so \(0 \leq i < j\) and \(u_iu_{i + 1} \dots u_j v_j \dots v_i\) is a cycle of length \(2(j - i) + 1\) which is odd.
+\end{proof}
+
+\subsection{The forbidden subgraph problem}
+
+\subsubsection{Complete subgraphs}
+
+The problem of determining \(R(s)\) can be thought of as ``how many vertices can \(G\) have yet \(K_s \nsubseteq G\) and \(K_s \nsubseteq \overline G\). This is a typical example of an \emph{extremal problem}: how large can some parameter of a graph be before the graph is forced to have a certain property?
+
+\begin{eg}
+  Let \(|G| = n\). How large can \(e(G)\) get before \(G\) is forced to contain a triangle?
+\end{eg}
+
+The idea is to try \(G\) bipartite, as we know bipartite graphs do not contain triangles. Clearly we need complete bipartite graph so seek \(K_{s, t}\) where \(s + t = n\) so that \(E(K_{s, t}) = st = s(n - s)\) is maximised. This is achieved when \(s = \frac{n}{2}\) when \(n\) is even or \(s = \frac{n \pm 1}{2}\) when \(s\) is odd. Among bipartite graphs, \(K_{\floor{n/2}, \ceil{n/2}}\) is the best. Can we do better?
+
+Adding any edge to it creates a triangle but this isn't enough. For example, \(C_5\) is not bipartite but has the same property but clearly it isn't the best.
+\begin{center}
+  \begin{tikzpicture}
+    \SetUpEdge[color = black]
+    \Vertices{circle}{1, 2, 3, 4, 5}
+    \Edges(1, 2, 3, 4, 5, 1)
+    \SetUpEdge[color = blue]
+    \Edges(1, 3)
+  \end{tikzpicture}
+\end{center}
+
+In fact, bipartite always wins but we need to do some work.
+
+\begin{proposition}[Mantel's theorem]\index{Mantel's theorem}
+  Let \(|G| = n \geq 3, e(G) \geq \floor{\frac{n^2}{4}}\) and \(\triangle \nsubseteq G\). Then
+  \[
+    G \cong K_{\floor{n/2}, \ceil{n/2}}.
+  \]
+\end{proposition}
+
+\begin{remark}
+  It follows immediately that if \(|G| = n, e(G) > \floor{\frac{n^2}{4}}\) and \(\triangle \nsubseteq G\) then it is isomorphic to \(K_{\floor{n/2}, \ceil{n/2}}\) so \(e(G) = \floor{\frac{n^2}{4}}\), absurd. Thus \(K_{\floor{n/2}, \ceil{n/2}}\) has the most edges for a \(\triangle\)-free graph. The theorem asserts something stronger: it is \emph{uniquely} the best up to isomorphism.
+\end{remark}
+
+\begin{proof}
+  Induction on \(n\). For \(n = 3\), \(|G| = 3, e(G) \geq 2, \triangle \nsubseteq G\) then \(G \cong K_{1, 2}\). For \(n \geq 4\), assume for now \(n\) is even so \(|G| = n, e(G) \geq \frac{n^2}{4}\), \(\triangle \nsubseteq G\). First delete edges from \(G\) if necessary to obtain a graph \(H\) with \(|H| = n, e(H) = \frac{n^2}{4}, \triangle \nsubseteq H\). Next pick \(v \in H\) of minimum degree and \(K = H - v\). Then \(|K| = n - 1\) and \(\triangle \nsubseteq K\). To bound \(e(K)\), note that
+  \[
+    d(v) = \delta(H) \leq \overline d(H) = \frac{1}{|H|} \sum_{x \in H} d(x)
+    = \frac{1}{|H|} 2 e(H)
+    = \frac{1}{n} \cdot 2 \frac{n^2}{4}
+    = \frac{n}{2}
+  \]
+  so
+  \[
+    e(K) = e(H) - d(v)
+    \geq \frac{n^2}{4} - \frac{n}{2}
+    = \frac{(n - 1)^2}{4} - \frac{1}{4}
+    = \floor{\frac{(n - 1)^2}{4}}
+  \]
+  so by induction hypothesis
+  \[
+    K \cong K_{\floor{(n - 1)/2}, \ceil{(n - 1)/2}} = K_{\frac{n}{2} - 1, \frac{n}{2}}.
+  \]
+  To recover \(H\), we should add a vertex \(v\) to \(K\), joining it to precisely \(\frac{n}{2}\) vertices of \(K\) but creating no triangle. The only way to do this is to join \(v\) to all \(\ceil{\frac{n}{2}}\) vertices in one partition of \(K\). This thus gives \(H \cong K_{n/2, n/2}\).
+
+  Finally \(G\) can be recovered by adding edges to \(H\) without making \(\triangle\). But this is impossible so \(G = H\), i.e.\ we did not in fact delete any edges in the beginning.
+
+  \(n \geq 4\), \(n\) odd is similar.
+\end{proof}
+
+What about forbidding \(K_4\)? Should we try ``tripartite'' graphs?
+
+\begin{definition}[\(r\)-partite]\index{graph!\(r\)-partite}
+  A graph \(G\) is \emph{\(r\)-partite} if we can partition if \(V(G) = X_1 \cup X_2 \cup \dots \cup X_r\) such that \(u,v \in X_i\) for some \(i\) then \(u \nsim v\).
+
+  It is \emph{complete \(r\)-partite} if \(u \in X_i, v \in X_j\) for \(i \neq j\) implies \(u \sim v\).
+\end{definition}
 
 
 

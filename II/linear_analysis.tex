@@ -415,7 +415,7 @@ The infimum of such \(C\) is called
   \[
     |\phi_y(x)| = \norm y_q \norm x_p.
   \]
-  Thus \(\phi\) is an isometry. It remains to check that \(\phi\) is surjective. Let \(T \in (\ell^p)^*\). Set \(y_n = Te_n\). Claim that \(y \in \ell^p\) and \(\norm y_q \leq \norm T\): define
+  Thus \(\phi\) is an isometry. It remains to check that \(\phi\) is surjective. Let \(T \in (\ell^p)^*\). Set \(y_n = Te_n\). Claim that \(y \in \ell^q\) and \(\norm y_q \leq \norm T\): define
   \[
     x_n =
     \begin{cases}
@@ -458,7 +458,359 @@ The infimum of such \(C\) is called
   For \(1 \leq p \leq \infty\), \(\ell^p\) is complete.
 \end{corollary}
 
+\subsection{Finite-dimensional vector spaces}
 
+\begin{fact}
+  Any finite-dimensional vector space can be identified with \(\K^n\) by choosing a basis. Here \(n\) is the dimension.
+\end{fact}
+
+\begin{definition}[equivalent]\index{equivalent}
+  Two norms \(\norm \cdot\) and \(\norm \cdot'\) on a vector space \(X\) are \emph{equivalent} if there exists \(C > 0\) such that
+  \[
+    C^{-1} \norm x' \leq \norm x \leq C \norm x',
+  \]
+  i.e.\ \(\id: (X, \norm \cdot) \to (X, \norm \cdot ')\) is an isomorphism.
+\end{definition}
+
+\begin{theorem}
+  Let \(X\) be a finite-dimensional vector space. Then all norms on \(X\) are equivalent.
+\end{theorem}
+
+\begin{proof}
+  It suffcies to show that any \(\norm \cdot\) on \(\K^n\) is equivalent to \(\norm \cdot_2\). Claim that \(\norm x \leq C \norm x_2\) for all \(x \in \K^n\):
+  \[
+    \norm x
+    = \norm*{\sum_{i = 1}^n x_i e_1}
+    \leq \sum_{i = 1}^n |x_i| \norm{e_i}
+    \leq \underbrace{n \max_i \norm{e_i}}_{C} \underbrace{\max_i|x_i|}_{\leq \norm x_2}
+  \]
+  Also claim that \(\norm x_2 \leq C' \norm x\) for all \(x\): let
+  \[
+    S = \{x: \norm x_2 = 1\}
+  \]
+  and define \(f = \norm \cdot |_S: S \to \R\). Then \(f\) is continuous (w.r.t.\ \(\norm \cdot_2\)):
+  \[
+    |f(x) - f(y)|
+    = |\norm x - \norm y|
+    \leq \norm{x - y}
+    \leq C\norm{x - y}_2
+  \]
+  Note also that \(S\) is compact (w.r.t.\ \(\norm \cdot_2\)) as it is closed and bounded. Therefore \(f\) assumes its minimum on \(S\), i.e.\ there exists \(\delta > 0\) such that \(f(x) \geq \delta\) for all \(x \in S\). Then for all \(x \in \K^n\), have
+  \[
+    \norm x = \norm*{\frac{x}{\norm x_2}} \cdot \norm x_2 = f(\frac{x}{\norm x_2}) \cdot \norm x_2
+    \geq \delta \norm x_2.
+  \]
+\end{proof}
+
+\begin{corollary}
+  Let \(X\) and \(Y\) be normed spaces with \(\dim X < \infty\). Then every linear map \(T: X \to Y\) is continuous.
+\end{corollary}
+
+\begin{proof}
+  Define a new norm on \(X\) by
+  \[
+    \norm x' = \norm x + \norm{T x}.
+  \]
+  Since all norms on \(X\) are equivalent, there is \(C > 0\) such that
+  \[
+    \norm x' \leq C \norm x,
+  \]
+  i.e.\ \(\norm{T x} \leq (C - 1) \norm x\) for all \(x\). Thus \(T\) is bounded and thus continuous.
+\end{proof}
+
+\begin{corollary}
+  Let \(X\) and \(Y\) be finite-dimensional vector spaces and \(T: X \to Y\) is a linear bijection. Then \(T\) is an isomorphism.
+
+  In particular for any \(X\) and \(Y\) if \(\dim X = \dim Y < \infty\) then \(X\) and \(Y\) are isomorphic.
+\end{corollary}
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item Every finite-dimensional normed space is complete (as it is true in \(\norm \cdot_2\)).
+  \item Every finite-dimensional subspace of a normed space is closed.
+  \end{enumerate}
+\end{corollary}
+
+\begin{corollary}
+  Let \(X\) be a finite-dimensional normed space. Then \(\overline B(X)\), the closed unit ball, is compact.
+\end{corollary}
+
+\begin{proof}
+  Closed and bounded in \(\norm \cdot_2\) (because this holds in \(\norm \cdot\)). Thus \(\overline B(X)\) is compact in \(\norm \cdot_2\) so compact in \(\norm \cdot\).
+\end{proof}
+
+The converse is also true:
+\begin{theorem}
+  Let \(X\) be a normed space such that \(\overline B(X)\) is compact. Then \(X\) is finite-dimensional.
+\end{theorem}
+
+\begin{proof}
+  Since \(\overline B_1(0) = \overline B(X)\) is compact, there are \(x_1, \dots, x_n \in X\) such that
+  \[
+    \overline B_1(0) \subseteq \bigcup_{i = 1}^n B_{1/2}(x_i).
+  \]
+  Let \(Y\) be the span of \(x_i\)'s. Then \(\dim Y \leq n\). Also
+  \[
+    B_1(0) \subseteq Y + B_{1/2}(0)
+  \]
+  so
+  \[
+    B_1(0) \subseteq Y + \frac{1}{2} (Y + B_{1/2}(0))
+    = Y + B_{1/4}(0)
+    \subseteq \dots
+    \subseteq Y + B_{2^{-n}}(0)
+  \]
+  for all \(m \in \N\). Therefore \(B_1(0) \subseteq \cl Y = Y\). Since \(X\) is linear, \(X \subseteq Y\). Thus \(\dim X \leq n\).
+\end{proof}
+
+\subsection{Completion, products, quotients}
+
+\subsubsection{Completion}
+
+\begin{proposition}
+  Let \(X\) be a metric space. The \emph{completion} of \(X\) is a complete metric space \(\tilde X\) containing a dense subset that is isometric to \(X\).
+\end{proposition}
+
+\begin{proof}
+The construction is as follow. For two Cauchy sequences \(x = (x_n), y = (y_n) \subseteq X\), define \(x \sim y\) if and only if \(d(x_n, y_n) \to 0\). This is an equivalence relation. Denote the equivalence class of a Cauchy seuqence \(x\) by \(\tilde x\). Define
+\[
+  \tilde X = \{\tilde x: x \text{ Cauchy in } X\}
+\]
+and define a metric
+\[
+  \tilde d(\tilde x, \tilde y) = \lim_{n \to \infty} d(x_n, y_n).
+\]
+The limit exists and is independent of the representatives. Then \(\tilde d\) is a metric: if \(\tilde d(\tilde x, \tilde y) = 0\) then \(d(x_n, y_n) \to 0\) so \(x \sim y\) so \(\tilde x = \tilde y\). Symmetry and triangle inequality follow from those for \(d\).
+
+Now we show \(X \embed \tilde X\). For \(x \in X\), define \(j(x) \in \tilde X\) as the equivalence class of \((x, x, \dots)\). Then
+\[
+  \tilde d(j(x), j(y)) = d(x, y)
+\]
+so \(j\) is an isometry. The image of \(j\) is dense in \(\tilde X\) since if \((x_n)\) is Cauchy in \(X\) then \((j(x_n))\) in \(\tilde X\) is Cauchy and \(j(x_n) \to \tilde x\).
+
+Finally, to show \(\tilde X\) is complete, let \((\tilde x^k) \subseteq \tilde X\) be Cauchy. Let \((x^k_n) \subseteq X\) be a representative for \(\tilde x^k\). Choose \(n_k\) such that \(d(x_n^k, x_m^k) \leq 2^{-k}\) for \(n, m \geq n_k\). Define \(x_k = x_{n_k}^k \in X\). Claim that \(x = (x_k) \subseteq X\) is Cauchy and \(\tilde x^k \to \tilde x\) in \(\tilde X\). It is left as an exercise.
+\end{proof}
+
+\begin{definition}[completion]\index{completion}\index{normed vector space!completion}
+  \(\tilde X\) is called the \emph{completion} of \(X\) and we regard \(X \subseteq \tilde X\).
+\end{definition}
+
+In the case of normed spaces, the metric completion has more structure:
+
+\begin{theorem}
+  Let \(X\) be a normed space. Then there is a Banach space \(\tilde X\) containing \(X\) as a dense subspace.
+\end{theorem}
+
+\begin{proof}
+  Let \(\tilde X\) be the metric space completion of \(X\). For \(\tilde x, \tilde y \in \tilde X\), choose \((x_n), (y_n) \subseteq X\) such that \(x_n \to \tilde x\) and \(y_n \to \tilde y\) (in \(\tilde X\)). For any \(\lambda, \mu \in \K\), \(\lambda x_n + \mu y_n\) is Cauchy. Set \(\lambda \tilde x + \mu \tilde y = \lim_{n \to \infty} (\lambda x_n + \mu y_n)\). This makes \(\tilde X\) a vector space. Moreover,
+  \[
+    \norm{\tilde x} = \lim_{n \to \infty} \norm{x_n} = \lim_{n \to \infty} d(0, x_n) = \tilde d (0, \tilde x)
+  \]
+  is a norm on \(\tilde X\) and since \(\tilde d\) is complete, this makes \(\tilde X\) a Banach space.
+\end{proof}
+
+\begin{proposition}
+  Let \(X\) and \(Y\) be normed spaces and let \(T \in B(X, Y)\). Then there is a unique \(\tilde T \in B(\tilde X, \tilde Y)\) such that
+  \[
+    \tilde T|_X = T, \norm{\tilde T} = \tilde T.
+  \]
+\end{proposition}
+
+\begin{proof}
+  For \(\tilde x \in \tilde X\), choose \((x_n) \subseteq X\) such that \(x_n \to \tilde x\). Then \((x_n)\) is Cauchy, and since \(T\) is bounded, \((Tx_n) \subseteq Y\) is Cauchy as well. By completeness of \(\tilde Y\), there is \(\tilde y \in \tilde Y\) such that \(Tx_n = \tilde y\). Set \(\tilde T \tilde x = \tilde y\). Note that \(\tilde T\) is well-defined, linear and \(\tilde T|_X = T\). Also
+  \[
+    \norm{\tilde T \tilde x} = \lim_{n \to \infty} \norm{T x_n} \leq \norm T \lim_{n \to \infty} \norm{x_n} = \norm T \norm{\tilde x},
+  \]
+  so \(\norm{\tilde T} = \norm T\) so equality. Uniqueness follows from continuity and density of \(X\) in \(\tilde X\).
+\end{proof}
+
+\begin{remark}
+  The completion \(\tilde X\) is unique in the sense that if \(\tilde X'\) is another completion of \(X\) then there is an isometric isomorphism \(\tilde X \to \tilde X'\) restricting to identity on \(X\).
+\end{remark}
+
+\subsubsection{Product}
+
+\begin{definition}[product]\index{normed vector space!product}
+Let \(X\) and \(Y\) be normed spaces. Then \(X \times Y\) can be made into a normed space with one of the following equivalent norms:
+\[
+  \norm{(x, y)} = (\norm x^p + \norm y^p)^{1/p}, p \in [1, \infty)
+\]
+or
+\[
+  \norm{(x, y)} = \max \{\norm x, \norm y\}.
+\]
+\end{definition}
+
+They are equivalent for precisely the same reason that norms on finite-dimensional spaces are equivalent. Thus henceforth we will just use ``norm on \(X \times Y\)'' to mean any of the equivalent norms.
+
+As expected for a product construction, the projections \(\pi_X: X \times Y \to X\), and \(\pi_Y: X \times Y \to Y\) are continuous.
+
+\begin{fact}
+  If \(X\) and \(Y\) are complete then \(X \times Y\) is complete and \(X \cong X \times \{0\} \subseteq X \times Y\) and \(Y \cong \{0\} \times Y \subseteq X \times Y\) are closed subspaces.
+\end{fact}
+
+\subsubsection{Quotient}
+
+\begin{definition}[quotient]\index{normed vector space!quotient}
+  Let \(X\) be a normed space and let \(Y \subseteq X\) be a \emph{closed} subspace. Then \(x \sim x'\) if \(x - x' \in Y\) defines an equivalence relation with equivalence classes \([x] = x + Y\). Let \(X / Y\) be the collection of all equivalence classes and define
+  \[
+    \norm{[x]} = \inf_{y \in Y} \norm{x + y}.
+  \]
+\end{definition}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(\norm \cdot\) is a norm on \(X / Y\).
+  \item \(\pi: X \to X/Y, x \mapsto x + Y\) is continuous.
+  \item If \(X\) is complete then \(X / Y\) is complete.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Suffices to show positive definiteness as the other axioms are trivial. Assume that
+    \[
+      \norm{\pi(x)} = \inf_{y \in Y} \norm{x + y} = 0,
+    \]
+    then there exist \((x_n) \subseteq X\) such that \(x_n \to 0\) and \(\pi(x_n) = \pi(x)\), i.e.\ \(x - x_n \in Y\). Thus \(x \in \cl Y = Y\).
+  \item
+    \[
+      \norm{\pi(x)} = \inf_{y \in Y} \norm{x + y} \leq \norm x
+    \]
+    so \(\norm \pi \leq 1\).
+  \item Let \((x_n) \subseteq X\) be such that \(\pi(x_n) \subseteq X / Y\) is Cauchy. Claim that there exists a subsequence \((n_k) \subseteq \N\) and \((y_n) \subseteq Y\) such that \((x_{n_k} + y_{n_k})_k\) is Cauchy in \(X\): by passing to a subsequence \((n_k)\) we can assume that \(\norm{\pi(x_{n_{k + 1}}) - \pi(x_{n_k})} \leq 2^{-k - 1}\). Now choose \((z_k) \subseteq Y\) such that
+    \[
+      \norm{x_{n_{k + 1}} - x_{n_k} + z_k} \leq 2^{-k}.
+    \]
+    Define \(y_1 = 0\) and \(y_k = z_1 + \dots + z_{k - 1} \in Y\), then
+    \[
+      \norm{(x_{n_{k + 1}} + y_{k + 1}) - (x_{n_k} + y_k)}
+      = \norm{x_{n_{k + 1}} - x_{n_k} + z_k}
+        \leq 2^{-k}
+    \]
+    so \((x_{n_k} + y_k)_k\) is Cauchy.
+
+    Claim that \((\pi(x_n)) \subseteq X / Y\) converges: since \(X\) is complete, there is \(x \in X\) such that \(x_{n_k} + y_k \to x\) in \(X\). Then
+    \[
+      \norm{\pi(x_{n_k}) - \pi(x)}
+      = \inf_{y \in Y} \norm{x - (x_{n_k} + y)}
+      \leq \norm{x - (x_{n_k} + y_k)}
+      \to 0
+    \]
+    which implies convergence of \((\pi(x_n))\) along a subsequence, ergo the original sequence.
+  \end{enumerate}
+\end{proof}
+
+\section{Completeness of the Baire category}
+
+\subsection{Baire category}
+
+Recall that if \(X\) is a metric space, then \(Y \subseteq X\) is \emph{dense} if \(\cl Y = X\), i.e.\ \(Y \cap B_r(X) \neq \emptyset\) for all \(x \in X, r > 0\).
+
+\begin{theorem}[Baire category theorem]\index{Baire category theorem}
+  \label{thm:BCT}
+  Let \(X\) be a \emph{complete} metric space. For any sequence of open dense subsets \(U_j \subseteq X\), \(j \in \N\), the intersection \(\bigcap_{j = 1}^\infty U_j\) is dense in \(X\).
+\end{theorem}
+
+\begin{proof}
+  Let \(U = \bigcap_{j = 1}^\infty U_j\). Given any \(r \in X, r > 0\), we need to show that \(B_r(x) \cap U = \emptyset\). Since \(U_1\) is dense, there is \(x_1 \in X, r \in (0, 1)\) such that
+  \[
+    \cl B_{r_1}(x_1) \subseteq B_{2r_1}(x_1) \subseteq U_1 \cap B_r(x).
+  \]
+  Likewise choose \(x_2 \in X, r_2 \in (0, \frac{1}{2})\) such that
+  \[
+    \cl B_{r_2}(x_2) \subseteq U_2 \cap B_{r_1}(x_1)
+  \]
+  and in general \(x_n \in X, r \in (0, \frac{1}{n})\) such that
+  \[
+    \cl B_{r_n}(x_n) \subseteq U_n \cap B_{r_{n - 1}}(x_{n - 1}).
+  \]
+  Then \(r_n \to 0\) and a nested chain of open balls
+  \[
+    B_{r_1}(x_1) \supseteq B_{r_2}(x_2) \supseteq \dots
+  \]
+  so \(d(x_n, x_m) < r_n\) if \(m \geq n\), i.e.\ \((x_n)\) is a Cauchy sequence. Since \(X\) is complete, there is \(y \in X\) such that \(x_n \to y\). Note that \(y \in \cl B_{r_k}(x_k) \cap U_k\) for all \(k\). Thus
+  \[
+    y \in \bigcap_{j = 1}^\infty U_j = U
+  \]
+  and \(y \in \cl B_{r_1}(x_1) \subseteq B_r(x)\) so \(y \in U \cap B_r(x)\).
+\end{proof}
+
+The following corollary is equivalent to Baire category theorem is often used in practice:
+
+\begin{corollary}
+  Let \(X\) be a complete metric space. Let \(A_j \subseteq X\) be a sequence of closed subsets such that \(\bigcup_j A_j\) has nonempty interior, i.e.\ it contains some ball, then at least one of the \(A_j\)'s has nonempty interior.
+\end{corollary}
+
+\begin{proof}
+  Let \(U_j = X \setminus A_j\). Since \(\bigcup_j A_j\) has nonempty interior,
+  \[
+    X \setminus \bigcup_j A_j = \bigcap_j U_j
+  \]
+  is not dense. Since the \(U_j\)'s are open, by \Cref{thm:BCT} at least one of the \(U_j\)'s cannot be dense, say \(U_k\). Thus \(A_k = X \setminus U_k\) has nonempty interior.
+\end{proof}
+
+\begin{definition}[nowhere dense, meagre, residual, set of first/second category]\index{nowhere dense}\index{meagre}\index{residual}\index{first category}\index{second category}
+  Let \(X\) be a metric space.
+  \begin{enumerate}
+  \item A subset \(Y \subseteq X\) is \emph{nowhere dense} if \(\operatorname{Int}(\cl Y) = \emptyset\), i.e.\ if \(Y\) is not dense in any ball.
+  \item A subset \(Z \subseteq X\) is \emph{meagre} or \emph{of the first category} if there are countably many sets \(Y_j \subseteq X\) which are nowhere dense and \(Z = \bigcup_j U_j\).
+  \item A subset \(U \subseteq X\) is \emph{nonmeagre} or \emph{of the second category} if it is not meagre.
+  \item A subset \(R \subseteq X\) is \emph{residual} if its complement is meagre.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  TFAE:
+  \begin{itemize}
+  \item \(Y \subseteq X\) is nowhere dense.
+  \item \(\cl Y\) is nowhere dense.
+  \item \(X \setminus \cl Y\) is dense.
+  \end{itemize}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Q = \bigcup_{x \in \Q} \{x\} \subseteq \R\) is meagre in \(\R\).
+  \item Any countable union of meagre sets is meagre.
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}
+  There is a similarity of the concepts of meagre, nonmeagre, residual, with those of null sets, sets of positive measure, sets of full measure in measure theory. For metric spaces that are also measure spaces, such as \(\R\) with Lebesgue measue, one could ask if there is a closer correspondence. The answer is negative, in general. There exists a meagre set \(A\) and a Lebesgue null set \(B\) such that \(R = A \cup B\).
+\end{remark}
+
+Yet another formulation of Baire category theorem is
+
+\begin{corollary}
+  Let \(X\) be a complete metric space. Then \(X\) is of the second category.
+\end{corollary}
+
+\begin{proof}
+  Let \(Y_j \subseteq X\) be nowhere dense. It suffices to show that \(X \neq \bigcup_j \cl Y_j\). But \(U_j = X \setminus \cl Y_j\) is open dense so by \Cref{thm:BCT}
+  \[
+    \bigcap_j U_j = X \setminus \bigcup_j \cl Y_j
+  \]
+  is dense, in particular not empty.
+\end{proof}
+
+\begin{corollary}
+  Let \(X\) be a complete metric space. Then residual sets are nonmeagre and dense.
+\end{corollary}
+
+\begin{proof}
+  Let \(Z \subseteq X\) be meagre and suppose that \(R = X \setminus Z\) was meagre. Then \(X = Z \cup R\) would be meagre as a union of two meagre sets. But since \(X\) is complete, it is not. So \(R\) is nonmeagre.
+
+  To show that \(R\) is dense, we can suppose \(Z = \bigcup_j Y_j\) with \(Y_j\) nowhere dense. Then \(U_j = X \setminus \cl Y\) is open dense. So \(R \supseteq \bigcup_j U_j\) is dense by \Cref{thm:BCT}.
+\end{proof}
+
+\begin{corollary}
+  Let \(X\) be a complete metric space and \(U \subseteq X\) open. Then \(U = \emptyset\) or \(U\) is of the second category.
+\end{corollary}
+
+\begin{proof}
+  Assume that \(U\) is open and meagre. Then \(X \setminus U\) is closed and residual so dense. So \(X \setminus U = X\), i.e.\ \(U = \emptyset\).
+\end{proof}
 
 
 

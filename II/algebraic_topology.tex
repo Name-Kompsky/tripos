@@ -346,9 +346,197 @@ i.e.\ \(g_* = \alpha_\# \compose f_*\).
   so \(f_*\) is injective. Similarly it is surjective.
 \end{proof}
 
+\begin{corollary}
+  Contractible spaces are simply connected.
+\end{corollary}
 
+\section{Covering spaces}
 
+\subsection{Definition and first examples}
 
+\begin{definition}[covering space]\index{covering space}
+  Let \(p: \hat X \to X\) be a map. An open set \(U \subseteq X\) is \emph{evenly covered} if there is a discrete space \(\Delta_U\) and an identification \(p^{-1}(U) = \Delta_U \times U\) such that on \(p^{-1}(U)\), \(p\) coincides with projection to the second factor.
+
+  If every \(x \in X\) has an everly covered neighbourhood, we say that \(p\) is a \emph{covering map} and \(\hat X\) is a \emph{covering space}
+\end{definition}
+
+Alternatively, write \(U_\delta = \{\delta\} \times U\). Then \(p^{-1}(U) = \coprod_{\delta \in \Delta_U} U_\delta\). Write \(p|_\delta = p|_{U_\delta}\) which is a homeomorphism.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(\hat X = \R, X = S^1\) and define
+  \begin{align*}
+    p: \R &\to S^1 \\
+    t &\mapsto e^{2\pi i t}
+  \end{align*}
+  Let \(1 \in U \subsetneq S^1\). Choose a branch of \(\log\) well-defined on \(U\) such that \(\log 1 = 0\). Every point \(\hat z \in p^{-1}(U)\) can be written uniquely as
+  \[
+    \hat z = k + \frac{\log(z)}{2\pi i}
+  \]
+  where \(z = p(\hat z) \in U\) and \(k \in \Z\), i.e.\ \(p^{-1}(U) = \Z \times U\). Thus \(U\) is evenly covered. The same proof shows that \(p\) is a covering map.
+\item Let \(\hat X = X = S^1\). Define
+  \begin{align*}
+    p_n: S^1 &\to S^1 \\
+    z &\mapsto z^n
+  \end{align*}
+  This is also a covering map by essentially the same proof by choosing a \(n\)th root of unity. In this case \(\Delta_n\) is the \(n\)th roots of unity.
+\item Let \(\hat X = S^2\) and \(G = \Z/2\Z\) acts on \(S^2\) via the antipodal map. Let
+  \[
+    X = \hat X / G = \{\{x, -x\}: x \in S^2\}
+  \]
+  and \(p: \hat X \to X\) be the quotient map. The orbit space \(X\) can be identified with straightlines in \(\R^3\) passing through the origin. Given a line \(\ell\) through the origin, let
+  \[
+    C_\ell = \{y \in S^2: y \text{ perpendicular to } \ell\}.
+  \]
+  Then \(S^2 - C_\ell = U_+ \amalg U_-\). Let \(U = p(U_+ \amalg U_-)\), an open neighbourhood of \(\ell\) in \(X\). Note that \(p|_{U_+}\) and \(p|_{U_-}\) are both homeomorphisms onto \(U\). Thus \(U\) is evenly covered and \(p\) is a covering map. \(X = \R P^2\) is the \emph{real projective plane}.
+\end{enumerate}
+\end{eg}
+
+Note that in all three examples, for all points \(x \in X\), the number of copies of \(U\) in \(p^{-1}(U)\) is the same. We give a name to such covering spaces:
+
+\begin{definition}[\(n\)-sheeted]
+  A covering map \(p: \hat X \to X\) is \emph{\(n\)-sheeted} where \(n \in \N \cup \{\infty\}\) if for all \(x \in X\), \(\# p^{-1}(x) = n\).
+\end{definition}
+
+\subsection{Lifting properties}
+
+Let \(p: \hat X \to X\) be a covering map throughout the section.
+
+\begin{definition}[lift]\index{lift}
+  A \emph{lift} of \(f: Y \to X\) to \(\hat X\) is a map \(\hat f: Y \to \hat X\) such that \(f = p \compose \hat f\), i.e.\ the following diagram commutes:
+  \[
+    \begin{tikzcd}
+      & \hat X \ar[d, "p"] \\
+      X \ar[ur, "\hat f", dashed] \ar[r, "f"] & X
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{lemma}[uniqueness of lift]
+  Suppose \(f: Y \to X\) where \(Y\) is connected and locally path-connected. % in fact locally path-connected not necessary
+  Let \(\hat f_1, \hat f_2: Y \to \hat X\) are both lifts of \(f\). If there exists \(y \in Y\) such that \(\hat f_1(y) = \hat f_2(y)\) then \(\hat f_1 = \hat f_2\).
+\end{lemma}
+
+\begin{proof}
+  Consider
+  \[
+    S = \{y \in Y: \hat f_1(y) = \hat f_2(y)\}.
+  \]
+  Claim that \(S\) is both open and closed, from which the lemma follows immediately. Given \(y_0 \in Y\), let \(U\) be an evenly covered neighbourhood of \(f(y_0)\) and \(V \subseteq \hat f^{-1}(U)\) a path-connected neighbourhood of \(y_0\). Let \(y \in V\) be arbitrary. Need to show that \(y_0 \in S\) if and only if \(y \in S\). If \(y_0 \in S\) then \(\hat f_1(y_0) = \hat f_2(y_0) \in U_\delta\) for some \(\delta \in \Delta_U\). Let \(\alpha\) be a path in \(V\) from \(y_0\) to \(y\). Then \(f \compose \alpha\) is a path from \(f(y_0)\) to \(f(y)\). Then \(\hat f_i \compose \alpha\) is a path in \(p^{-1}(U)\) from \(\hat f_i(y_0)\) to \(\hat f_i(y)\). It follows that \(\hat f_i(y) \in U_\delta\) so \(\hat f_1(y) = (\delta, f(y)) = \hat f_2(y)\) so \(y \in S\). The converse is identical.
+\end{proof}
+
+\begin{definition}[lift at a point]
+  Let \(\gamma: I \to X\) be a path with \(\gamma(0) = x_0\). A (unique) lift of \(\gamma\) to \(\hat X\) such that \(\hat \gamma(0) = \hat x_0 \in p^{-1}(x_0)\) is called the \emph{lift of \(\gamma\) at \(\hat x_0\)}.
+\end{definition}
+
+\begin{lemma}[path-lifting lemma]\index{path-lifting lemma}
+  Let \(\gamma: I \to X\) be a path with \(\gamma(0) = x_0\). For any \(\hat x_0 \in p^{-1}(x_0)\) there is a uniqueness \(\hat \gamma\) of \(\gamma\) at \(\hat x_0\).
+\end{lemma}
+
+\begin{proof}
+  Uniqueness follows from the more general uniquenss of lift so suffices to show existence. Consider
+  \[
+    S = \{t \in I: \text{ lift of } \gamma|_{[0, t]} \text{ at } \hat x_0 \text{ exists}\},
+  \]
+  as \(0 \in S\), the lemma follows if we can show \(S\) is both open and closed. Let \(t_0 \in I\). Then \(\gamma(t_0) \in U\) for some evenly covered neighbourhood \(U\). There exists a path-connected neighbourhood \(V\) of \(t_0\) such that \(\gamma(V) \subseteq U\). Let \(t \in V\). We'll prove that \(t_0 \in S\) if and only if \(t \in S\). By symmetry suffices to show one direction. Suppose \(t_0 \in S, t \notin S\). Since \(t_0 \in S\), \(\hat \gamma(t_0)\) is well-defined so let \(\hat \gamma(t_0) \in U_\delta\). Since \([t_0, t] \subseteq V\) (as \(t \notin S\)), \(\gamma([t_0, t]) \subseteq U\) so the path
+  \[
+    s \mapsto
+    \begin{cases}
+      \hat \gamma(s) & s \leq t_0 \\
+      p_\delta^{-1} \compose \gamma & t_0 \leq s \leq t
+    \end{cases}
+  \]
+  is a lift of \(\gamma|_{[0, t]}\) so \(t \in S\). Contradiction.
+\end{proof}
+
+\begin{lemma}
+  If \(X\) is path-connected the \(p\) is \(n\)-sheeted for some \(n \in \N \cup \{\infty\}\).
+\end{lemma}
+
+\begin{proof}
+  Let \(x, y \in X\) and \(\alpha\) a path between them. Let \(\hat x \in p^{-1}(x)\) and let \(\hat \alpha_{\hat x}\) be the unique lift of \(\alpha\) at \(\hat x\). Define a map
+  \begin{align*}
+    p^{-1} (x) &\to p^{-1}(y) \\
+    \hat x &\mapsto \hat \alpha_{\hat x}(1)
+  \end{align*}
+  Now replacing \(\alpha\) with \(\overline \alpha\) defines an inverse to this map.
+\end{proof}
+
+\begin{definition}[degree of covering map]\index{degree}
+  \(n\) is called the \emph{degree} of \(p\).
+\end{definition}
+
+\begin{lemma}[homotopy lifting lemma]\index{homotopy lifting lemma}
+  \label{lem:homotopy lifting lemma}
+  Let \(f_0: Y \to X\) be a map where \(Y\) is path-connected. Let \(F: Y \times I \to X\) be a homotopy with \(F(\cdot, 0) = f_0\). Let \(\hat f_0: Y \to \hat X\) be a lift of \(f_0\) to \(\hat X\). Then there is a unique lift \(\hat F\) of \(F\) to \(\hat X\) such that \(\hat F(\cdot, 0) = \hat f_0\).
+\end{lemma}
+
+\begin{proof}
+  Let \(y_0 \in Y\). Let \(\gamma_{y_0}(t) = F(y_0, t)\) be a path. By path lifting lemma, there is a unique lift \(\hat \gamma_{y_0}\) such that \(\hat \gamma_{y_0}(0) = \hat f_0(y_0)\) such that \(\hat F(y_0, t) = \hat\gamma_{y_0}(t)\). By uniqueness of path lifting, this is the only choice for \(\hat F\), but it is not clear that \(\hat F\) is continuous.
+
+  We will construct a map that is obviously continuous and argue that it is also a lift. Fix \(y_0\). For all \(t\) there exists \(U_t\) an evenly covered neighbourhood of \(F(y_0, t)\). By definition of product topology,
+  \[
+    (y_0, t) \in V_t \times J_t \subseteq F^{-1}(U_t).
+  \]
+  Compactnss of \(I\) implies that \(\{y_0\} \times I\) is covered by \(V_1 \times J_1, \dots, V_n \times J_n\) where \(t_i \in J_i\). Setting \(V = \bigcap_{i = 1}^n V_i\) (and passing to a path-connected subset), we have \(\{y_0\} \times I\) covered by \(V \times J_1, \dots, V \times J_n\). Now define \(\tilde F\) on \(V \times I\) by
+  \[
+    \tilde F(y, t) = p_{\delta_i}^{-1} \compose F(y, t)
+  \]
+  for \(y \in V, t \in J_i\). Need to check that \(\tilde F\) is well-defined. Suppose \(t \in J_i \cap J_j\). Let \(y \in V\). Choose \(\alpha\) in \(V\) from \(y_0\) to \(y\) and let \(\alpha_t(s) = F(\alpha(s), t)\). Now \(p_{\delta_i}^{-1} \compose \alpha_t\) is the lift of \(\alpha_t\) at \(\hat F(y_0, t)\). Same for \(p_{\delta_j}^{-1} \compose \alpha_t\) so they are equal. Therefore their endpoints coincide: \(p_{\delta_i}^{-1} \compose F(y, t) = p_{\delta_j}^{-1} \compose F(y, t)\) . Thus \(\tilde F\) is well-defined.
+
+  \(\tilde F\) is clearly continuous and a lift of \(F\), so it remains to check that \(\tilde F = \hat F\) on \(V \times I\). By construction \(\tilde F(y_0, 0) = \hat F(y_0, 0)\). Now \(\tilde F(\alpha(\cdot), 0)\) is a lift of \(f_0 \compose \alpha\), so will agree with \(\hat f_0 \compose \alpha\). So \(\tilde F(y, 0) = \hat f_0(y)\) for all \(y \in V\). Finally \(\tilde F(y, \cdot)\) is a lift of \(\gamma_y\) starting at \(\hat f_0(y)\), so by uniqueness again, \(\tilde F(y, t) = \tilde \gamma_y(t) = \hat F(y, t)\) for all \(y \in V, t \in I\).
+\end{proof}
+
+We have discussed lifts of maps, paths and homotopies. Recall that homotopy of paths is a slightly stronger form of homotopy and the next lemma shows that indeed the lift of a homotopy of paths is a homotopy of paths:
+
+\begin{lemma}
+  \label{lem:lift of homotopy of paths}
+  Let \(F: I \times I \to X\) be a homotopy of paths and \(\hat F\) be a lift of \(F\) to \(\hat X\). Then \(\hat F\) is also a homotopy of paths.
+\end{lemma}
+
+\begin{proof}
+  As \(F\) is a homotopy of path, \(F(0, t) = x_0\) for all \(t\). Consider \(\hat F(0, \cdot): I \to \hat X\). For any \(t \in I\) we have
+  \[
+    \hat F(0, t) \in p^{-1}(F(0, t)) = p^{-1}(x_0)
+  \]
+  which is discrete. As \(I\) is connected \(\hat F(0, \dots)\) is constant. Same for \(\hat F(1, \dots)\) so \(\hat F\) is a homotopy of paths.
+\end{proof}
+
+\subsection{Applications to calculations of fundamental groups}
+
+\begin{lemma}
+  If \(p: \hat X \to X\) is a map, \(x \in X\) and \(\hat x \in p^{-1}(x)\) then
+  \[
+    p_*: \pi_1(\hat X, \hat x) \to \pi_1(X, x)
+  \]
+  is an injection.
+\end{lemma}
+
+\begin{proof}
+  Suppose \([\hat \gamma] \in \ker p_*\), i.e.\ \(p_*([\hat \gamma]) = [p\compose \hat \gamma] = [\gamma] = 1 \in \pi_1(X, x)\). Then \(\gamma\) is homotopic to the constant path. But by \nameref{lem:homotopy lifting lemma} this lifts to homotopy between \(\hat \gamma\) and constant path.
+\end{proof}
+
+As last time, path lifting defines an \emph{action} of \(\pi_1(X, x)\) on \(p^{-1}(x)\) by
+\begin{align*}
+  \pi_1(X, x) \times p^{-1}(x) &\to p^{-1}(x) \\
+  ([\gamma], \hat x) &\mapsto \hat x . \gamma
+\end{align*}
+where \(\hat x . \gamma\) is the endpoint of the lift of \(\gamma\) at \(\hat x\). Note that by \Cref{lem:lift of homotopy of paths} this is indeed in the fibre of \(x\). Furthermore it shows that this is well-defined. Finally note that this is a \emph{right action} (ultimately because we defined concatenation of paths from left to right).
+
+Given \(G\) action on \(X\), orbit-stabiliser says that there is a bijection between the left cosets of stabiliser \(G_x\) of an element \(x\) and the orbit \(G^x\). Furthermore, \(G\) has a natural action on the left cosets \(G/G_x\) such that the bijection is \(G\)-equivariant. Spelling this out (and use right action instead of left), we have
+
+\begin{lemma}
+  Suppose \(\hat X\) is path-connected and \(x \in X\). Let \(\hat x \in p^{-1}(x)\). Then
+  \begin{align*}
+    p_*\pi_1(\hat X, \hat x) \backslash \pi_1(X, x) &\to p^{-1}(x) \\
+    (p_* \pi_1(\hat X, \hat x)) [\gamma] &\mapsto \hat x. \gamma
+  \end{align*}
+  Furthermore, the map is equivariant.
+\end{lemma}
+
+\begin{proof}
+  Suffices to show that the action is transitive and the stabiliser of \(\hat x\) is \(p_* \pi_1(\hat X, \hat x)\). As \(\hat X\) is path-connected there exists a path \(\hat \gamma\) between any two points in \(p^{-1}(x)\), whose image \(\gamma\) under \(p\) is a loop bases at \(x\), and is the only loop whose lift is \(\hat \gamma\) by uniquenss. The stabiliser of \(\hat x\) are precisely the homotopy classes of loops based at \(x\) whose lifts are loops baesd at \(\hat x\), which is precisely \(p_* \pi_1(\hat X, \hat x)\).
+\end{proof}
 
 
 

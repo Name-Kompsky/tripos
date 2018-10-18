@@ -20,6 +20,9 @@
 \newcommand{\Top}{{\c{Top}}}
 \newcommand{\Rel}{{\c{Rel}}}
 
+\newcommand{\mono}{\rightarrowtail}
+\newcommand{\epi}{\twoheadrightarrow}
+
 \begin{document}
 
 \input{titlepage}
@@ -46,7 +49,7 @@
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item This definition is independent of any model of set theory. If we're given a particuar model of set theory, we call \(\c C\) \emph{small} if \(\ob \c C\) and \(\mor \c C\) are sets.
+  \item This definition is independent of any model of set theory. If we're given a particuar model of set theory, we call \(\c C\) \emph{small}\index{category!small} if \(\ob \c C\) and \(\mor \c C\) are sets.
   \item Some texts say \(fg\) means \(f\) followed by \(g\) (we are not).
   \item Note that a morphism \(f\) is an identity if and only if \(fg = g\) and \(hf = h\) whenever the compositions are defined so we could formulate the definitions entirely in terms of morphisms.
   \end{enumerate}
@@ -120,7 +123,7 @@
       V^* = \{\text{linear maps } V \to K\}
     \]
     and if \(V \xrightarrow{f} W\), \(f^*(\theta) = \theta f\).
-  \item We have a funtor \(\cdot^\text{op}: \c{Cat} \to \c{Cat}\) which is the identity on morphisms. (note that this is \emph{covariant})
+  \item We have a functor \(\cdot^\text{op}: \c{Cat} \to \c{Cat}\) which is the identity on morphisms. (note that this is \emph{covariant})
   \item A functor between monoids is a monoid homomorphism.
   \item A functor between posets is an order-preserving map.
   \item Let \(G\) be a group. A functor \(F: G \to \Set\) consists of a ast \(A = F*\) together with an action of \(G\) on \(A\), i.e.\ permutation representation of \(G\). Similarly a functor \(G \to \c{Mod}_K\) is a \(K\)-linear representation of \(G\).
@@ -237,6 +240,344 @@ For example, being a groupoid or a preorder are categorical properies, but being
   \end{enumerate}
 \end{eg}
 
+Example 3 illustrates a general principle: when constructing a pair of functors between equivalent categories, ususally one is ``canonical'' and the other requires some choice, and a clever choice results in a particularly simple form for one way of composition. The next theorem abstracts away the ``choice'' and tells us when a functor is part of an equivalence purely by its properties.
+
+The criterion is stated in term of ``bijectivity'' of functors, informally. It is generally a bad idea to look at sur/injectivity of functors on objects. Instead the correct way is to look at their behaviour on morphisms.
+
+\begin{definition}[faithful, full, essentially surjective]\index{functor!faithful}\index{functor!full}\index{functor!essentially surjective}
+  Let \(\c C \xrightarrow{F} \c D\) be a functor.
+  \begin{enumerate}
+  \item \(F\) is \emph{faithful} if given \(f, f' \in \mor \c C\) with \(\dom f = \dom f', \cod f = \cod f'\) and \(Ff = Ff'\) then \(f = f'\). 
+  \item \(F\) is \emph{full} if given \(FA \xrightarrow{g} FB\) in \(\c D\) then there exists \(A \xrightarrow{f} B\) in \(\c C\) with \(Ff = g\).
+  \item \(F\) is \emph{essentially surjective} if for every \(B \in \ob \c D\) there exists \(A \in \ob \c C\) and an isomorphism \(FA \to B\) in \(\c D\).
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  A subcategory \(\c C' \subseteq \c C\) is \emph{full} if the inclusion \(\c C' \to \c C\) is a full functor.
+\end{definition}
+
+\begin{eg}
+  \(\c{Gp}\) is a full subcategory of \(\c{Mon}\) but \(\c{Mon}\) is not a full subcategory of the category \(\c{SGp}\) of semigroups.
+\end{eg}
+
+\begin{lemma}
+  Assuming the axiom of choice. A functor \(F: \c C \to \c D\) is part of an equivalence \(\c C \simeq \c D\) if and only if it's full, faithful and essentially surjective.
+\end{lemma}
+
+\begin{proof}
+  Suppose given \(G, \alpha, \beta\) as in the definition of equivalence of categories. Then for each \(B \in \ob \c D\), \(\beta_B\) is an isomorphism \(FGB \to B\) so \(F\) is essentially surjective.
+
+  Given \(A \xrightarrow{f} B\) in \(\c C\), we can recover \(f\) from \(Ff\) as the via conjugation by \(\alpha\):
+  \[
+    \begin{tikzcd}
+      GFA \ar[r, "GFf"] & GFB \\
+      A \ar[u, "\alpha_A"] \ar[r, "f"] & B \ar[u, "\alpha_B"]
+    \end{tikzcd}
+  \]
+  Hence if \(A \xrightarrow{f'} B\) satisfies \(Ff = Ff'\) then \(f = f'\).
+
+  Similarly there is a natural preimage given a morphism in \(\c D\). Given \(FA \xrightarrow{g} FB\), define \(f\) to be the composite
+  \[
+    \begin{tikzcd}
+      GFA \ar[r, "Gg"] & GFB \\
+      A \ar[u, "\alpha_A"] \ar[r, dashed] & B \ar[u, "\alpha_B"]
+    \end{tikzcd}
+  \]
+  Then \(GFf = \alpha_B f \alpha_A^{-1} = Gg\). As \(G\) is faithful for the same reasons as \(F\), \(Ff = g\).
+
+  Conversely, for each \(B \in \ob \c D\), choose \(GB \in \ob \c C\) and an isomorphism \(\beta_B: FGB \to B\) in \(\c D\). Given \(B \xrightarrow{g} B'\), define \(Gg: GB \to GB'\) to be the unique morphism whose image under \(F\) is the composition
+  \[
+    \begin{tikzcd}
+      B \ar[r, "f"] & B' \\
+      FGB \ar[u, "\beta_B"] \ar[r, dashed] & FGA \ar[u, "\beta_{B'}"]
+    \end{tikzcd}
+  \]
+  Faithfulness implies functoriality: given \(B' \xrightarrow{g'} B''\), \((Gg') (Gg)\) and \(G(g'g)\) have the same image under \(F\) so they are equal.
+
+  By construction, \(\beta\) is a natural transformation \(FG \to 1_{\c D}\).
+
+  Given \(A \in \ob \c C\), define \(\alpha_A: A \to GFA\) to be the unique morphism whose image under \(F\) is
+  \[
+    FA \xrightarrow{\beta_{FA}^{-1}} FGFA.
+  \]
+  \(\alpha_A\) is an isomorphism since \(\beta_{FA}\) also has a unique preimage under \(F\). Finally \(\alpha\) is a natural transformation, since any naturality square for \(\alpha\) is mapped by \(F\) to a commutative square (corresponding to naturality square for \(\beta\)) and \(F\) is faithful.
+\end{proof}
+
+Note that axiom of choice is only used in the if part. The lemma is useful as it saves us from making explicit choices when showing an equivalence by exhibiting inverses. However note that the choice is always required.
+
+\begin{definition}[skeleton]\index{skeleton}\index{category!skeletal}
+  By a \emph{skeleton} of a category \(\c C\) we mean a full subcategory \(\c C_0\) containing one object from each isomorphism class. We say \(\c C\) is \emph{skeletal} if it's a skeleton of itself.
+\end{definition}
+
+\begin{eg}
+  \(\c{Mat}_K\) is skeletal and the image of \(F: \c{Mat}_K \to \c{fdMod}_K\) is a skeleton of \(\c{fdMod}_K\) (essentially because \(F\) is full and faithful).
+\end{eg}
+
+\begin{remark}
+  Almost any assertion about skeletons is equivalent to the axiom of choice. See example sheet 1 Q2. This is one reason why we should not restrict out attention to skeletal categories.
+\end{remark}
+
+\begin{definition}[monomorphism, epimorphism]\index{monomorphism}\index{epimorphism}
+  Let \(A \xrightarrow{f} B\) be a morphism in \(\c C\).
+  \begin{enumerate}
+  \item We say \(f\) is a \emph{monomorphism} or \emph{monic} if given any pair \(g, h: C \to A\), \(fg = fh\) implies \(g = h\).
+  \item We say \(f\) is a \emph{epimorphism} or \emph{epic} if it is a monomorphism in \(\c C^{\text{op}}\), i.e.\ given any pair \(g, h: B \to C\), \(gf = hf\) implies \(g = h\).
+  \end{enumerate}
+
+  We denote monomorphisms by \(f: A \mono B\) and epimorphisms by \(f: A \epi B\).
+\end{definition}
+
+Any isomorphism is monic and epic. More generally if \(f\) has a left inverse then it's monic. We call such monomorphisms \emph{split}\index{monomorphism!split}.
+
+\begin{definition}[balanced]\index{category!balanced}
+  We say \(\c C\) is a \emph{balanced} category if any morphism which is both monic and epic is an isomorphism.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item In \(\Set\), monomorphism is precisely an injection (one direction is easy and for the other direction take \(C = 1 = \{*\}\)) and epimorphism is precisely a surjection (use morphisms \(B \to 2 = \{0, 1\}\)). Thus \(\Set\) is balanced.
+  \item In \(\c{Gp}\), monomorphism is precisely an injection (use homomorphism from the free group with one generator, i.e.\ \(\Z \to A\)) and epimorphism is precisely a surjection (use free product with amalgamation). Thus \(\c{Gp}\) is balanced.
+  \item In \(\c{Rng}\), monomorphism is precisely an injection (similarly to free group) but the inclusion \(\Z \to \Q\) is an epimorphism, since if \(f, g: \Q \to R\) agree on all integers they agree everywhere. So \(\c{Rng}\) is not balanced.
+  \item In \(\Top\), monomorphism is precisely an injection and epimorphism is precisely a precisely surjection (same argument as \(\Set\)) but \(\c{Top}\) is not balanced since a continuous bijection need not to have a continuous inverse.
+  \end{enumerate}
+\end{eg}
+
+\section{The Yoneda lemma}
+
+It may seem weird to devote an entire chapter to a lemma. However, although the Yoneda lemma is indeed a lemma, with a simple statement and straightforward proof, it is much more than a normal lemma and underlies the entire category theory.
+
+Here is a little story about Yoneda lemma. It is named after Nobuo Yoneda, who is better known as a computer scientist than a mathematician. The result is likely not due to him and he wasn't the first person to write it down. In fact, he never actually wrote down the lemma, as opposed to some books claiming the lemma was first to be found in one of Yoneda's papers. The story, according to Saunders Mac Lane, is that after a conference he met Yoneda on a train platform. While exchanging conversations Yoneda told him the result, which Mac Lane was not aware of at that moment but immediately recognised its importance. Mac Lane later attributed the lemma to Yoneda and because of his standing in category theory, the name retains. Perhaps this is the first and only result in mathematics to be enunciated on a train platform!
+
+\begin{definition}[locally small category]\index{category!locally small}
+  We say a category \(\c C\) is \emph{locally small} if, for any two objects \(A, B\), the morphisms \(A \to B\) in \(\c C\) form a set \(\c C(A, B)\).
+\end{definition}
+
+If we fix \(A\) and let \(B\) vary, the assignment \(B \mapsto \c C(A, B)\) becomes a functor \(\c C(A, -): \c C \to \Set\): given \(B \xrightarrow{f} C\), \(\c C(A, f)\) is the mapping \(g \mapsto fg\). Similarly, \(A \mapsto \c C(A, B)\) defines a functor \(\c C(-, B): \c C^{\text{op}} \to \Set\).
+
+\begin{lemma}[Yoneda lemma]\index{Yoneda lemma}
+  \label{lem:Yoneda}
+  Let \(\c C\) be a locally small category, \(A \in \ob \c C\) and \(F: \c C \to \Set\) is a functor. Then natural transformations \(\c C(A, -) \to F\) are in bijection with elements of \(FA\).
+
+  Moreover, this bijection is natural in both \(A\) and \(F\).
+\end{lemma}
+
+\begin{proof}
+  We prove the first part now. The second part follows very easily once we have gained some intuitions so we'll come back to it later. Given \(\alpha: \c C(A, -) \to F\), we define
+  \[
+    \Phi(\alpha) = \alpha_A(1_A) \in FA.
+  \]
+  Conversely, given \(x \in FA\), we define \(\Psi(x): \c C(A, -) \to F\) by
+  \[
+    \Psi(x)_B (A \xrightarrow{f} B) = Ff(x) \in FB
+  \]
+  which is natural: given \(g: B \to C\), we have
+  \begin{align*}
+    \Psi(x)_C \c C(A, g)(f) &= \Psi(x)_C (gf) = F(gf) (x) \\
+    (Fg) \Psi(x)_B (f) &= (Fg) (Ff)(x) = F(gf) (x)
+  \end{align*}
+  \[
+    \begin{tikzcd}
+      \c C(A, B) \ar[rrr, "{\c C(A, g)}"] \ar[ddd, "\Psi(x)_B"] &&& \c C(A, C) \ar[ddd, "\Psi(x)_C"] \\
+      & f \ar[r, mapsto] \ar[d, mapsto] & gf \ar[d, mapsto] \\
+      & Ff(x) \ar[r, mapsto] & F(gf)(x) \\
+      FB \ar[rrr, "Fg"] &&& FC
+    \end{tikzcd}
+  \]
+  by functoriality of \(F\). Now left to show they are inverses to each other.
+  \begin{align*}
+    \Phi\Psi(x) &= \Psi(x)_A(1_A) = F(1_A) (x) = x \\
+    \Psi\Phi(\alpha)_B(f) &= \Psi (\alpha_A(1_A))_B (f) = Ff (\alpha_A(1_A)) = \alpha_B \c C(A, f) (1_A) = \alpha_B(f)
+  \end{align*}
+  so \(\Psi \Phi(\alpha) = \alpha\).
+\end{proof}
+
+\begin{corollary}[Yoneda embedding]\index{Yoneda embedding}
+  The assignment \(A \mapsto \c C(A, -)\) defines a full faithful functor \(\c C^{\text{op}} \to [\c C, \Set]\).
+\end{corollary}
+
+\begin{proof}
+  Put \(F = \c C(B, -)\) in the above proof, we get a bijection between \(\c C(B, A)\) and morphisms \(\c C(A, -) \to \c C(B, -)\) in \([\c C, \Set]\). We need to verify that this is functorial. But it sends \(f: B \to A\) to the natural transformation \(g \mapsto gf\). So functoriality follows from associativity.
+\end{proof}
+
+We call this functor (or the functor \(\c C \to [\c C^{\text{op}}, \Set]\) sending \(A\) to \(\c C(-, A)\)) the \emph{Yoneda embedding} of \(\c C\) and typically denote it by \(Y\). At first glance, \([\c C, \Set]\) seems like a much more complicated entity and is much more unwieldy. However, it stands out as being more concrete and thus easier to deal with. It is in analogy with group representation: instead of an abstract group, we consider its action on a set, which is more explicit and concrete. We'll come back to this point in a minute.
+
+Now return to the second part of the lemma. Suppose for the moment that \(\c C\) is small, so that \([\c C, \Set]\) is locally small. Then we have two functors \(\c C \times [\c C, \Set] \to \Set\): one sends \((A, F)\) to \(FA\), and the other is the composite
+\[
+  \c C \times [\c C, \Set]
+  \xrightarrow{Y \times 1} [\c C, \Set]^{\text{op}} \times [\c C, \Set]
+  \xrightarrow{[\c C, \Set] (-, -)} \Set
+\]
+where the last map maps a pair of functors to the set of natural transformations between them, and the naturality in the statement of Yoneda lemma says that these are naturally isomorphic. We can translate this into an elementary statement, making sense even when \(\c C\) isn't small: given \(A \xrightarrow{f} B\) and \(F \xrightarrow{\alpha} G\), there two ways of producing an element of \(GB\) from a natural transformation. For example, given \(\beta: \c C(A, -) \to F\), the two ways give the same result, namely
+\[
+  \alpha_B(Ff) \beta_A (1_A) = (Gf)\alpha_A \beta_A (1_A)
+\]
+which is equal to \(\alpha_B\beta_B(f)\).
+\[
+  \begin{tikzcd}
+    {[\c C, \Set](\c C(A, -), F)} \ar[rrr] \ar[ddd] \ar[dr, "\Phi_{A, F}"] &&& {[\c C, \Set](\c C(B, -), F)} \ar[ddd] \ar[dl, "\Phi_{B, F}"] \\
+    & FA \ar[r, "Ff"] \ar[d, "\alpha_A"] & FB \ar[d, "\alpha_B"] \\
+    & GB \ar[r, "Gf"] & GB \\
+    {[\c C, \Set](\c C(A, -), G)} \ar[rrr] \ar[ur, "\Phi_{A, G}"] &&& {[\c C, \Set](\c C(B, -), G)} \ar[ul, "\Phi_{B, G}"] \\
+  \end{tikzcd}
+\]
+
+\begin{definition}[representable functor, representation]\index{functor!representable}\index{universal element}
+  We say a functor \(F: \c C \to \Set\) is \emph{representable} if it's isomorphic to \(\c C(A, -)\) for some \(A\).
+
+  By a \emph{representation} of \(F\), we mean a pair \((A, x)\) where \(x \in FA\) is such that \(\Psi(x)\) is an isomorphism. We also call \(x\) a \emph{universal element} of \(F\).
+\end{definition}
+
+\begin{corollary}
+  If \((A, x)\) and \((B, y)\) are both representations of \(F\), then there is a unique isomorphism \(f: A \to B\) such that \((Ff)(x) = y\).
+\end{corollary}
+
+\begin{proof}
+  Consider the composite
+  \[
+    \c C(B, -) \xrightarrow{\Psi(y)^{-1}} F \xrightarrow{\Psi(x)} \c C(A, -),
+  \]
+  By Yoneda embedding, this is of the form \(Y(f)\) for a unique isomorphism \(f: A \to B\) and the diagram
+  \[
+    \begin{tikzcd}
+      \c C(B, -) \ar[rr, "Y(f)"] \ar[dr, "\Psi(y)"'] & & \c C(A, -) \ar[dl, "\Psi(x)"] \\
+      & F
+    \end{tikzcd}
+  \]
+  commutes if and only if \((Ff) (x) = y\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The forgetful functor \(\c{Gp} \to \Set\) is representable by \((\Z, 1)\). Similarly the forgetful functor \(\c{Rng} \to \Set\) is representable by \((\Z[x], x)\). The forgetful functor \(\Top \to \Set\) is representable by \((\{*\}, *)\).
+  \item The functor \(P^*: \Set^{\text{op}} \to \Set\) is representable by \((\{0, 1\}, \{1\})\). This is the bijection between subsets and characteristic functions.
+  \item Let \(G\) be a group. The unique (up to isomorphism) representable functor \(G(*, -): G \to \Set\) is the \emph{Cayley representation} of \(G\), i.e.\ the set \(UG\) with \(G\) acting by left multiplication.
+  \item Let \(A\) and \(B\) be two objects of a locally small category \(\c C\). Then we have a functor \(\c C^{\text{op}} \to \Set\) sending \(C\) to \(\c C(C, A) \times \c C(C, B)\) (note that it is a purely categorical product and require only cartesian product of the morphism sets). A representation of this, if it exists, is called a (categorical) \emph{product}\index{product} of \(A\) and \(B\), and denoted
+    \[
+      \begin{tikzcd}
+        & A \times B \ar[dl, "\pi_1"'] \ar[dr, "\pi_2"] \\
+        A & & B
+      \end{tikzcd}
+      %(A \times B, (A \times B \xrightarrow{\pi_1} A, A \times B \xrightarrow{\pi_2} B)).
+    \]
+    This pair has the property that, for any pair \((C \xrightarrow{f} A, C \xrightarrow{g} B)\), there is a unique \(C \xrightarrow{h} A \times B\) with \(\pi_1 h = f\) and \(\pi_2 h = g\).
+    \[
+      \begin{tikzcd}
+        & A \times B \ar[dl, "\pi_1"'] \ar[dr, "\pi_2"] \\
+        A & C \ar[l, "f"] \ar[r, "g"] \ar[u, "h", dashed] & B
+      \end{tikzcd}
+      %(A \times B, (A \times B \xrightarrow{\pi_1} A, A \times B \xrightarrow{\pi_2} B)).
+    \]
+ 
+    Products exist in many categories of interest: in \(\Set, \c{Gp}, \c{Rng}, \Top, \dots\) they are ``just'' cartesian products. In posets they are binary meets.
+
+    Dually, we have the notion of \emph{coproduct}\index{coproduct}
+    \[
+      \begin{tikzcd}
+        & A + B \\
+        A \ar[ur, "\nu_1"] & & B \ar[ul, "\nu_2"']
+      \end{tikzcd}
+      %(A + B, A \xrightarrow{\nu_1} A + B, B \xrightarrow{\nu_2} A + B).
+    \]
+    These also exist in many categories of interest.
+  \item Let \(f, g: A \to B\) be morphisms in a locally small category \(\c C\). We have a functor \(F: \c C^{\text{op}} \to \Set\) defined by
+    \[
+      F(C) = \{n \in \c C(C, A): fh = gh\},
+    \]
+    which is a subfunctor of \(\c C(-, A)\). A representation of \(F\), if it exists, is called an \emph{equaliser}\index{equaliser} of \((f, g)\). It consists of an object \(E\) and a morphism \(E \xrightarrow{e} A\) such that \(fe = ge\) and every \(h\) with \(fh = gh\) factors uniquely through \(e\). In \(\Set\), we take \(E = \{x \in A: f(x) = g(x)\}\) and \(e\) to be inclusion. Similar constructions work in \(\c{Gp}, \c{Rng}, \Top, \dots\)
+    \[
+      \begin{tikzcd}
+        E \ar[r, "e"] & A \ar[r, "f", shift left] \ar[r, "g"', shift right] & B \\
+        C \ar[u, dashed] \ar[ur, "h"]
+      \end{tikzcd}
+    \]
+
+    Dually we have the notion of \emph{coequaliser}\index{coequaliser}.
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}
+  If \(e\) occurs as an equaliser then it is a monomorphism, since any \(h\) factors through it in at most one way. We say a monomorphism is \emph{regular}\index{monomorphism!regular} if it occurs as an equaliser.
+
+  Split monomorphisms are regular (see example sheet 1 Q6 (i)). Note that a regular mono that is also epic implies isomorphism: if the equaliser \(e\) of \((f, g)\) is epic then \(f = g\) so \(e \cong 1_{\cod e}\).
+\end{remark}
+
+% generating family
+% warning: nonstandard terminology
+
+\begin{definition}[separating/detecting family, seperator, detector]\index{separating family}\index{detecting family}\index{separator}\index{detector}
+  Let \(\c C\) be a category, \(\mathcal G\) a class of objects of \(\c C\).
+  \begin{enumerate}
+  \item  We say \(\mathcal G\) is a \emph{separating family} for \(\c C\) if, given \(f, g: A \to B\) such that \(fh = gh\) for all \(G \xrightarrow{h} A\) with \(G \in \mathcal G\) then \(f = g\). (i.e.\ the functor \(\c C(G, -)\) where \(G \in \mathcal G\) are collectively faithful)
+  \item We say \(\mathcal G\) is a \emph{detecting family}  for \(\c C\) if, given \(A \xrightarrow{f} B\) such that every \(G \xrightarrow{h} B\) with \(G \in \mathcal G\) factors uniquely through \(f\), then \(f\) is an isomorphism.
+  \end{enumerate}
+
+  If \(\mathcal G = \{G\}\) then we call \(G\) a \emph{separator} or \emph{detector}.
+\end{definition}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(\c C\) is a balanced category then any separating family is detecting.
+  \item If \(\c C\) has equalisers (i.e.\ every pair has an equaliser) then any detecting family is separaing.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(\mathcal G\) is separating and \(A \xrightarrow{f} B\) satisfies condition in definition 2.
+    If \(g, h: B \to C\) satisfy \(gf = hf\), then \(gx = hx\) for every \(G \xrightarrow{x} B\), so \(g = h\), i.e.\ \(f\) is epic.
+
+    Similarly if \(k, \ell: D \to A\) satisfy \(fk = f\ell\) then \(ky = \ell y\) for any \(G \xrightarrow{y} D\), since both are factorisations of \(fky\) through \(f\). So \(k = \ell\), i.e.\ \(f\) is monic.
+  \item Suppose \(\mathcal G\) is detecting and \(f, g: A \to B\) satisfy definition 1. Then the equaliser \(E \xrightarrow{e} A\) of \((f, g)\) is isomorphism so \(f = g\).
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item In \([\c C, \Set]\) the family \(\{\c C(A, -): A \in \ob \c C\}\) is both separating and detecting. This is just a restatement of Yoneda lemma.
+  \item In \(\Set\), \(1 = \{*\}\) is both a separator and a detector since it represents the identity functor \(\Set \to \Set\). Similarly \(\Z\) is both in \(\c{Gp}\) since it represents the forgetful functor \(\c{Gp} \to \Set\).
+
+    Dually, \(2 = \{0, 1\}\) is a coseparator and a codetector in \(\Set\) since it represents \(P^*: \Set^{\text{op}} \to \Set\).
+  \item In \(\Top\), \(1 = \{*\}\) is a separator since it represents the forgetful functor \(\Top \to \Set\), but not a detector. In fact \(\Top\) has no detecting \emph{set} of objects: for any infinite cardinality \(\kappa\), let \(X\) be a discrete space of cardinality \(\kappa\), and \(Y\) the same set with ``co-\(\kappa\)'' topology, i.e.\ \(F \subseteq Y\) closed if and only if \(F = Y\) or \(F\) has cardinality smaller \(\kappa\). The identity map \(X \to Y\) is continuous but not a homomorphism. So if \(\{G_i: i \in I\}\) is any set of spaces, taking \(\kappa\) larger than cardinality of \(G_i\) for all \(i\) yields an exmaple to show that the set is not detecting.
+  \item Let \(\c C\) be the category of pointed conntected CW-complexes and homotopy classes of (basepoint-preserving) continuous maps. J.\ H.\ C.\ Whitehead proved that if \(X \xrightarrow{f} Y\) in this category induces isomorphisms \(\pi_n(X) \to \pi_n(Y)\) for all \(n\) then it is an isomorphism in \(\c C\). This says that \(\{S^n: n \geq 1\}\) is a detecting set for \(\c C\). But P.\ J.\ Freyd showed there is no faithful functor \(\c C \to \Set\), so no separating \emph{set}: if \(\{G_i: i \in I\}\) were separating then
+    \[
+      X \mapsto \coprod_{i \in I} \c C(G_i, X)
+    \]
+    would be faithful.
+  \end{enumerate}
+\end{eg}
+
+Note that any functor of the form \(\c C(A, -)\) preserves monos, but they don't preserve epis. We give a name to those special functors.
+
+\begin{definition}[projective, injective]\index{projective}\index{injective}
+  We say an object \(P\) is \emph{projective} if given
+  \[
+    \begin{tikzcd}
+      & P \ar[d, "f"] \ar[dl, "g"', dashed] \\
+      A \ar[r, "e", twoheadrightarrow] & B
+    \end{tikzcd}
+  \]
+  there exists \(P \xrightarrow{g} A\) with \(eg = f\). If \(\c C\) is locally small, this says \(\c C(P, -)\) preserves epimorphisms.
+
+  Dually an \emph{injective} object of \(\c C\) is a projective object of \(\c C^{\text{op}}\).
+
+  Given a class \(\mathcal E\) of epimorphisms, we say \(P\) is \emph{\(\mathcal E\)-projective} if it satisfies the condition for all \(e \in \mathcal E\).
+\end{definition}
+
+\begin{lemma}
+  Representable functors are (pointwise) projectives in \([\c C, \Set]\).
+\end{lemma}
+
+\begin{proof}
+  Suppose given
+  \[
+    \begin{tikzcd}
+      & \c C(A, -) \ar[d, "\beta"] \ar[dl, "\gamma"', dashed]\\
+      F \ar[r, "\alpha"] & G
+    \end{tikzcd}
+  \]
+  where \(\alpha\) is pointwise surjective. By Yoneda, \(\beta\) corresponds to some \(y \in GA\) and we can find \(x \in FA\) with \(\alpha_A(x) = y\). Now if \(\gamma: \c C(A, -) \to F\) corresponds to \(x\), then naturality of the Yoneda bijection yields \(\alpha\gamma = \beta\).
+\end{proof}
 
 
 

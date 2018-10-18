@@ -452,9 +452,254 @@ In fact we can show \(\Lie\) is a functor but we won't pursue in that direction.
   A \emph{vector field} on a manifold \(M\) is a smooth map \(X: M \to TM\) such that \(\pi \compose X = \id_M\), i.e.\ \(X(p) \in T_pM\) for all \(p \in M\).
 \end{definition}
 
+Note that \(X\) is smooth at \(p\) if and only if for any coordinate neighbourhood \(U\) of \(p\) with local coordinates \((x_1, \dots, x_n)\), \(X = \sum_{i = 1}^n a_i(x) \frac{\partial  }{\partial x}\) where \(a_i \in C^\infty(U)\) for all \(i\).
+
 \begin{eg}
   Every manifold has at least one vector field: sending every point to \(0\). This is not the most interesting example, however.
 \end{eg}
+
+\begin{theorem}
+  Suppose \(\dim M = n\). Then there exists smooth vector fields \(X^{(1)}, \dots, X^{(n)}\) on \(M\) such that for all \(p \in M\), \(X^{(1)}(p), \dots, X^{(n)}(p)\) is a basis of \(T_pM\), then \(TM\) is isomorphic to \(M \times \R^n\).
+\end{theorem}
+
+Here ``isomorphic'' means that there is a diffeomorphism \(\Phi: TM \to M \times \R^n\) such that \(\Phi|_{T_pM}: T_pM \to \{p\} \times \R^n\) is a linear isomorphism.
+
+\begin{definition}[parallelisable]\index{parallelisable}
+  A manifold satisfying the hypothesis is called \emph{parallelisable}.
+\end{definition}
+
+\begin{proof}
+  Consider \(p \in M\) so \(\pi(a) = p\) for all \(a \in T_pM\). Then \(a = \sum_{i = 1}^n a_iX^{(i)}(p)\) for some unique \(a_i \in \R\). Put
+  \[
+    \Phi(a) := (\pi(a), (a_1, \dots, a_n)) \in M \times \R^n
+  \]
+  which is clearly a bijection and \(\Phi|_{T_pM}\) is a linear isomorphism. Thus suffices to check \(\Phi\) is a diffeomorphism. We use chart \((U, \varphi)\) on \(M\) and let \((\pi^{-1}(U), \varphi_T)\) be the corresponding chart on \(TM\). Then
+  \[
+    (\varphi, \id_{\R^n}) \compose \Phi \compose \varphi_T^{-1}:
+    (x, (b_i)_{i = 1}^n) \mapsto (x, (a_i)_{i = 1}^n)
+  \]
+  such that
+  \[
+    a = \sum_i a_i X^{(i)}(p) = \sum_j b_j \frac{\p}{\p x_j}(p).
+  \]
+  It is then obvious that these \(a_i\)'s and \(b_j\)'s differ by a change-of-basis transformation. Explicitly, write \(X^{(i)}\) in local basis as
+  \[
+    X^{(i)}|_U = \sum_j X_j^{(i)} (x) \frac{\partial  }{\partial x_j}
+  \]
+  and so
+  \[
+    b_j = \sum_i a_i X_j^{(i)}(x)
+  \]
+  so \(\Phi\) is smooth. To check the inverse, note that \((X_j^{(i)}(x))\) is a non-singular matrix smooth in \(x\) so \(\Phi^{-1}\) also has a smooth local expression.
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The converse is easily seen to be true, in which case vector fields on \(M\) are simply \(C^\infty(M, \R^n)\).
+  \item The parallelisable hypothesis is quite restrictive. For example, it implies that each \(X^{(i)}\) is never-zero. Some manifolds, such as \(S^2\) do not have such vector fields at all. In fact, \(S^n\) is parallelisable if only if \(n = 1, 3, 7\).
+  \item Every orientable \(3\)-dimensional vector field is parallelisable.
+  \end{enumerate}
+\end{remark}
+
+\begin{ex}
+  Show \(S^{2n + 1}\) has a never-zero vector field.
+\end{ex}
+
+\begin{definition}[differential]\index{differential}
+  Let \(F: M \to N\) be a smooth map. Then the \emph{differential} of \(F\) at \(p \in M\) is a linear map
+  \[
+    dF_p: T_pM \to T_{F(p)}N
+  \]
+  such that if \(x_i\) is a local coordinate near \(p\) and \(y_i\) is a local coordinate near \(F(p)\), then
+  \[
+    dF_p : \frac{\partial  }{\partial x_i} \mapsto \sum_j \frac{\partial \hat F_j}{\partial x_i}(x(p)) \frac{\partial  }{\partial y_j} (F(p))
+  \]
+  where \(\hat F = \psi \compose F \compose \phi^{-1}\) is the coordinate representation of \(F\).
+\end{definition}
+
+Now we have to check that it is independent of coordinate representation. Recall that
+\[
+  \frac{\partial  }{\partial x_k'}(p) = \sum_i \frac{\partial x_i}{\partial x_k'}(x'(p)) \frac{\partial  }{\partial x_i}(p)
+\]
+and similar for \(\frac{\partial  }{\partial y_j}(F(p))\). So
+\[
+  df_p: \frac{\partial  }{\partial x_k'}(p) \mapsto \sum_{i, j, \ell} \underbrace{\frac{\partial x_i}{\partial x_k'} \frac{\partial y_j}{\partial x_i} \frac{\partial y_\ell'}{\partial y_j}}_{\frac{\partial y_\ell'}{\partial x_k'} \text{ by chain rule}} \frac{\partial  }{\partial y_\ell'} (F(p))
+\]
+so \(dF_p\) is indeed invariantly defined.
+
+\begin{ex}[geometer's chain rule]
+  For \(M \xrightarrow{F} N \xrightarrow{G} Z\), we have
+  \[
+    d(G \compose F)_p = dG_{F(p)} \compose dF_p.
+  \]
+\end{ex}
+
+Now suppose \(F: M \to N\) is a diffeomorphism and \(X\) is a vector field on \(M\). Then \((dF)X\) is a valid vector field on \(N\).
+
+\begin{remark}
+  In general a vector field does not admit a pushforward. We need surjectivity so \((dF)X\) is everywhere defined and injectivity to avoid conflicting values on target points. Finally we need the inverse to be smooth to ensure \((dF)X\) is smooth.
+\end{remark}
+
+Every vector field \(X\) defines a linear map from \(C^\infty(M)\) to itself. More precisely, it is a first order derivation with \(p \in M\) varying. Locally, if \(X = \sum_i X_i(x) \frac{\partial  }{\partial x_i}\) then \(Xh\) is given by
+\[
+  Xh = \sum_i X_i(x) \frac{\partial h}{\partial x_i}(x)
+\]
+It is an easy exercise to check that it is invariantly defined.
+
+On the other hand, a smooth function on \(N\) can always be pulled back by \(F\). Suppose \(f \in C^\infty(N)\). Then \(f \compose F \in C^\infty(M)\). Thus in any local coordinates \(x_i\) on \(M\), \(y_i\) on \(N\), have
+\[
+  \frac{\partial  }{\partial x_i}(p) (f \compose F) = \sum_j \frac{\partial f}{\partial y_j} (y(F(p)) \frac{\partial y_j}{\partial x_i} (x(p)).
+\]
+Thus we have a coordinate-free formula
+\[
+  X(f \compose F) = ((dF)X f) \compose F.
+\]
+Equivalently, the following diagram commutes:
+\[
+  \begin{tikzcd}
+    C^\infty(N) \ar[r, "F^*"] \ar[d, "(dF) X"] & C^\infty(M) \ar[d, "X"] \\
+    C^\infty(N) \ar[r, "F^*"] & C^\infty(M)
+  \end{tikzcd}
+\]
+
+Let \(X\) and \(Y\) be two vector fields on \(M\) considered as first order linear differential operators. The composition \(XY\) is \emph{not} a vector field. However,
+\[
+  Z := [X, Y] := XY - YX
+\]
+is a vector field. In local coordinates, it is
+\[
+  \sum_{i, k} \left( X_i \frac{\partial Y_k}{\partial x_i} - Y_i \frac{\partial X_k}{\partial x_i} \right) \frac{\partial  }{\partial x_k}
+\]
+where \(X = \sum_i X_i \frac{\p}{\p x_i}, Y = \sum_i Y_i \frac{\p}{\p x_i}\). Check that second order derivatives vanish (because of symmetry of mixed partials). We can check that \(Z\) is a vector field and as a map \(C^\infty(M) \to C^\infty(M)\) it is linear over \(\R\) and satisfy
+\[
+  Z(fg) = (Zf) g + f Zg.
+\]
+
+Thus vector fields on \(M\) form a Lie algebra, which is infinite-dimensional. Denote it by \(V(M)\).
+
+\subsection{Left-invariant vector field}
+
+Let \(G\) be a Lie group and \(e \in G\) the identity element. Let \(\mathfrak g = T_eG\). Given \(g \in G\), the left translation by \(g\)
+\begin{align*}
+  L_g: G &\to G \\
+  h &\mapsto gh
+\end{align*}
+is a smooth map and since it has inverse \(L_{g^{-1}}\), it is a diffeomorphism.
+
+Given \(\xi \in \mathfrak g\), we can define a vector field by
+\[
+  X_\xi(g) := (dL_g)_e(\xi) \in T_gG.
+\]
+We can do this because for every point there is a diffeomorphism sending \(e\) to it, and therefore we can construct a vector field using only its information at \(e\). We will soon find out there are lots of symmetry involved.
+
+\begin{lemma}
+  The map \(X_\xi: G \to TG, g \mapsto (dL_g)_e(\xi)\)  is smooth so \(X_\xi\) is a smooth vector field.
+\end{lemma}
+
+\begin{proof}
+  As usual, check smoothness in local coordinates. Consider group multiplication \(L: G \times G \to G\). Fix \(g_0 \in G\), then around \((g_0, e) \in G \times G\), given charts \(\varphi_e\) around \(e\) whose image is \(V_e\) and \(\varphi_{g_0}\) around \(g_0\) whose image is \(V_{g_0}\), the local expression \(\hat L\) is
+  \begin{align*}
+    V_{g_0} \times V_e &\to V_{g_0}' \\
+    \hat L &= \varphi_{g_0} (L(\varphi_{g_0}^{-1}(\cdot), \varphi_e^{-1}(\cdot)))
+  \end{align*}
+  Then \(\hat L_g = \hat L(\varphi_{g_0}(g), \cdot): V_e \to V_{g_0}'\).% ?
+  Thus \(D_2\hat L\), the derivative of the \(V_e\) variables, gives the coordinate expression for \((dL_g)_e\). But \(D_2\hat L\) depends smoothly on the \(V_{g_0}\) variables as \(L\) is a \(C^\infty\) map. Therefore \(X_\xi\) is a smooth map around \(g_0\). As \(g_0\) is arbitrary \(X_\xi\) is smooth.
+\end{proof}
+
+We have shown that, identifying \(\mathfrak g = T_eG\), that
+\[
+  (dL_g)_e: \mathfrak g \to T_gG
+\]
+is smooth. In fact, it is a linear isomorphism. Thus we have
+
+\begin{proposition}
+  If \(\xi_1, \dots, \xi_n\) are linearly independent (form a basis, respectively) in \(\mathfrak g\) then for all \(g \in G\), \(X_{\xi_1}(g), \dots, X_{\xi_n}(g)\) are linearly independent (form a basis, respectively) in \(T_gG\).
+\end{proposition}
+
+As a consequence we have
+
+\begin{theorem}
+  Every Lie group \(G\) is parallelisable, i.e.\ \(TG \cong G \times \R^{\dim G}\) where the diffeomorphism restricts to \(T_gG\) is an isomorphism onto \(\{g\} \times \R^{\dim G}\) for all \(g \in G\).
+\end{theorem}
+
+There is another symmetry for a Lie group \(G\). For all \(g, h \in G\), for all \(\xi \in \mathfrak g\),
+\[
+  (dL_g)_h X_\xi(h)
+  = (dL_g)_h (dL_h)_e \xi
+  = (dL_{gh})_e \xi
+  = X_\xi(gh),
+\]
+i.e.\
+\[
+  \label{eqn:left invariant vector field}
+  (dL_g) X_\xi = X_\xi \compose L_g,
+  \tag{\ast}
+\]
+which, if we view \(X_\xi: M \to TM\) as a global section of the projection map, may also be written as \((dL_g) X_\xi = X_\xi\).
+
+\begin{definition}[left-invariant vector field]\index{left-invariant}
+  A vector field \(X\) on a Lie group satisfying the \eqref{eqn:left invariant vector field} is called \emph{left-invariant}. Denote the subspace of all left-invariant vector fields by \(\ell(G)\).
+\end{definition}
+
+One important observation is that \(\ell(G)\) is a finite-dimensional subspace of \(V(G)\): it is easy to see that for all \(X \in \ell(G)\), there exists a unique \(\xi \in \mathfrak g\) such that \(X = X_\xi\). This induces an isomorphism \(\ell(G) \cong \mathfrak g\) so \(\dim \ell(G) = \dim G\). Even better, \(\ell(G)\) is closed under Lie bracket so
+
+\begin{theorem}
+  \(\ell(G)\) is a Lie subalgebra of \(V(G)\).
+\end{theorem}
+
+\begin{proof}
+  One way to show this is to use
+  \[
+    X(f \compose F) = ((dF) X f) \compose F
+  \]
+  with \(F = L_g, X = X_\xi\) and \(f \in C^\infty(G)\). See example sheet.
+
+  Alternatively, for any vector fields \(X, Y\) and diffeomorphism \(F\), in example sheet 1 Q6 we show that
+  \[
+    (dF) [X, Y] = [(dF) X, (dF) Y].
+  \]
+  Let \(f \in C^\infty(G), g \in G, \xi, \eta \in \mathfrak g\). Then
+  \begin{align*}
+    & ((dL_g) [X_\xi, X_\eta] f) \compose L_g \\
+    =& ([(dL_g) X_\xi, (dL_g) X_\eta] f) \compose L_g \\
+    =& ([X_\xi \compose L_g, X_\eta \compose L_g] f) \compose L_g \\
+    =& (([X_\xi, X_\eta] \compose L_g) f) \compose L_g
+  \end{align*}
+  % why \compose L_g in the end?
+  which is saying
+  \[
+    (dL_g) [X_\xi, X_\eta] = [X_\xi, X_\eta] \compose L_g
+  \]
+  which is precisely \eqref{eqn:left invariant vector field}.
+\end{proof}
+
+We now have, in the case of ``good'' matrix Lie groups, two definitions making \(\mathfrak g\) into a Lie algebra. In fact, they are equivalent.
+
+\begin{theorem}
+  Let \(G\) be a matrix Lie group with \(\log\) defining  a chart around \(e \in G\). Then
+  \begin{align*}
+    T_eG &\to \ell(G) \\
+    \xi &\mapsto X_\xi
+  \end{align*}
+  is an isomorphism of the Lie algebras (using the ``matrix'' definition on LHS).
+\end{theorem}
+We will prove the theorem in the next chapter.
+
+\section{Submanifolds}
+
+Let \(M\) be a manifold, \(N \subseteq M\) and \(N\) is itself a manifold (not a priori to be have restriction of smooth structure on \(M\)). Denote \(\iota: N \to M\) the inclusion map.
+
+\begin{definition}[embedded submanifold]\index{embedded submanifold}
+  If \(\iota\) is smooth, \(d\iota_p: T_pN \to T_pM\) is injective for all \(p \in N\) and \(\iota\) is a homeomorphism onto its image, then we say \(N\) is an \emph{embedded submanifold} of \(M\).
+\end{definition}
+
+\begin{definition}[immersed submanifold]\index{immersed submanifold}
+  If we drop the requirement that \(\iota\) is a homeomorphism then \(N\) is a \emph{immersed submanifold} of \(M\).
+\end{definition}
+
+At this point, the topological requirement may seem a bit mysterious and not clear what it entails. It is equivalent to the statement that \(D \subseteq N\) is open in \(N\) if and only if \(D = U \cap N\) for some \(U \subseteq M\) open. It excludes situation like mapping an open interval to figure 8.
+
+A variant of the definition may omit \(N \subseteq M\) and instead require \(\psi: N \to M\) to be an embedding. If \(\psi\) is injective and the three properties hold then \(\psi(N) \subseteq M\) is an embedded submanifold.
 
 
 

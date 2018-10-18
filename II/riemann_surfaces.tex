@@ -227,7 +227,7 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
 Check that this makes \(R\) into a Hausdorff, path-connected space. \(R\) comes with a natural projection \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\). This is a continuous map as the preimage of a small disk \(D(\eta, r) \subseteq \C^*\) is countably many copies of that disk, one for each sheet. This is precisely the definition of a covering space.
 \end{eg}
 
-\begin{definition}[covering space]\index{covering spce}
+\begin{definition}[covering space]\index{covering space}
   A \emph{covering space} of a topological space \(X\) is a continuous map \(p: \tilde X \to X\) where \(\tilde X\) and \(X\) are Hausdorff and path-connected and \(p\) is a local homeomorphism, i.e.\ for each \(\tilde x \in \tilde X\), there exists a neighbourhood \(\tilde N\) of \(\tilde x\) such that \(p|_{\tilde N}\) is a homeomorphism.
 
     \(X\) is the \emph{base space} of \(p\).
@@ -236,7 +236,7 @@ Check that this makes \(R\) into a Hausdorff, path-connected space. \(R\) comes 
 \end{definition}
 
 \begin{note}
-  Whether including regularity in the definition of covering space is a matter of taste. It is ususally included in algebraic topology.
+  Whether including regularity in the definition of covering space is a matter of taste. It is ususally included in algebraic topology, e.g.\ in IID Algebraic Topology.
 \end{note}
 
 \begin{remark}
@@ -313,7 +313,107 @@ However, regularity does affect radius of convergence:
   so as \(r \to 1\) the last term goes to infinity so this cannot agree with a holomorphic function on a neighbourhood of \(\omega\). Since the closure of roots of unity is \(\p D(0, 1)\), every point is singular.
 \end{eg}
 
+\begin{definition}[Riemann surface]\index{Riemann surface}
+  A \emph{Riemann surface} \(R\) is a connected, Hausdorff topological space, together with a collection of homeomorphisms \(\phi_\alpha: U_\alpha \to D_\alpha \subseteq \C\) with \(U_\alpha\) open, so that
+  \begin{enumerate}
+  \item \(\bigcup_{\alpha} U_\alpha = R\),
+  \item if \(U_\alpha \cap U_\beta \neq \emptyset\) then \(\phi_\beta \compose \phi_\alpha^{-1}\) is analytic on \(\phi_\alpha(U_\alpha \cap U_\beta)\).
+  \end{enumerate}
 
+  For a given \(\alpha\), \((U_\alpha, \phi_\alpha)\) is a \emph{chart}, and these compositions \(\phi_\beta \compose \phi_\alpha^{-1}\) are \emph{transition functions}. The collection of charts is known as an \emph{atlas} on \(R\).
+\end{definition}
+
+In other words, a Riemann surface is precisely a one-dimensional complex manifold.
+
+\begin{definition}[analytic function between Riemann surfaces]\index{analytic}
+  Let \(R, S\) be Riemann surfaces with atlases \(\{(U_\alpha, \phi_\alpha)\}\) and \(\{(V_\beta, \psi_\beta)\}\) respectively. A continuous map \(f: R \to S\) is \emph{analytic} or \emph{holomorphic} if whenever \(U_\alpha \cap f^{-1}(V_\beta) \neq \emptyset\), then
+  \[
+    \psi_\beta \compose f \compose \phi_\alpha^{-1}
+  \]
+  on \(\phi_\alpha(U_\alpha \cap f^{-1}(V_\beta))\) is analytic.
+\end{definition}
+
+\begin{remark}
+  Analyticity is local. An equivalent definition is to say \(f\) is analytic at \(x \in R\) if whenever \(x \in U_\alpha \cap f^{-1}(V_\beta)\) then \(\psi_\beta \compose f \compose \phi_\alpha^{-1}\) is analytic on a neighbourhood of \(\phi_\alpha(x)\).
+\end{remark}
+
+\begin{eg}
+  \((\C, z)\) is a Riemann surface with one chart where we denote by \(z\) the map \(z \mapsto z\), as is \((\C, z + 1)\) and \((\C, \conj z)\).
+\end{eg}
+
+\begin{eg}
+  The Möbius band cannot be made into a Riemann surface because it is non-orientable. Informally, if we put an atlas on the Möbius band, we could choose it so that the centre circle maps to a space homeomorphic to a circle. And as analytic transition implies conformity, consistent choice of ``inside'' of the circle leads to a consistent choice on ``inside'' on the Möbius band, which is a contradiction.
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Each transition function has continuous inverses and so are conformal equivalence on their domains.
+  \item \(R\) is connected with a path-connected basis so \(R\) is path-connected.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[equivalent atlas]\index{atlas!equivalent}
+  Two atlases \(\{(U_\alpha, \phi_\alpha\}\) and \(\{(V_\beta, \psi_\beta)\}\) are \emph{equivalent} if their union is also an atlas, i.e.\ whenever \(U_\alpha \cap V_\beta \neq \emptyset\) then \(\psi_\beta \compose \phi_\alpha^{-1}\) on \(\phi(U_\alpha \cap V_\beta)\) is analytic.
+\end{definition}
+
+\begin{eg}
+  \((\C, z)\) and \((\C, z + 1)\) are equivalent: \(z \mapsto z + 1\) (or \(z \mapsto z - 1\)) are analytic. On the other had \((\C, z)\) and \((\C, \conj z)\) are not equivalent as \(z \mapsto \conj z\) is not analytic.
+\end{eg}
+
+We will see later that the notion of equivalence defines an equivalence relation on the collection of atlases on a fixed \(R\).
+
+\begin{definition}[conformal structure]\index{conformal structure}
+  An equivalence class of atlases on \(R\) is a \emph{conformal structure} on \(R\).
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(R\) is a Riemann surface and \(S \subseteq R\) is open and connected then restriction of the chart maps provides a conformal structure on \(S\), for which \(i: S \embed R\) is analytic.
+  \item Two atlases are equivalent if and only if the identity map is analytic.
+  \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+  Let \(f: R \to S, g: S \to T\) be analytic maps of Riemann surfaces. Then \(g \compose f\) is analytic.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(\{(U_\alpha, \phi_\alpha)\}, \{(V_\beta, \psi_\beta)\}\) and \(\{(W_\gamma, \theta_\gamma)\}\) are atlases on \(R, S\) and \(T\) respectively. Let \(h = g \compose f\) which is continuous. Suffices to show that whenever
+  \[
+    Y := U_\alpha f^{-1}(V_\beta) \cap h^{-1} (W_\gamma)
+  \]
+  is nonempty then
+  \[
+    \theta_\gamma \compose g \compose f \compose \phi_\alpha^{-1}
+  \]
+  is analytic on \(Y\). Since \(\psi_\beta \compose f \compose \phi_\alpha^{-1}\) is analytic on \(\phi_\alpha(Y)\) and \(\theta_\gamma \compose g \compose \psi_\beta^{-1}\) is analytic on \(\psi_\beta \compose f (Y)\), we concluded that
+  \[
+    \theta_\gamma \compose g \compose \psi_\beta^{-1} \compose \psi_\beta \compose f \compose \phi_\alpha^{-1}
+  \]
+  is analytic on \(\alpha_\alpha(Y)\).
+\end{proof}
+
+\begin{corollary}
+  Equivalence of atlas is an equivalence relation.
+\end{corollary}
+
+\begin{proposition}
+  Suppose \(R\) is a Riemann surface and \(\pi: \tilde R \to R\) is a covering map. Then there is a unique conformal structure on \(\tilde R\) which makes \(\pi\) analytic.
+\end{proposition}
+
+\begin{proof}
+  
+\end{proof}
+
+\begin{eg}
+  Let \(R = \coprod_{k \in \Z} \C^*\) and \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\) be a covering map. Then there exists a unique conformal structure on \(R\) for which \(\pi\) is analytic. Note that the following diagram commutes, \(f\) is a continuous map and locally \(f\) is the composition of inverse of \(\exp\) and projection so \(f\) is analytic.
+  \[
+    \begin{tikzcd}
+      R \ar[r, "f"] \ar[d, "\pi"] & \C \ar[dl, "\exp"] \\
+      \C^*
+    \end{tikzcd}
+  \]
+\end{eg}
 
 
 
