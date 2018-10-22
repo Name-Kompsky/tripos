@@ -179,7 +179,7 @@ Now we are ready to tackle the colouring problem in the previous chapter.
 \end{proposition}
 
 \begin{proof}
-  Induction on \(k\). For \(k = 1\), \(n = 3\) works. For \(k > 1\), by induction hypothesis we can choose \(m\) such that if \(K_m\) is \((k - 1)\)-coloured then it has a monochromatic triangle. Now take \(n = k(m - 1) + 2\). Suppose \(K_n\) is \(k\)-coloured. Pick \(v \in K_n\). There are \(k(m - 1) + 2\) edges from \(v\) so some \(m\) are the same colour. wlog \(v\) is joint to a \(K_m\), \(H\), by blue edegs. If \(H\) contains a blue edge then we have a blue triangle with \(v\). If not then \(H\) is a \((k - 1)\)-coloured \(K_m\) so by definition of \(m\) it contains a monochromatic triangle.
+  Induction on \(k\). For \(k = 1\), \(n = 3\) works. For \(k > 1\), by induction hypothesis we can choose \(m\) such that if \(K_m\) is \((k - 1)\)-coloured then it has a monochromatic triangle. Now take \(n = k(m - 1) + 2\). Suppose \(K_n\) is \(k\)-coloured. Pick \(v \in K_n\). There are \(k(m - 1) + 1\) edges from \(v\) so some \(m\) are the same colour. wlog \(v\) is joint to a \(K_m\), \(H\), by blue edegs. If \(H\) contains a blue edge then we have a blue triangle with \(v\). If not then \(H\) is a \((k - 1)\)-coloured \(K_m\) so by definition of \(m\) it contains a monochromatic triangle.
 \end{proof}
 
 \begin{remark}
@@ -278,7 +278,7 @@ However, we can easily bound them:
   \]
 \end{proof}
 
-\(R(s) \leq 4^s\) seems like a rather crude bound and indeed we start the induction with a very sloppy \(t \leq 2^t\). If we do it more carefully, we get \(R(s, t) \leq \binom{s + t - 2}{s - 1}\) so \(R(s) \leq \binom{2s - 2}{s - 1}\). Approximate, e.g.\ by Sterling formula and we get
+\(R(s) \leq 4^s\) seems like a rather crude bound and indeed we start the induction with a very sloppy \(t \leq 2^t\). If we do it more carefully, we get \(R(s, t) \leq \binom{s + t - 2}{s - 1}\) so \(R(s) \leq \binom{2s - 2}{s - 1}\). Approximate, e.g.\ by Stirling formula and we get
 \[
   R(s) = O(\frac{4^s}{\sqrt s}),
 \]
@@ -633,7 +633,7 @@ What is \(\exx(n; C_4)\)? Suppose we have \(|G| = n, e(G) = m\) and \(C_4 \nsubs
 \[
   A = \sum_{v \in G} \binom{d(v)}{2}.
 \]
-Alteernatively, as \(C_4 \nsubseteq G\), each pair of vertices are the end-vertices of at most one \(P_2\). (graph) so
+Alternatively, as \(C_4 \nsubseteq G\), each pair of vertices are the end-vertices of at most one \(P_2\). (graph) so
 \[
   A \leq \binom{n}{2}.
 \]
@@ -662,8 +662,135 @@ so
 \]
 so
 \[
-  m \leq \frac{n}{4} (1 + \sqrt{4n - 3}).
+  m \leq \frac{n}{4} (1 + \sqrt{4n - 3})
 \]
+and \(\exx(n; C_4) = O(n \sqrt n)\).
+
+This is a fairly typical for extremal problesm --- usually we don't get exact answer but get some sort of bounds/aymptotics.
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Note that we used \emph{Jensen's inequality}: let \(f: I \to \R\) be convex where \(I\) is an interval and \(x_1, \dots x_n \in I\). Then
+    \[
+      \frac{1}{n} \sum_{i = 1}^n f(x) \geq f(\frac{1}{n} \sum_{i = 1}^n x_i).
+    \]
+  \item Also a quick remark about binomial coefficients: if \(x \in \R\) and \(a \geq 0\) integer, we define
+    \[
+      \binom{x}{a} = \frac{x (x - 1) \dots (x - a + 1)}{a!}.
+    \]
+    Standard bounds:
+    \[
+      \binom{x}{a} \leq \frac{x^a}{a!}
+    \]
+    as long as \(x \geq a - 1\). On the other hand,
+    \[
+      \binom{x}{a} \geq \frac{(x - a + 1)^a}{a!} \geq \frac{1}{a!} \left(\frac{x}{2} \right)^a
+    \]
+    as long as \(x \geq 2 (a - 1)\). Usually when dealing with extremal graph problems, we suppose the parameters are sufficeintly large so these bounds apply.
+  \item Note \(x \mapsto \binom{x}{2}\) is convex on \(\R\) but \(x \mapsto \binom{x}{a}\) is not. However, it is convex on \([a - 1, \infty)\), by writing \(y = x - a + 1\) to get a polynomial with positive coefficients.
+  \end{enumerate}
+\end{remark}
+
+Let's got for \(\exx(n; K_{t, t})\) for \(t \geq 2\). We shall count \(t\)-fans (graph). In particular a \(2\)-fan is a \(P_2\) subgraph.
+
+\begin{definition}[fan]\index{fan}
+  A \emph{\(t\)-fan} in a graph \(G\) is an ordered pair \((v, U)\) where \(v \in G, U \subseteq V(G), |U| = t\) and for all \(u \in U, v \sim u\).
+\end{definition}
+
+\begin{theorem}
+  Let \(t \geq 2\). Then
+  \[
+    \exx(n, K_{t, t}) = O(n^{2 - \frac{1}{t}}).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(|G| = n, e(G) = m, K_{t, t} \nsubseteq G\). Let \(A\) be the number of \(t\)-fans in \(G\). To pick a \(t\)-fan \((v, U)\), can choose \(v \in G\) then \(U \subseteq \Gamma(v)\) with \(|U| = t\) so
+  \[
+    A = \sum_{v \in G} \binom{d(v)}{t}.
+  \]
+  As \(K_{t, t} \nsubseteq G\), for any \(U \subseteq V(G)\) with \(|U| = t\), there are at most \((t - 1)\) \(t\)-fans of the form \((v, U)\). So
+  \[
+    A \leq (t - 1) \binom{n}{t}.
+  \]
+  Technically we are done. To extract the explicit bound,
+  \begin{align*}
+    (t - 1) \frac{n^t}{t!}
+    &\geq (t - 1) \binom{n}{t} \\
+    &\geq A \\
+    &= \sum_{v \in G} \binom{d(v)}{t} \\
+    &\geq n \binom{\frac{1}{n} \sum_{v \in G} d(v)}{t} \\
+    &= n \binom{\frac{2m}{n}}{t} \\
+    &\geq \frac{n}{t!} \left(\frac{m}{n}\right)^t
+  \end{align*}
+  assuming \(\frac{m}{n}\) is sufficiently large. Hence
+  \[
+    \left( \frac{m}{n} \right)^t \leq (t - 1) n^{t - 1}
+  \]
+  and so
+  \[
+    m \leq (t - 1)^{\frac{1}{t}} n^{2 - \frac{1}{t}}.
+  \]
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Why can we assume that \(\frac{m}{n}\) is sufficiently large? For lower bound on binomial coefficient, we need \(\frac{2m}{n} \geq 2(t - 1)\), i.e.\ \(m \geq (t - 1) n\). If not true then \(m < (t - 1)n\) so we don't care. Technically, we're really showing
+    \[
+      m < \max\{(t - 1)n , (t - 1)^{\frac{1}{t}} n^{2 - \frac{1}{t}} = O(n^{2 - \frac{1}{t}})\}.
+    \]
+  \item Can we use Jensen's inequality? We know \(x \mapsto \binom{x}{t}\) is convex on \([t - 1, \infty)\) and \(\binom{t - 1}{t} = 0\). Also we know if \(d(v) < t - 1\) then \(\binom{d(v)}{t} = 0\) so really we are apply Jensen's inequality to
+    \[
+      f(x) =
+      \begin{cases}
+        0 & x < t - 1 \\
+        \binom{x}{t} & x \geq t - 1
+      \end{cases}
+    \]
+    which is clearly convex. As \(\frac{m}{n}\) sufficiently large, \(\frac{2m}{n} \geq t - 1\) so \(f(\frac{2m}{n} = \binom{2m/n}{t}\).
+\item This is closely related to the \emph{problem of Zarankiewicz}: we define
+  \[
+    Z(n, r) = \max \{e(G): \text{ \(G\) bipartite, \(n\) vertices in each class, \(K_{t, t} \nsubseteq G\)}\},
+  \]
+  the \emph{Zarankiewicz number}.
+  \end{enumerate}
+\end{remark}
+
+\begin{corollary}
+  Let \(t \geq 2\). Then
+  \[
+    Z(n, t) = O(n^{2 - \frac{1}{t}}).
+  \]
+\end{corollary}
+
+\begin{proof}
+  \[
+    Z(n, t) \leq \exx(2n, K_{t, t}).
+  \]
+\end{proof}
+
+\subsection{General subgraphs}
+
+Let \(H\) be any graph with at least one dege. What is \(\exx(n; H)\)? It is too much to hope for exact results so we aim to find asymptotics. Consider, say,
+\[
+  \frac{\exx(n; H)}{\binom{n}{2}},
+\]
+``the proportion of edges of an \(H\)-free graph can have''. What happens as \(n \to \infty\)? If this converges, let
+\[
+  \exx(H) := \lim_{n \to \infty} \frac{\exx(n; H)}{\binom{n}{2}}.
+\]
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Turán: \(\exx(n, K_{r + 1}) = t_r(n) \approx (1 - \frac{1}{r}) \binom{n}{2}\). In fact \(\exx(K_{r + 1}) = 1 - \frac{1}{r}\).
+  \item \(\exx(n, K_{t, t}) = O(n^{2 - \frac{1}{t}}) = o(n^2)\) so \(\exx(K_{t, t}) = 0\).
+  \item For \(H\) any bipartite graph with at least one edge. Then \(H \subseteq K_{t, t}\) for some \(t\) so \(K_{t, t} \subseteq G\) implies that \(H \subseteq G\) so for all \(n\),
+    \[
+      \exx(n; H) \leq \exx(n; K_{t, t})
+    \]
+    so \(\exx(H) = 0\).
+  \end{enumerate}
+\end{eg}
 
 
 

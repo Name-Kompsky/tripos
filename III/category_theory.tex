@@ -23,6 +23,8 @@
 \newcommand{\mono}{\rightarrowtail}
 \newcommand{\epi}{\twoheadrightarrow}
 
+\newcommand{\adjoint}{\dashv}
+
 \begin{document}
 
 \input{titlepage}
@@ -69,7 +71,7 @@
     This leads to \emph{duality principle}: if \(P\) is a valid statement about categories so is \(P^*\) attained by reversing all the arrows.
   \item A small category with one object is a \emph{monoid}, i.e.\ a semigroup with \(1\). In particular, a group is a small category with one object, in which every morphism is an isomorphism (i.e.\ for all \(f\) there exists \(g\) such that \(fg\) and \(gf\) are identities).
   \item A \emph{groupoid} is a category in which every morphism is an isomorphism. For example, for a topological space \(X\), the \emph{fundamental groupoid} \(\pi(X)\) has all points of \(X\) as objects and morphisms \(x \to y\) as homotopy classes rel \({0, 1}\) of paths \(\gamma: [0, 1] \to X\) with \(\gamma(1) = y\).
-  \item A \emph{discrete} category is one whose only morphisms are identities. A \emph{preorder} is a category \(\c C\) in which for any pair \((A, B)\) there exists at most one morphism \(A \to B\). A small preorder is a set equipped with a binary relation which is reflexive and transitive. In particular a partially ordered set is a partially ordered set is a small preorder in which the only isomorphisms are identities.
+  \item A \emph{discrete}\index{category!discrete} category is one whose only morphisms are identities. A \emph{preorder} is a category \(\c C\) in which for any pair \((A, B)\) there exists at most one morphism \(A \to B\). A small preorder is a set equipped with a binary relation which is reflexive and transitive. In particular a partially ordered set is a partially ordered set is a small preorder in which the only isomorphisms are identities.
   \item The category \(\Rel\) has the same objects as \(\Set\) but morphisms \(A \to B\) are arbitrary relations. Given \(R \subseteq A \times B, S \subseteq B \times C\), we define
     \[
       S \compose R = \{(a, c) \in A \times C: \exists b \in B \text{ s.t. } (a, b) \in R, (b, c) \in S\}.
@@ -577,6 +579,274 @@ Note that any functor of the form \(\c C(A, -)\) preserves monos, but they don't
     \end{tikzcd}
   \]
   where \(\alpha\) is pointwise surjective. By Yoneda, \(\beta\) corresponds to some \(y \in GA\) and we can find \(x \in FA\) with \(\alpha_A(x) = y\). Now if \(\gamma: \c C(A, -) \to F\) corresponds to \(x\), then naturality of the Yoneda bijection yields \(\alpha\gamma = \beta\).
+\end{proof}
+
+\section{Adjunctions}
+
+\begin{definition}[adjunction]\index{adjunction}
+  Let \(\c C\) and \(\c D\) be two categories and \(F: \c C \to \c D, G: \c D \to \c C\) be two functors. By an \emph{adjunction} between \(F\) and \(G\) we mean a bijection between morphisms \(\hat f: FA \to B\) in \(\c D\) and \(f: A \to GB\) in \(\c C\), which is natural in \(A\) and \(B\), i.e.\ given \(A' \xrightarrow{g} A\) and \(B \xrightarrow{h} B'\), \(h \hat f(Fg) = \widehat{(Gh) fg}: FA' \to B'\)
+  \[
+    \begin{tikzcd}
+      FA \ar[r, "\hat f"] & B \ar[d, "h"] \\
+      FA' \ar[u, "Fg"] \ar[r, dashed] & B'
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      A \ar[r, "f"] & GB \ar[d, "Gh"] \\
+      A' \ar[u, "g"] \ar[r, dashed] & GB'
+    \end{tikzcd}
+  \]
+  We say \(F\) is \emph{left adjoint} to \(G\) and write \(F \adjoint G\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The functor \(F: \Set \to \c{Gp}\) is left adjoint to the forgetful functor \(U: \c{Gp} \to \Set\) since any function \(f: A \to UB\) extends uniquely to a group homomorphism \(\hat f: FA \to B\) and any homomorphism induces a set function. Naturality in \(B\) is easy and naturality in \(A\) follows from the definition of \(F\) as a functor. Similar for \(\c{Rng}, \c{Mod}_K, \dots\)
+  \item The forgetful funcotr \(U: \Top \to \Set\) has a left adjoint \(D\) which equips any set with the discrete topology and a right adjoint \(I\) which equips any set with the indiscrete topology so \(D \adjoint U \adjoint I\).
+  \item The functor \(\ob: \c{Cat} \to \Set\) (recall that \(\c{Cat}\) is the category of small categories) has a left adjoint \(D\) sending \(A\) to the discrete category with \(\ob(DA) = A\) and only identity morphisms, and a right adjoint \(I\) sending \(A\) to the category with \(\ob(IA) = A\) and one morphism \(x \to y\) for each \((x, y) \in A \times A\). In this case \(D\) in turn has a left adjoint \(\pi_0\) sending a small category \(\c C\) to its set of \emph{connected components}, i.e.\ the quotient of \(\ob \c C\) by the smallest equivalence relation identifying \(\dom f\) with \(\cod f\) for all \(f \in \mor \c C\). So \(\pi_0 \adjoint D \adjoint \ob \adjoint I\).
+  \item Let \(M\) be the monoid \(\{1, e\}\) with \(e^2 = e\). An object of \([M, \Set]\) is a pair \((A, e)\) where \(e: A \to A\) satisfying \(e^2 = e\). We have a functor \(G: [M, \Set] \to \Set\) sending \((A, e)\) to
+    \[
+      \{x \in A: e(x) = x\} = \{e(x): x \in A\}
+    \]
+    and a functor \(F: \Set \to [M, \Set]\) sending \(A\) to \((A, 1_A)\). Claim that
+    \[
+      F \adjoint G \adjoint F.
+    \]
+    Given \(f: (A, 1_A) \to (B, e)\), it must take values in \(G(B, e)\) and any \(g: (B, e) \to (A, 1_A)\) is determined by its values on the image of \(e\). In some way this is due to the two ways in which the fixed point of \(e\) can be written.
+  \item Let \(\c 1\) be the discrete category with one object \(*\). For any \(\c C\), there is a unique functor \(\c C \to \c 1\). A left adjoint for this picks out an \emph{initial object}\index{initial object} of \(\c C\), i.e.\ an object \(I\) such that there exists a unique \(I \to A\) for each \(A \in \ob C\). Dually a right adjoint for \(\c C \to \c 1\) corresponds to a \emph{terminal object}\index{terminal object} of \(\c C\).
+  \item Let \(A \xrightarrow{f} B\) be a morphism in \(\Set\). We can regard \(PA\) and \(PB\) as posets, and we have functors \(Pf: PA \to PB\) and \(P^*f: PB \to PA\). I claim
+    \[
+      Pf \adjoint P^*f:
+    \]
+    We have \(Pf(A') \subseteq B'\) if and only if \(f(x) \in B'\) for all \(x \in A'\), if and only if \(A' \subseteq P^*f(B')\).
+  \item Galois connection: suppose givens sets \(A\) and \(B\) and a relation \(R \subseteq A \times B\). We define mappings \(\cdot^\ell, \cdot^r\) between \(PA\) and \(PB\)  by
+    \begin{align*}
+      S^r &= \{y \in B: \forall x \in S, (x, y) \in R\}, S \subseteq A \\
+      T^\ell &= \{x \in A: \forall y \in T, (x, y) \in R\}, T \subseteq B
+    \end{align*}
+    These mappings are order-reversing, i.e.\ contravariant functors, and \(T\subseteq S^r\) if and only if \(S \times T \subseteq R\), so by symmetry if and only if \(S \subseteq T^\ell\). We say \(\cdot^r\) and \(\cdot^\ell\) are \emph{adjoint on the right}\index{adjoints on the right}.
+  \item The functor \(P^*: \Set^{\text{op}} \to \Set\) is self-adjoint on the right since a function \(A \to PB\) corresponds bijectively to subsets of \(A \times B\), and hence by symmetry to functions \(B \to PA\). % IID Logic and set
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}
+  \label{thm:unit-counit characterisation of adjunction}
+  Let \(G: \c D \to \c C\) be a functor. Then specifying a left adjoint functor for \(G\) is equivalent to specifying an initial object of \((A \downarrow G)\) for each \(A \in \ob \c C\) where \((A \downarrow G)\) has objects pairs \((B, f)\) with \(A \xrightarrow{f} GB\) and morphisms \((B, f) \to (B', f')\) are morphisms \(B \xrightarrow{g} B'\) such that the following diagram commutes
+  \[
+    \begin{tikzcd}
+      A \ar[r, "f"] \ar[dr, "f'"'] & GB \ar[d, "Gg"] \\
+      & GB'
+    \end{tikzcd}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Suppose given \(F \adjoint G\). Consider the morphism \(\eta_A: A \to GFA\) corresponding to \(FA \xrightarrow{1} FA\). Then \((FA, \eta_A)\) is an object of \((A \downarrow G)\). Moreover, given \(g: FA \to B\) and \(f: A \to GB\), the diagram
+  \[
+    \begin{tikzcd}
+      A \ar[r, "\eta_A"] \ar[dr, "f"'] & GFA \ar[d, "Gg"] \\
+      & GB
+    \end{tikzcd}
+  \]
+  commutes if and only if
+  \[
+    \begin{tikzcd}
+      FA \ar[r, "1_A"] \ar[dr, "\hat f"'] & FA \ar[d, "g"] \\
+      & B
+    \end{tikzcd}
+  \]
+  commutes by naturality condition in adjunction, i.e.\ \(g = \hat f\). So \((FA, \eta_A)\) is initial to \((A \downarrow G)\).
+
+  Conversely, suppose given an initial object \((FA, \eta_A)\) for each \((A \downarrow G)\). Given \(f: A \to A'\), we define \(Ff: FA \to FA'\) to be the unique morphism making
+  \[
+    \begin{tikzcd}
+      A \ar[r, "\eta_A"] \ar[d, "f"] & GFA \ar[d, "GFf"] \\
+      A' \ar[r, "\eta_{A'}"] & GFA'
+    \end{tikzcd}
+  \]
+  commutes. Functoriality follows from uniqueness: given \(f': A' \to A''\), both \(F(f'f)\) and \((Ff')(Ff)\) are both morphisms \((FA, \eta_A) \to (FA'', \eta_{A''}f'f)\) in \((A \downarrow G)\). To show \(F \adjoint G\): given \(A \xrightarrow{f} GB\), we define \(\hat f: FA \to B\) to be the unique morphism \((FA, \eta_A) \to (B, f)\) in \((A \downarrow G)\). This is a bijection with inverse
+  \[
+    (FA \xrightarrow{g} B) \mapsto (A \xrightarrow{\eta_A} GFA \xrightarrow{Gg} GB).
+  \]
+  The latter mapping is natural in \(B\) since \(G\) is a functor, and in \(A\) since by construction \(\eta\) is a natural transformation \(1_{\c C} \to GF\).
+\end{proof}
+
+\begin{corollary}
+  If \(F\) and \(F'\) are both left adjoint to \(G: \c D \to \c C\) then they are naturally isomorphic.
+\end{corollary}
+
+\begin{proof}
+  It basically follows from the fact that initial object in any category, if exists, is unique up to isomorphism. For any \(A\), \((FA, \eta_A)\) and \((F'A, \eta'_A)\) are both initial in \((A \downarrow G)\) so there is a unique isomorphism
+  \[
+    \alpha_A: (FA, \eta_A) \to (F'A, \eta'_A).
+  \]
+  In any naturality square for \(\alpha\), the two ways round are both morphisms in \((A \downarrow G)\) whose domain is initial, so they're equal.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:composition of adjoints}
+  Given
+  \[
+    \begin{tikzcd}
+      \c C \ar[r, "F", shift left] & \c D \ar[l, "G", shift left] \ar[r, "H", shift left] & \c E \ar[l, "K", shift left]
+    \end{tikzcd}
+  \]
+  with \(F \adjoint G\) and \(H \adjoint K\), we have
+  \[
+    HF \adjoint GK.
+  \]
+\end{lemma}
+
+\begin{proof}
+  We have bijections between morphisms \(A \to GKC\), morphisms \(FA \to KC\) and morphisms \(HFA \to C\), which are both natural in \(A\) and \(C\).
+\end{proof}
+
+\begin{corollary}
+  Given a commutative square
+  \[
+    \begin{tikzcd}
+      \c C \ar[r] \ar[d] & \c D \ar[d] \\
+      \c E \ar[r] &\c F
+    \end{tikzcd}
+  \]
+  of categories and functors, if the functors all have left adjoints, then the diagram of left adjoints commutes up to natural isomorphsms.
+\end{corollary}
+
+\begin{proof}
+  By \Cref{lem:composition of adjoints}, both ways round the diagram of left adjoints are left adjoint to the composite \(\c C \to \c F\), so by \Cref{thm:unit-counit characterisation of adjunction} they are isomorphic.
+\end{proof}
+
+Actually, we didn't use the full strength of \Cref{lem:composition of adjoints}: if we require merely instead that the original commutative diagram is only up to natural isomorphism, then we'll get the same conclusion. In practice, however, the weaker version stated above will usually suffice.
+
+\begin{definition}[unit, counit]\index{unit}\index{counit}
+  Given an adjunction \(F \adjoint G\), the natural transformation \(\eta: 1_{\c C} \to GF\) emerging in the proof of \Cref{thm:unit-counit characterisation of adjunction} is called the \emph{unit} of the adjunction.
+
+  Dually we have a natural transformation \(\varepsilon: FG \to 1_{\c D}\) suc that \(\varepsilon_B: FGB \to B\) corresponds to \(GB \xrightarrow{1_{GB}} GB\), is called the \emph{counit}.
+\end{definition}
+
+\begin{theorem}
+  Given \(F: \c C \to \c D, G: \c D \to \c C\), specifying an adjunction \(F \adjoint G\) is equivalent to specifying two natural transformations
+  \begin{align*}
+    \eta: 1_{\c C} &\to GF \\
+    \varepsilon: FG &\to 1_{\c D}
+  \end{align*}
+  satisfying the commutative diagrams
+  \[
+    \begin{tikzcd}
+      F \ar[r, "F\eta"] \ar[dr, "1_F"'] & FGF \ar[d, "\varepsilon_F"] \\
+      & F
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      G \ar[r, "\eta_G"] \ar[dr, "1_G"'] & GFG \ar[d, "G\varepsilon"] \\
+      & G
+    \end{tikzcd}
+  \]
+  which are called the \emph{triangular identities}.\index{triangular identities}
+\end{theorem}
+
+\begin{proof}
+  First suppose given \(F \adjoint G\). Define \(\eta\) and \(\varepsilon\) as in \Cref{thm:unit-counit characterisation of adjunction} and its dual. Now consider the composite
+  \[
+    FA \xrightarrow{F\eta_A} FGFA \xrightarrow{\varepsilon_{FA}} FA.
+  \]
+  Under the adjunction this corresponds to
+  \[
+    A \xrightarrow{\eta_A} GFA \xrightarrow{1_{GFA}} GFA
+  \]
+  but this also corresponds to \(1_{FA}\) so \(\varepsilon_{FA} F\eta_A = 1_{FA}\). The other identity is dual.
+
+  Conversely, suppose \(\eta\) and \(\varepsilon\) satisfying the trianglular identities. Given \(A \xrightarrow{f} GB\), let \(\Phi(f)\) be the composite
+  \[
+    FA \xrightarrow{Ff} FGB \xrightarrow{\varepsilon_B} B
+  \]
+  and given \(FA \xrightarrow{g} B\), let \(\Psi(g)\) be
+  \[
+    A \xrightarrow{\eta_A} GFA \xrightarrow{Gg} GB.
+  \]
+  Then both \(\Phi\) and \(\Psi\) are both natural. Need to show that \(\Phi\Psi\) and \(\Psi\Phi\) are identity mappings. But
+  \begin{align*}
+    &\Psi\Phi(A \xrightarrow{f} GB) \\
+    =& A \xrightarrow{\eta_A} GFA \xrightarrow{GFf} GFGB \xrightarrow{G \varepsilon_B} GB \\
+    =& A \xrightarrow{f} GB \xrightarrow{\eta_{GB}} GFGB \xrightarrow{G\varepsilon_B} GB \\
+    =& A \xrightarrow{f} GB
+  \end{align*}
+  where the second equality is naturality of \(\eta\) and the third equality is triangular equation. Dually \(\Phi\Psi(g) = g\).
+\end{proof}
+
+Sometimes this is taken to be the definition of adjunction.
+
+Obviously two inverse functors form an adjunction. We have seen before a weaker notion of inverse, namely a pair of functors forming an equivalence of categories. The question is, do they always from an adjunction? The answer is yes, but sometimes we can't see it since we've chosen the wrong isomorphism.
+
+\begin{lemma}
+  Given functors \(F: \c C \to \c D, G: \c C \to \c C\) and natural isomorphisms
+  \begin{align*}
+    \alpha: 1_{\c C} &\to GF \\
+    \beta: FG &\to 1_{\c D}
+  \end{align*}
+  there are isomorphism
+  \begin{align*}
+    \alpha': 1_{\c C} &\to GF \\
+    \beta': FG &\to 1_{\c D}
+  \end{align*}
+  which satisfy the triangular identities so \(F \adjoint G\) and \(G \adjoint F\).
+\end{lemma}
+
+This is often summarised by ``every equivalence is an adjoint equivalence.''
+
+\begin{proof}
+  We fix \(\alpha' = \alpha\) and modify \(\beta\). We have to change the domain and codomain of \(\beta\), done so by conjugation.
+
+  Let \(\beta'\) be the composite
+  \[
+    FG \xrightarrow{(GF\beta)^{-1}} FGFG \xrightarrow{(F\alpha_G)^{-1}} FG \xrightarrow{\beta} 1_{\c D}.
+  \]
+  Note that \(FG\beta = \beta_{FG}\) since
+  \[
+    \begin{tikzcd}
+      FGFG \ar[r, "GF\beta"] \ar[d, "\beta_{FG}"] & FG \ar[d, "\beta"] \\
+      FG \ar[r, "\beta"] & 1_{\c D}
+    \end{tikzcd}
+  \]
+  commmutes by naturality of \(\beta\) and \(\beta\) is monic.
+
+  Now \((\beta'_F)(F\alpha')\) is the composite
+   \begin{align*}
+     &F \xrightarrow{F\alpha} FGF \xrightarrow{(\beta_{FGF})^{-1}} FGFGF \xrightarrow{(F\alpha_{GF})^{-1}} FGF \xrightarrow{\beta_F} F \\
+     =& F \xrightarrow{(\beta_F)^{-1}} FGF \xrightarrow{FGF\alpha} FGFGF \xrightarrow{(F\alpha_{GF})^{-1}} FGF \xrightarrow{\beta_F} F \\
+     =& F \xrightarrow{(\beta_F)^{-1}} FGF \xrightarrow{\beta_F} F \\
+     =& 1_F
+   \end{align*}
+  since \(FA \alpha = \alpha_{GF}\). Similarly \((G\beta')(\alpha'_G)\) is
+  \begin{align*}
+    &G \xrightarrow{\alpha_G} GFG \xrightarrow{(GFG\beta)^{-1}} GFGFG \xrightarrow{(GF\alpha_G)^{-1}} GFG \xrightarrow{G\beta} G \\
+    =& G \xrightarrow{(G\beta)^{-1}} GFG \xrightarrow{\alpha_{GFG}} GFGFG \xrightarrow{(GF\alpha_G)^{-1}} GFG \xrightarrow{G\beta} G \\
+    =& G \xrightarrow{(G\beta)^{-1}} GFG \xrightarrow{G\beta} G \\
+    =& 1_G
+  \end{align*}
+\end{proof}
+
+\begin{lemma}
+  Suppose \(G: \c D \to \c C\) has a left adjoint \(F\) with counit \(\varepsilon: FG \to 1_{\c D}\), then
+  \begin{enumerate}
+  \item \(G\) is faithful if and only if \(\varepsilon\) is pointwise epic,
+  \item \(G\) is full and faithful is and only if \(\varepsilon\) is an isomorphism.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Given \(B \xrightarrow{g} B'\), \(Gg\) corresponds under the adjunction to the composite
+    \[
+      FGB \xrightarrow{\varepsilon_B} B \xrightarrow{g} B'.
+    \]
+    Hence the mapping \(g \mapsto Gg\) is injective on morphisms with domain \(B\) (and specified codomain) if and only if \(g \mapsto g\varepsilon_B\) is injective, if and only if \(\varepsilon_B\) is epic.
+  \item Similarly, \(G\) is full and faithful if and only if \(g \mapsto g\varepsilon_B\) is bijective. If \(\alpha: B \to FGB\) is such that \(\alpha\varepsilon_B = 1_{FGB}\), i.e.\ \(\alpha\) is left inverse of \(\varepsilon_B\), then
+    \[
+      \varepsilon_B\alpha \varepsilon_B = \varepsilon_B,
+    \]
+    whence \(\varepsilon_B\alpha = 1_B\). So \(\varepsilon_B\) is an isomophism. Thus \(\varepsilon\) is an isomorphism.
+  \end{enumerate}
 \end{proof}
 
 

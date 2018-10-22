@@ -305,19 +305,17 @@ Let \(y = y(x)\) be a \(C^\infty\) change of variables, i.e.\ a local coordinate
   \]
 \end{definition}
 
-This is sometimes known as the tensorial definition of tangent space. Other equivalent definitions are: definitions using flows, using derivation on germs of smooth functions, or as dual of the cotangent space of the local ring of germs of functions.
+This is sometimes known as the tensorial definition of tangent space. Other equivalent definitions involve flows or using derivation on germs of smooth functions.
 
 \begin{definition}[tangent space]\index{tangent space}
   The \emph{tangent space} \(T_pM\) is the set of all tangent vectors to \(M\) at \(p\).
 \end{definition}
 
-It follows that \(T_pM\) is an \(n\)-dimensional real vector space. Thus \(T_pM \cong \R^n\) although this isomorphism is not canonical. But given a local coordinate chart with coordinates \((x_1, \dots, x_n)\), the tuple \((0, \dots, 1, \dots, 0)\) with \(1\) in \(i\)th position in \(\R^n\) has image under isomorphism \(\frac{\p}{\p x_i} (p)\). Then the transformation law correpsonds to
+It follows that \(T_pM\) is an \(n\)-dimensional real vector space. Thus \(T_pM \cong \R^n\) although this isomorphism is not canonical. But given a local coordinate chart with coordinates \((x_1, \dots, x_n)\), the tuple \((0, \dots, 1, \dots, 0)\) with \(1\) in \(i\)th position in \(\R^n\) has image under isomorphism \(\frac{\p}{\p x_i} (p)\). Recall the chain rule for partial derivatives:
 \[
   \frac{\p}{\p x_j'} = \sum_{i = 1}^n \frac{\p x_i}{\p x_j'} \frac{\p}{\p x_i}
 \]
-where \((x_1', \dots, x_n')\) is another chart. This is precisely the chain rule for derivatives.
-
-Let \(a = \sum_i a_i \frac{\p}{\p x_i} (p) \in T_pM\) where \(x_i\)'s are local coordinates around \(p\). Then a first order \emph{derivation} at \(p\) is
+where \((x_1', \dots, x_n')\) is another chart. This is precisely the reason we impose upon tangent vectors the transformation rule, namely so that tangent vectors become a well-defined derivation of smooth functions at \(p\): let \(a = \sum_i a_i \frac{\p}{\p x_i} (p) \in T_pM\) where \(x_i\)'s are local coordinates around \(p\). Then a first order \emph{derivation} at \(p\) is
 \begin{align*}
   a: C^\infty(M) &\to \R \\
   f &\mapsto \sum_i a_i \frac{\partial f}{\partial x_i} 
@@ -343,7 +341,7 @@ The derivations satisfy Leibniz rule, i.e.\
 Conversely, every linear map \(a: C^\infty(M) \to \R\) satisfying the Leibniz rule arises from some \(a \in T_pM\). This is left as an exercise.
 
 \begin{eg}
-  An example from classical differential geometry. Consider a surface \(r: D \to S\) where \(D \subseteq \R^2\) and \(S = r(D) \subseteq \R^3\). Then \(S\) is a manifold with \(\varphi = r^{-1}\) as a chart. Then \(r_u, r_v\) at \(p \in S\) corresponds to \(\frac{\partial}{\partial u}, \frac{\partial}{\partial v}\) in our theory.
+  An example from classical differential geometry. Consider a surface \(r = r(u, v): D \to S\) where \(D \subseteq \R^2\) and \(S = r(D) \subseteq \R^3\). Then \(S\) is a manifold with \(\varphi = r^{-1}\) as a chart. Then \(r_u, r_v\) at \(p \in S\) corresponds to \(\frac{\partial}{\partial u}, \frac{\partial}{\partial v}\) in our theory.
 \end{eg}
 
 \subsection{Lie algebra}
@@ -798,6 +796,116 @@ This result cannot be improved: let \(M = \R P^2\) and \(N = \{x_0: x_1: x_2 \in
 \end{theorem}
 
 It is a hard theorem but it is very easy to show that there exists \(N\) such that \(M\) is a submanifold of \(\R^N\). In example sheet 1 Q9 we showed this for \(M\) compact. It is also not too difficult to set \(N = 2n + 1\), basically by embedding it in a sufficiently large space and whittle down the dimension. However the last step of improvement is truely an ingenious piece of work. The remarkability of this theorem is not to say that the intrinsic defintion of manifolds coincide with the extrinsic one, but the optimal dimension \(\R^{2n}\) of ambient space. This is a topological invariant measuring how ``complicated'' an geometric object is. For example, \(S^n\) can be embedded in \(\R^{n + 1}\) but \(\R p^2\) cannot be embedded in \(\R^3\). The Klein bottle does not embed in \(\R^3\) either.
+
+Restatement of an earlier theorem:
+\begin{theorem}
+  Suppose \(G \subseteq \GL(n, \C)\) is a subgroup and a Lie group with \(C^\infty\) structure of \(G\) given by \(\log\) charts (i.e.\ \(\log\) maps an open neighbourhood \(U_I\) of the idenity \(I\) onto a neighbourhood of \(0\) is some real subspace \(V_0\) of \(\operatorname{Mat}(n, \C)\)), then
+  \begin{align*}
+    \mathfrak g &\to \ell(G) \\
+    \xi &\mapsto X_\xi
+  \end{align*}
+  is a Lie algebra isomorphism. Here \(\mathfrak g = T_IG \subseteq \operatorname{Mat}(n, \C)\) is the span of \(V_0\) over \(\R\).
+\end{theorem}
+
+\begin{proof}
+  We have shown earlier
+  \[
+    [X_\xi, X_\eta] = X_\zeta
+  \]
+  for some \(\zeta \in \mathfrak g\). Now want to show that
+  \[
+    \zeta = [\xi, \eta] = \xi\eta - \eta \xi
+  \]
+  as \emph{matrices} in \(\mathfrak g\). First \(G = \GL(n) = \operatorname{Mat}(n)\) over \(\R\) or \(\C\) so \(\mathfrak g = mat(n)\). Then for \(g \in \GL(n)\), \(L_g\) is a linear map so \((dL_g)_h\) for all \(g, h\) in the usual matrix multiplication %?
+  The local expression for \(L_g\) around \(I \in \GL(n)\) is
+  \[
+    (\hat L_g) B = g \cdot \exp B = g \cdot (I + B + \frac{1}{2!} B^2 + \dots)
+  \]
+  so
+  \[
+    (d \hat L_g)_0 C = gC
+  \]
+  Therfore for all \(g = (g^i_j) \in \GL(n), A = (A^i_j) \in \mathfrak g = T_IGL(n)\), we have
+  \[
+    X_A(g)
+    = \sum_{i, j} X^i_j(g) \frac{\partial  }{\partial g^i_j}
+    = \sum_{i, j, k} g^i_k A^k_j \frac{\partial  }{\partial g^i_j}.
+  \]
+  Now the chain rule follows from straightforard calculation. Using formula for Lie brackets of vector fields,
+  \[
+    g^i_k \left( A^k_j \frac{\partial  }{\partial g^i_j} (g^\ell_p B^p_q) - B^k_j \frac{\partial  }{\partial g^i_j} (g^\ell_p A^p_q) \right) \frac{\partial  }{\partial g^\ell_q}
+    = g^i_k (AB - BA)^k_j \compose \frac{\partial  }{\partial g^i_k}.
+  \]
+
+  For the general case \(G \subseteq \GL(n)\), note that the \(\log\) chart hypothesis implies that \(\iota: G \embed \GL(n)\). In fact we'll use \(U_I \embed \GL(n)\) where \(U_I \subseteq G\). For all \(g \in G\), \(L_g: G \to G\) is the restriction of \(L_g: \GL(n) \to \GL(n)\). Furthermore for all \(h \in G\), \((dL_g)_h: T_hG \to T_{gh}G\) is the corresponding restriction of \((dL_g)_h\) on \(\GL(n)\). Therefore \(X_\xi \in \ell(G)\) is a restriction of \(X_\xi \in \ell(\GL(n))\). Then
+  \[
+    [X_\xi|_G, X_\eta|_G] = [X_\xi, X_\eta]|_G
+  \]
+  which can be verified in ``adapted'' local coordinates using local test functions only depending on coordinates along \(G\) and constant in the normal direction (graph)
+
+  But on \(\GL(n)\) we know \([X_\xi, X_\eta] = X_{[\xi, \eta]}\), also for all \(\xi, \eta \in \mathfrak g\), \([\xi, \eta] \in \mathfrak g\). Now the theorem for \(G\) follows too.
+\end{proof}
+
+\section{Differential forms}
+
+\begin{definition}[cotangent space]\index{cotangent space}
+  Suppose \(M\) is an \(n\)-dimensional manifold and \(p \in M\). The dual of \(T_pM\), consisting of all linear funcitons \(T_pM \to \R\), is call the \emph{cotangent space} at \(p\) and denoted by \(T_p^*M\).
+\end{definition}
+If \(x_i\)'s are local coordinates then we have \(\frac{\p}{\p x_i}\Big|_p\) as a basis for \(T_pM\). The \emph{dual basis} of \(T_p^*M\) is denoted by \((\mathrm d x_i)_p\), i.e.
+\[
+  \mathrm dx_i(\frac{\partial  }{\partial x_j}) = \delta_{ij}.
+\]
+Therefore for all \(a \in T_p^*M\), we can express uniquely as
+\[
+  a = \sum_{i = 1}^n a_i (\mathrm dx_i)_p.
+\]
+
+Recall transformation rule for tangent space: if \(x_i'\) is another coodinates then
+\[
+  \frac{\partial  }{\partial x_i'} = \sum \frac{\partial x_k}{\partial x_i'} \frac{\partial  }{\partial x_k}
+\]
+so by linear algebra
+\[
+  \mathrm dx_i = \sum \frac{\partial x_i}{\partial x_j'} \mathrm d x_j'
+\]
+so
+\[
+  a = \sum_i a_i \mathrm dx_i = \sum_j a_j' dx_j'
+\]
+and we obtain a transformation law
+\[
+  a_j' = \sum_i \frac{\partial x_i}{\partial x_j'} a_i
+\]
+which is \emph{not} the same as that for tangent space.
+
+\begin{definition}[cotangent bundle]\index{cotangent bundle}
+  The \emph{cotangent bundle} of a manifold \(M\) is defined by
+  \[
+    T^*M = \coprod_{p \in M} T^*_pM.
+  \]
+\end{definition}
+
+\begin{theorem}
+  \(T^*M\) is a smooth manifold of twice the dimension of that of \(M\). Moreover the natural projection map \(\pi: T^*M \to M\) is smooth.
+\end{theorem}
+
+\begin{proof}
+  Similar to that of tangent bundle.
+\end{proof}
+
+\begin{definition}[differential \(1\)-form]\index{differential form}
+  A \emph{(smooth) differential \(1\)-form}, also know as \(1\)-form \(\alpha\) is a smooth map \(\alpha: M \to T^*M\) that is a section of \(\pi: T^*M \to M\), i.e.\ \(\alpha(p) \in T_p^*M\) for all \(p \in M\).
+\end{definition}
+
+Similar to vector fields, a \(1\)-form \(\alpha = \sum_i \alpha_i \mathcal dx_i\) is smooth if and only if \(\alpha_i\) is smooth in all local coordinates, if and only if for all \(X \in V(M)\), \(\alpha(X) \in C^\infty(M)\).
+
+To define general \(k\)-forms, we need to take a crash course in multilinear algebra. For \(r = 0, 1, \dots\), the \(r\)th \emph{exterior product}
+\[
+  \Lambda^r T_p^*M
+\]
+consists of functions \((T_p^*M)^r \to \R\) that are totally antisymmetric and linear in each of the \(r\) arguments. For example, \(\Lambda^0T_p^*M = \R, \Lambda^1T_p^*M = T_p^* M\) and \(\Lambda^2 T_p^* M\) are antisymmetric bilinear forms. It is obvious that for \(r > \dim M\), \(\Lambda^r T_p^*M = 0\).
+
+
 
 
 

@@ -792,9 +792,335 @@ More generally,
   \end{enumerate}
 \end{eg}
 
-\begin{definition}[Borel function]\index{Borel function}
+\begin{definition}[Borel function]\index{Borel function}\index{Borel measurable}
   If \(X\) is a topological space, \(f: X \to \R\) is \emph{Borel} or \emph{Borel measurable} if it is \(\mathcal B(X)\)-measurable.
 \end{definition}
+
+\begin{definition}[simple function]\index{simple function}
+  A function \(f\) on \((X, \mathcal A)\) is called \emph{simple} if
+  \[
+    f = \sum_{i = 1}^n a_i 1_{A_i}
+  \]
+  for some \(a_i \geq 0\) and \(A_i \in \mathcal A\).
+\end{definition}
+
+Of course simple functions are measurable.
+
+\begin{lemma}
+  If a simple function can be written in two ways
+  \[
+    f = \sum_{i = 1}^n a_i 1_{A_i} = \sum_{j = 1}^s b_j 1_{B_j}
+  \]
+  then
+  \[
+    \sum_{i = 1}^n a_i \mu(A_i) = \sum_{j = 1}^s b_j \mu(B_j)
+  \]
+  for any measure \(\mu\) on \((X, \mathcal A)\).
+\end{lemma}
+
+\begin{proof}
+  Example sheet 1.
+\end{proof}
+
+\begin{definition}[integral with respect to a measure]\index{integral with respect to a measure}
+  The \emph{\(\mu\)-integral} of \(f\) is defined by
+  \[
+    \mu(f) := \sum_{i = 1}^n a_i \mu(A_i).
+  \]
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The lemma says that the integral is well-defined.
+  \item We also use the notation \(\int_X f d\mu\) to denote \(\mu(f)\).
+  \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+  \(\mu\)-integral satisfies, for all simple functions \(f\) and \(g\),
+\begin{enumerate}
+\item linearity: for all \(\alpha, \beta \geq 0\), \(\mu(\alpha f + \beta g) = \alpha \mu(f) + \beta \mu(g)\).
+\item positivity: if \(g \leq f\) then \(\mu(g) \leq \mu(f)\).
+\item if \(\mu(f) = 0\) then \(f = 0\) \(\mu\)-almost everywhere, i.e.\ \(\{x \in X: f(x) \neq 0\}\) is a \(\mu\)-null set.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Obvious from definition and lemma.
+\end{proof}
+
+\begin{definition}
+  If \(f \geq 0\) and measurable on \((X, \mathcal A)\), define
+  \[
+    \mu(f) = \sup \{\mu(g): g \text{ simple }, g \leq f\} \in [0, +\infty].
+  \]
+\end{definition}
+
+\begin{remark}
+  This is consistent with the definition for \(f\) simple, due to positivity.
+\end{remark}
+
+\begin{definition}[integrable]\index{integrable}
+  If \(f\) is an arbitrary measurable function on \((X, \mathcal A)\) we say \(f\) is \emph{\(\mu\)-integrable} if
+  \[
+    \mu(|f|) < \infty.
+  \]
+\end{definition}
+
+\begin{definition}
+  If \(f\) is \(\mu\)-integrable, then we define its \(\mu\)-integral by
+  \[
+    \mu(f) = \mu(f^+) - \mu(f^-)
+  \]
+  where \(f^+ = \max\{0, f\}\) and \(f^- = (-f)^+\).
+\end{definition}
+
+\begin{note}
+  \begin{align*}
+    |f| &= f^+ + f^- \\
+    f &= f^+ - f^-
+  \end{align*}
+\end{note}
+
+\begin{theorem}[monotone convergence theorem]\index{monotone convergence theorem}
+  \label{thm:monotone convergence theorem}
+  Let \((f_n)_{n \geq 1}\) be a sequence of measurable functions on a measurable space \((X, \mathcal A, \mu)\) such that
+  \[
+    0 \leq f_1 \leq f_2 \leq \dots \leq f_n \leq \dots
+  \]
+  Let \(f = \lim_{n \to \infty} f_n\). Then
+  \[
+    \mu(f) = \lim_{n \to \infty} \mu(f_n).
+  \]
+\end{theorem}
+
+\begin{lemma}
+  If \(g\) is a simple function on \((X, \mathcal A, \mu)\), the map
+  \begin{align*}
+    m_g: \mathcal A &\to [0, \infty] \\
+    E &\mapsto \mu(1_E g)
+  \end{align*}
+  is a measure on \((X, \mathcal A)\).
+\end{lemma}
+
+\begin{proof}
+  Write \(g = \sum_{i = 1}^r a_i 1_{A_i}\) and \(g 1_E = \sum_{i = 1}^r a_i 1_{A_i \cap E}\) so
+  \[
+    \mu(1_E g) = \sum_{i = 1}^r a_i \mu(A_i \cap E).
+  \]
+  By an question on example sheet, this is well-defined. Then \(\sigma\)-additivity follows immediately from \(\sigma\)-additivity of \(\mu\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:monotone convergence theorem}]
+  \(f_n \leq f_{n + 1} \leq f\) by assumption so
+  \[
+    \mu(f_n) \leq \mu(f_{n + 1}) \leq \mu(f)
+  \]
+  by definition of integral so
+  \[
+    \lim_{n \to \infty} \mu(f_n) \leq \mu(f),
+  \]
+  although RHS may be infinite.
+
+  Let \(g\) be any simple function such that \(g \leq f\). Need to show that \(\mu(g) \leq \lim_{n \to \infty} \mu(f_n)\). Pick \(\varepsilon > 0\). Let
+  \[
+    E_n = \{x \in X: f_n(x) \geq (1 - \varepsilon) g(x) \}.
+  \]
+  Then \(X = \bigcup_{n \geq 1} E_n\) and \(E_n \subseteq E_{n + 1}\). So we may apply upwards monotone convergence for sets to measure \(m_g\) and get
+  \[
+    \lim_{n \to \infty} m_g(E_n) = m_g(X) = \mu(g 1_X) = \mu(g).
+  \]
+  But
+  \[
+    (1 - \varepsilon) m_g(E_n) = \mu((1 - \varepsilon) g 1_{E_n})) \leq \mu(f_n)
+  \]
+  because \((1 - \varepsilon) g 1_{E_n}\) is a simple function smaller than \(f_n\). Taking limit,
+  \[
+    (1 - \varepsilon) \mu(g) \leq \lim_{n \to \infty} \mu(f_n)
+  \]
+  which holds for all \(\varepsilon\). So
+  \[
+    \mu(g) \leq \lim_{n \to \infty} \mu(f_n).
+  \]
+\end{proof}
+
+\begin{lemma}
+  If \(f \geq 0\) is a measurable function on \((X, \mathcal A)\) then there is a sequence of simple functions \((g_n)_{n \geq 1}\)
+  \[
+    0 \leq g_n \leq g_{n + 1} \leq f
+  \]
+  such that for all \(x \in X\), \(g_n(x) \uparrow f(x)\).
+\end{lemma}
+
+\begin{notation}
+  \(g_n \uparrow f\) means that \(\lim_{n \to \infty} g_n(x) = f(x)\) and \(g_{n + 1} \geq g_n\).
+\end{notation}
+
+\begin{proof}
+  We can take
+  \[
+    g_n = \frac{1}{2^n} \floor*{2^n \min \{f, n\}}
+  \]
+  pointwise. Check that \(\floor{2y} \geq 2 \floor{y}\) for all \(y \geq 0\).
+\end{proof}
+
+\begin{proposition}
+  Basic properties of the integral (for positive functions): Suppose \(f, g\) are measurable on \((X, \mathcal A, \mu)\).
+  \begin{enumerate}
+  \item linearity: for all \(\alpha, \beta \geq 0\), \(\mu(\alpha f + \beta y) = \alpha \mu(f) + \beta \mu(g)\).
+  \item positivity: if \(0 \leq f \leq g\) then \(\mu(f) \leq \mu(g)\).
+  \item if \(\mu(f) = 0\) then \(f = 0\) \(\mu\)-almost everywhere.
+  \item if \(f = g\) \(\mu\)-almost everywhere then \(\mu(f) = \mu(g)\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Follows from the same property for simple functions and from lemma 2 combined with monotone convergencex theorem.
+  \item Obvious from definition.
+  \item
+    \[
+      \{x \in X: f(x) \neq 0\} = \bigcup_{n \geq 0} \{x \in X: f(x) > \frac{1}{n}\}
+    \]
+    set \(g_n = \frac{1}{n} 1_{x \in X: f(x) > 1/n}\) which is simple ang \(g_n \leq f\) so by definition of integral \(\mu(g_n) \leq \mu(f)\) so \(\mu(g_n) = 0\) so \(\mu(\{x: f(x) > \frac{1}{n}) = 0\).
+  \item Note that if \(E \in \mathcal A\), \(\mu(E^c) = 0\) then
+    \[
+      \mu(h 1_E) = \mu(h)
+    \]
+    for all \(h\) simple. Thus it holds for all \(h \geq 0\) measurable. Now take \(E = \{x: f(x) = g(x)\}\).
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}[linearity of integral]
+  Suppose \(f, g\) are \(\mu\)-integrable functions and \(\alpha, \beta \in \R\). Then \(\alpha f + \beta g\) is \(\mu\)-integrable and
+  \[
+    \mu(\alpha f + \beta g) = \alpha \mu(f) + \beta \mu(g).
+  \]
+\end{proposition}
+
+\begin{proof}
+  We have shown the case when \(\alpha, \beta \geq 0\) and \(f, g \geq 0\). In the general case, use the positive and negative parts.
+\end{proof}
+
+\begin{lemma}[Fatou's lemma]\index{Fatou's lemma}
+  Suppose \((f_n)_{n \geq 1}\) is a sequence of measurable functions on \((X, \mathcal A, \mu)\) such that \(f_n \geq 0\) for all \(n\). Then
+  \[
+    \mu(\liminf_{n \to \infty} f_n) \leq \liminf_{n \to \infty} \mu(f_n).
+  \]
+\end{lemma}
+
+\begin{remark}
+  We may not have equality: let \(f_n = 1_{[n, n + 1]}\) on \((\R, \mathcal L, m)\). Then \(\mu(f_n) = 1\) but \(\lim_{n \to \infty} f_n = 0\).
+\end{remark}
+
+\begin{proof}
+  Let \(g_n := \inf_{k \geq n} f_k\). Then \(g_{n + 1} \geq g_n \geq 0\) so by monotone convergence theorem, \(\mu(g_n) \uparrow \mu(g)\) as \(n \to \infty\) where \(g = \lim_{n \to \infty} g = \liminf_{n \to \infty} f_n\) and \(g_n \leq f_n\) so \(\mu(g_n) \leq \mu(f_n)\) for all \(n\). Take \(n \to \infty\),
+  \[
+    \mu(g) \leq \liminf_{n \to \infty} \mu(f_n).
+  \]
+\end{proof}
+
+In both monotone convergence theorem and Fatou's lemma we assumed that the sequence of functions is nonnegative. There is another version of convergence theorem where we replace nonnegativity by domination:
+
+\begin{theorem}[Lebesgue's dominated convergence theorem]\index{Lebesgue's dominated convergence theorem}
+  Let \((f_n)_{n \geq 1}\) be a sequence of measurable functions on \((X, \mathcal A, \mu)\) and \(g\) a \(\mu\)-integrable function on \(X\). Assume \(|f_n| \leq g\) for all \(n\) (domination assumption) and assume for all \(x \in X\), \(\lim_{n \to \infty} f_n(x) = f(x)\). Then \(f\) is \(\mu\)-integrable and
+  \[
+    \mu(f) = \lim_{n \to \infty} \mu(f_n).
+  \]
+\end{theorem}
+
+This allows us to swap limit and integral.
+
+\begin{proof}
+  \(|f_n| \leq g\) so \(|f| \leq g\) so \(\mu(f) \leq \mu(g) < \infty\) and \(f\) is integrable. Note that \(g + f_n \geq 0\) so by Fatou's lemma,
+  \[
+    \mu(\liminf_{n \to \infty} (g + f_n)) \leq \liminf_{n \to \infty} \mu(g + f_n),
+  \]
+  But \(\liminf_{n \to \infty} (g + f_n) = g + f\) and by linearity \(\mu(g + f_n) = \mu(g) + \mu(f_n)\), so
+  \[
+    \mu(g) + \mu(f) \leq \mu(g) + \liminf_{n \to \infty} \mu(f_n),
+  \]
+  i.e.
+  \[
+    \mu(f) \leq \liminf_{n \to \infty} \mu(f_n).
+  \]
+  Do the same with \(g - f_n\) in place of \(g + f_n\), get
+  \[
+    \mu(-f) \leq \liminf_{n \to \infty} \mu(-f_n) = - \limsup_{n \to \infty} \mu(f_n)
+  \]
+  so
+  \[
+    \mu(f) = \lim_{n \to \infty} \mu(f_n).
+  \]
+\end{proof}
+
+\begin{corollary}[exchanging integral and summation]
+  Let \((X, \mathcal A, \mu)\) be a measure space and let \((f_n)_{n \geq 1}\) be a sequence of measurable functions on \(X\).
+  \begin{enumerate}
+  \item If \(f_n \geq 0\) then
+    \[
+      \mu(\sum_{n \geq 1} f_n) = \sum_{n \geq 1} \mu(f_n).
+    \]
+  \item If \(\sum_{n \geq 1} |f_n|\) is \(\mu\)-integrable then \(\sum_{n \geq 1} f_n\) is \(\mu\)-integrable and
+    \[
+      \mu(\sum_{n \geq 1} f_n) = \sum_{n \geq 1} \mu(f_n).
+    \]
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(g_N = \sum_{n = 1}^N f_n\), then \(g_N \uparrow \sum_{n \geq 1} f_n\) as \(N \to \infty\) so the result follows from monotone convergence theorem.
+  \item Let \(g = \sum_{n \geq 1} |f_n|\) and \(g_N\) as above. Then \(|g_N| \leq g\) for all \(N\) so the domination assumption holds. The result thus follows from dominated convergence theorem.
+  \end{enumerate}
+\end{proof}
+
+\begin{corollary}[differentiation under integral sign]
+  Let \((X, \mathcal A, \mu)\) be a measure space. Let \(U \subseteq \R\) be an open set and let \(f: U \times X \to \R\) be such that
+  \begin{enumerate}
+  \item \(x \mapsto f(t, x)\) is \(\mu\)-integrable for all \(t \in U\),
+  \item \(t \mapsto f(t, x)\) is differentiable for all \(x \in X\),
+  \item domination: there exists \(g: X \to \R\) \(\mu\)-integrable such that for all \(t \in U, x \in X\),
+    \[
+      \frac{\partial f}{\partial t} (t, x) \leq g(x).
+    \]
+  \end{enumerate}
+  Then \(x \mapsto \frac{\partial f}{\partial t}(t, x)\) is \(\mu\)-integrable for all \(t \in U\) and if we set \(F(t) = \int_X f(t, x) d\mu\) then \(F\) is differentiable and 
+  \[
+    F'(t) = \int_X \frac{\partial f}{\partial t}(t, x) d\mu.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Pick \(h_n > 0, h_n \to 0\) and study
+  \[
+    g_n(t, x) := \frac{1}{h_n} (f(t + h_n, x) - f(t, x)).
+  \]
+  Then
+  \[
+    \lim_{n \to \infty} g_n(t, x) = \frac{\partial f}{\partial t}(t, x).
+  \]
+  By the mean value theorem, there exists \(\theta_{t, n, x} \in [t, t + h_n]\) such that
+  \[
+    g_n(t, x) = \frac{\partial f}{\partial t}(\theta, x)
+  \]
+  so
+  \[
+    |g_n(t, x)| \leq g(x)
+  \]
+  by domination assumption. Now apply dominated convergence theorem.
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(f: [a, b] \to \R\) is continuous where \(a < b\) in \(\R\), then \(f\) is \(m\)-integrable (where \(m\) is the Lebesgue measure) and \(m(f) = \int_a^b f(x)dx\) is the Riemann integral. In general if \(f\) is only assumed to be bounded, then \(f\) will be Riemann integrable if and only if the points of discontinuity of \(f\) is an \(m\)-null set. See example sheet 2.
+  \item If \(g \in \GL_d(\R)\) and \(f \geq 0\) is Borel measurable on \(\R^d\), then
+    \[
+      m(f \compose g) = \frac{1}{|\det g|} m(f).
+    \]
+    See example sheet 2. In particular \(m\) is invariant under linear transformation with unit determinant, e.g.\ rotation.
+  \end{enumerate}
+\end{remark}
 
 
 

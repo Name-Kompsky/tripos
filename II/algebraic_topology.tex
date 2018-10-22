@@ -538,6 +538,202 @@ Given \(G\) action on \(X\), orbit-stabiliser says that there is a bijection bet
   Suffices to show that the action is transitive and the stabiliser of \(\hat x\) is \(p_* \pi_1(\hat X, \hat x)\). As \(\hat X\) is path-connected there exists a path \(\hat \gamma\) between any two points in \(p^{-1}(x)\), whose image \(\gamma\) under \(p\) is a loop bases at \(x\), and is the only loop whose lift is \(\hat \gamma\) by uniquenss. The stabiliser of \(\hat x\) are precisely the homotopy classes of loops based at \(x\) whose lifts are loops baesd at \(\hat x\), which is precisely \(p_* \pi_1(\hat X, \hat x)\).
 \end{proof}
 
+\begin{definition}[universal cover]\index{universal cover}
+  If \(p: \tilde X \to X\) is a covering map with \(X\) path-connected and \(\tilde X\) simply connected then \(\tilde X\) is called a \emph{universal cover} of \(X\).
+\end{definition}
+
+\begin{corollary}
+  If \(p: \tilde X \to X\) is a universal cover and \(p(\tilde x) = x\) then
+  \begin{align*}
+    \pi_1(X, x) &\to p^{-1}(x) \\
+    [\gamma] &\mapsto \tilde x . \gamma
+  \end{align*}
+  is an equivariant bijection.
+\end{corollary}
+
+The map is not only bijective, but also equivariantly so. Thus by looking into the universal cover we can recover information about the fundamental group of the base space.
+
+\begin{eg}[fundamental group of \(S^1\)]
+  Consider \(p: \R \to S^1, t \mapsto e^{2\pi it}\) is a covering map. Since \(\R\) is contractible, this is the universal cover so
+  \begin{align*}
+    \pi_1(S^1, 1) &\to p^{-1}(1) = \Z \\
+    [\gamma] &\mapsto 0. \gamma
+  \end{align*}
+  is a bijection. Therefore we can write down representative loops for each element of \(\pi_1(S^1, 1)\). For \(n \in \Z\), let \(\tilde \gamma_n(t) = nt\) so \(\gamma_n = p \compose \tilde \gamma_n\) is a loop in \(S^1\) based at \(1\). As \([\gamma_n] \mapsto n\), these represent every element of \(\pi_1(S^1, 1)\) uniquely.
+
+  To recover the group structure, note that for any \(m, n \in \Z\), \(m + \tilde \gamma_n\) is the lift of \(\gamma_n\) at \(m\). On the other hand, the endpoint of the lift of \(\gamma_m \cdot \gamma_n\) at \(0\) is \(m + n\), which is the endpoint of \(m + \tilde \gamma_n\). So
+  \begin{align*}
+    m+n: [\gamma_m \cdot \gamma_n] \mapsto m + n
+  \end{align*}
+  is a homomorphism. Thus
+  \[
+    \pi_1(S^1, 1) \cong \Z.
+  \]
+\end{eg}
+
+\subsection{The fundamental group of \(S^1\)}
+
+\begin{theorem}
+  \(\id_{S^1}\) does not extend over \(D^2\), i.e.\ \(S^1\) is not a retract of \(D^2\).
+\end{theorem}
+
+\begin{proof}
+  Suppose otherwise and \(r: D^2 \to S^1\) is a retraction. Then \(\id_{S^1} = r \compose i\):
+  \[
+    \begin{tikzcd}
+      S^1 \ar[r, "\id"] \ar[dr, "i"'] & S^1 \\
+      & D^2 \ar[u, "r"]
+    \end{tikzcd}
+  \]
+  Look at the induced fundamental groups, we have
+  \[
+    \id_\Z = r_* \compose i_*
+  \]
+  so
+  \[
+    \begin{tikzcd}
+      \Z \ar[r, "\id"] \ar[dr, "i_*"'] & \Z \\
+      & 0 \ar[u, "r_*"]
+    \end{tikzcd}
+  \]
+  Absurd.
+\end{proof}
+
+\begin{corollary}[Brouwer fixed point theorem]\index{Brouwer fixed point theorem}
+  Every continuous map \(f: D^2 \to D^2\) has a fixed point.
+\end{corollary}
+
+\begin{proof}
+  If there exists \(f\) such that \(f(x) \neq x\) for all \(x \neq D^2\) then we can construct a continuous retraction \(r: D^2 \to S^1\): for all \(x \in D^2\), let \(r(x)\) be the intersection of the ray from \(f(x)\) to \(x\) with \(S^1\) (well-defined since \(f(x) \neq x\)). It is continuous. As \(r\) fixes \(S^1\) this is a retract.
+\end{proof}
+
+\begin{theorem}[fundamental theorem of algebra]
+  Every nonconstant polynomial \(p: \C \to \C\) has a root.
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+  Suppose \(p(z) = z^d + a_{d - 1} z^{d - 1} + \dots + a_1 z + a_0\) has no root. Then \(p: \C \setminus \{0\} \to \C \setminus \{0\}\). Let
+  \begin{align*}
+    r: \C \setminus \{0\} &\to S^1 \\
+    z &\mapsto \frac{z}{|z|}
+  \end{align*}
+  be the usual retraction. Let \(\lambda_R(z) = Rz\) for \(R > 0\) and consider \(f_R\) which is the composition
+  \[
+    \begin{tikzcd}
+      S^1 \ar[r, "\lambda_R"] & \C \setminus \{0\} \ar[r, "p"] & \C \setminus \{0\} \ar[r, "r"] & S^1
+    \end{tikzcd}
+  \]
+  as all these maps are homotopic, they induce the same map \(f_*: \Z \to \Z\) which is multiplication by some number \(m\), independent of \(R\). When \(R\) is small, we can argue that \(f_R\) is homotopic to a constant map so \(m = 0\). When \(R\) is large, \(p\) is approximately \(z \mapsto z^d\) so \(m = d\), contradiction.
+\end{proof}
+
+\subsection{Existence of universal covers}
+
+\begin{theorem}
+  If \(X\) is path-connected and locally simply connected then \(X\) has a universal cover.
+\end{theorem}
+
+\begin{proof}[Sketch of proof][non-examinable]
+  Let
+  \[
+    \mathfrak X = \{\gamma: I \to X: \gamma(0) = x_0\}
+  \]
+  and define \(\tilde X = \mathfrak X /\simeq\), the homotopy classes of paths. Define
+  \begin{align*}
+    p: \tilde X &\to X \\
+    [\gamma] &\mapsto \gamma(1)
+  \end{align*}
+  The verification is omitted.
+\end{proof}
+
+\subsection{The Galois correspondence}
+
+\begin{definition}[covering space isomorphism]\index{covering space isomorphism}
+  Let \(X\) be a path-connected topological space and \(p_1: \hat X_1 \to X, p_2: \hat X_2 \to X\) are covering spaces of \(X\). An \emph{isomorphism of covering spaces} is a map \(\varphi: \hat X_1 \to \hat X_2\) such that \(p_2 \compose \varphi = p_1\).
+
+  If \(\hat x_1, \hat x_2\) are bases points and \(\varphi(\hat x_1) = \hat x_2\), we say \(\varphi\) is \emph{based}.
+\end{definition}
+
+\begin{remark}
+  \(\varphi\) is a lift of \(p_1\) to \(\hat X_2\).
+\end{remark}
+
+\begin{theorem}[Galois correspondence with base points]\index{Galois correspondence}
+  Let \(X\) be path-connected, locally simply connected space and \(x_0 \in X\). Then there is a bijection between based isomorphism class of path-connected covering space \(p: (\hat X, \hat x_0) \to (X, x_0)\) and subgroups of \(\pi_1(X,x_0)\), given by
+  \[
+    \hat X \mapsto p_*\pi_1(\hat X, \hat x_0).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Non-examinable and omitted.
+\end{proof}
+
+\begin{eg}
+  Let \(X = S^1\), we have path-connteced covering space \(p: \R \to S^1, t \mapsto e^{2\pi it}\) and \(p_n: S^1 \to S^1, z \mapsto z^n\). The subgroups of \(\Z\) are precisely \(n\Z\). It is easy to see that \(p\) corresponds to \(0\) and \(p_n\) correponds to \(n\Z\). Galois correspondence then tells us that these are all the path-connected covering space of \(S^1\) up to isomorphism.
+\end{eg}
+
+\begin{corollary}
+  Let \(X\) be ``reasonable''. Then any two universal covers \(p_1: \tilde X_1 \to X, p_2: \tilde X_2 \to X\) are isomorphic.
+\end{corollary}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+%If we insist that the base space is locally simply connected so there exists
+
+\begin{corollary}
+  Let \(X\) be path-connected, locally simply connected and \(x_0 \in X\). Then there is a bijection between isomorphism class of path-connected covering space \(p: (\hat X, \hat x_0) \to (X, x_0)\) and subgroups of \(\pi_1(X, x_0)\) modulo conjugation, given by
+  \[
+    \hat X \mapsto p_*\pi_1(\hat X, \hat x_0).
+  \]
+\end{corollary}
+
+\begin{proof}
+  Surjectivity of the map follows from immediately from the previous theorem. We need to prove that if \(p_{1*}\pi_1(\hat X_1, \hat x_1)\) and \(p_{2*}\pi_1(\hat X_2, \hat x_2)\) are conjugate then \(\hat X_1\) and \(\hat X_2\) are isomorphic covering spaces. So let
+  \[
+    \label{eq:a}
+    p_{1*} \pi_1(\hat X_1, \hat x_1) = [\gamma] p_{2*} \pi_1(\hat X_2, \hat x_2) [\overline \gamma].
+    \tag{\ast}
+  \]
+  Let \(\overline{\hat \gamma}\) be the lift of \(\overline \gamma\) and \(\hat x_2' = \overline{\hat \gamma}(1)\). \eqref{eq:a} then tells us that
+  \[
+    \p_{1*}\pi_1(\hat X_1, \hat x_1)
+    = p_{2*} \hat \gamma_\# \pi_1(\hat X_2, \hat x_2)
+    = p_{2*} \pi_1(\hat X_2, \hat x_2').
+  \]
+  Then by the original Galois correspondence, there is a based isomorphism between \(\hat X_1\) and \(\hat X_2\). Of course they are isomorphic.
+\end{proof}
+
+\begin{definition}[covering transformation]\index{covering transformation}\index{deck transformation}
+  Let \(p: \hat X \to X\) be a covering space. A \emph{covering transformation} or \emph{deck transformation} \(\hat X \to \hat X\) is a homeomorphism that is also a cover isomorphism.
+\end{definition}
+
+\begin{corollary}
+  Let \(X\) be ``reasonable'', path-connected and locally simply connected and \(p: \tilde X \to X\) a universal cover. Let \(x_0 \in X\) and \(\tilde x_0 \in p^{-1}(x_0)\). Let \(\tilde x \in p^{-1}(x_0)\). Then there is a unique covering transformation \(\varphi_{\tilde x} : \tilde X \to \tilde X\) such that \(\varphi_{\tilde x}(\tilde x_0) = \tilde x\).
+\end{corollary}
+
+\begin{proof}
+  Both \((\tilde X, \tilde x_0)\) and \((\tilde X, \tilde x)\) correspond ot the trivial subgroup of \(\pi_1(X, x_0)\) so the result follows from 2.27.
+\end{proof}
+
+Now we have two different correspondences:
+
+\blindtext
+
+In fact these are isomorphic. automorphism of universal covers is isomorphic to fundamental group of base group.
+
+We can thus make \(\pi_1(X, x_0)\) act on \(\tilde X\) on the \emph{left} by covering transformation.
+\begin{remark}
+  Left vs. right action. Abelian group in case of \(S^1\).
+\end{remark}
+
+
+
+
+
+
+
 
 
 

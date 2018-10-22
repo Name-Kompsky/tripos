@@ -812,6 +812,236 @@ Yet another formulation of Baire category theorem is
   Assume that \(U\) is open and meagre. Then \(X \setminus U\) is closed and residual so dense. So \(X \setminus U = X\), i.e.\ \(U = \emptyset\).
 \end{proof}
 
+\subsection{Principle of uniform boundedness}
+
+\begin{theorem}[principle of uniform boundedness]\index{principle of uniform boundedness}
+  Let \(X\) be a complete metric space. Let \((f_\lambda)_{\lambda \in \Lambda}\) be a family of continuous functions \(f_\lambda: X \to \R\). If \((f_\lambda)_{\lambda \in \Lambda}\) is pointwise bounded, i.e.\ for all \(x \in X\), \(\sup_{\lambda \in \Lambda} |f_\lambda(x)| < \infty\), then ther is a ball \(B_r(x_0) \subseteq X\) on which \(f_\lambda\) is uniformly bounded, i.e.
+  \[
+    \sup_{\lambda \in \Lambda} \sup_{x \in B_r(x_0)} |f_\lambda(x)| < \infty.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let
+  \[
+    A_k = \{x \in X: |f_k(x)| \leq k \text{ for all } \lambda \in \Lambda\}
+    = \bigcap_{\lambda \in \Lambda} \{x \in X: |f_\lambda(x)| \leq k\}.
+  \]
+  Since \(f_\lambda\)'s are continuous, \(A_k\) is closed. Since \((f_\lambda)\) is pointwise bounded,
+  \[
+    \bigcup_{k \in \N} A_k = X.
+  \]
+  By Baire category theorem, at least one of the \(A_k\)'s must contain a ball \(B_r(x_0)\). Thus \((f_\lambda)\) is uniformly bounded on that ball.
+\end{proof}
+
+\begin{theorem}[Banach-Steinhaus]\index{Banach-Steinhaud theorem}
+  Let \(X\) be a Banach space and let \(Y\) be a normed space. Let \((T_\lambda)_{\lambda \in \Lambda} \subseteq B(X, Y)\) be pointwise bounded, i.e.\ for all \(x \in X\), \(\sup_{\lambda \in \Lambda} \norm{T_\lambda x} < \infty\). Then \((T_\lambda)\) is uniformly bounded, i.e.
+  \[
+    \sup_{\lambda \in \Lambda} \norm{T_\lambda} < \infty.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Set \(f_\lambda: X \to \R, x \mapsto \norm{Tx}\). Then \(f_\lambda\) is continuous and \((f_\lambda)\) is pointwise bounded. By the principle of uniform boundedness, there is \(B_r(x_0) \subseteq X\) on which
+  \[
+    \sup_{\lambda \in \Lambda} \sup_{\norm{x - x_0} < r} \norm{T_\lambda x} < \infty.
+  \]
+  But since the \(T_\lambda\)'s are linear, for any \(x \in X\) with \(\norm x \leq 1\),
+  \[
+    \norm{T_\lambda x}
+    = \frac{1}{r} \norm{T_\lambda(rx + x_0) - T_\lambda(x_0)}
+    \leq \frac{1}{r} \sup_{\lambda \in \Lambda} \sup_{\norm{x - x_0} < r} \norm{T_\lambda x} + \frac{1}{r} \sup_{\lambda \in \Lambda} \norm{T_0x}.
+  \]
+  The second term is bounded since \(T_\lambda\) is pointwise bounded. Thus
+  \[
+    \sup_{\lambda \in \Lambda} \norm{T_\lambda} < \infty.
+  \]
+\end{proof}
+
+The point of the theorem is not so much of finding a uniform bound on the functionals, as the proof (of Baire category theorem) requires axiom of choice and is nonconstructive. Rather it shows that pointwise boundedness implies uniform boundedness so we don't risk losing anything by trying to prove uniform boundedness from onset. As we'll see, in most cases pointwise bound gives uniform bound straightaway. % TODO: check and revise
+
+\subsection{Open mapping theorem}
+
+\begin{definition}[open map]\index{open map}
+  A map between topological spaces is \emph{open} if it maps open sets to open sets.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f: \R\to \R, x \mapsto x^2\) is continuous but not open.
+  \item \(f: \R^2 \to \R, (x, y) \to x + \operatorname{sgn}(y)\) is open but not continuous.
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[open mapping theorem]\index{open mapping theorem}
+  \label{thm:open mapping theorem}
+  Let \(X, Y\) be Banach spaces and \(T \in B(X, Y)\). Then
+  \begin{enumerate}
+  \item if \(T\) is surjective then it is open.
+  \item if \(T\) is bijective then \(T^{-1} \in B(Y, X)\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+  Let \(X, Y\) be normed spaces. Then \(T: X \to Y\) linear is open if
+  \[
+    T(B_1(0)) \supseteq B_r(0)
+  \]
+  for some \(r > 0\).
+\end{lemma}
+
+\begin{proof}
+  Let \(U \subseteq X\) be open and \(x \in U\). As \(U\) is open, choose \(\delta > 0\) such that \(x + B_\delta(0) \subseteq U\). Then
+  \[
+    T(U) \supseteq T(x + B_\delta(0)) = Tx + \delta T(B_1(0)) \supseteq Tx + r \delta B_1(0).
+  \]
+  Thus \(T(U)\) contains an open ball around any element \(T(x)\), therefore open.
+\end{proof}
+
+\begin{lemma}
+  Let \(X\) be a Banach space, \(Y\) a normed space and \(T \in B(X, Y)\). If
+  \[
+    \cl{T(B_1(0))} \supseteq B_1(0).
+  \]
+  then
+  \[
+    T(B_1(0)) \supseteq B_1(0).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(y_0 \in B_1(0) \subseteq Y\). We need to find \(x \in B_1(0)\) such that \(Tx = y_0\). We construct \(x\) as the limit of a Cauchy sequence. Let \(x_1 \in B_{1/2}(0) \subseteq X\) such that
+  \[
+    \norm{Tx_1 - y_0} < \frac{1}{2}.
+  \]
+  This is possible since there exists \(\tilde y_0 \in B_{1/2}(0) \cap B_{1/2}(y_0)\) and we can find \(x_1 \in B_{1/2}(0)\) such that \(\norm{Tx_1 - \tilde y_0}\) is arbitrarily small by density of \(T(B_{1/2}(0))\) in \(B_{1/2}(0)\).
+
+  Set \(y_1 = y_0 - Tx_1 \in B_{1/2}(0)\). By induction, if \(y_1, \dots, y_k\) and \(x_1, \dots, x_k\) are such that
+  \[
+    \norm{x_i} < 2^{-i}, y_i = y_{i - 1} - Tx_i \in B_{2^{-i}}(0) \subseteq Y,
+  \]
+  can choose \(x_{k + 1} \in B_{2^{-k - 1}}(0) \subseteq X\) such that
+  \[
+    y_{k + 1} = y_k - Tx_{k + 1} \in B_{2^{-k - 1}}(0) \subseteq Y
+  \]
+  so
+  \[
+    \sum_{k = 1}^\infty \norm{x_k} < 1
+  \]
+  and \(x = \sum_{k = 1}^\infty x_k \in B_1(0)\) exists since \(X\) is complete and
+  \[
+    y_0 - Tx = \lim_{n \to \infty} \left( y_0 - \sum_{k = 1}^n Tx_k \right)
+    = \lim_{n \to \infty} \left( y_1 - \sum_{k = 2}^n Tx_k \right)
+    = \dots
+    = \lim_{n \to \infty} y_n
+    = 0
+  \]
+  so \(y_0 \in T(B_1(0))\) for any \(y_0 \in B_1(0)\). Thus \(T(B_1(0)) \supseteq B_1(0)\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:open mapping theorem}]\leavevmode
+  \begin{enumerate}
+  \item By the previous two lemmas, it suffices to show that
+    \[
+      \cl{T(B_1(0))} \supseteq B_r(0)
+    \]
+    for some \(r > 0\). We use Baire category theorem to do this. Since \(T\) is surjective, \(Y = \bigcup_{k = 1} \cl{T(B_k(0))}\). Since \(Y\) is complete, the Baire category theorem implies that there is \(k_0 \in \N\) such that \(\cl{T(B_{k_0}(0))}\) has nonempty interior, i.e.\ ther is \(r_0 > 0, y_0 = Tx_0\) such that
+    \[
+      B_{r_0}(y_0) \subseteq \cl{T(B_{k_0}(0))}.
+    \]
+    By linearlity,
+    \begin{align*}
+      &B_{r_0}(0) = B_{r_0}(y_0) - Tx_0 \subseteq \cl{T(B_{k_0}(0))} - Tx_0 \\
+      =& \cl{T(B_{k_0}(-x_0))} \subseteq \cl{T(B_{k_0 + \ell_0}(0))} = (k_0 + \ell_0) \cl{T(B_1(0))}
+    \end{align*}
+    where \(\ell_0 \geq \norm{x_0}\). Now take \(r = \frac{r_0}{k_0 + \ell_0}\).
+  \item If \(T\) is bijective, then \(T\) is open means that \(T^{-1}\) is continuous.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  The completeness of \(X\) and \(Y\) are both necessary. See example sheet. We can however do a quick counterexample here. Let
+  \[
+    F = \{(x_n): x_n = 0 \text{ except for finitely many } n\}
+  \]
+  with \(\norm x_\infty = \max_n |x_n|\). Define
+  \begin{align*}
+    T: F &\to F \\
+    (x_n) &\mapsto (x_n/n)
+  \end{align*}
+  Then \(\norm T \leq 1\) so \(T\) is continuous and bijective. But \((T^{-1}x)_n = (nx_n)\) is unbounded. In particular \(F\) is not complete.
+\end{remark}
+
+\begin{remark}
+  The basic problem in linear PDE is the following one: given \(f \in Y\), e.g.\ \(Y = L^2(\Omega)\) for some nice \(\Omega \subseteq \R^d\), and a linear partial differential operator \(L: X \to Y\), say \(X = H_0^2(\Omega)\) and \(L = \Delta\), is there a unique solution \(u \in X\) to \(Lu = f\)? The typical procedure is to show that for \(f\) ``nice'', say \(f \in C^\infty(\Omega)\), spanning a a dense subspace of \(Y\), there is a unique solution such that
+  \[
+    \norm u \leq C \norm f.
+  \]
+  such an \emph{a priori} estimate allows us to solve \(Lu = f\) for general \(f \in Y\) by approximation. This implies that \(L\) is surjective. The open mapping theorem guarantees that this strategy works if \(L\) is surjective.
+\end{remark}
+
+\subsection{Closed graph theorem}
+
+\begin{theorem}[closed graph theorem]
+  Let \(X, Y\) be Banach spaces and \(T: X \to Y\) linear. Then \(T\) is bounded if and only if the graph
+  \[
+    \Gamma = \{(x, Tx): x \in X\} \subseteq X \times Y
+  \]
+  is closed.
+\end{theorem}
+
+\begin{proof}
+  Let \(T\) be bounded and \((x_k, y_k) \subseteq \Gamma\) be a sequence such that \(x_k \to x, y_k = Tx_k \to y\). Since \(T\) is continuous,
+  \[
+    Tx = y,
+  \]
+  so \((x, y) \in \Gamma\). So \(\Gamma\) is closed.
+
+  Conversely, suppose that \(\Gamma\) is closed. We want to show that \(T\) is continuous. Since \(X \times Y\) is a Banach space with norm
+  \[
+    \norm{(x, y)} = \norm x + \norm y
+  \]
+  and since \(\Gamma\) is closed, it is also a Banach space with the induced norm. The projections
+  \begin{align*}
+    \pi_X: \Gamma &\to X \\
+    (x, Tx) &\mapsto x \\
+    \pi_Y: \Gamma &\to Y \\
+    (x, Tx) &\mapsto Tx
+  \end{align*}
+  are continuous and \(\pi_X\) is also a bijection. By the open mapping theorem, \(\pi_X^{-1} \in B(X, \Gamma)\). Thus
+  \[
+    T = \pi_Y \compose \pi_X^{-1} \in B(X, Y).
+  \]
+\end{proof}
+
+\begin{remark}
+  As a consequence, to prove that \(T: X \to Y\) is bounded, if \(X\) and \(Y\) are Banach spaces, it suffices to check if \(x_k \to x, Tx_k \to y\) then \(Tx = y\), instead of the stronger requirement that if \(x_k \to x\) then \(Tx_k \to y\) and \(y = Tx\).
+\end{remark}
+
+\section{The space of continuous functions on a compact space}
+
+\subsection{Normed topological spaces}
+
+Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in X, x \neq y\), there exist open neighbourhodds \(U\) of \(x\) and \(V\) of \(y\) such that \(U \cap V \neq \emptyset\).
+
+\begin{proposition}
+  Let \(X\) be a Hausdorff space and \(K_1, K_2 \subseteq X\) are compact sets with \(K_1 \cap K_2 = \emptyset\). Then there exist open \(U_1 \supseteq K_1, U_2 \supseteq K_2\) such that \(U_1 \cap U_2 = \emptyset\).
+\end{proposition}
+
+\begin{proof}
+  This a mundane exercise in general topology. For any \(x \in K_1, y \in K_2\), let \(U_{xy}\) and \(V_{xy}\) be open neighbourhoods such that \(x \in U_{xy}, y \in V_{xy}\) and \(U_{xy} \cap V_{xy} = \emptyset\). Then \(K_1 \subseteq \bigcup_{x \in K_1} U_{xy}\). Since \(K_1\) is compact, there are finitely many points \(x_1, \dots, x_n \in K_1\) such that \(K_1 \subseteq \bigcup_{i = 1}^n U_{x_iy}\). Set \(U_y = \bigcup_{i = 1}^n U_{x_iy}\) and \(Y_y = \bigcap_{i = 1}^n V_{x_iy}\). Then \(U_y \cap V_y = \emptyset\) and \(K_1 \subseteq U_y, y \in V_y\) for all \(y \in Y\). Then \(K_2 \subseteq \bigcup_{y \in K_2} V_y\). Again by compactness there exist \(y_1, \dots y_m \in K_2\) such that \(K_2 \subseteq \bigcup_{i = 1}^m V_{y_i}\). Set
+  \[
+    V = \bigcup_{i = 1}^m V_{y_i}, U = \bigcap_{i = 1}^m U_{y_i}.
+  \]
+  The sets \(U\) and \(V\) are open, \(U \cap V = \emptyset\) and \(U \supseteq K_1, V \supseteq K_2\) by construction.
+\end{proof}
+
+
+
+
+
+
+
 
 
 
