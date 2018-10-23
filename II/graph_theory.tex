@@ -282,7 +282,7 @@ However, we can easily bound them:
 \[
   R(s) = O(\frac{4^s}{\sqrt s}),
 \]
-which is the result by Erdos-Szekeres in 1930s. For 50 years no one is able to improve it. In the 1980s, Andrew Thomason shows \(R(s) = O(\frac{4^s}{s})\), which takes considerably more work. So far the best bound is found by David Conlon in the 2000s, for all \(k\), \(R(s) = O(\frac{4^s}{s^k})\). Is \(R(s) = O((4 - \varepsilon)^s)\) for some \(\varepsilon > 0\)? The answer is unknown.
+which is the result by Erdős-Szekeres in 1930s. For 50 years no one is able to improve it. In the 1980s, Andrew Thomason shows \(R(s) = O(\frac{4^s}{s})\), which takes considerably more work. So far the best bound is found by David Conlon in the 2000s, for all \(k\), \(R(s) = O(\frac{4^s}{s^k})\). Is \(R(s) = O((4 - \varepsilon)^s)\) for some \(\varepsilon > 0\)? The answer is unknown.
 
 For a lower bound, however, see example sheet 1.
 
@@ -698,9 +698,10 @@ Let's got for \(\exx(n; K_{t, t})\) for \(t \geq 2\). We shall count \(t\)-fans 
 \end{definition}
 
 \begin{theorem}
+  \label{thm:forbidden complete bipartite subgraph}
   Let \(t \geq 2\). Then
   \[
-    \exx(n, K_{t, t}) = O(n^{2 - \frac{1}{t}}).
+    \exx(n; K_{t, t}) = O(n^{2 - \frac{1}{t}}).
   \]
 \end{theorem}
 
@@ -792,7 +793,115 @@ Let \(H\) be any graph with at least one dege. What is \(\exx(n; H)\)? It is too
   \end{enumerate}
 \end{eg}
 
+\begin{proposition}
+  Let \(H\) be a graph with at least one edge and let
+  \[
+    x_n = \frac{\exx(n; H)}{\binom{n}{2}}.
+  \]
+  Then \((x_n)\) converges.
+\end{proposition}
 
+\begin{proof}
+  Let \(|G| = n\) and \(e(G) = \binom{n}{2} x_n\), \(H \nsubseteq G\). Suppose \(v \in G\). Then \(|G - v| = n - 1\) and \(H \nsubseteq G - v\) so
+  \[
+    e(G - v) \leq \binom{n - 1}{2} x_{n - 1}.
+  \]
+  Summing over \(v\) gives
+  \begin{align*}
+    & n \binom{n - 1}{2} x_{n - 1} \geq \sum_{v \in G} e(G - v) = \sum_{v \in G} (e(G) - d(v)) \\
+    =& n e(G) - 2e(G) = (n - 2) \binom{n}{2} x_n.
+  \end{align*}
+  Hence \(x_{n - 1} \geq x_n\). So \((x_n)\) is decreasing and bounded below by zero so converges.
+\end{proof}
+
+This shows that \(\exx(H) = \lim_{n \to \infty} \frac{\exx(n; H)}{\binom{n}{2}}\) exists. Can we find it? This is answered in full by the following theorem
+
+\begin{notation}
+  \(K_r(t)\) is the complete \(r\)-bipartite graph with \(t\) vertices in each class. This is the same as the Turán graph \(T_r(rt)\).
+\end{notation}
+
+\begin{theorem}[Erdős-Stone]\index{Erdős-Stone theorem}
+  Let \(r, t \geq 1\) be integers and \(\varepsilon > 0\) be real. Then there exists an integer \(n_0\) such that for all \(n \geq n_0\), if \(|G| = n, e(G) \geq (1 - \frac{1}{r} + \varepsilon) \binom{n}{2}\) then \(K_{r + 1}(t) \subseteq G\).
+\end{theorem}
+
+Before we give the proof, we have to ask what this not so obvious statement mean. Using notation in the statement of the theorem, Turán says that if density of edges is around \(1 - \frac{1}{r}\) then \(K_{r + 1} \subseteq G\). What happens if we make a tiny increase in the density? Erdős-Stone tells us that we get much, much more --- we get enormous ``blown-up'' \(K_{r + 1}\)'s as well. Of course this is provided \(G\) has sufficiently many vertices.
+
+We will get to the proof later but we can prove the case \(r = 1\). It says that for \(|G| = n, e(G) \geq \varepsilon \binom{n}{2}\) then \(K_{t, t} \subseteq G\) for \(n\) sufficiently large. But this follows from \Cref{thm:forbidden complete bipartite subgraph}:
+\[
+  \exx(n; K_{t, t}) = O(n^{2 - \frac{1}{t}}) = o(n^2).
+\]
+
+\begin{definition}[chromatic number]\index{chromatic number}
+  The \emph{chromatic number} of a graph \(H\) is the least \(r\) such that \(H\) is \(r\)-partite. It is denoted \(\chi(H)\).
+\end{definition}
+
+\begin{corollary}
+  \label{cor:forbidden subgraph and chromatic number}
+  Let \(H\) be a graph with at least one edge. Then
+  \[
+    \exx(H) = 1 - \frac{1}{\chi(H) - 1}.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Let \(\chi(H) = r + 1\) and choose \(t\) such that \(H \subseteq K_{r + 1}(t)\) (e.g.\ \(t = |H|\)). Let \(\varepsilon > 0\). By Erdős-Stone there is some \(n_0\) such that if \(|G| = n \geq n_0\) and \(e(G) \geq (1 - \frac{1}{r} + \varepsilon) \binom{n}{2}\) then \(K_{r + 1}(t) \subseteq G\). But then also \(H \subseteq G\). So this says that if \(n \geq n_0\) then
+  \[
+    \exx(n; H) \leq (1 - \frac{1}{r} + \varepsilon) \binom{n}{2}
+  \]
+  and so
+  \[
+    \frac{\exx(n; H)}{\binom{n}{2}} \leq 1 - \frac{1}{r} + \varepsilon.
+  \]
+  Take limit as \(n \to \infty\), get
+  \[
+    \exx(H) \leq 1 - \frac{1}{r} + \varepsilon.
+  \]
+  As \(\varepsilon\) is arbitrary,
+  \[
+    \exx(H) \leq 1 - \frac{1}{r} = 1 - \frac{1}{\chi(H) - 1}.
+  \]
+
+  On the other hand, for all \(n\), \(H \nsubseteq T_r(n)\). This means that for all \(n\), \(\exx(n; H) \geq t_r(n)\) so
+  \[
+    \frac{\exx(n; H)}{\frac{n}{2}} \geq \frac{t_r(n)}{\binom{n}{2}} \to 1 - \frac{1}{r}
+  \]
+  as \(n \to \infty\). So we get the other inequality. The result follows.
+\end{proof}
+
+We have now solved the forbidden subgraph problem aymptotically for non-bipartite \(H\). Then \Cref{cor:forbidden subgraph and chromatic number} implies that
+\[
+  \exx(n; H) \sim (1 - \frac{1}{\chi(H) - 1}) \binom{n}{2}.
+\]
+The situation is not so good if \(H\) is bipartite, in which case \Cref{cor:forbidden subgraph and chromatic number} says that \(\exx(H) = 0\), i.e.\ \(\exx(n, H)\) grows slower than \(\binom{n}{2}\) but does not give the asymptotic rate of growth.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item For \(t = 2\), \(\exx(n, K_{t, t}) = O(n^{2 - \frac{1}{t}})\) so \(\exx(n; K_{2, 2}) = O(n^{\frac{3}{2}})\). In fact \(\exx(n; K_{2, 2}) = \Theta(n^{3/2})\).
+  \item For \(t = 3\), \(\exx(n; K_{3, 3}) = O(n^{5/3})\). In fact, \(\exx(n; K_{3, 3}) = \Omega(n^{5/3})\).
+  \item For \(t = 4\), \(\exx(n; K_{4, 4}) = O(n^{7/4})\). At this moment, no one knows if \(\exx(n; K_{4, 4}) = \Omega(n^{7/4})\).
+  \end{enumerate}
+\end{eg}
+
+\begin{notation}
+  Big-\(O\) notation and its cousins:
+\begin{align*}
+  f &= O(g) \text{ if } f< Ag \text{ for some constant } A \\
+  f &= \Omega(g) \text{ if } g=O(f) \\
+  f &= \Theta(g) \text{ if } f= O(g) \text{ and } f = \Omega(g).
+\end{align*}
+Also,
+\begin{align*}
+  f &= o(g) \text{ if } f/g\to 0 \text{ as } n\to \infty \\
+  f &= \omega(g) \text{ if } f/g\to \infty \\
+  f &\sim g \text{ if } f/g\to 1.
+\end{align*}
+\end{notation}
+
+It's been conjectured that
+\[
+  \exx(n, K_{t, t}) = \Omega(n^{2 - \frac{1}{t}})
+\]
+for all \(t \geq 2\) but the problem remains unproven for \(n > 3\). Therefore even asymptotically, forbidden subgraph problem has not been solved for bipartite \(H\).
 
 
 

@@ -12,6 +12,7 @@
 
 \DeclareMathOperator{\Gr}{Gr} % Grassmannian
 \DeclareMathOperator{\Lie}{Lie} % Lie functor
+\newcommand{\w}{\wedge}
 
 \begin{document}
 
@@ -795,7 +796,7 @@ This result cannot be improved: let \(M = \R P^2\) and \(N = \{x_0: x_1: x_2 \in
   Every \(n\)-dimensional manifold \(M\) admits a smooth embedding to \(\R^{2n}\).
 \end{theorem}
 
-It is a hard theorem but it is very easy to show that there exists \(N\) such that \(M\) is a submanifold of \(\R^N\). In example sheet 1 Q9 we showed this for \(M\) compact. It is also not too difficult to set \(N = 2n + 1\), basically by embedding it in a sufficiently large space and whittle down the dimension. However the last step of improvement is truely an ingenious piece of work. The remarkability of this theorem is not to say that the intrinsic defintion of manifolds coincide with the extrinsic one, but the optimal dimension \(\R^{2n}\) of ambient space. This is a topological invariant measuring how ``complicated'' an geometric object is. For example, \(S^n\) can be embedded in \(\R^{n + 1}\) but \(\R p^2\) cannot be embedded in \(\R^3\). The Klein bottle does not embed in \(\R^3\) either.
+It is a hard theorem but it is very easy to show that there exists \(N\) such that \(M\) is a submanifold of \(\R^N\). In example sheet 1 Q9 we showed this for \(M\) compact. It is also not too difficult to set \(N = 2n + 1\), basically by embedding it in a sufficiently large space and whittle down the dimension. However the last step of improvement is truely an ingenious piece of work. The remarkability of this theorem is not to say that the intrinsic defintion of manifolds coincide with the extrinsic one, but the optimal dimension \(\R^{2n}\) of ambient space. This is a topological invariant measuring how ``complicated'' a geometric object is. For example, \(S^n\) can be embedded in \(\R^{n + 1}\) but \(\R p^2\) cannot be embedded in \(\R^3\). The Klein bottle does not embed in \(\R^3\) either.
 
 Restatement of an earlier theorem:
 \begin{theorem}
@@ -901,13 +902,118 @@ Similar to vector fields, a \(1\)-form \(\alpha = \sum_i \alpha_i \mathcal dx_i\
 
 To define general \(k\)-forms, we need to take a crash course in multilinear algebra. For \(r = 0, 1, \dots\), the \(r\)th \emph{exterior product}
 \[
-  \Lambda^r T_p^*M
+  \Lambda^r T_p^*M = \{\text{alternating multilinear functions on } (T_pM)^r\}.
 \]
-consists of functions \((T_p^*M)^r \to \R\) that are totally antisymmetric and linear in each of the \(r\) arguments. For example, \(\Lambda^0T_p^*M = \R, \Lambda^1T_p^*M = T_p^* M\) and \(\Lambda^2 T_p^* M\) are antisymmetric bilinear forms. It is obvious that for \(r > \dim M\), \(\Lambda^r T_p^*M = 0\).
+It is a vector space with basis
+\[
+  \{\mathrm dx_{i_1} \w \dots \w \mathrm dx_{i_r}\}, 1 \leq i_1 < \dots < i_r \leq n
+\]
+where \(n = \dim M\) and \(x_i\)'s are local coordinates around \(p\). They are defined by
+\[
+  \mathrm dx_{i_1} \w \dots \w \mathrm dx_{i_r} (v_1, \dots, v_r) = \det( (\mathrm dx_{i_k}(v_\ell))_{k, \ell})
+\]
+where \(v_\ell = \frac{\partial  }{\partial x_{k_\ell}}\) and \(k_\ell \leq k_{\ell + 1}\) for all \(\ell\). This equals to \(1\) if and only if \(v_k = \frac{\partial  }{\partial x_{i_k}}\) for all \(k\) and \(0\) otherwise.
 
+\begin{notation}[multiindex notation]
+  Let \(I = (i_1, \dots i_r)\) be a multiindex, then write
+  \[
+    \mathrm dx_I = \mathrm dx_{i_1} \w \dots \w \mathrm dx_{i_r}.
+  \]
+  Using this notation, the transformation law for \(r\)-forms under change of coordinates from \(x_i\) to \(x_j'\) is
+  \[
+    \mathrm dx_J' = \sum_I \prod_{k = 1}^r \frac{\partial x_{Jk}'}{\partial x_{ik}} \mathrm dx_I.
+  \]
+\end{notation}
 
+Using the same method in the construction of smooth structure on \(TM\) and \(T^*M\), together with the transformation law for \(r\)-forms, we can make
+\[
+  \Lambda^rT^*M = \coprod_{p \in M} \Lambda^r T_p^*M
+\]
+into a manifold of dimension \(n = \binom{n}{r}\) with smooth projection \(\pi: \Lambda^rT^*M \to M\). It is called the \emph{bundle of differential \(r\)-forms}.
 
+\begin{note}
+  \(\Lambda^0T^*M = M \times \R\) and \(\Lambda^1T^*M = T^*M\)
+\end{note}
 
+\begin{definition}[differential form]\index{differential form}
+  A \emph{smooth differential \(r\)-form}, or simply an \emph{\(r\)-form} on \(M\) is a smooth map \(\alpha: M \to \Lambda^rT^*M\) that is a section of \(\pi: \Lambda^rT^*M \to M\). The space of all \(r\)-forms on \(M\) is denoted \(\Omega^r(M)\).
+\end{definition}
+
+Given local coordinates \(x_i\)'s, a differential form \(\alpha\) can be locally expressed as
+\[
+  \alpha = \sum_I \alpha_I(x) \mathrm dx_I
+\]
+where \(\alpha_I\)'s are smooth. They can be computed by \(\alpha_I = \alpha(\frac{\partial  }{\partial x_I})\). It can be easily checked that \(\alpha\) is smooth if and only if \(\alpha(X_1, \dots, X_r)\) is smooth for all smooth vector fields \(X_1, \dots, X_r\). Note that \(0\) forms are just smooth functions \(M \to \R\) so \(\Omega^0(M) = C^\infty(M)\).
+
+\subsection{Orientation of manifolds}
+
+\begin{theorem}
+  For an \(n\)-manifold, TFAE:
+  \begin{enumerate}
+  \item there exists a never-zero \(n\)-form on \(M\),
+  \item there exists a family of charts \((\varphi_\alpha, U_\alpha)\) such that \(M = \bigcup U_\alpha\) and for all \(\alpha, \alpha'\) with local coordinates \(x_i, x_i'\) on \(U_\alpha, U_{\alpha'}\) respectively, we have
+    \[
+      \det \frac{\partial x_j'}{\partial x_i} > 0
+    \]
+    on \(U_\alpha \cap U_{\alpha'}\),
+  \item \(\Lambda^nT^*M\) is parallelisable.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(1 \implies 2\): the transformation law when a differential form is expressed in local coordinates \(x_i\) and \(x_i'\) is
+    \begin{align*}
+      &\mathrm dx_1 \w \dots \w \mathrm dx_n \\
+      =& \left( \sum_{i_1} \frac{\partial x_1}{\partial x_{i_1}'} \mathrm dx_{i_1}' \right) \w \dots \w \left( \sum_{i_n} \frac{\partial x_n}{\partial x_{i_n}'} \mathrm dx_{i_n}' \right) \\
+      =& \dots \\
+      =& 
+    \end{align*}
+    Suppose we have \(\omega \in \Omega^n(M)\) never-zero. Let \(M = \bigcup U_\alpha\) where each \(U_\alpha\) is open connected, then
+    \[
+      \omega|_{U_\alpha} = f_\alpha(x^\alpha) \mathrm d x_1^\alpha \w \dots \w \mathrm dx_n^\alpha
+    \]
+    We can reorder \(x_i^\alpha\) such that \(f_\alpha > 0\). Then all deteminants are \(f_\alpha/f_\alpha' > 0\)
+  \item \(2 \implies 1\): we need \nameref{thm:partition of unity}. Given such a collection of charts, define on each \(U_\alpha\) a never-zero \(n\)-form
+    \[
+      \omega_\alpha := \mathrm d x_1^\alpha \w \dots \w \mathrm dx_n^\alpha
+    \]
+    Let \(\{\rho_i\}\) be a partition of unity subordinate to the cover. Then
+    \[
+      \omega = \sum_i \rho_i (\omega_{\alpha_i})
+    \]
+    is a well-defined never-zero form on \(\Omega^n(M)\).
+  \item \(1 \Longleftrightarrow 3\): this involves the same idea in the proof that the existence of global (co)frame is equivalent to parallisability of (co)tangent bundle. In fact, this generalises to any bundle. We omit the details.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[partition of unity]\index{partition of unity}
+  \label{thm:partition of unity}
+  For every open cover \(M = \bigcup U_\alpha\), there exists a countable collection \(\rho_i \in C^\infty(M)\) such that
+  \begin{enumerate}
+  \item for all \(i\), \(\cl{\operatorname{supp}{\rho_i}}\) is compact and is contaned in \(U_\alpha\) for some \(\alpha\).
+  \item locally finite: for every \(x \in M\), there exists an open neighbourhood \(W_x\) containing \(x\) such that \(\rho_i|_{W_x} \neq 0\) only for finitely many \(i\)'s.
+  \item \(\rho_i \geq 0\) for all \(i\) and \(\sum_i \rho_i = 1\).
+  \end{enumerate}
+  Then \(\{\rho_i\}\) is a \emph{partition of unity} subordinate to \(\{U_\alpha\}\).
+\end{theorem}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+\begin{definition}[orientability]\index{orientability}
+  A manfiold satisfying any of the condition is called \emph{orientable}.
+
+  If a manifold is orientable and connected then there are precisely two choices of \emph{orientation}.
+\end{definition}
+
+The orientation is induced, equivalently, by
+\begin{enumerate}
+\item \(\omega \in \Omega^n(M)\) up to a positive smooth function,
+\item a coordinate cover up to ``positive compatibility'',
+\item a choice of \(\phi\) up to composition \((x, a) \mapsto (x, h(x) a)\) where \(h \in C^\infty(M)\), \(h > 0\).
+\end{enumerate}
 
 
 

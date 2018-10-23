@@ -336,6 +336,7 @@ where either \(\mathcal B = \mathcal C\), or \(\mathcal B\) is so similar to \(\
 \(|C_{ij}(\mathcal A)| = |\mathcal A|\) and after the compression it looks ``more'' like colex than lex. Say \(\mathcal A\) is \emph{\(ij\)-compressed} if \(C_{ij}(\mathcal A) = \mathcal A\). It is also intuitively obvious that the operation is indeed a compression in the sense that it decreases the shadow.
 
 \begin{proposition}
+  \label{prop:ij-compression}
   Let \(\mathcal A \subseteq X^{(r)}\), \(1 \leq i < j \leq n\) then
   \[
     |\shadow C_{ij}(\mathcal A)| \leq |\shadow \mathcal A|.
@@ -343,7 +344,7 @@ where either \(\mathcal B = \mathcal C\), or \(\mathcal B\) is so similar to \(\
 \end{proposition}
 
 \begin{proof}
-  Write \(\mathcal A'\) for \(C_{ij} (\mathcal A)\). We'll show that if \(B \subseteq \shadow \mathcal A' - \shadow \mathcal A\) then \(i \in B, j \neq B\) and \(B \cup j - i \in \shadow \mathcal A - \shadow \mathcal A'\) (so \(B\) has a preimage under \(C_{ij}\)). Then done.
+  Write \(\mathcal A'\) for \(C_{ij} (\mathcal A)\). We'll show that if \(B \in \shadow \mathcal A' - \shadow \mathcal A\) then \(i \in B, j \neq B\) and \(B \cup j - i \in \shadow \mathcal A - \shadow \mathcal A'\) (so \(B\) has a preimage under \(C_{ij}\)). Then done.
 
   We have \(B \cup x \in \mathcal A'\) for some \(x \notin B\) and \(B \cup x \notin \mathcal A\). Hence \(i \in B \cup x, j \notin B \cup x\) and \((B \cup x) \cup j - i \in \mathcal A\) (so \(B \cup x\) is the set that has been compressed). Note that \(x \neq i\) else \(B \cup j \in \mathcal A\), contradicting \(B \notin \shadow \mathcal A\).
 
@@ -353,7 +354,7 @@ where either \(\mathcal B = \mathcal C\), or \(\mathcal B\) is so similar to \(\
 \begin{remark}
   We have actually showed that
   \[
-    \shadow (C_{ij}(\mathcal A)) \subseteq C_{ij} (\shadow \mathcal A),
+    \shadow C_{ij}(\mathcal A) \subseteq C_{ij} (\shadow \mathcal A),
   \]
   ``shadow of compression lives inside compression of shadow''.
 \end{remark}
@@ -363,13 +364,14 @@ where either \(\mathcal B = \mathcal C\), or \(\mathcal B\) is so similar to \(\
 \end{definition}
 
 \begin{proposition}
+  \label{prop:left compression decreases shadow}
   Let \(\mathcal A \subseteq X^{(r)}\). Then there exists left-compressed \(\mathcal B \subseteq X^{(r)}\) with \(|\mathcal B| = |\mathcal A|\) and \(|\shadow \mathcal B| \leq |\shadow \mathcal A|\).
 \end{proposition}
 
 \begin{proof}
   Morally we only have to show that any sequence of compression terminate. Among all \(\mathcal B \subseteq X^{(r)}\) with \(|\mathcal B| = |\mathcal A|\) and \(|\shadow \mathcal B| \leq |\shadow \mathcal A|\), choose one with
   \[
-    \sum_{\mathcal A \in \mathcal B} \sum_{x \in \mathcal A} x
+    \sum_{A \in \mathcal B} \sum_{x \in A} x
   \]
   minimal. Then \(\mathcal B\) is left compressed, as if \(C_{ij}(\mathcal B) \neq \mathcal B\) then we contradict minimality.
 \end{proof}
@@ -409,17 +411,133 @@ We can compress not only singletons but also sets of larger sizes:
   \]
 \end{eg}
 
-Similar observation: \(|C_{UV}(\mathcal A)| = |\mathcal A|\). Say \(\mathcal A\) is \emph{\(UV\)-compressed if \(C_{UV}(\mathcal A) =\mathcal A\)}. Sadly, \(C_{UV}\) need \emph{not} decrease shadow --- e.g.\ \(\mathcal A = \{146, 467\}\) then \(C_{23, 14}(\mathcal A) = \{236, 467\}\) so \(|\shadow \mathcal A| = 5, |\shadow C_{23, 14}(\mathcal A)| = 6\). Intuitively, removing one elements and adding another sends an element to a ``close neighbour'' which shares largely the same shadow, but once we start doing \(UV\)-compression, some things are ``moved a long way''.
+Similar observation: \(|C_{UV}(\mathcal A)| = |\mathcal A|\). Say \(\mathcal A\) is \emph{\(UV\)-compressed if \(C_{UV}(\mathcal A) =\mathcal A\)}. Sadly, \(C_{UV}\) need \emph{not} decrease shadow --- e.g.\ \(\mathcal A = \{146, 467\}\) then \(C_{23, 14}(\mathcal A) = \{236, 467\}\) so \(|\shadow \mathcal A| = 5, |\shadow C_{23, 14}(\mathcal A)| = 6\). Intuitively, removing one elements and adding another sends a set to a ``close neighbour'' which shares largely the same shadow, but once we start doing \(UV\)-compression, some things are ``moved a long way''.
 
-For decades, people thought we could only do \(ij\)-compression and started compression. However, note that \(\mathcal A\) in the above example is not left-compressed. It turns out once you have done the ``smaller'' compressions, doing a larger compression always decrease the shadow. Formally,
+However, note that \(\mathcal A\) in the above example is not left-compressed. It turns out once you have done the ``smaller'' compressions, doing a larger compression always decrease the shadow. Formally,
 
 \begin{proposition}
+  \label{prop:UV-compression}
   Let \(\mathcal A \subseteq X^{(r)}\) and \(U,V \subseteq X\) with \(|U| = |V|\) and \(U \cap V = \emptyset\). Suppose that for all \(x \in U\) exists \(y \in V\) such that \(\mathcal A\) is \((U - x, V - y)\)-compressed then
   \[
     |\shadow C_{UV}(\mathcal A)| \leq |\shadow \mathcal A|.
   \]
 \end{proposition}
 
+\begin{proof}
+  Write \(\mathcal A'\) for \(C_{UV}(\mathcal A)\). Given \(B \in \shadow \mathcal A' - \shadow \mathcal A\), we'll show that \(U \subseteq B, V \cap B = \emptyset\) and \(B \cup V - U \in \shadow \mathcal A - \shadow \mathcal A'\).
+
+  We have \(B \cup x \in \mathcal A'\) for some \(x \notin B\), with \(B \cup x \notin \mathcal A\). So \(U \subseteq B \cup x, V \cap (B \cup x) = \emptyset\) and \((B \cup x) \cup V - U \in \mathcal A\). Thus certainly \(V \cap B = \emptyset\).
+
+  If \(x \in U\), have \(\mathcal A\) is \((U - x, V - y)\)-compressed for some \(y \in V\) so from \((B \cup x) \cup V - U \in \mathcal A\) we obtain \(B \cup y \in \mathcal A\), contradicting \(B \notin \shadow \mathcal A\). Hence \(x \notin U\) and so \(U \subseteq B\). Also \(B \cup V - U \in \shadow \mathcal A\) (as \((B \cup x) \cup V - U \in \mathcal A\)).
+
+  Suppose \(B \cup V - U \in \shadow \mathcal A'\) then \((B \cup V - U) \cup w \in \mathcal A'\) for some \(w\).
+  \begin{enumerate}
+  \item if \(w \notin U\), then \(V \subseteq (B \cup V - U) \cup w\) and \(U \cap ((B \cup V - U) \cup w) = \emptyset\) so from \((B \cup V - U) \cup w \in \mathcal A'\) we conclude that both \((B \cup V - U) \cup w \in \mathcal A\) and \(B \cup w \in \mathcal A\), contradicting \(B \notin \shadow \mathcal A\).
+  \item if \(w \in U\), we have \(\mathcal A\) is \((U - w, V - z)\)-compressed for some \(z \in V\). From \((B \cup V - U) \cup w \in \mathcal A\) (as it is in \(\mathcal A'\) and contains \(V\), so could not have moved), we deduce \(B \cup z \in \mathcal A\), contradicting \(B \notin \shadow \mathcal A\).
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  We have actually showed that
+  \[
+    \shadow C_{UV}(\mathcal A) \subseteq C_{UV}(\shadow \mathcal A).
+  \]
+\end{remark}
+
+\begin{theorem}[Krustal-Katona]\index{Krustal-Katona theorem}
+  \label{thm:Krustal-Katona}
+  Let \(\mathcal A \subseteq X^{(r)}\) where \(1 \leq r \leq n\) and let \(\mathcal C\) be the initial segment of colex on \(X^{(r)}\) with \(|\mathcal C| = |\mathcal A|\), then
+  \[
+    |\shadow \mathcal A| \geq |\shadow \mathcal C|.
+  \]
+  In particular if \(|\mathcal A| = \binom{k}{r}\) then
+  \[
+    |\shadow \mathcal A| \geq \binom{k}{r - 1}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let
+  \[
+    \Gamma = \{(U, V): U, V \subseteq X, |U| = |V| > 0, U \cap V = \emptyset, \max U < \max V\}
+  \]
+  which are the ordered pairs \((U, V)\) with \(U < V\) in colex, which are exactly the sensible pairs to do \(UV\) compression on in order to decrease shadow. Define a sequence of set systems \(\mathcal A_0, \mathcal A_1, \dots\) in \(X^{(r)}\) as follow:
+  \begin{enumerate}
+  \item \(\mathcal A_0 = \mathcal A\).
+  \item If \(\mathcal A_k\) is \((U, V)\)-compressed for all \((U, V) \in \Gamma\), then stop the sequence with \(\mathcal A_k\).
+  \item If not, choose \((U, V) \in \Gamma\) such that \(\mathcal A_k\) is not \((U, V)\)-compressed with \(U\) \emph{minimal}. Set \(\mathcal A_{k + 1} = C_{UV}(\mathcal A_K)\). Note that for all \(x \in U\), we have \((U - x, V - y) \in \Gamma \cup \{(\emptyset, \emptyset)\}\) for \(y = \min V\) so by \Cref{prop:UV-compression} have \(|\shadow \mathcal A_{k + 1}| \leq |\shadow \mathcal A_k|\).
+  \end{enumerate}
+
+  The sequence must terminate, for example because as \(\sum_{A \in \mathcal A_k}\sum_{i \in A} 2^i\) is decreasing in \(k\).
+
+  The final system \(\mathcal B = \mathcal A_k\) satisfies \(|\mathcal B| = |\mathcal A|\) and \(|\shadow B| \leq |\shadow \mathcal A|\). Moreover, \(\mathcal B\) is \((U, V)\)-compressed for all \((U, V) \in \Gamma\). Claim that \(\mathcal B = \mathcal C\):
+  \begin{proof}
+    Suppose \(\mathcal B\) is not an initial segment of colex. Then there exists \(A < B\) in colex with \(A \notin \mathcal B\) and \(B \in \mathcal B\). But then \(U = A - B\) and \(V = B - A\) have \((U, V) \in \Gamma\) and \(C_{UV}(B) = A\). Absurd.
+  \end{proof}
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Equivalently, we may state the theorem in numerical form by translating initial segments of colex into the size of its constituent ``lex'' parts: if \(\mathcal A \subseteq X^{(r)}\) with
+    \[
+      |\mathcal A| = \binom{k_r}{r} + \binom{k_{r - 1}}{r - 1} + \dots + \binom{k_s}{s}
+    \]
+    where \(k_r > k_{r - 1} > \dots > k_s\) and \(s > 0\), then
+    \[
+      |\shadow \mathcal A| \geq \binom{k_r}{k - 1} + \binom{k_{r - 1}}{r - 2} + \dots + \binom{k_s}{s - 1}.
+    \]
+  \item In proof of Krustal-Katona we used only \Cref{prop:UV-compression}, but neither \Cref{prop:ij-compression} nor \Cref{prop:left compression decreases shadow}. However, deriving simpler results for \(ij\)-compression provides motivation and intuition for the further full-fledged proof.
+  \item Can we ask for uniqueness? We can check that if \(|\shadow \mathcal A| = |\shadow \mathcal C|\) and \(|\mathcal A| = \binom{k}{r}\) then \(\mathcal A = Y^{(r)}\) for some \(k\)-set \(Y\). Thus this is unique up to isomorphism. But in general it is not true that \(|\shadow \mathcal A| = |\shadow \mathcal C|\) implies \(\mathcal A\) is isomorphic to \(\mathcal C\) (\(\mathcal A \subseteq \powerset(X), \mathcal B \subseteq \powerset(Y)\) are isomorphic if there exists a bijection between \(X\) and \(Y\) sending \(\mathcal A\) to \(\mathcal B\)).
+  \end{enumerate}
+\end{remark}
+
+What about upper shadow?
+
+\begin{definition}[upper shadow]\index{upper shadow}
+  For \(\mathcal A \subseteq X^{(r)}\) where \(0 \leq r \leq n - 1\), the \emph{upper shadow} of \(\mathcal A\) is
+  \[
+    \shadow^+ \mathcal A = \{A \cup x: A \in \mathcal A, x \notin A\}.
+  \]
+\end{definition}
+
+Note that \(A < B\) in colex if and only if \(A^c < B^c\) in lex with ground-set order reversed. You can mess around with complement and other set operations, but think about it until it becomes clear!
+
+\begin{corollary}
+  Let \(\mathcal A \subseteq X^{(r)}\) wher \(0 \leq r \leq n - 1\) and let \(\mathcal C\) be the initial segment of lex with \(|\shadow C| = |\mathcal A|\). Then
+  \[
+    |\shadow^+ \mathcal A| \geq |\shadow^+ \mathcal C|.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Take complements.
+\end{proof}
+
+Also the shadow of an initial segment of colex is again an initial segment of colex. Indeed, if
+\[
+  \mathcal C = \{A \subseteq X^{(r)}: A \leq a_1,a_2,\dots,a_r\}
+\]
+then
+\[
+  \shadow \mathcal C = \{B \subseteq X^{(r - 1)}: B \leq a_2,\dots,a_r\}.
+\]
+
+Krustal-Katona also proves a generalised version of itself:
+
+\begin{corollary}
+  Let \(\mathcal A \subseteq X^{(r)}\) and let \(\mathcal C \subseteq X^{(r)}\) be the initial segment of colex with \(|\mathcal C| = |\mathcal A|\). Then
+  \[
+    |\shadow^t \mathcal A| \geq |\shadow^t \mathcal C|
+  \]
+  for all \(1 \leq t \leq r\). In particular if \(|\mathcal A| = \binom{k}{r}\) then
+  \[
+    |\shadow^t \mathcal A| \geq \binom{k}{r - t}.
+  \]
+\end{corollary}
+
+\begin{proof}
+  If \(|\shadow^t \mathcal A| \geq |\shadow^t \mathcal C|\) then \(|\shadow^{t + 1}\mathcal A| \geq |\shadow^{t + 1} \mathcal C|\) by \nameref{thm:Krustal-Katona}.
+\end{proof}
 
 
 

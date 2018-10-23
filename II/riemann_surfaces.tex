@@ -456,6 +456,90 @@ Then \(f \compose \varphi^{-1}\) is of the form \(g(z)^r\) where \(g(z) = (z - a
 
 Define a chart on the intersection of \(\varphi(U)\) with domain of \(g\), together with the chart \(\psi = g \compose \phi\). Therfore up to translation, any analytic function on a Riemann surface is locally equivalent to a powering map.
 
+\begin{definition}[complex torus]\index{complex torus}
+  Let
+  \[
+    \Lambda = \Z \tau_1 + \Z \tau_2 \subseteq \C
+  \]
+  be a lattice where \(\tau_1, \tau_2\) are nonzero in \(\C\) with \(\frac{\tau_1}{\tau_2} \notin \R\), i.e.\ are linearly independent over \(\R\). The quotient group \(T = \C / \Lambda\) can be equipped with a complex structure, known as a \emph{complex torus}.
+\end{definition}
+
+The complex structure is constructed as follow. Equip the quotient group \(T = \C / \Lambda\) with quotient topology. \(\pi: \C \to T\) is continuous so \(T\) is connected. \(\pi\) is also open: if \(U\) is an open set in \(\C\) then
+\[
+    \pi^{-1}(\pi(U)) = \bigcup_{\omega \in \Lambda} \omega + U
+  \]
+  a union of open sets so open. Note that any closed parallelogram
+  \[
+    P_z = \{z + r \tau_1 + s \tau_2: r, s \in [0, 1]\}
+  \]
+  maps onto \(T\) by \(\pi\). So \(T\) is the continuous image of a compact set so compact. \(T\) is also Hausdorff: note first that \(\Lambda\) is a discrete set: if \(\Lambda\) contained an accummultaion point then \(0\) is also a limit point, i.e.\ for all \(k \in \N\) there exists \(m_k, n_k \in \Z\) (and wlog \(n_k \neq 0\)) such that
+  \[
+    |m_k \tau_1 + n_k \tau_2| < \frac{1}{k}
+  \]
+  but then
+  \[
+    \left| \frac{m_k}{n_k} - \frac{\tau_2}{\tau_1} \right|
+    < \frac{1}{k|n_k|\tau_1}
+    \leq \frac{1}{k|\tau_1|}
+    \to 0
+  \]
+  as \(k \to \infty\) so \(\frac{\tau_2}{\tau_1} \in \R\), contradiction. Thus given two points \(w_1, w_2 \in T\) we can choose preimages \(x_i \in p^{-1}(w_i)\) and neighbourhoods \(N_i\) or \(z_i\) such that
+  \[
+    \left( \bigcup_{\omega \in \Lambda} N_1 + \omega \right) \cap \left( \bigcup_{\omega \in \Lambda} N_2 + \omega \right) = \emptyset,
+  \]
+  i.e.\ \(\pi(N_1)\) and \(\pi(N_2)\) are open disjoint with \(w_i \in \pi(N_i)\).
+
+  Now show \(\pi\) is a covering map: by the above \(\pi\) is a covering map, in fact regular: given \(w \in T\), choose \(z \in \C\) such that \(\pi^{-1}(w)\) lies in the interior of \(\Lambda\)-translates of \(P_z\), then choose a neighbourhood \(N\) of the unique preimage of \(w\) in \(P_z\) which is contained in the interior of \(P_z\). Then \(\pi(N)\) satisfies
+  \[
+    \pi^{-1}(\pi(N)) = \bigcup_{\omega \in \Lambda} \omega + N
+  \]
+  is a disjoint union of \(\pi(N)\).
+
+  Finally for the complex structure of \(T\), given \(a \in T\), choose \(z \in \C\) such that \(\pi(z) = a\) and a neighbourhood \(N_a\) of \(a\) on which the regularity is realised. In particular, the component \(N_z\) of \(\pi^{-1}(N_a)\) containing \(z\) has \(\pi|_{N_z}: N_z \to N_a\) a homeomorphism. Define a chart to be the image of a disk \(D_z\) about \(z\) contained in \(N_z\). Write \(U_a = \pi(D_z)\) and define a chart map \(\phi_a = (\pi|_{N_z})^{-1}\) on \(U_a\). Claim this defiens an atlas on \(T\): clearly this is a cover and claim the trasition maps are translations: suppose \(U_a \cap U_b = \emptyset\), for each \(w \in U_a \cap U_b\) there exists \(\omega_w \in \Lambda\) such that \(\phi_b^{-1} \compose \phi_a(w) = w + \omega_w\). But \(w \mapsto \omega_w\) is a continuous function on a connected set and it takes values in a discrete set so is constnat. Thus the transition functions are translations so analytic.
+
+In example sheet 1 we'll show that different lattices can yield conformally equivalent tori. In example sheet 2 we give choracterisation of conformal equivalence classes of tori in terms of \(\Lambda\). In some sense complex tori are the most important class of Riemann surfaces.
+
+\begin{theorem}[open mapping theorem]\index{open mapping theorem}
+  Let \(f: R \to S\) be a nonconstant analytic map of Rieman surfaces. Then \(f\) is an open map.
+\end{theorem}
+
+\begin{proof}
+  Suppose \(W \subseteq R\) is open. Choose \(z \in W\) and charts \((U, \phi)\) of \(z\), \((V, \psi)\) of \(f(z)\). Choose a disk \(D\) about \(\phi(z)\) sufficiently small such that
+  \[
+    \phi^{-1}(D) \subseteq W \cap f^{-1}(V) \cap U.
+  \]
+  Then
+  \[
+    (\psi \compose f \compose \phi^{-1})(D)
+  \]
+  is open so \((f \compose \psi^{-1})(D) = f(\phi^{-1}(D))\) is open. Thus
+  \[
+    f(z) \in (f \compose \phi^{-1})(D)) \subseteq f(W)
+  \]
+  so \(f(W)\) is open.
+\end{proof}
+
+\begin{corollary}
+  Let \(f: R \to S\) be a nonconstant analytic map. If \(R\) is compact then \(f(R) = S\) and \(S\) is compact.
+\end{corollary}
+
+\begin{proof}
+  \(f(R)\) is open because \(f\) is open. It is also closed as it is compact in \(S\), a Hausdorff space. As \(S\) is connected, the nonempty clopen set \(f(R)\) is precisely \(S\). The second claim follows.
+\end{proof}
+
+\begin{corollary}
+  Complex tori and \(\C_\infty\) admit no analytic function which are nonconstant.
+\end{corollary}
+
+We have seen a special case of this in IB Complex Analysis: if \(f: \C_\infty \to \C\) is analytic then \(f(\infty) \in \C\) so \(f\) is bounded on a neighbourhood of \(\infty\). By Liouville's theorem \(f\) is constant.
+
+\begin{definition}
+  Let \(h: R \to \R\) be a continuous function on a Riemann surface \(R\). \(h\) is \emph{harmonic} if for all charts \((U, \phi)\) of \(R\), \(h \compose \phi^{-1}\) is harmonic on \(\phi(U)\).
+\end{definition}
+
+\begin{definition}
+  A \emph{meromorphic} function on a Riemann surface \(R\) is an analytic map to \(\C_\infty\).
+\end{definition}
 
 
 
