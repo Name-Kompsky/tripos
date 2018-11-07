@@ -55,11 +55,11 @@ are continuous and the metric is translation invariant: \(d(x, y) = d(x + z, y +
 
   Indeed,
   \begin{align*}
-    &\norm{\lambda_j x_j - \lambda x} \\
-    =& \norm{(\lambda_j - \lambda) x_j + \lambda(x_j - x)} \\
-    \leq& \norm{(\lambda_j - \lambda) x_j} + \norm{\lambda(x_j - x)} \\
-    =& |\lambda_j - \lambda| \norm{x_j} +|\lambda| \norm{x_j - x} \\
-    \to& 0
+    \norm{\lambda_j x_j - \lambda x}
+    &= \norm{(\lambda_j - \lambda) x_j + \lambda(x_j - x)} \\
+    &\leq \norm{(\lambda_j - \lambda) x_j} + \norm{\lambda(x_j - x)} \\
+    &= |\lambda_j - \lambda| \norm{x_j} +|\lambda| \norm{x_j - x} \\
+    &\to 0
   \end{align*}
 \end{proof}
 
@@ -350,32 +350,32 @@ The infimum of such \(C\) is called
     \norm{T_n x - T_mx}
     = \norm{(T_n - T_m) x}
     \leq \underbrace{\norm{T_n - T_m}}_{< \frac{\varepsilon}{\norm x}} \norm x
-    \leq \varepsilon
+    < \varepsilon
   \]
   Since \(Y\) is complete, there is \(y \in Y\) such that \(T_nx \to y\). Set \(Tx = y\). Need to check \(T \in B(X, Y)\) and \(\norm{T_n - T} \to 0\).
   \begin{itemize}
   \item \(T\) is linear:
     \begin{align*}
-      &T(\lambda x + \mu y) \\
-      =& \lim_{n \to \infty} T_n(\lambda x + \mu y) \\
-      =& \lim_{n \to \infty} (\lambda T_n x + \mu T_n y) \\
-      =& \mu T_x + \mu T_y
+      T(\lambda x + \mu y)
+      &= \lim_{n \to \infty} T_n(\lambda x + \mu y) \\
+      &= \lim_{n \to \infty} (\lambda T_n x + \mu T_n y) \\
+      &= \mu T_x + \mu T_y
     \end{align*}
   \item \(T\) is bounded: for \(\norm x \leq 1\),
     \begin{align*}
-      &\norm{Tx} \\
-      \leq& \norm{T_nx} + \norm{(T_n - T) x} \\
-      \leq& \norm{T_n} + \varepsilon \\
-      \leq& \sup_n \norm{T_n}
+      \norm{Tx}
+      &\leq \norm{T_nx} + \norm{(T_n - T) x} \\
+      &\leq \norm{T_n} + \varepsilon \\
+      &\leq \sup_n \norm{T_n}
     \end{align*}
     which is bounded as \((T_n)_n\) is Cauchy.
   \item \(T_n \to T\) in operator norm: for \(\norm x \leq 1\),
     \begin{align*}
-      &\norm{T_n x - Tx} \\
-      \leq& \norm{(T_n - T_m) x} + \norm{(T_m - T) x} \\
-      \leq& \norm{T_n - T_m} + \varepsilon \\
-      \leq& \limsup_{n \to \infty} \norm{T_n - T_m} \\
-      \to& 0
+      \norm{T_n x - Tx}
+      &\leq \norm{(T_n - T_m) x} + \norm{(T_m - T) x} \\
+      &\leq \norm{T_n - T_m} + \varepsilon \\
+      &\leq \limsup_{n \to \infty} \norm{T_n - T_m} \\
+      &\to 0
     \end{align*}
   \end{itemize}
 \end{proof}
@@ -477,7 +477,7 @@ The infimum of such \(C\) is called
 \end{theorem}
 
 \begin{proof}
-  It suffcies to show that any \(\norm \cdot\) on \(\K^n\) is equivalent to \(\norm \cdot_2\). Claim that \(\norm x \leq C \norm x_2\) for all \(x \in \K^n\):
+  It suffcies to show that any norm \(\norm \cdot\) on \(\K^n\) is equivalent to \(\norm \cdot_2\). Claim that \(\norm x \leq C \norm x_2\) for all \(x \in \K^n\):
   \[
     \norm x
     = \norm*{\sum_{i = 1}^n x_i e_1}
@@ -495,7 +495,7 @@ The infimum of such \(C\) is called
     \leq \norm{x - y}
     \leq C\norm{x - y}_2
   \]
-  Note also that \(S\) is compact (w.r.t.\ \(\norm \cdot_2\)) as it is closed and bounded. Therefore \(f\) assumes its minimum on \(S\), i.e.\ there exists \(\delta > 0\) such that \(f(x) \geq \delta\) for all \(x \in S\). Then for all \(x \in \K^n\), have
+  Note also that \(S\) is compact (with respect to \(\norm \cdot_2\)) as it is closed and bounded. Therefore \(f\) assumes its minimum on \(S\), i.e.\ there exists \(\delta > 0\) such that \(f(x) \geq \delta\) for all \(x \in S\). Then for all \(x \in \K^n\), have
   \[
     \norm x = \norm*{\frac{x}{\norm x_2}} \cdot \norm x_2 = f(\frac{x}{\norm x_2}) \cdot \norm x_2
     \geq \delta \norm x_2.
@@ -705,7 +705,7 @@ As expected for a product construction, the projections \(\pi_X: X \times Y \to 
 
 \subsection{Baire category}
 
-Recall that if \(X\) is a metric space, then \(Y \subseteq X\) is \emph{dense} if \(\cl Y = X\), i.e.\ \(Y \cap B_r(X) \neq \emptyset\) for all \(x \in X, r > 0\).
+Recall that if \(X\) is a metric space, then \(Y \subseteq X\) is \emph{dense} if \(\cl Y = X\), i.e.\ \(Y \cap B_r(x) \neq \emptyset\) for all \(x \in X, r > 0\).
 
 \begin{theorem}[Baire category theorem]\index{Baire category theorem}
   \label{thm:BCT}
@@ -815,7 +815,7 @@ Yet another formulation of Baire category theorem is
 \subsection{Principle of uniform boundedness}
 
 \begin{theorem}[principle of uniform boundedness]\index{principle of uniform boundedness}
-  Let \(X\) be a complete metric space. Let \((f_\lambda)_{\lambda \in \Lambda}\) be a family of continuous functions \(f_\lambda: X \to \R\). If \((f_\lambda)_{\lambda \in \Lambda}\) is pointwise bounded, i.e.\ for all \(x \in X\), \(\sup_{\lambda \in \Lambda} |f_\lambda(x)| < \infty\), then ther is a ball \(B_r(x_0) \subseteq X\) on which \(f_\lambda\) is uniformly bounded, i.e.
+  Let \(X\) be a complete metric space. Let \((f_\lambda)_{\lambda \in \Lambda}\) be a family of continuous functions \(f_\lambda: X \to \R\). If \((f_\lambda)_{\lambda \in \Lambda}\) is pointwise bounded, i.e.\ for all \(x \in X\), \(\sup_{\lambda \in \Lambda} |f_\lambda(x)| < \infty\), then there is a ball \(B_r(x_0) \subseteq X\) on which \(f_\lambda\) is uniformly bounded, i.e.
   \[
     \sup_{\lambda \in \Lambda} \sup_{x \in B_r(x_0)} |f_\lambda(x)| < \infty.
   \]
@@ -824,7 +824,7 @@ Yet another formulation of Baire category theorem is
 \begin{proof}
   Let
   \[
-    A_k = \{x \in X: |f_k(x)| \leq k \text{ for all } \lambda \in \Lambda\}
+    A_k = \{x \in X: |f_\lambda(x)| \leq k \text{ for all } \lambda \in \Lambda\}
     = \bigcap_{\lambda \in \Lambda} \{x \in X: |f_\lambda(x)| \leq k\}.
   \]
   Since \(f_\lambda\)'s are continuous, \(A_k\) is closed. Since \((f_\lambda)\) is pointwise bounded,
@@ -842,7 +842,7 @@ Yet another formulation of Baire category theorem is
 \end{theorem}
 
 \begin{proof}
-  Set \(f_\lambda: X \to \R, x \mapsto \norm{Tx}\). Then \(f_\lambda\) is continuous and \((f_\lambda)\) is pointwise bounded. By the principle of uniform boundedness, there is \(B_r(x_0) \subseteq X\) on which
+  Set \(f_\lambda: X \to \R, x \mapsto \norm{T_\lambda x}\). Then \(f_\lambda\) is continuous and \((f_\lambda)\) is pointwise bounded. By the principle of uniform boundedness, there is \(B_r(x_0) \subseteq X\) on which
   \[
     \sup_{\lambda \in \Lambda} \sup_{\norm{x - x_0} < r} \norm{T_\lambda x} < \infty.
   \]
@@ -869,7 +869,7 @@ The point of the theorem is not so much of finding a uniform bound on the functi
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(f: \R\to \R, x \mapsto x^2\) is continuous but not open.
-  \item \(f: \R^2 \to \R, (x, y) \to x + \operatorname{sgn}(y)\) is open but not continuous.
+  \item \(f: \R^2 \to \R, (x, y) \mapsto x + \operatorname{sgn}(y)\) is open but not continuous.
   \end{enumerate}
 \end{eg}
 
@@ -945,14 +945,15 @@ The point of the theorem is not so much of finding a uniform bound on the functi
     \[
       \cl{T(B_1(0))} \supseteq B_r(0)
     \]
-    for some \(r > 0\). We use Baire category theorem to do this. Since \(T\) is surjective, \(Y = \bigcup_{k = 1} \cl{T(B_k(0))}\). Since \(Y\) is complete, the Baire category theorem implies that there is \(k_0 \in \N\) such that \(\cl{T(B_{k_0}(0))}\) has nonempty interior, i.e.\ ther is \(r_0 > 0, y_0 = Tx_0\) such that
+    for some \(r > 0\). We use Baire category theorem to do this. Since \(T\) is surjective, \(Y = \bigcup_{k = 1} \cl{T(B_k(0))}\). Since \(Y\) is complete, the Baire category theorem implies that there is \(k_0 \in \N\) such that \(\cl{T(B_{k_0}(0))}\) has nonempty interior, i.e.\ there is \(r_0 > 0, y_0 = Tx_0\) such that
     \[
       B_{r_0}(y_0) \subseteq \cl{T(B_{k_0}(0))}.
     \]
     By linearlity,
     \begin{align*}
-      &B_{r_0}(0) = B_{r_0}(y_0) - Tx_0 \subseteq \cl{T(B_{k_0}(0))} - Tx_0 \\
-      =& \cl{T(B_{k_0}(-x_0))} \subseteq \cl{T(B_{k_0 + \ell_0}(0))} = (k_0 + \ell_0) \cl{T(B_1(0))}
+      B_{r_0}(0)
+      &= B_{r_0}(y_0) - Tx_0 \subseteq \cl{T(B_{k_0}(0))} - Tx_0 \\
+      &= \cl{T(B_{k_0}(-x_0))} \subseteq \cl{T(B_{k_0 + \ell_0}(0))} = (k_0 + \ell_0) \cl{T(B_1(0))}
     \end{align*}
     where \(\ell_0 \geq \norm{x_0}\). Now take \(r = \frac{r_0}{k_0 + \ell_0}\).
   \item If \(T\) is bijective, then \(T\) is open means that \(T^{-1}\) is continuous.
@@ -1140,7 +1141,570 @@ Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in 
   \]
   Then \(f\) is still a continuous extension.
 \end{proof}
-  
+
+\subsection{Arzelà-Ascoli theorem}
+
+Answers the important question when is a subset of \(C(K)\) compact.
+
+Since we are studying normed spaces and subspaces thereof, which are in particular metric spaces, here are several notions of compactness in metric spaces. Note that in general they are not equivalent.
+
+\begin{definition}
+  A metric space \(X\) is compact if any of the following conditions hold:
+  \begin{enumerate}
+  \item \(X\) has the \emph{Heine-Borel property}: any open cover of \(X\) has a finite subcover.
+  \item \(X\) is \emph{sequentially compact}, i.e.\ any sequence in \(X\) has a convergent subsequence.
+  \item \(X\) is \emph{complete} and \emph{totally bounded}, i.e.\ for any \(\varepsilon > 0\) there exists a finite \(\varepsilon\)-net. This is a finite set \(M \subseteq X\) such that for any \(x \in X\), there exists \(m M\) such that \(d(x, m) < \varepsilon\).
+  \end{enumerate}
+\end{definition}
+
+\begin{proof}
+  For \(1 \iff 2\) see IB Metric and Topological Spaces. \(2 \implies 3\) easily. We state here only the proof of \(3 \implies 2\). Let \((x_n) \subseteq X\) be a sequence. We want to find a convergent subsequence. Let \(M_n\) be a finite \(\frac{1}{n}\)-net for \(X\). Let \(m_1 \in M_1\) be such that \(B_1(m_1)\) contains infinitely many of the \(x_n\)'s. Let \(n_1\) be the first \(n\) such that \(x_n \in B_1(m_1)\). Given \(m_1 \in M_1, \dots\) and \(m_k \in M_k, n_1, \dots, n_k\) such that \(B_{1/j}(m_j)\) contains infinitely many points from \((x_n) \cap B_{1/i}(m_i)\) for all \(i \leq j\), and \(x_{n_\ell} \in \bigcap_{i = 1}^\ell B_{1/i}(m_i)\) for \(\ell \leq k\), let \(m_{k + 1}\) be such that \(B_{1/(k + 1)}(m_{k + 1})\) contains infinitely many points from \((x_n) \cap \bigcap_{j = 1}^k B_{1/j}(m_j)\) and \(n_{k + 1}\) be the first \(n > n_k\) such that \(x_{n_{k + 1}} \in \bigcap_{j = 1}^{k + 1} B_{1/j}(m_j)\). It follows that for \(\ell \geq k\),
+  \[
+    d(x_{n_k}, x_{n_\ell}) \leq d(x_{n_k}, m_k) + d(m_k, x_{n_\ell}) \leq \frac{2}{k} \to 0
+  \]
+  so \((x_{n_k})\) is Cauchy and thus has a convergent subsequence by completeness of \(X\).
+\end{proof}
+
+\begin{corollary}
+  Let \(X\) be a complete metric space. Then \(Y \subseteq X\) is relatively compact, i.e.\ has compact closure, if and only if \(Y\) is totally bounded.
+\end{corollary}
+
+\begin{proof}
+  \(Y\) is totally bounded if and only if \(\cl Y\) is totally bounded.
+\end{proof}
+
+For \(K\) compact Hausdorff, we always take \(C(K)\) with \(\norm \cdot_\infty\) norm, making \(C(K)\) into a Banach space, which is in particular a complete metric space.
+
+\begin{theorem}[Arzelà-Ascoli]\index{Arzelà-Ascoli theorem}
+  Let \(K\) be compact Hausdorff and \(\mathcal F \subseteq C(K)\). Then TFAE:
+  \begin{enumerate}
+  \item \(\mathcal F\) is relatively compact;
+  \item \(\mathcal F\) is bounded and equicontinuous, i.e.\ \(\sup_{f \in \mathcal F} \norm f_\infty < \infty\) and for all \(\varepsilon > 0, x \in K\) there exists a neighbourhodd \(U\) of \(x\) such that or all \(f \in \mathcal F\), \(|f(x) - f(y)| < \varepsilon\) for all \(y \in U\).
+  \end{enumerate}
+\end{theorem}
+
+The generalises the fact that a subset of a finite-dimensional space is relative compact if and only if it is bounded, with the additional requirement of equicontinuity.
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(1 \implies 2\): let \(\mathcal F\) be relatively compact, i.e.\ totally bounded. Thus for any \(\varepsilon > 0\) there exists \(f_1, \dots, f_n \in \mathcal F\) such that for all \(f \in \mathcal F\),
+    \[
+      \min_i \norm{f - f_i} < \varepsilon
+    \]
+    so in particular \(\norm f \leq \varepsilon + \max_i \norm{f_i}\) for all \(f \in \mathcal F\) so \(\mathcal F\) is bounded.
+
+    Let \(\varepsilon > 0\), \(f_1, \dots, f_n\) as above and \(x \in K\). Since the \(f_i\)'s are continuous, there exsits neighbourhoods \(U_i\) of \(x\) such that
+    \[
+      |f_i(x) - f_i(y)| < \varepsilon
+    \]
+    for \(y \in U_i\). Now let \(U = \bigcap_{i = 1}^n U_i\), which is again a neighbourhood of \(x\). For all \(y \in U\),
+    \[
+      |f(x) - f(y)|
+      \leq |f(x) - f_i(x)| + |f_i(x) - f_i(y)| + |f_i(y) - f(y)|
+      < 3\varepsilon
+    \]
+    where \(i\) is such that for all \(f \in \mathcal F\), \(\norm{f - f_i} < \varepsilon\). Thus \(\mathcal F\) is equicontinuous.
+  \item \(2 \implies 1\): Let \(\mathcal F\) be bounded and equicontinuous. For \(\varepsilon > 0\), we construct a finite \(3\varepsilon\)-net for \(\mathcal F\). Let \(\varepsilon > 0\). For \(x \in K\), let \(U_x\) be an open neighbourhood of \(x\) such that \(|f(x) - f(y)| < \varepsilon\) whenever \(f \in \mathcal F, y \in U_x\). Since \(K\) is compact, there are \(x_1, \dots, x_n\) such that
+    \[
+      K = \bigcup_{i = 1}^n U_{x_i}.
+    \]
+    Since \(\mathcal F\) is (uniformly) bounded, the vector \((f(x_1), \dots, f(x_n)) \in \K^n\) is bounded in any norm on \(\K^n\), say \(\norm \cdot_\infty\). Thus
+    \[
+      F = \{(f(x_1), \dots, f(x_n)) \in \K^n: f \in \mathcal F\} 
+    \]
+    is relatively compact in \(\K^n\). Thus there are \(f_1, \dots, f_m \in \mathcal F\) such that
+    \[
+      F' = \{(f_i(x), \dots, f_i(x_n)): 1 \leq i \leq m\} \subseteq \K^n
+    \]
+    is a finite \(\varepsilon\)-net of \(F\). Claim that moreover \(f_1, \dots, f_m\) is a finite \(3\varepsilon\)-net for \(\mathcal F\). Indeed, for \(x \in U_{x_j}\),
+    \[
+      |f(x) - f_i(x)|
+      \leq |f(x) - f(x_j)| + |f(x_j) - f_i(x_j)| + |f_i(x_j) - f_i(x)|
+      < 3 \varepsilon
+    \]
+    for some \(1 \leq i \leq m\) such since \(F'\) is a finite \(\varepsilon\)-net of \(F\). Thus \(\mathcal F\) is totally bounded and thus relatively compact.
+  \end{enumerate}
+\end{proof}
+
+\subsection{Aside: compact operator}
+
+\begin{definition}[compact operator]\index{compact operator}
+  Let \(X, Y\) be normed spaces and \(T: X \to Y\) linear. Then \(T\) is \emph{compact} if \(\cl{T(B_1(0))}\) is compact.
+\end{definition}
+
+Equivalently, every bounded \((x_n) \subseteq X\) has a subsequence such that \((Tx_n)\) converges along that sequence.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(T \in B(X, Y)\) of finite rank, i.e.\ \(T(X)\) is finite-dimensional, then \(T\) is compact as \(\cl{T(B_1(0))}\) is a bounded closed set in the finite-dimensional space \(T(X)\). In fact, compact operators are generalisation of matrices in the sense that every compact operator is the uniform limit of finite rank operators.
+  \item If \(\dim X = \infty\) then \(\id: X \to X\) is not compact as \(\cl{B_1(0)} = \cl B_1(0)\) is not compact.
+  \item Let \(K = [0, 1]\). Consider \(C^1[0, 1]\) with \(\norm f_{C^1} = \norm f_\infty + \norm{f'}_\infty\) and \(C^0([0, 1])\) with \(\norm f_{C^0} = \norm f_\infty\). Then the embedding \(\iota: C^1([0, 1]) \to C^0([0, 1])\) is compact. Indeed, let
+    \[
+      \mathcal F = \{f \in C^1([0, 1]): \norm f_\infty + \norm{f'}_\infty \leq 1 \} = \cl B_1(0) \subseteq C^1([0, 1])
+    \]
+    then \(\mathcal F\) is bounded in \(C^0([0, 1])\) and for any \(f \in \mathcal F\),
+    \[
+      |f(x) - f(y)|
+      \leq \norm{f'}_\infty |x - y|
+      \leq |x - y|
+      < \varepsilon
+    \]
+    whenever \(|x - y| < \varepsilon\). Thus \(\mathcal F\) is equicontinuous. So by Arzelà-Ascoli, \(\mathcal F\) is compact. \(\iota\) is compact.
+  \end{enumerate}
+\end{eg}
+
+In general, if \(Y\) is a Banach space then \(T: X \to Y\) is compact if and only if \(T(B_1(0))\) is totally bounded.
+
+\begin{theorem}
+  Let \(X\) be a normed space and \(Y\) a Banach space. Then the compact operators form a closed subspace of the space \(B(X, Y)\) of bounded operators.
+\end{theorem}
+
+\begin{proof}
+  There are two claims in the theorem:
+  \begin{enumerate}
+  \item if \(S\) and \(T\) are compact operators then so is \(S + T\),
+  \item if \(T_n \to T\) where \(T_n\)'s are compact and \(T\) is bounded then \(T\) is compact.
+  \end{enumerate}
+
+  Let \((x_n) \subseteq X\) be bounded. Then there is a subsequence \(\Lambda \subseteq \N\) such that \(Sx_n \to y\) for some \(y\) as \(n \in \Lambda, n \to \infty\). Moreover, there is a further subsequence \(\Lambda' \subseteq \Lambda\) such that \(Tx_n \to z\) as \(n \in \Lambda', n \to \infty\). Then
+  \[
+    (T + T) x_n = S x_n + T x_n \to y + z
+  \]
+  as \(n \in \Lambda', n \to \infty\). \(S + T\) is compact.
+
+  For the second claim, we need to show that \(T(B_1(0))\) is totally bounded. Let \(\varepsilon > 0\) and \(n \in \N\) be such that \(\norm{T - T_n} < \varepsilon\). Then
+  \[
+    T_n(B_1(0)) \subseteq \bigcup_{i = 1}^k B_\varepsilon (T_nx_i)
+  \]
+  for some \(x_1, \dots, x_k \in B_1(0)\) since \(T_n\) is compact. Thus
+  \[
+    T(B_1(0)) \subseteq \bigcup_{i = 1}^k B_{2\varepsilon} (T_n x_i) \subseteq \bigcup_{i = 1}^k B_{3 \varepsilon} (Tx_i)
+  \]
+  which is a finite \(\varepsilon\)-net for \(T(B_1(0))\). \(T(B_1(0))\) is totally bounded so \(T\) is compact.
+\end{proof}
+
+In particular this shows that limits of finite rank operators are compact:
+
+\begin{corollary}
+  Any limit in \(B(X, Y)\) of finite rank operators is compact.
+\end{corollary}
+
+\subsection{Application: Peano existence theorem}
+
+Recall in IB Analysis II
+
+\begin{theorem}[Picard-Lindelöf]
+  Let \(f: \R \to \R\) be locally Lipschitz continuous. Then for any \(x_0 \in \R\) there exists a maximal interval \((T_1, T_2)\), with \(T_1 = -\infty\) and/or \(T_2 = \infty\) allowed, such that
+  \[
+    \label{eqn:differential equation}
+    \left\{
+    \begin{array}{l}
+      x'(t) = f(x(t)) \\
+      x(0) = x_0
+    \end{array}
+    \right.
+    \tag{\ast}
+  \]
+  has a unique \(C^1\) solution \(x: (T_1, T_2) \to \R\) that is maximal, i.e.\ that is not the restriction of such a solution on a larger interval. Moreover if \(T_2 \neq \infty\), for any bounded \(K \subseteq \R\) there is \(t < T_2\) such that \(x([t, T_2)) \cap K = \emptyset\) and similarly if \(T_1 \neq -\infty\).
+\end{theorem}
+
+\begin{theorem}[Peano existence theorem]\index{Peano existence theorem}
+  \label{thm:Peano existence theorem}
+  Let \(f: \R \to \R\) be continuous. Then for any \(x_0 \in \R\), there is \(\varepsilon > 0\) and a solution \(x: (-\varepsilon, \varepsilon) \to \R\) to \eqref{eqn:differential equation}.
+\end{theorem}
+
+\begin{remark}
+  The solution is not necessarily unique. For example take \(f(x) = \sqrt{|x|}\).
+\end{remark}
+
+\begin{lemma}[a priori bound]
+  Assume that \(b > 0, M > 0\) are such that
+  \[
+    \label{eqn:2}
+    |f(x)| \leq M \text{ for } |x - x_0| \leq b
+    \tag{\dagger}
+  \]
+   Then if \(T \leq \frac{b}{M}\) and \(x\) is any \(C^1\) solution to \eqref{eqn:differential equation} for all \(|t| \leq T\), it follows that \(|x(t) - x_0| \leq b, |x'(t)| \leq M\).
+\end{lemma}
+
+\begin{proof}
+  Assume that \(x(t)\) is a \(C^1\) solution for \(|t| \leq T' < T\) such that \(|x(t) - x_0| \leq b\). Then
+  \[
+    |x'(t)| = |f(x(t))| \leq M
+  \]
+  so
+  \[
+    |x(t) - x_0| = \Bigg| \int_0^t f(x(s)) ds \Bigg| \leq Mt < b
+  \]
+  for \(|t| \leq T'\). This allows us to extend the solution beyond \(T'\) by continuous induction. Let
+  \[
+    I = \{T' \in [0, T]: |x(t) - x_0| \leq b \text{ for } |t| \leq T'\}.
+  \]
+  Note \(I \neq \emptyset\) and that \(I\) is closed. Claim that \(\sup I = T\): otherwise \(|x(t) - x_0| < b\) for \(|t| < \sup I\) but by continuity, a neighbourhood of \(\sup I\) also has to be contained in \(I\), contradiction. Thus \(I = [0, T]\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Peano existence theorem}]
+  Let
+  \[
+    B = \{f + \tilde g: \tilde g \in C^0, \norm{\tilde g}_\infty \leq \infty\}
+  \]
+  and choose \(M, b > 0\) such that \eqref{eqn:2} holds for all \(g \in B\). For any \(h \in B \cap C^1\) there is a local solution by Picard-Lindelöf. The lemma implies that these solutions are defined on all of \([-T, T]\) with \(T\) as in the lemma. Define the solution operator
+  \begin{align*}
+    S: B \cap C^1 &\to C^1[-T, T] \\
+    f &\mapsto x
+  \end{align*}
+  where \(x\) is the solution to \eqref{eqn:differential equation}. By the lemma, \(S(B \cap C^1)\) is bounded in \(C^1[-T, T]\) with norm \(\norm x_\infty + \norm{x'}_\infty\). By Arzelà-Ascoli, the embedding \(C^1[-T, T] \to C^1[-T, T]\) is compact, i.e.\ \(S(B \cap C^1)\) is relatively compact in \(C^0([-T, T])\). Let \(f_i \in B \cap C^1\) such that \(f_i \to f\) in \(C^0\) (this is not obvious but it will follow from Weierstrass approximation theorem in the next section), i.e.\ \(\norm{f - f_i}_\infty \to 0\). By relative compactness there is a subsequence \(x_i = Sf_i\) converges to some \(x \in C^0[-T, T]\) with \(\norm \cdot_\infty\) norm. Claim that \(x \in C^1([-T, T])\) and \eqref{eqn:differential equation} holds.
+
+  \begin{proof}
+    Since \(f_i \to f,  x_i \to x\) in \(C^0\) (along the subsequence, we also have \(f_i \compose x_i \to f \compose x\). Thus \(x_i = f_i \compose x_i \to f \compose x\) uniformly in \(|t| \leq T\). Thus \(x \in C^1\) and \(x' = f \compose x\).
+  \end{proof}
+\end{proof}
+
+\subsection{Stone-Weierstrass theorem}
+
+\begin{theorem}[Weierstrass approximation theorem]\index{Weierstrass approximation theorem}
+  \label{thm:Weierstrass approximation theorem}
+  The set of polynomials with real coefficients is dense in \(C([a, b], \R)\) in the uniform topology.
+\end{theorem}
+
+The theorem follows more or less directly from the approxmation of a single function: the absolute value function. As any continuous function can be approximated uniformly by piecewise linear function.
+
+\begin{lemma}
+  \label{lem:approximation of absolute value}
+  There is a sequence of polynomials \(P_n: [-1, 1] \to [0, 1]\) such that \(P_n \to |\cdot|\) uniformly on \([-1, 1]\) as \(n \to \infty\).
+\end{lemma}
+
+\begin{proof}
+  We use the Babylonian method to construct square root map, which when composed with square maps gives absolute value. The idea is that if \(q: [0, 1] \to [0, 1]\) is a function with
+  \[
+    q(t) = \frac{1}{2}(t + q(t)^2)
+  \]
+  Then
+  \[
+    (1 - q(t))^2 = 1 - 2q(t)+ q(t)^2 = 1 - t
+  \]
+  so
+  \[
+    1 - q(t) = \sqrt{1 - t}
+  \]
+  which is square root up translation and have
+  \[
+    |t| = 1 - q(1 - t^2).
+  \]
+  To approximate \(q\), define polynomials
+  \begin{align*}
+    Q_n: [0, 1] &\to [0, 1] \\
+    Q_0(t) &= 0 \\
+    Q_n(t) &= \frac{1}{2}(t + Q_{n - 1}(t)^2)
+  \end{align*}
+  If \(Q_n\) converges to some \(q\) then \(q(t) \in [0, 1]\) and satisfies \(q(t) = \frac{1}{2}(t + q(t)^2)\). To show the sequence converges, note that for any \(t \in [0, 1]\), \(Q_{n + 1}(t) \geq Q_n(t)\). Indeed
+  \[
+    Q_{n + 1}(t) - Q_n(t) = \frac{1}{2} \underbrace{(Q_n(t) + Q_{n - 1}(t))}_{\geq 0} \underbrace{(Q_n(t) - Q_{n - 1}(t))}_{\geq 0 \text{ by induction}}.
+  \]
+  Since \(Q_n\) is an increasing function by induction from definition, the last equality implies that \(Q_{n + 1}(t) - Q_n(t)\) is an increasing function. Thus
+  \[
+    Q_{n + 1}(t) - Q_n(t) \leq Q_{n + 1}(1) - Q_n(1)
+  \]
+  so
+  \[
+    Q_m(t) - Q_n(t) \leq Q_m(1) - Q_n(1)
+  \]
+  for all \(m > n, t \in [0, 1]\). Let \(m \to \infty\), get
+  \[
+    0 \leq 1 - \sqrt{1 - t} - Q_n(t) \leq 1 - Q_n(1)
+  \]
+  by defining properties of \(q\). Thus
+  \[
+    \norm{1 - Q_n(t) - \sqrt{1 - t}}_\infty \leq 1 - Q_n(1) \to 0
+  \]
+  as \(n \to \infty\).
+
+  Now set \(P_n(t) = 1 - Q_n(1 - t^2)\). Then \(\norm{P_n - |\cdot|}_\infty \to 0\) as \(n \to \infty\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Weierstrass approximation theorem}]
+  Exercise.
+\end{proof}
+
+We now state and prove a more abstract and general version of the approximation theorem.
+
+\begin{definition}[algebra]\index{algebra}\index{algebra!commutative}\index{algebra!unital}
+  A real/complex \emph{algebra} is a real/complex vector space \(A\) with a bilinear map
+  \begin{align*}
+    A \times A &\to A \\
+    (a, b) &\mapsto ab
+  \end{align*}
+  called product that is associative, i.e.\ \((ab)c = a(bc)\) for all \(a, b,c \in A\).
+
+  If \(ab = ba\) for all \(a, b \in A\) then \(A\) is \emph{commutative}.
+
+  If there exists \(1 \in A \setminus \{0\}\) such that \(1a = a = a1\) for all \(a \in A\) then \(A\) is \emph{unital}.
+\end{definition}
+
+\begin{definition}[normed/Banach algebra]\index{normed algebra}\index{Banach algebra}
+  If an algebra \(A\) is a normed vector space such that
+  \[
+    \norm{ab} \leq \norm a \norm b
+  \]
+  for all \(a, b \in A\) then \(A\) is called a \emph{normed algebra}. If \(A\) is a Banach space then \(A\) is called a \emph{Banach algebra}.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(C(K, \R)\) is a commutative unital Banach algebra with product being pointwise multiplication and unit being the constant function \(1\).
+  \item \(B(X, X)\), where \(X\) is a normed vector space, is a normed unital algebra with product being composition and unit being \(\id_X\). If \(X\) is Banach then so is \(B(X, X)\). It is noncommutative.
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[Stone-Weierstrass]\index{Stone-Weierstrass theorem}
+  \label{thm:Stone-Weierstrass}
+  Let \(A \subseteq C(K, \R)\) be a subalgebra that
+  \begin{enumerate}
+  \item separates points: for all \(x, y \in K, x \neq y\), there is \(f \in A\) such that \(f(x) \neq f(y)\),
+  \item vanishes nowhere: for all \(x \in K\) there is \(f \in A\) such that \(f(x) \neq 0\).
+  \end{enumerate}
+  then \(A\) is dense in \(C(K, \R)\).
+\end{theorem}
+
+\begin{eg}
+  Let \(U \subseteq \R^n\) be open bounded. Let \(A\) be the set of polynomials in \(x_1, \dots, x_n\). Then \(A\) is an algebra, separates points and contains the constant polynomial which vanishes nowhere. Thus Stone-Weierstrass theorem implies that \(\cl A = C(\cl U)\). In particular, \(C^\infty(\cl U)\) is dense in \(C(\cl U)\).
+\end{eg}
+
+We set up some terminologies and intermediate results before we prove the theorem. These definitions will also be useful later in this course and in other areas of maths. % check later
+
+\begin{definition}[poset, lattice]\index{lattice}\leavevmode
+  \begin{enumerate}
+  \item A \emph{partially ordered set} or \emph{poset} is a set \(P\) with a binary relation \(\leq\) such that for all \(u, v \in P\), either \(u \leq v\) or \(u \nleq v\) and is
+    \begin{enumerate}
+    \item reflective: \(u \leq u\),
+    \item transitive: if \(u \leq v, v \leq w\) then \(u \leq w\),
+    \item antisymmetric: if \(u \leq v, v \leq u\) then \(u = v\).
+    \end{enumerate}
+  \item A \emph{lattice} is a poset \(L\) with the property that for any \(u, v \in L\), there is a \emph{least upper bound} or \emph{join} \(u \vee v\) and a \emph{greatest lower bound} or \emph{meet} \(u \wedge v\), i.e.\
+    \begin{align*}
+      & u, v \leq u \vee v \text{ and if } u, v \leq b \text{ then } u \vee v \leq b, \\
+      & u \wedge v \leq u, v \text{ and if } b \leq u, v \text{ then } v \leq u \wedge v.
+    \end{align*}
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}
+  \(C(K, \R)\) is a lattice where \(f \leq g\) if and only if \(f(x) \leq g(x)\) for all \(x \in K\) and
+  \begin{align*}
+    (f \vee g) (x) &= \max \{f(x), g(x)\} \\
+    (f \wedge g) (x) &= \min \{f(x), g(x)\}
+  \end{align*}
+\end{eg}
+
+\begin{lemma}
+  Let \(A \subseteq C(K, \R)\) be a closed subalgebra. Then \(A\) is a lattice in \(C(K, \R)\).
+\end{lemma}
+
+\begin{proof}
+  We need to show that if \(f, g \in A\) then \(f \wedge g\) and \(f \vee g\) are also in \(A\).
+  \begin{align*}
+    (f \vee g) (x) &= \frac{1}{2} (f(x) + g(x) + |f(x) - g(x)|) \\
+    (f \wedge g) (x) &= \frac{1}{2} (f(x) + g(x) - |f(x) - g(x)|)
+  \end{align*}
+  so suffices to show that if \(f \in A\) then \(|f| \in A\). Let \(f \in A, f \neq 0, \varepsilon > 0\). Replacing \(f\) by \(f/\norm f_\infty\) we may assume that \(f\) takes values in \([-1, 1]\). By \Cref{lem:approximation of absolute value} there is a polynomial \(P: [-1, 1] \to [0, 1]\) such that \(\norm{P - |\cdot|}_\infty \leq \varepsilon\). Then \(\norm{P \compose f - |f|}_\infty \leq \varepsilon\). Since \(P \compose f \in A\) and \(A\) is closed, have \(|f| \in A\).
+\end{proof}
+
+\begin{lemma}
+  \label{lem:lattice}
+  Let \(L \subseteq C(K, \R)\) be a sublattice, any \(g \in C(K, \R)\) such that for all \(\varepsilon > 0\), for all \(x, y \in K\), exists \(f \in L\) such that
+  \[
+    \label{eqn:lattice}
+    \left\{
+      \begin{array}{l}
+        |f(x) - g(x)| < \varepsilon \\
+        |f(y) - g(y)| < \varepsilon
+      \end{array}
+    \right.
+    \tag{\ast}
+  \]
+  then \(g \in \cl L\). In particular, if this condition holds for all \(g \in C(K, \R)\) then \(\cl L = C(K, \R)\).
+\end{lemma}
+
+\begin{proof}
+  Let \(g \in C(K, \R)\) be as in the assumption and \(\varepsilon > 0\). We construct \(f \in L\) such that \(\norm{f - g} < \varepsilon\). For \(x, y \in K\), let \(f_{xy}\) be \(f\) in \eqref{eqn:lattice}. By continuity, the sets
+  \begin{align*}
+    U_{xy} &= \{z \in K: f_{xy}(z) < g(z) + \varepsilon\} \\
+    V_{xy} &= \{z \in K: f_{xy}(z) > g(z) - \varepsilon\}
+  \end{align*}
+  are open and \(\{x, y\} \subseteq U_{xy} \cap V_{xy}\). For any \(x\), \(\{U_{xy}\}_y\) is a cover of \(K\) so by compactness there are \(y_1, \dots, y_n\) such that \(\bigcup_{i = 1}^n U_{xy_i} = K\). Define
+  \begin{align*}
+    V_x &= \bigcap_{i = 1}^n V_{xy_i} \\
+    f_x &= \bigwedge_{i = 1}^n f_{xy_i} \in L
+  \end{align*}
+  then
+  \begin{align*}
+    f_x(y) &< g(y) + \varepsilon \text{ for all } y \in K \\
+    f_x(y) &> g(y) - \varepsilon \text{ for all } y \in V_x
+  \end{align*}
+  Now \(\{V_x\}_x\) is an open cover of \(K\). Choose finitely many \(x_1, \dots, x_m\) such that \(K = \bigcup_{j = 1}^m V_{x_j}\) by compactness. Set
+  \begin{align*}
+    f = \bigvee_{j = 1}^m f_{x_j} \in L
+  \end{align*}
+  so
+  \begin{align*}
+    f(y) &< g(y) + \varepsilon \text{ for all } y \in K \\
+    f(y) &> g(y) - \varepsilon \text{ for all } y \in K
+  \end{align*}
+  so \(|f(y) - g(y)| < \varepsilon\) for all \(y \in K\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Stone-Weierstrass}]
+  By continuity of addition and multiplication, the closure \(\cl A\) is a closed subalgebra \(C(K, \R)\) so is a lattice. Let \(g \in C(K, \R), x, y \in K\). We will find \(f \in A\) such that \(f(x) = g(x)\) and \(f(y) = g(y)\). In particular, \eqref{eqn:lattice} in \Cref{lem:lattice} holds.
+
+  By assumption \(A\) vanishes nowhere and separates points, i.e.\
+  \begin{align*}
+    & \forall x \in K, \exists f_x \in A \text{ such that } f_x(x) \neq 0 \\
+    & \forall x, y \in K, \exists f_{xy} \in A \text{ such that } f_{xy}(x) \neq f_{xy}(y)
+  \end{align*}
+  Claim that for all \(x \neq y\), there are \(\alpha, \beta, \gamma \in \R\) such that \(h = \alpha f_x + \beta f_y + \gamma f_{xy}\) satisfies
+  \[
+    h(x) \neq 0, h(y) \neq 0, h(x) \neq h(y).
+  \]
+  Indeed if \(f_{xy}(x) \neq 0\) and \(f_{xy}(y) \neq 0\) then we can take \(h = f_{xy}\). Otherwise wlog \(f_{xy}(y) = 0\) by rescaling we can assume
+  \[
+    f_{xy}(x) = 1, f_{xy} = 0, f_y(x) = C, f_y(y) = 1
+  \]
+  so take
+  \[
+    \alpha = 0, \beta = 1, \gamma = 2 - C.
+  \]
+  This gives the claim since
+  \begin{align*}
+    h(x) &= C + 2 - C = 2 \\
+    h(y) &= 1
+  \end{align*}
+  We find that \((h(x), h(y)), (h(x)^2, h(y)^2) \in \R^2\) are linearly independent. Then there are \(s, t \in \R\) such that
+  \[
+    (g(x), g(y)) = t (h(x), h(y)) + s (h(x)^2, h(y)^2) = (f(x), f(y))
+  \]
+  with \(f = th + sh^2 \in A\). \eqref{eqn:lattice} holds for any \(g \in C(K, \R)\), thus completing the proof.
+\end{proof}
+
+\begin{eg}
+  Let \(K \subseteq \R^n\) be compact. Then \(C(K)\) is separable, i.e.\ there is a countable dense set (given by polynomial with rational coefficients). Then by Stone-Weierstrass theorem we can approximate element in \(C(K)\).
+
+  In example sheet 3, we will show that given \(K\) compact Hausdorff, \(C(K)\) is separable if and only if \(K\) is metrisable.
+\end{eg}
+
+\begin{ex}
+  Let \(K\) and \(L\) be compact. Then \(A \subseteq C(K \times L)\) consisting of functions of the form
+  \begin{align*}
+    K \times L &\to \R \\
+    (x, y) &\mapsto \sum_{i = 1}^n f_i(x) g_i(y)
+  \end{align*}
+  where \((f_i) \subseteq C(K), (g_i) \subseteq C(L)\), is an algebra that separates points and vanishes nowhere. Thus \(\cl A = C(K \times L)\). In particular if \((f_i) \subseteq C(K), (g_i) \subseteq C(L)\) are dense sequences then functions of the form \((x, y) \mapsto \sum_{i = 1}^n f_i(x)g_i(y)\) are dense in \(C(K \times L)\).
+\end{ex}
+
+\begin{corollary}
+  For every \(f \in C([0, 1] \times C[0, 1])\), have
+  \[
+    \int_0^1 \int_0^1 f(x, y) dx dy = \int_0^1 \int_0^1 f(x, y) dy dx.
+  \]
+\end{corollary}
+
+\subsection{Complex Stone-Weierstrass theorem}
+
+\begin{theorem}[complex Stone-Weierstrass]\index{Stone-Wererstrass theorem!complex}
+  Let \(A \subseteq C(K, \C)\) be a subalgebra such that
+  \begin{enumerate}
+  \item \(A\) separates points,
+  \item \(A\) vanishes nowhere,
+  \item \(A\) is closed under complex conjugation, i.e.\ \(\conj f \in A\) if \(f \in A\)
+  \end{enumerate}
+  then \(\cl A = C(K, \C)\).
+\end{theorem}
+
+This is important in spectral theory, which we'll get back to in the last bit of the course.
+
+\begin{definition}[\(C^*\)-algebra]\index{\(C^*\)-algebra}
+  A \emph{\(C^*\)-algebra} is a complex unital Banach algebra \(A\) with an antilinear involution \(a \mapsto a^*\) satisfying
+  \begin{align*}
+    (ab)^* & = b^*a^* \\
+    1^* &= 1 \\
+    (\lambda a)^* &= \conj \lambda a^* \\
+    \norm{a^*} &= \norm a
+  \end{align*}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(C(K, \C)\) is a commutative \(C^*\)-algebra with \(f^* = \conj f\).
+  \item \(B(H, H)\) with \(H\) a Hilbert space is a \(C^*\)-algebra. We will come beack to this later.
+  \end{enumerate}
+\end{eg}
+
+\begin{corollary}
+  If \(A \subseteq C(K, \C)\) is a \(C^*\)-subalgebra that separates points then \(\cl A = C(K, \C)\).
+\end{corollary}
+
+\begin{proof}
+  The main observation is that if \(f \in A\) then
+  \begin{align*}
+    \Re f &= \frac{1}{2} (f + \conj f) \in A \\
+    \Im f &= \frac{1}{2i} (f - \conj f) \in A
+  \end{align*}
+  Let \(A_\R\) be the subalgebra of \(C(K, \R)\) generated by \(\Re f, \Im f\) for \(f \in A\). Then \(A_\R\) vanishes nowhere and separates points since \(A\) does, so the real version Stone-Weierstrass theorem implies that \(\cl A_\R = C(K, \R)\). Let \(f = u + iv \in C(K, \C)\) where \(U, v \in C(K, \R)\). There are \((u_j) \subseteq A_\R, (v_j) \subseteq A_\R\) such that \(u_j \to u, v_j \to v\). Since \(u_j + iv_j \in A\), \(\cl A = C(K, \C)\).
+\end{proof}
+
+\begin{eg}[Hardy space]\index{Hardy space}
+  One may wonder if closure under complex conjugation is necessary. Consider \(K = \cl D = \{z \in \C: |z| \leq 1\}\), the closed unit disk. Then
+  \[
+    A = \{f \in C(K, \C): f \text{ is analytic on } K\}
+  \]
+  is an algebra. It separates points and vanishes nowhere. But \(\cl A \neq C(K, \C)\) since \(z \mapsto \conj z\) is not in \(\cl A\).
+\end{eg}
+
+\begin{eg}
+  Let \(\mathbb T = \R/2\pi\Z\) be the circle, i.e.\ the interval \([-\pi, \pi]\) with end points identified. Let \(A\) be the subspace in \(C(\mathbb T, \C)\) spanned by \(\{e^{inx}\}_{n \in \Z}\). Its elements are called \emph{trigonometric polynomials}\index{trigonometric polynomial}. It is an algebra, separates points and contains the constants so vanishes nowhere. It is also closed under complex conjugation since \(\cl{e^{inx}} = e^{-inx}\) so \(\cl A = C(\mathbb T, \C)\) by complex Stone-Weierstrass theorem.
+\end{eg}
+
+\begin{eg}
+  On example sheet 3 we'll show that there exists \(f \in C(\mathbb T)\) such that \(S_nf(0) \nto f(0)\) where \(S_nf\) is the partial Fourier sum given by the \emph{Dirichlet sum}\index{Dirichlet sum}
+  \[
+    S_nf = \sum_{k = -n}^n \hat f_k e^{ikx}
+  \]
+  where
+  \[
+    \hat f_k = \frac{1}{2\pi} \int_{-\pi}^\pi f(x) e^{-ikx} dx.
+  \]
+  This does \emph{not} contradict the previous observation. The moral is that the trigonometric polynomials that provide a uniform approximation to a given \(f \in C(\mathbb T)\) cannot always be taken to be the partial Fourier sum!
+\end{eg}
+
+However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) in \(L^2\).
+
+\begin{proposition}
+  For every \(f \in C(\mathbb T)\),
+  \[
+    \lim_{n \to \infty} \int_{-\pi}^\pi |f - S_nf|^2 dx = 0.
+  \]
+\end{proposition}
+
+\begin{proof}
+  By complex Stone-Weierstrass theorem, for any \(\varepsilon \geq 0\) there is a trigonometric polynomial \(P\) such that \(\norm{P - f} < \varepsilon\). Note that \(S_nP = P\) if \(n \geq \deg P\), where \(\deg P\) is the largest \(n\) such that \(P\) contains \(e^{\pm inx}\). Then
+  \[
+    |f - S_nf| \leq |f - P| + |S_nf - P| = |f - P| + |S_nf - S_n P|
+  \]
+  if \(\deg P \leq n\) so
+  \[
+    |f - S_nf|^2 \leq 2 |f - P|^2 + 2 |S_nf - S_nP|^2
+  \]
+  since \((a + b)^2 \leq 2a^2 \leq 2b^2\). Thus
+  \[
+    \int_{-\pi}^\pi |f - S_nf|^2 dx
+    \leq 4 \int_{-\pi}^\pi |f - P|^2 dx
+    \leq 8\pi \varepsilon^2
+   \]
+   where we used \emph{Bessel's inequality}\index{Bessel's inequality}, which we will prove in the next section, that for \(g \in C(\mathbb T)\),
+   \[
+     \int_{-\pi}^\pi |S_ng|^2 dx \leq \int_{-\pi}^\pi |g|^2 dx.
+   \]
+\end{proof}
+
 
 
 

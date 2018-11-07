@@ -11,6 +11,8 @@
 \input{header}
 
 \DeclareMathOperator{\rel}{rel}
+\newcommand{\w}{\vee}
+\renewcommand{\b}{\partial} % boundary of a simplicial complex
 
 \begin{document}
 
@@ -848,7 +850,414 @@ We mainly care about special cases of the definition.
   Write \(F_n\) for the free group with \(n\) generators.
 \end{notation}
 
+\begin{lemma}
+  \[
+    \begin{tikzcd}
+      C \ar[r, "i"] \ar[d] & A \ar[d] \\
+      1 \ar[r] & A /\langle \langle i(C) \rangle\rangle
+    \end{tikzcd}
+  \]
+  is a pushout.
+\end{lemma}
 
+\begin{proof}
+  \blindtext
+\end{proof}
+
+presentation for free group with amalgamation
+
+\subsection{Seifert-van Kampen theorem for wedges}
+
+\begin{definition}[wedge]\index{wedge}
+  Given two pointed spaces \((X, x_0), (Y, y_0)\), the \emph{wedge} is
+  \[
+    X \w Y = X \amalg Y /(x_0 \sim y_0).
+  \]
+\end{definition}
+
+Usually \(X\) and \(Y\) are path-connected so we can define wedges \(X \w Y\) without specifying basepoints.
+
+\begin{theorem}[Seifert-van Kampen for wedges]\index{Seifert-van Kampen theorem}
+  If \(Y_1, Y_2\) are path-connected and \(x_0\) is the wedge point of \(X = Y_1 \w Y_2\). Then
+  \[
+    \pi_1(X, x_0) = \pi_1(Y_1, x_0) * \pi_1(Y_2, x_0).
+  \]
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+  non-examinable
+
+  Suppose \(f_1: \pi_1(Y_i, x_0) \to G\) are group homomorphisms for \(i = 1, 2\). We need to find a unique \(\phi: \pi_1(X, x_0) \to G\) such that \(\phi\) restricts to \(f_i\) on \(\pi_1(Y_i, x_0)\).
+
+  First replace \(X\) by \(X'\) (drawing) with \(X \simeq X'\). Let \(\gamma: I \to X'\) be a based loop. We can ``straighten'' \(\gamma\) so that it is of the form
+  \[
+    \gamma = \alpha_1 \cdot \beta_1 \cdot \alpha_2 \cdot \beta_2 \cdots \alpha_n \cdot \beta_n
+  \]
+  where \(\alpha_i\)'s are in \(\pi_1(Y_1, x_0)\) and \(\beta_i\)'s are in \(\pi_1(Y_1, x_0)\). Define
+  \[
+    \phi(\gamma) = f_1(\alpha_1) f_2(\beta_2) f_1(\alpha_2) \cdots f_2(\beta_{n - 1}) f_1(\alpha_n) f_2(\beta_n)
+  \]
+  uniquely. This is easily seen to be a homomorphism but we need to prove that \(\phi\) is well-defined. Let \(\gamma' \simeq_F \gamma\) with
+  \[
+    \gamma' = \alpha_1' \cdot \beta_1' \cdots \alpha_m' \beta_m'
+  \]
+  so
+  \[
+    \phi(\gamma') = f_1(\alpha_1')f_2(\beta_1') \cdots f_1(\alpha_m') f_2(\beta_m'),
+  \]
+  we need to prove that \(\phi(\gamma) = \phi(\gamma')\). The key idea is to ``straighten'' \(F\) so that it is ``transverse'' to \(x_0\): this means that \(F^{-1}(x_0) \subseteq I \times I\) consists of a finite union of circles and intervales embedded in \(I \times I\). If there is a cirlce \(S! \subseteq F^{-1}(0)\) then we can ``cut it out'' and remove it. An arc with both endpoints on \(\gamma\) exhibit a subarc \(\delta \subseteq \Gamma\) such that \(\delta \simeq c_{x_0}\) in \(Y_1\) or \(Y_2\), reducing \(n\) without changing \(\phi(\gamma)\). After finitely many of these moves, we are left with a picture of the following form (drawing). Therefore \(m = n\) and \(\alpha_i \simeq \alpha_i', \beta_i \cong \beta_i'\) as paths so \(\phi(\gamma) = \phi(\gamma')\) as required.
+\end{proof}
+
+\begin{eg}
+  Let \(X = S^1 \w S^1\), then
+  \[
+    \pi_1 X \cong \pi_1S^1 * \pi_1S^1 \cong \Z * \Z \cong F_2.
+  \]
+  More generally, let \(X_r = \bigvee_{i = 1}^r S^1\), sometimes called a bouquet, then
+  \[
+    \pi_1 X_r \cong \underbrace{\Z * \cdot * \Z}_{r} \cong F_r.
+  \]
+\end{eg}
+
+%find universal cover of X_r
+
+\subsection{Seifert-van Kampen theorem}
+
+\begin{theorem}[Seifert-van Kampen]\index{Seifert-van Kampen}
+  If \(X = Y_1 \cup_Z Y_2\) with \(Y_1, Y_2, Z\) open and path-connected and \(x_0 \in Z\) then the diagram
+  \[
+    \begin{tikzcd}
+      \pi_1(Z, x_0) \ar[r, "i_{1*}"] \ar[d, "i_{2*}"] & \pi_1(Y_1, x_0) \ar[d, "j_{1*}"] \\
+      \pi_1(Y_2, x_0) \ar[r, "j_{2*}"] & \pi_1(X, x_0)
+    \end{tikzcd}
+  \]
+  is a pushout.
+\end{theorem}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+\begin{eg}
+  Let \(X = S^n\) where \(n \geq 2\). Let \(x_\pm = (\pm 1, 0, \dots, 0)\) be the north/south poles and define
+  \begin{align*}
+    U_\pm &= S^n - \{x_\mp\} \\
+    V &=  U_+ \cap U_- = S^n - \{x_\pm\}
+  \end{align*}
+  Then \(X = U_+ \cup_V U_-\). Stereographic projection tells us that \(U_\pm \cong \R^n\). Project \(V\) radially onto the cylinder \((-1, 1) \times S^{n - 1}\), which is a homeomorphism so \(V \cong (-1, 1) \times S^{n - 1} \simeq S^{n - 1}\). \(S^{n - 1}\) is path-connected for \(n \geq 2\) so by Seifert-van Kampen the following diagram is a pushout:
+  \[
+    \begin{tikzcd}
+      \pi_1(S^{n - 1}, x_0) \ar[r] \ar[d] & 1 \ar[d] \\
+      1 \ar[r] & \pi_1(S^n, x_0)
+    \end{tikzcd}
+  \]
+  so \(\pi_1(S^n, x_0)\) is a quotient of \(1\) so is trivial.
+\end{eg}
+
+\begin{definition}[neighbourhood deformation retract]\index{neighbourhood deformation retract}
+  A subset \(Y \subseteq X\) is called a \emph{neighbourhood deformation retract} if there exists \(Y \subseteq V \subseteq X\) where \(V\) is open in \(X\) such that \(Y\) is a deformation rectraction of \(V\).
+\end{definition}
+
+\begin{corollary}
+  If \(X = Y_1 \cup_Z Y_2\) with \(Y_1, Y_2, Z\) path-connected and closed and \(Z\) a neighbourhood deformation retract of \(Y_1\) and \(Y_2\) and \(x_0 \in Z\) then
+  \[
+    \begin{tikzcd}
+      \pi_1(Z, x_0) \ar[r] \ar[d] & \pi_1(Y_1, x_0) \ar[d] \\
+      \pi_1(Y_2, x_0) \ar[r] & \pi_1(X, x_0)
+    \end{tikzcd}
+  \]
+  is a pushout.
+\end{corollary}
+
+\begin{proof}
+  See online notes.
+\end{proof}
+
+\subsection{Attaching cells}
+
+\begin{definition}[cell]\index{cell}
+  An \emph{\(n\)-cell} is a copy of \(D^n\), the closed ball in \(\R^n\).
+\end{definition}
+
+\begin{definition}
+  Let \(\alpha: S^{n - 1} = \partial D^n \to X\) be a continuous map. The space
+  \[
+    X \cup_\alpha D^n := X \amalg D^n / \sim
+  \]
+  where \(\sim\) is the finest equivalence relation such that \(\alpha(\theta) \sim \theta\) for all \(\theta \in S^{n - 1}\), is called an \emph{attaching cell}.
+\end{definition}
+
+What effect does attaching an \(n\)-cell have on \(\pi_1\)?
+
+Let's start with \(n \geq 3\):
+
+\begin{lemma}
+  If \(n \geq 3\) and \(\alpha: S^{n - 1} \to X\) is a continuous map. Let \(x_0 = \alpha(\theta_0)\) for \(\theta_0 \in S^{n - 1}\). Then the (not necessarily injective) inclusion map \(i: X \to X \cup_\alpha D^n\) induces an isomorphism \(i_*: \pi_1(X, x_0) \to \pi_1(X \cup_\alpha D^n, x_0)\).
+\end{lemma}
+
+\begin{proof}
+  The main obstacle is that \(\alpha\) might not be injective. However, we can divide \(D^n\) into two parts and attach \(D^n\) in two stages: the mapping cylinder of \(\alpha\) is
+  \[
+    M_\alpha := X \amalg (S^{n - 1} \times I) / \sim
+  \]
+  where \(\alpha(\theta) \sim (\theta, 0)\) for all \(\theta \in S^{n - 1}\). Note that
+  \begin{enumerate}
+  \item \(X\) is a deformation retract of \(M_\alpha\).
+  \item \(S^{n - 1} \times \{1\} \subseteq M_\alpha\) is a neighbourhood deformation retract.
+  \item \(S^{n - 1} \subseteq D^n\) is a neighbourhood deformation retract.
+  \end{enumerate}
+  If we choose \(\theta_1 \in S^{n - 1}\), the previous corollary tells us that
+  \[
+    \begin{tikzcd}
+      \pi_1(S^{n - 1}, \theta_1) \ar[r] \ar[d] & \pi_1(M_\alpha, \theta_1) \ar[d, "j_*"] \\
+      \pi_1(D^n, \theta_1) \ar[r] & \pi_1(M_\alpha \cup_{S^{n - 1}} D^n, \theta_1)
+    \end{tikzcd}
+  \]
+  is a pushout. Therefore the inclusion \(j: M_\alpha \to M_\alpha \cup_{S^{n - 1}} D^n\) induces an isomorphism on \(\pi_1\). Since \(X \cup_\alpha D^n = M_\alpha \cup_{S^{n - 1}} D^n\) and \(M_\alpha'\) deformation retracts to \(X\), the result follows.
+\end{proof}
+
+What about \(n = 2\)?
+
+\begin{lemma}
+  If \(\alpha: S^1 \to X\) is a continuous map and \(x_0 = \alpha(\theta_0)\) where \(\theta_0 \in S^1\). Then
+  \[
+    \pi_1(X \cup_\alpha D^2, \theta_0) \cong \pi_1(X, x_0) / \langle\langle [\alpha] \rangle\rangle
+  \]
+  and the inclusion map \(X \embed X \bigcap_\alpha D^2\) induces the quotient map
+  \[
+    \pi_1(X, x_0) \to \pi_1(X \cup_\alpha D^2, x_0).
+  \]
+\end{lemma}
+
+\begin{proof}
+  As in the proof of the previous lemma, the diagram
+  \[
+    \begin{tikzcd}
+      \pi_1(S^1, \theta_0) \ar[r, "\alpha_*"] \ar[d] & \pi_1(X, x_0) \ar[d, "i_*"] \\
+      \pi_1(D^2, \theta_0) \ar[r] & \pi_1(X \cup_\alpha D^2, x_0)
+    \end{tikzcd}
+  \]
+  is a pushout. By lemma 3.2 the result follows.
+\end{proof}
+
+\begin{theorem}
+  If \(G = \langle A | R \rangle\) with \(A, R\) both finite then it is the fundamental group of some space. Moreover the spaces can be taken to be compact.
+\end{theorem}
+
+In fact, we don't have to restrict our attention to finitely generated or finitely presented groups. So every group is the fundamental group of some space (although not compact in general).
+
+\begin{proof}
+  If \(R = \{r_1, \dots r_n\}\) then
+  \begin{align*}
+    G &= F(A) / \langle\langle r_1, \dots, r_n \rangle\rangle \\
+      &\cong (F(A) / \langle\langle r_1, \dots, r_{n - 1} \rangle\rangle) / \langle\langle r_n \rangle\rangle \\
+      &\cong \dots \\
+      &\cong (\dots (F(A)/ \langle \langle r_1 \rangle\rangle) \dots ) / \langle\langle r_n \rangle\rangle,
+  \end{align*}
+  one way to check this is to show they satisfy the same universal property. Now induciton on \(n\), with the base case \(n = 1\) being the wedge of \(|A|\) circles.
+\end{proof}
+
+\subsection{Classification of surfaces}
+
+\begin{definition}[topological manifold]\index{topological manifold}
+  An \emph{\(n\)-dimensional (topological) manifold} is a Hausdorff space \(M\) such that every \(x \in M\) has an open neighbourhood \(U\) homeomorphic to an open subset of \(\R^n\).
+\end{definition}
+
+\begin{definition}[surface]\index{surface}
+  A \(2\)-dimensional manifold is called a \emph{surface}.
+\end{definition}
+
+\begin{eg}
+  Let \(\alpha: S^1 \to *\). Consider \(X = * \cup_\alpha D^2\). Note that \(\int D^2 \cong \R^2\) and \(S^2 - \{x_+\} \cong \R^2\) via stereographic projection. Moreover the homeomorphism \(i: \int D^2 \to S^1 - \{x_+\}\) extends to a unique continuous bijection \(X \to S^2\), so a homeomorphism. In particular \(S^2\) is a surface.
+\end{eg}
+
+\begin{eg}
+  Let \(\Gamma_{2g} = \bigvee_{i = 1}^{2g} S_i^1\), with each \(S_i' \cong S^1\). Choose unit speed loops \(\alpha_1, \dots, \alpha_g\) and \(\beta_1, \dots, \beta_g\) in the circles. Let
+  \[
+    \rho_g = (\alpha_1 \cdot \beta_1 \cdot \overline \alpha_1 \cdot \overline \beta_1) \cdot (\alpha_2 \cdot \beta_2 \cdot \overline \alpha_2 \cdot \overline \beta_2) \dots (\alpha_g \cdot \beta_g \cdot \overline \alpha_g \cdot \overline \beta_g)
+  \]
+  and let
+  \[
+    \Sigma_g = \Gamma_{2g} \cup_{\rho_g} D^2.
+  \]
+  Claim \(\Sigma_g\) is a surface. There are three cases to consider. If a point in the interior of \(D^2\) then it has a neighbourhood homeomorphic to an open disk. If a point is in the interior of image of a path the ``two parts'' glue together to form an open disk. Similary all the edges are identified together.
+
+  \(\Sigma_0\) is just \(S^2\). \(\Sigma_1\) is the square with two sides identified to a torus. In general \(\Sigma_g\) is called the (orientable surface) with genus \(g\).
+\end{eg}
+
+\begin{eg}
+  Let \(\Gamma_{g + 1} = \bigvee_{i = 0}^g S_i^1\) and let
+  \[
+    \sigma_j = \alpha_0 \cdot \alpha_0 \cdot \alpha_1 \cdot \alpha_1 \dots \alpha_g \cdot \alpha_g
+  \]
+  let
+  \[
+    S_g = \Gamma_{g + 1} \cup_{\sigma_g} D^2.
+  \]
+  Similarly we can check these are surfaces. This is the \emph{non-orientable surface} of genus \(g\). \(S_0 = \R P^2\) and \(S_1\) is the Klein bottle.
+
+  We have
+  \begin{align*}
+    \pi_1 \Sigma_g &= \langle a_1, \dots, a_g, b_1, \dots, b_g | a_1b_1a_1^{-1}b_1^{-1} \cdots a_gb_ga_g^{-1}b_g^{-1}\rangle \\
+    \pi_1 S_g &= \langle a_0, \dots, a_g | a_0^2 a_1^2 \cdots a_g^2 \rangle
+  \end{align*}
+\end{eg}
+
+We state without proof
+
+\begin{theorem}[classification of compact surfaces]\index{classification of compact surfaces}
+  If \(M\) is a compact surface then either \(M \cong \Sigma_g\) or \(M \cong S_g\).
+\end{theorem}
+
+We won't prove this but a good point to start is to consider given an identification of \(S^1\) of \(D^2\), how can we convert it into one of the two forms?
+
+We also ask the following question: are \(\{\Sigma_g\}\) and \(\{S_g\}\) pairwise non-homeomorphic? What about homotopy equivalence? The only tool available to us is \(\pi_1\). The strategy is to that the fundamental groups map onto different abelian groups. % abelianisation
+
+\begin{lemma}
+  Let \(g \in \N\).
+  \begin{enumerate}
+  \item The group \(\pi_1 \Sigma_g\) surjects \(\Z^{2g}\) but not \(\Z^{2g} \oplus (\Z/(2))\).
+  \item The group \(\pi_1 S_g\) surjects \(\Z^g \oplus (\Z/(2))\) but not \(\Z^{g + 1}\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Easy. See notes.
+\end{proof}
+
+And as a result we get want we want
+
+\begin{corollary}
+  The strategy works.
+\end{corollary}
+
+\section{Simplicial complexes}
+
+We have seen that the fundamental groups are useful, and for example, when it works, it tells us \(S^n\) is contractible for \(n > 1\). There are higher dimensional analogues of \(\pi_1\), called the \emph{homotopy groups} \(\pi_n\). However, they are notoriously difficult to compute. Instead, we will use (more or less) the only thing in mathematics we understand fully (again, more or less) --- linear algebra. This is called \emph{homology}.
+
+There are many types of homologies and we'll only define \emph{simplicial homologies} in this course.
+
+\subsection{Simplices and stuff}
+
+\begin{definition}
+  A finite set \(V \subseteq \R^n\) is in \emph{general position} if the smallest affine subspace containing \(V\) is of dimension \(|V| - 1\).
+\end{definition}
+
+This is quite an abstract definition, but there are a few equivalent notions. For example, if \(V = \{v_0, \dots, v_n\}\) then for any \(t_0, \dots t_n\) such that \(\sum_{i = 0}^n t_i = 0\), if \(\sum_{i = 0}^n t_iv_i = 0\) then \(t_i = 0\) for all \(i\).
+
+\begin{definition}[simplex]\index{simplex}
+  For \(n \geq 0, V = \{v_0, \dots, v_n\} \subseteq \R^m\). The \emph{span} of \(V\) is
+  \[
+    \langle V \rangle = \{\sum_{i = 0}^n t_iv_i: t_i \geq 0, \sum_{i = 0}^n t_i = 1\}.
+  \]
+
+  If \(V\) is in general position, \(\sigma = \langle V \rangle\) is an \emph{\(n\)-simplex}.
+\end{definition}
+
+\begin{definition}[face]\index{face}
+  Let \(V = \{v_0, \dots, v_n\}\) in general position. If \(U \subseteq V\) then \(\langle U \rangle\) is called a \emph{face} of \(\langle V\rangle\), write \(\langle U \rangle \leq \langle V \rangle\).
+
+  If \(U \neq V\) then \(\langle U\rangle\) is called a \emph{proper} face.
+\end{definition}
+
+\begin{definition}[simplicial complex, dimension, skeleton]\index{simplicial complex}\index{dimension}\index{skeleton}
+  A \emph{simplicial complex} is a finite set of simplices \(K\) in some \(\R^m\) satisfying the following condition:
+  \begin{enumerate}
+  \item if \(\sigma \in K\) and \(\tau \leq \sigma\) then \(\tau \in K\),
+  \item if \(\sigma, \tau \in K\) then \(\sigma \cap \tau \leq \sigma\) and \(\sigma \cap \tau \leq \tau\).
+  \end{enumerate}
+
+  The \emph{dimension} of \(K\), denoted \(\dim K\), is the largest \(n\) such that \(K\) contains an \(n\)-simplex.
+
+  The \emph{\(d\)-skeleton} of \(K\) is
+  \[
+    K_{(d)} = \{\sigma \in K: \dim \sigma \leq d\}.
+  \]
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(\sigma\) is a simplex then \(K = \{\tau: \tau \leq \sigma\}\) is a simplicial complex.
+  \item If \(\sigma\) is a simplex then the set of proper faces of \(\sigma\), denoted \(\b \sigma\), is also a simplicial complex. It is called the \emph{boundary}\index{boundary} of \(\sigma\). The set of points in \(\sigma\) not in a simplex of \(\b \sigma\) is called the \emph{interior}, denoted by \(\mathring \sigma\).
+  \end{enumerate}
+\end{eg}
+
+Note that if \(\sigma\) is a \(0\)-simplex then \(\mathring \sigma = \sigma\).
+
+\begin{definition}[realisation/polyhedron]\index{realisation}\index{polyhedron}
+  The \emph{realisation} or \emph{polyhedron} of a simplicial complex \(K\) is the union of the simplices in \(K\), denoted by \(|K|\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item In \(\R^{n + 1}\), the standard basis \(\{e_0, \dots e_n\}\) is in general position. The simplex it spans \(\sigma_n = \langle e_0, \dots, e_n\rangle\) is called the \emph{standard \(n\)-simplex}.
+  \item The \emph{standard (simplicial) \((n - 1)\)-sphere} is \(\b \sigma_n\). 
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[triangulation]\index{triangulation}
+  A \emph{triangulation} of a space \(X\) is a homeomorphism \(h: |K| \to X\).
+\end{definition}
+
+It's not hard to see that there is a triangulation \(h: |\b \sigma_n| \to S^{n - 1}\).
+
+\begin{eg}
+  Here is another way of triangulating \(S^n\). For now set \(n = 2\). The convex hull of \(\{\pm e_0, \pm e_1, \pm e_2\}\) is a surface of an octahedron, which is triangulation of \(S^2\). In general, let \(\{e_0, \dots, e_n\}\) be the standard basis for \(\R^{n + 1}\) and \(E = \{\pm e_0, \dots, \pm e_n\}\). Let
+  \[
+    E_0 = \{S \subseteq E: \text{ for all \(i\) exactly one of \(\pm e_i\) is in } S\}.
+  \]
+  Let \(K = \{\langle S \rangle: S \in E_0\}\). This is the \emph{octahedral \(n\)-sphere} and there exists a triangulation \(|K| \to S^n\).
+\end{eg}
+
+\begin{definition}[simplicial map]\index{simplicial map}\index{simplicial map!realisation}
+  Let \(K, L\) be simplicial complexes. A \emph{simplicial map} \(f: K \to L\) is a map such that for all \(\langle v_0, \dots, v_n \rangle \in K\),
+  \[
+    f(\langle v_0, \dots, v_n \rangle) = \langle f(v_0), \dots, f(v_n) \rangle
+  \]
+  where \(f(\{v_i\}) = \{f(v_i)\}\).
+
+  The \emph{realisation} of \(f: K \to L\) is the continuous map \(|f|: |K| \to |L|\) defined on \(\sigma = \langle v_0 , \dots, v_n \rangle\) to be
+  \[
+    f_\sigma \left( \sum_{i = 0}^n t_iv_i \right) = \sum_{i = 0}^n t_i f(v_i).
+  \]
+\end{definition}
+
+Note that if \(\tau \leq \sigma\) then \(f_\tau = f_\sigma|_\tau\), so \(|f|\) is well-defined and continuous.
+\begin{eg}
+  (drawing)
+\end{eg}
+
+\subsection{Barycentric subdivision}
+
+Realisaition of simplicial maps are piecewise linear and thus very rigid. On the other hand, the realisations of simplicial complexes, as topological spaces, are ``deformable''. Is every continuous map \(|K| \to |L|\) homotopic to a realisation of a simplicial map? For example for \(K = L = \b \sigma_2\), there are infinitely many homotopy classes of continuous maps, which are in bijection with \(\pi_1(S^1)\). On the other hand there are only finitely many simplicial map \(K \to L\), and thus at most that many realisations. To establish the correspondence, we need subdivision.
+
+\begin{definition}[barycentre]\index{barycentre}
+  If \(\sigma = \langle v_0, \dots, v_n \rangle\), the \emph{barycentre} of \(\sigma\) is
+  \[
+    \hat \sigma_n = \frac{1}{n + 1} \sum_{i = 0}^n v_i.
+  \]
+\end{definition}
+
+\begin{definition}[barycentric subdivision]\index{barycentric subdivision}
+  Suppose \(K\) is a simplicial complex. The \emph{barycentric subdivision} of \(K\) is \(K'\) with vertices \(\{\hat \sigma: \sigma \in K\}\). A collection of barycentres \(\{\hat \sigma_0, \dots, \hat \sigma_n\}\) spans a simplex in \(K'\) whenever \(\sigma_0 \leq \sigma_1 \leq \dots \leq \sigma_n\).
+\end{definition}
+
+\begin{lemma}
+  \(K'\) is a simplicial complex and \(|K'| = |K|\).
+\end{lemma}
+
+\begin{proof}
+  See online notes.
+\end{proof}
+
+\begin{definition}
+  We define
+  \begin{align*}
+    K^{(0)} &= K \\
+    K^{(r)} &= (K^{(r - 1)})'
+  \end{align*}
+  the \(r\)th barycentric subdivision.
+\end{definition}
 
 
 

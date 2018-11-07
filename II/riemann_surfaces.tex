@@ -76,7 +76,7 @@ However, characterisation in terms of Laurent series is coordinate-dependent. In
 
 For completeness sake, we state that \(f\) has a pole at \(a\) if and only if neither of the above happens (so \(\lim_{z \to a} |f(z)| = \infty\)).
 
-This allows us, for example, to extend the definitions to infinity. Consider the Riemann sphere \(C_\infty\), on which a neighbourhood of infinity is the complement of a closed set not including \(\infty\). Mapping it to the complex plane, we define a puncutre disk around \(\infty\) to be the complement of a closed disk in \(\C\). Then we can talk conveniently about singularity at \(\infty\).
+This allows us, for example, to extend the definitions to infinity. Consider the Riemann sphere \(\C_\infty\), on which a neighbourhood of infinity is the complement of a closed set not including \(\infty\). Mapping it to the complex plane, we define a puncutre disk around \(\infty\) to be the complement of a closed disk in \(\C\). Then we can talk conveniently about singularity at \(\infty\).
 
 \begin{eg}
   \(f(z) = \frac{1}{e^z - 1}\) is meromorphic on \(\C\) with poles at \(z = 2\pi n i\) where \(n \in \Z\). By considering \(g(z) = \frac{z}{e^z - 1}\) which has removable singularity at \(0\), we know \(f\) has ple of order \(1\) at \(0\), and therefore at all poles by periodicity.
@@ -217,14 +217,14 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
 
   The rigorous construction is as follow. Let \(R = \coprod _{k \in \Z} \C^*\) and a basis for the topology on \(R\) is
   \begin{enumerate}
-  \item disks contained in a single sheet: \(D((\eta, k), r)\) disk of radius \(r\) about \(\eta \in \C \setminus \R_{\geq 0}\) at level \(k\), where \(r\) is sufficently small such that the disk does not interset \(\R_{\geq 0}\),
+  \item disks contained in a single sheet: \(D((\eta, k), r)\) disk of radius \(r\) about \(\eta \in \C \setminus \R_{\geq 0}\) at level \(k\), where \(r\) is sufficently small such that the disk does not intersect \(\R_{\geq 0}\),
   \item disks along \(\R_{\geq 0}\): for \(\eta > 0, k \in \Z, r < |\eta|\),
     \[
       A((\eta, k), r) = \{(z, k): |z - \eta| < r, \Im z \geq 0\} \amalg \{(z, k - 1), |z - \eta| < r, \Im z < 0\}.
     \]
   \end{enumerate}
 
-Check that this makes \(R\) into a Hausdorff, path-connected space. \(R\) comes with a natural projection \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\). This is a continuous map as the preimage of a small disk \(D(\eta, r) \subseteq \C^*\) is countably many copies of that disk, one for each sheet. This is precisely the definition of a covering space.
+Check that this makes \(R\) a Hausdorff, path-connected space. \(R\) comes with a natural projection \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\). This is a continuous map as the preimage of a small disk \(D(\eta, r) \subseteq \C^*\) is countably many copies of that disk, one for each sheet. This is precisely the definition of a covering space.
 \end{eg}
 
 \begin{definition}[covering space]\index{covering space}
@@ -268,7 +268,7 @@ A similar construction can be done for the multivalued function \(z^{1/n}\) wher
 \[
   (e^{i\theta})^{1/n} = r^{1/n} e^{i\theta/n} e^{2\pi ki/n}
 \]
-for \(k \in \Z/n\Z\). Define \(R_n = \coprod_{k \in \Z/n\Z} \C^*\) but gluing near modulo \(n\) (``top sheet to bottom sheet''). Then we have \(f_n, \pi_n\) such that the following diagram commutes:
+for \(k \in \Z/n\Z\). Define \(R_n = \coprod_{k \in \Z/n\Z} \C^*\) but glue near modulo \(n\) (``top sheet to bottom sheet''). Then we have \(f_n, \pi_n\) such that the following diagram commutes:
 \[
   \begin{tikzcd}
     R_n \ar[r, "f_n"] \ar[d, "\pi_n"] & \C^* \ar[dl, "z \mapsto z^n"] \\
@@ -402,7 +402,7 @@ We will see later that the notion of equivalence defines an equivalence relation
 \end{proposition}
 
 \begin{proof}
-  Given \(\tilde \in \tilde R\), we can find \(\tilde N\) of \(\tilde z\) on which \(\pi: \tilde \to N\) is a homeomorphism onto its image. Let \((V, \varphi)\) be a chart of the image \(\pi(\tilde z)\). Define \(U_{\tilde z} = \pi^{-1}(V) \cap \tilde B\) and \(\varphi_{\tilde z} = \varphi \compose \pi\). This defines a chart on some neighbourhood of \(\tilde z\) and \(\{(U_{\tilde z}, \varphi_{\tilde z}\}_{\tilde z \in \tilde R}\) defines an atlas: this is clearly a cover and the transition functions \(\varphi_{\tilde z} \compose \varphi_{\tilde w}^{-1}\) are the restrictions of transition functions for \(R\). \(\pi\) is analytic w.r.t.\ this conformal structure as the compositite maps are transition maps of \(R\). Uniqueness follows from a similar argument.
+  Given \(\tilde z \in \tilde R\), we can find \(\tilde N\) of \(\tilde z\) on which \(\pi: \tilde N \to N\) is a homeomorphism onto its image. Let \((V, \varphi)\) be a chart containing the image \(\pi(\tilde z)\). Define \(U_{\tilde z} = \pi^{-1}(V) \cap \tilde N\) and \(\varphi_{\tilde z} = \varphi \compose \pi\). This defines a chart on some neighbourhood of \(\tilde z\) and \(\{(U_{\tilde z}, \varphi_{\tilde z})\}_{\tilde z \in \tilde R}\) defines an atlas: this is clearly a cover and the transition functions \(\varphi_{\tilde z} \compose \varphi_{\tilde w}^{-1}\) are the restrictions of transition functions for \(R\). \(\pi\) is analytic with respect to this conformal structure as the composite maps are transition maps of \(R\). Uniqueness follows from a similar argument.
 \end{proof}
 
 \begin{eg}
@@ -422,7 +422,7 @@ We will see later that the notion of equivalence defines an equivalence relation
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(f\) as above for the logarithm Riemann surface is a conformal equivalence: the inverse ofmf is continuous and locally it is given by \(\pi^{-1} \compose \exp\) so is analytic. Therefore \((R, \pi)\) and \((\C, \exp)\) cannot be ``told apart''.
+  \item \(f\) as above for the logarithm Riemann surface is a conformal equivalence: the inverse of \(f\) is continuous and locally it is given by \(\pi^{-1} \compose \exp\) so is analytic. Therefore \((R, \pi)\) and \((\C, \exp)\) cannot be ``told apart''.
   \item \((\C, z)\) and \((\C, \conj z)\) are conformally equivalent as \(f(z) = \conj z\) is a conformal equivalence.
   \item
     \[
@@ -442,7 +442,7 @@ We will see later that the notion of equivalence defines an equivalence relation
 
 Therefore we use ``map'' to denote maps between Riemann surfaces and reserve ``function'' for a \(\C\)-valued map.
 
-Recall that
+Recall from IB Analysis II and IB Complex Analysis
 
 \begin{theorem}[inverse function theorem]
   Given analytic \(g\) on a domain \(V \subseteq \C\) and \(a \in V\) such that \(g'(a) \neq 0\), there exists a neighbourhood \(N\) of \(a\) such that \(g|_N : N \to g(N)\) is a conformal equivalence.
@@ -495,9 +495,9 @@ The complex structure is constructed as follow. Equip the quotient group \(T = \
   \]
   is a disjoint union of \(\pi(N)\).
 
-  Finally for the complex structure of \(T\), given \(a \in T\), choose \(z \in \C\) such that \(\pi(z) = a\) and a neighbourhood \(N_a\) of \(a\) on which the regularity is realised. In particular, the component \(N_z\) of \(\pi^{-1}(N_a)\) containing \(z\) has \(\pi|_{N_z}: N_z \to N_a\) a homeomorphism. Define a chart to be the image of a disk \(D_z\) about \(z\) contained in \(N_z\). Write \(U_a = \pi(D_z)\) and define a chart map \(\phi_a = (\pi|_{N_z})^{-1}\) on \(U_a\). Claim this defiens an atlas on \(T\): clearly this is a cover and claim the trasition maps are translations: suppose \(U_a \cap U_b = \emptyset\), for each \(w \in U_a \cap U_b\) there exists \(\omega_w \in \Lambda\) such that \(\phi_b^{-1} \compose \phi_a(w) = w + \omega_w\). But \(w \mapsto \omega_w\) is a continuous function on a connected set and it takes values in a discrete set so is constnat. Thus the transition functions are translations so analytic.
+  Finally for the complex structure of \(T\), given \(a \in T\), choose \(z \in \C\) such that \(\pi(z) = a\) and a neighbourhood \(N_a\) of \(a\) on which the regularity is realised. In particular, the component \(N_z\) of \(\pi^{-1}(N_a)\) containing \(z\) has \(\pi|_{N_z}: N_z \to N_a\) a homeomorphism. Define a chart to be the image of a disk \(D_z\) about \(z\) contained in \(N_z\). Write \(U_a = \pi(D_z)\) and define a chart map \(\phi_a = (\pi|_{N_z})^{-1}\) on \(U_a\). Claim this defines an atlas on \(T\): clearly this is a cover and claim the trasition maps are translations: suppose \(U_a \cap U_b = \emptyset\), for each \(w \in U_a \cap U_b\) there exists \(\omega_w \in \Lambda\) such that \(\phi_b^{-1} \compose \phi_a(w) = w + \omega_w\). But \(w \mapsto \omega_w\) is a continuous function on a connected set and it takes values in a discrete set so is constant. Thus the transition functions are translations so analytic.
 
-In example sheet 1 we'll show that different lattices can yield conformally equivalent tori. In example sheet 2 we give choracterisation of conformal equivalence classes of tori in terms of \(\Lambda\). In some sense complex tori are the most important class of Riemann surfaces.
+In example sheet 1 we'll show that different lattices can yield conformally equivalent tori. In example sheet 2 we give characterisation of conformal equivalence classes of tori in terms of \(\Lambda\). In some sense complex tori are the most important class of Riemann surfaces.
 
 \begin{theorem}[open mapping theorem]\index{open mapping theorem}
   Let \(f: R \to S\) be a nonconstant analytic map of Rieman surfaces. Then \(f\) is an open map.
@@ -537,9 +537,337 @@ We have seen a special case of this in IB Complex Analysis: if \(f: \C_\infty \t
   Let \(h: R \to \R\) be a continuous function on a Riemann surface \(R\). \(h\) is \emph{harmonic} if for all charts \((U, \phi)\) of \(R\), \(h \compose \phi^{-1}\) is harmonic on \(\phi(U)\).
 \end{definition}
 
-\begin{definition}
+Recall that a harmonic function on a domain in \(\C\) is the real part of some analytic funciton locally, same is true for harmonic functions on Riemann surfaces. Thus harmonicity is well-defined independent of charts.
+
+\begin{proposition}
+  Suppose \(h: R \to \R\) is harmonic on a Riemann surface \(R\). Then if \(h\) is nonconstant, \(h\) is open. In particular if \(R\) is compact, \(R\) admits no nonconstant harmonic function.
+\end{proposition}
+
+\begin{proof}
+  Given such a nonconstant \(h: R \to \R\) and open set \(U \subseteq R\) and \(z \in U \subseteq R\), choose \(z \in V \subseteq U\) open such that \(h = \Re g\) for some analytic function \(g\) on \(V\).
+  \[
+    \begin{tikzcd}
+      V \ar[d, "g"] \ar[dr, "h"] \\
+      g(V) \ar[r, "\Re"] & \R
+    \end{tikzcd}
+  \]
+  By open mapping theorem if \(g\) is nonconstant then it is open. Since \(\Re\) is open, their composition \(h\) is as well. For a proof that \(g\) is nonconstant, see example sheet 1 Q13.
+
+  The second claim follows.
+\end{proof}
+
+Here we digress a little bit on non-examibable content before heading to the next chapter. A fundamental result about harmonic functions on Riemann surfaces is that they ``almost'' exist. We cannot find nonconstant harmonic function from a compact Riemann surface. But as the next best alternative we have
+
+\begin{theorem}
+  Let \(R\) be a Riemann surface, \(P \neq Q \in R\). Then there exists a harmonic function \(h: R \setminus \{P, Q\} \to \R\) such that for any chart \(\phi: U \to \C\) about \(P\) with \(\phi(P) = 0\), \(h \compose \phi^{-1}\) is \(\log |z|\) plus a bounded function near \(0\), and for any chart \(\psi: V \to \C\) about \(Q\) with \(\psi(Q) = 0\), \(h \compose \psi^{-1}\) is \(-\log |z|\) plus a bounded function near \(0\).
+\end{theorem}
+
+% Terry Tao's notes on Riemann-Roch
+
+\begin{theorem}[Riemann existence theorem, classical version]\index{Riemann existence theorem}
+  Let \(R\) be a compact Riemann surface and \(P \neq Q\) in \(R\). Then there exists a meromorphic function \(f\) on \(R\) with \(f(P) \neq f(Q)\).
+\end{theorem}
+
+% separating points in algebraic geometry
+% for reference, see Doanldson's notes (wait till we do monodromy)
+
+\section{Meromorphic functions}
+
+\begin{definition}[meromorphic]\index{meromorphic}
   A \emph{meromorphic} function on a Riemann surface \(R\) is an analytic map to \(\C_\infty\).
 \end{definition}
+
+\begin{proposition}
+  Let \(U \subseteq \C\) is a domain. A function \(f: U \to \C_\infty\) is meromorphic if and only if it is meromorphic as a map from a Riemann surface.
+\end{proposition}
+
+\begin{proof}
+  Assume \(f: U \to \C_\infty\) is analytic. Given \(a \in U\), if \(f(a) \in \C\) then \(f\) is an analytic function near \(a\) so meromorphic. If \(f(a) = \infty\) then by considering the chart \((\C \setminus \{0\}, \frac{1}{z})\) of \(\C_\infty\) near \(\infty\), we see that \(g(z) = \frac{1}{f(z)}\) is analytic on a neighbourhood of \(a\) with \(g(a) = 0\). Thus \(g(z) = (z - a)^r h(z)\) where \(h\) is analytic nonzero on a neighbourhood of \(a\) so \(f(z) = (z - a)^{-r} \frac{1}{h(z)}\), which is meromorphic as a complex function.
+
+  All the implications above are equivalences so the reverse also holds.
+\end{proof}
+
+\begin{eg}
+  In example sheet 1 Q15 we show that \(\{(z, w): w^2 = z^3 - z\} \subseteq \C^2\) admits a conformal structure via the coordinate projection maps. We may alternatively do this geometrically by gluing. Define \(f(z) = z^3 - z\) and define \(U = \C \setminus ([-1, 0] \cup [1, \infty))\). Claim that we can define a square root of \(f\) on \(U\) (in other words, direct analytic continuation is transitive): this can be done locally at any point of \(U\). To show it's well-defined, consider a closed path \(\gamma \subseteq U\). By a result about winding number in example sheet 1 Q1,
+  \[
+    I(f \compose \gamma, 0) = I(\gamma, -1) + I(\gamma, 0) + I(\gamma, 1).
+  \]
+  We can check that \(I(\gamma, 1) = 0\) and \(I(\gamma, -1) = I(\gamma, 0)\) so \(I(f \compose \gamma, 0) \in 2 \Z\). Therefore if we define locally some \(\exp(\frac{1}{2} \log f(z))\), as we travel along \(\gamma\), the change in \(\log\) is
+  \[
+    \int_\gamma \frac{f'(z)}{f(z) - 0} dz = 2\pi i I(f \compose \gamma, 0) = 2n\pi i
+  \]
+  for some \(n \in 2\Z\) by argument principle. Thus \(\frac{1}{2} \log f(z)\) change by \(n\pi i\).
+
+  If we let \(U_+, U_-\) be two copies of \(U\) and denote by \(g_+: U_+ \to \C\) the map we just constructed and let \(g_- = -g_+\), glue according to the identifying segments (see image) to obtain a single surface \(R\) and an analytic function \(g\) on \(R\) which agrees with \(g_+\) on \(U_+\) and \(g_-\) on \(U_-\). Topologically, this is a torus minus four points.
+
+  It might be instructive to compare algebraic and gemeotric/topological construction and advantage of each. Later we'll learn to extract topological information \emph{directly} from the algebraic definition.
+\end{eg}
+
+\subsection{Space of germs and monodromy}
+
+\begin{definition}[lift]\index{lift}
+  Suppose \(\pi: \tilde X \to X\) is a (topological) covering map, and \(\gamma: [0, 1] \to X\) is a path. Then a \emph{lift} of \(\gamma\) is a path \(\tilde \gamma: [0, 1] \to \tilde X\) such that \(\pi \compose \tilde \gamma = \gamma\).
+\end{definition}
+
+\begin{proposition}
+  If \(\tilde gamma_1, \tilde \gamma_2\) are lifts of \(\gamma\) with \(\gamma_1(0) = \gamma_2(0)\) then \(\gamma_1 = \gamma_2\).
+\end{proposition}
+
+\begin{proof}
+  Define
+  \begin{align*}
+    I_1 &= \{t \in [0, 1]: \tilde \gamma_1(t) = \tilde \gamma_2(t)\} \\
+    I_2 &= \{t \in [0, 1]: \tilde \gamma_1(t) \neq \tilde \gamma_2(t)\}
+  \end{align*}
+  Claim that both are open in \([0, 1]\). First suppose \(\tau \in I_2\). As \(\tilde X\) is Hausdorff, there exist open disjoint \(U_1, U_2\) with \(\tilde \gamma_1(\tau) \in U_1, \tilde \gamma_2(\tau) \in U_2\). Paths are continuous so \(\tilde \gamma_1^{-1}(U_1)\) and \(\tilde \gamma_2^{-1}(U_2)\) are open neighbourhoods of \(\tau\) in \([0, 1]\), their intersection is thus open and contained in \(I_2\), so \(I_2\) is open.
+
+  Suppose now that \(\tau \in I_1\). Choose an open neighbourhood \(\tilde N\) of \(\tilde \gamma_1(\tau) = \tilde \gamma_2(\tau)\) in \(\tilde X\) such that \(\pi|_{\tilde N}\) is a homeomorphism onto its image. We have \(\pi(\tilde \gamma_1(t)) = \pi(\tilde \gamma_2(t))\) for all \(t\) as they are both lifts for \(\gamma\), so on \(\tilde N\) this implies that \(\tilde \gamma_1(t) = \tilde \gamma_2(t)\). By continuity of paths, there exists \(\delta > 0\) such that \(t \in (\tau - \delta, \tau + \delta) \subseteq [0, 1]\) implies \(\tilde \gamma_1(t), \tilde \gamma_2(t) \in \tilde N\). So the interval \((\tau - \delta, \tau + \delta) \subseteq [0, 1] \subseteq I_1\) so \(I_1\) is open. THus \(I_1 = [0, 1]\) by connectivity.
+\end{proof}
+
+In summary, lifts are unique up to choice of basepoints.
+
+As for existence, lifts may not exist if the cover is not regular. c.f.\ nonregular cover exmaple. However, it is the \emph{only} obstruction to the construction of a lift.
+
+\begin{proposition}
+  Suppose \(\pi: \tilde X \to X\) is a regular covering map. Given \(\gamma\) in \(X\) and \(z \in \tilde X\) such that \(\pi(z) = \gamma(0)\), there is a (unique) lift \(\tilde \gamma\) of \(\gamma\) with \(\tilde \gamma(0) = z\).
+\end{proposition}
+
+\begin{proof}
+  Define
+  \[
+    I = \{t \in [0, 1]: \text{ exists lift } \tilde \gamma: [0, 1] \to \tilde X \text{ of \(\gamma\) with } \tilde \gamma(0) = z\}
+  \]
+  and let \(\tau = \sup I\). Suppose for contradiction \(\tau \neq 1\). Choose an open neighbourhood \(U\) of \(\gamma(\tau)\) such that \(\pi^{-1}(U) = \coprod_j \tilde U_j\) and \(\pi|_{\tilde U_j}\) is a homeomorphism onto \(U\). By continuity of \(\gamma\), there exists \(\delta > 0\) such that \(\gamma([\tau - \delta, \tau + \delta]) \subseteq U\). Since \(\tau\) is the supremum, exists \(\tau_1 \in [\tau - \delta, \tau]\) such that \(\gamma\) lifts to \(\tilde \gamma\) on \([0, \tau_1]\) with \(\tilde \gamma(0) = z\). Choose \(j\) such that \(\tilde \gamma(\tau_1) \in \tilde U\). Define an extension of \(\tilde \gamma\) on \([\tau, \tau + \delta]\) by \((\pi|_{\tilde U_j})^{-1} \compose \gamma\). This gives a lift of \(\gamma\) to \([0, \tau + \delta]\), contradicting \(\tau = \sup I\). Thus \(\tau = 1\).
+\end{proof}
+
+\begin{definition}[homotopy]\index{homotopy}
+  We say paths \(\alpha, \beta\) in \(X\) are \emph{homotopic} in \(X\) if there exists a family \(\gamma_s\) of paths where \(s \in [0, 1]\) such that
+  \begin{enumerate}
+  \item \(\gamma_0 = \alpha, \gamma_1 = \beta\),
+  \item \(\gamma_s(0) = \alpha(0) = \beta(0)\) and \(\gamma_s(1) = \alpha(1) = \beta(1)\) for all \(s \in [0, 1]\),
+  \item \([0, 1] \times [0, 1] \to X, (s, t) \mapsto \gamma_s(t)\) is continuous.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[simply connected]\index{simply connected}
+  We say \(X\) is \emph{simply connected} if any path in \(X\) is homotopic to a constant path.
+\end{definition}
+
+\begin{theorem}[monodromy theorem]\index{monodromy theorem}
+  Let \(\pi: \tilde X \to X\) be a covering map and \(\alpha, \beta\) be paths in \(X\). Assume that
+  \begin{enumerate}
+  \item \(\alpha\) and \(\beta\) are homotopic in \(X\),
+  \item \(\alpha\) and \(\beta\) have lifts \(\tilde \alpha\) and \(\tilde \beta\) respectively with \(\tilde \alpha(0) = \tilde \beta(0)\),
+  \item every path in \(X\) with \(\gamma(0) = \alpha(0) = \beta(0)\) has a lift \(\tilde \gamma\) with \(\tilde \gamma(0) = \tilde \alpha(0) = \tilde \beta(0)\).
+  \end{enumerate}
+  Then the lifts \(\tilde \alpha\) and \(\tilde \beta\) are homotopic. In particular, \(\tilde \alpha(1) = \tilde \beta(1)\).
+\end{theorem}
+
+\begin{proof}
+  Non-examinable and omitted. See, for example, IID Algebraic Topology.
+\end{proof}
+
+\begin{eg}
+  Consider \(z \mapsto z^n\) on \(\C^* = \C \setminus \{0\}\). This is a regular covering map. Consider a loop \(\gamma\) based at \(1\). The preimages of \(1\) are the \(n\)th roots of unity \(\xi_n^k\), \(1 \leq k \leq n\). Any lift of \(\gamma\) will start at some \(\xi_n^k\) and end at \(\xi_n^{k + 1}\). As this is a regular cover, monodromy theorem tells that any path based at \(1\) has a lift whose endpoints are the same as if we lifted \(\gamma^{0n}\) for some \(n \in \Z\). Note to any path \(\alpha\) we have an associated permutation of the set \(\{\xi_n^k\}_{1 \leq k \leq n}\) by considering where the lift starting at \(\xi_n^k\) ends, i.e.\ an element of \(S_n\). The subset of \(S_n\) arising in this way is generated by \((123\dots n)\), which is the cyclic subgroup \(C_n\).
+
+  (It is an exercise to show that any closed path in the punctured plane is homotopic to an integer multiple of \(\gamma\).)
+\end{eg}
+
+\subsection{Space of germs}
+
+Suppose \(G \subseteq \C\) is a domain throughout this section.
+
+\begin{definition}[germ]\index{germ}
+  Given \(z \in G\) and \((f, D)\) and \((g, E)\) function elements. We say \((f, D) \equiv_z (g, E)\) if \(z \in D \cap E\) and \(f = g\) on a neighbourhood of \(z\). The equivalence class under \(\equiv_z\) of \((f, D)\) is called the \emph{germ} of \(f\) at \(z\), denoted by \([f]_z\).
+\end{definition}
+
+Compare this with direct analytic continuation, which is \emph{not} an equivalence relation.
+
+Note that two germs \([f]_z, [g]_w\) are equal if and only if \(z = w\) and \(f = g\) on a neighbourhood of \(z = w\).
+
+\begin{definition}
+  The \emph{space of germs on \(G\)} is the set
+  \[
+    \mathcal G = \{[f]_z: z \in G \text{ and } (f, D) \text{ is a function element with } z \in D\}.
+  \]
+\end{definition}
+
+\begin{notation}
+  Given a function element \((f, D)\), write
+  \[
+    [f]_D = \{[f]_z: z \in D\} \subseteq \mathcal G
+  \].
+\end{notation}
+
+The goal is to show that \(\mathcal G\) is the union of Riemann surfaces. First we define the topology on \(\mathcal G\) to be the one generated by the basis of elements of the form \([f]_D\). Given \([f]_D\) and \([g]_E\), if \([h]_z \in [f]_D \cap [g]_E\) then \(z \in D \cap E\) and \(h = f = g\) on a neighbourhood of \(z\). Thus there exists domain \(D'\) with \(z \in D'\) and \([h]_{D'} \subseteq [f]_D \cap [g]_E\).
+
+The topology is Hausdorff: suppose \([f]_z \neq [g]_w\) in \(\mathcal G\), represented by \((f, D)\) and \((g, E)\) repsectively. If \(z \neq w\) choose \(D \cap E = \emptyset\) so \([f]_z \in [f]_D\) and \([g]_w \in [g]_E\) and these open sets are disjoint. If \(z = w\) choose \(D = E\). Claim that \([f]_D \cap [g]_E = \emptyset\): for suppose \([h]_s \in [f]_D \cap [g]_E\) then by definition exists neighbourhood \(N\) of \(s\) such that \(h = f = g\) on \(N\) so that \(f = g\) on \(D = E\). In particular \([f]_z = [g]_z = [g]_w\), contradiction.
+
+The connected components of \(\mathcal G\) cover \(G\) via the forgetful map \(\pi([f]_z) = z\). To show this is a cover, let \(V \subseteq G\) be an open set, then
+\[
+  \pi^{-1}(V) = \{[f]_z: z \in V\} = \bigcup_{D \subseteq V} \{[f]_D: (f, D) \text{ is a function element}\}
+\]
+which is open. Locally on \([f]_D\), \(\pi\) is a bijection. On such a set \([f]_D\), \(U \subseteq [f]_D\) is open if and only if \(U = \bigcup_\alpha [f]_{D_\alpha}\), if and only if \(\pi(U) = \bigcup_\alpha D_\alpha\), if and only if \(\pi(U)\) is open.
+
+For conformal structure on \(\mathcal G\), we know by a previous proposition that on each connected component of \(\mathcal G\), there exists a unique conformal structure making \(\pi\) analytic. These charts can be taken to be \((U, \varphi)\) with \(U = [f]_D\) and \(\varphi = \pi_U\).
+
+\(\mathcal G\) is more than a conformal structure. It comes with an evaluation map
+\begin{align*}
+  E: \mathcal G &\to \C \\
+  [f]_z &\mapsto f(z)
+\end{align*}
+which is analytic: given a chart \(([f]_D, \pi|_{[f]_D})\) of \(\mathcal G\),
+\[
+  E \compose (\pi|_{[f]_D})^{-1}(z) = E([f]_z) = f(z)
+\]
+which is analytic in \(z\). So \(E\) is analytic.
+
+The stalk space \(\mathcal G\) incorporates all information about analytic functions on \(G\). The following a method to translate topological information of \(\mathcal G\) to analytic information of complete analytic functions:
+
+\begin{theorem}
+  Let \((f, D)\) and \((g, E)\) be function elements on \(G\) and \(\gamma: [0, 1] \to G\) a path with \(\gamma(0) \in D, \gamma(1) \in E\). Then \((g, E)\) is analytic continuation of \((f, D)\) along \(\gamma\) if and only if there exists a lift \(\tilde \gamma: [0, 1] \to \mathcal G\) of \(\gamma\) such that \(\tilde \gamma(0) = [f]_{\gamma(0)}, \tilde \gamma(1) = [g]_{\gamma(1)}\).
+\end{theorem}
+
+\begin{proof}
+  Suppose there exists \((f_j, D_j)_{j = 1}^n\) and \(0 = t_0 < t_1 < \dots < t_n = 1\) with
+  \[
+    (f, D) = (f_1, D_1) \sim (f_2, D_2) \sim \dots \sim (f_n, D_n) = (g, E)
+  \]
+  and \(f_{j - 1} = f_j\) on \(D_{j - 1} \cap D_j\) and \(\gamma([t_{j - 1}, t_j]) \subseteq D_j\) for all \(j\). We can define a lift
+  \[
+    \tilde \gamma(t) = [f_j]_{\gamma(t)}, t \in [t_{j - 1}, t_j]
+  \]
+  which is well-defined. Claim it is continuous: suppose \([h]_U \subseteq \mathcal G\) and \(\tilde \gamma(\tau) \in [h]_U\). Then
+  \[
+    \tilde \gamma(\tau) = [f_j]_{\gamma(\tau)}
+  \]
+  for some \(j\) so \(f_j = h\) on an open neighbourhood \(N\) of \(\gamma(\tau)\). As \(\gamma\) is continuous, there exists \(\delta > 0\) such that if \(|t - \tau| < \delta\) then \(\gamma(t) \in N\). Then for such \(t\),
+  \[
+    \tilde \gamma(t) = [f_j]_{\gamma(t)} = [h]_{\gamma(t)} \in [h]_U
+  \]
+  so \(\tilde \gamma\) is continuous. \(\tilde \gamma\) satisfies the lifting properties.
+
+  Conversely, suppose there is a lift \(\tilde \gamma\) of \(\gamma\) in \(\mathcal G\) with \(\tilde \gamma(0) = [f]_{\gamma(0)}\) and \(\tilde \gamma(1) = [g]_{\gamma(1)}\). For each \(t \in [0, 1]\), there exists a function element \((f_t, D_t)\) with \(\tilde \gamma(t) = [f_t]_{\gamma(t)}\). Note that \([f_t]_{D_t}\) contains \(\tilde \gamma(t)\). We have for each \(t\) an open interval \(I_t\) with \(\tilde \gamma(I_t) \subseteq [f_t]_{D_t}\). By compactness there exists a finite subcover, say intervals \([a_k, b_k]\), ordered so that \(a_{k + 1} < b_k\) for \(k = 1, \dots, n - 1\). Choose for each \(k\) some \(t_k \in (a_{k + 1}, b_k)\) and rename the corresponding open sets in \(\mathcal G\) \([f_k]_{D_k}\). wlog assume all \(D_k\)'s are disks. Since \(\tilde \gamma(0) = [f]_{\gamma(0)}\) and \(\tilde \gamma(1) = [g]_{\gamma(1)}\), we can also assume \(D_1 \subseteq D, D_n \subseteq E\) so \(f = f_1\) on \(D_1\) and \(g = f_n\) on \(D_n\). for each \(1 \leq k \leq n - 1\), we have
+  \[
+    \tilde \gamma(t_k) \in [f_k]_{D_k} \subseteq [f_{k + 1}]_{D_{k + 1}},
+  \]
+  so \(f_k = f_{k + 1}\) on \(D_k \cap D_{k + 1}\) by the identity principle, as \(f_k = f_{k + 1}\) on a neighbourhood of \(\gamma(t_k)\). So
+  \[
+    (f, D) \sim (f_1, D_1) \sim \dots \sim (f_n, D_n) \sim (g, E).
+  \]
+  Finally, on \([t_{k - 1}, t_k]\), we have
+  \[
+    \gamma([t_{k - 1}, t_k]) = \pi(\tilde \gamma([t_{k -1}, t_k])) \subseteq \pi([f_k]_{D_k}) = D_k,
+  \]
+  thus completing the proof.
+\end{proof}
+
+According to the way we present monodromy theorem (as a purely topological theorem) and the correpondence between lift of paths in the stalk space and analytic continuation, we can expect some results uniqueness of analytic continuation.
+
+\begin{proposition}
+  If \((g, E)\) and \((h, E)\) are analytic continuations of \((f, D)\) along \(\gamma \subseteq G\) then \(g = h\) on \(E\).
+\end{proposition}
+
+\begin{proof}
+  Basically done by correspondence between lift and analytic continuation and monodromy theorem. Let \((g, E)\) and \((h, E)\) correspond to lifts \(\tilde \gamma\) and \(\tilde \gamma'\) respectively based at \([f]_{\gamma(0)}\). Uniqueness of lifts implies that \(\tilde \gamma(1) = \tilde \gamma'(1)\), i.e.\ \([g]_{\gamma(1)} = [h]_{\gamma(1)}\), so \(g = h\) on a neighbourhood of \(\gamma(1)\) so on \(E\) by identity principle.
+\end{proof}
+
+We can also derive the so-called classical monodromy theorem
+
+\begin{theorem}[classical monodromy theorem]\index{monodromy theorem!classical}
+  Suppose \((f, D)\) can be continued analytically along all paths in \(G\) starting in \(D\). Then if \((g, E)\) and \((h, E)\) are analytic continuations of \(f\) along paths \(\alpha\) and \(\beta\) respectively, and \(\alpha\) is homotopic to \(\beta\) then \(g = h\) on \(E\).
+\end{theorem}
+
+\begin{theorem}
+  Find lifts \(\tilde \alpha\) and \(\tilde \beta\) corresponding to \((g, E)\) and \((h, E)\) respectively. Note \(\tilde \alpha(0) = [f]_{\alpha(0)} = [f]_{\beta(0)} = \tilde \beta(0)\). By monodromy theorem we have \(\tilde \alpha(1) = \tilde \beta(1)\) so \(g = h\) on \(E\) again by identity principle.
+\end{theorem}
+
+\begin{corollary}
+  Suppose \(G\) is a simply connected domain and \((f, D)\) is a function element on \(G\) which can be analytically continued along all \(\gamma \subseteq G\) paths with \(\gamma(0) \in D\). Then \(f\) extends to \(G\).
+\end{corollary}
+
+\begin{proof}
+  Define for \(z \in G\) \(f(z)\) as follows: we fix \(z_0 \in D\) and find a path \(\gamma\) on \(G\) with \(\gamma(0) = z_0\) and \(\gamma(1) = z\). By assumption \(f\) can be analytically continued along the path so by classical monodromy theorem and simply connectedness this is well-defined for all \(z \in G\).
+\end{proof}
+
+
+
+
+% compactness, tells us exactly what the connected componenets are
+
+\begin{corollary}
+  Let \(\mathcal F\) be a complete analytic function on \(G\) and define
+  \[
+    \mathcal G_{\mathcal F} = \bigcup_{(f, D) \in \mathcal F} [f]_D.
+  \]
+  Then \(\mathcal G_{\mathcal F}\) is a connected component of \(\mathcal G\).
+\end{corollary}
+
+\begin{proof}
+  Each \(\mathcal G\) is locally path-connected, so path-connected component is the same as connected component. The corollary follows from the theorem.
+\end{proof}
+
+\begin{definition}[Riemann surface associated to complete analytic function]\index{Riemann surface!associated to complete analytic function}
+  \(\mathcal G_{\mathcal F}\) is the \emph{Riemman surface associated to the complete analytic function \(\mathcal F\)}.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item For each \((f, D) \in \mathcal F\), the evaluation map \(E\) provides a single valued extension \(f \compose \pi\) on \([f]_D\) to all of \(\mathcal G_{\mathcal F}\).
+    \[
+      \begin{tikzcd}
+        \mathcal G_{\mathcal F} \ar[r, "E"] \ar[d, "\pi"] & \C \\
+        D \ar[ur, "f"']
+      \end{tikzcd}
+    \]
+  \item In example sheet 2 Q7 we will show that in general \(\pi: \mathcal G_{\mathcal F} \to G\) is not a regular cover.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}
+  Let \(R' = \{(z, w) \in \C^2: w^2 = z^3 - z, w \neq 0\}\) and let \(\mathcal G_{\mathcal F}\) be the Riemann surface associated to \(\sqrt{z^3 - z}\) over the domain \(G = \C \setminus\{-1, 0, 1\}\). Recall that the Riemann surface structure on \(R'\) can be obtained via \(\pi_z\).
+
+  Define
+  \begin{align*}
+    g: \mathcal G_{\mathcal F} &\to R' \\
+    [f]_z &\mapsto (\pi([f]_z), E([f]_z))
+  \end{align*}
+  \(g\) is continuous as a product of continuous map. \(g\) is also analytic: if \(([f]_D, \pi)\) is a chart of \(\mathcal G_{\mathcal F}\) then
+  \[
+    (\pi_z \compose g \compose \pi^{-1})(s) = (\pi_z \compose g)([f]_s) = \pi_z(\pi([f]_s), E([f]_s)) = \pi([f]_s) = s
+  \]
+  so analytic and open.
+
+  Define an inverse \(h\) of \(g\): given \((z, w) \in R'\), choose a neighbourhood \(N\) on which \(\pi_z\) is a local homeomorphism. Define \(h((z, w)) = [\pi_w \compose \pi_z^{-1}]_z\), then this is inverse to \(g\) so \(g\) is a conformal equivalence.
+\end{eg}
+
+We have so far seen three constructions of this Riemann surface:
+\begin{enumerate}
+\item embedded curve construction,
+\item space of germ \(\mathcal G_{\mathcal F}\) of \(\sqrt{z^3 - z}\),
+\item gluing construction.
+\end{enumerate}
+The above shows 1 and 2 are equivalent and we sill show 2 and 3 are equivalence in example sheet 2. Each construction has its advantange
+\begin{enumerate}
+\item inherit properties of \(\C^2\),
+\item always exists, although quite abstract. Moreover it is a covering space and is equipped with analytic maps \(\pi\) and \(E\),
+\item can get our hands on topology. Compactification
+\end{enumerate}
+
+\subsection{Compactifying Riemann surfaces}
+
+Recall the construction of Riemann sphere. We one-point compactify \(\C\) by adding a point \(\infty\). Then we define charts \((\C, z)\) and \(((\C\setminus \{0\}) \cup \{\infty\}, \frac{1}{z})\). The result is a map \(\C \embed \C_\infty\) that is not only a (dense) topological embedding into a compact space, but also an analytic map.
+
+In general, suppose \(X\) and \(Y\) are topological spacs, \(U \subseteq X, V \subseteq Y\) open and \(\phi: U \to V\) a homeomorphism. Let \(Z = X \amalg Y / \sim_\phi\) where \(a \sim_\phi b\) if and only if \(a = b, a = \phi(b)\) or \(a = \phi^{-1}(b)\). \(Z\) is known as the \emph{gluing of \(X\) and \(Y\) along \(\phi\)}.
+
+\begin{proposition}
+  Suppose \(X\) and \(Y\) are Riemann surfaces and \(U \subseteq X\) and \(V \subseteq Y\) are nonempty open sets with \(\phi: U \to V\) an isomorphism of Riemann surfaces. If \(Z = X \amalg Y / \sim_\phi\) is Hausdorff then there exists a unique conformal structure on \(Z\) for which \(i_X: X \embed Z, i_y: Y \embed Z\) are analytic.
+\end{proposition}
+
+\begin{proof}
+  Note \(i_x, i_Y\) are homeomorphisms. For each chart \((W, \psi)\) of \(X\) we define a chart \((i_X(W), \psi \compose i_X^{-1})\) on \(Z\), similarly for charts of \(Y\). Transition maps come from those of \(X\) or \(Y\) or those composed with \(\phi\) so are analytic. \(Z\) is connected for if we could disconnect \(Z\) we could disconnect \(X\) or \(Y\). So \(Z\) admits a conformal structure, with analytic inclusion. Uniqueness is immediate.
+\end{proof}
+
 
 
 

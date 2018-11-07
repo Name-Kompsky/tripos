@@ -14,6 +14,7 @@
 \newcommand*{\bigT}{\Theta}
 \newcommand*{\smallomg}{\omega}
 \DeclareMathOperator{\exx}{ex} % forbidden subgraph notation
+\DeclareMathOperator{\ud}{ud} % upper density
 
 \let\SO\undefined
 \usepackage{tkz-graph}
@@ -135,7 +136,7 @@ Supoose we have a monochromatic triangle \(i < j < k\), then \(j - i, k - j, k -
 \begin{definition}[subgraph]\index{subgraph}
   A graph \(H\) is a \emph{subgraph} of a graph \(G\) if \(V(H) \subseteq V(G)\) and \(E(H) \subseteq E(G)\).
 
-  More loosely, we \(H\) is a subgraph of \(G\) is \(H \cong H'\) for some subgraph \(H'\) of \(G\).
+  More loosely, we say \(H\) is a subgraph of \(G\) if \(H \cong H'\) for some subgraph \(H'\) of \(G\).
 
   Write \(H \subseteq G\) to mean \(H\) is a subgraph of \(G\).
 \end{definition}
@@ -263,7 +264,7 @@ In fact, in example sheet we will show \(R(3, 4) = 9\). Then
 \[
   R(4) = R(4, 4) \leq 2R(3, 4) = 18.
 \]
-It turns out to be a sharp, which we will also show on example sheet. What about \(R(5)\)? Nobody knows exactly. The bound as the time the note is taken is \(43 \leq R(5) \leq 48\). Although \(5\) seem innocuouly small, the computation required to find the exact Ramsey number is incredibly hard because as \(R(5) \approx 45\), \(K_{45}\) has \(\binom{45}{2} \approx 1000\) edges so there are approximately \(2^{1000}\) blue/yellow colourings.
+It turns out to be a sharp, which we will also show on example sheet. What about \(R(5)\)? Nobody knows exactly. The bound as the time the note is taken is \(43 \leq R(5) \leq 48\). Although \(5\) seem innocuouly small, the computation required to find the exact Ramsey number is enourmous: as \(R(5) \approx 45\), \(K_{45}\) has \(\binom{45}{2} \approx 1000\) edges so there are approximately \(2^{1000}\) blue/yellow colourings.
 
 However, we can easily bound them:
 
@@ -278,7 +279,7 @@ However, we can easily bound them:
   \]
 \end{proof}
 
-\(R(s) \leq 4^s\) seems like a rather crude bound and indeed we start the induction with a very sloppy \(t \leq 2^t\). If we do it more carefully, we get \(R(s, t) \leq \binom{s + t - 2}{s - 1}\) so \(R(s) \leq \binom{2s - 2}{s - 1}\). Approximate, e.g.\ by Stirling formula and we get
+\(R(s) \leq 4^s\) seems like a rather crude bound --- indeed we start the induction with a very sloppy \(t \leq 2^t\). If we do it more carefully, we get \(R(s, t) \leq \binom{s + t - 2}{s - 1}\) so \(R(s) \leq \binom{2s - 2}{s - 1}\). Approximate, e.g.\ by Stirling formula and we get
 \[
   R(s) = O(\frac{4^s}{\sqrt s}),
 \]
@@ -372,7 +373,7 @@ As a byproduct we have
 \begin{definition}[order]\index{order}
   Let \(G = (V, E)\) be a graph. The \emph{order} of \(G\) is \(|G| = |V|\).
 
-  We also write \(e(G) = |E|\). (sometimes call the \emph{size} of \(G\))
+  We also write \(e(G) = |E|\). (sometimes called the \emph{size} of \(G\))
 \end{definition}
 
 \begin{eg}\leavevmode
@@ -509,24 +510,24 @@ In general, \(|K_{m, n}| = m + n, e(K_{m, n}) = mn\). There is a more useful cha
 
 \subsubsection{Complete subgraphs}
 
-The problem of determining \(R(s)\) can be thought of as ``how many vertices can \(G\) have yet \(K_s \nsubseteq G\) and \(K_s \nsubseteq \overline G\). This is a typical example of an \emph{extremal problem}: how large can some parameter of a graph be before the graph is forced to have a certain property?
+The problem of determining \(R(s)\) can be thought of as ``how many vertices can \(G\) have yet \(K_s \nsubseteq G\) and \(K_s \nsubseteq \overline G\)''. This is a typical example of an \emph{extremal problem}: how large can some parameter of a graph be before the graph is forced to have a certain property?
 
 \begin{eg}
   Let \(|G| = n\). How large can \(e(G)\) get before \(G\) is forced to contain a triangle?
+
+  The idea is to try \(G\) bipartite, as we know bipartite graphs do not contain triangles. Clearly we need complete bipartite graph so seek \(K_{s, t}\) where \(s + t = n\) so that \(E(K_{s, t}) = st = s(n - s)\) is maximised. This is achieved when \(s = \frac{n}{2}\) when \(n\) is even or \(s = \frac{n \pm 1}{2}\) when \(s\) is odd. Among bipartite graphs, \(K_{\floor{n/2}, \ceil{n/2}}\) is the best. Can we do better?
+
+  Adding any edge to it creates a triangle but this isn't enough. For example, \(C_5\) is not bipartite but has the same property but clearly it isn't the best.
+  \begin{center}
+    \begin{tikzpicture}
+      \SetUpEdge[color = black]
+      \Vertices{circle}{1, 2, 3, 4, 5}
+      \Edges(1, 2, 3, 4, 5, 1)
+      \SetUpEdge[color = blue]
+      \Edges(1, 3)
+    \end{tikzpicture}
+  \end{center}
 \end{eg}
-
-The idea is to try \(G\) bipartite, as we know bipartite graphs do not contain triangles. Clearly we need complete bipartite graph so seek \(K_{s, t}\) where \(s + t = n\) so that \(E(K_{s, t}) = st = s(n - s)\) is maximised. This is achieved when \(s = \frac{n}{2}\) when \(n\) is even or \(s = \frac{n \pm 1}{2}\) when \(s\) is odd. Among bipartite graphs, \(K_{\floor{n/2}, \ceil{n/2}}\) is the best. Can we do better?
-
-Adding any edge to it creates a triangle but this isn't enough. For example, \(C_5\) is not bipartite but has the same property but clearly it isn't the best.
-\begin{center}
-  \begin{tikzpicture}
-    \SetUpEdge[color = black]
-    \Vertices{circle}{1, 2, 3, 4, 5}
-    \Edges(1, 2, 3, 4, 5, 1)
-    \SetUpEdge[color = blue]
-    \Edges(1, 3)
-  \end{tikzpicture}
-\end{center}
 
 In fact, bipartite always wins but we need to do some work.
 
@@ -588,7 +589,7 @@ Which \(r\)-bipartite graph of order \(n\) has most edges? Obviously such a \(G\
 Some properties of Turán graphs:
 \begin{enumerate}
 \item \(K_{r + 1} \nsubseteq T_r(n)\) but adding any edge to \(T_r(n)\) makes a \(K_{r + 1}\).
-\item If \(r \divides n\) then all vertex classes are the same size, namely \(\frac{n}{r}\). If \(r \ndivides n\), we have some small classes with \(\floor*{\frac{n}{r}}\) vertices and some large classes with \(\ceil*{\frac{n}{r}} = \floor*{\frac{n}{r}} + 1\) vertices
+\item If \(r \divides n\) then all vertex classes are the same size, namely \(\frac{n}{r}\). If \(r \ndivides n\), we have some small classes with \(\floor*{\frac{n}{r}}\) vertices and some large classes with \(\ceil*{\frac{n}{r}} = \floor*{\frac{n}{r}} + 1\) vertices.
 \item Each vertex is joined to everyting except vertices in its own class. Therefore if \(r \divides n\) then \(T_r(n)\) is regular. If \(r \ndivides n\) then \(v \in T_r(n)\) in a large class has \(d(v) = \delta(T_r(n))\) whereas if \(v\) is in a small class, \(d(v) = \Delta(T_r(n)) = \delta(T_r(n)) + 1\). Hence in either case, give the order and average degree, the vertex degrees are as equal as possible.
 \item What happens if we delete \(v \in T_r(n)\) of minimum degree? Then \(v\) is in a large class so we get \(T_r(n - 1)\). Therefore
   \[
@@ -691,7 +692,7 @@ This is a fairly typical for extremal problesm --- usually we don't get exact an
   \end{enumerate}
 \end{remark}
 
-Let's got for \(\exx(n; K_{t, t})\) for \(t \geq 2\). We shall count \(t\)-fans (graph). In particular a \(2\)-fan is a \(P_2\) subgraph.
+Let's go for \(\exx(n; K_{t, t})\) for \(t \geq 2\). We shall count \(t\)-fans (graph). In particular a \(2\)-fan is a \(P_2\) subgraph.
 
 \begin{definition}[fan]\index{fan}
   A \emph{\(t\)-fan} in a graph \(G\) is an ordered pair \((v, U)\) where \(v \in G, U \subseteq V(G), |U| = t\) and for all \(u \in U, v \sim u\).
@@ -808,7 +809,8 @@ Let \(H\) be any graph with at least one dege. What is \(\exx(n; H)\)? It is too
   \]
   Summing over \(v\) gives
   \begin{align*}
-    & n \binom{n - 1}{2} x_{n - 1} \geq \sum_{v \in G} e(G - v) = \sum_{v \in G} (e(G) - d(v)) \\
+    & n \binom{n - 1}{2} x_{n - 1} \\
+    \geq& \sum_{v \in G} e(G - v) = \sum_{v \in G} (e(G) - d(v)) \\
     =& n e(G) - 2e(G) = (n - 2) \binom{n}{2} x_n.
   \end{align*}
   Hence \(x_{n - 1} \geq x_n\). So \((x_n)\) is decreasing and bounded below by zero so converges.
@@ -821,10 +823,11 @@ This shows that \(\exx(H) = \lim_{n \to \infty} \frac{\exx(n; H)}{\binom{n}{2}}\
 \end{notation}
 
 \begin{theorem}[Erdős-Stone]\index{Erdős-Stone theorem}
+  \label{thm:Erdős-Stone theorem}
   Let \(r, t \geq 1\) be integers and \(\varepsilon > 0\) be real. Then there exists an integer \(n_0\) such that for all \(n \geq n_0\), if \(|G| = n, e(G) \geq (1 - \frac{1}{r} + \varepsilon) \binom{n}{2}\) then \(K_{r + 1}(t) \subseteq G\).
 \end{theorem}
 
-Before we give the proof, we have to ask what this not so obvious statement mean. Using notation in the statement of the theorem, Turán says that if density of edges is around \(1 - \frac{1}{r}\) then \(K_{r + 1} \subseteq G\). What happens if we make a tiny increase in the density? Erdős-Stone tells us that we get much, much more --- we get enormous ``blown-up'' \(K_{r + 1}\)'s as well. Of course this is provided \(G\) has sufficiently many vertices.
+Before we give the proof, we have to ask what this not so obvious statement means. Using notation in the statement of the theorem, Turán says that if density of edges is around \(1 - \frac{1}{r}\) then \(K_{r + 1} \subseteq G\). What happens if we make a tiny increase in the density? Erdős-Stone tells us that we get much, much more --- we get enormous ``blown-up'' \(K_{r + 1}\)'s as well. Of course this is provided \(G\) has sufficiently many vertices.
 
 We will get to the proof later but we can prove the case \(r = 1\). It says that for \(|G| = n, e(G) \geq \varepsilon \binom{n}{2}\) then \(K_{t, t} \subseteq G\) for \(n\) sufficiently large. But this follows from \Cref{thm:forbidden complete bipartite subgraph}:
 \[
@@ -902,6 +905,596 @@ It's been conjectured that
   \exx(n, K_{t, t}) = \Omega(n^{2 - \frac{1}{t}})
 \]
 for all \(t \geq 2\) but the problem remains unproven for \(n > 3\). Therefore even asymptotically, forbidden subgraph problem has not been solved for bipartite \(H\).
+
+As another application of Erdős-Stone, we define
+
+\begin{definition}[density]\index{density}
+  Let \(G\) be a graph. The \emph{density} of \(G\) is
+  \[
+    D(G) = \frac{e(G)}{\binom{|G|}{2}}.
+  \]
+\end{definition}
+
+\begin{definition}[upper density]\index{upper density}
+  Let \(G\) now be an infinite graph. The \emph{upper density} of \(G\) is the limit of the maximum densities of finite subgraphs, i.e.\
+  \[
+    \ud(G) = \lim_{n \to \infty} \sup \{D(H): H \subseteq G, |H| = n\}.
+  \]
+\end{definition}
+
+See example sheet 2 for its existence, or if you're patient, we will prove it in a moment.
+
+We have \(\ud(G) \in [0, 1]\). A priori, \(\ud(G)\) may take any value in \([0, 1]\) but in fact
+
+\begin{corollary}
+  Let \(G\) be an infinite graph. Then
+  \[
+    \ud(G) \in \{1\} \cup \{1 - \frac{1}{r}: r = 1, 2, \dots\}.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Let
+  \[
+    x_n = \sup \{D(H): H \subseteq G: |H| = n\}.
+  \]
+  Enough to show that if
+  \[
+    \limsup_{n \to \infty} x_n > 1 - \frac{1}{r}
+  \]
+  then
+  \[
+    \liminf_{n \to \infty} x_n \geq 1 - \frac{1}{r + 1}.
+  \]
+  Suppose \(\limsup_{n \to \infty} x_n > 1 - \frac{1}{r}\). Pick \(\varepsilon > 0\) such that
+  \[
+    1 - \frac{1}{r} + \varepsilon < \limsup_{n \to \infty} x_n,
+  \]
+  meaning that we can find a sequence \((H_j)\) of subgraphs of \(G\) with \(|H_j| = n_j \to \infty\) and \(D(H_j) \geq 1 - \frac{1}{r} + \varepsilon\). By Erdős-Stone, for any \(t\), if \(j\) is sufficiently large then \(K_{r + 1}(t) \subseteq H_j \subseteq G\). Then for any \(n\), if \(t\) is suffciently large we have \(T_{r + 1}(n) \subseteq K_{r + 1}(t) \subseteq G\). Then
+  \[
+    x_n \geq D(T_{r + 1}(n)) = \frac{t_{r + 1}(n)}{\binom{n}{2}} \to 1 - \frac{1}{r + 1}
+  \]
+  so
+  \[
+    \liminf_{n \to \infty} x_n \geq 1 - \frac{1}{r + 1}.
+  \]
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Erdős-Stone theorem}]
+  Sketch of proof, nonexaminable. The proof bears much similarity with that of \(\exx(n;, K_{t, t}) = O(n^{2 - \frac{1}{t}}\). In the statement of the theorem there is a condition on \(e(G)\). This is a global condition and does not give any restriction on a vertex, which we used to obtain an inequality on the number of \(t\)-fans previously. We want to convert it into a local condition, i.e.\ we'd rather prefer a lower bound on \(\delta(G)\). We begin with a technical lemma.
+  \begin{lemma}
+    Let \(\alpha, \varepsilon > 0\). Then there exists \(\gamma > 0\) and an integer \(n_0\) such that if \(|G| = n \geq n_0\) and \(e(G) \geq (\alpha + \varepsilon) \binom{n}{2}\) then there is \(H \subseteq G\) with \(|H| = n' \geq \gamma n\) and \(\delta(H) \geq \alpha n'\).
+  \end{lemma}
+
+  \begin{proof}[Sketch of proof]
+    Keep deleting vertices of minimum degree and do an unpleasant calculation.
+  \end{proof}
+
+  So we can reformulate the theorem as:
+
+\begin{theorem}
+  Let \(r, t \geq 1\) be integers and \(\varepsilon > 0\). Then there is some \(n_0\) such that for all \(n \geq n_0\),
+  \[
+    |G| = n, \delta(G) \geq (1 - \frac{1}{r} + \varepsilon) n
+  \]
+  then
+  \[
+    K_{r + 1}(t) \subseteq G.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Induction on \(r\). If \(r = 1\) then let \(|G| = n, \delta(G) \geq \varepsilon n\). So
+  \[
+    e(G) \geq \frac{n\delta(G)}{2} = \frac{\varepsilon n^2}{2}.
+  \]
+  But
+  \[
+    \exx(n; K_2(t)) = O(n^{2 - \frac{1}{n}})
+  \]
+  so for \(n\) sufficiently large,
+  \[
+    \exx(n; K_2(t)) < \frac{\varepsilon n^2}{2}
+  \]
+  and so \(K_2(t) \subseteq G\).
+
+  For \(r > 1\), suppose the result is false for some \(r \geq 2, t \geq 1, \varepsilon > 0\). Fix \(T\) ``large''. Pick \(n_0\) such that if \(n \geq n_0\) then \(|G| = n\) and
+  \[
+    \delta(G) \geq (1 - \frac{1}{r} + \varepsilon)n
+  \]
+  then \(K_r(T) \subseteq G\), which exists by induction hypothesis since \(1 - \frac{1}{r} > 1 - \frac{1}{r - 1}\). We can find a graph \(G\) with \(|G| = n  \geq n_0\), \(\delta(G) \geq (1 - \frac{1}{r} + \varepsilon)n\) but \(K_{r + 1}(t) \nsubseteq G\). Note that we can choose \(n\) to be as large as we like. We know \(K_r(T) \subseteq G\). Let \(V_1, \dots, V_r\) be the vertex sets of a \(K_r(T) \subseteq G\).
+
+  We now use the fan-counting trick (graph). Let
+  \[
+    X = \{(v_1, \dots, v_r, U): v_i \in V_i \text{ for all } 1 \leq i \leq r, u \sim v_i \text{ for all } u \in U\}
+  \]
+  be the ``generalised fans''. To pick \((v_1, \dots, v_r, U) \in X\) we could pick the \(v_i\)'s first (\(T\) choices each) then pick \(U \subseteq \bigcap_{i = 1}^r \Gamma(v_i)\) with \(|U| = t\). Now
+  \begin{align*}
+    &\big| \bigcap_{i = 1}^n \Gamma(v_i) \big| = |G| - \big| \bigcup_{i = 1}^r G \setminus \Gamma(v_i) \big| \geq |G| - \sum_{i = 1}^r |G \setminus \Gamma(v_i)| \\
+    =& n - \sum_{i = 1}^r (n - |\Gamma(v_i)|) \geq n - r (\frac{1}{r} - \varepsilon) n = r \varepsilon n
+  \end{align*}
+  so
+  \[
+    |X| \geq T^r \binom{r \varepsilon n}{t}.
+  \]
+  Suppose instead we pick \(U\) first. As \(K_{r + 1}(t) \nsubseteq G\), there cannot be \(t\) possible choices for each \(v_i\) so
+  \[
+    |X| \leq \binom{n}{t} (t - 1) T^{r - 1}.
+  \]
+  Note that we're basically done here since it can't be the case that \(T^{r - 1} \lesssim |X| \lesssim T^r\) as \(T\) is arbitrary. Concretely,
+  \begin{align*}
+    &\frac{n^t}{t!} (t - 1) T^{r - 1}
+      \geq \binom{n}{t} (t - 1) T^{r - 1}
+      \geq |X| \\
+    & \geq T^r \binom{r\varepsilon n}{t}
+      \geq T^r (\frac{r \varepsilon n}{2})^t \frac{1}{t!}
+  \end{align*}
+  for \(n\) sufficiently large so
+  \[
+    t - 1 \geq T (\frac{r\varepsilon}{2})^t
+  \]
+  so
+  \[
+    T \leq (t - 1) (\frac{2}{r \varepsilon})^t.
+  \]
+  But \(T\) is arbitrary, absurd.
+\end{proof}
+\end{proof}
+
+\subsection{Hamilton cycles}
+
+\begin{definition}[Hamilton cycle]\index{Hamiltonian cycle}\index{graph!Hamiltonian}
+  A \emph{Hamilton cycle} in a graph \(G\) is a cycle in \(G\) of length \(|G|\).
+
+  We say \(G\) is \emph{Hamiltonian} if it contains such a cycle.
+\end{definition}
+
+We can ask extremal questions for Hamiltonian cycles. If \(|G| = n\) for some fixed \(n\), how large can \(e(G)\) be without \(G\) being Hamiltonian? The answer is not very interesting --- we can have \(G\) non-Hamiltonian with almost all edges present by removing \(n - 2\) edges from a vertex in \(K_n\). As better question is to ask upper bound in \(\delta(G)\).
+
+\begin{theorem}[Dirac]\index{Dirac's theorem}
+  Let \(|G| \geq 3\) and \(\delta(G) \geq \frac{n}{2}\). Then \(G\) is Hamiltonian.
+\end{theorem}
+
+\begin{proof}
+  First, \(G\) is connected: indeed, suppose \(x, y \in G\) with \(x \nsim y\). We have
+  \[
+    |\Gamma(x) \cup \Gamma(y)| \leq n - 2
+  \]
+  but
+  \[
+    |\Gamma(x)| + |\Gamma(y)| \geq \frac{n}{2} + \frac{n}{2} = n > n - 2
+  \]
+  so exists \(z \in \Gamma(x) \cap \Gamma(y)\).
+
+  Let \(v_0 v_1 \dots v_\ell\) be a path in \(G\) of maximal length. By maximality,
+  \begin{align*}
+    \Gamma(v_0) &= \{v_1, \dots, v_\ell\} \\
+    \Gamma(v_\ell) &= \{v_0, \dots, v_{\ell - 1}\}
+  \end{align*}
+  To show it is part of a cycle, we want to show it ``doubles back'' at both endpoints. Let
+  \begin{align*}
+    A &= \{i \in [\ell]: v_0 \sim v_i\} \\
+    B &= \{i \in [\ell]: v_\ell \sim v_{i - 1}\}
+  \end{align*}
+  Then
+  \[
+    |A| + |B| \geq \frac{n}{2} + \frac{n}{2} = n
+  \]
+  but
+  \[
+    |A \cup B| \leq \ell \leq n - 1 < |A| + |B|
+  \]
+  so exists \(i \in A \cap B\) and \(C = v_0v_i \dots v_\ell v_{i - 1} v_{i - 2} \dots v_0\) is a cycle of length \(\ell + 1\) in \(G\). If \(\ell + 1 = n\) then \(G\) is Hamiltonian. If not, relabel \(C = v_0 v_1 \dots v_\ell v_0\). As \(G\) is connected there is some \(v_j \in C\) and some \(w \in G - C\) with \(w \sim v_j\). Then \(w v_j v_{j + 1} \dots v_\ell v_0 \dots v_{j - 1}\) is a path in \(G\) of length \(\ell + 1\), contradicting maximality.
+\end{proof}
+
+This is the best possible result. For \(|G| = n\) even, \(K_{n/2} \cup K_{n/2}\) has \(\delta(G) = \frac{n}{2} - 1\) but dissconnected. For \(|G| = n\) odd, let \(G\) be two copies of \(K_{(n + 1)/2}\) with one edge between them.
+
+We can prove more by same method.
+
+\begin{proposition}
+  Let \(G\) be connected and \(|G| = n, \delta(G) \geq k\) where \(2 \leq k < \frac{n}{2}\). Then \(G\) must contain a path of length \(2k\) and a cycle of length at least \(k + 1\).
+\end{proposition}
+
+\begin{proof}
+  Take \(v_0v_1 \dots v_\ell\) and \(A, B\) as in the previous proof. Suppose \(\ell < 2k\) then
+  \[
+    |A| + |B| \geq k + k = 2k > \ell \geq |A \cup B|
+  \]
+  so as before we can find a longer path, contradiction. So \(G\) has a path of length \(2k\).
+
+  Let \(i = \max A\). Then \(v_0v_1 \dots v_iv_0\) is a cycle of length \(i + 1\). But \(i \geq |A| \geq k\).
+\end{proof}
+
+\begin{remark}
+  We can't guarantee a cycle of length exactly \(k + 1\). For example, take \(n = 5, k = 2\) and \(G = C_5\).
+\end{remark}
+
+\subsubsection{Eulerian graphs}
+
+\begin{definition}[circuit, Eulerian]\index{circuit}\index{graph!Eulerian}
+  A \emph{circuit} in a graph \(G\) (of length \(\ell\)) is a sequence \(v_0v_1 \dots v_\ell\) of not-necessarily distinct vertices of \(G\) such that \(v_0 = v_\ell\) and if \(1 \leq i \leq \ell\) then \(v_{i - 1}v_i \in E(G)\) and if \(1 \leq i < j \leq \ell\) then \(v_{i - 1} v_i \neq v_{j - 1} v_j\).
+
+  If for all \(e \in E(G)\) we have \(e = v_{i - 1}v_i\) for some \(i\) we say the circuit is an \emph{Euler circuit}. If \(G\) has an Euler circuit, we say \(G\) is \emph{Eulerian}.
+\end{definition}
+
+\begin{proposition}
+  Let \(G\) be connected. Then \(G\) is Eulerian if and only if every vertex has even degree.
+\end{proposition}
+
+\begin{proof}
+  In an Euler circuit, each vertex appears the same number of times as a ``first'' vertex and as a ``second'' vertex of an edge.
+
+  Conversely, if every vertex has even degree then we start from a circuit and keep augementing it until we've travelled along each edge. Formally, induction on \(e(G)\). If \(e(G) = 0\) then done. If \(e(G) > 0\), let \(v_0v_1\dots v_\ell\) be a longest possible circuit. Easy to check it is non-trivial, i.e.\ \(\ell > 0\). Write \(C = v_0 v_1 \dots v_\ell\). If \(C\) is Euler circuit then done. Otherwise let
+  \[
+    F = \{v_{i - 1}v_i: 1 \leq i \leq \ell\} \subseteq E(G).
+  \]
+  Then \(e(G - F) > 0\) and each vertex of \(G - F\) has even degree. Moreover, \(C\) meets every component of \(G - F\). Let \(H\) be a component of \(G - F\) with at least one edge. By induction hypothesis, \(H\) has Euler circuit \(D = w_0w_1 \dots w_m\), say. \(C\) and \(D\) must meet, wlog \(v_0 = w_0\). Then \(v_0v_1 \dots v_{\ell - 1} w_0w_1 \dots w_n\) is a longer circuit in \(G\) than \(C\), contradiction.
+\end{proof}
+
+By running the proof on a multigraph we can show that Königsberg problem has a negative answer.
+
+\section{Graph colouring}
+
+\subsection{Planar graphs}
+
+Let's return to the map-colouring problem from chapter 0.
+
+\begin{definition}[colouring]\index{colouring}
+  A \emph{\(k\)-colouring} of a graph \(G\) is a function \(c: V(G) \to [k]\) such that if \(uv \in E(G)\) then \(c(u) \neq c(v)\).
+\end{definition}
+
+\begin{note}
+  Unfortunately the definition is in conflict with colouring in Ramsey theory sense. However, context should always be clear which one we're referring to.
+\end{note}
+
+As we defined graph as an abstract structure built on a set, although it is obvious what we mean by a ``drawing'' and we frequently employ such graphical representations in practice, we still have to make a formal definition. It is slightly irritating and you can forget about it as soon as we have defined it.
+
+\begin{definition}[drawing]
+  A \emph{(plane) drawing} of a graph \(G = (V, E)\) is an ordered pair \((\varphi, \Gamma)\) where \(\varphi: V \to \R^2\) is an injection and \(\Gamma = \{\gamma_e: e \in E\}\) where for each \(e \in E\), \(\gamma_e: [0, 1] \to \R^2\) is a continuous injection satisfying
+  \begin{enumerate}
+  \item for all \(uv \in E\), \(\{\gamma_{uv}(0), \gamma_{uv}(1)\} = \{\varphi(u), \varphi(v)\}\);
+  \item if \(e, f \in E\) with \(e \neq f\) then \(\gamma_e((0, 1)) \cap \gamma_f((0, 1)) = \emptyset\),
+  \item for all \(e \in E, v \in V\), \(\varphi(v) \notin \gamma_e((0, 1))\).
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[planar graph]\index{graph!planar}
+  If \(G\) has a drawing we say \(G\) is \emph{planar}.
+\end{definition}
+
+\begin{remark}
+  As we defined drawing as topological objects, it is reasonable to worry about pathological drawings of a graph, for example, if one of the path is a space-filling curve. However, it turns out that if \(G\) has a drawing, then it has a drawing in which the image of each \(\gamma_e\) is a finite union of line segments. Henceforth assume all drawings like this. However it is more convenient to draw an arc between vertices to represent a finite sequence of ``zig-zag'' line segments.
+\end{remark}
+
+The natural question is: how many colours do we need to colour a planar graph? Before we attempt to answer the question, we should try to understand planar graphs.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(K_3\) is planar. (graph)
+  \item \(K_4\) is planar. (graph)
+  \item What about \(K_5\)? Let \(\{v, w, x, y, z\} = V(G)\). \(K_5\) has a \(5\)-cycle \(vwxyz\), which in a draing separates \(\R^2\) into ``inside'' and ``outside'' (we don't need Jordan curve drawing since we have line segments). Need to add \(vx, wy, xz, yv, zw\). wlog \(vx\) is inside and \(wy\) is outside. Then \(xz\) has to be inside, \(yv\) outside. Now can't draw \(zw\) so \(K_5\) is not planar.
+  \item A similar argument shows \(K_{3, 3}\) is not planar: let \(\{a, b, c\}\) and \(\{x, y, z\}\) be the vertex classes. Have a \(6\)-cycle \(axbycza\). Need to add \(ay, bz, cx\). At most one can be drawn outside and at most one inside, so \(K_{3, 3}\) not planar.
+  \end{enumerate}
+\end{eg}
+
+Are there any other graph other than \(K_5, K_{3, 3}\) that is nonplanar? Obviously if \(K_5 \subseteq G\) or \(K_{3, 3} \subseteq G\) then \(G\) is nonplanar. It seems that there should be more ``classes'' of nonplanar graphs but surprisingly, this is essentially the only obstacle to planarity. Here essentially means the inclusion of ``stupid'' examples such as replace an edge into a path with more than two vertices in \(K_{5, 5}\). This is not planar as otherwise we can contract some of the edges and obtain a drawing ob \(K_{5, 5}\).
+
+\begin{definition}[subdivision]\index{subdivision}
+  A graph \(H\) is a \emph{subdivision} of a graph \(G\) if \(H\) can be formed from \(G\) by repeated doing: pick \(uv \in E(G)\), delete \(uv\), add new vertex \(w\) and edge \(uw, vw\).
+\end{definition}
+
+\begin{theorem}[Kuratowski]\index{Kuratowsi's theorem}
+  \(G\) is planar if and only if \(G\) has a subdivision of neither \(K_5\) or \(K_{3, 3}\) as a subgraph.
+\end{theorem}
+
+\begin{proof}
+  Non-examinable. Omitted.
+\end{proof}
+
+\begin{definition}[forest/acyclic graph, tree, leaf]\index{forest}\index{graph!acyclic}\index{tree}\index{leaf}
+  A \emph{forest} is a graph with no cycles. It is also called an \emph{acyclic} graph.
+
+  A \emph{tree} is a connected forest.
+
+  A \emph{leaf} is a vertex of degree \(1\).
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item A forest is a disjoint union of trees.
+  \item Every connected graph  \(G\) has a \emph{spanning tree}\index{spanning tree} \(T\), i.e.\ a subgraph \(T\) with \(V(T) = V(G)\) and \(T\) a tree, by removing edges from cycles until it is acyclic.
+  \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+  Every nontrivial tree has a leaf.
+\end{proposition}
+
+\begin{proof}
+  Let \(T\) be a tree and \(v_0v_1 \dots v_\ell\) be a maximal-length path in \(T\). Then \(v_\ell\) has no neighbour in the path except \(v_{\ell - 1}\) (as \(T\) is acyclic) and no neighbours outside the path (by maximality) so \(v_\ell\) is a leaf.
+\end{proof}
+
+This is a not so surprising result that is not difficult at all either. However it comes in handy when we want to convert our intuition for a tree into a formal proof about its property (hint: induction!).
+
+\begin{proposition}
+  \label{prop:edge of tree}
+  Let \(T\) be a tree with \(|T| = n \geq 1\). Then \(e(T) = n - 1\).
+\end{proposition}
+
+\begin{proof}
+  Induction on \(n\). Holds for \(n = 1\). For \(n >1\), let \(v\) be a leaf of \(T\). Then \(T - v\) is a tree with order \(n - 1\). By induction hypothesis \(e(T - v) = n - 2\) so \(e(T) = n - 1\).
+\end{proof}
+
+\begin{proposition}
+  Every forest is planar.
+\end{proposition}
+
+\begin{proof}
+  Enough to show that every tree \(T\) is planar. Induction on \(n = |T|\). Holds for \(n = 1\). For \(n > 1\), let \(v \in T\) be a leaf and \(u\) the neighbour of \(v\). By induction hypothesis, \(T - v\) has a drawing. On a sufficiently small ball around \(u\) in \(\R^2\), there are finitely many radial segments. So can add \(v\) and \(uv\) to the drawing.
+\end{proof}
+
+Any drawing of a planar graph divides the plane divides the plane into connected regions, called \emph{faces}\index{face}. Precisely one is unbounded, called the \emph{infinite face}.
+
+\begin{center}
+  \begin{tikzpicture}
+    \Vertex[x=0,y=0]{1}
+    \Vertex[x=4,y=0]{2}
+    \Vertex[x=2,y=1]{3}
+    \Vertex[x=1,y=-1]{4}
+    \Vertex[x=3,y=-1]{5}
+    \Edges(1, 2, 3, 1)
+    \Edges(1, 4, 5, 2)
+  \end{tikzpicture}
+\end{center}
+which has 3 faces. The infinite face has 5 edges.
+
+We can also draw it differently
+\begin{center}
+  \begin{tikzpicture}
+    \Vertex[x=0,y=0]{1}
+    \Vertex[x=2,y=0]{2}
+    \Vertex[x=0,y=-2]{3}
+    \Vertex[x=2,y=-2]{4}
+    \Vertex[x=1,y=-1]{5}
+    \Edges(1, 2, 4, 3, 1, 5, 2)
+  \end{tikzpicture}
+\end{center}
+
+in which case the infinite face has 4 edges. Even worse, we can produce drawing with \(3, 3, 4, 6\) edges and \(3, 3, 5, 5\) edges (graph). Thus face is an object associated with a drawing, not with a graph. However, there does exists a drawing invariant of a graph: the number of faces.
+
+\begin{theorem}[Euler's formula]\index{Euler's formula}
+  Let \(G\) be a connected planar graph, \(|G| = n \geq 1, e(G) = m\). Suppose \(G\) can be drawn with \(\ell\) faces. Then
+  \[
+    n - m + \ell = 2.
+  \]
+\end{theorem}
+
+Thus sometimes we can make statements like ``a certain graph has 17 faces''.
+
+\begin{proof}
+  Induction on \(m\). If \(G\) is a tree then clearly \(\ell = 1\) and by \Cref{prop:edge of tree}, \(m = n - 1\) so
+  \[
+    n - (n - 1) + 1 = 2.
+  \]
+  For general \(G\), take a drawing of \(G\) and pick an edge \(e\) in a cycle in \(G\). Delete \(e\) from \(G\) and the drawing. Now have a drawing of \(G - e\) with \(\ell - 1\) faces. Also \(G - e\) is connected with \(|G - e| = n, e(G - e) = m - 1\). By induction hypothesis,
+  \[
+    n - (m - 1) + (\ell - 1) = 2
+  \]
+  so
+  \[
+    n - m + \ell = 2.
+  \]
+\end{proof}
+
+Using Euler's formula, we can get a much better bound on the number of vertices a planar graph than \(\binom{n}{2}\).
+
+\begin{theorem}
+  Let \(G\) be planar with \(|G| = n \geq 3\). Then
+  \[
+    e(G) \leq 3n - 6.
+  \]
+\end{theorem}
+
+\begin{proof}
+  There is one special case which we single out first. If \(G \cong P_2\) then the result holds so suppose it isn't. Given a drawing of \(G\) with \(\ell\) faces, wlog \(G\) is connected (add edges if necessary), by Euler's formula we know \(n - m + \ell = 2\). Each edge borders at most 2 faces and each face is bordered by at least 3 edges so
+  \[
+    \ell \leq \frac{2}{3} m
+  \]
+  so
+  \[
+    2 \leq n - m + \frac{2}{3} m.
+  \]
+  Rearrange to get the desired result.
+\end{proof}
+
+\begin{proposition}[six-colour theorem]
+  Every planar graph is 6-colourable.
+\end{proposition}
+
+\begin{proof}
+  Let \(G\) be planar with \(|G| = n\). Induction on \(n\). For \(n \leq 6\) this is obviously true. For \(n > 6\), pick \(v \in G\) of minimal degree. By induction hypothesis we can 6-colour \(G - v\). But
+  \[
+    d(v) = \delta(G) \leq \frac{2 e(G)}{n} \leq \frac{6n - 12}{n} < 6
+  \]
+  so \(d(v) \leq 5\). So some colour is missing on \(\Gamma(v)\). Use this to colour \(v\).
+\end{proof}
+
+That feel like a enourmous progress to bring down the number from infinity to 6. With some more work, we can do better.
+
+\begin{theorem}[five-colour theorem]
+  Every planar graph is 5-colourable.
+\end{theorem}
+
+\begin{proof}
+  Let \(G\) be planar with \(|G| = n\). Induction on \(n\). Obvious for \(n \leq 5\). For \(n > 5\), as in the proof of 6-colour theorem, pick \(v \in G\) with \(d(v) \leq 5\) and by induction hypothesis there exists a 5-colouring of \(G - v\). If some colour is missing from \(\Gamma(v)\) then done. Otherwise consider a drawing of \(G\) in which \(v\) has neighbours \(x_1, \dots, x_5\) in clockwise order around \(v\) with \(c(x_i) = i\) wlog. The strategy is to change colouring of \(x_1\) from \(1\) to \(3\), and ``propagate the change'' retrogradely until all things are done. There is one case it might not work, namely there is a \(13\)-path between \(x_1\) and \(x_3\), as in the end we just swapped the colouring on the two vertices.
+
+  Formally, suppose that there is no 13-path from \(x_1\) to \(x_3\), i.e.\ a path all of whose vertices have colour 1 or 3. Then swap colours 1 and 3 on the 13-component of \(x_1\), i.e.\ the component containing \(x_1\) of the subgraph \(G[W]\) where \(W = \{x \in G: c(x) = 1 \text{ or } 3\}\). Now can give \(v\) colour \(1\).
+
+  Suppose instead there is such a 13-path. Then there is no 24-path from \(x_2\) to \(x_4\) so swap colours 2, 4 on 24-component of \(x_2\). Then give \(v\) colour 2.
+\end{proof}
+
+Can we still do better? In fact we can.
+
+\begin{theorem}[four-colour theorem]
+  Every planar graph is 4-colourable.
+\end{theorem}
+
+\begin{proof}[False proof, non-examinable]
+  Let \(G\) be planar with \(|G| = n\). Induction on \(n\). Obvious for \(n \leq 4\). For \(n > 4\). Draw \(G\). As in five-colour theorem, can find \(v \in G\) with \(d(v) \leq 5\) and a 4-colouring \(c\) of \(G - v\). Done unless every colour is used on \(\Gamma(v)\), giving 3 cases:
+  \begin{enumerate}
+  \item \(d(v) = 4\): wlog \(v\) has neighbours \(x_1, \dots, x_4\) clockwise with \(c(x_i) = i\). Can't have both 13-path from \(x_1\) to \(x_3\) and 24-path from \(x_2\) to \(x_4\), so as in five-colour theorem, can do some recolouring and colour \(v\).
+  \item \(d(v) = 5\), and \(v\) has neighbours \(x_1, x_1', x_2, x_3, x_4\) clockwise with \(c(x_i) = i, c(x_1') = 1\). Done unless there there is a 24-path from \(x_2\) to \(x_4\). But then neither \(x_1\) nor \(x_1'\)is in 13-component of \(x_3\), so swap 1 and 3 on 13-component of \(x_3\) and colour \(v\) 3.
+  \item \(d(v) = 5\), and \(v\) has neighbours \(x_1, x_2, x_1', x_3, x_4\) clockwise with \(c(x_i) = i, c(x_1') = 1\). Done unless there are both a 23-path from \(x_2\) to \(x_3\) and a 24-path from \(x_2\) to \(x_4\) (graph). Then there is no 14-path from \(x_1'\) to \(x_4\), and no 13-path from \(x_1\) to \(x_3\). So swap colours 1, 4 on 14-component of \(x_1'\) and swap colours 1, 3 on 13-component of \(x_1\). Give \(v\) colour 1.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  This is \emph{wrong}. See example sheet 3 for why.
+  % 5CT still true?
+  
+  Four-colour theorem was conjected in 1852 and the above ``proof'' was published by Kempe in 1879. The misktake stayed unnoticed for 11 years --- until Heawood spotted it in 1890. But it is not a complete disaster as some ideas could still be used to prove five-colour theorem. For this reason, \(ij\)-path are called \emph{Kempe chains}\index{Kempe chain}.
+\end{remark}
+
+Same ideas useful to produce a proper proof.
+
+\begin{definition}[plane triangulation]\index{plane triangulation}
+  A \emph{plane triangulation} is a planar graph \(G\) together with a drawing of \(G\) with every face a triangle.
+\end{definition}
+
+Note that any planar graph with a drawing can be made into a triangulation by adding edges. Thus the statement of four-colour theorem is equivalent to every plane triangulation is 4-colourable. Henceforth we'll use this form.
+
+Think about a minimal counterexample, i.e.\ a plane triangulation \(G\) with \(|G|\) as small as possible, \(G\) not 4-colourable. What can we say about \(G\)? For example must have \(\delta(G) \geq 5\), as we otherwise can just delete the vertex with minimal degree and still have a non-4-colourable graph.
+
+\begin{definition}[reducible, unavoidable configuration]
+  A configuration is \emph{reducible} if it cannot appear in \(G\).
+
+  A set of configurations is \emph{unavoidable} if one must appear in \(G\).
+\end{definition}
+
+Thus 4-colour theorem is equivalent to the statement that there exists an unavoidable set of reducible configurations.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item By Euler's formula, a vertex of degree 5 is unavoidable. It is not obviously reducible.
+  \item By Kampe chains, a vertex of degree 4 is reducible, but not obviously unavoidable.
+  \item The \emph{Birkhoff diamond}\index{Birkhoff diamond} consists of a vertex \(x\) of degree 5 with three consecutive neighbours (i.e.\ in cyclic order around \(x\)) of degree \(5\) (graph). It has a 6-cycle \(v_1v_2 \dots v_6v_1\) and inside the 6-cycle, \(G\) has precisely what's in the drawing.
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}
+  The Birkhoff diamond is reducbile. Outline of proof:
+  \begin{enumerate}
+  \item Prove that \(G\) cannot contain a separaing triangle, which is a triangle that has a vertices both inside and outside, so \(v_2 \nsim v_4\).
+  \item Suppose \(G\) has the Birkhoff diamond. Erase everthing inside the 6-cycle, identify \(v_2\) with \(v_4\) to make \(v_{2, 4}\) and join \(v_{2, 4}\) to \(v_6\). By minimality we can 4-colour new graph. Up to chaning colour names, this region has 6 possible colourings. This gives 6 different 4-colourings of \(G\) with 4 vertices in middle of Birkhoff uncoloured. It is an easy, albeit tedious exercise to show that in 5 cases we can extend the colouring to all of \(G\), and in the last case Kempe chain argument works, so contradiction. In particular this shows that Birkhoff diamond is reducible.
+  \end{enumerate}
+\end{ex}
+
+Clarify: a \emph{separating triangle} in \(G\) is a triangle in \(G\) such that some vertices of \(G\) lie inside the triangle and some vertex outside.
+
+\begin{eg}
+  The configuration ``two neighbouring vertices of degree \(5\)'' and ``two neighbouring vertices of degree \(5\) and \(6\)'' form an unavoidable set.
+
+  \begin{proof}
+    Let \(|G| = n, e(G) = m\) and \(G\) has \(\ell\) faces. By Euler
+    \[
+      2n - 2m + 2\ell = 4.
+    \]
+    Let \(n_i\) be the number of vertices with degree \(i\). As \(\delta(G) \geq 5\) we have
+    \begin{align*}
+      n &= \sum_{i = 5}^\infty n_i \\
+      2m &= \sum_{i = 5}^\infty i n_i
+    \end{align*}
+    A final relation is \(2m = 3\ell\) by triangulation. Thus
+    \begin{align*}
+      \sum_{i = 5}^\infty (2 - i) n_i + 2\ell &= 4 \\
+      \sum_{i = 5}^\infty 2n_i - \ell &= 4
+    \end{align*}
+    %idea: fiddle around to get a bound on \ell??
+    2 times the first equation plus 5 times the second equation,
+    \[
+      \sum_{i = 5}^\infty (14 - 2i)n_i - \ell = 28,
+    \]
+    which is
+    \[
+      \ell + 28 = 4n_5 + 2n_6 - 2n_8 - \dots
+    \]
+    so
+    \[
+      \ell < 4n_5 + 2n_6.
+    \]
+    Now assume \(G\) has no vertex of degree \(5\) adjacent to a degree \(5\) or \(6\) vertex and count faces adjacent to vertices of degree \(5\) or \(6\).
+    \begin{enumerate}
+    \item \(d(v) = 5\): \(5\) faces next to it. These faces don't touch any other \(w\) with \(d(w) = 5\) or \(6\) so \(v\) contributes \(5\).
+    \item \(d(v) = 6\): next to \(6\) faces, each of which could be next to up to \(3\) vertices of degree 6
+    \end{enumerate}
+    so \(v\) contributes \(\geq \frac{6}{3} = 2\). Hence \(\ell \geq 5n_5 + 2n_6\).
+  \end{proof}
+\end{eg}
+
+The method looks very ad hoc and it is not obvious that this can be generalised to other configurations. A more general construction is called \emph{discharging}\index{discharging}. Assign charge \(6 - d(v)\) to each vertex \(v\). Aim to move charge around to ``totally discharge'' the graph, i.e.\ each vertex has charege \(\leq 0\). This is impossible as total charge on \(G\) is
+\[
+  \sum_{v \in G} (6 - d(v)) = 6n - 2m = 6n - 2(3n - 6) = 12 > 0.
+\]
+Thus there must be some obstacle to discharging, which leads to an unavoidable set.
+
+For example, we give the rule as follow: each \(v\) of degree \(5\) gives charge \(\frac{1}{5}\) to each neighbour of degree \(\geq 7\). Suppose there is no vertex of degree \(5\) next to one of degree \(5\) or \(6\),
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    degree & new charge \\ \hline
+    5 & \(1 - 5 \times \frac{1}{5} = 0\) \\ \hline
+    \(6\) & \(0\) \\ \hline
+    \(k \geq 7\) & \(\leq 6 - k + \frac{1}{5} \frac{k}{2} \leq -0.3 < 0\) \\ \hline
+  \end{tabular}
+\end{table}
+
+where the last line is because the graph is triangulated and no two degree \(5\) vertices are in each other.
+
+This is the key idea in the proof of four colour theorem. It was proved in \(1976\) by Appel and Haken. They found an unavoidable set of 1936 reducible configurations. Reducible sets are easy to check by computer as you just keep removing things. To show unavoidability, they designed more than 300 discharging rules. It was controversial at the time but with the increasing availability of computing power, people generally accept it. But who knows what will happen after 11 years!
+
+\subsection{Colouring general graphs}
+
+Note that \(G\) is \(r\)-colourable if and only if \(G\) is \(r\)-partite so
+\[
+  \chi(G) = \min\{r: G \text{ is \(r\)-colourable}\},
+\]
+which justifies its name. Four colour theorem then says that all planar \(G\) has \(\chi(G) \leq 4\). What if \(G\) is non-planar? For example \(\chi(K_n) = n\). Can we find bounds in terms of other parameters?
+
+\begin{definition}[clique number]\index{clique number}
+  The \emph{clique number} of a graph \(G\) is the largest \(k\) such that \(K_k \subseteq G\). It is denoted \(\omega(G)\).
+\end{definition}
+
+Thus for lower bound, if \(K_k \subseteq G\) then \(\chi(G) \geq k\) so \(\chi(G) \geq \omega(G)\). But sometimes this isn't good enough. On example sheet 2 and later we have \(|G| = n\) with \(\omega(G_n) = 2\) but \(\chi(G_n) \to \infty\).
+
+\begin{definition}
+  A set of vertices is an \emph{independence set} if no two vertices are adjacent.
+
+  The \emph{independence number} of \(G\) is
+  \[
+    \alpha(G) = \max \{|U|: U \subseteq V(G), U \text{ independent}\}.
+  \]
+\end{definition}
+
+At most \(\alpha(G)\) vertices of any one colour so
+\[
+  \chi(G) \geq \frac{|G|}{\alpha(G)}.
+\]
+But if \(G_n = K_n \cup \overline K_{n^2}\) then \(\chi(G_n) = n\) but \(\frac{|G|}{\alpha(G)} - \frac{n^2 + n}{n^2 + 1} \to 1\).
+
+What about upper bound? We can try the \emph{greedy algorithm}: list vertices \(v_1, \dots, v_n\). Go along list colouring each vertex in turn, giving it the least colour not already used on one of its neighbours. Each vertex \(v\) gets colour \(\leq d(v) + 1\) so
+\[
+  \chi(G) \leq \Delta(G) + 1.
+\]
+This is not always a good bound. For example \(\chi(K_{t, t}) = 2\) but \(\Delta(K_{t, t}) = 2\).
+
+\begin{remark}
+  Greedy algorithm \emph{does} always colour \(K_{t, t}\) with 2 colours, whichever enumeration of vertices we choose. Even better, for any graph \(G\), we can take ordering of vertices where greedy produces a \(\chi(G)\)-colouring: given a colouring \(c\) of \(G\), list all vertices of colour 1 first, then colour 2 etc. However this is utterly useless as to find such a listing one has to colour the graph first.
+\end{remark}
+
+Greedy algorithm can be really bad. (graph) there exists \(G_n\) where \(|G_n| = 2n, \chi(G) = 2\) but with some ordering, greedy used \(n + 1\) colours.
+
+
 
 
 

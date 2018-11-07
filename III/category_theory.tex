@@ -10,6 +10,16 @@
 
 \input{header}
 
+\usepackage{xcolor}
+
+% add annotation to middle of a commutative square in tikzcd
+% https://tex.stackexchange.com/questions/119543/how-can-i-get-symbols-to-appear-in-the-middle-of-commutative-diagrams-using-tikz
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\MySymb[2][?]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
 \renewcommand{\c}[1]{\mathbf{#1}}
 \DeclareMathOperator{\ob}{ob}
 \DeclareMathOperator{\mor}{mor}
@@ -25,6 +35,9 @@
 \newcommand{\epi}{\twoheadrightarrow}
 
 \newcommand{\adjoint}{\dashv}
+
+\newcommand{\T}{{\mathbb{T}}} % monad
+\newcommand{\green}[1]{\textcolor{green}{#1}}
 
 \begin{document}
 
@@ -70,7 +83,7 @@
   \item Given \(\c C\), the \emph{opposite category}\index{category!opposite} \(\c C^{\text{op}}\) has the same objects and morphisms as \(\c C\), but domain and codomain interchanged and \(fg\) in \(\c C^{\text{op}}\) is \(gf\) in \(\c C\).
 
     This leads to \emph{duality principle}: if \(P\) is a valid statement about categories so is \(P^*\) attained by reversing all the arrows.
-  \item A small category with one object is a \emph{monoid}, i.e.\ a semigroup with \(1\). In particular, a group is a small category with one object, in which every morphism is an isomorphism (i.e.\ for all \(f\) there exists \(g\) such that \(fg\) and \(gf\) are identities).
+  \item A small category with one object is a \emph{monoid}\index{monoid}, i.e.\ a semigroup with \(1\). In particular, a group is a small category with one object, in which every morphism is an isomorphism (i.e.\ for all \(f\) there exists \(g\) such that \(fg\) and \(gf\) are identities).
   \item A \emph{groupoid} is a category in which every morphism is an isomorphism. For example, for a topological space \(X\), the \emph{fundamental groupoid} \(\pi(X)\) has all points of \(X\) as objects and morphisms \(x \to y\) as homotopy classes rel \({0, 1}\) of paths \(\gamma: [0, 1] \to X\) with \(\gamma(1) = y\).
   \item A \emph{discrete}\index{category!discrete} category is one whose only morphisms are identities. A \emph{preorder} is a category \(\c C\) in which for any pair \((A, B)\) there exists at most one morphism \(A \to B\). A small preorder is a set equipped with a binary relation which is reflexive and transitive. In particular a partially ordered set is a partially ordered set is a small preorder in which the only isomorphisms are identities.
   \item The category \(\Rel\) has the same objects as \(\Set\) but morphisms \(A \to B\) are arbitrary relations. Given \(R \subseteq A \times B, S \subseteq B \times C\), we define
@@ -451,6 +464,7 @@ which is equal to \(\alpha_B\beta_B(f)\).
 \end{proof}
 
 \begin{eg}\leavevmode
+  \label{eg:representable functor}
   \begin{enumerate}
   \item The forgetful functor \(\c{Gp} \to \Set\) is representable by \((\Z, 1)\). Similarly the forgetful functor \(\c{Rng} \to \Set\) is representable by \((\Z[x], x)\). The forgetful functor \(\Top \to \Set\) is representable by \((\{*\}, *)\).
   \item The functor \(P^*: \Set^{\text{op}} \to \Set\) is representable by \((\{0, 1\}, \{1\})\). This is the bijection between subsets and characteristic functions.
@@ -461,7 +475,6 @@ which is equal to \(\alpha_B\beta_B(f)\).
         & A \times B \ar[dl, "\pi_1"'] \ar[dr, "\pi_2"] \\
         A & & B
       \end{tikzcd}
-      %(A \times B, (A \times B \xrightarrow{\pi_1} A, A \times B \xrightarrow{\pi_2} B)).
     \]
     This pair has the property that, for any pair \((C \xrightarrow{f} A, C \xrightarrow{g} B)\), there is a unique \(C \xrightarrow{h} A \times B\) with \(\pi_1 h = f\) and \(\pi_2 h = g\).
     \[
@@ -469,7 +482,6 @@ which is equal to \(\alpha_B\beta_B(f)\).
         & A \times B \ar[dl, "\pi_1"'] \ar[dr, "\pi_2"] \\
         A & C \ar[l, "f"] \ar[r, "g"] \ar[u, "h", dashed] & B
       \end{tikzcd}
-      %(A \times B, (A \times B \xrightarrow{\pi_1} A, A \times B \xrightarrow{\pi_2} B)).
     \]
  
     Products exist in many categories of interest: in \(\Set, \c{Gp}, \c{Rng}, \Top, \dots\) they are ``just'' cartesian products. In posets they are binary meets.
@@ -480,12 +492,11 @@ which is equal to \(\alpha_B\beta_B(f)\).
         & A + B \\
         A \ar[ur, "\nu_1"] & & B \ar[ul, "\nu_2"']
       \end{tikzcd}
-      %(A + B, A \xrightarrow{\nu_1} A + B, B \xrightarrow{\nu_2} A + B).
     \]
     These also exist in many categories of interest.
   \item Let \(f, g: A \to B\) be morphisms in a locally small category \(\c C\). We have a functor \(F: \c C^{\text{op}} \to \Set\) defined by
     \[
-      F(C) = \{n \in \c C(C, A): fh = gh\},
+      F(C) = \{h \in \c C(C, A): fh = gh\},
     \]
     which is a subfunctor of \(\c C(-, A)\). A representation of \(F\), if it exists, is called an \emph{equaliser}\index{equaliser} of \((f, g)\). It consists of an object \(E\) and a morphism \(E \xrightarrow{e} A\) such that \(fe = ge\) and every \(h\) with \(fh = gh\) factors uniquely through \(e\). In \(\Set\), we take \(E = \{x \in A: f(x) = g(x)\}\) and \(e\) to be inclusion. Similar constructions work in \(\c{Gp}, \c{Rng}, \Top, \dots\)
     \[
@@ -568,6 +579,7 @@ Note that any functor of the form \(\c C(A, -)\) preserves monos, but they don't
 \end{definition}
 
 \begin{lemma}
+  \label{lem:representable functors are projectives}
   Representable functors are (pointwise) projectives in \([\c C, \Set]\).
 \end{lemma}
 
@@ -603,7 +615,7 @@ Note that any functor of the form \(\c C(A, -)\) preserves monos, but they don't
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item The functor \(F: \Set \to \c{Gp}\) is left adjoint to the forgetful functor \(U: \c{Gp} \to \Set\) since any function \(f: A \to UB\) extends uniquely to a group homomorphism \(\hat f: FA \to B\) and any homomorphism induces a set function. Naturality in \(B\) is easy and naturality in \(A\) follows from the definition of \(F\) as a functor. Similar for \(\c{Rng}, \c{Mod}_K, \dots\)
-  \item The forgetful funcotr \(U: \Top \to \Set\) has a left adjoint \(D\) which equips any set with the discrete topology and a right adjoint \(I\) which equips any set with the indiscrete topology so \(D \adjoint U \adjoint I\).
+  \item The forgetful functor \(U: \Top \to \Set\) has a left adjoint \(D\) which equips any set with the discrete topology and a right adjoint \(I\) which equips any set with the indiscrete topology so \(D \adjoint U \adjoint I\).
   \item The functor \(\ob: \c{Cat} \to \Set\) (recall that \(\c{Cat}\) is the category of small categories) has a left adjoint \(D\) sending \(A\) to the discrete category with \(\ob(DA) = A\) and only identity morphisms, and a right adjoint \(I\) sending \(A\) to the category with \(\ob(IA) = A\) and one morphism \(x \to y\) for each \((x, y) \in A \times A\). In this case \(D\) in turn has a left adjoint \(\pi_0\) sending a small category \(\c C\) to its set of \emph{connected components}, i.e.\ the quotient of \(\ob \c C\) by the smallest equivalence relation identifying \(\dom f\) with \(\cod f\) for all \(f \in \mor \c C\). So \(\pi_0 \adjoint D \adjoint \ob \adjoint I\).
   \item Let \(M\) be the monoid \(\{1, e\}\) with \(e^2 = e\). An object of \([M, \Set]\) is a pair \((A, e)\) where \(e: A \to A\) satisfying \(e^2 = e\). We have a functor \(G: [M, \Set] \to \Set\) sending \((A, e)\) to
     \[
@@ -615,11 +627,7 @@ Note that any functor of the form \(\c C(A, -)\) preserves monos, but they don't
     \]
     Given \(f: (A, 1_A) \to (B, e)\), it must take values in \(G(B, e)\) and any \(g: (B, e) \to (A, 1_A)\) is determined by its values on the image of \(e\). In some way this is due to the two ways in which the fixed point of \(e\) can be written.
   \item Let \(\c 1\) be the discrete category with one object \(*\). For any \(\c C\), there is a unique functor \(\c C \to \c 1\). A left adjoint for this picks out an \emph{initial object}\index{initial object} of \(\c C\), i.e.\ an object \(I\) such that there exists a unique \(I \to A\) for each \(A \in \ob C\). Dually a right adjoint for \(\c C \to \c 1\) corresponds to a \emph{terminal object}\index{terminal object} of \(\c C\).
-  \item Let \(A \xrightarrow{f} B\) be a morphism in \(\Set\). We can regard \(PA\) and \(PB\) as posets, and we have functors \(Pf: PA \to PB\) and \(P^*f: PB \to PA\). I claim
-    \[
-      Pf \adjoint P^*f:
-    \]
-    We have \(Pf(A') \subseteq B'\) if and only if \(f(x) \in B'\) for all \(x \in A'\), if and only if \(A' \subseteq P^*f(B')\).
+  \item Let \(A \xrightarrow{f} B\) be a morphism in \(\Set\). We can regard \(PA\) and \(PB\) as posets, and we have functors \(Pf: PA \to PB\) and \(P^*f: PB \to PA\). Claim \(Pf \adjoint P^*f\): we have \(Pf(A') \subseteq B'\) if and only if \(f(x) \in B'\) for all \(x \in A'\), if and only if \(A' \subseteq P^*f(B')\).
   \item Galois connection: suppose givens sets \(A\) and \(B\) and a relation \(R \subseteq A \times B\). We define mappings \(\cdot^\ell, \cdot^r\) between \(PA\) and \(PB\)  by
     \begin{align*}
       S^r &= \{y \in B: \forall x \in S, (x, y) \in R\}, S \subseteq A \\
@@ -632,7 +640,7 @@ Note that any functor of the form \(\c C(A, -)\) preserves monos, but they don't
 
 \begin{theorem}
   \label{thm:unit-counit characterisation of adjunction}
-  Let \(G: \c D \to \c C\) be a functor. Then specifying a left adjoint functor for \(G\) is equivalent to specifying an initial object of \((A \downarrow G)\) for each \(A \in \ob \c C\) where \((A \downarrow G)\) has objects pairs \((B, f)\) with \(A \xrightarrow{f} GB\) and morphisms \((B, f) \to (B', f')\) are morphisms \(B \xrightarrow{g} B'\) such that the following diagram commutes
+  Let \(G: \c D \to \c C\) be a functor. Then specifying a left adjoint functor for \(G\) is equivalent to specifying an initial object of \((A \downarrow G)\) for each \(A \in \ob \c C\) where \((A \downarrow G)\)\index{arrow category} has objects pairs \((B, f)\) with \(A \xrightarrow{f} GB\) and morphisms \((B, f) \to (B', f')\) are morphisms \(B \xrightarrow{g} B'\) such that the following diagram commutes
   \[
     \begin{tikzcd}
       A \ar[r, "f"] \ar[dr, "f'"'] & GB \ar[d, "Gg"] \\
@@ -703,6 +711,7 @@ Note that any functor of the form \(\c C(A, -)\) preserves monos, but they don't
 \end{proof}
 
 \begin{corollary}
+  \label{cor:commutative square of adjoints}
   Given a commutative square
   \[
     \begin{tikzcd}
@@ -722,7 +731,7 @@ Actually, we didn't use the full strength of \Cref{lem:composition of adjoints}:
 \begin{definition}[unit, counit]\index{unit}\index{counit}
   Given an adjunction \(F \adjoint G\), the natural transformation \(\eta: 1_{\c C} \to GF\) emerging in the proof of \Cref{thm:unit-counit characterisation of adjunction} is called the \emph{unit} of the adjunction.
 
-  Dually we have a natural transformation \(\varepsilon: FG \to 1_{\c D}\) suc that \(\varepsilon_B: FGB \to B\) corresponds to \(GB \xrightarrow{1_{GB}} GB\), is called the \emph{counit}.
+  Dually we have a natural transformation \(\varepsilon: FG \to 1_{\c D}\) such that \(\varepsilon_B: FGB \to B\) corresponds to \(GB \xrightarrow{1_{GB}} GB\), is called the \emph{counit}.
 \end{definition}
 
 \begin{theorem}
@@ -793,19 +802,19 @@ Obviously two inverse functors form an adjunction. We have seen before a weaker 
   which satisfy the triangular identities so \(F \adjoint G\) and \(G \adjoint F\).
 \end{lemma}
 
-This is often summarised by ``every equivalence is an adjoint equivalence.''
+This is often summarised as ``every equivalence is an adjoint equivalence''.
 
 \begin{proof}
-  We fix \(\alpha' = \alpha\) and modify \(\beta\). We have to change the domain and codomain of \(\beta\), done so by conjugation.
+  We fix \(\alpha' = \alpha\) and modify \(\beta\). We have to change the domain and codomain of \(\beta\) by conjugation.
 
   Let \(\beta'\) be the composite
   \[
-    FG \xrightarrow{(GF\beta)^{-1}} FGFG \xrightarrow{(F\alpha_G)^{-1}} FG \xrightarrow{\beta} 1_{\c D}.
+    FG \xrightarrow{(FG\beta)^{-1}} FGFG \xrightarrow{(F\alpha_G)^{-1}} FG \xrightarrow{\beta} 1_{\c D}.
   \]
   Note that \(FG\beta = \beta_{FG}\) since
   \[
     \begin{tikzcd}
-      FGFG \ar[r, "GF\beta"] \ar[d, "\beta_{FG}"] & FG \ar[d, "\beta"] \\
+      FGFG \ar[r, "FG\beta"] \ar[d, "\beta_{FG}"] & FG \ar[d, "\beta"] \\
       FG \ar[r, "\beta"] & 1_{\c D}
     \end{tikzcd}
   \]
@@ -818,7 +827,7 @@ This is often summarised by ``every equivalence is an adjoint equivalence.''
      =& F \xrightarrow{(\beta_F)^{-1}} FGF \xrightarrow{\beta_F} F \\
      =& 1_F
    \end{align*}
-  since \(FA \alpha = \alpha_{GF}\). Similarly \((G\beta')(\alpha'_G)\) is
+  since \(GF \alpha = \alpha_{GF}\). Similarly \((G\beta')(\alpha'_G)\) is
   \begin{align*}
     &G \xrightarrow{\alpha_G} GFG \xrightarrow{(GFG\beta)^{-1}} GFGFG \xrightarrow{(GF\alpha_G)^{-1}} GFG \xrightarrow{G\beta} G \\
     =& G \xrightarrow{(G\beta)^{-1}} GFG \xrightarrow{\alpha_{GFG}} GFGFG \xrightarrow{(GF\alpha_G)^{-1}} GFG \xrightarrow{G\beta} G \\
@@ -860,8 +869,10 @@ This is often summarised by ``every equivalence is an adjoint equivalence.''
   \begin{enumerate}
   \item The category \(\c{AbGp}\) of abelian groups is reflective in \(\c{Gp}\): the left adjoint sends a group \(G\) to its \emph{abelianization} \(G/G'\), where \(G'\) is the subgroup generated by all commutators \([x, y] = xyx^{-1}y^{-1}\) for \(x, y \in G\). (The unit of the adjunction is the quotient map \(G \to G/G'\))
 
-    Reflecting in the mirror: mirror is 2D so cannot reflect every 3D object. Similarly the abelianization does not tell you everything about \(G\) but as much as an abelian group can. c.f. universal property.
-  \item Given an abelian group, let \(A_T\) denote the torsion subgroup, i.e.\ the subgroup of elements of finite orders. The assigment \(A \mapsto A/A_T\) gives a left adjoint to the inclusion \(\c{tfAbGp} \to \c{AbGp}\), where \(\c{tfAbGp}\) is the full subcategory of torsion-free abelian groups. On the other hand \(A \mapsto A_T\) is the right adjoint to the inclusion \(\c{tAbGp} \to \c{AbGp}\) from torsion abelian groups to abelain groups, so this subcategory is coreflective. There are many many examples in algebra involving (co)reflective subcategories, and the constructions all give rise to important universal properries.
+    This is where the name ``reflecting subcategory'' comes from: mirror is 2D so reflection in a mirror cannot create a copy of a 3D object. However, it keeps every 2D detail fully and faithfully. Similarly abelianization does not tell you everything about \(G\) but as much as an abelian group can. c.f.\ universal property.
+  \item Given an abelian group, let \(A_T\) denote the torsion subgroup, i.e.\ the subgroup of elements of finite orders. The assigment \(A \mapsto A/A_T\) gives a left adjoint to the inclusion \(\c{tfAbGp} \to \c{AbGp}\), where \(\c{tfAbGp}\) is the full subcategory of torsion-free abelian groups.
+
+    On the other hand \(A \mapsto A_T\) is the right adjoint to the inclusion \(\c{tAbGp} \to \c{AbGp}\) from torsion abelian groups to abelain groups, so this subcategory is coreflective. There are many many examples in algebra involving (co)reflective subcategories, and the constructions all give rise to important universal properries.
   \item Let \(\c{KHaus} \subseteq \Top\) be the full subcategory of compact Hausdorff spaces. The inclusion \(\c{KHaus} \to \Top\) has a left adjoint \(\beta\), the \emph{Stone-Čech compactification}\index{Stone-Čech compactification}. It is a reflective subcategory. We'll revisit this example later in the course.
   \item Let \(X\) be a topological space. We say \(A\subseteq X\) is \emph{sequentially closed} if \(x_n \to x_\infty\) and \(x_n \in A\) for all \(n\) implies \(x_\infty \in A\). Note that closed implies sequentially closed but not vice versa. We say \(X\) is \emph{sequential} if all sequentially closed sets are closed, e.g.\ a metric space. Given a non-sequential space \(X\), let \(X_s\) be the same set with topology given by the sequentially open sets (complements of sequentially closed sets) in \(X\). Certainly the identity \(X_s \to X\) is continuous, and defines the counit of an adjunction between the inclusion \(\c{Seq} \to \c{Top}\) and its right adjoint \(X \mapsto X_s\).
   \item If \(X\) is a topological space, the poset \(CX\) of closed subsets of \(X\) is reflective in \(PX\) with reflector given by closure and the poset \(OX\) of open subsets is coreflective with coreflector given by interior.
@@ -873,30 +884,7 @@ This is often summarised by ``every equivalence is an adjoint equivalence.''
 \begin{definition}[diagram, cone, limit]\index{diagram}\index{cone}\index{diagram}\leavevmode
   \begin{enumerate}
   \item Let \(\c J\) be a category (almost always small, often finite). By a \emph{diagram of shape \(\c J\)} in \(\c C\) we mean a functor \(D: \c J \to \c C\). The objects \(D(j)\) for \(j \in \ob \c J\) are called \emph{vertices} of the diagram and the morphisms \(D(\alpha)\) \(\alpha \in \mor \c J\) are called \emph{edges} of \(D\).
-
-    For example, if \(\c J\) is the category
-    \[
-      \begin{tikzcd}
-        \cdot \ar[r] \ar[d] \ar[dr] & \cdot \ar[d] \\
-        \cdot \ar[r] & \cdot
-      \end{tikzcd}
-    \]
-    with 4 objects and 5 non-identity morphisms, a diagram of shape \(\c J\) is a commutative square
-    \[
-      \begin{tikzcd}
-        A \ar[r, "f"] \ar[d, "g"] & B \ar[d, "h"] \\
-        C \ar[r, "k"] & D
-      \end{tikzcd}
-    \]
-
-    On the other hand, to express a not-necessarily-commutative square, we use the shape
-    \[
-      \begin{tikzcd}
-        \cdot \ar[r] \ar[d] \ar[dr, shift left] \ar[dr, shift right] & \cdot \ar[d] \\
-        \cdot \ar[r] & \cdot
-      \end{tikzcd}
-    \]
-  \item Given \(D: \c J \to \c C\), a \emph{cone} over \(D\) consists of an object \(A\) of \(\c C\), called the \emph{apex} of the cone, together with morphisms \(A \xrightarrow{\lambda_j} D(j)\) for each \(j \in \ob \c J\), called the \emph{legs} of the cone, such that
+ \item Given \(D: \c J \to \c C\), a \emph{cone} over \(D\) consists of an object \(A\) of \(\c C\), called the \emph{apex} of the cone, together with morphisms \(A \xrightarrow{\lambda_j} D(j)\) for each \(j \in \ob \c J\), called the \emph{legs} of the cone, such that
     \[
       \begin{tikzcd}
         & A \ar[dl, "\lambda_j"'] \ar[dr, "\lambda_{j'}"] \\
@@ -921,17 +909,603 @@ This is often summarised by ``every equivalence is an adjoint equivalence.''
   \end{enumerate}
 \end{definition}
 
-Alternatively, if \(\c C\) is locally small and \(\c J\) is small, we have a functor \(\c C^{\text{op}} \to \Set\) sending \(A\) to the set of cones with apex \(A\). A limit for \(D\) is a representation of this functor.
+For example, if \(\c J\) is the category
+\[
+  \begin{tikzcd}
+    \cdot \ar[r] \ar[d] \ar[dr] & \cdot \ar[d] \\
+    \cdot \ar[r] & \cdot
+  \end{tikzcd}
+\]
+with 4 objects and 5 non-identity morphisms, a diagram of shape \(\c J\) is a commutative square
+\[
+  \begin{tikzcd}
+    A \ar[r, "f"] \ar[d, "g"] & B \ar[d, "h"] \\
+    C \ar[r, "k"] & D
+  \end{tikzcd}
+\]
 
-A thrid way to visualise cones: if \(\Delta A\) denotes the constant diagram of shape \(\c J\) with all vertices \(A\) and all edges \(1_A\), then a cone over \(D\) with apex \(A\) is the same thing as a natural transformation \(\Delta A \to D\). \(\Delta\) is a functor \(\c C \to [\c J, \c C]\) and \(\Cone(D)\) is the category \((\Delta \downarrow D)\). So to say that every diagram of shape \(\c J\) in \(\c C\) has a limit is equivalent to saying that \(\Delta\) has a right adjoint. (we say \(\c C\) \emph{has limits} of shape \(\c J\))
+On the other hand, to express a not-necessarily-commutative square, we use the shape
+\[
+  \begin{tikzcd}
+    \cdot \ar[r] \ar[d] \ar[dr, shift left] \ar[dr, shift right] & \cdot \ar[d] \\
+    \cdot \ar[r] & \cdot
+  \end{tikzcd}
+\]
+ 
+An alternative way to understand limits is that, if \(\c C\) is locally small and \(\c J\) is small, we have a functor \(\c C^{\text{op}} \to \Set\) sending \(A\) to the set of cones with apex \(A\). A limit for \(D\) is a representation of this functor.
+
+A thrid way to visualise cones: if \(\Delta A\) denotes the constant diagram of shape \(\c J\) with all vertices \(A\) and all edges \(1_A\), then a cone over \(D\) with apex \(A\) is the same thing as a natural transformation \(\Delta A \to D\). \(\Delta\) is a functor \(\c C \to [\c J, \c C]\) and \(\Cone(D)\) is the arrow category \((\Delta \downarrow D)\). So to say that every diagram of shape \(\c J\) in \(\c C\) has a limit is equivalent to saying that \(\Delta\) has a right adjoint. (We say \(\c C\) \emph{has limits} of shape \(\c J\))
 
 Dually \(\c C\) has colimits of shape \(\c J\) if and only if \(\Delta: \c C \to [\c J, \c C]\) has a left adjoint.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item Suppose \(J = \emptyset\). There is a unique diagram of shape \(\c J\) in \(\c C\); a cone over it is just an object, and a morphism of cones is a morphism of \(\c C\). So a limit for the empty diagram is a terminal object of \(\c C\). We defined limits in terms of terminal object but now the terminal object is also a special limit. Dually a colimit for it is an initial object.
+  \item Let \(\c J\) be the category
+    \[
+      \begin{tikzcd}
+        \cdot & \cdot
+      \end{tikzcd}
+    \]
+    A diagram of shape \(\c J\) is a pair of objects \(A, B\); a cone over it is a span
+    \[
+      \begin{tikzcd}
+        & C \ar[dl] \ar[dr] \\
+        A & & B
+      \end{tikzcd}
+    \]
+    and a limit for it is a \emph{product}\index{product}
+    \[
+      \begin{tikzcd}
+        & A \times B \ar[dl, "\pi_1"'] \ar[dr, "\pi_2"] \\
+        A & & B
+      \end{tikzcd}
+    \]
+    as defined in example~4 on page~\pageref{eg:representable functor}. Dually a colimit for it is a \emph{coproduct}\index{coproduct}.
+
+    More generally, if \(\c J\) is a small discrete category, a diagram of shape \(\c J\) is an indexed family \((A_j: j \in \c J)\), and a limit for it is a product \((\prod_{j \in \c J} A_j \xrightarrow{\pi_j} A_j: j \in \c J)\). Dually, \((A_j \xrightarrow{\nu_j} \sum_{j \in \c J} A_j: j\in \c J)\), sometimes also written as \(\coprod_{j \in \c J} A_j\).
+  \item Let \(\c J\) be the category
+    \[
+      \begin{tikzcd}
+        \cdot \ar[r, shift left] \ar[r, shift right] & \cdot
+      \end{tikzcd}
+    \]
+    A diagram of shape \(\c J\) is a parallel pair
+    \[
+      \begin{tikzcd}
+        A \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & B
+      \end{tikzcd}
+    \]
+    a cone over it is
+    \[
+      \begin{tikzcd}
+        & C \ar[dl, "h"'] \ar[dr, "k"] \\
+        A & & B
+      \end{tikzcd}
+    \]
+    satisfying \(fh = k = gh\), or equivalently a morphism \(h: C \to A\) satisfying \(fh = gh\). A (co)limit for the diagram is a \emph{(co)equaliser}\index{equaliser}\index{coequaliser} as defined in example~5 on page~\pageref{eg:representable functor}.
+  \item Let \(\c J\) be the category
+    \[
+      \begin{tikzcd}
+        & \cdot \ar[d] \\
+        \cdot \ar[r] & \cdot
+      \end{tikzcd}
+    \]
+    A diagram of shape \(\c J\) is a cospan
+    \[
+      \begin{tikzcd}
+        & A \ar[d, "f"] \\
+        B \ar[r, "g"] & C
+      \end{tikzcd}
+    \]
+    a cone over it is
+    \[
+      \begin{tikzcd}
+        D \ar[r, "p"] \ar[d, "q"] \ar[dr, "r"] & A \\
+        B & C
+      \end{tikzcd}
+    \]
+    satisfying \(fp = r = gq\), or equivalently a span \((p, q)\) completing the diagram to a commutative square. A limit for the diagram is called a \emph{pullback}\index{pullback} of \((f, g)\). In \(\Set\), the apex of the pullback is the ``fibre product''
+    \[
+      A \times_C B = \{(x, y): A \times B: f(x) = g(y)\}.
+    \]
+    Dually, colimits of shape \(\c J^{\text{op}}\) are \emph{pushouts}\index{pushout}. Given
+    \[
+      \begin{tikzcd}
+        A \ar[r, "f"] \ar[d, "g"] & B \\
+        C
+      \end{tikzcd}
+    \]
+    we ``push \(g\) along \(f\)'' to get the RHS of the colimt square.
+  \item Let \(\c J\) be the poset of natural numbers. A diagram of shape \(\c J\) is a \emph{directed system}
+    \[
+      A_0 \xrightarrow{f_0} A_1 \xrightarrow{f_1} A_2 \xrightarrow{f_2} A_3 \xrightarrow{f_3} \dots
+    \]
+    A colimit for this is called a \emph{direct limit}\index{direct limit}: it consists of \(A_\infty\) equipped with morphisms \(A_n \xrightarrow{g_n} A_\infty\) satisfying \(g_n = g_{n + 1} f_n\) for all \(n\) and universal among such. Dually we have \emph{inverse system} and \emph{inverse limit}\index{inverse limit}.
   \end{enumerate}
 \end{eg}
+
+\begin{theorem}\leavevmode
+  \label{thm:existence of limits}
+  \begin{enumerate}
+  \item Suppose \(\c C\) has equalisers and all finite (respectively small) products. Then \(\c C\) has all finite (respectively small) limits.
+  \item Suppose \(\c C\) has pullbacks and a terminal object, then \(\c C\) has all finite limts.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Suppose given \(D: \c J \to \c C\). Form the industrial strength products
+    \[
+      P = \prod_{j \in \ob \c J} D(j), Q = \prod_{\alpha \in \mor \c J} D(\cod \alpha).
+    \]
+    We have morphisms \(f, g: P \to Q\) defined by
+    \[
+      \pi_\alpha f = \pi_{\cod \alpha}, \pi_\alpha g = D(\alpha) \pi_{\dom \alpha}
+    \]
+    for all \(\alpha\). Let \(e: E \to P\) be an equaliser of \((f, g)\). The composites
+    \[
+      \lambda_j = \pi_j e: E \to D(j)
+    \]
+    form a cone over \(D\): given \(\alpha: j \to j'\) in \(\c J\),
+    \[
+      D(\alpha) \lambda_j = D(\alpha) \pi_j e = \pi_\alpha ge = \pi_\alpha fe = \pi_{j'} e = \lambda_{j'}.
+    \]
+    Given any cone \((A, (\mu_j: j \in \ob \c J))\) over \(D\), there is a unique \(\mu: A \to P\) with \(\pi_j \mu = \mu_j\) for each \(j\) and
+    \[
+      \pi_\alpha f \mu = \mu_{\cod \alpha} = D(\alpha) \mu_{\dom \alpha} = \pi_\alpha g \mu
+    \]
+    for all \(\alpha\), and hence \(f\mu = g\mu\), so exists unique \(\nu: A \to E\) with \(e\nu = \mu\). So \((E, (\lambda_j: j \in \ob \c J))\) is a limit cone.
+  \item It is enough to construct finite products and equalisers. But if \(1\) is the terminal object, then a pullback for
+    \[
+      \begin{tikzcd}
+        & A \ar[d] \\
+        B \ar[r] & 1
+      \end{tikzcd}
+    \]
+    has the universal property of a product \(A \times B\) and we can form \(\prod_{i = 1}^n A_i\) inductively as
+    \[
+      A_1 \times (A_2 \times (A_3 \times \cdots (A_{n - 1} \times A_n)) \cdots).
+    \]
+    Now to form the equalisers of \(f, g: A \to B\), consider the cospan
+    \[
+      \begin{tikzcd}
+        & A \ar[d, "{(1_A, f)}"] \\
+        A \ar[r, "{(1_A, g)}"] & A \times B
+      \end{tikzcd}
+    \]
+    A cone over this consists of
+    \[
+      \begin{tikzcd}
+      P \ar[r, "h"] \ar[,d, "k"] & A \\
+      A
+      \end{tikzcd}
+    \]
+    satisfying \((1_A, f) h = (1_A, g) k\) or equivalently \(1_A h = 1_Ak\) and \(fh = gk\), or equivalently a morphism \(h: P \to A\) satisfying \(fh = gh\). So a pullback for \((1_A, f)\) and \((1_A, g)\) is an equaliser of \((f, g)\).
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[complete, cocomplete]\index{category!complete}\index{category!cocomplete}
+  We say a category \(\c C\) is \emph{complete} if it has all small limits. Dually, \(\c C\) is \emph{cocomplete} if has all small colimts.
+\end{definition}
+
+For example, \(\Set\) is both complete and cocomplete: products are cartesian products and coproducts are disjoint unions. Similarly \(\c{Gp}, \c{AbGp}, \c{Rng}, \c{Mod}_K\) are all complete and cocomplete.\footnote{Note that the products have underlying set the cartesian products of those of each component, but coproducts tend to be different. We'll discuss this later.} \(\Top\) is also complete and cocomplete, with both product and coproduct given by the underlying set.
+
+\begin{definition}[preserve limit, reflect limit, create limit]\index{preserve limit}\index{preserve limit}\index{create limit}
+  Let \(F: \c C \to \c D\) be a functor.
+  \begin{enumerate}
+  \item We say \(F\) \emph{preserves limits} of shape \(\c J\) if, given \(D: \c J \to \c C\) and a limit cone \((L, (\lambda_j: j \in \ob \c J))\) in \(\c C\), \((FL, (F\lambda_j: j \in \ob \c J))\) is a limit for \(FD\).
+  \item We say \(F\) \emph{reflects limits} of shape \(\c J\) if, given \(D: \c J \to \c C\) and a cone \((L, (\lambda_j: j \in \ob \c J))\) such that \((FL, (F\lambda_j: j \in \ob \c J))\) is a limit for \(FD\) then \((L, (\lambda_j: j \in \ob \c J))\) for \(D\).
+  \item We say \(F\) \emph{creates limts} of shape \(\c J\) if, given \(D: \c J \to \c C\) and a limit \((M, (\mu_j: j \in \ob \c J))\) for \(FD\), there exists a cone \((L, (\lambda_j: j \in \ob \c J))\) over \(D\) whose image under \(F\) is isomorphic to the limit cone, and any such cone is a limit for \(D\).
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(\c C\) has limits of shape \(\c J\) and \(F: \c C \to \c D\) preserves them and reflects isomorphisms then \(F\) reflects limits of shape \(\c J\).
+  \item \(F\) reflects limits of shape \(1\) if and only if \(F\) reflects isomorphism.
+  \item If \(\c D\) has limits of shape \(\c J\) and \(F: \c C \to \c D\) creates them, then \(F\) both preserves and reflects them.
+  \item In any of the statement of \Cref{thm:existence of limits}, we may replace both instances of ``\(\c C\) has'' by either ``\(\c C\) has and \(F: \c C \to \c D\) preserves'' or ``\(\c D\) has and \(F: \c C \to \c D\) creates''.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(U: \c{Gp} \to \Set\) creates all small limits: given a family \((G_i: i \in I)\) of groups, there is a unique group structure on \(\prod_{i \in I} UG_i\) making the projections homomorphisms, and this makes it a product in \(\c{Gp}\). Similarly for equalisers.
+
+    But \(U\) doesn't preserve coproducts: \(U(G * H) \ncong UG \amalg UH\).
+  \item \(U: \Top \to \Set\) preserves all small limits and colimits but doesn't reflect them: if \(L\) is a limit for \(D: \c J \to \Top\) and \(L\) is not discrete, there is another cone with apex \(L_d\), which is the same underlying space as \(L\) with discrete topology, mapped to the same limit in \(\Set\).
+  \item The inclusion functor \(I: \c{AbGp} \to \c{Gp}\) reflects coproducts, but doesn't preserve them. The direct sum \(A \oplus B\) (coproduct in \(\c{AbGp}\)) is not normally isomorphic to the free product \(A * B\), which is not abelian unless either \(A\) or \(B\) is trivial, but if \(A \cong \{e\}\) then \(A \times B \cong A \oplus B \cong B\).
+  \end{enumerate}
+\end{eg}
+
+The following lemma tells us how to construct limit in functor categories:
+
+\begin{lemma}
+  If \(\c D\) has limits of shape \(\c J\) then so does the functor category \([\c C, \c D]\) for any \(\c C\), and the forgetful functor \([\c C, \c D] \to \c D^{\ob \c C}\) creates them.
+\end{lemma}
+
+\begin{proof}
+  Suppose given a diagram of shape \(\c J\) in \([\c C, \c D]\). Think of it as a functor \(D: \c J \times \c C \to \c D\). For each \(A \in \ob \c C\), let \((LA, (\lambda_{j, A}: j \in \ob \c J))\) be a limit cone for the diagram \(D(-, A): \c J \to \c D\).
+
+  Given \(A \xrightarrow{f} B\) in \(\c C\), the composition
+  \[
+    LA \xrightarrow{\lambda_{j, A}} D(j, A) \xrightarrow{D(j, f)} D(j, B)
+  \]
+  form a cone over \(\c D(-, B)\), since the square
+  \[
+    \begin{tikzcd}
+      D(j, A) \ar[r, "{D(j, f)}"] \ar[d, "{D(\alpha, A)}"] & D(j, B) \ar[d, "{D(\alpha, B)}"] \\
+      D(j', A) \ar[r, "{D(j', f)}"] & D(j', B)
+    \end{tikzcd}
+  \]
+  commutes. So there is a unique \(Lf: LA \to LB\) making
+  \[
+    \begin{tikzcd}
+      LA \ar[r, "{\lambda_{j, A}}"] \ar[d, "Lf"] & {D(j, A)} \ar[d, "{D(j, f)}"] \\
+      LB \ar[r, "{\lambda_{j, B}}"] & D(j, B)
+    \end{tikzcd}
+  \]
+  commute for all \(j\). Uniqueness follows from functoriality: given \(g: B \to C\), \(L(gf)\) and \(L(g)L(f)\) are factorisations of the same cone through the limit \(LC\). And this is the unique functor structure on \(A \mapsto LA\) making the \(\lambda_{j, -}\) into natural transformations.
+
+  The cone \((L, (\lambda_{j, -}: j \in \ob \c J))\) is a limit: suppose given another cone \((M, (\mu_{j, -}: j \in \ob \c J))\), then for each \(A\), \((MA, (\mu_{j, A}: j \in \ob \c J))\) is a cone over \(\c D(-, A)\), so induces a unique \(\alpha_A: MA \to LA\). Naturality of \(\alpha\) follows from uniqueness of factorisation through a limit. So \((M, (\mu_J))\) factors uniquely through \((L, (\lambda_j))\). (This is creation is the strict sense, i.e.\ equality instead of isomorphism)
+\end{proof}
+
+\begin{remark}
+  In any category, a morphism \(A \xrightarrow{f} B\) is monic if and only if
+  \[
+    \begin{tikzcd}
+      A \ar[r, "1_A"] \ar[d, "1_A"] & A \ar[d, "f"] \\
+      A \ar[r, "f"] & B
+    \end{tikzcd}
+  \]
+  is a pullback. Hence any functor which preserves pullbacks preserves monomorphisms. In particular if \(\c D\) has pullbacks momomorphisms in \([\c C, \c D]\) are just pointwise monos. See example sheet 1 for a counterexample for the neccessity of the pullback condition. Now we can delete the word ``pointwise'' in the statement of \Cref{lem:representable functors are projectives}.
+\end{remark}
+
+\begin{theorem}[right adjoint preserves limits]\index{right adjoint preserves limits}
+  Suppose \(G: \c D \to \c C\) has a left adjoint. Then \(G\) preserves all limits which exist in \(\c D\).
+\end{theorem}
+
+\begin{proof}[Proof 1 with additional assumption]
+  Suppose \(\c C\) and \(\c D\) both have limits of shape \(\c J\). We have a commutative diagram
+  \[
+    \begin{tikzcd}
+      \c C \ar[r, "F"] \ar[d, "\Delta"] & \c D \ar[d, "\Delta"] \\
+      {[\c J, \c C]} \ar[r, "{[\c J, F]}"] & {[\c J, \c D]}
+    \end{tikzcd}
+  \]
+  where \(\Delta\) sends an object to its constant diagram and \([\c J, F]\) is composition with \(F\). All functors in it have right adjoints (in particular, \([\c J, F] \adjoint [\c J, G]\)). So by \Cref{cor:commutative square of adjoints} the diagram of right adjoints
+  \[
+    \begin{tikzcd}
+      \c D \ar[r, "G"] & \c C \\
+      {[\c J, \c D]} \ar[u, "\lim_{\c J}"] \ar[r, "{[\c J, G]}"] & {[\c J, \c C]} \ar[u, "\lim_{\c J}"]
+    \end{tikzcd}
+  \]
+  commutes up to isomorphism, i.e.\ \(G\) preserves limits of shape \(\c J\).
+\end{proof}
+
+\begin{proof}[Proof 2]
+  Suppose given \(D: \c J \to \c D\) and a limit cone \((L, (\lambda_j: L \to D(j): j \in \ob \c J))\). Given a cone \((A, (\alpha_j: A \to GD(j):j \in \ob \c J))\) over \(GD\), the morphisms \(FA \xrightarrow{\hat \alpha_j} D(j)\) form a cone over \(D\), so they induce a unique \(FA \xrightarrow{\hat \beta} L\) such that \(\lambda_j \hat \beta = \hat \alpha_j\) for all \(j\). Then \(A \xrightarrow{\beta} GL\) is the unique morphism satisfying \((G\lambda_j)\beta = \alpha_j\) for all \(j\). So \((GL, (G\lambda_j: j \in \ob \c J))\) is a limit cone in \(\c C\).
+\end{proof}
+
+The last major theorem in this chapter is adjoint functor theorem. It says that morally the converse of the above theorem is also true, i.e.\ a functor preserving all limits ought to have a left adjoint. It may only fail so if some limits do not exist. The ``primeval'' adjoint functor theorem is exactly this: if \(\c D\) has and \(G: \c D \to \c C\) preserves \emph{all} limits, then \(G\) has a left adjoint. However, this is too strong a condition as the categories having all limits can be shown to be preorders. Thus there are two more versions cut down on the all limits requirement and use some set theory to replace part of it.
+
+\begin{lemma}
+  Suppose \(\c D\) has and \(G: \c D \to \c C\) preserves limits of shape \(\c J\). Then for any \(A \in \ob \c C\) the arrow category \((A \downarrow G)\) has limits of shape \(\c J\), and the forgetful functor \(U: (A \downarrow G) \to \c D\) creates them.
+\end{lemma}
+
+\begin{proof}
+  Suppose given \(D: \c J \to (A \downarrow G)\). Write \(D(j)\) as \((UD(j), f_j)\). Let \((L, (\lambda_j: L \to UD(j))_{j \in \ob \c J})\) be a limit for \(UD\). Then \((GL, (\lambda_j)_{j \in \ob \c J})\) is a limit for \(GUD\). Since the edges of \(UD\) are morphisms in \((A \downarrow G)\), the \(f_j\) form a cone over \(GUD\) so there is a unique \(h: A \to GL\) such that \((G\lambda_j)h = f_j\) for all \(j\), i.e.\ there's a unique \(h\) such that the \(\lambda_j\)'s are all morphisms in \((L, h) \to (UD(j), f_j)\) in \((A \downarrow G)\). We need to show that \(((L, h), (\lambda_j)_{j \in \ob \c J})\) is a limit cone in \((A \downarrow G)\). If \((C, (\mu_j)_{j \in \ob \c J})\) is any cone over \(\c D\) then \((C, (\mu_j)_{j \in \ob \c J})\) is a cone over \(UD\) so ther is a unique \(\ell: C \to L\) with \(\lambda_j \ell = \mu_j\) for all \(j\). We need to show \((G\ell) k = h\). But
+  \[
+    (G\lambda_j) (G\ell) k = (G \mu_j)k = f_j = (G\lambda_j)h
+  \]
+  for all \(j\) so \((G\ell) k = h\) by uniqueness of factorisations through limits.
+\end{proof}
+
+Recall that we have seen a limit for the empty diagram is a terminal object. We can also consider dually the diagram of ``maximal size'', namely that of a category over itself, to realise inital object as a limit. Think for example posets, in which limit for an empty diagram is maximimum while limit for the 
+
+\begin{lemma}
+  A category \(\c C\) has an initial object if and only if \(1_{\c C}: \c C \to \c C\), regarded as a diagram of shape \(\c C\) in \(\c C\), has a limit.
+\end{lemma}
+
+Note that this is an exception to \(\c J\) being small.
+
+% joke about one-to-one real world map
+
+\begin{proof}
+  First suppose \(\c C\) has an initial object \(I\). Then the unique morphisms \((I \to A: A \in \ob \c C)\) form a cone over \(1_{\c C}\) and given any cone \((\lambda_A: C \to A: A \in \ob \c C)\), for any \(A\) the triangle
+  \[
+    \begin{tikzcd}
+      C \ar[r, "\lambda_I"] \ar[dr, "\lambda_A"'] & I \ar[d] \\
+      & A
+    \end{tikzcd}
+  \]
+  commutes so \(\lambda_I\) is the unique factorisation of \((\lambda_A: A \in \ob \c C)\) through \((I \to A: A \in \ob \c C)\).
+
+  Conversely, suppose \((I, (\lambda_A: I \to A)_{A \in \ob \c C})\) is a limit. Then for any \(f: I \to A\) the diagram
+  \[
+    \begin{tikzcd}
+      I \ar[r, "\lambda_I"] \ar[dr, "\lambda_A"'] & I \ar[d, "f"] \\
+      & A
+    \end{tikzcd}
+  \]
+  commutes. \(I\) is weakly initial as we don't know if it is unique, i.e.\ if \(\lambda_I = 1_I\). In particular, putting \(f = \lambda_A\), we see that \(\lambda_I\) is a factorisation of the limit cone through itself so \(\lambda_I = 1_I\). Hence every \(f: I \to A\) satisfies \(f = \lambda_A\).
+\end{proof}
+
+The primeval adjoint functor theorem follows immediately from the previous two lemmas and 3.3. However, it only applies to functors between preorders. See example sheet 2 Q6.
+
+\begin{theorem}[general adjoint functor theorem]\index{adjoint functor theorem!general}
+  Suppose \(\c D\) is locally small and complete. Then \(G: \c D \to \c C\) has a left adjoint if and only if \(G\) preserves all small limits and satisfies the \emph{solution set condition}, which says that for each \(A \in \ob \c C\), there exists a set of morphisms \(\{f_i: A \to GB_i: i \in I\}\) such that every \(h: A \to GC\) factors as
+  \[
+    A \xrightarrow{f_i} GB_i \xrightarrow{Gg} GC
+  \]
+  for some \(i\) and some \(g: B_i \to C\).
+\end{theorem}
+
+\begin{proof}
+  If \(F \adjoint G\) then \(G\) preserves limits. To obtain the solution set, note that \(\{\eta_A: A \to GFA\}\) is a singleton solution set by 3.3 since it is initial.
+
+  Conversely, by 4.10 \((A \downarrow G)\) is complete and it inherits local smallness from \(\c D\). We need to show that if \(\mathcal A\) is complete and locally small and has a weakly initial set of objects \(\{B_i: i \in I\}\) then \(\mathcal A\) has an initial object. First form \(P = \prod_{i \in I} B_i\); then \(P\) is weakly initial. Now form the limit of
+  \[
+    \begin{tikzcd}
+      P \ar[r, shift left] \ar[r, shift right] & P
+    \end{tikzcd}
+  \]
+  where edges are all the endomorphisms of \(P\). Denote it \(i: I \to P\). \(I\) is also weakly initial in \(\mathcal A\). Suppose given \(f, g: I \to C\). Form the equaliser \(e: E \to I\) of \((f, g)\). Then there exists \(h: P \to E\) since \(P\) is weakly initial. \(ieh: P \to P\) and \(1_P\) are edegs of the diagram * so \(i = iehi\). But \(i\) is monic so \(ehi = 1_I\) so \(e\) is split epic so \(f = g\). Thus \(I\) is initial.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item % from Mac Lane. An experiment: suppose you are not given the free group functor. How are you going to construct the left adjoint of forgetful functor?
+    Consider the forgetful functor \(U: \c{Gp} \to \Set\). By 4.6a \(U\) creates all small limits so \(\c{Gp}\) has them and \(U\) preserves them. \(\c{Gp}\) is locally smal, given a set \(A\), any \(f: A \to UG\) factors as
+    \[
+      A \to UG' \to UG
+    \]
+    where \(G'\) is the subgroup generated by \(\{f(x): x \in A\}\) and \(\operatorname{card} G' \leq \max\{\aleph_0, \operatorname{card} A\}\). Let \(B\) be a set of this cardinality. Consider all subsets \(B' \subseteq B\), all group structures on \(B'\) and all mappings \(A \to B'\). These give us a solution set at \(A\). % grudge against Mac Lane.
+  \item Consider the category \(\c{CLat}\) of complete lattices (posets with arbitrary meets and joints). Again the forgetful functor \(U: \c{CLat} \to \Set\) creates all small limits. But A.\ W.\ Hales showed in 1964 that for any cardinal \(\kappa\) there exists complete lattices of cardinality \(\geq \kappa\) generated by three elements. So the solution set condition fails at \(A = \{x, y, z\}\) as we cannot bound the cartinality of the solution set, and \(U\) doesn't have a left adjoint.
+  \end{enumerate}
+\end{eg}
+
+Special adjoint functor theorem to get rid of solution set condition on functors
+
+\begin{definition}[subobject, quotient object]\index{subobject}\index{quotient object}
+  By a \emph{subobject} of an object \(A\) of \(\c C\) we mean a monomorphism \(A' \mono A\). The subobjects of \(A\) are preordered by \(A'' \leq A'\) if there is a factorisation
+  \[
+    \begin{tikzcd}
+      A'' \ar[r] \ar[dr, rightarrowtail] & A' \ar[d, rightarrowtail] \\
+      & A
+    \end{tikzcd}
+  \]
+  Dually we have \emph{quotient objects}.
+\end{definition}
+
+\begin{definition}[well-powered]\index{category!well-powered}
+  We say \(\c C\) is \emph{well-powered} if each \(A \in \ob \c C\) has a set of subojects \(\{A_i \mono A: i \in I\}\) such that every subobject of \(A\) is isomorphic to some \(A_i\).
+
+  Dually if \(\c C^{\text{op}}\) is well-powered, we say \(\c C\) is \emph{well-copowered}. (not cowell-powered, as it implies badly powered)
+\end{definition}
+
+For example in \(\Set\) we can take inclusions \(\{A' \embed A: A ' \in PA\}\). This is also where the name ``well-powered'' comes from as ``power set exists''
+
+\begin{lemma}
+  Given a pullback square
+  \[
+    \begin{tikzcd}
+      P \ar[r, "h"] \ar[d, "k"] & A \ar[d, "f", rightarrowtail] \\
+      B \ar[r, "g"] & C
+    \end{tikzcd}
+  \]
+  with \(f\) monic. Then \(k\) is monic.
+\end{lemma}
+
+\begin{proof}
+  Suppose \(x, y: D \to P\) satisfy \(kx = ky\). Then
+  \[
+    fhx = gkx = gky = fhy.
+  \]
+  By \(f\) is monic so \(hx = hy\). So \(x, y\) are factorisations of the same cone through the limit cone \((h, k)\).
+\end{proof}
+
+\begin{theorem}[special adjoint functor theorem]\index{adjoint functor theorem!special}
+  Suppose \(\c C\) and \(\c D\) are both locally small, and that \(\c D\) is complete and well-powered and has a coseparating set. Then a functor \(G: \c D \to \c C\) has a left adjoint if and only if it preserves all small limits.
+\end{theorem}
+
+\begin{proof}
+  The only if is given by RAPL. For the other direction, for any \(A \in \ob \c C\), \((A \downarrow G)\) is locally complete by 4.10, locally small, and well-powered since the subobjects of \((B, f)\) in \((A \downarrow G)\) are just those subobjects \(B' \mono B\) in \(\c D\) for which \(f\) factors through \(GB' \mono GB\). Also if \(\{S_i: i \in I\}\) is a coseparating set for \(\c D\) then the set
+  \[
+    \{(S_i, f): i \in I, f \in \c C(A, GS_i)\}
+  \]
+  is coseparating in \((A \downarrow G)\): given \(g, h: (B, f) \to (B', f')\) in \((A \downarrow G)\) with \(g \neq h\), there exists \(k: B' \to S_i\) for some \(i\) with \(kg \neq kh\), and then \(k\) is also a morphism \((B', f') \to (S_i, (Gk) f')\) in \((A \downarrow G)\).
+
+  So we need to show that if \(\mathcal A\) is complete, locally small and well-powered and has a coseparating set \(\{S_i: i \in I\}\) then \(\mathcal A\) has an initial object. Form the product \(P = \prod_i \in S_i\). ``industrial-stength pullback'' Now consider the diagram
+
+  [diagram]
+
+  whose edges are a representative set of subobjects of \(P\) and form its limit
+
+  [diagram]
+
+  By the argument in the previous lemma, the legs of the cones are all monic; in particular \(I \mono P\) is monic, and it's a least subobject of \(P\). Hence \(I\) has no proper subobjects. So given \(f, g: I \to A\) their equaliser is an isomorphism and hence \(f = g\).
+
+  We get uniqueness for free but need to work harder to show existence. Now let \(A\) be any object of \(\mathcal A\). Form the product \(Q = \prod_{i \in I, f \in \mathcal A (A, S_i)} S_i\). There is an obvious \(h: A \to Q\) defined by \(\pi_{i, F} h = f\); and \(h\) is monic, since the \(S_i\)'s are a coseparating set. We also have a morphism \(k: P \to Q\) defined by \(\pi_{i, f} k = \pi_i\). Now form the pullback
+  % \[
+  %   \begin{tikzcd}
+  %     B \ar[r] \ar[dr, rightarrowtail] & A \ar[d, "h", rightarrowtail] \\
+  %     & P \ar[r, "k"]
+  %   \end{tikzcd}
+  % \]
+  by lemma \(P\) is monic so \(B\) is a subobject of \(P\). Hence there exists
+  \[
+    \begin{tikzcd}
+      I \ar[r] \ar[dr, rightarrowtail] & B \ar[d, rightarrowtail] \\
+      & P
+    \end{tikzcd}
+  \]
+  and hence a morphhism \(I \to B \to A\).
+\end{proof}
+
+Freyd, exercise to reader!
+
+\begin{eg}
+  Consider the inclusion \(I: \c{KHaus} \to \c{Top}\), where \(c{KHaus}\) is the full subcategory of compact Hausdorff spaces. \(\c{KHaus}\) has and \(I\) preserves small products (by Tychonoff's theorem) and equalisers (since equalisers of pairs \(f, g: X \to Y\) with \(Y\) Hausdorff are closed subspaces). Both cateogories are locally small and \(\c{KHaus}\) is well-powered (subobjects of \(X\) are isomorphic to closed subspaces). The closed interval \([0, 1]\) is a coseparateor in \(\c{KHaus}\) by Urysohn's lemma. So by special adjoint functor theorem \(I\) has a left adjoint \(\beta\), the Stone-Cech compactification.
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item % I've never asked Freyed but this is probabily how he gets the inspiration for AFT. not from Marshall Stone's proof
+
+  Cech's construction of \(\beta\) is as follow: given \(X\), form
+  \[
+    P = \prod_{f: X \to [0, 1]} [0, 1]
+  \]
+  and define \(h: X \to P\) by \(\pi_f h = f\). Define \(\beta X\) to be the closure of the image of \(h\)
+
+  % coseparator in \((X \downarrow [0, 1])\), smallest subobject being precisely the closure.
+
+  Cech's proof that this works is essentially the same as SAFT.
+\item We could have used GAFT to construct \(\beta\) by a cardinality argument: we get a solution set at \(X\) by considering all continuous \(f: X \to Y\) with \(Y\) compact Hausdorff and \(f(X)\) dense in \(Y\) and such \(Y\) have cardinality \(\leq 2^{2^{\operatorname{card} X}}\).
+  \end{enumerate}
+\end{remark}
+
+\section{Monad}
+
+The idea of a monad is what is left in an adjunction when you cannot see one of the categories. Suppose given \(f: \c C \to \c D, g: \c D \to \c C\) with \(F \adjoint G\). How much of this structure can we describe without mentioning \(\c D\)? We have
+\begin{enumerate}
+\item the functor \(T = GF: \c C \to \c C\),
+\item the unit \(\eta: 1_{\c C} \to T = GF\),
+\item and ``shadow'' of counit as a natural transformation \(\mu = G\varepsilon_F: TT = GFGF \to GF = T\)
+\end{enumerate}
+satisfying the commutative diagrams 1, 2
+\[
+  \begin{tikzcd}
+    T \ar[r, "T\eta"] \ar[dr, "1_T"'] & TT \ar[d, "\mu"] & T \ar[l, "\eta_T"'] \ar[dl, "1_T"] \\
+    & T
+  \end{tikzcd}
+\]
+by the triangle inequalities, and 3
+\[
+  \begin{tikzcd}
+    TTT \ar[r, "T\mu"] \ar[d, "\mu_T"] & TT \ar[d, "\mu"] \\
+    TT \ar[r, "\mu"] & T
+  \end{tikzcd}
+\]
+by naturality of \(\varepsilon\).
+
+\begin{definition}[monad]\index{monad}\index{unit}\index{multiplication}
+  A \emph{monad} \(\T = (T, \eta, \mu)\) on a category \(\c C\) consists of a functor \(T: \c C \to \c C\) and natural transofrmations \(\eta: 1_{\c C} \to T, \mu: TT \to T\) satisfying commutative diagrams 1 - 3.
+
+  \(\eta\) and \(\mu\) are called the \emph{unit} and \emph{multiplication} of \(\T\).
+\end{definition}
+
+The name ``monad'' was used because of the similarity of axioms of monad with those of monoid. Before that, although begin well-known to mathematicians, monad didn't really have an identifier. It goes by the name ``standard construction'', then ``triple'', thereby the letter \(\T\). But both are confessions of failure to come up with a meaningful name! Someone invented the name ``monad'' and Mac Lane popularised it.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Any adjunction \(F \adjoint G\) induces a monad \((GF, \eta, G\varepsilon_F)\) on \(\c C\) and a \emph{comonad}\index{comonad} \((FG, \varepsilon, F\eta_G)\) on \(\c D\).
+  \item Let \(M\) be a monoid. The functor \((M \times - ): \Set \to \Set\) has a monad structure with unit given by \(\eta_A(a) = (a_M, a)\) and multiplication \(\mu_A(m, m', a) = (mm', a)\). The monad identities follow from the monoid ones.
+  \item Let \(\c C\) be any category with finite products and \(A \in \ob \c C\). The functor \((A \times -): \c C \to \c C\) has a comonad structure with counit \(\varepsilon_B: A \times B \to B\) given by \(\pi_2\) and comultiplication \(\delta_B: A \times B \to A \times A \times B\) given by \((\pi_1, \pi_1, \pi_2)\).
+  \end{enumerate}
+\end{eg}
+
+Does every monad comes from an adjunction? The answer is yes and is given independently in 1965 by Eilenberg, Moore Kleisli. We will cover both.
+
+In example 2 above we have the cateogry \([M, \Set]\). Its forgetful functor to \(\Set\) has a left adjoint, sending \(A\) to \(M \times A\) with \(M\) acting by multiplication on the left factor. This adjunction gives rise to the monad.
+
+\begin{definition}[Eilenberg-Moore algebra]\index{algebra}
+  Let \(\T\) be a monad on \(\c C\). A \emph{\(\T\)-algebra} is a pair \((A, \alpha)\) with \(A \in \ob \c C\) and \(\alpha: TA \to A\) satisfying commutative diagrams 4, 5
+  \[
+    \begin{tikzcd}
+      A \ar[r, "\eta_A"] \ar[dr, "1_A"'] & TA \ar[d, "\alpha"] \\
+      & A
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      TTA \ar[r, "T\alpha"] \ar[d, "\mu_A"] & TA \ar[d, "\alpha"] \\
+      TA \ar[r, "\alpha"] & A
+    \end{tikzcd}
+  \]
+
+  A \emph{homomorphism} \(f: (A, \alpha) \to (B, \beta)\) is a morphism \(f: A \to B\) such that diagram 6
+  \[
+    \begin{tikzcd}
+      TA \ar[r, "Tf"] \ar[d, "\alpha"] & TB \ar[d, "\beta"] \\
+      A \ar[r, "f"] & B
+    \end{tikzcd}
+  \]
+  commutes.
+
+  The category of \(\T\)-algebras is denoted \(\c C^\T\).
+\end{definition}
+
+\begin{lemma}
+  The forgetful functor \(G^\T: \c C^\T \to \c C\) has a left-adjoint \(F^\T\) and the adjunction induces \(\T\).
+\end{lemma}
+
+\begin{proof}
+  We define a ``free'' \(\T\)-algebra functor, mimicking that in monoid case. Define \(F^\T A = (TA, \mu_A)\) (an algebra by 2, 3) and \(F^\T(A \xrightarrow{f} B) = Tf\) (a homomorphism by naturality of \(\mu\)). Clearly \(G^\T F^\T = T\), the unit of the adjunction is \(\eta\). We define the counit \(\varepsilon_{(A, \alpha)} = \alpha: (TA, \mu_A) \to (A, \alpha)\) (a homomorphism by 5) and is natural by 6. The triangle identities
+  \begin{align*}
+    \varepsilon_{FA} (F\eta_A) &= 1_{FA} \\
+    G\varepsilon_{(A, \alpha)} \eta_A &= 1_A
+  \end{align*}
+  are given by 1 and 4. Finally, the monad induced by \(F^\T \adjoint G^\T\) has functor \(T\) and unit \(\eta\), and
+  \[
+    G^\T \varepsilon_{F^\T A} = \mu_A
+  \]
+  by definition of \(F^\T A\).
+\end{proof}
+
+Kleisli took a ``minimalist'' approach: if \(F: \c C \to \c D, G: \c D \to \c C\) induces \(\T\) then so does \(F: \c C \to \c D', G 1_{\c D'}: \c D' \to \c C\) where \(\c D'\) is the full subcategory of \(\c D\) on objects \(FA\). So in trying to construct \(\c D\), we may assume \(F\) is surjective (or indeed bijective) on objects. But then morphisms \(FA \to FB\) correspond bijectively to morphisms \(A \to GFB = TB\) in \(\c C\). This leads us half way through as we sitll have to specify how to compose morphisms (in general domains and codomains don't match up).
+
+\begin{definition}[Kleisli category]\index{Kleisli category}
+  Given a monad \(\T\) on \(\c C\), the \emph{Kleisli category} \(\c C_\T\) has \(\ob \c C_\T = \ob \c C\) and morphisms
+  \begin{tikzcd}
+    A \ar[r, blue] & B
+  \end{tikzcd}
+  (we use blue arrow to signify morphism in \(\c C_\T\)) are \(A \to TB\) in \(\c C\). The composite
+  \begin{tikzcd}
+    A \ar[r, blue, "f"] & B \ar[r, blue, "g"] & C
+  \end{tikzcd}
+  is
+  \[
+    \begin{tikzcd}
+      A \ar[r, "f"] & TB \ar[r, "Tg"] & TTC \ar[r, "\mu_C"] & C
+    \end{tikzcd}
+  \]
+  and the identities
+  \begin{tikzcd}
+    A \ar[r, blue] & A
+  \end{tikzcd}
+  is \(A \xrightarrow{\eta_A} TA\).
+  
+  To verify associativity, suppose given
+  \begin{tikzcd}
+    A \ar[r, blue, "f"] & B \ar[r, blue, "g"] & C \ar[r, blue, "h"] & D
+  \end{tikzcd}
+  then
+  \[
+    \begin{tikzcd}
+      A \ar[r, "f"] & TB \ar[r, "T_g"] & TTC \ar[r, "TTh"] \ar[d, "\mu_C"] & TTTD \ar[r, "T\mu D"] \ar[d, "\mu_{TD}"] \arrow[mysymbol]{dr}[description]{(3)} & TTD \ar[d, "\mu_D"] \\
+      & & TC \ar[r, "Th"] & TTD \ar[r, "\mu_D"] & TD
+    \end{tikzcd}
+  \]
+  commutes: the upper way monad is \((hg) f\) and the lower is \(h(gf)\).
+
+  The unit laws similarly follow from
+  \[
+    \begin{tikzcd}
+      A \ar[r, "f"] & TB \ar[r, "T\eta_B"] \ar[dr, "1_{TB}"'] \arrow[mysymbol]{dr}[description]{(1)} & TTB \ar[d, "\mu_B"] \\
+      & & TB
+    \end{tikzcd}
+    \quad
+    \begin{tikzcd}
+      A \ar[r, "f"] \ar[d, "\eta_A"] & TB \ar[dr, "1_{TB}"] \ar[d, "1_{TB}"] \arrow[mysymbol]{dr}[description]{(2)}  \\
+      TA \ar[r, "Tf"] & TTB \ar[r, "\mu_B"] & TB
+    \end{tikzcd}
+  \]
+\end{definition}
+
+
+
 
 
 

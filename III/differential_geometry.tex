@@ -12,6 +12,7 @@
 
 \DeclareMathOperator{\Gr}{Gr} % Grassmannian
 \DeclareMathOperator{\Lie}{Lie} % Lie functor
+\DeclareMathOperator{\supp}{supp} % support
 \newcommand{\w}{\wedge}
 
 \begin{document}
@@ -869,11 +870,11 @@ so by linear algebra
 \[
   \mathrm dx_i = \sum \frac{\partial x_i}{\partial x_j'} \mathrm d x_j'
 \]
-so
+so if a \(1\)-form is given in two local coordinates
 \[
-  a = \sum_i a_i \mathrm dx_i = \sum_j a_j' dx_j'
+  a = \sum_i a_i \mathrm dx_i = \sum_j a_j' \mathrm dx_j'
 \]
-and we obtain a transformation law
+then we have the transformation law
 \[
   a_j' = \sum_i \frac{\partial x_i}{\partial x_j'} a_i
 \]
@@ -991,7 +992,7 @@ where \(\alpha_I\)'s are smooth. They can be computed by \(\alpha_I = \alpha(\fr
   \label{thm:partition of unity}
   For every open cover \(M = \bigcup U_\alpha\), there exists a countable collection \(\rho_i \in C^\infty(M)\) such that
   \begin{enumerate}
-  \item for all \(i\), \(\cl{\operatorname{supp}{\rho_i}}\) is compact and is contaned in \(U_\alpha\) for some \(\alpha\).
+  \item for all \(i\), \(\cl{\supp{\rho_i}}\) is compact and is contaned in \(U_\alpha\) for some \(\alpha\).
   \item locally finite: for every \(x \in M\), there exists an open neighbourhood \(W_x\) containing \(x\) such that \(\rho_i|_{W_x} \neq 0\) only for finitely many \(i\)'s.
   \item \(\rho_i \geq 0\) for all \(i\) and \(\sum_i \rho_i = 1\).
   \end{enumerate}
@@ -1014,6 +1015,598 @@ The orientation is induced, equivalently, by
 \item a coordinate cover up to ``positive compatibility'',
 \item a choice of \(\phi\) up to composition \((x, a) \mapsto (x, h(x) a)\) where \(h \in C^\infty(M)\), \(h > 0\).
 \end{enumerate}
+
+\subsection{Exterior derivative}
+
+Let \(M\) be a smooth manifold and \(f\) a smooth function on \(M\). The differential at a point \(p \in M\) is a linear map \(df_p: T_pM \to T_{f(p)}\R = \R\). Thus \(df_p\) can be thought as an element of \(T_p^*M\). Therefore for all \(X \in V(M)\), have
+\[
+  df_p(X) = Xf(p) \in C^\infty(M).
+\]
+By checking coeficients of \(df\) in local coordinates we find that \(df \in \Omega^1(M)\) is well-defined.
+
+\begin{notation}
+  For all local coordiates \(x_i\) defined on \(U \subseteq M\), \(\mathrm d x_i = dx_i \in \Omega^1(U)\).
+\end{notation}
+
+\begin{remark}
+  This is what is called gradient in vector calculus on \(\R^n\). However, in vector calculus we identify \(\R\) with its dual, which is not always the case for manifolds. Thus gradient is a covector, or \(1\)-form.
+\end{remark}
+
+\begin{theorem}[exterior derivative]\index{exterior derivative}
+  There is a unique \(\R\)-linear map \(\mathrm d: \Omega^k(M) \to \Omega^{k + 1}(M)\) for all \(k = 0, 1, \dots\) such that
+  \begin{enumerate}
+  \item if \(f \in \Omega^0(M)\) then \(\mathrm d f\) is the differential \(df\).
+  \item \(\mathrm d(\omega \w \eta) = (\mathrm d \omega) \w \eta + (-1)^{\deg \omega} \omega \w \mathrm d \eta\) where \(\deg \omega = k\) means that \(\omega \in \Omega^k(M)\).
+  \item \(\mathrm d^2 = 0\).
+  \end{enumerate}
+  \(\mathrm d\) is called the \emph{exterior derivative}.
+\end{theorem}
+
+\begin{proof}
+  Choose \(U \subseteq M\) with local coordinates \(x_i\) and suppose \(\omega|_U = f(x) \mathrm d x_I\). Then
+  \begin{align*}
+    &\mathrm d(f(x) \mathrm d x_I) \\
+    =& (\mathrm d f) \w \mathrm d x_I + f(x) \sum_{k = 1}^r (\dots \w (-1)^{k + 1} \mathrm d \mathrm d x_k \w \dots ) \\
+    =& \sum_{i = 1}^n \frac{\partial f}{\partial x_i}(x) \mathrm d x_i \w \mathrm d x_I
+  \end{align*}
+  and extend to \(\Omega^r(U)\) by linearity. Then 1 clearly holds, 2 is an easy verification and 3 holds by symmetry of mixed partials. This shows the uniqueness of \(\mathrm d\).
+
+  The above computation also shows that \(\mathrm d\) must be a local operator, i.e.\ \(\mathrm d\omega_p\) is determined by \(\omega|_U\) for any coordinate neighbourhood \(U\) of \(p\). Thus for existence of \(\mathrm d\) it suffices to check if given another local coordinates \(x_i'\) on \(U\), the two local expressions agree. Suppose \(\mathrm d'\) is the exterior derivative given by another coordinates \(x_i'\) on \(U\). Aim to show \(\mathrm d' = \mathrm d\) on \(\Omega^r(U)\) for all \(r\).
+  \[
+    \mathrm d' (f \mathrm d x_I)
+    = \mathrm d'f \w \mathrm d x_I + \sum_{k = 1}^r (-1)^{k + 1} f \mathrm d x_{i_1} \w \dots \w \mathrm d' \mathrm d x_{i_k} \w \dots \w \mathrm d x_i
+  \]
+  \(\mathrm d' f = \mathrm d f\) as \(f\) is a \(0\)-form and \(\mathrm d' x_{i_k} = \mathrm d x_{i_k}\) as \(x_{i_k}\) are smooth functions. Finally,
+  \[
+    \mathrm d' \mathrm d x_{i_k} = \mathrm d \mathrm d x_{i_k} = 0
+  \]
+  so \(\mathrm d (f \mathrm dx_I) = \mathrm d'(f \mathrm dx_I)\). \(\mathrm d = \mathrm d'\).
+\end{proof}
+
+\subsection{Pullback of differential forms}
+
+\begin{definition}[pullback]\index{pullback}
+  Let \(f: M \to N\) be a smooth map. Then the \emph{pullback} induced by \(f\) is
+  \begin{align*}
+    f^*: \Omega^r(N) &\to \Omega^r(M) \\
+    \alpha &\mapsto f^*(\alpha)
+  \end{align*}
+  where
+  \[
+    (f^*(\alpha))_p (v_1, \dots, v_r) = \alpha_{f(p)} ((df_p) v_1, \dots, (df_p)v_r)
+  \]
+  for all \(p \in M, v_i \in T_pM\).
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item Unlike vector fields which in general cannot be pushed forward unless \(f\) is a diffeomorphism, \(f^*\) is well-defined for all maps \(f\).
+  \item Chain rule for pullbacks: given \(Z \xrightarrow{g} M \xrightarrow{f} N\) then \((f \compose g)^* = g^* \compose f^*\), i.e.\ pullback is a contravariant functor.
+  \item \(f^*(\alpha \w \beta) = f^*(\alpha) \w f^*(\beta)\) which is a straightforward exercise. In particular for all \(h \in C^\infty(N)\),
+    \[
+      f^*(h \alpha) = (h \compose f) f^*(\alpha)
+    \]
+    which implies that \(f^*\) is \(C^\infty(M)\)-linear.
+  \item Exterior derivative commutes with pullbacks, i.e.\ \(\mathrm d (f^*\alpha) = f^*(\mathrm d \alpha)\). For a proof, suffices to check this on \(\R^n\) as \(\mathrm d\) is local and \(f^*\) is pointwise (i.e.\ algebraic). The outline is as follow: wlog \(M = U \subseteq \R^n\) and \(N = V \subseteq \R^m\) open. Let the local coordinates be \(x_i\) and \(y_j\) respectively. For \(\alpha = \mathrm dy_j, v = \frac{\partial  }{\partial x_k}\) and local coodinate for \(f\) is \(y_j = y_j(x)\), have
+    \begin{align*}
+      &(f^* (\mathrm d y_j)) (\frac{\partial  }{\partial x_k}) \\
+      =& \mathrm d y_j ((df) \frac{\partial  }{\partial x_k}) \\
+      =& \mathrm d y_j (\sum_\ell \frac{\partial y_\ell}{\partial x_k} \frac{\partial  }{\partial y_\ell}) \\
+      =& \sum_\ell \frac{\partial y_\ell}{\partial x_k} \delta_{j \ell} \\
+      =& \frac{\partial y_j}{\partial x_k}
+    \end{align*}
+    so \(f^*\) is determined by its images on \(\mathrm dy_j\).
+  \end{enumerate}
+\end{note}
+
+\subsection{de Rhan cohomology}
+
+We can use exterior derivatives to form a sequence
+\[
+  \Omega^0(M) \xrightarrow{d_0} \Omega^1(M) \xrightarrow{d_1} \Omega^2(M) \xrightarrow{d_2} \dots
+\]
+with \(d_{n + 1} \compose d_n = 0\) for all \(n\). In fact this is a sequence of \(\R\)-vector space homomorphisms.
+
+\begin{definition}[closed form, exact form]\index{closed form}\index{exact form}
+  If \(\alpha \in \Omega^r(M)\) is such that \(\mathrm d \alpha = 0\) then \(\alpha\) is a \emph{closed form}. If \(\alpha = \mathrm d \beta\) for some \(\beta \in \Omega^{r - 1}(M)\) then \(\alpha\) is an \emph{exact form}.
+\end{definition}
+
+Clearly exact forms are closed but the converse is not true in general. Thus it makes sense to consider
+
+\begin{definition}[de Rham cohomology]\index{de Rham cohomology}
+  The quotient space
+  \[
+    H^r_{\text{dR}}(M) = \frac{\ker d_r}{\im d_{r - 1}},
+  \]
+  sometimes also denoted \(H^r(M)\), is called the \emph{de Rham cohomology} (or degree \(r\)) of \(M\).
+\end{definition}
+
+As \(f^*\) commutes with \(\mathrm d\), \(f^*\) is a well-defined map on \(H^r(M)\) and chain rule holds. Hence for \(M\) diffeomorphic to \(N\), we have
+\[
+  H^r(M) \cong H^r(N)
+\]
+for all \(r\). The inverse, however, is not true.
+
+We can define
+\[
+  H^*_\text{dR}(M) = \bigoplus_{r = 0}^\infty H^r_{\text{dR}}(M).
+\]
+It is an easy exercise to check that wedge product induces a ring structure on \(H^*_{\text{dR}}(M)\) (the key point is that \((\mathrm d \alpha) \w \beta = \mathrm d(\alpha \w \beta)\) whenever \(\mathrm d \beta = 0\)). Moreover, assume \(M\) is connected, \(H^r_{\text{dR}}(M)\) is finite-dimensional as \(\Omega^r(M)\) vanishes for \(r > \dim M\), so does \(H^r_{\text{dR}}(M)\).
+
+For all smooth \(f: M \to N\), the pullback \(f^*\) induces a well-defined ring homomorphism \(f^*: H^*(N) \to H^*(M)\). From previous work, have
+
+\begin{proposition}
+  If \(M\) is diffeomorphism to \(N\)  then
+  \[
+    H^*(M) \cong H^*(N).
+  \]
+\end{proposition}
+
+Again the converse is false. Try to show that
+\[
+  H^*(\R P^3) \cong H^*(S^3).
+\]
+
+There are many types of (co)homologies on a space. The important result is
+
+\begin{theorem}[de Rham]\index{de Rham theorem}
+  Given a smooth manifold \(M\),
+  \[
+    H^r_{\text{dR}}(M) \cong H^r(M, \R)
+  \]
+  where \(H^r(M, \R)\) is the singular cohomology of \(M\) with coefficients in \(\R\).
+\end{theorem}
+
+This tells us that \(H^r_{\text{dR}}(M)\) recovers an invariant of the topological space underlying \(M\), using differential \(r\)-forms.
+
+If \(M\) is connected then \(H^0_{\text{dR}}(M) \cong \R\), i.e.\ the constant functions on \(M\). For more generally result, we need
+
+\begin{theorem}[Poincaré lemma]\index{Poincaré lemma}
+  \label{thm:Poincaré lemma}
+  Let \(U\) be the unit open ball in \(\R^n\). Then every closed \(k\)-form, where \(k > 0\), is exact.
+\end{theorem}
+
+\begin{corollary}
+  \[
+    H^k(U) =
+    \begin{cases}
+      0 & k > 0 \\
+      \R & k = 0
+    \end{cases}
+  \]
+\end{corollary}
+
+In fact, we can replace \(U\) by \(\R^n\) and get the same result.
+
+\begin{proof}[Proof of \nameref{thm:Poincaré lemma}]
+  We give a sketch of proof. The key idea of is that we can invert \(\mathrm d_k\)'s using integral operators
+  \[
+    h_k: \Omega^k(U) \to \Omega^{k - 1}(U)
+  \]
+  for \(k > 0\) such that
+  \[
+    h_{k + 1} \compose \mathrm d_k + \mathrm d_{k - 1} \compose h_k = \id_{\Omega^k(U)}.
+  \]
+  Explicitly, define
+  \begin{align*}
+    & h_k(a \mathrm dx_{i_i} \w \dots \w \mathrm dx_{i_k}) (v_1, \dots, v_{k - 1}) \\
+    =& \left(\int_0^1 t^{k - 1} a(tx) dt \right) \mathrm d x_{i_1} \w \dots \w \mathrm dx_{i_k} \left(\sum_{i = 1}^k x_i \frac{\partial  }{\partial x_i}, v_1, \dots v_{k - 1}\right).
+  \end{align*}
+\end{proof}
+
+\subsection{Basic integration on manifolds}
+
+In this section assume \(M\) is an oriented \(n\)-manifold, where the orientation is given by a choice of positively compatible charts \(\{(\varphi_\alpha, U_\alpha)\}\).
+
+Let \(\omega \in \Omega^n(M)\) and define its support to be
+\[
+  \supp \omega = \{p \in M: \omega(p) \neq 0\}.
+\]
+Assume the closure \(\cl{\supp \omega}\) is comapct. If \(\cl{\supp \omega} \subseteq U_\alpha\) for some \(\alpha\) with local coordinates \(x_i\) and
+\[
+  \omega|_{U_\alpha} = f(x) \mathrm dx_1 \w \dots \w \mathrm dx_n,
+\]
+then define
+\[
+  \int_M \omega = \int_{\varphi_\alpha(U_\alpha)} f(x) dx_1 \dots dx_n
+\]
+where RHS is the Riemann integral on \(\R^n\). To show this is well-defined, suppose \(\cl{\supp \omega} \subseteq U_\beta\) for some \(\beta\) with coordinates \(y_j\), and
+\[
+  \omega|_{U_\alpha \cap U_\beta} = h(y) \mathrm dy_1 \w \dots \w \mathrm d y_n.
+\]
+Then
+\begin{align*}
+  \int_{\varphi_\beta(U_\beta)} h(y) dy_J
+  = \int_{\varphi_\alpha(U_\alpha)} h(y(x)) \Bigg| \det \frac{D y}{D x} \Bigg| d x_I
+  = \int_{\varphi_\alpha(U_\alpha)} f(x) dx_I
+\end{align*}
+
+To define the intergral of a differential form that is not supported on a single chart, we use partition of unity.
+
+\begin{definition}[integration on manifold]\index{integration on manifold}
+  Suppose \(\{\rho_i\}\) is a partition of unity subordinate to the oriented cover. Then define
+  \[
+    \int_M \omega = \sum_i \int_{U_i} \rho_i \omega.
+  \]
+\end{definition}
+
+Some basic properties of the integral whose proofs will be left as exercises:
+\begin{enumerate}
+\item it is linear in \(\omega\),
+\item it is additive over disjoint coordinate neighbourhoods,
+\item it is independent of choice of partition of unity (hint: if \(\{\rho_i\}\) and \(\{\tilde \rho_j\}\) are two partitions of unity then show \(\{\rho_i \tilde \rho_j\}\) is another).
+\end{enumerate}
+
+\begin{theorem}[Stoke's theorem for manifolds without boundary]\index{Stoke's theorem}
+  If \(\eta \in \Omega^{n - 1}(M)\) is compactly supported then
+  \[
+    \int_M \mathrm d \eta = 0.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(\{U_i\}_{i = 1}^N\) be positively compatible coordinate neighbourhoods covering \(\cl{\supp \eta}\) and let choose charts on \(U_0 = M \setminus \cl{\supp \eta}\) so that it is positively compatible with \(U_i\) for \(1 \leq i \leq N\). Then \(\{U_i\}_{i = 0}^N\) define an orientation on \(M\). Let \(\{\rho_i\}\) be a partition of unity subordinate to \(\{U_i\}_{i = 0}^N\) and let
+  \[
+    \mathrm d \eta = \sum_{i = 0}^N \mathrm d(\rho_i \eta)
+  \]
+  be an \(n\)-form. Suffices to prove that for all \(i\),
+  \[
+    \int_M \mathrm d (\rho_i \eta) = 0.
+  \]
+  Fix \(i\) and let \(x_k\) be coordiantes on \(U_i\). wlog
+  \[
+    \rho_i \eta = h \mathrm dx_1 \w \dots \w \mathrm dx_n
+  \]
+  so
+  \[
+    \mathrm d(\rho_i \eta) = \frac{\partial h}{\partial x_1} \mathrm dx_2 \w \dots \w \mathrm dx_n.
+  \]
+  As \(\supp h\) is bounded, say by \(R\), have
+  \begin{align*}
+    & \int_{\R^n} d(\rho_i \eta) \\
+    =& \int_{\R^{n - 1}} (\int_{-R}^R \frac{\partial h}{\partial x_1} \mathrm dx_1) dx_2 \dots dx_n \\
+    =& \int_{\R^{n - 1}} \underbrace{h(R, x_2, \dots, x_n)}_{= 0}- \underbrace{h(-R, x_2, \dots, x_n)}_{= 0} dx_2 \dots dx_n \\
+    =& 0
+  \end{align*}
+\end{proof}
+
+\begin{corollary}[integration by parts]
+  Assume one of the forms \(\alpha, \beta\) is compactly supported on \(M\) and \(\deg \alpha + \deg \beta + 1 = \dim M\). Then
+  \[
+    \int_M \alpha \w \mathrm d\beta = (-1)^{1 + \deg \alpha} \int_M (\mathrm d\alpha) \w \beta.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Apply Stoke's theorem to \(\eta = \alpha \w \beta\).
+\end{proof}
+
+\section{Vector bundles}
+
+\begin{definition}[submersion]\index{submersion}
+  A smooth map \(f: M \to N\) is a \emph{submersion} if \(d f_x: T_xM \to T_{f(x)}N\) is surjective for all \(x \in M\).
+\end{definition}
+
+\begin{definition}[vector bundle]
+  A \emph{vector bundle} over a manifold \(B\) is a smooth submersion \(\pi: E \to B\) of a manifold \(E\) onto \(B\) satisfying
+  \begin{enumerate}
+  \item there exists a vector space \(V\) such that for all \(p \in B\), \(E_p := \pi^{-1}(p)\) is a vector space isomorphic to \(V\);
+  \item local trivailisation: for every \(p \in B\), there exists open neighbourhood \(U\) of \(p\) and a diffeomorphism \(\Phi_U\) such that the diagram
+    \[
+      \begin{tikzcd}
+        \pi^{-1}(U) \ar[r, "\Phi_U"] \ar[dr, "\pi"] & U \times V \ar[d] \\
+        & U
+      \end{tikzcd}
+    \]
+    commutes, where the map \(U \times V \to U\) is projection to first coordinate;
+  \item \(\Phi_p: E_p \to \{p\} \times V\) is an isomorphism of vector spaces for all \(p \in U\).
+  \end{enumerate}
+  \(B\) is called the \emph{base} of the bundle and \(E\) is called the \emph{total space}. \(V\) is called \emph{typical bundle} and \(\dim V\) is the \emph{rank} of the vector bundle. \(\pi\) is the bundle projection. \(\Phi_U\) is a \emph{local trivialisation} and \(U\) is a \emph{trivialising neighbourhood}.
+\end{definition}
+
+Vector bundles of rank \(1\) are also called \emph{line bundles}\index{line bundle}.
+
+\begin{definition}[section]\index{section}
+  A \emph{section} of a vector bundle \(E\) is a smooth map \(s: B \to E\) such that \(\pi \compose s = \id_B\).
+
+  A \emph{local section} \(s: N \to E\) where \(N \subseteq B\) is a smooth map such that \(\pi \compose s = \id_N\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item For any manifold \(V\) and vector space \(V\), take \(E = B \times V\) and \(\pi\) to be the projection onto first coordinate. This is known as a \emph{trivial bundle} or \emph{product bundle}. Sections of this bundle are \(C^\infty(B, V)\), i.e.\ vector valued functions on \(B\).
+  \item (Co)tangent bundles \(TM, T^*M\) are real vector bundles of rank \(\dim M\). Sections are \(V(M)\) and \(\Omega^1(M)\) respectively. More generally, \(\Lambda^rT^*M\) is a real bundle of rank \(\binom{n}{r}\) and sections are differential \(r\)-forms \(\Omega^r(M)\). If \(r = 0\) then the bundle is trivial.
+  \item Tautological vector bundle\index{tautological vector bundle} over \(\R P^n, \C P^n\) and more generally Grassmannians: set \(B = \C P^n\) and \(E\) to be the disjoint union of all complex lines in \(\C^{n + 1}\) through \(0\) and \(\pi\) maps \(z \in E\) to the complex line containing \(z\) in \(\C P^n\). We'll check that this is a well-defined line bundle.
+  \end{enumerate}
+\end{eg}
+
+\subsection{Structure group and transition functions}
+
+Let \((U_\alpha, \varphi_\alpha)\) and \((U_\beta, \varphi_\beta)\) be two local trivialising neighbourhoods with \(U_\alpha \cap U_\beta \neq \emptyset\). Then
+\[
+  \varphi_\beta \compose \varphi_\alpha^{-1}(b, v) = (b, \psi_{\beta\alpha}(b)(v))
+\]
+for all \((b, v) \in (U_\alpha \cap U_\beta) \times V\), where \(\psi_{\beta\alpha}: U_\alpha \cap U_\beta \to \GL(V)\) is smooth. We have
+\begin{align*}
+  \psi_{\alpha\alpha} &= \id_V \\
+  \psi_{\alpha\beta} \cdot \psi_{\beta\alpha} &= \id_V \\
+  \psi_{\alpha\beta} \cdot \psi_{\beta\gamma} \cdot \psi_{\gamma\alpha} &= \id_V
+\end{align*}
+which are called the \emph{cocycle} conditions. \(\psi_{\beta\alpha}\) are called the \emph{transition functions} of the vector bundle \(E\).
+
+\begin{eg}
+  When \(E = TM\) or \(T^*M\), \(\psi_{\beta\alpha}\) are given by the Jacobian matrices of a change of local coordinates (they are daul to each other).
+\end{eg}
+
+\begin{proposition}
+  The data of \(B\) and \(\{(U_\alpha, \psi_{\beta\alpha})\}\) with \(B = \bigcup U_\alpha\) determines a vector bundle \(E\) uniquely up to isomorphism (which we will define formally later).
+\end{proposition}
+
+\begin{proof}
+  The proof is called \emph{Steenrod construction}. Define
+  \[
+    E := \left(\coprod_\alpha U_\alpha \times V\right) / \sim
+  \]
+  where the equivalence relation is the one generated by \((b, v) \sim (b, \psi_{\beta\alpha}(b)(v))\) for all \(b \in U_\alpha\) for all \(\alpha, \beta\). \(E\) is a manifold as \(\sim\) is a diffeomorphism. wlog \(U_\alpha \subseteq B\) are coordinate neighbourhoods with charts \(\varphi_\alpha\). Then \(\Phi_\alpha = (\varphi_\alpha, \id)\) are charts for \(E\). Finally, \(\pi: E \to B, (b, v) \mapsto b\) is a smooth submersion.
+\end{proof}
+
+\begin{definition}[\(G\)-structure]\index{\(G\)-strucure}
+  Let \(E\) be a real vector bundle over \(B\). Let \(G \leq \GL(k, \R)\). A collection of charts \(\{(U_\alpha, \varphi_\alpha)\}\) covering \(B\) such that the corresponding \(\psi_{\beta\alpha}(b) \in G\) for all \(\alpha, \beta\) is called a \emph{\(G\)-structure}. If \(E = TM\), we say \(E\) is a \(G\)-structure on \(B\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(G\) is the trivial subgroup then a \(G\)-structure is a global trivialisation over \(B\), i.e.\ \(\Phi: E \to B \times \R^k\) is a local trivilisation on \(U = B\).
+  \item If \(G = \GL_+(k, \R)\), the linear isomorphisms with positive determinant, then a \(G\)-structure is an orientation of \(E\). For example, if \(E = TM\) then this gives an orientation of \(M\).
+  \item If \(G = O(k)\) (or \(G = U(k)\) in case of complex bundle) then it determines a choice of invariantly defined inner product on fibres of \(E\) smoothly varying with the fibre. \(\Phi_\alpha\) are then called \emph{orthogonal (unitary respectively) trivialisations}. In this case given a trivialisation \(\Phi_{U_\alpha}: \pi^{-1}(U_\alpha) \to U_\alpha \times \R^n\) and \(b \in U_\alpha\), the linear isomorphism \(\Phi_{U_\alpha}|_b: \pi^{-1}(b) \to \{b\} \times \R^n\) is moreover a linear isometry.
+
+    If we set instead \(G = SO(k) = O(k) \cap \GL_+(k, \R)\) we get an orthogonal trivialisation together with an orientation.
+  \item Suppose \(E\) is a real vector bundle of rank \(k = 2n\) and take
+    \[
+      G = \GL(n, \C) \subseteq \GL(2n, \R),
+    \]
+    then for all \(p \in B\), there exists \(J_p \in \GL(E_p)\) such that \(J^2 = -\id_{E_p}\) which depends smoothly on \(p\). In other words, \((E_p, J_p)\) is isomorphic to a complex vector space of dimension \(n\). This \(G\)-structure makes \(E\) into a \emph{complex vector bundle}\index{vector bundle!complex}. Note that this is \emph{not} the same as complex manifold, which has a stronger requirement. When \(E = TM\) then a \(\GL(n, \C)\)-structure on \(E\) is called an \emph{almost complex structure}\index{almost complex structure}.
+  \end{enumerate}
+\end{eg}
+
+Generally, if \(G \leq \GL(V)\) preservse some ``linear algebra objects'' on \(V\) then \(G\)-structure on a vector bunldes means there exists a well-defined family of such objects depend smoothly on the point in the base.
+
+\subsection{Principal bundles}
+
+Let \(G\) be a Lie group, \(1_G\) the identity element of \(G\). Let \(P, B\) be manifolds.
+
+\begin{definition}[smooth free right action]\index{smooth free right action}
+  A \emph{smooth free right action} is a right action of a Lie group on a manifold that is also free. Concretely, a smooth free right action of \(G\) on \(P\) is a smooth map
+  \begin{align*}
+    P \times G &\to P \\
+    (p, h) &\mapsto ph
+  \end{align*}
+  satisfying
+  \begin{enumerate}
+  \item free action: for all \(p \in P\), \(ph = p\) if and only if \(h = 1_G\).
+  \item right action: for all \(p \in P, h_1, h_2 \in G\), \((ph_1)h_2 = p(h_1h_2)\).
+  \end{enumerate}
+\end{definition}
+
+\begin{note}
+  The right action implies that for all \(h \in G\), \(p \mapsto ph\) is a diffeomorphism of \(P\) to itself.
+\end{note}
+
+\begin{definition}[principal bundle]\index{principal bundle}
+  A \emph{principal \(G\)-bundle} of \(P\) over \(B\) is a smooth submersion \(\pi: P \to B\) with a smooth free right action of \(G\) on \(P\) such that the set of orbits is bijective with \(B\) ``naturally'': for all \(b \in B\), there exists an open neighbourhood \(U\) of \(b\) with a diffeomorphism \(\Phi_U\) such that
+  \[
+    \begin{tikzcd}
+      \pi^{-1}(U) \ar[r, "\Phi_U"] \ar[dr, "\pi"] & U \times G \ar[d] \\
+      & U
+    \end{tikzcd}
+  \]
+  commutes, where \(U \times G \to U\) is projection to first coordinate. Moreover \(\Phi_U\) commutes with \(G\)-action, i.e.
+  \[
+    \Phi_U(ph) = (b, gh)
+  \]
+  whenever \(b = \pi(p) \in U, \Phi_U(p) = (b, g)\).
+
+  \(P\) is the \emph{total space}, \(B\) is the \emph{base} and \(G\) is the \emph{fibre}.
+\end{definition}
+
+\begin{note}
+  Principal \(G\)-bundle is not the same as a locally trivial bundle with fibres being a Lie group. It also incorporates information about group action.
+\end{note}
+
+Similar to vector bundles, given charts on two trivialising neighbourhoods, have
+\[
+  \varphi_\beta \compose \varphi_\alpha^{-1} (b, g) = (b, \psi_{\beta\alpha}(b, g))
+\]
+where \(\psi_{\beta\alpha}(b, \cdot): G \to G\). The \(G\)-equivariant condition then implies that
+\[
+  \psi_{\beta\alpha}(b, g) = \psi_{\beta\alpha}(b) g = L_{\psi_{\beta\alpha}(b)} g
+\]
+where \(L_h : G \to G\) is left multiplication by an element \(h\) and \(\psi_{\beta\alpha}(b) = \psi_{\beta\alpha} (b, 1_G)\).
+As before, the transition functions \(\psi_{\beta\alpha}: U_\alpha \cap U_\alpha \to G\) are smooth maps satisfying the cocycle conditions.
+
+We can also recover a principal \(G\)-bundle from the transition functions, up to \(G\)-bundle isomorphism:
+
+\begin{theorem}
+  Given \(\{(U_\alpha, \psi_{\beta\alpha})\}\) such that \(B = \bigcup U_\alpha\) and \(\psi_{\beta\alpha}\)'s satisfy the cocycle conditions, let
+  \[
+    P := \left(\coprod_\alpha U_\alpha \times G \right) / \sim
+  \]
+  where \((b, h) \sim (b', h')\) if and only if \(b = b', h' = \psi_{\beta\alpha}(b)h\). Then \(P\) is a principal \(G\)-bundle over \(B\).
+\end{theorem}
+
+\begin{proof}
+  Same as before.
+\end{proof}
+
+\begin{remark}
+  The orbit space can be made into a manifold with an additional assumption: if the action of \(G\) is also \emph{proper}, i.e.\ the map
+  \begin{align*}
+    G \times P &\to P \times P \\
+    (g, p) &\mapsto (pg, p)
+  \end{align*}
+  is a proper map (preimage of compact set is compact) then can show \(P/G\) is a smooth manifold. Then may define \(B = P/G\).
+\end{remark}
+
+The consequence of the above theory is that we can start from a vector bundle \(E\) with a \(G\)-structure, and use \(\{\psi_{\beta\alpha}\}\) to obtain a principal \(G\)-bundle \(P\) with the same transition functions. Conversely, given a principal \(G\)-bundle \(P\), we say \(G\) is \emph{associated} to \(P\) via the action of \(G\) on \(\R^n\) where \(n\) is the rank of \(E\), i.e.\ this is a \emph{representation} \(G \to \GL(n, \R)\), an injective homomorphism.
+
+In the case of principal \(G\)-bundle, \(G\) acts on itself by \emph{left translation}.
+
+\begin{eg}
+  Let \(E = TM\) then \(P\) is a \emph{frame bundle}\index{frame bundle}, \(G = \GL(n, \R)\). For all \(p \in P\), it is a basis of \(T_{\pi(p)}M\).
+
+  If in addition \(TM\) has \(O(n)\)-structure then obtain \(P\) the \emph{orthonormal frames bundle}.
+\end{eg}
+
+\subsection{Hopf bundle}
+
+A Hopf bundle is an example of a tautological rank 1 complex vector bundle over \(\C P^1\). Recall that the fibre over \(z_1 : z_2 \in \C P^1\) is the line \(\C(z_1, z_2) \subseteq \C^2\).
+
+We shall work out the transition functions to prove this vector bundle is well-defined. Let
+\[
+  U_i = \{z_i \neq 0\} \subseteq \C P^1
+\]
+and let \(z = \frac{z_2}{z_1}\) be a local coordinate on \(U_1\), \(\zeta = \frac{z_1}{z_2}\) on \(U_2\). Every point in fibre over \(1: z \in U_1\) can be written as \((w, wz)\) where \(w \in \C\), and respectively as \((w\zeta, w)\) over \(\zeta: 1 \in U_2\). The local trivialisations over \(U_i\) are
+\begin{align*}
+  \varphi_1: \pi^{-1}(U_1) &\to U_1 \times \C \\
+  (w, wz) &\mapsto (1 : z, w \sqrt{1 + |z|^2}) \\
+  \varphi_2: \pi^{-1}(U_2) &\to U_2 \times \C \\
+  (w\zeta, w) &\mapsto (\zeta : 1, w \sqrt{|\zeta|^2 + 1})
+\end{align*}
+then
+\[
+  \varphi_1^{-1}(1: z, \tilde w) = \left( \frac{\tilde w}{\sqrt{1 + |z|^2}}, \frac{\tilde w}{\sqrt{1 + |z|^2}} z \right)
+\]
+if \(z \neq 0\) then
+\begin{align*}
+  \varphi_2 \compose \varphi_1^{-1}(1 : z, \tilde w)
+  &= \varphi_2 \left( \frac{\tilde w}{\zeta \sqrt{1 + 1/|\zeta|^2}} \zeta, \frac{\tilde w}{\zeta{ }\sqrt{1 + 1/|\zeta|^2}} \right) \\
+  &= (\zeta : 1, \frac{|\zeta|}{\zeta} \tilde w) \\
+  &= (1 : z, \frac{z}{|z|} \tilde w)
+\end{align*}
+by noting that \(\zeta z = 1\). Thus the transition functions are
+\begin{align*}
+  \psi_{2, 1}(1 : z) & = \frac{z}{|z|} \\
+  \psi_{1, 2}(\zeta: 1) &= \frac{|z|}{z} = \frac{\zeta}{|\zeta|}
+\end{align*}
+Observe
+\[
+  \psi_{2, 1}: U_1 \cap U_2 \to U(1) = \{a \in \C: |a| = 1\} \subseteq \C^* = \GL(\C)
+\]
+so the Hopf-bundle is well-defined and admits a \(U(1)\)-structure. Thus it has an invariantly defined norm on the fibres, induced from standard Euclidean norm on \(\C \subseteq \C^2\) via \(\varphi_1, \varphi_2\). More explicitly, on \(\pi^{-1}(U_1)\),
+\[
+  \norm{(w, wz)} = |w| \sqrt{1 + |z^2|}.
+\]
+Leave as an exercise to write out the expression for \(\pi^{-1}(U_2)\), and verify that it gives the same norm.
+
+The associated principal \(U(1)\)-bundle \(P\), also know as \emph{Hopf bundle}\index{Hopf bundle}, is the bundle of unit vectors. Thus
+\[
+  P \cong \{(w_1, w_2) \in \C^2: |w_1|^2 + |w_2|^2 = 1\} = S^3
+\]
+and
+\begin{align*}
+  \pi: S^3 &\to \C P^1 \\
+  (w_1, w_2) &\mapsto w_1 : w_2
+\end{align*}
+But recall from example sheet 1 Q5 that \(\C P^1 \cong S^2\) so \(\pi: S^3 \to S^2\). Together with some topological argument, we see that the Hopf bundle cound not be a product bundle
+\[
+  S^3 \cong S^2 \times S^1.
+\]
+See example sheet 2 Q5.
+
+\begin{definition}[local section]\index{local section}\index{section!local}
+  A \emph{local section} of a principal bundle \(\pi: P \to B\) is a smooth map \(s: W \to P\), where \(W \subseteq B\) open, such that \(\pi \compose s = \id_w\).
+\end{definition}
+
+There is nothing new in the dfinition here --- we have seen local and global sections for vector bundles before. However, note that although every vector bundle admits a global section, namely the zero section, it is not true for principal bundles. We cannot choose the ``identity element section'' as there is no distinguished point in a fibre. In fact, a principal bundle admits a global section if and only if it is trivial.
+
+\subsection{Pullback of a vector bundle or a principal bundle}
+
+\begin{definition}[pullback of a vector bundle]\index{pullback}\index{vector bundle!pullback}\index{principal bundle!pullback}
+  Let \(\pi: E \to B\) be a vector bundle and \(f: M \to B\) be a smooth map. The \emph{pullback} \(f^*E\) of \(E\) is a vector bundle over \(M\) with same fibre \(V\) as \(E\) and such that there exists smooth \(F\) making the diagram
+  \[
+    \begin{tikzcd}
+      f^*E \ar[r, "F"] \ar[d, "\tilde \pi"] & E \ar[d, "\pi"] \\
+      M \ar[r, "f"] & B
+    \end{tikzcd}
+  \]
+  commutes, and the restriction \(F: (f^*E)_p \to E_{f(p)}\) to fibres is an isomorphism of vector spaces for all \(p \in M\).
+\end{definition}
+
+It follows that for all local trivialisations of \(E\) over \(U\), we must have
+\[
+  \begin{tikzcd}
+    \pi^{-1}(U) \ar[r, "\Phi_U"] & U \times V \\
+    \tilde \pi^{-1}(f^{-1}(U)) \ar[u, "F"] \ar[r, "\tilde \Phi_U"] & f^{-1}(U) \times V \ar[u, "f \times \id_V"]
+  \end{tikzcd}
+\]
+It is left as an exercise to check that \(\tilde \Phi_U\) is a diffeomorphism.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(B = *\) then \(E \cong V\). Have
+    \begin{align*}
+      \tilde \Phi: f^*E &\to M \times V \\
+      x &\mapsto (\tilde \pi(x), F(x))
+    \end{align*}
+    as a (global) trivialisation of \(f^*E\) over \(M\).
+  \item As a variant, let \(M = B \times X\) with \(f: B \times X \to B\) the projection to first coordinate. Then \(f^*E\) is ``trivialised in the \(X\) direction'', i.e.\ \(f^*E \cong E \times X\) and \(\tilde \pi = \pi \times \id_X\).
+  \item Suppose \(M = *\). Then \(f^*E\) is just a copy of the fibre \(V\) and \(F: V \embed E\) is an embedding as the fibre over \(f(M) \in B\).
+  \end{enumerate}
+\end{eg}
+
+In general, \(f^*E\) may be determined by pulling back the transitions
+\[
+  f^* \psi_{\beta\alpha} = \psi_{\beta\alpha} \compose f: f^{-1}(U_\alpha \cap U_\beta) \to \GL(V).
+\]
+This gives an equivalent but more formal way to define pullbacks of bundles.
+
+The above discussion applies equally well to pullbacks of principal \(G\)-bundles \(f^*P\), with obvious change of notations.
+
+\subsection{Bundle morphism}
+
+\begin{definition}[vector bundle morphism]\index{vector bundle!morphism}
+  Let \(\pi: E \to B, \pi': E' \to B'\) be two vector bundles and \(f: B \to B'\) a smooth map. A smooth map \(F: E \to E'\) is a \emph{vector bundle morphism (covering \(f\))} if the diagram
+  \[
+    \begin{tikzcd}
+      E \ar[r, "F"] \ar[d, "\pi"] & E' \ar[d, "\pi'"] \\
+      B \ar[r, "f"] & B'
+    \end{tikzcd}
+  \]
+  commutes and for all \(p \in B\), the restriction \(F_p = F|_{E_p}: E_p \to E'_{f(p)}\) is a linear map.
+\end{definition}
+
+It follows that if \(\Phi, \Phi'\) are local trivialisations of \(E\) and \(E'\) respectively over \(U \subseteq B, U' \subseteq B'\) with \(f(U) \subseteq U'\), then the local expression \(\hat F = \Phi' \compose F \compose \Phi^{-1}\) is given by
+\[
+  \hat F(b, v) = (f(v), h(b)(v))
+\]
+for all \(b \in U\) and \(h: U \to L(V, V')\) is a smooth map.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(\varphi: M \to N\) is a smooth map then \(d \varphi: TM \to TN\) given by \(d\varphi_p\) for all \(p \in M\) is a bundle morphism.
+  \item Given \(f: M \to B\) and \(\pi: E \to B\) a vector bundle, the pullback \(F: f^*E \to E\) is a bundle morphism.
+  \item Let \(B' = B\) and \(f: B \to B\) a diffeomorphism. If for all \(p \in B\), \(F_p: E_p \to E_{f(p)}\) is a linear isomorphism then \(F\) is an \emph{vector bundle isomorphism}\index{vector bundle!isomorphism}. Furthermore if \(f = \id_B, E' = E, \pi' = \pi\) then we have the commutative diagram
+    \[
+      \begin{tikzcd}
+        E \ar[r, "F"] \ar[dr, "\pi"] & E \ar[d, "\pi"] \\
+        & B
+      \end{tikzcd}
+    \]
+    In this case \(F\) is called an \emph{automorphism}\index{vector bundle automorphism} of \(E\) and denote it by \(F \in \aut(E)\).
+  \item For example if \(E \cong V \times V\) then \(\aut(E) = C^\infty(V, \GL(V))\). If \(E\) has a \(G\)-structure then \(\aut_G(E) \subseteq \aut(E)\) is well-defined. Locally
+    \[
+      \hat F(b, v) = (v, h(b)(v))
+    \]
+    where \(h(v) \in G \subseteq \GL(V)\), whenever \(\hat F\) is with respect to local trivialisations \(\Phi\) from this \(G\)-structure. In mathematical physics, often write \(\aut_G(E) = \mathcal G\), the \emph{group of gauge transformations}. For example, \(G = U(1), SU(2), SO(3), SU(3)\).
+  \end{enumerate}
+\end{eg}
+
+
+
+
+  
+
+
 
 
 

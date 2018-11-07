@@ -10,6 +10,9 @@
 
 \input{header}
 
+\let\SO\undefined
+\usepackage{tkz-graph}
+
 \newcommand{\shadow}{\partial}
 \renewcommand{\P}{\mathbb P}
 
@@ -233,7 +236,7 @@ Again we can ask when we have equality in LYM inequality. This happens if and on
   so this is probability in disguise
 \end{remark}
 
-\section{Shadows}
+\subsection{Shadows}
 
 For \(\mathcal A \subseteq X^{(r)}\), we know \(|\shadow A| \geq |A| \frac{r}{n - r + 1}\) --- but equality is rare (only for \(\mathcal A = \emptyset\) or \(\mathcal A = X^{(r)}\)). The natural question is: given \(|\mathcal A|\), how should we choose \(\mathcal A \subseteq X^{(r)}\) to minimise \(|\shadow A|\)? Informally, this asks how ``tightly'' can we pack some \(r\)-sets.
 
@@ -245,7 +248,7 @@ i.e.\ take those in \([7]\) of size \(3\) so that they are as tightly packed as 
 
 If we increment the size of \(\mathcal A\) by \(1\), it is believable that we should take the above \(\mathcal A\) and adjoin another element from \([4]\). Thus it seems that there is a total order on subsets of \(X\) of a given size, and we just take the first \(|\mathcal A|\).
 
-\subsection{Two total orderings on \(X^{(r)}\)}
+\subsubsection{Two total orderings on \(X^{(r)}\)}
 
 \begin{definition}[lexicographic order]\index{lexicographic order}
   Given \(A, B \in X^{(r)}\), say \(A = a_1, \dots, a_r, B = b_1, \dots, b_r\), where we use the notation to mean \(a_1 < \dots < a_r\), say \(A < B\) in the \emph{lexicographic} or \emph{lex} order if for some \(i\) have \(a_i < b_i\) and \(a_j = b_j\) for all \(j < i\).
@@ -294,7 +297,7 @@ Equivalently, \(a_i < b_i\) where \(i = \max\{j: a_j \neq b_j\}\). The slogan is
 Following our heuristics just now, the aim is to show initial segments of cloex minimise \(\shadow\), i.e.\ if \(\mathcal A \subseteq X^{(r)}\) and \(\mathcal C \subseteq X^{(r)}\) is the first \(|\mathcal A|\) \(r\)-sets in colex then \(|\shadow \mathcal A| \geq |\shadow \mathcal C|\), This is Kruskal-Katona theorem, the first theorem in combinatorics.
 In particular, \(|\mathcal A| = \binom{k}{r}\) implies \(|\shadow \mathcal A| \geq \binom{k}{r - 1}\). However, unless \(\mathcal A\) is written in very nice form, it is very difficult to estimate \(\shadow \mathcal A\).
 
-\subsection{Compressions}
+\subsubsection{Compressions}
 
 The idea is to ``replace'' \(\mathcal A \subseteq X^{(r)}\) with some \(\mathcal A' \subseteq X^{(r)}\) such that
 \begin{enumerate}
@@ -538,6 +541,333 @@ Krustal-Katona also proves a generalised version of itself:
 \begin{proof}
   If \(|\shadow^t \mathcal A| \geq |\shadow^t \mathcal C|\) then \(|\shadow^{t + 1}\mathcal A| \geq |\shadow^{t + 1} \mathcal C|\) by \nameref{thm:Krustal-Katona}.
 \end{proof}
+
+\subsection{Intersecting families}
+
+\begin{definition}[intersecting family]\index{intersecting}
+  A family \(\mathcal A \subseteq \powerset(X)\) is \emph{intersecting} if \(A \cap B \neq \emptyset\) for all \(A, B \in \mathcal A\).
+\end{definition}
+
+How large can \(|\mathcal A|\) can be? We can achieve \(|\mathcal A| = 2^{n - 1}\) by fixing an element, e.g.\ \(\mathcal A = \{A \subseteq X: 1 \in \mathcal A\}\). We can't beat it either.
+
+\begin{proposition}
+  Let \(\mathcal A \subseteq \powerset(X)\) be intersecting. Then \(|\mathcal A| \leq 2^{n - 1}\).
+\end{proposition}
+
+\begin{proof}
+  For each \(A \subseteq X\), we have at most one of \(A\) or \(A^c\) in \(\mathcal A\).
+\end{proof}
+
+\begin{note}
+  There are many examples with \(|\mathcal A| = 2^{n - 1}\). In the discrete cube, we can take the ``top'' layer along any element. In the blob graph, we can take \(\{A \subseteq X: |A| > \frac{n}{2}\}\).
+\end{note}
+
+Now consider the same problem restricted to one level. How larger can \(|\mathcal A|\) be if \(\mathcal A \subseteq X^{(r)}\) is intersecting? If \(r > \frac{n}{2}\), it is trivial as we can take \(\mathcal A = X^{(r)}\). If \(r = \frac{n}{2}\), the maximum is \(\frac{1}{2} \binom{n}{r}\) --- just choose one of \(A, A^c\) for each \(A \in X^{(r)}\). Thus from now on assume \(r < \frac{n}{2}\).
+
+Take
+\[
+  \mathcal A = \{A \in X^{(r)}: 1 \in A\},
+\]
+we have
+\[
+  |\mathcal A| = \binom{n - 1}{r - 1} = \frac{r}{n} \binom{n}{r},
+\]
+where the second equality comes from the probability an element of \(X^{(r)}\) containing \(1\). We may also take another family, say
+\[
+  \mathcal B = \{A \in X^{(r)}: |A \cap \{1, 2, 3\}| \geq 2\}.
+\]
+For example, in case of \([8]^{(3)}\),
+\[
+  |\mathcal A| = \binom{3}{2} = 2, |\mathcal B| = 1 + \frac{3}{2} \binom{5}{1} = 16 < 21
+\]
+so \(\mathcal A\) beats \(\mathcal B\).
+
+\begin{theorem}[Erdős-Ko-Rado]\index{Erdős-Ko-Rado theorem}
+  Let \(r < \frac{n}{2}\) and let \(\mathcal A \subseteq X^{(r)}\) be intersecting. Then
+  \[
+    |\mathcal A| \leq \frac{n - 1}{r - 1}.
+  \]
+\end{theorem}
+
+\begin{proof}[Proof 1]
+  ``Bubble down with Krustal-Katona''
+
+  For \(A, B \in \mathcal A\) have \(A \cap B \neq \emptyset\), i.e.\ \(A \nsubseteq B^c\). Write
+  \[
+    \overline{\mathcal A} = \{A^c: A \in \mathcal A\} \subseteq X^{(n - r)}.
+  \]
+  This says that \(\shadow^{n - 2r}\overline{\mathcal A}\) is disjoint from \(A\). Suppose \(|\mathcal A| > \binom{n - 1}{r - 1}\). Then \(|\overline{\mathcal A}| = \binom{n - 1}{r - 1} = \binom{n - 1}{n - r}\) so by iterated Krustal-Katona, have
+  \[
+    |\shadow^{n - 2r} \overline{\mathcal A}| \geq \binom{n - 1}{r}.
+  \]
+  But \(\binom{n - 1}{r - 1} + \binom{n - 1}{r} = \binom{n}{r}\), i.e.
+  \[
+    |\shadow^{n - 2r} \overline{\mathcal A}| + |\mathcal A| > |X^{(r)}|,
+  \]
+  absurd.
+\end{proof}
+
+\begin{remark}
+  Note that in the proof we ``happen'' to have \(|\overline{\mathcal A}| = \binom{n - 1}{n - r}\). In fact, the numbers have to work as we get equality for \(\mathcal A = \{A \in X^{(r)}: 1 \in A\}\).
+\end{remark}
+
+\begin{proof}[Proof 2]
+  Consider a cyclic ordering \(c\) of \([n]\), i.e.\ a bijection \(c: [n] \to \Z/(n\Z)\). How many \(A \in \mathcal A\) are intervals (sets of \(r\) consecutive elements) in our ordering? The answer is at most \(r\). Indeed, suppose \(c_1, \dots, c_r \in A\). Then for each \(1 \leq i \leq r - 1\), at most one of the two intervals \(\dots, c_{i - 1} c_i\) and \(c_{i + 1}, c_{i + 2} \dots\) can belong to \(\mathcal A\) so that \(\mathcal A\) is intersecting. Also a given \(r\)-set \(A\) is an interval in exactly \(n \cdot r! \cdot (n - r)!\) of the \(n!\) cyclic orderings. Therefore
+  \[
+    |\mathcal A| n \cdot r! (n - r)! \leq n! r
+  \]
+  i.e.
+  \[
+    |\mathcal A| \leq \frac{(n - 1)!}{(r - 1)! (n - r)!} = \binom{n - 1}{r - 1}.
+  \]
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Equivalently, we are double-counting the edges in the bipartite graph with vertex classes \(\mathcal A\) and all cyclic orderings, in which \(A \in \mathcal A\) is joined to \(c\) if \(A\) is an interval in \(c\).
+  \item This method, by construcint an clever auxillary object and counting a parameter of it in two ways, is called \emph{averaging} or \emph{Katona's method}.
+  \end{enumerate}
+\end{remark}
+
+We may ask when we have equality in Erdős-Ko-Rado. We can check that equality holds if and only if \(\mathcal A = \{A \in X^{(r)}: i \in A\}\) for some \(i\). This follows (proof 1) from equality case of Krustal-Katona (when size is nice), or (proof 2) by considering changing the cyclic ordering bit by bit.
+
+\section{Isoperimetric inequalities}
+
+The general theme in this chapter is the question ``how tightly can we pack a subset of given size in a space''. Many results in combinatorics follow from this chapter, and Krustal-Katona is almost one of the cases.
+
+To motivate the name ``isoperimetric'', observe the basic fact in geometry that among subsets of \(\R^2\) of given area, a disc has smallest perimeter. Similarly among subsets of \(\R^3\) of given volume, a ball has smallest sufrace area. Among subsets of \(S^2\) of given area, the cap has the smallest perimeter. What are the corresponding notions in discrete settings, say subgraphs of a graph? Obviously the ``volume'' should be the number of vertices. What about the ``surface area'' and more generally, its boundary?
+
+\begin{definition}[boundary]
+  For a set \(A\) of vertices in a graph \(G\), the \emph{boundary} of \(A\) is
+  \[
+    b(A) = \{x \in V(G): x \notin A, xy \in E \text{ for some } y \in A\}.
+  \]
+\end{definition}
+
+\begin{eg}
+  In the followin graph if \(A = \{1, 2, 3\}\) then \(b(A) = \{4, 5\}\).
+  \begin{center}
+    \begin{tikzpicture}
+      \Vertex[x=0,y=0]{1}
+      \Vertex[x=1,y=0]{2}
+      \Vertex[x=0,y=-1]{3}
+      \Vertex[x=1,y=-1]{4}
+      \Vertex[x=2,y=0]{5}
+      \Vertex[x=3,y=0]{6}
+      \Vertex[x=2,y=-1]{7}
+      \Vertex[x=3,y=-1]{8}
+      \Edges(1, 2, 4, 3, 1)
+      \Edges(2, 5, 6, 8, 7, 5)
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
+
+An \emph{isopertimetric inequality}\index{isoperimetric inequality} of \(G\) is an inequality of the form
+\[
+  b(A) \geq f(|A|)
+\]
+for \(A \subseteq V(G)\). This should be a ``good'' (at least nontrivial) inequality, which warrants that such an inequality should decribe a fixed graph, and not applicable to graphs in general.
+
+To minimise the size \(b(A)\) is equivalently to (and usually easier to) the size of
+
+\begin{definition}[neighbourhood]
+  A \emph{neighbourhood} of \(A\)
+  \[
+    N(A) = A \cup b(A) = \{x \in G: d(x, A) \leq 1\}
+  \]
+  where \(d\) the usual graph distance.
+\end{definition}
+
+A natural guess for boundary minimising \(A\) is often
+\[
+  B(x, r) = \{y \in G: d(x, y) \leq r\}.
+\]
+Let's test it. Take \(|A| = 4\) in \(Q_3\). Then in the discrete \(A\) is either a hyperplane or a ball. We have \(|b(A)| = 3\) for ball and \(|b(A)| = 4\) for hyperplane. This works so we conjecture that ``balls are the best'', i.e.\ if \(|A| = |X^{(\leq r)}|\) then \(|N(A)| \geq |X^{(\leq r + 1)}|\). When \(|A|\) is strictly between \(\sum_{i = 0}^r \binom{n}{i}\) and \(\sum_{i = 0}^{r + 1} \binom{r}{i}\), conjecture that \(b(A)\) is minimised if \(A = X^{(\leq r)} \cup B\) for some \(B \subseteq X^{(r + 1)}\). This is a \emph{Hamming ball}\index{Hamming ball}. Note that if we assume this result then
+\[
+  N(A) = X^{(\leq r + 1)} \cup \shadow^+ B,
+\]
+so by Krustal-Katona, we'd take \(B\) to be an initial segment of lex on \(X^{(r + 1)}\). This strongly suggests that there is a ordering on \(\powerset(X)\), where subsets are ordered by sizes and lex is used to decide order amongs subsets of equal size, such that the boundary minimising sets are the initial segments of this order.
+
+\begin{definition}[simplicial order]\index{simplicial order}
+  The \emph{simplicial order} on \(Q_n\) is defined by \(x < y\) if either \(|x| \leq |y|\) or \(|x| = |y|\) and \(x < y\) in lex.
+\end{definition}
+
+\begin{notation}
+  In this chapter we use roman instead of curly upper case letters such as \(A, B\) to denote a family of subsets of \(X\), and lower case letters such as \(x, y\) to denote element of \(X\). This is compatible with the vertex convention in graph theory.
+\end{notation}
+
+Our aim is to show that initial segments of simplicial are the best. As we have Krustal Katona at disposal, we would like to do similar ``compressions'' to move a set ``closer'' to Hamming ball. In the proof of Krustal Katona the compressions \(C_{UV}\) can be seen as operations of dimension \(|U|\) in the discrete cube. Here we consider ``codimension \(1\)'' compression.
+
+\begin{definition}[section]\index{section}
+  Given \(A \subseteq Q_n\) and \(1 \leq i \leq n\), the \emph{\(i\)-sections} are the set systems \(A^{(i)}_+, A^{(i)}_- \subseteq \powerset(X - i)\), thought as \(Q_{n - 1}\), given by
+  \begin{align*}
+    A^{(i)}_+ &= \{x \in A: i \notin x\} \\
+    A^{(i)}_- &= \{x - \{i\}: x \in A, i \in x\}
+  \end{align*}
+  If it is clear which \(i\) is being considered we may omit the superscripts for simplicity.
+\end{definition}
+
+\begin{definition}[\(i\)-compression]\index{\(i\)-compression}
+  Define the \emph{\(i\)-compression} \(C_i(A)\) of \(A\) by compression on its \(i\)-sections, i.e.\ \(C_i(A)^{(i)}_+\) is initial segment of \(Q_{n - 1}\) of size \(|A^{(i)}_+|\) and \(C_i(A)^{(i)}_-\) is initial segment of \(Q_{n - 1}\) of size \(|A^{(i)}_-|\).
+\end{definition}
+
+\begin{eg}
+  (graph)
+\end{eg}
+
+Certainly \(|C_i(A)| = |A|\). Moreover, \(C_i(A)\) ``looks more like'' the initial segment of simplicial than \(A\) did.
+
+Say \(A\) is \emph{\(i\)-compresses} if \(C_i(A) = A\).
+
+\begin{theorem}[Harper]\index{Harper's theorem}
+  Let \(A \subseteq Q_n\) and \(C\) be the inital segment of simplicial order with \(|C| = |A|\). Then
+  \[
+    |N(A)| \geq |N(C)|.
+  \]
+\end{theorem}
+
+Same as in Krustal Katona, what we are really interested in is the ``nice'' size, i.e.\ if \(|A| \geq \sum_{i = 0}^r \binom{n}{i}\) then
+\[
+  |N(A)| \geq \sum_{i = 0}^{r + 1} \binom{n}{i}.
+\]
+
+\begin{remark}\leavevmode
+  If \(A\) is a Hamming ball then done by Krustal Katona. Conversely, Harper implies Krustal-Katona. Indeed, given \(B \subseteq X^{(r)}\), apply Harper to \(A = B \cup X^{(\leq r - 1)}\).
+\end{remark}
+
+% Note to self: proofread until told to stop
+
+\begin{proof}
+  Induction on \(n\): \(n = 1\) is trivial. Given \(A \subseteq Q_n\) where \(n > 1\), fix \(1 \leq i \leq n\). Claim that
+  \[
+    |N(C_i(A))| \leq |N(A)|.
+  \]
+  \begin{proof}
+    % TODO: proofread this proof
+    Write \(B = C_i(A)\). Given an element in the neighbourhood of \(A\), it is either in the downstairs part \(A_-\) or the upstairs part \(A_+\) so
+    \[
+      |N(A)| = |A_+ \cup N(A_-)| + |A_- \cup N(A_+)|
+    \]
+    Similarly
+    \[
+      |N(B)| = |B_+ \cup N(B_-)| + |B_- \cup N(B_+)|.
+    \]
+    Now \(|B_+| = |A_+|\) and \(|N(B_-)| \leq |N(A_-)|\) by induction. But \(N(B_-)\)  is an initial segment of simplicial (on \(Q_{n - 1}\)), as is \(B_+\), so \(N(B_-)\) and \(B_+\) are nested. Hence
+    \[
+      |B_+ \cup N(B_-)| \leq |A_+ \cup N(A_-)|
+    \]
+    and similarly
+    \[
+      |B_- \cup N(B_+)| \leq |A_- \cup N(A_+)|
+    \]
+    thus
+    \[
+      |N(B)| \leq |N(A)|.
+    \]
+  \end{proof}
+
+  Among all \(B \subseteq Q_n\) with \(|B| = |A|\) and \(|N(B)| \leq |N(A)|\), choose one with \(\sum_{x \in B} f(x)\) minimal, where \(f(x)\) is position of \(x\) in simplicial ordering of \(Q_n\). Then \(B\) is \(i\)-compressed for all \(i\).
+
+  Must such \(B\) be an initial segment of simplicial? Unfortunately, no. For example \(A = \{\emptyset, 1, 2, 12\} \subseteq Q_3\). However, we have
+
+  \begin{lemma}
+    Let \(B \subseteq Q_n\) be \(i\)-compressed for all \(i\) but not an initial segment of simplicial order. Then if \(n\) is odd, say \(n = 2k + 1\), we have
+    \[
+      B = X^{(\leq k)} - \underbrace{\text{ last \(k\)-set }}_{(k + 2)(k + 3) \dots (2k)(2k + 1)} \cup \underbrace{\text{ first \((k + 1)\)-set}}_{12\dots k(k + 1)}
+    \]
+    whereas if \(n\) is even, say \(n = 2k\), we have
+    \[
+      B = X^{(\leq k - 1)} \cup \{x \in X^{(k)}: 1 \in x\} - \underbrace{\text{ last \(k\)-set with \(1\) }}_{1(k + 2)(k + 3) \dots (2k)} \cup \underbrace{\text{ first \(k\)-set without \(1\)}}_{234\dots k (k + 1)}
+    \] 
+  \end{lemma}
+  Then done as in each case have \(|N(B)| \geq |N(C)|\).
+
+  \begin{proof}
+    Have \(x \notin B, y \in B\) for some \(x < y\) in simplicial. Cannot have \(i \in X, i \in y\) as \(B\) is \(i\)-compressed, and cannot have \(i \notin x, i \notin y\), again as \(B\) is \(i\)compressed. So for each \(i\), \(i\) belongs to exactly one of \(x\) or \(y\). Thus \(y = x^c\).
+
+    Hence for each \(y \in B\), at most one of \(x < y\) has \(x \notin B\) (namely \(y^c\)) and for each \(x \notin B\), at most one of \(y > x\) has \(y \in B\) (namely \(x^c\)). Hence
+    \[
+      B = \{z: z \leq y\} - \{x\}
+    \]
+    where \(x\) is the immediate predecessor of \(y\) and \(x = y^c\).
+
+    But then \(x\) is the last \(k\)-set (if \(n = 2k + 1\)) or last \(k\)-set containing \(1\) (if \(n = 2k\)), by definition of simplicial ordering.
+  \end{proof}
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item It is also possible to prove Harper by \(UV\)-compression.
+  \item We can also use these ``codimension \(1\)'' compressions to prove Krustal Katona directly.
+  \end{enumerate}
+\end{remark}
+
+In analysis, we often use isoperimetric inequality in blow-up form, e.g.\ give a disk, if we expand it a little bit by \(\varepsilon > 0\) at some point then the resulting shape has perimeter at least as large as that of the disk.
+
+\begin{definition}[\(t\)-neighbourhood]
+  For \(A \subseteq Q_n\), the \emph{\(t\)-neighbourhood} of \(A\) is
+  \[
+    A_{(t)} = N^t(A) = \{x \in Q_n: d(x, A) \leq t\}
+  \]
+\end{definition}
+
+\begin{corollary}
+  Let \(A \subseteq Q_n\) with \(|A| = |X^{(\leq r)}|\). Then for \(1 \leq t \leq n - r\), have
+  \[
+    |A_{(t)}| \geq |X^{(\leq r + t)}|.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Harper and induction.
+\end{proof}
+
+To get a better for for what the corollary is saying, we'll need some estimates and things like \(\sum_{i = 0}^r \binom{n}{i}\).
+% c.f. central limit theorem
+
+\begin{proposition}
+  Let \(0 < \varepsilon < \frac{1}{4}\), then
+  \[
+    \sum_{i = 0}^{\floor{(\frac{1}{2} - \varepsilon) n}} \binom{n}{i} < \frac{1}{\varepsilon} \exp (- \frac{\varepsilon^2 n}{2}) 2^n.
+  \]
+\end{proposition}
+
+i.e.\ for fixed \(\varepsilon\), the sum is an exponentially small fraction of \(2^n\)
+
+In standard deviation language, going \(\sim \varepsilon\) standard deviates from mean
+
+\begin{proof}
+  For \(i \leq (\frac{1}{2} - \varepsilon) n\),
+  \[
+    \frac{\binom{n}{i - 1}}{\binom{n}{i}}
+    = \frac{i}{n - i + 1}
+    \leq \frac{\frac{1}{2} - \varepsilon}{\frac{1}{2} + \varepsilon}
+    = 1 - \frac{2\varepsilon}{\frac{1}{2} + \varepsilon}
+    \leq 1 - 2\varepsilon.
+  \]
+  Hence by comparison with geometric progression
+  \[
+    \sum_{i = 0}^{\floor{(\frac{1}{2} - \varepsilon) n}} \binom{n}{i}
+    \leq \frac{1}{2\varepsilon} \binom{n}{\floor{(\frac{1}{2} - \varepsilon) n}}.
+  \]
+  Similarly
+  \[
+    \binom{n}{\floor{(\frac{1}{2} - \varepsilon)n}}
+    \leq (1 - \varepsilon)^{\varepsilon n / 2 - 1} \binom{n}{\floor{(\frac{1}{2} - \frac{\varepsilon}{2}) n}} %\text{ by replacing \varepsilon with \varepsilon/2}
+    \leq 2(1 - \varepsilon)^{\varepsilon n/2} 2^n
+    \leq 2 \exp{-\varepsilon \varepsilon n /2} \cdot 2^n
+  \]
+  Therefore
+  \[
+    \sum_{i = 0}^{\floor{(\frac{1}{2} - \varepsilon)n}} \leq \frac{1}{2\varepsilon} 2 \exp{- \varepsilon^2n /2} 2^n.
+  \]
+\end{proof}
+
+% end of proofread
+
+Missed a lecture on 06/11/18
+
+
 
 
 
