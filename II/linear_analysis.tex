@@ -26,7 +26,7 @@ Unless stated, vector spaces are real or complex, and \(\K\) stands for \(\R\) o
 
 \subsection{Normed vector spaces}
 
-\begin{definition}[normed vector space]\index{normed vector space}
+\begin{definition}[normed space]\index{normed space}
   A \emph{normed vector space} \((X, \norm{\cdot})\) is a vector space \(X\) with a norm \(\norm{\cdot}: X \to \R, x \mapsto \norm x\) satisfying
   \begin{enumerate}
   \item positive-definite: \(\norm x \geq 0\) for all \(x \in X\) and \(\norm x = 0\) if and only if \(x = 0\),
@@ -591,7 +591,7 @@ so \(j\) is an isometry. The image of \(j\) is dense in \(\tilde X\) since if \(
 Finally, to show \(\tilde X\) is complete, let \((\tilde x^k) \subseteq \tilde X\) be Cauchy. Let \((x^k_n) \subseteq X\) be a representative for \(\tilde x^k\). Choose \(n_k\) such that \(d(x_n^k, x_m^k) \leq 2^{-k}\) for \(n, m \geq n_k\). Define \(x_k = x_{n_k}^k \in X\). Claim that \(x = (x_k) \subseteq X\) is Cauchy and \(\tilde x^k \to \tilde x\) in \(\tilde X\). It is left as an exercise.
 \end{proof}
 
-\begin{definition}[completion]\index{completion}\index{normed vector space!completion}
+\begin{definition}[completion]\index{completion}\index{normed space!completion}
   \(\tilde X\) is called the \emph{completion} of \(X\) and we regard \(X \subseteq \tilde X\).
 \end{definition}
 
@@ -630,7 +630,7 @@ In the case of normed spaces, the metric completion has more structure:
 
 \subsubsection{Product}
 
-\begin{definition}[product]\index{normed vector space!product}
+\begin{definition}[product]\index{normed space!product}
 Let \(X\) and \(Y\) be normed spaces. Then \(X \times Y\) can be made into a normed space with one of the following equivalent norms:
 \[
   \norm{(x, y)} = (\norm x^p + \norm y^p)^{1/p}, p \in [1, \infty)
@@ -651,7 +651,7 @@ As expected for a product construction, the projections \(\pi_X: X \times Y \to 
 
 \subsubsection{Quotient}
 
-\begin{definition}[quotient]\index{normed vector space!quotient}
+\begin{definition}[quotient]\index{normed space!quotient}
   Let \(X\) be a normed space and let \(Y \subseteq X\) be a \emph{closed} subspace. Then \(x \sim x'\) if \(x - x' \in Y\) defines an equivalence relation with equivalence classes \([x] = x + Y\). Let \(X / Y\) be the collection of all equivalence classes and define
   \[
     \norm{[x]} = \inf_{y \in Y} \norm{x + y}.
@@ -1609,7 +1609,7 @@ We set up some terminologies and intermediate results before we prove the theore
 
 \subsection{Complex Stone-Weierstrass theorem}
 
-\begin{theorem}[complex Stone-Weierstrass]\index{Stone-Wererstrass theorem!complex}
+\begin{theorem}[complex Stone-Weierstrass]\index{Stone-Weierstrass theorem!complex}
   Let \(A \subseteq C(K, \C)\) be a subalgebra such that
   \begin{enumerate}
   \item \(A\) separates points,
@@ -1704,6 +1704,146 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
      \int_{-\pi}^\pi |S_ng|^2 dx \leq \int_{-\pi}^\pi |g|^2 dx.
    \]
 \end{proof}
+
+\section{Euclidean vector spaces and Hilbert spaces}
+
+\subsection{Definitions and examples}
+
+\begin{definition}[inner product]\index{inner product}\index{inner product space}
+  Let \(X\) be a vector space (real or complex). Then an \emph{inner product} is a map \((\cdot, \cdot): X \times X \to \K\) such that
+  \begin{enumerate}
+  \item (skew-)symmetric: \((x, y) = \conj{(y, x)}\) for all \(x, y \in X\),
+  \item linear in first argument: \((\lambda_1x_1 + \lambda_2x_2, y) = \lambda_1(x_1, y) + \lambda_2(x_2, y)\) for all \(x_i, y \in X, \lambda_i \in K\),
+  \item positive definite: \((x, x) \geq 0\) with \((x, x) = 0\) if and only if \(x = 0\).
+  \end{enumerate}
+
+  A vector space \(X\) together with an inner product \((\cdot, \cdot)\) is called an \emph{inner product space}.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item In the real case \((\cdot, \cdot)\) is bilinear.
+  \item In the complex case, \((\cdot, \cdot)\) is antilinear in the second argument.
+  \item There is an opposite convention, for example among physicists, where the role of the first and second argument is interchanged.
+  \end{enumerate}
+\end{remark}
+
+\begin{proposition}[Cauchy-Schwarz]\index{Cauchy-Schwarz inequality}
+  Let \(X\) be an inner product space. Then
+  \[
+    |(x, y)| \leq (x, x)^{1/2} (y, y)^{1/2}
+  \]
+  for all \(x, y \in X\) with equality if and only if \(x = \lambda y\) for some \(\lambda \in \K\).
+\end{proposition}
+
+\begin{proof}
+  We may assume that \((x, x) = 1 = (y, y)\) and \((x, y) \geq 0\). Then for \(t > 0\),
+  \[
+    0 \leq (x - ty, x- ty) = (x, x) - 2t(x, y) + t^2(y, y) = 1 + t^2 - 2t(x, y).
+  \]
+  Thus
+  \[
+    (x, y) \leq \inf_{t > 0} \frac{1 + t^2}{2t} = 1.
+  \]
+\end{proof}
+
+\begin{corollary}
+  Let \(X\) be an inner product space. Then \(\norm x = (x, x)^{1/2}\) defines a norm on \(X\).
+\end{corollary}
+
+\begin{proof}
+  Positive definiteness is immediate from the definition. Positive homogeneity follows from
+  \[
+    \norm{\lambda x} = (\lambda x, \lambda x)^{1/2} = (\lambda \conj \lambda) (x, x)^{1/2} = |\lambda| \norm x.
+  \]
+  For the triangle inequality, note
+  \begin{align*}
+    \norm{x + y}^2
+    &= (x + y, x + y) \\
+    &= (x, x) + (y, y) + \underbrace{(x, y) + (y, x)}_{= 2 \Re(x, y) \leq |(x, y)|} \\
+    &\leq \norm x^2 + \norm y^2 + 2 \norm x \norm y \\
+    &\leq (\norm x + \norm y)^2
+  \end{align*}
+\end{proof}
+
+\begin{fact}[polarisation identities]\index{polarisation identities}
+  Let \(X\) be an inner product space, \(x, y \in X\). Then
+  \begin{enumerate}
+  \item real version:
+    \[
+      (x, y) = \frac{1}{4} (\norm{x + y}^2 - \norm{x - y}^2).
+    \]
+  \item complex version:
+    \[
+      (x, y) = \frac{1}{4} (\norm{x + y}^2 - \norm{x - y}^2 + i \norm {x + iy}^2 - i \norm{x - iy}^2).
+    \]
+  \end{enumerate}
+\end{fact}
+
+\begin{proof}
+  (Nothing to be seen there)
+\end{proof}
+
+\begin{corollary}
+  The norm determines the inner product.
+\end{corollary}
+
+\begin{fact}[parallelogram law]
+  Let \(X\) be an inner product space, \(x, y \in X\). Then
+  \[
+    \norm{x + y}^2 + \norm{x - y}^2 = 2 \norm x + 2 \norm y.
+  \]
+\end{fact}
+
+\begin{proof}
+  (Really?)
+\end{proof}
+
+\begin{ex}
+  If \(X\) is a normed vector space satisfying the parallelogram law for any \(x, y \in X\), then the polarisation identity defines an inner product on \(X\), so \(X\) is also an inner product space.
+\end{ex}
+
+\begin{definition}[Euclidean]\index{normed space!Eulidean}
+  A normed space is \emph{Eucldiean} if its norm is the norm associated to some inner product.
+\end{definition}
+
+By polarisation identities, such inner product is unique if exists. The exercise shows that an equivalent characterisation is parallelogram law holds.
+
+\begin{definition}[Hilbert space]\index{Hilbert space}
+  An inner product space is called a \emph{Hilbert space} if it is complete as a metric space.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\ell^2 = \{(x_n) \subseteq \K: \sum_{n = 1}^\infty |x_n|^2 < \infty\}\) is a Hilbert space with inner product
+    \[
+      (x, y) = \sum_{n = 1}^\infty x_n \conj y_n.
+    \]
+    This is the \emph{only} separable Hilbert space up to isometric isomorphism.
+  \item \(C[0, 1]\) is an inner product space with
+    \[
+      (x, y) = \int_0^1 f(x) \conj{g(x)} dx.
+    \]
+    But it is not complete, so not a Hilbert space. This leads us to completion of inner product spaces.
+  \end{enumerate}
+\end{eg}
+
+\begin{proposition}
+  Let \(X\) be an inner product space. Then the completion of \(X\) is also an inner product space, thus a Hilbert space.
+\end{proposition}
+
+\begin{proof}
+  Let \(\tilde X\) be the completion of \(X\). For \(x, y \in \tilde X\), choose \((x_n), (y_n) \subseteq X\) such that \(x_n \to x, y_n \to y\). Set
+  \[
+    (x, y) = \lim_{n \to \infty} (x_n, y_n).
+  \]
+  Easy to check that this definition is well-defined, that \((\cdot, \cdot)\) is an inner product, and that this iner product induces the completed norm.
+\end{proof}
+
+\begin{eg}
+  The completion of \(C[0, 1]\) is a Hilbert space, denoted \(L^2([0, 1])\), that can be identified with the space of equivalence classes of Lebesgue measurable functions with \(f \sim g\) if and only if \(f = g\) Lebesgue almost everywhere.
+\end{eg}
+
 
 
 

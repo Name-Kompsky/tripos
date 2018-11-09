@@ -1494,6 +1494,120 @@ This is not always a good bound. For example \(\chi(K_{t, t}) = 2\) but \(\Delta
 
 Greedy algorithm can be really bad. (graph) there exists \(G_n\) where \(|G_n| = 2n, \chi(G) = 2\) but with some ordering, greedy used \(n + 1\) colours.
 
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item For \(G = C_n\) where \(n\) odd, have \(\chi(G) = 3, \Delta(G) = 2\) so the inequaltiy \(\chi(G) \leq \Delta(G) + 1\) is saturated.
+  \item For \(G = K_n\), \(\chi(G) = n, \Delta(G) = n - 1\) so also saturated.
+  \end{enumerate}
+\end{eg}
+
+These are the only two types of examples where the inequality is saturated. Otherwise we can improve the bound slightly.
+
+\begin{theorem}[Brookes]\index{Brookes' theorem}
+  Let \(G\) be connected and neither complete nor an odd cycle. Then
+  \[
+    \chi(G) \leq \Delta(G).
+  \]
+\end{theorem}
+
+\begin{proof}
+  For \(\Delta(G) \leq 2\) we exhaust all the possibilities.
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      \(G\) & \(\chi(G)\) & \(\Delta(G)\) & \\ \hline
+      \(P_0\) & \(1\) & \(0\) & \(K_1\) \\ \hline
+      \(P_1\) & \(2\) & \(1\) & \(K_2\) \\ \hline
+      \(P_n, n \geq 2\) & \(2\) & \(2\) & \\ \hline
+      \(C_n, n\) odd & \(3\) & \(2\) & odd cycle \\ \hline
+      \(C_n, n\) even & \(2\) & \(2\) & \\ \hline
+    \end{tabular}
+    \caption{\(\Delta(G) \leq 2\)}
+  \end{table}
+  So assume \(\Delta(G) = \Delta \geq 3\) and \(G \neq K_{\Delta + 1}\). Induction on \(|G|\). Suppose \(W \subseteq V(G)\) with \(W \neq \emptyset\) and let \(H\) be a component of \(G - W\). Then \(|H| < |G|, \Delta(H) \leq \Delta\) and \(H \neq K_{\Delta + 1}\) (as if \(K_{\Delta + 1} \subseteq G\) then no vertex in the \(K_{\Delta + 1}\) can be joined to outside, but \(G\) is connected and not \(K_{\Delta + 1}\), contradiction). So by hypothesis (or greedy algorithm) \(\chi(H) \leq \Delta\). Hence \(\chi(G - W) \leq \Delta\).
+
+  Let \(v_2 \in G\) with \(d(v_2) = \Delta\). As \(G \neq K_{\Delta + 1}\) there are distinct \(v_1, v_3 \in \Gamma(v_2)\) with \(v_1 \nsim v_3\). Extend \(v_1v_2v_3\) for as long as possible to a path \(P = v_1v_2 \cdots v_k\). Two possibilities:
+  \begin{enumerate}
+  \item \(k = |G|\): have \(V(G) = V(P)\). As \(d(v_2) \geq 3\) exists \(j > 3\) with \(v_2 \sim v_j\). Greedily colour in order
+    \[
+      v_1, v_3, \dots, v_{j - 1}, v_k, v_{k - 1}, \dots, v_j, v_2.
+    \]
+    \begin{enumerate}
+    \item For \(v \neq v_2\) when we colour \(v\) it has an uncoloured neighbour \(j\).
+    \item \(v_2\) has neighbours of the same colour (\(v_1, v_3\) both colour 1).
+    \end{enumerate}
+    Thus in both cases when a vertex \(v\) is coloured there are at most \(\Delta - 1\) colours used on \(\Gamma(v)\) already. Hence \(\chi(G) \leq \Delta\).
+  \item \(k < |G|\): in this case \(\Gamma(v_k) \subseteq V(P)\). If \(d(v_k) = 1\) then \(\Delta\)-colour \(G - v_k\) and give \(v_k\) a different colour from \(v_{k - 1}\). So assume \(d(v_k) \geq 2\). Pick \(i\) minimal such that \(v_k \sim v_i\) where \(i < k - 1\). Then \(C = v_iv_{i + 1} \cdots v_kv_i\) is a cycle and \(\Gamma(v_k) \subseteq V(C)\). Now \(C\) has a vertex with no neighbours outside \(C\) (e.g.\ \(v_k\)) and also a vertex with at least one neighbour outside \(C\) (as \(G\) is connected).
+
+    Relabel \(C = w_1w_2 \cdots w_\ell w_1\) with \(\Gamma(w_1) \subseteq V(C)\) and \(_\ell \sim u \notin C\). Now \(\Delta\)-colour \(G - V(C)\) and then extend the colouring to all of \(G\) by greedily colouring \(w_1, \dots, w_\ell\). wlog in colouring of \(G - V(C)\), \(u\) has colour 1. Now
+    \begin{enumerate}
+    \item if \(w \neq w_\ell\) then when we colour \(w\) it has an uncoloured neighbour,
+    \item \(w_\ell\) has 2 neighbour of the same colorur (\(u\) and \(w_1\) have colour 1).
+    \end{enumerate}
+    So as before \(\chi(G) \leq \Delta\).
+  \end{enumerate}
+\end{proof}
+
+\subsection{Graphs on surfaces}
+
+We should not restrict our attention to drawing on the Euclidean plane. We consider the problem of drawing on other smooth \(2\)-manifolds, i.e.\ surfaces (drawing problem is trivial for dimension higher than \(2\). Why?).
+
+\begin{definition}[chromatic number]\index{chromatic number}
+  Let \(S\) be a surface. The \emph{chromatic number} of \(S\) is
+  \[
+    \chi(S) = \max \{\chi(G): G \text{ can be drawn on } S\}.
+  \]
+\end{definition}
+
+For example, four colour theorem says \(\chi(\R^2) = 4\). On the other had, it is not hard to draw \(K_5\) on a torus. Thus the topology of the ambient space does make a difference.
+
+Henceforth only consider compact boundaryless surfaces. This exludes \(\R^2\), but it is easy to see that by compactification a graph can be drawn on \(\R^2\) if and only if it can be drawn on \(S^2\).
+
+We quote without two important theorems in algebraic topotlogy. The first one is classification theorem for compact sufaces, which state that, up to homeomorphism, compact surfaces fall into two classes
+\begin{enumerate}
+\item for \(g \geq 0\), \(T_g\) the \emph{orientable surface} of genus \(g\) ``\(g\)-holed torus'',
+\item for \(g \geq 1\), \(S_g\) the \emph{non-orientable surfaces} of genus \(g\).
+\end{enumerate}
+and furthermore they are pairwise non-homeomorphic. The second is
+
+\begin{proposition}[Euler-Poincaré forumla]\index{Euler-Poincaré formula}\index{Euler characteristic}
+  If \(|G| = n, e(G) = m\) and can be drawn on \(S\) with \(\ell\) faces then
+  \[
+    n - m + \ell \geq E
+  \]
+  where \(E\) is the \emph{Euler characterisitc} of \(S\) and
+  \begin{align*}
+    E(T_g) &= 2(1 - g) \\
+    E(S_g) &= 2 - g
+  \end{align*}
+\end{proposition}
+
+\begin{theorem}
+  Let \(S\) be a surface of Euler characteristic \(E \leq 1\). Then
+  \[
+    \chi(S) \leq \floor*{\frac{7 + \sqrt{49 - 24E}}{2}}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Write \(\chi = \chi(S)\). Let \(G\) be drawn on \(S\) where \(G\) is \emph{minimal \(\chi\)-chromatic}, i.e.\ \(\chi(G) = \chi\) but \(\chi(H) < \chi\) if \(H \subsetneq G\). Let \(|G| = n, e(g) = m\) and \(\ell\) faces.
+
+  By Euler-Poincaré, \(n - m + \ell \geq 2\) but \(2m \geq 3\ell\) so \(\ell \leq \frac{2}{3}m\) so \(n - \frac{1}{3}m \geq E\), \(m \leq 3(n - E)\). Also note \(n \geq \chi\). As \(G\) is minimal \(\chi\)-chromatic,
+  \[
+    \chi - 1 \leq \delta(G) \leq \overline \delta(G) = \frac{2m}{n} \leq 6 - \frac{6E}{n}.
+  \]
+  If \(E = 1\) then \(\chi - 1 < 6\) so \(\chi < 7\), i.e.\ \(\chi \leq 6\). If \(E \leq 0\) then as \(n \geq \chi\),
+  \[
+    \chi - 1 \leq 6 - \frac{6E}{n} \leq 6 - \frac{6E}{\chi}
+  \]
+  then \(\chi^2 - 7\chi + 6E \leq 0\) so
+  \[
+    \chi \leq \frac{7 + \sqrt{49 - 24E}}{2}.
+  \]
+\end{proof}
+
+
 
 
 

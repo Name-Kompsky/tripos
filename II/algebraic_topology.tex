@@ -13,6 +13,9 @@
 \DeclareMathOperator{\rel}{rel}
 \newcommand{\w}{\vee}
 \renewcommand{\b}{\partial} % boundary of a simplicial complex
+\newcommand{\interior}{\mathring} % interior
+\DeclareMathOperator{\mesh}{mesh}
+\DeclareMathOperator{\St}{St} % star
 
 \begin{document}
 
@@ -1178,11 +1181,11 @@ This is quite an abstract definition, but there are a few equivalent notions. Fo
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item If \(\sigma\) is a simplex then \(K = \{\tau: \tau \leq \sigma\}\) is a simplicial complex.
-  \item If \(\sigma\) is a simplex then the set of proper faces of \(\sigma\), denoted \(\b \sigma\), is also a simplicial complex. It is called the \emph{boundary}\index{boundary} of \(\sigma\). The set of points in \(\sigma\) not in a simplex of \(\b \sigma\) is called the \emph{interior}, denoted by \(\mathring \sigma\).
+  \item If \(\sigma\) is a simplex then the set of proper faces of \(\sigma\), denoted \(\b \sigma\), is also a simplicial complex. It is called the \emph{boundary}\index{boundary} of \(\sigma\). The set of points in \(\sigma\) not in a simplex of \(\b \sigma\) is called the \emph{interior}, denoted by \(\interior \sigma\).
   \end{enumerate}
 \end{eg}
 
-Note that if \(\sigma\) is a \(0\)-simplex then \(\mathring \sigma = \sigma\).
+Note that if \(\sigma\) is a \(0\)-simplex then \(\interior \sigma = \sigma\).
 
 \begin{definition}[realisation/polyhedron]\index{realisation}\index{polyhedron}
   The \emph{realisation} or \emph{polyhedron} of a simplicial complex \(K\) is the union of the simplices in \(K\), denoted by \(|K|\).
@@ -1259,7 +1262,96 @@ Realisaition of simplicial maps are piecewise linear and thus very rigid. On the
   the \(r\)th barycentric subdivision.
 \end{definition}
 
+\begin{definition}[mesh]\index{mesh}
+  Let \(K\) be a simplicial complex. define the \emph{mesh} of \(K\) to be
+  \[
+    \mesh(K) = \max_{\langle v_0, v_1 \rangle \in K} \norm{v_0 - v_1}_2.
+  \]
+\end{definition}
 
+Here the \(2\)-norm is just taken for the sake of convenience and concreteness.
+
+\begin{lemma}
+  If \(\dim K = n\) then
+  \[
+    \mesh(K^{(r)}) \leq \left(\frac{n}{n + 1}\right)^r \mesh(K).
+  \]
+  In particular
+  \[
+    \lim_{r \to \infty} \mesh(K^{(r)}) = 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \(\dim K' = \dim K = n\) so by induction it suffices to show that
+  \[
+    \mesh(K') \leq \frac{n}{n + 1} \mesh(K).
+  \]
+  A \(1\)-simplex in \(K'\) is of the form \(\langle \hat \tau, \hat \sigma \rangle\) where \(\tau \leq \sigma\). Note that \(K'\) is a finite set and mesh is realised by some pairs of vertices. By a bit geometric reasoning this is achieved by some vertex. We may thus assume that \(\hat \tau = v_0\), a vertex of \(\sigma = \langle v_0, \dots, v_m\rangle\). Thus
+  \begin{align*}
+    \norm{\hat \tau - \hat \sigma}
+    &= \norm*{v_0 - \frac{1}{m + 1} \sum_{i = 0}^m v_i} \\
+    &= \norm*{\frac{m}{m + 1} v_0 - \frac{1}{m + 1} \sum_{i = 1}^m v_i} \\
+    &= \frac{1}{m + 1} \norm*{\sum_{i = 1}^m (v_0 - v_i)} \\
+    &\leq \frac{1}{m + 1} \sum_{i = 1}^m{v_0 - v_1} \\
+    &\leq \frac{m}{m + 1} \mesh(K) \\
+    &\leq \frac{n}{n + 1} \mesh (K)
+  \end{align*}
+\end{proof}
+
+\subsection{Simplicial approximation theorem}
+
+\begin{definition}[star]\index{star}
+  Let \(v\) be a vertex of \(K\). The \emph{star} of \(v\) is
+  \[
+    \St_K(v) = \bigcup_{v \in \sigma \in K} \interior \sigma
+  \]
+\end{definition}
+
+\begin{definition}[simplicial approximation]\index{simplicial approximation}
+  Let \(\phi: |K| \to |L|\) be a continuous map. A simplicial map \(f: K \to L\) is a \emph{simplicial approximation} of \(\phi\) if for every vertex \(v\) of \(K\),
+  \[
+    \phi(\St_K(v)) \subseteq \St_L(f(v)).
+  \]
+\end{definition}
+
+\begin{lemma}
+  If \(f: K \to L\) is a simplicial approximation to \(\phi: |K| \to |L|\) then \(|f| \simeq \phi\).
+\end{lemma}
+
+\begin{proof}
+  Suppose \(|L| \subseteq \R^m\) as usual. Consider the straightline homotopy \(H\) between \(|f|\) and \(\varphi\). We will prove that \(H\) stays inside \(|L|\). Let \(x \in \interior \sigma\) and let \(\phi(x) \in \interior \tau\). We'll show that \(f(\sigma) \leq \tau\). The result then follows because \(\tau\) is a convex subset of \(R^m\).
+
+  Let \(\sigma = \langle v_0, \dots, v_n \rangle\). For each \(i\), \(x \in \St_K(v_i)\) so
+  \[
+    \phi(x) \in \phi(\St_K(v_i)) \subseteq \St_L(f(v_i))
+  \]
+  so \(f(v_i)\) is a vertex of \(\tau\). So \(f(\sigma) \tau\) as desired.
+\end{proof}
+
+\begin{theorem}[simplicial approximation theorem]\index{simplicial approximation theorem}
+  Let \(K, L\) be simplicial complexes and \(\phi: |K| \to |L|\) a continuous map. For some \(r \in \N\) there is a implicial approximation to \(\phi\), \(f: K^{(r)} \to L\).
+\end{theorem}
+
+\begin{proof}
+  Let
+  \[
+    U = \{\phi^{-1}(\St_L(u)): u \text{ a vertex of } L\}
+  \]
+  which is an open cover of \(|K|\). Claim that there is \(\delta > 0\) such that for all \(x \in |K|\), there exists a vertex of \(L\) such that
+  \[
+    B(x, \delta) \subseteq \phi^{-1}(\St_L(u)).
+  \]
+
+  \begin{proof}
+    Lebesgue number lemma.
+  \end{proof}
+  Choose \(r\) large enough such that \(\mesh(K^{(r)}) < \delta\). Then for any vertex \(v\) of \(K^{(r)}\),
+  \[
+    \St_{K^{(r)}}(v) \subseteq B(v, \delta) \subseteq \phi^{-1}(\St_L(u))
+  \]
+  for some \(u\). Set \(f(v) = u\) for some such \(u\). Left to check this is a simplicial map, i.e.\ for all \(\sigma \in K^{(r)}, f(\sigma) \in L\). But as in the proof of the previous lemma, if \(x \in \interior \sigma\) and \(\phi(x) \in \interior \tau\) then \(f(\sigma)\) must be a face of \(\tau\).
+\end{proof}
 
 
 

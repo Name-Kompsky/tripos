@@ -868,6 +868,118 @@ In general, suppose \(X\) and \(Y\) are topological spacs, \(U \subseteq X, V \s
   Note \(i_x, i_Y\) are homeomorphisms. For each chart \((W, \psi)\) of \(X\) we define a chart \((i_X(W), \psi \compose i_X^{-1})\) on \(Z\), similarly for charts of \(Y\). Transition maps come from those of \(X\) or \(Y\) or those composed with \(\phi\) so are analytic. \(Z\) is connected for if we could disconnect \(Z\) we could disconnect \(X\) or \(Y\). So \(Z\) admits a conformal structure, with analytic inclusion. Uniqueness is immediate.
 \end{proof}
 
+\begin{eg}
+  \(R = \{(z, w) \in \C^2: w^2 = z^3 - z\}\). We have seen that \(R\) minus points where \(w \neq 0\) is a topological torus minus 4 points. Now we compactify it.
+
+  Consider \(t =  \frac{1}{z}, u = \frac{1}{w}\). Then the defining equation becomes
+  \[
+    \frac{1}{u^2} = \frac{1}{t^3} - \frac{1}{t},
+  \]
+  i.e.
+  \[
+    t^3 = u^2 - u^2t^2 = u^2 (1 - t^2).
+  \]
+  Unfortunately it is not a Riemann surface via either \(\pi_t\) or \(\pi_u\) at \((0, 0)\)! But not all hope is lost. Write
+  \[
+    t = \left(\frac{u}{t} \right)^2 (1 - t^2)
+  \]
+  and let \(v = \frac{u}{t} = \frac{z}{w}\). Then the surface becomes \(Y = \{(t, v) \in \C^2: t = v^2 (1 - t^2)\}\). \(Y\) does have one or both projections \(\pi_t, \pi_v\) a local homeomorphism around each point, including \((0, 0)\) so \(Y\) admits a conformal structure. Consider the isomorphism
+  \begin{align*}
+    U &\to V \\
+    (z, w) &\mapsto (t, v) = (\frac{1}{z}, \frac{z}{w})
+  \end{align*}
+  where \(U \subseteq R\) are points where neither \(z\) or \(w\) is \(0\) and \(V\) its isomorphic image in \(Y\). Consider the gluing of \(R\) and \(Y\) along this isomorphism, call it \(X\), with inclusions \(i_R: R \embed X, i_Y: Y \embed X\). The image of \(R\) in \(X\) is \(X \setminus \{1 \text{ points}\}\) % why so?
+  and all points in \(i_R(R)\) can be separated, similarly in \(i_Y(Y)\). If \(P \in X \setminus i_Y(Y)\) and \(Q \in X \setminus i_R(R)\) so \(P\) is \((0, 0)\) and \(Q\) is \((0, 0)\) in local coordinates then
+  \begin{align*}
+    &\{(z, w) \in R: |z| < 1\} \\
+    &\{(t, v) \in Y: |t| < 1\}
+  \end{align*}
+  separate \(P\) and \(Q\).
+
+  \(X\) admits a conformal structure for which \(i_R, i_Y\) are analytic. Consider
+  \begin{align*}
+    D_R &= \{(z, w) \in R: |z| \leq 2\} \\
+    D_Y &= \{(t, v) \in Y: |t| \leq 2\}
+  \end{align*}
+  these are compact in \(R \amalg Y\) so map to compact sets in \(X\) via the continuous quotient map. Thus as a finite union of compact sets \(X\) is compact. Note this agrees with our topological intuition that \(X\) can be compactified by the addition of a single point.
+\end{eg}
+
+\subsection{Branching}
+
+Note these projection maps are \emph{not} coverings on \(R\) (or \(X\)) but they still have controlled behaviour.
+
+\begin{definition}[multiplicity/valency]\index{multiplicity}\index{valency}
+  Let \(f: R \to S\) be an nonconstant analytic map of Riemann surfaces and \(z_0 \in R\). Locally we can write
+  \[
+    f(z) = f(z_0) + (z - z_0)^{m_f(z_0)} g(z)
+  \]
+  where \(g(z)\) nonzero analytic. \(m_f(z_0)\) is the \emph{multiplicity} or \emph{valency} of \(f\) at \(z_0\).
+\end{definition}
+
+\begin{lemma}
+  Suppose \(g, h\) are nonconstant analytic on domains in \(\C\) and the image of \(h\) is contained in the domain of \(g\). Then
+  \[
+    m_{g \compose h}(z) = m_h(z) m_g(h(z)).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Left as an exercise.
+\end{proof}
+
+As a corollary, multiplicity is well defined. Indeed if \(z \in R, f(z) \in S\) and \((U, \phi), (\tilde U, \tilde \phi)\) are charts for \(z\), \((V, \psi), (\tilde V, \tilde \psi)\) are charts for \(f(z)\) then \(m_f(z)\) is given by the multiplicity of its local expression, which is
+\begin{align*}
+  \tilde \psi \compose f \compose \tilde \phi^{-1}
+  &= \tilde \psi \compose (\psi^{-1} \compose \psi \compose f \compose \phi^{-1} \compose \phi) \compose \tilde \phi^{-1} \\
+  &= (\tilde \psi \compose \psi^{-1}) \compose (\psi \compose f \compose \phi^{-1}) \compose (\phi \compose \tilde \phi^{-1})
+\end{align*}
+the transition maps have multiplicity 1 everywhere so by the lemma the multiplicity of the local expressions agree.
+
+Note that the points at which \(m_f(z) > 1\) are isolated, by the (local) principle of isolated zeros. In particular if \(R\) is compact then \(\{z \in R: m_f(z) > 1\}\) is finite. %Note that in complex analysis we expressed local mapping degree in terms of derivatives. On Riemann surfaces we don't have derivative (really???) but multiplicity still makes sense.
+
+\begin{definition}[ramification point, ramification index, branch point]\index{ramification point}\index{ramification index}\index{branch point}
+  Let \(f: R \to S\) be nonconstant analytic. If \(z \in R\) has \(m_f(z) > 1\), we call \(z\) a \emph{ramification point} of \(f\) and \(m_f(z)\) in this case is called the \emph{ramification index} at \(z\), and \(f(z)\) is a \emph{branch point} of \(f\).
+\end{definition}
+
+\begin{eg}
+  Let \(p(z) = \sum_{k = 0}^d a_kz^k\) be an analytic map \(\C \to \C\) with \(d \geq 1, a_d \neq 0\). \(p\) extends to an analytic map of the Riemann sphere via \(p(\infty) = \infty\). At \(\infty\) the local expression is
+  \[
+    \frac{1}{p(\frac{1}{z})} = \frac{1}{\sum_{k = 0}^d a_k z^{-k}} = \frac{z^d}{\sum_{k = 0}^d a_k z^{d - k}} = z^d g(z)
+  \]
+  for some \(g\) analytic and nonzero near \(0\). Thus \(m_p(\infty) = d\).
+\end{eg}
+
+\begin{theorem}[valency theorem]\index{valency theorem}
+  Let \(f: R \to S\) be a nonconstant analytic map of Riemann surfaces. If \(R\) is compact then there exists \(n \geq 1\) such that \(f\) is an \(n\)-to-\(1\) map counting multiplicity, i.e.\ for all \(w \in f(S)\),
+  \[
+    \sum_{z \in f^{-1}(w)} m_f(z) = n.
+  \]
+\end{theorem}
+
+See how false this can be for noncompact Riemann surfaces!
+
+\begin{proof}
+  By the principle of isolated zeros \(f^{-1}(w)\) is a finite set for all \(w \in S\). Define then
+  \[
+    n(w) = \sum_{z \in f^{-1}(w)} m_f(z).
+  \]
+  We want to show \(n: S \to \Z\) is constant. But \(S\) is connected so suffcie to show \(n\) is locally constant. Fix \(w_0 \in S\) and let \(f^{-1}(w_0) = \{z_1, \dots, z_q\}\). For each \(z_k\), \(f\) is locally \(z \mapsto z^{m_f(z_k)}\) on a neighbourhood of \(z_k\). Choose a chart \((N_k, \phi)\) around \(z_k\) such that \(\phi(N_k)\) is a disk around \(\phi(z_k)\). \(f|_{N_k}\) is an \(m_f(z_k)\)-to-\(1\) map to its image. wlog choose the \(N_k\) disjoint. Note that \(R \setminus \bigcup N_k\) is compact so \(f(R \setminus \bigcup N_k)\) is compact, and there exists \(M\) open neighbourhood of \(w_0\) such that \(f(R \setminus \bigcup N_k) \cap M = \emptyset\). Let \(N = f(N_1) \cap \dots \cap f(N_q) \cap M\), an open neighbourhood of \(w_0\). For \(w \in N\), \(f^{-1}(w) \subseteq \bigcup_{k = 1}^q N_k\) so
+  \[
+    n(w) = \sum_{z \in f^{-1}(w)} m_f(w) = \sum_{z \in f^{-1}(w_0)} m_f(z) = n(w_0).
+  \]
+\end{proof}
+
+\begin{definition}[degree/valency]\index{degree}\index{valency}
+  Let \(f: R \to S\) be a nonconstant analytic map with \(R\) compact. Then we call the number \(n\) the \emph{degree} or \emph{valency} of \(f\).
+\end{definition}
+
+\begin{corollary}[fundamental theorem of algebra]
+  Let \(p\) be nonconstant polynomial of degree \(d\). Then \(p\) has \(d\) roots in \(\C\).
+\end{corollary}
+
+\begin{proof}
+  \(p\) extends to a map \(p: \C_\infty \to \C_\infty\) and \(p^{-1}(\infty) = \infty\) with multiplicity \(d\). So by valency theorem \(0\) also has \(d\) preimages counting multiplicity.
+\end{proof}
 
 
 

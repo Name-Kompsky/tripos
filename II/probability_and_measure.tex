@@ -1418,7 +1418,7 @@ Conversely,
       f_\lambda(t) &= \lambda e^{-\lambda t} \mathbf 1_{t \geq 0} \\
       F_\lambda(t) &= \int_{-\infty}^t f_\lambda(t) dt = \mathbf 1_{t \geq 0} (1 - e^{-t/\lambda}) \\
       \end{align*}
-    \item Guassian distribution with standart deviation \(\sigma\) and mean \(m\):
+    \item Gaussian distribution with standart deviation \(\sigma\) and mean \(m\):
       \begin{align*}
         f_{\sigma, m}(t) &= \frac{1}{\sqrt{2\pi \sigma^2}} \exp - \frac{(t - m)^2}{2\sigma^2} \\
         F_{\sigma, m}(t) & = \int_{-\infty}^t \dots
@@ -1488,7 +1488,7 @@ Independence is the key notion that makes probability theory different from (abs
 \begin{remark}
   This is equivalent to the condition that for all \((t_i)_{i \geq 1}\), for all \(n\),
   \[
-    \P((X_1 \leq t_1) \wedge \dots \wedge (X_n \leq t_n)) = \prod_{i = 1}^n \P(X_i \leq t_i).
+    \P((X_1 \leq t_1) \cap \dots \cap (X_n \leq t_n)) = \prod_{i = 1}^n \P(X_i \leq t_i).
   \]
 
   Yet another equivalent formulation is
@@ -1557,7 +1557,7 @@ Independence is the key notion that makes probability theory different from (abs
 \end{remark}
 
 \begin{proposition}[infinite product of product measure]
-  Let \((\Omega_i, \mathcal F_i, \mu_i)_{i \geq 1}\) be a sequence of probability spaces and let \(\Omega = \prod_{i \geq 1} \Omega_i\) and let \(\mathcal E\) be the Boolean algebra of cylinder sets, i.e.\ sets of the form
+  Let \((\Omega_i, \mathcal F_i, \mu_i)_{i \geq 1}\) be a sequence of probability spaces, \(\Omega = \prod_{i \geq 1} \Omega_i\) and \(\mathcal E\) be the Boolean algebra of cylinder sets, i.e.\ sets of the form
   \[
     A \times \prod_{i \geq n} \Omega_i
   \]
@@ -1639,7 +1639,7 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. ``infinitely often''
 \end{definition}
 
 \begin{eg}
-  Tail events are those not affected by the first few terms in the sequence of random variables.
+  Tail events are those not affected by the first few terms in the sequence of random variables. For example,
   \[
     \{\omega \in \Omega: \lim_n X_n(\omega) \text{ exists}\}
   \]
@@ -1663,11 +1663,11 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. ``infinitely often''
   \]
   as \(\mathcal C\) is independent of \(\sigma(X_1, \dots, X_n)\). The measures \(B \mapsto \P(A) \P(B)\) and \(B \mapsto \P(A \cap B)\) coincide on each \(\mathcal F_n\) so on \(\bigcup_{n \geq 1} \mathcal F_n\). Hence they coincide on \(\sigma(\bigcup_{n \geq 1} \mathcal F_n) \supseteq \mathcal C\) so
   \[
-    \P(A \cap A) = \P(A) \P(A)
+    \P(A) = \P(A \cap A) = \P(A) \P(A)
   \]
   so
   \[
-    P(A) \in \{0, 1\}.
+    \P(A) \in \{0, 1\}.
   \]
 \end{proof}
 
@@ -1714,7 +1714,7 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. ``infinitely often''
   \]
 \end{proposition}
 
-\(\E(Y^2) < \infty\) implies that \(\E(|Y|) < \infty\) by Cauchy-Schwarz, so \(\var Y < \infty\). The reverse is more subtle.
+\(\E(Y^2) < \infty\) implies that \(\E(|Y|) < \infty\) by Cauchy-Schwarz, so \(\var Y < \infty\). The converse is more subtle.
 
 \begin{proof}
   Apply Markov to \(X = |Y - \E(Y)|^2\).
@@ -1729,14 +1729,14 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. ``infinitely often''
 \end{theorem}
 
 \begin{proof}
-  We prove the theorem under a stonger condition: we assume \(\E(|X_1|^4) < \infty\). This implies, by Cauchy-Schwarz, \(\E(|X_1|^2), \E(|X_1|) < \infty\). Subsequently \(\E(|X_1|^3) < \infty\).
+  We prove the theorem under a stonger condition: we assume \(\E(X_1^4) < \infty\). This implies, by Cauchy-Schwarz, \(\E(X_1^2), \E(|X_1|) < \infty\). Subsequently \(\E(|X_1|^3) < \infty\). The full proof is much harder but will be given later when we have developed enough machinrry.
 
-  wlog we may assume \(\E(X_1) = 0\), by replacing \(X_n\) by \(X_n - \E(X_1)\). Have
+  wlog we may assume \(\E(X_1) = 0\), by replacing \(X_n\) with \(X_n - \E(X_1)\). Have
   \begin{align*}
     \E(S_n^4)
-    &= \sum_{i,j, k, \ell} \E(X_iX_jX_kX_\ell)
+    &= \sum_{i,j, k, \ell} \E(X_iX_jX_kX_\ell).
   \end{align*}
-  there terms vanish because \(\E(X_i) = 0\) and \((X_i)_{i \geq 1}\) are independnet, except for \(\E(X_i^4)\) and \(\E(X_i^2X_j^2)\) for \(i \neq j\). For example,
+  All terms vanish because \(\E(X_i) = 0\) and \((X_i)_{i \geq 1}\) are independnet, except for \(\E(X_i^4)\) and \(\E(X_i^2X_j^2)\) for \(i \neq j\). For example,
   \[
     \E(X_iX_j^3) = \E(X_i) \cdot \E(X_j^3) = 0
   \]
@@ -1745,7 +1745,7 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. ``infinitely often''
 
   Thus
   \[
-    \E S_n^4 = \sum_{i = 1}^n \E (X_i^4) + 6 \sum_{i < j} \E(X_i^2 X_j^2).
+    \E(S_n^4) = \sum_{i = 1}^n \E (X_i^4) + 6 \sum_{i < j} \E(X_i^2 X_j^2).
   \]
   By Cauchy-Schwarz,
   \[
@@ -1755,9 +1755,9 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. ``infinitely often''
   \[
     \E(S_n^4) \leq (n + 6 \cdot \frac{n(n - 1)}{2}) \E X_1^4
   \]
-  so
+  and asymptotically,
   \[
-    \E (\frac{S_n}{n})^4 = O(\frac{1}{n^2})
+    \E (\frac{1}{n}S_n)^4 = O(\frac{1}{n^2})
   \]
   so
   \[
@@ -1770,9 +1770,7 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. ``infinitely often''
   almost surely.
 \end{proof}
 
-statistical implication: we can sample the mean of larger number of iid to detect an unknown law, at least the mean.
-
-We will give a full proof later.
+Strong law of large numbers has a very important statistical implication: we can sample the mean of larger number of iid to detect an unknown law, at least the mean.
 
 \section{Convergence of random variables}
 
@@ -1785,7 +1783,7 @@ We will give a full proof later.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item Let \(\mu_n = \delta_{1/n}\) be the Dirac mass on \(\R^n\), where for \(x \in \R^d\), \(\delta_x\) is the probability on \(\R^d\) such that
+  \item Let \(\mu_n = \delta_{1/n}\) be the Dirac mass on \(\R^d\), where for \(x \in \R^d\), \(\delta_x\) is the probability on \(\R^d\) such that
     \[
       \delta_x(A) =
       \begin{cases}
@@ -1795,18 +1793,18 @@ We will give a full proof later.
     \]
     then \(\mu_n \to \delta_0\).
   \item Let \(\mu_n = \mathcal N(0, \sigma_n^2)\), Gaussian distribution with standard deviation \(\sigma_n\), where \(\sigma_n \to 0\), then again \(\mu_n \to \delta_0\). Indeed,
-    \[
+    \begin{align*}
       \mu_n(f)
-      = \int f(x) d\mu(x)
-      = \int f(x) \frac{1}{\sqrt{2\pi \sigma_n^2}} \exp (- \frac{x^2}{2\pi_n^2}) dx
-      = \int f(x\sigma_n) \frac{1}{\sqrt{2\pi}} \exp - \frac{x^2}{2} dx
-    \]
-    \(\sigma_n \to 0\) so \(f(\sigma_n x) \to f(0)\) so by DCT, \(\mu_f(f) \to f(0) = \delta_0(f)\).
+      &= \int f(x) d\mu(x) \\
+      &= \int f(x) \frac{1}{\sqrt{2\pi \sigma_n^2}} \exp (- \frac{x^2}{2\sigma_n^2}) dx \\
+      &= \int f(x\sigma_n) \frac{1}{\sqrt{2\pi}} \exp (- \frac{x^2}{2}) dx
+    \end{align*}
+    \(\sigma_n \to 0\) so \(f(\sigma_n x) \to f(0)\) so by dominated convergence theorem, \(\mu_n(f) \to f(0) = \delta_0(f)\).
   \end{enumerate}
 \end{eg}
 
 \begin{definition}[convergence of random variable]\index{convergence!almost surely}\index{convergence!in probability}\index{convergence!in measure}\index{convergence!in distribution}
-  A sequence \((X_n)_{n \geq 1}\) of \(\R^d\)-valued random variables on \((\Omega, \mathcal F, \P)\) is said to converge to a random variable \(X\) if
+  A sequence \((X_n)_{n \geq 1}\) of \(\R^d\)-valued random variables on \((\Omega, \mathcal F, \P)\) is said to converge to a random variable \(X\)
   \begin{enumerate}
   \item \emph{almost surely} if
     \[
@@ -2010,12 +2008,156 @@ When does converge surely imply convergence in mean? We need some kind of domina
 \end{proof}
 This provides a sufficient condition for uniform integrability and thus convergnce in mean.
 
+\section{\(L^p\) spaces}
 
+Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), for all \(t \in [0, 1]\),
+\[
+  \varphi(tx + (1 - t) y) \leq t \varphi(x) + (1 - t) \varphi(y).
+\]
 
+\begin{proposition}[Jensen inequality]\index{Jensen inequality}
+  \label{prop:Jensen inequality}
+  Let \(I\) be an open interval of \(\R\) and \(\varphi: I \to \R\) a \emph{convex} function. Let \(X\) be a random variable \((\Omega, \mathcal F, \P)\). Assume \(X\) is integrable and takes values in \(I\). Then
+  \[
+    \E(\varphi(X)) \geq \varphi(\E(X)).
+  \]
+\end{proposition}
 
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item As \(x \in I\) almost surely and \(I\) is an interval, have \(\E(X) \in I\).
+  \item We'll show that \((\varphi(x))^-\) is integrable so
+    \[
+      \E(\varphi(X)) = \E(\varphi(X)^+) - \E(\varphi(X)^-)
+    \]
+    with the possibility that both sides are infinity.
+  \end{enumerate}
+\end{remark}
 
+\begin{lemma}
+  TFAE:
+  \begin{enumerate}
+  \item \(\varphi\) is convex,
+  \item there exists a family \(\mathcal F\) affine functions (\(\ell(x) = ax + b\)) such that \(\varphi = \sup_{\ell \in \mathcal F} \ell\) on \(I\).
+  \end{enumerate}
+\end{lemma}
 
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(2 \implies 1\): every \(\ell\) is convex and the supremum of \(\ell\) is convex:
+    \[
+      \ell(t x + (1 - t) y) = t \ell(x) + (t - t) \ell(y) \leq t \sup x + (1 - t) \sup y
+    \]
+    so
+    \[
+      \sup_{\ell \in \mathcal F} \ell( t x + (1 - t) y) \leq \sup
+    \]
+  \item We need to show that for all \(x_0 \in I\) we can find an affine function \(\ell_{x_0} = \theta_{x_0} (x - x_0 + \varepsilon(x_0)\), where \(\theta_{x_0}\) is morally the slope at \(x_0\), such that \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\). Then have \(\varphi = \sup_{x_0 \in I} \ell_{x_0}\).
 
+    To find \(\theta_{x_0}\) observe that for all \(x < x_0 < y\) where \(x, y \in I\), have
+    \[
+      \frac{(\varphi(x_0) - \varphi(x)}{x_0 - x} \leq \frac{\varphi(y) - \varphi(x_0)}{y - x_0}.
+    \]
+    Indeed this is the convexity of \(\varphi\) on \([x, y]\) with \(t = \frac{x_0 - x}{y - x}\). This holds for all \(x < x_0, y > x_0\) so there exists \(\theta \in \R\) such that
+    \[
+      \frac{(\varphi(x_0) - \varphi(x)}{x_0 - x} \leq \theta \leq \frac{\varphi(y) - \varphi(x_0)}{y - x_0}.
+    \]
+    Then just set \(\ell_{x_0}(x) = \theta(x - x_0) + \varphi(x_0)\). By construction \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\).
+  \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of \nameref{prop:Jensen inequality}]
+  Let \(\varphi(x) = \sup_{\ell \in \mathcal F} \ell(x)\) where \(\ell\) affine. then
+    \[
+      \E(\varphi(X)) \geq \E(\ell(X)) = \ell(\E(X))
+    \]
+    for all \(\ell \in \mathcal F\) so take supremum,
+    \[
+      \E(\varphi(X)) \geq \sup_{\ell \in \mathcal F} \ell(\E(X)) = \varphi(\E(X)).
+    \]
+
+    Also for the remark,
+    \[
+      - \varphi = - \sup_{\ell \in \mathcal F} \ell = \int(-\ell)
+    \]
+    so \(\varphi^- = (-\varphi)^+ \leq |\ell|\) for all \(\ell \in \mathcal F\). Then
+    \[
+      \varphi^-(X) \leq |\ell(X)| \leq |a| |X| + |b|.
+    \]
+    As \(X\) is integrable, \(\varphi^-(X)\) is integrable.
+\end{proof}
+
+Jensen is for probability space only. The following applies to all measure spaces.
+
+\begin{proposition}[Minkowski inquality]\index{Minkowski inequality}
+  Let \((X, \mathcal A, \mu)\) be a measure space and \(f, g\) measurable functions on \(X\). Let \(p \in [1, \infty\) and define the \(p\)-norm
+  \[
+    \norm f_p = \left( \int_X |p|^p d \mu \right)^{1/p}.
+  \]
+  Then
+  \[
+    \norm{f + g}_p \leq \norm f_p + \norm g_p.
+  \]
+\end{proposition}
+
+\begin{proof}
+  wlog assume \(\norm f_p, \norm f_p \neq 0\). Need to show
+  \[
+    \norm*{\frac{\norm f_p}{\norm f_p + \norm g_p} \frac{f}{\norm f}_p + \frac{\norm g_p}{\norm f_p + \norm g_p} \frac{g}{\norm g_p}}_p \leq 1.
+  \]
+  Suffice to show for all \(t \in [0, 1]\), for all \(F, G\) measurable such that \(\norm F_p = \norm G_p = 1\), have
+  \[
+    \norm{tF + (1 - F) G}_p \leq 1
+  \]
+  ``the unit ball is convex''. For this note that
+  \begin{align*}
+    [0, +\infty) &\to [0, +\infty) \\
+    x &\mapsto x^p
+  \end{align*}
+  is convex if \(p \geq 1\) so
+  \[
+    |t F + (1 - t) G|^p \leq t |F|^p + (1 - t) |G|^p
+  \]
+  and
+  \[
+    \int_X |tF + (1 - t)G|^p d\mu \leq t \underbrace{\int_X |F|^p d\mu}_{= 1} + (1 - t) \underbrace{\int_X |G|^p d\mu}_{= 1} = 1.
+  \]
+\end{proof}
+
+\begin{proposition}[Hölder inequality]\index{Hölder inequality}
+  \label{prop:Hölder inequality}
+  Suppose \((X, \mathcal A, \mu)\) is a measure space and let \(f, g\) be measurable functions on \(X\). Given \(p, q \in (1, \infty)\) such that \(\frac{1}{p} + \frac{1}{q} = 1\),
+  \[
+    \int_X |fg| d\mu \leq \left( \int_X |f|^p d\mu \right)^{1/p} \left( \int_X |g|^q d\mu \right)^{1/q}
+  \]
+  with equality if and only if there exists \((\alpha, \beta) \neq (0, 0)\) such that \(\alpha |f|^p = \beta |g|^q\) \(\mu\)-almost everywhere.
+\end{proposition}
+
+\begin{lemma}[Young inequality]\index{Young inequality}
+  For all \(a, b \geq 0\), have
+  \[
+    ab \leq \frac{a^p}{p} + \frac{b^q}{q}.
+  \]
+\end{lemma}
+
+\begin{proof}[Proof of \nameref{prop:Hölder inequality}]
+  wlog assume \(\norm f_p, \norm g_q \neq 0\). By scaling by factors \((\alpha, \beta) \neq (0, 0)\) wlog \(\norm f_p = \norm g_q = 1\). Then by Young inequality,
+  \[
+    |fg| \leq \frac{1}{p} |f|^p + \frac{1}{q} |g|^q
+  \]
+  so
+  \[
+    \int_X |fg| d\mu \leq \frac{1}{p} \int_X |f|^p d\mu + \frac{1}{q} \int_X |g|^q d\mu = \frac{1}{p} + \frac{1}{q} = 1.
+  \]
+\end{proof}
+
+\begin{remark}
+  Apply Jensen inequality to \(\varphi(x) = x^{p'/p}\) for \(p' > p\), we have
+  \[
+    \E(|X|^p)^{1/p} \leq \E(|X|^{p'})^{1/p'},
+  \]
+  so the function \(p \mapsto \E(|X|^p)^{1/p}\) is non-decreasing. This can be used, for example, to show that if \(X\) has \(p\)th moment then it has \(p'\)th moment for \(p' \leq p\).
+\end{remark}
 
 
 

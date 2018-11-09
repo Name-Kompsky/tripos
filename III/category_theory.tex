@@ -37,7 +37,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\adjoint}{\dashv}
 
 \newcommand{\T}{{\mathbb{T}}} % monad
-\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
 
 \begin{document}
 
@@ -78,7 +78,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
   \item The category \(\Top\) has all topological spaces as objects and continuous functions as morphisms. Similarly \(\c{Unif}\) the category of uniform spaces with uniformly continuous functions and \(\c{Mf}\) the category of manifolds with smooth maps.
   \item The cateogry \(\c{Htpy}\) has same objects as \(\Top\) but morphisms are homotopy classes of continuous functions.
 
-    More generally, given \(\c C\) we call an equivalence relation \(\simeq\) on \(\mor \c C\) a \emph{congruence} if \(f \simeq g\) implies \(\dom f = \dom g, \cod f = \cod g\) and \(fh \simeq gh\) and vice versa. % ?
+    More generally, given \(\c C\) we call an equivalence relation \(\simeq\) on \(\mor \c C\) a \emph{congruence}\index{congruence} if \(f \simeq g\) implies \(\dom f = \dom g, \cod f = \cod g\) and \(fh \simeq gh\) and vice versa.
     Then we have a set \(\c C / \simeq\) with the same objects as \(\c C\) but congruence classes as morphisms.
   \item Given \(\c C\), the \emph{opposite category}\index{category!opposite} \(\c C^{\text{op}}\) has the same objects and morphisms as \(\c C\), but domain and codomain interchanged and \(fg\) in \(\c C^{\text{op}}\) is \(gf\) in \(\c C\).
 
@@ -243,7 +243,7 @@ For example, being a groupoid or a preorder are categorical properies, but being
     \[
       (A, a) \to ((A \setminus \{a\})^+, A \setminus \{a\})
     \]
-   sending \(a\) to \(A \setminus \{a\}\) and everything else to itself. This is natural. 
+   sending \(a\) to \(A \setminus \{a\}\) and everything else to itself. This is natural.
 
    Note that there can be no isomorphism \(\Set_* \to \c{Part}\) since \(\c{Part}\) has a \(1\)-element isomorphism class \(\{\emptyset\}\) and \(\Set_*\) doesn't.
  \item The category \(\c{fdMod}_K\) of finite-dimensional vector spaces over \(K\) is equivalent to \(\c{fdMod}_K^{\text{op}}\):  the functors in both directions are \(\cdot^*\) and both isomorphisms are the natural transformations given by double dual.
@@ -263,7 +263,7 @@ The criterion is stated in term of ``bijectivity'' of functors, informally. It i
 \begin{definition}[faithful, full, essentially surjective]\index{functor!faithful}\index{functor!full}\index{functor!essentially surjective}
   Let \(\c C \xrightarrow{F} \c D\) be a functor.
   \begin{enumerate}
-  \item \(F\) is \emph{faithful} if given \(f, f' \in \mor \c C\) with \(\dom f = \dom f', \cod f = \cod f'\) and \(Ff = Ff'\) then \(f = f'\). 
+  \item \(F\) is \emph{faithful} if given \(f, f' \in \mor \c C\) with \(\dom f = \dom f', \cod f = \cod f'\) and \(Ff = Ff'\) then \(f = f'\).
   \item \(F\) is \emph{full} if given \(FA \xrightarrow{g} FB\) in \(\c D\) then there exists \(A \xrightarrow{f} B\) in \(\c C\) with \(Ff = g\).
   \item \(F\) is \emph{essentially surjective} if for every \(B \in \ob \c D\) there exists \(A \in \ob \c C\) and an isomorphism \(FA \to B\) in \(\c D\).
   \end{enumerate}
@@ -483,7 +483,7 @@ which is equal to \(\alpha_B\beta_B(f)\).
         A & C \ar[l, "f"] \ar[r, "g"] \ar[u, "h", dashed] & B
       \end{tikzcd}
     \]
- 
+
     Products exist in many categories of interest: in \(\Set, \c{Gp}, \c{Rng}, \Top, \dots\) they are ``just'' cartesian products. In posets they are binary meets.
 
     Dually, we have the notion of \emph{coproduct}\index{coproduct}
@@ -515,9 +515,6 @@ which is equal to \(\alpha_B\beta_B(f)\).
 
   Split monomorphisms are regular (see example sheet 1 Q6 (i)). Note that a regular mono that is also epic implies isomorphism: if the equaliser \(e\) of \((f, g)\) is epic then \(f = g\) so \(e \cong 1_{\cod e}\).
 \end{remark}
-
-% generating family
-% warning: nonstandard terminology
 
 \begin{definition}[separating/detecting family, seperator, detector]\index{separating family}\index{detecting family}\index{separator}\index{detector}
   Let \(\c C\) be a category, \(\mathcal G\) a class of objects of \(\c C\).
@@ -931,7 +928,7 @@ On the other hand, to express a not-necessarily-commutative square, we use the s
     \cdot \ar[r] & \cdot
   \end{tikzcd}
 \]
- 
+
 An alternative way to understand limits is that, if \(\c C\) is locally small and \(\c J\) is small, we have a functor \(\c C^{\text{op}} \to \Set\) sending \(A\) to the set of cones with apex \(A\). A limit for \(D\) is a representation of this functor.
 
 A thrid way to visualise cones: if \(\Delta A\) denotes the constant diagram of shape \(\c J\) with all vertices \(A\) and all edges \(1_A\), then a cone over \(D\) with apex \(A\) is the same thing as a natural transformation \(\Delta A \to D\). \(\Delta\) is a functor \(\c C \to [\c J, \c C]\) and \(\Cone(D)\) is the arrow category \((\Delta \downarrow D)\). So to say that every diagram of shape \(\c J\) in \(\c C\) has a limit is equivalent to saying that \(\Delta\) has a right adjoint. (We say \(\c C\) \emph{has limits} of shape \(\c J\))
@@ -1202,7 +1199,7 @@ The last major theorem in this chapter is adjoint functor theorem. It says that 
   for all \(j\) so \((G\ell) k = h\) by uniqueness of factorisations through limits.
 \end{proof}
 
-Recall that we have seen a limit for the empty diagram is a terminal object. We can also consider dually the diagram of ``maximal size'', namely that of a category over itself, to realise inital object as a limit. Think for example posets, in which limit for an empty diagram is maximimum while limit for the 
+Recall that we have seen a limit for the empty diagram is a terminal object. We can also consider dually the diagram of ``maximal size'', namely that of a category over itself, to realise inital object as a limit. Think for example posets, in which limit for an empty diagram is maximimum while limit for the
 
 \begin{lemma}
   A category \(\c C\) has an initial object if and only if \(1_{\c C}: \c C \to \c C\), regarded as a diagram of shape \(\c C\) in \(\c C\), has a limit.
@@ -1248,25 +1245,24 @@ The primeval adjoint functor theorem follows immediately from the previous two l
   Conversely, by 4.10 \((A \downarrow G)\) is complete and it inherits local smallness from \(\c D\). We need to show that if \(\mathcal A\) is complete and locally small and has a weakly initial set of objects \(\{B_i: i \in I\}\) then \(\mathcal A\) has an initial object. First form \(P = \prod_{i \in I} B_i\); then \(P\) is weakly initial. Now form the limit of
   \[
     \begin{tikzcd}
-      P \ar[r, shift left] \ar[r, shift right] & P
+      P \ar[r, shift left, "\vdots"'] \ar[r, shift right] & P
     \end{tikzcd}
   \]
-  where edges are all the endomorphisms of \(P\). Denote it \(i: I \to P\). \(I\) is also weakly initial in \(\mathcal A\). Suppose given \(f, g: I \to C\). Form the equaliser \(e: E \to I\) of \((f, g)\). Then there exists \(h: P \to E\) since \(P\) is weakly initial. \(ieh: P \to P\) and \(1_P\) are edegs of the diagram * so \(i = iehi\). But \(i\) is monic so \(ehi = 1_I\) so \(e\) is split epic so \(f = g\). Thus \(I\) is initial.
+  where edges are all the endomorphisms of \(P\). Denote it \(i: I \to P\). \(I\) is also weakly initial in \(\mathcal A\). Suppose given \(f, g: I \to C\). Form the equaliser \(e: E \to I\) of \((f, g)\). Then there exists \(h: P \to E\) since \(P\) is weakly initial. \(ieh: P \to P\) and \(1_P\) are edegs of the diagram so \(i = iehi\). But \(i\) is monic so \(ehi = 1_I\) so \(e\) is split epic so \(f = g\). Thus \(I\) is initial.
 \end{proof}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item % from Mac Lane. An experiment: suppose you are not given the free group functor. How are you going to construct the left adjoint of forgetful functor?
-    Consider the forgetful functor \(U: \c{Gp} \to \Set\). By 4.6a \(U\) creates all small limits so \(\c{Gp}\) has them and \(U\) preserves them. \(\c{Gp}\) is locally smal, given a set \(A\), any \(f: A \to UG\) factors as
+  \item This example comes from Mac Lane. He asked the question that, if we are not given the free group functor, how can we to construct the left adjoint of forgetful functor? Consider the forgetful functor \(U: \c{Gp} \to \Set\). By 4.6a \(U\) creates all small limits so \(\c{Gp}\) has them and \(U\) preserves them. \(\c{Gp}\) is locally smal, given a set \(A\), any \(f: A \to UG\) factors as
     \[
       A \to UG' \to UG
     \]
-    where \(G'\) is the subgroup generated by \(\{f(x): x \in A\}\) and \(\operatorname{card} G' \leq \max\{\aleph_0, \operatorname{card} A\}\). Let \(B\) be a set of this cardinality. Consider all subsets \(B' \subseteq B\), all group structures on \(B'\) and all mappings \(A \to B'\). These give us a solution set at \(A\). % grudge against Mac Lane.
+    where \(G'\) is the subgroup generated by \(\{f(x): x \in A\}\) and \(\operatorname{card} G' \leq \max\{\aleph_0, \operatorname{card} A\}\). Let \(B\) be a set of this cardinality. Consider all subsets \(B' \subseteq B\), all group structures on \(B'\) and all mappings \(A \to B'\). These give us a solution set at \(A\). % grudge against Mac Lane. Similar as http://wwwf.imperial.ac.uk/~buzzard/maths/research/notes/the_adjoint_functor_theorem.pdf
   \item Consider the category \(\c{CLat}\) of complete lattices (posets with arbitrary meets and joints). Again the forgetful functor \(U: \c{CLat} \to \Set\) creates all small limits. But A.\ W.\ Hales showed in 1964 that for any cardinal \(\kappa\) there exists complete lattices of cardinality \(\geq \kappa\) generated by three elements. So the solution set condition fails at \(A = \{x, y, z\}\) as we cannot bound the cartinality of the solution set, and \(U\) doesn't have a left adjoint.
   \end{enumerate}
 \end{eg}
 
-Special adjoint functor theorem to get rid of solution set condition on functors
+The general adjoint functor theorem is general in the sense that it applies to all categories, although it imposes solution set condition, which is a rather strong condition on the functor. Special adjoint functor theorem aims to get rid of the condition on the functor.
 
 \begin{definition}[subobject, quotient object]\index{subobject}\index{quotient object}
   By a \emph{subobject} of an object \(A\) of \(\c C\) we mean a monomorphism \(A' \mono A\). The subobjects of \(A\) are preordered by \(A'' \leq A'\) if there is a factorisation
@@ -1280,12 +1276,14 @@ Special adjoint functor theorem to get rid of solution set condition on functors
 \end{definition}
 
 \begin{definition}[well-powered]\index{category!well-powered}
-  We say \(\c C\) is \emph{well-powered} if each \(A \in \ob \c C\) has a set of subojects \(\{A_i \mono A: i \in I\}\) such that every subobject of \(A\) is isomorphic to some \(A_i\).
+  We say \(\c C\) is \emph{well-powered} if each \(A \in \ob \c C\) has a set of subobjects \(\{A_i \mono A: i \in I\}\) such that every subobject of \(A\) is isomorphic to some \(A_i\).
 
-  Dually if \(\c C^{\text{op}}\) is well-powered, we say \(\c C\) is \emph{well-copowered}. (not cowell-powered, as it implies badly powered)
+  Dually if \(\c C^{\text{op}}\) is well-powered, we say \(\c C\) is \emph{well-copowered}. (\emph{not} cowell-powered, as it implies badly powered. It also sounds like something being powered by Simon Cowell, which is not quite what we study in this course)
 \end{definition}
 
-For example in \(\Set\) we can take inclusions \(\{A' \embed A: A ' \in PA\}\). This is also where the name ``well-powered'' comes from as ``power set exists''
+For example in \(\Set\) we can take inclusions \(\{A' \embed A: A ' \in PA\}\). This is also where the name ``well-powered'' comes from as in the \(\Set\) case it simply means power set exists.
+
+Before stating and proving the special functor theorem we point out a simple yet powerful observation about pullback square.
 
 \begin{lemma}
   Given a pullback square
@@ -1311,50 +1309,60 @@ For example in \(\Set\) we can take inclusions \(\{A' \embed A: A ' \in PA\}\). 
 \end{theorem}
 
 \begin{proof}
-  The only if is given by RAPL. For the other direction, for any \(A \in \ob \c C\), \((A \downarrow G)\) is locally complete by 4.10, locally small, and well-powered since the subobjects of \((B, f)\) in \((A \downarrow G)\) are just those subobjects \(B' \mono B\) in \(\c D\) for which \(f\) factors through \(GB' \mono GB\). Also if \(\{S_i: i \in I\}\) is a coseparating set for \(\c D\) then the set
+  The only if is given by right adjoint preserves limits. For the other direction, for any \(A \in \ob \c C\), \((A \downarrow G)\) is locally complete by 4.10, locally small, and well-powered since the subobjects of \((B, f)\) in \((A \downarrow G)\) are just those subobjects \(B' \mono B\) in \(\c D\) for which \(f\) factors through \(GB' \mono GB\). Also if \(\{S_i: i \in I\}\) is a coseparating set for \(\c D\) then the set
   \[
     \{(S_i, f): i \in I, f \in \c C(A, GS_i)\}
   \]
   is coseparating in \((A \downarrow G)\): given \(g, h: (B, f) \to (B', f')\) in \((A \downarrow G)\) with \(g \neq h\), there exists \(k: B' \to S_i\) for some \(i\) with \(kg \neq kh\), and then \(k\) is also a morphism \((B', f') \to (S_i, (Gk) f')\) in \((A \downarrow G)\).
 
-  So we need to show that if \(\mathcal A\) is complete, locally small and well-powered and has a coseparating set \(\{S_i: i \in I\}\) then \(\mathcal A\) has an initial object. Form the product \(P = \prod_i \in S_i\). ``industrial-stength pullback'' Now consider the diagram
-
-  [diagram]
-
-  whose edges are a representative set of subobjects of \(P\) and form its limit
-
-  [diagram]
-
+  So we need to show that if \(\mathcal A\) is complete, locally small and well-powered and has a coseparating set \(\{S_i: i \in I\}\) then \(\mathcal A\) has an initial object. Form the product \(P = \prod_i \in S_i\). We have the industrial stength product and now we need the industrial strength pullback. Consider the diagram
+  \[
+    \begin{tikzcd}[row sep=tiny, column sep=tiny]
+      & & P_j \ar[dddr, rightarrowtail] & P_i \ar[ddd, rightarrowtail] \\
+      & \ar[ddrr, rightarrowtail] \\
+      & \vdots \\
+      P' \ar[rrr, rightarrowtail] & & & P
+    \end{tikzcd}
+  \]
+  whose edges are representative set of subobjects of \(P\) and form its limit
+  \[
+    \begin{tikzcd}[row sep=tiny, column sep=tiny]
+      I \ar[rrr] \ar[rrrd] \ar[ddd] & & & P_i \\
+      & & & P_j \\
+      & & \dots \\
+      P'
+    \end{tikzcd}
+  \]
   By the argument in the previous lemma, the legs of the cones are all monic; in particular \(I \mono P\) is monic, and it's a least subobject of \(P\). Hence \(I\) has no proper subobjects. So given \(f, g: I \to A\) their equaliser is an isomorphism and hence \(f = g\).
 
   We get uniqueness for free but need to work harder to show existence. Now let \(A\) be any object of \(\mathcal A\). Form the product \(Q = \prod_{i \in I, f \in \mathcal A (A, S_i)} S_i\). There is an obvious \(h: A \to Q\) defined by \(\pi_{i, F} h = f\); and \(h\) is monic, since the \(S_i\)'s are a coseparating set. We also have a morphism \(k: P \to Q\) defined by \(\pi_{i, f} k = \pi_i\). Now form the pullback
-  % \[
-  %   \begin{tikzcd}
-  %     B \ar[r] \ar[dr, rightarrowtail] & A \ar[d, "h", rightarrowtail] \\
-  %     & P \ar[r, "k"]
-  %   \end{tikzcd}
-  % \]
+   \[
+     \begin{tikzcd}
+       B \ar[r] \ar[d, rightarrowtail] & A \ar[d, "h", rightarrowtail] \\
+       P \ar[r, "k"] & Q
+     \end{tikzcd}
+   \]
   by lemma \(P\) is monic so \(B\) is a subobject of \(P\). Hence there exists
   \[
     \begin{tikzcd}
-      I \ar[r] \ar[dr, rightarrowtail] & B \ar[d, rightarrowtail] \\
+      I \ar[r] \ar[dr] & B \ar[d] \\
       & P
     \end{tikzcd}
   \]
-  and hence a morphhism \(I \to B \to A\).
+  and hence a morphism \(I \to B \to A\).
 \end{proof}
 
-Freyd, exercise to reader!
+This result is due to Freyd, who first published it in a book as an exercise to the readers (!).
 
 \begin{eg}
-  Consider the inclusion \(I: \c{KHaus} \to \c{Top}\), where \(c{KHaus}\) is the full subcategory of compact Hausdorff spaces. \(\c{KHaus}\) has and \(I\) preserves small products (by Tychonoff's theorem) and equalisers (since equalisers of pairs \(f, g: X \to Y\) with \(Y\) Hausdorff are closed subspaces). Both cateogories are locally small and \(\c{KHaus}\) is well-powered (subobjects of \(X\) are isomorphic to closed subspaces). The closed interval \([0, 1]\) is a coseparateor in \(\c{KHaus}\) by Urysohn's lemma. So by special adjoint functor theorem \(I\) has a left adjoint \(\beta\), the Stone-Cech compactification.
+  Consider the inclusion \(I: \c{KHaus} \to \c{Top}\), where \(\c{KHaus}\) is the full subcategory of compact Hausdorff spaces. \(\c{KHaus}\) has and \(I\) preserves small products (by Tychonoff's theorem) and equalisers (since equalisers of pairs \(f, g: X \to Y\) with \(Y\) Hausdorff are closed subspaces). Both cateogories are locally small and \(\c{KHaus}\) is well-powered (subobjects of \(X\) are isomorphic to closed subspaces). The closed interval \([0, 1]\) is a coseparateor in \(\c{KHaus}\) by Urysohn's lemma. So by special adjoint functor theorem \(I\) has a left adjoint \(\beta\), the Stone-Čech compactification\index{Stone-Čech compactification}.
 \end{eg}
 
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item % I've never asked Freyed but this is probabily how he gets the inspiration for AFT. not from Marshall Stone's proof
 
-  Cech's construction of \(\beta\) is as follow: given \(X\), form
+  Čech's construction of \(\beta\) is as follow: given \(X\), form
   \[
     P = \prod_{f: X \to [0, 1]} [0, 1]
   \]
@@ -1362,7 +1370,7 @@ Freyd, exercise to reader!
 
   % coseparator in \((X \downarrow [0, 1])\), smallest subobject being precisely the closure.
 
-  Cech's proof that this works is essentially the same as SAFT.
+  Čech's proof that this works is essentially the same as SAFT.
 \item We could have used GAFT to construct \(\beta\) by a cardinality argument: we get a solution set at \(X\) by considering all continuous \(f: X \to Y\) with \(Y\) compact Hausdorff and \(f(X)\) dense in \(Y\) and such \(Y\) have cardinality \(\leq 2^{2^{\operatorname{card} X}}\).
   \end{enumerate}
 \end{remark}
@@ -1397,7 +1405,7 @@ by naturality of \(\varepsilon\).
   \(\eta\) and \(\mu\) are called the \emph{unit} and \emph{multiplication} of \(\T\).
 \end{definition}
 
-The name ``monad'' was used because of the similarity of axioms of monad with those of monoid. Before that, although begin well-known to mathematicians, monad didn't really have an identifier. It goes by the name ``standard construction'', then ``triple'', thereby the letter \(\T\). But both are confessions of failure to come up with a meaningful name! Someone invented the name ``monad'' and Mac Lane popularised it.
+The name ``monad'' was used because of the similarity of axioms of monad with those of monoid. Before that, although being well-known to mathematicians, monad didn't really have an identifier. It goes by the name ``standard construction'', then ``triple'', thereby the letter \(\T\). But both are confessions of failure to come up with a meaningful name! Someone invented the name ``monad'' and Mac Lane popularised it.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -1407,7 +1415,7 @@ The name ``monad'' was used because of the similarity of axioms of monad with th
   \end{enumerate}
 \end{eg}
 
-Does every monad comes from an adjunction? The answer is yes and is given independently in 1965 by Eilenberg, Moore Kleisli. We will cover both.
+Does every monad comes from an adjunction? The answer is yes and is given independently in 1965 by Eilenberg, Moore and Kleisli. We will cover both.
 
 In example 2 above we have the cateogry \([M, \Set]\). Its forgetful functor to \(\Set\) has a left adjoint, sending \(A\) to \(M \times A\) with \(M\) acting by multiplication on the left factor. This adjunction gives rise to the monad.
 
@@ -1471,42 +1479,175 @@ Kleisli took a ``minimalist'' approach: if \(F: \c C \to \c D, G: \c D \to \c C\
       A \ar[r, "f"] & TB \ar[r, "Tg"] & TTC \ar[r, "\mu_C"] & C
     \end{tikzcd}
   \]
-  and the identities
+  and the identity
   \begin{tikzcd}
     A \ar[r, blue] & A
   \end{tikzcd}
   is \(A \xrightarrow{\eta_A} TA\).
-  
-  To verify associativity, suppose given
-  \begin{tikzcd}
-    A \ar[r, blue, "f"] & B \ar[r, blue, "g"] & C \ar[r, blue, "h"] & D
-  \end{tikzcd}
-  then
-  \[
-    \begin{tikzcd}
-      A \ar[r, "f"] & TB \ar[r, "T_g"] & TTC \ar[r, "TTh"] \ar[d, "\mu_C"] & TTTD \ar[r, "T\mu D"] \ar[d, "\mu_{TD}"] \arrow[mysymbol]{dr}[description]{(3)} & TTD \ar[d, "\mu_D"] \\
-      & & TC \ar[r, "Th"] & TTD \ar[r, "\mu_D"] & TD
-    \end{tikzcd}
-  \]
-  commutes: the upper way monad is \((hg) f\) and the lower is \(h(gf)\).
-
-  The unit laws similarly follow from
-  \[
-    \begin{tikzcd}
-      A \ar[r, "f"] & TB \ar[r, "T\eta_B"] \ar[dr, "1_{TB}"'] \arrow[mysymbol]{dr}[description]{(1)} & TTB \ar[d, "\mu_B"] \\
-      & & TB
-    \end{tikzcd}
-    \quad
-    \begin{tikzcd}
-      A \ar[r, "f"] \ar[d, "\eta_A"] & TB \ar[dr, "1_{TB}"] \ar[d, "1_{TB}"] \arrow[mysymbol]{dr}[description]{(2)}  \\
-      TA \ar[r, "Tf"] & TTB \ar[r, "\mu_B"] & TB
-    \end{tikzcd}
-  \]
 \end{definition}
 
+To verify associativity, suppose given
+\begin{tikzcd}
+  A \ar[r, blue, "f"] & B \ar[r, blue, "g"] & C \ar[r, blue, "h"] & D
+\end{tikzcd}
+then
+\[
+  \begin{tikzcd}
+    A \ar[r, "f"] & TB \ar[r, "T_g"] & TTC \ar[r, "TTh"] \ar[d, "\mu_C"] & TTTD \ar[r, "T\mu D"] \ar[d, "\mu_{TD}"] & TTD \ar[d, "\mu_D"] \\
+    & & TC \ar[r, "Th"] & TTD \ar[r, "\mu_D"] & TD
+  \end{tikzcd}
+\]
+commutes: the upper way monad is \((hg) f\) and the lower is \(h(gf)\). (used diagram 3 in rightmost square)
 
+The unit laws similarly follow from
+\[
+  \begin{tikzcd}
+    A \ar[r, "f"] & TB \ar[r, "T\eta_B"] \ar[dr, "1_{TB}"'] & TTB \ar[d, "\mu_B"] \\
+    & & TB
+  \end{tikzcd}
+  \qquad
+  \begin{tikzcd}
+    A \ar[r, "f"] \ar[d, "\eta_A"] & TB \ar[dr, "1_{TB}"] \ar[d, "1_{TB}"] \\
+    TA \ar[r, "Tf"] & TTB \ar[r, "\mu_B"] & TB
+  \end{tikzcd}
+\]
+(used diagram 1 and 2 respecitively in the triangles)
 
+\begin{lemma}
+  There exists an adjunction \(F_\T: \c C \to \c C_\T, G_\T: \c C_T \to \c C\) inducing the monad \(\T\).
+\end{lemma}
 
+\begin{proof}
+  We define \(F_\T A = A, F_\T(A \xrightarrow{f} B) = A \xrightarrow{f} B \xrightarrow{\eta_B} TB\). \(F_\T\) preserves identities by definition. For composites, consider \(A \xrightarrow{f} B \xrightarrow{g} C\), we get
+  \[
+    \begin{tikzcd}
+      A \ar[r, "f"] & B \ar[r, "\eta_B"] \ar[d, "g"] & TB \ar[d, "Tg"] \\
+      & C \ar[r, "\eta_C"] & TC \ar[r, "T\eta_C"] \ar[dr, "1_{TC}"'] & TTC \ar[d, "\mu_C"] \\
+      & & & TC
+    \end{tikzcd}
+  \]
+  (used diagram 1 in the triangle)
+
+  We define
+  \begin{align*}
+    G_\T A &= TA \\
+    G_\T(A \blue{\xrightarrow{f}} B) &= TA \xrightarrow{Tf} TTB \xrightarrow{\mu_B} TB
+  \end{align*}
+  \(G_\T\) preserves identities by diagram 1. For composite, consider
+  \begin{tikzcd}
+    A \ar[r, blue, "f"] & B \ar[r, blue, "g"] & C
+  \end{tikzcd}
+  , we get
+  \[
+    \begin{tikzcd}
+      TA \ar[r, "Tf"] & TTB \ar[r, "TTg"] \ar[d, "\mu_B"] & TTTC \ar[r, "T\mu_C"] \ar[d, "\mu_{TC}"] & TTC \ar[d, "\mu_C"] \\
+      & TB \ar[r, "Tg"] & TTC \ar[r, "\mu_C"] & TC
+    \end{tikzcd}
+  \]
+  (used diagram 3 is last square)
+
+  Have
+  \begin{align*}
+    G_\T F_\T A &= TA \\
+    G_\T T_\T f &= \mu_B (T\eta_B) Tf = TF
+  \end{align*}
+  so we take \(\eta: 1_{\c C} \to T\) as the unit of \(F_\T \adjoint G_\T\). The counit
+  \begin{tikzcd}
+    TA \ar[r, "\varepsilon_A"] & A
+  \end{tikzcd}
+  is \(1_{TA}\). To verify naturality consider the square
+  \[
+    \begin{tikzcd}
+      TA \ar[r, blue, "F_\T G_\T f"] \ar[d, blue, "\varepsilon_A"] & TB \ar[d, blue, "\varepsilon_B"] \\
+      A \ar[r, blue, "f"] & B
+    \end{tikzcd}
+  \]
+  This expands to
+  \[
+    \begin{tikzcd}
+      TA \ar[r, "Tf"] & TTB \ar[r, "\mu_B"] & TB \ar[r, "\eta_{TB}"] \ar[dr, "1_{TB}"'] & TTB \ar[d, "\mu_B"] \\
+      & & & TB
+    \end{tikzcd}
+  \]
+  (used diagram 2 in triangle) so \(\varepsilon\) is natural.
+
+  Finally, \(G_\T(TA \blue{\xrightarrow{\varepsilon_A}} A) = \mu_A\) so
+   \[
+     G_\T(\blue{\varepsilon_A}) \eta_{G_\T A} = \mu_A \eta_{TA} = 1_{TA}
+   \]
+   and \(\blue{(\varepsilon_{F_\T A}) (F_\T \eta_A)}\) is
+   \[
+     \begin{tikzcd}
+       A \ar[r, "\eta_A"] & TA \ar[r, "\eta_{TA}"] \ar[dr, "1_{TA}"'] & TTA \ar[d, "\mu_A"] \\
+       & & TA
+     \end{tikzcd}
+   \]
+    (used diagram 1 in triangle) which is \(\blue{(1_{F_\T A})}\). Also \(G_\T(\blue{\varepsilon_{F_\T A}}) = \mu_A\) so \(F_\T \adjoint G_\T\) induces \(\T\).
+\end{proof}
+
+\begin{theorem}
+  Given a monad \(\T\) on \(\c C\), let \(\c{Adj} (\T)\) be the category whose objects are the adjunctions \(F: \c C \to \c D, G: \c D \to \c D\) inducing \(\T\), and whose morphisms
+  \[
+    \begin{tikzcd}
+      (\c C \ar[r, shift left, "F"] & \c D) \ar[l, shift left, "G"] \ar[r] & (\c C \ar[r, shift left, "F'"] & \c D') \ar[l, shift left, "G'"]
+    \end{tikzcd}
+  \]
+  are functors \(H: \c D \to \c D'\) satisfying \(HF = F'\) and \(G'H = G\). Then the Kleisli adjunction is an initial object of \(\c{Adj} (\T)\) and Eilenberg-Moore adjunction is terminal.
+\end{theorem}
+
+\begin{proof}
+  Let \(F G\) be an object of \(\c{Adj} (\T)\). We define the \emph{Eilenberg-Moore comparison functor}\index{Eilenberg-Moore comparison functor} \(K: \c D \to \c C^\T\) by \(KB = (GB, G\varepsilon_B)\) where \(\varepsilon\) is the counit of \(F \adjoint G\). Note this is an algebra by one of the triangular identities for \(F \adjoint G\) and naturality of \(\varepsilon\), and \(K(B \xrightarrow{g} B') = Gg\), a homomorphism by naturality of \(\varepsilon\).
+
+  Clearly \(G^\T K = G\) and
+  \begin{align*}
+    KFA &= (GFA, G\varepsilon_{FA}) = (TA, \mu_A) = F^\T A \\
+    KF(A \xrightarrow{f} A') &= Tf = F^\T f
+  \end{align*}
+  so \(K\) is a morphism of \(\c{Adj} (\T)\).
+
+  Suppose \(K': \c D \to \c C^\T\) is another such, then since \(G^\T K' = G\) we know \(K'B = (GB, \beta_B)\) where \(\beta\) is a natural transformation \(GFG \to G\). Also since \(K' F = F^\T\), we have
+  \[
+    \beta_{FA} = \mu_A = G\varepsilon_{FA}.
+  \]
+  Now given any \(B \in \ob \c D\), consider the diagram.
+
+  Also since \(K'F = F^\T\) we have \(\beta_{FA} = \mu_A = G \varepsilon_{FA}\).
+
+  Now given any \(B \in \ob \c D\), consider the diagram
+  \[
+    \begin{tikzcd}
+      GFGFGB \ar[r, "GFG\varepsilon_B"] \ar[d, shift right, "G\varepsilon_{FGB}"', "="] \ar[d, shift left, "\beta_{FGB}"] & GFGB \ar[d, shift right, "G\varepsilon_B"'] \ar[d, shift left, "\beta_B"] \\
+      GFGB \ar[r, "G\varepsilon_B"] & GB
+    \end{tikzcd}
+  \]
+  Both squares commute so \(G\varepsilon_B\) and \(\beta_B\) have the same composite with \(GFG\varepsilon_B\). But this is split epic with splitting \(GF\eta_{GB}\) so \(\beta = G\varepsilon\). Hence \(K' = K\).
+
+  We now define the Kleisli comparison functor \(L: \c C _\T \to \c D\) by \(LA = FA\),
+  \[
+    L(A \blue{\xrightarrow{f}} B) = FA \xrightarrow{Ff} FGFB \xrightarrow{\varepsilon_{FB}} FB.
+  \]
+  \(L\) preserves identities by one of the triangular identities for \(F \adjoint G\). Given \(A \blue{\xrightarrow{f}} B \blue{\xrightarrow{g}} C\), we have
+  \[
+    \begin{tikzcd}
+      FA \ar[r, "Ff"] & FGFB \ar[r, "FGFg"] \ar[d, "\varepsilon_{FB}"] & FGFGFC \ar[r, "FG\varepsilon_{FC}"] \ar[d, "\varepsilon_{FGFC}"] & FGFC \ar[d, "\varepsilon_{FC}"] \\
+      & FB \ar[r, "Fg"] & FGFC \ar[r, "\varepsilon_{FC}"] & FC
+    \end{tikzcd}
+  \]
+  Also
+  \begin{align*}
+    GLA &= TA = G_\T A \\
+    GL(A \blue{\xrightarrow{f}} B) &= (G \varepsilon_{FB}) (FGf) = \mu_B(Tf) = G_\T f \\
+    GF_\T A &= FA \\
+    LF_\T(A \xrightarrow{f} B) &= (\varepsilon_{FB}) (F\eta_B) (Ff) = Ff
+  \end{align*}
+  For future reference, note that \(L\) is full and faithful: its effect on morphisms (with blue domains and codmains) is that of transposition across \(F \adjoint G\).
+
+  Finally for uniqueness, suppose \(L': \c C_\T \to \c D\) is a morphism of \(\c{Adj}(\T)\). We must have \(L'A = FA\) and \(L'\) maps the counit \(TA \blue{\to} A\) to the counit \(FGFA \xrightarrow{\varepsilon_{FA}} FA\). For any \(A \blue{\xrightarrow{f}} B\), we have
+  \begin{align*}
+    \blue{f = 1_{TA}(F_\T f)}
+  \end{align*}
+  so \(L'(\blue{f}) = \varepsilon_{FA} (Ff) = Lf\).
+\end{proof}
 
 
 \printindex
