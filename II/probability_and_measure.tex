@@ -12,6 +12,8 @@
 
 \renewcommand{\P}{\prob} % probability measure
 \DeclareMathOperator{\var}{Var} % variance
+\DeclareMathOperator{\essup}{essup} % essential supremum
+\newcommand*{\ip}{\innerproduct} % inner product
 
 % TODO: uparrow and downarrow
 
@@ -65,7 +67,7 @@
 This section is a historic review and provides intuition for Lebesgue measure theory. We'll gloss over details of proofs in this section.
 
 \begin{definition}
-  A subset of \(\R^d\) is called \emph{elementary} if it is a finite union of \emph{boxes}, where a box is a set \(B = I_1 \times \dots I_d\) where each \(I_i\) is a finite interval of \(\R\).
+  A subset of \(\R^d\) is called \emph{elementary} if it is a finite union of \emph{boxes}, where a box is a set \(B = I_1 \times \dots \times I_d\) where each \(I_i\) is a finite interval of \(\R\).
 \end{definition}
 
 \begin{proposition}
@@ -520,7 +522,7 @@ For \(\R^d\), we only have to check open boxes.
 
 \begin{proof}
 We state first the following lemma:
-\begin{lemma}[Dynkin lemma]
+\begin{lemma}[Dynkin lemma]\index{Dynkin lemma}
   If \(\mathcal F\) is a \(\pi\)-system on \(X\) and \(\mathcal C\) is a family of subsets of \(X\) such that \(\mathcal F \subseteq \mathcal C\) and \(\mathcal C\) is stable under complementation and disjoint countable unions. Then \(\sigma(\mathcal F) \subseteq \mathcal C\).
 \end{lemma}
 
@@ -964,7 +966,7 @@ Of course simple functions are measurable.
 \end{proof}
 
 \begin{proposition}
-  Basic properties of the integral (for positive functions): suppose \(f, g\) are measurable on \((X, \mathcal A, \mu)\).
+  Basic properties of the integral (for positive functions): suppose \(f, g \geq 0\) are measurable on \((X, \mathcal A, \mu)\).
   \begin{enumerate}
   \item linearity: for all \(\alpha, \beta \geq 0\), \(\mu(\alpha f + \beta y) = \alpha \mu(f) + \beta \mu(g)\).
   \item positivity: if \(0 \leq f \leq g\) then \(\mu(f) \leq \mu(g)\).
@@ -981,7 +983,7 @@ Of course simple functions are measurable.
     \[
       \{x \in X: f(x) \neq 0\} = \bigcup_{n \geq 0} \{x \in X: f(x) > \frac{1}{n}\}
     \]
-    set \(g_n = \frac{1}{n} \mathbf 1_{\{x \in X: f(x) > 1/n\}}\) which is simple and \(g_n \leq f\) so by definition of integral \(\mu(g_n) \leq \mu(f)\) so \(\mu(g_n) = 0\), i.e.\ \(\mu(\{x: f(x) > \frac{1}{n}) = 0\).
+    set \(g_n = \frac{1}{n} \mathbf 1_{\{x \in X: f(x) > 1/n\}}\) which is simple and \(g_n \leq f\) so by definition of integral \(\mu(g_n) \leq \mu(f)\) so \(\mu(g_n) = 0\), i.e.\ \(\mu(\{x: f(x) > \frac{1}{n}\}) = 0\).
   \item Note that if \(E \in \mathcal A\), \(\mu(E^c) = 0\) then
     \[
       \mu(h \mathbf 1_E) = \mu(h)
@@ -1117,7 +1119,7 @@ This allows us to swap limit and integral.
     \[
       m(f \compose g) = \frac{1}{|\det g|} m(f).
     \]
-    See example sheet 2. In particular \(m\) is invariant under linear transformation with unit determinant, e.g.\ rotation.
+    See example sheet 2. In particular \(m\) is invariant under linear transformation whose determinant has absolute value \(1\), e.g.\ rotation.
   \end{enumerate}
 \end{remark}
 
@@ -1126,7 +1128,7 @@ This allows us to swap limit and integral.
   \[
     E = \{x \in X: \text{ assumptions hold at } x\}
   \]
-  so \(E^c\) is a \(\mu\)-null set. Replace each \(f_n\) and \(g\) by \(\mathbf 1_E f_n\). Then assumptions will hols everywhere as \(\mu(f \mathbf 1_E) = \mu(f)\) for all \(f\) (measurable?)
+  so \(E^c\) is a \(\mu\)-null set. Replace each \(f_n\) and \(g\) by \(\mathbf 1_E f_n\). Then assumptions hold everywhere as \(\mu(f \mathbf 1_E) = \mu(f)\) for all \(f\) measurable.
 \end{remark}
 
 \section{Product measures}
@@ -2046,21 +2048,24 @@ Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), f
   \begin{enumerate}
   \item \(2 \implies 1\): every \(\ell\) is convex and the supremum of \(\ell\) is convex:
     \[
-      \ell(t x + (1 - t) y) = t \ell(x) + (t - t) \ell(y) \leq t \sup x + (1 - t) \sup y
+      \ell(t x + (1 - t) y) = t \ell(x) + (t - t) \ell(y) \leq t \sup_{\ell \in \mathcal F} \ell(x) + (1 - t) \sup_{\ell \in \mathcal F} \ell(y)
     \]
     so
     \[
-      \sup_{\ell \in \mathcal F} \ell( t x + (1 - t) y) \leq \sup
+      \varphi(tx + (1 - t)y) =
+      \sup_{\ell \in \mathcal F} \ell( t x + (1 - t) y)
+      \leq t \sup_{\ell \in \mathcal F} \ell(x) + (1 - t) \sup_{\ell \in \mathcal F} \ell(y)
+      = t \varphi(x) + (1 - t) \varphi(y)
     \]
   \item We need to show that for all \(x_0 \in I\) we can find an affine function \(\ell_{x_0} = \theta_{x_0} (x - x_0 + \varepsilon(x_0)\), where \(\theta_{x_0}\) is morally the slope at \(x_0\), such that \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\). Then have \(\varphi = \sup_{x_0 \in I} \ell_{x_0}\).
 
     To find \(\theta_{x_0}\) observe that for all \(x < x_0 < y\) where \(x, y \in I\), have
     \[
-      \frac{(\varphi(x_0) - \varphi(x)}{x_0 - x} \leq \frac{\varphi(y) - \varphi(x_0)}{y - x_0}.
+      \frac{\varphi(x_0) - \varphi(x)}{x_0 - x} \leq \frac{\varphi(y) - \varphi(x_0)}{y - x_0}.
     \]
     Indeed this is the convexity of \(\varphi\) on \([x, y]\) with \(t = \frac{x_0 - x}{y - x}\). This holds for all \(x < x_0, y > x_0\) so there exists \(\theta \in \R\) such that
     \[
-      \frac{(\varphi(x_0) - \varphi(x)}{x_0 - x} \leq \theta \leq \frac{\varphi(y) - \varphi(x_0)}{y - x_0}.
+      \frac{\varphi(x_0) - \varphi(x)}{x_0 - x} \leq \theta \leq \frac{\varphi(y) - \varphi(x_0)}{y - x_0}.
     \]
     Then just set \(\ell_{x_0}(x) = \theta(x - x_0) + \varphi(x_0)\). By construction \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\).
   \end{enumerate}
@@ -2090,7 +2095,7 @@ Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), f
 Jensen is for probability space only. The following applies to all measure spaces.
 
 \begin{proposition}[Minkowski inquality]\index{Minkowski inequality}
-  Let \((X, \mathcal A, \mu)\) be a measure space and \(f, g\) measurable functions on \(X\). Let \(p \in [1, \infty\) and define the \(p\)-norm
+  Let \((X, \mathcal A, \mu)\) be a measure space and \(f, g\) measurable functions on \(X\). Let \(p \in [1, \infty)\) and define the \(p\)-norm
   \[
     \norm f_p = \left( \int_X |p|^p d \mu \right)^{1/p}.
   \]
@@ -2158,6 +2163,141 @@ Jensen is for probability space only. The following applies to all measure space
   \]
   so the function \(p \mapsto \E(|X|^p)^{1/p}\) is non-decreasing. This can be used, for example, to show that if \(X\) has \(p\)th moment then it has \(p'\)th moment for \(p' \leq p\).
 \end{remark}
+
+\begin{definition}
+  Let \((X, \mathcal A, \mu)\) be a measure space.
+  \begin{enumerate}
+  \item For \(p \geq 1\),
+    \[
+      \mathcal L^p(X, \mathcal A, \mu) = \{f: X \to \R \text{ measurable such that \(|f|^p\) is \(\mu\)-integrable}\}.
+    \]
+  \item For \(p = \infty\),
+    \[
+      \mathcal L^\infty(X, \mathcal A, \mu) = \{f: X \to \R \text{ measurable such that \(\essup |f| < \infty\)}\}
+    \]
+    where
+    \[
+      \essup |f| = \inf \{t \geq 0: |f(x)| \leq t \text{ for \(\mu\)-almost every } x\}.
+    \]
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  \(\mathcal L^p(X, \mathcal A, \mu)\) is an \(\R\)-vector space.
+\end{lemma}
+
+\begin{proof}
+  For \(p < \infty\) use Minkowski inequality. Similar we can check that \(\norm{f + g}_\infty \leq \norm f_\infty + \norm g_\infty\) for all \(f, g\).
+\end{proof}
+
+\begin{definition}
+  We say \(f\) and \(g\) are \emph{\(\mu\)-equivalent} and write \(f \equiv_\mu g\) if for \(\mu\)-almost every \(x\), \(f(x) = g(x)\).
+\end{definition}
+
+Claim that this is an equvalence relation stable under addition and multiplication.
+
+\begin{definition}[\(L^p\)-space]\index{\(L^p\)-space}
+  Define
+  \[
+    L^p(X, \mathcal A, \mu) = \mathcal L^p(X, \mathcal A, \mu) / \equiv_\mu
+  \]
+  and if \([f]\) denotes the equivalence class of \(f\) under \(\equiv_\mu\) we define
+  \[
+    \norm{[f]}_p = \norm f_p.
+  \]
+\end{definition}
+
+\begin{proposition}
+  For \(p \in [1, \infty]\), \(L^p(X, \mathcal A, \mu)\) is a normed vector space under \(\norm \cdot_p\) and it is complete, i.e.\ it is a Banach space.
+\end{proposition}
+
+\begin{proof}
+  If \(f \equiv_\mu g\) then \(\norm f_p = \norm g_p\) so \(\norm \cdot_p\) on \(L^p\) is well-defined. Triangle inequality follows from Minkowski inequality and linearity is obvious so \(\norm \cdot_p\) is indded a norm.
+
+  For completeness, pick \((f_n)_n\) a Cauchy sequence in \(\mathcal L^p(X, \mathcal A, \mu)\). Need to show that there exists \(f \in \mathcal L^p\) such that \(\norm{f_n - f}_p \to 0\) as \(n \to \infty\). This will then imply that \([f_n] \to [f]\) in \(L^p\).
+
+  Let \(\varepsilon = 2^{-k}\). Then there exist \(n_k \uparrow \infty\) such that \(\norm{f_{n_{k + 1}} - f_{n_k}} \leq 2^{-k}\). Let
+  \[
+    S_K = \sum_{k = 1}^K |f_{n_{k + 1}} - f_{n_k}|
+  \]
+  then
+  \[
+    \norm{S_K}_p
+    \leq \sum_{k = 1}^K \norm{f_{n_{k + 1}} - f_{n_k}}_p
+    \leq \sum_{k = 1}^K 2^{-k}
+    \leq 1
+  \]
+  so by monotone convergece,
+  \[
+    \lim_{K \to \infty} \int_X |S_K|^p d\mu = \int_X |S_\infty|^p d\mu,
+  \]
+  i.e.\ \(S_\infty \in \mathcal L^p\). In particular for \(\mu\)-almost everywhere \(x\), \(|S_\infty(x)| < \infty\), i.e.
+  \[
+    \sum_{k \geq 1} |f_{n_{k + 1}}(x) - f_{n_k}(x)| < \infty.
+  \]
+  Hence \((f_{n_k}(x))_k\) is a Cauchy sequence in \(\R\). By completeness of \(\R\), the limit exists and set \(f(x)\) to be it. When this limit does not exist set \(f(x) = 0\).
+
+  We then have, in case \(p < \infty\), by Fatou's lemma
+  \[
+    \norm{f_n - f}_p \leq \liminf_{k \to \infty} \norm{f_n - f_{n_k}}_p \leq \varepsilon
+  \]
+  for any \(\varepsilon\) for \(n\) sufficiently large. Thus
+  \[
+    \lim_{n \to \infty} \norm{f_n - f}_p = 0.
+  \]
+  When \(p = \infty\), we use the fact that if \(f_n \to f\) \(\mu\)-almost everywhere then
+  \[
+    \norm f_\infty \leq \liminf_{n \to \infty} \norm{f_n}_\infty.
+  \]
+
+  \begin{proof}
+    Let \(t > \limsup_{n \to \infty} \norm{f_n}_\infty\). Then exists \(n_k \uparrow \infty\) such that
+    \[
+      \norm{f_{n_k}} = \essup |f_{n_k}| = \inf \{s \geq 0: |f_{n_k}(x)| \leq s \mu\text{-almost every } x\} < t
+    \]
+    for all \(k\). Thus for all \(k\), for \(\mu\)-almost every \(x\), \(|f_{n_k}(x)| < t\). But by \(\sigma\)-additivity of \(\mu\) we can \emph{swap the quantifiers}, i.e.\ for \(\mu\)-almost every \(x\), for all \(x\), \(|f_{n_k}(x)| < t\). Thus for \(\mu\)-almost every \(x\), \(\norm{f(x)}_\infty \leq t\).
+  \end{proof}
+\end{proof}
+
+\begin{proposition}[approximation by simple functions]
+  Let \(p \in [1, \infty)\). Let \(V\) be the linear span of all simple functions on \(X\). Then \(V \cap \mathcal L^p\) is dense in \(\mathcal L^p\).
+\end{proposition}
+
+\begin{proof}
+  Note that \(g \in \mathcal L^p\) implies \(g^+, g^- \in \mathcal L^p\). Thus by writing \(f = f^+ - f^-\) and using Minkowski inequality, suffice to show \(f \geq 0\) is the limit of a sequence of simple functions. well technically equivalence class of limit
+
+  Recall there exists simple functions \(0 \leq g_n \leq f\) and \(g_n(x) \uparrow f(x)\) for \(\mu\)-almost every \(x\). Then
+  \[
+    \lim_{n \to \infty} = \norm{g_n - f}_p^p = \lim_{n \to \infty} \int_X |g_n - f|^p d\mu = 0
+  \]
+  by dominated convergence theorem. (\(|g_n - f| \leq g_n + f \leq 2f\) so \(g_n - f\) is \(\mu\)-integrable)
+\end{proof}
+
+\begin{remark}
+  When \(X = \R^d, \mathcal A = \mathcal B(\R^d)\) and \(\mu\) is the Lebesgue measure, \(C_c(\R^d)\), the space of continuous functions with compact support is dense in \(\mathcal L^p(X, \mathcal A, \mu)\) when \(p \in [1, \infty)\) (this does not hold for \(p = \infty\) for more or less a technical reason as a constant nonzero function does not have compact support). See example sheet. In fact, \(C_c^\infty(\R^d)\) suffices.
+\end{remark}
+
+\section{Hilbert space and \(L^2\)-methods}
+
+Recall that
+\begin{definition}[inner product]\index{inner product}
+  Let \(V\) be a complex vector space. A \emph{Hermitian inner product} on \(V\) is a map
+  \begin{align*}
+    V \times V &\to \C \\
+    (x, y) &\mapsto \ip{x, y}
+  \end{align*}
+  such that
+  \begin{enumerate}
+  \item \(\ip{\alpha x + \beta y, z} = \alpha \ip{x, z} + \beta \ip{y, z}\) for all \(\alpha, \beta \in \C\), for all \(x, y, z \in V\).
+  \item \(\ip{y, x} = \conj{\ip{x, y}}\).
+  \item \(\ip{x, x} \in \R\) and \(\ip{x, x} \geq 0\), with equality if and only if \(x = 0\).
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Hermitian norm]\index{Hermitian norm}
+  The \emph{Hermitian norm} is defined as \(\norm x = \sqrt{\ip{x, x}}\).
+\end{definition}
+
 
 
 

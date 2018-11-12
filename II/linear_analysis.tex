@@ -13,6 +13,7 @@
 \newtheorem*{fact}{Fact}
 
 \newcommand{\K}{{\mathbb{K}}} % field
+\DeclareMathOperator{\spans}{span} % span in a vector space
 
 \begin{document}
 
@@ -1844,6 +1845,113 @@ By polarisation identities, such inner product is unique if exists. The exercise
   The completion of \(C[0, 1]\) is a Hilbert space, denoted \(L^2([0, 1])\), that can be identified with the space of equivalence classes of Lebesgue measurable functions with \(f \sim g\) if and only if \(f = g\) Lebesgue almost everywhere.
 \end{eg}
 
+\subsection{Orthogonal complements and projections}
+
+\begin{definition}[orthogonal, orthogonal complement]\index{orthogonal}\index{orthogonal complement}
+  Let \(X\) be an inner product space.
+  \begin{itemize}
+  \item \(x, y \in X\) are \emph{orthogonal} if \((x, y) = 0\), also written \(x \perp y\).
+  \item The \emph{orthogonal complement} of a set \(S \subseteq X\) is
+    \[
+      S^\perp = \{x \in X: (x, y) = 0 \text{ for all } y \in S\}.
+    \]
+  \end{itemize}
+\end{definition}
+
+\begin{fact}[Pythagoras]
+  If \(x, y\) are orthogonal then \(\norm{x + y}^2 = \norm x^2 + \norm y^2\).
+\end{fact}
+
+\begin{fact}
+  \(S^\perp\) is a closed subspace of \(X\) and \(\cl{\spans S}^\perp = S^\perp\).
+\end{fact}
+
+\begin{proof}
+  \(S^\perp = \bigcap_{y \in S} f^{-1}_y(0)\) where \(f_y(x) = (x, y)\) is continuous. Thus \(S^\perp\) is the intersection of closed sets so closed. Clearly
+  \[
+    S^\perp \supseteq (\spans S)^\perp \supseteq \cl{\spans S}^\perp.
+  \]
+  For the other direction, let \(x \in S^\perp\) and \(y \in \cl{\spans S}\), i.e.\ \(y = \lim_{n \to \infty} y_n\) with \(y_n \in \spans S\). Then
+  \[
+    (x, y) = \lim_{n \to \infty} (x, y_n) = 0
+  \]
+  so \(x \in \cl{\spans S}^\perp\).
+\end{proof}
+
+\begin{notation}
+  For \(Y \subseteq X\) a subspace, \(Y^\perp \cap Y = 0\). Thus the sum \(Y + Y^\perp\) is direct and write \(Y + Y^\perp = Y \oplus Y^\perp\).
+\end{notation}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Form linear algebra we know if \(X\) if finite-dimensional then \(X = Y \oplus Y^\perp\).
+  \item However this is generally false for infinite diemsnional inner product space. Let \(X = C[0, 1]\) with \((f, g) = \int_0^1 f \conj g dx\) and \(Y = C^1[0, 1] \subseteq C[0, 1]\). Then \(Y^\perp = 0\) since \(\int_0^1 f \conj g dx = 0\) for all \(g \in C^1\) implies \(f = 0\) (as \(f \in C[0, 1]\)).
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}
+  Let \(Y \subseteq X\) be a complete subspace. Then
+  \[
+    X = Y \oplus Y^\perp.
+  \]
+  Moreover, given \(x \in X\), its unique decomposition \(x = x_\parallel + x_\perp\) where \(x_\parallel \in Y, x_\perp \in Y^\perp\) is characterised by
+  \[
+    \norm{x_\perp} = \norm{x - x_\parallel} = \inf_{y \in Y} \norm{x - y}.
+  \]
+\end{theorem}
+
+In particular this holds if \(X\) is a Hilbert space and \(Y \subseteq X\) is a closed subspace.
+
+\begin{proof}
+  Let \(x \in X\) and \(D = \inf_{y \in Y} \norm{x - y}\). Choose any sequence \((y_k) \subseteq Y\) such that \(|y_k - x| \to D\). Claim that \((y_k)\) is Cauchy: by the parallelogram identity applied to \(x - y_j, x - y_k\),
+  \[
+    \norm{y_j - y_k}^2 + \norm{2x - y_j - y_k}^2 = 2 \norm{x - y_j}^2 + 2 \norm{x - y_k}^2.
+  \]
+  Rearrange,
+  \begin{align*}
+    \norm{y_j - y_k}^2
+    &= 2 \underbrace{\norm{x - y_j}^2}_{\to D^2} + \underbrace{\norm{x - y_k}^2}_{\to D^2} - 4 \underbrace{\norm{x - \frac{1}{2}(y_j + y_k)}^2}_{\geq D^2} \\
+    &\leq 4(D^2 + \varepsilon) - 4D^2 \\
+    &= 4\varepsilon
+  \end{align*}
+  for all \(\varepsilon > 0\) for all \(j, k\) sufficiently large. By completeness of \(Y\), the claim implies that \(y_j \to x_\parallel\) for some \(x_\parallel \in Y\). By continuity of norm \(\norm{x - x_\parallel} = D\).
+
+  Now let \(x_\perp = x - x_\parallel\). Have to show that \(x_\perp \in Y^\perp\). Suppose not, then there must by \(\tilde y \in Y\) such that \((\tilde y, x_\perp) > 0\). Thus
+  \begin{align*}
+    \norm{x_\perp - t \tilde y}^2
+    &= \norm{x_\perp}^2 - 2t(x_\perp, \tilde y) + t^2 \norm{\tilde y}^2 \\
+    &= D^2 - t(\underbrace{2(x_\perp, \tilde y) - t\norm{\tilde y}^2}_{> 0 \text{ for \(t > 0\) small}}) \\
+    &< D^2
+  \end{align*}
+  But
+  \[
+    \norm{x_\perp - t\tilde y}^2
+    = \norm{x - \underbrace{(x_\parallel + t \tilde y)}_{\in Y}}^2
+    \geq D^2,
+  \]
+  contradiction. Thus \(x_\perp \in Y^\perp\).
+
+  Finally to show that the decomposition is uniquely characterised by the expression, suppose \(x = \tilde x_\perp + \tilde x_\parallel\) for some \(\tilde x_\perp \in Y^\perp, \tilde x_\parallel \in Y\). Then \(\tilde x_\parallel = x_\parallel + y\) where \(y = x_\perp - \tilde x_\perp \in Y^\perp\). But \(y = \tilde x_\parallel - x_\parallel \in Y\) so \(y \in Y \cap Y^\perp = 0\).
+\end{proof}
+
+\begin{theorem}[Riesz representation theorem for Hilbert space]\index{Riesz representation theorem}
+  Let \(H\) be a Hilbert space. Then for any \(\ell \in H^*\) there is a unique \(x_\ell \in H\) such that
+  \[
+    \ell(y) = (y, x_\ell)
+  \]
+  for all \(y \in H\) and \(\norm \ell = \norm{x_\ell}\).
+\end{theorem}
+
+This can be seen as a generalised result of \(\ell^2 \cong (\ell^2)^*\), as \(\ell^2\) is an inner product space and thus a Hilbert space.
+
+\begin{corollary}
+  The map
+  \begin{align*}
+    H &\to H^* \\
+    x &\mapsto (\cdot, x)
+  \end{align*}
+  is antilinear, bijective and isometric.
+\end{corollary}
 
 
 

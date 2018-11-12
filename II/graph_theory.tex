@@ -1607,6 +1607,96 @@ and furthermore they are pairwise non-homeomorphic. The second is
   \]
 \end{proof}
 
+\begin{remark}
+  The condition \(E \leq 1\) rules out only the sphere. Heawood for the sphere would be four colour theorem but proof fails (six colour theorem).
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The torus \(T_1\): \(E = 0\) so Heawood says \(\chi(T_1) \leq 7\). In fact \(K_7\) can be drawn on \(T_1\) so \(\chi(T_1) = 7\).
+  \item The Klein bottle \(S_2\): \(E = 0\) but \(K_7\) cannot be drawn on \(S_2\), but \(S_6\) can. Hence \(6 \leq \chi(S_2) \leq 7\). Suppose \(\chi(S_2) = 7\). Let \(G\) be a minimal \(7\)-chromatic drawn on \(S_2\). Then \(G\) conneced and, from proof of Heawood,
+    \[
+      6 \leq \delta(G) \leq \overline d(G) = \frac{2e(G)}{|G|} \leq 6
+    \]
+    so must have equality throughout so \(G\) is \(6\)-regular. By Brookes \(G \cong K_7\), contradiction.
+  \end{enumerate}
+\end{eg}
+
+It can be shown (hard!) that if \(S\) has Euler characteristic \(E\) and \(S \neq S_2\) then \(K_\chi\) can be drawn on \(S\), where \(\chi = \floor{frac{7 + \sqrt{49 - 24E}}{2}}\), i.e.\ \(\chi(S) = \chi\).
+
+\subsection{Edge colouring}
+
+\begin{definition}[edge-colouring, edge-chromatic-number]\index{edge colouring}\index{edge-chromatic-number}
+  A \emph{\(k\)-edge-colouring} of a graph \(G\) is a function \(\varphi: E(G) \to [k]\) with \(|e \cap f| = 1\) implies \(\varphi(e) \neq \varphi(f)\).
+
+  The \emph{edge-chromatic-number} of \(G\) is
+  \[
+    \chi'(G) = \min \{k: G \text{ has a \(k\)-edge colouring}\}.
+  \]
+\end{definition}
+
+Clearly
+\[
+  \Delta(G) \leq \chi'(G) \leq 2\Delta(G) - 1
+\]
+where the second inequality is by greedy algorithm. It seems like this is an interesting topic and worth studying. In fact
+
+\begin{theorem}[Vizing]\index{Vizing theorem}
+  Let \(G\) be a graph. Then \(\chi'(G) \leq \Delta(G) + 1\).
+\end{theorem}
+
+\begin{proof}
+  Induction on \(e(G)\). Obvious for \(e(G) = 0\). If \(e(G) > 0\), write \(k = \Delta(G) + 1\). Pick an edge \(xy \in E(G)\) and by induction hypothesis let \(\varphi\) be a \(k\)-colouring of \(G - xy\). As \(K > \Delta\), every vertex has at least one colour ``missing''. Construct recursively vertices \(y_0, y_1, \dots\) and colours \(c_0, c_1, \dots\):
+  \begin{enumerate}
+  \item set \(y_0 = x\) and let \(c_0\) be a colouring missing at \(y_0\).
+  \item Given \(y_0, \dots, y_j\) and \(c_0, \dots, c_j\), if \(c_j\) is missing at \(y\) then STOP.
+  \item If \(c_j = c_k\) for some \(k < j\) then STOP.
+  \item Otherwise, let \(y_{j + 1} \in \Gamma(y)\) with \(\varphi(yy_{j + 1}) = C_j\) and let \(C_{j + 1}\) be missing at \(y_{j + 1}\).
+  \end{enumerate}
+  As vertices are finite we must stop. What happens at that moment? In case 2, (re-)colour \(yy_i\) in colour \(c_i\) whre \(0 \leq i \leq j\). In case 3, wlog \(k = 0\) (if not, (re-)colour \(yy_i\) in \(C_i\) (\(0 \leq i < k\)), uncolour \(yy_k\), relabel \(y_k, \dots, y_j\) as \(y_0, \dots, y_{j - k}\) and similarly for colours).
+
+  Let \(c\) be a colour missing at \(y\). Note \(c \neq c_0\). Let \(H\) be the \(cc_0\)-subgraph of \(G\). Then \(\Delta(H) \leq 2\). So each component of \(H\) is a path or a cycle.
+
+  In \(H\), \(y, y_0\) and \(y_j\) have degree \(\leq 1\). So not all in same component of \(H\).
+  \begin{enumerate}
+  \item If \(y, y_0\) in different components then swap \(c, c_0\) on the component of \(y\) and recolour \(yy_0\) with \(c_0\).
+  \item If \(y, y_0\) in the same component then \(y_j\) in a different component. Swap \(c, c_0\) on component of \(y_j\), (re-)colour \(yy_i\) in \(c_i\) (\(0 \leq i < j\)) and re-colour \(yy_j\) in \(c\).
+  \end{enumerate}
+\end{proof}
+
+\section{Connectivity}
+
+\subsection{Matchings}
+
+\begin{definition}[matching]\index{matching}
+  Let \(G\) be a bipartite graph with parts \(X, Y\). A \emph{matching} from \(X\) to \(Y\) is a set of \(|X|\) independent edges (i.e.\ no two edges share a vertex).
+\end{definition}
+
+When does \(G\) contain a matching? Clearly a necessary condition is that there is no ``isolated'' vertices in \(X\) which are connected to nothing in \(Y\). Moreover, we cannot have all of \(X\) connect to a single vertex in \(Y\). Think a bit more and we can conclude clearly we need for all \(A \subseteq X\), \(|\Gamma(A)| \geq |A|\), this is \emph{Hall's condition}. Surprisingly, this is also sufficient:
+
+\begin{theorem}[Hall]\index{Hall's theorem}
+  Let \(G\) be a bipartite graph with parts \(X, Y\). Then \(G\) has a matching from \(X\) to \(Y\) if and only if \(G\) satisfies Hall condition.
+\end{theorem}
+
+\begin{proof}
+  Only if is obvious. For the converse, induction on \(|X|\). Obvious for \(|X| = 0, 1\). For \(|X| \geq 2\), suppose \(|\Gamma(A)| > |A|\) for all \(A \neq \emptyset, X\). Then pick \(x \in X\) and \(y \in \Gamma(x)\). Then \(G - \{x, y\}\) satisfies Hall's condition so by induciton hypothesis has a matching from \(X - \{x\}\) to \(Y - \{y\}\). Add \(xy\) and done.
+
+  Assume instead there exists \(A \neq \emptyset, X\) with \(|\Gamma(A)| \neq |A|\). Let
+  \begin{align*}
+    G_1 &= G[A \cup \Gamma(A)] \\
+    G_2 &= G[(X \setminus A) \cup (X \setminus \Gamma(A))]
+  \end{align*}
+  Clearly \(G_1\) satisfies Hall's condition. Let \(B \subseteq X \setminus A\). Writing \(\Gamma_2\) for neighbourhood in \(G_2\). Have
+  \[
+    |\Gamma_2(B)|
+    = |\Gamma(B) \setminus \Gamma(A)|
+    = |\Gamma(A \cup B) \setminus \Gamma(A)|
+    = |\Gamma(A \cup B)| - |\Gamma(A)|
+    \geq |A\cup B| - |A|
+    = |B|
+  \]
+  so \(G_2\) satisfies Hall's condition. By indiciton hypothesis have matchings from \(A, X \setminus A\) to \(\Gamma(A), Y \setminus \Gamma(A)\) respectively. Combine them and done.
+\end{proof}
 
 
 

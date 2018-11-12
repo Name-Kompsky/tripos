@@ -1340,7 +1340,7 @@ The axioms and deduction rules in predicate logic is going to be more complicate
 \begin{note}\leavevmode
   \begin{enumerate}
   \item A formula is a string of symbols.
-  \item Just as in chapter 1 we defined symbols such as \(\neg\), \(\land\) and \(lor\) in terms of \(\bot\), we write \((\exists x) p\) for \(\neg (\forall x) (\neg p)\).
+  \item Just as in chapter 1 we defined symbols such as \(\neg\), \(\land\) and \(\lor\) in terms of \(\bot\), we write \((\exists x) p\) for \(\neg (\forall x) (\neg p)\).
   \end{enumerate}
 \end{note}
 
@@ -1399,7 +1399,7 @@ Do not worry too much about the word ``free'' in the above definition, it is the
   \end{enumerate}
 \end{definition}
 
-See later note on page~\pageref{note:empty structure} for why ``non-empty''.
+See note on page~\pageref{note:empty structure} for why ``non-empty''.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -1463,7 +1463,7 @@ If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variab
     Then an \(L\)-structure is a model of \(T\) if and only if \(T\) is a group. Note that there are two implications here (compare with, for example, a group is a model of the sentence representing associativity). We say \(T\) \emph{axiomatises the class of groups} or \emph{axiomatises the theory of groups}. Sometimes call the elements of \(T\) the \emph{axioms}\index{axiom} of \(T\).
   \item Theory of fields: \(\Omega = \{+, \times, -, 0, 1\}, \Pi = \emptyset\). Note that multiplicative inverse is not among them. \(T\) is
     \begin{align*}
-      & \{ \text{abeilian group under } (+, - 0) \\
+      & \{ \text{abelian group under } (+, -, 0) \\
       & \times \text{ is commutative, associative, and distributive over } + \\
       & (\forall x) (1x = x) \\
       & \neg (1 = 0) \\
@@ -1596,7 +1596,7 @@ Unlike most other proofs we have met in tripos, this proof has not one, not two,
 \end{enumerate}
 
 \begin{proof}
-  Suppose we have \(S\) consistent contained in \(L_0 = L(\Omega, \Pi)\). Extend to maximal consistent \(S_1\) by Zorn's lemma. So for each sentence \(p \in L\), we have either \(p \in S_1\) or \((\neg p) \in S_1\). Thus \(S_1\) is complete (for every \(p\), either \(S_1 \yields p\) or \(S_1 \yields (\neg p)\).
+  Suppose we have \(S\) consistent contained in \(L_0 = L(\Omega, \Pi)\). Extend to maximal consistent \(S_1\) by Zorn's lemma. So for each sentence \(p \in L\), we have either \(p \in S_1\) or \((\neg p) \in S_1\). Thus \(S_1\) is complete (for every \(p\), either \(S_1 \yields p\) or \(S_1 \yields (\neg p)\)).
 
   Now add witnesses: for each \((\exists x) p \in S\), add new constant \(c\) and axiom \(p[c/x]\). We obtain \(T_1\), in language \(L_1 = L(\Omega \cup C_1, \Pi)\), where \(C_1\) is the set of all the \(c\)'s, that ``has witnesses'' for \(S_1\) (if \((\exists x)p \in S\), then some closed term \(t\) has \(p[t/x] \in T_1\)). Easy to check \(T_1\) is consistent.
 

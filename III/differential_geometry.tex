@@ -896,7 +896,7 @@ which is \emph{not} the same as that for tangent space.
 \end{proof}
 
 \begin{definition}[differential \(1\)-form]\index{differential form}
-  A \emph{(smooth) differential \(1\)-form}, also know as \(1\)-form \(\alpha\) is a smooth map \(\alpha: M \to T^*M\) that is a section of \(\pi: T^*M \to M\), i.e.\ \(\alpha(p) \in T_p^*M\) for all \(p \in M\).
+  A \emph{(smooth) differential \(1\)-form}, also known as \(1\)-form \(\alpha\) is a smooth map \(\alpha: M \to T^*M\) that is a section of \(\pi: T^*M \to M\), i.e.\ \(\alpha(p) \in T_p^*M\) for all \(p \in M\).
 \end{definition}
 
 Similar to vector fields, a \(1\)-form \(\alpha = \sum_i \alpha_i \mathcal dx_i\) is smooth if and only if \(\alpha_i\) is smooth in all local coordinates, if and only if for all \(X \in V(M)\), \(\alpha(X) \in C^\infty(M)\).
@@ -1498,7 +1498,7 @@ so the Hopf-bundle is well-defined and admits a \(U(1)\)-structure. Thus it has 
 \]
 Leave as an exercise to write out the expression for \(\pi^{-1}(U_2)\), and verify that it gives the same norm.
 
-The associated principal \(U(1)\)-bundle \(P\), also know as \emph{Hopf bundle}\index{Hopf bundle}, is the bundle of unit vectors. Thus
+The associated principal \(U(1)\)-bundle \(P\), also known as \emph{Hopf bundle}\index{Hopf bundle}, is the bundle of unit vectors. Thus
 \[
   P \cong \{(w_1, w_2) \in \C^2: |w_1|^2 + |w_2|^2 = 1\} = S^3
 \]
@@ -1601,9 +1601,372 @@ for all \(b \in U\) and \(h: U \to L(V, V')\) is a smooth map.
   \end{enumerate}
 \end{eg}
 
+\section{Connections}
 
+Let \(\pi: E \to B\) be a vector bundle and \(s: B \to E\) is a section. Locally
+\begin{align*}
+  \hat s: U &\to U \times V \\
+  b &\mapsto (b, s(b))
+\end{align*}
+which is really, just a map to \(V\) so \(d\hat s_p: T_bU \to T_{s(b)}(V) \cong V\). On the other hand, the ordinary differential of \(s\) is a map \(ds_b: T_b B \to T_{(b, s(b))}E\). We would like \(T_{s(b)}E_b \cong E_b\) for some subspace of \(T_{s(b)}E\).
 
+How to define differential of a section of a vector bundle so that it looks reasonable like a gradient
 
+Some conventions throughout: let \(\dim B = n\) and \(U \subseteq B\) a coordinate neighbourhood that is simultaneously a trivialising neighbourhood for \(E\), with coodinates \(x^k\) where \(k = 1, \dots, n\). Let \(a = (a^j)_{j = 1}^m \in \R^m\) be coordinates on the fibres on \(E\). We use \(i, j = 1, \dots, m\) and \(k = 1, \dots, n\) and use summation convection for Roman indices (but not Greek indices).
+
+Let \(\Phi_U: \pi^{-1}(U) \to U \times \R^m\) be a local trivialisation. Let \(T_p\) be the span of \(\frac{\partial  }{\partial x^k}, \frac{\partial  }{\partial a^j}\). For \(p \in E, \pi(p) = b\), Let \(\pi^{-1}(b) = E_b \subseteq E\) is a submanifold.
+\[
+  T_pE_b = \ker (d\pi_p)
+\]
+which is the span of \(\frac{\partial  }{\partial a^j}\).
+
+\begin{definition}
+  The \emph{vertical subspace} at \(p \in E\) is
+  \[
+    Tv_pE = \ker(d\pi_p).
+  \]
+
+  A subspace \(S_p \subseteq T_pE\) is a  \emph{horizontal subspace} if
+  \begin{align*}
+    S_p \cap Tv_p E &= 0 \\
+    S_p \oplus Tv_p E &= T_pE
+  \end{align*}
+\end{definition}
+
+Then \(\dim S_p = \dim B\).
+
+How to choose a horizontal subspace? All \(n\) dimensional subspace of \(T_pE \cong \R^{m + n}\) is \(\bigcap_{i = 1}^m \ker \theta^i\) for some linearly independent \(\theta^1, \dots, \theta^m \in (\R^{m + n})^* \cong T_p^*E\) where
+\[
+  \theta^i = f_k^i \mathrm d x^k + g_j^i \mathrm d a_j
+\]
+where \(f_k^i, g_j^i \in \R\). A subspace \(C = B^k \frac{\partial  }{\partial x^k} + C^j \frac{\partial  }{\partial a^j} \in T_p E\) is vertical if and only if \(B^k = 0\) for all \(k\). Thus must have
+\[
+  \theta_p^i(C_j \frac{\partial  }{\partial a^j}
+\]
+not all \(0\) for \(i = 1, \dots, n\), i.e.\ \(g^i_j C^j = 0\) for all \(i\), which implies \(C^j = 0\) for all \(j\). Hence the \(m \times m\) matrix \((g_j^i)\) is invertible. Let its inverse be \((h_j^i)\). Put
+\[
+  \tilde \theta_p^i := h_j^i \theta_p^j = \mathrm d a^j + e^i_k \mathrm d x^k
+\]
+which determines the same subspace \(S_p \subseteq T_pE\), where
+\[
+  e_k^i = e_k^i(p) = e_k^i(x, a) \in C^\infty(U \times \R^n).
+\]
+
+\begin{proposition}
+  Every given field of horizontal subspace \(S_p, p \in E\) is locally expressed as
+  \[
+    S_p = \bigcap_{i = 1}^m \ker \theta_p^i
+  \]
+  where
+  \[
+    \theta_p^i = \mathrm d a^i + e_k^i(x, a) \mathrm dx^k
+  \]
+  for some unique functions \(e_k^i\) on \(U \times \R^m\).
+
+  We say \(S = S_p\) is smooth if all \(e_k^i\) are smooth.
+\end{proposition}
+
+\begin{definition}[connection]\index{connection}
+  \(S = S_p\) a field of horizontal subspaces is a \emph{connection} of \(E\) if all \(e_k^i\)'s are linear in \(a\). Write
+  \[
+    e_k^i(x, a) = \Gamma_{jk}^i (x) a^j
+  \]
+  where \(\Gamma_{jk}^i \in C^\infty(U)\) are the coefficients of this connection in a local trivialisation.
+\end{definition}
+
+\[
+  \theta^i = \mathrm d a^i + \Gamma_{jk}^i(x) a^j \mathrm dx^k
+  = \mathrm d a^i + A^i_ja^j
+\]
+where \(A^i_j \in \Omega^1(U)\).
+
+The transformation law for \(A^i_j\): if \(U'\) is another trivialisation neighbourhood with \(U \cap U' \neq \emptyset\) and \(\Psi = (\Psi^{i'}_i)_{m \times m}\) is the transition function from \(\Phi_U\) to \(\Phi_{U'}\), and \(\Psi^{-1} = (\Psi^i_{i'})_{m \times m}\) the transition function fro \(\Phi_{U'}\) to \(\Phi_U\). Note that
+\[
+  \Psi_{i'}^i \Psi_j^{i'} = \delta_j^i.
+\]
+Suppose \(a^{i'} = \Psi_i^{i'} a^i\), then
+\[
+  \mathrm d a^{i'} = (d \Psi_i^{i'}) a^i + \Psi_i^{i'} da^i.
+\]
+Suppose
+\begin{align*}
+  \theta^{i'} &= d a^{i'} + A_{j'}^{i'} a^{j'} \\
+  \theta^i &= da^i + A_j^i a^j
+\end{align*}
+then rewrite
+\[
+  \theta^{i'} = (d \Psi_i^{i'}) a^i + \Psi_i^{i'} da^i + A_{j'}^{i'} a^{j'}
+\]
+Compare the coefficient of \(da^i\), must have
+\[
+  \theta^i = \Psi_{i'}^i \theta^{i'}
+\]
+so
+\[
+  \theta^i = da^i + (\Psi_{i'}^i d\Psi_j^{i'} + \Psi_{i'}^i A_{j'}^{i'} \Psi_j^{j'}) a^j
+\]
+so the transformation law is
+\[
+  A_j^i = \Psi_{i'}^i A_{j'}^{i'} \Psi_j^{j'} + \Psi_{j'}^i d\Psi_j^{i'}.
+\]
+Use \(A^\Phi\) to denote the matrix \((A_j^i)\), have \(A^{\Phi'} = A^{\Psi\Phi} = (A_{j'}^{i'})\). Then the transformation law is
+% \[
+%   A^\Phi = \Psi A^{\Psi\Phi} \Psi^{-1} + \Psi d\Psi^{-1}
+% \]
+% or equally
+\[
+  A^{\Psi\Phi} = \Psi A^\Phi \Psi^{-1} - (d\Psi) \Psi^{-1}.
+\]
+Noting that
+\[
+  (d\Psi)\Psi^{-1} + \Psi d(\Psi^{-1}) = 0
+\]
+so equally
+\[
+  A^\Psi = \Psi^{-1}A^{\Psi\Phi} \Psi + (d\Psi)\Psi^{-1}.
+\]
+
+\begin{theorem}
+  Every choice of local matrices \((A_j^i)\) of \(1\)-forms satifying * assigned to local trivialisations defines a connection on \(E\).
+\end{theorem}
+
+Recall the transformation law for the connection matrices
+\[
+  A^{\Psi\Phi} = \Psi A^\Phi \psi^{-1} - (d\Psi) \Psi^{-1}
+\]
+where \(\Psi\) is the transition function from local trivialisation \(\Phi\) to \(\Phi'\) with \(\Phi = \Phi' \compose \Phi^{-1}\). Write \(A^\Phi = (A^i_j)_{i,j = 1, \dots, m}\) where \(m\) is rank of \(E\),
+\[
+  A^i_j = \Gamma^i_{jk}(x) \mathrm d x^k \in \Omega^1(U).
+\]
+Similarly \(A^{\Psi\Phi} = (A^{i'}_{j'})\). The \((A^i_j)\)'s do \emph{not} patch together over trivialising neighbourhoods \(U \subseteq B\) to give a global matrix-valued \(1\)-form, essentialy because of the \((d\Psi) \Psi^{-1}\) correction term in the transformation law.
+
+Let \(\Phi_\alpha, \Phi_\beta: \pi^{-1}(U) \to U \times V\) be two trivialising neighbourhoods over \(U\). If \(G_\alpha \in \End(V)\) considered in the \(\Phi_\alpha\) trivialisation then with respect to \(\Phi_\beta\), \(G_\alpha\) becomes
+\[
+  G_\beta = \Psi_{\beta\alpha} G_\alpha \Psi_{\alpha\beta},
+\]
+note that there is no summation here! This defines a linear action of \(\GL(V)\) on \(\End(V)\). Thus we can apply the Steenrod construction to build a vector bundle \(\End(E)\) using \(U \times \End(V)\) and the above formula for the transitions. This is the \emph{endomorphism bundle}\index{endomorphism} of \(E\). This is the bundle associated to \(E\).
+
+\begin{remark}
+  We may also define subbundle \(\GL(E) \subseteq \End(V)\) with typical fibre \(\GL(V) \subseteq \End(V)\). \(\GL(E)\) is \emph{not} a principal bundle. For example it always has a global section
+  \begin{align*}
+    B &\to \GL(E) \\
+    b &\mapsto \id_V
+  \end{align*}
+  Sections of \(\GL(E)\) are precisely \(\aut(E)\). Coincidentally this also provides a practical counterexample to the statement that ``every vector bundle with transition functions in a group is a principal bundle''.
+\end{remark}
+
+Similarly to \(\End(E)\) we may build a vector bundle with typical fibre
+\[
+  \Lambda^r(\R^n)^* \otimes V \cong \{f: \underbrace{\R^n \times \dots \times \R^n}_{r \text{ times}} \to V \text{ multilinear and antisymmetric}\}
+\]
+(where the isomorphism comes from the fact in linear algebra that \((\R^n)^* \otimes V \cong \{\text{linear maps } \R^n \to V\}\) and so on), where \(n = \dim B\). Use the action induced by the Jacobi matrices for local coordinate transformation on \(B\) and use \(\Psi_{\alpha\beta}\)'s on the \(V\) factor.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    vector bundle & typical fibre & transition functions \\ \hline
+    \(E\) & \(V\) & \(v \mapsto \Psi_{\beta\alpha}v\) \\ \hline
+    \(\End(E)\) & \(\End(V)\) & \(G \mapsto \Psi_{\beta\alpha} G \Psi_{\alpha\beta}\) \\ \hline
+    \(T^*B \otimes E\) & \(L(\R^n, V) \cong (\R^n)^* \otimes V\) & \(v_k \mathrm dx^k \mapsto (\Phi_{\beta\alpha} v_k) \frac{\partial x^k}{\partial x^{k'}} \mathrm d x^{k'}\) \\ \hline
+    \(\Lambda^r(T^*B) \otimes E\) & \(\Lambda^r(\R^n)^* \otimes V\) & \(v_K \mathrm d x^K \mapsto (\Phi_{\beta\alpha}v_K) \frac{D x^K}{D x^{k'}} \mathrm dx^{K'}\) \\ \hline
+    \(T^*B \otimes \End E\) & \((\R^n)^* \otimes \End V\) & \(G_k \mathrm dx^k \mapsto (\Psi_{\beta\alpha} G_k \Psi_{\alpha\beta}) \frac{\partial x^k}{\partial x^{k'}} \mathrm d x^{k'}\) \\ \hline
+    \(\Lambda^rT^*B \otimes \End E\) & \(\Lambda^r(\R^n)^* \otimes \End V\) &  \\ \hline
+  \end{tabular}
+\end{table}
+
+whwere we multiply vectors and matrices in \(\Lambda^r V \otimes E\) and \(\Lambda^r V \otimes \End V\) using the wedge product of forms.
+
+(The good news is we mostly use \(r = 1, 2\))
+
+Connections are \emph{not} sections of \(T^*B \otimes \End E\), but if \(A\) and \(\tilde A\) are two connections then \(A - \tilde A\) \emph{is} a valid section of \(T^*B \otimes \End E\). Thus the space of all connections \(A\) on a given vector bundle \(E\) is an \emph{affine space} modeled on  section of \(T^*B \otimes \End E\), written \(\Omega^1_B(\End E)\). (this means there is no canonical zero section).
+
+\begin{notation}
+  Use \(\Gamma(E)\) to denote all sections of \(E\) and \(\Omega^r_B(E), \Omega^r_B(\End E)\) to denote sections of \(\Lambda^r T^*B \otimes E\) and \(\Lambda^r T^*B \otimes \End E\). In particular \(\Omega^0_B(E) = \Gamma(E)\).
+\end{notation}
+
+Now we are ready to define calculus on vector bundles.
+
+\begin{definition}[covariant derivative]\index{covariant derivative}
+  A \emph{covariant derivative} on a real vector bundle \(E\) over \(B\) is a \(\R\)-linear map \(\nabla^E: \Gamma(E) \to \Omega^1_B(E)\) satisfying the Leibniz rule
+  \[
+    \nabla^E(fs) = \mathrm df \otimes s + f \nabla^E s
+  \]
+  for all \(s \in \Gamma(E), f \in C^\infty(B)\).
+\end{definition}
+
+\begin{eg}
+  Let \(A\) be a connection on \(E\). Have in any local trivialisation \(A = (A_j^i)\) where \(A_j^i \in \Omega^1(U)\). Define an map \(\mathrm d_A\) which is locally given by
+  \[
+    \mathrm d_A s|_U = (\mathrm ds + As)|_U = (\mathrm ds^i + A_j^i s^j)_{i = 1, \dots, m}
+  \]
+  where \(m\) is rank of \(E\). To check this is well-defined, if \(U\) is also a coordinate neighbourhood in \(B\) then
+  \[
+    (\mathrm d_A s)^i = \left( \frac{\partial s^i}{\partial x^k} + \Gamma_{jk}^i(x) s^j \right) \mathrm dx^k.
+  \]
+  Let \(\Phi'\) be another local trivialisation over \(U\). Then
+  \begin{align*}
+    s &= \Psi s' \\
+    A &= \Psi A' \Psi^{-1} - (d\Psi) \Psi^{-1}
+  \end{align*}
+  so
+  \begin{align*}
+    \mathrm d_A(s)
+    &= \mathrm d s + As \\
+    &= \mathrm d(\Psi s') + (\Psi A \Psi^{-1} - (d \Psi) \Psi^{-1}) \Psi s' \\
+    &= \Psi \mathrm ds' + (d\Psi) s' + \Psi A' s' - (d\Psi) s' \\
+    &= \Psi(\mathrm d s' + A's') \\
+    &= \Psi(\mathrm d_A s)'
+  \end{align*}
+  which is the correction transformation law for \(\Omega^1_B(E)\).
+\end{eg}
+
+\begin{theorem}
+  Every covariant derivative \(\nabla^E\) arises as \(\nabla^E = d_A\) for some connection \(A\) on \(E\).
+\end{theorem}
+
+Recall that
+\[
+  d_AS = ds + AS
+\]
+where RHS only makes sense with a choice of local trivialisation!
+
+\begin{proof}
+  Claim every \(\nabla^E\) is a local operator. i.e.\ for all \(U \subseteq B\) open, if \(s_1|_U = s_2|_U\) then \(\nabla^E s_1|_U = \nabla^E s_2|_U\). (remark by writer of note: essentially partition of unity subject to \(\{U, B \setminus \cl U_0\))
+  Indeed for all \(b \in U\) let
+  \[
+    b \in U_0 \subseteq \cl U_0 \subseteq U
+  \]
+  and let \(\alpha \in C^\infty(B)\) such that \(0 \leq \alpha \leq 1, \alpha|_{B \setminus U} = 0\). Then
+  \[
+    0 = \nabla^E (\alpha(s_1 - s_2))
+    = d\alpha \otimes (s_1 - s_2)
+    + \alpha \nabla^E(s_1 - s_2)
+  \]
+  At \(b\), \(d\alpha_b = 0, \alpha(b) = 1\) whence
+  \[
+    (\nabla^E s_1)(b) = (\nabla^E s_2)(b)
+  \]
+  so it suffices to work in trivialising neighbourhoods. Let \(\V s = (s^1, \dots, s^m) = s^i \V e_i\) where \(\V e_i\) is the standard basis of \(\R^m\) and \(s^i \in C^\infty(U)\). Put
+  \[
+    \Gamma_{jk}^i = \left[(\nabla^E \V e_j) \frac{\partial  }{\partial x^k} \right]^i
+  \]
+  where we assumed that \(U\) is also a coordinate neighbourhood in \(B\). \(\Gamma_{jk}^i \in C^\infty(U)\). Thus
+  \[
+    \nabla^E \V s = \nabla^E (s^i \V e_i)
+    = (ds^i + s^j \Gamma^i_{jk}(x) dx^k) \otimes \V e_i
+    = d_As
+  \]
+  Then the previous example verifies that \(A_j^i = \Gamma_{jk}^i dx^k\) have the required transformation law.
+\end{proof}
+
+\begin{definition}[covariantly constant]\index{covariantly constant}
+  A (local) section \(s: U \to E\) is \emph{covariantly constant} with respect to connection \(A\) if \(d_As = 0\).
+\end{definition}
+
+This is geometer's constant vector function.
+
+\begin{proposition}
+  \((d_As)(x) = 0\) if and only if \((ds)x(TxB) \subseteq T_{s(x)}E\) is a horizontal subspace \((ds_x (T_xB) = S_{s(x)}\) associated with \(A\).
+\end{proposition}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+We can extend \(d_A\) as a \(\R\)-linear map \(d_A: \Omega_B^r(E) \to \Omega_B^{r + 1}(E)\) for \(r = 0, 1, \dots\) by requiring
+\[
+  d_A(\sigma \w \omega) = (d_A\sigma) \w \omega + (-1)^{\deg \sigma} \sigma \w d\omega
+\]
+for all \(\sigma \in \Omega_B^q(E), \omega \in \Omega_B^p(B)\). Locally
+\[
+  d_A(s_I dx^I) = (d_A s_I) \w dx^I = d(s_i dx^I) + (A \w s^I) dx^I,
+\]
+i.e.\
+\[
+  d_A\sigma = d\sigma + A \w \sigma.
+\]
+Again, RHS only makes sense with a choice of local trivialisation. Can futher extend \(d_A\) to
+\[
+  d_A: \Omega_B^r(\End E) \to \Omega_B^{r + 1}(\End E)
+\]
+via
+\[
+  (d_AC)s = d_A(Cs) - Cd_As
+\]
+for all \(C \in \Gamma(\End E),  s \in \Gamma(E)\) (this is really just product rule rearranged). Also
+\[
+  (d_A\mu) \omega \sigma = d_A(\mu \w \sigma) - (-1)^{\deg \mu} \mu \w d_A\sigma
+\]
+for \(\mu \in \Omega_B^p(\End E), \sigma \in \Omega_B^r(E)\). Finally
+\[
+  d_A(\mu_1 \w \mu_2) = (d_A\mu-1) \w \mu_2 + (-1)^{\deg \mu_1} \mu_1 \w d_A \mu
+\]
+for \(\mu_1, \mu_2 \in \Omega_B^*(\End E)\).
+
+\begin{eg}
+  For \(\mu \in \Omega_B^2(\End E)\), the above theory implies in that in any local trivialisation,
+  \[
+    d_A\mu = d\mu + A \w \mu - \mu \w A.
+  \]
+\end{eg}
+
+\subsection{Curvature}
+
+We may repeatedly apply covariant derivative \(d_A\) to get a chain
+\[
+  \Gamma(E) = \Omega_B^0(E) \xrightarrow{d_A} \Omega_B^1(E) \xrightarrow{d_A} \dots \xrightarrow{d_A} \Omega_B^n(E) \xrightarrow{d_A} 0.
+\]
+Unfortunately in general \(d_A \compose d_A \neq 0\) so we don't have a cohomology. However in a local trivilisation, let \(s \in \Omega_B^r(E)\), have
+\begin{align*}
+  d_A d_As
+  &= d(ds + A \w s) + A \w (ds + A \w s) \\
+  &= dA \w s - A \w ds + A \w ds + A \w A \w s \\
+  &= (d A + A \w A) \w s
+\end{align*}
+so \(d_Ad_A\) is multiplication by a \(2\)-form. The expression is a pointwise (i.e.\ algebraic) expression: if \(s_1(b) = s_2(b)\) then
+\[
+  (d_A d_A s_1)_b = (d_A d_A s_2)_b.
+\]
+
+\begin{note}
+  One may wonder why \(A \w A\) does not vanish in the expression. In fact it is matrix valued:
+  \[
+    (A \w A)_j^i
+    = \Gamma_{pk}^i dx^k \w \Gamma_{j\ell}^p dx^\ell
+    = \Gamma_{pk}^i \Gamma_{j\ell}^p dx^k \w dx^\ell
+    \neq 0
+  \]
+  which is nonvanishing in general unless \(E\) has rank \(1\). In summary, matrix multiplicaiton is noncommutative.
+\end{note}
+
+\begin{definition}[curvature]\index{curvature}
+  Given a connection \(A\), the \(2\)-form
+  \[
+    F(A) = dA + A \w A \in \Omega_B^2(\End E)
+  \]
+  is the \emph{curvature} of \(A\).
+\end{definition}
+
+Note that \(F(A)\) is well-defined (i.e.\ independent of local trivialisation) as \(d_Ad_A\) is so.
+
+Locally \(FA = F(A)_{j, k\ell}^i dx^k \w dx^\ell\) where \(\{F(A)_{j, k\ell}^i\}\) is a function of \(\{\Gamma_{jk}^i, \frac{\partial \Gamma_{jk}^i}{\partial x_ell}\}\).
+
+\begin{definition}[flat]\index{connection!flat}\index{vector bundle!flat}
+  A connection is \emph{flat} if \(F(A) = 0\).
+
+  A vector bundle \(E\) is \emph{flat} if made a choice of flat connection.
+\end{definition}
+
+\begin{eg}
+  Consider the product bundle \(E = B \times \R^m\). Then
+  \[
+    d_A = d: C^\infty(B, \R^m) \to \Omega^1(B) \otimes \R^m
+  \]
+  is a \emph{trivial} product connection. It is flat.
+
+  The converse is true only locally and only in connection is flat.
+\end{eg}
   
 
 

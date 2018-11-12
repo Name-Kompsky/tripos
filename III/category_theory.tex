@@ -1649,6 +1649,126 @@ The unit laws similarly follow from
   so \(L'(\blue{f}) = \varepsilon_{FA} (Ff) = Lf\).
 \end{proof}
 
+If \(\c C\) has coproducts then so does \(\c C_\T\) since \(F_\T\) preserves them. But in general it has few other limits or colimits. In contrast, we have
+
+\begin{theorem}\leavevmode
+  \begin{enumerate}
+  \item The forgetful functor \(G: \c C^\T \to \c C\) creates all limits which exists in \(\c C\).
+  \item If \(\c C\) has colimits of shape \(\c J\) then \(G: \c C^\T \to \c C\) creates them if and only if \(T\) preserves them.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Suppose given \(D: \c J \to \c C^\T\). Write \(D(j) = (GD(j), \delta_j)\) and suppose \((L, (\mu_j: L \to GD(j): j \in \ob \c J))\) is a limit cone for \(GD\). Then the composites
+    \[
+      TL \xrightarrow{T\mu_j} TGD(j) \xrightarrow{\delta_j} GD(j)
+    \]
+    form a cone over \(GD\) since the edges of \(GD\) are homomorphisms, so they induce a unique \(\lambda: TL \to L\) such that \(\mu_j \lambda = \delta_j(T_\mu)\) for all \(j\). The fact that \(\lambda\) is a \(\T\)-algebra structure on \(L\) follows from the fact that the \(\delta_j\) are algebra structure and uniqueness of factorisations through limits. So \(((L, \lambda), (\mu_j: j \in \ob \c J))\) is the unique lifting of the limit cone over \(GD\) to a cone over \(D\), and it's a limit, since given a conve over \(D\) with apex \((A, \alpha)\), we get a unique factorisation \(A \xrightarrow{f} L\) in \(\c C\), and \(F\) is an algebra homomorphism by uniqueness of factorisation through \(L\).
+  \item For \(\implies\) direction, \(F: \c C \to \c C^\T\) preserves colimits since it is a left adjoint, so \(T = GF\) preserves colimits of shape \(\c J\).
+
+    For \(\impliedby\) direction, suppose given \(D: \c J \to \c C^\T\) as in 1, and a colimit cone \((GD(j) \xrightarrow{\mu_j} L: j \in \ob \c J)\) in \(\c C\), then \((TGD(j) \xrightarrow{T\mu_j} TL: j \in \ob \c C)\) is also a colimit cone, so the composite
+    \[
+      TGD(j) \xrightarrow{f_j} GD(j) \xrightarrow{\mu_j} L
+    \]
+    induces a unique \(\lambda: TL \to L\). The rest of the argument is like 1.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[monadicity]\index{monadicity}
+  Given an adjunctin \(F \adjoint G\), we say the adjunction (or the functor \(G\)) is \emph{monadic} if the comparison functor \(K: \c D \to \c C^\T\) is part of an equivalence of categories.
+\end{definition}
+
+Note that since the Kleisi comparison \(\c C_\T \to \c D\) is full and faithful, it's part of an equivalence if and only if it (equivalently, \(F\)) is essentially surjective on objects.
+
+\begin{remark}
+  Given any adjunction \(F \adjoint G\), for each object \(B\) of \(\c D\) we have a diagram
+  \[
+    \begin{tikzcd}
+      FGFGB \ar[r, shift left, "FG\varepsilon_B"] \ar[r, shift right, "\varepsilon_{FGB}"'] & FGB \ar[r, "\varepsilon_B"] & B
+    \end{tikzcd}
+  \]
+  with equal composites. The ``primeval'' monadicity theorem asserts that \(\c C^\T\) is characterised in \(\c{Adj}(\T)\) by the fact that these diagrams are all coequalisers.
+\end{remark}
+
+\begin{definition}[reflexivity, split coequaliser]\index{reflexivity}\index{coequaliser!split}\leavevmode
+  \begin{enumerate}
+  \item We say a parallel pair \(f, g: A \to B\) is \emph{reflexive} if their exists \(B \xrightarrow{r} A\) such that \(fr = gr = 1_B\).
+
+    We say \(\c C\) has reflexive coequalisers if it has coequalisers of all reflexive pairs. Equivalently, colimits of shape
+    \[
+      \begin{tikzcd}
+        \cdot \ar[loop, out=90, in=150, looseness=6] \ar[loop, out=210, in=270, looseness=5] \ar[r, shift left] \ar[r, shift right] & \cdot \ar[l]
+      \end{tikzcd}
+    \]
+  \item By a \emph{split coequaliser diagram} we mean a diagram
+    \[
+      \begin{tikzcd}
+        A \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & B \ar[l, bend left=50, "t"] \ar[r, "h"] & C \ar[l, bend left=50, "s"]
+      \end{tikzcd}
+    \]
+    satisfying \(hf = hg, hs = 1_C, gt = 1_B\) and \(ft = sh\).
+
+    These equalisers imply that \(h\) is a coequaliser of \((f, g)\), if \(B \xrightarrow{x} D\) satisfies \(xf = xg\) then
+    \[
+      x = xgt = xfg = xsh
+    \]
+    so \(x\) factors through \(h\) and the factorisation is unique since its split monic.
+
+    Note that split coequalisers are preserved by \emph{all} functors.
+  \item Given a functor \(G: \c D \to \c C\), a parallel pair
+    \begin{tikzcd}
+      A \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & B
+    \end{tikzcd}
+    is called \emph{\(G\)-split} if there exists a split coequaliser diagram
+    \[
+      \begin{tikzcd}
+        GA \ar[r, shift left, "Gf"] \ar[r, shift right, "Gg"'] & GB \ar[l, bend left=50, "t"] \ar[r, "h"] & C \ar[l, bend left=50, "s"]
+      \end{tikzcd}
+    \]
+    in \(\c C\).
+
+     Note that
+     \begin{tikzcd}
+       FGFGB \ar[r, shift left, "FG\varepsilon_B"] \ar[r, shift right, "\varepsilon_{FGB}"'] & FGB
+     \end{tikzcd}
+    is \(G\)-split, since
+    \[
+      \begin{tikzcd}
+        GFGFGB \ar[r, shift left, "GFG\varepsilon_B"] \ar[r, shift right, "G\varepsilon_{FGB}"'] & GFGB \ar[l, bend left=50, "\eta_{GFGB}"] \ar[r, "G\varepsilon_B"] & C \ar[l, bend left=50, "\eta_{GB}"]
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+\end{definition}
+
+Note that the aforementioned pair
+\[
+  \begin{tikzcd}
+    FGFGB \ar[r, shift left, "FG\varepsilon_B"] \ar[r, shift right, "\varepsilon_{FGB}"'] & FGB
+  \end{tikzcd}
+\]
+is reflexive with \(r = F\eta_{GB'}\).
+ 
+\begin{lemma}
+  Suppose given an adjunction
+  \begin{tikzcd}
+    \c C \ar[r, shift left, "F"] & \c D \ar[l, shift left, "G"]
+  \end{tikzcd}
+  where \(F \adjoint G\), inducing a monad \(\T\) on \(\c C\). Then \(K: \c D \to \c C^\T\) has a left adjoint provided, for every \(\T\)-algebra \((A, \alpha)\), the pair
+  \begin{tikzcd}
+    FGFA \ar[r, shift left, "F_\alpha"] \ar[r, shift right, "\varepsilon_{FA}"'] & FA
+  \end{tikzcd}
+  has a coequaliser in \(\c D\).
+\end{lemma}
+
+\begin{proof}
+  We define \(L: \c C^\T \to \c D\) by taking \(FA \to L(A, \alpha)\) to be a coequaliser for \((F\alpha, \varepsilon_{FA})\). Note that this is a functor \(\c C^\T \to \c D\). Recall that \(K\) is defined by \(KB = (GB, G\varepsilon_B)\). For any \(B\), morphisms \(LA \to B\) correspond bijectively to morphisms \(FA \xrightarrow{f} B\) satisfying \(f(F\alpha) = f(\varepsilon_{FA})\). These correspond to morphisms \(A \xrightarrow{\check f} GB\) satisfying
+  \[
+    \check f \alpha = Gf = G(\varepsilon_B(F \check f)) = (G\varepsilon_B)(T \check f)
+  \]
+  i.e.\ to algebra homomorphisms \((A, \alpha) \to KB\). And these bijections are natural in \((A, \alpha)\) and in \(B\).
+\end{proof}
+
 
 \printindex
 \end{document}

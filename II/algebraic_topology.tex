@@ -1353,26 +1353,104 @@ Here the \(2\)-norm is just taken for the sake of convenience and concreteness.
   for some \(u\). Set \(f(v) = u\) for some such \(u\). Left to check this is a simplicial map, i.e.\ for all \(\sigma \in K^{(r)}, f(\sigma) \in L\). But as in the proof of the previous lemma, if \(x \in \interior \sigma\) and \(\phi(x) \in \interior \tau\) then \(f(\sigma)\) must be a face of \(\tau\).
 \end{proof}
 
+\section{Homology}
 
+\subsection{Simplicial homology}
 
+The analogue in simplices of a path is a \emph{chain}, which is a formal sum of simplices. If we interpret positive coefficient as copies of a simplex, what does it mean to have a negative simplex? To make sense of this we need the notion of \emph{oriented simplex}.
 
+\begin{definition}[orientation]\index{orientation}
+  Let \(V = (v_0, \dots, v_n)\) be an ordered set of points in general position in \(\R^M\). Consider the natural action action of \(S_{n + 1}\) on \(V\). The subgroup \(A_{n + 1} \leq S_{n + 1}\) has 2 orbits on \(V\), as long as \(n \geq 1\). An \emph{orientation} on \(\sigma = \langle V \rangle\) is a choice of \(A_{n + 1}\)-orbit under the action on \(V\).
 
+  We will abuse notation and write \(\langle v_0, \dots, v_n \rangle\) for the simplex \(\langle v_0, \dots, v_n \rangle\) equipped with the orientation which is the \(A_{n + 1}\)-orbit of \((v_0, \dots, v_n)\).
+\end{definition}
 
+\begin{eg}
+  Let \(V = \{v_0, v_1\}\). The two possible orientations are \(\langle v_0, v_1 \rangle\) and \(\langle v_1, v_0\rangle\), which corresponds to ``arrows going in opposite directions''.
+\end{eg}
 
+\begin{eg}
+  Let \(V = \{v_0, v_1, v_2\}\). There are two orientations, for exmaple \(\langle v_0, v_1, v_2 \rangle\) and \(\langle v_2, v_1, v_0 \rangle\) are two representatives.
+\end{eg}
 
+\begin{definition}[chain]\index{chain}
+  Let \(K\) be a simplicial complex. The group of \emph{\(n\)-chains} on \(K\) is
+  \[
+    C_n(K) = \bigoplus_{\sigma \in K, \dim \sigma = n} \langle \sigma \rangle.
+  \]
+\end{definition}
 
+In particular if there are no \(n\)-simplex (e.g.\ \(n > \dim K\) or \(n < 0\)) then \(C_n(K) \cong 0\). Arbitrarily choose orientations on the simplices of \(K\) and then identify \(-\sigma\) with the opposite oriented simplex. Note that this arbitrary choice isn't important --- it could be realised by an automorphism of \(C_n(K)\).
 
+\begin{remark}
+  Note that these groups are abelian, which is a huge advantage compared to homotopy groups if you actually want to do anything with them. On the other hand, it also means that there are things that a homotopy group can see but homology groups cannot.
+\end{remark}
 
+\begin{definition}[boundary homomorphism]\index{boundary homomorphism}
+  The \emph{(\(n\)th) boundary homomorphism} \(\b_n\), usually just written as \(\b\), is defined by
+  \begin{align*}
+    C_n(K) &\to C_{n - 1}(K) \\
+    \langle v_0, \dots, v_n \rangle &\mapsto \sum_{i = 0}^n (-1)^i \langle v_0, \dots, \hat v_i, \dots, v_n \rangle
+  \end{align*}
+  where \(hat v_i\) means that the vertex \(v_i\) is omitted.
+\end{definition}
 
+Note this is well-defined.
 
+\begin{eg}
+  Let \(\sigma = \langle v_0, v_1 \rangle\). Then \(\b(\sigma) = \langle v_1 \rangle - \langle v_0 \rangle\).
+\end{eg}
 
+\begin{eg}
+  Let \(\sigma = \langle v_0, v_1, v_2 \rangle\). Then
+  \begin{align*}
+    \b(\sigma)
+    &= \langle v_1, v_2 \rangle - \langle v_0, v_2 \rangle + \langle v_0, v_1 \rangle \\
+    &= \langle v_1, v_2 \rangle + \langle v_2, v_0 \rangle + \langle v_0, v_1 \rangle
+  \end{align*}
+\end{eg}
 
+\begin{definition}[cycle, boundary]\index{cycle}\index{boundary}
+  Let \(n \in \Z\). The group
+  \[
+    Z_n(K) = \ker \b_n \leq C_n(K)
+  \]
+  is the group of \emph{\(n\)-cycles}.
+  
+  The group
+  \[
+    B_n(K) = \im \b_{n + 1} \leq C_n(K)
+  \]
+  is the group of \emph{\(n\)-boundaries}.
+\end{definition}
 
+These are analogous to loops and homotopies respectively.
 
+\begin{lemma}
+  Every \(n\)-boundary is an \(n\)-cycle, i.e.
+  \[
+    B_n(K) \leq Z_n(K),
+  \]
+  i.e.
+  \[
+    \b_n \compose \b_{n + 1} = 0.
+  \]
+\end{lemma}
 
-
-
-
+\begin{proof}
+  Let \(\sigma = \langle v_0, \dots, v_n \rangle\). By definition
+  \[
+    \b(\sigma) = \sum_{i = 0}^n (-1)^i \langle v_0, \dots, \hat v_i, \dots, v_n \rangle
+  \]
+  so
+  \begin{align*}
+    \b \compose \b(\sigma)
+    &= \sum_{i, j < i} (-1)^i (-1)^j \langle v_0, \dots, \hat v_j, \dots, \hat v_i, \dots, v_n \rangle
+      + \sum_{i, j > i} (-1)^i (-1)^{j - 1} \langle v_0, \dots, v_i, \dots, v_j, \dots, v_n \rangle \\
+    &= \sum_{i, j < i} (-1)^{i + j} \langle v_0, \dots, \hat v_j, \dots, \hat v_i, \dots v_n \rangle
+      - \sum_{i, j > i} (-1)^{i + j} \langle v_0, \dots, \hat v_i, \dots, \hat v_j, \dots, v_n \rangle
+  \end{align*}
+\end{proof}
 
 
 
