@@ -1965,9 +1965,397 @@ Locally \(FA = F(A)_{j, k\ell}^i dx^k \w dx^\ell\) where \(\{F(A)_{j, k\ell}^i\}
   \]
   is a \emph{trivial} product connection. It is flat.
 
-  The converse is true only locally and only in connection is flat.
+  The converse is true only locally and only if connection is flat.
 \end{eg}
-  
+
+\begin{theorem}[2nd Bianchi identity]\index{2nd Bianchi identity}
+  \[
+    d_AF(A) = 0
+  \]
+  for every connection \(A\) on vector bundle \(E\).
+\end{theorem}
+
+\begin{proof}
+  Let \(s \in \Gamma(E)\). Then
+  \[
+    d_A(F(A)s) = d_A(d_Ad_A)s = (d_Ad_A)d_As = F(A) \w d_As.
+  \]
+  Bu LHS may be rewritten as
+  \[
+    d_A(F(A))s + F(A) \w d_As.
+  \]
+  Substitute and cancel to get the result.
+\end{proof}
+
+\section{Riemannian geometry}
+
+\begin{definition}
+  A \emph{Riemannian metric} \(g\) on \(M\) is a field of positive-definite symmetric bilinear forms
+  \[
+    g_p : T_pM \times T_pM \to \R
+  \]
+  defined for all \(p \in M\) and smooth in \(p\).
+\end{definition}
+
+\begin{definition}[Riemannian manifold]\index{Riemannian manifold}
+  A \emph{Riemannian manifold} is a manifold endowed with a Riemannian metric.
+\end{definition}
+
+\begin{remark}
+  Smoothness in \(p\) means that for all \(X, Y \in V(M)\) have \(g(X, Y) \in C^\infty(M)\). Equivalently, in each coordinate neighbourhood \(U\) with coordinates \(x^i\) have
+  \[
+    g_{ij} = g(\frac{\partial  }{\partial x^i}, \frac{\partial  }{\partial x^j}) \in C^\infty(U).
+  \]
+  We thus obtain the local expression of \(g\)
+  \[
+    g_{ij} dx^idx^j.
+  \]
+  Technically it should be \(g_{ij} dx^i \otimes dx^j\) but we omit the tensor symbol. This means that suppose \(X = X^i \frac{\partial  }{\partial x^i}, Y = Y^i \frac{\partial  }{\partial x^i}\) then
+  \[
+    g(X, Y) = g_{ij} X^iY^j.
+  \]
+\end{remark}
+
+Formally \(g \in \Gamma(T^*M \otimes T^*M)\).
+
+\begin{eg}
+  This is compatible with the more classical definition of Riemannian metric in differential geometry of curves and surfaces. Given \(r = r(u, v): \R^2_{u, v} \to \R^3\), the first fundamental form
+  \[
+    E du^2 + 2F dudv + G dv^2
+  \]
+  is a Riemannian metric with \(g_{11} = E, g_{12} = g_{21} = F, g_{22} = G\).
+\end{eg}
+
+\begin{theorem}
+  Every manifold admits a Riemannian metric.
+\end{theorem}
+
+\begin{proof}
+  Apply example sheet 3 question 2 (every vector bundle can be given a smooth inner product) to \(TM\).
+\end{proof}
+
+The definition of a pullback \(F^*\) for smooth \(F: M \to B\) is valid for bilinear forms of \(TN\). If \(g_N\) is a metric on \(N\) then \(F^*g_N\) is a symmetric, bilinear smooth and non-negative definite on fibres of \(TM\).
+
+If also \(dF_x\) are injective for all \(x \in M\) then \(F^*g_N\) is positive-definite on \(TM\) and is a valid Riemannian metric. For example, when \(M\) is a immersed submanifold or \(F\) is a diffeomorphism.
+
+This gives us an alternative way to prove the theorem by embedding in Euclidean space by Whitney and pullback the Euclidean metric.
+
+\begin{definition}[connection]\index{connection}
+  A \emph{connection on a manifiold \(M\)} is a connection on \(TM\).
+\end{definition}
+
+Recall that transition functions for \(TM\) are given by the Jacobian
+\[
+  \psi = (\psi^i_{i'}) = \left( \frac{\partial x^i}{\partial x^{i'}} \right)
+\]
+The coefficients \(\Gamma_{jk}^i\) of a connection on \(M\) are sometimes called \emph{Christoffel symbols}\index{Christoffel symbols}. Recall the transformation law for connection %forms matrices \((A_j^i) = (\Gamma_{jk}^i dx^k)\)
+\[
+  \Gamma^i_{jk} = \Gamma^{i'}_{j'k'} \psi^i_{i'} \psi^{j'}_j \frac{\partial x^{k'}}{\partial x^k} + \psi^i_{i'} \frac{\partial \psi^{i'}_j}{\partial x^k}
+\]
+When \(E = TM\) this simplifies to
+\[
+  \Gamma^i_{jk} = \Gamma^{i'}_{j'k'} \frac{\partial x^i}{\partial x^{i'}} \frac{\partial x^{j'}}{\partial x^j} \frac{\partial x^{k'}}{\partial x^k} + \frac{\partial x^i}{\partial x^{i'}} \frac{\partial^2 x^{i'}}{\partial x^j \partial x^k}
+\]
+Note that in this case the object \(\Gamma^i_{kj}\) obtained by switching \(j\) and \(k\) makes sense as they live in the same space. It obeys the same transformation law so they also define a connection.
+
+The difference \(T^i_{jk} = \Gamma^i_{jk} - \Gamma^i_{kj}\) is the \emph{torsion}\index{torsion} of a connection on \(M\). \(T = (T^i_{jk}) \in \Omega^1_M(\End TM)\). Locally \(T = T^i_{jk} dx^k\). Moerover given \(X, Y \in V(M)\),
+\[
+  T(X, Y) = (T^i_{jk} X^j Y^k \frac{\partial  }{\partial x^i}) \in V(M).
+\]
+Then \(T(X, Y) = -T(Y, X)\) so \(T \in \Omega^2_M(TM)\)
+
+\begin{definition}[symmetric connection]\index{connection!symmetric}
+  A connection on a manifold \(M\) is \emph{symmetric} if the torsion vanishes, i.e.
+  \[
+    \Gamma^i_{jk} = \Gamma^i_{kj}
+  \]
+  in every local coordinates.
+\end{definition}
+
+Denote the covariant derivative on \(M\)
+\[
+  D: \Omega_M^0(TM) = V(M) \to \Omega_M^1(TM).
+\]
+Denote by \(D_XY\), where \(X, Y \in V(M)\) the evaluation of \(DY \in \Omega^1_M(TM)\) on \(X\). Thus \(D_XY \in V(M)\). This is an \(\R\)-linear map.
+
+In local coordinates,
+\[
+  (D_XY)^i \p_i = (X^j\p_j Y^i - \Gamma^i_{jk} Y^jX^k) \p_i
+\]
+Consequently we obtain
+
+\begin{proposition}
+  A connection \(D\) on \(M\) is symmetric if and only if
+  \[
+    D_XY - D_YX = [X, Y]
+  \]
+  for all \(X, Y \in V(M)\).
+\end{proposition}
+
+\begin{theorem}[Levi-Civita connection]\index{Levi-Civita connection}
+  \label{thm:Levi-Civita}
+  On each Riemannian manifold \((M, g)\) there is a unique connection \(D\) such that
+  \begin{enumerate}
+  \item for every \(X, Y, Z \in V(M)\),
+    \[
+      Zg(X, Y) = g(D_ZX, Y) + g(X, D_ZY).
+    \]
+  \item \(D\) is symmetric.
+  \end{enumerate}
+
+  \(D\) is called \emph{Levi-Civita connection} of \(g\).
+\end{theorem}
+
+Recall that given \(X \in V(M)\), \(D_X: V(M) \to V(M)\) is a covariant derivative if and only if
+\begin{enumerate}
+\item \(\R\)-linearity in \(Y\): \(D_X(\lambda Y) = \lambda D_XY\) for all \(\lambda \in \R, Y \in V(M)\),
+\item Leibniz rule: \(D_X(hY) = (Xh) \cdot Y + hD_XY\) for all \(h \in C^\infty(M)\),
+\item \(C^\infty(M)\)-linearity in \(X\): \(D_{fX}Y = fD_XY\) for all \(f \in C^\infty(M)\).
+\end{enumerate}
+
+\begin{proof}[Proof of \Cref{thm:Levi-Civita}]
+  We do uniqueness first. In a coordinate neighbourhood
+  \[
+    D \p_i = \Gamma_{ik}^p \p_p dx^k.
+  \]
+  For condition 1 in the statement of the theorem, let \(X = \p_i, Y = \p_j, Z = \p_k\) so that \(g(X, Y) = g_{ij}\), so we obtain the first equation
+  \begin{align*}
+    \p_k g_{ij} &= \Gamma_{ij}^p g_{pj} + \Gamma_{jk}^p g_{ip} \\
+    \p_j g_{ki} &= \Gamma_{kj}^p g_{pi} + \Gamma_{ij}^p g_{kp} \\
+    \p_i g_{jk} &= \Gamma_{ji}^p g_{pk} + \Gamma_{ki}^p g_{jp}
+  \end{align*}
+  the next two lines are similarly obtained by cyclic permutation on \(i, j, k\).
+
+  Define \((g^{iq}) = (g_{iq})^{-1}\), the inverse matrix. Use the fact that \(g_{iq}\) is symmetric,
+  \[
+    \Gamma_{jk}^p g_{pq} g^{iq} = \Gamma_{jk}^i.
+  \]
+  Summing equations \(1 + 2 - 3\) gives
+  \[
+    \p_k g_{ij} + \p_j g_{ki} - \p_i g_{jk}
+    = 2\Gamma_{jk}^p g_{ip}
+  \]
+  which is the same as
+  \[
+    \Gamma_{jk}^p g_{qp} = \frac{1}{2} (\p_k g_{qj} + \p_j g_{kq} - \p_q g_{jk}).
+  \]
+  Multiply by \(g^{iq}\) to get
+  \[
+    \Gamma_{jk}^i = \frac{1}{2} g^{iq}(\p_k g_{qj} + \p_j g_{kq} - \p_q g_{jk})
+  \]
+  which is to say, there is at most one way to define the Christoffel symbols.
+
+  \begin{ex}
+    Show that the equation has a coordinate-free formulation
+    \begin{align*}
+      g(D_XY, Z) &= \frac{1}{2}(X_g(Y, Z) + Y_g(Z, X) - Zg(X, Y) \\
+      &\quad - g(Y, [X, Z]) - g(Z, [Y, X]) + g(X, [Y, Z])).
+    \end{align*}
+  \end{ex}
+
+  To check the requirement for covariant derivative, 1 is clear from the coordinate-free formula. We omit the verification for 2 and 3 with the following checkpoints:
+  \begin{enumerate}
+  \item 3: Let \(f \in C^\infty(M)\). Recall
+    \[
+      [fX, Z] = (fX)Z - Z(fX) = f[X, Z] - (Zf)X
+    \]
+    so
+    \begin{align*}
+      g(D_{fX}Y, Z)
+      &= \frac{1}{2}(fX_g(Y, Z) + Y(fg(Z, X)) - Z(fg(X, Y)) \\
+      &\quad - f(g(Y, [X, Z]) + g(Z, [Y, X]) - g(X, [Z, Y])) \\
+      &\quad + (Zf)g(X, Y) - (Yf)g(Z, X) \\
+      &\dots \\
+      &= g(fD_XY, Z)
+    \end{align*}
+    then do some cancellation. We are also using
+    \[
+      Y(fh) = (Yf) \cdot h + f \cdot Yh.
+    \]
+  \item 2: let \(h \in C^\infty(M)\),
+    \begin{align*}
+      g(D_X(hY), Z)
+      &= \frac{1}{2}(X(h g(Y, Z)) + hY(g(Z, X)) - Z(hg(X, Y)) - hg(Y, [X, Z]) - g(Z, [hY, X]) + g(X, [Z, hY]) \\
+      &= \frac{1}{2}((Xh)g(Y, Z) + h Xg(Y, Z) + hY(g(Z, X)) - (Zh) g(X, Y) - hZ g(X, Y) - hg(Y, [X, Z]) + (Xh) g(Z, [Y, X]) + (Zh) g(X, Y) + hg(X, [Z, Y]) \\
+      &= (Xh) g(Y, Z) + hg(D_XY, Z)
+    \end{align*}
+    for all \(Z\). Thus
+    \[
+      D_X(h, Y) = (Xh)Y + hD_XY.
+    \]
+  \end{enumerate}
+  Thus \(D\) is a well-define connection. For statment 1 in theorem, we can trace deduction of \(\Gamma_{jk}^i\) backwards.
+\end{proof}
+
+\subsection{Geodesics}
+
+Let \(\gamma\) be a curve in \(U\), a coordinate neighbourhood of \(M\). Let \(\pi: E \to M\) be a vector bundle equipped with a connection \(A\), \(A = (\Gamma_{jk}^i)\) on \(U\). Then a \emph{lift} of \(\gamma\) to \(E\) is \(\gamma_E\) such that \(\pi \compose \gamma_E = \gamma\). If \(\gamma(t) = (x^k(t))\) in local coordinates, then
+\[
+  \gamma_E(t) = (x^k(t), a^i(t))
+\]
+in \(U \times V = \pi^{-1}(U)\). A \emph{horizontal lift} means that
+\[
+  \dot \gamma_E(t) \in S_{\gamma_E(t)}
+\]
+for all \(t\) where \(S\) denotes the horizontal subspace with respect to \(A\). In other words,
+\[
+  \theta^i(\dot \gamma_E(t)) = 0
+\]
+for \(i = 1, \dots, m\) where \(m\) is the rank of \(E\). Expand out,
+\[
+  (da^i + \Gamma_{jk}^i a^j dx^k) (\dot x^k(t) \frac{\partial  }{\partial x^k} + \dot a^j(t) \frac{\partial  }{\partial a^j}) = 0.
+\]
+Simplify to get
+\[
+  \dot a^i + \Gamma_{jk}^i(x) a^j \dot x^k = 0.
+\]
+This is a system of \(1\)st order linear ODEs so by basic results in ODE theorey, it is solvable on ant \(I \subseteq \R\) and is uniquely determined by \(a^i(0)\). Thus horizontal lift \emph{always exists} from each \(a \in E\).
+
+Misses a lecture on 17/11/18
+
+Fix \(p \in M\). If \(\gamma(t, a) = \gamma_p(t, a)\) is a geodesic, \(\lambda \in \R\) then
+\begin{align*}
+  \frac{d}{dt} \gamma(\lambda t, a) &= \lambda \dot \gamma(\lambda t, a) \\
+  \frac{d^2}{dt^2} \gamma(\lambda t, a) &= \lambda^2 \ddot \gamma(\lambda t, a)
+\end{align*}
+so
+\[
+  \gamma(\lambda t, a) = \gamma(t, \lambda a).
+\]
+Furthermore
+\begin{enumerate}
+\item for all \(a \in T_pM\), there exists \(\varepsilon = \varepsilon_a > 0\) such that
+  \[
+    \gamma(s, a) = \gamma(1, sa)
+  \]
+  exists for all \(|s| < \varepsilon\).
+\item from theory of ODEs, \(\varepsilon_a\) may be chosen continuous in \(a\). For \(|a|_g \leq \varepsilon_1\), have \(\varepsilon_a \geq \varepsilon_2 > 0\). We have \(|a|_g < \varepsilon = \varepsilon_1 \varepsilon_2\) then \(\gamma(1, a)\) is defined.
+\end{enumerate}
+
+\begin{definition}[exponential map]\index{exponential map}
+  Let \((M, g)\) be a Riemannian manifold and \(p \in M\). The \emph{exponential map} at \(p\) is
+  \begin{align*}
+    \exp_p: T_m M &\to M \\
+    a &\mapsto \gamma_p(1, a)
+  \end{align*}
+\end{definition}
+Thus for some \(\varepsilon > 0\) sufficiently small, \(\exp_p: \text{Ball}_g(0, \varepsilon) \to M\) is a well-defined smooth map.
+
+\begin{proposition}
+  \[
+    (d \exp_p)_0 = \id_{T_pM}
+  \]
+  by noting \(T_0(T_pM) \cong T_pM\).
+\end{proposition}
+
+\begin{proof}
+  One approach is to Taylor expand
+  \[
+    \gamma(t, a) = p + at + c_2 t^2 + \dots
+  \]
+  and then substitute into geodesic ODE to get
+  \[
+    c_2^i = \frac{1}{2} \Gamma_{jk}^i (\phi) a^ja^k.
+  \]
+  Then do some hands-on analysis.
+
+  Another approach is to note \(\exp_p(0) = p\). For \(|a|_g < \varepsilon\), \(\gamma_p(t, a) = \gamma_p(1, ta)\) for \(-1 \leq t \leq 1\). Then
+  \begin{align*}
+    (d \exp_p)_0 a
+    &= \frac{d}{dt} \exp_p(t a) \Big|_t = 0 \\
+    &= \frac{d}{dt} \gamma_p(1, ta) \Big|_{t = 0}
+      = \frac{d}{dt} \gamma_p (t, a) \Big|_{t = 0} \\
+    &= \dot \gamma_p(t, a) \Big|_{t = 0} \\
+    &= a
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  \(\exp_p: \text{Ball}_g(0, r) \to U\) is a diffeomorphism onto its image \(U\) for some \(r > 0\).
+\end{corollary}
+
+\begin{proof}
+  Inverse mapping theorem.
+\end{proof}
+
+This means that \((\exp_p)^{-1}\) is a hcart around \(p \in M\). The respective local coordinates are the \emph{normal coordinates}\index{normal coordinate}, aka \emph{geodesic coordinates}\index{geodesic coordinate} at \(p\).
+
+For exmaple in geodesic coordinates
+\[
+  \exp_p^{-1} (\gamma_p(t, a)) = ta
+\]
+for \(|t|\) sufficiently small.
+
+The \emph{geodesic polars} \((T_pM, g(p)) \cong (\R^n, \text{Euclidean})\). Suppose \((0, \varepsilon) \times S^{n - 1}\) is included in the domain of \(\exp_p\). Then can define a map
+\begin{align*}
+  f: (0, \varepsilon) \times S^{n - 1} &\to M \\
+  (r, v) &\mapsto \exp_p(r v)
+\end{align*}
+Let \(\Sigma_r\) be the image under \(f\) of \(\{r\} \times S^{n - 1}\), then \(f\) defines an immersion (embed?) into \(M\). This is a \emph{geodesic sphere} around \(p\).
+
+\begin{theorem}[Gauss lemma]\index{Gauss lemma}
+  \(\gamma_p(t, a)\) meets \(\Sigma_r\) orthogonally for all \(0 < r < \varepsilon\). Thus in geodesic polars,
+  \[
+    g = dr^3 + h(r, v)
+  \]
+  where \(g = g|_{\Sigma_r}\).
+\end{theorem}
+
+So we may write \(g\) as
+\[
+  \begin{pmatrix}
+    dr^2 & 0 & \dots & 0 \\
+    0 \\
+    \vdots & & h(r, v) \\
+    0 
+  \end{pmatrix}
+\]
+
+\begin{proof}
+  Choose any \(X \in V(S^{n - 1})\). \(S^{n - 1} \subseteq T_pM\) with respect to \(g(p)\). Extend \(X\) o \(\text{Ball}_1(0) \setminus \{0\} = \{a \in T_pM: |a|_g \leq 1\}\). \(\tilde X(r, v) = rX(v)\) on \(B \setminus \{0\}\). Define
+  \[
+    Y(f(r, v)) = d(\exp_p)_{rv} \tilde X(r, v),
+  \]
+  a vector field on \(B' \subseteq \exp_p(B \setminus \{0\}) \subseteq M\). To show \(Y \perp \frac{\p}{\p r}\) at each point in \(B' \setminus \{p\}\), note that
+  \[
+    \frac{\p}{\p r} = \dot \gamma_p(t, a) \frac{1}{|a|_{g(p)}}
+  \]
+  so \(\dot \gamma(t, a)\) defines a vector field on \(B' \setminus \{p\}\) for all \(|a|_{g(p)} = 1\) and \(0 < t < \varepsilon\). Take limit as \(r \to 0\) to obtain \(g(\frac{\partial  }{\partial r}, \frac{\partial  }{\partial r}) = 1\).
+
+  Thus to show \(g(Y, \dot \gamma) = 0\),
+  \begin{align*}
+    D_{\dot \gamma} Y - D_Y \dot \gamma
+    &= (df)(D_{\p/\p r} \tilde X - D_{\tilde X} \frac{\partial  }{\partial r}) \\
+    &= (df) (\frac{d}{dr} \tilde X) \\
+    &= (df) \frac{\tilde X}{r} \\
+    &= \frac{Y}{r}
+  \end{align*}
+  by linearity of \(df\) at each point. Thus
+  \begin{align*}
+    \frac{d}{dr} g(Y, \dot \gamma)
+    &= g(D_{\dot \gamma} Y, \dot \gamma) + g(Y, \underbrace{D_{\dot \gamma} \dot \gamma}_{= 0}) \\
+    &= g(D_Y \dot \gamma + \frac{Y}{r}, \dot \gamma) \\
+    &= \frac{1}{r} g(Y, \dot \gamma)
+  \end{align*}
+  Let \(G = g(Y, \dot \gamma)\) and we have an ODE
+  \[
+    \frac{d}{dr} G = \frac{G}{r}.
+  \]
+  So \(G\) is linear in \(r\) and \(\frac{dG}{dr}\) is independent of \(r\). But
+  \[
+    \lim_{r \to o^+} \frac{dG}{dr} = \lim_{r \to 0^+} g(X, \frac{\partial  }{\partial r}) = 0
+  \]
+  because \((d \exp)_0\) is an isometry.
+\end{proof}
+
+
+
+
+
+
+
+
+
 
 
 

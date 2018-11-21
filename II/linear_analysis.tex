@@ -52,7 +52,7 @@ are continuous and the metric is translation invariant: \(d(x, y) = d(x + z, y +
 \end{fact}
 
 \begin{proof}
-  We only check scalar multiplication. The others are left as exercises. Since \(\K\) and \(X\) are both metric spaces, it suffices to check that \(\lambda_j \to \lambda\) in \(\K\) and \(x_j \to x\) in \(X\) implies \(\lambda_j x_j \to \lambda x\).
+  We only check scalar multiplication. The others are left as exercises. Since \(\K\) and \(X\) are both metric spaces, it suffices to check that \(\lambda_j \to \lambda\) in \(\K\) and \(x_j \to x\) in \(X\) then \(\lambda_j x_j \to \lambda x\).
 
   Indeed,
   \begin{align*}
@@ -1020,9 +1020,9 @@ The point of the theorem is not so much of finding a uniform bound on the functi
   As a consequence, to prove that \(T: X \to Y\) is bounded, if \(X\) and \(Y\) are Banach spaces, it suffices to check if \(x_k \to x, Tx_k \to y\) then \(Tx = y\), instead of the stronger requirement that if \(x_k \to x\) then \(Tx_k \to y\) and \(y = Tx\).
 \end{remark}
 
-\section{The space of continuous functions on a compact space}
+\section{Continuous functions on a compact space}
 
-\subsection{Normed topological spaces}
+\subsection{Normal topological spaces}
 
 Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in X, x \neq y\), there exist open neighbourhodds \(U\) of \(x\) and \(V\) of \(y\) such that \(U \cap V \neq \emptyset\).
 
@@ -1115,7 +1115,7 @@ Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in 
 \end{theorem}
 
 \begin{proof}
-  We first assume that \(g\) takes values in \([0, 1]\). Let \(g_0 = g\). Let \(A_0 = g^{-1}([0, \frac{1}{3}]), B_0 = g^{-1}([\frac{2}{3}, 1])\) which are closed and closed. Thus by \Cref{cor:normal space separates closed sets} there is a continuous \(h_0: X \to [0, \frac{1}{3}]\) such that \(h_0|_{A_0} = 0, h_0|_{B_0} = \frac{1}{3}\). Let \(g_1 = g_0 - h_0|_A\). Then \(g_1(x) \in [0, \frac{2}{3}]\) for all \(x \in A\). By induction assume that \(g_i: A \to [0, \left(\frac{2}{3}\right)^i]\) is given and set
+  We first assume that \(g\) takes values in \([0, 1]\). Let \(g_0 = g\). Let \(A_0 = g^{-1}([0, \frac{1}{3}]), B_0 = g^{-1}([\frac{2}{3}, 1])\) which are disjoint and closed. Thus by \Cref{cor:normal space separates closed sets} there is a continuous \(h_0: X \to [0, \frac{1}{3}]\) such that \(h_0|_{A_0} = 0, h_0|_{B_0} = \frac{1}{3}\). Let \(g_1 = g_0 - h_0|_A\). Then \(g_1(x) \in [0, \frac{2}{3}]\) for all \(x \in A\). By induction assume that \(g_i: A \to [0, \left(\frac{2}{3}\right)^i]\) is given and set
   \[
     A_i = g_i^{-1}(\left[0, \frac{1}{3} \left(\frac{2}{3}\right)^i \right]), B_i = g_i^{-1}(\left[ \frac{2}{3} \left(\frac{2}{3}\right)^i, \left(\frac{2}{3}\right)^i \right])
   \]
@@ -1128,7 +1128,7 @@ Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in 
     = \dots
     = \sum_{i = 0}^\infty h_i|_A.
   \]
-  Set \(\tilde f = \sum_{i = 0}^\infty h_i\). The convergence is uniform (for example, by Weierstrass M-test) so \(\tilde f\) is continuous.
+  Set \(\tilde f = \sum_{i = 0}^\infty h_i\). The convergence is uniform by Weierstrass \(M\)-test so \(\tilde f\) is continuous.
 
   If \(g\) takes values in \(\R\), we can apply the above to the function \(\frac{1}{2} + \frac{1}{2\pi} \arctan \compose g\) which takes values in \([\frac{1}{4}, \frac{3}{4}] \subseteq [0, 1]\) to obtain an extension \(\tilde f\). If \(g\) takes values in \(\C\), we can apply this to the real and imaginary parts to obtain an extension \(\tilde f\).
 
@@ -1145,7 +1145,7 @@ Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in 
 
 \subsection{Arzelà-Ascoli theorem}
 
-Answers the important question when is a subset of \(C(K)\) compact.
+The key object studied by functional analysis is function space. In this section we prove a theorem that answers the important question when a subset of \(C(K)\) is compact.
 
 Since we are studying normed spaces and subspaces thereof, which are in particular metric spaces, here are several notions of compactness in metric spaces. Note that in general they are not equivalent.
 
@@ -1154,12 +1154,12 @@ Since we are studying normed spaces and subspaces thereof, which are in particul
   \begin{enumerate}
   \item \(X\) has the \emph{Heine-Borel property}: any open cover of \(X\) has a finite subcover.
   \item \(X\) is \emph{sequentially compact}, i.e.\ any sequence in \(X\) has a convergent subsequence.
-  \item \(X\) is \emph{complete} and \emph{totally bounded}, i.e.\ for any \(\varepsilon > 0\) there exists a finite \(\varepsilon\)-net. This is a finite set \(M \subseteq X\) such that for any \(x \in X\), there exists \(m M\) such that \(d(x, m) < \varepsilon\).
+  \item \(X\) is \emph{complete} and \emph{totally bounded}, i.e.\ for any \(\varepsilon > 0\) there exists a finite \(\varepsilon\)-net. This is a finite set \(M \subseteq X\) such that for any \(x \in X\), there exists \(m \in M\) such that \(d(x, m) < \varepsilon\).
   \end{enumerate}
 \end{definition}
 
 \begin{proof}
-  For \(1 \iff 2\) see IB Metric and Topological Spaces. \(2 \implies 3\) easily. We state here only the proof of \(3 \implies 2\). Let \((x_n) \subseteq X\) be a sequence. We want to find a convergent subsequence. Let \(M_n\) be a finite \(\frac{1}{n}\)-net for \(X\). Let \(m_1 \in M_1\) be such that \(B_1(m_1)\) contains infinitely many of the \(x_n\)'s. Let \(n_1\) be the first \(n\) such that \(x_n \in B_1(m_1)\). Given \(m_1 \in M_1, \dots\) and \(m_k \in M_k, n_1, \dots, n_k\) such that \(B_{1/j}(m_j)\) contains infinitely many points from \((x_n) \cap B_{1/i}(m_i)\) for all \(i \leq j\), and \(x_{n_\ell} \in \bigcap_{i = 1}^\ell B_{1/i}(m_i)\) for \(\ell \leq k\), let \(m_{k + 1}\) be such that \(B_{1/(k + 1)}(m_{k + 1})\) contains infinitely many points from \((x_n) \cap \bigcap_{j = 1}^k B_{1/j}(m_j)\) and \(n_{k + 1}\) be the first \(n > n_k\) such that \(x_{n_{k + 1}} \in \bigcap_{j = 1}^{k + 1} B_{1/j}(m_j)\). It follows that for \(\ell \geq k\),
+  For \(1 \iff 2\) see IB Metric and Topological Spaces. \(2 \implies 3\) easily. We present here only the proof of \(3 \implies 2\). Let \((x_n) \subseteq X\) be a sequence. We want to find a convergent subsequence. Let \(M_n\) be a finite \(\frac{1}{n}\)-net for \(X\). Let \(m_1 \in M_1\) be such that \(B_1(m_1)\) contains infinitely many of the \(x_n\)'s. Let \(n_1\) be the first \(n\) such that \(x_n \in B_1(m_1)\). Given \(m_1 \in M_1, \dots\) and \(m_k \in M_k, n_1, \dots, n_k\) such that \(B_{1/j}(m_j)\) contains infinitely many points from \((x_n) \cap B_{1/i}(m_i)\) for all \(i \leq j\), and \(x_{n_\ell} \in \bigcap_{i = 1}^\ell B_{1/i}(m_i)\) for \(\ell \leq k\), let \(m_{k + 1}\) be such that \(B_{1/(k + 1)}(m_{k + 1})\) contains infinitely many points from \((x_n) \cap \bigcap_{j = 1}^k B_{1/j}(m_j)\) and \(n_{k + 1}\) be the first \(n > n_k\) such that \(x_{n_{k + 1}} \in \bigcap_{j = 1}^{k + 1} B_{1/j}(m_j)\). It follows that for \(\ell \geq k\),
   \[
     d(x_{n_k}, x_{n_\ell}) \leq d(x_{n_k}, m_k) + d(m_k, x_{n_\ell}) \leq \frac{2}{k} \to 0
   \]
@@ -1174,13 +1174,13 @@ Since we are studying normed spaces and subspaces thereof, which are in particul
   \(Y\) is totally bounded if and only if \(\cl Y\) is totally bounded.
 \end{proof}
 
-For \(K\) compact Hausdorff, we always take \(C(K)\) with \(\norm \cdot_\infty\) norm, making \(C(K)\) into a Banach space, which is in particular a complete metric space.
+Throughout this chapter, unless otherwise stated, we assume \(K\) is compact Hausdorff and equip \(C(K)\) with \(\norm \cdot_\infty\) norm, thus making \(C(K)\) into a Banach space, which is in particular a complete metric space.
 
 \begin{theorem}[Arzelà-Ascoli]\index{Arzelà-Ascoli theorem}
   Let \(K\) be compact Hausdorff and \(\mathcal F \subseteq C(K)\). Then TFAE:
   \begin{enumerate}
   \item \(\mathcal F\) is relatively compact;
-  \item \(\mathcal F\) is bounded and equicontinuous, i.e.\ \(\sup_{f \in \mathcal F} \norm f_\infty < \infty\) and for all \(\varepsilon > 0, x \in K\) there exists a neighbourhodd \(U\) of \(x\) such that or all \(f \in \mathcal F\), \(|f(x) - f(y)| < \varepsilon\) for all \(y \in U\).
+  \item \(\mathcal F\) is bounded and equicontinuous, i.e.\ \(\sup_{f \in \mathcal F} \norm f_\infty < \infty\) and for all \(\varepsilon > 0, x \in K\) there exists a neighbourhood \(U\) of \(x\) such that for all \(f \in \mathcal F\), \(|f(x) - f(y)| < \varepsilon\) for all \(y \in U\).
   \end{enumerate}
 \end{theorem}
 
@@ -1194,7 +1194,7 @@ The generalises the fact that a subset of a finite-dimensional space is relative
     \]
     so in particular \(\norm f \leq \varepsilon + \max_i \norm{f_i}\) for all \(f \in \mathcal F\) so \(\mathcal F\) is bounded.
 
-    Let \(\varepsilon > 0\), \(f_1, \dots, f_n\) as above and \(x \in K\). Since the \(f_i\)'s are continuous, there exsits neighbourhoods \(U_i\) of \(x\) such that
+    Let \(\varepsilon > 0\), \(f_1, \dots, f_n\) as above and \(x \in K\). Since the \(f_i\)'s are continuous, there exsit neighbourhoods \(U_i\) of \(x\) such that
     \[
       |f_i(x) - f_i(y)| < \varepsilon
     \]
@@ -1211,11 +1211,11 @@ The generalises the fact that a subset of a finite-dimensional space is relative
     \]
     Since \(\mathcal F\) is (uniformly) bounded, the vector \((f(x_1), \dots, f(x_n)) \in \K^n\) is bounded in any norm on \(\K^n\), say \(\norm \cdot_\infty\). Thus
     \[
-      F = \{(f(x_1), \dots, f(x_n)) \in \K^n: f \in \mathcal F\} 
+      F = \{(f(x_1), \dots, f(x_n)): f \in \mathcal F\} \subseteq \K^n
     \]
     is relatively compact in \(\K^n\). Thus there are \(f_1, \dots, f_m \in \mathcal F\) such that
     \[
-      F' = \{(f_i(x), \dots, f_i(x_n)): 1 \leq i \leq m\} \subseteq \K^n
+      F' = \{(f_i(x_1), \dots, f_i(x_n)): 1 \leq i \leq m\} \subseteq \K^n
     \]
     is a finite \(\varepsilon\)-net of \(F\). Claim that moreover \(f_1, \dots, f_m\) is a finite \(3\varepsilon\)-net for \(\mathcal F\). Indeed, for \(x \in U_{x_j}\),
     \[
@@ -1239,18 +1239,18 @@ Equivalently, every bounded \((x_n) \subseteq X\) has a subsequence such that \(
   \begin{enumerate}
   \item If \(T \in B(X, Y)\) of finite rank, i.e.\ \(T(X)\) is finite-dimensional, then \(T\) is compact as \(\cl{T(B_1(0))}\) is a bounded closed set in the finite-dimensional space \(T(X)\). In fact, compact operators are generalisation of matrices in the sense that every compact operator is the uniform limit of finite rank operators.
   \item If \(\dim X = \infty\) then \(\id: X \to X\) is not compact as \(\cl{B_1(0)} = \cl B_1(0)\) is not compact.
-  \item Let \(K = [0, 1]\). Consider \(C^1[0, 1]\) with \(\norm f_{C^1} = \norm f_\infty + \norm{f'}_\infty\) and \(C^0([0, 1])\) with \(\norm f_{C^0} = \norm f_\infty\). Then the embedding \(\iota: C^1([0, 1]) \to C^0([0, 1])\) is compact. Indeed, let
+  \item Let \(K = [0, 1]\). Consider \(C^1([0, 1])\) with \(\norm f_{C^1} = \norm f_\infty + \norm{f'}_\infty\) and \(C^0([0, 1])\) with \(\norm f_{C^0} = \norm f_\infty\). Then the embedding \(\iota: C^1([0, 1]) \to C^0([0, 1])\) is compact. Indeed, let
     \[
-      \mathcal F = \{f \in C^1([0, 1]): \norm f_\infty + \norm{f'}_\infty \leq 1 \} = \cl B_1(0) \subseteq C^1([0, 1])
+      \mathcal F = \{f \in C^1([0, 1]): \norm f_\infty + \norm{f'}_\infty < 1 \} = B_1(0) \subseteq C^1([0, 1])
     \]
-    then \(\mathcal F\) is bounded in \(C^0([0, 1])\) and for any \(f \in \mathcal F\),
+    then \(\iota(\mathcal F)\) is bounded in \(C^0([0, 1])\) and for any \(f \in \mathcal F\),
     \[
       |f(x) - f(y)|
       \leq \norm{f'}_\infty |x - y|
       \leq |x - y|
       < \varepsilon
     \]
-    whenever \(|x - y| < \varepsilon\). Thus \(\mathcal F\) is equicontinuous. So by Arzelà-Ascoli, \(\mathcal F\) is compact. \(\iota\) is compact.
+    whenever \(|x - y| < \varepsilon\). Thus \(\iota(\mathcal F)\) is equicontinuous. So by Arzelà-Ascoli, \(\iota(\mathcal F)\) is relatively compact. \(\iota\) is compact.
   \end{enumerate}
 \end{eg}
 
@@ -1269,7 +1269,7 @@ In general, if \(Y\) is a Banach space then \(T: X \to Y\) is compact if and onl
 
   Let \((x_n) \subseteq X\) be bounded. Then there is a subsequence \(\Lambda \subseteq \N\) such that \(Sx_n \to y\) for some \(y\) as \(n \in \Lambda, n \to \infty\). Moreover, there is a further subsequence \(\Lambda' \subseteq \Lambda\) such that \(Tx_n \to z\) as \(n \in \Lambda', n \to \infty\). Then
   \[
-    (T + T) x_n = S x_n + T x_n \to y + z
+    (S + T) x_n = S x_n + T x_n \to y + z
   \]
   as \(n \in \Lambda', n \to \infty\). \(S + T\) is compact.
 
@@ -1473,7 +1473,7 @@ We now state and prove a more abstract and general version of the approximation 
 
 We set up some terminologies and intermediate results before we prove the theorem. These definitions will also be useful later in this course and in other areas of maths. % check later
 
-\begin{definition}[poset, lattice]\index{lattice}\leavevmode
+\begin{definition}[poset, lattice]\index{poset}\index{partial order}\index{lattice}\leavevmode
   \begin{enumerate}
   \item A \emph{partially ordered set} or \emph{poset} is a set \(P\) with a binary relation \(\leq\) such that for all \(u, v \in P\), either \(u \leq v\) or \(u \nleq v\) and is
     \begin{enumerate}
@@ -1484,13 +1484,13 @@ We set up some terminologies and intermediate results before we prove the theore
   \item A \emph{lattice} is a poset \(L\) with the property that for any \(u, v \in L\), there is a \emph{least upper bound} or \emph{join} \(u \vee v\) and a \emph{greatest lower bound} or \emph{meet} \(u \wedge v\), i.e.\
     \begin{align*}
       & u, v \leq u \vee v \text{ and if } u, v \leq b \text{ then } u \vee v \leq b, \\
-      & u \wedge v \leq u, v \text{ and if } b \leq u, v \text{ then } v \leq u \wedge v.
+      & u \wedge v \leq u, v \text{ and if } b \leq u, b \text{ then } v \leq u \wedge v.
     \end{align*}
   \end{enumerate}
 \end{definition}
 
 \begin{eg}
-  \(C(K, \R)\) is a lattice where \(f \leq g\) if and only if \(f(x) \leq g(x)\) for all \(x \in K\) and
+  \(C(K, \R)\) is a lattice (\(f \leq g\) if and only if \(f(x) \leq g(x)\) for all \(x \in K\)) and
   \begin{align*}
     (f \vee g) (x) &= \max \{f(x), g(x)\} \\
     (f \wedge g) (x) &= \min \{f(x), g(x)\}
@@ -1512,7 +1512,7 @@ We set up some terminologies and intermediate results before we prove the theore
 
 \begin{lemma}
   \label{lem:lattice}
-  Let \(L \subseteq C(K, \R)\) be a sublattice, any \(g \in C(K, \R)\) such that for all \(\varepsilon > 0\), for all \(x, y \in K\), exists \(f \in L\) such that
+  Let \(L \subseteq C(K, \R)\) be a sublattice. If \(g \in C(K, \R)\) is such that for all \(\varepsilon > 0\), for all \(x, y \in K\), exists \(f \in L\) such that
   \[
     \label{eqn:lattice}
     \left\{
@@ -1555,7 +1555,7 @@ We set up some terminologies and intermediate results before we prove the theore
 \end{proof}
 
 \begin{proof}[Proof of \nameref{thm:Stone-Weierstrass}]
-  By continuity of addition and multiplication, the closure \(\cl A\) is a closed subalgebra \(C(K, \R)\) so is a lattice. Let \(g \in C(K, \R), x, y \in K\). We will find \(f \in A\) such that \(f(x) = g(x)\) and \(f(y) = g(y)\). In particular, \eqref{eqn:lattice} in \Cref{lem:lattice} holds.
+  By continuity of addition and multiplication, the closure \(\cl A\) is a closed subalgebra of \(C(K, \R)\) so is a lattice. Let \(g \in C(K, \R), x, y \in K\). We will find \(f \in A\) such that \(f(x) = g(x)\) and \(f(y) = g(y)\). In particular, \eqref{eqn:lattice} in \Cref{lem:lattice} holds.
 
   By assumption \(A\) vanishes nowhere and separates points, i.e.\
   \begin{align*}
@@ -1566,9 +1566,9 @@ We set up some terminologies and intermediate results before we prove the theore
   \[
     h(x) \neq 0, h(y) \neq 0, h(x) \neq h(y).
   \]
-  Indeed if \(f_{xy}(x) \neq 0\) and \(f_{xy}(y) \neq 0\) then we can take \(h = f_{xy}\). Otherwise wlog \(f_{xy}(y) = 0\) by rescaling we can assume
+  Indeed if \(f_{xy}(x) \neq 0\) and \(f_{xy}(y) \neq 0\) then we can take \(h = f_{xy}\). Otherwise wlog \(f_{xy}(y) = 0\) and by rescaling we can assume
   \[
-    f_{xy}(x) = 1, f_{xy} = 0, f_y(x) = C, f_y(y) = 1
+    f_{xy}(x) = 1, f_{xy}(y) = 0, f_y(x) = C, f_y(y) = 1
   \]
   so take
   \[
@@ -1587,19 +1587,19 @@ We set up some terminologies and intermediate results before we prove the theore
 \end{proof}
 
 \begin{eg}
-  Let \(K \subseteq \R^n\) be compact. Then \(C(K)\) is separable, i.e.\ there is a countable dense set (given by polynomial with rational coefficients). Then by Stone-Weierstrass theorem we can approximate element in \(C(K)\).
+  Let \(K \subseteq \R^n\) be compact. Then \(C(K)\) is separable, i.e.\ there is a countable dense set (given by polynomial with rational coefficients). Then by Stone-Weierstrass theorem we can approximate continuous functions on \(K\) by this set.
 
   In example sheet 3, we will show that given \(K\) compact Hausdorff, \(C(K)\) is separable if and only if \(K\) is metrisable.
 \end{eg}
 
-\begin{ex}
+\begin{eg}
   Let \(K\) and \(L\) be compact. Then \(A \subseteq C(K \times L)\) consisting of functions of the form
   \begin{align*}
     K \times L &\to \R \\
     (x, y) &\mapsto \sum_{i = 1}^n f_i(x) g_i(y)
   \end{align*}
   where \((f_i) \subseteq C(K), (g_i) \subseteq C(L)\), is an algebra that separates points and vanishes nowhere. Thus \(\cl A = C(K \times L)\). In particular if \((f_i) \subseteq C(K), (g_i) \subseteq C(L)\) are dense sequences then functions of the form \((x, y) \mapsto \sum_{i = 1}^n f_i(x)g_i(y)\) are dense in \(C(K \times L)\).
-\end{ex}
+\end{eg}
 
 \begin{corollary}
   For every \(f \in C([0, 1] \times C[0, 1])\), have
@@ -1635,7 +1635,7 @@ This is important in spectral theory, which we'll get back to in the last bit of
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(C(K, \C)\) is a commutative \(C^*\)-algebra with \(f^* = \conj f\).
-  \item \(B(H, H)\) with \(H\) a Hilbert space is a \(C^*\)-algebra. We will come beack to this later.
+  \item \(B(H, H)\) with \(H\) a Hilbert space is a \(C^*\)-algebra. We will introduce Hilbert space formally in the next chapter.
   \end{enumerate}
 \end{eg}
 
@@ -1653,15 +1653,15 @@ This is important in spectral theory, which we'll get back to in the last bit of
 \end{proof}
 
 \begin{eg}[Hardy space]\index{Hardy space}
-  One may wonder if closure under complex conjugation is necessary. Consider \(K = \cl D = \{z \in \C: |z| \leq 1\}\), the closed unit disk. Then
+  One may wonder if closure under complex conjugation is necessary. Consider \(K = \{z \in \C: |z| \leq 1\}\), the closed unit disk. Then
   \[
-    A = \{f \in C(K, \C): f \text{ is analytic on } K\}
+    A = \{f \in C(K, \C): f \text{ analytic on } K\}
   \]
   is an algebra. It separates points and vanishes nowhere. But \(\cl A \neq C(K, \C)\) since \(z \mapsto \conj z\) is not in \(\cl A\).
 \end{eg}
 
 \begin{eg}
-  Let \(\mathbb T = \R/2\pi\Z\) be the circle, i.e.\ the interval \([-\pi, \pi]\) with end points identified. Let \(A\) be the subspace in \(C(\mathbb T, \C)\) spanned by \(\{e^{inx}\}_{n \in \Z}\). Its elements are called \emph{trigonometric polynomials}\index{trigonometric polynomial}. It is an algebra, separates points and contains the constants so vanishes nowhere. It is also closed under complex conjugation since \(\cl{e^{inx}} = e^{-inx}\) so \(\cl A = C(\mathbb T, \C)\) by complex Stone-Weierstrass theorem.
+  Let \(\mathbb T = \R/2\pi\Z\) be the circle, i.e.\ the interval \([-\pi, \pi]\) with end points identified. Let \(A\) be the subspace in \(C(\mathbb T, \C)\) spanned by \(\{e^{inx}\}_{n \in \Z}\). Its elements are called \emph{trigonometric polynomials}\index{trigonometric polynomial}. \(A\) is a \(C^*\)-subalgebra, separates points and contains the constants so vanishes nowhere. It is also closed under complex conjugation since \(\cl{e^{inx}} = e^{-inx}\) so \(\cl A = C(\mathbb T, \C)\) by complex Stone-Weierstrass theorem.
 \end{eg}
 
 \begin{eg}
@@ -1694,7 +1694,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
   \[
     |f - S_nf|^2 \leq 2 |f - P|^2 + 2 |S_nf - S_nP|^2
   \]
-  since \((a + b)^2 \leq 2a^2 \leq 2b^2\). Thus
+  since \((a + b)^2 \leq 2a^2 + 2b^2\). Thus
   \[
     \int_{-\pi}^\pi |f - S_nf|^2 dx
     \leq 4 \int_{-\pi}^\pi |f - P|^2 dx
@@ -1714,7 +1714,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
   Let \(X\) be a vector space (real or complex). Then an \emph{inner product} is a map \((\cdot, \cdot): X \times X \to \K\) such that
   \begin{enumerate}
   \item (skew-)symmetric: \((x, y) = \conj{(y, x)}\) for all \(x, y \in X\),
-  \item linear in first argument: \((\lambda_1x_1 + \lambda_2x_2, y) = \lambda_1(x_1, y) + \lambda_2(x_2, y)\) for all \(x_i, y \in X, \lambda_i \in K\),
+  \item linear in first argument: \((\lambda_1x_1 + \lambda_2x_2, y) = \lambda_1(x_1, y) + \lambda_2(x_2, y)\) for all \(x_i, y \in X, \lambda_i \in \K\),
   \item positive definite: \((x, x) \geq 0\) with \((x, x) = 0\) if and only if \(x = 0\).
   \end{enumerate}
 
@@ -1724,7 +1724,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item In the real case \((\cdot, \cdot)\) is bilinear.
-  \item In the complex case, \((\cdot, \cdot)\) is antilinear in the second argument.
+  \item In the complex case \((\cdot, \cdot)\) is antilinear in the second argument.
   \item There is an opposite convention, for example among physicists, where the role of the first and second argument is interchanged.
   \end{enumerate}
 \end{remark}
@@ -1761,7 +1761,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
   \begin{align*}
     \norm{x + y}^2
     &= (x + y, x + y) \\
-    &= (x, x) + (y, y) + \underbrace{(x, y) + (y, x)}_{= 2 \Re(x, y) \leq |(x, y)|} \\
+    &= (x, x) + (y, y) + \underbrace{(x, y) + (y, x)}_{= 2 \Re(x, y) \leq 2|(x, y)|} \\
     &\leq \norm x^2 + \norm y^2 + 2 \norm x \norm y \\
     &\leq (\norm x + \norm y)^2
   \end{align*}
@@ -1782,7 +1782,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
 \end{fact}
 
 \begin{proof}
-  (Nothing to be seen there)
+  Trivial.
 \end{proof}
 
 \begin{corollary}
@@ -1797,7 +1797,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
 \end{fact}
 
 \begin{proof}
-  (Really?)
+  Ditto.
 \end{proof}
 
 \begin{ex}
@@ -1820,8 +1820,8 @@ By polarisation identities, such inner product is unique if exists. The exercise
     \[
       (x, y) = \sum_{n = 1}^\infty x_n \conj y_n.
     \]
-    This is the \emph{only} separable Hilbert space up to isometric isomorphism.
-  \item \(C[0, 1]\) is an inner product space with
+    We will later show that this is the \emph{only} separable Hilbert space up to isometric isomorphism.
+  \item \(C([0, 1])\) is an inner product space with
     \[
       (x, y) = \int_0^1 f(x) \conj{g(x)} dx.
     \]
@@ -1842,7 +1842,7 @@ By polarisation identities, such inner product is unique if exists. The exercise
 \end{proof}
 
 \begin{eg}
-  The completion of \(C[0, 1]\) is a Hilbert space, denoted \(L^2([0, 1])\), that can be identified with the space of equivalence classes of Lebesgue measurable functions with \(f \sim g\) if and only if \(f = g\) Lebesgue almost everywhere.
+  The completion of \(C([0, 1])\) is a Hilbert space, denoted \(L^2([0, 1])\), which can be identified with the space of equivalence classes of Lebesgue measurable functions with \(f \sim g\) if and only if \(f = g\) Lebesgue almost everywhere.
 \end{eg}
 
 \subsection{Orthogonal complements and projections}
@@ -1850,7 +1850,7 @@ By polarisation identities, such inner product is unique if exists. The exercise
 \begin{definition}[orthogonal, orthogonal complement]\index{orthogonal}\index{orthogonal complement}
   Let \(X\) be an inner product space.
   \begin{itemize}
-  \item \(x, y \in X\) are \emph{orthogonal} if \((x, y) = 0\), also written \(x \perp y\).
+  \item \(x, y \in X\) are \emph{orthogonal} if \((x, y) = 0\), also written as \(x \perp y\).
   \item The \emph{orthogonal complement} of a set \(S \subseteq X\) is
     \[
       S^\perp = \{x \in X: (x, y) = 0 \text{ for all } y \in S\}.
@@ -1882,14 +1882,12 @@ By polarisation identities, such inner product is unique if exists. The exercise
   For \(Y \subseteq X\) a subspace, \(Y^\perp \cap Y = 0\). Thus the sum \(Y + Y^\perp\) is direct and write \(Y + Y^\perp = Y \oplus Y^\perp\).
 \end{notation}
 
-\begin{eg}\leavevmode
-  \begin{enumerate}
-  \item Form linear algebra we know if \(X\) if finite-dimensional then \(X = Y \oplus Y^\perp\).
-  \item However this is generally false for infinite diemsnional inner product space. Let \(X = C[0, 1]\) with \((f, g) = \int_0^1 f \conj g dx\) and \(Y = C^1[0, 1] \subseteq C[0, 1]\). Then \(Y^\perp = 0\) since \(\int_0^1 f \conj g dx = 0\) for all \(g \in C^1\) implies \(f = 0\) (as \(f \in C[0, 1]\)).
-  \end{enumerate}
+\begin{eg}
+  From linear algebra we know if \(X\) if finite-dimensional then \(X = Y \oplus Y^\perp\). However this is generally false for infinite diemsnional inner product space. Let \(X = C[0, 1]\) with \((f, g) = \int_0^1 f \conj g dx\) and \(Y = C^1[0, 1] \subseteq C[0, 1]\). Then \(Y^\perp = 0\) since \(\int_0^1 f \conj g dx = 0\) for all \(g \in C^1\) implies \(f = 0\) (as \(f \in C[0, 1]\)).
 \end{eg}
 
 \begin{theorem}
+  \label{thm:orthogonal decomposition}
   Let \(Y \subseteq X\) be a complete subspace. Then
   \[
     X = Y \oplus Y^\perp.
@@ -1910,7 +1908,7 @@ In particular this holds if \(X\) is a Hilbert space and \(Y \subseteq X\) is a 
   Rearrange,
   \begin{align*}
     \norm{y_j - y_k}^2
-    &= 2 \underbrace{\norm{x - y_j}^2}_{\to D^2} + \underbrace{\norm{x - y_k}^2}_{\to D^2} - 4 \underbrace{\norm{x - \frac{1}{2}(y_j + y_k)}^2}_{\geq D^2} \\
+    &= 2 \underbrace{\norm{x - y_j}^2}_{\to D^2} + 2 \underbrace{\norm{x - y_k}^2}_{\to D^2} - 4 \underbrace{\norm{x - \frac{1}{2}(y_j + y_k)}^2}_{\geq D^2} \\
     &\leq 4(D^2 + \varepsilon) - 4D^2 \\
     &= 4\varepsilon
   \end{align*}
@@ -1942,7 +1940,39 @@ In particular this holds if \(X\) is a Hilbert space and \(Y \subseteq X\) is a 
   for all \(y \in H\) and \(\norm \ell = \norm{x_\ell}\).
 \end{theorem}
 
-This can be seen as a generalised result of \(\ell^2 \cong (\ell^2)^*\), as \(\ell^2\) is an inner product space and thus a Hilbert space.
+This can be seen as a generalisation of \(\ell^2 \cong (\ell^2)^*\), as \(\ell^2\) is an inner product space and thus a Hilbert space.
+
+\begin{proof}
+  Let \(\ell \in H^*, \ell \neq 0\). Then \(\ker \ell\) is closed and and by \Cref{thm:orthogonal decomposition} we have \(H = \ker \ell \oplus (\ker \ell)^\perp\). Since \(\ell \neq 0\), \((\ker \ell)^\perp \neq 0\). Claim that there exists \(x_0 \in H\) such that \((\ker \ell)^\perp = \spans \{x_0\}\) and \(\norm{x_0} = 1\): let \(x_0 \in (\ker \ell)^\perp, \norm{x_0} = 1\). Then for any \(y \in H\),
+  \[
+    y = \underbrace{(y - \frac{\ell(y)}{\ell(x_0)} x_0)}_{\in \ker \ell} + \underbrace{\frac{\ell(y)}{\ell(x_0)} x_0}_{\in \spans \{x_0\} \subseteq (\ker \ell)^\perp}.
+  \]
+  Define \(x_\ell = \cl{\ell(x_0)} x_0\). Claim that \(\ell(x) = (x, x_\ell)\) for all \(x \in H\): if \(x \in \ker \ell\) then \(\ell(x) = 0\) and
+  \[
+    (x, x_\ell) = \ell(x_0) (x, x_0) = 0.
+  \]
+  If \(x \in (\ker \ell)^\perp\), i.e. \(x = \lambda x_0\) where \(\lambda \in \K\), \(x_0\) as above, then
+  \[
+    (x, x_\ell) = \lambda \ell(x_0) (x_0, x_0) = \lambda \ell(x_0) = \ell(\lambda x_0) = \ell(x).
+  \]
+  Since \(\ell\) and \((\cdot, x_\ell)\) are in \(H^*\) and agree on \(\ker \ell\) and \((\ker \ell)^\perp\), they also agree on \(H\). % why need boundedness/uniquenss here?
+
+  For uniqueness, if \((x, x_\ell) = (x, \tilde x_\ell)\) for all \(x \in H\) then
+  \[
+    (x, x_\ell - \tilde x_\ell) = 0
+  \]
+  for all \(x\), in particular
+  \[
+    (x_\ell - \tilde x_\ell, x_\ell - \tilde x_\ell) = 0
+  \]
+  so \(x_\ell = \tilde x_\ell\).
+
+  Finally for isometry,
+  \[
+    \norm \ell = \sup_{\norm x \leq 1} |\ell(x)| = \sup_{\norm x \leq 1} |(x, x_\ell)| = \norm{x_\ell}
+  \]
+  where the last equality is by taking \(x = \frac{x_\ell}{\norm{x_\ell}}\) for lower bound and Cauchy-Schwarz for upper bound.
+\end{proof}
 
 \begin{corollary}
   The map
@@ -1953,6 +1983,385 @@ This can be seen as a generalised result of \(\ell^2 \cong (\ell^2)^*\), as \(\e
   is antilinear, bijective and isometric.
 \end{corollary}
 
+\begin{definition}[projection, orthogonal projection]\index{projection}\index{orthogonal projection}
+  Let \(X\) be an inner product space.
+  \begin{itemize}
+  \item A linear operator \(P: X \to X\) is a \emph{projection} if \(P^2 = P\).
+  \item A projection \(P\) is an \emph{orthogonal projection} if \(P^2 = P\) and \(P\) is self-adjoint, i.e.
+    \[
+      (Px, y) = (x, Py)
+    \]
+    for all \(x, y \in X\).
+  \end{itemize}
+\end{definition}
+
+\begin{fact}
+  Let \(P\) be an orthogonal projection. Then \(\norm P = 1\) or \(\norm P = 0\).
+\end{fact}
+
+\begin{proof}
+  Suppose \(P \neq 0\). For any \(x \in X\) such that \(Px \neq 0\) so
+  \[
+    \norm{Px}
+    = \frac{\norm{Px}^2}{\norm{Px}}
+    = \frac{(Px, Px)}{\norm{Px}}
+    = \frac{(x, P^2x)}{\norm{Px}}
+    = \frac{(x, Px)}{\norm{Px}}
+    \leq \norm x
+  \]
+  so \(\norm P \leq 1\).
+
+  On the other hand, since \(P \neq 0\) there is \(x\) such that \(P x \neq 0\). Let \(y = Px \neq 0\) and then
+  \[
+    \norm{Py} = \norm{Px} = \norm y
+  \]
+  so \(\norm P \geq 1\).
+\end{proof}
+
+\begin{corollary}
+  Let \(Y \subseteq X\) be a complete subspace. Then there is an orthogonal projection \(P: X \to X\) with
+  \begin{align*}
+    \im P &= Y \\
+    \ker P &= Y^\perp
+  \end{align*}
+\end{corollary}
+
+\begin{proof}
+  Given \(x \in X\), let \(x = x_\parallel + x_\perp\) with \(x_\parallel \in Y\) and \(x_\perp \in Y^\perp\) be its orthogonal decomposition. Set \(Px = x_\parallel\). Then \(P\) is linear since given orthogonal decompositions of \(x, y \in X\), have
+  \[
+    \lambda x + \mu y
+    = \underbrace{\lambda x_\parallel + \mu y_\parallel}_{\in Y} + \underbrace{(\lambda x_\perp + \mu y_\perp)}_{\in Y^\perp}
+  \]
+  so
+  \[
+    P(\lambda x + \mu y) = \lambda Px + \mu Py
+  \]
+  by uniqueness of orthogonal decomposition.
+
+  Clearly \(P^2 = P\). Also have
+  \begin{align*}
+    (Px, y)
+    &= (x_\parallel, y_\parallel + y_\perp) \\
+    &= (x_\parallel, y_\parallel) \\
+    &= (x_\parallel + x_\perp, y_\perp) \\
+    &= (x, Py)
+  \end{align*}
+  so \(P\) is orthogonal.
+\end{proof}
+
+\begin{eg}
+  Let \(X = C(\mathbb T, \C)\) with inner product
+  \[
+    (f, g) = \frac{1}{2\pi} \int_{-\pi}^\pi f \conj g dx.
+  \]
+  Then
+  \begin{align*}
+    S_n: X &\to X \\
+    f &\mapsto \sum_{k = -n}^n \hat f_k e^{ikx}
+  \end{align*}
+  where \(\hat f_k = \frac{1}{2\pi} \int f(x) e^{-ikx} dx\), is the orthogonal projection with image \(Y = \spans \{e^{ikx}\}_{|k| \leq n}\) (which is finite-dimensional so complete).
+
+  \begin{proof}
+    Let \(e_k(x) = e^{ikx}\). Then \(\hat f_k = (f, e_k)\) and
+    \[
+      S_nf = \sum_{k = -n}^n e_k (f, e_k).
+    \]
+    If \(f \in Y\), i.e.\ \(f = \sum_{k = -n}^n a_ke_k\) then
+    \[
+      S_nf
+      = \sum_{k = -n}^n e_k \left( \sum_{\ell = -n}^n a_\ell e_\ell, e_k \right)
+      = \sum_{k = -n}^n e_k a_k
+      = f
+    \]
+    as \(\{e_k\}\) is an orthonormal basis. If \(f \in Y^\perp\) the \((f, e_k) = 0\) for all \(|k| \leq n\) so \(S_nf = 0\). Thus \(S_n\) is a projection.
+
+    \(S_n\) is also orthogonal since
+    \[
+      (S_nf, g) = \sum_{k = -n}^n \hat f_k (e_k, g)
+      = \sum_{k = -n}^n \hat f_k \conj{(g, e_k)}
+      = \sum_{k = -n}^n \hat f_k \conj{\hat g}_k
+      = (f, S_ng)
+    \]
+    so \(S_n\) is orthogonal.
+  \end{proof}
+\end{eg}
+
+\begin{corollary}
+  Let \(H\) be a Hilbert space and \(S \subseteq H\). Then
+  \[
+    \cl{\spans S}
+    = (\cl{\spans S}^\perp)^\perp
+    = (S^\perp)^\perp
+  \]
+\end{corollary}
+
+\begin{proof}
+  First equality follows from uniqueness of orthogonal decomposition and second equality follows from fact on a previous remark. % monad? adjoint?
+\end{proof}
+
+\subsection{Orthonormal systems}
+
+\begin{definition}[orthonormal system]\index{orthonormal system}
+  Let \(X\) be an inner product space. A set \(\{e_\alpha\}_\alpha \subseteq X\) of unit vectors is an \emph{orthonormal system} if \((e_\alpha, e_\beta) = 0\) for all \(\alpha \neq \beta\). It is called \emph{maximal} if it cannot be extended to a larger orthonormal system.
+\end{definition}
+
+\begin{definition}[orthonormal basis]\index{orthonormal basis}
+  Let \(H\) be a Hilbert space. Then a maximal orthonormal system is called \emph{complete orthonormal system}, an \emph{orthonormal Hilbert basis} or simply an \emph{orthonormal basis}.
+\end{definition}
+
+Note that an orthonormal basis is not a basis in the linear algebra sense.
+
+\begin{fact}
+  Let \(H\) be a Hilbert space and \(S\) an orthonormal system. Then \(S\) is an orthonormal Hilbert basis if and only if \(\cl{\spans S} = H\).
+\end{fact}
+
+\begin{proof}
+  Let \(Y = \cl{\spans S}\). Then \(Y\) is complete so \(H = Y \oplus Y^\perp\). Suppose \(Y^\perp \neq 0\). Then there is \(x \in Y^\perp = S^\perp\), \(\norm x = 1\), i.e.\ \(S \cup \{x\}\) is an orthonormal system. The coverse also holds.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item In \(\ell^2\), let \(e_n = (0, \dots, 0, 1, 0, \dots)\) be the vector with \(1\) at \(n\)th coordinate. Then \(\{e_n\}_n\) is an orthonormal basis.
+  \item In \(C(\mathbb T, \C)\) with the usual inner product, let \(e_n(x) = e^{inx}\). Then \(\{e_n\}_{n \in \Z}\) is a maximal orthonormal basis. They are orthonormal and their span is dense by the complex Stone-Weierstrass theorem.
+  \end{enumerate}
+\end{eg}
+
+\begin{fact}[Gram-Schmidt]\index{Gram-Schmidt}
+  Let \(X\) be an inner product space and \(\{x_i\}_{i = 1}^N \subseteq X\) be linearly independent, with \(N = \infty\) allowed. Then there is an orthonormal system \(\{e_i\}\) with \(\spans \{x_i\}_{i = 1}^k = \spans \{x_i\}_{i = 1}^k\) for all \(k \leq N\).
+\end{fact}
+
+\begin{proof}[Sketch of proof]
+  Let \(e_1 = \frac{x_1}{\norm{x_1}}\) and given \(e_1, \dots, e_k\), set
+  \[
+    e_{k + 1} = \frac{x_{k + 1} - \sum_{i = 1}^k e_i(x_{k + 1}, e_i)}{\norm*{x_{k + 1} - \sum_{i = 1}^k e_i(x_{k + 1}, e_i)}}.
+  \]
+\end{proof}
+
+\begin{eg}
+  Let \(X = C([-1, 1], \R)\) with \((f, g) = \int_{-1}^1 fg dx\). Then \(1, t, t^2, \dots\) is a sequence with dense linear span by Stone-Weierstrass. Applying Gram-Schmidt, we obtain
+  \[
+    \frac{1}{\sqrt{2}}, \sqrt{\frac{3}{2}}t, \sqrt{\frac{5}{8}} (3t^2 - 1), \dots
+  \]
+  These are an example of \emph{orthogonal polynomials}\index{orthogonal polynomial} and called the \emph{normalised Legendre polynomials}. In fact, the \(n\)th one is a multiple of
+  \[
+    \frac{\mathrm d^n}{\mathrm dt^n}(t^2 - 1)^n.
+  \]
+\end{eg}
+
+\begin{corollary}
+  Let \(H\) be a separable Hilbert space. Then there is a countable orthonormal Hilbert basis.
+\end{corollary}
+
+Thus from now on, we will always assume orthonormal basis to be countable if \(H\) is separable.
+
+\begin{proposition}[Bessel's inequality]\index{Bessel's inequality}
+  Let \(X\) be an inner product space and \(\{e_i\}_{i = 1}^N\) an orthonormal system, with \(N = \infty\) allowed. Then
+  \[
+    \sum_{i = 1}^N |(x, e_i)|^2 \leq \norm x^2
+  \]
+  for all \(x \in X\).
+
+  In particular if \(N = \infty\) then \((x_i) \in \ell^2\) where \(x_i = (x, e_i)\).
+\end{proposition}
+
+\begin{proof}
+  By taking a limit suffice to prove the case \(N < \infty\). Define
+  \[
+    Px = \sum_{i = 1}^N (x_i, e_i)e_i.
+  \]
+  Then \(P^2 = P\) and
+  \[
+    (Px, y) = \sum_{i = 1}^N (x, e_i) (e_i, y) = \sum_{i = 1}^N (x, e_i) \conj{(y, e_i)} = (x, Py).
+  \]
+  Thus \(P\) is an orthogonal projection. Thus
+  \[
+    \sum_{i = 1}^N |(x, e_i)|^2 = \norm{Px}^2 \leq \norm x^2
+  \]
+  for all \(x \in X\).
+\end{proof}
+
+\begin{proposition}[Riesz-Fisher]\index{Riesz-Fisher theorem}
+  Let \(H\) be a separable infinite-dimensional Hilbert space with orthonormal basis \(\{e_i\}_{i = 1}^\infty\). Then
+  \begin{enumerate}
+  \item for any \(x \in X\), set \(x_i = (x_i, e_i) \in \K\). Then \((x_i) \in \ell^2\) and
+    \[
+      x = \sum_{i = 1}^\infty x_ie_i.
+    \]
+  \item conversely, if \((x_i) \in \ell^2\) then there is \(x \in H\) such that \((x, e_i) = x_i\) for all \(i\).
+  \item Parseval identity\index{Parseval identity}: for any \(x, y \in H\),
+    \[
+      (x, y) = \sum_{i = 1}^\infty x_i \conj y_i.
+    \]
+  \end{enumerate}
+
+  In particular the map
+  \begin{align*}
+    \phi: H &\to \ell^2 \\
+    x &\mapsto ((x, e_i))_{i = 1}^\infty
+  \end{align*}
+  is an isometric isomorphism.
+\end{proposition}
+
+% each choice of basis gives an isomorphism?
+
+In fact, the concrete space \(\ell^2\) is the one studied intensively by Hilbert and indeed this theorem shows that it is a prototype for a large class of Hilbert spaces. The term ``Hilbert space'' was coined by von Neumann, in his attempt to formulate quantum mechanics.
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(s_n = \sum_{i = 1}^n x_ie_i\). Then \((s_n)\) is Cauchy: for \(m \geq n\),
+    \[
+      \norm*{s_m - s_n}^2
+      = \norm*{\sum_{i = n + 1}^m x_ie_i}
+      = \sum_{i = n + 1}^m |x_i|^2
+      \leq \sum_{i = n + 1}^\infty |x_i|^2
+      \to 0
+    \]
+    as \(n \to \infty\) since \((x_i) \in \ell^2\) by Bessel's inequality. By completeneess of \(H\), there is \(s \in H\) such that \(s_n \to s\). Claim that \(s = x\): for any \(i\),
+    \[
+      (s - x, e_i)
+      = \lim_{n \to \infty} (s_n - x, e_i)
+      = x_i - x_i
+      = 0
+    \]
+    so
+    \[
+      s - x \in (\spans \{e_i\})^\perp
+      = \cl{\spans \{e_i\}}^\perp
+      = H^\perp
+      = 0.
+    \]
+  \item If \((x_i) \in \ell^2\), the sum \(x = \sum_{i = 1}^\infty x_ie_i\) converges by the same argument. Then
+    \[
+      (x, e_i) = \lim_{n \to \infty} \left( \sum_{j = 1}^i x_je_j, e_i \right) = x_i.
+    \]
+  \item Similarly,
+    \[
+      (x, y) = \lim_{n \to \infty} \lim_{m \to \infty} \left( \sum_{i = 1}^n x_ie_i, \sum_{j = 1}^m y_j e_j \right) = \lim_{n \to \infty} \sum_{i = 1}^n x_i \conj y_i
+    \]
+    since the infinite sum converges absolutely since \((x_i), (y_i) \in \ell^2\).
+  \end{enumerate}
+\end{proof}
+
+\section{Spectral theory}
+
+Roughly speaking spetral theory studies eigenvalues of operators. From now on Banach and Hilbert spaces are complex.
+
+\subsection{Spectrum and resolvent}
+
+\begin{definition}[spectrum, resolvent]\index{spectrum, resolvent}
+  Let \(X\) be a (complex) Banach space and \(T \in B(X) = B(X, X)\).
+  \begin{itemize}
+  \item The \emph{resolvent set} of \(T\) is
+    \[
+      \rho(T) = \{z \in \C: T - z = T - z \id \text{ is bijective and } (T - z)^{-1} \in B(X)\}.
+    \]
+  \item The \emph{spectrum} of \(T\) is
+    \[
+      \sigma(T) = \C \setminus \rho(T).
+    \]
+  \item The \emph{resolvent} of \(T\) is the map
+    \begin{align*}
+      R_T: \rho(T) &\to B(X) \\
+      z &\mapsto (T - z)^{-1}
+    \end{align*}
+  \end{itemize}
+\end{definition}
+
+\begin{remark}
+  If \(T - z\) is bounded (as in our setting) and bijective the condition \((T - z)^{-1} \in B(X)\) is automatic by open mapping theorem. For unbounded operators, which we do not discuss, it has to be included in the definition.
+\end{remark}
+
+\begin{proposition}
+  \label{prop:openness of resolvent set}
+  Let \(z \in \rho(T)\). Then \(\rho(T)\) contains the disk
+  \[
+    D = \{z \in \C: |z - z_0| \norm{R_T(z_0)} < 1\}.
+  \]
+  In particular \(\rho(T)\) is open, \(\sigma(T)\) is closed. Moreover the resolvent map \(R_T\) is analytic (can be represented by an absolutely convergent power series in any small enough disk).
+\end{proposition}
+
+\begin{lemma}
+  Let \(T\in B(X)\) with \(\norm T \leq 1\). Then the series \(\sum_{n = 1}^\infty T_n\) converges in \(B(X)\) and
+  \[
+    (1 - T)^{-1} = \sum_{n = 0}^\infty T^n,
+    \norm{(1 - T)^{-1}} \leq \frac{1}{1 - \norm T}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Basically geometric series. Form the partial sums \(S_n = \sum_{k = 0}^n T^k\). Then \((S_n)\) is a Cauchy sequence in \(B(X)\) as for \(m \geq n\),
+  \[
+    \norm{S_m - S_n}
+    \leq \sum_{k = n + 1}^\infty \norm{T^k}
+    \leq \sum_{k = n + 1}^\infty \norm T^k
+    \to 0
+  \]
+  as \(n \to \infty\) since \(\norm T < 1\). Since \(B(X)\) is complete the limit \(S = \lim_{n \to \infty} S_n\) exists and by a similar argumet
+  \[
+    \norm S
+    \leq \sum_{k = 0}^\infty \norm T^k
+    = \frac{1}{1 - \norm T}.
+  \]
+
+  Moreover,
+  \[
+    S(1 - T)
+    = \sum_{k = 0}^\infty T^k = \sum_{k = 0}^\infty T^k - \sum_{k = 1}^\infty T^k = \id.
+  \]
+\end{proof}
+
+\begin{proof}[Proof of \Cref{prop:openness of resolvent set}]
+  For \(z \in D\),
+  \[
+    T - z
+    = (T - z_0) - (z - z_0)
+    = (T - z_0) (\id - \underbrace{R_T(z_0) (z - z_0)}_{\norm \cdot \leq \norm{T_R(z_0)} |z - z_0| < 1})
+  \]
+  so by the lemma
+  \[
+    (\id - R_T(z_0) (z - z_0))^{-1} = \sum_{n = 0}^\infty (z - z_0)^n R_T(z_0)^n \in B(X).
+  \]
+  Thus
+  \[
+    (T - z) = \sum_{n = 0}^\infty (z - z_0)^n R_T(z_0)^{n + 1} \in B(X)
+  \]
+  so \(z \in \rho(T)\). Thus \(D \subseteq \rho(T)\) and \(R_T\) is analytic on \(\rho(T)\).
+\end{proof}
+
+\begin{corollary}
+  \(\sigma(T) \neq \emptyset\) and
+  \[
+    \sigma(T) \subseteq \{z \in \C: |z| \leq \norm T\}.
+  \]
+\end{corollary}
+
+\begin{proof}
+  For any \(|z| \geq \norm T\),
+  \[
+    - R_T(z) = \frac{1}{z} \frac{1}{1 - T/z} = \frac{1}{z} \sum_{n = 0}^\infty \frac{T^n}{z^n} \in B(X).
+  \]
+  Thus \(z \in \rho(T)\) and the second claim follows.
+
+  Also \(\norm{R_T(z)} \to 0\) as \(z \to \infty\). Suppose for contradiction \(\sigma(T) = \emptyset\). Then \(R_T: \C \to B(X)\) would be entire so by Liouville's theorem (which holds when the codomain is a Banach space), it would have to be constant, thus \(0\). But this is absurd since, for example, \(-z R_T(z) \to \id\) as \(|z| \to \infty\).
+\end{proof}
+
+\subsection{Classification of spectrum}
+
+We would like to underlike why \(T - z\) may fail to be bijective. One reason, as in finite-dimensional case, is that \(\ker(T - z) \neq 0\). But even if the kernel is trivial it may fail to be bijective. We need first a proposition.
+
+\begin{proposition}
+  Let \(X\) be a Banach space, \(Y\) a normed space and \(T \in B(X, Y)\). Then \(T^{-1} \in B(Y, X)\) if and only if \(T\) is dense in \(Y\) and \(T\) is bounded below, i.e.\ exists \(\varepsilon > 0\) such that for all \(x \in X\), \(\norm{Tx} \geq \varepsilon \norm x\).
+\end{proposition}
+
+% left inverse
+
+\begin{proof}
+  The only if direction is immediate. Thus assume that \(T \in B(X, Y)\) is such that \(\im T\) is dense and \(T\) is bounded below. Since \(T\) is bounded below \(T\) is injective so bijective and onto its image. Let \(S: \im T \to X\) be its inverse. Since \(T\) is bounded below, \(S\) is bounded. Since \(\im T\) is dense in \(Y\) and \(X\) is complete, \(S\) extends uniquely to a map \(\tilde S: Y \to X\). Moreover \(\tilde S \in B(Y, X)\) and for any sequence \(y_k \to y, y_k \in \im T\),
+  \[
+    T \tilde S y = \lim_{k \to \infty} TS y_k = \lim_{k \to \infty} y_k = y
+  \]
+  so \(\tilde S = T^{-1}\).
+\end{proof}
 
 
 
@@ -1964,8 +2373,118 @@ This can be seen as a generalised result of \(\ell^2 \cong (\ell^2)^*\), as \(\e
 
 
 
+\section{Hahn-Banach theorem*}
 
+When can one extend a bounded linear map defined on some \(Y \subseteq X\) onto \(X\)? Naturally we require the extension of a bounded map to be bounded. In fact we do things slightly more generally.
 
+\begin{definition}[sublinear map]\index{sublinear map}
+  Let \(X\) be a real vector space. A map \(\rho: X \to \R\) is \emph{sublinear} if
+  \begin{enumerate}
+  \item \(\rho(\alpha x) = \alpha \rho(x)\) for all \(x \in X, \alpha \geq 0\).
+  \item \(\rho(x + y) \leq \rho(x) + \rho(y)\) for all \(x, y \in X\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}
+  Any norm is sublinear.
+\end{eg}
+
+\begin{theorem}[Hahn-Banach]\index{Hahn-Banach theorem}
+  \label{thm:Hahn-Banach}
+  Let \(X\) be a real vector space and \(Y\) a subspace of \(X\). Let \(\rho: X \to \R\) be sublinear, \(g: Y \to \R\) linear such that \(g(x) \leq \rho(x)\) for all \(x, y \in Y\). Then there exists \(f: X \to \R\) linear such that \(f|_Y = g\) and \(f(x) \leq \rho(x)\) for all \(x \in X\).
+\end{theorem}
+
+\begin{proof}[Proof if \(Y\) has codimension \(1\) in \(X\)]
+  Suppose \(Y\) has codimension \(1\), i.e.\ there exists \(x_1 \in X \setminus Y\) such that
+  \[
+    X = \spans X \cup \{x_1\} = Y \oplus \R x_1.
+  \]
+
+  We'll find \(\alpha \in \R\) such that
+  \begin{align*}
+    f_\alpha: X &\to \R \\
+    x + tx_1 &\mapsto g(x) + t \alpha
+  \end{align*}
+  where \(x \in Y\), is the required extension. We take
+  \[
+    \alpha = \sup_{x \in Y} (g(x) - \rho(x - x_1)).
+  \]
+  and show \(f = f_\alpha\) works. Claim first that \(\alpha < \infty\): by linearity of \(g\) and sublinearity of \(\rho\), for all \(x, y \in Y\),
+  \[
+    g(x) + g(y) = g(x + y) \leq \rho(x + y) \leq \rho(x - x_1) + \rho(y + x_1).
+  \]
+  Rearrange,
+  \[
+    g(x) - \rho(x - x_1) \leq - g(y) + \rho(y + x_1)
+  \]
+  which in particular implies that \(\alpha < \infty\).
+
+  Note that \(f(x - x_1) \leq \rho(x - x_1)\) for all \(x \in Y\) by choice of \(\alpha\). Also claim that \(f(y + x_1) \leq \rho(y + x_1)\) for all \(y \in Y\):
+  \[
+    f(y + x_1) = g(y) + \alpha \leq \alpha \underbrace{-(g(x) - \rho(x - x_1))}_{\inf = -\alpha} + \rho(y + x_1)
+  \]
+  so take infimum over \(x\) and the result follows.
+
+  With this we can extend the boundedness to all scalars: \(f(x + tx_1) \leq \rho(x + tx_1)\) for all \(t \in \R, x \in Y\): by linearity of positive homogeneity of \(\rho\), for all \(t > 0\)
+  \[
+    f(x \pm tx_1) = tf(\frac{x}{t} \pm x_1) \leq t \rho( \frac{x}{t} \pm x_1) = \rho(x \pm tx_1).
+  \]
+\end{proof}
+
+Essentially we're done here as we can keep extending \(g\) to a larger space.. However when the codimension is not finite, there is a slight (or enormous, depending on how seriously you treat axiom of choice) issue with tethe termination of this process.
+
+\begin{definition}[total order, maximal element]\index{total order}\index{maximal}
+  Let \(P\) be a poset.
+  \begin{itemize}
+  \item A subset \(T \subseteq P\) is \emph{totally ordered} if for all \(x, y \in T\), either \(x \leq y\) or \(y \leq x\).
+  \item An element \(m \in P\) is \emph{maximal} if for all \(x \in P\), \(m \leq x\) implies \(x = m\).
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}[Zorn's lemma]
+  Let \(P \neq \emptyset\) be a poset such that whenever \(T\) is a totally ordered subset then there exists a least upper bound for \(T\). Then there exists a maximal element of \(P\).
+\end{proposition}
+
+Note that this easily follows from axiom of choice. For more discussion see IID Logic and Set Theory.
+
+\begin{proof}[Proof of \nameref{thm:Hahn-Banach}]
+  Let
+  \[
+    P = \{(N, h): N \leq X, h: N \to \R \text{ linear}, h|_Y = g, h(x) \leq \rho(x) \text{ for all } x \in N\}.
+  \]
+  Equip \(P\) with partial order \(\leq\) where \((N, h) \leq (N', h')\) if and only if \(N \subseteq N'\) and \(h'|_N = h\). As \((Y, g) \in P\), \(P\) is nonempty.
+
+  To apply Zorn's lemma we need to check that every totally ordered subset has an upper bound. Let \(\{(N_i, h_i)\}_{i \in I} \subseteq P\) be totally ordered. Then let \(N = \bigcup_{i \in I} N_i\) and \(h(x) = h_i(x)\) if \(x \in N_i\). \(h\) is well-defined. Clearly \(N\) is a subspace of \(X\) and \(h(v) \leq \rho(v)\) for all \(N\) and \(h_N = g\) so \((N, h) \in P\). It is also an upper bound. Thus by Zorn's lemma, \(P\) has a maximal element \((M, f)\). We must have \(M = X\) as otherwise \((M, f)\) would not be maximal by codimension \(1\) argument.
+\end{proof}
+
+\begin{corollary}
+  Let \(V\) be a normed vector space and \(W \leq V\). Let \(g \in W^*\). Then there exists \(f \in V^*\) such that \(f|_W = g\) and \(\norm f \leq \norm g\).
+\end{corollary}
+
+\begin{proof}
+  If \(V\) is real then apply Hahn-Banach with \(\rho\) being norm on \(V\). The complex case is similar.
+\end{proof}
+
+\begin{corollary}
+  Let \(V\) be a normed vector space and \(v \in V\). Then there exists \(f_v \in V^*\) such that \(\norm{f_v} = 1, f_v(v) = \norm v\).
+
+  Such an \(f_v\) is called a \emph{support functional}\index{support functional} for \(f\).
+\end{corollary}
+
+In particular this implies that the dual of any nontrivial normed space is nontrivial.
+
+\begin{proof}
+  Let \(W\) be the span of \(v\) and define
+  \begin{align*}
+    g: W &\to \R \\
+    tv &\mapsto t \norm v
+  \end{align*}
+  Then \(\norm g = 1, g(v) = \norm v\). Extend \(g\) to \(f_v\) by Hahn-Banach gives desired element of \(V^*\).
+\end{proof}
+
+\begin{corollary}
+  Let \(V\) be a normed vector space and \(v \in V\). If \(f(v) = 0\) for all \(f \in V^*\) then \(v = 0\).
+\end{corollary}
 
 \printindex
 \end{document}

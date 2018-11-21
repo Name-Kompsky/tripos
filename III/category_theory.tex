@@ -30,6 +30,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\Top}{{\c{Top}}}
 \newcommand{\Rel}{{\c{Rel}}}
 \newcommand{\Cone}{{\c{Cone}}}
+\newcommand{\Sh}{{\c{Sh}}}
 
 \newcommand{\mono}{\rightarrowtail}
 \newcommand{\epi}{\twoheadrightarrow}
@@ -38,6 +39,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 
 \newcommand{\T}{{\mathbb{T}}} % monad
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+\DeclareMathOperator{\ev}{ev} % evaluation
 
 \begin{document}
 
@@ -355,7 +358,7 @@ Any isomorphism is monic and epic. More generally if \(f\) has a left inverse th
   \item In \(\Set\), monomorphism is precisely an injection (one direction is easy and for the other direction take \(C = 1 = \{*\}\)) and epimorphism is precisely a surjection (use morphisms \(B \to 2 = \{0, 1\}\)). Thus \(\Set\) is balanced.
   \item In \(\c{Gp}\), monomorphism is precisely an injection (use homomorphism from the free group with one generator, i.e.\ \(\Z \to A\)) and epimorphism is precisely a surjection (use free product with amalgamation). Thus \(\c{Gp}\) is balanced.
   \item In \(\c{Rng}\), monomorphism is precisely an injection (similarly to free group) but the inclusion \(\Z \to \Q\) is an epimorphism, since if \(f, g: \Q \to R\) agree on all integers they agree everywhere. So \(\c{Rng}\) is not balanced.
-  \item In \(\Top\), monomorphism is precisely an injection and epimorphism is precisely a precisely surjection (same argument as \(\Set\)) but \(\c{Top}\) is not balanced since a continuous bijection need not to have a continuous inverse.
+  \item In \(\Top\), monomorphism is precisely an injection and epimorphism is precisely a precisely surjection (same argument as \(\Set\)) but \(\Top\) is not balanced since a continuous bijection need not to have a continuous inverse.
   \end{enumerate}
 \end{eg}
 
@@ -529,7 +532,7 @@ which is equal to \(\alpha_B\beta_B(f)\).
 \begin{lemma}\leavevmode
   \begin{enumerate}
   \item If \(\c C\) is a balanced category then any separating family is detecting.
-  \item If \(\c C\) has equalisers (i.e.\ every pair has an equaliser) then any detecting family is separaing.
+  \item If \(\c C\) has equalisers (i.e.\ every pair has an equaliser) then any detecting family is separating.
   \end{enumerate}
 \end{lemma}
 
@@ -871,7 +874,7 @@ This is often summarised as ``every equivalence is an adjoint equivalence''.
 
     On the other hand \(A \mapsto A_T\) is the right adjoint to the inclusion \(\c{tAbGp} \to \c{AbGp}\) from torsion abelian groups to abelain groups, so this subcategory is coreflective. There are many many examples in algebra involving (co)reflective subcategories, and the constructions all give rise to important universal properries.
   \item Let \(\c{KHaus} \subseteq \Top\) be the full subcategory of compact Hausdorff spaces. The inclusion \(\c{KHaus} \to \Top\) has a left adjoint \(\beta\), the \emph{Stone-Čech compactification}\index{Stone-Čech compactification}. It is a reflective subcategory. We'll revisit this example later in the course.
-  \item Let \(X\) be a topological space. We say \(A\subseteq X\) is \emph{sequentially closed} if \(x_n \to x_\infty\) and \(x_n \in A\) for all \(n\) implies \(x_\infty \in A\). Note that closed implies sequentially closed but not vice versa. We say \(X\) is \emph{sequential} if all sequentially closed sets are closed, e.g.\ a metric space. Given a non-sequential space \(X\), let \(X_s\) be the same set with topology given by the sequentially open sets (complements of sequentially closed sets) in \(X\). Certainly the identity \(X_s \to X\) is continuous, and defines the counit of an adjunction between the inclusion \(\c{Seq} \to \c{Top}\) and its right adjoint \(X \mapsto X_s\).
+  \item Let \(X\) be a topological space. We say \(A\subseteq X\) is \emph{sequentially closed} if \(x_n \to x_\infty\) and \(x_n \in A\) for all \(n\) implies \(x_\infty \in A\). Note that closed implies sequentially closed but not vice versa. We say \(X\) is \emph{sequential} if all sequentially closed sets are closed, e.g.\ a metric space. Given a non-sequential space \(X\), let \(X_s\) be the same set with topology given by the sequentially open sets (complements of sequentially closed sets) in \(X\). Certainly the identity \(X_s \to X\) is continuous, and defines the counit of an adjunction between the inclusion \(\c{Seq} \to \Top\) and its right adjoint \(X \mapsto X_s\).
   \item If \(X\) is a topological space, the poset \(CX\) of closed subsets of \(X\) is reflective in \(PX\) with reflector given by closure and the poset \(OX\) of open subsets is coreflective with coreflector given by interior.
   \end{enumerate}
 \end{eg}
@@ -1355,7 +1358,7 @@ Before stating and proving the special functor theorem we point out a simple yet
 This result is due to Freyd, who first published it in a book as an exercise to the readers (!).
 
 \begin{eg}
-  Consider the inclusion \(I: \c{KHaus} \to \c{Top}\), where \(\c{KHaus}\) is the full subcategory of compact Hausdorff spaces. \(\c{KHaus}\) has and \(I\) preserves small products (by Tychonoff's theorem) and equalisers (since equalisers of pairs \(f, g: X \to Y\) with \(Y\) Hausdorff are closed subspaces). Both cateogories are locally small and \(\c{KHaus}\) is well-powered (subobjects of \(X\) are isomorphic to closed subspaces). The closed interval \([0, 1]\) is a coseparateor in \(\c{KHaus}\) by Urysohn's lemma. So by special adjoint functor theorem \(I\) has a left adjoint \(\beta\), the Stone-Čech compactification\index{Stone-Čech compactification}.
+  Consider the inclusion \(I: \c{KHaus} \to \Top\), where \(\c{KHaus}\) is the full subcategory of compact Hausdorff spaces. \(\c{KHaus}\) has and \(I\) preserves small products (by Tychonoff's theorem) and equalisers (since equalisers of pairs \(f, g: X \to Y\) with \(Y\) Hausdorff are closed subspaces). Both cateogories are locally small and \(\c{KHaus}\) is well-powered (subobjects of \(X\) are isomorphic to closed subspaces). The closed interval \([0, 1]\) is a coseparateor in \(\c{KHaus}\) by Urysohn's lemma. So by special adjoint functor theorem \(I\) has a left adjoint \(\beta\), the Stone-Čech compactification\index{Stone-Čech compactification}.
 \end{eg}
 
 \begin{remark}\leavevmode
@@ -1750,6 +1753,7 @@ Note that the aforementioned pair
 is reflexive with \(r = F\eta_{GB'}\).
  
 \begin{lemma}
+  \label{lem:left adjoint and coequaliser}
   Suppose given an adjunction
   \begin{tikzcd}
     \c C \ar[r, shift left, "F"] & \c D \ar[l, shift left, "G"]
@@ -1767,6 +1771,524 @@ is reflexive with \(r = F\eta_{GB'}\).
     \check f \alpha = Gf = G(\varepsilon_B(F \check f)) = (G\varepsilon_B)(T \check f)
   \]
   i.e.\ to algebra homomorphisms \((A, \alpha) \to KB\). And these bijections are natural in \((A, \alpha)\) and in \(B\).
+\end{proof}
+
+\begin{theorem}[precise monadicity theorem]\index{monadicity theorem}
+  \label{thm:precise monadicity theorem}
+  \(G: \c D \to \c C\) is monadic if and only if \(G\) has a left adjoint and creates coequalisers of \(G\)-split pairs.
+\end{theorem}
+
+\begin{theorem}[refined/reflexive monadicity theorem]\index{monadicity theorem}
+  \label{thm:refined monadicity theorem}
+  Suppose \(\c D\) has and \(G: \c D \to \c C\) preserves reflexive coequalisers, and that \(G\) reflects isomorphisms and has a left adjoint. Then \(G\) is monadic.
+\end{theorem}
+
+\begin{proof}
+  \Cref{thm:precise monadicity theorem} \(\implies\): sufficient to show that \(G^\T: \c C^\T \to \c C\) creates coequalisers of \(G^\T\)-split pairs. But this follows from the argument of 5.4 (2), %(note: lecture sasy 5.8 (ii), check later).
+  since if \(f, g: (A, \alpha) \to (B, \beta)\) is a \(G^\T\)-split pairs, the coequalisers of
+  \begin{tikzcd}
+    A \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & B
+  \end{tikzcd}
+  is preserved by \(T\) and \(TT\).
+
+  \Cref{thm:precise monadicity theorem} \(\impliedby\) and \Cref{thm:refined monadicity theorem}: Let \(\T\) denote the monad induced by \(F \adjoint G\). For any \(\T\)-algebra \((A, \alpha)\), the pair
+  \begin{tikzcd}
+    FGFA \ar[r, shift left, "F\alpha"] \ar[r, shift right, "\varepsilon_{FA}"'] & A
+  \end{tikzcd}
+  is both reflexive and \(G\)-split, so has a coequaliser in \(\c D\) and hence by \Cref{lem:left adjoint and coequaliser}, \(K: \c D \to \c C^\T\) has a left adjoint \(L\). Then unit of \(L \adjoint K\) at an algebra \((A, \alpha)\), the coequaliser defining \(L(A, \alpha)\) is mapped by \(K\) to the diagram
+  \[
+    \begin{tikzcd}
+      F^\T TA \ar[r, shift left, "F^\T\alpha"] \ar[r, shift right, "\mu_A"'] & F^\T A \ar[r] \ar[dr, "\alpha"] & KL(A, \alpha) \\
+      & & (A, \alpha) \ar[u, dashed, "\iota_{(A, \alpha)}"'] % check this cell
+    \end{tikzcd}
+  \]
+  and \(\iota_{(A, \alpha)}\) is the factorisation of this through the \(G^\T\)-split coequaliser \(\alpha\). But either set of hypothesis implies that \(G\) preserves the coequaliser defining \(L(A, \alpha)\), so \(\iota_{(A, \alpha)}\) is an isomorphism. For the counit \(\xi: LKB \to B\), we have a coequaliser
+  \[
+    \begin{tikzcd}
+      FGFGB \ar[r, shift left, "FG\varepsilon_B"] \ar[r, shift right, "\varepsilon_{FGB}"'] & FGB \ar[r] \ar[dr, "\varepsilon_B"] & LKB \ar[d, dashed, "\xi_B"] \\
+      & & B
+    \end{tikzcd}
+  \]
+  Again, either set of hypothesis implies that \(\varepsilon_B\) is a coequaliser of \((FG\varepsilon_B, \varepsilon_{FGB})\) so \(\xi_B\) is an isomorphism.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The forgetful functors \(\c{Gp} \to \Set, \c{Rng} \to \Set, \c{Mod}_R \to \Set \dots\) all satisfy the hypothesis of refined monadicity theorem, for the relexive coequalisers, use example sheet 4 Q3 which shows that if
+    \[
+      \begin{tikzcd}
+        A \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & B \ar[r, "h"] & C
+      \end{tikzcd}
+    \]
+    is a reflexive coequaliser diagram in \(\Set\) then so is
+    \[
+      \begin{tikzcd}
+        A^n \ar[r, shift left, "f^n"] \ar[r, shift right, "g^n"'] & B^n \ar[r, "h^n"] & C^n.
+      \end{tikzcd}
+    \]
+  \item Any reflection is monadic: this follows from example sheet 3 Q3, but can also be proved using precise monadicity theorem. Let \(\c D\) be a relfecitve (full) subcategory of \(\c C\), and suppose a pair \(f, g: A \to B\) in \(\c D\) fits into a split coequaliser diagram
+    \[
+      \begin{tikzcd}
+        A \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & B \ar[l, blue, bend left=50, "t"] \ar[r, blue, "h"] & C \ar[l, blue, bend left=50, "s"]
+      \end{tikzcd}
+    \]
+    in \(\c C\). Then \(t\) and \(ft = sh\) belongs to \(\c D\) since \(\c D\) is full and hence \(s\) is in \(\c D\) since it's an equaliser of \((1_B, sh)\) and \(\c D\) is closed under limits in \(\c C\). Hence also \(h \in \mor \c D\).
+  \item Consider the composite adjunction
+    \[
+      \begin{tikzcd}
+        \Set \ar[r, shift left, "F"] & \c{AbGp} \ar[l, shift left, "U"] \ar[r, shift left, "L"] & \c{tfAbGp} \ar[l, shift left, "I"]
+      \end{tikzcd}
+    \]
+    These two factors are monadic by the above two examples respectively, but the composite isn't, since the monad it induces on \(\Set\) is isomorphic to that induced by \(F \adjoint U\).
+  \item Consider the forgetful functor \(U: \Top \to \Set\). This is faithful and has both left and right adjoint (so preserves all coequalisers), but the monad induced on \(\Set\) is \((1, 1, 1)\) and the category of algebras is \(\Set\).
+  \item One may get the impression that monadicty is something only shared by algebraic construction but not topological constructions. Consider the composite adjunction
+    \[
+      \begin{tikzcd}
+        \Set \ar[r, shift left, "D"] & \Top \ar[l, shift left, "U"] \ar[r, shift left, "\beta"] & \c{KHaus} \ar[l, shift left, "I"]
+      \end{tikzcd}
+    \]
+    We shall show that this satisfies the hypothesis of precise monadicity theorem. Let
+    \[
+      \begin{tikzcd}
+        X \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & Y \ar[l, bend left=50, blue, "t"] \ar[r, blue, "h"] & Z \ar[l, bend left=50, blue, "s"]
+      \end{tikzcd}
+    \]
+    be a split coequaliser in \(\Set\) where \(X\) and \(Y\) have compact Hausdorff topologies and \(f, g\) are continuous. Note that the quotient topology on \(Z \cong Y/R\) is compact, so it's the only possible candidate for a compact Hausdorff topology making \(h\) continuous.
+
+    We use the lemma from general topology: if \(Y\) is compact Hausdorff, then a quotient \(Y/R\) is Hausdorff if and only if \(R \subseteq Y \times Y\) is closed. We note
+    \begin{align*}
+      R
+      &= \{(y, y'): h(y) = h(y')\} \\
+      &= \{(y, y'): sh(y) = sh(y')\} \\
+      &= \{(y, y'): ft(y) = ft(y')\}
+    \end{align*}
+    so if we define \(S = \{(x, x'): f(x) = f(x')\} \subseteq X \times X\) then \(R \subseteq (g \times g)(S)\), but this reverse inclusion also holds. But
+    \[
+      \begin{tikzcd}
+        S \ar[r] & X \times X \ar[r, shift left, "f\pi_1"] \ar[r, shift right, "f\pi_2"'] & Y
+      \end{tikzcd}
+    \]
+    is an equaliser, \(Y\) is Hausdorff, so \(S\) is closed on \(X \times X\) and hence compact. So \(R = (g \times g)(S)\) is compact and hence closed in \(Y \times Y\).
+
+    Morally, a category that is monadic over \(\Set\) can be thought as an algebraic object, in the sense that it is defined by algebraic equations. This applies to \(\c{KHaus}\) by including ``infinitary equations''.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[monadic tower]\index{monadic tower}
+  Let
+  \begin{tikzcd}
+    \c C \ar[r, shift left, "F"] & \c D \ar[l, shift left, "G"]
+  \end{tikzcd}
+  be an adjunction and suppose \(\c D\) has reflexive coequalisers. The \emph{monadic tower} of \(F \adjoint G\) is the diagram
+  \[
+    \begin{tikzcd}[row sep=huge]
+      & \vdots \ar[d, shift left] \ar[dl, shift left] \\
+      \c D \ar[ur, shift left] \ar[r, shift left, "K'"] \ar[dr, shift left, "K"] \ar[ddr, shift left, "G"] & (\c C^\T)^{\mathbb S} \ar[l, shift left, "L"] \ar[d, shift left] \ar[u, shift left] \\
+      & \c C^\T \ar[ul, shift left, "L"] \ar[u, shift left] \ar[d, shift left] \\
+      & \c C \ar[uul, shift left, "F"] \ar[u, shift left]
+    \end{tikzcd}
+  \]
+  where \(\T\) is the monad induced by \(F \adjoint G\), \(K\) is as in 5.7, \(L\) as in 5.11 (comparison?) \(\mathbb S\) is the moand induced by \(L \adjoint K\) and so on.
+
+  We say \(F \adjoint G\) has \emph{monadic length} \(n\) if we reach an equlvalence after \(n\) steps.
+\end{definition}
+
+Monadic length 0: already equivalence. Monadic length 1: monad
+
+For example, the adjunction of 5.14c has monadic length \(1\). The adjunction of 5.14d has monadic length \(\infty\).
+
+We will need one more result for topos theory, which we state without proof. (lifting of left adjoint in categorical algebra)
+
+\begin{theorem}
+  Suppose given an adjunction
+  \begin{tikzcd}
+    \c C \ar[r, shift left, "L"] & \c D \ar[l, shift left, "R"]
+  \end{tikzcd}
+  and monads \(\T, \mathbb S\) on \(\c C, \c D\) respectively, and a functor \(\overline R: \c D^{\mathbb S} \to \c C^\T\) such that
+  \[
+    \begin{tikzcd}
+      \c D^{\mathbb S} \ar[r, "\overline R"] \ar[d, "G^{\mathbb S}"] & \c C^\T \ar[d, "G^\T"] \\
+      \c D \ar[r, "R"] & \c C
+    \end{tikzcd}
+  \]
+  commutes up to isomorphism. Suppose also \(\c D^{\mathbb S}\) has reflexive coequalisers. Then \(\overline R\) has a left adjoint \(\overline L\).
+\end{theorem}
+
+\begin{proof}
+  Note that if \(\overline L\) exists we must have \(\overline L F^\T \cong F^{\mathbb S} L\) by 3.6. So we'd expect \(\overline L(A, \alpha)\) to be a coequaliser of two morphisms
+  \begin{tikzcd}
+    F^{\mathbb S} LTA \ar[r, shift left, "F^{\mathbb S}L\alpha"] \ar[r, shift right, "?"'] & F^{\mathbb S}LA.
+  \end{tikzcd}
+  To construct the second morphism, note first that we assume wlog \(G^\T \overline R = RG^{\mathbb G}\), by transporting \(\T\)-algebra structurs along the isomorphism \(G^\T R(B, \beta) \to RB\).
+
+  We obtain \(\phi: TR \to RS\) by starting from
+  \[
+    R \xrightarrow{R\iota} RS = RG^{\mathbb S} F^{\mathbb S} = G^\T \overline R F^{\mathbb S},
+  \]
+  conjugate by \(F\) to get
+  \[
+    F^\T R \to \overline R F^{\mathbb S},
+  \]
+  and finally (?)
+  \[
+    TR = G^\T F^\T R \xrightarrow{\phi} G^\T \overline R F^{\mathbb S} = RG^{\mathbb S} F^{\mathbb S} = RS.
+  \]
+  Convert it into \(\varphi: LT \to SL\) by
+  \[
+    LT \xrightarrow{LT\gamma} LTRL \xrightarrow{L\theta_L} LRSL \xrightarrow{\delta_{SL}} SL
+  \]
+  where \(\gamma\) and \(\delta\) are the unit and counit of \(L \adjoint R\). Transposing across \(F^{\mathbb S} \adjoint G^{\mathbb S}\), we get \(\overline \varphi: F^{\mathbb S} LT \xrightarrow{F^{\mathbb S}} L\). The pair \((F^{\mathbb S} L\alpha, \overline \varphi_A)\) is relexive, with common splitting \(F^{\mathbb S}L\eta\). (\(\overline \varphi\) is the question mark in the diagram)
+
+  It can be verified (albeit extremely tedious) that the coequaliser of this pair has the unviersal property we require for \(\overline L(A, \alpha)\).
+\end{proof}
+
+\section{Cartesian closed categories}
+
+\begin{definition}[exponentiable object, cartesian closed category]\index{exponentiable object}\index{category!cartesian closed}
+  Let \(\c C\) be a category with finite products. We say \(A \in \ob \c C\) is \emph{exponentiable} if the functor \((-) \times A: \c C \to \c C\) has a right adjoint \((-)^A\).
+
+  If every object of \(\c C\) is exponentiable, we say \(\c C\) is \emph{cartesian closed}.
+\end{definition}
+
+Intuitively, exponential object ``lifts'' morphisms to an object, instead of a set. ``internalisation''
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Set\) is cartesian closed, with \(B^A = \Set(A, B)\). A function \(f: C \times A \to B\) corresponds to \(\overline f: C \to B^A\).
+  \item \(\c{Cat}\) is cartesian closed with \(\c D^{\c C} = [\c C, \c D]\). In fact we have implicitly used this idea when discussing limits in functor categories.
+  \item In \(\Top\), if an exponential \(Y^X\) exists, its points must be the continuous maps \(X \to Y\). The \emph{compact-open} topology on \(\c{Top}(X, Y)\) has the universal property of an exponential if and only if \(X\) is locally compact.
+
+    Note that finite products of exponential objects are exponentiable: since
+    \[
+      (-) \times (A \times B) \cong (- \times A) \times B,
+    \]
+    we have \((-)^{A \times B} \cong ((-)^B)^A\). However, even if \(X\) and \(Y\) are locally compact, \(Y^X\) needn't be. So the exponentiable objects don't form a cartesian closed full subcategory.
+  \item A cartesian closed poset is called a \emph{Heyting semilattice}\index{Heyting semilattice}: it's a post with finite meet \(\wedge\) and a binary operation \(\implies\) satisfying
+    \[
+      a \leq (b \implies c) \text{ if and only if } a \wedge b \leq c.
+    \]
+    For example, a complete poset is a Heything semilattice if and only if it satisfies the infinite distributive law
+    \[
+      a \wedge \bigvee_{i \in I} \{b_i\} = \bigvee_{i \in I} \{a \wedge b_i\}.
+    \]
+    For any topological space, the lattice \(\mathcal O(X)\) of open sets satisfies this condition, since \(\wedge\) and \(\vee\) conincide with \(\cap\) an \(\cup\). (However it does not satisfy the dual condition: arbitrary intersection needs to take interior).
+  \end{enumerate}
+\end{eg}
+
+Recall from example sheet 2 that, if \(B \in \ob C\), we define the \emph{slice category}\index{slice category} \(\c C /B\) to have objects which are morphisms \(A \to B\) in \(\c C\) and morphisms are commutative triangles
+\[
+  \begin{tikzcd}
+    A \ar[r] \ar[dr] & A' \ar[d] \\
+    & B
+  \end{tikzcd}
+\]
+The forgetful functor \(\c C/B \to \c C\) will be denoted \(\Sigma_B\). If \(\c C\) has finite products, \(\Sigma_B\) has a right adjoint \(B^*\) which sends \(A\) to
+\[
+  A \times B \xrightarrow{\pi_2} B
+\]
+since morphisms
+\[
+  \begin{tikzcd}
+    C \ar[r, "{(f, g)}"] \ar[dr, "g"] & A \times B \ar[d, "\pi_2"] \\
+    & B
+  \end{tikzcd}
+\]
+% diagonal. Dually left adjoint is diagonal???
+correspond to morphisms \(f: \Sigma_Bg = C \to A\).
+
+\begin{lemma}
+  If \(\c C\) has all finite limits then an object \(B\) is exponentiable if and only if \(B^*: \c C \to \c C/B\) has a right adjoint \(\Pi_B\).
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\impliedby\): The composite \(\Sigma_B B^*\) is equal to \((-) \times B\) so we take \((-)^B\) to be \(\Sigma_B B^*\).
+  \item \(\implies\): If \(B\) is exponentiable, for any \(f: A \to B\) we define \(\Pi_B9f)\) to be the pullback
+    \[
+      \begin{tikzcd}
+        \Pi_B(f) \ar[r] \ar[d] & A^B \ar[d, "F^B"] \\
+        1 \ar[r, "\overline \pi_2"] & B^B
+      \end{tikzcd}
+    \]
+    where \(\overline \pi_2\) is the transpose of the projection (?). Then morphisms \(C \to \Pi_B(f)\) corresponding to morphisms \(C \to A^B\) making
+    \[
+      \begin{tikzcd}
+        C \ar[r] \ar[d] & A^B \ar[d, "f^B"] \\
+        1 \ar[r, "\overline \pi_2"] & B^B
+      \end{tikzcd}
+    \]
+    commute, i.e.\ to morhpisms \(C \times B \to A\) making
+    \[
+      \begin{tikzcd}
+        C \times B \ar[r] \ar[dr, "\pi_2"'] & A \ar[d, "f"] \\
+        & B
+      \end{tikzcd}
+    \]
+    commute.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  Suppose \(\c C\) has finite limits. If \(A\) is exponentiable in \(\c C\) then \(B^*A\) is exponentiable in \(\c C/B\) for any \(B\). Moreover \(B^*\) preserves exponentials.
+\end{lemma}
+
+\begin{proof}
+  Given an object
+  \begin{tikzcd}
+    C \ar[d, "f"] \\
+    B
+  \end{tikzcd}
+  , form the pullback
+  \[
+    \begin{tikzcd}
+      P \ar[r] \ar[d, "f^{B^*A}"] & C^A \ar[d, "f^A"] \\
+      B \ar[r, "\overline \pi_1"] & B^A
+    \end{tikzcd}
+  \]
+  Then for any
+  \begin{tikzcd}
+    D \ar[d, "g"] \\
+    B
+  \end{tikzcd}
+  , morphisms \(g \to f^{B^*A}\) in \(\c C/B\) correspond to morphisms \(D \xrightarrow{\overline h} C^A\) making
+  \[
+    \begin{tikzcd}
+      D \ar[r, "\overline h"] \ar[d, "g"] & C^A \ar[d, "f^A"] \\
+      B \ar[r, "\overline \pi_1"] & B^A
+    \end{tikzcd}
+  \]
+  commute, and hence to morphisms \(D \times A \xrightarrow{h} C\) making
+  \[
+    \begin{tikzcd}
+      D \times A \ar[r, "h"] \ar[dr, "g\pi_1"] & C \ar[d, "f"] \\
+      & B
+    \end{tikzcd}
+  \]
+  commmute. But
+  \[
+    \begin{tikzcd}
+      D \times A \ar[r, "g \times 1_A"] \ar[d, "\pi_1"] & B \times A \ar[d, "\pi_1"] \\
+      D \ar[r, "g"] & B
+    \end{tikzcd}
+  \]
+  is a pullback in \(\c C\), i.e.\ a product in \(\c C/B\).
+
+  For the second assertion, note that if \(C \xrightarrow{f} B\) is of the form \(B \times E \xrightarrow{\pi_1} B\) then the pullback defining \(f^{B^*A}\) becomes
+  \[
+    \begin{tikzcd}
+      B \times E^A \ar[r, "\overline \pi_1 \times 1_{E^A}"] \ar[d, "\pi_1"] & B^A \times E^A \ar[d, "\pi_1"] \\
+      B \ar[r, "\overline \pi_1"] & B^A
+    \end{tikzcd}
+  \]
+  so \(f^{B^*A} \cong B^*(E^A)\).
+\end{proof}
+
+\begin{remark}
+  \(\c C/B\) is isomorphic to the category of coalgebra for the monad structure on \((-) \times B\) (5.2c). So the first part of the lemma could be proved using lift of adjoint (last theorem of chapter 5).
+\end{remark}
+
+\begin{definition}[locally cartesian closed]\index{category!locally cartesian closed}
+  We say \(\c C\) is \emph{locally cartesian closed} if it has all finite limits and each \(\c C/B\) is cartesian closed.
+\end{definition}
+
+Note that this includes the fact that \(\c C \cong \c C/1\) is cartesian closed. So the usuage is to the contrary of normal usage of ``locally'' as it imposes a stricter condition.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Set\) is locally cartesian closed since \(\Set/B \simeq \Set^B\) for any \(B\).
+  \item For any small category \(\c C\), \([\c C, \Set]\) is cartesian closed: by Yoneda
+    \[
+      G^F(A) \cong [\c C, \Set](\c C(A, -), G^F) \cong [\c C, \Set](\c C(A, -) \times F, G)
+    \]
+    so we take RHS as a definition of \(G^F(A)\) and define \(G^F\) on morphisms \(A \xrightarrow{f} B\) by composition with \(\c C(f, -) \times 1_F\). Note that the class of funtors \(H\) for which we have
+    \[
+      [\c C, \Set](H, G^F) \cong [\c C, \Set](H \times F, G)
+    \]
+    is closed under colimits. But every functor \(\c C \to \Set\) is a colimit of representables.
+
+    In fact \([\c C, \Set]\) is locally cartesian closed since all its slice categories \([\c C, \Set]/F\) are of the same form. See example sheet 4 Q6.
+  \item Any Heyting semilattice \(H\) is locally cartesian closed since \(H/b \cong \downarrow(b)\), the poset of elements \(\leq b\), and \(b^* = (-) \wedge b\) is surjective.
+  \item \(\c{Cat}\) is \emph{not} locally cartesian closed, since not all strong epis are regular. c.f.\ example sheet 3 Q6.
+  \end{enumerate}
+\end{eg}
+
+Note that given
+\begin{tikzcd}
+  A \ar[d, "f"] \\
+  B
+\end{tikzcd}
+in \(\c C/B\), the iterated slice \((\c C/B)/f\) is isomorphic to \(\c C/A\), and this identifies \(f^*: \c C/B \to (\c C/B)/f\) with the operation of pulling back morphisms along \(f\). So by 6.3 \(\c C\) is locally cartesian closed if and only if it has finite limits and \(f^*: \c C/B \to \c C/A\) has a right adjoint \(\Pi_f\) for every \(A \xrightarrow{f} B\) in \(\c C\). This can be taken as the definition of locally cartesian closed category.
+
+\begin{theorem}
+  Suppose \(\c C\) is locally cartesian closed and has reflexive coequalisers. Then every morphism \(A \xrightarrow{f} B\) factors as
+  \[
+    A \stackrel{q}{\epi} I \stackrel{m}{\mono} B
+  \]
+  where \(q\) is regular epic and \(m\) is monic.
+\end{theorem}
+
+\begin{proof}
+  First form the pullback
+  \[
+    \begin{tikzcd}
+      R \ar[r, "a"] \ar[d, "b"] & A \ar[d, "f"] \\
+      A \ar[r, "f"] & B
+    \end{tikzcd}
+  \]
+  and then form the coequaliser
+  \[
+    \begin{tikzcd}
+      R \ar[r, shift left, "a"] \ar[r, shift right, "b"'] & A \ar[r, "q"] & I.
+    \end{tikzcd}
+  \]
+  Since \(fa = fb\), \(f\) factors as
+  \[
+    \begin{tikzcd}
+      A \ar[r, "q"] & I \ar[r, "m"] & B.
+    \end{tikzcd}
+  \]
+  Suppose given
+  \begin{tikzcd}
+    D \ar[r, shift left, "g"] \ar[r, shift right, "h"'] & I
+  \end{tikzcd}
+  with \(mg = mh\), form the pullback
+  \[
+    \begin{tikzcd}
+      E \ar[r, "n"] \ar[d, "{(k, \ell)}"] & D \ar[d, "{(g, h)}"] \\
+      A \times A \ar[r, "q \times q"] & I \times I
+    \end{tikzcd}
+  \]
+  Since \(q \times q\) factors as \((q \times 1_I)(1_A \times q)\) and both factors are pullbacks of \(q\), it is an epimorphism and so is \(n\). Now
+  \[
+    fk = mqk = mgn = mhn = mg\ell = f\ell
+  \]
+  so there exists \(E \xrightarrow{p} R\) with \(ap = k, bp = \ell\).
+
+  Now
+  \[
+    qk = qap = qbp = q\ell,
+  \]
+  i.e.\ \(gn = hn\). But \(n\) is epic so \(g = h\). Hence \(m\) is monic.
+\end{proof}
+
+Note that this implies any strong epi \(A \xrightarrow{f} B\) is regular since the monic part of its image factorisation is an isomorphism. In particular, regular epimorphisms are stable under composition.
+
+\begin{definition}
+  If \(\c C\) and \(\c D\) are cartesian closed categories and \(F: \c C \to \c D\) preserves products then for each pair of objects \((A, B)\) of \(\c C\), we get a natural morphism \(\theta: F(B^A) \to FB^{FA}\), namely the transpose of
+  \[
+    F(B^A) \times FA \cong F(B^A \times A) \xrightarrow{F(\ev)} FB
+  \]
+  where \(\ev\) is the counit of \(((-) \times A \adjoint (-)^A)\).
+
+  We say \(F\) is a \emph{cartesian closed functor} if \(\theta\) is an isomorphism for every pair \((A, B)\). Note that the second part of 6.4 syas that if \(\c C\) is locally cartesian closed then \(f^*: \c C/B \to \c C/A\) is a continuous cartesian functor for any \(A \xrightarrow{f} B\).
+\end{definition}
+
+\begin{theorem}
+  Let \(\c C\) and \(\c D\) be cartesian closed categories and \(F: \c C \to \c D\) a functor having a left adjoint \(L\). Then \(F\) is cartesian closed if and only if the canonical morphism \(\varphi_{A, B}\)
+  \[
+    \begin{tikzcd}
+      L(B \times FA) \ar[r, "{(L\pi_1, L\pi_2)}"] & LB \times LFA \ar[r, "1_{LA} \times \varepsilon_B"] & LB \times A
+    \end{tikzcd}
+  \]
+  is an isomorphism for all \(A \in \ob \c C, B \in \ob \c D\). This condition is called \emph{Frobenius reciprocity}\index{Frobenius reciprocity}.
+\end{theorem}
+
+% check this below paragraph
+Note that if \(\c C\) is locally cartesian closed then \(f^*: \c C/B \to \c C/A\) has a left adjoint \(\Sigma_f\) given by composition with \(f\), and it's easy to verify that
+\[
+  \Sigma_f(g \times f^*h) \cong \Sigma_f g \times h.
+\]
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): Given an inverse for \(\theta: F(C^A) \to FA^{FA}\), we define \(\varphi_{A, B}^{-1}\) to be the composite
+    \[
+      \begin{tikzcd}
+        LB \times B \ar[r, "L\lambda \times 1"] & L((B \times FA)^{FA}) \times A \ar[r, "L(\eta^{FA}) \times 1"] & L(FL(B \times FA)^{FA}) \times B \ar[d, "L\theta^{-1} \times 1"] \\
+        L(B \times FA) & L(B \times FA)^A \times A \ar[l, "\operatorname{ev}"] & LF(L(B \times FA)^A) \times A \ar[l, "\varepsilon \times 1"]
+      \end{tikzcd}
+    \]
+    The verification is a tedious exercise.
+  \item \(\impliedby\): Given an inverse for \(\varphi\), we define \(\theta^{-1}\) to be
+    \[
+      \begin{tikzcd}
+        F((L(FC^{FA} \times A))^A) \ar[d, "F(\varphi^{-1 A})"] & FL(FC^{FA}) \ar[l, "F\lambda"] & FC^{FA} \ar[l, "\eta"] \\
+        F((L(FC^{FA} \times FA))^A) \ar[r, "F((L(\operatorname{ev}))^A)"] & F((LFC)^A) \ar[r, "F(\varepsilon^A)"] & F(C^A).
+      \end{tikzcd}
+    \]
+  \end{itemize}
+\end{proof}
+
+\begin{corollary}
+  Suppose \(\c C\) and \(\c D\) are cartesian closed, and \(F: \c C \to \c D\) has a left adjoint \(L\) which preserves finite products. Then \(F\) is cartesian closed if and only if \(F\) is full and faithful.
+\end{corollary}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): \(L\) preserves \(1\) so if we substitute \(B\) in the definition of \(\varphi\) above, we get \(LFA \xrightarrow{\varepsilon_A} A\). But \(\varepsilon\) is an isomorphism if and only if \(F\) is full and faithful.
+  \item \(\impliedby\): If \(L\) preserves binary products and \(\varepsilon\) is an isomorphism. Then both factors in the definition of \(\varphi\) are isomorphisms.
+  \end{itemize}
+\end{proof}
+
+\begin{definition}[exponential ideal]\index{exponential ideal}
+  Let \(\c C\) be a cartesian closed category. By an \emph{exponential ideal} of \(\c C\) we mean a class of objects (or a full subcategory) \(\mathcal E\) such that \(B \in \mathcal E\) implies \(B^A \in \mathcal E\) for all \(A \in \ob \c C\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item We say \(A\) is \emph{subterminal}\index{subterminal} if \(A \to 1\) is monic. In any cartesian closed category \(\c C\), the class \(\operatorname{Sub}_{\c C}(1)\) is an exponential ideal since \(A\) is subterminal if and only if there exists at most 1 morphisms \(B \to A\) for any \(B\), if and only if at most 1 morphism \(C \times B \to A\) for any \(B\) and \(C\), so by adjunction if and only if at most 1 morphism \(C \to A^B\), if and only if \(A^B\) is subterminal.
+
+    More generally, if \(\c C\) is locally cartesian closed then \(\operatorname{Sub}_{\c C}(A)\) is an exponential ideal in \(\c C/A\) for any \(A\).  if \(\c C\) also satisfies the hypotheses of 6.7 then \(\operatorname{Sub}_{\c C}(A)\) is reflexive in \(\c C/A\).
+  \item Let \(X\) be a topological space. By a \emph{presheaf}\index{presheaf} of \(X\) we mean a functor \(F: \mathcal O(X)^{\text{op}} \to \Set\) where \(\mathcal O(X)\) is the partial order of open subsets of \(X\). So \(F\) has sets \(F(U)\) for each open \(U\) and restriction maps \(F(U) \to F(V): x \mapsto x|_V\) whenever \(V \subseteq U\).
+
+    We say \(F\) is a \emph{sheaf}\index{sheaf} if whenever \(U = \bigcup_{i \in I} U_i\) and we're given \(x_i \in F(U_i)\) for each \(i\), such that
+    \[
+      x_i|_{U_i \cap U_j} = x_j|_{U_i \cap U_j}
+    \]
+    for all \((i, j)\), then exists a unique \(x \in F(U)\) such that \(x|_{U_i} = x_i\) for all \(i\).
+
+    We write \(\Sh(X) \subseteq [\mathcal O(X)^{\text{op}}, \Set]\) for the full subcategory of sheaves. We'll show \(\Sh(X)\) is an exponential ideal: given presheaves \(F, G\), \(G^F(U)\) is the set of natural transofrmations \(F \times \mathcal O(X) (-, U) \to G\) or equivalently, the set of natural transformations \(F|_U \to G|_U\) where \(F|_U: \mathcal O(X)^{\text{op}} \to \Set\) is the presheaf obtained by restricting \(F\) to open sets in \(U\). Now suppose \(G\) is a sheaf. Suppose \(U = \bigcup_{i \in I} U_i\) and suppose given \(\alpha_i: F|_{U_i} \to G|_{U_i}\) for each \(i\) such that
+    \[
+      \alpha_i|_{U_i \cap U_j} = \alpha_j|_{U_i \cap U_j}
+    \]
+    for all \(i, j\). Given \(x \in F(V)\) where \(V \subseteq U\), write \(V_i = V \cap U_i\), then \(V = \bigcup_{i \in I} V_i\). The elements \(x|_{V_i}\), \(i \in I\), satisfying the compatibility condition and hence so do the elements \((\alpha_i)_{V_i} (x|_{V_i}) \in G(V_i)\) . So there's a unique \(y \in G(V)\) such that
+    \[
+      y|_{V_i} = (\alpha_i)_{V_i} (x|_{V_i})
+    \]
+    for all \(i\) and we define this to be \(\alpha_V(x)\). This defines natural transformations \(\alpha: F|_U \to G|_U\) and it's the unique transformation whose restriction to \(U_i\) is \(\alpha_i\) for each \(i\).
+
+    Note that since \(\Sh(X)\) is closed under finite products (and in fact all limits) in \([\mathcal O(X)^{\text{op}}, \Set]\), it is itself cartesian closed.
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  Suppose \(\c C\) is cartesian closed and \(\c D \subseteq \c C\) is a (full) reflective subcategory, with reflector \(L: \c C \to \c D\). Then \(\c D\) is an exponential ideal if and only if \(L\) preserves binary products.
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): Suppose \(A, B \in \ob \c C, C \in \ob \c D\). Then we have bijections
+    \begin{align*}
+      A \times B &\to C \\
+      A &\to C^B \\
+      LA &\to C^B \\
+      LA \times B &\to C \\
+      B &\to C^{LA} \\
+      LB &\to C^{LA} \\
+      LA \times LA &\to C
+    \end{align*}
+    so \(LA \times LB\) has the universal property of \(L(A \times B)\).
+  \item \(\impliedby\): Suppose \(B \in \ob \c D, A, C \in \ob \c C\). We have bijections
+    \begin{align*}
+      C &\to B^A \\
+      C \times A &\to B \\
+      LC \times LA \cong L(C \times A) &\to B \\
+      L(LC \times A) &\to B \\
+      LC \times A &\to B \\
+      LC &\to B^A
+    \end{align*}
+    so every \(C \to B^A\) factors throu \(C \to LC\), hence \(B^A \in \ob \c D\).
+  \end{itemize}
 \end{proof}
 
 

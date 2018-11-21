@@ -15,6 +15,7 @@
 \newcommand*{\smallomg}{\omega}
 \DeclareMathOperator{\exx}{ex} % forbidden subgraph notation
 \DeclareMathOperator{\ud}{ud} % upper density
+\renewcommand{\P}{\prob} % probability
 
 \let\SO\undefined
 \usepackage{tkz-graph}
@@ -1698,134 +1699,197 @@ When does \(G\) contain a matching? Clearly a necessary condition is that there 
   so \(G_2\) satisfies Hall's condition. By indiciton hypothesis have matchings from \(A, X \setminus A\) to \(\Gamma(A), Y \setminus \Gamma(A)\) respectively. Combine them and done.
 \end{proof}
 
+\begin{corollary}
+  Let \(G\) be a finite graph and let \(H \leq G\) with \(|G/H| = n\). Then there are \(g_1, \dots, g_n \in G\) such that \(g_1H, \dots, g_nH\) are the left and \(Hg_1, \dots, Hg_n\) are the right cosets of \(H\).
+\end{corollary}
 
+\begin{proof}
+  Consider the bipartite graph with parts
+  \begin{align*}
+    X &= \{gH: g \in G\} \\
+    Y &= \{Hg: g \in G\}
+  \end{align*}
+  and for \(x \in X, y \in Y\), \(x \sim y\) if and only if \(x \cap y \neq \emptyset\). Then the conclusion of the theorem is equivalent to the existence of a matching from \(X\) to \(Y\).
 
+  Let \(A \subseteq X\). Then
+  \begin{align*}
+    \Big| \bigcup_{x \in A} x \Big| &= |A| |H| \\
+    \Big| \bigcup_{y \in \Gamma(A)} y \Big| &= |\Gamma(A)| |H|
+  \end{align*}
+  But \(\bigcup_{x \in A} x \subseteq \bigcup_{y \in \Gamma(A)} y\). %?
+  Hence \(|\Gamma(A)| \geq |A|\).
+\end{proof}
 
+\begin{corollary}
+  Let \(G\) be a bipartite graph with parts \(X, Y\) and let \(d \geq 1\).
+  \begin{enumerate}
+  \item \(G\) contains a set of \(|X| - d\) independent edges if and only if for all \(A \subseteq X\), \(|\Gamma(A)| \geq |A| - d\).
+  \item \(G\) has a \emph{\(d\)-to-\(1\) matching} from \(X\) to \(Y\) (i.e.\ a subgraph \(H\) where for all \(x \in X, d(x) = d\) and for all \(y \in Y, d(y) \leq 1\)) if and only if for all \(A \subseteq X\), \(|\Gamma(A)| \geq d|A|\).
+  \end{enumerate}
+\end{corollary}
 
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\implies\) is easy. For \(\impliedby\), add \(d\) new vertices to \(Y\), each jointed to all \(x \in X\). This satisfies Hall's condition so has a matching. Throw away the new vertices: at least \(|X| - d\) edges remain.
+  \item \(\implies\) is easy. For \(\impliedby\), for each \(x \in X\), add \(d - 1\) new copies of \(x\) to \(X\) each with same neighbours as \(x\). This satisfies Hall's condition so has a matching. Delete the new vertices and assign their edges in the matching to the original vertex that they were copies of.
+  \end{enumerate}
+\end{proof}
 
+\subsection{Connectivity}
 
-
-
-\iffalse
-% 2017 lecture
-
-Revision of \(\bigO\) notation and its cousins: let \(f,g:\N\to (0,\infty)\). We say
-\begin{align*}
-  f &= \bigO(g) \text{ if } f< Ag \text{ for some constant } A \\
-  f &= \Omg(g) \text{ if } g=\bigO(f) \\
-  f &= \bigT(g) \text{ if } f=\bigO(g) \text{ and } f = \Omg(g).
-\end{align*}
-Also,
-\begin{align*}
-  f &= \smallo(g) \text{ if } f/g\to 0 \text{ as } n\to \infty \\
-  f &= \smallomg(g) \text{ if } f/g\to \infty \\
-  f &\sim g \text{ if } f/g\to 1.
-\end{align*}
-
-
-
-\begin{question}
-  How large must \(n\) be so that if edges of \(K_n\) are coloured blue and yellow then we always get mono \(K_s\)?
-\end{question}
-
-Let \(G\) be ``blue subgraph'' of \(K_n\), i.e. all vertices, only blue edges.
-\begin{align*}
-  K_n \text{ has a blue } K_s &\Leftrightarrow K_s \subseteq G \\
-  K_n \text{ has a yellow } K_s &\Leftrightarrow G \text{ has an induced } \stcomp{K_s} \text{ subgraph}
-\end{align*}
-
-Rephrase: how large must \(n\) be to force every graph of order \(n\) to have \(K_s\) or \(\stcomp{K_s}\) as an induced subgraph?
-
-This is a typical example of an \emph{extremal problem}: how large must some parameter of \(G\) be to force \(G\) to have a certain property?
-
-Alternatively, how big can the parameter be with \(G\) not having the property?
-
-\subsection{The Forbidden Subgraph Problem}
-
-Fix a graph \(H\) with at least one edge. Let \(n \geq |H|\). Clearly \(H \subseteq K_n\) but \(H \nsubseteq \stcomp{K_n}\). How many edges must a graph \(G\) of order \(n\) have to force \(H \subseteq G\)? Alternatively, if \(|G| = n\) and \(H \nsubseteq G\), how large can \(e(G)\) be?
+Some connected graphs seem more connected than others. For example (graph \(H, K\)). \(H\) has a ``cut vertex'' but \(K\) does not.
 
 \begin{definition}
-  Define
-  \[
-    \exx(n,H) := \max\{ e(G): |G|=n, H \nsubseteq G\}.
-  \]
+  An incomplete graph \(G\) is \emph{\(k\)-connected} if whenever \(W \subseteq V(G)\) with \(|W| < k\) then \(G - W\) is connected. %? why exclude complete graph
 \end{definition}
 
-\begin{question}
-  Can we determine \(\exx(n,H)\)?
-\end{question}
+\begin{eg}
+  \(G\) is \(0\)-connected for every \(G\). \(G\) is \(1\)-connected if and only if \(G\) is connected. \(G\) is \(2\)-connected if and only if \(G\) is connected has no cut vertex.
+\end{eg}
 
-\subsubsection{Triangles}
+Suppose whenever \(a, b \in G\) with \(a \neq b\) there are \(k\) independent paths from \(a\) to \(b\) --- paths meeting only at \(a\) and \(b\), then certainly \(G\) is \(k\)-connected. Is it also necessary? We aim to prove this but notice at this moment that it is not a good idea to consider paths sequentially as some choice of paths may ``block'' others. For example consider (graph of \(H\)).
 
-Let \(H = K_3\). Want \(G\) with \(|G| = n\), \(e(G)\) large, \(\triangle \nsubseteq G\). Try partitioning \(V(G) = X\cup Y\) with all edges going from \(X\) to \(Y\).
+It is better to consider paths between sets rather than between vertices.
 
-\begin{definition}[Bipartite graph]
-  A graph \(G\) is \emph{bipartite} (with bipartition \((X,Y)\)) if \(V(G)\) can be partitioned as \(X\cup Y\) in such a way that if \(e\in E(G)\) then \(e=xy\) for some \(x\in X, y\in Y\).
+\begin{definition}[cut]\index{cut}
+  Let \(G\) be a graph and \(A, B \subseteq V(G)\). An \emph{\(AB\)-path} is a path \(v_0v_1 \cdots v_\ell\) with \(v_0 \in A, v_\ell \in B, v_i \notin A \cup B\) for \(1 \leq i \leq \ell - 1\).
+
+  An \emph{\(AB\)-cut} is a set \(W \subseteq V(G)\) such that \(G - W\) has no \(AB\)-path.
 \end{definition}
 
-Bipartite graphs have no \(\triangle\) (and indeed no cycles of odd length). In fact, the converse if true:
+\begin{remark}
+  \(A\) is an \(AB\)-cut. So is \(B\). Moreover we do not insist \(A \cap B = \emptyset\). If \(x \in A \cap B\) then \(x\) is an \(AB\)-path (of length \(0\)). Hence if \(W\) is an \(AB\)-cut then \(A \cap B \subseteq W\).
+\end{remark}
 
-\begin{theorem}
-  A graph is bipartite if and only if it contain no odd cycles.
+\begin{lemma}
+  Let \(G\) be a graph and \(A, B \subseteq V(G)\). Suppose the smallest possible order of an \(AB\)-cut in \(G\) is \(k\) then we can find \(k\) vertex-disjoint \(AB\)-paths.
+\end{lemma}
+
+\begin{proof}
+  Induction on \(e(G)\). If \(e(G) = 0\) then the smallest \(AB\)-cut is \(A \cap B\) so \(k = |A \cap B|\). Each vertex of \(A \cap B\) gives a zero-length \(AB\)-path so we have \(k\) vertex-disjoint \(AB\)-paths.
+
+  For \(e(G) > 0\). Pick an edge \(xy \in G\) and let \(H = G - xy\). If every \(AB\)-cut in \(H\) has order \(\geq k\) then done by induction hypothesis. So assume \(H\) has an \(AB\)-cut \(W\) with \(|W| < k\). Then \(W \cup \{x\}\) is an \(AB\)-cut in \(G\) so \(|W \cup \{x\}| \geq k\). Hence \(|W| = k - 1\). Write \(W = \{w_1, \dots, w_{k - 1}\}\). \(W\) is not an \(AB\)-cut in \(G\) so \(G - W\) has an \(AB\)-path that must use edge \(xy\). wlog \(x\) appears before \(y\) on this path.
+
+  Let \(T = W \cup \{x\}\). Suppose \(S\) is an \(AT\)-cut in \(H\). Then \(S\) is an \(AB\)-cut in \(G\). Hence \(|S| \geq k\). By the induction hypothesis there are \(k\) vertex-disjoint \(AT\)-paths in \(H\). Call them \(P_0, \dots, P_{k - 1}\) with \(P_0\) ending at \(x\) and \(P_i\) ending at \(w_i\) for \(1 \leq i \leq k - 1\).
+
+  Similarly if \(U = W \cup \{y\}\) then \(H\) has \(k\) vertex-disjoint \(UB\)-paths, say \(Q_0, \dots, Q_{k - 1}\) with \(Q_0\) starting at \(y\) and \(Q_i\) starting at \(w_i\) for \(1 \leq w_i \leq k - 1\). Join these paths to form \(k\) vertex-disjoint \(AB\)-paths in \(G\): \(P_0 xy Q_0\) and \(P_iQ_i\) for \(1 \leq i \leq k - 1\).
+\end{proof}
+
+\begin{theorem}[Menger]\index{Menger theorem}
+  Let \(G\) be \(k\)-connected and \(a, b \in G\) with \(a \neq b\). Then \(G\) contains \(k\) independent \(ab\)-paths.
 \end{theorem}
 
 \begin{proof}
-  Later. Or exercise if you're ambitious.
+  Suppose first \(a \nsim b\). Let \(A = \Gamma(a), B = \Gamma(b)\) and \(W\) bean \(AB\)-cut of minimal order. Clearly \(a, b \neq W\) and in \(G - W\) there is no \(ab\)-path. So \(G - W\) is not connected and hence \(|W| \geq k\). Now by the lemma \(G\) contains \(k\) vertex-disjoint paths from \(A\) to \(B\). Extend these to \(a\) and \(b\).
+
+  On the other hand if \(a \sim b\). Then \(G - ab\) is \((k - 1)\)-connected so by the previous case, has \((k - 1)\) independent \(ab\)-paths. In \(G\), \(ab\) is a \(k\)th.
 \end{proof}
 
-\begin{question}
-  Which bipartite graph is the best?
-\end{question}
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item It is often easier to apply the previous lemma rather than the theorem when constructing things.
+  \item Hall's theorem follows from Menger: let \(G\) be bipartite with parts \(X\) and \(Y\), satisfying Hall's condition. Suppose \(W\) is an \(XY\)-cut. (graph). Then \(\Gamma(X \setminus W) \subseteq W \cap Y\). So
+    \begin{align*}
+      |W|
+      &= |W \cap X| + |W \cap Y| \geq |W \cap X| \\
+      &\geq |\Gamma(X \setminus W)| \\
+      &\geq |W \cap X| + |X \setminus W| \\
+      &= |X|
+    \end{align*}
+    Hence by lemma \(G\) has \(k\) vertex-disjoint \(XY\)-paths, aka a matching.
+  \end{enumerate}
+\end{remark}
 
-Clearly want to include all possible edges from \(X\) to \(Y\).
-
-\begin{definition}[Complete bipartite graph]
-  Let \(s,t\geq 1\). The \emph{complete bipartite graph} \(K_{s,t}\) has bipartition \((X,Y)\) with \(|X| = s, |Y| = t\) and \(xy \in E(K_{s,t})\) for all \(x\in X, y\in Y\).
+\begin{definition}
+  Let \(G\) be an incomplete graph. The \emph{connectivity} of \(G\) is
+  \[
+    \mathcal K(G) = \max\{k: G \text{ is \(k\)-connected}\}.
+  \]
+  In light of Menger, we define
+  \[
+    \mathcal K(K_n) = n - 1
+  \]
+  for \(n \geq 2\).
 \end{definition}
 
-We have
-\begin{align*}
-  |K_{s,t}| &= s+t \\
-  e(K_{s,t}) &= st
-\end{align*}
-We want to maximise \(st\) subject to \(s+t=n\), i.e. maximise \(s(n-s)\), which is a quadratic in \(s\). So the best bipartite graph is
-\[
-  K_{\floor*{\frac{n}{2}}, \ceil*{\frac{n}{2}}}.
-\]
-But what if some \emph{non-bipartite} graph is better? For example, \(G\) is not bipartite but \(\triangle \nsubseteq G\) so \(e(K_{3,2}) = 6 > 5 = e(G)\). It turns out we don't have to worry: bipartite graph always wins.
+\subsection{Edge-connectivity}
 
-\begin{theorem}[Mantel's Theorem]
-  Let \(n\geq 3\). Suppose \(|G| = n, e(G) \geq \floor*{\frac{n^2}{4}}\) and \(\triangle \nsubseteq G\). Then
+\begin{definition}[edge-connectivity]\index{edge-connectivity}
+  Let \(G\) be a graph with \(|G| \geq 2\) and let \(\ell \geq 0\). We say \(G\) is \emph{\(\ell\)-edge-connected} if whenever \(F \subseteq E(G)\) with \(|F| < \ell\) then \(G - F\) is connected. Then \emph{edge-connectivity} of \(G\) is
   \[
-    G \cong K_{\floor*{\frac{n}{2}}, \ceil*{\frac{n}{2}}}.
+    \lambda(G) = \max\{\ell: G \text{ is \(\ell\)-edge-connected}\}.
+  \]
+\end{definition}
+
+\begin{corollary}[edge Menger]\index{Menger theorem!edge}
+  Let \(G\) be \(\ell\)-edge-connected and \(a, b \in G\) with \(a \neq b\). Then \(G\) contains \(\ell\) edge-disjoint \(ab\)-paths.
+\end{corollary}
+
+\begin{proof}
+  The \emph{line graph} of \(G\) is the graph \(L(G)\) with \(V(L(G) = E(G)\) and \(ef \in E(L(G))\) if and only if \(|e \cap f| = 1\). Let
+  \begin{align*}
+    A &= \{ax: x \in \Gamma(a)\} \\
+    B &= \{bx: x \in \Gamma(b)\}
+  \end{align*}
+  Now \(A, B \subseteq V(L(G))\) and if \(W\) is an \(AB\)-separator in \(L(G)\) then \(W \subseteq E(G)\) and \(G - W\) has no \(ab\)-path. So \(|W| \geq \ell\). Hence by lemma, \(L(G)\) contains \(\ell\) vertex-disjoint \(AB\)-paths, yielding \(\ell\) edge-disjoint \(ab\)-paths in \(G\).
+\end{proof}
+
+\section{Probabilistic methods}
+
+\subsection{Ramsey numbers}
+
+Recall \(R(s) = O(4^s)\). In example sheet 1 we slightly improved it to \(R(s) = O(\frac{4^s}{\sqrt s})\). The best known bound so far is \(R(s) = O(\frac{4^k}{s^k}\) for all \(k\). What about lower bounds? We also prove that \(R(s) = \Omega(s^3)\) but it seems quite hard. Also there is a large gap between the lower and upper bound. But in fact there is a clever way to obtain a better bound more easily.
+
+\begin{theorem}[Erdos]
+  \[
+    R(s) = \Omega(\sqrt 2^s).
   \]
 \end{theorem}
 
 \begin{proof}
-  Proceed by induction on \(n\): if \(n=3\), there is only one possibility: \(G = K_{2,1}\). For \(n>3\), first remove edges from \(G\) if necessary to get \(H\) with \(|H| = n, e(H) = \floor*{\frac{n^2}{4}}\). Clearly \(\triangle \nsubseteq H\). Let \(v\in H\) with \(d(v) = \delta(H)\) and let \(K = H-v\). In other words, \(H\) with vertex \(v\) and all edges including \(v\) removed. Now \(|K| = n-1, \triangle \nsubseteq K\) and \(e(K) = \floor*{\frac{n^2}{4}} - \delta(H)\).
-
-  Suppose \(n\) is even. Then
+  Given \(K_n\), colour the edges blue/yellow at random independently and each colour equally likely. Let \(N = \binom{n}{s}\) and let \(H-1, \dots, H_n\) be the \(K_s\)-sbgraphs of our \(K_n\). Then for each \(i\),
   \[
-    \delta(H) \leq \text{average degree of } H = \frac{2e(H)}{|H|} = \frac{n^2/2}{n} = \frac{n}{2}.
+    \P(H_i \text{ monochromatic}) = 2 \cdot \left(\frac{1}{2} \right)^{\binom{s}{2}}.
   \]
-  Hence \(e(K) \geq \frac{n^2}{4} - \frac{n}{2} = \frac{(n-1)^2}{4}-\frac{1}{4} = \floor*{\frac{(n-1)^2}{4}}\).
-
-  Similarly if \(n\) is odd, also get \(e(K) \geq \floor*{\frac{(n-1)^2}{4}}\). Hence by induction hypothesis
+  Hence
+  \begin{align*}
+    \P(\text{some \(K_s\) is mono})
+    &= \P(\bigcup_{i = 1}^N \{H_i \text{ mono}\}) \\
+    &\leq \sum_{i = 1}^N \P(H_i \text{ mono}) \\
+    &= \binom{n}{s} 2 \cdot \left(\frac{1}{2} \right)^{\binom{s}{2}} \\
+    &\leq \frac{2}{s!} n^s \frac{1}{2^{s(s - 1)/2}} \\
+    &\leq \left(\frac{n}{2^{s - 1/2}}\right)^s \\
+    & < 1
+  \end{align*}
+  if \(n < s^{\frac{s - 1}{2}}\). This says that if \(n < 2^{\frac{s - 1}{2}}\) then there is one colouring of \(K_n\) with no monochromatic \(K_s\). Hence
   \[
-    K \cong K_{\frac{n-1}{2},\frac{n-1}{2}}
+    R(s) \geq 2^{\frac{s - 1}{2}} = \Omega(\sqrt 2^s).
   \]
-
-  Also \(d(v) = e(H) - e(K)\) so if \(n\) is even
-  \[
-    d(v) = \frac{n^2}{4} - \frac{n^2-2n}{4} = \frac{n}{2}.
-  \]
-  \(H\) is formed by adding a vertex \(v\) to \(K \cong K_{\frac{n}{2},\frac{n-2}{2}}\), and joining \(v\) to \(\frac{n}{2}\) vertices of \(K_1\) without creating a \(\triangle\). If \(K\) has biparition \((X,Y)\), \(v\) cannot be joined both to vertex in \(X\) and vertex in \(Y\) so \(v\) must be joined to all vertices in larger of \(X\) and \(Y\). Thus \(H \cong K_{\floor*{\frac{n}{2}},\ceil*{\frac{n}{2}}}\) (and similar if \(n\) is odd).
-
-  We recover \(G\) by adding edges to \(H\) without making a \(\triangle\). But any new edge creates a \(\triangle\). So \(G \cong H\).
 \end{proof}
 
-Hence if \(|G|=n, e(G) > floor \frac{n^2}{4}\) then \(G\) contains a \(\triangle\). Therefore \(\exx(n, \triangle) = \floor*{\frac{n^2}{4}}\).
-\fi
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item This was very surprising when first published.
+  \item Erdos theorem tells us that if \(n < 2^{\frac{s - 1}{2}}\) then \(K_n\) does have a ``bad'' colouring (one with no monochromatic \(K_s\)). But it gives no idea what such a colouring looks like.
+  \item All we used is \(\P(A) < 1\) then sometimes \(A\) does not happen.
+  \item We now have close to best known-bounds on \(R(s)\). Is \(R(s) = O((4 - \varepsilon)^s)\)? Is \(R(s) = \Omega(\sqrt{2 + \varepsilon}^s)\)? Both are unknown.
+  \item We could do this in terms of expectation. Colour \(K_n\) randomly as above and let \(X\) be the number of monochromatic \(K_s\)-subgraphs. Then define \(X = \sum_{i = 1}^N X_i\) where
+    \[
+      X_i =
+      \begin{cases}
+        1 & H_i \text{ mono} \\
+        0 & \text{otherwise}
+      \end{cases}
+    \]
+    By linearity,
+    \[
+      \E X = \sum_{i = 1}^N \E X_i = \sum_{i = 1}^N \P(H_1 \text{ mono}) = \binom{n}{s} 2\cdot \left(\frac{1}{2}\right)^{\binom{s}{2}}
+    \]
+    so if \(n < 2^{\frac{s - 1}{s}}\) then \(\E X < 1\). So sometimes \(X < 1\), i.e.\ \(X = 0\).
+  \end{enumerate}
+\end{remark}
+
+Missed lectures from 17/11/18 and onwards.
 
 
 \printindex

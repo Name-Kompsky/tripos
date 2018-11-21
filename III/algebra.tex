@@ -1,0 +1,158 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Algebra}
+\def\nlecturer{C.\ Brookes}
+
+\def\nterm{Michaelmas}
+\def\nyear{2018}
+
+\input{header}
+
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\Innder}{Innder}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Hochschild homology}
+
+\begin{eg}
+  Examples of bimodules:
+  \begin{enumerate}
+  \item \(R\) itself is an \(R\)-\(R\) bimodule.
+  \item \(R \otimes_k R\) is a bimodule, as so is \(R \otimes_k R \otimes_k \dots \otimes_k R\) \(n\)-times.
+  \item There is a bimodule free presentation of \(R\)
+    \[
+      0 \to \ker \mu \to R \otimes R \xrightarrow{\mu} R \to 0
+    \]
+    where \(\mu\) is the multiplication \(r \otimes s \to rs\). \(R \otimes_k R^{\text{op}}\) is a free module --- as a \(R \otimes R\) module it is free of rank \(1\) gnerated by \(1 \otimes 1\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Hochschild (co)homology]\index{Hochschild homology}\index{Hochschild cohomology}
+  Given an \(R\)-\(R\) bimodule \(M\), define \emph{Hochschild homology}
+  \[
+    HH_n(R, M) = \Tor_M^{R, R} (R, M)
+  \]
+  and \emph{Hochschild cohomology}
+  \[
+    HH^n(R, M) = \Ext_{R, R}^M(R, M).
+  \]
+\end{definition}
+
+In particular
+\begin{align*}
+  HH^0(R, M) &= \Hom_{R, R} (R, M) = \{m \in M: rm = mr \text{ for all } r \in R\} \\
+  HH^0(R, R) &= \{s \in R: rs = sr \text{ for all } r \in R\} = Z(R) \\
+  HH_0(R, M) &= R \otimes_{\R \otimes \R^{\text{op}}} M \cong M / \langle rm - mr: m \in M, r \in R \rangle \\
+  HH_0(R, R) &= R/[R, R]
+\end{align*}
+where \([r, s] = rs - sr\) is the \emph{Lie bracket} on \(R\) of example sheet 3 Q4 (correction of example sheet: need \(R\) semisimple).
+
+\begin{definition}
+  The Hochschild chain complex gives a free resolution for the bimodule \(R\)
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & R \otimes R \otimes R \otimes R \ar[r, "d_1"] & R \otimes R \otimes R \ar[r, "d_0"] & R \otimes R \ar[r, "\mu"] & R \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where
+  \begin{align*}
+    d_{n - 1}: R^{\otimes n + 2} & R^{\otimes n + 1} \\
+    r_0 \otimes \dots \otimes r_{n + 1} &\mapsto \sum_{i = 0}^n (-1)^i r_0 \otimes \dots \otimes (r_ir_{i + 1}) \otimes \dots \otimes r_{n + 1}
+  \end{align*}
+\end{definition}
+
+\begin{definition}[Hochschild cohomological dimension]\index{Hochschild cohomology!dimension}
+  The (Hochschild cohomological) \emph{dimension} \(\dim R\) of \(R\) is
+  \[
+    \dim R = \sup \{n: HH^n(R, M) \neq 0 \text{ for some bimodule } M\}.
+  \]
+\end{definition}
+
+\begin{definition}[separable]\index{separable}
+  The \(k\)-algebras \(R\) of \(\dim R = 0\) are precisely  those where the bimodule \(R\) is projective. This is when \(R\) is a direct summand of \(R \otimes R\) --- there is a map \(\beta: R \to R \otimes R\) so that \(\mu \compose \beta = \id_R\). These algebras are called \emph{\(k\)-separable}.
+\end{definition}
+
+This generalises the notion of a separable field extension, but note that \(k\)-separable algebras must be finite-dimensional as \(k\)-vector spaces. See example sheet.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(M_n(k)\), the matrix algebra over \(k\), is \(k\)-separable. Given the map \(\nu: R \to R \otimes R\), the image of \(1\) is called a separating idempotent. For \(M_n(k)\) a separating idempotent is obtained as follow: let \(E_{ij}\) be the elementary matrix which has \(1\) at \(ij\)th entry and \(0\) otherwise. Fix \(j\) and consider \(\sum_i E_{ij} \otimes E_{ji}\). This is a separating idempotent. Note that the image of the under \(\mu\) is the identity matrix.
+  \item For \(G\) a finite group, \(\C G\) is \(\C\)-separable:
+    \[
+      \C G \otimes \C G^{\text{op}}
+      \cong \C G \otimes \C G
+      \cong \C( G \times G)
+    \]
+    which is semisimple and completely reducible. so all submodules are direct summands. In particular we get \(\C G\) is a direct summand of \(\C(G \times G)\). Thus \(\dim (\C G) = 0\).
+  \item Now consider higher dimensions. Note that
+    \[
+      \Hom_{R \otimes R} (R - R, M) \cong \Hom_k (k, M).
+    \]
+    On LHS a map is determined by the image of \(1 \otimes 1\), and on RHS it is determined by \(1\). Moreover
+    \[
+      \Hom_{R \otimes R} (\underbrace{R \otimes \dots \otimes R}_{n + 2}, M) \cong \Hom_K  (\underbrace{R \otimes \dots \otimes R}_n, M).
+    \]
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}
+  The \emph{Hochschild cochain complex} is
+  \[
+    \begin{tikzcd}
+      M \cong \Hom_k(k, M) \ar[r, "\delta_0"] & \Hom_k(R, M) \ar[r, "\delta_1"] & \Hom(R \otimes R, M) \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+  where
+  \begin{align*}
+    (\delta_0 f)(r) &= rf(1) - f(1) r, \quad f \in \Hom_k(k, M) \\
+    (\delta_1 f)(r_1 \otimes r_2) &= r_1 f(r_2) - f(r_1r_2) + f(r_1)r_2, \quad f \in \Hom_k(R, M) \\
+    (\delta_2 f)(r_1 \otimes r_2 \otimes r_3) &= r_1 f(r_2 \otimes r_3) - f(r_1r_2 \otimes r_3) + f(r_1 \otimes r_2r_3) - f(r_1 \otimes r_3) r_3 \\
+  \end{align*}
+  and so on.
+\end{definition}
+
+\begin{definition}[derivation, inner derivation]\index{derivation}\index{inner derivation}
+  \[
+    \ker \delta_1 = \{f \in \Hom_k(R, M): f(r_1r_2) = r_1f(r_2) + f(r_1)r_2\}
+  \]
+  is called the \emph{derivations} from \(R\) to \(M\) and is denoted \(\Der(R, M)\). On the other hand
+  \[
+    \im \delta_0 = \{f \in \Hom_k(R, M) \text{ of the form } r \mapsto rm - mr \text{ for some } m \in M\}
+  \]
+  is called the \emph{inner derivations} and is denoted \(\Innder(R, M)\).
+\end{definition}
+
+Thus
+\[
+  HH^1(R, M) = \frac{\Der(R, M)}{\Innder(R, M)}.
+\]
+If \(M = R\) we get
+\[
+  HH^1(R, R) = \frac{Der(R)}{\Innder(R)}.
+\]
+If \(R\) is commutative then \(\Innder R = 0\) and so \(HH^1(R, R) = \Der R\).
+
+In general, \(\Der R\) fomrs a Lie algebra: if \(D_1, D_2\) are derivations \(R \to R\) then \(D_1D_2 - D_2D_1 \in \End_k R\) is also a derivation.
+
+\begin{eg}
+  \(R = k[x]\). Then
+  \[
+    \Der R = \{p(x) \frac{d}{dx}: p(x) \in k[x]\}.
+  \]
+\end{eg}
+
+
+
+
+
+\printindex
+\end{document}

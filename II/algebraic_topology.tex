@@ -1338,14 +1338,10 @@ Here the \(2\)-norm is just taken for the sake of convenience and concreteness.
   \[
     U = \{\phi^{-1}(\St_L(u)): u \text{ a vertex of } L\}
   \]
-  which is an open cover of \(|K|\). Claim that there is \(\delta > 0\) such that for all \(x \in |K|\), there exists a vertex of \(L\) such that
+  which is an open cover of \(|K|\). By Lebesgue number lemma there is \(\delta > 0\) such that for all \(x \in |K|\), there exists a vertex of \(L\) such that
   \[
     B(x, \delta) \subseteq \phi^{-1}(\St_L(u)).
   \]
-
-  \begin{proof}
-    Lebesgue number lemma.
-  \end{proof}
   Choose \(r\) large enough such that \(\mesh(K^{(r)}) < \delta\). Then for any vertex \(v\) of \(K^{(r)}\),
   \[
     \St_{K^{(r)}}(v) \subseteq B(v, \delta) \subseteq \phi^{-1}(\St_L(u))
@@ -1360,7 +1356,7 @@ Here the \(2\)-norm is just taken for the sake of convenience and concreteness.
 The analogue in simplices of a path is a \emph{chain}, which is a formal sum of simplices. If we interpret positive coefficient as copies of a simplex, what does it mean to have a negative simplex? To make sense of this we need the notion of \emph{oriented simplex}.
 
 \begin{definition}[orientation]\index{orientation}
-  Let \(V = (v_0, \dots, v_n)\) be an ordered set of points in general position in \(\R^M\). Consider the natural action action of \(S_{n + 1}\) on \(V\). The subgroup \(A_{n + 1} \leq S_{n + 1}\) has 2 orbits on \(V\), as long as \(n \geq 1\). An \emph{orientation} on \(\sigma = \langle V \rangle\) is a choice of \(A_{n + 1}\)-orbit under the action on \(V\).
+  Let \(V = (v_0, \dots, v_n)\) be an ordered set of points in general position in \(\R^M\). Consider the natural action of \(S_{n + 1}\) on \(V\). The subgroup \(A_{n + 1} \leq S_{n + 1}\) has 2 orbits on \(V\), as long as \(n \geq 1\). An \emph{orientation} on \(\sigma = \langle V \rangle\) is a choice of \(A_{n + 1}\)-orbit under the action on \(V\).
 
   We will abuse notation and write \(\langle v_0, \dots, v_n \rangle\) for the simplex \(\langle v_0, \dots, v_n \rangle\) equipped with the orientation which is the \(A_{n + 1}\)-orbit of \((v_0, \dots, v_n)\).
 \end{definition}
@@ -1392,7 +1388,7 @@ In particular if there are no \(n\)-simplex (e.g.\ \(n > \dim K\) or \(n < 0\)) 
     C_n(K) &\to C_{n - 1}(K) \\
     \langle v_0, \dots, v_n \rangle &\mapsto \sum_{i = 0}^n (-1)^i \langle v_0, \dots, \hat v_i, \dots, v_n \rangle
   \end{align*}
-  where \(hat v_i\) means that the vertex \(v_i\) is omitted.
+  where \(\hat v_i\) means that the vertex \(v_i\) is omitted.
 \end{definition}
 
 Note this is well-defined.
@@ -1445,12 +1441,399 @@ These are analogous to loops and homotopies respectively.
   so
   \begin{align*}
     \b \compose \b(\sigma)
-    &= \sum_{i, j < i} (-1)^i (-1)^j \langle v_0, \dots, \hat v_j, \dots, \hat v_i, \dots, v_n \rangle
-      + \sum_{i, j > i} (-1)^i (-1)^{j - 1} \langle v_0, \dots, v_i, \dots, v_j, \dots, v_n \rangle \\
-    &= \sum_{i, j < i} (-1)^{i + j} \langle v_0, \dots, \hat v_j, \dots, \hat v_i, \dots v_n \rangle
-      - \sum_{i, j > i} (-1)^{i + j} \langle v_0, \dots, \hat v_i, \dots, \hat v_j, \dots, v_n \rangle
+    &= \sum_{i, j < i} (-1)^i (-1)^j \langle v_0, \dots, \hat v_j, \dots, \hat v_i, \dots, v_n \rangle \\
+    &\quad+ \sum_{i, j > i} (-1)^i (-1)^{j - 1} \langle v_0, \dots, v_i, \dots, v_j, \dots, v_n \rangle \\
+    &= \sum_{i, j < i} (-1)^{i + j} \langle v_0, \dots, \hat v_j, \dots, \hat v_i, \dots v_n \rangle \\
+    &\quad- \sum_{i, j > i} (-1)^{i + j} \langle v_0, \dots, \hat v_i, \dots, \hat v_j, \dots, v_n \rangle
   \end{align*}
 \end{proof}
+
+\begin{definition}[homology group]\index{homology group}
+  The \emph{\(n\)th homology group} of \(K\) is
+  \[
+    H_n(K) = Z_n(K) / B_n(K).
+  \]
+\end{definition}
+
+\begin{remark}
+  The homology we discuss in this course is simplicial homology, which has the advanatage that all the homology groups are finitely generated. Thus in principle, \(H_n(K)\) can always be computed using linear algebra. But except in the following few demonstrative examples, as a man of culture you should avoid it as much as possible.
+\end{remark}
+
+\begin{eg}
+  Let \(K\) be the standard simplicial circle. The vertices of \(K\) are \(e_0, e_1, e_2\). Thus
+  \begin{align*}
+    C_0(K) &= \langle e_0 \rangle \oplus \langle e_1 \rangle \oplus \langle e_2 \rangle \cong \Z^3 \\
+    C_1(K) &= \langle e_0, e_1 \rangle \oplus \langle e_1, e_2 \rangle \oplus \langle e_2, e_0 \rangle \cong \Z^3 \\
+    C_n(K) &= 0 \text{ for } n > 1
+  \end{align*}
+  There is only one interesting boundary map \(\b = \b_1: C_1(K) \to C_0(K)\). Looking at the definitions, we can write down a matrix for \(\b\), in the bases we choose
+  \[
+    \begin{pmatrix}
+      -1 & 0 & 1 \\
+      1 & -1 & 0 \\
+      0 & 1 & -1
+    \end{pmatrix}
+  \]
+  After a bit of work we can put in Smith normal form
+  \[
+    \begin{pmatrix}
+      1 & 0 & 0 \\
+      0 & 1 & 0 \\
+      0 & 0 & 0
+    \end{pmatrix}
+  \]
+  so \(\im \b_1 \cong \Z^2\) (as a direct summand). \(\ker \b_1 \cong \Z\). Thus
+  \begin{align*}
+    H_0(K) &= Z_0(K)/B_0(K) = C_0(K)/\im \b_1 \cong \Z^3 / \Z^2 \cong \Z \\
+    H_1(K) &= Z_1(K)/B_1(K) = \ker \b_1/0 \cong \Z \\
+    H_n(K) &= 0 \text{ for } n > 1
+  \end{align*}
+  The fact that \(H_1(K) \cong Z\) is related to intuitive observation that there is a ``hole'' in the simplicial complex. Contrast this with the next example. (We'll interpret \(H_0(K)\) shortly)
+\end{eg}
+
+\begin{eg}
+  Let \(L\) be the standard \(2\)-simplex \(K \cup \{\sigma_2\}\) where \(\sigma_2 = \langle e_0, e_1, e_2 \rangle\). We have (nontrivial) chain groups
+  \begin{align*}
+    C_0(L) &= C_0(K) \\
+    C_1(L) &= C_1(K) \\
+    C_2(L) &= \langle \sigma_2 \rangle
+  \end{align*}
+  The boundary map \(\b_1\) is same as before and for \(\b_2\), which is
+  \[
+    \b_2(\sigma_2) = \langle e_0, e_1 \rangle + \langle e_1, e_2 \rangle + \langle e_2, e_0 \rangle
+  \]
+  which has a particularly simple matrix \((1, 1, 1)\). In particular \(\b_2\) is injective so \(\ker \b_2 = 0\). We know \(\im \b_2 \subseteq \ker \b_1 \cong Z\). But we can see that \(\im \b_2\) is a direct summand of \(C_1(L)\) so \(\im \b_2 = \ker \b_1\). Thus the homology groups are
+  \begin{align*}
+    H_0(L) &= H_0(K) \cong \Z \\
+    H_1(L) &= Z_1(L)/B_1(L) = \ker \b_1/\im \b_2 \cong 0 \\
+    H_2(L) &= Z_2(L)/B_2(L) = \ker \b_2/0 \cong 0
+  \end{align*}
+  Alas! The first homology group has been killed.
+\end{eg}
+
+\begin{lemma}
+  Let \(K\) be a simplicial complex. If \(d\) is the number of path components of \(|K|\) then
+  \[
+    H_0(K) \cong \Z^d.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(\pi_0(K)\) be the set of path components of \(|K|\). Let \(\Z[\pi_0(K)] \cong \Z^{|\pi_0(K)|}\) be the free abelian group generated by \(\pi_0(K)\). There is a natural map
+  \begin{align*}
+    q: C_0(K) &\to \Z[\pi_0(K)] \\
+    \langle v\rangle &\mapsto [v]
+  \end{align*}
+  Because there is a vertex in every component of \(|K|\), \(q\) is surjective. Note that \(B_0(K) \subseteq \ker q\): \(B_0(K)\) is generated by elements \(\langle v \rangle - \langle u \rangle\) where \(\langle u, v \rangle\) is a \(1\)-simplex of \(K\). Since \(\langle u\rangle\) and \(\langle v\rangle\) are in the same path component, \(q(\langle v \rangle - \langle u\rangle) = 0\) so indeed \(B_0(K) \subseteq \ker q\).
+
+  Because \(H_0(K) = Z_0(K)/B_0(K) = C_0(K)/B_0(K)\), \(q\) descends to a map
+  \[
+    H_0(K) \to \Z[\pi_0(K)].
+  \]
+  Left to check this is injective, i.e.\ \(\ker q \subseteq B_0(K)\). Note that \(\ker q\) is generated by terms of the form \(\langle v \rangle - \langle u\rangle\) where \([u] = [v]\). By simplicial approximation, there exists a ``simplicial path'' from \(u\) to \(v\)
+  \[
+    c = \langle v_0, v_1 \rangle + \langle v_1, v_2 \rangle + \dots + \langle v_{k - 1}, v_k\rangle
+  \]
+  where \(v_0 = u, v_k = v\). But \(\b_1(c) = \langle v \rangle - \langle u \rangle \in B_0(K)\) as required.
+\end{proof}
+
+\subsection{Chain complexes \& chain homotopies}
+
+\begin{definition}[chain complex]\index{chain complex}
+  A \emph{chain complex} \(C_\bullet\) is a sequence of abelian groups \((C_n)_{n \in \Z}\) with \(C_n = 0\) for \(n < 0\) and \emph{boundary homomorphisms} \(\b_n: C_n \to C_{n - 1}\) such that
+  \[
+    \b_{n - 1} \compose \b_n = 0
+  \]
+  for all \(n\).
+
+  A \emph{chain map} \(f_\bullet: C_\bullet \to D_\bullet\) is a sequence of homomorphisms \(f_n: C_n \to D_n\) such that the following diagram commutes for all \(n\):
+  \[
+    \begin{tikzcd}
+      C_n \ar[r, "f_n"] \ar[d, "\b_n"] & D_n \ar[d, "\b_n"] \\
+      C_{n - 1} \ar[r, "f_{n - 1}"] & D_{n - 1}
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{note}
+  Note that we suppress the notational distinction between the boundary homomorphisms of \(C_\bullet\) and \(D_\bullet\). This is a common practice as they have different domains and there is little room for confusion.
+\end{note}
+
+\begin{definition}[boundary, cycle, homology]\index{boundary}\index{cycle}\index{homology}
+  If \(C_\bullet\) is a chain complex, then define \emph{boundaries} \(B_n\) and \emph{cycles} \(Z_n\)
+  \begin{align*}
+    B_n(C_\bullet) &= \im \b_{n + 1} \leq C_n \\
+    Z_n(C_\bullet) &= \ker \b_n \leq C_n
+  \end{align*}
+
+  The \emph{\(n\)th homology} is defined as
+  \[
+    H_n(C_\bullet) = Z_n(C_\bullet) / B_n(C_\bullet).
+  \]
+\end{definition}
+
+\begin{lemma}
+  A chain map \(f_\bullet: C_\bullet \to D_\bullet\) induces a well-defined homomorphism
+  \[
+    f_*: H_n(C_\bullet) \to H_n(D_\bullet)
+  \]
+  for all \(n\).
+\end{lemma}
+
+\begin{proof}
+  Trivial from commutativity of \(\b\) and \(f_n\).
+\end{proof}
+
+\begin{eg}
+  If \(K\) is a simplicial complex then \((C_n)_{n \in \Z}\) form a chain complex \(C_\bullet(K)\).
+\end{eg}
+
+\begin{lemma}
+  A simplicial map \(f: K \to L\) induces a chain map \(f_\bullet: C_\bullet(K) \to C_\bullet(L)\) by
+  \begin{align*}
+    f_n: C_n &\to D_n \\
+    \sigma &\mapsto
+             \begin{cases}
+               f(\sigma) & \text{ if } \dim f(\sigma) = \dim \sigma \\
+               0 & \text{ if } \dim f(\sigma) < \dim \sigma
+             \end{cases}
+  \end{align*}
+  Therefore \(f\) induces homomorphisms \(f_*: H_n(K) \to H_n(L)\).
+\end{lemma}
+
+In other words, \(f_n\) does exactly what you would expect, and it simply forgets simplices that are ``crushed down''.
+
+\begin{proof}
+  Easy verification. See online notes for details.
+\end{proof}
+
+\begin{eg}
+  Retraction of a standard \(2\)-simplex \(K\) to standard \(1\)-simplex \(L\).
+\end{eg}
+
+\begin{remark}
+  The map is functorial, i.e.\ given simplicial maps \(K \xrightarrow{f} L \xrightarrow{g} M\), \((g \compose f)_* = g_* \compose f_*\). In addition \((\id_K)_* = \id_{H_n(K)}\).
+\end{remark}
+
+\begin{definition}[chain homotopy]\index{chain homotopy}
+  Let \(f_\bullet, g_\bullet: C_\bullet \to D_\bullet\) be chain maps. A \emph{chain homotopy} \(h_\bullet\) between \(f_\bullet\) and \(g_\bullet\) is a sequence of homomorphisms \(h_n: C_n \to D_{n + 1}\) such that
+  \[
+    g_n - f_n = \b_{n + 1} \compose h_n + h_{n - 1} \compose \b_n
+  \]
+  for all \(n\). Write \(f_\bullet \simeq g_\bullet\) or \(f_\bullet \simeq_{h_\bullet} g_\bullet\).
+\end{definition}
+
+\begin{lemma}
+  If \(f_\bullet \simeq g_\bullet: C_\bullet \to D_\bullet\) then
+  \[
+    f_* = g_*: H_n(C_\bullet) \to H_n(D_\bullet)
+  \]
+  for all \(n\).
+\end{lemma}
+
+\begin{proof}
+  Consider \([c] \in H_n(C_\bullet)\) so \(c \in Z_n(C_\bullet) = \ker \b_n\). Then
+  \[
+    g_n(c) - f_n(c) = \b_{n + 1} \compose h_n(c) + \underbrace{h_{n - 1} \compose \b_n(c)}_{= 0} \in B_n(D_\bullet)
+  \]
+  so
+  \[
+    [g_n(c)] = [f_n(c)]
+  \]
+  so \(f_* = g_*\) as claimed.
+\end{proof}
+
+\begin{eg}
+  Continuation of the previous example.
+\end{eg}
+
+\begin{definition}[cone]\index{cone}
+  A simplicial complex \(K\) is a \emph{cone} if there is a vertex \(x_0\) such that for every \(\tau \in K\) there exists \(\sigma \in K\) such that \(x_0 \in \sigma\) and \(\tau \leq \sigma\).
+\end{definition}
+
+\begin{lemma}
+  If \(K\) is a cone then it has the same homology as a point, i.e.
+  \[
+    H_n(K) =
+    \begin{cases}
+      \Z & n = 0 \\
+      0 & n > 0
+    \end{cases}
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(x_0\) be a point as in the definition of a cone. Consider
+  \begin{align*}
+    i: \{\langle x_0 \rangle\} &\to K \\
+    r: K &\to \{\langle x_0 \rangle\}
+  \end{align*}
+  the obvious inclusion and retraction. Clearly \(r \compose i = \id_{\{\langle x_0 \rangle\}}\) so \(r_* \compose i_* = \id_{H_n(\{\langle x_0 \rangle\})}\) for all \(n\). Thus left to show \(i_\bullet \compose r_\bullet \simeq \id_{C_\bullet(K)}\) as if so then \(i_* \compose r_* = \id_{H_n(K)}\) for all \(n\) so \(r_*\) is an isomorphism and the result follows.
+
+  We write down the following chain homotopy
+  \begin{align*}
+    h_n: C_n(K) &\to C_{n + 1}(K) \\
+    \langle v_0, \dots, v_n \rangle &\mapsto
+                                      \begin{cases}
+                                        \langle x_0, v_0, \dots, v_n \rangle & x_0 \notin \sigma \\
+                                        0 & x_0 \in \sigma
+                                      \end{cases}
+  \end{align*}
+  Now check directly that
+  \[
+    (\id_{C_n(K)} - i_n \compose r_n)(\sigma) = (\b_{n + 1} \compose h_n + h_{n - 1} \compose \b_n)(\sigma)
+  \]
+  for all \(\sigma \in K\). There are 4 cases depending on if \(x_0 \in \sigma\) and if \(n = 0\). We'll do the case \(x_0 \in \sigma, n \neq 0\). The others are similar but easier. Let \(\sigma = \langle v_0, \dots, v_n \rangle\) and suppose \(x_0 = v_j\). Now
+  \begin{align*}
+    (\b \compose h + h \compose \b)(\sigma)
+    &= h \compose \b(\sigma) \\
+    &= h(\sum_{i = 0}^n (-1)^i \langle v, \dots, \hat v_i, \dots, v_n \rangle) \\
+    &= (-1)^j \langle x_0, v_0, \dots, v_{j - 1}, v_{j + 1}, \dots, v_n \rangle \\
+    &= (-1)^j (-1)^j \langle v_0, \dots, v_{j - 1}, x_0, v_{j + 1}, \dots, v_n \rangle \\
+    &= \sigma \\
+    &= (\id_{C_n(K)} - i_n \compose r_n)(\sigma)
+  \end{align*}
+\end{proof}
+
+\subsection{Homology of the simplex and the sphere}
+
+\begin{eg}
+  Let \(K = \{\tau \leq \sigma_n\}\) where \(\sigma_n\) is the standard \(n\)-simplex. By considering any vertex, \(K\) is obviously a cone so by the lemma
+  \[
+    H_n(K) \cong
+    \begin{cases}
+      \Z & n = 0 \\
+      0 & n \geq 1
+    \end{cases}
+  \]
+\end{eg}
+
+\begin{eg}
+  Let \(L = \b \sigma_n \subseteq K\) be the standard \((n - 1)\)-sphere where \(n \geq 2\). In other words \(L = K - \{\sigma_n\}\).
+  \[
+    \begin{tikzcd}[column sep=small]
+      0 = C_{n + 1}(L) \ar[r] & C_n(L) = 0 \ar[r] \ar[d, hookrightarrow] & C_{n -1}(L) \ar[r] \ar[d, equal] & C_{n - 2}(L) \ar[r] \ar[d, equal] & \cdots \ar[r] & C_1(L) \ar[r] \ar[d, equal] & C_0(L) \ar[r] \ar[d, equal] & 0 \\
+      0 = C_{n + 1}(K) \ar[r] & C_n(K) = \langle \sigma_n \rangle \ar[r] & C_{n - 1}(K) \ar[r] & C_{n - 2}(K) \ar[r] & \cdots \ar[r] & C_1(K) \ar[r] & C_0(K) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  So for \(k \leq n - 2\), \(H_k(L) = H_k(K)\). The only interesting case is \(k = n - 1\). Because \(H_{n - 1}(K) \cong 0\), \(Z_{n - 1}(K) = B_{n - 1}(K)\) and similarly \(Z_n(K) = B_n(K) = 0\) so \(\b_n\) is injective. Because \(B_{n - 1}(L) \cong 0\),
+  \begin{align*}
+    H_{n - 1}(L)
+    &= Z_{n - 1}(L) /B_{n - 1}(L) \cong Z_{n - 1}(L) \\
+    &= Z_{n - 1}(K) \\
+    &= B_{n - 1}(K) \\
+    &= \im \b_n \\
+    &\cong C_n(K) \\
+    &\cong \Z
+  \end{align*}
+  so
+  \[
+    H_k(L) \cong
+    \begin{cases}
+      \Z & k = 0, n - 1 \\
+      0 & k \geq 2
+    \end{cases}
+  \]
+\end{eg}
+
+Intuitively the homology groups detect \(n - 1\)-dimensional holes (compare to \(D^n\)). It also gives something that \(\pi_1\) fails to detect and gives us a way to differentiate \(S^{n - 1}\) for different \(n\). (?)
+
+\subsection{Continuous maps and homotopies}
+
+Question: if \(\phi: |K| \to |L|\) is continuous, does it induce some kind of map \(\phi_*: H_n(K) \to H_n(L)\)? The obvious idea to take simplicial approximation \(f: K^{(r)} \to L\) of \(\phi\) and set \(\phi_* = f_*: H_n(K^{(r)}) \to H_n(L)\). This brings two immediate problems: in general this \(r\) is not \(1\), and moreover \(\phi_*\) may depend on the choice of \(f\).
+
+\begin{definition}[continguous]\index{contiguous}
+  Two simplicial maps \(f, g: K \to L\) are \emph{continguous} if for every \(\sigma \in K\) there exists \(\tau \in L\) such that \(f(\sigma), g(\sigma) \leq \tau\).
+\end{definition}
+
+Informally this is the homotopy of simplicial maps.
+
+\begin{remark}
+  Look back at the proof of lemma 4.25, we proved that if \(f\) is a simplicial approxiamtion to \(\phi\) and if \(x \in \sigma, \phi(x) \in \interior \tau\) then \(f(\sigma) \leq \tau\). Therefore if \(f, g\) are both simplicial approximation to \(\phi\) then they are contiguous.
+\end{remark}
+
+\begin{lemma}
+  If \(f, g: K \to L\) are contiguous then
+  \[
+    f_* = g_*: H_n(K) \to H_n(L)
+  \]
+  for all \(n\).
+\end{lemma}
+
+\begin{proof}
+  Need to exhibit a chain homotopy between \(f_\bullet\) and \(g_\bullet\). Fix a total ordering \(<\) on th vertices of \(K\). Now for each simplex \(\sigma \in K\) we can write it in a unqiue way \(\sigma = \langle v_0, \dots, v_n \rangle\) such that
+  \[
+    v_0 < v_1 < \dots < v_n.
+  \]
+  Now define a chain homotopy
+  \begin{align*}
+    h_n: C_n(K) &\to C_{n + 1}(L) \\
+    \langle v_0, \dots, v_n \rangle &\mapsto \sum_{j = 0}^n (-1)^j \langle f(v_0), \dots, f(v_j), g(v_j), \dots, g(v_n) \rangle
+  \end{align*}
+  \(\langle f(v_0), \dots, f(v_j), g(v_j), \dots, g(v_n) \rangle = 0\) if it is not an \((n + 1)\)-dimensional simplex.
+
+  We can now check directly that this defines a chain homotopy. See online notes for details.
+\end{proof}
+
+\begin{lemma}
+  Let \(K\) be a simplicial complex. A simplicial map \(s: K' \to K\) is a simplicial approximation to the identity if and only if \(s(\hat \sigma)\) is a vertex of \(\sigma\) for all \(\sigma \in K\). Futhermore such an \(s\) exists.
+\end{lemma}
+
+\begin{proof}
+  In the setting, the definition of simplicial approximation tells us that
+  \[
+    \id_{|K|} (\St_{K'}(\hat \sigma)) = \interior \sigma \subseteq \St_K(s(\hat sigma)),
+  \]
+  which hapens if and only if \(\sigma(\hat \sigma)\) is a vertex of \(\sigma\).
+  % adjunctionbetween star and barycentric subdivision?
+
+  For all \(\sigma \in K\), choose any vertex of \(\sigma\) and assign \(s(\hat \sigma)\) to it. A simplex of \(K\) is the form \(\langle \hat \sigma_0, \dots, \hat \sigma_n \rangle\) such that \(\sigma_0 \leq \sigma_1 \leq \dots \leq \sigma_n\) so every \(s(\hat \sigma_i)\) is a vertex of \(\sigma_n\). Therefore \(\langle s(\hat \sigma_0), \dots, s(\hat \sigma_n) \rangle\) is a face of \(\sigma_n\), so \(s\) is a simplicial map.
+\end{proof}
+
+The choice of \(s\) induces a canonical homomorphism \(s_*: H_n(K') \to H_n(K)\).
+
+\begin{proposition}
+  \(s_*: H_n(K') \to H_n(K)\) is an isomorphism for all \(n\).
+\end{proposition}
+
+\begin{proof}
+  Postponed until Mayer-Vietoris sequence.
+\end{proof}
+
+\begin{definition}
+  Let \(\alpha: |K| \to X\) be a triangulation we define
+  \[
+    H_n(X) = H_n(K).
+  \]
+\end{definition}
+
+Let \(\phi: X \to Y\) be continuous and \(\alpha: |K| \to X, \beta: |K| \to Y\) be triangulations. Let \(f: K^{(r)} \to L\) be a simplicial approximation to \(\beta^{-1} \compose \phi \compose \alpha\). Using simplicial approximation to the identity, we identify \(H_n(K^{(r)}) = H_n(K)\) for all \(r\). Now set
+\[
+  \phi_* = f_*: H_n(X) = H_n(K) = H_n(K^{(r)}) \to H_n(L) = H_n(Y).
+\]
+By results we have proven, \(\phi_*\) is independent of the choice of simplicial approximation. However, we want something stronger: we want homology to be a homotopy invariant.
+
+\begin{theorem}
+  If \(X, Y\) are triangulable spaces and \(\phi, \psi: X \to Y\) are homotopic. Then
+  \[
+    \phi_* = \psi_*.
+  \]
+\end{theorem}
+
+\begin{proof}[non-examinable]
+  Sketch of proof. Let \(\alpha: |K| \to X, \beta: |L| \to Y\). By hypothesis
+  \[
+    \beta^{-1} \compose \phi \compose \alpha \simeq \beta^{-1} \compose \psi \compose \alpha: |K| \to |L|
+  \]
+  are homotopic. Let \(\Psi: |K| \times I \to |L|\) be such a homotopy. By example sheet 3 Q9 \(|K| \times I \cong |M|\) for some simplicial complex \(M\), such that the ``top'' and ``bottom'' \(K_0, K_1 \cong K\) and embeds in \(M\), and for all \(\sigma \in K\) there exists \(M_\sigma \subseteq M\) such that \(|M_\sigma| \cong \sigma \times I\). Note that
+  \[
+    |\b M_\sigma| = (\sigma \times \{0\}) \cup (\sigma \times \{1\}) \cup |\b \sigma \times I|.
+  \]
+  
+\end{proof}
+
+
+
 
 
 

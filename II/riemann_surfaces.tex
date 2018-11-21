@@ -10,6 +10,8 @@
 
 \input{header}
 
+\newtheorem*{fact}{Fact}
+
 \begin{document}
 
 \input{titlepage}
@@ -20,7 +22,7 @@
 
 \subsection{Holomorphicity}
 
-\begin{definition}
+\begin{definition}[holomorphic/analytic function]
   A smooth function \(f: U \to \C\) from a domain (i.e.\ an open connected subset of \(\C\)) is \emph{holomorphic} or \emph{analytic} if either of the following holds:
   \begin{enumerate}
   \item \(f\) is differentiable in the sense of limits (which is equivalent to satisfying the Cauchy-Riemann equations),
@@ -38,7 +40,7 @@
 
 By 2, if \(a \in U\) and \(f\) is not identically \(0\) near \(a\), then there exists some minimal \(m \geq 0\) such that \(a_m \neq 0\). It follows that \(f(z) = a_m (z - a)^m (1 + g(z - a))\) where \(\lim_{z \to a} g(z - a) = 0\). Therefore for \(z\) sufficiently close to \(a\), \(f\) is nonzero. This is known as
 
-\begin{theorem}[Principle of isolated zeros]
+\begin{theorem}[principle of isolated zeros]
   An analytic function on a domain \(U\) which is not identically zero has isolated zeros, i.e.\ around each \(a \in U\), there exists a disk \(\Delta_a\) on which \(f(z) \neq 0\) unless possibly at \(z = a\).
 \end{theorem}
 
@@ -227,12 +229,12 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
 Check that this makes \(R\) a Hausdorff, path-connected space. \(R\) comes with a natural projection \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\). This is a continuous map as the preimage of a small disk \(D(\eta, r) \subseteq \C^*\) is countably many copies of that disk, one for each sheet. This is precisely the definition of a covering space.
 \end{eg}
 
-\begin{definition}[covering space]\index{covering space}
+\begin{definition}[covering space]\index{covering space}\index{covering space!regular}
   A \emph{covering space} of a topological space \(X\) is a continuous map \(p: \tilde X \to X\) where \(\tilde X\) and \(X\) are Hausdorff and path-connected and \(p\) is a local homeomorphism, i.e.\ for each \(\tilde x \in \tilde X\), there exists a neighbourhood \(\tilde N\) of \(\tilde x\) such that \(p|_{\tilde N}\) is a homeomorphism.
 
     \(X\) is the \emph{base space} of \(p\).
 
-    The cover is \emph{regular} if for all \(x \in X\), there exists a neighbourhood of \(x\) such that \(p^{-1}(N)\) is a disjoint union of sets mapped homeomorphically by \(p\) to \(N\).
+    The cover is \emph{regular} if for all \(x \in X\), there exists a neighbourhood \(N\) of \(x\) such that \(p^{-1}(N)\) is a disjoint union of sets mapped homeomorphically by \(p\) to \(N\).
 \end{definition}
 
 \begin{note}
@@ -368,7 +370,7 @@ We will see later that the notion of equivalence defines an equivalence relation
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item If \(R\) is a Riemann surface and \(S \subseteq R\) is open and connected then restriction of the chart maps provides a conformal structure on \(S\), for which \(i: S \embed R\) is analytic.
+  \item If \(R\) is a Riemann surface and \(S \subseteq R\) is open and connected then restrictions of the charts provide a conformal structure on \(S\), for which \(i: S \embed R\) is analytic.
   \item Two atlases are equivalent if and only if the identity map is analytic.
   \end{enumerate}
 \end{remark}
@@ -497,7 +499,7 @@ The complex structure is constructed as follow. Equip the quotient group \(T = \
 
   Finally for the complex structure of \(T\), given \(a \in T\), choose \(z \in \C\) such that \(\pi(z) = a\) and a neighbourhood \(N_a\) of \(a\) on which the regularity is realised. In particular, the component \(N_z\) of \(\pi^{-1}(N_a)\) containing \(z\) has \(\pi|_{N_z}: N_z \to N_a\) a homeomorphism. Define a chart to be the image of a disk \(D_z\) about \(z\) contained in \(N_z\). Write \(U_a = \pi(D_z)\) and define a chart map \(\phi_a = (\pi|_{N_z})^{-1}\) on \(U_a\). Claim this defines an atlas on \(T\): clearly this is a cover and claim the trasition maps are translations: suppose \(U_a \cap U_b = \emptyset\), for each \(w \in U_a \cap U_b\) there exists \(\omega_w \in \Lambda\) such that \(\phi_b^{-1} \compose \phi_a(w) = w + \omega_w\). But \(w \mapsto \omega_w\) is a continuous function on a connected set and it takes values in a discrete set so is constant. Thus the transition functions are translations so analytic.
 
-In example sheet 1 we'll show that different lattices can yield conformally equivalent tori. In example sheet 2 we give characterisation of conformal equivalence classes of tori in terms of \(\Lambda\). In some sense complex tori are the most important class of Riemann surfaces.
+In example sheet 1 we'll show that different lattices can yield conformally equivalent tori. In example sheet 2 we give characterisation of conformal equivalence classes of tori in terms of \(\Lambda\). Complex tori are an important class of Riemann surfaces.
 
 \begin{theorem}[open mapping theorem]\index{open mapping theorem}
   Let \(f: R \to S\) be a nonconstant analytic map of Rieman surfaces. Then \(f\) is an open map.
@@ -610,7 +612,7 @@ Here we digress a little bit on non-examibable content before heading to the nex
 \end{definition}
 
 \begin{proposition}
-  If \(\tilde gamma_1, \tilde \gamma_2\) are lifts of \(\gamma\) with \(\gamma_1(0) = \gamma_2(0)\) then \(\gamma_1 = \gamma_2\).
+  If \(\tilde \gamma_1, \tilde \gamma_2\) are lifts of \(\gamma\) with \(\gamma_1(0) = \gamma_2(0)\) then \(\gamma_1 = \gamma_2\).
 \end{proposition}
 
 \begin{proof}
@@ -668,7 +670,7 @@ As for existence, lifts may not exist if the cover is not regular. c.f.\ nonregu
 \end{proof}
 
 \begin{eg}
-  Consider \(z \mapsto z^n\) on \(\C^* = \C \setminus \{0\}\). This is a regular covering map. Consider a loop \(\gamma\) based at \(1\). The preimages of \(1\) are the \(n\)th roots of unity \(\xi_n^k\), \(1 \leq k \leq n\). Any lift of \(\gamma\) will start at some \(\xi_n^k\) and end at \(\xi_n^{k + 1}\). As this is a regular cover, monodromy theorem tells that any path based at \(1\) has a lift whose endpoints are the same as if we lifted \(\gamma^{0n}\) for some \(n \in \Z\). Note to any path \(\alpha\) we have an associated permutation of the set \(\{\xi_n^k\}_{1 \leq k \leq n}\) by considering where the lift starting at \(\xi_n^k\) ends, i.e.\ an element of \(S_n\). The subset of \(S_n\) arising in this way is generated by \((123\dots n)\), which is the cyclic subgroup \(C_n\).
+  Consider \(z \mapsto z^n\) on \(\C^* = \C \setminus \{0\}\). This is a regular covering map. Consider a loop \(\gamma\) based at \(1\). The preimages of \(1\) are the \(n\)th roots of unity \(\xi_n^k\), \(1 \leq k \leq n\). Any lift of \(\gamma\) will start at some \(\xi_n^k\) and end at \(\xi_n^{k + 1}\). As this is a regular cover, monodromy theorem tells that any path based at \(1\) has a lift whose endpoints are the same as if we lifted \(\gamma^{0n}\) for some \(n \in \Z\). Note that to any path \(\gamma\) we have an associated permutation of the set \(\{\xi_n^k\}_{1 \leq k \leq n}\) by considering where the lift starting at \(\xi_n^k\) ends, i.e.\ an element of \(S_n\). The subgroup of \(S_n\) arising in this way is generated by \((123\dots n)\), which is the cyclic subgroup \(C_n\).
 
   (It is an exercise to show that any closed path in the punctured plane is homotopic to an integer multiple of \(\gamma\).)
 \end{eg}
@@ -695,11 +697,11 @@ Note that two germs \([f]_z, [g]_w\) are equal if and only if \(z = w\) and \(f 
 \begin{notation}
   Given a function element \((f, D)\), write
   \[
-    [f]_D = \{[f]_z: z \in D\} \subseteq \mathcal G
-  \].
+    [f]_D = \{[f]_z: z \in D\} \subseteq \mathcal G.
+  \]
 \end{notation}
 
-The goal is to show that \(\mathcal G\) is the union of Riemann surfaces. First we define the topology on \(\mathcal G\) to be the one generated by the basis of elements of the form \([f]_D\). Given \([f]_D\) and \([g]_E\), if \([h]_z \in [f]_D \cap [g]_E\) then \(z \in D \cap E\) and \(h = f = g\) on a neighbourhood of \(z\). Thus there exists domain \(D'\) with \(z \in D'\) and \([h]_{D'} \subseteq [f]_D \cap [g]_E\).
+The goal is to show that \(\mathcal G\) is a Riemann surface. First we define the topology on \(\mathcal G\) to be the one generated  by basis element of the form \([f]_D\). Given \([f]_D\) and \([g]_E\), if \([h]_z \in [f]_D \cap [g]_E\) then \(z \in D \cap E\) and \(h = f = g\) on a neighbourhood of \(z\). Thus there exists domain \(D'\) with \(z \in D'\) and \([h]_{D'} \subseteq [f]_D \cap [g]_E\).
 
 The topology is Hausdorff: suppose \([f]_z \neq [g]_w\) in \(\mathcal G\), represented by \((f, D)\) and \((g, E)\) repsectively. If \(z \neq w\) choose \(D \cap E = \emptyset\) so \([f]_z \in [f]_D\) and \([g]_w \in [g]_E\) and these open sets are disjoint. If \(z = w\) choose \(D = E\). Claim that \([f]_D \cap [g]_E = \emptyset\): for suppose \([h]_s \in [f]_D \cap [g]_E\) then by definition exists neighbourhood \(N\) of \(s\) such that \(h = f = g\) on \(N\) so that \(f = g\) on \(D = E\). In particular \([f]_z = [g]_z = [g]_w\), contradiction.
 
@@ -711,7 +713,7 @@ which is open. Locally on \([f]_D\), \(\pi\) is a bijection. On such a set \([f]
 
 For conformal structure on \(\mathcal G\), we know by a previous proposition that on each connected component of \(\mathcal G\), there exists a unique conformal structure making \(\pi\) analytic. These charts can be taken to be \((U, \varphi)\) with \(U = [f]_D\) and \(\varphi = \pi_U\).
 
-\(\mathcal G\) is more than a conformal structure. It comes with an evaluation map
+Moreover \(\mathcal G\) comes with an evaluation map
 \begin{align*}
   E: \mathcal G &\to \C \\
   [f]_z &\mapsto f(z)
@@ -762,14 +764,14 @@ The stalk space \(\mathcal G\) incorporates all information about analytic funct
   thus completing the proof.
 \end{proof}
 
-According to the way we present monodromy theorem (as a purely topological theorem) and the correpondence between lift of paths in the stalk space and analytic continuation, we can expect some results uniqueness of analytic continuation.
+Once we have established the correspondence between analytic continuation in the base space and lift of paths in stalk space, we can use monodromy thoerem (which we stated as a result purely in topology) to deduce uniqueness of analytic continuations:
 
 \begin{proposition}
   If \((g, E)\) and \((h, E)\) are analytic continuations of \((f, D)\) along \(\gamma \subseteq G\) then \(g = h\) on \(E\).
 \end{proposition}
 
 \begin{proof}
-  Basically done by correspondence between lift and analytic continuation and monodromy theorem. Let \((g, E)\) and \((h, E)\) correspond to lifts \(\tilde \gamma\) and \(\tilde \gamma'\) respectively based at \([f]_{\gamma(0)}\). Uniqueness of lifts implies that \(\tilde \gamma(1) = \tilde \gamma'(1)\), i.e.\ \([g]_{\gamma(1)} = [h]_{\gamma(1)}\), so \(g = h\) on a neighbourhood of \(\gamma(1)\) so on \(E\) by identity principle.
+  Let \((g, E)\) and \((h, E)\) correspond to lifts \(\tilde \gamma\) and \(\tilde \gamma'\) respectively based at \([f]_{\gamma(0)}\). Uniqueness of lifts implies that \(\tilde \gamma(1) = \tilde \gamma'(1)\), i.e.\ \([g]_{\gamma(1)} = [h]_{\gamma(1)}\), so \(g = h\) on a neighbourhood of \(\gamma(1)\) so on \(E\) by identity principle.
 \end{proof}
 
 We can also derive the so-called classical monodromy theorem
@@ -778,9 +780,9 @@ We can also derive the so-called classical monodromy theorem
   Suppose \((f, D)\) can be continued analytically along all paths in \(G\) starting in \(D\). Then if \((g, E)\) and \((h, E)\) are analytic continuations of \(f\) along paths \(\alpha\) and \(\beta\) respectively, and \(\alpha\) is homotopic to \(\beta\) then \(g = h\) on \(E\).
 \end{theorem}
 
-\begin{theorem}
+\begin{proof}
   Find lifts \(\tilde \alpha\) and \(\tilde \beta\) corresponding to \((g, E)\) and \((h, E)\) respectively. Note \(\tilde \alpha(0) = [f]_{\alpha(0)} = [f]_{\beta(0)} = \tilde \beta(0)\). By monodromy theorem we have \(\tilde \alpha(1) = \tilde \beta(1)\) so \(g = h\) on \(E\) again by identity principle.
-\end{theorem}
+\end{proof}
 
 \begin{corollary}
   Suppose \(G\) is a simply connected domain and \((f, D)\) is a function element on \(G\) which can be analytically continued along all \(\gamma \subseteq G\) paths with \(\gamma(0) \in D\). Then \(f\) extends to \(G\).
@@ -847,11 +849,11 @@ We have so far seen three constructions of this Riemann surface:
 \item space of germ \(\mathcal G_{\mathcal F}\) of \(\sqrt{z^3 - z}\),
 \item gluing construction.
 \end{enumerate}
-The above shows 1 and 2 are equivalent and we sill show 2 and 3 are equivalence in example sheet 2. Each construction has its advantange
+The above shows 1 and 2 are equivalent. 1 and 3 are shown to be equivalent in example sheet 1, and 2 and 3 in example sheet 2. The advantage of each is
 \begin{enumerate}
 \item inherit properties of \(\C^2\),
 \item always exists, although quite abstract. Moreover it is a covering space and is equipped with analytic maps \(\pi\) and \(E\),
-\item can get our hands on topology. Compactification
+\item can get our hands on topology. Compactification is easy to describe and visualise.
 \end{enumerate}
 
 \subsection{Compactifying Riemann surfaces}
@@ -861,15 +863,15 @@ Recall the construction of Riemann sphere. We one-point compactify \(\C\) by add
 In general, suppose \(X\) and \(Y\) are topological spacs, \(U \subseteq X, V \subseteq Y\) open and \(\phi: U \to V\) a homeomorphism. Let \(Z = X \amalg Y / \sim_\phi\) where \(a \sim_\phi b\) if and only if \(a = b, a = \phi(b)\) or \(a = \phi^{-1}(b)\). \(Z\) is known as the \emph{gluing of \(X\) and \(Y\) along \(\phi\)}.
 
 \begin{proposition}
-  Suppose \(X\) and \(Y\) are Riemann surfaces and \(U \subseteq X\) and \(V \subseteq Y\) are nonempty open sets with \(\phi: U \to V\) an isomorphism of Riemann surfaces. If \(Z = X \amalg Y / \sim_\phi\) is Hausdorff then there exists a unique conformal structure on \(Z\) for which \(i_X: X \embed Z, i_y: Y \embed Z\) are analytic.
+  Suppose \(X\) and \(Y\) are Riemann surfaces and \(U \subseteq X\) and \(V \subseteq Y\) are nonempty open sets with \(\phi: U \to V\) an isomorphism of Riemann surfaces. If \(Z = X \amalg Y / \sim_\phi\) is Hausdorff then there exists a unique conformal structure on \(Z\) for which \(i_X: X \embed Z, i_Y: Y \embed Z\) are analytic.
 \end{proposition}
 
 \begin{proof}
-  Note \(i_x, i_Y\) are homeomorphisms. For each chart \((W, \psi)\) of \(X\) we define a chart \((i_X(W), \psi \compose i_X^{-1})\) on \(Z\), similarly for charts of \(Y\). Transition maps come from those of \(X\) or \(Y\) or those composed with \(\phi\) so are analytic. \(Z\) is connected for if we could disconnect \(Z\) we could disconnect \(X\) or \(Y\). So \(Z\) admits a conformal structure, with analytic inclusion. Uniqueness is immediate.
+  Note \(i_X, i_Y\) are homeomorphisms. For each chart \((W, \psi)\) of \(X\) we define a chart \((i_X(W), \psi \compose i_X^{-1})\) on \(Z\), similarly for charts of \(Y\). Transition maps come from those of \(X\) or \(Y\) or those composed with \(\phi\) so are analytic. \(Z\) is connected for if we could disconnect \(Z\) we could disconnect \(X\) or \(Y\). So \(Z\) admits a conformal structure which makes inclusions analytic. Uniqueness is immediate.
 \end{proof}
 
 \begin{eg}
-  \(R = \{(z, w) \in \C^2: w^2 = z^3 - z\}\). We have seen that \(R\) minus points where \(w \neq 0\) is a topological torus minus 4 points. Now we compactify it.
+  \(R = \{(z, w) \in \C^2: w^2 = z^3 - z\}\). We have seen via gluing that \(R\) minus points where \(w \neq 0\) is a topological torus minus 4 points. Now we compactify it.
 
   Consider \(t =  \frac{1}{z}, u = \frac{1}{w}\). Then the defining equation becomes
   \[
@@ -879,16 +881,16 @@ In general, suppose \(X\) and \(Y\) are topological spacs, \(U \subseteq X, V \s
   \[
     t^3 = u^2 - u^2t^2 = u^2 (1 - t^2).
   \]
-  Unfortunately it is not a Riemann surface via either \(\pi_t\) or \(\pi_u\) at \((0, 0)\)! But not all hope is lost. Write
+  Unfortunately it is not a Riemann surface via either \(\pi_t\) or \(\pi_u\) at \((0, 0)\). But not all hope is lost. Write
   \[
     t = \left(\frac{u}{t} \right)^2 (1 - t^2)
   \]
-  and let \(v = \frac{u}{t} = \frac{z}{w}\). Then the surface becomes \(Y = \{(t, v) \in \C^2: t = v^2 (1 - t^2)\}\). \(Y\) does have one or both projections \(\pi_t, \pi_v\) a local homeomorphism around each point, including \((0, 0)\) so \(Y\) admits a conformal structure. Consider the isomorphism
+  and let \(v = \frac{u}{t} = \frac{z}{w}\). Then the surface becomes \(Y = \{(t, v) \in \C^2: t = v^2 (1 - t^2)\}\). \(Y\) does have one or both projections \(\pi_t, \pi_v\) a local homeomorphism around each point, including \((0, 0)\), so \(Y\) admits a conformal structure. Consider the isomorphism
   \begin{align*}
     U &\to V \\
     (z, w) &\mapsto (t, v) = (\frac{1}{z}, \frac{z}{w})
   \end{align*}
-  where \(U \subseteq R\) are points where neither \(z\) or \(w\) is \(0\) and \(V\) its isomorphic image in \(Y\). Consider the gluing of \(R\) and \(Y\) along this isomorphism, call it \(X\), with inclusions \(i_R: R \embed X, i_Y: Y \embed X\). The image of \(R\) in \(X\) is \(X \setminus \{1 \text{ points}\}\) % why so?
+  where \(U \subseteq R\) are points where neither \(z\) nor \(w\) is \(0\) and \(V\) its isomorphic image in \(Y\). Consider the gluing of \(R\) and \(Y\) along this isomorphism, call it \(X\), with inclusions \(i_R: R \embed X, i_Y: Y \embed X\). The image of \(R\) in \(X\) is \(X \setminus \{1 \text{ points}\}\) % why so?
   and all points in \(i_R(R)\) can be separated, similarly in \(i_Y(Y)\). If \(P \in X \setminus i_Y(Y)\) and \(Q \in X \setminus i_R(R)\) so \(P\) is \((0, 0)\) and \(Q\) is \((0, 0)\) in local coordinates then
   \begin{align*}
     &\{(z, w) \in R: |z| < 1\} \\
@@ -901,7 +903,7 @@ In general, suppose \(X\) and \(Y\) are topological spacs, \(U \subseteq X, V \s
     D_R &= \{(z, w) \in R: |z| \leq 2\} \\
     D_Y &= \{(t, v) \in Y: |t| \leq 2\}
   \end{align*}
-  these are compact in \(R \amalg Y\) so map to compact sets in \(X\) via the continuous quotient map. Thus as a finite union of compact sets \(X\) is compact. Note this agrees with our topological intuition that \(X\) can be compactified by the addition of a single point.
+  these are compact in \(R \amalg Y\) so map to compact sets in \(X\) via the continuous quotient map. Thus as a finite union of compact sets \(X\) is compact. Note this agrees with our topological intuition that \(R\) can be compactified by the addition of a single point.
 \end{eg}
 
 \subsection{Branching}
@@ -911,7 +913,7 @@ Note these projection maps are \emph{not} coverings on \(R\) (or \(X\)) but they
 \begin{definition}[multiplicity/valency]\index{multiplicity}\index{valency}
   Let \(f: R \to S\) be an nonconstant analytic map of Riemann surfaces and \(z_0 \in R\). Locally we can write
   \[
-    f(z) = f(z_0) + (z - z_0)^{m_f(z_0)} g(z)
+    \hat f(z) = \hat f(z_0) + (z - z_0)^{m_f(z_0)} g(z)
   \]
   where \(g(z)\) nonzero analytic. \(m_f(z_0)\) is the \emph{multiplicity} or \emph{valency} of \(f\) at \(z_0\).
 \end{definition}
@@ -924,10 +926,10 @@ Note these projection maps are \emph{not} coverings on \(R\) (or \(X\)) but they
 \end{lemma}
 
 \begin{proof}
-  Left as an exercise.
+  Exercise.
 \end{proof}
 
-As a corollary, multiplicity is well defined. Indeed if \(z \in R, f(z) \in S\) and \((U, \phi), (\tilde U, \tilde \phi)\) are charts for \(z\), \((V, \psi), (\tilde V, \tilde \psi)\) are charts for \(f(z)\) then \(m_f(z)\) is given by the multiplicity of its local expression, which is
+As a corollary, multiplicity is well-defined. Indeed if \(z \in R, f(z) \in S\) and \((U, \phi), (\tilde U, \tilde \phi)\) are charts for \(z\), \((V, \psi), (\tilde V, \tilde \psi)\) are charts for \(f(z)\) then \(m_f(z)\) is given by the multiplicity of its local expression, which is
 \begin{align*}
   \tilde \psi \compose f \compose \tilde \phi^{-1}
   &= \tilde \psi \compose (\psi^{-1} \compose \psi \compose f \compose \phi^{-1} \compose \phi) \compose \tilde \phi^{-1} \\
@@ -950,7 +952,7 @@ Note that the points at which \(m_f(z) > 1\) are isolated, by the (local) princi
 \end{eg}
 
 \begin{theorem}[valency theorem]\index{valency theorem}
-  Let \(f: R \to S\) be a nonconstant analytic map of Riemann surfaces. If \(R\) is compact then there exists \(n \geq 1\) such that \(f\) is an \(n\)-to-\(1\) map counting multiplicity, i.e.\ for all \(w \in f(S)\),
+  Let \(f: R \to S\) be a nonconstant analytic map of Riemann surfaces. If \(R\) is compact then there exists \(n \geq 1\) such that \(f\) is an \(n\)-to-\(1\) map counting multiplicity, i.e.\ for all \(w \in S\),
   \[
     \sum_{z \in f^{-1}(w)} m_f(z) = n.
   \]
@@ -963,7 +965,7 @@ See how false this can be for noncompact Riemann surfaces!
   \[
     n(w) = \sum_{z \in f^{-1}(w)} m_f(z).
   \]
-  We want to show \(n: S \to \Z\) is constant. But \(S\) is connected so suffcie to show \(n\) is locally constant. Fix \(w_0 \in S\) and let \(f^{-1}(w_0) = \{z_1, \dots, z_q\}\). For each \(z_k\), \(f\) is locally \(z \mapsto z^{m_f(z_k)}\) on a neighbourhood of \(z_k\). Choose a chart \((N_k, \phi)\) around \(z_k\) such that \(\phi(N_k)\) is a disk around \(\phi(z_k)\). \(f|_{N_k}\) is an \(m_f(z_k)\)-to-\(1\) map to its image. wlog choose the \(N_k\) disjoint. Note that \(R \setminus \bigcup N_k\) is compact so \(f(R \setminus \bigcup N_k)\) is compact, and there exists \(M\) open neighbourhood of \(w_0\) such that \(f(R \setminus \bigcup N_k) \cap M = \emptyset\). Let \(N = f(N_1) \cap \dots \cap f(N_q) \cap M\), an open neighbourhood of \(w_0\). For \(w \in N\), \(f^{-1}(w) \subseteq \bigcup_{k = 1}^q N_k\) so
+  We want to show \(n: S \to \Z\) is constant. But \(S\) is connected so suffcie to show \(n\) is locally constant. Fix \(w_0 \in S\) and let \(f^{-1}(w_0) = \{z_1, \dots, z_q\}\). For each \(z_k\), By choosing appropriate charts centred at \(z_k\) and \(w_0\), \(f\) is locally \(z \mapsto z^{m_f(z_k)}\). Moreover we can wlog choose a chart \((N_k, \phi)\) around \(z_k\) such that \(\phi(N_k)\) is a disk around \(\phi(z_k)\), on which \(f|_{N_k}\) is an \(m_f(z_k)\)-to-\(1\) map to its image. wlog choose the \(N_k\) disjoint. Note that \(R \setminus \bigcup N_k\) is compact so \(f(R \setminus \bigcup N_k)\) is compact, and there exists open neighbourhood \(M\) of \(w_0\) such that \(f(R \setminus \bigcup N_k) \cap M = \emptyset\). Let \(N = f(N_1) \cap \dots \cap f(N_q) \cap M\), an open neighbourhood of \(w_0\). For \(w \in N\), \(f^{-1}(w) \subseteq \bigcup_{k = 1}^q N_k\) so
   \[
     n(w) = \sum_{z \in f^{-1}(w)} m_f(w) = \sum_{z \in f^{-1}(w_0)} m_f(z) = n(w_0).
   \]
@@ -980,6 +982,417 @@ See how false this can be for noncompact Riemann surfaces!
 \begin{proof}
   \(p\) extends to a map \(p: \C_\infty \to \C_\infty\) and \(p^{-1}(\infty) = \infty\) with multiplicity \(d\). So by valency theorem \(0\) also has \(d\) preimages counting multiplicity.
 \end{proof}
+
+As a consequence we have
+
+\begin{proposition}
+  Let \(f: \C_\infty \to \C_\infty\) be an nonconstant analytic map. Then we can write \(f\) as a rational function
+  \[
+    f(z) = c \frac{(z - a_1) \cdots (z - a_m)}{(z - b_1) \cdots (z - b_n)}
+  \]
+  where \(a_i, b_j \in \C, c \in \C^*\).
+\end{proposition}
+
+\begin{proof}
+  Assume wlog \(f^{-1}(\infty) \subseteq \C\), so that \(f^{-1}(\infty) = \{b_1, \dots, b_n\}\). \(f\) analytic at \(b_i\) is equivalent to saying that \(\frac{1}{f}\) is an analytic function on a neighbourhood of \(b_i\), i.e.
+  \[
+    \frac{1}{f} = (z - b_i)^{m_f(b_i)} g(z)
+  \]
+  where \(g\) is nonzero analytic at \(b_i\), so
+  \[
+    f(z) = \sum_{j = -k_i}^\infty a_{j, i} (z - b_i)^j
+  \]
+  so the function
+  \[
+    f(z) - \sum_{i = 1}^n \left(\sum_{j = -k_i}^{-1} a_{j, i} (z - b_i)^j \right)
+  \]
+  has no preimage of \(\infty\) so is constant.
+\end{proof}
+
+\begin{remark}
+  If \(f(\infty) \neq \infty\) then \(m \leq n\), in which case \(\deg f = n\). In general, by considering \(f^{-1}(\infty)\) and \(f^{-1}(0)\) to see that
+  \[
+    \deg f = \max \{m, n\}.
+  \]
+\end{remark}
+
+\begin{corollary}
+  The analytic isomorphisms of \(\C_\infty\) are Möbius transformations.
+\end{corollary}
+
+\section{Riemann-Hurwitz formula}
+
+\subsection{Triangulation and Euler characteristic}
+
+Let \(S\) be a compact Riemann surface. We say \(T \subseteq S\) is a \emph{topological triangle}\index{topological triangle} if it is the homeomorphic image of a closed triangle in \(\R^2\).
+
+\begin{definition}[triangulation]\index{triangulation}
+  A \emph{triangulation} of \(S\) is a finite collection of topological triangles \(\{T_1, \dots, T_n\}\) in \(S\) such that
+  \begin{enumerate}
+  \item \(\bigcup_{i = 1}^n T_i = S\),
+  \item If \(T_i \cap T_j \neq \emptyset\) then \(T_i \cap T_j\) is a common edge or a common vertex,
+  \item every edge is the edge of exactly two triangles.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Euler characteristic]\index{Euler characteristic}
+  The \emph{Euler characteristic} of \(S\) is
+  \[
+    \chi(S) = F - E + V
+  \]
+  where \(F, E, V\) are the number of faces, edges and vertices respectively for any choice of triangulation of \(S\).
+\end{definition}
+
+We state without proof the following results:
+\begin{fact}\leavevmode
+  \begin{enumerate}
+  \item \(\chi(S)\) is independent of choice of triangulation (to check this suffices to check it is invariant under refinement).
+  \item (corollary of classification of compact surfaces) every compact Riemann surface is homeomorphic to a sphere with handles. The number of handles is the \emph{genus}\index{genus} of the surface.
+  \item Every compact Riemann surface can be triangulated and \(\chi(S) = 2 - 2g\) where \(g\) is the genus of \(S\). It is possible to check this by assuming 2 and induct on \(g\).
+  \end{enumerate}
+\end{fact}
+
+\begin{eg}
+  Let \(S = \C_\infty\). Take three orthogonal great cricles. Then \(S\) is divided into \(8\) topological triangles. We have
+  \[
+    F= 8, V = 6, E = 12
+  \]
+  so
+  \[
+    \chi(S) = 8 - 12 + 6 = 2
+  \]
+  which agrees with \(2 - 2g = 2\) as \(S\) has genus \(0\).
+\end{eg}
+
+\begin{eg}
+  Let \(S\) be a complex torus and triangulate the fundamental parallelogram. Triangulate it into \(18\) triangles. Have
+  \[
+    F = 18, E = 27, V = 9
+  \]
+  so
+  \[
+    \chi(S) = 0
+  \]
+  which agrees with \(2 - 2g\) as \(S\) has genus \(1\).
+\end{eg}
+
+\begin{remark}
+  The topological torus admits infinitely many nonisomorphic conformal structures. See example sheet 2. For future reference, the collection for a fixed surface of the conformal structures it admits is known as the \emph{Teichmüller space}\index{Teichmüller space}. It is the key object in the advance study of Riemann surfaces.
+\end{remark}
+
+\begin{theorem}[Riemann-Hurwitz formula]\index{Riemann-Hurtiwz formula}
+  Let \(f: R \to S\) be a nonconstant analytic map of compact Riemann surfaces of degree \(n \geq 1\). Then
+  \[
+    \chi(R) = n \chi(S) - \sum_{P \in R} (e_P - 1)
+  \]
+  where \(e_P = m_f(P)\), the ramification index of \(f\) at \(P\).
+\end{theorem}
+
+Intuitively, the first term on RHS says that in a covering every sufficiently small triangle in \(S\) have \(n\) homeomorphic preimages in \(R\). The second terms add a correction term in case of ramification, as at a branch point, \(n\) vertices, each from a preimage, are mapped to one point.
+
+\begin{proof}
+  The idea is to consider preimage of triangulations on \(S\) under \(f\) and compute its Euler characterisic. Call \(\{Q_1, \dots, Q_r\}\) the branch points of \(f\). Choose chart preimages of disks (as in the proof of valency theorem) and use compactness, we can find open sets \(U_1, \dots, U_r, U_{r + 1}, \dots, U_s\) of \(S\) so that
+  \begin{enumerate}
+  \item if \(j > r\) then \(f^{-1}(U_j)\) is a disjoint union of preimages \(V_1, \dots, V_n\), and \(f|_{V_i}: V_i \to U_j\) is an isomorphism,
+  \item if \(1 \leq j \leq r\) then for each component \(V\) of \(f^{-1}(U_j)\), we have a unique preimage \(P\) of \(Q_j\), and \(f|_V: V \to U_j\) is an \(e_P\)-to-\(1\) map, whose local expression is an \(e_P\)-to-\(1\) powering map.
+  \end{enumerate}
+  Let \(\mathcal T\) be a triangulation of \(S\) which contains the \(Q_i\)'s as vertices. We can refine the triangulation to assume wlog that every triangle is contained in some \(U_j\). Given \(T \in \mathcal T\), if \(j > r\) and \(T \subseteq U_j\) then \(f^{-1}(T)\) is a disjoint union of copies of \(T\). If \(1 \leq j \leq r\) and \(T \subseteq U_j\), if \(Q_j\) is not a vertex of \(T\), refine if necessary so triangles are contained in some \(2\pi/e_p\) sector, then again \(f^{-1}(T)\) is a disjoint union of triangles, by valency theorem. If, however, \(Q_j\) is a vertex of \(T\), again refine if needed, we have \(e_P\) triangles as preimage, which have common vertex \(P\).
+
+  Thus we have that the preimage of \(\mathcal T\) is a triangulation of \(R\). Let \(F', E', V'\) be the number of faces, edges and vertices of this triangulation. Have
+  \[
+    F' = nF, E' = nE, V' = nV - \sum_{P \in R}(e_P - 1)
+  \]
+  so
+  \[
+    \chi(R) = n \chi(S) - \sum_{P \in R}(e_P - 1).
+  \]
+\end{proof}
+
+\begin{remark}
+  Equivalently we may express Euler characteristic in terms of genus,
+  \[
+    2g_R - 2 = n(2g_S - 2) + \sum_{P \in R}(e_P - 1).
+  \]
+  There are lots we can say about this. At the very least, ramification satisfies certain relation modulo \(2\). In addition as \(e_P - 1 \geq 0\), Riemann-Hurwitz restricts the existence of degree \(n\) maps in terms of genus of surfaces. We list a few implications here.
+\end{remark}
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item
+    \[
+      \sum_{P \in R}(e_P - 1) = 0 \pmod 2.
+    \]
+  \item \(g_R \geq g_S\).
+  \item If \(g_S = 0\) and \(g_R > 1\) then \(f\) must be ramified.
+  \item If \(f\) is unramified and \(g_S > 1\) then either \(g_R = g_S\) and \(n = 1\) or \(g_R > g_S\).
+  \item If \(R\) admits an unramified self-map with degree \(n > 1\) then \(g_R = 1\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{eg}
+  Let \(R' = \{(z, w): w^2 = z^3 - z\} \subseteq \C^2\). Let \(f(z) = z^3 - z\). The ramification points of \(\pi_z: R' \to \C\) are precisely \((-1, 0), (0, 0)\) and \((1, 0)\). Charts around these points are given by \(\pi_w\) so for example, the valency of \(\pi_z\) at \((0, 0)\) is the degree of
+  \[
+    \pi_z \compose \pi_w^{-1}
+  \]
+  at \(0\). But \(\pi^{-1}(w) = (f^{-1}(w^2), w)\) for some branch of \(f^{-1}\) locally so \(\pi_z \compose \pi_w^{-1}(w) = f^{-1}(w)\). We can show
+  \begin{align*}
+    \frac{d}{dw} f^{-1}(w^2) &= 0 \\
+    \frac{d^2}{dw^2} f^{-1}(w^2) &\neq 0 \\
+  \end{align*}
+  so these points ramify with multiplicity \(2\) each.
+
+  We have see that \(R'\) embeds analytically in its compactification \(R\). Claim that \(\pi_z\) extends to some analytic map \(\overline \pi_z: R \to \C_\infty\) with \(\overline \pi_z(R \setminus R') = \{\infty\}\): \(\frac{1}{\pi_z}\) is a bounded analytic function on a punctured neighbourhood of \(P \in R \setminus R'\) with
+  \[
+    \lim_{Q \to P} \frac{1}{\pi_z(Q)} = 0
+  \]
+  so \(P\) is a removable singularity of \(\frac{1}{\pi_z}\). Thus extends to \(P\) and takes value \(0\). This is precisely an analytic map to \(\C_\infty\).
+
+  Now we have an analytic map \(\overline \pi_z: R \to \C_\infty\) between compact Riemann surfaces. By considering, for example, that for finite \(z\), \(w^2 = z^3 - z\) has two solutions, \(\overline \pi_z\) has degree \(2\). Thus the only point \(P\) in \(R \setminus R'\) ramifies with multiplicity \(2\).
+
+  Suppose we merely knew \(\overline \pi_z: R \to \C_\infty\) existed but didn't know how many points over \(\infty\) were in \(R \setminus R'\). Must have \(\overline \pi^{-1}(\infty) = R \setminus R'\) so either there are two points in \(R \setminus R'\) each with degree \(1\) or one point with degree \(2\). By Riemann-Hurwitz,
+  \[
+    2g_R - 2 = 2(0 - 2) + \sum_{P \in R} (e_P - 1)
+  \]
+  Reduce mod \(2\), there must be ramification above \(\infty\), and so there is a single point in \(R \setminus R'\), mapped with degree \(2\) to \(\infty\) and \(2g_R - 2 = -4 + 4\) so \(g_R = 1\).
+\end{eg}
+
+\begin{eg}
+  Let \(R\) and \(R'\) be as above and \(X' = \{(x, y): y^2 = x^4 - 1\} \subseteq \C^2\). \(X'\) admits a complex structure via \(\pi_x, \pi_y\), and a compactification \(X\) via topological gluing such that both \(\pi_x\) and \(\pi_y\) extend to \(X\). There exists a map
+  \begin{align*}
+    X' &\to R' \\
+    (x, y) &\mapsto (x^2, xy)
+  \end{align*}
+  which extends to an analytic map \(f: X \to R\). This map has degree \(2\), and is ramified if and only if \(x = -x\) and \(y = -y\), so in particular \(f\) is unramified on \(X'\). By Riemann-Hurwitz,
+  \[
+    2g_X - 2 = 2(2 \cdot 1 - 2) + \sum_{P \in X} (e_P - 1).
+  \]
+  The points of \(X \setminus X'\) are mapped to \(R \setminus R'\). Again reduce mod \(2\), there are two points of \(X \setminus X'\) and \(f\) is unramified at both. \(g_X = 1\).
+\end{eg}
+
+\begin{eg}[Fermat curve]\index{Fermat curve}
+  For \(d \geq 3\), define the \emph{Fermat curve}
+  \[
+    F_d' = \{(x, y) \in \C^2: x^d + y^d = 1\}.
+  \]
+  By example sheet 3 Q13 there exists a compactification \(F_d\) of \(F_d'\) by gluing
+  \[
+    \{(t, u) \in \C^2: 1+ u^d = t^d\}
+  \]
+  via \(t = \frac{1}{x}, u = \frac{y}{x}\), and \(\pi_x, \pi_y\) extend to analytic maps \(F_d \to \C_\infty\). Note that there are \(d\) points in \(F_d \setminus F_d'\). \(\pi_x\) has degree \(d\) with ramification at \((\xi_d, 0)\) for all \(d\)th roots of unity \(\xi_d\). By Riemann-Hurwitz, as \(\pi_x\) has multiplicity \(d\) at such point,
+\[
+  2g_{F_d} - 2 = d(2 \cdot 0 - 2) + d(d - 1)
+\]
+so
+\[
+  g_{F_d} = \frac{(d - 1)(d - 2)}{2}.
+\]
+\end{eg}
+
+\begin{corollary}
+  There exist Riemann surfaces of arbitrarily large genus.
+\end{corollary}
+
+Our next goal is to show complex tori are algebraic, i.e.\ they are all compactification of \(\{(x, y) \in \C^2: p(x, y) = 0\}\) where \(p\) is some polynomial.
+
+\begin{definition}[period]\index{period}
+  Let \(f: \C \to \C_\infty\) be nonconstant analytic. \(\omega \in \C\) is a \emph{period} of \(f\) if
+  \[
+    f(z + \omega) = f(z)
+  \]
+  for all \(z \in \C\).
+\end{definition}
+
+It is immediate by principle of isolate zeros that periods of \(f\) consists of isolated point and they form an additive group. By example sheet 3 Q1, let \(\Lambda\) be the set of periods of \(f\), then exactly one of the following happens:
+\begin{enumerate}
+\item \(\Lambda = \{0\}\),
+\item \(\Lambda = \Z\omega\) for some \(\omega \neq 0\),
+\item \(\Lambda = \Z\omega_1 \oplus \Z\omega_2\) with \(\frac{\omega_2}{\omega_1} \notin \R\).
+\end{enumerate}
+In case 2 we say \(f\) is \emph{simply periodic}\index{periodic!simply} and in case 3 \(f\) is \emph{doubly periodic}\index{periodic!doubly}, or \emph{elliptic}\index{elliptic}.
+
+\begin{proposition}
+  Suppose \(f\) is simply periodic. By composing with scalar, assuming wlog \(\Lambda = \Z\). Then there exists analytic map \(\tilde f: \C^\times \to \C_\infty\) such that
+  \[
+    \tilde f(e^{2\pi i z}) = f(z).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Since \(\Lambda = \Z\) there is a well-defined function \(\tilde f: \C^\times \to \C_\infty\) via \(\tilde f(e^{2\pi i z}) = f(z)\). Left to show this is analytic.
+  \[
+    \begin{tikzcd}
+      \C \ar[r, "f"] \ar[d, "z \mapsto e^{2\pi iz}"'] & \C_\infty \\
+      \C^\times \ar[ur, "\tilde f"']
+    \end{tikzcd}
+  \]
+  \(\tilde f\) is continuous as \(e^{2\pi iz}\) and \(f\) are continuous and open. Locally \(\tilde f(w) = f(\frac{\log w}{2\pi i})\) so \(f\) is analytic.
+\end{proof}
+
+Let \(f\) be doubly periodic with \(\Lambda = \Z\omega_1 \oplus \Z\omega_2\), so that \(f\) takes all its values on a fundamental parallelogram
+\[
+  P_z = \{z + t_1\omega_1 + t_2\omega_2: t_1, t_2 \in [0, 1)\}.
+\]
+If \(f\) has no pole then \(f\) is bounded on \(\C\) so constant by Liouville.
+
+\begin{proposition}
+  Let \(f\) be doubly periodic with periods \(\Lambda\). Then there exists \(\tilde f: \C/\Lambda \to \C_\infty\) nonconstant analytic so that \(f = \tilde f \compose \pi\) where \(\pi: \C \to \C / \Lambda\) is the quotient.
+\end{proposition}
+
+\begin{proof}
+  Ditto.
+  \[
+    \begin{tikzcd}
+      \C \ar[r, "f"] \ar[d, "\pi"'] & \C_\infty \\
+      \C/\Lambda \ar[ur, "\tilde f"']
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\begin{corollary}
+  If \(f\) is nonconstant elliptic then exists \(n \geq 1\) such that \(\deg f = n\), i.e.\ every point in \(\C_\infty\) has \(n\) preimages, counting multiplicity, on any period parallelogram.
+\end{corollary}
+
+\begin{proof}
+  Immediate from valency theorem.
+\end{proof}
+
+Here we say \(f\) has degree \(n\) to mean \(\tilde f: \C/\Lambda \to \C_\infty\) has degree \(n\).
+
+\begin{corollary}
+  If \(f\) is nonconstant elliptic of degree \(n\) then \(n \geq 2\).
+\end{corollary}
+
+\begin{proof}
+  If \(n = 1\) then \(\tilde f\) is a conformal isomorphism. But \(\C/\Lambda\) and \(\C_\infty\) are not even homeomorphic.
+
+  Alternatively, choose a period parallelogram \(P\) for \(\Lambda\) with no zeroes or poles of \(f\) on its boundary (exists by principle of isolated zeros and discreteness of lattice). Then by residue theorem,
+  \[
+    \sum_{z \in P} \operatorname{res}_z(f) = \oint_{\p P} f(z) dz = 0
+  \]
+  where the last equality is because \(f\) is doubly periodic. Thus there are at least \(2\) poles of \(f\) counting multiplicity.
+\end{proof}
+
+\subsection{Weierstrass \(p\)-function}
+
+We exhibit a degree \(2\) elliptic function asssociated to each lattice.
+
+\begin{definition}[Weierstrass \(\wp\)-function]\index{Weierstrass \(\wp\)-function}
+  Let \(\Lambda\) be a lattice in \(\C\). The \emph{Weierstrass \(\wp\)-function} associated to \(\Lambda\) is
+  \[
+    \wp(z) = \wp_\Lambda(z) = \frac{1}{z^2} + \sum_{\omega \in \Lambda \setminus \{0\}} \left( \frac{1}{(z - \omega)^2} - \frac{1}{\omega^2} \right).
+  \]
+\end{definition}
+
+To show that we have written down a sensible thing we should check this converges. We use the following lemma:
+
+\begin{lemma}
+  Let \(\Lambda\) be a lattice. Then \(\sum_{\omega \in \Lambda \setminus \{0\}} \frac{1}{|\omega|^t}\) converges if and only if \(t > 2\).
+\end{lemma}
+
+As a comment, in general when trying to understand a series defined in terms of a lattice \(\Lambda\), we always relate \(\Lambda\) to the square lattice \(\Z \oplus \Z i\).
+
+\begin{proof}
+  Let \(\Lambda = \Z \omega_1 \oplus \Z \omega_2\). Consider the function \((t_1, t_2) \mapsto |t_1 \omega_1 + t_2 \omega_2|\). This is continuous, and since \(\frac{\omega_1}{\omega_2} \notin \R\), this is nonzero on \(\R^2 \setminus \{0\}\), and so achieves positive bounds \(c_1, c_2\) on the compact set \(\{(t_1, t_2): |t_1| + |t_2| = 1\}\), i.e.
+  \[
+    0 < c_1 \leq |t_1 \omega_1 + t_2 \omega_2| \leq c_2
+  \]
+  on this set.
+
+  Given \((k, \ell) \in \Z^2 \setminus \{(0, 0)\}\), let
+  \begin{align*}
+    t_1 &= \frac{k}{|k| + |\ell|} \\
+    t_2 &= \frac{\ell}{|k| + |\ell|} \\
+  \end{align*}
+  so that
+  \[
+    c_1(|k| + |\ell|) \leq |k\omega_1 + \ell \omega_2| \leq c_2(|k| + |\ell|).
+  \]
+  So \(\sum_{\omega \in \Lambda \setminus \{0\}} \frac{1}{|\omega|^2}\) converges if and only if \(\sum_{(k, \ell) \in \Z \setminus \{0\}} \frac{1}{(|k| + |\ell|)^t}\) converges but
+  \[
+    \sum_{(k, \ell) \in \Z \setminus \{0\}} \frac{1}{(|k| + |\ell|)^t}
+    = \sum_{q = 1}^\infty \sum_{|k| + |\ell| = q} \frac{1}{q^t}
+    = \sum_{q = 1}^\infty \frac{4q}{q^t}
+  \]
+  which converges if and only if \(t > 2\).
+\end{proof}
+
+\begin{proposition}
+  \(\wp\) converges to an elliptic function with period lattice \(\Lambda\). Moreover \(\wp\) is an even function of degree \(2\).
+\end{proposition}
+
+\begin{proof}
+  We show \(\wp\) converges on compact sets: choose \(R \gg 1\) and let \(|z| \leq R\). There exist finitely many points \(\Lambda \cap D(0, 2R)\) and if \(|\omega| > 2R\) for \(\omega \in \Lambda\),
+  \[
+    \Bigg| \frac{1}{(z - \omega)^2} - \frac{1}{\omega^2} \Bigg|
+    = \Bigg| \frac{2\omega z - z^2}{\omega^2(z^2 - \omega^2)} \Bigg|
+    \leq \frac{R |2\omega - z|}{|\omega|^4 \cdot \frac{1}{4}}
+    \leq \frac{12R}{|\omega|^3}
+  \]
+  so by the lemma we have convergence.
+
+  Thus \(\wp\) is meromorphic with well-define derivative
+  \[
+    \wp'(z) = \sum_{\omega \in \Lambda} \frac{-2}{(z - \omega)^3}.
+  \]
+  \(\wp'\) has all \(\omega \in \Lambda\) as periods so \(\wp(z + \omega) - \wp(z)\) is constant. Evaluate at, for example, \(z = - \frac{\omega}{2}\), we get \(\wp(\frac{\omega}{2}) - \wp(-\frac{\omega}{2})\). But \(\wp\) is manifestly even so this constant is \(0\). Thus every \(\omega \in \Lambda\) is a period for \(\wp\). Moreover since these are the only poles, they are the only periods for \(\wp\).
+
+  Finally since \(0 \mapsto \infty\) with degree \(2\), and we can choose a period parallelogram with no other lattice points so no other pole of \(\wp\), by a previous corollary \(\deg \wp = 2\).
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Using factorisation through quotient, we can show that \(\wp\) is the unique meromorphic function that satisfy the following:
+    \begin{enumerate}
+    \item elliptic with periods \(\Lambda\),
+    \item have poles only in \(\Lambda\),
+    \item \(\wp(z) - \frac{1}{z^2} \to 0\) as \(z \to 0\).
+    \end{enumerate}
+  \item \(\wp'\) has degree \(3\), with a pole of degree \(3\) at lattice points, \(\wp'\) is odd and \(\wp'(\frac{\omega}{2}) = \wp'(-\frac{\omega}{2})\) for \(\omega \in \Lambda\) by periodicity. Thus \(\wp'(\frac{\omega}{2}) = 0\), i.e.\ \(\wp' = 0\) at the half-lattice points. There are 3 of these, so these are the only zeros of \(\wp'\). So \(\wp\) ramifies at the lattice points and half-lattice points. Because \(\deg \wp = 2\), the multiplicty is \(2\) at all such points. Additionally, the branch points \(\omega = \wp(0), e_1, e_2, e_3\) are distinct.
+
+    Note that Riemann-Hurwitz is satisfied on \(\C/\Lambda\): \(\wp\) induces an analytic \(\tilde \wp: \C/\Lambda \to \C_\infty\) of degree \(2\) so
+    \[
+      2g_{\C/\Lambda} - 2 = 2(2 g_{\C_\infty} - 2) + 4.
+    \]
+  \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+  Let \(\Lambda\) be a lattice. There exist constants \(g_2, g_3\) (depending on \(\Lambda\)) such that the \(\wp_\Lambda\)-function satisfies
+  \[
+    (\wp')^2 = 4 \wp^3 - g_2 \wp - g_3.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Locally around \(0\), we have Laurent series
+  \[
+    \wp(z) = \frac{1}{z^2} + az^2 + \dots
+  \]
+  because \(\wp(z) - \frac{1}{z} = 0\) at \(z = 0\) and the first order term vanishes because \(\wp\) is even. So
+  \[
+    \wp'(z) = - \frac{2}{z^3} + 2az + \dots
+  \]
+  square and set \(g_2 = 4a\),
+  \[
+    (\wp')^2 - 4\wp^3 = \frac{-g_2}{z^2} + \text{ analytic}
+  \]
+  so
+  \[
+    (\wp')^2 - 4\wp^3 + g_2 \wp(z)
+  \]
+  is analytic so constant as it has no poles. Thus
+  \[
+    (\wp')^2 = 4\wp^3 - g_2 \wp - g_3
+  \]
+  as required.
+\end{proof}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item Note that \(4\wp^3 - g_2 \wp - g_3 = 4 (\wp - e_1) (\wp - e_2) (\wp - e_3)\). In particular, the sum \(e_1 + e_2 + e_3 = 0\).
+  \item The ramificatin points of \(\wp\) are precisely the elements of the group \(\C/\Lambda\) which are \(2\)-torsion, i.e.\ \(2P = 0\).
+  \end{enumerate}
+\end{note}
 
 
 
