@@ -1389,10 +1389,134 @@ As a comment, in general when trying to understand a series defined in terms of 
 
 \begin{note}\leavevmode
   \begin{enumerate}
-  \item Note that \(4\wp^3 - g_2 \wp - g_3 = 4 (\wp - e_1) (\wp - e_2) (\wp - e_3)\). In particular, the sum \(e_1 + e_2 + e_3 = 0\).
-  \item The ramificatin points of \(\wp\) are precisely the elements of the group \(\C/\Lambda\) which are \(2\)-torsion, i.e.\ \(2P = 0\).
+  \item Note that \(4\wp^3 - g_2 \wp - g_3 = 4 (\wp - e_1) (\wp - e_2) (\wp - e_3)\) where \(e_1, e_2, e_3\) are the branch points of \(\wp\). In particular, the sum \(e_1 + e_2 + e_3 = 0\).
+  \item The ramification points of \(\wp\) are precisely the elements of the group \(\C/\Lambda\) which are \(2\)-torsion, i.e.\ \(2P = 0\).
   \end{enumerate}
 \end{note}
+
+\begin{corollary}
+  Let \(\C / \Lambda\) be a complex torus and \(g_2, g_3\) as in the previous proposition. Then \(\C / \Lambda\) is conformally isomorphic to the Riemann surface \(X\) compactifiying
+  \[
+    X' = \{(z, w) \in \C^2: w^2 = 4z^3 - g_2z - g_3\}.
+  \]
+\end{corollary}
+
+Every complex torus is algebraic.
+
+\begin{proof}
+  Exercise: As the \(e_i\)'s are distinct, the coodinates define a Riemann surface, and add a single point via gluing to give \(X\) with analytic embedding.
+
+  Define
+  \begin{align*}
+    F: \C / \Lambda &\to X \\
+    z &\mapsto (\wp(z), \wp'(z))
+  \end{align*}
+  Claim \(F\) has degree \(1\), which will imply that \(F\) is an isomorphism by valency theorem. Let \(P\) be the period parallelogram for \(\Lambda\) centred at \(0\). For \(z\) in interior of \(P\), \(\wp(z) = \wp(w)\) if and only if \(z = \pm w\) for \(w\) in the interior of \(P\). If \(z = -w\) then \(\wp'(z) = \wp'(-z)\), and since it is odd, \(\wp'(z) = -\wp'(z) = 0\). Thus \(z \neq 0\) is the unique preimage under \(F\) of \(F(z)\), i.e.\ \(\deg F = 1\). % ? can z be a half lattice point?
+\end{proof}
+
+\begin{remark}
+  In example sheet we show \(\C/(\Z\omega_1 \oplus \Z\omega_2) \cong \C/(\Z \oplus \tau \Z)\) where \(\tau = \frac{\omega_2}{\omega_1}\), and \(\C/(\Z \oplus \tau_1\Z) \cong \C/(\Z \oplus \tau_2\Z)\) if and only if \(\tau_1, \tau_2\) are in the same orbit of action of \(\SL_2(\Z)\). Algebraically, \(g_2, g_3\) do \emph{not} quite determine \(\C/\Lambda\), rather we have the \emph{\(j\)-invariant}\index{\(j\)-invariant} defined by
+  \[
+    j(\Lambda) = \frac{1728g_2^3}{g_2^3 - 27 g_3^2}
+  \]
+  and \(j(\Lambda_1) = j(\Lambda_2)\) if and only if \(\C/\Lambda_1 \cong \C/\Lambda_2\).
+\end{remark}
+
+\begin{theorem}
+  Let \(f\) be elliptic with periods \(\Lambda\). Then
+  \[
+    f = Q_1(\wp_1) + \wp' Q_2(\wp)
+  \]
+  for some \(Q_1, Q_2\) rational. Moreover, if \(f\) is even then we can take \(Q_2 = 0\).
+\end{theorem}
+
+Compare this with the statement that meromorphic functions on \(\C_\infty\) are precisely rationals.
+
+\begin{proof}
+  First assume \(f\) is even. Let
+  \[
+    E = \{z \in \C: z \in \frac{1}{2} \Lambda \text{ or } f'(z) = 0\}
+  \]
+  so to avoid branching points. As \(f(E)\) is finite in \(\C_\infty\), we can find \(c \neq d\) in \(E\) so that
+  \[
+    g(z) = \frac{f(z) - d}{f(z) - c},
+  \]
+  with single zeroes and poles. Then in a period parallelogram centred at \(0\), we can write the zeroes of \(g\) as \(\{a_1, \dots, a_n, -a_1, \dots, -a_n\}\) and poles as \(\{b_1, \dots, b_n, -b_1, \dots, -b_n\}\). Define
+  \[
+    h(z) = \frac{(\wp(z) - \wp(a_1)) \cdots (\wp(z) - \wp(a_n))}{(\wp(z) - \wp(b_1)) \cdots (\wp(z) - \wp(b_n))}
+  \]
+  so that \(h\) has the same poles and zeroes (counting multiplicity) as \(g\). Thus \(g(z) = kh(z)\) for some constant \(k\), so that
+  \[
+    f = Q_1(\wp)
+  \]
+  for some rational \(Q_1\).
+
+  If \(f\) is odd then \(\frac{f}{\wp'}\) is even so
+  \[
+    f = \wp' Q_2(\wp)
+  \]
+  by the same argument. Any \(f\) can be written as sum of an even and odd function.
+\end{proof}
+
+\section{Quotients of Riemann surfaces}
+
+\begin{definition}[properly discontinuous action]\index{properly discontinuous action}
+  Given a group \(G\) of homeomorphisms of a topological space \(X\), we say \(G\) acts \emph{properly discontinuously} if for every \(x \in X\) there exists a neighbourhood \(U\) of \(x\) such that if \(g(U) \cap h(U) \neq \emptyset\) then \(g = h\).
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If there exists \(g \in G\) nontrivial with a fixed point then \(G\) does not act properly discontinuously.
+  \item If \(G\) is finite, \(G\) acts properly discontinuously implies that all stabilisers are trivial so all orbits have size \(|G|\).
+  \end{enumerate}
+\end{remark}
+
+Given such a group action, we can form a group quotient \(X/G\) and equip it with quotient topology via \(\pi: X \to X/G\). \(\pi\) is a local homeomorphism, \(X\) is path-connected so \(\pi\) is a regular cover. Note that if \(G\) is finite then \(\pi\) has well-defined degree \(|G|\).
+
+\begin{lemma}
+  If \(X\) is a Riemann surface and \(G \leq \aut(X)\) acting properly discontinuously, then \(X/G\) is a Riemann surface via \(\pi^{-1}\) together with charts of \(X\). Moreover the transition maps are in \(G\).
+\end{lemma}
+
+\begin{proof}
+  Easy.
+\end{proof}
+
+\begin{eg}
+  \(\C/\Lambda\) is the lattice acting by translation.
+\end{eg}
+
+\begin{proposition}[Hurwitz]\index{Hurwitz theorem}
+  Let \(X\) be a compact Riemann surface of genus \(g_X \geq 2\). Let \(G \leq \aut(X)\) act properly discontinuously on \(X\). Then \(G\) is finite and
+  \[
+    |G| \leq g_X - 1.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Suppose \(G\) is not finite. Fix \(P_0 \in X\). Then \(\{g(P_0): g \in G\}\) is infinite. By compactness of \(X\) it has a converging subsequence \(g_n(P) \to Q\). For any neighbourhood \(V\) of \(Q\) and \(n, m \gg 1\), we have
+  \[
+    P_0 \in g_n^{-1}(V) \subseteq g_m^{-1}(V).
+  \]
+  Absurd.
+
+  By previous remark \(\pi: X \to X/G\) is a degree \(|G|\) map of compact Riemann surfaces so by Riemann-Hurtwitz
+  \[
+    2g_X - 2 = |G| (2g_{X/G} - 2)
+  \]
+  as there is no ramification (\(\pi\) is a local homeomorphism). As both sides are positive and \(2g_{X/G} - 2 \geq 2\),
+  \[
+    |G| \leq g_X - 1.
+  \]
+\end{proof}
+
+\begin{remark}
+  There is no such bound on \(|G|\) for \(g_X = 1\): complex tori admit translations via the group structure so choose a large discrete subgroup of \(\C/\Lambda\) to translate by, we obtain arbitrarily large \(|G|\). For example let \(G\) be the points \(P \in \C/\Lambda\) such that
+  \[
+    [n] P = \id_{\C/\Lambda}.
+  \]
+\end{remark}
+
+
 
 
 

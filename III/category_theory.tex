@@ -1271,7 +1271,7 @@ The general adjoint functor theorem is general in the sense that it applies to a
   By a \emph{subobject} of an object \(A\) of \(\c C\) we mean a monomorphism \(A' \mono A\). The subobjects of \(A\) are preordered by \(A'' \leq A'\) if there is a factorisation
   \[
     \begin{tikzcd}
-      A'' \ar[r] \ar[dr, rightarrowtail] & A' \ar[d, rightarrowtail] \\
+      A'' \ar[r] \ar[dr, tail] & A' \ar[d, tail] \\
       & A
     \end{tikzcd}
   \]
@@ -1292,7 +1292,7 @@ Before stating and proving the special functor theorem we point out a simple yet
   Given a pullback square
   \[
     \begin{tikzcd}
-      P \ar[r, "h"] \ar[d, "k"] & A \ar[d, "f", rightarrowtail] \\
+      P \ar[r, "h"] \ar[d, "k"] & A \ar[d, "f", tail] \\
       B \ar[r, "g"] & C
     \end{tikzcd}
   \]
@@ -1321,10 +1321,10 @@ Before stating and proving the special functor theorem we point out a simple yet
   So we need to show that if \(\mathcal A\) is complete, locally small and well-powered and has a coseparating set \(\{S_i: i \in I\}\) then \(\mathcal A\) has an initial object. Form the product \(P = \prod_i \in S_i\). We have the industrial stength product and now we need the industrial strength pullback. Consider the diagram
   \[
     \begin{tikzcd}[row sep=tiny, column sep=tiny]
-      & & P_j \ar[dddr, rightarrowtail] & P_i \ar[ddd, rightarrowtail] \\
-      & \ar[ddrr, rightarrowtail] \\
+      & & P_j \ar[dddr, tail] & P_i \ar[ddd, tail] \\
+      & \ar[ddrr, tail] \\
       & \vdots \\
-      P' \ar[rrr, rightarrowtail] & & & P
+      P' \ar[rrr, tail] & & & P
     \end{tikzcd}
   \]
   whose edges are representative set of subobjects of \(P\) and form its limit
@@ -1341,7 +1341,7 @@ Before stating and proving the special functor theorem we point out a simple yet
   We get uniqueness for free but need to work harder to show existence. Now let \(A\) be any object of \(\mathcal A\). Form the product \(Q = \prod_{i \in I, f \in \mathcal A (A, S_i)} S_i\). There is an obvious \(h: A \to Q\) defined by \(\pi_{i, F} h = f\); and \(h\) is monic, since the \(S_i\)'s are a coseparating set. We also have a morphism \(k: P \to Q\) defined by \(\pi_{i, f} k = \pi_i\). Now form the pullback
    \[
      \begin{tikzcd}
-       B \ar[r] \ar[d, rightarrowtail] & A \ar[d, "h", rightarrowtail] \\
+       B \ar[r] \ar[d, tail] & A \ar[d, "h", tail] \\
        P \ar[r, "k"] & Q
      \end{tikzcd}
    \]
@@ -2290,6 +2290,84 @@ Note that if \(\c C\) is locally cartesian closed then \(f^*: \c C/B \to \c C/A\
     so every \(C \to B^A\) factors throu \(C \to LC\), hence \(B^A \in \ob \c D\).
   \end{itemize}
 \end{proof}
+
+\section{Toposes}
+
+Topos has it orgin in the French school of algebraic geometry. In 1963, when studing cohomologies in gemoetry, Grothendieck studied toposes as categories of ``generalised sheaves''. As sheaves can be seen as representation of spaces and properties of the space can be detected from sheaves, toposes become generalised spaces. Thus the name topos: something more fundamental than topology.
+
+J.\ Giraud gave a characterisation of such categories by (set-theoretic) categorical properties. F.\ W.\ Lawvere and M. Tierney (1969 - 1970) investigated the elementary categorical properties of these categories and come up with the elementary definition. In fact a Grothendieck topos is exactly a Lawvere-Tierney topos which is (co)complete and locally small, and has a separating set of objects (which is what Grothendieck should, but didn't, come up with, by the way).
+
+\begin{definition}[subobject classifier, topos, logical functor]\index{subobject classifier}\index{topos}\index{logical functor}\leavevmode
+  \begin{enumerate}
+  \item Let \(\c{\mathcal E}\) be a category with finite limits. A \emph{subobject classifier} for \(\mathcal E\) is a monomorphism \(\top: \Omega' \mono \Omega\) such that for every mono \(m: A' \mono A\) in \(\mathcal E\), there is a unique \(\chi_m: A \to \Omega\) for which there is a pullback square
+    \[
+      \begin{tikzcd}
+        A' \ar[r] \ar[d, "m", tail] & \Omega' \ar[d, "\top", tail] \\
+        A \ar[r, "\chi_m"] & \Omega
+      \end{tikzcd}
+    \]
+    Note that, for any \(A\), there is a unique \(A \to \Omega\) which factors through \(\top: \Omega' \mono \Omega\), so the domain of \(\top\) is actually a terminal object.
+
+    If \(\mathcal E\) is well-powered, we have a functor \(\operatorname{Sub}_{\c{\mathcal E}}: \c{\mathcal E} \to \Set\) sending \(A\) to the set of (isomorphism classes) of subobjects of \(A\) and acting on morphisms by pullback, and an subobject classifier is a representation of this functor.
+  \item A \emph{topos} is a category which has finite limits, is cartesian closed and has a subobject classifier.
+  \item If \(\c{\mathcal E}\) and \(\c{\mathcal F}\) are toposes, a \emph{logical functor} \(F: \c{\mathcal E} \to \c{\mathcal F}\) is one which preserves finite limits, exponentiables and the subobject classifier.
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Set\) is a topos, with \(\Omega = \{0, 1\}\) and \(\top = 1: 1 \mapsto \{0, 1\}\). Have
+    \[
+      \chi(a) =
+      \begin{cases}
+        1 & a \in A \\
+        0 & a \notin A
+      \end{cases}
+    \]
+    So also is the category \(\Set_f\) of finite set, or the category \(\Set_\kappa\) of sets of cardinality \(< \kappa\), where \(\kappa\) is an infinite cardinal such that if \(\lambda < \kappa\) then \(2^\lambda < \kappa\). %? does this exists in, say, standard set axioms?
+  \item For any small category \(\c C\), \([\c C^{\text{op}}, \Set]\) is a topos: we've seen that it's cartesian, and \(\Omega\) is determined by Yoneda:
+    \[
+      \Omega(A) \cong [\c C^{\text{op}}, \Set](\c C(-, A), \Omega) \cong \{\text{subfunctors of } \c C(-, A)\}.
+    \]
+    So we define \(\Omega(A)\) to be the set of \emph{sieves}\index{sieve} on \(A\), i.e.\ sets \(R\) of morphisms with codomain \(A\) such that if \(f \in R\) then \(fg \in R\) for any \(g\).
+
+    Given \(f: B \to A\) and a sieve \(R\) on \(A\), we define \(f^*R\) to be the set of \(g\) with codomain \(B\) such that \(fg \in R\). This makes \(\Omega\) into a functor \(\c C^{\text{op}} \to \Set\): \(\top: 1 \to \Omega\) is defined by
+    \[
+      \top_A(*) = \{\text{all morphisms with codomain } A\}.
+    \]
+    Given a subfunctor \(m: F' \mono F\), we define \(\chi_m: F \to \Omega\) by
+    \[
+      (\chi_m)_A(x) = \{f: B \to A: Ff(x) \in F'(B)\}.
+    \]
+    This is the unique natural transformation making
+    \[
+      \begin{tikzcd}
+        F' \ar[r] \ar[d, "m", tail] & 1 \ar[d, "\top", tail] \\
+        F \ar[r] & \Omega
+      \end{tikzcd}
+    \]
+    a pullback.
+  \item For any space \(X\), \(\Sh(X)\) is a topos. It's cartesian closed. For the subobject classifier we take
+    \[
+      \Omega(U) = \{V \in \mathcal O(X): V \subseteq U\}
+    \]
+    and \(\Omega(U' \to U)\) is the map \(V \mapsto V \subseteq U'\). \(\Omega\) is a sheaf since if we have \(U = \bigcup_{i \in I} U_i\) and \(U_i \subseteq U_i\) such that \(V_i \cap U_j = V_j \cap U_i\) for each \(i, j\) then \(V = \bigcup_{i \in I} V_i\) is the unique open subset of \(U\) with \(V \cap U_i = V_i\) for each \(i\).
+
+    If \(m: F' \mono F\) is a subsheaf then for any \(x \in F(U)\) the sieve
+    \[
+      \{V \subseteq U: x|_V \in F'(V)\}
+    \]
+    has a greatest element since \(F'\) is a sheaf. So we define \(\chi_m: F \to \Omega\) to send \(x\) to this object.
+  \item Let \(\c C\) be a group \(G\). The topos structure on \([G, \Set]\) is particularly simple: \(B^A\) is the set of all \(G\)-equivariant maps \(f: A \times G \to B\) but such an \(f\) is determined by its values at elements of the form \((a, 1)\) since \(f(a, g) = g . f(g^{-1} . a, 1)\), and this restriction can be any mapping \(A \times \{1\} \to B\). So we can take \(B^A\) to be the set of functions \(A \to B\) with \(G\) acting by
+    \[
+      (g . f) (a) = g(f(g^{-1} . a))
+    \]
+    and \(\Omega = \{0, 1\}\) with trivial \(G\)-action. So the forgetful functor \([G, \Set] \to \Set\) is logical, as is the functor which equips a set \(A\) with trivial \(G\)-action.
+
+    Moreover, even if \(G\) is infinite, \([G, \Set]\) is a topos and this inclusion \([G, \Set_f] \to [G, \Set]\) is logical. Similarly if \(\mathcal G\) is a large group (i.e.\ the underlying space may not be a set), then \([\mathcal G, \Set]\) is a topos.
+  \item Let \(\c C\) be a category such that every \(\c C/A\) is equivalent to a finite category. Then \([\c C^{\text{op}}, \Set_f]\) is a topos. Similarly if \(\c C\) is large but all \(\c C/A\) are small, then \([\c C^{\text{op}}, \Set]\) is a topos. In partciular \([, \Set]\) is a topos, but it's not locally small.
+  \end{enumerate}
+\end{eg}
 
 
 \printindex

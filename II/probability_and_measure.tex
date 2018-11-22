@@ -14,6 +14,7 @@
 \DeclareMathOperator{\var}{Var} % variance
 \DeclareMathOperator{\essup}{essup} % essential supremum
 \newcommand*{\ip}{\innerproduct} % inner product
+\DeclareMathOperator{\cov}{Cov} % variance
 
 % TODO: uparrow and downarrow
 
@@ -1895,7 +1896,7 @@ The strict converses do not hold but we can say something weaker.
   \end{enumerate}
 \end{remark}
 
-When does convergence almost surely imply convergence in mean? We need some kind of domination assumption.
+When does convergence in probability imply convergence in mean? We need some kind of domination assumption.
 
 \begin{definition}[uniformly integrable]\index{uniformly integrable}
   A sequence of random variables \((X_n)_{n \geq 1}\) is \emph{uniformly integrable} if
@@ -1938,9 +1939,9 @@ When does convergence almost surely imply convergence in mean? We need some kind
       \to 0
     \]
     by dominated convergence theorem.
-  \item \(2 \implies 1\): Prove first that \(X\) is integrable. By the proposition, we can find a subsequence \((n_k)_k\) such that \(X_{n_k} \to X\) almost surely. By Fatou's lemma,
+  \item \(2 \implies 1\): Prove first that \(X\) is integrable. By the previous proposition, we can find a subsequence \((n_k)_k\) such that \(X_{n_k} \to X\) almost surely. By Fatou's lemma,
     \[
-      \E(\norm X \mathbf 1_{\norm X \geq M}) \leq \liminf_{k \to 0} \E(\norm{X_{n_k}} \mathbf 1_{\norm{X_{n_k}} \geq m})
+      \E(\norm X \mathbf 1_{\norm X \geq M}) \leq \liminf_{k \to 0} \E(\norm{X_{n_k}} \mathbf 1_{\norm{X_{n_k}} \geq M})
     \]
     which goes to \(0\) as \(M \to \infty\) by uniform integrability assumption. Thus
     \[
@@ -1951,34 +1952,33 @@ When does convergence almost surely imply convergence in mean? We need some kind
     To show convergence in mean, we use the same trick of spliting into small and big parts.
     \begin{align*}
       \E(\norm{X_n - X})
-      &= \E([\mathbf 1_{\norm{X_n - X} \leq \varepsilon} + \mathbf 1_{\norm{X_n - X} > \varepsilon}] \norm{X_n - X}) \\
+      &= \E((\mathbf 1_{\norm{X_n - X} \leq \varepsilon} + \mathbf 1_{\norm{X_n - X} > \varepsilon}) \norm{X_n - X}) \\
       &\leq \varepsilon + \E(\mathbf 1_{\norm{X_n - X} > \varepsilon} \norm{X_n - X} (\mathbf 1_{\norm{X_n} \leq M} + \mathbf 1_{\norm{X_n} > M})) \\
-      &\leq \varepsilon + 1 + 2
+      &\leq \varepsilon + \dagger + \ddagger
     \end{align*}
     where
     \begin{align*}
-      1
+      \dagger
       &= \E(\norm{X_n - X} \mathbf 1_{\norm{X_n - X} > \varepsilon} \mathbf 1_{\norm{X_n} \leq M}) \\
       &\leq \E((M + \norm X) \mathbf 1_{\norm{X_n - X} > \varepsilon} (\mathbf 1_{\norm X \leq M} + \mathbf 1_{\norm X > M}) \\
-      &\leq 2M \P(\norm{X_n - X} > \varepsilon) + 2 \E(\norm X \mathbf 1_{\norm X > m})
+      &\leq 2M \P(\norm{X_n - X} > \varepsilon) + 2 \E(\norm X \mathbf 1_{\norm X > M})
     \end{align*}
     so
     \[
-      \limsup_{n \to \infty} 1 \leq 2 \E(\norm X \mathbf 1_{\norm X > M}) \to 0
+      \limsup_{n \to \infty} \dagger \leq 2 \E(\norm X \mathbf 1_{\norm X > M}) \to 0
     \]
-    as \(M \to \infty\).
-
-    On the other hand
+    as \(M \to \infty\). On the other hand
     \begin{align*}
-      2
+      \ddagger
       &= \E(\norm{X_n - X} \mathbf 1_{\norm{X_n - X} > \varepsilon} \mathbf 1_{\norm{X_n} > M}) \\
-      &\leq \E((\norm{X_n} + \norm X) \mathbf 1_{\norm{X_n} \geq m}) \\
+      &\leq \E((\norm{X_n} + \norm X) \mathbf 1_{\norm{X_n} \geq M}) \\
       &\leq \E(\norm{X_n} \mathbf 1_{\norm{X_n} \geq M} + \norm X \mathbf 1_{\norm X > M} + \norm X \mathbf 1_{\norm{X_n} \geq M} \mathbf 1_{\norm X \leq M}) \\
       &\leq 2 \E(\norm{X_n} \mathbf 1_{\norm{X_n} \geq M}) + \E(\norm X \mathbf 1_{\norm X > M})
     \end{align*}
     taking \(\limsup\),
     \[
-      \limsup_{n \to \infty} 2 \leq 2 \limsup_{n \to \infty} \E(\norm{X_n} \mathbf 1_{\norm{X_n} \geq M}) + \E(\norm X \mathbf 1_{\norm X > M}) \to 0 + 0
+      \limsup_{n \to \infty} \ddagger
+      \leq 2 \limsup_{n \to \infty} \E(\norm{X_n} \mathbf 1_{\norm{X_n} \geq M}) + \E(\norm X \mathbf 1_{\norm X > M}) \to 0 + 0
     \]
     as \(M \to \infty\).
   \end{itemize}
@@ -1989,13 +1989,14 @@ When does convergence almost surely imply convergence in mean? We need some kind
 \end{definition}
 
 \begin{proposition}
-  If \(p > 1\) and \((X_n)_{n \geq 1}\) is bounded in \(L^p\) then \((X_n)_n\) is uniformly integrable.
+  If \(p > 1\) and \((X_n)_{n \geq 1}\) is bounded in \(L^p\) then \((X_n)_{n \geq 1}\) is uniformly integrable.
 \end{proposition}
 
 \begin{proof}
-  By Markov inequality,
   \[
-    M^{p - 1} \E(\norm{X_n} \mathbf 1_{\norm{X_n} \geq M}) \leq \E( \norm{X_n}^p) \leq C
+    M^{p - 1} \E(\norm{X_n} \mathbf 1_{\norm{X_n} \geq M})
+    \leq \E(\norm{X_n}^p \mathbf 1_{\norm{X_n} \geq M})
+    \leq \E( \norm{X_n}^p) \leq C
   \]
   so
   \[
@@ -2023,7 +2024,7 @@ Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), f
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item As \(X \in I\) almost surely and \(I\) is an interval, have \(\E(X) \in I\).
-  \item We'll show that \((\varphi(x))^-\) is integrable so
+  \item We'll show that \(\varphi(X)^-\) is integrable so
     \[
       \E(\varphi(X)) = \E(\varphi(X)^+) - \E(\varphi(X)^-)
     \]
@@ -2043,7 +2044,7 @@ Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), f
   \begin{enumerate}
   \item \(2 \implies 1\): every \(\ell\) is convex and the supremum of \(\ell\) is convex:
     \[
-      \ell(t x + (1 - t) y) = t \ell(x) + (t - t) \ell(y) \leq t \sup_{\ell \in \mathcal F} \ell(x) + (1 - t) \sup_{\ell \in \mathcal F} \ell(y)
+      \ell(t x + (1 - t) y) = t \ell(x) + (1 - t) \ell(y) \leq t \sup_{\ell \in \mathcal F} \ell(x) + (1 - t) \sup_{\ell \in \mathcal F} \ell(y)
     \]
     so
     \begin{align*}
@@ -2052,7 +2053,7 @@ Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), f
       &\leq t \sup_{\ell \in \mathcal F} \ell(x) + (1 - t) \sup_{\ell \in \mathcal F} \ell(y) \\
       &= t \varphi(x) + (1 - t) \varphi(y)
     \end{align*}
-  \item We need to show that for all \(x_0 \in I\) we can find an affine function \(\ell_{x_0} = \theta_{x_0} (x - x_0) + \varepsilon(x_0)\), where \(\theta_{x_0}\) is morally the slope at \(x_0\), such that \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\). Then have \(\varphi = \sup_{x_0 \in I} \ell_{x_0}\).
+  \item We need to show that for all \(x_0 \in I\) we can find an affine function \(\ell_{x_0} = \theta_{x_0} (x - x_0) + \varphi(x_0)\), where \(\theta_{x_0}\) is morally the slope at \(x_0\), such that \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\). Then have \(\varphi = \sup_{x_0 \in I} \ell_{x_0}\).
 
     To find \(\theta_{x_0}\) observe that for all \(x < x_0 < y\) where \(x, y \in I\), have
     \[
@@ -2078,21 +2079,21 @@ Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), f
 
     Also for the remark,
     \[
-      - \varphi = - \sup_{\ell \in \mathcal F} \ell = \int(-\ell)
+      - \varphi = - \sup_{\ell \in \mathcal F} \ell = \inf_{\ell \in \mathcal F} (-\ell)
     \]
     so \(\varphi^- = (-\varphi)^+ \leq |\ell|\) for all \(\ell \in \mathcal F\). Then
     \[
-      \varphi^-(X) \leq |\ell(X)| \leq |a| |X| + |b|.
+      \varphi(X)^- \leq |\ell(X)| \leq |a| |X| + |b|.
     \]
-    As \(X\) is integrable, \(\varphi^-(X)\) is integrable.
+    As \(X\) is integrable, \(\varphi(X)^-\) is integrable.
 \end{proof}
 
-Jensen is for probability space only. The following applies to all measure spaces.
+Jensen inequality is for probability space only. The following applies to all measure spaces.
 
 \begin{proposition}[Minkowski inquality]\index{Minkowski inequality}
   Let \((X, \mathcal A, \mu)\) be a measure space and \(f, g\) measurable functions on \(X\). Let \(p \in [1, \infty)\) and define the \(p\)-norm
   \[
-    \norm f_p = \left( \int_X |p|^p d \mu \right)^{1/p}.
+    \norm f_p = \left( \int_X |f|^p d \mu \right)^{1/p}.
   \]
   Then
   \[
@@ -2134,7 +2135,7 @@ Jensen is for probability space only. The following applies to all measure space
 \end{proposition}
 
 \begin{lemma}[Young inequality]\index{Young inequality}
-  For all \(a, b \geq 0\), have
+  For all \(p, q \in (1, \infty)\) such that \(\frac{1}{p} + \frac{1}{q} = 1\), for all \(a, b \geq 0\), have
   \[
     ab \leq \frac{a^p}{p} + \frac{b^q}{q}.
   \]
@@ -2156,12 +2157,12 @@ Jensen is for probability space only. The following applies to all measure space
   \[
     \E(|X|^p)^{1/p} \leq \E(|X|^{p'})^{1/p'},
   \]
-  so the function \(p \mapsto \E(|X|^p)^{1/p}\) is non-decreasing. This can be used, for example, to show that if \(X\) has \(p\)th moment then it has \(p'\)th moment for \(p' \leq p\).
+  so the function \(p \mapsto \E(|X|^p)^{1/p}\) is non-decreasing. This can be used, for example, to show that if \(X\) has finite \(p\)th moment then it has finite \(p'\)th moment for \(p' \leq p\).
 \end{remark}
 
 \begin{definition}
   Let \((X, \mathcal A, \mu)\) be a measure space.
-  \begin{enumerate}
+  \begin{itemize}
   \item For \(p \geq 1\),
     \[
       \mathcal L^p(X, \mathcal A, \mu) = \{f: X \to \R \text{ measurable such that \(|f|^p\) is \(\mu\)-integrable}\}.
@@ -2174,7 +2175,7 @@ Jensen is for probability space only. The following applies to all measure space
     \[
       \essup |f| = \inf \{t: |f(x)| \leq t \text{ for \(\mu\)-almost every } x\}.
     \]
-  \end{enumerate}
+  \end{itemize}
 \end{definition}
 
 \begin{lemma}
@@ -2209,9 +2210,9 @@ Check that this is an equvalence relation stable under addition and multiplicati
 \begin{proof}
   If \(f \equiv_\mu g\) then \(\norm f_p = \norm g_p\) so \(\norm \cdot_p\) on \(L^p\) is well-defined. Triangle inequality follows from Minkowski inequality and linearity is obvious so \(\norm \cdot_p\) is indeed a norm.
 
-  For completeness, pick \((f_n)_n\) a Cauchy sequence in \(\mathcal L^p(X, \mathcal A, \mu)\). Need to show that there exists \(f \in \mathcal L^p\) such that \(\norm{f_n - f}_p \to 0\) as \(n \to \infty\). This will then imply that \([f_n] \to [f]\) in \(L^p\).
+  For completeness, pick \((f_n)_n\) a Cauchy sequence in \(\mathcal L^p(X, \mathcal A, \mu)\). Need to show that there exists \(f \in \mathcal L^p\) such that \(\norm{f_n - f}_p \to 0\) as \(n \to \infty\). This then implies that \([f_n] \to [f]\) in \(L^p\).
 
-  Let \(\varepsilon = 2^{-k}\). Then there exist \(n_k \uparrow \infty\) such that \(\norm{f_{n_{k + 1}} - f_{n_k}} \leq 2^{-k}\). Let
+  We can extract a subsequence \(n_k \uparrow \infty\) such that \(\norm{f_{n_{k + 1}} - f_{n_k}}_p \leq 2^{-k}\). Let
   \[
     S_K = \sum_{k = 1}^K |f_{n_{k + 1}} - f_{n_k}|
   \]
@@ -2248,7 +2249,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
   \begin{proof}
     Let \(t > \limsup_{n \to \infty} \norm{f_n}_\infty\). Then exists \(n_k \uparrow \infty\) such that
     \[
-      \norm{f_{n_k}} = \essup |f_{n_k}| = \inf \{s \geq 0: |f_{n_k}(x)| \leq s \mu\text{-almost every } x\} < t
+      \norm{f_{n_k}}_\infty = \essup |f_{n_k}| = \inf \{s \geq 0: |f_{n_k}(x)| \leq s \mu\text{-almost every } x\} < t
     \]
     for all \(k\). Thus for all \(k\), for \(\mu\)-almost every \(x\), \(|f_{n_k}(x)| < t\). But by \(\sigma\)-additivity of \(\mu\) we can \emph{swap the quantifiers}, i.e.\ for \(\mu\)-almost every \(x\), for all \(x\), \(|f_{n_k}(x)| < t\). Thus for \(\mu\)-almost every \(x\), \(\norm{f(x)}_\infty \leq t\).
   \end{proof}
@@ -2259,17 +2260,17 @@ Check that this is an equvalence relation stable under addition and multiplicati
 \end{proposition}
 
 \begin{proof}
-  Note that \(g \in \mathcal L^p\) implies \(g^+, g^- \in \mathcal L^p\). Thus by writing \(f = f^+ - f^-\) and using Minkowski inequality, suffice to show \(f \geq 0\) is the limit of a sequence of simple functions. well technically equivalence class of limit
+  Note that \(g \in \mathcal L^p\) implies \(g^+, g^- \in \mathcal L^p\). Thus by writing \(f = f^+ - f^-\) and using Minkowski inequality, suffice to show \(f \geq 0\) is the limit of a sequence of simple functions.
 
-  Recall there exists simple functions \(0 \leq g_n \leq f\) and \(g_n(x) \uparrow f(x)\) for \(\mu\)-almost every \(x\). Then
+  Recall there exist simple functions \(0 \leq g_n \leq f\) such that \(g_n(x) \uparrow f(x)\) for \(\mu\)-almost every \(x\). Then
   \[
-    \lim_{n \to \infty} = \norm{g_n - f}_p^p = \lim_{n \to \infty} \int_X |g_n - f|^p d\mu = 0
+    \lim_{n \to \infty} \norm{g_n - f}_p^p = \lim_{n \to \infty} \int_X |g_n - f|^p d\mu = 0
   \]
-  by dominated convergence theorem. (\(|g_n - f| \leq g_n + f \leq 2f\) so \(g_n - f\) is \(\mu\)-integrable)
+  by dominated convergence theorem (\(|g_n - f| \leq g_n + f \leq 2f\) so \(g_n - f\) is \(\mu\)-integrable).
 \end{proof}
 
 \begin{remark}
-  When \(X = \R^d, \mathcal A = \mathcal B(\R^d)\) and \(\mu\) is the Lebesgue measure, \(C_c(\R^d)\), the space of continuous functions with compact support is dense in \(\mathcal L^p(X, \mathcal A, \mu)\) when \(p \in [1, \infty)\) (this does not hold for \(p = \infty\) for more or less a technical reason as a constant nonzero function does not have compact support). See example sheet. In fact, \(C_c^\infty(\R^d)\) suffices.
+  When \(X = \R^d, \mathcal A = \mathcal B(\R^d)\) and \(\mu\) is the Lebesgue measure, \(C_c(\R^d)\), the space of continuous functions with compact support is dense in \(\mathcal L^p(X, \mathcal A, \mu)\) when \(p \in [1, \infty)\) (this does not hold for \(p = \infty\) a constant nonzero function has no noncompact support). See example sheet. In fact, \(C_c^\infty(\R^d)\) suffices.
 \end{remark}
 
 \section{Hilbert space and \(L^2\)-methods}
@@ -2303,7 +2304,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
 \end{lemma}
 
 \begin{proof}
-  Exercise. For reference see the author's IID Linear Analysis notes.
+  Exercise. For reference see the author's notes on IID Linear Analysis.
 \end{proof}
 
 \begin{corollary}
@@ -2319,11 +2320,11 @@ Check that this is an equvalence relation stable under addition and multiplicati
   \[
     \ip{f, g} = \int_X f \conj g d\mu
   \]
-  which is well-defined (i.e.\ finite) by Cauchy-Schwarz. The axioms are easy to check, with positive definite given by
+  which is well-defined (i.e.\ finite) by Cauchy-Schwarz. The axioms are easy to check, with positive-definiteness given by
   \[
     0 = \ip{f, f} = \int_X |f|^2 d\mu
   \]
-  implies \(f = 0\) \(\mu\)-almost everywhere so \(f = 0\).
+  if and only if \(f = 0\) \(\mu\)-almost everywhere so \(f = 0\).
 \end{eg}
 
 \begin{proposition}\index{orthogonal projection}
@@ -2363,7 +2364,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
 \end{proof}
 
 \begin{corollary}
-  Suppose \(V \leq H\) is a closed subspace of a Hilbert space mH. Then
+  Suppose \(V \leq H\) is a closed subspace of a Hilbert space \(H\). Then
   \[
     H = V \oplus V^\perp
   \]
@@ -2371,7 +2372,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
   \[
     V^\perp = \{x \in H: \ip{x, v} = 0 \text{ for all } v \in V\}
   \]
-  is the orthogonal of \(V\).
+  is the \emph{orthogonal} of \(V\).
 \end{corollary}
 
 \begin{proof}
@@ -2433,28 +2434,28 @@ Check that this is an equvalence relation stable under addition and multiplicati
   \[
     v_0 = \frac{\conj{\ell(x_0)}}{\norm{x_0}^2} x_0
   \]
-  and observe that \(\ell(x) - \ip{x, v_0}\) vanishes on \(\ker \ell\) and on \((\ker \ell)^\perp\). Thus it is identically zero.
+  and observe that \(\ell(x) - \ip{x, v_0}\) vanishes on \(\ker \ell\) and on \((\ker \ell)^\perp = \C x_0\). Thus it is identically zero.
 \end{proof}
 
 \begin{definition}[absolutely continuous, singular measure]\index{measure!absolutely continuous}\index{measure!singular}
   Let \((X, \mathcal A)\) be a measurable space and let \(\mu, \nu\) be two measures on \((X, \mathcal A)\).
   \begin{enumerate}
-  \item \(\mu\) is \emph{absolutely continuous} with respect to \(\nu\), denoted \(\mu \ell \nu\), if for every \(A \in \mathcal A\), \(\nu(A) = 0\) implies \(\mu(A) = 0\).
+  \item \(\mu\) is \emph{absolutely continuous} with respect to \(\nu\), denoted \(\mu \ll \nu\), if for every \(A \in \mathcal A\), \(\nu(A) = 0\) implies \(\mu(A) = 0\).
   \item \(\mu\) is \emph{singular}, denoted \(\mu \perp \nu\), if exists \(\Omega \in \mathcal A\) such that \(\mu(\Omega) = 0\) and \(\nu(\Omega^c) = 0\).
   \end{enumerate}
 \end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item Let \(\nu\) be the lebesgue measure on \((\R, \mathcal B(\R))\) and \(\mu = f(x) dx\) where \(f \geq 0\) is a Borel function then \(\mu \ll \nu\).
+  \item Let \(\nu\) be the Lebesgue measure on \((\R, \mathcal B(\R))\) and \(d\mu = fd\nu\) where \(f \geq 0\) is a Borel function then \(\mu \ll \nu\).
   \item If \(\mu = \delta_{x_0}\), the Dirac mass at \(x_0 \in \R\), then \(\mu \perp v\).
   \end{enumerate}
 \end{eg}
 
-Nonexaminable theorem and proof:
+Non-examinable theorem and proof:
 
 \begin{theorem}[Radon-Nikodym]\index{Radon-Nikodym theorem}
-  Assume \(\mu\) and \(\nu\) are \(\sigma\)-finite measures on \((X, \mathcal A)\)
+  Assume \(\mu\) and \(\nu\) are \(\sigma\)-finite measures on \((X, \mathcal A)\).
   \begin{enumerate}
   \item If \(\mu \ll \nu\) then there exists \(g \geq 0\) measurable such that \(d \mu = g d \nu\), namely
     \[
@@ -2465,7 +2466,7 @@ Nonexaminable theorem and proof:
     \[
       \mu = \mu_a + \mu_s
     \]
-    where \(\mu_A \ll \nu\) and \(\mu_s \perp \nu\). Moreover this decomposition is unique.
+    where \(\mu_a \ll \nu\) and \(\mu_s \perp \nu\). Moreover this decomposition is unique.
   \end{enumerate}
 \end{theorem}
 
@@ -2473,9 +2474,9 @@ Nonexaminable theorem and proof:
   Consider \(H = L^2(X, \mathcal A, \mu + \nu)\), which is a Hilbert space. First assume \(\mu\) and \(\nu\) are finite. Consider the linear form
   \begin{align*}
     \ell: H &\to \R \\
-    f &\mapsto \mu(f) = \inf_X f d\mu
+    f &\mapsto \mu(f) = \int_X f d\mu
   \end{align*}
-  \(\ell\) is bounded as
+  \(\ell\) is bounded by Cauchy-Shwarz and finiteness of the measures:
   \[
     |\mu(f)|
     \leq \mu(|f|)
@@ -2483,7 +2484,7 @@ Nonexaminable theorem and proof:
     \leq \sqrt{(\mu + \nu)(X)} \cdot \sqrt{\int_X |f|^2 d(\mu + \nu)}
     = C \cdot \norm f_H
   \]
-  so by Riesz representation theorem, ther exists \(g_0 \in L^2(X, \mathcal A, \mu + \nu)\) such that
+  so by Riesz representation theorem, there exists \(g_0 \in L^2(X, \mathcal A, \mu + \nu)\) such that
   \[
     \label{eqn:g0}
     \mu(f) = \int_X fg_0 d(\mu + \nu).
@@ -2496,12 +2497,12 @@ Nonexaminable theorem and proof:
     = \int_X \underbrace{\mathbf 1_{\{g_0 < 0\}} g_0}_{\leq 0} d(\mu + \nu)
     \leq 0
   \]
-  so equality throughout. Thus \(g_0 \geq 0\) \((\mu + \nu)\)-almost everywhere. Similarly take \(f = \mathbf 1_{\{g_0 > 1 + \varepsilon\}}\) for \(\varepsilon > 0\) and plug into \eqref{eqn:g0},
+  so equality throughout. Thus \(g_0 \geq 0\) \((\mu + \nu)\)-almost everywhere. Similarly take \(f = \mathbf 1_{\{g_0 > 1 + \varepsilon\}}\) for \(\varepsilon > 0\) and plug it into \eqref{eqn:g0},
   \begin{align*}
-    (1 + \varepsilon)(\mu + \nu) (\{g_0 > 1 + \varepsilon\})
-    &\leq \mu(\{g_0 > 1 + \varepsilon\}) \\
+    (\mu + \nu) (\{g_0 > 1 + \varepsilon\})
+    &\geq \mu(\{g_0 > 1 + \varepsilon\}) \\
     &= \int_X \mathbf 1_{\{g_0 > 1 + \varepsilon\}} g_0 d(\mu + \nu) \\
-    &\leq (\mu + \nu)(\{g_0 > 1 + \varepsilon\})
+    &\geq (1 + \varepsilon) (\mu + \nu)(\{g_0 > 1 + \varepsilon\})
   \end{align*}
   so must have
   \[
@@ -2509,13 +2510,11 @@ Nonexaminable theorem and proof:
   \]
   i.e.\ \(g_0 \leq 1\) \((\mu + \nu)\)-almost everywhere.
 
-  Now set \(\Omega = \{x \in X: g_0 \in [0, 1)\}\) so on \(\Omega^c\), \(g_0 = 1\) \((\mu + \nu)\)-almost everywhere. The \eqref{eqn:g0} is equivalent to
+  Now set \(\Omega = \{x \in X: g_0 \in [0, 1)\}\) so on \(\Omega^c\), \(g_0 = 1\) \((\mu + \nu)\)-almost everywhere. Then \eqref{eqn:g0} is equivalent to
   \[
     \int_X f(1 - g_0) d\mu = \int_X fg_0 d\nu
   \]
-  for all \(f \in L^2(X, \mathcal A, \mu + \nu)\). Hence this holds for all \(f \geq 0\).
-
-  Change \(f\) to \(\frac{f}{1 - g_0} \mathbf 1_\Omega\), get
+  for all \(f \in L^2(X, \mathcal A, \mu + \nu)\). Hence this holds for all \(f \geq 0\). Now \(f\) be \(\frac{f}{1 - g_0} \mathbf 1_\Omega\), get
   \[
     \label{eqn:Radon-Nikodym}
     \int_\Omega f d\mu = \int_\Omega f \frac{g_0}{1 - g_0} d\nu.
@@ -2536,14 +2535,14 @@ Nonexaminable theorem and proof:
   \begin{proof}\leavevmode
     \begin{enumerate}
     \item If \(\nu(A) = 0\) set \(f = \mathbf 1_A\) and plug into \eqref{eqn:Radon-Nikodym} to get \(\mu(A \cap \Omega) = 0\), namely \(\mu_a(A) = 0\).
-    \item Set \(f = \mathbf 1_{\Omega^c}\). On \(\Omega^c\), \(g_0 = 1\) \((\mu + \nu)\)-almost everywhere. Plug this into \eqref{eqn:g0} to get \(\nu(\Omega^c) = 0\). But \(\mu_s(\omega) = 0\) so \(\mu_s \perp \nu\).
+    \item Set \(f = \mathbf 1_{\Omega^c}\). On \(\Omega^c\), \(g_0 = 1\) \((\mu + \nu)\)-almost everywhere. Plug this into \eqref{eqn:g0} to get \(\nu(\Omega^c) = 0\). But \(\mu_s(\Omega) = 0\) so \(\mu_s \perp \nu\).
     \item \eqref{eqn:Radon-Nikodym} is equivalent to \(d\mu_a = gd\nu\) where \(g = \frac{g_0}{1 - g_0} \mathbf 1_\Omega\).
     \end{enumerate}
   \end{proof}
 
   This settles part 2 of the theorem, and also part 1 as if \(\mu \ll \nu\) then \(\mu = \mu_a\).
 
-  If \(\mu\) are \(\nu\) are not finite but only \(\sigma\)-finite, use the old trick of partition \(X\) into countably many \(\mu\)- and \(\nu\)-finite sets and take their intersection. Suppose we get \(X = \bigcup_n X_n\). Then \(\mu = \sum_n \mu|_{X_n}\) where for each \(n\) we can write
+  If \(\mu\) are \(\nu\) are not finite but only \(\sigma\)-finite, use the old trick of partition \(X\) into countably many \(\mu\)- and \(\nu\)-finite sets and take their intersections. Suppose we get a disjoint countable union \(X = \bigcup_n X_n\). Then \(\mu = \sum_n \mu|_{X_n}\) where for each \(n\) we can write
   \[
     \mu|_{X_n} = (\mu|_{X_n})_a + (\mu|_{X_n})_s.
   \]
@@ -2559,38 +2558,38 @@ Nonexaminable theorem and proof:
   \]
   As \(\mu_s, \mu_s' \perp \nu\) there exists \(\Omega_0, \Omega_0' \in \mathcal A\) such that
   \begin{align*}
-    \mu_s(\Omega_0) &= 0 \\
-    \mu_s'(\Omega_0') &= 0 \\
+    \mu_s(\Omega_0) &= 0, \nu(\Omega_0^c) = 0 \\
+    \mu_s'(\Omega_0') &= 0, \nu((\Omega_0')^c) = 0
   \end{align*}
   Set \(\Omega_1 = \Omega_0 \cap \Omega_0'\). Check that
   \begin{align*}
     \mu_s(\Omega_1) &= \mu_s'(\Omega_1) = 0 \\
     \nu(\Omega_1^c) &= \nu(\Omega_0^c \cup \Omega_0'^c) = 0
   \end{align*}
-  Now \(\mu_a, \mu_a' \ell \nu\) so
+  Now \(\mu_a, \mu_a' \ll \nu\) so
   \[
     \mu_a(\Omega_1^c) = \mu_a'(\Omega_1^c) = 0.
   \]
   Hence for all \(A \in \mathcal A\),
   \begin{align*}
     \mu_a(A)
-    &= \mu_a(A \cap \Omega_1) \\
-    &= \mu(A \cap \Omega_1) \\
-    &= \mu_a'(A \cap \Omega_1) \\
-    &= \mu_a'(A)
+    = \mu_a(A \cap \Omega_1)
+    = \mu(A \cap \Omega_1)
+    = \mu_a'(A \cap \Omega_1)
+    = \mu_a'(A)
   \end{align*}
   so \(\mu_a = \mu_a'\) and hence \(\mu_s = \mu_s'\).
 \end{proof}
 
 \begin{proposition}
-  Let \((\Omega, \mathcal F, \P)\) be a probability space. Let \(\mathcal G\) be a \(\sigma\)-subalgbebra of \(\mathcal F\) and \(X\) a random variable on \((\Omega, \mathcal F, \P)\). Assume \(X\) is integrable, then there exists a random varaible \(Y\) on \((\Omega, \mathcal G, \P)\) such that
+  Let \((\Omega, \mathcal F, \P)\) be a probability space. Let \(\mathcal G\) be a \(\sigma\)-subalgbebra of \(\mathcal F\) and \(X\) a random variable on \((\Omega, \mathcal F, \P)\). Assume \(X\) is integrable, then there exists a random variable \(Y\) on \((\Omega, \mathcal G, \P)\) such that
   \[
     \E(\mathbf 1_A X) = \E(\mathbf 1_AY)
   \]
   for all \(A \in \mathcal G\). Moreover \(Y\) is unique almost surely.
 \end{proposition}
 
-If you are perplexed by why it is nontrivial to recover a random variable on \(\mathcal G\) from one on \(\mathcal F\), as it seems paradoxically \(\mathcal G \subseteq \mathcal F\) and we can easily restrict to a ``sub-random variable''. But this obviously makes no sense as random variables are functions \emph{from} the space so \(\mathcal F\) gives more information. In other words, \(\id: (\Omega, \mathcal F, \P) \to (\Omega, \mathcal G, \P)\) is measurable but its inverse is not.
+If you are perplexed by why it is nontrivial to recover a random variable on \(\mathcal G\) from one on \(\mathcal F\), as it \(\mathcal G \subseteq \mathcal F\) so it seems that we can easily restrict to a ``sub-random variable''. But this reasoning makes absolutely no sense as random variables are functions \emph{from} the space. In other words, \(\id: (\Omega, \mathcal F, \P) \to (\Omega, \mathcal G, \P)\) is measurable but its inverse is not, and it is not obviously that \(X\) has a pushforward.
 
 \begin{definition}[conditional expectation]\index{conditional expectation}
   \(Y\) as above is called the \emph{conditional expectation} of \(X\) with respect to \(\mathcal G\), denote by
@@ -2606,7 +2605,7 @@ If you are perplexed by why it is nontrivial to recover a random variable on \(\
   \]
   Set \(Y = g\).
 
-  Uniqueness is shown in example sheet 2.
+  Uniqueness is shown in example sheet 3.
 \end{proof}
 
 \begin{remark}
@@ -2620,7 +2619,7 @@ If you are perplexed by why it is nontrivial to recover a random variable on \(\
 \end{remark}
 
 \begin{remark}
-  The special case when \(\mathcal G = \{\emptyset, B, B^c, \Omega\}\) where \(B \in \mathcal F\):
+  Special case when \(\mathcal G = \{\emptyset, B, B^c, \Omega\}\) where \(B \in \mathcal F\):
   \[
     \E(\mathbf 1_A | \mathcal G)(\omega) =
     \begin{cases}
@@ -2653,7 +2652,7 @@ If you are perplexed by why it is nontrivial to recover a random variable on \(\
     \hat f: \R^d &\to \C \\
     u &\mapsto \int_{\R^d} f(x) e^{i \ip{u, x}} dx
   \end{align*}
-  where \(\ip{u, x} = u_1x_1 + \dots + u_dx_d\) is called the \emph{Fourier transform} of \(f\).
+  where \(\ip{u, x} = u_1x_1 + \dots + u_dx_d\), is called the \emph{Fourier transform} of \(f\).
 \end{definition}
 
 \begin{proposition}\leavevmode
@@ -2682,7 +2681,7 @@ Again \(|\hat \mu(u)| \leq \mu (\R^d)\) and \(\hat \mu\) is continuous.
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item Normalised Gaussian distribution on \(\R\): \(\mu = \mathcal N(0, 1)\). \(d\mu(x) = g(x) dx\) where
+  \item Normalised Gaussian distribution on \(\R\): \(\mu = \mathcal N(0, 1)\). \(d\mu = g dx\) where
     \[
       g(x) = \frac{e^{-x^2/2}}{\sqrt{2\pi}}.
     \]
@@ -2693,7 +2692,7 @@ Again \(|\hat \mu(u)| \leq \mu (\R^d)\) and \(\hat \mu\) is continuous.
     i.e.\ \(\hat g = \sqrt{2\pi} g\). This is the defining characteristic of Gaussian distribution.
 
     \begin{proof}
-      Since \(|iu \cdot e^{iux} e^{-x^2/2}| \in L^1(\R)\), we can differentiate under integral sign to get
+      Since \((u \mapsto |iu \cdot e^{iux} e^{-x^2/2}|) \in L^1(\R)\), we can differentiate under integral sign to get
       \begin{align*}
         \frac{d}{du} \hat g(u)
         &= \frac{d}{du} \int_\R e^{iux} e^{-x^2/2} \frac{dx}{\sqrt{2\pi}} \\
@@ -2717,15 +2716,15 @@ Again \(|\hat \mu(u)| \leq \mu (\R^d)\) and \(\hat \mu\) is continuous.
       \]
       so \(\hat g(u) = e^{-u^2/2}\) as required.
     \end{proof}
-  \item \(d\)-dimensional version: \(\mu = \mathcal N(0, I_d)\). \(d\mu(x) = G(x) dx\), \(dx = dx_1\cdots dx_d\) where
+  \item \(d\)-dimensional version: \(\mu = \mathcal N(0, I_d)\). \(d\mu(x) = G(x) dx\) where \(dx = dx_1\cdots dx_d\) and
     \[
-      G(x) = g(x_1) \times \dots \times g(x_d) = \frac{1}{(\sqrt{2\pi})^d} e^{-\norm x^2/2}.
+      G(x) = \prod_{i = 1}^d g(x_i)= \frac{e^{-\norm x^2/2}}{(\sqrt{2\pi})^d}.
     \]
     Then
     \begin{align*}
       \hat G(u)
-      &= \int e^{i\ip{u, x}} G(x) dx \\
-      &= \prod_{i = 1}^d \int g(x_i) e^{iu_x x_i} dx_i \\
+      &= \int_{\R^d} e^{i\ip{u, x}} G(x) dx \\
+      &= \prod_{i = 1}^d \int_\R g(x_i) e^{iu_i x_i} dx_i \\
       &= \prod_{i = 1}^d \hat g(u_i) \\
       &= e^{-\norm u^2/2}
     \end{align*}
@@ -2750,7 +2749,7 @@ Again \(|\hat \mu(u)| \leq \mu (\R^d)\) and \(\hat \mu\) is continuous.
   \[
     f(x) = \frac{1}{(2\pi)^d} \int_{\R^d} \hat f(u) e^{-i \ip{u, x}} du
   \]
-  where \(\hat f(u)\) are \emph{Fourier coefficients} and \(e^{-i\ip{u, x}}\) are called \emph{Fourier modes}, which are \emph{characters} \(\R^d \to \{z \in \C: |z| = 1\}\). Informally this says that every \(f\) can be written as an ``infinite linear combination'' of Fourier modes.
+  where \(\hat f(u)\) are \emph{Fourier coefficients} and \(e^{-i\ip{u, x}}\) are called \emph{Fourier modes}, which are \emph{characters} \(e^{\ip{u, -}}: \R^d \to \{z \in \C: |z| = 1\}\). Informally this says that every \(f\) can be written as an ``infinite linear combination'' of Fourier modes.
 \end{remark}
 
 \begin{proof}
@@ -2758,65 +2757,59 @@ Again \(|\hat \mu(u)| \leq \mu (\R^d)\) and \(\hat \mu\) is continuous.
   
   1 reduces to 2 by considering \(f = f^+ - f^-\). In 2 we may assume wlog \(\mu\) is a probability measure so is the law of some random variable \(X\). Let \(f(x) = \frac{1}{(2\pi)^d} \hat{\hat \mu}(-x)\). We need to show \(\mu = fdx\), which is equivalent to for all \(A \in \mathcal B(\R^d)\),
   \[
-    \mu(A) = \int_{\R^A} f \mathbf 1_A dx.
+    \mu(A) = \int_{\R^d} f \mathbf 1_A dx.
   \]
-  Let \(h = \mathbf 1_A\) and wlog assume \(A\) is a bounded Borel set. The trick is to introduce an independent Gaussian random variable \(N \sim \mathcal N(0, I_d)\) with law \(G(x) dx\). We have
+  Let \(h = \mathbf 1_A\) and wlog assume \(A\) is a bounded Borel set. The trick is to introduce an independent Gaussian random variable \(N \sim \mathcal N(0, I_d)\) with law \(G dx\). We have
   \[
-    \int h(x) d\mu(x) = \E(h(x)) = \lim_{\sigma \to 0} \E(h(X + \sigma N))
+    \int_{\R^d} h(x) d\mu(x) = \E(h(X))) = \lim_{\sigma \to 0} \E(h(X + \sigma N))
   \]
   by dominated convergence theorem. But
-  \[
-    \E(h(X + \sigma N))
-    = \E(\int_{\R^d} h(X + \sigma x) G(x) dx)
-    = \E(\int \int h(X + \sigma x) e^{i \ip{u, x}} G(u) d \mu \frac{dx}{(\sqrt{2\pi})^d}
-  \]
-  as
-  \[
-    G(x) = \frac{1}{(\sqrt{2\pi})^d} \hat G(x) = \frac{1}{(\sqrt{2\pi})^d} \int_{\R^d} G(u) e^{i \ip{u, x}} du
-  \]
-  So by a change of variable \(y = \frac{x}{\sigma}\),
   \begin{align*}
     \E(h(X + \sigma N))
-    &= \E(\int \int h(X + y) e^{i \ip{u, y/\sigma}} G(u) \frac{du}{(\sqrt{2\pi})^d} \frac{dy}{\sigma^d} \\
-    &= \E(\int \int h(z) e^{i \ip{u/\sigma, z - x}} G(u) \frac{du}{(\sqrt{2\pi \sigma^2})^d} dz \\
-    &= \int \int h(z) e^{i \ip{u/\sigma, z}} \hat \mu_X(- \frac{u}{\sigma}) G(u) \frac{du}{(\sqrt{2\pi \sigma^2})^d} \frac{dz}{\sigma^d} \quad \text{ Tonelli-Funibi} \\
+    &= \E \left(\int_{\R^d} h(X + \sigma x) G(x) dx \right) \\
+    &= \E \left(\int_{\R^d} \int_{\R^d} h(X + \sigma x) e^{i \ip{u, x}} G(u) \frac{du dx}{(\sqrt{2\pi})^d} \right) \\
+  \end{align*}
+  as
+  \[
+    G(x) = \frac{1}{(\sqrt{2\pi})^d} \hat G(x) = \frac{1}{(\sqrt{2\pi})^d} \int_{\R^d} G(u) e^{i \ip{u, x}} du.
+  \]
+  So by a change of variable \(y = \sigma x\),
+  \begin{align*}
+    \E(h(X + \sigma N))
+    &= \E \left(\int \int h(X + y) e^{i \ip{u, y/\sigma}} G(u) \frac{du}{(\sqrt{2\pi})^d} \frac{dy}{\sigma^d} \right) \\
+    &= \E \left(\int \int h(z) e^{i \ip{u/\sigma, z - x}} G(u) \frac{du}{(\sqrt{2\pi \sigma^2})^d} dz \right) \\
+    &= \int \int h(z) e^{i \ip{u/\sigma, z}} \hat \mu_X(- \frac{u}{\sigma}) G(u) \frac{du}{(\sqrt{2\pi \sigma^2})^d} dz \quad \text{ Tonelli-Fubini} \\
     &= \frac{1}{(2\pi)^d} \int \int \hat \mu_X(u) e^{-i \ip{u, z}} h(z) e^{-\sigma^2 \norm u^2/2} dudz
   \end{align*}
 \end{proof}
 
-We want a condition to ensure \(\hat f \in L^1(\R^d)\). Clearly continuity is necessary. Here we use a generally principle in Fourier analysis: decay at \(\infty\) and smoothness are linked by Fourier transformation.
-
-In Fourier inversion formula, when \(u\) is large the character is has fast oscillation. Thus if \(\hat f\) decasy
+We want a condition to ensure \(\hat f \in L^1(\R^d)\). Clearly continuity is necessary. Here we use a generally principle in Fourier analysis: Fourier transform converts decay at infinity to smoothness. In Fourier inversion formula, if \(u\) is large then the Fouier character has fast oscillation. Thus if \(\hat f\) decays fast at infinity then the Fourier coefficients also decays fast, and the resulting transfrom is smoother.
 
 \begin{proposition}
-  Set \(d = 1\). If \(f, f'\) and \(f''\) exists (say if \(f\) is \(C^2\)) and are in \(L^1\) then \(\hat f \in L^1\).
+  If \(f, f'\) and \(f''\) exists (for example if \(f\) is \(C^2\)) and are in \(L^1\) then \(\hat f \in L^1\).
 \end{proposition}
 
 \begin{proof}
-  We show first that \(f, f' \in L^1\) implies that \(\hat f(u) = \frac{i}{u} \hat f'(u)\). This easily follows from integration by parts:
+  We prove the case \(d = 1\). The general case follows from Tonelli-Fubini. We show first that \(f, f' \in L^1\) implies that \(\hat f(u) = \frac{i}{u} \hat f'(u)\). This easily follows from integration by parts:
   \begin{align*}
     \hat f(u)
     &= \int f(x) e^{iux} dx \\
-    &= \frac{iu} \int f(x) (e^{iux})' dx \\
+    &= \frac{1}{iu} \int f(x) (e^{iux})' dx \\
     &= -\frac{1}{iu} \int f'(x) e^{iux} dx
   \end{align*}
-  so in particular \(\hat f(u)| \leq \frac{1}{|u|} \norm{f'}_{L^1}\).
+  so in particular \(|\hat f(u)| \leq \frac{1}{|u|} \norm{f'}_1\).
 
-  Thus if \(f, f', f'' \in L^1\) then
+  Thus if \(f, f', f'' \in L^1\) then \(\hat f(u) = - \frac{1}{u^2} \hat f''(u)\) so
   \[
-    \hat f(u) = - \frac{1}{u^2} \hat f''(u)
+    |\hat f(u)| \leq \frac{\norm{f''}_1}{|u^2|}.
   \]
-  so
-  \[
-    |hat f(u)| \leq \frac{\norm{f''}_{L^1}}{|u^2|}.
-  \]
-  As \(\int_1^\infty \frac{1}{|u|^2} du < \infty\) so \(\hat f \in L^1\).
+  As \(\int_1^\infty \frac{1}{|u|^2} du < \infty\), \(\hat f \in L^1\).
 \end{proof}
 
 \begin{definition}[convolution]\index{convolution}
   Given two Borel measures \(\mu\) and \(\nu\) on \(\R^d\), we define their \emph{convolution} \(\mu * \nu\) as the image of \(\mu \otimes \nu\) under the addition map
   \begin{align*}
-    \Phi: \R^d \to \R^d &\to \R^d \\
+    \Phi: \R^d \times \R^d &\to \R^d \\
     (x, y) &\mapsto x + y
   \end{align*}
   i.e.\ \(\mu * \nu = \Phi_*(\mu \otimes \nu)\)
@@ -2834,7 +2827,7 @@ Thus given \(A \in \mathcal B(\R^d)\),
 \begin{definition}[convolution]\index{convolution}
   If \(f, g \in L^1(\R^d)\) define their \emph{convolution} \(f * g\) by
   \[
-    f * g (x) = \int_{\R^d} f(x - t) g(t) dt.
+    (f * g) (x) = \int_{\R^d} f(x - t) g(t) dt.
   \]
 \end{definition}
 
@@ -2845,29 +2838,30 @@ This is well defined by Fubini: \(f, g \in L^1\) so
 and
 \[
   \norm{f * g}_1
-  = \int_{\R^d} \Bigg| \int_{\R^d} f(x - t) g(t) dt \Bigg| dx
+  = \int \Big| \int f(x - t) g(t) dt \Big| dx
   \leq \int \int |f(x - t) g(t)| dt dx
   \leq \norm f_1 \cdot \norm g_1
 \]
 
-In this case \((L^1(\R^d), *)\) forms a \emph{Banach algebra}.
+Therefore \((L^1(\R^d), *)\) forms a \emph{Banach algebra}.
 
 \begin{remark}
-  If \(\mu, \nu\) are two finite Borel measures on \(\R^d\) and if \(\mu, \nu \ll dx\), i.e.\ absolutely continuous, then by Radon-Nikodym ther exist \(f, g \in L^1(\R^d)\) such that
+  If \(\mu, \nu\) are two finite Borel measures on \(\R^d\) and if \(\mu, \nu \ll dx\), i.e.\ absolutely continuous, then by Radon-Nikodym there exist \(f, g \in L^1(\R^d)\) such that
   \begin{align*}
-    d\mu &= f(x) dx \\
-    d\nu &= g(x) dx
+    d\mu &= f dx \\
+    d\nu &= g dx
   \end{align*}
   then \(\mu * \nu \ll dx\)  and
   \[
-    d(\mu * \nu) = f * g (x) dx.
+    d(\mu * \nu) = (f * g) dx.
   \]
 \end{remark}
 
 \begin{proposition}[Gaussian approximation]\index{Gaussian approximation}
-  If \(f \in L^p(\R^d)\) where \(p \in [1, \infty)\) when
+  \label{prop:Gaussian approximation}
+  If \(f \in L^p(\R^d)\) where \(p \in [1, \infty)\) then
   \[
-    \lim_{\sigma \to 0} \norm{f_* G_\sigma - f}_p = 0
+    \lim_{\sigma \to 0} \norm{f * G_\sigma - f}_p = 0
   \]
   where \(G_\sigma = \mathcal N(0, \sigma^2 I_d)\), i.e.
   \[
@@ -2881,14 +2875,14 @@ In this case \((L^1(\R^d), *)\) forms a \emph{Banach algebra}.
   \[
     \lim_{t \to 0} \norm{\tau_t(f) - f}_p = 0
   \]
-  where \(t_t(f)(x) = f(x + t)\), \(t \in \R^d\).
+  where \(\tau_t(f)(x) = f(x + t)\), \(t \in \R^d\).
 \end{lemma}
 
 \begin{proof}
   Example sheet.
 \end{proof}
 
-\begin{proof}
+\begin{proof}[Proof of \nameref{prop:Gaussian approximation}]
   \[
     (f * G_\sigma - f)(x)
     = \int_{\R^d} G_\sigma(t) (f(x - t) - f(x)) dt
@@ -2896,11 +2890,11 @@ In this case \((L^1(\R^d), *)\) forms a \emph{Banach algebra}.
   \]
   where \(N \sim \mathcal N(0, I_d)\) is Gaussian with density \(G_1\). Then
   \[
-    \norm{f_*G_\sigma - f}_p^p
+    \norm{f *G_\sigma - f}_p^p
     \leq \E(\norm{f(x + \sigma N) - f(x)}_p^p)
     = \E(\norm{\tau_{\sigma N}(f) - f}_p^p)
   \]
-  by Jensen's inequaltiy and convexity of \(x \mapsto x^p\). By the lemma,
+  by Jensen's inequality and convexity of \(x \mapsto x^p\). By the lemma,
   \[
     \lim_{\sigma \to 0} \norm{\tau_{\sigma N}(f) - f}_p = 0.
   \]
@@ -2930,20 +2924,20 @@ In this case \((L^1(\R^d), *)\) forms a \emph{Banach algebra}.
   wlog we may assume \(\mu\) and \(\nu\) are laws of independent random variables \(X\) and \(Y\). Then by a previous result \(\mu * \nu\) is just the law of \(X + Y\) so
   \begin{align*}
     \widehat{\mu * \nu}(u)
-    &= \int e^{i \langle u, x + y \rangle d\mu(x)} d\nu(y) \\
-    &= \E(e^{i \langle u, x+ y \rangle}) = \E(e^{i \langle u, x \rangle} e^{i \langle u, y \rangle} \\
-    &= \E(e^{i \langle u, x \rangle}) \E(e^{i \langle u, y \rangle}) \text{ as \(X, Y\) are independent} \\
+    &= \int e^{i \langle u, x + y \rangle} d\mu(x) d\nu(y) \\
+    &= \E(e^{i \langle u, X + Y \rangle}) = \E(e^{i \langle u, X \rangle} e^{i \langle u, Y \rangle}) \quad \text{ homomorphism} \\
+    &= \E(e^{i \langle u, X \rangle}) \E(e^{i \langle u, Y \rangle}) \quad \text{ as \(X, Y\) are independent} \\
     &= \hat \mu(u) \cdot \hat \nu(u).
   \end{align*}
 
-  In short, this is precisely becuase \(e^{i x}\) are characters.
+  In short, this is precisely because \(e^{i \ip{u, -}}\) are characters.
 \end{proof}
 
-\begin{theorem}[Levy criterion]\index{Levy criterion}
-  Let \((X_n)_{n \geq 1}\) and \(X\) be \(\R^d\)-valued random vairables. Then TFAE:
+\begin{theorem}[Lévy criterion]\index{Lévy criterion}
+  Let \((X_n)_{n \geq 1}\) and \(X\) be \(\R^d\)-valued random variables. Then TFAE:
   \begin{enumerate}
   \item \(X_n \to X\) in law,
-  \item For all \(u \in \R^d\), \(\hat \mu_{X_n}(u) \to \hat \mu_X(u)\)
+  \item For all \(u \in \R^d\), \(\hat \mu_{X_n}(u) \to \hat \mu_X(u)\).
   \end{enumerate}
   In particular if \(\hat \mu_X = \hat \mu_Y\) for two random variables \(X\) and \(Y\) then \(X = Y\) in law, i.e.\ \(\mu_X = \mu_Y\).
 \end{theorem}
@@ -2952,7 +2946,7 @@ Thus Fourier transform is an injection from Borel measure.
 
 \begin{proof}\leavevmode
   \begin{itemize}
-  \item \(1 \implies 2\): Clear by defintion as \(f(x) = e^{i \langle x, u \rangle}\) is continuous and bounded for all \(u \in \R^d\).
+  \item \(1 \implies 2\): Clear by defintion as \(f(x) = e^{i \langle u, x \rangle}\) is continuous and bounded for all \(u \in \R^d\).
   \item \(2 \implies 1\): Need to show that for all \(g \in C_b(\R^d)\),
     \[
       \E(g(X_n)) \to \E(g(X)).
@@ -2964,17 +2958,149 @@ Thus Fourier transform is an injection from Borel measure.
       g(x) = \int \hat g(u) e^{-i \langle u, x\rangle} \frac{du}{(2\pi)^d}.
     \]
     Hence
-    \[
+    \begin{align*}
       \E(g(X_n))
-      = \int \hat g_u \E(e^{-i \langle u, X_n \rangle}) du
-      = \int \hat g(u) \hat \mu_{X_n} (-u) \frac{du}{(2\pi)^d}
-      \to \int \hat g \mu(-u) \frac{du}{(2\pi)^d}
-      = \E(g(X))
-    \]
+      &= \int \hat g(u) \E(e^{-i \langle u, X_n \rangle}) du \\
+      &= \int \hat g(u) \hat \mu_{X_n} (-u) \frac{du}{(2\pi)^d} \\
+      &\to \int \hat g(u) \hat mu_X(-u) \frac{du}{(2\pi)^d} \\
+      &= \E(g(X))
+    \end{align*}
     by dominated convergence theorem.
   \end{itemize}
 \end{proof}
 
+% think of \(f * g = \int \tau_{it}(f) g(t) dt\) so the mean of translation with respect to \(g\)
+
+\begin{theorem}[Plancherel formula]\index{Plancherel formula}\leavevmode
+  \begin{enumerate}
+  \item If \(f \in L^1(\R^d) \cap L^2(\R^d)\) then \(\hat f \in L^2(\R^d)\) and
+    \[
+      \norm{\hat f}^2_2 = (2\pi)^d \norm f^2_2.
+    \]
+  \item If \(f, g \in L^1(\R^d) \cap L^2(\R^d)\) then
+    \[
+      \ip{\hat f, \hat g}_{L^2} = (2\pi)^d \ip{f, g}_{L^2}.
+    \]
+  \item The Fourier transform
+    \begin{align*}
+      \mathcal F: L^1(\R^d) \cap L^2(\R^d) &\to L^2(\R^d) \\
+      f &\mapsto \frac{1}{(\sqrt{2\pi})^d} \hat f
+    \end{align*}
+    extends uniquely to a linear operator on \(L^2(\R^d)\) which is an isometry. Moreover
+    \[
+      \mathcal F \compose \mathcal F (f) = \check f
+    \]
+    where \(\check f(x) = f(-x)\), for all \(f \in L^2(\R^d)\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  First we prove 1 and 2 assuming \(\hat f, \hat g \in L^1(\R^d)\). By Fourier inversion formula,
+  \begin{align*}
+    \norm{\hat f}_2^2
+    &= \int_{\R^d} |\hat f(u)|^2 du \\
+    &= \int \hat f(u) \conj{\hat f(u)} du \\
+    &= \int \left(\int f(x) e^{i \ip{u, x}} dx \right) \conj{\hat f(u)} du \\
+    &= \int \int f(x) \conj{\hat f(u) e^{-i \ip{u, x}}} du dx \\
+    &= \int f(x) \conj{f(x)} (2\pi)^d dx \\
+    &= (2\pi)^d \norm f_2^2
+  \end{align*}
+  and in particular \(\hat f \in L^2(\R^d)\).
+
+  Similarly for 2,
+  \begin{align*}
+    \ip{\hat f, \hat g}_{L^2}
+    &= \int \hat f(u) \conj{\hat g(u)} du \\
+    &= \int \left(\int f(x) e^{i \ip{u, x}} dx\right) \conj{\hat g(u)} du \\
+    &= \int \int f(x) \conj{\hat g(u) e^{-i \ip{u, x}}} du dx \\
+    &= \int f(x) \conj{g(x)} dx (2\pi)^d \\
+    &= (2\pi)^d \ip{f, g}_{L^2}
+  \end{align*}
+
+  Now for the general case we use Gaussian as a mollifier. Consider
+  \begin{align*}
+    f_\sigma &= f * G_\sigma \\
+    g_\sigma &= g * G_\sigma
+  \end{align*}
+  and based on results and computations before,
+  \[
+    \hat f_\sigma
+    = \hat f \cdot \hat G_\sigma
+    = \hat f e^{-\sigma \norm u^2/2}.
+  \]
+  As \(\norm{\hat f}_\infty \leq \norm f_1\), \(\hat f_\sigma \in L^1(\R^d)\). Thus \(\hat f_\sigma \in L^2(\R^d)\) and \(\norm{\hat f_\sigma}_2^2 = (2\pi)^d \norm{f_\sigma}^2_2\). But by Gaussian approximation we know that \(f_\sigma \to f\) in \(L^2(\R^d)\) as \(\sigma \to 0\). Hence \(\norm{f_\sigma}_2 \to \norm f_2\). Then
+  \[
+    \norm{\hat f_\sigma}_2^2
+    = \norm{\hat f \cdot \hat G_\sigma}_2^2
+    = \int |\hat f(u)|^2 e^{-\sigma \norm u^2/2} du
+    \to \norm f^2_2
+  \]
+  as \(\sigma \to 0\) by monotone convergence theorem. Thus
+  \[
+    \norm{\hat f}_2^2 = (2\pi)^d \norm f_2^2.
+  \]
+
+  For 2,
+  \[
+    \ip{\hat f_\sigma, \hat g_\sigma}
+    = \int \hat f \conj{\hat g} e^{-\sigma \norm u^2} du
+    \to \int \hat f \conj{\hat g} du
+  \]
+  as \(\sigma \to 0\) by dominated convergence theorem as \(\hat f \conj{\hat g} \in L^1\). The result follows from Gaussian approximation.
+
+  For 3, \(L^1(\R^d) \cap L^2(\R^d)\) is dense in \(L^2(\R^d)\) because it contains \(C_c(\R^d)\). Then extend by completeness: given \(f \in L^2(\R^d)\), pick a sequence \(f_n \in L^1(\R^d) \cap L^2(\R^d)\) such that \(f_n \to f\) in \(L_2(\R^d)\). Then define
+  \[
+    \mathcal F f = \lim_{n \to \infty} \mathcal F f_n.
+  \]
+  The limit exists as \(L^2(\R^d)\) is complete. \(\mathcal F\) is well-defined as
+  \[
+    \norm{\mathcal F f_n - \mathcal F f_m}_2 = \norm{f_n - f_m}_2
+  \]
+  by 1. Finally,
+  \[
+    \norm{\mathcal F f}_2 = \norm f_2
+  \]
+  for all \(f \in L^2(\R^d)\) and
+  \[
+    \mathcal F \compose \mathcal F(f) = \check f
+  \]
+  for all \(f\) such that \(f, \hat f \in L^1(\R^d)\). Thus by continuity this holds for \(L^2(\R^d)\).
+\end{proof}
+
+\section{Gaussians}
+
+\begin{definition}[Gaussian]\index{Gaussian}
+  An \(\R^d\)-valued random variable \(X\) is called \emph{Gaussian} if for all \(u \in \R^d\), \(\ip{X, u}\) is Gaussian, namely its law has the form \(\mathcal N(m, \sigma^2)\) for some \(m \in \R, \sigma > 0\).
+\end{definition}
+
+\begin{proposition}
+  The law of a Gaussian vector \(X = (X_1, \dots, X_d) \in \R^d\) is uniquely determined by
+  \begin{enumerate}
+  \item its \emph{mean}\index{mean} \(\E X = (\E X_1, \dots, \E X_d)\),
+  \item its \emph{covariance matrix}\index{covariance matrix} \((\cov(X_i, X_j))_{ij}\) where
+    \[
+      \cov(X_i, X_j) = \E((X_i - \E X_i) (X_j - \E X_j)).
+    \]
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  If \(d = 1\) then this just says that it is determined by its mean \(m\) and covariance \(\sigma^2\), which is obviously true. For \(d > 1\), compute the characteristic function
+  \[
+    \hat \mu_X(u) = \E(e^{i \ip{X, u}})
+  \]
+  but by assumption \(\ip{X, u}\) is Gaussian in \(d = 1\) so its law is determined
+  \begin{enumerate}
+  \item the mean \(\E(\ip{X, u}) = \ip{\E X, u}\),
+  \item the variance \(\var \ip{X, u}\). But
+    \[
+      \var \ip{X, u}
+      = \E((\ip{X, u} - \E \ip{X, u})^2)
+      = \sum_{i, j} u_iu_j \cov (X_i, X_j).
+    \]
+  \end{enumerate}
+
+\end{proof}
 
 
 

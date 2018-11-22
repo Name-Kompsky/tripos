@@ -2248,7 +2248,7 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
 
 \subsection{Spectrum and resolvent}
 
-\begin{definition}[spectrum, resolvent]\index{spectrum, resolvent}
+\begin{definition}[spectrum, resolvent]\index{spectrum}\index{resolvent}
   Let \(X\) be a (complex) Banach space and \(T \in B(X) = B(X, X)\).
   \begin{itemize}
   \item The \emph{resolvent set} of \(T\) is
@@ -2347,13 +2347,11 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
 
 \subsection{Classification of spectrum}
 
-We would like to underlike why \(T - z\) may fail to be bijective. One reason, as in finite-dimensional case, is that \(\ker(T - z) \neq 0\). But even if the kernel is trivial it may fail to be bijective. We need first a proposition.
+We would like to understand why \(T - z\) fails to be bijective. One reason, as in finite-dimensional case, is that \(\ker(T - z) \neq 0\). But even if the kernel is trivial it may fail to be bijective. We need first a proposition.
 
 \begin{proposition}
-  Let \(X\) be a Banach space, \(Y\) a normed space and \(T \in B(X, Y)\). Then \(T^{-1} \in B(Y, X)\) if and only if \(T\) is dense in \(Y\) and \(T\) is bounded below, i.e.\ exists \(\varepsilon > 0\) such that for all \(x \in X\), \(\norm{Tx} \geq \varepsilon \norm x\).
+  Let \(X\) be a Banach space, \(Y\) a normed space and \(T \in B(X, Y)\). Then its left inverse \(T^{-1} \in B(Y, X)\) if and only if \(T\) is dense in \(Y\) and \(T\) is bounded below, i.e.\ exists \(\varepsilon > 0\) such that for all \(x \in X\), \(\norm{Tx} \geq \varepsilon \norm x\).
 \end{proposition}
-
-% left inverse
 
 \begin{proof}
   The only if direction is immediate. Thus assume that \(T \in B(X, Y)\) is such that \(\im T\) is dense and \(T\) is bounded below. Since \(T\) is bounded below \(T\) is injective so bijective and onto its image. Let \(S: \im T \to X\) be its inverse. Since \(T\) is bounded below, \(S\) is bounded. Since \(\im T\) is dense in \(Y\) and \(X\) is complete, \(S\) extends uniquely to a map \(\tilde S: Y \to X\). Moreover \(\tilde S \in B(Y, X)\) and for any sequence \(y_k \to y, y_k \in \im T\),
@@ -2363,7 +2361,145 @@ We would like to underlike why \(T - z\) may fail to be bijective. One reason, a
   so \(\tilde S = T^{-1}\).
 \end{proof}
 
+\begin{definition}[point spectrum, continuous spectrum, residual spectrum]\index{spectrum!point}\index{spectrum!continuous}\index{spectrum!residual}\index{eigenvalue}
+  Let \(X\) be a Banach space and \(T \in B(X)\).
+  \begin{itemize}
+  \item The \emph{point spectrum} or set of \emph{eigenvalues} is
+    \[
+      \sigma_p(T) = \{\lambda \in \C: T - \lambda \text{ is not injective}\}.
+    \]
+  \item The \emph{continuous spectrum} is
+    \[
+      \sigma_c(T) = \{\lambda \in \sigma(T): T - \lambda \text{ injective and } \im (T - \lambda) \text{ is dense}\}.
+    \]
+  \item The \emph{residual spectrum} is
+    \[
+      \sigma_r(T) = \{\lambda \in \sigma(T): T - \lambda \text{ is injective and } \im (T - \lambda) \text{ is not dense}\}.
+    \]
+  \end{itemize}
+\end{definition}
 
+\begin{remark}
+  By previous proposition, if \(\lambda \in \sigma_c(T)\) then \(T - \lambda\) is not bounded below. % possibility that it is left but not right inverse?
+  Thus there exists a sequence \((x_k) \subseteq X\) with \(\norm{x_k} = 1\) such that \(T x_k - \lambda x_k \to 0\) as \(k \to \infty\). \(\lambda\) is called an \emph{approximate eigenvalue}\index{approximate eigenvalue}.
+
+  The set
+  \[
+    \sigma_{ap}(T) = \{\lambda \in \sigma(T): \lambda \text{ is an approximate eigenvalue}\}
+  \]
+  is the \emph{approximate point spectrum}\index{spectrum!approximate point}.
+\end{remark}
+
+\begin{eg}
+  Let \(X\) be a finite-dimensional inner product space. Then \(T - \lambda\) is injective if and only if it is surjective. Thus \(\sigma(T) = \sigma_p(T)\). Moreover
+  \[
+    \sigma_p(T) = \{\lambda \in \C: \det(T - \lambda) = 0\}
+  \]
+  contains at most \(n = \dim X\) points. In partciular \(\rho(T) = \C \setminus \sigma(T)\) is dense in \(\C\).
+\end{eg}
+
+\subsection{Adjoints}
+
+\begin{definition}[dual/adjoint]\index{dual}\index{adjoint}
+  Let \(X, Y\) be normed spaces and \(T \in B(X, Y)\). The \emph{dual} or \emph{adjoint} \(T^* \in B(Y^*, X^*)\) is defined by
+  \[
+    (T^*f)(x) = f(Tx)
+  \]
+  for \(f \in Y^*, x \in X\).
+\end{definition}
+
+\begin{fact}
+  \(T^*f \in X^*\) and \(\norm{T^*} = \norm T\).
+\end{fact}
+
+\begin{proof}
+  \[
+    |(T^*f)x| = |f(Tx)| \leq \norm f_{Y^*} \norm T \cdot \norm x_X
+  \]
+  so
+  \[
+    \norm{T^*f}_{X^*} \leq \norm f_{Y^*} \norm T
+  \]
+  so \(\norm{T^*} \leq \norm T\). In general \(\norm{T^*} \geq \norm T\) follows from the Hahn-Banach theorem but for some spaces, such as \(\ell^p\) and Hilbert spaces we may write down an explicit element saturating the bound.
+\end{proof}
+
+\begin{definition}
+  Let \(H\) be a Hilbert space and \(T \in B(H)\). Let \(\theta: H \to H^*\) be the isomorphism from Riesz representation theorem. Then we define \(\tilde T^* \in B(H)\) by
+  \[
+    \tilde T^* x = \theta^{-1}T^* \theta x
+  \]
+  for \(x \in H\).
+\end{definition}
+
+\begin{fact}
+  \(\tilde T^*\) is characterised by
+  \[
+    (Tx, y) = (x, \tilde T^* y)
+  \]
+  for all \(x, y \in H\).
+\end{fact}
+
+\begin{proof}
+  For all \(x, y \in H\),
+  \[
+    (x, \tilde T^*y)
+    = (x, \theta^{-1} T^* \theta y)
+    = T^*\theta y(x)
+    = \theta y(Tx)
+    = (Tx, y).
+  \]
+\end{proof}
+
+From now on, we write \(T^*\) instead of \(\tilde T^*\) for a Hilbert space \(H\), which is the only case that we will consider from now on.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\id^* = \id\). More generally \((\lambda \id)^* = \conj \lambda \id\).
+  \item Let \(H = \ell^2\) and \(T\) is the left shift operator then \(T^*\) is the right shift operator.
+  \end{enumerate}
+\end{eg}
+
+\begin{fact}
+  Let \(H\) be a Hilbert space and \(S, T \in B(H)\). Then
+  \begin{enumerate}
+  \item \((\lambda S + \mu T)^* = \conj \lambda S^* + \conj \mu T^*\) for all \(\lambda, \mu \in \K\).
+  \item \((ST)^* = T^*S^*\).
+  \item \((T^*)^* = T\).
+  \item \(\norm{T^* T} = \norm T^2\).
+  \end{enumerate}
+\end{fact}
+
+\begin{note}
+  In general \(\norm T^2 \neq \norm{T^2}\), for example \(T \neq 0\) such that \(T^2 = 0\).
+\end{note}
+
+\subsection{Normal linear operators}
+
+\begin{definition}[normal, self-adjoint, unitary]\index{normal}\index{self-adjoint}\index{unitary}
+  \(T \in B(H)\) is
+  \begin{itemize}
+  \item \emph{normal} if \(TT^* = T^*T\).
+  \item \emph{self-adjoint} if \(T = T^*\).
+  \item \emph{unitary} if \(T^{-1} = T^*\).
+  \end{itemize}
+\end{definition}
+
+In particular self-adjoint and unitary operators are normal.
+
+\begin{ex}
+  Let \(T \in B(H)\) be normal. Then \(\norm{Tx} = \norm{T^*x}\) sfor all \(H\) and
+  \[
+    \ker T = \ker T^* = (\im T)^\perp = (\im T^*)^\perp.
+  \]
+  See example sheet 4. It follows that
+  \[
+    \cl{\im T} = ((\im T)^\perp)^\perp = (\ker T)^\perp = (\ker T^*)^\perp = \cl{\im T^*}.
+  \]
+\end{ex}
+
+\begin{corollary}
+  For \(T\) normal, \(\sigma_r(T) = \emptyset\).
+\end{corollary}
 
 
 

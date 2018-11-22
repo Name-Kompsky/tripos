@@ -14,6 +14,7 @@
 \DeclareMathOperator{\Lie}{Lie} % Lie functor
 \DeclareMathOperator{\supp}{supp} % support
 \newcommand{\w}{\wedge}
+\DeclareMathOperator{\Ric}{Ric} % Ricci curvature
 
 \begin{document}
 
@@ -1968,7 +1969,7 @@ Locally \(FA = F(A)_{j, k\ell}^i dx^k \w dx^\ell\) where \(\{F(A)_{j, k\ell}^i\}
   The converse is true only locally and only if connection is flat.
 \end{eg}
 
-\begin{theorem}[2nd Bianchi identity]\index{2nd Bianchi identity}
+\begin{theorem}[2nd Bianchi identity]\index{Bianchi identity!second}
   \[
     d_AF(A) = 0
   \]
@@ -2348,6 +2349,124 @@ So we may write \(g\) as
   because \((d \exp)_0\) is an isometry.
 \end{proof}
 
+\subsection{Curvature of a Riemannian metrix}
+
+\begin{definition}[Riemannian curvature]\index{Rieamannian curvature}
+  Let \((M, g)\) be a Riemannian manifold. The \emph{(full) Riemannian curvature} \(R = R(g)\) of the metric \(g\) is the curvature of the Levi-Civita connection of \(g\).
+\end{definition}
+
+By general theorey \(R(g) \in \Omega_M^2(\End TM)\). In local coordinates,
+\[
+  R = \frac{1}{2} R^i_{j, k \ell} dx^k \w dx^\ell
+\]
+where \(i, j, k, \ell\) all take values \(1, \dots, n\) where \(n = \dim M\). \((R^k_{j, k \ell}\) is called the \emph{Riemann curvature tensor}\index{Riemann curvature tensor}.
+
+Let \(X, Y \in V(M)\). Then \(R(X, Y) \in \Gamma(\End TM)\). Explicitly, if \(X = X^k \p_k, Y = Y^\ell \p_\ell\) then
+\[
+  R(X, Y) = (R^i_{j, k \ell} X^k Y^\ell)_{i, j}.
+\]
+We may define \(R_{k\ell} = R(\p_k, \p_\ell)\) to be local sections of \(\End TM\) so
+\[
+  R(X, Y) = X^k Y^\ell R_{k\ell}.
+\]
+
+In local coordinates, \(D = d + A\) where \(A = A_k dx^k = (\Gamma^i_{jk}) dx^k)\). Denote
+\[
+  D_k = D_{\p_k} = \p_k + A_k.
+\]
+For all \(Z \in V(M)\) have
+\begin{align*}
+  (- D \compose D) Z &= RZ = (R_{k \ell} dx^k \wedge dx^\ell) Z \\
+  R_{k \ell} Z &= (D_\ell D_k - D_k D_\ell) Z
+\end{align*}
+thus \(R_{k \ell} = - [D_k, D_\ell]\) and thus
+\[
+  R^i_{j, k \ell} = ((D_\ell D_k - D_k D_\ell) \p_j)^i
+\]
+Write \(D_X = X^kD_k\) then we have
+\begin{align*}
+  -[D_X, D_Y]
+  &= -[X^kD_k, Y^\ell D_\ell] \\
+  &= - X^k (\p_k Y^\ell) D_\ell - X^k Y^\ell D_k D_\ell \\
+  &\quad+ Y^k (\p_k X^\ell) D_\ell + Y^k X^\ell D_\ell D_k \\
+  &= X^k Y^\ell R_{k \ell} - [X, Y]^\ell D_\ell
+\end{align*}
+This proves
+
+\begin{lemma}
+  \[
+    R(X, Y) = D_{[X, Y]} - [D_X, D_Y].
+  \]
+\end{lemma}
+
+Sometimes it is convenient to consider
+\[
+  R_{ij, k \ell} = g_{iq} R^q_{j, k\ell}
+\]
+by \((X, Y, Z, T) \mapsto g(R(X, Y)Z, T)\).
+
+\begin{proposition}[symmetries of the curvature tensor]\leavevmode
+  \begin{enumerate}
+  \item \(R_{ij, \ell k} = - R_{ij, k\ell} = R_{ji, k \ell}\).
+  \item 1st Bianchi identity\index{Bianchi identity!first}: \(R^i_{j, k \ell} + R^i_{k, \ell j} + R^i_{\ell, jk} = 0\).
+  \item \(R_{ij, k \ell} = R_{k \ell, ij}\). 
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item The first equality is clear from properties of (``scalar'') 2-forms. For the second equality,
+    \begin{align*}
+      \frac{\partial g_{ij}}{\partial x^k}
+      &= g(D_k\p_i, \p_j) + g(\p_i, D_k \p_j) \\
+      \frac{\partial^2 g_{ij}}{\partial x^\ell \partial x^k}
+      &= g(D_\ell D_k \p_i, \p_j) + g(D_k \p_i, D_\ell \p_j) + g(D_\ell \p_i, D_k \p_j) + g(\p_i, D_\ell D_k \p_j)
+    \end{align*}
+    so
+    \begin{align*}
+      0
+      &= \frac{\partial^2 g_{ij}}{\partial x^\ell \partial x^k} - \frac{\partial^2 g_{ij}}{\partial x^k \partial x^\ell} \\
+      &= g([D_\ell, D_k] \p_i, \p_j) + g(\p_i, [D_\ell, D_k] \p_j) \\
+      &= g(R_k\ell \p_i, \p_j) + g(\p_i, R_{k\ell} \p_j) \\
+      &= R_{ji, k\ell} + R_{ij, \k \ell}
+    \end{align*}
+  \item 
+    \begin{align*}
+      R^i_{j, k \ell} + R^i_{k, \ell j} + R^i_{\ell, jk}
+      &= [D_\ell D_k \p_j - D_k D_\ell \p_j + D_j D_\ell \p_k - D_\ell D_j \p_k + \text{ two more terms}]^i
+    \end{align*}
+    But the first and last term cancel as \([\p_k, \p_\ell] = 0\).
+  \item See the handout on octahedron trick.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[Ricci curvature]\index{Ricci curvature}
+  The \emph{Ricci curvature} of \(g = g_{ij} dx^i dx^j\) at \(p \in M\) is
+  \[
+    \Ric_p(X, Y) = \tr(v \mapsto R_p(X, v) Y).
+  \]
+\end{definition}
+
+Locally \(\Ric = (\Ric_{ij})\) so
+\[
+  \Ric(X, Y) = \Ric_{ij} X^iY^j.
+\]
+We can also write
+\[
+  \Ric_{ij} = R^q_{i, jq} = g^{pq} R_{pi, jq}.
+\]
+By the third identities we derive, \(\Ric_{ij}\) is a symmetric bilinear form on \(T_pM\) for all \(p\).
+
+\begin{definition}[scalar curvature]\index{scalar curvature}
+  The \emph{scalar curvature} \(s = \operatorname{scal}(g) \in C^\infty(M)\) is the trace of \(\Ric\) with respect to \(g\), i.e. if \(g_{ij}(p) = \delta_{ij}\) then \(s = \Ric_{ii}\).
+\end{definition}
+
+In general,
+\[
+  s = g^{ij} \Ric_{ij} = g^{ij} g^{pq} R_{pi, jq} = g^{j k} R^\ell_{j, k \ell}.
+\]
+
+We can show, using linear algebra and representation theory, that \(\Ric\) and \(s\) are the only \(SO(n)\)-invariant components in the ``space of curvature tensor''.
 
 
 

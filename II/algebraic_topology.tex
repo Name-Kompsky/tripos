@@ -1712,7 +1712,7 @@ In other words, \(f_n\) does exactly what you would expect, and it simply forget
   Let \(L = \b \sigma_n \subseteq K\) be the standard \((n - 1)\)-sphere where \(n \geq 2\). In other words \(L = K - \{\sigma_n\}\).
   \[
     \begin{tikzcd}[column sep=small]
-      0 = C_{n + 1}(L) \ar[r] & C_n(L) = 0 \ar[r] \ar[d, hookrightarrow] & C_{n -1}(L) \ar[r] \ar[d, equal] & C_{n - 2}(L) \ar[r] \ar[d, equal] & \cdots \ar[r] & C_1(L) \ar[r] \ar[d, equal] & C_0(L) \ar[r] \ar[d, equal] & 0 \\
+      0 = C_{n + 1}(L) \ar[r] & C_n(L) = 0 \ar[r] \ar[d, hook] & C_{n -1}(L) \ar[r] \ar[d, equal] & C_{n - 2}(L) \ar[r] \ar[d, equal] & \cdots \ar[r] & C_1(L) \ar[r] \ar[d, equal] & C_0(L) \ar[r] \ar[d, equal] & 0 \\
       0 = C_{n + 1}(K) \ar[r] & C_n(K) = \langle \sigma_n \rangle \ar[r] & C_{n - 1}(K) \ar[r] & C_{n - 2}(K) \ar[r] & \cdots \ar[r] & C_1(K) \ar[r] & C_0(K) \ar[r] & 0
     \end{tikzcd}
   \]
@@ -1782,10 +1782,10 @@ Informally this is the homotopy of simplicial maps.
 \begin{proof}
   In the setting, the definition of simplicial approximation tells us that
   \[
-    \id_{|K|} (\St_{K'}(\hat \sigma)) = \interior \sigma \subseteq \St_K(s(\hat sigma)),
+    \id_{|K|} (\St_{K'}(\hat \sigma)) = \interior \sigma \subseteq \St_K(s(\hat \sigma)),
   \]
   which hapens if and only if \(\sigma(\hat \sigma)\) is a vertex of \(\sigma\).
-  % adjunctionbetween star and barycentric subdivision?
+  % adjunction between star and barycentric subdivision?
 
   For all \(\sigma \in K\), choose any vertex of \(\sigma\) and assign \(s(\hat \sigma)\) to it. A simplex of \(K\) is the form \(\langle \hat \sigma_0, \dots, \hat \sigma_n \rangle\) such that \(\sigma_0 \leq \sigma_1 \leq \dots \leq \sigma_n\) so every \(s(\hat \sigma_i)\) is a vertex of \(\sigma_n\). Therefore \(\langle s(\hat \sigma_0), \dots, s(\hat \sigma_n) \rangle\) is a face of \(\sigma_n\), so \(s\) is a simplicial map.
 \end{proof}
@@ -1820,17 +1820,154 @@ By results we have proven, \(\phi_*\) is independent of the choice of simplicial
   \]
 \end{theorem}
 
-\begin{proof}[non-examinable]
+\begin{proof}[Non-examinable]
   Sketch of proof. Let \(\alpha: |K| \to X, \beta: |L| \to Y\). By hypothesis
   \[
     \beta^{-1} \compose \phi \compose \alpha \simeq \beta^{-1} \compose \psi \compose \alpha: |K| \to |L|
   \]
-  are homotopic. Let \(\Psi: |K| \times I \to |L|\) be such a homotopy. By example sheet 3 Q9 \(|K| \times I \cong |M|\) for some simplicial complex \(M\), such that the ``top'' and ``bottom'' \(K_0, K_1 \cong K\) and embeds in \(M\), and for all \(\sigma \in K\) there exists \(M_\sigma \subseteq M\) such that \(|M_\sigma| \cong \sigma \times I\). Note that
+  are homotopic. Let \(\Psi: |K| \times I \to |L|\) be such a homotopy. By example sheet 3 Q9 \(|K| \times I \cong |M|\) for some simplicial complex \(M\), such that the ``top'' and ``bottom'' \(K_0, K_1 \cong K\) and embeds in \(M\) via \(i: K \to M, j: K \to M\), and for all \(\sigma \in K\) there exists \(M_\sigma \subseteq M\) such that \(|M_\sigma| \cong \sigma \times I\). Note that
   \[
-    |\b M_\sigma| = (\sigma \times \{0\}) \cup (\sigma \times \{1\}) \cup |\b \sigma \times I|.
+    |\b M_\sigma| = (\sigma \times \{0\}) \cup (\sigma \times \{1\}) \cup M_{\b \sigma}.
   \]
-  
+  Define a chain homotopy
+  \begin{align*}
+    h_n: C_n(K^{(r)}) &\to C_{n + 1}(M^{(r)}) \\
+    \sigma &\mapsto \sum \cdots
+  \end{align*}
+  Interpreting the equation about \(\b M_\sigma\) as a statement about oriented simplices,
+  \[
+    \p \compose h(\sigma) = j(\sigma) - i(\sigma) - h \compose \b(\sigma)
+  \]
+  so
+  \[
+    j(\sigma) - i(\sigma) = \b \compose h(\sigma) + h \compose \b(\sigma).
+  \]
+  Note that \(F \compose i\) is a simplicial approximation to \(\phi = \Phi \compose i\) and \(F \compose j\) is a simplicial approximation to \(\tau = \Phi \compose j\). Thus
+  \[
+    F \compose j(\sigma) - F \compose i(\sigma)
+    = F \compose \b \compose h(\sigma) + F \compose h \compose \b(\sigma)
+    = \b \compose (F \compose h)(\sigma) + (F \compose h) \compose \b(\sigma)
+  \]
+  so \(F \compose h\) is a homotopy between \(F \compose i\) and \(F \compose j\). Thus
+  \[
+    \phi_* = (F \compose i)_* = (F \compose j)_* = \psi_*.
+  \]
 \end{proof}
+
+\begin{lemma}
+  If \(X, Y, Z\) are triangulable and \(X \xrightarrow{\phi} Y \xrightarrow{\psi} Z\) then
+  \[
+    (\psi \compose \phi)_* = \psi_* \compose \phi_*.
+  \]
+  Also \((\id_X)_* = \id_{H_n(X)}\).
+\end{lemma}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+\begin{corollary}
+  If \(X, Y\) are triangulable and \(\phi: X \to Y\) is a homotopy equivalence then \(\phi_*: H_n(X) \to H_n(Y)\) is an isomorphism for all \(n\).
+\end{corollary}
+
+In other words, homology is a homotopy invariance.
+
+\section{Homology calculations}
+
+\subsection{Homology of spheres and applications}
+
+\begin{eg}
+  \(S^{n - 1} \cong |L|\) where \(L\) is the standard simplicial \((n - 1)\)-sphere. Therefore
+  \[
+    H_k(S^{n - 1}) \cong H_k(L) =
+    \begin{cases}
+      \Z & k = 0, n - 1 \\
+      0 & \text{ otherwise}
+    \end{cases}
+  \]
+  Two implications: first since
+  \[
+    H_{n - 1}(S^{n - 1}) \cong \Z \ncong 0 \cong H_{n - 1}(*)
+  \]
+  \(S^{n - 1}\) is not contractible. Secondly since
+  \[
+    H_{n - 1}(S^{n - 1}) \cong \Z \ncong 0 \cong H_{n - 1}(S^{m - 1})
+  \]
+  for \(m \neq n\) we see \(S^{n - 1} \nsimeq S^{m - 1}\) unless \(n = m\).
+\end{eg}
+
+\begin{theorem}[invariance of domain]\index{invariance of domain}
+  If \(\R^m \cong \R^n\) then \(m = n\).
+\end{theorem}
+
+\begin{proof}
+  Suppose \(\phi: \R^m \to \R^n\) is a homeomorphism. wlog \(\phi(0) = 0\). This induces a homeomorphism \(\R^m \setminus \{0\} \cong \R^n \setminus \{0\}\). But they are homotopic equivalent to \(S^{m - 1}\) and \(S^{n - 1}\) respectively. \(m = n\).
+\end{proof}
+
+\begin{theorem}[Brouwer fixed point theorem]\index{Brouwer fixed point theorem}
+  Let \(D^n\) be the closed \(n\)-dimensional disk. Then any continuous map \(\phi: D^n \to D^n\) has a fixed point.
+\end{theorem}
+
+\begin{proof}
+  Identical to the 2 dimensional case, substituting \(H_{n - 1}\) for \(\pi_1\).
+\end{proof}
+
+\subsection{Mayer-Vietoris theorem}
+
+\begin{definition}[(short) exact sequence]\index{exact sequence}\index{short exact sequence}
+  A sequence of homomorphism of abelian groups
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & A_{i + 1} \ar[r, "f_{i + 1}"] & A_i \ar[r, "f_i"] & A_{i - 1} \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+  is \emph{exact} at \(A_i\) if \(\ker f_i = \im f_{i + 1}\). The sequence is \emph{exact} if it is exact at every \(A_i\).
+
+  A \emph{short exact sequence} is one of the form
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A \ar[r] & B \ar[r] & C \ar[r] & 0
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(A \xrightarrow{f} B \to 0\) is exact at \(B\) if and only if \(f\) is surjective.
+  \item \(0 \to A \xrightarrow{f} B\) is exact at \(A\) if and only if \(f\) is injective.
+  \item A very short exact sequence
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & A \ar[r, "f"] & B \ar[r] & 0
+      \end{tikzcd}
+    \]
+    is an isomorphism \(f: A \to B\).
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[Mayer-Vietoris]\index{Mayer-Vietoris theorem}
+  Let \(K = L \cup M\) with \(N = L \cap M\) be simplicial complexes. Consider the inclusion maps
+  \[
+    \begin{tikzcd}
+      N \ar[r, hook, "i"] \ar[d, hook, "j"] & L \ar[d, hook, "\ell"] \\
+      M \ar[r, hook, "m"] & K
+    \end{tikzcd}
+  \]
+  then
+  \[
+    \begin{tikzcd}
+      H_{n + 1}(N) \ar[r, "i_* \oplus j_*"] & H_{n + 1}(L) \oplus H_{n + 1}(M) \ar[r, "\ell_* - m_*"] & H_{n + 1}(K) \ar[dll, out=0, in=180, "\delta_*"] \\
+      H_{n}(N) \ar[r, "i_* \oplus j_*"] & H_{n}(L) \oplus H_{n}(M) \ar[r, "\ell_* - m_*"] & H_n(K) \ar[dll, out=0, in=180, "\delta_*"] \\
+      H_{n - 1}(N) \ar[r, "i_* \oplus j_*"] & H_{n - 1}(L) \oplus H_{n - 1}(M) \ar[r, "\ell_* - m_*"] & H_{n - 1}(K) \ar[dll, out=0, in=180, "\delta_*"] \\
+      \cdots
+    \end{tikzcd}
+  \]
+  then there exists \(\delta_*: H_n(K) \to H_{n - 1}(N)\) making this sequence exact.
+\end{theorem}
+
+
+
+
 
 
 
