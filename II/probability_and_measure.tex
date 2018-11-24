@@ -3099,8 +3099,141 @@ Thus Fourier transform is an injection from Borel measure.
       = \sum_{i, j} u_iu_j \cov (X_i, X_j).
     \]
   \end{enumerate}
-
 \end{proof}
+
+In particular this shows that \((\cov(X_i, X_j))_{ij}\) is a non-negative semidefinite symmetric matrix.
+
+\begin{proposition}
+  If \(X\) is a Gaussian vector then exists \(A \in \matrixring_d(\R), b \in \R^d\) such that \(X\) has the same law as \(A N + b\) where \(N = (N_1, \dots, N_d)\), \((N_i)_{i = 1}^d\) are iid.\ \(\mathcal N(0, 1)\).
+\end{proposition}
+
+\begin{proof}
+  Take \(A\) such that
+  \[
+    AA^* = (\cov(X_i, X_j))_{ij}
+  \]
+  where \(A^*\) is the adjoint/transpose of \(A\), and
+  \[
+    b = (\E X_1, \dots, \E X_d).
+  \]
+  Check that for all \(u \in \R^d\),
+  \begin{align*}
+    \E(\ip{X, u}) &= \ip{b, u} \\
+    \var(\ip{X, u}) &= \ip{AA^* u, u} = \norm{A^* u}_2^2 = \var(\ip{AN + b, u})
+  \end{align*}
+\end{proof}
+
+\begin{proposition}
+  If \((X_1, \dots, X_d)\) is a Gaussian vector then TFAE:
+  \begin{enumerate}
+  \item \(X_i\)'s are independent.
+  \item \(X_i\)'s are pairwise independent.
+  \item \((\cov(X_i, X_j))_{ij}\) is a diagonal matrix.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  \(1 \implies 2 \implies 3\) is obvious. \(3 \implies 1\) as we can choose \(A\) to be diagonal. Thus \(X\) has the same law as \((a_1N_1, \dots, a_dN_d) + b\).
+\end{proof}
+
+\begin{theorem}[central limit theorem]\index{central limit theorem}
+  Let \((X_i)_{i \geq 1}\) be \(\R^d\)-valued iid.\ random variables with law \(\mu\). Assume they have second moment, i.e.\ \(\E(\norm{X_1}^2) < \infty\). Let \(\V m = \E(X_1) \in \R^d\) and
+  \[
+    Y_n = \frac{X_1 + \dots + X_n - n \cdot \V m}{\sqrt n}.
+  \]
+  Then \(Y_n\) converges in law to a central Gaussian on \(\R^d\) with law \(\mathcal N(0, K)\) where
+  \[
+    K_{ij} = (\cov(X_1))_{ij} = \left[ \int_{\R^d} (x_i - \E(X_1)) (x_j - \E(X_1)) d \mu(x) \right]_{ij}.
+  \]
+\end{theorem}
+
+%second order correction to law of large numbers?
+
+\begin{proof}
+  The proof is an application of Lévy criterion. Need to show \(\hat \mu_{Y_n}(u) \to \hat \mu_Y(u)\) as \(n \to \infty\) for all \(u\), where \(Y \sim \mathcal N(0, K)\). As
+  \[
+    \hat \mu_{Y_n}(u) = \E( e^{i \ip{Y_n, u}}),
+  \]
+  this is equivalent to show that for all \(u\), \(\ip{Y_n, u}\) converges in law to \(\ip{Y, n}\). But
+  \[
+    \ip{Y_n, u} = \frac{\ip{X_1, u} + \dots + \ip{X_n, u} - n \ip{\V m, u}}{\sqrt n}
+  \]
+  so we reduce the problem to \(1\)-dimension case. By rescaling wlog \(\E(X_1) = 0, \E(X_1^2) = 1\).
+
+  Now
+  \begin{align*}
+    \hat \mu_{Y_n}(u)
+    &= \E(e^{iuY_n}) \\
+    &= \E(\exp (iu \frac{X_1 + \dots + X_n}{\sqrt n})) \\
+    &= \prod_{i = 1}^n \E(\exp (iu \frac{X_i}{\sqrt n})) \\
+    &= (\E(\exp (iu \frac{X_i}{\sqrt n})))^n \\
+    &= (\hat \mu (\frac{u}{\sqrt n}))^n
+  \end{align*}
+  But \(\E(X_1) = 0, \E(X_1^2) = 1\) so we can differentiate \(\hat \mu\) under the integral sign
+  \begin{align*}
+    \hat \mu(u) &= \int_\R e^{iux} d \mu(x) \\
+    \frac{d}{du} \hat \mu(u) &= \int_\R ix e^{iux} d\mu(x) = i \E(X_1) \\
+    \frac{d^2}{du^2} \hat \mu(u) &= \int_\R -x^2 e^{iux} d\mu(x) = -\E(X_1^2)
+  \end{align*}
+  Taylor expand \(\hat \mu\) around \(0\) to \(2\)nd order,
+  \begin{align*}
+    \hat \mu (u)
+    &= \hat \mu(0) + u \hat \mu'(0) + \frac{u^2}{2} \hat \mu''(u) + o(u^2) \\
+    &= 1 + 0 \cdot u - \frac{u^2}{2} + o(u^2)
+  \end{align*}
+  so
+  \[
+    \hat \mu_{Y_n}(u)
+    = (1 - \frac{u^2}{2n} + o(\frac{u^2}{n}))^n
+    \to e^{-u^2/2}
+    = \hat g(u)
+  \]
+  as \(n \to \infty\) where \(g\) is the law of \(Y\).
+\end{proof}
+
+\section{Ergodic theory}
+
+Let \((X, \mathcal A, \mu)\) be a measure space. Let \(T: X \to X\) be an \(\mathcal A\)-measurable map. We are interested in the trajectories of \(T^n x\) for \(n \geq 0\) and their statistical behaviour. In particular we are interested in those \(T\) \emph{preserving measure \(\mu\)}.
+
+\begin{definition}[measure-preserving]\index{measure-preserving}
+  \(T: X \to X\) is \emph{measure-preserving} if \(T_*\mu = \mu\).
+\end{definition}
+
+\begin{definition}[invariant function, invariant set, invariant \(\sigma\)-algebra]\index{invariant function}\index{invariant set}\index{invariant \(\sigma\)-algebra}\index{\(\sigma\)-algebra!invariant}\leavevmode
+  \begin{itemize}
+  \item A measurable function \(f: X \to \R\) is called \emph{\(T\)-invariant} if \(f = f \compose T\).
+  \item A set \(A \in \mathcal A\) is \emph{\(T\)-invariant} if \(\mathbf 1_A\) is \(T\)-invariant.
+  \item
+    \[
+    \mathcal T = \{A \in \mathcal A: A \text{ is \(T\)-invariant}\}
+  \]
+  is called the \emph{\(T\)-invariant \(\sigma\)-algebra}.
+  \end{itemize}
+\end{definition}
+
+\begin{lemma}
+  \(f\) is \(T\)-invariant if and only if \(f\) is \(\mathcal T\)-measurable.
+\end{lemma}
+
+\begin{proof}
+  Indeed for all \(t \in \R\),
+  \[
+    \{x \in X: f(x) < t\}
+    = \{x \in X: f \compose T (x) < t\}
+    = T^{-1}(\{x \in X: f(x) < t\}).
+  \]
+\end{proof}
+
+\begin{definition}[ergodic]\index{ergodic}
+  \(T\) is \emph{ergodic} with respect to \(\mu\), or that \(\mu\) is \emph{ergodic} with respect to \(T\), if for all \(A \in \mathcal T\), \(\mu(A) = 0\) or \(\mu(A^c) = 0\).
+\end{definition}
+
+\begin{ex}
+  Let \(X\) be a finite space, \(T: X \to X\) a map and \(\mu = \#\) the counting measure, then \(T\) is measure preserving is equivalent to \(T\) being a bijection, and \(T\) is ergodic is equivalent to there does not exists a partition \(X = X_1 \cup X_2\) such that both \(X_1\) and \(X_2\) are \(T\)-invariant, which is equivalent to for all \(x, y \in X\), ther exists \(n\) such that \(T^n x = y\).
+\end{ex}
+
+
+
 
 
 

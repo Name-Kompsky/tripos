@@ -10,6 +10,7 @@
 
 \input{header}
 
+%\usepackage{tipa} % \textcorner
 \usepackage{xcolor}
 
 % add annotation to middle of a commutative square in tikzcd
@@ -1668,7 +1669,8 @@ If \(\c C\) has coproducts then so does \(\c C_\T\) since \(F_\T\) preserves the
       TL \xrightarrow{T\mu_j} TGD(j) \xrightarrow{\delta_j} GD(j)
     \]
     form a cone over \(GD\) since the edges of \(GD\) are homomorphisms, so they induce a unique \(\lambda: TL \to L\) such that \(\mu_j \lambda = \delta_j(T_\mu)\) for all \(j\). The fact that \(\lambda\) is a \(\T\)-algebra structure on \(L\) follows from the fact that the \(\delta_j\) are algebra structure and uniqueness of factorisations through limits. So \(((L, \lambda), (\mu_j: j \in \ob \c J))\) is the unique lifting of the limit cone over \(GD\) to a cone over \(D\), and it's a limit, since given a conve over \(D\) with apex \((A, \alpha)\), we get a unique factorisation \(A \xrightarrow{f} L\) in \(\c C\), and \(F\) is an algebra homomorphism by uniqueness of factorisation through \(L\).
-  \item For \(\implies\) direction, \(F: \c C \to \c C^\T\) preserves colimits since it is a left adjoint, so \(T = GF\) preserves colimits of shape \(\c J\).
+  %\item For \(\implies\) direction, \(F: \c C \to \c C^\T\) preserves colimits since it is a left adjoint, so \(T = GF\) preserves colimits of shape \(\c J\).
+    %TODO: uncomment the previous line
 
     For \(\impliedby\) direction, suppose given \(D: \c J \to \c C^\T\) as in 1, and a colimit cone \((GD(j) \xrightarrow{\mu_j} L: j \in \ob \c J)\) in \(\c C\), then \((TGD(j) \xrightarrow{T\mu_j} TL: j \in \ob \c C)\) is also a colimit cone, so the composite
     \[
@@ -2343,7 +2345,7 @@ J.\ Giraud gave a characterisation of such categories by (set-theoretic) categor
     \[
       \begin{tikzcd}
         F' \ar[r] \ar[d, "m", tail] & 1 \ar[d, "\top", tail] \\
-        F \ar[r] & \Omega
+        F \ar[r, "\chi_m"] & \Omega
       \end{tikzcd}
     \]
     a pullback.
@@ -2368,6 +2370,191 @@ J.\ Giraud gave a characterisation of such categories by (set-theoretic) categor
   \item Let \(\c C\) be a category such that every \(\c C/A\) is equivalent to a finite category. Then \([\c C^{\text{op}}, \Set_f]\) is a topos. Similarly if \(\c C\) is large but all \(\c C/A\) are small, then \([\c C^{\text{op}}, \Set]\) is a topos. In partciular \([, \Set]\) is a topos, but it's not locally small.
   \end{enumerate}
 \end{eg}
+
+\begin{lemma}
+  Suppose \(\mathcal E\) has finite limits and a subobject classifier. Then every monomorphism in \(\mathcal E\) is regular. In particular \(\mathcal E\) is balanced.
+\end{lemma}
+
+\begin{proof}
+  The universal monomorphism \(\top: 1 \mono \Omega\) is split and hence regular. But any pullback of a regular mono is regular: if \(f\) is an equaliser of \((g, h)\) then \(K^*(f)\) is an equaliser of \((gk, hk)\). The second assertion follows since a regular mono that is also epic is an isomorphismm.
+\end{proof}
+
+Given an object \(A\) in a topos \(\mathcal E\), we write \(PA\) for the exponential \(\Omega^A\). and \(\ni_A \mono PA \times A\) for the subobject corresponding to \(\ev: PA \times A \to \Omega\). This has the property that, for any \(B\) and any \(m: R \mono B \times A\), there is a unique \(\ceil m: B \to PA\) % TODO: change symbol
+such that
+\[
+  \begin{tikzcd}
+    R \ar[r] \ar[d, "m", tail] & \ni_A \ar[d, tail] \\
+    B \times A \ar[r, "\ceil m \times 1_\Delta"] & PA \times A
+  \end{tikzcd}
+\]
+is a pullback.
+
+\begin{definition}[power-object]\index{power-object}\index{topos}\index{logical functor}
+  By a \emph{power-object} for \(A\) in a category \(\mathcal E\) with finite limits, we mean an object \(PA\) equipped with \(\ni_A \to PA \times A\) satisfying th above.
+
+  We say \(\mathcal E\) is a \emph{weak topos} if every \(A \in \ob \mathcal E\) has a power-object.
+
+  Similarly we say \(F: \mathcal E \to \mathcal F\) is \emph{weakly logical} if \(F(\ni_A) \mono F(PA) \times FA\) is a power-object for \(FA\) for every \(A \in \ob \mathcal E\).
+\end{definition}
+
+A power-object for the termimal object is the same as a subobject classifier.
+
+This is an ad hoc defintion and we will soon show that \(\mathcal E\) is cartesian closed and therefore we can safely drop the adjective ``weak''. Consequently this may be taken as the definition of topos.
+
+\begin{lemma}
+  \(P\) is a functor \(\mathcal E^{\text{op}} \to \mathcal E\) . Moreover it is self-adjoint on the right.
+\end{lemma}
+
+Compare this with the contravariant power set functor on \(\Set\), which is a special case.
+
+\begin{proof}
+  Given \(f: A \to B\), we define \(Pf: PB \to PA\) to correspond to the pullback
+  \[
+    \begin{tikzcd}
+      E_f \ar[r] \ar[d, tail] & \ni_B \ar[d, tail] \\
+      PB \times A \ar[r, "1 \times f"] & PB \times B
+    \end{tikzcd}
+  \]
+  For any \(\ceil m: c \to PB\), it's easy to see that \((Pf) \ceil m\) corresponds to \((1_C \times f)^* (m)\), hence \(f \mapsto Pf\) is functorial. For any \(A\) and \(B\), we have a bijection between subobjects of \(A \times B\) and of \(B \times A\) given by composition with \((\pi_2, \pi_1): A \times B \to B \times A\). This yields a (natural) bijection between morphisms \(A \to PB\) and \(B \to PA\).
+\end{proof}
+
+We write \(\{\}_A: A \to PA\) (pronounced ``singleton'')\index{singleton} for the morphism corresponding to \((1_a, 1_a): A \mono A \times A\).
+
+\begin{lemma}
+  Given \(f: A \to B\), \(\{\}_Bf\) corresponds to \((1_A, f): A \mono A \times B\) and \((Pf) \{\}_B\) corresponds to \((f, 1_A): A \mono B \times A\).
+\end{lemma}
+
+\begin{proof}
+  The square
+  \[
+    \begin{tikzcd}
+      A \ar[r, "f"] \ar[d, "{(1, f)}", tail] & B \ar[d, "{(1, 1)}", tail] \\
+      A \times B \ar[r, "f \times 1"] & B \times B
+    \end{tikzcd}
+  \]
+  is a pullback. Similarly for the second assertion.
+\end{proof}
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item \(\{\}_A: A \to A\) is monic.
+  \item \(P\) is faithful.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item If \(\{\}f = \{\}g\) then \((1_A, f)\) and \((1_A, g)\) are isomorphic as subobjects of \(A \times B\), which forces \(f = g\).
+  \item Similarly if \(Pf = Pg\) then \((Pf)\{\} = (Pg)\{\}\) so we again deduce \(f = g\).
+  \end{enumerate}
+\end{proof}
+
+Given a mono \(f: A \mono B\) is \(\mathcal E\), we define \(\exists f: PA \to PA\) to correspond to the composite
+\[
+  \begin{tikzcd}
+    \ni_A \ar[r, tail] & PA \times A \ar[r, "1 \times f", tail] & PA \times B.
+  \end{tikzcd}
+\]
+Then for any \(\ceil m: C \to PA\), \((\exists f) \ceil m\) correponds to
+\[
+  \begin{tikzcd}
+    R \ar[r, "m", tail] & C \times A \ar[r, "1 \times f", tail] & C \times B
+  \end{tikzcd}
+\]
+so \(f \mapsto \exists f\) is a functor \(\text{Mono}(\mathcal E) \to \mathcal E\).
+
+\begin{lemma}[Beck-Chevalley condition]\index{Beck-Chevalley condition}
+  Suppose
+  \[
+    \begin{tikzcd}
+      D \ar[r, "h"] \ar[d, "k", tail] & A \ar[d, "f", tail] \\
+      B \ar[r, "g"] & C
+    \end{tikzcd}
+  \]
+  is a pullback with \(f\) monic. Then the diagram
+  \[
+    \begin{tikzcd}
+      PA \ar[r, "\exists f"] \ar[d, "Ph"] & PC \ar[d, "Pg"] \\
+      PD \ar[r, "\exists k"] & PB
+    \end{tikzcd}
+  \]
+  commutes.
+\end{lemma}
+
+\begin{proof}
+  Consider the diagram
+  \[
+    \begin{tikzcd}
+      E_n \ar[r] \ar[d, tail] & \ni_A \ar[d, tail] \\
+      PA \times D \ar[r, "1 \times h"] \ar[d, "1 \times k"] & PA \times A \ar[d, "1 \times f"] \\
+      PA \times B \ar[r, "1 \times g"] & PA \times C
+    \end{tikzcd}
+  \]
+  The lower square is a pullback so the upper square is a pull back. This is equivalent to the composite is a pullback.
+\end{proof}
+
+\begin{theorem}[Paré]\index{Paré theorem}
+  The functor \(P: \mathcal E^{\text{op}} \to \mathcal E\) is monadic.
+\end{theorem}
+
+\begin{proof}
+  It has a left adjoint \(P: \mathcal E \to \mathcal E^{\text{op}}\) by 7.5 (the ``self-adjoint on the right'' lemma). It's faithful by 7.7 (ii) and hence reflects isomorphisms by 7.3. \(\mathcal E^{\text{op}}\) has coequalisers since \(\mathcal E\) has equalisers. Suppose
+  \[
+    \begin{tikzcd}
+      A \ar[r, shift left, "f"] \ar[r, shift right, "g"'] & B \ar[l, "r"']
+    \end{tikzcd}
+  \]
+  is a coreflexive pair in \(\mathcal E\), then \(f\) and \(g\) are (split) monic and the equaliser \(e: E \to A\) makes
+  \[
+    \begin{tikzcd}
+      E \ar[r, "e"] \ar[d, "e", tail] & A \ar[d, "g", tail] \\
+      A \ar[r, "f"] & B
+    \end{tikzcd}
+  \]
+  a pullback square. Since any cone over
+  \[
+    \begin{tikzcd}
+      & A \ar[d, "g"] \\
+      A \ar[r, "f"] & B
+    \end{tikzcd}
+  \]
+  has both legs equal so by Beck-Chevalley condition we have \((Pf)(\exists g) = (\exists e)(Pe)\). But we also have \((Pg) (\exists g) = 1_{FA}\) since
+  \[
+    \begin{tikzcd}
+      A \ar[r, "1"] \ar[d, "1"] & A \ar[d, "g"] \\
+      A \ar[r, "g"] & B
+    \end{tikzcd}
+  \]
+  is a pullback, and similarly \((PE)(\exists e) = 1_{PE}\). So
+  \[
+    \begin{tikzcd}
+      PB \ar[r, shift left, "Pf"] \ar[r, shift right, "Pg"'] & PA \ar[l, bend left=50, "\exists g"] \ar[r, "Pe"] & PE \ar[l, bend left=50, "\exists e"]
+    \end{tikzcd}
+  \]
+  is a split coequaliser and in particular a coequaliser. Hence by 5.13 \(P\) is monadic.
+\end{proof}
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item A weak topos has finite colimits. Moreover if it has any infinite limits then it has the corresponding colimits. In particular if it is complete then it is cocomplete.
+  \item If a weakly logical functor has a left adjoint then it has a right adjoint.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(P\) creates all limits which exist, by 5.e.
+  \item By definition if \(F\) is weakly logical then
+    \[
+      \begin{tikzcd}
+        \mathcal E^{\text{op}} \ar[r, "F"] \ar[d, "P"] & \exists^{\text{op}} \ar[d, "P"] \\
+        \mathcal E \ar[r, "F"] & \exists
+      \end{tikzcd}
+    \]
+    commutes up to isomorphism. So this follows from 5.16.
+  \end{enumerate}
+\end{proof}
+
 
 
 \printindex

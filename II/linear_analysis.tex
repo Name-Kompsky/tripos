@@ -2487,7 +2487,7 @@ From now on, we write \(T^*\) instead of \(\tilde T^*\) for a Hilbert space \(H\
 In particular self-adjoint and unitary operators are normal.
 
 \begin{ex}
-  Let \(T \in B(H)\) be normal. Then \(\norm{Tx} = \norm{T^*x}\) sfor all \(H\) and
+  Let \(T \in B(H)\) be normal. Then \(\norm{Tx} = \norm{T^*x}\) for all \(H\) and
   \[
     \ker T = \ker T^* = (\im T)^\perp = (\im T^*)^\perp.
   \]
@@ -2501,7 +2501,133 @@ In particular self-adjoint and unitary operators are normal.
   For \(T\) normal, \(\sigma_r(T) = \emptyset\).
 \end{corollary}
 
+\begin{corollary}
+  For \(T\) normal, if \(Tx = \lambda x\) then \(T^*x = \conj \lambda x\). In partciular
+  \[
+    \sigma_p(T^*) = \conj{\sigma_p(T)}
+  \]
+  where the bar denotes conjugation.
 
+  Similarly if \(Tx_j - \lambda x_j \to 0\) then \(T^* x_j - \lambda x_j \to 0\) so
+  \[
+    \sigma_{op}(T^*) = \conj{\sigma_{op}(T)}.
+  \]
+\end{corollary}
+
+\begin{proof}
+  If \(T\) is normal then so is \(T - \lambda\) and \((T - \lambda)^* = T^* - \conj \lambda\). Thus
+  \[
+    \norm{(T - \lambda) x} = \norm{(T - \lambda)^* x} = \norm{(T^* - \conj \lambda) x}
+  \]
+  so \(Tx = \lambda x\) if and only if \(T^*x = \conj \lambda x\). More generally \((T - \lambda)x_j \to 0\), where \(\norm{x_j} = 1\), if and only if \((T^* - \conj \lambda) x_j \to 0\) so \(\sigma_{op}(T^*) = \conj{\sigma_{op}(T)}\).
+\end{proof}
+
+\begin{corollary}
+  Let \(T\) be self-adjoint. Then \(\sigma(T) \subseteq \R\).
+\end{corollary}
+
+\begin{ex}
+  Let \(T\) be unitary. Then \(\sigma(T) \subseteq S^1 = \{z \in \C: |z| = 1\}\).
+\end{ex}
+
+\begin{eg}
+  Let \(T \in B(H)\) be self-adjoint. Then for any \(t \in \R\),
+  \[
+    e^{it T} = \sum_{n = 0}^\infty \frac{(itT)^n}{n!}
+  \]
+  converges in \(B(H)\) and \(U(t) = e^{itT}\) is characterised by the ODE
+  \[
+    -i \frac{\partial  }{\partial t} U(t) = T U(t), U(0) = \id.
+  \]
+  For any \(t \in \R\), \(U(t) = e^{it T}\) is unitary if \(T\) is self-adjoint.
+
+  In quantum mechanics, any solution to the Schrödinger equation
+  \[
+    -i \frac{\partial  }{\partial t} \tau(t) = T \psi(t), \psi(0) = \psi_0
+  \]
+  is given by \(\psi(t) = \psi_0 U(t)\). \(T\) is called the \emph{Hamiltonian} and \(\psi\) is the \emph{wave function}.
+\end{eg}
+
+\begin{lemma}
+  Let \(T \in B(H)\) be self-adjoint. Then
+  \[
+    \norm T = \sup_{\norm x \leq 1} \sup_{\norm y \leq 1} |(Tx, y)| = \sup_{\norm x \leq 1} |(Tx, x)|.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Assume \(T \neq 0\). By defintion \(\norm T = \sup_{\norm x \leq 1} (Tx, Tx)^{1/2}\). Let \((x_i) \subseteq H\), \(\norm{x_i} = 1\) be such that \((Tx_i, Tx_i) \to \norm T^2\). Thus
+  \begin{align*}
+    \norm T
+    &= \frac{\norm T^2}{\norm T} \\
+    &= \frac{1}{\norm T} \lim_{i \to \infty} (Tx_i, Tx_i) \\
+    &= \frac{1}{\norm T} \lim_{i \to \infty} (x_i, T^2x_i) \\
+    &= \lim_{i \to \infty} \frac{1}{T x_i} (x_i, T^2x_i) \\
+    &= \lim_{i \to \infty} (x_i, Ty_i)
+  \end{align*}
+  where \(y_i = \frac{Tx_i}{\norm{Tx_i}}\). Taking sup,
+  \[
+    \norm T \leq \sup_{\norm x \leq 1} \sup_{\norm y \leq 1} (x, Ty).
+  \]
+  On the other hand, \(|(Tx, y)| \leq \norm T\) for \(\norm x, \norm y \leq 1\) so
+  \[
+    \norm T \geq \sup_{\norm x \leq 1} \sup_{\norm y \leq 1} |(Tx, y)|
+  \]
+  so the first equality.
+
+  For the second equality,
+  \[
+    \sup_{\norm x \leq 1} |(Tx, x)| \leq \sup_{\norm x \leq 1} \sup_{\norm y \leq 1} |(Tx, y)|
+  \]
+  is clear. For the other direction
+  \begin{align*}
+    % ?assume (x, Ty) is real
+    |(x, Ty)|
+    &= \frac{1}{4} |(T(x + y), x + y) - (T(x - y), (x - y))| \\
+    &\leq \frac{1}{4} \sup_{\norm z \leq 1} |(Tz, z)| (\norm{x + y}^2 + \norm{x - y}^2) \\
+    &\leq \frac{1}{4} \sup_{\norm z \leq 1} \underbrace{(2 \norm x^2 + 2 \norm y^2)}_{\leq 4} \\
+    &\leq \sup_{\norm z \leq 1} 
+  \end{align*}
+\end{proof}
+
+\begin{lemma}
+  Let \(T\) be self-adjoint. Then at least one of \(\norm T\) and \(- \norm T\) must be an approximate eigenvalue.
+\end{lemma}
+
+\begin{proof}
+  Replacing \(T\) by \(-T\) if necessary, assume
+  \[
+    \norm T = \sup_{\norm x \leq 1} |(x, Tx)|= \sup_{\norm x \leq 1} (x, Tx).
+  \]
+  Then there is \((x_i) \subseteq H\), \(\norm{x_i} = 1\) such that \((x_i, Tx_i) \to \norm T = \lambda\). Then
+  \[
+    \norm{T x_i - \lambda x_i}^2
+    = \underbrace{\norm{Tx_i}^2}_{\leq \lambda^2} - 2 \lambda \underbrace{(x_i, Tx_i)}_{\to \Lambda} + \lambda^2
+    \to 0
+  \]
+\end{proof}
+
+\subsection{Spectral theorem for compact self-adjoint operators}
+
+Recall that give normed spaces \(X\) and \(Y\), \(T \in B(X, Y)\) is \emph{compact} if \(T(B)\) is relatively compact in \(Y\) for any bounded set \(B \subseteq X\).
+
+Let \(T\) be a self-adjoint operator throughout this section.
+
+\begin{lemma}
+  Let \(T\) be compact. Then any nonzero approximate eigenvalue is an eigenvalue.
+\end{lemma}
+
+\begin{proof}
+  Assume that \(Tx_i - \lambda x_i \to 0\) with \(\norm{x_i} = 1, \lambda \neq 0\). By compactness of \(T\) there is a subsequence such that \(Tx_i \to y\) along that subsequence. Then along that subsequence
+  \[
+    Ty
+    = T \lim Tx_i
+    = \lim T(\lambda x_i)
+    = \lambda \lim Tx_i
+    = \lambda y
+  \]
+  To \(Ty = \lambda y\). Moreover if \(\lambda \neq 0\) then \(y \neq 0\).
+\end{proof}
 
 
 

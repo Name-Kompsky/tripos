@@ -1946,6 +1946,7 @@ In other words, homology is a homotopy invariance.
 \end{eg}
 
 \begin{theorem}[Mayer-Vietoris]\index{Mayer-Vietoris theorem}
+  \label{thm:Mayer-Vietoris}
   Let \(K = L \cup M\) with \(N = L \cap M\) be simplicial complexes. Consider the inclusion maps
   \[
     \begin{tikzcd}
@@ -1956,14 +1957,132 @@ In other words, homology is a homotopy invariance.
   then
   \[
     \begin{tikzcd}
+      & \cdots \ar[r] & H_{n + 2}(K) \ar[dll, out=0, in=180, "\delta_*"] \\
       H_{n + 1}(N) \ar[r, "i_* \oplus j_*"] & H_{n + 1}(L) \oplus H_{n + 1}(M) \ar[r, "\ell_* - m_*"] & H_{n + 1}(K) \ar[dll, out=0, in=180, "\delta_*"] \\
       H_{n}(N) \ar[r, "i_* \oplus j_*"] & H_{n}(L) \oplus H_{n}(M) \ar[r, "\ell_* - m_*"] & H_n(K) \ar[dll, out=0, in=180, "\delta_*"] \\
       H_{n - 1}(N) \ar[r, "i_* \oplus j_*"] & H_{n - 1}(L) \oplus H_{n - 1}(M) \ar[r, "\ell_* - m_*"] & H_{n - 1}(K) \ar[dll, out=0, in=180, "\delta_*"] \\
-      \cdots
+      H_{n - 1}(N) \ar[r] & \dots
     \end{tikzcd}
   \]
   then there exists \(\delta_*: H_n(K) \to H_{n - 1}(N)\) making this sequence exact.
 \end{theorem}
+
+The core of the theorem is a result in homological algebra.
+
+\begin{definition}[exact chain map]\index{short exact sequence}
+  A sequence of chain maps
+  \[
+    \begin{tikzcd}
+      A_\bullet \ar[r, "f_\bullet"] & B_\bullet \ar[r, "g_\bullet"] & C_\bullet 
+    \end{tikzcd}
+  \]
+  is \emph{exact} at \(B_\bullet\) if
+  \[
+    \begin{tikzcd}
+      A_n \ar[r, "f_n"] & B_n \ar[r, "g_n"] & C_n
+    \end{tikzcd}
+  \]
+  is exact at \(B_n\) for all \(n \in \Z\).
+\end{definition}
+
+\begin{lemma}[snake lemma]\index{snake lemma}
+  Let
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A_\bullet \ar[r, "f_\bullet"] & B_\bullet \ar[r, "g_\bullet"] & C_\bullet \ar[r] & 0
+    \end{tikzcd}
+  \]
+  be a short exact sequence of chain complexes. For any \(n \in \Z\) there is a homomorphism \(\delta_*: H_{n + 1}(C_\bullet) \to H_n(A_\bullet)\) such that
+  \[
+    \begin{tikzcd}
+      & \cdots \ar[r, "g_*"] & H_{n + 1}(C_\bullet) \ar[dll, out=0, in=180, "\delta_*"] \\
+      H_n(A_\bullet) \ar[r, "f_*"] & H_n(B_\bullet) \ar[r, "g_*"] & H_n(C_\bullet) \ar[dll, out=0, in=180, "\delta_*"] \\
+      H_{n - 1}(A_\bullet) \ar[r, "f_*"] & \cdots
+    \end{tikzcd}
+  \]
+\end{lemma}
+
+\begin{proof}
+  Consider the massive commutative diagram
+  \[
+    \begin{tikzcd}
+      & \vdots \ar[d] & \vdots \ar[d] & \vdots \ar[d]  \\
+      0 \ar[r] & A_{n + 1} \ar[r, "f_{n + 1}"] \ar[d, "\b_{n + 1}"] & B_{n + 1} \ar[r, "g_{n + 1}"] \ar[d, "\b_{n + 1}"] & C_{n + 1} \ar[r] \ar[d, "\b_{n + 1}"] & 0 \\
+      0 \ar[r] & A_{n} \ar[r, "f_{n}"] \ar[d, "\b_{n}"] & B_{n} \ar[r, "g_{n}"] \ar[d, "\b_{n}"] & C_{n} \ar[r] \ar[d, "\b_{n}"] & 0 \\
+      0 \ar[r] & A_{n - 1} \ar[r, "f_{n - 1}"] \ar[d, "\b_{n - 1}"] & B_{n - 1} \ar[r, "g_{n - 1}"] \ar[d, "\b_{n - 1}"] & C_{n - 1} \ar[r] \ar[d, "\b_{n + 1}"] & 0 \\
+      & \vdots & \vdots & \vdots 
+    \end{tikzcd}
+  \]
+  Let's construct the map
+  \begin{align*}
+    \delta_*: H_{n + 1}(C_\bullet) &\to H_n(A_\bullet) \\
+    [x] &\mapsto ?
+  \end{align*}
+  with \(x \in Z_{n + 1}(C_\bullet)\). Since \(g_{n + 1}\) is surjective, \(x = g_{n + 1}(y)\) for some \(y \in B_{n + 1}\). Consider \(\b_{n + 1}(y)\), by commutativity
+  \[
+    g_n \compose \b_{n + 1}(y) = \b_{n + 1} \compose g_n (y) = \b_{n + 1}(x) = 0
+  \]
+  as \(x \in Z_{n + 1}(C_\bullet)\). Thus \(\b_{n + 1}(y) \in \ker g_n = \im f_n\). Thus exists \(z \in A_n\) such that \(f_n(z) = \b_{n + 1}(y)\).
+
+  We would like to check that \(z \in Z_n(A_\bullet)\). Consider \(\b_n(z)\),
+  \[
+    f_{n - 1} \compose \b_n(z) = \b_n \compose f_n(z) = \b_n \compose \b_{n + 1}(y) = 0.
+  \]
+  But \(f_{n - 1}\) is injective so \(\b_n(z) = 0\), and thus \(z \in Z_n(A_\bullet)\). Thus let \(\delta_*([x]) = [z]\).
+
+  We have to check this is well-defined and \(\delta_*\) is a homomorphism. Finally we have to check exactness at \(H_n(A_\bullet), H_n(B_\bullet), H_n(C_\bullet)\). This is just a tedious exercise in diagram chasing.
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Mayer-Vietoris}]
+  By the snake lemma it suffices to check that the following is an exact sequence of chain complex.
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & C_\bullet(N) \ar[r, "i_\bullet \oplus j_\bullet"] & C_\bullet(L) \oplus C_\bullet(M) \ar[r, "\ell_\bullet - m_\bullet"] & C_\bullet(K) \ar[r] & 0.
+    \end{tikzcd}
+  \]
+  \begin{itemize}
+  \item exactness at \(C_n(N)\): \(i_n\) induces \(C_n(N)\) as a direct summand in \(C_n(L)\) and similar for \(j_n\). Thus \(i_n \oplus j_n\) is injective.
+  \item exactness at \(C_n(K)\): consider \(c \in C_n(K)\), have \(c = c_L + c_M\) where \(c_L, c_M\) are ``supported'' in \(L\) and \(M\) respectively. To make it precise, this means that they are respective images of \(\ell_n\) and \(m_n\), i.e.\ there exists \(b_L \in C_n(L), b_M \in C_n(M)\) such that \(c_L = \ell_n(b_L), c_M = m_n(b_M)\). Thus
+    \[
+      c = \ell_n(b_L) - m_n(-b_M) = (\ell_n - m_n)(b_L, -b_M).
+    \]
+  \item exactness at \(C_n(L) \oplus C_n(M)\): \((b_L, b_M) \in \ker(\ell_n - m_n)\) if and only if each simplex \(\sigma\) that appears in \(b_L\) also appears in \(b_M\) with the same coefficients, if and only if \((b_L, b_M) \in \im(i_n \oplus j_n)\).
+  \end{itemize}
+\end{proof}
+
+\begin{lemma}[five lemma]\index{five lemma}
+  Suppose the following diagram is commutative and the rows are exact:
+  \[
+    \begin{tikzcd}
+      A \ar[r] \ar[d, "\alpha"] & B \ar[r] \ar[d, "\beta"] & C \ar[r] \ar[d, "\gamma"] & D \ar[r] \ar[d, "\delta"] & E \ar[d, "\varepsilon"] \\
+      A' \ar[r] & B' \ar[r] & C' \ar[r] & D' \ar[r] & E'
+    \end{tikzcd}
+  \]
+  if \(\alpha, \beta, \delta, \varepsilon\) are isomorphisms then so is \(\gamma\).
+\end{lemma}
+
+\begin{proof}
+  Example sheet 4.
+\end{proof}
+
+Recall that we claimed before given a barycentric subdivision \(K'\) of a simplicial complex \(K\), the induced map \(s_*: H_n(K') \to H_n(K)\) is an isomorphism.
+
+\begin{proof}\index{barycentric subdivision}
+  Induction on the number of simplices of \(K\). If \(K = \{*\}\) then \(K = K'\) so obviously true. For inductive step, choose \(\sigma \in K\) with maximal dimension. Let
+  \begin{align*}
+    L &= K - \{\sigma\} \\
+    M &= \{\tau \leq \sigma: \tau \in K\} \\
+    N &= L \cap M = \b \sigma
+  \end{align*}
+  \(L, N\) have fewer simplices than \(K\). Because \(M, M'\) are both cones, \(s_*: H_n(M') \to H_n(M)\) is an isomorphism. Look at Mayer-Vietoris for \(K = L \cup_N M, K' = L' \cup_{N'} M'\).
+  \[
+    \begin{tikzcd}[column sep=small]
+      H_{n + 1}(N') \ar[r] \ar[d, "s_*"] & H_{n + 1}(L') \oplus H_{n + 1}(M') \ar[r] \ar[d, "s_* \oplus s_*"] & H_{n + 1}(K') \ar[r] \ar[d, "s_*"] & H_n(N') \ar[r] \ar[d, "s_*"] & H_n(L') \oplus H_n(M') \ar[d, "s_* \oplus s_*"] \\
+      H_{n + 1}(N) \ar[r] & H_{n + 1}(L) \oplus H_{n + 1}(M) \ar[r] & H_{n + 1}(K) \ar[r] & H_n(N) \ar[r] & H_n(L) \oplus H_n(M) \\
+    \end{tikzcd}
+  \]
+  so the five lemma finishes the job.
+\end{proof}
 
 
 
