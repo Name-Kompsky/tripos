@@ -2607,13 +2607,13 @@ In particular self-adjoint and unitary operators are normal.
   \]
 \end{proof}
 
-\subsection{Spectral theorem for compact self-adjoint operators}
+\subsection{Spectral theorem for compact self-adjoint operators}\index{compact operator}
 
 Recall that give normed spaces \(X\) and \(Y\), \(T \in B(X, Y)\) is \emph{compact} if \(T(B)\) is relatively compact in \(Y\) for any bounded set \(B \subseteq X\).
 
 Let \(T\) be a self-adjoint operator throughout this section.
 
-\begin{lemma}
+\begin{lemma}\index{approximate eigenvalue}\index{eigenvalue}
   Let \(T\) be compact. Then any nonzero approximate eigenvalue is an eigenvalue.
 \end{lemma}
 
@@ -2629,6 +2629,127 @@ Let \(T\) be a self-adjoint operator throughout this section.
   To \(Ty = \lambda y\). Moreover if \(\lambda \neq 0\) then \(y \neq 0\).
 \end{proof}
 
+\begin{corollary}
+  Let \(H\) be a Hilbert space. Let \(T \in B(H)\) be self-adjoint and compact. Then \(\norm T\) or \(- \norm T\) is an eigenvalue.
+\end{corollary}
+
+\begin{notation}
+  \(E_\lambda = \ker (T - \lambda)\) is the \emph{eigenspace} corresponding to eigenvalue \(\lambda\).
+\end{notation}
+
+The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and eigenspaces by applying the corollary to \(E_{\lambda_1}^\perp\) where \(\lambda_1 = \norm T\) or \(- \norm T\) and repeat this with \(H\) replaced by \(E_{\lambda_1}^\perp\).
+
+\begin{lemma}
+  Let \(T \in B(H)\) be self-adjoint. Then
+  \begin{enumerate}
+  \item for any eigenvalues \(\mu \neq \lambda\) the spaces \(E_\mu\) and \(E_\lambda\) are orthogonal.
+  \item for any nonzero eigenvalues \(\{\lambda_i\}_{i \in I}\),
+    \[
+      T((\bigoplus_{i \in I} E_{\lambda_i})^\perp) \subseteq (\bigoplus_{i \in I} E_{\lambda_i})^\perp.
+    \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Assume \(Tx = \lambda x\) and \(Ty = \lambda y\) and wlog \(\lambda \neq 0\). Then
+    \[
+      (x, y)
+      = \frac{1}{\lambda} (Tx, y)
+      = \frac{1}{\sigma} (x, Ty)
+      = \frac{\mu}{\lambda} (x, y)
+    \]
+    so \(\mu = \lambda\) or \((x, y) = 0\).
+  \item Let \(y \in (\bigoplus_{i \in I} E_{\lambda_i})^\perp\). Then for any \(x \in E_{\lambda_i}\) where \(\lambda_i \neq 0\), have
+    \[
+      0
+      = (x, y)
+      = \frac{1}{\lambda_i} (Tx, y)
+      = \frac{1}{\lambda_i} (x, Ty)
+    \]
+    so \((x, Ty) = 0\) for all \(x \in \oplus_{i \in I} E_{\lambda_i}, y \in (\oplus_{i \in I} E_{\lambda_i})^\perp\).
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  Let \(T \in B(H)\) be self-adjoint and compact. Then for every \(\varepsilon > 0\), \(\bigoplus_{\substack{\lambda \in \sigma_p(T) \\ |\lambda| > \varepsilon}} E_\lambda\) is finite-dimensional.
+\end{lemma}
+
+\begin{proof}
+  Assume otherwise. Then there are infinitely many eigenvectors \((x_i)\) such that \(\norm{x_i} = 1\) and \((x_i, x_j) = 0\) for \(i \neq j\) from Gram-Schmidt and
+  \[
+    \norm{Tx_i - Tx_j}^2
+    = \norm{Tx_i}^2 + \norm{Tx_j}^2
+    \geq 2 \varepsilon^2
+  \]
+  contradicting compactness of \(T\) as \((Tx_i)\) does not have a convergent subsequence.
+\end{proof}
+
+\begin{theorem}[Hilbert-Schmidt]\index{Hilbert-Schmidt theorem}\index{spectral theorem for compact self-adjoint operators}
+  Let \(T \in B(H)\) be self-adjoint and compact. Then there are at most countably many distinct eigenvalues \((\lambda_i)\) which can accumulate at \(0\). The eigenspaces \(E_{\lambda_i}\) and \(E_{\lambda_j}\) are orthogonal for \(i \neq j\). \(E_{\lambda_i}\) is finite-dimensional for \(\lambda_i \neq 0\), and
+  \begin{align*}
+    T &= \sum_{j = 0}^\infty \lambda_jP_{\lambda_j} \\
+    H &= (\ker T) \oplus (\bigoplus_i E_{\lambda_i})
+  \end{align*}
+  where \(P_{\lambda_j}\) is the orthogonal projection\index{orthogonal projection} onto \(E_{\lambda_j}\).
+\end{theorem}
+
+\begin{proof}
+  By the previous two lemmas there is an eigenvalue \(\lambda_1\) such that \(\lambda_1 = \norm T\) or \(- \norm T\). Given \(|\lambda_1| \geq |\lambda_2 \geq \dots \geq |\lambda_k|\) such that \(T\) has no other eigenvalues \(> |\lambda_k|\), let
+  \[
+    H_k = (\bigoplus_{j = 1}^k E_{\lambda_j})^\perp
+  \]
+  Then \(H_k \subseteq H\) is closed so itself a Hilbert space. Also \(T\) is \(H_k\)-stable and \(\norm{T|_{H_k}} \leq |\lambda_k|\). Thus there is an eigenvalue \(\lambda_{k + 1}\) different from the \(\lambda_i\)'s, \(i \leq k\), with \(|\lambda_{k + 1}| = \norm{T|_{H_k}} \leq |\lambda_k|\) and there is no other eigenvalue \(\mu\) with \(|\lambda_{k + 1}| < |\mu| \leq |\lambda_k|\). This defines a sequence \((\lambda_i)\) with \(|\lambda_{i + 1}| \leq |\lambda_i|\) for all \(i\). Since \(\bigoplus_{|\lambda_i| \geq \varepsilon} E_{\lambda_i}\) is finite-dimensional, the sequence can only accummulate at \(0\). In particular \((\lambda_k)\) is finite or countable with \(\lambda_k \to 0\).
+
+  Since \(T|_{(\bigoplus_{\lambda \neq 0} E_\lambda)^\perp} = T|_{(\cl{\bigoplus_{\lambda \neq 0} E_\lambda})^\perp}\) cannot have a nonzero eigenvalue, must have \(\norm{T|_{(\cl{\bigoplus_{\lambda \neq 0} E_\lambda})^\perp}} = 0\). Thus
+  \[
+    H = (\ker T) \oplus (\cl{\bigoplus_{\lambda \neq 0} E_\lambda})
+  \]
+  and
+  \begin{align*}
+    \norm{Tx - \sum_{i = 1}^n \lambda_i P_{\lambda_i} x}
+    &= \norm{Tx - T_m x} \quad \text{ where } P_n = \sum_{i = 1}^n P_{\lambda_i} \\
+    &= \norm{T(1 - P_n) x} \quad \text{ where } 1 - P_n \text{ is projection onto } (\bigoplus_{i = 1}^n E_{\lambda_i})^\perp = H_n \\
+    &\leq \norm{T|_{H_n}} \norm x \\
+    &\leq |\lambda_n| \norm x
+  \end{align*}
+  so \(\norm{T - \sum_{i = 1}^n \lambda_i P_{\lambda_i}} \leq |\lambda_n| \to 0\) as \(n \to \infty\). Thus
+  \[
+    T = \sum_{i = 1}^\infty \lambda_i P_{\lambda_i}
+  \]
+  as claimed.
+\end{proof}
+
+\begin{corollary}
+  Let \(T\) be self-adjoint and compact. Then
+  \[
+    \sigma(T) \cup \{0\} = \sigma_p(T) \cup \{0\}.
+  \]
+\end{corollary}
+%TODO: should be union \(0\).
+
+\begin{proof}
+  Let \(T_n = \sum_{i = 1} \lambda_iP_i\). Let \(T \notin \sigma_p(T) \cup \{0\}\). Then
+  \[
+    T_n - \mu
+    = \sum_{i = 1}^n (\lambda_i - \mu) P_{\lambda_1} - \mu \underbrace{(1 - \sum_{i = 1}^n P_{\lambda_i})}_{1 - P_n}
+  \]
+  so
+  \[
+    (T_n - \mu)^{-1} = \sum_{i = 1}^n (\lambda_i - \mu)^{-1} P_{\lambda_i} - \mu^{-1} (1 - P_n)
+  \]
+  exists and
+  \[
+    \norm{(T_n - \mu)^{-1}} \leq \max \{|\mu|^{-1}, |\lambda_i - \mu|^{-1}\} \leq C
+  \]
+  as \(\lambda_i \neq 0\) and \(\mu \neq 0\). Thus
+  \[
+    T - \mu
+    = T_n - \mu + (T - T_n)
+    = (T_n - \mu) (\id + \underbrace{\underbrace{(T_n - \mu)^{-1}}_{\leq C} \underbrace{(T - T_n)}_{\to 0}}_{< 1 \text{ eventually}})
+  \]
+  so \((T - \mu)^{-1} \in B(H)\), thus \(\mu \notin \sigma(T)\).
+\end{proof}
 
 
 

@@ -1373,11 +1373,7 @@ Conversely,
     If \(F\) is continuous and strictly increasing then \(g = F^{-1}\).
   \end{remark}
 
-  Now back to the proposition. Set \(\mu = g_* m\) where \(m\) is the Lebesgue measure on \((0, 1)\), i.e.
-  \[
-    \mu(A) = m(g^{-1}(A))
-  \]
-  for all \(A \in \mathcal B(\R)\). \(\mu\) is a probability measure as \(g\) is a Borel measure. By the lemma
+  Now back to the proposition. Set \(\mu = g_* m\) where \(m\) is the Lebesgue measure on \((0, 1)\). \(\mu\) is a probability measure as \(g\) is Borel-measurable. By the lemma
   \[
     \mu((a, b]) = m(g^{-1}(a, b]) = m((F(a), F(b))) = F(b) - F(a).
   \]
@@ -1390,9 +1386,9 @@ Conversely,
 \end{proposition}
 
 \begin{proof}
-  Set \(\Omega = \R\), \(\mathcal F = \mathcal B(\R)\), \(\P = \mu\) and \(X(x) = x\).
+  For the first claim set \(\Omega = \R\), \(\mathcal F = \mathcal B(\R)\), \(\P = \mu\) and \(X(x) = x\).
 
-  Set \(F(t) = \mu((-\infty, t])\) and take \(X = g\) where \(g\) is the auxillary function defined in the previous lemma, namely
+  For the second claim, set \(F(t) = \mu((-\infty, t])\) and take \(X = g\) where \(g\) is the auxillary function defined in the previous lemma, namely
   \[
     X(\omega) = \inf\{x: F(x) \geq \omega\}.
   \]
@@ -1559,12 +1555,12 @@ Independence is the key notion that makes probability theory distinct from (abst
   is distributed according to Lebesgue measure so if we want we can construct Lebesgue measure as the law of this random variable.
 \end{remark}
 
-\begin{proposition}[infinite product of product measure]
+\begin{proposition}[infinite product of product measure]\index{product measure!infinite}
   Let \((\Omega_i, \mathcal F_i, \mu_i)_{i \geq 1}\) be a sequence of probability spaces, \(\Omega = \prod_{i \geq 1} \Omega_i\) and \(\mathcal E\) be the Boolean algebra of cylinder sets, i.e.\ sets of the form
   \[
     A \times \prod_{i \geq n} \Omega_i
   \]
-  for some \(A \in \bigotimes_{i = 1}^n \mathcal F_i\). Set \(\mathcal F = \sigma(\mathcal E)\), the product \(\sigma\)-algebra. Then there is a unique probability measure \(\mu\) on \((\Omega, \mathcal F)\) such that it agrees with product measures on all cylinder sets, i.e.
+  for some \(A \in \bigotimes_{i = 1}^n \mathcal F_i\). Set \(\mathcal F = \sigma(\mathcal E)\), the \emph{infinite product \(\sigma\)-algebra}\index{infinite product \(\sigma\)-algebra}\index{product \(\sigma\)-algebra!infinite}. Then there is a unique probability measure \(\mu\) on \((\Omega, \mathcal F)\) such that it agrees with product measures on all cylinder sets, i.e.
   \[
     \mu(A \times \prod_{i > n} \Omega_i) = (\bigotimes_{i = 1}^n \mu_i)(A)
   \]
@@ -1722,7 +1718,7 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. meaning ``infinitely ofte
   Apply Markov to \(X = |Y - \E(Y)|^2\).
 \end{proof}
 
-\begin{theorem}[strong law of large numbers]\index{strong law of large numbers}
+\begin{theorem}[strong law of large numbers]\index{strong law of large numbers}\index{law of large numbers}
   Let \((X_n)_{n \geq 1}\) be a sequence of iid.\ random variables. Assume \(\E(|X_1|) < \infty\). Let
   \[
     S_n = \sum_{k = 1}^n X_k,
@@ -3195,8 +3191,8 @@ In particular this shows that \((\cov(X_i, X_j))_{ij}\) is a non-negative semide
 
 Let \((X, \mathcal A, \mu)\) be a measure space. Let \(T: X \to X\) be an \(\mathcal A\)-measurable map. We are interested in the trajectories of \(T^n x\) for \(n \geq 0\) and their statistical behaviour. In particular we are interested in those \(T\) \emph{preserving measure \(\mu\)}.
 
-\begin{definition}[measure-preserving]\index{measure-preserving}
-  \(T: X \to X\) is \emph{measure-preserving} if \(T_*\mu = \mu\).
+\begin{definition}[measure-preserving]\index{measure-preserving}\index{measure-preserving dynamical sysmtem}
+  \(T: X \to X\) is \emph{measure-preserving} if \(T_*\mu = \mu\). \((X, \mathcal A, \mu, T)\) is called a \emph{measure-preserving dynamical sysmte}.
 \end{definition}
 
 \begin{definition}[invariant function, invariant set, invariant \(\sigma\)-algebra]\index{invariant function}\index{invariant set}\index{invariant \(\sigma\)-algebra}\index{\(\sigma\)-algebra!invariant}\leavevmode
@@ -3205,9 +3201,10 @@ Let \((X, \mathcal A, \mu)\) be a measure space. Let \(T: X \to X\) be an \(\mat
   \item A set \(A \in \mathcal A\) is \emph{\(T\)-invariant} if \(\mathbf 1_A\) is \(T\)-invariant.
   \item
     \[
-    \mathcal T = \{A \in \mathcal A: A \text{ is \(T\)-invariant}\}
-  \]
-  is called the \emph{\(T\)-invariant \(\sigma\)-algebra}.
+      \mathcal T = \{A \in \mathcal A: A \text{ is \(T\)-invariant}\}
+    \]
+    % TODO: decide whether this should be I or T
+    is called the \emph{\(T\)-invariant \(\sigma\)-algebra}.
   \end{itemize}
 \end{definition}
 
@@ -3228,9 +3225,147 @@ Let \((X, \mathcal A, \mu)\) be a measure space. Let \(T: X \to X\) be an \(\mat
   \(T\) is \emph{ergodic} with respect to \(\mu\), or that \(\mu\) is \emph{ergodic} with respect to \(T\), if for all \(A \in \mathcal T\), \(\mu(A) = 0\) or \(\mu(A^c) = 0\).
 \end{definition}
 
-\begin{ex}
-  Let \(X\) be a finite space, \(T: X \to X\) a map and \(\mu = \#\) the counting measure, then \(T\) is measure preserving is equivalent to \(T\) being a bijection, and \(T\) is ergodic is equivalent to there does not exists a partition \(X = X_1 \cup X_2\) such that both \(X_1\) and \(X_2\) are \(T\)-invariant, which is equivalent to for all \(x, y \in X\), ther exists \(n\) such that \(T^n x = y\).
-\end{ex}
+This condition asserts that \(\mathcal T\) is \emph{trivial}, i.e.\ its elements are either null or conull.
+
+\begin{lemma}
+  \(T\) is ergodic with respect to \(\mu\) if and only if  every invariant function \(f\) is almost everywhere constant.
+\end{lemma}
+
+%All (sub)level sets of \(f\) belong to \(\mathcal T\).
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(X\) be a finite space, \(T: X \to X\) a map and \(\mu = \#\) the counting measure, then \(T\) is measure preserving is equivalent to \(T\) being a bijection, and \(T\) is ergodic is equivalent to there does not exists a partition \(X = X_1 \cup X_2\) such that both \(X_1\) and \(X_2\) are \(T\)-invariant, which is equivalent to for all \(x, y \in X\), ther exists \(n\) such that \(T^n x = y\).
+  \item Let \(X = \R^d/\Z^d\), \(\mathcal A\) the Borel \(\sigma\)-algebra and \(\mu\) the Lebesgue measure. Given \(a \in \R^d\), translation \(T_a: x \mapsto x + a\) is measure-preserving. \(T_a\) is ergodic with respect to \(\mu\) if and only if \((1, a_1, \dots, a_d)\), where \(a_i\)'s are coordinates of \(a\), are linearly independent. See example sheet. (hint: Fourier transform)
+  \item Let \(X = \R/Z\) and again \(\mathcal A\) Borel \(\sigma\)-algebra and \(\mu\) the Lebesgue measure. The doubling map \(T: x \mapsto 2x - \floor{2x}\) is ergodic with respect to \(\mu\). (hint: again consider Fourier coefficeints). Intuitively in the graph of this function the preimage \(\varepsilon\) is two segments each of length \(\varepsilon/2\), so measure-preserving.
+  \item Furstenberg conjecture\index{Furstenberg conjecture}: every ergodic measure \(\mu\) on \(\R/\Z\) invariant under \(T_2, T_3\) must be either Lebesgue or finitely supported.
+  \end{enumerate}
+\end{eg}
+
+\subsection{The canonical model}
+
+Let \((X_n)_{n \geq 1}\) be an \(\R^d\)-valued stochastic process\index{stochastic process} on \((\Omega, \mathcal F, \P)\). Let \(X = (\R^d)^\N\) and define the \emph{sample path map}\index{sample path map}
+\begin{align*}
+  \Phi: \Omega &\to X \\
+  \omega &\mapsto (X_n(\omega))_{n \geq 1}
+\end{align*}
+Let
+\begin{align*}
+  T: X &\to X \\
+  (x_n)_{n \geq 1} &\mapsto (x_{n + 1})_{n \geq 1}
+\end{align*}
+be the \emph{shift map}. Let \(x_n: X \to \R^d\) be the \emph{\(n\)th coordinate function} and let \(\mathcal A = \sigma(x_n: n \geq 1)\).
+
+\begin{note}
+  \(\mathcal A\) is the infinite product \(\sigma\)-algebra\index{infinite product \(\sigma\)-algebra}\index{product \(\sigma\)-algebra!infinite} \(\mathcal B(\R^d)^{\otimes \N}\) of \(\mathcal B(\R^d)^\N\).
+\end{note}
+
+Let \(\mu = \Phi_*\P\), a probability measure on \((X, \mathcal A)\). This \(\mu\) is called the \emph{law} of the process \((X_n)_{n \geq 1}\). Now \((X, \mathcal A, \mu, T)\) is called the \emph{canonical model}\index{canonical model} associated to \((X_n)_{n \geq 1}\).
+
+\begin{proposition}[stationary process]\index{stationary process}
+  TFAE:
+  \begin{enumerate}
+  \item \((X, \mathcal A, \mu, T)\) is measure-preserving.
+  \item For all \(k \geq 1\), the law of \((X_n, X_{n + 1}, \dots, X_{n + k})\) on \((\R^d)^k\) is independent of \(n\).
+  \end{enumerate}
+  In this case we say that \((X_n)_{n \geq 1}\) is a \emph{stationary process}.
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \implies 2\): \(\mu = T_*\mu\) implies \(\mu = T^n_*\mu\) for all \(\mu\) and this says law of \((X_i)_{i \geq 1}\) is the same as that of \((X_{i + n})_{i \geq 1}\).
+  \item \(1 \impliedby 2\): \(\mu\) and \(T_*^n\mu\) agree on cylinders \(A \times (\R^d)^{\N \setminus F}\) for \(F \subseteq \N\) finite, \(A \in \mathcal B((\R^d)^F)\).
+  \end{itemize}
+\end{proof}
+
+In some sense ergodic system is the study of stationary process.
+
+\begin{proposition}[Bernoulli shift]\index{Bernoulli shift}
+  If \((X_n)_{n \geq 1}\) are iid.\ then \((X, \mathcal A, \mu, T)\) is ergodic. It is called the \emph{Bernoulli shift} associated to the law \(\nu\) of \(X_1\). We have
+  \[
+    \mu = \nu^{\otimes \N}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Claim that \(\Phi^{-1}(\mathcal T) \subseteq \mathcal C\), the tail \(\sigma\)-algebra of \((X_n)_{n \geq 1}\)\index{tail event}. But Kolmogorov \(0\)-\(1\) law\index{Kolmogorov \(0 - 1\) law} says that if \(A \in \mathcal T\) then \(\P(\Phi^{-1}(A)) = 0\) or \(1\), so \(\mu(A) = 0\) or \(1\), thus \(\mu\) is \(T\)-ergodic.
+
+  Given \(A \in \mathcal T\), \(T^{-1}A = A\) so
+  \begin{align*}
+    \Phi^{-1}(A)
+    &= \{\omega \in \Omega: (X_n(\omega))_{n \geq 1} \in A\} \\
+    &= \{\omega \in \Omega: (X_n(\omega))_{n \geq 1} \in T^{-1}A\} \\
+    &= \{\omega \in \Omega: (X_{n + 1}(\omega))_{n \geq 1} \in A\} \\
+    &= \{\omega \in \Omega: (X_{n + k}(\omega))_{n \geq 1} \in A\} \quad \text{ for all } k \\
+    &\in \sigma(X_k, X_{k + 1}, \dots)
+  \end{align*}
+  for \(\mu\)-almost every \(x\).
+\end{proof}
+
+\begin{theorem}[von Neumann mean ergodic theorem]\index{von Neumann mean ergodic theorem}
+  Let \((X, \mathcal A, \mu, T)\) be a measure-preserving sysmte. Let \(f \in L^2(X, \mathcal A, \mu)\). Then the ergodic average
+  \[
+    S_nf = \frac{1}{n} \sum_{i = 0}^{n - 1} f \compose T^i
+  \]
+  converges in \(L^2\) to \(\overline f\), a \(T\)-invariant function. In fact \(\overline f\) is the orthogonal projection of \(f\) onto \(L^2(X, \mathcal T, \mu)\).
+\end{theorem}
+
+The intuition is as follow: if \(f\) is the indicator function of a set, then \(S_nf\) is exactly the average of the time each orbit spending in \(A\).
+
+\begin{proof}
+  Hilbert space argument. Let \(H = L^2(X, \mathcal A, \mu)\) and dfine
+  \begin{align*}
+    U: H &\to H \\
+    f &\mapsto f \compose T
+  \end{align*}
+  which is an isometry: because \(\mu\) is \(T\)-invariant, \(\int |f \compose T|^2 d\mu = \int |f|^2 d\mu\). Then by Riesz representation theorem\index{Riesz representation theorem} it has an adjoint
+  \begin{align*}
+    U^*: H &\to H \\
+    x &\mapsto U^*
+  \end{align*}
+  which satisfies \(\ip{U^*x, y} = \ip{x, Uy}\) for all \(y \in H\). Let
+  \[
+    W = \{\varphi- \varphi \compose T: \varphi \in H\}
+  \]
+  be the \emph{coboundaries}\index{coboundary}. Let \(f \in W\). Then
+  \[
+    S_nf = \frac{1}{n} \sum_{i = 0}^{n - 1} \varphi \compose T^i - \varphi \compose T^{i + 1} = \frac{\varphi - \varphi \compose T^n}{n} \to 0
+  \]
+  as \(n \to \infty\).
+
+  Let \(f \in \cl W\) then again \(S_nf \to 0\) because for all \(\varepsilon\) exists \(g \in W\) such that \(\norm{f - g} < \varepsilon\). Then
+  \[
+    \norm{S_nf - S_ng}
+    = \norm{S_n(f - g)}
+    \leq \norm{f - g}
+    \leq \varepsilon
+  \]
+  so \(\limsup_n \norm{S_nf} \leq \varepsilon\).
+
+  Have \(H = \cl W \oplus \cl W^\perp\) and \(\cl W^\perp = W^\perp\). Claim \(W^\perp\) is exactly the \(T\)-invariant functions. The theorem then follows because if \(f \compose T = f\) then \(S_nf = f\) for all \(f\).
+
+  \begin{proof}[Proof of claim]
+    \begin{align*}
+      W^\perp
+      &= \{g \in H: \ip{g, \varphi - U\varphi} = 0 \text{ for all } \varphi \in H\} \\
+      &= \{g: \ip{g, \varphi} = \ip{g, U\varphi} \text{ for all } \varphi\} \\
+      &= \{g: \ip{g, \varphi} = \ip{U^*g, \varphi} \text{ for all } \varphi\} \\
+      &= \{g: U^*g = g\} \\
+      &= \{g: Ug = g\}
+    \end{align*}
+    where the last equality is by
+    \[
+      \norm{Ug - g}^2 = 2\norm g^3 - 2\Re \ip{g, Ug} = 2 \norm g^2 - 2 \Re \ip{U^*g, g},
+    \]
+    and this shows that \(W^\perp\) are exactly \(T\)-invariant functions.
+  \end{proof}
+\end{proof}
+
+
 
 
 

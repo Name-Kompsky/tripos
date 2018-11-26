@@ -1181,7 +1181,7 @@ This is quite an abstract definition, but there are a few equivalent notions. Fo
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item If \(\sigma\) is a simplex then \(K = \{\tau: \tau \leq \sigma\}\) is a simplicial complex.
-  \item If \(\sigma\) is a simplex then the set of proper faces of \(\sigma\), denoted \(\b \sigma\), is also a simplicial complex. It is called the \emph{boundary}\index{boundary} of \(\sigma\). The set of points in \(\sigma\) not in a simplex of \(\b \sigma\) is called the \emph{interior}, denoted by \(\interior \sigma\).
+  \item If \(\sigma\) is a simplex then the set of proper faces of \(\sigma\), denoted \(\b \sigma\), is a simplicial complex. It is called the \emph{boundary}\index{boundary} of \(\sigma\). The set of points in \(\sigma\) not in a simplex of \(\b \sigma\) is called the \emph{interior}, denoted by \(\interior \sigma\).
   \end{enumerate}
 \end{eg}
 
@@ -1254,12 +1254,11 @@ Realisaition of simplicial maps are piecewise linear and thus very rigid. On the
 \end{proof}
 
 \begin{definition}
-  We define
+  We define the \(r\)th barycentric subdivision to be
   \begin{align*}
     K^{(0)} &= K \\
     K^{(r)} &= (K^{(r - 1)})'
   \end{align*}
-  the \(r\)th barycentric subdivision.
 \end{definition}
 
 \begin{definition}[mesh]\index{mesh}
@@ -1901,7 +1900,7 @@ In other words, homology is a homotopy invariance.
 \end{theorem}
 
 \begin{proof}
-  Suppose \(\phi: \R^m \to \R^n\) is a homeomorphism. wlog \(\phi(0) = 0\). This induces a homeomorphism \(\R^m \setminus \{0\} \cong \R^n \setminus \{0\}\). But they are homotopic equivalent to \(S^{m - 1}\) and \(S^{n - 1}\) respectively. \(m = n\).
+  Suppose \(\phi: \R^m \to \R^n\) is a homeomorphism. wlog \(\phi(0) = 0\). This induces a homeomorphism \(\R^m \setminus \{0\} \cong \R^n \setminus \{0\}\). But they are homotopy equivalent to \(S^{m - 1}\) and \(S^{n - 1}\) respectively. \(m = n\).
 \end{proof}
 
 \begin{theorem}[Brouwer fixed point theorem]\index{Brouwer fixed point theorem}
@@ -1954,7 +1953,7 @@ In other words, homology is a homotopy invariance.
       M \ar[r, hook, "m"] & K
     \end{tikzcd}
   \]
-  then
+  then there exists \(\delta_*: H_n(K) \to H_{n - 1}(N)\) making this sequence exact.
   \[
     \begin{tikzcd}
       & \cdots \ar[r] & H_{n + 2}(K) \ar[dll, out=0, in=180, "\delta_*"] \\
@@ -1964,7 +1963,6 @@ In other words, homology is a homotopy invariance.
       H_{n - 1}(N) \ar[r] & \dots
     \end{tikzcd}
   \]
-  then there exists \(\delta_*: H_n(K) \to H_{n - 1}(N)\) making this sequence exact.
 \end{theorem}
 
 The core of the theorem is a result in homological algebra.
@@ -2083,6 +2081,131 @@ Recall that we claimed before given a barycentric subdivision \(K'\) of a simpli
   \]
   so the five lemma finishes the job.
 \end{proof}
+
+\subsection{Homology of compact surfaces}
+
+Recall that classification of compact surfaces says there are two classes of surfaces there are two classes: \(\Sigma_g\) and \(S_g\). We are going to use Mayer-Vietoris to compute their homologies. Before that we have to know the homology of \(\Gamma_r\).
+
+\begin{eg}
+  \(\Gamma_r = \bigvee_{i = 1}^r S^1\). \(\Gamma_0 = *, \Gamma_1 \cong S^1\) and their homologies are known. Use standard simplicial \(1\)-sphere. There is a slight issue here that the way we set up simplicial complex makes it difficult to glue things. Instead we are going to use abstract simplicial complex.
+
+  Let \(K\) be such that \(|K| \cong \Gamma_r\), \(L, M \subseteq K\) be such that \(|L| \cong \Gamma_{r - 1}, |M| \cong S^1\), and \(K = L \cup_N M\) where \(N = \{v_0\}\). By Mayer-Vietoris,
+  \[
+    \begin{tikzcd}
+      H_1(N) \ar[r] & H_1(L) \oplus H_1(M) \ar[r] & H_1(K) \ar[dll, out=0, in=180, "\delta_*"] \\
+      H_0(N) \ar[r] & H_0(L) \oplus H_0(M) \ar[r] & H_0(K) \ar[dll, out=0, in=180] \\
+      0
+    \end{tikzcd}
+  \]
+  which is
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H_1(\Gamma_{r - 1}) \oplus \Z \ar[r] & H_1(\Gamma_r) \ar[dll, out=0, in=180, "\delta_*"] \\
+      \Z \ar[r] & \Z \oplus \Z \ar[r] & \Z \ar[dll, out=0, in=180] \\
+      0
+    \end{tikzcd}
+  \]
+  and unfortunately we have to get out hands dirty to understand \(\delta_*\). The map \(H_0(N) \to H_0(L) \oplus H_0(M)\) sends generator to generators so is injective and thus by exactness at \(H_1(k)\), \(\im \delta_* = 0\). Thus we have a very short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H_1(\Gamma_{r - 1}) \oplus \Z \ar[r] & H_1(\Gamma_r) \ar[r, "\delta_*"] & 0
+    \end{tikzcd}
+  \]
+  so \(H_1(\Gamma_r) \cong \Gamma_1(\Gamma_{r - 1}) \oplus \Z\). Thus we condlude that
+  \[
+    H_n(\Gamma_r) =
+    \begin{cases}
+      \Z & n = 0 \\
+      \Z^r & n = 1 \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  Note that \(H_1(\Gamma_r) \cong \langle [\alpha_1] \rangle \oplus \dots \oplus \langle [\alpha_r] \rangle\) where \([\gamma_i]\) is a generator for \(H_1(i\text{th circle})\).
+\end{eg}
+
+\begin{remark}
+  Note that this proof does not assume anything other path-connectedness. Thus \(\delta_*: H_1(K) \to H_0(N)\) is always zero as long as the intersection \(N\) is connected. Then we don't have to worry about the last row of Mayer-Vietoris.
+\end{remark}
+
+\begin{eg}
+  \(\Sigma_g = \Gamma_{2g} \cup_{\rho_g} D^2\) where
+  \[
+    \rho_g(1) = \alpha_1\beta_1\alpha_1^{-1}\beta_1^{-1} \cdots \alpha_g \beta_g \alpha_g^{-1} \beta_g^{-1}.
+  \]
+  Just as mapping cylinder, to compute the homology it's convenient to introduce a new space
+  \[
+    \Sigma_g^* = \Gamma_{2g} \cup_{2g} (S^1 \times [0, 1])
+  \]
+  with \((x, 0) \sim \rho_g(x)\) for all \(x \in S^1\). This is just \(\Sigma_g\) with \(D^2\) removed. Note that \(\Sigma_g^*\) deformation retracts to \(\Gamma_{2g}\).
+
+  A bit of technical work: we can triangulate \(\Sigma_g^*\) by triangulating \(\Gamma_{2g}\) then taking a simplicial approximation to \(\rho_g\) and triangulating \(S^1 \times I\) in a way compactible with that.
+  % something mentioned that triangulation does not affect homology. Really? Hauptvermutung?
+  
+  Next note that
+  \[
+    \Sigma_g = \Sigma_g^* \cup_i D^2
+  \]
+  where \(i: S^1 \to \Sigma_g^*\) is the map identifying \(\b D^2\) with \(S^1 \times I\). Choose a triangulation of \(D^2\) compatible with the induced triangulation of its boundary.
+
+  Back to the actual computation.
+  \[
+    \begin{tikzcd}
+      H_2(S^1) \ar[r] & H_2(\Sigma_g^*) \oplus H_2(D^2) \ar[r] & H_2(\Sigma_g) \ar[dll, out=0, in=180] \\
+      H_1(S^1) \ar[r] & H_1(\Sigma_g^*) \oplus H_1(D^2) \ar[r] & H_1(\Sigma_g) \ar[dll, out=0, in=180] \\
+      0
+    \end{tikzcd}
+  \]
+  note that by the previous remark we don't have to write down the last row. Fill in information we already knew,
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & 0 \ar[r] & H_2(\Sigma_g) \ar[r] & \Z \ar[r, "i_*"] & \Z^{2g} \ar[r] & H_1(\Sigma_g) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  To figure out the two unknown groups we need to understand \(i_*\), which induced by \(\rho_g\). But since homology groups are abelian, we have
+  \[
+    I_*(1)
+    = (\gamma_g)_*(1)
+    = [\alpha_1] + [\beta_1] - [\alpha_1] - [\beta_1] + \dots + [\alpha_g] + [\beta_g] - [\alpha_g] - [\beta_j] = 0
+  \]
+  So we split that into two exact sequences
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H_2(\Sigma_g) \ar[r] & \Z \ar[r] & 0
+    \end{tikzcd}
+    \begin{tikzcd}
+      0 \ar[r] &  \Z^{2g} \ar[r] & H_2(\Sigma_g) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  so
+  \[
+    H_n(\Sigma_g) \cong
+    \begin{cases}
+      \Z & n = 0, 2 \\
+      \Z^{2g} & n = 1 \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  which in particular implies that they are pairwise non-homotopy equivalent.
+\end{eg}
+
+\begin{eg}
+  \(S_g = \Gamma_{g + 1} \cup_{\sigma_g} D^2\) where
+  \[
+    \sigma_g(1) = \alpha_0^2 \alpha_1^2 \cdots \alpha_g^2.
+  \]
+  By almost the same argument, we obtain a Mayer-Vietoris sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H_2(S_g) \ar[r, "\delta_*"] & \Z \ar[r, "i_*"] & \Z^{g + 1} \ar[r] & H_1(S_g) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where this times \(i_*\) is induced by \(\sigma_g\), and
+  \[
+    i_*
+    = (\gamma_g)_*(1) = 2[\alpha_0] + 2[\alpha_1] + \dots + 2[\alpha_g]
+  \]
+  which is injective so \(\delta_* = 0\). Thus \(H_2(S_g) = 0, H_1(S_g) \cong \Z^g \oplus (\Z/2\Z)\).
+\end{eg}
 
 
 

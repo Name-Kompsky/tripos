@@ -32,6 +32,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\Rel}{{\c{Rel}}}
 \newcommand{\Cone}{{\c{Cone}}}
 \newcommand{\Sh}{{\c{Sh}}}
+\newcommand{\Sub}{{\c{Sub}}}
 
 \newcommand{\mono}{\rightarrowtail}
 \newcommand{\epi}{\twoheadrightarrow}
@@ -2367,7 +2368,7 @@ J.\ Giraud gave a characterisation of such categories by (set-theoretic) categor
     and \(\Omega = \{0, 1\}\) with trivial \(G\)-action. So the forgetful functor \([G, \Set] \to \Set\) is logical, as is the functor which equips a set \(A\) with trivial \(G\)-action.
 
     Moreover, even if \(G\) is infinite, \([G, \Set]\) is a topos and this inclusion \([G, \Set_f] \to [G, \Set]\) is logical. Similarly if \(\mathcal G\) is a large group (i.e.\ the underlying space may not be a set), then \([\mathcal G, \Set]\) is a topos.
-  \item Let \(\c C\) be a category such that every \(\c C/A\) is equivalent to a finite category. Then \([\c C^{\text{op}}, \Set_f]\) is a topos. Similarly if \(\c C\) is large but all \(\c C/A\) are small, then \([\c C^{\text{op}}, \Set]\) is a topos. In partciular \([, \Set]\) is a topos, but it's not locally small.
+  \item Let \(\c C\) be a category such that every \(\c C/A\) is equivalent to a finite category. Then \([\c C^{\text{op}}, \Set_f]\) is a topos. Similarly if \(\c C\) is large but all \(\c C/A\) are small, then \([\c C^{\text{op}}, \Set]\) is a topos. In partciular \([\c{On}, \Set]\) is a topos, but it's not locally small.
   \end{enumerate}
 \end{eg}
 
@@ -2461,7 +2462,7 @@ Then for any \(\ceil m: C \to PA\), \((\exists f) \ceil m\) correponds to
     R \ar[r, "m", tail] & C \times A \ar[r, "1 \times f", tail] & C \times B
   \end{tikzcd}
 \]
-so \(f \mapsto \exists f\) is a functor \(\text{Mono}(\mathcal E) \to \mathcal E\).
+so \(f \mapsto \exists f\) is a functor \(\c{Mono}(\mathcal E) \to \mathcal E\).
 
 \begin{lemma}[Beck-Chevalley condition]\index{Beck-Chevalley condition}
   Suppose
@@ -2554,6 +2555,203 @@ so \(f \mapsto \exists f\) is a functor \(\text{Mono}(\mathcal E) \to \mathcal E
     commutes up to isomorphism. So this follows from 5.16.
   \end{enumerate}
 \end{proof}
+
+\begin{lemma}
+  Let \(\mathcal E\) be a category with finite limits and suppose \(A \in \ob \mathcal E\) has a power-object \(PA\). Then, for any \(B\), \(B^*(PA)\) is a power-object for \(B^*A\) in \(\mathcal E/B\).
+\end{lemma}
+
+\begin{proof}
+  Given
+  \begin{tikzcd}
+    C \ar[d, "g"] \\
+    B
+  \end{tikzcd}
+  we have a pullback square
+  \[
+    \begin{tikzcd}
+      C \times A \ar[r, "g \times 1"] \ar[d, "\pi_1"] & B \times A \ar[d, "\pi_1"] \\
+      C \ar[r, "g"] & B
+    \end{tikzcd}
+  \]
+  so \(\Sigma_B(g \times B^*A) \cong C \times A\). Hence
+  \[
+    \Sub_{\mathcal E/B} (g \times B^*A) \cong \Sub_{\mathcal E} (C \times A),
+  \]
+  but if \(h: C \to PA\) corresponds to
+  \begin{tikzcd}
+    R \ar[d, tail] \\
+    C \times A
+  \end{tikzcd}
+  then the upper square of the diagram
+   \[
+     \begin{tikzcd}
+       R \ar[rr] \ar[d, tail] & & B \times \ni_A \ar[d, tail] \\
+       C \times A \ar[rr, "{(g, h) \times 1_A}"] \ar[dr, "g\pi_1"'] & & B \times PA \times A \ar[dl, "\pi_1"] \\
+         & B
+       \end{tikzcd}
+     \]
+    is a pullback. So
+    \begin{tikzcd}
+      B \times PA \ar[d, "\pi_1"] \\
+      B
+    \end{tikzcd}
+    equipped with \(B^*(\ni_A) \mono B^*(PA \times A)\) is a power object for \(B^*A\).
+\end{proof}
+
+\begin{theorem}
+  Suppose \(\mathcal E\) is a weak topos. Then for any \(B \in \ob \mathcal E\), \(\mathcal E/B\) is a weak topos and \(B^*: \mathcal E \to \mathcal E/B\) is weakly logical.
+\end{theorem}
+
+\begin{proof}
+  The second assertion follows from the previous lemma. For the first, we need to construct a power object for an arbitrary
+  \begin{tikzcd}
+    A \ar[d, "f"] \\
+    B
+  \end{tikzcd}
+  in \(\mathcal E/B\). Then the pullback
+  \[
+    \begin{tikzcd}
+      \Sigma_B(g \times f) \ar[r] \ar[d] & A \ar[d, "f"] \\
+      C \ar[r, "g"] & B
+    \end{tikzcd}
+  \]
+  is a subobject of \(C \times A\), namely the equaliser of
+  \[
+    \begin{tikzcd}
+      C \times A \ar[r, shift left, "f\pi_1"] \ar[r, shift right, "g\pi_2"'] & B
+    \end{tikzcd}
+  \]
+
+  Define \(\wedge: PA \times PA \to PA\) to correspond to the intersection of \(\pi_{13}^*(\ni_A \mono PA \times A)\) and \(\pi_{23}^*(\ni_A \mono PA \times A)\) and dfine \(P_1A \mono PA \times PA\) to be the equaliser of
+  \begin{tikzcd}
+    PA \times PA \ar[r, shift left, "\wedge"] \ar[r, shift right, "\pi_1"'] & PA.
+  \end{tikzcd}
+  Then, for any \(C\),
+  \begin{tikzcd}
+    C \ar[r, "{(\ceil m, \ceil n)}"] & PA \times PA
+  \end{tikzcd}
+  factors through \(P_1A\) if and only if \(m \leq n\) in \(\Sub_{\mathcal E} (C \times A)\). Now form the pullback
+  \[
+    \begin{tikzcd}
+      Q \ar[rr] \ar[d, tail, "{(h, k)}"] & & P_1A \ar[d, tail] \\
+      PA \times B \ar[r, "1 \times \{\}"] & PA \times PB \ar[r, "1 \times Pf"] & PA \times PA
+    \end{tikzcd}
+  \]
+  Given any
+  \begin{tikzcd}
+    C \ar[d, "g"] \\
+    B
+  \end{tikzcd}
+  morphisms \(g \xrightarrow{\ell} k\) in \(\mathcal E /B\) correspond to morphisms \(C \xrightarrow{h \ell} PA\) such that the subobject named by \(h\ell\) is contained in that named by \((Pf)(\{\})g\). But the latter is indeed \(\Sigma_B(g \times f) \mono C \times A\) so \(k\) is a power object for \(f\) in \(\mathcal E/B\).
+\end{proof}
+
+\begin{corollary}
+  A weak topos is locally cartesian closed. In particular, it is a topos.
+\end{corollary}
+
+\begin{proof}
+  For any \(f: A \to B\) in \(\mathcal E\), we can define \((\mathcal E/B)/f)\) with \(\mathcal E/A\) and \(f^*: \mathcal E/B \to \mathcal E/A\) with pullback along \(f\). Hence all such functors are weakly logical.
+
+  But \(f^*\) has a left adjoint \(\Sigma_f\) so by 7.7 (2) (in lecture 7.10 (ii)) it has a right adjoint \(\Pi_f\). Hence by 6.3 \(\mathcal E/B\) is cartesian closed for any \(B\).
+\end{proof}
+
+\begin{remark}
+  It can be shown that a weakly logical functor is cartesian closed, and hence logical.
+\end{remark}
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item Any epimorphism in a topos is regular.
+  \item Any \(f: A \to B\) in a topos factors uniquely up to isomorphism as
+    \[
+      \begin{tikzcd}
+        A \ar[r, "q", twoheadrightarrow] & I \ar[r, tail, "m"] & B
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  \(\mathcal E\) is locally cartesian closed by the above corollary and has coequalisers by 7.10(i) so by 6.7 every \(f\) factors uniquely as regular epi plus mono. If \(f\) itself is epic then the monic part of the factorisation is isomorphism by 7.3, so \(f\) is regular epic.
+\end{proof}
+
+\subsection{Sheaves and local operators*}
+
+Recall that \(\Sh(X) \subseteq [\mathcal O(X)^{\text{op}}, \Set]\) is a full subcategory closed under limits. In fact it's reflective and the reflector \(L: [\mathcal O(X)^{\text{op}}, \Set] \to \Sh(X)\) preserves finite limits. This suggests considering reflective subcategories \(\mathcal D \subseteq \mathcal E\) for which the reflector preserves finite limits (equivalently, pullbacks).
+
+\begin{lemma}
+  Given such a reflective subcategory and a monomorphism \(A' \mono A\) in \(\mathcal E\), define \(c(A') \mono A\) by the pullback diagram
+  \[
+    \begin{tikzcd}
+      c(A') \ar[r] \ar[d, tail] & LA' \ar[d, tail] \\
+      A \ar[r, "\eta_A"] & LA
+    \end{tikzcd}
+  \]
+  Then \(A' \mapsto c(A')\) is a closure operation on \(\Sub_{\mathcal E}(A)\) and commutes with pullback along a fixed morphism of \(\mathcal E\).
+\end{lemma}
+
+By ``closure'' we mean an order-preserving inflationary idempotent operator.
+
+\begin{proof}
+  Since
+  \[
+    \begin{tikzcd}
+      A \ar[r, "\eta_{A'}"] \ar[d, tail] & LA' \ar[d, tail] \\
+      A \ar[r, "eta_A"] & LA
+    \end{tikzcd}
+  \]
+  and \(A' \leq A''\) in \(\Sub(A)\) implies \(LA' \leq LA''\) in \(\Sub(LA)\) and hence \(c(A') \leq c(A'')\).
+
+  Since \(L\eta\) is an isomorphism,
+  \[
+    \begin{tikzcd}
+      LA' \ar[r, "L\eta_{A'}"] \ar[d, tail] & LLA' \ar[d, tail] \\
+      LA \ar[r, "L\eta_A"] & LLA
+    \end{tikzcd}
+  \]
+  is a pullback, and since \(L\) preserves pullbacks we deduce \(Lc(A') \cong LA'\) in \(\Sub(LA)\). Hence \(c(c(A')) \cong c(A')\).
+
+  For stability under pullback, suppose
+  \[
+    \begin{tikzcd}
+      A' \ar[r] \ar[d, tail] & B' \ar[d, tail] \\
+      A \ar[r, "f"] & B
+    \end{tikzcd}
+  \]
+  is a pullback. Then in the cube
+  \[
+    \begin{tikzcd}
+      c(A') \ar[rr] \ar[dr] \ar[dd] & & LA' \ar[dr] \ar[dd] \\
+      & c(B') \ar[rr, crossing over] & & LB' \ar[dd] \\
+      A \ar[rr, "\eta_A", near end] \ar[dr, "f"] && LA \ar[dr, "Lf"] \\
+      & B \ar[rr, "\eta_B"] \ar[from=uu, crossing over] && LB
+    \end{tikzcd}
+  \]
+
+  the front, back and right faces are pullbacks, whence the left face is too.
+\end{proof}
+
+\begin{definition}[local operator]\index{local operator}
+  Let \(\mathcal E\) be a topos. By a \emph{local operator} in \(\mathcal E\) we mean a morphism \(j: \Omega \to \Omega\) satisfying the commutative diagrams
+  \[
+    \begin{tikzcd}
+    \end{tikzcd}
+  \]
+  \[
+    \begin{tikzcd}
+      1 \ar[r, "\top"] \ar[dr, "\top"'] & \Omega \ar[d, "j"] & \Omega \ar[l, "j"'] \ar[dl, "j"] \\
+      & \Omega
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      \Omega_1 \ar[r] \ar[d, tail] & \Omega_1 \ar[d, tail] \\
+      \Omega \times \Omega \ar[r, "j \times j"] & \Omega \times \Omega
+    \end{tikzcd}
+  \]
+  where \(\Omega_1\) is the order relation on \(\Omega\) define in 7.12.
+
+  Given a closure operator on subobjects in the above lemma, define \(J \mono \Omega\) to be the closure of \(\top: 1 \mono \Omega\) and \(j: \Omega \to \Omega\) to be the classifying map of \(J \mono \Omega\). Then, for any \(A' \mono A\) with classifying map \(\chi_m: A \to \Omega\), the composite \(j \chi_m\) classifies \(c(A') \mono A\).
+\end{definition}
 
 
 
