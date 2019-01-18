@@ -16,8 +16,6 @@
 \newcommand*{\ip}{\innerproduct} % inner product
 \DeclareMathOperator{\cov}{Cov} % variance
 
-% TODO: uparrow and downarrow
-
 \begin{document}
 
 \input{titlepage}
@@ -106,7 +104,7 @@ Following this, we can define a finitely additive measure correponding to our in
 \end{proposition}
 
 \begin{proof}
-  Take \(A_n \subseteq E\) such that \(m(A_n) \nearrow \sup\) and \(B_n \supseteq E\) such that \(m(B_n) \searrow \inf\). Note that
+  Take \(A_n \subseteq E\) such that \(m(A_n) \uparrow \sup\) and \(B_n \supseteq E\) such that \(m(B_n) \downarrow \inf\). Note that
   \[
     \inf \leq m(B_n) = m(A_n) + m(B_n \setminus A_n) \leq \sup + m(B_n \setminus A_n) \leq \sup + \varepsilon
   \]
@@ -116,7 +114,7 @@ Following this, we can define a finitely additive measure correponding to our in
 \begin{ex}\leavevmode
   \begin{enumerate}
   \item If \(B\) is a box, the family \(\mathcal J(B)\) of Jordan measurable subsets of \(B\) is a Boolean algebra.
-  \item A subset \(E \subseteq [0, 1]\) is Jordan measurable if and only if \(\mathbf 1_E\), the indicator funciton on \(E\), is Riemann integrable.
+  \item A subset \(E \subseteq [0, 1]\) is Jordan measurable if and only if \(\mathbf 1_E\), the indicator function on \(E\), is Riemann integrable.
   \end{enumerate}
 \end{ex}
 
@@ -126,7 +124,7 @@ Although Jordan measure corresponds to the intuition of length, area and volume,
 \begin{enumerate}
 \item unbounded sets in \(\R^d\) are not Jordan measurable.
 \item \(\mathbf 1_{\Q \cap [0, 1]}\) is not Riemann integrable, and therefore \(\Q \cap [0, 1]\) is not Jordan measurable.
-\item pointwise limits of Riemann integrable functions \(f_n := \mathbf 1_{\frac{1}{n!} \Z \cap [0, 1]} \to \mathbf 1_{\Q \cap [0, 1]}\) is not Riemann integrable.
+\item pointwise limits of Riemann integrable function \(f_n := \mathbf 1_{\frac{1}{n!} \Z \cap [0, 1]} \to \mathbf 1_{\Q \cap [0, 1]}\) is not Riemann integrable.
 \end{enumerate}
 
 The idea of Lebesgue is to use countable covers by boxes.
@@ -353,7 +351,7 @@ The result we're working towards is
 \end{definition}
 
 \begin{eg}[Vitali counterexample]
-  Althought \(\mathcal L\) is pretty big (it includes all open and closed sets, countable unions and intersections of them, and has cardinality at least \(2^{\mathfrak c}\) where \(\mathfrak c\) is the continuum, by considering a compact null set with cardinality \(\mathfrak c\), and each subset thereof), it does not include every subset of \(\R^d\).
+  Althought \(\mathcal L\) is pretty big (it includes all open and closed sets, countable unions and intersections of them, and has cardinality at least \(2^{\mathfrak c}\) where \(\mathfrak c\) is the continuum, by considering a null set with cardinality \(\mathfrak c\), and each subset thereof), it does not include every subset of \(\R^d\).
   
   Consider \((\Q, +)\), the additive subgroup of \((\R, +)\). Pick a set of representative \(E\) of the cosets of \((\Q, +)\). Choose it inside \([0, 1]\). For each \(x \in \R\), there exists a unique \(e \in E\) such that \(x - e \in \Q\) (here we require axiom of choice). Claim that \(E \notin \mathcal L\) and \(m^*\) is not additive on the family of all subsets of \(\R^d\).
 
@@ -362,7 +360,7 @@ The result we're working towards is
     \[
       m^*(\bigcup_{i = 1}^N p_i + E)
       = \sum_{i = 1}^N m^*(p_i + E)
-      = N \sum_{i = 1}^N m^*(E)
+      = N m^*(E)
     \]
     by translation invariance of \(m^*\). But then
     \[
@@ -562,7 +560,7 @@ Let \(\mathcal C = \{A \in \mathcal A: \mu_1(A) = \mu_2(A)\}\). Then \(\mathcal 
 \end{proposition}
 
 \begin{proof}
-  Exercise. Hint: use the \(\pi\)-system \(\mathcal F\) made of all boxes in \(\R^d\) and dissecting a cube into dyadic pieces. Then approximate and use monotone.
+  Exercise. Hint: use the \(\pi\)-system \(\mathcal F\) made of all boxes in \(\R^d\) and dissect a cube into dyadic pieces. Then approximate and use monotone.
 \end{proof}
 
 \begin{remark}\leavevmode
@@ -749,7 +747,7 @@ More generally,
 \begin{proof}\leavevmode
   \begin{enumerate}
   \item Obvious.
-  \item Follows from 1 once it's shown that \(+: \R^2 \to \R\) and \(\times: \R^2 \to \R\) are measurable (w.r.t.\ Borel sets). The sets
+  \item Follow from 1 once it's shown that \(+: \R^2 \to \R\) and \(\times: \R^2 \to \R\) are measurable (with respect to Borel sets). The sets
     \begin{align*}
       &\{(x, y): x + y < t\} \\
       &\{(x, y): xy < t\}
@@ -1263,14 +1261,7 @@ so
 
 \section{Foundations of probability theory}
 
-Modern probability theory was founded by Kolmogorov, who formualted an axiomatic foundation of probability thoery in 1933 in the thesis \emph{Foundations on the Theory of Probability}. He defined a probability space to be a measure space \((\Omega, \mathcal F, \P)\). \(\Omega\) is the universe of possible \emph{outcomes}. However, we wouldn't be able to assign probability to every single outcome unless the space is discrete. Instead we are interest in studying some subsets of \(\Omega\), which are called \emph{events} and contained in \(\mathcal F\). Finally \(\P\) is a probability measure with \(\P(\Omega) = 1\). Thus for \(A \in \mathcal F\), \(\P(A \text{ occurs}) \in [0, 1]\).
-
-The axioms of a probability space are interpreted as follow.
-% \begin{enumerate}
-% \item If \(A\) and \(B\) never occurs simultaneously then \(\P(A \text{ or } B = \P(A) + \P(B)\).
-% \item \(\sigma\)-additivity is slightly more difficult to justify. It is equivalent to \emph{continuity}: if \(A_{n + 1} \supseteq A_n\) and \(\bigcap_{n \geq 1} A_n = \emptyset\) then \(\P(A_n) \to 0\) as \(n \to \infty\).
-% \end{enumerate}
-
+Modern probability theory was founded by Kolmogorov, who formulated the axioms of probability theory in 1933 in his thesis \emph{Foundations on the Theory of Probability}. He defined a probability space to be a measure space \((\Omega, \mathcal F, \P)\). The interpretation is as follow: \(\Omega\) is the universe of possible \emph{outcomes}. However, we wouldn't be able to assign probability to every single outcome unless the space is discrete. Instead we are interested in studying some subsets of \(\Omega\), which are called \emph{events} and contained in \(\mathcal F\). Finally \(\P\) is a probability measure with \(\P(\Omega) = 1\). Thus for \(A \in \mathcal F\), \(\P(A \text{ occurs}) \in [0, 1]\). Thus finite additivity of \(\P\) says that if \(A\) and \(B\) never occurs simultaneously then \(\P(A \text{ or } B = \P(A) + \P(B)\). \(\sigma\)-additivity is slightly more difficult to justify and it is perhaps to see the equivalent notion \emph{continuity}: if \(A_{n + 1} \supseteq A_n\) and \(\bigcap_{n \geq 1} A_n = \emptyset\) then \(\P(A_n) \to 0\) as \(n \to \infty\).
 
 \begin{definition}[probability measure, probability space]\index{probability measure}\index{probability space}
   Let \(\Omega\) be a set and \(\mathcal F\) a \(\sigma\)-algebra on \(\Omega\). A measure \(\mu\) on \((\Omega, \mathcal F)\) is called a \emph{probability measure} if \(\mu(\Omega) = 1\) and the measure space \((\Omega, \mathcal F, \mu)\) is called a \emph{probability space}.
@@ -1320,9 +1311,7 @@ We usually use a capital letter to denote a random variable.
   \[
     F_X(t_n) = \P(X \leq t_n) \to \P(\bigcap_{n \geq 1} \{X \leq t_n\}) = \P(\{X \leq t\}) = F_X(t)
   \]
-  by downward monotone convergence for sets.
-  
-  Uniqueness follows from Dynkin lemma applied to the \(\pi\)-system \(\emptyset \cup \{(-\infty, t]\}_{t \in \R}\).
+  by downward monotone convergence for sets. Uniqueness follows from Dynkin lemma applied to the \(\pi\)-system \(\{\emptyset\} \cup \{(-\infty, t]\}_{t \in \R}\).
 \end{proof}
 
 Conversely,
@@ -1625,7 +1614,7 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. meaning ``infinitely ofte
   \item \((X_n)_{n \geq 1}\) is sometimes called a \emph{random process} or \emph{stochastic process}.
   \item
     \[
-      \mathcal F_n = \sigma(X_1, \dots X_n) \subseteq \mathcal F
+      \mathcal F_n = \sigma(X_1, \dots, X_n) \subseteq \mathcal F
     \]
     is called the associated \emph{filtration}. \(\mathcal F_n \subseteq \mathcal F_{n + 1}\).
   \item
@@ -1727,14 +1716,14 @@ Note that \(\limsup_n A_n\) is also called \(A_n\) io. meaning ``infinitely ofte
 \end{theorem}
 
 \begin{proof}
-  We prove the theorem under a stonger condition: we assume \(\E(X_1^4) < \infty\). This implies, by Cauchy-Schwarz, \(\E(X_1^2), \E(|X_1|) < \infty\). Subsequently \(\E(|X_1|^3) < \infty\). The full proof is much harder but will be given later when we have developed enough machinrry.
+  We prove the theorem under a stonger condition: we assume \(\E(X_1^4) < \infty\). This implies, by Cauchy-Schwarz, \(\E(X_1^2), \E(|X_1|) < \infty\). Subsequently \(\E(|X_1|^3) < \infty\). The full proof is much harder but will be given later when we have developed enough machinery.
 
   wlog we may assume \(\E(X_1) = 0\) by replacing \(X_n\) with \(X_n - \E(X_1)\). Have
   \begin{align*}
     \E(S_n^4)
     &= \sum_{i,j, k, \ell} \E(X_iX_jX_kX_\ell).
   \end{align*}
-  All terms vanish because \(\E(X_i) = 0\) and \((X_i)_{i \geq 1}\) are independnet, except for \(\E(X_i^4)\) and \(\E(X_i^2X_j^2)\) for \(i \neq j\). For example,
+  All terms vanish because \(\E(X_i) = 0\) and \((X_i)_{i \geq 1}\) are independent, except for \(\E(X_i^4)\) and \(\E(X_i^2X_j^2)\) for \(i \neq j\). For example,
   \[
     \E(X_iX_j^3) = \E(X_i) \cdot \E(X_j^3) = 0
   \]
@@ -1825,11 +1814,11 @@ Strong law of large numbers has a very important statistical implication: we can
     \[
       \P(\norm{X_n - X} > \varepsilon) = \E(\mathbf 1_{\norm{X_n - X} > \varepsilon})
     \]
-    so if \(X_n \to X\) almost surely for \(\P\)-almost everywhere \(\omega\) then
+    so if \(X_n \to X\) almost surely then
     \[
       \mathbf 1_{\norm{X_n - X} > \varepsilon} \to 0
     \]
-    so by dominated convergence theorem \(\P(\norm{X_n - X} < \varepsilon) \to 0\).
+    \(\P\)-almost everywhere so by dominated convergence theorem \(\P(\norm{X_n - X} > \varepsilon) \to 0\).
   \item \(2 \implies 3\): given \(f \in C_b(\R^d)\), need to show that \(\mu_{X_n}(f) \to \mu_X(f)\). But
     \[
       \mu_{X_n}(f) - \mu_X(f) = \E(f(X_n) - f(X)).
@@ -1838,7 +1827,7 @@ Strong law of large numbers has a very important statistical implication: we can
     \begin{align*}
       |\E(f(X_n)  - f(X))|
       &\leq \E(\mathbf 1_{\norm{X_n - X} < \delta} \mathbf 1_{\norm X < 1/\varepsilon} \underbrace{|f(X_n) - f(X)|}_{< \varepsilon}) \\
-      &\quad + 2 \underbrace{\norm f_\infty}_{< \infty} (\P(\norm{X_n - X} > \delta) + \P(\norm X \geq \frac{1}{\varepsilon}))
+      &\quad + 2 \underbrace{\norm f_\infty}_{< \infty} (\P(\norm{X_n - X} \geq \delta) + \P(\norm X \geq \frac{1}{\varepsilon}))
     \end{align*}
     so
     \[
@@ -2049,7 +2038,11 @@ Recall that \(\varphi: I \to \R\) is convex means that for all \(x, y \in I\), f
       &\leq t \sup_{\ell \in \mathcal F} \ell(x) + (1 - t) \sup_{\ell \in \mathcal F} \ell(y) \\
       &= t \varphi(x) + (1 - t) \varphi(y)
     \end{align*}
-  \item We need to show that for all \(x_0 \in I\) we can find an affine function \(\ell_{x_0} = \theta_{x_0} (x - x_0) + \varphi(x_0)\), where \(\theta_{x_0}\) is morally the slope at \(x_0\), such that \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\). Then have \(\varphi = \sup_{x_0 \in I} \ell_{x_0}\).
+  \item We need to show that for all \(x_0 \in I\) we can find an affine function
+    \[
+      \ell_{x_0}(x) = \theta_{x_0} (x - x_0) + \varphi(x_0),
+    \]
+    where \(\theta_{x_0}\) is morally the slope at \(x_0\), such that \(\varphi(x) \geq \ell_{x_0}(x)\) for all \(x \in I\). Then have \(\varphi = \sup_{x_0 \in I} \ell_{x_0}\).
 
     To find \(\theta_{x_0}\) observe that for all \(x < x_0 < y\) where \(x, y \in I\), have
     \[
@@ -2153,7 +2146,7 @@ Jensen inequality is for probability space only. The following applies to all me
   \[
     \E(|X|^p)^{1/p} \leq \E(|X|^{p'})^{1/p'},
   \]
-  so the function \(p \mapsto \E(|X|^p)^{1/p}\) is non-decreasing. This can be used, for example, to show that if \(X\) has finite \(p\)th moment then it has finite \(p'\)th moment for \(p' \leq p\).
+  so the function \(p \mapsto \E(|X|^p)^{1/p}\) is non-decreasing. This can be used, for example, to show that if \(X\) has finite \(p'\)th moment then it has finite \(p\)th moment for \(p' \geq p\).
 \end{remark}
 
 \begin{definition}
@@ -2219,7 +2212,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
     \leq \sum_{k = 1}^K 2^{-k}
     \leq 1
   \]
-  so by monotone convergece,
+  so by monotone convergence,
   \[
     \lim_{K \to \infty} \int_X |S_K|^p d\mu = \int_X |S_\infty|^p d\mu,
   \]
@@ -2245,7 +2238,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
   \begin{proof}
     Let \(t > \limsup_{n \to \infty} \norm{f_n}_\infty\). Then exists \(n_k \uparrow \infty\) such that
     \[
-      \norm{f_{n_k}}_\infty = \essup |f_{n_k}| = \inf \{s \geq 0: |f_{n_k}(x)| \leq s \mu\text{-almost every } x\} < t
+      \norm{f_{n_k}}_\infty = \essup |f_{n_k}| = \inf \{s \geq 0: |f_{n_k}(x)| \leq s \text{ for \(\mu\)-almost every } x\} < t
     \]
     for all \(k\). Thus for all \(k\), for \(\mu\)-almost every \(x\), \(|f_{n_k}(x)| < t\). But by \(\sigma\)-additivity of \(\mu\) we can \emph{swap the quantifiers}, i.e.\ for \(\mu\)-almost every \(x\), for all \(x\), \(|f_{n_k}(x)| < t\). Thus for \(\mu\)-almost every \(x\), \(\norm{f(x)}_\infty \leq t\).
   \end{proof}
@@ -2266,7 +2259,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
 \end{proof}
 
 \begin{remark}
-  When \(X = \R^d, \mathcal A = \mathcal B(\R^d)\) and \(\mu\) is the Lebesgue measure, \(C_c(\R^d)\), the space of continuous functions with compact support is dense in \(\mathcal L^p(X, \mathcal A, \mu)\) when \(p \in [1, \infty)\) (this does not hold for \(p = \infty\) a constant nonzero function has no noncompact support). See example sheet. In fact, \(C_c^\infty(\R^d)\) suffices.
+  When \(X = \R^d, \mathcal A = \mathcal B(\R^d)\) and \(\mu\) is the Lebesgue measure, \(C_c(\R^d)\), the space of continuous functions with compact support is dense in \(\mathcal L^p(X, \mathcal A, \mu)\) when \(p \in [1, \infty)\) (this does not hold for \(p = \infty\): a constant nonzero function has no noncompact support). See example sheet. In fact, \(C_c^\infty(\R^d)\) suffices.
 \end{remark}
 
 \section{Hilbert space and \(L^2\)-methods}
@@ -2300,7 +2293,7 @@ Check that this is an equvalence relation stable under addition and multiplicati
 \end{lemma}
 
 \begin{proof}
-  Exercise. For reference see the author's notes on IID Linear Analysis.
+  Exercise. For reference see author's notes on IID Linear Analysis.
 \end{proof}
 
 \begin{corollary}
@@ -2472,7 +2465,7 @@ Non-examinable theorem and proof:
     \ell: H &\to \R \\
     f &\mapsto \mu(f) = \int_X f d\mu
   \end{align*}
-  \(\ell\) is bounded by Cauchy-Shwarz and finiteness of the measures:
+  \(\ell\) is bounded by Cauchy-Schwarz and finiteness of the measures:
   \[
     |\mu(f)|
     \leq \mu(|f|)
@@ -2585,7 +2578,7 @@ Non-examinable theorem and proof:
   for all \(A \in \mathcal G\). Moreover \(Y\) is unique almost surely.
 \end{proposition}
 
-If you are perplexed by why it is nontrivial to recover a random variable on \(\mathcal G\) from one on \(\mathcal F\), as it \(\mathcal G \subseteq \mathcal F\) so it seems that we can easily restrict to a ``sub-random variable''. But this reasoning makes absolutely no sense as random variables are functions \emph{from} the space. In other words, \(\id: (\Omega, \mathcal F, \P) \to (\Omega, \mathcal G, \P)\) is measurable but its inverse is not, and it is not obviously that \(X\) has a pushforward.
+If you are perplexed by why it is nontrivial to recover a random variable on \(\mathcal G\) from one on \(\mathcal F\), as \(\mathcal G \subseteq \mathcal F\) so it seems that we can easily restrict to a ``sub-random variable''. But this reasoning makes absolutely no sense as random variables are functions \emph{from} the space. In other words, \(\id: (\Omega, \mathcal F, \P) \to (\Omega, \mathcal G, \P)\) is measurable but its inverse is not, and it is not obvious that \(X\) has a pushforward.
 
 \begin{definition}[conditional expectation]\index{conditional expectation}
   \(Y\) as above is called the \emph{conditional expectation} of \(X\) with respect to \(\mathcal G\), denote by
@@ -3191,8 +3184,8 @@ In particular this shows that \((\cov(X_i, X_j))_{ij}\) is a non-negative semide
 
 Let \((X, \mathcal A, \mu)\) be a measure space. Let \(T: X \to X\) be an \(\mathcal A\)-measurable map. We are interested in the trajectories of \(T^n x\) for \(n \geq 0\) and their statistical behaviour. In particular we are interested in those \(T\) \emph{preserving measure \(\mu\)}.
 
-\begin{definition}[measure-preserving]\index{measure-preserving}\index{measure-preserving dynamical sysmtem}
-  \(T: X \to X\) is \emph{measure-preserving} if \(T_*\mu = \mu\). \((X, \mathcal A, \mu, T)\) is called a \emph{measure-preserving dynamical sysmte}.
+\begin{definition}[measure-preserving]\index{measure-preserving}\index{measure-preserving dynamical system}
+  \(T: X \to X\) is \emph{measure-preserving} if \(T_*\mu = \mu\). \((X, \mathcal A, \mu, T)\) is called a \emph{measure-preserving dynamical system}.
 \end{definition}
 
 \begin{definition}[invariant function, invariant set, invariant \(\sigma\)-algebra]\index{invariant function}\index{invariant set}\index{invariant \(\sigma\)-algebra}\index{\(\sigma\)-algebra!invariant}\leavevmode
@@ -3241,7 +3234,7 @@ This condition asserts that \(\mathcal T\) is \emph{trivial}, i.e.\ its elements
   \begin{enumerate}
   \item Let \(X\) be a finite space, \(T: X \to X\) a map and \(\mu = \#\) the counting measure, then \(T\) is measure preserving is equivalent to \(T\) being a bijection, and \(T\) is ergodic is equivalent to there does not exists a partition \(X = X_1 \cup X_2\) such that both \(X_1\) and \(X_2\) are \(T\)-invariant, which is equivalent to for all \(x, y \in X\), ther exists \(n\) such that \(T^n x = y\).
   \item Let \(X = \R^d/\Z^d\), \(\mathcal A\) the Borel \(\sigma\)-algebra and \(\mu\) the Lebesgue measure. Given \(a \in \R^d\), translation \(T_a: x \mapsto x + a\) is measure-preserving. \(T_a\) is ergodic with respect to \(\mu\) if and only if \((1, a_1, \dots, a_d)\), where \(a_i\)'s are coordinates of \(a\), are linearly independent. See example sheet. (hint: Fourier transform)
-  \item Let \(X = \R/Z\) and again \(\mathcal A\) Borel \(\sigma\)-algebra and \(\mu\) the Lebesgue measure. The doubling map \(T: x \mapsto 2x - \floor{2x}\) is ergodic with respect to \(\mu\). (hint: again consider Fourier coefficeints). Intuitively in the graph of this function the preimage \(\varepsilon\) is two segments each of length \(\varepsilon/2\), so measure-preserving.
+  \item Let \(X = \R/\Z\) and again \(\mathcal A\) Borel \(\sigma\)-algebra and \(\mu\) the Lebesgue measure. The doubling map \(T: x \mapsto 2x - \floor{2x}\) is ergodic with respect to \(\mu\). (hint: again consider Fourier coefficeints). Intuitively in the graph of this function the preimage \(\varepsilon\) is two segments each of length \(\varepsilon/2\), so measure-preserving.
   \item Furstenberg conjecture\index{Furstenberg conjecture}: every ergodic measure \(\mu\) on \(\R/\Z\) invariant under \(T_2, T_3\) must be either Lebesgue or finitely supported.
   \end{enumerate}
 \end{eg}
@@ -3307,7 +3300,7 @@ In some sense ergodic system is the study of stationary process.
 \end{proof}
 
 \begin{theorem}[von Neumann mean ergodic theorem]\index{von Neumann mean ergodic theorem}
-  Let \((X, \mathcal A, \mu, T)\) be a measure-preserving sysmte. Let \(f \in L^2(X, \mathcal A, \mu)\). Then the ergodic average
+  Let \((X, \mathcal A, \mu, T)\) be a measure-preserving system. Let \(f \in L^2(X, \mathcal A, \mu)\). Then the ergodic average
   \[
     S_nf = \frac{1}{n} \sum_{i = 0}^{n - 1} f \compose T^i
   \]
@@ -3325,7 +3318,7 @@ The intuition is as follow: if \(f\) is the indicator function of a set, then \(
   which is an isometry: because \(\mu\) is \(T\)-invariant, \(\int |f \compose T|^2 d\mu = \int |f|^2 d\mu\). Then by Riesz representation theorem\index{Riesz representation theorem} it has an adjoint
   \begin{align*}
     U^*: H &\to H \\
-    x &\mapsto U^*
+    x &\mapsto U^* x
   \end{align*}
   which satisfies \(\ip{U^*x, y} = \ip{x, Uy}\) for all \(y \in H\). Let
   \[
@@ -3333,7 +3326,7 @@ The intuition is as follow: if \(f\) is the indicator function of a set, then \(
   \]
   be the \emph{coboundaries}\index{coboundary}. Let \(f \in W\). Then
   \[
-    S_nf = \frac{1}{n} \sum_{i = 0}^{n - 1} \varphi \compose T^i - \varphi \compose T^{i + 1} = \frac{\varphi - \varphi \compose T^n}{n} \to 0
+    S_nf = \frac{1}{n} \sum_{i = 0}^{n - 1} (\varphi \compose T^i - \varphi \compose T^{i + 1}) = \frac{\varphi - \varphi \compose T^n}{n} \to 0
   \]
   as \(n \to \infty\).
 
@@ -3359,26 +3352,202 @@ The intuition is as follow: if \(f\) is the indicator function of a set, then \(
     \end{align*}
     where the last equality is by
     \[
-      \norm{Ug - g}^2 = 2\norm g^3 - 2\Re \ip{g, Ug} = 2 \norm g^2 - 2 \Re \ip{U^*g, g},
+      \norm{Ug - g}^2 = 2\norm g^2 - 2\Re \ip{g, Ug} = 2 \norm g^2 - 2 \Re \ip{U^*g, g},
     \]
     and this shows that \(W^\perp\) are exactly \(T\)-invariant functions.
   \end{proof}
 \end{proof}
 
+In fact we can do better:
 
+\begin{theorem}[Birkhoff (pointwise) ergodic theorem]\index{Birkhoff ergodic theorem}
+  \label{thm:Birkhoff ergodic theorem}
+  Let \((X, \mathcal A, \mu, T)\) be a measure-preserving system. Assume \(\mu\) is finite (actually \(\sigma\)-finite suffices) and let \(f \in L^1(X, \mathcal A, \mu)\). Then
+  \[
+    S_nf = \frac{1}{n} \sum_{i = 0}^{n - 1} f \compose T^i
+  \]
+  converges \(\mu\)-almost everywhere to a \(T\)-invariant function \(\overline f \in L^1\). Moreover \(S_n f \to \overline f\) in \(L^1\).
+\end{theorem}
 
+% story: Birkhoff was pulished in Dec 1931 and von Neumann was published in Feb 1932. Needless to say he's not very happy
 
+\begin{corollary}[strong law of large numbers]\index{strong law of large numbers}\index{law of larger numbers}
+  Let \((X_n)_{n \geq 1}\) be a sequence of iid.\ random variables. Assume \(\E(|X_1|) < \infty\). Let
+  \[
+    S_n = \sum_{k = 1}^n X_k,
+  \]
+  then \(\frac{1}{n} S_n\) converges almost surely to \(\E(X_1)\).
+\end{corollary}
 
+\begin{proof}
+  Let \((X, \mathcal A, \mu, T)\) be the canonical model associated to \((X_n)_{n \geq 1}\), where \(X = \R^\N, \mathcal A = \mathcal B(\R)^{\otimes \N}\), \(T\) the shift operator and \(\mu = \nu^{\otimes \N}\) where \(\nu\) is the law of \(X_1\). It is a Bernoulli shift. Let
+  \begin{align*}
+    f: X &\to \R \\
+    x &\mapsto x_1
+  \end{align*}
+  the first coodinate. Then \(f \compose T^i(x) = x_{i + 1}\) so
+  \[
+    \frac{1}{n}(X_1 + \dots + X_n) (\omega) = S_nf(x)
+  \]
+  where \(x = (X_n(\omega))_{n \geq 1}\). Hence by Birkhoff ergodic theorem
+  \[
+    \frac{1}{n}(X_1 + \dots + X_n)
+    \to \overline f = \int f d\mu = \int x_1 d\mu = \E(X_1)
+  \]
+  almost surely.
+\end{proof}
 
+\begin{remark}
+  If \(T\) is ergodic then \(\overline f\) is almost everywhere constant. Hence \(\overline f = \int f d\mu\).
+\end{remark}
 
+\begin{lemma}[maximal ergodic lemma]\index{maximal ergodic lemma}
+  \label{lem:maximal ergodic lemma}
+  Let \(f \in L^1(X, \mathcal A, \mu)\) and \(\alpha \in \R\). Let
+  \[
+    E_\alpha = \{x \in X: \sup_{n \geq 1} S_nf(x) > \alpha\}
+  \]
+  then
+  \[
+    \alpha \mu(E_\alpha) \leq \int_{E_\alpha} f d\mu.
+  \]
+\end{lemma}
 
+\begin{lemma}[maximal inequality]\index{maximal inequality}
+  \label{lem:maximal inequality}
+  Let
+  \begin{align*}
+    f_0 &= 0 \\
+    f_n &= n S_nf = \sum_{i = 0}^{n - 1} f \compose T^i \quad n \geq 1
+  \end{align*}
+  Let
+  \[
+    P_N = \{x \in X: \max_{0 \leq n \leq N} f_n(x) > 0\}.
+  \]
+  Then
+  \[
+    \int_{P_N} f d\mu \geq 0.
+  \]
+\end{lemma}
 
+\begin{proof}[Proof of \nameref{lem:maximal inequality}]
+  Set \(F_N = \max_{0 \leq n \leq N} f_n\). Observe that for all \(n \leq N\), \(F_N \geq f_n\) and hence
+  \[
+    F_N \compose T + f \geq f_n \compose T + f = f_{n + 1}.
+  \]
+  Now if \(x \in P_n\) then
+  \[
+    F_N(x)
+    \leq \max_{0 \leq n \leq N} f_{n + 1} % ???
+    \leq F_N \compose T + f
+  \]
+  Integrate to get
+  \[
+    \int_{P_N} F_N d\mu \leq \int_{P_N} F_N \compose T d \mu + \int_{P_N} f d\mu.
+  \]
+  Note that \(F_N(x) = 0\) if \(x \notin P_N\) because \(f_0 = 0\) so
+  \[
+    \int_{P_N} F_N
+    = \int_X F_N
+    \leq \int_X F_N \compose T + \int_{P_n} f.
+  \]
+  As \(\mu\) is \(T\)-invariant, \(\int F_N \compose T = \int F_N\) so
+  \[
+    \int_{P_N} f d\mu \geq 0.
+  \]
+\end{proof}
 
+\begin{proof}[Proof of \nameref{lem:maximal ergodic lemma}]
+  Apply the maximal inequality to \(g = f - \alpha\). Observe that
+  \[
+    E_\alpha(f) = \bigcup_{N \geq 1} P_N(g)
+  \]
+  and \(S_n g = S_n f - \alpha\). Thus
+  \[
+    \int_{E_\alpha(f)} (f - \alpha) d\mu \geq 0,
+  \]
+  which is equivalent to
+  \[
+    \alpha \mu(E_\alpha) \leq \int_{E_\alpha} f d\mu.
+  \]
+\end{proof}
 
+\begin{proof}[Proof of \nameref{thm:Birkhoff ergodic theorem}]
+  Let
+  \begin{align*}
+    \overline f &= \limsup_n S_nf \\
+    \underline f &= \liminf_n S_nf \\
+  \end{align*}
+  Observe that \(\overline f = \overline f \compose T, \underline f \compose T = \underline f\): indeed
+  \[
+    S_nf \compose T
+    = \frac{1}{n}(f \compose T + \dots + f \compose T^n)
+  = \frac{1}{n} ((n + 1)S_{n + 1}f - f).
+  \]
 
+  Need to show that \(\overline f = \underline f\) \(\mu\)-almost everywhere. This is equivalent to for all \(\alpha, \beta \in \Q, \alpha > \beta\), the set
+  \[
+    E_{\alpha, \beta}(f) = \{x \in X: \underline f(x) < \beta, \overline f(x) > \alpha\}
+  \]
+  is \(\mu\)-null, as then
+  \[
+    \{x: \overline f(x) \neq \underline f(x)\} = \bigcup_{\alpha > \beta} E_{\alpha, \beta}
+  \]
+  is \(\mu\)-null by subadditivity. Observe that \(E_{\alpha, \beta}\) is \(T\)-invariant. Apply the maximal ergodic theorem to \(E_{\alpha, \beta}\) to get
+  \[
+    \alpha \mu(E_{\alpha, \beta}(f)) \leq \int_{E_{\alpha, \beta}} f d\mu.
+  \]
+  Dually
+  \[
+    -\beta \mu(E_{\alpha, \beta}(f)) \leq \int_{E_{\alpha, \beta}} -f d\mu
+  \]
+  so
+  \[
+    \alpha \mu(E_{\alpha, \beta}) \leq \beta \mu(E_{\alpha, \beta}).\]
+  But \(\alpha > \beta\) so \(\mu(E_{\alpha, \beta}) = 0\).
 
+  We have proved that the limit \(\lim_n S_nf\) exists almost everywhere, which we now define to be \(\overline f\), and left to show \(\overline f \in L^1\) and \(\lim_n \norm{S_nf - \overline f}_1 = 0\). This is an application of Fatou's lemma:
+  \begin{align*}
+    \int |\overline f| d\mu
+    &= \int \liminf_n |S_n f| d\mu \\
+    &\leq \liminf_n \int |S_n f| d\mu \\
+    &\leq \liminf_n \norm{S_n f}_1 \\
+    &\leq \norm f_1
+  \end{align*}
+  so \(\overline f \in L^1\) where the last inequality is because
+  \[
+    \norm{S_nf} \leq \frac{1}{n}(\norm f_1 + \dots + \norm{f \compose T^{n - 1}}_1) = \norm f_1.
+  \]
+  Now to show \(\norm{S_n f - \overline f}_1 \to 0\), we truncate \(f\). Let \(M > 0\) and set \(\varphi_M = f \mathbf 1_{|f| < M}\). Note that
+  \begin{itemize}
+  \item \(|\varphi_M| \leq M\) so \(|S_n \varphi_M| \leq M\). Hence by dominated convergence theorem \(\norm{S_n \varphi_M - \overline\varphi_M}_1 \to 0\).
+  \item \(\varphi_M \to f\) \(\mu\)-almost everywhere and also in \(L^1\) by dominated convergence theorem.
+  \end{itemize}
+  Thus by Fatou's lemma,
+  \[
+    \norm{\overline \varphi_M - \overline f}_1
+    \leq \liminf_n \norm{S_n \varphi_M - S_n f}_1
+    \leq \norm{\varphi_M - f}_1
+  \]
+  Finally
+  \begin{align*}
+    \norm{S_nf - \overline f}_1
+    &\leq \norm{S_n f - S_n \varphi_M}_1 + \norm{S_n \varphi_M - \overline \varphi_M}_1 + \norm{\overline \varphi_M - \overline f}_1 \\
+    &\leq \norm{f - \varphi_M}_1 + \norm{S_n \varphi_M - \overline \varphi_M}_1 + \norm{f - \varphi_M}_1
+  \end{align*}
+  so
+  \[
+    \limsup \norm{S_nf - \overline f}_1 \leq 2 \norm{f - \varphi_M}_1
+  \]
+  for all \(M\), so goes to \(0\) as \(M \to \infty\).
+\end{proof}
 
-
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The theorem holds if \(\mu\) is only assumed to be \(\sigma\)-finite.
+  \item The theorem holds if \(f \in L^p\) for \(p \in [1, \infty)\). The \(S_nf \to f\) in \(L^p\).
+  \end{enumerate}
+\end{remark}
 
 \printindex
 \end{document}
@@ -3389,7 +3558,7 @@ The intuition is as follow: if \(f\) is the indicator function of a set, then \(
 % Intorduction to measure theory, T. Tao
 % Real and Complex analysis, W. Rudin
 
-% related courses: II Linear Analysis
+% related courses: IID Linear Analysis
 
 % schedule
 % wk 1: Lebesgue measure on \R^d

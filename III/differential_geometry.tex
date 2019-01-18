@@ -2468,30 +2468,192 @@ In general,
 
 We can show, using linear algebra and representation theory, that \(\Ric\) and \(s\) are the only \(SO(n)\)-invariant components in the ``space of curvature tensor''.
 
+Missed a lecture on 24/11/18 (Laplacian, Hodge star operator)
 
+Recall that \(\delta = (-1)^{n(p + 1) + 1} * d *\) on \(p\)-forms for \(p \geq 1\) and \(\delta = 0\) on functions.
 
+\begin{proof}
+  Given \(\alpha \in \Omega^{p - 1}(M), \beta \in \Omega^p(M)\),
+  \[
+    d(\alpha \w * \beta)
+    = d\alpha \w * \beta + (-1)^{p - 1} \alpha \w d (*\beta)
+  \]
+  Now
+  \begin{align*}
+    - * \delta \beta
+    &= (-1)^{n (p + 1)} ** \underbrace{d* \beta}_{\in \Omega^{n - p + 1}} \\
+    &= (-1)^{n(p + 1) + (n - p + 1)(p - 1)} d *\beta \\
+    &= (-1)^{- 1} d*\beta \pmod 2
+  \end{align*}
+  Thus
+  \[
+    d(\alpha \w *\beta)
+    = d\alpha \w * \beta - \alpha \w * \delta \beta
+    = \langle d\alpha, \beta\rangle_g \omega_g - \langle \alpha, \delta \beta \rangle_g \omega_g
+  \]
+  Now proposition follows from Stokes'.
+\end{proof}
 
+\begin{remark}
+  We can define for \(\zeta, \eta \in \Omega^p(M)\)
+  \[
+    \langle \langle \zeta, \eta \rangle\rangle_{M, g} = \int_M \langle \zeta, \eta \rangle_g \omega_g
+  \]
+  the \(L^2\) inner product of \(p\)-forms. The the proposition asserts that
+  \[
+    \langle\langle d\alpha, \beta \rangle\rangle = \langle \langle \alpha, \delta \beta\rangle\rangle
+  \]
+  i.e.\ \(\delta = d^*\), the \emph{formal \(L^2\)-adjoint}\index{formal adjoint} of \(d\).
+\end{remark}
 
+\begin{corollary}
+  \[
+    \Delta = d \delta + \delta d
+  \]
+  is formally self-adjoint.
+\end{corollary}
 
+\begin{definition}[Laplace-Beltrami/Hodge Laplacian]\index{Laplace-Beltrami}\index{Hodge Laplacian}
+  \(\Delta\) is called \emph{Laplace-Beltrami}, also known as the \emph{Hodge Laplacian}.
+\end{definition}
 
+We give a special name to kernel of \(\Delta\):
 
+\begin{definition}[harmonic \(p\)-form]\index{harmonic \(p\)-form}
+  The space of \emph{harmonic \(p\)-forms} is defined as
+  \[
+    \mathcal H^p(M) = \{\alpha \in \Omega^p(M): \Delta \alpha = 0\}.
+  \]
+\end{definition}
 
+\begin{note}
+  \(* \Delta = \Delta *\) so \(*: \mathcal H^p(M) \to \mathcal H^{n - p}(M)\) is an isomorphism.
+\end{note}
 
+\begin{proposition}
+  Assume \(M\) is compact. Then for all \(\alpha \in \Omega^p(M)\), \(\Delta \alpha = 0\) if and only if \(d \alpha = 0\) and \(\delta \alpha = 0\).
+\end{proposition}
 
+The condition \(\delta \alpha = 0\) is called \(\alpha\) is \emph{coclosed}\index{coclosed}.
 
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\):
+    \begin{align*}
+      0
+      &= \langle\langle \Delta\alpha, \alpha \rangle\rangle \\
+      &= \langle\langle d \delta \alpha, \alpha \rangle\rangle + \langle\langle \delta d \alpha, \alpha \rangle\rangle \\
+      &= \norm{\delta \alpha}^2_{L^2} + \norm{d \alpha}^2_{L^2}
+    \end{align*}
+    but for all \(\zeta \in \Omega^*(M)\),
+    \[
+      \norm{\zeta}_{L^2} = \sqrt{\langle\langle \zeta, \zeta \rangle\rangle} \geq 0
+    \]
+    with equality if and only if \(\zeta = 0\) as \(\zeta\) is smooth. Thus \(\delta \alpha = 0, \delta \alpha = 0\).
+  \item \(\impliedby\): obvious.
+  \end{itemize}
+\end{proof}
 
+\begin{corollary}
+  Let \(M\) be compact and connected. Then if \(f \in C^2(M)\) is harmonic it is constant.
+\end{corollary}
 
+\begin{note}
+  Compactness is essential. For example \((x, y) \mapsto e^y \cos x\) on the Euclidean space \(\R^2\).
 
+  Note that on \((\R^n, g)\) where \(g\) is not necessarily Euclidean,
+  \[
+    \Delta_g = - \frac{1}{\sqrt{\det g}} \frac{\partial  }{\partial x^j} \left(\sqrt{\det g} g^{ij} \frac{\partial f}{\partial x^i} \right).
+  \]
+  When \(g\) is Euclidean, this simplies to
+  \[
+    \Delta_{\text{Eucl}} = - \sum \frac{\partial^2}{(\partial x^i)^2}.
+  \]
+  It is an exercise to check that this has positive eigenvalues.
+\end{note}
 
+\begin{theorem}[Hodge decomposition theorem]\index{Hodge decomposition theorem}
+  Let \((M, g)\) be a compact oriented Riemannian manifold. Let \(0 \leq p \leq \dim M\). Then
+  \begin{enumerate}
+  \item \(\dim \mathcal H^p(M)\) is finite.
+  \item
+    \begin{align*}
+      \Omega^p(M)
+      &= \mathcal H^p(M) \oplus \Delta \Omega^p(M) \\
+      &= \mathcal H^p(M) \oplus d\Omega^p(M) \oplus \delta d\Omega^p(M) \\
+      &= \mathcal H^p(M) \oplus d \Omega^{p - 1}(M) \oplus \delta \Omega^{p + 1}(M)
+    \end{align*}
+    where all the direct sums are orthogonal with respect to \(L^2\).
+  \end{enumerate}
+\end{theorem}
 
+\begin{proof}
+  Too long. Omitted.
+\end{proof}
 
+\begin{corollary}
+  Assume the hypothesis of Hodge decomposition theorem, then for all \(a \in H_{\text{dR}}^p(M)\) there exists a unique \(\alpha \in \mathcal H^p(M)\) such that \([\alpha] = a\).
+\end{corollary}
 
+\begin{proof}
+  We do uniqueness first: suppose \(\alpha_1, \alpha_2 \in \mathcal H^p(M)\) with \(\alpha_1 - \alpha_2 = d\beta\). Then
+  \[
+    \norm{d\beta}^2
+    = \langle\langle d\beta, \alpha_1 - \alpha_2 \rangle\rangle
+    = \langle\langle \beta, \underbrace{\delta\alpha_1 - \delta\alpha_2}_0 \rangle\rangle
+    = 0 
+  \]
+  so \(d\beta = 0\) and \(\alpha_1 = \alpha_2\).
 
+  For existence, suppose \(a = [\tilde \alpha]\) where \(d \tilde \alpha = 0\) but \(\tilde \alpha\) is not necessarily closed. By Hodge decomposition theorem we can write
+  \[
+    \tilde \alpha = \alpha + d\beta + \delta \gamma.
+  \]
+  Then \(d\delta \gamma = 0\) so
+  \[
+    0
+    = \langle\langle d\delta\gamma, \gamma \rangle\rangle
+    = \norm{\delta \gamma}^2
+  \]
+  so \(\delta \gamma = 0\). It follows that \(\alpha \in \mathcal H^p(M)\).
+\end{proof}
 
+What we have shown is that
+\begin{align*}
+  \mathcal H^p(M) &\to H_{\text{dR}}^p(M) \\
+  \alpha &\mapsto [\alpha]
+\end{align*}
+is a linear isomorphism. LHS is an analytic object, and by de Rham theory, RHS is the same as \(H^p(M)\), a topological object. The significance of Hodge decomposition is this correspondence.
 
+An intuitive explanation of the corollary: given \(a \in H_{\text{dR}}^p(M)\), define
+\[
+  B_a = \{\zeta \in \Omega^p(M): d \zeta = 0, [\zeta] = a\}
+\]
+and consider the function \(F(\zeta) = \norm \zeta^2\) on \(B_a\). If \(\alpha\) is a minimum of \(F\) the
+\[
+  \frac{d}{dt}\Big|_{t = 0} F(\alpha + td \beta) = 0
+\]
+for all \(\beta\) so
+\begin{align*}
+  \frac{d}{dt} \Big|_{t = 0}
+  &= \langle\langle \alpha + t d\beta, \alpha + t d\beta \rangle\rangle \\
+  &= 2 \langle\langle \alpha, d\beta \rangle\rangle \quad \delta \alpha = 0 \\
+  &= 2 \langle\langle \delta \alpha, \beta\rangle\rangle \\
+  &= 0
+\end{align*}
+so \(\alpha \in \mathcal H^p(M)\).
 
+A remark about the second statement of Hodge decomposition theorem: the last two lines follow from the first for similar reason to the corollary.
+If \(\Delta \alpha = \beta\) then \(\beta \perp \mathcal H^p(M)\) so \((\mathcal H^p(M))^\perp\) is well-defined and the projection of \(\beta\) to this space is given by
+\[
+  \beta - \sum_{i = 1}^{\dim \mathcal H^p(M)} \langle\langle \beta, \omega_i\rangle\rangle \omega_i
+\]
+where \(\{\omega_i\}\) is an orthonormal basis of \(\mathcal H^p(M)\). Thus \(\Delta \Omega^p(M) \subseteq (\mathcal H^p(M))^\perp\). We can solve for \(\omega\) is
+\[
+  \Delta \omega = \alpha, \alpha \perp \mathcal H^p.
+\]
+First define a ``weak solution'' of \(\Delta \omega = \alpha\), a bounded linear functional on \(\Omega^p(M)\). Then argue using a regularity theorem from analysis every weak solution is an actual solution. The key idea is that \(\Delta\) is elliptic.
 
-\printindex
 \end{document}
 
 % https://www.dpmms.cam.ac.uk/~agk22/teaching.html

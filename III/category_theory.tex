@@ -32,6 +32,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\Rel}{{\c{Rel}}}
 \newcommand{\Cone}{{\c{Cone}}}
 \newcommand{\Sh}{{\c{Sh}}}
+\newcommand{\sh}{{\c{sh}}}
 \newcommand{\Sub}{{\c{Sub}}}
 
 \newcommand{\mono}{\rightarrowtail}
@@ -456,7 +457,7 @@ which is equal to \(\alpha_B\beta_B(f)\).
 \begin{proof}
   Consider the composite
   \[
-    \c C(B, -) \xrightarrow{\Psi(y)^{-1}} F \xrightarrow{\Psi(x)} \c C(A, -),
+    \c C(B, -) \xrightarrow{\Psi(y)} F \xrightarrow{\Psi(x)^{-1}} \c C(A, -),
   \]
   By Yoneda embedding, this is of the form \(Y(f)\) for a unique isomorphism \(f: A \to B\) and the diagram
   \[
@@ -1966,11 +1967,11 @@ Intuitively, exponential object ``lifts'' morphisms to an object, instead of a s
       (-) \times (A \times B) \cong (- \times A) \times B,
     \]
     we have \((-)^{A \times B} \cong ((-)^B)^A\). However, even if \(X\) and \(Y\) are locally compact, \(Y^X\) needn't be. So the exponentiable objects don't form a cartesian closed full subcategory.
-  \item A cartesian closed poset is called a \emph{Heyting semilattice}\index{Heyting semilattice}: it's a post with finite meet \(\wedge\) and a binary operation \(\implies\) satisfying
+  \item A cartesian closed poset is called a \emph{Heyting semilattice}\index{Heyting semilattice}: it's a poset with finite meet \(\wedge\) and a binary operation \(\implies\) satisfying
     \[
       a \leq (b \implies c) \text{ if and only if } a \wedge b \leq c.
     \]
-    For example, a complete poset is a Heything semilattice if and only if it satisfies the infinite distributive law
+    For example, a complete poset is a Heyting semilattice if and only if it satisfies the infinite distributive law
     \[
       a \wedge \bigvee_{i \in I} \{b_i\} = \bigvee_{i \in I} \{a \wedge b_i\}.
     \]
@@ -2377,15 +2378,14 @@ J.\ Giraud gave a characterisation of such categories by (set-theoretic) categor
 \end{lemma}
 
 \begin{proof}
-  The universal monomorphism \(\top: 1 \mono \Omega\) is split and hence regular. But any pullback of a regular mono is regular: if \(f\) is an equaliser of \((g, h)\) then \(K^*(f)\) is an equaliser of \((gk, hk)\). The second assertion follows since a regular mono that is also epic is an isomorphismm.
+  The universal monomorphism \(\top: 1 \mono \Omega\) is split and hence regular. But any pullback of a regular mono is regular: if \(f\) is an equaliser of \((g, h)\) then \(K^*(f)\) is an equaliser of \((gk, hk)\). The second assertion follows since a regular mono that is also epic is an isomorphism.
 \end{proof}
 
-Given an object \(A\) in a topos \(\mathcal E\), we write \(PA\) for the exponential \(\Omega^A\). and \(\ni_A \mono PA \times A\) for the subobject corresponding to \(\ev: PA \times A \to \Omega\). This has the property that, for any \(B\) and any \(m: R \mono B \times A\), there is a unique \(\ceil m: B \to PA\) % TODO: change symbol
-such that
+Given an object \(A\) in a topos \(\mathcal E\), we write \(PA\) for the exponential \(\Omega^A\). and \(\ni_A \mono PA \times A\) for the subobject corresponding to \(\ev: PA \times A \to \Omega\). This has the property that, for any \(B\) and any \(m: R \mono B \times A\), there is a unique \(\ulcorner m \urcorner: B \to PA\) such that
 \[
   \begin{tikzcd}
     R \ar[r] \ar[d, "m", tail] & \ni_A \ar[d, tail] \\
-    B \times A \ar[r, "\ceil m \times 1_\Delta"] & PA \times A
+    B \times A \ar[r, "\ulcorner m \urcorner \times 1_\Delta"] & PA \times A
   \end{tikzcd}
 \]
 is a pullback.
@@ -2416,7 +2416,7 @@ Compare this with the contravariant power set functor on \(\Set\), which is a sp
       PB \times A \ar[r, "1 \times f"] & PB \times B
     \end{tikzcd}
   \]
-  For any \(\ceil m: c \to PB\), it's easy to see that \((Pf) \ceil m\) corresponds to \((1_C \times f)^* (m)\), hence \(f \mapsto Pf\) is functorial. For any \(A\) and \(B\), we have a bijection between subobjects of \(A \times B\) and of \(B \times A\) given by composition with \((\pi_2, \pi_1): A \times B \to B \times A\). This yields a (natural) bijection between morphisms \(A \to PB\) and \(B \to PA\).
+  For any \(\ulcorner m \urcorner: c \to PB\), it's easy to see that \((Pf) \ulcorner m \urcorner\) corresponds to \((1_C \times f)^* (m)\), hence \(f \mapsto Pf\) is functorial. For any \(A\) and \(B\), we have a bijection between subobjects of \(A \times B\) and of \(B \times A\) given by composition with \((\pi_2, \pi_1): A \times B \to B \times A\). This yields a (natural) bijection between morphisms \(A \to PB\) and \(B \to PA\).
 \end{proof}
 
 We write \(\{\}_A: A \to PA\) (pronounced ``singleton'')\index{singleton} for the morphism corresponding to \((1_a, 1_a): A \mono A \times A\).
@@ -2456,7 +2456,7 @@ Given a mono \(f: A \mono B\) is \(\mathcal E\), we define \(\exists f: PA \to P
     \ni_A \ar[r, tail] & PA \times A \ar[r, "1 \times f", tail] & PA \times B.
   \end{tikzcd}
 \]
-Then for any \(\ceil m: C \to PA\), \((\exists f) \ceil m\) correponds to
+Then for any \(\ulcorner m \urcorner: C \to PA\), \((\exists f) \ulcorner m \urcorner\) correponds to
 \[
   \begin{tikzcd}
     R \ar[r, "m", tail] & C \times A \ar[r, "1 \times f", tail] & C \times B
@@ -2628,7 +2628,7 @@ so \(f \mapsto \exists f\) is a functor \(\c{Mono}(\mathcal E) \to \mathcal E\).
   \end{tikzcd}
   Then, for any \(C\),
   \begin{tikzcd}
-    C \ar[r, "{(\ceil m, \ceil n)}"] & PA \times PA
+    C \ar[r, "{(\ulcorner m \urcorner, \ulcorner n \urcorner)}"] & PA \times PA
   \end{tikzcd}
   factors through \(P_1A\) if and only if \(m \leq n\) in \(\Sub_{\mathcal E} (C \times A)\). Now form the pullback
   \[
@@ -2680,6 +2680,7 @@ so \(f \mapsto \exists f\) is a functor \(\c{Mono}(\mathcal E) \to \mathcal E\).
 Recall that \(\Sh(X) \subseteq [\mathcal O(X)^{\text{op}}, \Set]\) is a full subcategory closed under limits. In fact it's reflective and the reflector \(L: [\mathcal O(X)^{\text{op}}, \Set] \to \Sh(X)\) preserves finite limits. This suggests considering reflective subcategories \(\mathcal D \subseteq \mathcal E\) for which the reflector preserves finite limits (equivalently, pullbacks).
 
 \begin{lemma}
+  \label{lem:closure operator}
   Given such a reflective subcategory and a monomorphism \(A' \mono A\) in \(\mathcal E\), define \(c(A') \mono A\) by the pullback diagram
   \[
     \begin{tikzcd}
@@ -2687,7 +2688,7 @@ Recall that \(\Sh(X) \subseteq [\mathcal O(X)^{\text{op}}, \Set]\) is a full sub
       A \ar[r, "\eta_A"] & LA
     \end{tikzcd}
   \]
-  Then \(A' \mapsto c(A')\) is a closure operation on \(\Sub_{\mathcal E}(A)\) and commutes with pullback along a fixed morphism of \(\mathcal E\).
+  Then \(A' \mapsto c(A')\) is a closure\index{closure} operation on \(\Sub_{\mathcal E}(A)\) and commutes with pullback along a fixed morphism of \(\mathcal E\).
 \end{lemma}
 
 By ``closure'' we mean an order-preserving inflationary idempotent operator.
@@ -2753,7 +2754,165 @@ By ``closure'' we mean an order-preserving inflationary idempotent operator.
   Given a closure operator on subobjects in the above lemma, define \(J \mono \Omega\) to be the closure of \(\top: 1 \mono \Omega\) and \(j: \Omega \to \Omega\) to be the classifying map of \(J \mono \Omega\). Then, for any \(A' \mono A\) with classifying map \(\chi_m: A \to \Omega\), the composite \(j \chi_m\) classifies \(c(A') \mono A\).
 \end{definition}
 
+Given a pullback-stable cloure operation \(c\) on subobjects, we say \(A' \mono A\) is \emph{dense}\index{dense} if \(c(A') \mono A\) is isomorphism, and \emph{closed}\index{closed} if \(A' \mono c(A')\) is isomorphism.
 
+\begin{lemma}
+  \label{lem:factorisation through dense and closed}
+  Suppose given a commutative square
+  \[
+    \begin{tikzcd}
+      B' \ar[r, "f'"] \ar[d, "n", tail] & A' \ar[d, "m", tail] \\
+      B \ar[r, "f"] & A
+    \end{tikzcd}
+  \]
+  with \(n\) dense and \(m\) closed. Then there is a unique \(g: B \to A'\) with \(mg = f\) (and \(gn = f'\)).
+\end{lemma}
+
+\begin{proof}
+  We have \(n \leq f^*(m)\) in \(\Sub(B)\) so
+  \[
+    1_B \cong c(n) \leq f^*(c(m)) \cong f^*(m)
+  \]
+  so we define \(g\) as
+  \[
+    \begin{tikzcd}
+      B \ar[r, "\cong"] & f^*(A') \ar[r] & A'
+    \end{tikzcd}
+  \]
+\end{proof}
+
+Note that \(c(A')\) may be characterised as the unique (up to isomorphism) subobject \(A''\) such that \(A' \mono A''\) is dense and \(A'' \mono A\) is closed.
+
+\begin{lemma}
+  Suppose \(c\) is induced as in \Cref{lem:closure operator} by a reflector \(L: \mathcal E \to \mathcal D\) preserving finite limits. Then an object \(A\) of \(\mathcal E\) belongs to \(\mathcal D\) (up to isomorphism) if and only if, given any diagram
+  \[
+    \begin{tikzcd}
+      B' \ar[r, "f'"] \ar[d, "m", tail] & A \\
+      B
+    \end{tikzcd}
+  \]
+  with \(m\) dense, there exists a unique \(f: B \to A\) with \(fm = f'\).
+\end{lemma}
+
+\begin{proof}
+  Note first that \(m\) is dense if and only if \(Lm\) is an isomorphism: \(\impliedby\) follows from the definition. \(\implies\) follows since, by the proof of \Cref{lem:closure operator}, we know \(L(B')\) and \(L(c(B'))\) are isomorphic in \(\Sub(B)\).
+
+  Given this, if \(A\) is in \(\mathcal D\) then the given diagram extends uniquely to
+  \[
+    \begin{tikzcd}
+      B' \ar[r, "\eta_{B'}"] \ar[d, tail] & LB' \ar[d, "\cong"] \ar[r] & A \\
+      B \ar[r, "\eta_B"] & LB \ar[ur]
+    \end{tikzcd}
+  \]
+  Conversely, suppose \(A\) satisfies the condition. Let
+  \begin{tikzcd}
+    R \ar[r, shift left, "a"] \ar[r, shift right, "b"'] & A
+  \end{tikzcd}
+  be the kernel-pair of \(\eta_A: A \to LA\) and \(d: A \mono R\) the factorisation of \((1_A, 1_A)\) through \((a, b)\). Since \(L\eta_A\) is isomorphism and \(L\) preservse pullbacks, \(Ld\) is isomorphism so \(d\) is dense. This forces \(a = b\) so \(\eta_A\) is monic. And \(\eta_A\) is dense so we get a unique \(r: LA \to A\) with \(r\eta_A = 1_A\). Now \(\eta_A r \eta_A = \eta_A\) and since \(LA\) satisfies the condition we have \(\eta_A r = 1_{LA}\).
+\end{proof}
+
+We say \(A\) is a \emph{sheaf} (for \(c\), or for \(j\)) it it satisfies the condition in the previous lemma. Given a local operator \(j\) on \(\mathcal E\), we write \(\sh_j(\mathcal E)\) for the full subcategory of \(j\)-sheaves in \(\mathcal E\).
+
+Our aim is to show \(\sh_j(\mathcal E)\) is a topos.
+
+\begin{lemma}
+  \(\sh_j(\mathcal E)\) is closed under limits in \(\mathcal E\) and an exponential ideal.
+\end{lemma}
+
+\begin{proof}
+  The first assertion follows since the definition involves only morphisms with codomain \(A\). For the second, note that if \(m: B' \mono B\) is dense the so is \( \times 1_C: B' \times C \mono B \times C\) for any \(C\) (since it's \(\pi_1^*(m)\)) and so if \(A\) is a sheaf then any morphism \(B' \to A^C\) extends uniquely to a morphism \(B \to A^C\).
+\end{proof}
+
+\begin{lemma}
+  If \(A\) is a sheaf then a subobject \(m: A' \mono A\) in \(\mathcal E\) is a sheaf if and only if it is closed.
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\impliedby\): Immediate from \Cref{lem:factorisation through dense and closed}.
+  \item \(\implies\): Consider
+    \[
+      \begin{tikzcd}
+        A' \ar[r, "p", tail] & c(A') \ar[r, "q", tail] & A
+      \end{tikzcd}
+    \]
+    \(p\) is dense so if \(A\) is a sheaf we get a unique \(r: c(A') \to A'\) with \(rp = 1_{A'}\). But \(c(A')\) is a sheaf so \(prp = p\) and thus \(pr = 1_{c(A')}\).
+  \end{itemize}
+\end{proof}
+
+We define \(\Omega_j \mono \Omega\) to be the equaliser of
+\begin{tikzcd}
+  \Omega \ar[r, shift left, "j"] \ar[r, shift right, "1_\Omega"'] & \Omega.
+\end{tikzcd}
+Then for any \(A\), morphisms \(A \to \Omega_j\) corresponding to closed subobjects of \(A\).
+
+\begin{lemma}
+  \(\Omega_j\) is a \(j\)-sheaf.
+\end{lemma}
+
+\begin{proof}
+  We want to show that if \(m: B \mono A\) is a dense mono the pullback along \(m\) yields a bijection from closed subobjects of \(A\) to closed subobjects of \(B\). If \(n: A' \mono A\) is closed then the pullback
+  \[
+    \begin{tikzcd}
+      B' \ar[r, "m'", tail] \ar[d, "n'", tail] & A' \ar[d, "n", tail] \\
+      B \ar[r, "m", tail] & A
+    \end{tikzcd}
+  \]
+  \(m'\) is dense so \(A' \mono A\) is the closure of \(B' \mono B \mono A\). It remains to show that if \(B' \mono B\) is closed, it is iso up to the pullback of its closure in \(A\). But (writing \(A' \mono A\) for the closure) we have a factorisation \(B' \to f^*A'\) which is dense since \(B' \to A'\) is dense, and closed since \(B' \to B\) is closed.
+\end{proof}
+
+\begin{theorem}
+  For any local operator \(j\) on \(\mathcal E\), \(\sh_j(\mathcal E)\) is a topos. Moreover it's reflective in \(\mathcal E\) and the reflector preserves finite limits.
+\end{theorem}
+
+\begin{proof}
+  \(\sh_j(\mathcal E)\) is cartesian closed and has a subobject classifier \(\Omega_j\) by the lemma. To construct the reflect, consider the composite
+  \[
+    \begin{tikzcd}
+      A \ar[r, "\{\}", tail] & \Omega^A \ar[r, "j^A", tail] & \Omega_j^A
+    \end{tikzcd}
+  \]
+  this corresponds to the closure \((a, b): \cl A \mono A \times A\) of the diagonal subobject \((1_A, 1_A): A \mono A \times A\). I claim (with proof omitted) that
+  \begin{tikzcd}
+    \cl A \ar[r, shift left, "a"] \ar[r, shift right, "b"'] & A
+  \end{tikzcd}
+  is the kernel-pair of \(f\). Hence any morphism \(g: A \to B\) where \(B\) is a sheaf satisfies \(ga = gb\). So if we form the image
+  \[
+    \begin{tikzcd}
+      A \ar[r, "q", twoheadrightarrow] & I \ar[r, "m", tail] & \Omega_j^A
+    \end{tikzcd}
+  \]
+  of \(f\) any such \(g\) factors uniquely through \(q\).
+
+  Now \(\Omega_j^A\) is a sheaf by the lemmas so if we form the closure \(LA \mono \Omega_j^A\) of \(m\), we get a morphism \(A \to LA\) through which any morphism from \(A\) to a sheaf factors uniquely. Hence \(L\) becomes a functor \(\mathcal E \to \sh_j(\mathcal E)\), left adjoint to the inclusion.
+
+  By 6.13, we know \(L\) preserves finite products. In fact it preserves equalisers as well (can be checked but omitted here).
+\end{proof}
+
+Finally, we state the relation between topos and the topos Grothendieck was interested in (i.e.\ sheaves):
+
+\begin{theorem}
+  For a category \(\mathcal E\), TFAE:
+  \begin{enumerate}
+  \item \(\mathcal E\) is a topos, complete and locally small and has a separating set of objects.
+  \item there exists a small category \(\c C\) and a local operators on \([\c C^{\text{op}}, \Set]\) such that
+    \[
+      \mathcal E \simeq \sh_j([\c C^{\text{op}}, \Set]).
+    \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}[Sketch of proof]\leavevmode
+  \begin{enumerate}
+  \item \(1 \implies 2\): since \(\sh_j([\c C^{\text{op}}, \Set])\) has given properties.
+  \item \(1 \impliedby 2\): take \(\c C\) to be the full subcategory of \(\mathcal E\) on the separating set and consider
+    \[
+      \begin{tikzcd}
+        \mathcal E \ar[r, "Y"] & {[\mathcal E^{\text{op}}, \Set]} \ar[r] & {[\c C^{\text{op}}, \Set]}.
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+\end{proof}
 
 \printindex
 \end{document}

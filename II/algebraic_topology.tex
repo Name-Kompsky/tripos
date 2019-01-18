@@ -2105,7 +2105,7 @@ Recall that classification of compact surfaces says there are two classes of sur
       0
     \end{tikzcd}
   \]
-  and unfortunately we have to get out hands dirty to understand \(\delta_*\). The map \(H_0(N) \to H_0(L) \oplus H_0(M)\) sends generator to generators so is injective and thus by exactness at \(H_1(k)\), \(\im \delta_* = 0\). Thus we have a very short exact sequence
+  and unfortunately we have to get out hands dirty to understand \(\delta_*\). The map \(H_0(N) \to H_0(L) \oplus H_0(M)\) sends generator to generators so is injective and thus by exactness at \(H_1(K)\), \(\im \delta_* = 0\). Thus we have a very short exact sequence
   \[
     \begin{tikzcd}
       0 \ar[r] & H_1(\Gamma_{r - 1}) \oplus \Z \ar[r] & H_1(\Gamma_r) \ar[r, "\delta_*"] & 0
@@ -2207,15 +2207,157 @@ Recall that classification of compact surfaces says there are two classes of sur
   which is injective so \(\delta_* = 0\). Thus \(H_2(S_g) = 0, H_1(S_g) \cong \Z^g \oplus (\Z/2\Z)\).
 \end{eg}
 
+\subsection{Rational homology and Euler characteristic}
 
+Basically homology with coefficients in \(\Q\).
 
+\begin{definition}[rational chain]\index{rational chain}
+  Let \(K\) be a simplicial complex. The vector space of \emph{rational \(n\)-chain} \(C_n(K; \Q)\) is defined as the vector space over \(\Q\) with basis the \(n\)-simplices of \(K\).
+\end{definition}
 
+A typical element thus has the form \(\sum_i \lambda_i \sigma_i\) where \(\lambda_i \in \Q\) and \(\sigma_i\)'s are \(n\)-simplices. We can define the boundary map \(\b_n: C_n(K; \Q) \to C_n(K; \Q)\) as before and the condition \(\b \compose \b = 0\) is satisfied so we have another homology theory.
 
+\begin{definition}[rational homology]\index{rational homology}
+  Let \(K\) be a simplicial complex. We define
+  \begin{align*}
+    Z_n(K; \Q) &= \ker \b_n \\
+    B_n(K; \Q) &= \im \b_{n + 1} \\
+    H_n(K; \Q) &= Z_n(K; \Q)/B_n(K; \Q)
+  \end{align*}
+  If \(\alpha: |K| \to X\) is a triangulation then define
+  \[
+    H_n(X; \Q) = H_n(K; \Q).
+  \]
+\end{definition}
 
+Rational homology encodes slightly less data but has the advantage of easier to compute (as \(\Q\) is a field). More specifically, it simply forgets the torsion elements:
 
+\begin{lemma}
+  Let \(K\) be a simplicial complex. If \(H_n(K) \cong \Z^k \oplus F\) where \(F\) is a finite group then
+  \[
+    H_n(K; \Q) \cong \Q^k.
+  \]
+\end{lemma}
 
+\begin{proof}
+  An exercise in commutative algebra. See online notes.
+\end{proof}
 
+\begin{eg}
+  For all \(n\),
+  \[
+    H_n(\R P^2; \Q) \cong H_n(*; \Q).
+  \]
+\end{eg}
 
+\begin{definition}[Euler characteristic]\index{Euler characteristic}
+  Let \(X\) be a triangulable space and \(\alpha: |K| \to X\) a triangulation. Then the \emph{Euler characteristic} of \(X\) is
+  \[
+    \chi(X) = \chi(K) = \sum_{n \in \Z} (-1)^n \dim_\Q H_n(K; \Q).
+  \]
+\end{definition}
+
+Note that this is obviously a topological invariant.
+
+Given the way rational homology is defined, the nice thing about \(\chi(K)\) is that it is \emph{really} easy to compute.
+
+\begin{lemma}
+  Let \(K\) be a simplicial complex. Then
+  \[
+    \chi(K) = \sum_{n \in \Z} (-1)^n \#\{n\text{-simplicies in } K\}.
+  \]
+
+  In particular if \(K\) is \(2\)-dimensional, with \(V, E, F\) the number of \(0, 1\) and \(2\)-simplices then
+  \[
+    \chi(K) = V - E + F.
+  \]
+\end{lemma}
+
+\begin{proof}
+  The number of \(n\)-simplex is not a natural algebraic object so instead we use \(\dim_\Q C_n(K; \Q)\). Next, recall that we are working with vector spaces so we can apply rank-nullity theorem to
+  \begin{align*}
+    Z_n(K; \Q) &\twoheadrightarrow H_n(K; \Q) \\
+    \b_n: C_n &\to B_{n - 1}
+  \end{align*}
+  to get
+  \begin{align*}
+    \dim Z_n &= \dim H_n + \dim B_n \\
+    \dim C_n &= \dim B_{n - 1} + \dim Z_n
+  \end{align*}
+
+  Now
+  \begin{align*}
+    \sum_{n \in \Z} (-1)^n \dim_\Q C_n
+    &= \sum_{n \in \Z} (-1)^n \dim B_{n - 1} + \sum_{n \in \Z} (-1)^n \dim Z_n \\
+    &= - \sum_{n \in \Z} (-1)^n \dim B_n + \sum_{n \in \Z} (-1)^n \dim Z_n \\
+    &= \sum_{n \in \Z} (-1)^n (\dim Z_n - \dim B_n) \\
+    &= \sum_{n \in \Z} (-1)^n \dim H_n \\
+    &= \chi(K)
+  \end{align*}
+\end{proof}
+
+\begin{note}
+  \begin{align*}
+    \chi(\Sigma_g) &= 2 - 2g \\
+    \chi(S_g) &= 1 - g
+  \end{align*}
+\end{note}
+
+\subsection{Lefschetz fixed-point theorem}
+
+\begin{definition}[Lefschetz number]\index{Lefschetz number}
+  Let \(\phi: X \to X\) be a continuous map of triangulable space \(X\). The \emph{Lefschetz number} of \(\phi\) is
+  \[
+    L(\phi) = \sum_{n \in \Z} (-1)^n \tr(\phi_*: H_n(X; \Q) \to H_n(X; \Q)).
+  \]
+\end{definition}
+
+\begin{note}
+  \(L(\id_X) = \chi(X)\) so Lefschetz number generalises Euler characteristic.
+\end{note}
+
+\begin{lemma}
+  If \(f: K \to K\) is a simplicial map then
+  \[
+    L(|f|) = \sum_{n \in \Z} (-1)^n \tr(f_*: C_n(K; \Q) \to C_n(K; \Q)).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Consider the following commutative diagrams of linear maps with exact rows:
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A \ar[r] \ar[d, "\alpha"] & B \ar[r] \ar[d, "\beta"] & C \ar[r] \ar[d, "\gamma"] & 0 \\
+      0 \ar[r] & A' \ar[r] & B' \ar[r] & C' \ar[r] & 0
+    \end{tikzcd}
+  \]
+  By linear algebra we can find bases for \(B, B'\) such that the matrix for \(\beta\) have has the form
+  \[
+    \begin{pmatrix}
+      \gamma & * \\
+      0 & \alpha
+    \end{pmatrix}
+  \]
+  so in particular
+  \[
+    \tr \beta = \tr \gamma + \tr \alpha.
+  \]
+  What is left is an application of rank-nullity theorem, similar to the proof of Euler characteristic.
+\end{proof}
+
+\begin{theorem}[Lefschetz fixed point theorem]\index{Lefschetz fixed point theorem}
+  Let \(X\) be a triangulable space and \(\phi: X \to X\) a continuous map. If \(L(\phi) \neq 0\) then \(\phi\) has a fixed point.
+\end{theorem}
+
+\begin{proof}[Non-examinable, sketch]
+  Suppose \(\phi\) has no fixed point. Since \(X\) is compact, exists \(\delta > 0\) such that for all \(x \in X\), \(\norm{x - \phi(x)} > \delta\). Now choose a simplicial approximation \(K\) of \(X\) with \(\mesh(K) < \frac{\delta}{2}\). Let \(f: K^{(r)} \to K\) be a simplicial approximation to \(\phi\). Note that if \(v \in \sigma \in \sigma\) then \(f(v) \notin \sigma\). Let \(\iota_n: C_n(K; \Q) \to C_n(K; \Q)\) be the map inducing canonical isomorphism of homology groups. For any \(n\)-simplex \(\sigma \in K\), \(\iota_n(\sigma)\) is supported on simplices contained in \(\sigma\). Then \(f_n \compose \iota_n\) takes every simplex of \(K\) off itself, i.e.\ \(f_n \compose \iota_n (\sigma)\) does not contain \(\sigma\). Now
+  \begin{align*}
+    L(\phi)
+    &= \sum_{n \in \Z} (-1)^n \tr(f_n \compose \iota_n: C_n(K; \Q) \to C_n(K; \Q)) \\
+    &= \sum_{n \in \Z} (-1)^n \cdot 0 \\
+    &= 0
+  \end{align*}
+\end{proof}
 
 \printindex
 \end{document}

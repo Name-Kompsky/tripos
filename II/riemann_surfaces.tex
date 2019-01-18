@@ -50,8 +50,8 @@ If \(f\) is identically \(0\) near \(a\), then there exists a disk \(\Delta_a\) 
   If \(f\) and \(g\) are analytic on \(U\) then either \(f = g\) on \(U\) or \(f(z) = g(z)\) on a discrete set.
 \end{corollary}
 
-\begin{definition}
-  If \(f\) is analytic on the punctured disk \(D(a, r)^* := D(a, r) \setminus \{a\}\) for some \(r > 0\), then \(f\) has an isolated singularity at \(a\).
+\begin{definition}[isolated singularity]
+  If \(f\) is analytic on the punctured disk \(D(a, r)^* := D(a, r) \setminus \{a\}\) for some \(r > 0\), then \(f\) has an \emph{isolated singularity} at \(a\).
 \end{definition}
 
 In this case, we obtain the analogue of power series, \emph{Laurent series} at \(a\)
@@ -78,10 +78,10 @@ However, characterisation in terms of Laurent series is coordinate-dependent. In
 
 For completeness sake, we state that \(f\) has a pole at \(a\) if and only if neither of the above happens (so \(\lim_{z \to a} |f(z)| = \infty\)).
 
-This allows us, for example, to extend the definitions to infinity. Consider the Riemann sphere \(\C_\infty\), on which a neighbourhood of infinity is the complement of a closed set not including \(\infty\). Mapping it to the complex plane, we define a puncutre disk around \(\infty\) to be the complement of a closed disk in \(\C\). Then we can talk conveniently about singularity at \(\infty\).
+This allows us, for example, to extend the definitions to infinity. Consider the Riemann sphere \(\C_\infty\), on which a neighbourhood of infinity is the complement of a closed set not including \(\infty\). Mapping it to the complex plane, we define a punctured disk around \(\infty\) to be the complement of a closed disk in \(\C\). Then we can talk conveniently about singularity at \(\infty\).
 
 \begin{eg}
-  \(f(z) = \frac{1}{e^z - 1}\) is meromorphic on \(\C\) with poles at \(z = 2\pi n i\) where \(n \in \Z\). By considering \(g(z) = \frac{z}{e^z - 1}\) which has removable singularity at \(0\), we know \(f\) has ple of order \(1\) at \(0\), and therefore at all poles by periodicity.
+  \(f(z) = \frac{1}{e^z - 1}\) is meromorphic on \(\C\) with poles at \(z = 2\pi n i\) where \(n \in \Z\). By considering \(g(z) = \frac{z}{e^z - 1}\) which has removable singularity at \(0\), we know \(f\) has a pole of order \(1\) at \(0\), and therefore at all poles by periodicity.
 
   At \(\infty\), we have an essential singularity : along the imaginary axis, \(|f(z)|\) can be arbitrarily big so it cannot be a removable singularity. Along the positive real axis, \(|f(z)| \to 0\) so it cannot be a pole.
 \end{eg}
@@ -90,7 +90,7 @@ This allows us, for example, to extend the definitions to infinity. Consider the
   \(f\) is \emph{meromorphic} on a domain \(U \subseteq \C_\infty\)  if it has only isolated singularies, none of which are essential.
 \end{definition}
 
-\subsection{Complex logarithm}
+\subsection{Complex logarithm \& Analytic continuation}
 
 Given nonzero \(z = r e^{i \theta}\), if \(e^w = z\), we know that \(w = \log r + (2\pi n + \theta) i\) for some \(n \in \Z\). We can make a continuous choice of \(\log z\) on, for example, \(U = \C \setminus \R_{\geq 0}\), by choosing \(0 < \theta < 2\pi\) and fixing some \(n \in \Z\). This makes \(f_n(z) := \log r + (2\pi n + \theta)i\) a well-defined continuous analytic function on \(U\).
 
@@ -169,7 +169,7 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
 \begin{eg}[complex logarithm]
   Let \(U = \C\) be the ambient space. Given \(\alpha < \beta\) in \(\R\), define
   \[
-    E_{(\alpha, \beta)} := \{z = r^{i \theta}: r > 0, \alpha < \theta < \beta\}.
+    E_{(\alpha, \beta)} := \{r e^{i \theta}: r > 0, \alpha < \theta < \beta\}.
   \]
   Note \(\C \setminus \R_{\geq 0} = E_{(0, 2\pi)}\). If \(\beta - \alpha \leq 2\pi\), define
   \[
@@ -268,7 +268,7 @@ where \(\eta = re^{i\theta}, 0 \leq \theta < 2\pi\). Then \(f\) is a continuous 
 
 A similar construction can be done for the multivalued function \(z^{1/n}\) where \(n \in \N\). As a multivalued function,
 \[
-  (e^{i\theta})^{1/n} = r^{1/n} e^{i\theta/n} e^{2\pi ki/n}
+  (r e^{i\theta})^{1/n} = r^{1/n} e^{i\theta/n} e^{2\pi ki/n}
 \]
 for \(k \in \Z/n\Z\). Define \(R_n = \coprod_{k \in \Z/n\Z} \C^*\) but glue near modulo \(n\) (``top sheet to bottom sheet''). Then we have \(f_n, \pi_n\) such that the following diagram commutes:
 \[
@@ -279,7 +279,7 @@ for \(k \in \Z/n\Z\). Define \(R_n = \coprod_{k \in \Z/n\Z} \C^*\) but glue near
 \]
 
 \begin{definition}[regular/singular point]\index{regular point}
-  Let \(f(z) = \sum_{k \geq 0} a_k z^k\) with radius of convergence \(1\). A point \(z \in \p D(0, 1)\) is \emph{regular} if there exists a neighbourhood \(N\) of \(z\) and a holomorphic \(g\) on \(N\) such that \(g = f\) on \(N \cap D(0, 1)\), i.e.\ \(g\) is a regular analytic continuation of \(f\).
+  Let \(f(z) = \sum_{k \geq 0} a_k z^k\) with radius of convergence \(1\). A point \(z \in \p D(0, 1)\) is \emph{regular} if there exists a neighbourhood \(N\) of \(z\) and a holomorphic \(g\) on \(N\) such that \(g = f\) on \(N \cap D(0, 1)\), i.e.\ \(g\) is a direct analytic continuation of \(f\).
 
   If \(z \in \p D(0, 1)\) is not regular it is \emph{singular}.
 \end{definition}
@@ -315,6 +315,8 @@ However, regularity does affect radius of convergence:
   so as \(r \to 1\) the last term goes to infinity so this cannot agree with a holomorphic function on a neighbourhood of \(\omega\). Since the closure of roots of unity is \(\p D(0, 1)\), every point is singular.
 \end{eg}
 
+\subsection{Definition of Riemann surface}
+
 \begin{definition}[Riemann surface]\index{Riemann surface}
   A \emph{Riemann surface} \(R\) is a connected, Hausdorff topological space, together with a collection of homeomorphisms \(\phi_\alpha: U_\alpha \to D_\alpha \subseteq \C\) with \(U_\alpha\) open, so that
   \begin{enumerate}
@@ -325,7 +327,7 @@ However, regularity does affect radius of convergence:
   For a given \(\alpha\), \((U_\alpha, \phi_\alpha)\) is a \emph{chart}, and these compositions \(\phi_\beta \compose \phi_\alpha^{-1}\) are \emph{transition functions}. The collection of charts is known as an \emph{atlas} on \(R\).
 \end{definition}
 
-In other words, a Riemann surface is precisely a one-dimensional complex manifold.
+In other words, a Riemann surface is precisely a connected one-dimensional complex manifold.
 
 \begin{definition}[analytic function between Riemann surfaces]\index{analytic}
   Let \(R, S\) be Riemann surfaces with atlases \(\{(U_\alpha, \phi_\alpha)\}\) and \(\{(V_\beta, \psi_\beta)\}\) respectively. A continuous map \(f: R \to S\) is \emph{analytic} or \emph{holomorphic} if whenever \(U_\alpha \cap f^{-1}(V_\beta) \neq \emptyset\), then
@@ -433,8 +435,8 @@ We will see later that the notion of equivalence defines an equivalence relation
         \C^*
       \end{tikzcd}
     \]
-    Again there exists a unique conformal structure on \(R_n\) making \(\pi\) analytic. It follows that \(f\) is analytic. Note that one could imagine adding two points to \(R_n\) and replacing \(\C^*\) with \(\C \cup \{\infty\} = \C_\infty\). Doing so ruins \(\pi\) as a cover, but sometimes it's worth it (compactness!).
-  \item \(\C_\infty = \C \cup \{\infty\}\) equipped with the sphere topology via steoreographic projection. Define two charts: \((\C, z)\) and \((\C_\infty \setminus \{0\}, \frac{1}{z})\). The transition functions are \(\frac{1}{z}\) which are anlaytic on \(\C^*\). It makes \(\C_\infty\) a compact Riemann surface. This is sometimes denoted by \(\hat \C\).
+    Again there exists a unique conformal structure on \(R_n\) making \(\pi\) analytic. It follows that \(f_n\) is analytic. Note that one could imagine adding two points to \(R_n\) and replacing \(\C^*\) with \(\C \cup \{\infty\} = \C_\infty\). Doing so ruins \(\pi\) as a cover, but sometimes it's worth it (compactness!).
+  \item \(\C_\infty = \C \cup \{\infty\}\) equipped with the sphere topology via steoreographic projection. Define two charts: \((\C, z)\) and \((\C_\infty \setminus \{0\}, \frac{1}{z})\). The transition functions are \(\frac{1}{z}\) which are anlaytic on \(\C^*\). It makes \(\C_\infty\) a compact Riemann surface. This is sometimes denoted by \(\widehat \C\).
   \end{enumerate}
 \end{eg}
 
@@ -456,12 +458,12 @@ Consider an analytic function \(f: R \to \C\). Given \(p \in R\), choose a chart
 \]
 Then \(f \compose \varphi^{-1}\) is of the form \(g(z)^r\) where \(g(z) = (z - a)\ell(z)\). Then \(g'(a) = \ell(a) \neq 0\) so conformal.
 
-Define a chart on the intersection of \(\varphi(U)\) with domain of \(g\), together with the chart \(\psi = g \compose \phi\). Therfore up to translation, any analytic function on a Riemann surface is locally equivalent to a powering map.
+Define a chart on the intersection of \(\varphi(U)\) with domain of \(g\), together with the chart \(\psi = g \compose \phi\). Therefore up to translation, any analytic function on a Riemann surface is locally equivalent to a powering map.
 
 \begin{definition}[complex torus]\index{complex torus}
   Let
   \[
-    \Lambda = \Z \tau_1 + \Z \tau_2 \subseteq \C
+    \Lambda = \Z \tau_1 \oplus \Z \tau_2 \subseteq \C
   \]
   be a lattice where \(\tau_1, \tau_2\) are nonzero in \(\C\) with \(\frac{\tau_1}{\tau_2} \notin \R\), i.e.\ are linearly independent over \(\R\). The quotient group \(T = \C / \Lambda\) can be equipped with a complex structure, known as a \emph{complex torus}.
 \end{definition}
@@ -514,7 +516,7 @@ In example sheet 1 we'll show that different lattices can yield conformally equi
   \[
     (\psi \compose f \compose \phi^{-1})(D)
   \]
-  is open so \((f \compose \psi^{-1})(D) = f(\phi^{-1}(D))\) is open. Thus
+  is open so \((f \compose \phi^{-1})(D) = f(\phi^{-1}(D))\) is open. Thus
   \[
     f(z) \in (f \compose \phi^{-1})(D)) \subseteq f(W)
   \]
@@ -563,8 +565,6 @@ Here we digress a little bit on non-examibable content before heading to the nex
 \begin{theorem}
   Let \(R\) be a Riemann surface, \(P \neq Q \in R\). Then there exists a harmonic function \(h: R \setminus \{P, Q\} \to \R\) such that for any chart \(\phi: U \to \C\) about \(P\) with \(\phi(P) = 0\), \(h \compose \phi^{-1}\) is \(\log |z|\) plus a bounded function near \(0\), and for any chart \(\psi: V \to \C\) about \(Q\) with \(\psi(Q) = 0\), \(h \compose \psi^{-1}\) is \(-\log |z|\) plus a bounded function near \(0\).
 \end{theorem}
-
-% Terry Tao's notes on Riemann-Roch
 
 \begin{theorem}[Riemann existence theorem, classical version]\index{Riemann existence theorem}
   Let \(R\) be a compact Riemann surface and \(P \neq Q\) in \(R\). Then there exists a meromorphic function \(f\) on \(R\) with \(f(P) \neq f(Q)\).
@@ -652,7 +652,7 @@ As for existence, lifts may not exist if the cover is not regular. c.f.\ nonregu
 \end{definition}
 
 \begin{definition}[simply connected]\index{simply connected}
-  We say \(X\) is \emph{simply connected} if any path in \(X\) is homotopic to a constant path.
+  We say \(X\) is \emph{simply connected} if any closed path in \(X\) is homotopic to a constant path.
 \end{definition}
 
 \begin{theorem}[monodromy theorem]\index{monodromy theorem}
@@ -711,7 +711,7 @@ The connected components of \(\mathcal G\) cover \(G\) via the forgetful map \(\
 \]
 which is open. Locally on \([f]_D\), \(\pi\) is a bijection. On such a set \([f]_D\), \(U \subseteq [f]_D\) is open if and only if \(U = \bigcup_\alpha [f]_{D_\alpha}\), if and only if \(\pi(U) = \bigcup_\alpha D_\alpha\), if and only if \(\pi(U)\) is open.
 
-For conformal structure on \(\mathcal G\), we know by a previous proposition that on each connected component of \(\mathcal G\), there exists a unique conformal structure making \(\pi\) analytic. These charts can be taken to be \((U, \varphi)\) with \(U = [f]_D\) and \(\varphi = \pi_U\).
+For conformal structure on \(\mathcal G\), we know by a previous proposition that on each connected component of \(\mathcal G\), there exists a unique conformal structure making \(\pi\) analytic. These charts can be taken to be \((U, \varphi)\) with \(U = [f]_D\) and \(\varphi = \pi|_U\).
 
 Moreover \(\mathcal G\) comes with an evaluation map
 \begin{align*}
@@ -724,7 +724,7 @@ which is analytic: given a chart \(([f]_D, \pi|_{[f]_D})\) of \(\mathcal G\),
 \]
 which is analytic in \(z\). So \(E\) is analytic.
 
-The stalk space \(\mathcal G\) incorporates all information about analytic functions on \(G\). The following a method to translate topological information of \(\mathcal G\) to analytic information of complete analytic functions:
+The stalk space \(\mathcal G\) incorporates all information about analytic functions on \(G\). The following theorem translates topological information of \(\mathcal G\) to analytic information of complete analytic functions:
 
 \begin{theorem}
   Let \((f, D)\) and \((g, E)\) be function elements on \(G\) and \(\gamma: [0, 1] \to G\) a path with \(\gamma(0) \in D, \gamma(1) \in E\). Then \((g, E)\) is analytic continuation of \((f, D)\) along \(\gamma\) if and only if there exists a lift \(\tilde \gamma: [0, 1] \to \mathcal G\) of \(\gamma\) such that \(\tilde \gamma(0) = [f]_{\gamma(0)}, \tilde \gamma(1) = [g]_{\gamma(1)}\).
@@ -818,7 +818,7 @@ We can also derive the so-called classical monodromy theorem
   \item For each \((f, D) \in \mathcal F\), the evaluation map \(E\) provides a single valued extension \(f \compose \pi\) on \([f]_D\) to all of \(\mathcal G_{\mathcal F}\).
     \[
       \begin{tikzcd}
-        \mathcal G_{\mathcal F} \ar[r, "E"] \ar[d, "\pi"] & \C \\
+        {[f]_D} \ar[r, "E"] \ar[d, "\pi"] & \C \\
         D \ar[ur, "f"']
       \end{tikzcd}
     \]
@@ -846,12 +846,12 @@ We can also derive the so-called classical monodromy theorem
 We have so far seen three constructions of this Riemann surface:
 \begin{enumerate}
 \item embedded curve construction,
-\item space of germ \(\mathcal G_{\mathcal F}\) of \(\sqrt{z^3 - z}\),
+\item space of germs \(\mathcal G_{\mathcal F}\) of \(\sqrt{z^3 - z}\),
 \item gluing construction.
 \end{enumerate}
 The above shows 1 and 2 are equivalent. 1 and 3 are shown to be equivalent in example sheet 1, and 2 and 3 in example sheet 2. The advantage of each is
 \begin{enumerate}
-\item inherit properties of \(\C^2\),
+\item inherits properties of \(\C^2\),
 \item always exists, although quite abstract. Moreover it is a covering space and is equipped with analytic maps \(\pi\) and \(E\),
 \item can get our hands on topology. Compactification is easy to describe and visualise.
 \end{enumerate}
@@ -965,7 +965,7 @@ See how false this can be for noncompact Riemann surfaces!
   \[
     n(w) = \sum_{z \in f^{-1}(w)} m_f(z).
   \]
-  We want to show \(n: S \to \Z\) is constant. But \(S\) is connected so suffcie to show \(n\) is locally constant. Fix \(w_0 \in S\) and let \(f^{-1}(w_0) = \{z_1, \dots, z_q\}\). For each \(z_k\), By choosing appropriate charts centred at \(z_k\) and \(w_0\), \(f\) is locally \(z \mapsto z^{m_f(z_k)}\). Moreover we can wlog choose a chart \((N_k, \phi)\) around \(z_k\) such that \(\phi(N_k)\) is a disk around \(\phi(z_k)\), on which \(f|_{N_k}\) is an \(m_f(z_k)\)-to-\(1\) map to its image. wlog choose the \(N_k\) disjoint. Note that \(R \setminus \bigcup N_k\) is compact so \(f(R \setminus \bigcup N_k)\) is compact, and there exists open neighbourhood \(M\) of \(w_0\) such that \(f(R \setminus \bigcup N_k) \cap M = \emptyset\). Let \(N = f(N_1) \cap \dots \cap f(N_q) \cap M\), an open neighbourhood of \(w_0\). For \(w \in N\), \(f^{-1}(w) \subseteq \bigcup_{k = 1}^q N_k\) so
+  We want to show \(n: S \to \Z\) is constant. But \(S\) is connected so suffice to show \(n\) is locally constant. Fix \(w_0 \in S\) and let \(f^{-1}(w_0) = \{z_1, \dots, z_q\}\). For each \(z_k\), By choosing appropriate charts centred at \(z_k\) and \(w_0\), \(f\) is locally \(z \mapsto z^{m_f(z_k)}\). Moreover we can wlog choose a chart \((N_k, \phi)\) around \(z_k\) such that \(\phi(N_k)\) is a disk around \(\phi(z_k)\), on which \(f|_{N_k}\) is an \(m_f(z_k)\)-to-\(1\) map to its image. wlog choose the \(N_k\) disjoint. Note that \(R \setminus \bigcup N_k\) is compact so \(f(R \setminus \bigcup N_k)\) is compact, and there exists open neighbourhood \(M\) of \(w_0\) such that \(f(R \setminus \bigcup N_k) \cap M = \emptyset\). Let \(N = f(N_1) \cap \dots \cap f(N_q) \cap M\), an open neighbourhood of \(w_0\). For \(w \in N\), \(f^{-1}(w) \subseteq \bigcup_{k = 1}^q N_k\) so
   \[
     n(w) = \sum_{z \in f^{-1}(w)} m_f(w) = \sum_{z \in f^{-1}(w_0)} m_f(z) = n(w_0).
   \]
@@ -996,7 +996,7 @@ As a consequence we have
 \begin{proof}
   Assume wlog \(f^{-1}(\infty) \subseteq \C\), so that \(f^{-1}(\infty) = \{b_1, \dots, b_n\}\). \(f\) analytic at \(b_i\) is equivalent to saying that \(\frac{1}{f}\) is an analytic function on a neighbourhood of \(b_i\), i.e.
   \[
-    \frac{1}{f} = (z - b_i)^{m_f(b_i)} g(z)
+    \frac{1}{f(z)} = (z - b_i)^{m_f(b_i)} g(z)
   \]
   where \(g\) is nonzero analytic at \(b_i\), so
   \[
@@ -1047,7 +1047,7 @@ We state without proof the following results:
 \begin{fact}\leavevmode
   \begin{enumerate}
   \item \(\chi(S)\) is independent of choice of triangulation (to check this suffices to check it is invariant under refinement).
-  \item (corollary of classification of compact surfaces) every compact Riemann surface is homeomorphic to a sphere with handles. The number of handles is the \emph{genus}\index{genus} of the surface.
+  \item (corollary of classification of compact surfaces) every compact Riemann surface is homeomorphic to a surface with handles. The number of handles is the \emph{genus}\index{genus} of the surface.
   \item Every compact Riemann surface can be triangulated and \(\chi(S) = 2 - 2g\) where \(g\) is the genus of \(S\). It is possible to check this by assuming 2 and induct on \(g\).
   \end{enumerate}
 \end{fact}
@@ -1077,7 +1077,7 @@ We state without proof the following results:
 \end{eg}
 
 \begin{remark}
-  The topological torus admits infinitely many nonisomorphic conformal structures. See example sheet 2. For future reference, the collection for a fixed surface of the conformal structures it admits is known as the \emph{Teichmüller space}\index{Teichmüller space}. It is the key object in the advance study of Riemann surfaces.
+  The topological torus admits infinitely many nonisomorphic conformal structures. See example sheet 2. For future reference, the collection for a fixed surface of the conformal structures it admits is known as the \emph{Teichmüller space}\index{Teichmüller space}. It is the key object in the advanced study of Riemann surfaces.
 \end{remark}
 
 \begin{theorem}[Riemann-Hurwitz formula]\index{Riemann-Hurtiwz formula}
@@ -1088,10 +1088,10 @@ We state without proof the following results:
   where \(e_P = m_f(P)\), the ramification index of \(f\) at \(P\).
 \end{theorem}
 
-Intuitively, the first term on RHS says that in a covering every sufficiently small triangle in \(S\) have \(n\) homeomorphic preimages in \(R\). The second terms add a correction term in case of ramification, as at a branch point, \(n\) vertices, each from a preimage, are mapped to one point.
+Intuitively, the first term on RHS says that in a covering every sufficiently small triangle in \(S\) have \(n\) homeomorphic preimages in \(R\). The second terms add a correction term in case of ramification, as at a branch point \(P\), \(e_P\) vertices, each from a preimage, are mapped to a single point.
 
 \begin{proof}
-  The idea is to consider preimage of triangulations on \(S\) under \(f\) and compute its Euler characterisic. Call \(\{Q_1, \dots, Q_r\}\) the branch points of \(f\). Choose chart preimages of disks (as in the proof of valency theorem) and use compactness, we can find open sets \(U_1, \dots, U_r, U_{r + 1}, \dots, U_s\) of \(S\) so that
+  The idea is to consider preimage of triangulations of \(S\) under \(f\) and compute its Euler characterisic. Call \(\{Q_1, \dots, Q_r\}\) the branch points of \(f\). Choose chart preimages of disks (as in the proof of valency theorem) and use compactness, we can find open sets \(U_1, \dots, U_r, U_{r + 1}, \dots, U_s\) of \(S\) so that
   \begin{enumerate}
   \item if \(j > r\) then \(f^{-1}(U_j)\) is a disjoint union of preimages \(V_1, \dots, V_n\), and \(f|_{V_i}: V_i \to U_j\) is an isomorphism,
   \item if \(1 \leq j \leq r\) then for each component \(V\) of \(f^{-1}(U_j)\), we have a unique preimage \(P\) of \(Q_j\), and \(f|_V: V \to U_j\) is an \(e_P\)-to-\(1\) map, whose local expression is an \(e_P\)-to-\(1\) powering map.
@@ -1134,14 +1134,14 @@ Intuitively, the first term on RHS says that in a covering every sufficiently sm
   \[
     \pi_z \compose \pi_w^{-1}
   \]
-  at \(0\). But \(\pi^{-1}(w) = (f^{-1}(w^2), w)\) for some branch of \(f^{-1}\) locally so \(\pi_z \compose \pi_w^{-1}(w) = f^{-1}(w)\). We can show
+  at \(0\). But \(\pi^{-1}(w) = (f^{-1}(w^2), w)\) for some branch of \(f^{-1}\) locally so \(\pi_z \compose \pi_w^{-1}(w) = f^{-1}(w^2)\). We can show
   \begin{align*}
     \frac{d}{dw} f^{-1}(w^2) &= 0 \\
     \frac{d^2}{dw^2} f^{-1}(w^2) &\neq 0 \\
   \end{align*}
   so these points ramify with multiplicity \(2\) each.
 
-  We have see that \(R'\) embeds analytically in its compactification \(R\). Claim that \(\pi_z\) extends to some analytic map \(\overline \pi_z: R \to \C_\infty\) with \(\overline \pi_z(R \setminus R') = \{\infty\}\): \(\frac{1}{\pi_z}\) is a bounded analytic function on a punctured neighbourhood of \(P \in R \setminus R'\) with
+  We have seen that \(R'\) embeds analytically in its compactification \(R\). Claim that \(\pi_z\) extends to some analytic map \(\overline \pi_z: R \to \C_\infty\) with \(\overline \pi_z(R \setminus R') = \{\infty\}\): \(\frac{1}{\pi_z}\) is a bounded analytic function on a punctured neighbourhood of \(P \in R \setminus R'\) with
   \[
     \lim_{Q \to P} \frac{1}{\pi_z(Q)} = 0
   \]
@@ -1265,7 +1265,7 @@ Here we say \(f\) has degree \(n\) to mean \(\tilde f: \C/\Lambda \to \C_\infty\
 \begin{proof}
   If \(n = 1\) then \(\tilde f\) is a conformal isomorphism. But \(\C/\Lambda\) and \(\C_\infty\) are not even homeomorphic.
 
-  Alternatively, choose a period parallelogram \(P\) for \(\Lambda\) with no zeroes or poles of \(f\) on its boundary (exists by principle of isolated zeros and discreteness of lattice). Then by residue theorem,
+  Alternatively, choose a period parallelogram \(P\) for \(\Lambda\) with no zeros or poles of \(f\) on its boundary (exists by principle of isolated zeros and discreteness of lattice). Then by residue theorem,
   \[
     \sum_{z \in P} \operatorname{res}_z(f) = \oint_{\p P} f(z) dz = 0
   \]
@@ -1324,7 +1324,7 @@ As a comment, in general when trying to understand a series defined in terms of 
   We show \(\wp\) converges on compact sets: choose \(R \gg 1\) and let \(|z| \leq R\). There exist finitely many points \(\Lambda \cap D(0, 2R)\) and if \(|\omega| > 2R\) for \(\omega \in \Lambda\),
   \[
     \Bigg| \frac{1}{(z - \omega)^2} - \frac{1}{\omega^2} \Bigg|
-    = \Bigg| \frac{2\omega z - z^2}{\omega^2(z^2 - \omega^2)} \Bigg|
+    = \Bigg| \frac{2\omega z - z^2}{\omega^2(z  \omega)^2} \Bigg|
     \leq \frac{R |2\omega - z|}{|\omega|^4 \cdot \frac{1}{4}}
     \leq \frac{12R}{|\omega|^3}
   \]
@@ -1347,7 +1347,7 @@ As a comment, in general when trying to understand a series defined in terms of 
     \item have poles only in \(\Lambda\),
     \item \(\wp(z) - \frac{1}{z^2} \to 0\) as \(z \to 0\).
     \end{enumerate}
-  \item \(\wp'\) has degree \(3\), with a pole of degree \(3\) at lattice points, \(\wp'\) is odd and \(\wp'(\frac{\omega}{2}) = \wp'(-\frac{\omega}{2})\) for \(\omega \in \Lambda\) by periodicity. Thus \(\wp'(\frac{\omega}{2}) = 0\), i.e.\ \(\wp' = 0\) at the half-lattice points. There are 3 of these, so these are the only zeros of \(\wp'\). So \(\wp\) ramifies at the lattice points and half-lattice points. Because \(\deg \wp = 2\), the multiplicty is \(2\) at all such points. Additionally, the branch points \(\omega = \wp(0), e_1, e_2, e_3\) are distinct.
+  \item \(\wp'\) has degree \(3\), with a pole of degree \(3\) at lattice points, \(\wp'\) is odd and \(\wp'(\frac{\omega}{2}) = \wp'(-\frac{\omega}{2})\) for \(\omega \in \Lambda\) by periodicity. Thus \(\wp'(\frac{\omega}{2}) = 0\), i.e.\ \(\wp' = 0\) at the half-lattice points. There are 3 of these, so these are the only zeros of \(\wp'\). So \(\wp\) ramifies at the lattice points and half-lattice points. Because \(\deg \wp = 2\), the multiplicity is \(2\) at all such points. Additionally, the branch points \(\infty = \wp(0), e_1, e_2, e_3\) are distinct.
 
     Note that Riemann-Hurwitz is satisfied on \(\C/\Lambda\): \(\wp\) induces an analytic \(\tilde \wp: \C/\Lambda \to \C_\infty\) of degree \(2\) so
     \[
@@ -1368,11 +1368,11 @@ As a comment, in general when trying to understand a series defined in terms of 
   \[
     \wp(z) = \frac{1}{z^2} + az^2 + \dots
   \]
-  because \(\wp(z) - \frac{1}{z} = 0\) at \(z = 0\) and the first order term vanishes because \(\wp\) is even. So
+  because \(\wp(z) - \frac{1}{z^2} = 0\) at \(z = 0\) and the first order term vanishes because \(\wp\) is even. So
   \[
     \wp'(z) = - \frac{2}{z^3} + 2az + \dots
   \]
-  square and set \(g_2 = 4a\),
+  square and set \(g_2 = 20a\),
   \[
     (\wp')^2 - 4\wp^3 = \frac{-g_2}{z^2} + \text{ analytic}
   \]
@@ -1416,7 +1416,6 @@ Every complex torus is algebraic.
 
 \begin{remark}
   In example sheet we show \(\C/(\Z\omega_1 \oplus \Z\omega_2) \cong \C/(\Z \oplus \tau \Z)\) where \(\tau = \frac{\omega_2}{\omega_1}\), and \(\C/(\Z \oplus \tau_1\Z) \cong \C/(\Z \oplus \tau_2\Z)\) if and only if \(\tau_1, \tau_2\) are in the same orbit of action of \(\SL_2(\Z)\). Algebraically, \(g_2, g_3\) do \emph{not} quite determine \(\C/\Lambda\), rather we have the \emph{\(j\)-invariant}\index{\(j\)-invariant} defined by
-  % ? sould be \C/\Lambda does not determine g_2, g_3
   \[
     j(\Lambda) = \frac{1728g_2^3}{g_2^3 - 27 g_3^2}
   \]
@@ -1438,15 +1437,15 @@ Compare this with the statement that meromorphic functions on \(\C_\infty\) are 
   \[
     E = \{z \in \C: z \in \frac{1}{2} \Lambda \text{ or } f'(z) = 0\}
   \]
-  so to avoid branching points. As \(f(E)\) is finite in \(\C_\infty\), we can find \(c \neq d\) in \(E\) so that
+  so to avoid branch points of \(\wp\). As \(f(E)\) is finite, we can find \(c \neq d\) in \(\C \setminus f(E)\) so that
   \[
-    g(z) = \frac{f(z) - d}{f(z) - c},
+    g(z) = \frac{f(z) - d}{f(z) - c}
   \]
-  with single zeroes and poles. Then in a period parallelogram centred at \(0\), we can write the zeroes of \(g\) as \(\{a_1, \dots, a_n, -a_1, \dots, -a_n\}\) and poles as \(\{b_1, \dots, b_n, -b_1, \dots, -b_n\}\). Define
+  have single zeros and poles. Then in a period parallelogram centred at \(0\), we can write the zeros of \(g\) as \(\{a_1, \dots, a_n, -a_1, \dots, -a_n\}\) and poles as \(\{b_1, \dots, b_n, -b_1, \dots, -b_n\}\). Define
   \[
     h(z) = \frac{(\wp(z) - \wp(a_1)) \cdots (\wp(z) - \wp(a_n))}{(\wp(z) - \wp(b_1)) \cdots (\wp(z) - \wp(b_n))}
   \]
-  so that \(h\) has the same poles and zeroes (counting multiplicity) as \(g\). Thus \(g(z) = kh(z)\) for some constant \(k\), so that
+  so that \(h\) has the same poles and zeros (counting multiplicity) as \(g\). Thus \(g(z) = kh(z)\) for some constant \(k\), so that
   \[
     f = Q_1(\wp)
   \]
@@ -1472,7 +1471,7 @@ Compare this with the statement that meromorphic functions on \(\C_\infty\) are 
   \end{enumerate}
 \end{remark}
 
-Given such a group action, we can form a group quotient \(X/G\) and equip it with quotient topology via \(\pi: X \to X/G\). \(\pi\) is a local homeomorphism, \(X\) is path-connected so \(\pi\) is a regular cover. Note that if \(G\) is finite then \(\pi\) has well-defined degree \(|G|\).
+Given such a group action, we can form the quotient \(X/G\) and equip it with quotient topology via \(\pi: X \to X/G\). \(\pi\) is a local homeomorphism, \(X\) is path-connected so \(\pi\) is a regular cover. Note that if \(G\) is finite then \(\pi\) has well-defined degree \(|G|\).
 
 \begin{lemma}
   If \(X\) is a Riemann surface and \(G \leq \aut(X)\) acting properly discontinuously, then \(X/G\) is a Riemann surface via \(\pi^{-1}\) together with charts of \(X\). Moreover the transition maps are in \(G\).
@@ -1496,7 +1495,7 @@ Given such a group action, we can form a group quotient \(X/G\) and equip it wit
 \begin{proof}
   Suppose \(G\) is not finite. Fix \(P_0 \in X\). Then \(\{g(P_0): g \in G\}\) is infinite. By compactness of \(X\) it has a converging subsequence \(g_n(P) \to Q\). For any neighbourhood \(V\) of \(Q\) and \(n, m \gg 1\), we have
   \[
-    P_0 \in g_n^{-1}(V) \subseteq g_m^{-1}(V).
+    P_0 \in g_n^{-1}(V) \cap g_m^{-1}(V).
   \]
   Absurd.
 
@@ -1517,9 +1516,108 @@ Given such a group action, we can form a group quotient \(X/G\) and equip it wit
   \]
 \end{remark}
 
+\subsection{Uniformisation theorem and consequences}
 
+\begin{theorem}[uniformisation theorem]\index{uniformisation theorem}
+  Let \(R\) be a simply connected Riemann surface. Then \(R\) is conformally isomorphic to one of \(\C, \C_\infty, \mathbb D\) (or \(\mathbb H\), the upper half plane).
+\end{theorem}
 
+\begin{proof}
+  Non-examinable. Omitted.
+\end{proof}
 
+\begin{fact}
+  Any Riemann surface \(X\) is the quotient \(\pi: \tilde X \to X\) of a simply connected Riemann surface \(\tilde X\) by the deck transformation of \(\pi\), i.e.\ automorphisms \(p: \tilde X \to \tilde X\) such that \(\pi \compose p = \pi\). This group acts properly discontinuously. Note then that \(\pi\) is regular.
+\end{fact}
+
+\begin{definition}[universal cover]\index{universal cover}
+  \(\pi: \tilde X \to X\) is the \emph{universal cover} of \(X\).
+\end{definition}
+
+\begin{remark}
+  \(\C, \C_\infty, \mathbb D\) are distinct: \(\C_\infty\) is the only compact one, and if there is an isomorphism \(\C \cong \mathbb D\) then it is bounded and entire, contradicting Liouville's theorem.
+\end{remark}
+
+Let's discuss different cases.
+\begin{enumerate}
+\item \(X\) has \(\C_\infty\) as universal cover: i.e.\ there exists \(G \leq \aut(\C_\infty)\) acting properly discontinuously such that \(X \cong \C_\infty/G\). We've already figured out that \(\aut(\C_\infty)\) is the set of Möbius transformations. Since any Möbius transformation has a fixed point in \(\C_\infty\), \(G\) is trivial so \(X \cong \C_\infty\).
+
+  This also agrees with Riemann-Hurwitz: we can only decrease genus.
+\item \(X\) has \(\C\) as universal cover. As any automorphism of \(\C\) extends to an automorphism of \(\C_\infty\), we concluded that \(\aut(\C) = \{az + b: a \neq 0, b \in \C\}\). If \(a \neq 1\) then \(z \mapsto az + b\) has a fixed point so \(G \leq \{z + b: b \in \C\}\). Identify \(z \mapsto z + b\) with \(b\), \(G\) must consist of isolated points. By example sheet 3 Q1, \(G\) is one of \(0, \Z\omega\) or \(\Z \omega_1 \oplus \Z \omega_2\). So one of the following happens:
+  \begin{align*}
+    X &\cong \C \\
+    X &\cong \C/2\pi\Z \cong \C^* \\
+    X &\cong \C/\Lambda
+  \end{align*}
+  where \(\Lambda\) is a lattice.
+
+  \begin{remark}
+    If \(X\) is compact with \(\C_\infty\) or \(\C\) as universal cover, \(g_X \in \{0, 1\}\). Equivalently if \(g_X \geq 2\) then \(X\) must have \(\mathbb D\) as universal cover.
+  \end{remark}
+\item \(X\) has \(\mathbb D\) as universal cover: we can only barely scratch the surface the final, and most interesting family. Recall (or note) that
+  \[
+    \aut(\mathbb D) = \{z \mapsto e^{i\theta} \frac{z - a}{1 - \conj a z}\}.
+  \]
+  Alternatively,
+  \[
+    \aut(\mathbb H) = \PSL_2(\R) = \SL_2(\R)/\{\pm 1\}.
+  \]
+  The subgroups of \(\PSL_2(\R)\) which act properly discontinuously are \emph{Fuschsian groups}\index{Fuschsian group}, studied in \emph{hyperbolic geometry}.
+\end{enumerate}
+
+\begin{corollary}
+  If \(X\) is uniformised by \(\mathbb D\) then \(X\) is a metric space.
+\end{corollary}
+
+\begin{proof}
+  \(\aut(\mathbb D)\) are isometries for the hyperbolic metric.
+\end{proof}
+
+\begin{corollary}[Picard]\index{Picard theorem}
+  If \(f: \C \to \C \setminus \{0, 1\}\) is analytic then \(f\) is constant.
+\end{corollary}
+
+\begin{proof}
+  Claim that \(\C \setminus \{0, 1\}\) has \(\mathbb D\) as universal cover: if not then as it is noncompact it is isomorphic to either \(\C\) or \(\C^*\). Suppose \(\varphi: \C \setminus \{0, 1\} \to \C\) is an isomorphism, then by Liouville this is unbounded near \(\infty\), if the singularity at \(\infty\) is essential then by Casorati-Weierstrass \(\deg \varphi > 1\). So there is a pole of order \(1\) at \(\infty\), so \(\varphi\) extends to an isomorphism \(\C_\infty \setminus \{0, 1\} \to \C_\infty\). Similar for \(\C^*\).
+  
+  Given such an \(f\), as \(\C\) is simply connected it can be lifted to \(\tilde f: \C \to \mathbb D\). Can check \(\tilde f\) is analytic so constant, so \(f\) is too.
+  \[
+    \begin{tikzcd}
+      & \mathbb D \ar[d, "\pi"] \\
+      \C \ar[ur, "\tilde f"] \ar[r, "f"] & \C \setminus \{0, 1\}
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\begin{corollary}[Riemann mapping theorem]\index{Riemann mapping theorem}
+  Let \(U \subsetneq \C\) be a domain. If \(U\) is simply connected then \(U \cong \mathbb D\).
+\end{corollary}
+
+\begin{proof}
+  Similar to above, suffices to show \(U \ncong \C\). If it were we would have \(\C_\infty \cong U \cup \{\text{pt}\}\), contradicting compactness.
+\end{proof}
+
+\section{Non-examinable collection}
+
+Let
+\[
+  X' = \{(x, y) \in \C^2: y^2 = (x - \alpha_1) \cdots (x - \alpha_{2g + 2})\}
+\]
+where \(\alpha_1, \dots, \alpha_{2g + 2}\) are distinct points in \(\C\). \(X'\) is a Riemann surface via \(\pi_x, \pi_y\), and can be compactified via gluing to
+\[
+  Y' = \{(z, w) \in \C^2: w^2 = (1 - \alpha_1z) \cdots (1 - \alpha_{2g + 2} z)\}
+\]
+and \((x, y) \mapsto (\frac{1}{x}, \frac{y}{x^{g + 1}})\). Call the compactification \(X\) and note that \(X \setminus X'\) contains 2 points (points where \(x = 0\)?). \(\pi_x\) extends to \(X\) with \(\pi_x(X \setminus X') = \{\infty\}\), has degree \(2\) so by Riemann-Hurwitz
+\[
+  2g_X - 2 = 2(-2) + (2g + 2)
+\]
+so \(g_X = g\). This is a natural generalisation of Fermat curve\index{Fermat curve} and in particular shows that we can construct a Rieamnn surface with arbitrary genus.
+
+Define \(i_h: X \to X\) by \((x, y) \mapsto (x, -y)\) on \(X'\) and \((z, w) \mapsto(z, -w)\) on \(Y'\). Check it is well-defined.
+\[
+  G = \langle i_h \rangle \leq \aut(X)
+\]
+does \emph{not} act properly discontinuously as \((\alpha_i, 0)\) is a fixed point for all \(i\). Nonetheless we have a topological covering \(\pi_x: X \to X/G\), which is isomorphic to \(\C_\infty\). We study Riemann surfaces via understanding the collection of such quotients.
 
 \printindex
 \end{document}

@@ -23,7 +23,7 @@
 
 \section{Normed spaces and linear operators}
 
-Unless stated, vector spaces are real or complex, and \(\K\) stands for \(\R\) or \(\C\).
+Unless otherwise stated, \(\K\) stands for \(\R\) or \(\C\) and all vector spaces are \(\K\)-vector spaces.
 
 \subsection{Normed vector spaces}
 
@@ -87,14 +87,14 @@ It is often useful to consider the \emph{unit ball} \(B = B(X) = \{x \in X: \nor
 
 \subsection{The space \(\mathcal l^p\)}
 
-Let \(S = \{x = (x_i)_{i = 1}^\infty \subseteq \K\}\) be the set of scalar sequences with
+Let \(S = \{x = (x_i)_{i = 1}^\infty: x_i \in \K\}\) be the set of scalar sequences with
 \begin{align*}
   x + y &= (x_i)_i + (y_i)_i = (x_i + y_i)_i, \\
   \lambda x &= \lambda (x_i)_i = (\lambda x_i)_i.
 \end{align*}
 
 \begin{definition}
-  For \(1 \leq p < \infty\), let \(\ell^p = \{x \in S: \sum_n |x_n|^p < \infty\}\) with norm \(\norm x_p = (\sum_n |x_n|^p)^{1/p}\). let \(\ell^\infty = \{x \in S: \sup_n |x_n| < \infty\}\) with norm \(\norm x_\infty = \sup_n |x_n|\). Finally, \(c_0 = \{x \in S: x_n \to 0\}\) with norm \(\norm x_\infty = \sup_n |x_n|\).
+  For \(1 \leq p < \infty\), let \(\ell^p = \{x \in S: \sum_n |x_n|^p < \infty\}\) with norm \(\norm x_p = (\sum_n |x_n|^p)^{1/p}\). Let \(\ell^\infty = \{x \in S: \sup_n |x_n| < \infty\}\) with norm \(\norm x_\infty = \sup_n |x_n|\). Finally, \(c_0 = \{x \in S: x_n \to 0\}\) with norm \(\norm x_\infty = \sup_n |x_n|\).
 \end{definition}
 
 We have yet proved \(\norm \cdot_p\) is a norm for general \(p\). The triangle inequality follows from Minkowski's inequality, discussed next.
@@ -151,7 +151,7 @@ for all \(s, t \in \R^+, \lambda \in (0, 1)\). Graphically, the graph of \(f\) l
     & \sum_n |x_n + y_n|^r \\
     =& \sum_n |x_n + y_n|^{r - 1}|x_n + y_n| \\
     \leq& \sum_n |x_n + y_n|^{r - 1} |x_n| + \sum_n |x_n + y_n|^{r - 1} |y_n| \\
-    \intertext{Applying Hölder's inequality for \(p = \frac{r}{r - 1}, q = r\) to the first term and similarly to the second term,}
+    \intertext{Apply Hölder's inequality for \(p = \frac{r}{r - 1}, q = r\) to the first term and similarly to the second term,}
     \leq& \left( \sum_n |x_n + y_n|^r \right) ^{\frac{r - 1}{r}} \left( \sum_n |x_n|^r \right)^{\frac{1}{r}} + \left( \sum_n |x_n + y_n|^r \right) ^{\frac{r - 1}{r}} \left( \sum_n |y_n|^r \right)^{\frac{1}{r}}
   \end{align*}
   Divide by both sides by a common factor, get
@@ -177,7 +177,7 @@ for all \(s, t \in \R^+, \lambda \in (0, 1)\). Graphically, the graph of \(f\) l
   \item Let \(K\) be a compact Hausdorff space (for concreteness, take \([0, 1]\)) and let \(C(K)\) be the space of continuous functions on \(K\). Then \(C(K) \subseteq B(K)\) as every continuous function on \(K\) is bounded. Moreover \(C(K) \subseteq B(K)\) is closed as the uniform limit of a sequence of continuous functions is continuous. Therefore \(C(K)\) is a Banach space with norm \(\norm \cdot_\infty\).
   \item Let \(U \subseteq \R^n\) be open bounded and let \(C^k(\cl U)\) be the space of functions \(f: \cl U \to \K\) \(k\)-times continuously differentiable on \(U\). Then \(C^k(\cl U)\) is a Banach space with norm
     \[
-      \norm f_{C^k(\cl U)} = \max_{|\alpha| < k} \norm{D^\alpha f}_\infty,
+      \norm f_{C^k(\cl U)} = \max_{|\alpha| \leq k} \norm{D^\alpha f}_\infty,
     \]
     where
     \[
@@ -360,7 +360,7 @@ The infimum of such \(C\) is called
       T(\lambda x + \mu y)
       &= \lim_{n \to \infty} T_n(\lambda x + \mu y) \\
       &= \lim_{n \to \infty} (\lambda T_n x + \mu T_n y) \\
-      &= \mu T_x + \mu T_y
+      &= \lambda Tx + \mu Ty
     \end{align*}
   \item \(T\) is bounded: for \(\norm x \leq 1\),
     \begin{align*}
@@ -381,15 +381,14 @@ The infimum of such \(C\) is called
   \end{itemize}
 \end{proof}
 
-\begin{eg}
+\begin{theorem}
   Let \(p, q \in (1, \infty)\) with \(\frac{1}{p} + \frac{1}{q} = 1\). Then the map
   \begin{align*}
     \phi: \ell^q &\to (\ell^p)^* \\
     y &\mapsto \phi_y = (\cdot, y)
   \end{align*}
   is an isometric isomorphism, i.e.\ \(\ell^q = (\ell^p)^*\).
-
-\end{eg}
+\end{theorem}
 
 \begin{proof}
   Clearly \(\phi\) is linear. We have already seen that \(\norm{\phi_y} \leq \norm y_q\). Claim that \(\norm{\phi_y} \geq \norm y_q\): note that LHS is a supremum so suffices to find \(\norm x \leq 1\) such that \(|\phi_y(x)| \geq \norm y_q\). Take
@@ -465,7 +464,7 @@ The infimum of such \(C\) is called
   Any finite-dimensional vector space can be identified with \(\K^n\) by choosing a basis. Here \(n\) is the dimension.
 \end{fact}
 
-\begin{definition}[equivalent]\index{equivalent}
+\begin{definition}[equivalent norm]\index{equivalent norm}
   Two norms \(\norm \cdot\) and \(\norm \cdot'\) on a vector space \(X\) are \emph{equivalent} if there exists \(C > 0\) such that
   \[
     C^{-1} \norm x' \leq \norm x \leq C \norm x',
@@ -489,7 +488,7 @@ The infimum of such \(C\) is called
   \[
     S = \{x: \norm x_2 = 1\}
   \]
-  and define \(f = \norm \cdot |_S: S \to \R\). Then \(f\) is continuous (w.r.t.\ \(\norm \cdot_2\)):
+  and define \(f = \norm \cdot |_S: S \to \R\). Then \(f\) is continuous (with respect to \(\norm \cdot_2\)):
   \[
     |f(x) - f(y)|
     = |\norm x - \norm y|
@@ -559,7 +558,7 @@ The converse is also true:
     B_1(0) \subseteq Y + \frac{1}{2} (Y + B_{1/2}(0))
     = Y + B_{1/4}(0)
     \subseteq \dots
-    \subseteq Y + B_{2^{-n}}(0)
+    \subseteq Y + B_{2^{-m}}(0)
   \]
   for all \(m \in \N\). Therefore \(B_1(0) \subseteq \cl Y = Y\). Since \(X\) is linear, \(X \subseteq Y\). Thus \(\dim X \leq n\).
 \end{proof}
@@ -642,7 +641,7 @@ or
 \]
 \end{definition}
 
-They are equivalent for precisely the same reason that norms on finite-dimensional spaces are equivalent. Thus henceforth we will just use ``norm on \(X \times Y\)'' to mean any of the equivalent norms.
+They are equivalent\index{equivalent norm} for precisely the same reason that norms on finite-dimensional spaces are equivalent. Thus henceforth we will just use ``norm on \(X \times Y\)'' to mean any of the equivalent norms.
 
 As expected for a product construction, the projections \(\pi_X: X \times Y \to X\), and \(\pi_Y: X \times Y \to Y\) are continuous.
 
@@ -679,7 +678,7 @@ As expected for a product construction, the projections \(\pi_X: X \times Y \to 
       \norm{\pi(x)} = \inf_{y \in Y} \norm{x + y} \leq \norm x
     \]
     so \(\norm \pi \leq 1\).
-  \item Let \((x_n) \subseteq X\) be such that \(\pi(x_n) \subseteq X / Y\) is Cauchy. Claim that there exists a subsequence \((n_k) \subseteq \N\) and \((y_n) \subseteq Y\) such that \((x_{n_k} + y_{n_k})_k\) is Cauchy in \(X\): by passing to a subsequence \((n_k)\) we can assume that \(\norm{\pi(x_{n_{k + 1}}) - \pi(x_{n_k})} \leq 2^{-k - 1}\). Now choose \((z_k) \subseteq Y\) such that
+  \item Let \((x_n) \subseteq X\) be such that \(\pi(x_n) \subseteq X / Y\) is Cauchy. Claim that there exists a subsequence \((n_k) \subseteq \N\) and \((y_n) \subseteq Y\) such that \((x_{n_k} + y_k)_k\) is Cauchy in \(X\): by passing to a subsequence \((n_k)\) we can assume that \(\norm{\pi(x_{n_{k + 1}}) - \pi(x_{n_k})} \leq 2^{-k - 1}\). Now choose \((z_k) \subseteq Y\) such that
     \[
       \norm{x_{n_{k + 1}} - x_{n_k} + z_k} \leq 2^{-k}.
     \]
@@ -714,7 +713,7 @@ Recall that if \(X\) is a metric space, then \(Y \subseteq X\) is \emph{dense} i
 \end{theorem}
 
 \begin{proof}
-  Let \(U = \bigcap_{j = 1}^\infty U_j\). Given any \(r \in X, r > 0\), we need to show that \(B_r(x) \cap U = \emptyset\). Since \(U_1\) is dense, there is \(x_1 \in X, r \in (0, 1)\) such that
+  Let \(U = \bigcap_{j = 1}^\infty U_j\). Given any \(x \in X, r > 0\), we need to show that \(B_r(x) \cap U \neq \emptyset\). Since \(U_1\) is dense, there is \(x_1 \in X, r \in (0, 1)\) such that
   \[
     \cl B_{r_1}(x_1) \subseteq B_{2r_1}(x_1) \subseteq U_1 \cap B_r(x).
   \]
@@ -1145,7 +1144,7 @@ Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in 
 
 \subsection{Arzelà-Ascoli theorem}
 
-The key object studied by functional analysis is function space. In this section we prove a theorem that answers the important question when a subset of \(C(K)\) is compact.
+The key object studied in functional analysis is function space. In this section we prove a theorem that answers the important question when a subset of \(C(K)\) is compact.
 
 Since we are studying normed spaces and subspaces thereof, which are in particular metric spaces, here are several notions of compactness in metric spaces. Note that in general they are not equivalent.
 
@@ -1792,7 +1791,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
 \begin{fact}[parallelogram law]
   Let \(X\) be an inner product space, \(x, y \in X\). Then
   \[
-    \norm{x + y}^2 + \norm{x - y}^2 = 2 \norm x + 2 \norm y.
+    \norm{x + y}^2 + \norm{x - y}^2 = 2 \norm x^2 + 2 \norm y^2.
   \]
 \end{fact}
 
@@ -1805,7 +1804,7 @@ However, we can deduce that the partial Fourier sum of \(f\) converges to \(f\) 
 \end{ex}
 
 \begin{definition}[Euclidean]\index{normed space!Eulidean}
-  A normed space is \emph{Eucldiean} if its norm is the norm associated to some inner product.
+  A normed space is \emph{Euclidean} if its norm is the norm associated to some inner product.
 \end{definition}
 
 By polarisation identities, such inner product is unique if exists. The exercise shows that an equivalent characterisation is parallelogram law holds.
@@ -1883,7 +1882,7 @@ By polarisation identities, such inner product is unique if exists. The exercise
 \end{notation}
 
 \begin{eg}
-  From linear algebra we know if \(X\) if finite-dimensional then \(X = Y \oplus Y^\perp\). However this is generally false for infinite diemsnional inner product space. Let \(X = C[0, 1]\) with \((f, g) = \int_0^1 f \conj g dx\) and \(Y = C^1[0, 1] \subseteq C[0, 1]\). Then \(Y^\perp = 0\) since \(\int_0^1 f \conj g dx = 0\) for all \(g \in C^1\) implies \(f = 0\) (as \(f \in C[0, 1]\)).
+  From linear algebra we know if \(X\) is finite-dimensional then \(X = Y \oplus Y^\perp\). However this is generally false for infinite diemsnional inner product space. Let \(X = C[0, 1]\) with \((f, g) = \int_0^1 f \conj g dx\) and \(Y = C^1[0, 1] \subseteq C[0, 1]\). Then \(Y^\perp = 0\) since \(\int_0^1 f \conj g dx = 0\) for all \(g \in C^1\) implies \(f = 0\) (as \(f \in C[0, 1]\)).
 \end{eg}
 
 \begin{theorem}
@@ -2000,7 +1999,7 @@ This can be seen as a generalisation of \(\ell^2 \cong (\ell^2)^*\), as \(\ell^2
 \end{fact}
 
 \begin{proof}
-  Suppose \(P \neq 0\). For any \(x \in X\) such that \(Px \neq 0\) so
+  Suppose \(P \neq 0\). For any \(x \in X\) such that \(Px \neq 0\),
   \[
     \norm{Px}
     = \frac{\norm{Px}^2}{\norm{Px}}
@@ -2069,11 +2068,11 @@ This can be seen as a generalisation of \(\ell^2 \cong (\ell^2)^*\), as \(\ell^2
     If \(f \in Y\), i.e.\ \(f = \sum_{k = -n}^n a_ke_k\) then
     \[
       S_nf
-      = \sum_{k = -n}^n e_k \left( \sum_{\ell = -n}^n a_\ell e_\ell, e_k \right)
+      = \sum_{k = -n}^n e_k ( \sum_{\ell = -n}^n a_\ell e_\ell, e_k )
       = \sum_{k = -n}^n e_k a_k
       = f
     \]
-    as \(\{e_k\}\) is an orthonormal basis. If \(f \in Y^\perp\) the \((f, e_k) = 0\) for all \(|k| \leq n\) so \(S_nf = 0\). Thus \(S_n\) is a projection.
+    as \(\{e_k\}\) is an orthonormal basis. If \(f \in Y^\perp\) then \((f, e_k) = 0\) for all \(|k| \leq n\) so \(S_nf = 0\). Thus \(S_n\) is a projection.
 
     \(S_n\) is also orthogonal since
     \[
@@ -2116,7 +2115,7 @@ Note that an orthonormal basis is not a basis in the linear algebra sense.
 \end{fact}
 
 \begin{proof}
-  Let \(Y = \cl{\spans S}\). Then \(Y\) is complete so \(H = Y \oplus Y^\perp\). Suppose \(Y^\perp \neq 0\). Then there is \(x \in Y^\perp = S^\perp\), \(\norm x = 1\), i.e.\ \(S \cup \{x\}\) is an orthonormal system. The coverse also holds.
+  Let \(Y = \cl{\spans S}\). Then \(Y\) is complete so \(H = Y \oplus Y^\perp\). Suppose \(Y^\perp \neq 0\). Then there is \(x \in Y^\perp = S^\perp\), \(\norm x = 1\), i.e.\ \(S \cup \{x\}\) is an orthonormal system. The converse also holds.
 \end{proof}
 
 \begin{eg}\leavevmode
@@ -2183,7 +2182,7 @@ Thus from now on, we will always assume orthonormal basis to be countable if \(H
 \begin{proposition}[Riesz-Fisher]\index{Riesz-Fisher theorem}
   Let \(H\) be a separable infinite-dimensional Hilbert space with orthonormal basis \(\{e_i\}_{i = 1}^\infty\). Then
   \begin{enumerate}
-  \item for any \(x \in X\), set \(x_i = (x_i, e_i) \in \K\). Then \((x_i) \in \ell^2\) and
+  \item for any \(x \in X\), set \(x_i = (x, e_i) \in \K\). Then \((x_i) \in \ell^2\) and
     \[
       x = \sum_{i = 1}^\infty x_ie_i.
     \]
@@ -2204,7 +2203,7 @@ Thus from now on, we will always assume orthonormal basis to be countable if \(H
 
 % each choice of basis gives an isomorphism?
 
-In fact, the concrete space \(\ell^2\) is the one studied intensively by Hilbert and indeed this theorem shows that it is a prototype for a large class of Hilbert spaces. The term ``Hilbert space'' was coined by von Neumann, in his attempt to formulate quantum mechanics.
+In fact, the concrete space \(\ell^2\) is the one studied by Hilbert and indeed this theorem shows that it is a prototype for a large class of Hilbert spaces. The term ``Hilbert space'' was coined by von Neumann, in his attempt to formulate quantum mechanics.
 
 \begin{proof}\leavevmode
   \begin{enumerate}
@@ -2232,7 +2231,7 @@ In fact, the concrete space \(\ell^2\) is the one studied intensively by Hilbert
     \]
   \item If \((x_i) \in \ell^2\), the sum \(x = \sum_{i = 1}^\infty x_ie_i\) converges by the same argument. Then
     \[
-      (x, e_i) = \lim_{n \to \infty} \left( \sum_{j = 1}^i x_je_j, e_i \right) = x_i.
+      (x, e_i) = \lim_{n \to \infty} \left( \sum_{j = 1}^n x_je_j, e_i \right) = x_i.
     \]
   \item Similarly,
     \[
@@ -2268,12 +2267,12 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
 \end{definition}
 
 \begin{remark}
-  If \(T - z\) is bounded (as in our setting) and bijective the condition \((T - z)^{-1} \in B(X)\) is automatic by open mapping theorem. For unbounded operators, which we do not discuss, it has to be included in the definition.
+  If \(T - z\) is bounded (as in our setting) and bijective the condition \((T - z)^{-1} \in B(X)\) is automatic by open mapping theorem. For unbounded operators, which we do not discuss, it does not follow automatically and has to be included in the definition.
 \end{remark}
 
 \begin{proposition}
   \label{prop:openness of resolvent set}
-  Let \(z \in \rho(T)\). Then \(\rho(T)\) contains the disk
+  Let \(z_0 \in \rho(T)\). Then \(\rho(T)\) contains the disk
   \[
     D = \{z \in \C: |z - z_0| \norm{R_T(z_0)} < 1\}.
   \]
@@ -2281,9 +2280,12 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
 \end{proposition}
 
 \begin{lemma}
-  Let \(T\in B(X)\) with \(\norm T \leq 1\). Then the series \(\sum_{n = 1}^\infty T_n\) converges in \(B(X)\) and
+  Let \(T\in B(X)\) with \(\norm T < 1\). Then the series \(\sum_{n = 0}^\infty T_n\) converges in \(B(X)\) and
   \[
-    (1 - T)^{-1} = \sum_{n = 0}^\infty T^n,
+    (1 - T)^{-1} = \sum_{n = 0}^\infty T^n
+  \]
+  with
+  \[
     \norm{(1 - T)^{-1}} \leq \frac{1}{1 - \norm T}.
   \]
 \end{lemma}
@@ -2302,11 +2304,11 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
     \leq \sum_{k = 0}^\infty \norm T^k
     = \frac{1}{1 - \norm T}.
   \]
-
   Moreover,
   \[
     S(1 - T)
-    = \sum_{k = 0}^\infty T^k = \sum_{k = 0}^\infty T^k - \sum_{k = 1}^\infty T^k = \id.
+    = \sum_{k = 0}^\infty T^k - \sum_{k = 1}^\infty T^k
+    = \id.
   \]
 \end{proof}
 
@@ -2315,15 +2317,15 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
   \[
     T - z
     = (T - z_0) - (z - z_0)
-    = (T - z_0) (\id - \underbrace{R_T(z_0) (z - z_0)}_{\norm \cdot \leq \norm{T_R(z_0)} |z - z_0| < 1})
+    = (T - z_0) (1 - \underbrace{R_T(z_0) (z - z_0)}_{\norm \cdot \leq \norm{R_T(z_0)} |z - z_0| < 1})
   \]
   so by the lemma
   \[
-    (\id - R_T(z_0) (z - z_0))^{-1} = \sum_{n = 0}^\infty (z - z_0)^n R_T(z_0)^n \in B(X).
+    (1 - R_T(z_0) (z - z_0))^{-1} = \sum_{n = 0}^\infty (z - z_0)^n R_T(z_0)^n \in B(X).
   \]
   Thus
   \[
-    (T - z) = \sum_{n = 0}^\infty (z - z_0)^n R_T(z_0)^{n + 1} \in B(X)
+    (T - z)^{-1} = \sum_{n = 0}^\infty (z - z_0)^n R_T(z_0)^{n + 1} \in B(X)
   \]
   so \(z \in \rho(T)\). Thus \(D \subseteq \rho(T)\) and \(R_T\) is analytic on \(\rho(T)\).
 \end{proof}
@@ -2336,7 +2338,7 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
 \end{corollary}
 
 \begin{proof}
-  For any \(|z| \geq \norm T\),
+  For any \(|z| > \norm T\),
   \[
     - R_T(z) = \frac{1}{z} \frac{1}{1 - T/z} = \frac{1}{z} \sum_{n = 0}^\infty \frac{T^n}{z^n} \in B(X).
   \]
@@ -2347,14 +2349,14 @@ Roughly speaking spetral theory studies eigenvalues of operators. From now on Ba
 
 \subsection{Classification of spectrum}
 
-We would like to understand why \(T - z\) fails to be bijective. One reason, as in finite-dimensional case, is that \(\ker(T - z) \neq 0\). But even if the kernel is trivial it may fail to be bijective. We need first a proposition.
+We would like to understand why \(T - z\) fails to be bijective. One reason, as in finite-dimensional case, is that \(\ker(T - z) \neq 0\). But even if the kernel is trivial it may fail to be bijective.
 
 \begin{proposition}
-  Let \(X\) be a Banach space, \(Y\) a normed space and \(T \in B(X, Y)\). Then its left inverse \(T^{-1} \in B(Y, X)\) if and only if \(T\) is dense in \(Y\) and \(T\) is bounded below, i.e.\ exists \(\varepsilon > 0\) such that for all \(x \in X\), \(\norm{Tx} \geq \varepsilon \norm x\).
+  Let \(X\) be a Banach space, \(Y\) a normed space and \(T \in B(X, Y)\). Then its inverse \(T^{-1} \in B(Y, X)\) if and only if \(\im T\) is dense in \(Y\) and \(T\) is bounded below, i.e.\ exists \(\varepsilon > 0\) such that for all \(x \in X\), \(\norm{Tx} \geq \varepsilon \norm x\).
 \end{proposition}
 
 \begin{proof}
-  The only if direction is immediate. Thus assume that \(T \in B(X, Y)\) is such that \(\im T\) is dense and \(T\) is bounded below. Since \(T\) is bounded below \(T\) is injective so bijective and onto its image. Let \(S: \im T \to X\) be its inverse. Since \(T\) is bounded below, \(S\) is bounded. Since \(\im T\) is dense in \(Y\) and \(X\) is complete, \(S\) extends uniquely to a map \(\tilde S: Y \to X\). Moreover \(\tilde S \in B(Y, X)\) and for any sequence \(y_k \to y, y_k \in \im T\),
+  The only if direction is immediate. Thus assume that \(T \in B(X, Y)\) is such that \(\im T\) is dense and \(T\) is bounded below. Since \(T\) is bounded below \(T\) is injective so bijective onto its image. Let \(S: \im T \to X\) be its inverse. Since \(T\) is bounded below, \(S\) is bounded. Since \(\im T\) is dense in \(Y\) and \(X\) is complete, \(S\) extends uniquely to a map \(\tilde S: Y \to X\). Moreover \(\tilde S \in B(Y, X)\) and for any sequence \(y_k \to y, (y_k) \subseteq \im T\),
   \[
     T \tilde S y = \lim_{k \to \infty} TS y_k = \lim_{k \to \infty} y_k = y
   \]
@@ -2366,7 +2368,7 @@ We would like to understand why \(T - z\) fails to be bijective. One reason, as 
   \begin{itemize}
   \item The \emph{point spectrum} or set of \emph{eigenvalues} is
     \[
-      \sigma_p(T) = \{\lambda \in \C: T - \lambda \text{ is not injective}\}.
+      \sigma_p(T) = \{\lambda \in \sigma(T): T - \lambda \text{ is not injective}\}.
     \]
   \item The \emph{continuous spectrum} is
     \[
@@ -2395,7 +2397,7 @@ We would like to understand why \(T - z\) fails to be bijective. One reason, as 
   \[
     \sigma_p(T) = \{\lambda \in \C: \det(T - \lambda) = 0\}
   \]
-  contains at most \(n = \dim X\) points. In partciular \(\rho(T) = \C \setminus \sigma(T)\) is dense in \(\C\).
+  contains at most \(n = \dim X\) points. In particular \(\rho(T) = \C \setminus \sigma(T)\) is dense in \(\C\).
 \end{eg}
 
 \subsection{Adjoints}
@@ -2420,7 +2422,7 @@ We would like to understand why \(T - z\) fails to be bijective. One reason, as 
   \[
     \norm{T^*f}_{X^*} \leq \norm f_{Y^*} \norm T
   \]
-  so \(\norm{T^*} \leq \norm T\). In general \(\norm{T^*} \geq \norm T\) follows from the Hahn-Banach theorem but for some spaces, such as \(\ell^p\) and Hilbert spaces we may write down an explicit element saturating the bound.
+  so \(\norm{T^*} \leq \norm T\). In general \(\norm{T^*} \geq \norm T\) follows from the Hahn-Banach theorem\index{Hahn-Banach theorem} but for some spaces, such as \(\ell^p\) and Hilbert spaces we may write down an explicit element saturating the bound.
 \end{proof}
 
 \begin{definition}
@@ -2455,7 +2457,7 @@ From now on, we write \(T^*\) instead of \(\tilde T^*\) for a Hilbert space \(H\
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(\id^* = \id\). More generally \((\lambda \id)^* = \conj \lambda \id\).
-  \item Let \(H = \ell^2\) and \(T\) is the left shift operator then \(T^*\) is the right shift operator.
+  \item Let \(H = \ell^2\). If \(T\) is the left shift operator then \(T^*\) is the right shift operator.
   \end{enumerate}
 \end{eg}
 
@@ -2487,7 +2489,7 @@ From now on, we write \(T^*\) instead of \(\tilde T^*\) for a Hilbert space \(H\
 In particular self-adjoint and unitary operators are normal.
 
 \begin{ex}
-  Let \(T \in B(H)\) be normal. Then \(\norm{Tx} = \norm{T^*x}\) for all \(H\) and
+  Let \(T \in B(H)\) be normal. Then \(\norm{Tx} = \norm{T^*x}\) for all \(x\) and
   \[
     \ker T = \ker T^* = (\im T)^\perp = (\im T^*)^\perp.
   \]
@@ -2502,7 +2504,7 @@ In particular self-adjoint and unitary operators are normal.
 \end{corollary}
 
 \begin{corollary}
-  For \(T\) normal, if \(Tx = \lambda x\) then \(T^*x = \conj \lambda x\). In partciular
+  For \(T\) normal, if \(Tx = \lambda x\) then \(T^*x = \conj \lambda x\). In particular
   \[
     \sigma_p(T^*) = \conj{\sigma_p(T)}
   \]
@@ -2510,7 +2512,7 @@ In particular self-adjoint and unitary operators are normal.
 
   Similarly if \(Tx_j - \lambda x_j \to 0\) then \(T^* x_j - \lambda x_j \to 0\) so
   \[
-    \sigma_{op}(T^*) = \conj{\sigma_{op}(T)}.
+    \sigma_{ap}(T^*) = \conj{\sigma_{ap}(T)}.
   \]
 \end{corollary}
 
@@ -2519,7 +2521,7 @@ In particular self-adjoint and unitary operators are normal.
   \[
     \norm{(T - \lambda) x} = \norm{(T - \lambda)^* x} = \norm{(T^* - \conj \lambda) x}
   \]
-  so \(Tx = \lambda x\) if and only if \(T^*x = \conj \lambda x\). More generally \((T - \lambda)x_j \to 0\), where \(\norm{x_j} = 1\), if and only if \((T^* - \conj \lambda) x_j \to 0\) so \(\sigma_{op}(T^*) = \conj{\sigma_{op}(T)}\).
+  so \(Tx = \lambda x\) if and only if \(T^*x = \conj \lambda x\). More generally \((T - \lambda)x_j \to 0\), where \(\norm{x_j} = 1\), if and only if \((T^* - \conj \lambda) x_j \to 0\) so \(\sigma_{ap}(T^*) = \conj{\sigma_{ap}(T)}\).
 \end{proof}
 
 \begin{corollary}
@@ -2562,7 +2564,7 @@ In particular self-adjoint and unitary operators are normal.
     &= \frac{\norm T^2}{\norm T} \\
     &= \frac{1}{\norm T} \lim_{i \to \infty} (Tx_i, Tx_i) \\
     &= \frac{1}{\norm T} \lim_{i \to \infty} (x_i, T^2x_i) \\
-    &= \lim_{i \to \infty} \frac{1}{T x_i} (x_i, T^2x_i) \\
+    &= \lim_{i \to \infty} \frac{1}{\norm{T x_i}} (x_i, T^2x_i) \\
     &= \lim_{i \to \infty} (x_i, Ty_i)
   \end{align*}
   where \(y_i = \frac{Tx_i}{\norm{Tx_i}}\). Taking sup,
@@ -2581,12 +2583,11 @@ In particular self-adjoint and unitary operators are normal.
   \]
   is clear. For the other direction
   \begin{align*}
-    % ?assume (x, Ty) is real
     |(x, Ty)|
-    &= \frac{1}{4} |(T(x + y), x + y) - (T(x - y), (x - y))| \\
+    &= \frac{1}{4} |(T(x + y), x + y) - (T(x - y), x - y)| \\
     &\leq \frac{1}{4} \sup_{\norm z \leq 1} |(Tz, z)| (\norm{x + y}^2 + \norm{x - y}^2) \\
-    &\leq \frac{1}{4} \sup_{\norm z \leq 1} \underbrace{(2 \norm x^2 + 2 \norm y^2)}_{\leq 4} \\
-    &\leq \sup_{\norm z \leq 1} 
+    &\leq \frac{1}{4} \sup_{\norm z \leq 1} |(Tz, z)| \underbrace{(2 \norm x^2 + 2 \norm y^2)}_{\leq 4} \\
+    &\leq \sup_{\norm z \leq 1} |(Tz, z)|
   \end{align*}
 \end{proof}
 
@@ -2602,16 +2603,14 @@ In particular self-adjoint and unitary operators are normal.
   Then there is \((x_i) \subseteq H\), \(\norm{x_i} = 1\) such that \((x_i, Tx_i) \to \norm T = \lambda\). Then
   \[
     \norm{T x_i - \lambda x_i}^2
-    = \underbrace{\norm{Tx_i}^2}_{\leq \lambda^2} - 2 \lambda \underbrace{(x_i, Tx_i)}_{\to \Lambda} + \lambda^2
+    = \underbrace{\norm{Tx_i}^2}_{\leq \lambda^2} - 2 \lambda \underbrace{(x_i, Tx_i)}_{\to \lambda} + \lambda^2
     \to 0
   \]
 \end{proof}
 
 \subsection{Spectral theorem for compact self-adjoint operators}\index{compact operator}
 
-Recall that give normed spaces \(X\) and \(Y\), \(T \in B(X, Y)\) is \emph{compact} if \(T(B)\) is relatively compact in \(Y\) for any bounded set \(B \subseteq X\).
-
-Let \(T\) be a self-adjoint operator throughout this section.
+Recall that given normed spaces \(X\) and \(Y\), \(T \in B(X, Y)\) is \emph{compact} if \(T(B)\) is relatively compact in \(Y\) for any bounded set \(B \subseteq X\).
 
 \begin{lemma}\index{approximate eigenvalue}\index{eigenvalue}
   Let \(T\) be compact. Then any nonzero approximate eigenvalue is an eigenvalue.
@@ -2621,12 +2620,12 @@ Let \(T\) be a self-adjoint operator throughout this section.
   Assume that \(Tx_i - \lambda x_i \to 0\) with \(\norm{x_i} = 1, \lambda \neq 0\). By compactness of \(T\) there is a subsequence such that \(Tx_i \to y\) along that subsequence. Then along that subsequence
   \[
     Ty
-    = T \lim Tx_i
-    = \lim T(\lambda x_i)
-    = \lambda \lim Tx_i
+    = T \lim_{i \to \infty} Tx_i
+    = \lim_{i \to \infty} T(\lambda x_i)
+    = \lambda \lim_{i \to \infty} Tx_i
     = \lambda y
   \]
-  To \(Ty = \lambda y\). Moreover if \(\lambda \neq 0\) then \(y \neq 0\).
+  so \(Ty = \lambda y\). Moreover if \(\lambda \neq 0\) then \(y \neq 0\).
 \end{proof}
 
 \begin{corollary}
@@ -2652,11 +2651,11 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-  \item Assume \(Tx = \lambda x\) and \(Ty = \lambda y\) and wlog \(\lambda \neq 0\). Then
+  \item Assume \(Tx = \mu x\) and \(Ty = \lambda y\) and wlog \(\lambda \neq 0\). Then
     \[
       (x, y)
       = \frac{1}{\lambda} (Tx, y)
-      = \frac{1}{\sigma} (x, Ty)
+      = \frac{1}{\lambda} (x, Ty)
       = \frac{\mu}{\lambda} (x, y)
     \]
     so \(\mu = \lambda\) or \((x, y) = 0\).
@@ -2667,7 +2666,7 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
       = \frac{1}{\lambda_i} (Tx, y)
       = \frac{1}{\lambda_i} (x, Ty)
     \]
-    so \((x, Ty) = 0\) for all \(x \in \oplus_{i \in I} E_{\lambda_i}, y \in (\oplus_{i \in I} E_{\lambda_i})^\perp\).
+    so \((x, Ty) = 0\) for all \(x \in \bigoplus_{i \in I} E_{\lambda_i}\), i.e.\ \(Ty \in (\bigoplus_{i \in I} E_{\lambda_i})^\perp\).
   \end{enumerate}
 \end{proof}
 
@@ -2680,7 +2679,7 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
   \[
     \norm{Tx_i - Tx_j}^2
     = \norm{Tx_i}^2 + \norm{Tx_j}^2
-    \geq 2 \varepsilon^2
+    \geq 2 \varepsilon^2,
   \]
   contradicting compactness of \(T\) as \((Tx_i)\) does not have a convergent subsequence.
 \end{proof}
@@ -2689,17 +2688,17 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
   Let \(T \in B(H)\) be self-adjoint and compact. Then there are at most countably many distinct eigenvalues \((\lambda_i)\) which can accumulate at \(0\). The eigenspaces \(E_{\lambda_i}\) and \(E_{\lambda_j}\) are orthogonal for \(i \neq j\). \(E_{\lambda_i}\) is finite-dimensional for \(\lambda_i \neq 0\), and
   \begin{align*}
     T &= \sum_{j = 0}^\infty \lambda_jP_{\lambda_j} \\
-    H &= (\ker T) \oplus (\bigoplus_i E_{\lambda_i})
+    H &= (\ker T) \oplus (\cl{\bigoplus_i E_{\lambda_i}})
   \end{align*}
   where \(P_{\lambda_j}\) is the orthogonal projection\index{orthogonal projection} onto \(E_{\lambda_j}\).
 \end{theorem}
 
 \begin{proof}
-  By the previous two lemmas there is an eigenvalue \(\lambda_1\) such that \(\lambda_1 = \norm T\) or \(- \norm T\). Given \(|\lambda_1| \geq |\lambda_2 \geq \dots \geq |\lambda_k|\) such that \(T\) has no other eigenvalues \(> |\lambda_k|\), let
+  By the previous two lemmas there is an eigenvalue \(\lambda_1\) such that \(\lambda_1 = \norm T\) or \(- \norm T\). Given \(|\lambda_1| \geq |\lambda_2| \geq \dots \geq |\lambda_k|\) such that \(T\) has no other eigenvalues \(> |\lambda_k|\), let
   \[
     H_k = (\bigoplus_{j = 1}^k E_{\lambda_j})^\perp
   \]
-  Then \(H_k \subseteq H\) is closed so itself a Hilbert space. Also \(T\) is \(H_k\)-stable and \(\norm{T|_{H_k}} \leq |\lambda_k|\). Thus there is an eigenvalue \(\lambda_{k + 1}\) different from the \(\lambda_i\)'s, \(i \leq k\), with \(|\lambda_{k + 1}| = \norm{T|_{H_k}} \leq |\lambda_k|\) and there is no other eigenvalue \(\mu\) with \(|\lambda_{k + 1}| < |\mu| \leq |\lambda_k|\). This defines a sequence \((\lambda_i)\) with \(|\lambda_{i + 1}| \leq |\lambda_i|\) for all \(i\). Since \(\bigoplus_{|\lambda_i| \geq \varepsilon} E_{\lambda_i}\) is finite-dimensional, the sequence can only accummulate at \(0\). In particular \((\lambda_k)\) is finite or countable with \(\lambda_k \to 0\).
+  Then \(H_k \subseteq H\) is closed so is itself a Hilbert space. Also \(T\) is \(H_k\)-stable and \(\norm{T|_{H_k}} \leq |\lambda_k|\). Thus there is an eigenvalue \(\lambda_{k + 1}\) different from the \(\lambda_i\)'s, \(i \leq k\), with \(|\lambda_{k + 1}| = \norm{T|_{H_k}} \leq |\lambda_k|\) and there is no other eigenvalue \(\mu\) with \(|\lambda_{k + 1}| < |\mu| \leq |\lambda_k|\). This defines a sequence \((\lambda_i)\) with \(|\lambda_{i + 1}| \leq |\lambda_i|\) for all \(i\). Since \(\bigoplus_{|\lambda_i| \geq \varepsilon} E_{\lambda_i}\) is finite-dimensional, the sequence can only accummulate at \(0\). In particular \((\lambda_k)\) is finite or countable with \(\lambda_k \to 0\).
 
   Since \(T|_{(\bigoplus_{\lambda \neq 0} E_\lambda)^\perp} = T|_{(\cl{\bigoplus_{\lambda \neq 0} E_\lambda})^\perp}\) cannot have a nonzero eigenvalue, must have \(\norm{T|_{(\cl{\bigoplus_{\lambda \neq 0} E_\lambda})^\perp}} = 0\). Thus
   \[
@@ -2708,7 +2707,7 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
   and
   \begin{align*}
     \norm{Tx - \sum_{i = 1}^n \lambda_i P_{\lambda_i} x}
-    &= \norm{Tx - T_m x} \quad \text{ where } P_n = \sum_{i = 1}^n P_{\lambda_i} \\
+    &= \norm{Tx - TP_n x} \quad \text{ where } P_n = \sum_{i = 1}^n P_{\lambda_i} \\
     &= \norm{T(1 - P_n) x} \quad \text{ where } 1 - P_n \text{ is projection onto } (\bigoplus_{i = 1}^n E_{\lambda_i})^\perp = H_n \\
     &\leq \norm{T|_{H_n}} \norm x \\
     &\leq |\lambda_n| \norm x
@@ -2726,13 +2725,12 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
     \sigma(T) \cup \{0\} = \sigma_p(T) \cup \{0\}.
   \]
 \end{corollary}
-%TODO: should be union \(0\).
 
 \begin{proof}
-  Let \(T_n = \sum_{i = 1} \lambda_iP_i\). Let \(T \notin \sigma_p(T) \cup \{0\}\). Then
+  Let \(T_n = \sum_{i = 1}^n \lambda_iP_{\lambda_i}\). Let \(\mu \notin \sigma_p(T) \cup \{0\}\). Then
   \[
     T_n - \mu
-    = \sum_{i = 1}^n (\lambda_i - \mu) P_{\lambda_1} - \mu \underbrace{(1 - \sum_{i = 1}^n P_{\lambda_i})}_{1 - P_n}
+    = \sum_{i = 1}^n (\lambda_i - \mu) P_{\lambda_i} - \mu \underbrace{(1 - \sum_{i = 1}^n P_{\lambda_i})}_{1 - P_n}
   \]
   so
   \[
@@ -2742,7 +2740,7 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
   \[
     \norm{(T_n - \mu)^{-1}} \leq \max \{|\mu|^{-1}, |\lambda_i - \mu|^{-1}\} \leq C
   \]
-  as \(\lambda_i \neq 0\) and \(\mu \neq 0\). Thus
+  as \(\lambda_i \neq \mu\) and \(\mu \neq 0\). Thus
   \[
     T - \mu
     = T_n - \mu + (T - T_n)
@@ -2751,14 +2749,134 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
   so \((T - \mu)^{-1} \in B(H)\), thus \(\mu \notin \sigma(T)\).
 \end{proof}
 
+\begin{corollary}
+  Let \(H\) be a separable\index{separable} and \(T \in B(H)\) self-adjoint and compact. Then there is an orthonormal basis for \(H\) of \(T\) eigenfunctions.
+\end{corollary}
 
+\begin{proof}
+  Apply Gram-Schmidt to eigenspaces.
+\end{proof}
 
+\subsection{Application: boundary value problem}
 
+Let \(T\) be the \(1\)-dimensional Schrödinger operator acting on \(C^2[a, b]\) by
+\[
+  Tu(x) = -u''(x) + V(x) u(x), u \in C^2[a, b]
+\]
+with boundary condition
+\[
+  u(a) = u(b) = 0
+\]
+and where \(V \in C[a, b]\).
 
+We want to apply the spectral theorem but there are two imminent problems: \(C^2[a, b]\) is not a Hilbert space, and \(T\) is not even a operator on \(C^2[a, b]\).
+
+\begin{theorem}
+  There exists a continuous function (\emph{Green function}\index{Green function}) \(k: [a, b] \to \R\) such that the unique solution \(u \in C^2[a, b]\) to the bundary value problem
+  \begin{align*}
+    Tu(x) &= f(x) \quad f \text{ continuous} \\
+    u(a) &= u(b) = 0
+  \end{align*}
+  is given by
+  \begin{align*}
+    u(x) &= \int_a^b k(x, y)f(y) dy \\
+    k(x, y) &= k(y, x)
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Result in analysis. Omitted.
+\end{proof}
+
+\begin{lemma}
+  Let \(k: [a, b]^2 \to \R\) be continuous. Then the integral operator
+  \begin{align*}
+    K: (C[a, b], \norm \cdot_2) &\to (C[a, b], \norm \cdot_\infty) \\
+    Kf(x) &= \int_a^b k(x, y) f(y) dy
+  \end{align*}
+  is bounded and compact.
+\end{lemma}
+
+\begin{proof}
+  By Cauchy-Schwarz,
+  \begin{align*}
+    \norm{Kf}_\infty
+    &\leq \sup_x \int_a^b |k(x, y)| |f(y)| dy \\
+    &\leq \underbrace{\sup_x \left(\int |k(x, y)|^2 dy \right)^{1/2}}_{\leq C} \left( \int |f(y)|^2 dy \right)^{1/2} \\
+    &\leq C \norm f_2
+  \end{align*}
+  so \(K\) is bounded. Also \(B = \{Kf: f \in C[a, b], \norm f_2 \leq 1\}\) is equicontinuous:
+  \begin{align*}
+    |Kf(x) - Kf(y)|
+    \leq \underbrace{\left(\int |k(x, z) - k(y, z)|^2 dz \right)^{1/2}}_{\to 0 \text{ as } |x - y| \to 0 \text{ by continuity}} \norm f_2
+    \to 0
+  \end{align*}
+  uniform in \(f \in B\). Thus compactness follows from Arzelà-Ascoli.
+  % TODO: check definition of compactness
+\end{proof}
+
+\begin{corollary}
+  \(K: (C[a, b], \norm \cdot_2) \to (C[a, b], \norm \cdot_2)\) is compact.
+\end{corollary}
+
+\begin{proof}
+  \[
+    \norm{Kf}_2
+    = \left(\int |Kf(x)|^2 dx \right)^{1/2}
+    \leq \sqrt{|a - b|} \norm{Kf}_\infty
+  \]
+  so the embedding of \((C[a, b], \norm \cdot_\infty) \to (C[a, b], \norm \cdot_2)\) is continous. %?
+\end{proof}
+
+Let \(H = L^2[a, b]\) be the completion of \((C[a, b], \norm \cdot_2)\). In particular \(C[a, b]\) is dense in \(L^2[a, b]\).
+
+\begin{fact}
+  Let \(X, Y\) be Banach spaces and \(D \subseteq X\) a dense subspace. Then a bounded (compact, respectively) operator \(T: D \to Y\) extends uniquely to a bounded (compact, respectively) operator \(T: X \to Y\) with the same operator norm.
+\end{fact}
+
+\begin{corollary}
+  \(K\) extends uniquely to a compact self-adjoint operator \(K: H \to H\). Moreover \(Kf \in C[a, b]\) for any \(f \in H\).
+\end{corollary}
+
+% This gives inverse of \(T\). A stategy commonly used in PDE: the original operator might not be bounded or compact but its inverse is.
+% we can also look at resolvent: in the resolvent set
+
+\begin{proof}
+  That \(K\) is compact follows from the above fact. That \(K\) is self-adjoint follows from the symmetry of \(k\):
+  \begin{align*}
+    (f, Kg)
+    &= \int f(x) K(x, y) \conj{g(y)} dxdy \\
+    &= \int f(x) K(y, x) \conj{g(y)} dxdy \\
+    &= \conj{(g, Kf)} \\
+    &= (Kf, g)
+  \end{align*}
+  That \(Kf \in C[a, b]\) for any \(f \in H\) follows from the fact that \(K\) is also bounded from \((C[a, b], \norm \cdot_2) \to (C[a, b], \norm \cdot_\infty)\) and thus by the previous fact from \(H \to (C[a, b], \norm \cdot_\infty)\). Finally embed \((C[a, b], \norm \cdot_\infty)\) to \(H\). All of these constructions are unique.
+\end{proof}
+
+Putting everything together, by the spectral theorem, there exists an orthonormal basis \((f_n) \subseteq H\) with eigenvalues \((\mu_n) \subseteq \R, \mu_n \to 0\) such that
+\[
+  Kf = \sum_{n = 1}^\infty \mu_n(f, f_n) f_n
+\]
+in \(H\). By the last corollary, if \(\mu_n \neq 0\) then
+\[
+  f_n = \frac{1}{\mu_n} Kf_n \in C[a, b]
+\]
+% something something so eigenfunctions as continuous functions???
+and in fact then \(f_n \in C^2[a, b]\) since \(Kf \in C^2[a, b]\) if \(f \in C[a, b]\).
+
+Assuming \(\ker k = 0\), there is thus an orthonormal basis of \(C^2\) eigenfunctions of \(K\). Write \(\lambda_n = \frac{1}{\mu_n}\), have
+\[
+  Tf_n = \lambda_n TKf_n = \lambda_nf_n
+\]
+so these eigenfunctions \(f_n\) are also eigenfunctions of \(T_n\) and \(\lambda_n \to \infty\).
+
+%Physically, the eigenfunctions are the energy eigenfunctions.
+
+In quantum mechanics, the vectors \(f \in H\) describe the state of a system and \(|f(x)|^2\) the probability density of finding a particle at \(x \in [a, b]\).
 
 \section{Hahn-Banach theorem*}
 
-When can one extend a bounded linear map defined on some \(Y \subseteq X\) onto \(X\)? Naturally we require the extension of a bounded map to be bounded. In fact we do things slightly more generally.
+When can one extend a bounded linear map defined on some \(Y \leq X\) onto \(X\)? Naturally we require the extension of a bounded map to be bounded. In fact we do things slightly more generally.
 
 \begin{definition}[sublinear map]\index{sublinear map}
   Let \(X\) be a real vector space. A map \(\rho: X \to \R\) is \emph{sublinear} if
@@ -2868,6 +2986,7 @@ In particular this implies that the dual of any nontrivial normed space is nontr
 \begin{corollary}
   Let \(V\) be a normed vector space and \(v \in V\). If \(f(v) = 0\) for all \(f \in V^*\) then \(v = 0\).
 \end{corollary}
+
 
 \printindex
 \end{document}

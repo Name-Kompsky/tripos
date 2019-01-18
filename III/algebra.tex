@@ -14,6 +14,7 @@
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\Der}{Der}
 \DeclareMathOperator{\Innder}{Innder}
+\DeclareMathOperator{\gr}{gr}
 
 \begin{document}
 
@@ -293,5 +294,74 @@ Note that the degree of \(\chi\) gives us another dimension.
   For \(m > 0\), multiplication by \(x_m\) gives \(R_0\)-module homomorphisms \(x_m: V_i \to V_{i + k_m}\). Let \(K_i\) and \(L_{i + k_m}\) be the kernel and cokernel of the map and let \(K = \bigoplus K_i, L = \bigoplus L_i\). \(K\) is a graded submodule of \(V = \bigoplus V_i\) and so is a finitely generated \(R\)-module and \(L = V/x_mV\) is also a finitely generated \(R\)-module. Observe that \(x_m\) acts trivially on both and so \(K\) and \(L\) may be regarded as \(R_0[x_1, \dots, x_{m - 1}]\)-module.
 \end{proof}
 
+*Missed lecture on 24/11/18 (filtered ring)
+
+Last task is to use our knowledge of commutative graded rings to give information about filtered rings where associated graded is commutative. and Noetherian.
+
+For a (not necessarily commutative) ring \(R\) with a maximal ideal \(\mathfrak p\) with \(R/\mathfrak p\) a field \(K\), form \(\gr R\) associated to the \(\mathfrak p\)-adic filtration. Recall that the \(\mathfrak p\)-filtration is a negative one, and so \(\gr R\) is a negatively graded ring. However we observed that we renumber a negatively graded ring to be positively graded. Assume that \(\gr R\) is commutative and now positively graded. Apply Hilbert-Serre with \(\lambda\) the \(K\)-vector space dimension. Take a finitely generated \(R\)-module \(M\) and form \(\gr M\) and renumber so it is also positively graded. Now by Hilbert-Serre
+\[
+  \dim_K(M \mathfrak p^i/M \mathfrak p^{i + 1}) = \phi(i)
+\]
+for \(i\) large enough for some rational polynomial \(\phi(t) \in \Q[t]\).
+
+We also know that
+\[
+  \sum_{j = 0}^i \dim_K (M \mathfrak p^j/M \mathfrak p^{j + 1}) = \chi(i)
+\]
+for some rational polynomial \(\chi(t)\) and for \(i\) large enough. However LHS is precisely the composition length of \(M /M \mathfrak p^{i + 1}\), given by a rational polynomial \(\chi(t)\) of degree \(d\). This gives yet another dimension.
+
+\begin{definition}
+  \(d(M) = d\).
+\end{definition}
+
+In particular this gives \(d(R)\). Note that this dimension depends on the choice of the maximal ideal \(\mathfrak p\).
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item For a commutative Noetherian local ring that is an integral domain, \(d(R) = \dim R\). In example sheet 4 we show this holds for any regular local ring.
+  \item For a finitely generated \(k\)-algebra \(R\) which is an integral domain we saw on example sheet that all maximal ideals have the same height, namely the dimension \(R\). So \(\dim R = \dim R_{\mathfrak p} = d(R)\) for any maximal ideal \(\mathfrak p\) and any \(\mathfrak p\)-adic filtration.
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}[Hilbert's Syzygy theorem]\index{Hilbert's Syzygy theorem}
+  Let \(k\) be a field and \(R = k[x_1, \dots, x_n]\) considered as a graded ring with respect to total degree. Let \(M\) be a finitely generated grade \(R\)-module. Then there is a free resolution of \(M\) of length \(\leq n\).
+\end{theorem}
+
+\begin{proof}
+  First we recall that the Koszul complex gives a free resolution of the trivial module \(k\) of length \(n\). We're going to view \(\Tor_M(k, M)\) in two different way. We can either apply \(- \otimes M\) to the Koszul complex (free resolution of \(k\)), or apply \(k \otimes -\) to a free resolution of \(M\), and we know that the homology groups arising from these two approaches are the same.
+
+  We can take a free resolution of \(M\)
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & F_n \ar[r] & F_{n - 1} \ar[r] & \cdots \ar[r] & F_1 \ar[r] & F_0 \ar[r] & M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  with each \(F_i\) of finite rank. Moreover we may assume it is minimal in the sense that the rank can't be less. For example \(\operatorname{rk}(F_0)\) equals tot he minimal number of generators of \(M\). This is called the \emph{minimal free resolution}\index{minimal free resolution} for \(M\). The crucial point is that if we consider
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & K \ar[r] & F_0 \ar[r] & M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where \(K\) is the first syzygy module, then when we apply \(k \otimes -\) we get
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & k \otimes K \ar[r] & k \otimes F_0 \ar[r] & k \otimes M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  and minimality implies that \(k \otimes K \to k \otimes F_0\) is the zero map. Hence apply \(k \otimes -\) to our minimal resolution,
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & k \otimes F_n \ar[r] & k \otimes F_{n - 1} \ar[r] & \cdots \ar[r] & k \otimes F_0 \ar[r] & k \otimes M
+    \end{tikzcd}
+  \]
+  and all these maps, apart from the last one, are zero. So it is eqsy to read off that the homology groups are \(k \otimes F_i\) which is a \(k\)-vector space of dimension equal to rank of \(F_i\).
+
+  However applying \(- \otimes M\) to the Koszul complex we learn that \(\Tor^i(k, M) = 0\) for \(i \geq n + 1\), we deduce that in our minimal resolution \(F_i\) is of rank \(0\) for \(i \geq n + 1\). In other words, \(F_0 = 0\) for \(i \geq n + 1\). Thus our minimal resolution is of length \(\leq n\).
+\end{proof}
+
+
+
 \printindex
 \end{document}
+
+% Book: C. Weibel: An introduction to homological algebra
