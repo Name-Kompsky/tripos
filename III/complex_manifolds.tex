@@ -1,0 +1,190 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Complex Manifolds}
+\def\nlecturer{R.\ Dervan}
+
+\def\nterm{Lent}
+\def\nyear{2019}
+
+\input{header}
+
+\renewcommand{\P}{\mathbb P} % projective space
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Motivation: complex geometry is the study of complex manifolds. These locally look like open subsets of \(\C^n\) with holomorphic transition functions. In particular one dimensional complex manifolds are Riemann surfaces. Every (smooth) projective variety is a complex manifolds. A main result of the course is to give a partial converse.
+
+Complex tools are often used to study projective varieties. For example Hodge conjecture and moduli theory. On the other hand there are lots of questions that are also interesting in their own right. Projective surfaces were classified in 1916. Classification of compact complex surfaces is still open (most recent progress in 2005).
+
+\section{Several complex variables}
+
+\begin{definition}[holomorphic]\index{holomorphic}
+  Let \(U \subseteq \C^n\) be open. A smooth function \(f: U \to \C\) is \emph{holomorphic} if it is holomorphic in each variable. A function \(F: U \to \C^m\) is \emph{holomorphic} if each coordinate is holomorphic.
+\end{definition}
+
+\begin{remark}
+  There is an equivalent definition in terms of power series.
+\end{remark}
+
+Consider the homeomorphism
+\begin{align*}
+  \C^n &\to \R^{2n} \\
+  (x_1 + iy_1, \dots, x_n + iy_n) &\mapsto (x_1, y_1, \dots, x_n, y_n)
+\end{align*}
+If \(f = u + iv\) then complex analysis implies that \(f\) is holomorphic if and only if
+\begin{align*}
+  \frac{\partial u}{\partial x_j} &= \frac{\partial v}{\partial y_j} \\
+  \frac{\partial u}{\partial y_i} &= - \frac{\partial v}{\partial x_j}
+\end{align*}
+this is the Cauchy-Riemann equations. If one formally defines
+\begin{align*}
+  \frac{\partial  }{\partial z_j} &= \frac{1}{2}(\frac{\partial  }{\partial x_j} - i \frac{\partial }{\partial y_j}) \\
+  \frac{\partial  }{\partial \conj{z_j}} &= \frac{1}{2}(\frac{\partial  }{\partial x_j} + i \frac{\partial }{\partial y_j}) \\
+\end{align*}
+then \(f\) is holomorphic if and only if \(\frac{\partial f}{\partial \conj{z_j}} = 0\) for all \(j\).
+
+\begin{proposition}[maximum principle]\index{maximum principle}
+  Let \(U \subseteq \C^n\) open and connected. If \(f\) is holomorphic on some bounded open disk \(U\) with \(\cl D \subseteq U\) then
+  \[
+    \max_{\cl D} |f(z)| = \max_{\partial \cl D} |f(z)|.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Repeated application of single variable maximum principle.
+\end{proof}
+
+Thus if \(|f|\) achieves its maximum at an interior point, \(f\) is constant.
+
+\begin{proposition}[identity principle]\index{identity principle}
+  If \(U \subseteq \C^n\) is open connected and \(f: U \to \C\) is holomorphic and \(f\) vanishes on an open subset of \(U\) then \(f = 0\).
+\end{proposition}
+
+\begin{proof}
+  Repeated application of single variable version of identity principle.
+\end{proof}
+
+\section{Complex manifolds}
+
+Let \(X\) be a second countable Hausdorff topological space. We always assume \(X\) is connected.
+
+\begin{definition}[holomorphic atlas]\index{holomorphic atlas}\index{atlas}
+  A \emph{holomorphic atlas} for \(X\) is a collection of \((U_\alpha, \varphi_\alpha)\) where \(\varphi_\alpha: U_\alpha \to \varphi_\alpha(U_\alpha) \subseteq \C^n\) is a homeomorphism, with
+  \begin{enumerate}
+  \item \(X = \bigcup_\alpha U_\alpha\),
+  \item \(\varphi_\alpha \compose \varphi_\beta^{-1}\) are holomorphic.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[equivalent atlas]\index{atlas!equivalent}
+  Two holomorphic atlases \((U_\alpha, \varphi_\alpha), (\tilde U_\beta, \tilde U_\beta)\) are \emph{equivalent} if \(\varphi_\alpha \compose \tilde \varphi_\beta^{-1}\) is holomorphic fo all \(\alpha, \beta\).
+
+  Equivalently, their union is an atlas.
+\end{definition}
+
+\begin{definition}[complex manifold, complex structure]\index{complex manifold, complex structure}
+  A \emph{complex manifold} is a topological space as above with an euivalence class of holomorphic atlases. Such an equivalence class is called a \emph{complex structure}.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\C^n\) is trivially a complex manifold.
+  \item \(\Delta = \{z: |z| < 1| \subseteq \C\).
+  \item \(\P^n\), the (complex) projective space. As a set this is the one-dimensional linear subspaces of \(\C^{n + 1}\). A point is \([z_0: \dots: z_n]\). A holomorphic atlas is give by
+    \begin{align*}
+      U_i &= \{z_i \neq 0\} \\
+      \varphi_i([z_0: \dots:z_n]) &= (\frac{z_1}{z_i}, \dots, \hat{\frac{z_i}{z_i}}, \dots, \frac{z_n}{z_i})
+    \end{align*}
+    where the hat denotes that the coordinate is missing. One can check that transition functions are holomorphic. Moreover \(\P^n\) is compact.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[holomorphic, biholomorphic]\index{holomorphic}\index{biholomorphic}
+  A smooth function \(f: X \to \C\) is \emph{holomorphic} if \(f \compose \varphi^{-1}: \varphi(U) \to \C\) is holomorphic for all \((U, \varphi)\).
+
+  A smooth map \(F: X \to Y\) is \emph{holomorphic} if for all charts \((U, \varphi)\) for \(X\), \((V, \psi)\) for \(Y\), the map \(\psi \compose F \compose \varphi^{-1}\) is holomorphic. \(F\) is \emph{biholomorphic} if it has a holomorpic inverse.
+\end{definition}
+
+\begin{ex}
+  If \(X\) is compact then any holomorphic function on \(X\) is constant. As a corollary, compact complex manifold cannot embed in \(\C^m\) for any \(m\).
+\end{ex}
+
+\begin{ex}
+  If \(X \to \C\) is holomorphic and vanishes on an open set on \(X\) then \(f = 0\). Thus there is no holomorphic analogue of bump functions.
+\end{ex}
+
+\begin{definition}[closed complex submanifold]\index{closed submanifold}
+  Let \(Y \subseteq X\) be a smooth submanifold of dimension \(2k < 2n = \dim X\). We say \(Y\) is a \emph{closed complex submanifold} if there exists a holomorphic atlas \((U_\alpha, \varphi_\alpha)\) for \(X\) such that it restricts to
+  \[
+    \varphi_\alpha: U_\alpha \cap Y \to \varphi(U_\alpha) \cap \C^k
+  \]
+  with \(\C^k \subseteq \C^n\) as \((z_1, \dots, z_k, 0, \dots, 0)\).
+\end{definition}
+
+\begin{ex}
+  Show that a closed complex submanifold is naturally a complex manifold.
+\end{ex}
+
+\begin{definition}[projective manifold]\index{projective manifold}
+  We say \(X\) is \emph{projective} is it is biholomorphic to a compact closed complex submanifold of \(\P^m\) for some \(m\).
+\end{definition}
+
+We state without a theorem:
+
+\begin{theorem}[Chow]
+  A projective complex manifold is projective variety, i.e.\ the vanishing set in \(\P^m\) of some homogeneous polynomial equations.
+\end{theorem}
+
+In the example sheet we'll see an example of a compact complex manifold which is not projective.
+
+\section{Almost complex structures}
+
+How much complex structure can be recovered from linear data?
+
+Let \(V\) be a real vector space.
+
+\begin{definition}[complex structure]
+  A linear map \(J: V \to V\) with \(J^2 = - \id\) is called a \emph{complex structure}.
+\end{definition}
+
+This is motivated by the endomorphism on \(\R^{2n}\)
+\[
+  (x_1, y_1, \dots, x_n, y_n) \mapsto (y_1, -x_1, \dots, y_n, -x_n).
+\]
+This is called the \emph{standard complex structure}\index{complex structure!standard}.
+
+As \(J^2 = -\id\), the eigenvalues are \(\pm i\). Since \(V\) is real, there are no eigenspaces. Consider \(V_\C = V \otimes_\R \C\). Then \(J\) extends to \(J: V_\C \to V_\C\) with \(J^2 = -\id\). let \(V^{1, 0}\) and \(V^{0, 1}\) denote the eigenspaces of \(\pm i\) respectively.
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(V_\C = V^{1, 0} \oplus V^{0, 1}\).
+  \item \(\cl{V^{1, 0}} = V^{0, 1}\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item For \(v \in V_\C\), write
+    \[
+      v = \frac{1}{2}\underbrace{(v - iJv)}_{\in V^{1, 0}} + \frac{1}{2}\underbrace{(v + i Jv)}_{\in V^{0, 1}}.
+    \]
+  \item Follows from 1.
+  \end{enumerate}
+\end{proof}
+
+
+
+\printindex
+\end{document}
+
+% https://www.dpmms.cam.ac.uk/~rd430/teaching.html

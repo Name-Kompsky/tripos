@@ -1,0 +1,191 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Analytic Number Theory}
+\def\nlecturer{T.\ Bloom}
+
+\def\nterm{Lent}
+\def\nyear{2019}
+
+\input{header}
+
+\newtheorem*{fact}{Fact}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Analytic number theory is the study of numbers using analysis. In particular it answers quantitative questions. ``Numbers'' means natural numbers in this course, which excludes \(0\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item How many primes are there? We know there are infinitely many but can we have a more precise answer? Let \(\pi(x)\) be the number of primes smaller than or equal to \(x\). Then by the famous prime number theorem, \(\pi(x) \sim \frac{x}{\log x}\).
+  \item How may twin primes are there? It is not known whethere there are infinitely many. From 2014 Zhang, Maynard, Polymath, there are infinitely many primes at most \(246\) apart. It's been conjectured that the asymptotic bound is \(\sim \frac{x}{(\log x)^2}\).
+  \item How many primes are there congruent to \(a\) mod \(q\) where \((a, q) = 1\)? There are infinitely many by Dirichlet's theorem. The guess is \(\frac{1}{\varphi(q)}\frac{x}{\log x}\). This is known for small \(q\).
+  \end{enumerate}
+\end{eg}
+
+The course is divided into four parts:
+\begin{enumerate}
+\item elementary techniques (using real analysis),
+\item sieve methods,
+\item Riemann zeta function/Prime number theorem (using complex analysis),
+\item primes in arithmetic progression. 
+\end{enumerate}
+
+\section{Elementary techniques}
+
+Review of asymptotic notations:
+\begin{itemize}
+\item Landau notation: \(f(x) = O(g(x)\) if ther eis \(C > 0\) such that \(|f(x)| \leq C|g(x)|\) for all large enough \(x\).
+\item Vinogradov notation: \(f \ll g\) is the same as \(f = O(g)\).
+\item \(f \sim g\) if \(\lim_{x \to \infty} \frac{f(x)}{g(x)} = 1\), i.e.\ \(f = (1 + o(1)) g\).
+\item \(f = o(g)\) if \(\lim_{x \to \infty} \frac{f(x)}{g(x)} = 0\).
+\end{itemize}
+
+\subsection{Arithmetic functions}
+
+These are just functions \(f: \N \to \C\). An important operation for multiplicative number theory is \emph{multiplicative convolution}\index{multiplicative convolution}
+\[
+  (f * g)(n) = \sum_{ab = n} f(a)g(b)
+\]
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(1(n) = 1\) for all \(n\). Caution: this is not identity on \(\N\).
+  \item \emph{Möbius function}\index{Möbius function}
+    \[
+      \mu(n) =
+      \begin{cases}
+        (-1)^k & \text{ if } n = p_1 \dots p_k \\
+        0 & \text{ if \(n\) is divisible by a square}
+      \end{cases}
+    \]
+  \item \emph{Liouville function}
+    \[
+      \lambda(n) = (-1)^k
+    \]
+    if \(n = p_1 \dots p_k\) where \(p_i\)'s are not necessarily distinct.
+  \item \emph{divisor function}
+    \[
+      \tau(n) = \#d \text{ such that } d \divides n = \sum_{ab = n} 1 = 1 * 1.
+    \]
+    This is sometimes also denoted by \(d(n)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[multiplicative function]\index{multiplicative function}
+  An arithmetic function \(f\) is \emph{multiplicative} if
+  \[
+    f(nm) = f(n)f(m)
+  \]
+  whenever \((n, m) = 1\).
+\end{definition}
+
+In particular a multiplicative function is determined by its values on prime powers \(f(p^k)\).
+
+\begin{fact}
+  If \(f\) and \(g\) are multiplicative then so is \(f * g\).
+\end{fact}
+
+\begin{eg}
+  \(1, \mu, \lambda, \lambda\) are multiplicative. \(\log n\) is not multiplicative.
+\end{eg}
+
+\begin{fact}[Möbius inversion]\index{Möbius inversion}
+  \(1 * f = g\) if and only if \(\mu * g = f\). That is,
+  \[
+    \sum_{d \divides n} f(d) = g(n)
+  \]
+  if and only if
+  \[
+    \sum_{d \divides n} g(d) \mu(\frac{n}{d}) = f(n).
+  \]
+
+  For example
+  \[
+    \sum_{d \divides n} \mu(d) =
+    \begin{cases}
+      1 & n = 1 \\
+      0 & \text{otherwise}
+    \end{cases}
+    = 1 * \mu
+  \]
+  is multiplicative so enough to check the identity for prime powers. If \(n = p^k\) then \(\{d: d \divides n\} = \{1, p, \dots, p^k\}\) so LHS equals to \(1 - 1 + 0 + \dots = 0\) unless \(k = 1\) when LHS equals to \(\mu(1) = 1\).
+\end{fact}
+
+Our goal is to study primes. Our first might be that we shall work with
+\[
+  1_p(n) =
+  \begin{cases}
+    1 & n \text{ prime} \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+as then \(\pi(x) = \sum_{1 \leq n \leq x} 1_p(n)\). But this is very awkward to work with, as to begin with, this is not multiplicative. Instead, we are going to work almost exclusively with \emph{von Mangoldt function}\index{von Mangoldt function}
+\[
+  \Lambda(n) =
+  \begin{cases}
+    \log p & n = p^k \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+``assign weight \(\log p\) to prime power \(n\)''
+
+\begin{lemma}
+  \[
+    1 * \Lambda = \log.
+  \]
+  and
+  \[
+    \mu * \log = \Lambda.
+  \]
+\end{lemma}
+
+\begin{proof}
+  The second part follows from Möbius inversion. Thus if \(n = p_1^{k_1} \dots p_r^{k_r}\),
+  \begin{align*}
+    1 * \Lambda(n)
+    &= \sum_{d \divides n} \Lambda(d)
+    = \sum_{i = 1}^r \sum_{j = 1}^{k_i} \Lambda(p_i^j) \\
+    &= \sum_{i = 1}^r \sum_{j = 1}^{k_i} \log(p_i)
+    = \sum_{i = 1}^r k_i \log p_i \\
+    &= \sum_{i = 1}^r \log (p_i^{k_i})
+    = \log n
+  \end{align*}
+\end{proof}
+
+Therefore
+\begin{align*}
+  \Lambda(n)
+  &= \sum_{d \divides n} \mu(d) \log(\frac{n}{d}) \\
+  &= \log n \sum_{d \divides n} \mu(d) - \sum_{d \divides n} \mu(d) \log d \\
+  &= - \sum_{d \divides n} \mu(d) \log d
+\end{align*}
+For example
+\[
+  \sum_{1 \leq n \leq x} \Lambda(n)
+  = - \sum_{1 \leq n \leq x} \sum_{d \divides n} \mu(d) \log d
+  = - \sum_{d \leq x} \mu(d) \log d \left(\sum_{1 \leq n \leq x, d \divides n} 1\right)
+\]
+by reversing summation. But now the term in the inner summation is very easy to understand:
+\[
+  \sum_{1 \leq n \leq x, d \divides n} 1 = \floor*{\frac{x}{d}} = \frac{x}{d} + O(1).
+\]
+Thus
+\[
+  \sum_{1 \leq n \leq x} \Lambda(n)
+  = -x \sum_{d \leq x} \mu(d) \frac{\log d}{d} + O\left(\sum_{d \leq x} \mu(d) \log d\right).
+\]
+
+\printindex
+\end{document}
+
+% www.thomasbloom.org/ant.html

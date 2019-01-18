@@ -1,0 +1,159 @@
+\documentclass[a4paper]{article}
+
+\def\npart{II}
+
+\def\ntitle{Representation Theory}
+\def\nlecturer{S.\ Martin}
+
+\def\nterm{Lent}
+\def\nyear{2019}
+
+\input{header}
+
+\newcommand{\ccl}{{\mathcal C}}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Representation theory is the theory of how \emph{groups} act as groups on \emph{vector spaces}. Here
+\begin{enumerate}
+\item groups are either finite or compact topological groups,
+\item vector spaces are finite-diemnsional and usually over \(\C\),
+\item actions are linear. 
+\end{enumerate}
+
+\section{Group actions}
+
+\begin{notation}\leavevmode
+  \begin{enumerate}
+  \item \(\F\) is a field, usually \(\C\), \(\R\) or \(\Q\). In particular \(\F\) is a field of characteristic zero. Thus in this course we mostly deal with what is known as \emph{ordinary representation theory}. Sometimes \(\F = \F_p\) or \(\cl{\F_p}\), and the study of which is known as \emph{modular representation theory}.
+  \item \(V\) is a vector space over \(\F\) and will always be finite-dimensional.
+  \item \(\GL(V) = \{\theta: V \to V \text{ linear invertible}\}\).
+  \end{enumerate}
+\end{notation}
+
+\subsection{Review of linear algebra}
+
+If \(\dim_\F V = n\), choose basis \(e_1, \dots, e_n\) over \(\F\) so we can identify it with \(\F^n\). Then \(\theta \in \GL(V)\) correponds to an \(n \times n\) matrix \(A_\theta = (a_{ij})\), where
+\[
+  \theta(e_j) = \sum_i a_{ij} e_i
+\]
+for \(1 \leq j \leq n\). In fact we have \(A_\theta \in \GL_n(\F)\), the \emph{general linear group}. Thus
+
+\begin{proposition}
+  The map
+  \begin{align*}
+    \GL(V) &\to \GL_n(\F) \\
+    \theta &\mapsto A_\theta
+  \end{align*}
+  is a group isomorphism.
+\end{proposition}
+
+\begin{proof}
+  Check \(A_{\theta_1\theta_2} = A_{\theta_1}A_{\theta_2}\) and bijectivity.
+\end{proof}
+
+Choosing a different basis gives different isomorphism to \(\GL_n(\F)\), but
+
+\begin{proposition}
+  Matrices \(A_1, A_2\) represent the same element of \(\GL(V)\) with respect to different basis if and only if they are \emph{conjugate} or \emph{similar}, i.e.\ exists \(X \in \GL_n(\F)\) such that \(A_2 = XA_1X^{-1}\).
+\end{proposition}
+
+Recall that the \emph{trace} of a matrix \(A\) is
+\[
+  \tr A = \sum_i a_{ii}.
+\]
+
+\begin{proposition}
+  As \(\tr(XAX^{-1}) = \tr A\) we can define
+  \[
+    \tr \theta = \tr(A_\theta)
+  \]
+  which is \emph{independent} of the basis chosen.
+\end{proposition}
+
+Some notes on diagonalisation:
+
+\begin{eg}
+  Let \(\alpha \in \GL(V)\) where \(V\) is a finite-dimensioanl vector space over \(\C\) with \(\alpha^m = \id\) for some \(m\). Then \(\alpha\) is diagonalisable.
+\end{eg}
+
+\begin{proposition}
+  Let \(V\) a finite-dimensional vector space over \(\C\) and \(\alpha \in \End(V)\). Then \(\alpha\) is diagonalisable if and only if there exists a polynomial \(f\) with distinct linear factors with \(f(\alpha) = 0\).
+\end{proposition}
+
+\begin{remark}
+  In the previous example take \(f(X) = X^m - 1 = \prod_{j = 0}^{m - 1} (X - \omega^j)\) where \(\omega = e^{\frac{2\pi i}{m}}\).
+\end{remark}
+
+\begin{proposition}
+  A finite family of commuting separately diagonalisable non-singular transformations of a \(\C\)-vector space can be simultaneously diagonalised.
+\end{proposition}
+
+\subsection{Basic group theory}
+
+We have an ample supply of basic groups:
+\begin{enumerate}
+\item symmetric group \(S_n = \sym(X)\) on a set \(X = \{1, \dots, n\}\) is the set of all permutations of \(X\). \(|S_n| = n!\).
+\item alternating group \(A_n\) with \(|A_n| = \frac{n!}{2}\) consists of all even permutations.
+\item cyclic group of order \(n\): \(C_n = \langle x: x^m = 1\rangle\). For example \((\Z/m\Z, +)\). It's also
+  \begin{itemize}
+  \item the group of \(m\)th root of unity in \(\C\) (which embeds to \(\GL_1(\C) = \C^*\)),
+  \item the group of rotations, centre \(0\) of a regular \(m\)-gon in \(\R^2\) (which embeds to \(\GL_2(\R)\)).
+  \end{itemize}
+\item diahedral groups: \(D_{2m} = \langle x, y: x^m = y^2 = 1, yxy^{-1} = x^{-1} \rangle\) of order \(2m\). Think of this as set of rotations and reflections preserving a regular \(m\)-gon.
+\item quaternion group: \(Q_8 = \langle x, y: x^4 = 1, y^2 = x^2, yxy^{-1} = x^{-1} \rangle\) of order \(8\). In \(\GL_2(\C)\), can put
+  \[
+    i =
+    \begin{pmatrix}
+      i & 0 \\
+      0 & -i
+    \end{pmatrix}
+    \quad
+    j =
+    \begin{pmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{pmatrix}
+    \quad
+     k =
+    \begin{pmatrix}
+      0 & i \\
+      i & 0
+    \end{pmatrix}
+  \]
+  then \(Q_8 = \{\pm i, \pm j, \pm k, \pm I_2\}\).
+\end{enumerate}
+
+\begin{definition}
+  The \emph{conjugacy class} of \(g \in G\) is
+  \[
+    \ccl_G(g) = \{xgx^{-1}: x \in G\}.
+  \]
+
+  Then
+  \[
+    |\ccl_G(g)| = |G: C_G(g)|
+  \]
+  where \(C_g(g) = \{x \in g: xg = gx\}\) is the \emph{centraliser} of \(g\) in \(G\).
+\end{definition}
+
+
+
+
+\printindex
+\end{document}
+
+% Books: James-Liebeck [JL]
+% Alperin & Bell
+% Thomas: Representations of finite and Lie groups
+% online notes: SM's notes, C. Teleman
+% Webb: A course in finite group representation theory
+% Curtis: Pioneers of representation theory
