@@ -1,0 +1,134 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{3 Manifolds}
+\def\nlecturer{S.\ Rasmussen}
+
+\def\nterm{Lent}
+\def\nyear{2019}
+
+\input{header}
+
+\renewcommand{\boundary}{\partial}
+\newcommand{\interior}{\ocirc}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Why 3?}
+
+\subsection{Motivation}
+
+\paragraph{Poincare conjecture (1904)}
+
+Question: how can we distinguish \(S^3\) fom other 3-manifolds? The strategy is to find an invariant that distinguishes \(S^3\). The frst guess is homology but
+
+\begin{theorem}[Poincare]
+  There exists a closed oriented 3-manifold \(P\) with \(H_*(P) \simeq H_*(S^3)\) but with \(P \ncong S^3\).
+\end{theorem}
+
+\begin{notation}
+  We use \(\cong\) to denote homeomorphism and \(\simeq\) to denote isomorphism.
+\end{notation}
+
+This is proven in the following way: first invent the fundamental group \(\pi_1\), then construct \(P\), which is now known as (-1)-Dehn surgery on left-handed trefoil knot \(K_T \subseteq S^3\). Finally show that \(|\pi_1(P)| = 120, |\pi_1(S^3)| = 1\) and \(H_*(P) \simeq H_*(S^3)\).
+
+\subsection{Homotopy}
+
+\paragraph{Review of homotopy theory}
+
+homotopy, fundamental groups and higher homotopy groups, homotopy equivalence, weak homotopy equivalence
+
+\paragraph{Homotopy vs.\ homology}
+
+Let \(X\) and \(Y\) be path-connected topological spaces.
+
+\begin{theorem}[Hurewicz]\leavevmode
+  \begin{enumerate}
+  \item \(H_1(X, \Z) \simeq \pi_1(X)/[\pi_1(X), \pi_1(X)]\).
+  \item If \(\pi_i(X) = 1\) for \(i = \{1, \dots, n\}\) then
+    \begin{align*}
+      H_i(X) &= 0 \text{ for } i \leq n, i \neq 0 \\
+      H_{n + 1} &\simeq \pi_{n + 1}(X)
+    \end{align*}
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Whitehead]
+  If \(X, Y\) are CW complexes. Then a weak homotopy equivalence of \(X\) and \(Y\) is also a homotopy equivalence.
+\end{theorem}
+
+\begin{theorem}[Whitehead-homology variant]
+  Suppose \(X, Y\) are simply-connected CW complexes. If the induced homomorphisms \(f_*: H_k(X; \Z) \to H_k(Y; \Z)\) are isomorphisms for all \(k \leq \dim X\) then \(f: X \to Y \) is a homotopy equivalence.
+\end{theorem}
+
+\begin{theorem}
+  Any homotopy equivalence \(f: X \to Y\) induces isomorphisms on homology, cohomology, cohomology ring structure (for any coefficients).
+\end{theorem}
+
+\subsection{*Simplifications in higher dimension}
+
+Let \(\mathcal C\) be the smooth category when \(n \geq 5\) and topological category \(n \geq 4\).
+
+\begin{theorem}[Whitney trick]
+  Suppose \(\dim X = n\) where \(n \geq 4\) and \(P, Q \subseteq X\) are \(\mathcal \C\)-embedded submanifolds and \(\dim P + \dim Q = \dim X\). Then \(P, Q\) can be locally \(\mathcal C\)-isotoped so that the geometric intersection number equal to the absolute value of algebraic intersection of \(P, Q\). Note that algebraic intersection number is signed while teh geometric counterpart is not.
+\end{theorem}
+
+\begin{convention}
+  When we say topological embeddings we always mean locally flat embeddings, which will be defined later in the course.
+\end{convention}
+
+\begin{definition}[\(h\)-cobordism]
+  Let \(W\) with \(\boundary W = X_1 \amalg X_2\) be a cobordism from \(X_1\) to \(X_2\). \(W\) is an \emph{\(h\)-cobordism} if the embeddings \(X_i \embed W\) are homotopy equivalences.
+\end{definition}
+
+\begin{convention}
+  All manifolds are compact connected and oriented unless otherwise stated.
+\end{convention}
+
+\begin{theorem}[\(h\)-cobordism]
+  Suppose \(\dim X_i = n, \dim W = n + 1\), \(W\) is a \(h\)-cobordism from \(X_1\) to \(X_2\). If \(\pi_1(X_i) = \pi_1(W) = 1\) and \(n \geq 4\) then \(W\) is \(\mathcal C\)-isomorphic to \(X_1 \times [0, 1]\).
+\end{theorem}
+
+\subsection{Generalised Poincare conjecture}
+
+Poincare conjecture: if \(S\) is compact oriented \(3\)-manifold homotopy equivalent to \(S^n\), then does \(S \cong S^n\)?
+
+Generalised Poincare conjecture: if \(S\) is compact oriented \(n\)-manifold homotopy equivalent to \(S^n\), then does \(S \cong S^n\)?
+
+It turns out for \(n \geq 4\), the generalised Poincare conjecture is a corollary of \(h\)-cobordism theorem. Sketch of proof: suppose \(S\) is homotopy equivalent to \(S^n\), Then \(\pi_*(S) \simeq \pi_*(S^n), H_*(S) \simeq H_*(S^n)\). Delete two balls from \(S\) to obtain \(W \cong S \setminus \interior B_1^n \amalg \interior B_2^n\). Claim that \(W\) is a \(h\)-cobordism: apply Mayer-Vietoris with \(A = W, B = B_1^n \amalg B_2^n\). Then \(A \cap B = S^{n - 1} \amalg S^{n - 1} =_{\text{htp}} W \amalg \{0, 1\}, A \cup B = S, A \amalg B = W \).
+
+\[
+  \begin{tikzcd}
+    H_n(S^{n - 1} \amalg S^{n - 1}) \ar[r] & H_n(W \amalg \{0, 1\}) \ar[r] & H_n(S) \ar[dll, out=0, in=180] \\
+    H_{n - 1}(S^{n - 1} \amalg S^{n - 1}) \ar[r] & H_{n - 1}(W \amalg \{0, 1\}) \ar[r] & H_{n - 1}(S)
+  \end{tikzcd}
+\]
+
+The first term vanishes because of dimension, the second term vanishes because \(W\) is not closed. By homotopy equivalence we get
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \Z \ar[r] & \Z \oplus \Z \ar[r] & H_{n - 1}(W \amalg \{0, 1\}) \ar[r] & 0
+  \end{tikzcd}
+\]
+We can compute that \(H_{n - 1}(W \amalg \{0, 1\}) \simeq \Z\). It is an exercise to show that there is an induced isomorphism on homology \(H_k(S^n_i) \to H_k(W)\) for each \(k\). Moreover \(\pi_1(W) = 1\) so \(S^n_i \to W\) are homotopy equivalent.
+
+Therefore \(W \cong S^{n - 1} \times [0, 1]\) So \(S \cong B_1^n \cup W \cup B_2^n\). By Alexander trick map on a \(S^{n - 1}\) can be extended \emph{topologically} to a map on \(B^n\) with \(\boundary B^n = S^n\). Extends this homeomorphism over the two balls.
+
+Note that this only applies to topological category and smooth generalised Poincare conjecture is still open in \(n \geq 4\).
+
+
+
+
+
+
+\printindex
+\end{document}
+
+% https://www.dpmms.cam.ac.uk/~sr727
