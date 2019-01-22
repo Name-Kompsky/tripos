@@ -212,17 +212,17 @@ On \(T\R^{2n}\) there is a natural almost complex structure coming from the one 
 \begin{proof}
   Suppose \(\varphi, \psi\) are charts around the same point. What we need to show is
   \[
-    d\varphi^{-1} \compose J_{\text{st}} \compose d\varphi = \delta\psi^{-1} \compose J_{\text{st}} \compose d \psi,
+    d\varphi^{-1} \compose J_{\text{st}} \compose d\varphi = d\psi^{-1} \compose J_{\text{st}} \compose d \psi,
   \]
   i.e.
   \[
     d((\varphi \compose \psi^{-1})^{-1}) \compose J_{\text{st}} \compose d(\varphi \compose \psi^{-1}) = J_{\text{st}}.
   \]
-  \(\varphi \compose \psi^{-1}\) is a holomorphic map between open open subsets of \(\C^n\), \(d((\varphi \compose \psi^{-1}))\) commutes with \(J_{\text{st}}\), which is similar to the exercise.
+  \(\varphi \compose \psi^{-1}\) is a holomorphic map between open open subsets of \(\C^n\) and so \(d((\varphi \compose \psi^{-1}))\) commutes with \(J_{\text{st}}\), which is similar to the exercise.
 \end{proof}
 
 \begin{remark}
-  There are lots of almost complex structure not arising from in this way. Those that do are called \emph{integrable}\index{integrable}. It is difficult to tell whether a smooth manifold with an almost complex structure admits a complex structure. For example \(S^6\) admits an almost complex structure which is \emph{not} integrable. It's an open problem whether or not \(S^6\) admits a complex structure. As an aside, an almost complex structure is integrable if and only if the Nijenhuis tensor vanishes.
+  There are lots of almost complex structure not arising in this way. Those that do are called \emph{integrable}\index{integrable}. In general it is difficult to tell whether a smooth manifold with an almost complex structure admits a complex structure. For example \(S^6\) admits an almost complex structure which is \emph{not} integrable. It's an open problem whether or not \(S^6\) admits a complex structure. As an aside, an almost complex structure is integrable if and only if the Nijenhuis tensor vanishes.
 \end{remark}
 
 \begin{definition}[holomorphic tangent bundle]\index{holomorphic tangent bundle}
@@ -259,13 +259,13 @@ where we also use \(J\) to denote the dual of \(J\).
 Note that
 \begin{align*}
   J(dz_j) &= i dz_j, J(d\conj z_j) = -i d\conj z_j \\
-  J(\frac{\partial  }{\partial z_j}) = i \frac{\partial  }{\partial z_j}, J(\frac{\partial  }{\partial \conj z_j}) = -i \frac{\partial  }{\partial \conj z_j}
+  J(\frac{\partial  }{\partial z_j}) &= i \frac{\partial  }{\partial z_j}, J(\frac{\partial  }{\partial \conj z_j}) = -i \frac{\partial  }{\partial \conj z_j}
 \end{align*}
-We see the \(dz_j\) form a local fram for \(TX^{(1, 0)}\), similarly \(d\conj z_j\) form a local frame for \(T^*X^{(0, 1)}\). Same for tangent bundle.
+We see the \(dz_j\) form a local frame for \(TX^{1, 0}\), similarly \(d\conj z_j\) form a local frame for \(T^*X^{0, 1}\). Same for tangent bundle.
 
 If \(f: X \to \C\), say \(f = u + iv\) then \(df = du + idv\) is a smooth section of
 \[
-  (T^*X)_\C \cong T^*X^{(1, 0)} \oplus T^*X^{(0, 1)}.
+  (T^*X)_\C \cong T^*X^{1, 0} \oplus T^*X^{0, 1}.
 \]
 We denote by \(p_1, p_2\) the two projections.
 
@@ -288,7 +288,7 @@ We now do the same for higher degree forms.
 \begin{definition}[form]\index{form}
   A section of
   \[
-    \Lambda^{(p, q)}T^*X = \Lambda^pT^*X^{(1, 0)} \otimes \Lambda^qT^*X^{(0, 1)}.
+    \Lambda^{(p, q)}T^*X = \Lambda^pT^*X^{1, 0} \otimes \Lambda^qT^*X^{0, 1}.
   \]
   is called a \emph{\((p, q)\)-form}.
 \end{definition}
@@ -297,7 +297,7 @@ Locally a \((p, q)\)-form looks like
 \[
   \sum_f dz_{j_1} \w \dots \w dz_{j_p} \w d\conj z_{\ell_1} \w \dots \w d\conj z_{\ell_q}.
 \]
-Note that \(f\) is only required to be smooth and not required to be holomorphic, antiholomorphic etc. So for example \(\conj z dz\) is a section of \(T^*X^{(1, 0)}\).
+Note that \(f\) is only required to be smooth and not required to be neither holomorphic nor antiholomorphic. So for example \(\conj z dz\) is a section of \(T^*X^{(1, 0)}\).
 
 \begin{definition}
   We denote by \(\mathcal A_\C^k(U)\) the sections of \(\Lambda^k(T^*X)_\C\) over \(U \subseteq X\). We also denote by \(\mathcal A_\C^{p, q}(U)\) the smooth sections of \(\Lambda^{p, q}(U)\).
@@ -319,7 +319,7 @@ In particular \(\mathcal A_\C^{0, 0}(U)\) consists of smooth \(\C\)-valued funct
 \end{lemma}
 
 \begin{proof}
-  Fibrewise this is linear algebra. One can use a frame to obtain the bundle results.
+  Fibrewise this follows from linear algebra. One can use a frame to obtain the bundle results.
 \end{proof}
 
 \subsection{Dolbeault cohomology}
@@ -327,13 +327,13 @@ In particular \(\mathcal A_\C^{0, 0}(U)\) consists of smooth \(\C\)-valued funct
 Denote by \(d: \mathcal A_\C^k(U) \to \mathcal A_\C^{k + 1}(U)\) the usual exterior derivative.
 
 \begin{definition}
-  \(\p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p + 1, q}(U)\) by taking \(d\) composed with projection to \(\mathcal A_\C^{p + 1, q}(U)\). Similarly define \(\conj p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p, q + 1}(U)\).
+  \(\p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p + 1, q}(U)\) by taking \(d\) composed with projection to \(\mathcal A_\C^{p + 1, q}(U)\). Similarly define \(\conj \p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p, q + 1}(U)\).
 \end{definition}
 
 \begin{definition}[Dolbeault cohomology]\index{Dolbeault cohomology}
   The \emph{\((p, q)\)-Dolbeault cohomology} of \(X\) is given by
   \[
-    H_{\conj p}^{p, q}(X) = \frac{\ker \conj \p: \mathcal A_\C^{p, q}(X) \to \mathcal A_\C^{p, q + 1}(X)}{\ker \conj \p: \mathcal A_\C^{p, q - 1}(X) \to \mathcal A_\C^{p, q}(X)}.
+    H_{\conj \p}^{p, q}(X) = \frac{\ker \conj \p: \mathcal A_\C^{p, q}(X) \to \mathcal A_\C^{p, q + 1}(X)}{\ker \conj \p: \mathcal A_\C^{p, q - 1}(X) \to \mathcal A_\C^{p, q}(X)}.
   \]
 \end{definition}
 
