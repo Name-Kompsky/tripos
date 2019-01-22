@@ -80,7 +80,7 @@ We can now define for example, \(\neg p\) (reads ``not \(p\)'') as an abbreviati
 
 \begin{proposition}\leavevmode
   \begin{enumerate}
-  \item If \(v\) and \(v'\) are valuations with \(v(p) = v'(p)\) for all \( \in P\), then \(v = v'\).
+  \item If \(v\) and \(v'\) are valuations with \(v(p) = v'(p)\) for all \(p \in P\), then \(v = v'\).
   \item For any \(w: P \to \{0, 1\}\), there exists a valuation \(v\) with \(v(p) = w(p)\) for all \(p \in P\).
   \end{enumerate}
 \end{proposition}
@@ -132,7 +132,7 @@ In other words, a valuation is determined by its values on \(P\) and any values 
 \end{eg}
 
 \begin{definition}[Semantic entailment]\index{semantic entailment}
-  For \(S \subseteq L, t \in L\), we say \(s\) \emph{entails} or \emph{semantically implies} \(t\), written \(S \models t\), if \(v(s) = 1\) for all \(s \in S\) then \(v(t) = 1\) for each valuation \(v\).
+  For \(S \subseteq L, t \in L\), we say \(S\) \emph{entails} or \emph{semantically implies} \(t\), written \(S \models t\), if \(v(s) = 1\) for all \(s \in S\) then \(v(t) = 1\) for each valuation \(v\).
 \end{definition}
 
 This says whenever all of \(S\) is true, \(t\) is true as well.
@@ -266,7 +266,7 @@ The easy part is
 \end{proposition}
 
 \begin{proof}
-  Given \(v\) that models \(s\) and a proof \(t_1, \dots, t_n = t\) of \(S \yields t\), we will show that \(v(t_i) = 1\) for all \(i\).
+  Given \(v\) that models \(S\) and a proof \(t_1, \dots, t_n = t\) of \(S \yields t\), we will show that \(v(t_i) = 1\) for all \(i\).
 
   If \(t_i\) is an axiom then \(v(t_i) = 1\) since it is tautology. If \(t_i\) is a hypothesis then \(v(t_i) = 1\) by assumption. Finally, if \(t_i\) is obtained by MP, say from \(t_j \implies t_i\), since \(v(t_j) = 1\) and \(v(t_j \implies t_i) = 1\) by induction, \(v(t_i) = 1\).
 \end{proof}
@@ -283,7 +283,7 @@ To prove adequacy, which is a bit harder, we need a few lemmas.
   Let \(S \subseteq L\) be consistent, then \(S\) has a model.
 \end{theorem}
 
-The idea is to define a valuation \(v\) by \(v(p) = 1\) if and only if \(p \in S\). As \(1\) is preserved under \(\models\) and thus \(\yields\), a more sensible aim is \(v(p) = 1\) if and only if \(S \yields p\).
+The first idea is to define a valuation \(v\) by \(v(p) = 1\) if and only if \(p \in S\). As \(1\) is preserved under \(\models\) and thus \(\yields\), a more sensible aim is \(v(p) = 1\) if and only if \(S \yields p\).
 
 But maybe neither \(S \yields p\) nor \(S \yields \neg p\). So we want to ``grow'' \(S\) to contain one of \(p\) or \(\neg p\) for each \(p \in L\) (while remaining consistent).
 
@@ -347,7 +347,7 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
 \end{corollary}
 
 \begin{proof}
-  This is equivalent to the previous corollary because \(S \models t\) if and only if \(S \cup \{\neg t\}\) has no model and \(S' \models t\) if and only if \(S' \cup \{\neg p\}\) has no model.
+  This is equivalent to the previous corollary because \(S \models t\) if and only if \(S \cup \{\neg t\}\) has no model and \(S' \models t\) if and only if \(S' \cup \{\neg t\}\) has no model.
 \end{proof}
 
 \begin{corollary}[Decidability theorem]\index{decidability theorem}
@@ -376,7 +376,7 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
 \end{definition}
 
 \begin{note}
-  Two of 3 cannot hold: if \(x < y, y < x\) then \(x < x\), absurd.
+  Any two of 3 cannot hold: if \(x < y, y < x\) then \(x < x\), absurd.
 \end{note}
 
 \begin{notation}
@@ -386,7 +386,7 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
   \begin{enumerate}
   \item reflexive: for all \(x\), \(x \leq x\),
   \item transitive: for all \(x, y, z\), \(x \leq y, y \leq z\) implies \(x \leq z\),
-  \item antisymmetric: for all \(x, y\), \(x \leq y, y \leq\) implies \(x = y\),
+  \item antisymmetric: for all \(x, y\), \(x \leq y, y \leq x\) implies \(x = y\),
   \item trichotomous: for all \(x, y\), \(x \leq y\) or \(y \leq x\).
   \end{enumerate}
 \end{notation}
@@ -429,7 +429,7 @@ Specialising to \(t = \bot\), this theorem says that if \(S\) has no model then 
 \end{definition}
 
 \begin{eg}
-  1 and 6 above are isomorphic. 7 and 8 are isomorphic. 6 and 7 are not isomorphic: for example, one has a greatest element and the other one doesn't.
+  1 and 4 above are isomorphic. 5 and 6 are isomorphic. 6 and 7 are not isomorphic: for example, one has a greatest element and the other one doesn't.
 \end{eg}
 
 \begin{proposition}[Proof by induction]\index{proof by induction}
@@ -455,7 +455,7 @@ An application:
 \begin{proof}
   Let \(f, g\) be isomorphisms. We will show \(f(x) = g(x)\) for all \(x \in X\) by induction. Thus we may assume \(f(y) = g(y)\) for all \(y < x\) and want \(f(x) = g(x)\).
 
-  Let \(a\) be the least element of \(Y \setminus \{f(y): y \in X\}\), which is non-empty. Then we must have \(f(x) = a\): if \(f(x) > a\) then some \(x' > x\) has \(f(x') = a < f(x)\), contradicting \(f\) being order-preserving. Same holds for \(g\). Thus \(f(x) = g(x)\).
+  Let \(a\) be the least element of \(Y \setminus \{f(y): y < x\}\), which is non-empty. Then we must have \(f(x) = a\): if \(f(x) > a\) then some \(x' > x\) has \(f(x') = a < f(x)\), contradicting \(f\) being order-preserving. Same holds for \(g\). Thus \(f(x) = g(x)\).
 \end{proof}
 
 \begin{definition}[Initial segment]\index{initial segment}
@@ -2619,25 +2619,22 @@ Here ``collection'' is simply a subset, in the true maths world. But to avoid co
 \end{eg}
 
 \printindex
-
-\iffalse
-logic is the interplay of syntax and semantics
-set: stuff with sets, universe of sets
-
-Contents
-
-1: Propositional logic
-2: Well-ordering and ordinals
-3: Posets and Zorn's Lemma
-4: Predicate logic
-5: Set theory
-6: Cardinals
-
-Reading:
-Johnstone, Notes on logic and set theory
-van Dalen, Logic and structure
-Hainal & Hamburger, Set theory
-Forster, Logic, induction and sets
-\fi
-
 \end{document}
+
+% logic is the interplay of syntax and semantics
+% set: stuff with sets, universe of sets
+
+% Contents
+
+% 1: Propositional logic
+% 2: Well-ordering and ordinals
+% 3: Posets and Zorn's Lemma
+% 4: Predicate logic
+% 5: Set theory
+% 6: Cardinals
+
+% Reading:
+% Johnstone, Notes on logic and set theory
+% van Dalen, Logic and structure
+% Hainal & Hamburger, Set theory
+% F orster, Logic, induction and sets

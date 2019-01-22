@@ -44,7 +44,7 @@ The course is divided into four parts:
 
 Review of asymptotic notations:
 \begin{itemize}
-\item Landau notation: \(f(x) = O(g(x)\) if ther eis \(C > 0\) such that \(|f(x)| \leq C|g(x)|\) for all large enough \(x\).
+\item Landau notation: \(f(x) = O(g(x))\) if there is \(C > 0\) such that \(|f(x)| \leq C|g(x)|\) for all large enough \(x\).
 \item Vinogradov notation: \(f \ll g\) is the same as \(f = O(g)\).
 \item \(f \sim g\) if \(\lim_{x \to \infty} \frac{f(x)}{g(x)} = 1\), i.e.\ \(f = (1 + o(1)) g\).
 \item \(f = o(g)\) if \(\lim_{x \to \infty} \frac{f(x)}{g(x)} = 0\).
@@ -54,7 +54,7 @@ Review of asymptotic notations:
 
 These are just functions \(f: \N \to \C\). An important operation for multiplicative number theory is \emph{multiplicative convolution}\index{multiplicative convolution}
 \[
-  (f * g)(n) = \sum_{ab = n} f(a)g(b)
+  f * g(n) = \sum_{ab = n} f(a)g(b)
 \]
 
 \begin{eg}\leavevmode
@@ -75,7 +75,7 @@ These are just functions \(f: \N \to \C\). An important operation for multiplica
     if \(n = p_1 \dots p_k\) where \(p_i\)'s are not necessarily distinct.
   \item \emph{divisor function}
     \[
-      \tau(n) = \#d \text{ such that } d \divides n = \sum_{ab = n} 1 = 1 * 1.
+      \tau(n) = \#d \text{ such that } d \divides n = \sum_{ab = n} 1 = 1 * 1(n).
     \]
     This is sometimes also denoted by \(d(n)\).
   \end{enumerate}
@@ -96,7 +96,7 @@ In particular a multiplicative function is determined by its values on prime pow
 \end{fact}
 
 \begin{eg}
-  \(1, \mu, \lambda, \lambda\) are multiplicative. \(\log n\) is not multiplicative.
+  \(1, \mu, \lambda, \tau\) are multiplicative. \(\log n\) is not multiplicative.
 \end{eg}
 
 \begin{fact}[Möbius inversion]\index{Möbius inversion}
@@ -116,7 +116,7 @@ In particular a multiplicative function is determined by its values on prime pow
       1 & n = 1 \\
       0 & \text{otherwise}
     \end{cases}
-    = 1 * \mu
+    = 1 * \mu (n)
   \]
   is multiplicative so enough to check the identity for prime powers. If \(n = p^k\) then \(\{d: d \divides n\} = \{1, p, \dots, p^k\}\) so LHS equals to \(1 - 1 + 0 + \dots = 0\) unless \(k = 1\) when LHS equals to \(\mu(1) = 1\).
 \end{fact}
@@ -184,6 +184,176 @@ Thus
   \sum_{1 \leq n \leq x} \Lambda(n)
   = -x \sum_{d \leq x} \mu(d) \frac{\log d}{d} + O\left(\sum_{d \leq x} \mu(d) \log d\right).
 \]
+We'll see more of these examples.
+
+\subsection{Summation}
+
+Given an arithmetic function \(f\), we can ask for estimates of \(\sum_{1 \leq n \leq x} f(n)\). We say that \(f\) has \emph{average order}\index{average order} \(g\) if
+\[
+  \sum_{1 \leq n \leq x} f(n) \sim x g(x).
+\]
+``average size of \(f\) is \(g\)''.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(f = 1\) then
+    \[
+      \sum_{1 \leq n \leq x} f(x) = \floor{x} = x + O(1) \sim x
+    \]
+    so average order of \(1\) is \(1\).
+  \item \(f(n) = n\):
+    \[
+      \sum_{1 \leq n \leq x} n \sim \frac{x^2}{2}
+    \]
+    so average of \(n\) is \(\frac{n}{2}\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}[partial summation]\index{partial summation}
+  If \((a_n)\) is a sequence of complex numbers and \(f\) is such that \(f'\) is continuous. Then
+  \[
+    \sum_{1 \leq n \leq x} a_n f(n) = A(x) f(x) - \int_1^x A(t)f'(t) dt
+  \]
+  where \(A(x) = \sum_{1 \leq n \leq x} a_n\).
+\end{lemma}
+
+This is the discrete analogus of integration by parts.
+
+\begin{proof}
+  Suppose \(x = N\) is an integer. Note that \(a_n = A(n) - A(n - 1)\), so
+  \begin{align*}
+    \sum_{1 \leq n \leq N} a_nf(n)
+    &= \sum_{1 \leq n \leq N} f(n) (A(n) - A(n - 1)) \\
+    &= A(N)f(N) - \sum_{n = 1}^{N - 1} A(n) (f(n + 1) - f(n))
+  \end{align*}
+  Now
+  \[
+    f(n + 1) - f(n) = \int_n^{n + 1} f'(t) dt
+  \]
+  so
+  \begin{align*}
+    \sum_{1 \leq n \leq N} a_n f(n)
+    &= A(N)f(N) - \sum_{n = 1}^{N - 1} A(n) \int_n^{n + 1} f'(t) dt \\
+    &= A(N)f(N) - \int_1^N A(t) f'(t) dt
+  \end{align*}
+  where the last step is because \(A(n) = A(t)\) for \(t \in [n, n + 1)\).
+
+  If \(N = \floor x\) then
+  \[
+    A(x)f(x)
+    = A(N)f(x)
+    = A(N) f(N) + \int_N^x f'(t) dt.
+  \]
+\end{proof}
+
+As a simple application
+
+\begin{lemma}
+  \[
+    \sum_{1 \leq n \leq x} \frac{1}{n} = \log x + \gamma + O(\frac{1}{x}).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Partial summation with \(f(x) = \frac{1}{x}\) and \(a_n = 1\), so \(A(x) = \floor x\). Therefore
+  \begin{align*}
+    \sum_{1 \leq n \leq x} \frac{1}{n}
+    &= \frac{\floor x}{x} + \int_1^x \frac{\floor t}{t^2} dt
+    \intertext{Write \(\floor t= t - \{t\}\),} \\
+    &= 1 + O(\frac{1}{x}) + \int_1^x \frac{1}{t} dt - \int_1^x \frac{\{t\}}{t^2} dt \\
+    &= 1 + O(\frac{1}{x}) + \log x - \int_1^\infty \frac{\{t\}}{t^2} dt + \underbrace{\int_x^\infty \frac{\{t\}}{t^2} dt}_{\leq \int_x^\infty \frac{1}{t^2} dt \leq \frac{1}{x}} \\
+    &= \gamma + O(\frac {1}{x}) + \log x + O(\frac{1}{x}) \\
+    &= \log x + \gamma + O(\frac{1}{x})
+  \end{align*}
+\end{proof}
+
+This is an amazing result and the only thing we did is to replace the discrete summation by the continuous analogue to it. In essence this is the whole reason analytic number theory works.
+
+\(\gamma\) can be seen as a measure of the difference between between \(\log\) and its discrete approximation. It is called \emph{Euler-Mascheroni constant}\index{Euler-Mascheroni constant}. 
+Surprisingly little is known about \(\gamma\). It is approximately \(0.577\dots\). We don't even know if \(\gamma\) is rational or not.
+
+\begin{lemma}
+  \[
+    \sum_{1 \leq n \leq x} \log n = x \log x - x + O(\log x).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Partial summation with \(f(x) = \log x, a_n = A\) so \(A(x) = \floor{x}\). As a side note, in the previous example, most error comes from the integral term (the mass is evenly distributed). By constrast in this example most error comes from the ``sum'' term.
+  \begin{align*}
+    \sum_{1 \leq n \leq x} \log n
+    &= \floor{x} \log x - \int_1^x \frac{\floor{t}}{t} dt \\
+    &= x \log x + O(\log x) - \int_1^x dt + O(\int_1^x \frac{1}{t}dt) \\
+    &= x \log x + O(\log x) - x + O(\log x)
+  \end{align*}
+\end{proof}
+
+\subsection{Divisor function}
+
+Recall that
+\[
+  \tau(n) = 1 * 1(n) = \sum_{ab = n} 1 = \sum_{d \divides n} 1.
+\]
+
+\begin{theorem}
+  \[
+    \sum_{1 \leq n \leq x} \tau(n) = x \log x + (2 \tau - 1) x + O(x^{1/2})
+  \]
+  so in particular average order of \(\tau\) is \(\log\).
+\end{theorem}
+
+\begin{proof}
+  First attempt:
+  \begin{align*}
+    \sum_{1 \leq n \leq x} \tau(n)
+    &= \sum_{1 \leq n \leq x} \sum_{d \divides n} 1
+    = \sum_{1 \leq d \leq x} \sum_{1 \leq n \leq x, d \divides n} 1 \\
+    &= \sum_{1 \leq d \leq x} \floor*{\frac{x}{d}} \\
+    &= \sum_{1 \leq d \leq x} \frac{x}{d} + O(x)
+    = x \sum_{1 \leq d \leq x} \frac{1}{d} + O(x) \\
+    &= x\log x + \gamma x + O(x)
+  \end{align*}
+  This is not a very good bound (the error might be as large as one of the terms!) but shows that at least the first term is correct. The main drawback is we used the estimate
+  \[
+    \sum_{1 \leq d \leq x} O(1) = O(x).
+  \]
+
+  To reduce the error term, we use \emph{(Dirichlet's) hyperbola trick}\index{hyperbola trick}
+  \[
+    \sum_{1 \leq n \leq x} \tau(n)
+    = \sum_{1 \leq n \leq x} \sum_{ab = n} 1
+    = \sum_{ab \leq x} 1
+    = \sum_{a \leq x} \sum_{b \leq x/a} 1
+  \]
+  The intuition is like this: \(\sum_{1 \leq n \leq x} \tau(n)\) counts the number of integral points below the hyperbola \(k_1k_2 = x\) in the first quadrant. The old methods amounts to an estimation by integral, while in the new method we count the number of points lying below the line \(k_2 = x^{1/2}\), add the number of points to the left of \(k_1 = x^{1/2}\), and finally subtract those points in the box \([0, x^{1/2}]^2\) which are double counted.
+
+  Thus when summing over \(ab \leq x\), we can sum over \(a \leq x^{1/2}\) and \(b \leq x^{1/2}\) respectively, and then minus pairs \(a, b \leq \sqrt x\). Thus
+  \begin{align*}
+    \sum_{1 \leq n \leq x} \tau(n)
+    &= \sum_{a \leq x^{1/2}} \sum_{b \leq x/a} 1 + \sum_{b \leq x^{1/2}} \sum_{a \leq x/b} 1 - \sum_{a, b \leq x^{1/2}} 1 \\
+    &= 2 \sum_{a \leq x^{1/2}} \floor*{\frac{x}{a}} - \floor{x^{1/2}}^2 \\
+    &= 2 \sum_{a \leq x^{1/2}} \frac{x}{a} + O(x^{1/2}) - x + O(x^{1/2}) \\
+    &= 2x\log x^{1/2} + 2 \gamma x - x + O(x^{1/2}) \\
+    &= x \log x + (2\gamma - 1) x + O(x^{1/2})
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  Improving this \(O(x^{1/2})\) error term is a famous and hard problem. Probably \(O(x^{1/4 + \varepsilon})\)? The best result so far is \(O(x^{0.3149})\).
+\end{remark}
+
+A note on average order: \(\tau\) has average order \(\log\) does not mean \(\tau(n) \ll \log n\), i.e.\ average order does not imply individual values.
+
+\begin{theorem}
+  For all \(n\)
+  \[
+    \tau(n) \leq n^{O(\frac{1}{\log \log n})}.
+  \]
+  In particular \(\tau(n) \ll_\varepsilon n^\varepsilon\) for all \(\varepsilon > 0\) where \(\ll_\varepsilon\) means that \(|\tau(n)| \leq C_\varepsilon |n^\varepsilon|\) eventually where \(C_\varepsilon\) is a constant depends on \(\varepsilon\).
+\end{theorem}
+
+
+
 
 \printindex
 \end{document}

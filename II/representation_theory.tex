@@ -132,7 +132,7 @@ We have an ample supply of basic groups:
   then \(Q_8 = \{\pm i, \pm j, \pm k, \pm I_2\}\).
 \end{enumerate}
 
-\begin{definition}
+\begin{definition}[conjugacy class, centraliser]\index{conjugacy class}\index{centraliser}
   The \emph{conjugacy class} of \(g \in G\) is
   \[
     \ccl_G(g) = \{xgx^{-1}: x \in G\}.
@@ -144,6 +144,165 @@ We have an ample supply of basic groups:
   \]
   where \(C_g(g) = \{x \in g: xg = gx\}\) is the \emph{centraliser} of \(g\) in \(G\).
 \end{definition}
+
+\begin{definition}[group action]\index{group action}
+  Let \(G\) be a group and \(X\) be a set. \(G\) \emph{acts} on \(X\) if there exists a map
+  \begin{align*}
+    G \times X &\to X \\
+    (g, x) &\mapsto gx
+  \end{align*}
+  such that
+  \begin{align*}
+    1x & x \text{ for all } x \in X \\
+    (gh) x & g (hx) \text{ for all } g, h \in G, x \in X
+  \end{align*}
+\end{definition}
+
+\begin{proposition}[permutation representation]\index{representation!permutation}
+  Given an action of \(G\) on \(X\), we obtain a homomorphism \(\theta: G \to \sym(X)\), called the \emph{permutation representation} of \(G\).
+\end{proposition}
+
+\begin{proof}
+  For \(g \in G\) the function \(\theta_g: X \to X, x \mapsto gx\) is a permutation of \(X\) (with inverse \(\theta_{g^{-1}}\). Moreover for all \(g_1, g_2 \in G\),
+  \[
+    \theta_{g_1 g_2} = \theta_{g_1} \theta_{g_2}
+  \]
+  since \((g_1g_2)x = g_1(g_2x)\) for all \(x \in X\).
+\end{proof}
+
+In this course \(X\) is often a finite-dimensional vector space over \(\F\)and the action is required to be \emph{linear}, namely
+\begin{align*}
+  g(v_1 + v_2) &= gv_1 + gv_2 \\
+  g(\lambda v) &= \lambda g(v)
+\end{align*}
+for all \(v_1, v_2 \in V, g \in G, \lambda \in \F\).
+
+\section{Basic definitions}
+
+Let \(G\) be a finite group, \(\F\) a field.
+
+\begin{definition}[representation]\index{representation}
+  Let \(V\) be a finite-dimensional vector space over \(\F\). A \emph{(linear) representation} of \(G\) on \(V\) is a group homomorphism
+  \[
+    \rho = \rho_V: G \to \GL(V).
+  \]
+  Write \(\rho_g\) for \(\rho_V(g)\).
+\end{definition}
+So for each \(g \in G, \rho_g \in \GL(V), \rho_1 = \id\) and \(\rho_{g_1g_2} = \rho_{g_1}\rho_{g_2}, \rho_{g_1^{-1}} = \rho_{g_1}^{-1}\).
+
+The \emph{dimension}\index{dimension} or \emph{degree}\index{degree} of \(\rho\) is \(\dim_\F V\).
+
+Reall that \(\ker \rho \normal G\) and \(G / \ker \rho \cong \rho(G) \leq \GL(V)\). We say \(\rho\) is \emph{faithful}\index{faithful} if \(\ker \rho = \{1\}\).
+
+We repeat what we said in introduction, namely the correspondence between group representation and group action:
+
+\begin{definition}[linear action]\index{action!linear}
+  \(G\) acts \emph{linearly} on \(V\) if ther exists a linear action \(G \times V \to V, (g, v) \mapsto gv\) such that
+  \begin{align*}
+    (g_1g_2) v &= g_1(g_2v), 1 v = v \\
+    g(v_1 + v_2) &= gv_1 gv_2, g(\lambda v) = \lambda g(v)
+  \end{align*}
+\end{definition}
+
+Now if \(G\) acts on \(V\), the map
+\begin{align*}
+  G &\to \GL(V) \\
+  g &\mapsto \rho_g
+\end{align*}
+with \(\rho_g: v \mapsto gv\) is a representation. Conversely, given a representation \(G \to \GL(V)\) we have a linear action of \(G\) on \(V\) via
+\[
+  gv = \rho(g)(v).
+\]
+
+\begin{remark}
+  We also say that \(V\) is a \emph{\(G\)-space}\index{\(G\)-space} or that \(V\) is a \emph{\(G\)-module}\index{\(G\)-module}. This use of ``module'' might seen unconventional but if fact if you define the \emph{group algebra}\index{group algebra}
+  \[
+    \F G = \left\{ \sum_{g\in G} \alpha_g g: \alpha_g \in \F \right\}
+  \]
+  with natural addition an multiplication, then \(V\) is an \(\F G\)-module. \(\F G\) is an example of \emph{\(\F\)-algebra}, i.e.\ a ring which is also an \(\F\)-module such that multiplication is bilinear.
+\end{remark}
+
+If we bring in a basis for \(V\), we get yet another equivalent definition:
+
+\begin{definition}[matrix representation]\index{matrix representation}
+  \(R\) is a \emph{matrix representation} of \(G\) of degree \(n\) if \(R\) is a homomorphism \(G \to \GL_n(\F)\).
+\end{definition}
+
+Given a linear representation \(\rho: G \to \GL(V)\) with \(\dim_FV = n\), fix a basis \(\mathcal B\) then we get a matrix representation
+\begin{align*}
+  G &\to \GL_n(\F) \\
+  g &\mapsto [\rho(g)]_{\mathcal B}
+\end{align*}
+Conversely, given a matrix representation \(R: G \to \GL_n(\F)\), you get a linear representation
+\begin{align*}
+  \rho: G &\to \GL(\F^n) \\
+  g &\mapsto \rho_g
+\end{align*}
+via \(\rho_g(v) = R_g(v)\).
+
+\begin{eg}
+  Given any group \(G\), take \(V = \F\) (the \(1\) dimensional space) and
+  \begin{align*}
+    \rho: G &\to \GL(V) \\
+    g &\mapsto \id_V
+  \end{align*}
+  is known as the \emph{trivial representation}\index{representation!trivial}. \(\deg \rho = 1\).
+\end{eg}
+
+\begin{eg}
+  Let \(G = C_4 = \langle x: x^4 = 1 \rangle\). Take \(\F = \C\) and let \(n = 2\). Then \(R: x \mapsto X\) will determine \(x^j \mapsto X^j\) and thus the matrix representation \(R\). We need \(X^4 = I\). We can take
+  \begin{itemize}
+  \item either \(X\) diagonal: any such with diagonal entries in \(\{\pm 1, \pm i\}\) (16 choices),
+  \item or \(X\) is not diagonal: then it will be conjugate to a diagonal (by diagonalisability criterion).
+  \end{itemize}
+\end{eg}
+
+\subsection{Equivalent representations}
+
+\begin{definition}[\(G\)-homomorphism, \(G\)-isomorphism]\index{\(G\)-homomorphism}\index{interwining homomorphism}\index{isomorphic}\index{equivalent}
+  Fix \(G\) and \(\F\). Let \(V\) and \(V'\) be \(\F\)-vector spaces and \(\rho: G \to \GL(V), \rho': G \to \GL(V')\) be representations of \(G\). The linear map \(\varphi: V \to V'\) is a \emph{\(G\)-homomorphism} or \emph{interwining homomorphism} if
+  \[
+    \varphi \rho(g) = \rho'(g) \varphi.
+  \]
+  In other words, the following diagram commutes:
+  \[
+    \begin{tikzcd}
+      V \ar[r, "\rho_g"] \ar[d, "\varphi"] & V \ar[d, "\varphi"] \\
+      V' \ar[r, "\rho_g'"] & V'
+    \end{tikzcd}
+  \]
+
+  We say \(\varphi\) \emph{intertwines} \(\rho\) and \(\rho'\). Write \(\hom_G(V, V')\) for the \(\F\)-space of all such.
+
+  \(\varphi\) is a \emph{\(G\)-isomorphism} if \(\varphi\) is also bijective. If such a \(\varphi\) exists, say \(\rho\) and \(\rho'\) are \emph{isomorphic} or \emph{equivalent}. If \(\varphi\) is a \(G\)-isomorphism we can write the interwinding condition as
+  \[
+    \rho' = \varphi \rho \varphi^{-1}.
+  \]
+\end{definition}
+
+\begin{lemma}
+  Being isomorphic is an equivalence relation on the set of all representations of \(G\) over \(\F\).
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{remark}
+  If \(\rho\) and \(\rho'\) are isomorphic representation then they have the same dimension. The converse is false:  \(C_4\) has four non-isomorphic \(1\) dimensional representations.
+\end{remark}
+
+\begin{remark}
+  Given \(G, V, \F\) with \(\dim_\F V = n\) and \(\rho: G \to \GL(V)\), fix a basis \(\mathcal B\) of \(V\). We get an isomorphism
+  \begin{align*}
+    \varphi: V &\to \F^n \\
+    v &\mapsto [v]_{\mathcal B}
+  \end{align*}
+  Get a representation \(\rho': G \to \GL(\F^n)\) isomorphic to \(\rho\).
+\end{remark}
+
+
+
 
 
 

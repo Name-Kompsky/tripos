@@ -12,6 +12,7 @@
 
 \renewcommand{\boundary}{\partial}
 \newcommand{\interior}{\ocirc}
+\renewcommand{\P}{{\mathbb P}}
 
 \begin{document}
 
@@ -102,7 +103,7 @@ Poincare conjecture: if \(S\) is compact oriented \(3\)-manifold homotopy equiva
 
 Generalised Poincare conjecture: if \(S\) is compact oriented \(n\)-manifold homotopy equivalent to \(S^n\), then does \(S \cong S^n\)?
 
-It turns out for \(n \geq 4\), the generalised Poincare conjecture is a corollary of \(h\)-cobordism theorem. Sketch of proof: suppose \(S\) is homotopy equivalent to \(S^n\), Then \(\pi_*(S) \simeq \pi_*(S^n), H_*(S) \simeq H_*(S^n)\). Delete two balls from \(S\) to obtain \(W \cong S \setminus \interior B_1^n \amalg \interior B_2^n\). Claim that \(W\) is a \(h\)-cobordism: apply Mayer-Vietoris with \(A = W, B = B_1^n \amalg B_2^n\). Then \(A \cap B = S^{n - 1} \amalg S^{n - 1} =_{\text{htp}} W \amalg \{0, 1\}, A \cup B = S, A \amalg B = W \).
+It turns out for \(n \geq 4\), the generalised Poincare conjecture is a corollary of \(h\)-cobordism theorem. Sketch of proof for \(n \geq 5\): suppose \(S\) is homotopy equivalent to \(S^n\), Then \(\pi_*(S) \simeq \pi_*(S^n), H_*(S) \simeq H_*(S^n)\). Delete two balls from \(S\) to obtain \(W \cong S \setminus \interior B_1^n \amalg \interior B_2^n\). Claim that \(W\) is a \(h\)-cobordism: apply Mayer-Vietoris with \(A = W, B = B_1^n \amalg B_2^n\). Then \(A \cap B = S^{n - 1} \amalg S^{n - 1} =_{\text{htp}} W \amalg \{0, 1\}, A \cup B = S, A \amalg B = W \).
 
 \[
   \begin{tikzcd}
@@ -123,6 +124,138 @@ Therefore \(W \cong S^{n - 1} \times [0, 1]\) So \(S \cong B_1^n \cup W \cup B_2
 
 Note that this only applies to topological category and smooth generalised Poincare conjecture is still open in \(n \geq 4\).
 
+\subsection{Why not higher than 5?}
+
+Moral: homotopy-theoretic techniques can be used to answer most/many questions about topology or smooth structures in dimension \(\geq 5\).
+
+\section{Lecture 2: Why 3-manifolds? + Embeddings/Knots}
+
+\subsection*{Active research areas}
+
+\begin{enumerate}
+\item An interaction with 4-dimensional manifolds (smooth/symplectic/complex structures)
+\begin{enumerate}
+\item Dimension reduction reduces 4-dimensional invariant to 3-dimensional ones (that are fancier ``categorified'') and maps induced by cobordisms.
+\item symplectic form \(\omega\) on \(X^4\) \(\implies\) \emph{contact structure} \(\xi\) on \(Y = \b X\).
+\item Stein structure (complex/symplectic structure) on \(X\) \(\implies\) Stein-fillable contact structure.
+\item Normal complex structure sin \((X, 0)\) is a real cone over \(Y = \)Linkm(X, 0.
+\end{enumerate}
+
+\item Geometric group theory: fundamental groups, especially of 3-manifolds:
+
+prime, atoroidal non lens space 3 manifolds \(\iff\) fundmental groups of such 3-manifolds.
+
+\item 2-dimensional structure
+  \begin{enumerate}
+  \item contact stucture: \(\xi\) everywhere nonintegrable \(2\)-lane field. ``tight'' contact structure classification
+  \item minimal genus representatives of embedded surfaces, or knot genus. This is better understood. Thurston norm. The 4-dimensional analogue is still open.
+  \item Foliations. Taut folations classification. Seifert fibered
+  \end{enumerate}
+
+\item 1-dimensional structure: knots and links
+  \begin{enumerate}
+  \item embedddings \(\amalg_i S^1_i \embed S^3\). Every 3-manifold can be realised as \emph{Dehn surgery} on  a link \(L \embed S^3\). Thus the theory of knot theory is richer that of 3-manifold. We study 3-manifolds via knot invariants (WIlten-Reshetikhin-Turaev invariant).
+  \item Relations to other areas
+    \begin{enumerate}
+    \item Chern-Simons knot invarints: \(K \subseteq S^3\) \(\iff\) Gromov-Witten invariants on \(O(-1) \underbrace{\oplus}_{\C\P^1} O(-1)\).
+    \item Homfly homology of \(n\)str braids \(\iff\) DC sheaves on \(\operatorname{HIlb}^n(\C)\).
+    \item Khovanov homology of links in \(S^3\) \(\iff\) DC sheaves on other spaces.
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
+
+\subsection{Course themes}
+
+\begin{enumerate}
+\item Decompositions/Constructions of 3-manifolds.
+  \begin{enumerate}
+  \item surface decompositions/constructures
+    \begin{enumerate}
+    \item prime decomposition --- cut along essential \(S^2\)
+    \item JSJ decomposition --- cut along essential \(T\).
+    \item Mapping tori \(\iff\) surface fibrations.
+    \end{enumerate}
+  \item quotient spaces
+    \begin{enumerate}
+    \item Hyperbolic quotients
+    \item quotients of \(S^7\). Seifert fibration
+    \item Morse theoretic
+      \begin{enumerate}
+      \item handle decomposition
+      \item Heegaard splittings/diagrams
+      \end{enumerate}
+    \item Dehn surgery on links
+    \end{enumerate}
+  \end{enumerate}
+\item Structure + Invariants for 3-manifolds
+  \begin{enumerate}
+  \item Knots \& links
+    \begin{enumerate}
+    \item complement \(S^3 \setminus K\)
+    \item \(\pi_1(S^3 \setminus K)\)
+    \item Alexander polynomials + Turaev torsion
+    \end{enumerate}
+  \item Essential/incompressible embedded surfaces, Thurston norm
+  \item Foliations
+  \end{enumerate}
+\end{enumerate}
+
+\section{Embeddings}
+
+\begin{definition}[link]\index{link}
+  A \emph{link} is an embedding \(L = \amalg_i S^1_i \embed S^3\) considered up to isotopy. This embedding is either smooth or topoogical and locally flat. These two notions are equivalent.
+\end{definition}
+
+Let \(X\) and \(Y\) be topological manifolds.
+
+\begin{definition}[topological embedding]\index{topological embedding}
+  A \emph{topological embedding} \(X \embed Y\) is a map \(X \embed Y\) which is a homeomorphism onto its image.
+\end{definition}
+
+\begin{definition}[immersion]\index{immersion}
+  If \(X\) and \(Y\) are also smooth then a map \(f: X \to Y\) is an \emph{immersion} if \(d_xf: T_xX \to T_{f(x)}Y\) is injective for all \(x \in X\).
+\end{definition}
+
+As a consequence of inverse function theorem, any immersion is locally an embedding.
+
+\begin{definition}[smooth embedding]\index{smooth embedding}
+  A \emph{smooth embedding} is a topological embedding that is also an immersion.
+\end{definition}
+
+\begin{corollary}
+  If \(X, Y\) are smooth compact then any bijective immersion is an embedding.
+\end{corollary}
+
+\begin{theorem}[Moise]\index{Moise theorem}
+  There is a canonical correpondence between topological structures and smooth structures on 3-manifolds.
+\end{theorem}
+
+Thus 3-manifolds up to homeomorphism bijects to 3-manifolds up to diffeomorphism.
+
+\begin{definition}[local flatness]\index{local flatness}
+  A topologically embedded submanifold \(X \subseteq Y\) is \emph{locally flat} at \(x \in X\) if \(x\) has a neighbourhood \(x \in U \subseteq Y\) with homeomorphisms \((U \cap X, U) \cong (\R^{\dim X}, \R^{\dim Y})\).
+
+  A \emph{locally flat embedding} is locally flat everywhere.
+\end{definition}
+
+\begin{convention}
+  From now on any embedding is smooth or locally flat.
+\end{convention}
+
+\begin{definition}[regular neighbourhood]\index{regular manifolds}
+  A \emph{regular neighbourhood} of an embedded submanifold \(X \subseteq Y\) is a tubular/collar neighbourhood if the embedding is smooth/topologically flat.
+\end{definition}
+
+In 3-dimensions normal bundles are trivial so a regular neighbourhood \(\nu(X)\) is just \(D^2 \times X \embed Y\) if \(\dim X = 1\) and \(D^1 \times X \embed Y\) if \(\dim Y = 2\).
+
+In particular, neighbourhood of a not \(K \embed S^3\) is just a solid torus \(D^2 \times S^1 \embed S^3\).
+
+
+
+
+
+
+
 
 
 
@@ -131,4 +264,4 @@ Note that this only applies to topological category and smooth generalised Poinc
 \printindex
 \end{document}
 
-% https://www.dpmms.cam.ac.uk/~sr727
+% https://www.dpmms.cam.ac.uk/~sr727/2019_3manifolds

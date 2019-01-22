@@ -11,6 +11,7 @@
 \input{header}
 
 \renewcommand{\P}{\mathbb P} % projective space
+\newcommand{\w}{\wedge} % wedge product
 
 \begin{document}
 
@@ -181,6 +182,163 @@ As \(J^2 = -\id\), the eigenvalues are \(\pm i\). Since \(V\) is real, there are
   \item Follows from 1.
   \end{enumerate}
 \end{proof}
+
+\begin{definition}[almost complex structure]\index{almost complex structure}
+  Let \(X\) be a smooth manifold. An \emph{almost complex structure} is a bundle isomorphism \(J: TX \to TX\) with \(J_x: T_xX \to T_xX\) and \(J^2 = -\id\).
+\end{definition}
+
+One can complexify \(TX\) to obtain \((TX)_\C = TX \otimes \C\) so each fibre of \((TX)_\C \to X\) is a complex vector space. \((TX)_\C\) is called the \emph{complexified tangent bundle}\index{complexified tangent bundle}.
+
+Just as the case for complex structure, \((TX)_\C\) splits as a direct sum
+\[
+  (TX)_\C \cong TX^{1, 0} \oplus TX^{0, 1}.
+\]
+To obtain this, one uses, for example,
+\begin{align*}
+  TX^{1, 0} &= \ker (J - i \id) \\
+  TX^{0, 1} &= \ker (J + i \id)
+\end{align*}
+
+\begin{ex}
+  Let \(U, V \subseteq \C^n\) open, \(f: U \to V\) smooth. Then \(f\) is holomorphic if and only if \(df\) is \(\C\)-linear.
+\end{ex}
+
+On \(T\R^{2n}\) there is a natural almost complex structure coming from the one on \(\R^{2n}\), denoted \(J_{\text{st}}\). Let \(X\) be a complex manifold. If  \(U \subseteq X\) is a chart with \(\varphi: U \to \varphi(U) \subseteq \C^n \cong \R^{2n}\), the differential of \(\varphi\) gives a bundle map \(J: TU \to TU, J = d\varphi^{-1} \compose J_{\text{st}} \compose d\varphi\).
+
+\begin{proposition}
+  \(J\) defined above is independent of (holomorphic) chart, so gives an almost complex structure on \(X\).
+\end{proposition}
+
+\begin{proof}
+  Suppose \(\varphi, \psi\) are charts around the same point. What we need to show is
+  \[
+    d\varphi^{-1} \compose J_{\text{st}} \compose d\varphi = \delta\psi^{-1} \compose J_{\text{st}} \compose d \psi,
+  \]
+  i.e.
+  \[
+    d((\varphi \compose \psi^{-1})^{-1}) \compose J_{\text{st}} \compose d(\varphi \compose \psi^{-1}) = J_{\text{st}}.
+  \]
+  \(\varphi \compose \psi^{-1}\) is a holomorphic map between open open subsets of \(\C^n\), \(d((\varphi \compose \psi^{-1}))\) commutes with \(J_{\text{st}}\), which is similar to the exercise.
+\end{proof}
+
+\begin{remark}
+  There are lots of almost complex structure not arising from in this way. Those that do are called \emph{integrable}\index{integrable}. It is difficult to tell whether a smooth manifold with an almost complex structure admits a complex structure. For example \(S^6\) admits an almost complex structure which is \emph{not} integrable. It's an open problem whether or not \(S^6\) admits a complex structure. As an aside, an almost complex structure is integrable if and only if the Nijenhuis tensor vanishes.
+\end{remark}
+
+\begin{definition}[holomorphic tangent bundle]\index{holomorphic tangent bundle}
+  \(TX^{1, 0}\) is called the \emph{holomorphic tangent bundle} of \(X\).
+\end{definition}
+
+If \(V\) is a real vector space and \(J\) is a complex structure then one obtains a complex structure on \(V^*\) in the natural way. Thus analoguously one obtains
+\[
+  (T^*X)_\C \cong T^*X^{(1, 0)} \oplus T^*X^{(0, 1)}.
+\]
+Locally if \(\varphi: U \to \C^n\) is a chart, we say that \(z_j = x_j + iy_j\) are local coordinates. Then
+\begin{align*}
+  J(\frac{\partial  }{\partial x_j}) &= \frac{\partial  }{\partial y_j} \\
+  J(\frac{\partial  }{\partial y_j}) &= - \frac{\partial  }{\partial x_j}
+\end{align*}
+(see the connection with Cauchy-Riemann) and
+\begin{align*}
+  J(dx_j) &= -dy_j \\
+  J(dy_j) &= dx_j
+\end{align*}
+where we also use \(J\) to denote the dual of \(J\).
+
+\begin{definition}
+  We define
+  \begin{align*}
+    dz_j &= dx_j + idy_j \\
+    d\conj z_j &= dx_j - idy_j \\
+    \frac{\partial  }{\partial z_j} &= \frac{1}{2} \left( \frac{\partial  }{\partial x_j} - i \frac{\partial  }{\partial y_j} \right) \\
+    \frac{\partial  }{\partial \conj z_j} &= \frac{1}{2} \left( \frac{\partial  }{\partial x_j} + i \frac{\partial  }{\partial y_j} \right)
+  \end{align*}
+  Then \(dz_j, d\conj z_j\) are sections of \((T^*X)_\C\) and \(\frac{\partial  }{\partial z_j}, \frac{\partial  }{\partial \conj z_j}\) are sections of \((TX)_\C\).
+\end{definition}
+
+Note that
+\begin{align*}
+  J(dz_j) &= i dz_j, J(d\conj z_j) = -i d\conj z_j \\
+  J(\frac{\partial  }{\partial z_j}) = i \frac{\partial  }{\partial z_j}, J(\frac{\partial  }{\partial \conj z_j}) = -i \frac{\partial  }{\partial \conj z_j}
+\end{align*}
+We see the \(dz_j\) form a local fram for \(TX^{(1, 0)}\), similarly \(d\conj z_j\) form a local frame for \(T^*X^{(0, 1)}\). Same for tangent bundle.
+
+If \(f: X \to \C\), say \(f = u + iv\) then \(df = du + idv\) is a smooth section of
+\[
+  (T^*X)_\C \cong T^*X^{(1, 0)} \oplus T^*X^{(0, 1)}.
+\]
+We denote by \(p_1, p_2\) the two projections.
+
+\begin{definition}
+  \[
+    \p f = p_1 (df)
+  \]
+\end{definition}
+
+In a local frame,
+\[
+  df
+  = \sum \frac{\partial f}{\partial z_j} dz_j + \sum \frac{\partial f}{\partial \conj z_j} d\conj z_j
+  = \p f + \conj \p f
+\]
+so \(f\) is holomorphic if and only if \(\conj \p f = 0\).
+
+We now do the same for higher degree forms.
+
+\begin{definition}[form]\index{form}
+  A section of
+  \[
+    \Lambda^{(p, q)}T^*X = \Lambda^pT^*X^{(1, 0)} \otimes \Lambda^qT^*X^{(0, 1)}.
+  \]
+  is called a \emph{\((p, q)\)-form}.
+\end{definition}
+
+Locally a \((p, q)\)-form looks like
+\[
+  \sum_f dz_{j_1} \w \dots \w dz_{j_p} \w d\conj z_{\ell_1} \w \dots \w d\conj z_{\ell_q}.
+\]
+Note that \(f\) is only required to be smooth and not required to be holomorphic, antiholomorphic etc. So for example \(\conj z dz\) is a section of \(T^*X^{(1, 0)}\).
+
+\begin{definition}
+  We denote by \(\mathcal A_\C^k(U)\) the sections of \(\Lambda^k(T^*X)_\C\) over \(U \subseteq X\). We also denote by \(\mathcal A_\C^{p, q}(U)\) the smooth sections of \(\Lambda^{p, q}(U)\).
+\end{definition}
+In particular \(\mathcal A_\C^{0, 0}(U)\) consists of smooth \(\C\)-valued functions.
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item There is a natural identification
+    \[
+      \Lambda^k(T^*X)_\C \cong \bigoplus_{p + q = k} \Lambda^{p, q} (T^*X)
+    \]
+    so
+    \[
+      \mathcal A_\C^k(U) \cong \bigoplus_{p + q = k} \mathcal A_\C^{p, q} (U).
+    \]
+  \item If \(\alpha \in \mathcal A_\C^{p, q}(U), \beta \in \mathcal A_\C^{p', q'}(U)\) then \(\alpha \w \beta \in \mathcal A_\C^{p + p', q + q'}(U)\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Fibrewise this is linear algebra. One can use a frame to obtain the bundle results.
+\end{proof}
+
+\subsection{Dolbeault cohomology}
+
+Denote by \(d: \mathcal A_\C^k(U) \to \mathcal A_\C^{k + 1}(U)\) the usual exterior derivative.
+
+\begin{definition}
+  \(\p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p + 1, q}(U)\) by taking \(d\) composed with projection to \(\mathcal A_\C^{p + 1, q}(U)\). Similarly define \(\conj p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p, q + 1}(U)\).
+\end{definition}
+
+\begin{definition}[Dolbeault cohomology]\index{Dolbeault cohomology}
+  The \emph{\((p, q)\)-Dolbeault cohomology} of \(X\) is given by
+  \[
+    H_{\conj p}^{p, q}(X) = \frac{\ker \conj \p: \mathcal A_\C^{p, q}(X) \to \mathcal A_\C^{p, q + 1}(X)}{\ker \conj \p: \mathcal A_\C^{p, q - 1}(X) \to \mathcal A_\C^{p, q}(X)}.
+  \]
+\end{definition}
+
+
+
 
 
 

@@ -354,7 +354,7 @@ Let \(L\) be a number field.
 \begin{lemma}
   Let \(L/K\) be an extension of number fields and let \(\alpha \in L\). Let \(\sigma_0: K \to \C\) be a complex embedding and \(\sigma_1, \dots, \sigma_n: L \to \C\) be complex embeddings extending \(\sigma_0\). Then
   \begin{align*}
-    \sigma_0(\tr_{L/K}(\alpha)) &= \sum_{i = i}^n \sigma_i(\alpha) \\
+    \sigma_0(\tr_{L/K}(\alpha)) &= \sum_{i = 1}^n \sigma_i(\alpha) \\
     \sigma_0(\n_{L/K}(\alpha)) &= \prod_{i = 1}^n \sigma_i(\alpha)
   \end{align*}
 \end{lemma}
@@ -382,7 +382,7 @@ Let \(L\) be a number field.
 \end{corollary}
 
 \begin{proof}
-  We have the following characterisation of ring of integers: if \(\beta \in L\) then \(\beta \in \O_L\) if and only if \(\sigma_0(\beta) \in \O_\C\) as for all \(f(x) \in \Z[x]\), \(f(\beta) = 0\) if and only if \(f(\sigma_0(\beta)) = 0\).
+  We have the following characterisation of ring of integers: if \(\beta \in K\) then \(\beta \in \O_K\) if and only if \(\sigma_0(\beta) \in \O_\C\) as for all \(f(x) \in \Z[x]\), \(f(\beta) = 0\) if and only if \(f(\sigma_0(\beta)) = 0\).
 
   By the lemma, \(\sigma_0 \tr_{L/K}(\alpha) = \sigma_1(\alpha) + \dots + \sigma_n(\alpha)\). If \(\alpha \in \O_L\) then \(\sigma_i(\alpha) \in \O_\C\) for all \(i\). But \(\O_\C\) is a ring so \(\sigma_0 \tr_{L/K}(\alpha) \in \O_\C\). Thus \(\tr_{L/K}(\alpha) \in \O_K\). Similar for norm.
 \end{proof}
@@ -410,7 +410,7 @@ Let \(L\) be a number field.
 
   We have shown that if \(\alpha \in \O_L\) then \(\alpha = \frac{u}{2} + \frac{v}{2}\sqrt d\) where \(u, v \in \Z\) and \(u^2 = dv^2 \pmod 4\). Split into cases:
   \begin{enumerate}
-  \item \(d = 2, 3 \pmod 4\): \(u^2 = 0, 1 \pmod 4, v^2 = 0, 1 \pmod 4\). Consider the congruence \(u^2 =dv^2 \pmod 4\) shows that both \(u, v \in 2\Z\). Hence \(\alpha \in \Z[\sqrt d]\). Thus \(\O_L = \Z[\sqrt d]\).
+  \item \(d = 2, 3 \pmod 4\): \(u^2 = 0, 1 \pmod 4, v^2 = 0, 1 \pmod 4\). Consider the congruence \(u^2 =dv^2 \pmod 4\) shows that \(u, v \in 2\Z\). Hence \(\alpha \in \Z[\sqrt d]\). Thus \(\O_L = \Z[\sqrt d]\).
   \item \(d = 1 \pmod 4\): \(u^2 = v^2 \pmod 4\) so \(u = v \pmod 2\). Hence
     \[
       \O_L \subseteq \left\{ \frac{u}{2} + \frac{v}{2}\sqrt d: u, v \in \Z, u = v \pmod 2 \right\} \cong \Z\oplus\Z\cdot \left(\frac{1 + \sqrt d}{2} \right).
@@ -682,7 +682,7 @@ We thus conclude that
 \end{note}
 
 \begin{eg}
-  Let \(d \in \Z\) be square-free and \(\alpha \neq 0, 1\). Let \(L = \Q(\sqrt d)\). Then
+  Let \(d \in \Z\) be square-free and \(d \neq 0, 1\). Let \(L = \Q(\sqrt d)\). Then
   \[
     D_L =
     \begin{cases}
@@ -695,7 +695,7 @@ We thus conclude that
     D_L = \disc(1, \sqrt d) = -\n_{L/\Q}(2\sqrt d) = 4d.
   \]
 
-  On the other hand if \(d = 1 \pmod 4\) then \(\O_L = \Z[\alpha]\) where \(\alpha  = \frac{1 + \sqrt d}{2}\). Apply the proposition to \(f(t) = t^2 - t + \frac{1 - d}{4}\), \(f'(x) = 2x - 1\), \(f'(\alpha) = \sqrt d\). Thus
+  On the other hand if \(d = 1 \pmod 4\) then \(\O_L = \Z[\alpha]\) where \(\alpha  = \frac{1 + \sqrt d}{2}\). Apply the proposition to \(f(t) = t^2 - t + \frac{1 - d}{4}\), \(f'(t) = 2t - 1\), \(f'(\alpha) = \sqrt d\). Thus
   \[
     D_L = -\n_{L/\Q}(\sqrt d) = d.
   \]
@@ -789,7 +789,7 @@ Note that the same argument for discriminant of ring of integers shows that this
   Then the result follows from \(\O_L \cong \Z^n\).
 
   \begin{proof}
-    Recall from IB Groups, Rings and Modules that there exists \(P, Q \in \GL_n(\Z)\) such that
+    Recall from IB Groups, Rings and Modules that there exist \(P, Q \in \GL_n(\Z)\) such that
     \[
       PBQ = D = \operatorname{diag}(d_1, \dots, d_n)
     \]
@@ -820,7 +820,7 @@ Note that the same argument for discriminant of ring of integers shows that this
     &= \det(\sigma_i(\alpha\alpha_j))^2 \\
     &= \det (\sigma_i(\alpha)\sigma_i(\alpha_j))^2 \\
     &= \left( \prod_{i = 1}^n \sigma_i(\alpha) \right)^2 \det(\sigma_i(\alpha_j))^2 \\
-    &= \n_{L/\Q}(\alpha)^2 \det(\O_L)
+    &= \n_{L/\Q}(\alpha)^2 \disc(\O_L)
   \end{align*}
   On the other hand, we showed last time that for any non-zero ideal \(J \subseteq \O_L\),
   \[
@@ -2551,18 +2551,9 @@ On RHS, each \(L(\chi, s)\) is holomorphic at \(s = 1\) and \(L(\chi, 1)\) can b
 
 With more work, this leads to Kummer's criterion for the \(p\)-divisibility of \(h_K\).
 
-
-
-
-
-
 \printindex
-
-
-\iffalse
-Reading
-
-Marcus, Number Fields
-secret notes: https://www.dpmms.cam.ac.uk/~jat58/nfl2018
-\fi
 \end{document}
+% Reading
+
+% Marcus, Number Fields
+% secret notes: https://www.dpmms.cam.ac.uk/~jat58/nfl2018
