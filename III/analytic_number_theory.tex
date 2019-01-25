@@ -279,7 +279,7 @@ Surprisingly little is known about \(\gamma\). It is approximately \(0.577\dots\
 \end{lemma}
 
 \begin{proof}
-  Partial summation with \(f(x) = \log x, a_n = A\) so \(A(x) = \floor{x}\). As a side note, in the previous example, most error comes from the integral term (the mass is evenly distributed). By constrast in this example most error comes from the ``sum'' term.
+  Partial summation with \(f(x) = \log x, a_n = 1\) so \(A(x) = \floor{x}\). As a side note, in the previous example, most error comes from the integral term (the mass is evenly distributed). By constrast in this example most error comes from the ``sum'' term.
   \begin{align*}
     \sum_{1 \leq n \leq x} \log n
     &= \floor{x} \log x - \int_1^x \frac{\floor{t}}{t} dt \\
@@ -349,8 +349,335 @@ A note on average order: \(\tau\) has average order \(\log\) does not mean \(\ta
   \[
     \tau(n) \leq n^{O(\frac{1}{\log \log n})}.
   \]
-  In particular \(\tau(n) \ll_\varepsilon n^\varepsilon\) for all \(\varepsilon > 0\) where \(\ll_\varepsilon\) means that \(|\tau(n)| \leq C_\varepsilon |n^\varepsilon|\) eventually where \(C_\varepsilon\) is a constant depends on \(\varepsilon\).
+  In particular \(\tau(n) \ll_\varepsilon n^\varepsilon\) for all \(\varepsilon > 0\) where \(\ll_\varepsilon\) means that \(|\tau(n)| \leq C_\varepsilon |n^\varepsilon|\) eventually where \(C_\varepsilon\) is a constant depending on \(\varepsilon\).
 \end{theorem}
+
+As a side note, asymptotic bounds such as \(\log \log n\) are quite common in analytic number theory and here is how to reason with them: as \(n \to \infty\), \(\log n\) grows slower than any polynomial, so \(\log \log n\) grows slower than \(\log P(n)\) for any polynomial. Another way is to write \(n = e^{\log n}\) and then
+\[
+  n^{O(\frac{1}{\log \log n})} = \exp (O(\frac{\log n}{\log \log})).
+\]
+
+\begin{proof}
+  \(\tau\) is multiplicative so enough to calculate at prime powers. \(\tau(p^k) = k + 1\) so if \(n = p_1^{k_1} \cdots p_r^{k_r}\) then \(\tau(n) = \prod_{i = 1}^r (k_i + 1)\). Let \(\varepsilon > 0\) to be chosen later and consider the ratio
+  \[
+    \frac{\tau(n)}{n^\varepsilon}
+    = \prod_{i = 1}^r \frac{k_i + 1}{p^{k_i\varepsilon}}.
+  \]
+  Now enters the trick: split into big and small cases. Note as \(p\) goes large, \(\frac{k + 1}{p^{k \varepsilon}} \to 0\). In particular if \(p \geq 2^{1/\varepsilon}\) then
+  \[
+    \frac{k + 1}{p^{k\varepsilon}} \leq \frac{k + 1}{2^k} \leq 1.
+  \]
+  What about small \(p\)? It is important to remind ourselves that we're dealing with primes and \(p\) can't run below \(2\). In this case
+  \[
+    \frac{k + 1}{p^{k\varepsilon}} \leq \frac{k + 1}{2^{k\varepsilon}} \leq \frac{1}{\varepsilon}
+  \]
+  this is because \(x + \frac{1}{2} \leq 2^x\) for \(x \geq 0\) so \(\varepsilon h + \varepsilon \leq 2^{k \varepsilon}\) if \(\varepsilon \leq \frac{1}{2}\) (the details are not so important compared to the conclusion that this can be bounded). Therefore
+  \[
+    \frac{\tau(n)}{n^\varepsilon}
+    \leq \prod_{i = 1, p_i < 2^{1/\varepsilon}}^r \frac{k_i + 1}{p^{k_i \varepsilon}}
+    \leq \left( \frac{1}{\varepsilon} \right)^{\pi(2^{1/\varepsilon})}
+    \leq \left( \frac{1}{\varepsilon} \right)^{2^{1/\varepsilon}}\footnote{Behold what a wasteful bound we give in the last inequality! But that almost has no effect in the final result.}.
+  \]
+  Now we need to choose an optimal \(\varepsilon\). Another trick: if we want to minimise \(f(x) + g(x)\), choose \(x\) such that \(f(x) = g(x)\). Have
+  \[
+    \tau(n)
+    \leq n^\varepsilon \varepsilon^{-2^{1/\varepsilon}}
+    = \exp (\varepsilon \log n + 2^{1/\varepsilon} \log (1/\varepsilon)).
+  \]
+  Choose \(\varepsilon\) such that \(\log n \approx 2^{1/\varepsilon}\) (again, only a rough guess is needed), i.e.\ \(\varepsilon \approx \frac{1}{\log \log n}\) and get
+  \begin{align*}
+    \tau(n)
+    &\leq n^{\frac{1}{\log \log n}} (\log \log n)^{2^{\log \log n}} \\
+    &= n^{\frac{1}{\log \log n}} \exp ((\log n)^{\log 2} \log \log \log n) \\
+    &\leq n^{O(\frac{1}{\log \log n})}.
+  \end{align*}
+\end{proof}
+
+\subsection{Estimates for the primes}
+
+Recall that
+\begin{align*}
+  \pi(x) &= \# \{\text{primes } \leq x\} = \sum_{1 \leq n \leq x} 1_p(n) \\
+  \psi(x) &= \sum_{1 \leq n \leq x} \Lambda(n)
+\end{align*}
+The second one is sometimes known as \emph{Chebyshev's function}\index{Chebyshev's function}. Prime number theorem asserts that \(\pi(x) \sim \frac{x}{\log x}\) or equivalently \(\psi(x) \sim x\) (this equivalence will be shown later).
+
+Although Euclid's prove in 300 BC the infinitude of prime, It was 1850 before the correct magnitude of \(\pi(x)\) was proved. Chebyshev showed that
+\[
+  \pi(x) \asymp \frac{x}{\log x}
+\]
+where \(f \asymp g\) means that \(g \ll f \ll g\).
+
+\begin{theorem}[Chebyshev]
+  \[
+    \psi(x) \asymp x.
+  \]
+\end{theorem}
+
+\begin{proof}
+  First we'll prove the lower bound, i.e.\ \(\psi(x) \gg x\). Recall that \(1 * \Lambda = \log\). Here comes in a genuine\footnote{Read unmotivated.} trick: find something that equals \(1\). Then \(\psi(x) = \sum_{1 \leq n \leq x} \Lambda(n) \cdot 1\) can be rearranged. We'll use the identity
+  \[
+    \floor{x} = 2 \floor*{\frac{x}{2}} + 1
+  \]
+  for \(x \geq 0\). Either see it directly or a simple verification: if \(\frac{x}{2} = n + \theta\) where \(\theta \in [0, 1)\) then \(\floor*{\frac{x}{2}} = n\) and \(\floor{x} = \floor{2n + 2\theta} = 2n \text{ or } 2n + 1\). Then
+  \begin{align*}
+    \psi(x)
+    &\geq \sum_{1 \leq n \leq x} \Lambda(x) \left( \floor*{\frac{x}{n}} - 2 \floor*{\frac{x}{2n}} \right)\\
+    \intertext{Note that \(\floor*{\frac{x}{n}} = \sum_{m \leq x/n} 1\),}
+    &=\sum_{n \leq x} \Lambda(n) \sum_{m \leq x/n} 1 - 2 \sum_{n \leq x} \Lambda(n) \sum_{m \leq x/2n} 1 \\
+    &=  \sum_{nm \leq x} \Lambda(n) - 2 \sum_{nm \leq x/2} \Lambda(n) \\
+    \intertext{Write \(d = nm\),}
+    &= \sum_{d \leq x} 1 * \Lambda(d) - 2 \sum_{d \leq x/2} 1 * \Lambda(d) \\
+    &= \sum_{d \leq x} \log d - 2 \sum_{d \leq x/2} \log d \\
+    &= x \log x - x + O(\log x) - 2 \left( \frac{x}{2} \log \frac{x}{2} - \frac{x}{2} + O(\log x) \right) \\
+    &= (\log 2) x + O(\log x) \\
+    &\gg x
+  \end{align*}
+
+  For the upper bound,
+  \[
+    \floor{x} = 2 \floor*{\frac{x}{2}} + 1
+  \]
+  for \(x \in (1, 2)\) so
+  \begin{align*}
+    \psi(x) - \psi(\frac{x}{2})
+    &= \sum_{x/2 < n < x} \Lambda(n) \\
+    &\leq \sum_{1 \leq n \leq x} \Lambda(n) \left( \floor*{\frac{x}{n}} - 2 \floor*{\frac{x}{2n}} \right) \\
+    & \leq (\log 2) x + O(\log x)
+  \end{align*}
+  Thus
+  \begin{align*}
+    \psi(x)
+    &= (\psi(x) - \psi(x/2)) + (\psi(x/2) - \psi(x/4)) + \dots \\
+    &\leq \log 2 \cdot (x + x/2 + x/4 + \dots ) \\
+    &= 2 \log 2 \cdot x
+  \end{align*}
+  Thus we have shown
+  \[
+    (\log 2) x \leq \psi(x) \leq (\log 4) x.
+  \]
+\end{proof}
+
+\begin{lemma}
+  \[
+    \sum_{p \leq x} \frac{\log p}{p} = \log x + O(1).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Recall that \(\log = 1 * \Lambda\) so
+  \begin{align*}
+    \sum_{n \leq x} \log n
+    &= \sum_{ab \leq x} \Lambda(a)
+    = \sum_{a \leq x} \Lambda(a) \sum_{b \leq x/a} 1 \\
+    &= \sum_{a \leq x} \Lambda(a) \floor*{\frac{x}{a}} \\
+    &= x \sum_{a \leq x} \frac{\Lambda(a)}{a} + O(\psi(x)) \\
+    &= x \sum_{a \leq x} \frac{\Lambda(a)}{a} + O(x) \\
+  \end{align*}
+  Note where we used Chebyshev's bound. Since
+  \[
+    \sum_{n \leq x} \log x = x\log x - x + O(\log x),
+  \]
+  have
+  \[
+    \sum_{n \leq x} \frac{\Lambda(n)}{n}
+    = \log x - 1 + O(\frac{\log x}{x}) + O(1)
+    = \log x + O(1)
+  \]
+  Remain to note the contribution from prime powers \(\geq 2\) are ``small'':
+  \begin{align*}
+    \sum_{p \leq x} \sum_{n = 2}^\infty \frac{\log p}{p^n}
+    &= \sum_{p \leq x} \log p \sum_{n = 2}^\infty \frac{1}{p^n} \\
+    &= \sum_{p \leq x} \frac{\log p}{p^2 - p} \\
+    &\leq \sum_{p = 2}^\infty \frac{1}{p^{3/2}} \\
+    &= O(1)
+  \end{align*}
+  so
+  \[
+    \sum_{n \leq x} \frac{\Lambda(n)}{n} = \sum_{p \leq x} \frac{\log p}{p} + O(1).
+  \]
+\end{proof}
+
+\begin{lemma}
+  \[
+    \pi(x) = \frac{\psi(x)}{\log x} + O(\frac{x}{(\log x)^2}).
+  \]
+  In particular \(\pi(x) \asymp \frac{x}{\log x}\) and prime number theorem \(\pi(x) \sim \frac{x}{\log x}\) is equivalent to \(\psi(x) \sim x\).
+\end{lemma}
+
+\begin{proof}
+  Idea is to use partial summation: let
+  \[
+    \theta(x)
+    = \sum_{p \leq x} \log p
+    = \pi(x) \log x - \int_1^x \frac{\pi(t)}{t} dt.
+  \]
+  First problem: \(\psi(x)\) sums over not only primes but also prime powers. We can use a previous trick to remove contributions from prime powers:
+  \begin{align*}
+    \psi(x) - \theta(x)
+    &= \sum_{k = 2}^\infty \sum_{p^k \leq x} \log p
+    = \sum_{k = 2}^\infty \theta(x^{1/k}) \\
+    &\leq \sum_{k = 2}^{\log x} \psi(x^{1/k})
+    \leq \sum_{k = 2}^{\log x} x^{1/k} \\
+    &\leq x^{1/2} \log x
+  \end{align*}
+  Therefore
+  \begin{align*}
+    \psi(x)
+    &= \pi(x) \log x + O(x^{1/2} \log x) - \int_1^x \frac{\pi(t)}{t} dt \\
+    \intertext{As \(\pi(t) \leq \frac{t}{\log t}\),}
+    &= \pi(x) \log x + O(x^{1/2} \log x) + O(\int_1^x \frac{1}{\log t} dt) \\
+    &= \pi(x) \log x + O(\frac{x}{\log x})
+  \end{align*}
+  For \(\pi(t) < \frac{t}{\log t}\), note the trivial bound \(\pi(t) \leq t\) so
+  \[
+    \psi(x) = \pi(x) \log x + O(x^{1/2} \log x) + O(x)
+  \]
+  so \(\pi(x)\log x = O(x)\). Thus we used the trivial bound to get a better bound and use that to do actual work.
+\end{proof}
+
+\begin{lemma}
+  \[
+    \sum_{p \leq x} \frac{1}{p} = \log \log x + b + O(\frac{1}{\log x})
+  \]
+  where \(b\) is some constant.
+\end{lemma}
+
+Compare to \(\sum_{1 \leq n \leq x} \frac{1}{n}\).
+
+\begin{proof}
+  Partial summation. Let
+  \[
+    A(x) = \sum_{p \leq x} \frac{\log p}{p} = \log x + R(x)
+  \]
+  where \(R(x) \leq 1\). Then (summing from \(2\) to prevent \(\log t = 0\))
+  \begin{align*}
+    \sum_{2 \leq p \leq x} \frac{1}{p}
+    &= \frac{A(x)}{\log x} + \int_2^x \frac{A(t)}{t (\log t)^2} dt \\
+    &= 1 + O(\frac{1}{\log x}) + \int_2^x \frac{1}{t \log t} dt + \int_2^x \frac{R(t)}{t(\log t)^2} dt
+  \end{align*}
+  Note that \(\int_2^\infty \frac{R(t)}{t (\log t)^2} dt\) exists, say \(C\). Then
+  \begin{align*}
+    \sum_{2 \leq p \leq x} \frac{1}{p}
+    &= 1 + C + O(\frac{1}{\log x}) + \log \log x - \log \log 2 + O(\int_x^\infty \frac{1}{t (\log t)^2} dt) \\
+    &= \log \log x + b + O(\frac{1}{\log x})
+  \end{align*}
+  It turns out \(b\) can be expresseed in terms of \(\gamma\).
+\end{proof}
+
+\begin{theorem}[Chebyshev]
+  If \(\pi(x) \sim c \frac{x}{\log x}\) then \(c = 1\).
+\end{theorem}
+
+Note that this does not prove prime number theorem. Historically this is a surprise: a following corollary says that if \(\pi(x) \sim \frac{x}{\log x - A(x)}\) then \(A \sim 1\). But Legendre and Gauss et al have conjectured that \(A \approx 1.08 \dots\), just by looking up the prime table.
+
+\begin{proof}
+  Partial summation on \(\sum_{p \leq x} \frac{1}{p}\):
+  \begin{align*}
+    \sum_{p \leq x} \frac{1}{p}
+    &= \frac{\pi(x)}{x} + \int_1^x \frac{\pi(t)}{t^2} dt \\
+    \intertext{If \(\pi(x) = (c + o(1)) \frac{x}{\log x}\) then}
+    &= \frac{c}{\log x} + o(\frac{1}{\log x}) + (c + o(1)) \int_1^x \frac{1}{t \log t} dt \\
+    &= O(\frac{1}{\log x}) + (c + o(1)) \log \log x
+  \end{align*}
+  But
+  \[
+    \sum_{p \leq x} \frac{1}{p} = (1 + o(1)) \log \log x
+  \]
+  so \(c = 1\).
+\end{proof}
+
+\begin{lemma}
+  \[
+    \prod_{p \leq x} \left( 1 - \frac{1}{p} \right)^{-1} = c\log x + O(1)
+  \]
+  where \(c\) is some constant.
+\end{lemma}
+
+\begin{proof}
+  We have only dealt with summations so far so take \(\log\),
+  \begin{align*}
+    \log \prod_{p \leq x} \left( 1 - \frac{1}{p} \right)^{-1}
+    &= - \sum_{p \leq x} \log (1 - \frac{1}{p}) \\
+    &= \sum_{p \leq x} \sum_k \frac{1}{k p^k} \\
+    &= \sum_{p \leq x} \frac{1}{p} + \sum_{k \geq 2} \sum_{p \leq x} \frac{1}{kp^k} \\
+    &= \log \log x + c' + O(\frac{1}{\log x}).
+  \end{align*}
+  using \(\log (1 - t) = - \sum_k \frac{t^k}{k}\).
+
+  To undo the \(\log\), note that \(e^x = 1 + O(x)\) for \(|x| \leq 1\) so
+  \begin{align*}
+    \prod_{p \leq x} \left( 1 - \frac{1}{p} \right)^{-1}
+    &= c \log x \exp (O(\frac{1}{\log x})) \\
+    &= c \log x (1 + O(\frac{1}{\log x})) \\
+    &= c \log x + O(1)
+  \end{align*}
+  It turns out that \(c = e^\gamma \approx 1.78 \dots\).
+\end{proof}
+
+\subsubsection{Aside: Why is prime number theorem so hard?}
+
+It seems that we've made quite a progress without too much effort. But how far are we from prime number theorem and if the anser is ``quite far'', what makes it so resistant to elementary methods?
+
+Probabilistic heuristic: fix \(p\) prime, ``probability'' that a random \(n\) satisfies \(p \divides n\) is \(\frac{1}{p}\). What is the ``probability'' that \(n\) is prime then? \(n\) is a prime if and only if \(n\) has no prime divisors \(p \leq n^{1/2}\). Guess that the events ``divisble by \(p\)'' are independent, then ``probability'' that \(n\) is prime is roughly
+\[
+  \prod_{p \leq n^{1/2}} \left( 1 - \frac{1}{p} \right)
+  \approx \frac{1}{c \log n^{1/2}}
+  = \frac{2}{c} \frac{1}{\log n}.
+\]
+Thus use some questionable squiggles,
+\[
+  \pi(x)
+  = \sum_{n \leq x} 1_{n \text{ prime}}
+  \approx \frac{2}{c} \sum_{n \leq x} \frac{1}{\log n}
+  \approx \frac{2}{c} \frac{x}{\log x}
+  \approx 2e^{-\gamma} \frac{x}{\log x}
+\]
+This constant is approximately \(1.122\dots\), which contradicts Chebyshev's theorem. Therefore somehow the heuristics is wrong: it gives 12\% more prime than should.
+
+One reason is that the error terms are so close to the main term that when we do \(\approx\) they accummulate and excees the main term. Another reason is of course that the ``independence'' of primes are completely false. From an analytic point of view, this can be seen as saying that the ``interference terms'' are not so small that they are be instead.
+
+This may explain why heuristics don't work. But can we bound \(\pi\) by elementary methods? Recall that \(\mu * \log = \Lambda\) so
+\begin{align*}
+  \psi(x)
+  &= \sum_{n \leq x} \Lambda(n) \\
+  &= \sum_{ab \leq x} \mu(a) \log b \\
+  &= \sum_{a \leq x} \mu(a) \left( \sum_{b \leq x/a} \log b \right)
+\end{align*}
+Recall that
+\[
+  \sum_{m \leq x} \log m = x \log x - x + O(\log x),
+\]
+but if we just plug this in we will get a trouble. Instead use another trick: consider
+\[
+  \sum_{m \leq x} \tau(m) = x \log x + (2 \psi - 1) x + O(x^{1/2}).
+\]
+Thus
+\[
+  \psi(x)
+  = \sum_{a \leq x} \mu(a) \left( \sum_{b \leq x/a} \tau(b) - 2\gamma \frac{x}{a} + O(\frac{x^{1/2}}{a^{1/2}}) \right)
+\]
+
+The first term is
+\begin{align*}
+  \sum_{ab \leq x} \mu(a)\tau(b)
+  &= \sum_{abc \leq x} \mu(a) \\
+  &= \sum_{b \leq x} \sum_{ac \leq x/b} \mu(a) \\
+  &= \sum_{b \leq x} \sum_{d \leq x/b} \mu * 1(d) \\
+  &= \floor x \\
+  &= x + O(1)
+\end{align*}
+and the first error term is
+\[
+  -2\gamma \sum_{a \leq x} \mu(a) \frac{x}{a} = O(x\sum_{a \leq x} \frac{\mu(a)}{a})
+\]
+so still need to show that
+\[
+  \sum_{a \leq x} \frac{\mu(a)}{a} = o(1).
+\]
+Well it turns out that this is equivalent to prime number theorem! This turns out to be \(1/\zeta(1)\). As \(\zeta\) has a pole at \(z = 1\), this is indeed true.
+
+
 
 
 

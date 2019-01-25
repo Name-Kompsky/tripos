@@ -1,0 +1,343 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Introduction to Approximate Groups}
+\def\nlecturer{M.\ Tointon}
+
+\def\nterm{Lent}
+\def\nyear{2019}
+
+\input{header}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Lecture 1: missed}
+
+\clearpage
+
+
+\section{Lecture 2: Covering and higher sum and product sets}
+
+Introduce two techniques we'll use repeatedly: covering and bounding higher product sets. A nice way to do this is by proving the following theorem.
+
+\begin{theorem}[Ruzsa]\index{Ruzsa's theorem}
+  Suppose \(A \subseteq \F_p^r\) satisfying \(|A + A| \leq K |A|\). Then exists \(H \leq \F_p^r\) with \(|H| \leq p^{K^4} K^2 |A|\) such that \(A \subseteq H\).
+\end{theorem}
+
+So again, like in theorem 1.1., \(A\) is a large propotion of a finite subgroup.
+
+\begin{remark}
+  It is not ideal that \(|A|/|H|\) depends on \(p\). We'll remove this dependence in a few lectures' time.
+\end{remark}
+
+We'll start by proving the following weaker version:
+
+\begin{proposition}
+  Suppose \(A \subseteq \F_p^r\) satisfies \(|2A - 2A| \leq K |A|\). Then exists \(H \subseteq \F_p^r\) with \(|H| \leq p^K|A - A|\) (so \(\leq p^k K|A|\) such that \(A \subseteq H\).
+\end{proposition}
+
+We'll prove this using ``covering'', encapsulated by the following lemma:
+
+\begin{lemma}[Ruzsa's covering lemma]\index{Ruzsa's scovering lemma}
+  Suppose \(A, B \subseteq G\) and \(|AB| \leq K |B|\). Then there exists \(X \subseteq A\) with \(|X| \leq K\) such that \(A \subseteq XBB^{-1}\). Indeed we may take \(X \subseteq A\) maximal such that the sets \(xB\), \(x \in X\) are disjoint.
+\end{lemma}
+
+The term ``covering'' refers to the conclusion \(A \subseteq XBB^{-1}\), which say that \(A\) can be covered by a few left translates of \(BB^{-1}\).
+
+\begin{proof}
+  First disjointness of \(xB\) implies that \(|XB| = |X||B|\). Since \(X \subseteq A\),
+  \[
+    |XB| \leq |AB| \leq K|B|
+  \]
+  so \(|X| \leq K\). Maximality implies that for all \(a \in A\) there exists \(x \in X\) such that \(aB \cap xB \neq \emptyset\), and hence \(a \in xBB^{-1}\). Hence \(A \subseteq XBB^{-1}\) as required.
+\end{proof}
+
+\begin{lemma}
+  Suppose \(A \subseteq G\) satisfies
+  \[
+    |A^{-1}A^2 A^{-1}| \leq K |A|.
+  \]
+  Then exists \(X \in A^{-1}A^2, |X| \leq K\) such that
+  \[
+    A^{-1}A^n \subseteq X^{n - 1}A^{-1}A
+  \]
+  for all \(n \in \N\).
+\end{lemma}
+
+\begin{proof}
+  By Ruzsa' covering lemma exists \(X \subseteq A^{-1}A^2, |X| \leq K|\) such that
+  \[
+    A^{-1}A^2 \subseteq XA^{-1}A.
+  \]
+  We then have
+  \begin{align*}
+    A^{-1}A^n
+    &= A^{-1}A^{n - 1}A \\
+    &\subseteq X^{n - 2}A^{-1}A^2 \text{ by induction} \\
+    &\subseteq X^{n - 1} A^{-1}A
+  \end{align*}
+\end{proof}
+
+\begin{proof}[Proof of proposition]
+  The lemma above implies that exists \(X\) with \(|X| \leq K\) such that
+  \[
+    nA - A \subseteq (n - 1) X + A - A
+  \]
+  for all \(n \in \N\). Since \(\F_p^r\) is a vector space,
+  \[
+    \langle A \rangle \subseteq \langle X \rangle + A - A
+  \]
+  so
+  \[
+    |\langle A \rangle| \leq |\langle X \rangle| |A - A| \leq p^K|A - A|
+  \]
+  as required.
+\end{proof}
+
+To strengthen the proposition to the theorem, we use the second technique: bounding higher sum/product sets. The key result, at least in the abelian case, is the following:
+
+\begin{theorem}[Plünnecke-Ruzsa]
+  Suppose \(A \subseteq G\) where \(G\) is an abelian group and \(|A - A| \leq K |A|\). Then
+  \[
+    |mA - nA| \leq K^{m + n} |A|
+  \]
+  for all \(m, n \geq 0\).
+\end{theorem}
+
+This is proved in III Introduction to Discrete Analysis. We won't redo the whole proof, but we will reprove some parts of it.
+
+\begin{proof}[Proof of Ruzsa's theorem]
+  Plünnecke-Ruzsa implies that \(|2A - 2A| \leq K^4 |A|\) and \(|A - A| \leq K^2 |A|\). Then the result follows from prop 2.2.
+\end{proof}
+
+We'll spend the rest of the lecture discussing Plünnecke-Ruzsa and variants of it.
+We've seen it's useful, at least in one context. To see philosophically why it's useful, let's think about what the genuine closure of subgroups under products and inverses mean. One useful feature is that it can be iterated: given \(h_1, h_2, \dots \in H\) a subgroup, this means \(h_1^{\varepsilon_1}, \dots, h_m^{\varepsilon_m}, \dots \in H\) for all \(\varepsilon_i = \pm 1\) for all \(m\), for all \(h_i \in H\). The theorem allows us to ``iterate'' the ``approximate closure'' of a set of small doubling.
+\[
+  a_1 + \dots a_m - a_1' - \dots - a_n'
+\]
+may not belong to \(A\) but at least it belongs to \(mA - nA\), which is ``not too large'' (\(|mA - nA| \leq K^{m + n} |A|\)), and is itself a set of small doubing (\(2|mA - nA|| \leq K^{2m + 2n} |mA - nA|\)). This is an important part of why the theory works so well.
+
+It is therfore unfortunate that the theorem does not hold for non-abelian groups.
+
+\begin{eg}
+  Let \(x\) generates an infinite cyclic group \(\langle x \rangle\), \(H\) be a finite subgroup. Set \(G = H * \langle x \rangle\) (the key point is that \(x^{-1}Hx \neq H\). Set \(A = H \cup \{x\}\). Then
+  \[
+    A^2 = H \cup xH \cup Hx \cup \{x^2\}
+  \]
+  so \(|A^2| \leq 3 |A|\). But \(A^3\) contains \(HxH\), which has size \(|H|^2 \sim |A|^2\). So as \(|H| \to \infty\), the theorem cannot hold.
+\end{eg}
+
+Nevertheless, if we strengthen small doubling slightly we can recover a form of the theorem. One way is to replace small doubing with \emph{small tripling}, i.e.\ \(|A^3| \leq K |A|\).
+
+\begin{proposition}[2.7]
+  Suppose \(A \subseteq G\) and \(|A^3| \leq K |A|\). Then
+  \[
+    |A^{\varepsilon_1} \cdots A^{\varepsilon_m}| \leq K^{3(m - 2)} |A|
+  \]
+  for all \(\varepsilon_i = \pm 1\) for all \(m \geq 3\).
+\end{proposition}
+
+The key ingredient is the following:
+
+\begin{lemma}[Ruzsa's triangle inequality]\index{Ruzsa's triangle inequality}
+  Given \(U, V, W \subseteq G\), all finite, we have
+  \[
+    |U| |V^{-1} W| \leq |UV| |UW|.
+  \]
+\end{lemma}
+
+\begin{proof}
+  We'll define an injection \(\varphi: U \times V^{-1}W \to UV \times UW\). First for \(x \in V^{-1}W\), set \(v(x) \in V\), \(w(x) \in W\) such that \(x = v(x)^{-1}w(x)\). Set
+  \[
+    \varphi(u, x) = (uv(x), uw(x)).
+  \]
+  To see injectivity, first notice that
+  \[
+    (uv(x))^{-1}(uw(x)) = x
+  \]
+  so \(x\) is determined by \(\varphi(u, x)\), and then \((uv(x)) v(x)^{-1} = u\) so \(u\) is also determined by \(\varphi(u, x)\).
+\end{proof}
+
+\begin{proof}[Proof of proposition 2.7]
+  First do the case \(m = 3\):
+  \[
+    |A^3| = |A^{-3}| \leq K|A|.
+  \]
+  Apply triangle inequality with \(U = W = A, V = A^2\). Get
+  \[
+    |A||A^{-2}A| \leq |A^3| |A^2| \leq K^2 |A|^2
+  \]
+  so
+  \[
+    |A^{-2}A| \leq K^2 |A|.
+  \]
+  Next note that \((A^{-1}A)^{-1} = A^{-1}A^2\) so
+  \[
+    |A^{-1}A^2| = |A^{-2}A| \leq K^2|A|.
+  \]
+
+  Replace \(A\) by \(A^{-1}\) we get
+  \[
+    |AA^{-2}| = |A^2A^{-1}| \leq K^2 |A|.
+  \]
+  Finally, use triangle inequality with \(U = V = A, W = AA^{-1}\) gives
+  \[
+    |A| |A^{-1}AA^{-1}| \leq |A^2| |A^2A^{-1}| \leq K^3 |A|^2
+  \]
+  so
+  \[
+    |A^{-1}AA^{-1}| \leq K^3 |A|.
+  \]
+  For the last case swap \(A\) and \(A^{-1}\).
+
+  For general \(m\), triangle inequality implies that
+  \[
+    |A| |A^{\varepsilon_1} \cdots A^{\varepsilon_m}|
+    \leq |AA^{-\varepsilon_2}A^{-\varepsilon_1}| |AA^{\varepsilon_3} \cdots A^{\varepsilon_m}|
+    \leq K^3 |A| |K^{3(m - 2)} |A|
+  \]
+  by induction.
+\end{proof}
+
+\section{Lecture 3: Approximate groups}
+
+Last time we saw that assuming all small tripling instead of small doubling allowed us to control higher product sets of the form \(A^{\varepsilon_1} \cdots A^{\varepsilon_m}\). In this lecture we'll see another possible strengening of small doubling. We also saw, in the proof of theorem 2.1 and proposition 2.2, an advantage of having a ``covering'' condition in place of a size bound. This motivates in part the following definition.
+
+\begin{definition}[approximate group]\index{approximate group}
+  A set \(A \subseteq G\) is called a \emph{\(K\)-approximate group} or \emph{\(K\)-approximate subgroup} if \(1 \in A, A^{-1} = A\) and exists \(X \subseteq G\) with \(|X| \leq K\) such that \(A^2 \subseteq XA\).
+\end{definition}
+
+\begin{remark}
+  Note that \(A\) need not to be finite, although in this course it almost always will be. Also if \(A\) is finite that \(|A^2| \leq K|A|\).
+\end{remark}
+
+The conditions \(1 \in A\) and \(A^{-1} = A\) are convenient notationally: for example we can write \(A^m\) instead of \(A^{\varepsilon_1} \cdots A^{\varepsilon_m}\), and \(1 \in A\) implies that \(A \subseteq A^2 \subseteq A^3 \subseteq \dots\), which is also convenient at times. It is the condition \(A^2 \subseteq XA\) that is more important.
+
+For approximate groups, bounding higher product is easy:
+
+\begin{lemma}[lemma 3.1]
+  If \(A\) is a finite \(K\)-approximate group then
+  \[
+    A^m| \leq K^{m - 1}|A|.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(X\) be as in the definition of approximate group. In fact we have \(A^m \subseteq X^{m - 1}A\):
+  \[
+    A^m
+    = A^{m - 1} A
+    \subseteq X^{m - 2} A^2
+    \subseteq X^{m - 1} A
+  \]
+  by induction.
+\end{proof}
+
+Another advantage is that if \(\pi: G \to H\) is a homomorphism and \(A\) is a \(K\)-approximate group then \(\pi(A)\) is also trivially a \(K\)-approximate group (although we'll see that there exists a version of this for small tripling).
+
+It turns out that sets of small tripling and approximate groups are essentially equivalent, in the followin sense:
+
+\begin{proposition}[proposition 3.2]
+  Let \(A \subseteq G\) be finite. If \(A\) is a \(K\)-approximate group then \(|A^3| \leq K^2 |A|\). Conversely if \(|A^3| \leq K |A|\) then exists \(O(K^{12})\)-approximate group \(B\) with \(A \subseteq B\) and \(|B| \leq 7K^3 |A|\). In fact, we may take \(B = (A \cup \{1\} \cup A^{-1})^2\).
+\end{proposition}
+
+The interesting direction of the proposition says that \(A\) is a large proportion of an approximate group.
+
+\begin{proof}
+  The first part is just lemma 3.1. For the converse, set
+  \[
+    \hat A = A \cup \{1\} \cup A^{-1}
+  \]
+  and note that
+  \[
+    B = \hat A^2 = \{1\} \cup A \cup A^{-1} \cup A^2 \cup A^{-1}A \cup AA^{-1} \cup A^{-2}.
+  \]
+  Each set in this union has size \(\leq K^3 |A|\) by proposition 2.7 so \(|B| \leq 7K^3|A|\) as claimed. Similarly
+  \[
+    \hat A^4 = \bigcup_{\varepsilon_i = \pm 1, 0 \leq m \leq 4} A^{\varepsilon_1} \cdots A^{\varepsilon_m}
+  \]
+  and all the sets in this union have size \(\leq K^6 |A|\). It follows that \(|\hat A^4| \leq O(K^6) |\hat A|\).
+
+  Lemma 2.4 implies that there exists \(X \subseteq G\), \(|X| \leq O(K^6)\) such that \(\hat A^n \subseteq X^{n - 1} \hat A^2\) for every \(n \geq 2\). In particular \(|X^2| \leq O(K^{12})\) and \(\hat A^4 \subseteq X^2 \hat A^2\), so \(\hat A^2\) is an \(O(K^{12}\)-approximate group as claimed.
+\end{proof}
+
+This is all well and good, but what if we are faced with a set like that from example 2.6, which only has small doubling? In that specific example, a large proportion of \(A\) was a set of small tripling, namely \(H\). Rather helpfully, that turns out to be a general phenomenon.
+
+\begin{theorem}[theorem 3.3]
+  If \(A \subseteq G\) satisfies \(|A^2| \leq K|A|\) then exists \(U \subseteq A\) with \(|U| \geq \frac{1}{K}|A|\) such that
+  \[
+    |U^m| \leq K^{m - 1}|U|
+  \]
+  for all \(m \in \N\).
+\end{theorem}
+
+Thus small doubling reduces to small tripling, which reduces to approximate groups. In example sheet 1, we'll see a direct reduction from small doubling to approximate groups.
+
+Tao proved a version of theorem 3.3 when he introduced the definition of apparoximate groups. We'll use instead a lemma of Petridis, which he proved when proving the Plüneccke-Ruzsa inequalities.
+
+\begin{lemma}[lemma 3.4][Petridis]
+  Suppose \(A, B \subseteq G\) are finite. Let \(U \subseteq A\) be non-empty, chosen to minimise the ratio \(|UB|/|U|\) and write \(R = |UB|/|U|\). Then for all finite \(C \subseteq G\) we have
+  \[
+    |CUB| \leq R |CU|.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Trivial if \(C = \emptyset\) so we may assume there exists \(x \in C\). Define \(C' = C \setminus \{x\}\), we may also assume by induction that \(|C'UB| \leq R|C'U|\). We are going to write \(CU = C'U \cup xU\) and deal with the overlap. Set
+  \[
+    W = \{u \in U: xu \in C'U\}.
+  \]
+  Then
+  \[
+    CU = C'U \cup xU (\setminus xW)
+  \]
+  is a disjoint union so in particular
+  \[
+    |CU| = |C'U| + |U| - |W|.
+  \]
+  We also have \(xWB \subseteq C'UB\) by definition of \(W\) so
+  \[
+    CUB \subseteq C'UB \cup (xUB \setminus xWB)
+  \]
+  and hence
+  \[
+    |CUB| \leq |C'UB| + |UB| - |WB|.
+  \]
+  We have \(|C'UB| \leq R|C'U|\) by induction hypothesis. We have \(|UB| = R|U|\) by defintion of \(R\), and \(|WB| \geq R|W|\) by minimality in the definition of \(U\). So
+  \[
+    |CUB|
+    \leq R(|C'U| + |U| - |W|)
+    = R|CU|.
+  \]
+\end{proof}
+
+\begin{proof}[Proof of theorem 3.3]
+  Set \(U \subseteq A\) to be non-empty minimising \(|UA|/|U|\) and write \(R = |UA|/|A|\). Noting that \(R \subseteq K\) by minimality. Also \(U\) is non-empty so \(|UA| \geq |A|\), so \(|U| \geq |A|/K\) as required. Lemma 2.4 also implies that
+  \[
+    |U^mA| \leq K|U^m|
+  \]
+  for all \(m\) (taking \(C = U^{m - 1}\)) and since \(U \subseteq A\), this gives
+  \[
+    |U^{m + 1}| \leq K |U^m|
+  \]
+  for all \(m\), so \(|U^m| \leq K^{m - 1} |U|\).
+\end{proof}
+
+A bit of non-examinable information:
+
+The reason \(A\) in example 2.6 failed to have small tripling was the existence of \(x \in A\) with \(AxA\) large. It turns out that this is the only obstruction to small doubling having small tripling.
+
+\begin{theorem}[theorem 3.5][Tao, Petridis]
+  If \(|A^2| \leq K|A|\) and \(|AxA| \leq K|A|\) for all \(x \in A\) then \(|A^m| \leq K^{O(m)}|A|\) for all \(m \geq 3\).
+\end{theorem}
+
+
+\printindex
+\end{document}
+
+% tointon.neocities.org

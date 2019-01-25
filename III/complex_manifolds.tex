@@ -327,15 +327,361 @@ In particular \(\mathcal A_\C^{0, 0}(U)\) consists of smooth \(\C\)-valued funct
 Denote by \(d: \mathcal A_\C^k(U) \to \mathcal A_\C^{k + 1}(U)\) the usual exterior derivative.
 
 \begin{definition}
-  \(\p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p + 1, q}(U)\) by taking \(d\) composed with projection to \(\mathcal A_\C^{p + 1, q}(U)\). Similarly define \(\conj \p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p, q + 1}(U)\).
+  \(\p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p + 1, q}(U)\) id defined as \(d\) composed with projection to \(\mathcal A_\C^{p + 1, q}(U)\). Similarly define \(\conj \p: \mathcal A_\C^{p, q}(U) \to \mathcal A_\C^{p, q + 1}(U)\).
 \end{definition}
+
+Locally if
+\[
+  \alpha = \sum fdz_{j_1} \w \dots \w dz_{j_p} \w d \conj z_{\ell_1} \w \dots \w d \conj z_{\ell_q}
+\]
+then
+\[
+  d \alpha = \underbrace{\sum (\sum_r \frac{\partial f}{\partial z_r} dz_r \w dz_{j_1} \w \dots dz_{j_p})}_{\p \alpha} + \underbrace{\sum (\sum_r \frac{\partial f}{\partial \conj z_r} d\conj z_r \w d\conj z_{\ell_1} \w \dots d \conj z_{\ell_q})}_{\conj \p \alpha}
+\]
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(d = \p + \conj \p\).
+  \item \(\p^2 = 0, \conj \p^2 = 0, \p \conj \p = - \conj \p \p\).
+  \item If \(\alpha \in \mathcal A_\C^{p, q}(U), \beta \in \mathcal A_\C^{p', q'}(U)\) then
+    \begin{align*}
+      \p(\alpha \w \beta) &= \p \alpha \w \beta + (-1)^{p + q} \alpha \w \p \beta \\
+      \conj \p(\alpha \w \beta) &= \conj \p \alpha \w \beta + (-1)^{p + q} \alpha \w \conj \p \beta \\
+    \end{align*}
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Follows from local expression.
+  \item Follows from \(d^2 = 0\).
+  \item Follows from
+    \[
+      d(\alpha \w \beta) = d\alpha \w \beta + (-1)^{p + q} \alpha \w d \beta.
+    \]
+  \end{enumerate}
+\end{proof}
 
 \begin{definition}[Dolbeault cohomology]\index{Dolbeault cohomology}
   The \emph{\((p, q)\)-Dolbeault cohomology} of \(X\) is given by
   \[
-    H_{\conj \p}^{p, q}(X) = \frac{\ker \conj \p: \mathcal A_\C^{p, q}(X) \to \mathcal A_\C^{p, q + 1}(X)}{\ker \conj \p: \mathcal A_\C^{p, q - 1}(X) \to \mathcal A_\C^{p, q}(X)}.
+    H_{\conj \p}^{p, q}(X) = \frac{\ker \conj \p: \mathcal A_\C^{p, q}(X) \to \mathcal A_\C^{p, q + 1}(X)}{\im \conj \p: \mathcal A_\C^{p, q - 1}(X) \to \mathcal A_\C^{p, q}(X)}
   \]
+  which makes sense as \(\conj \p^2 = 0\). These are vector spaces.
 \end{definition}
+
+\begin{remark}
+  One could make an analogous definition using \(\p\) and the information would be equivalent. Historically, people are interested in holomorphic functions, i.e.\ \(f\) with \(\conj \p f = 0\).
+\end{remark}
+
+Recall the de Rham cohomology group
+\[
+  H_{\text{dR}}^i(X; \R) = \frac{\ker (d: \mathcal A_\R^i(X) \to \mathcal A_\R^{i + 1}(X))}{\im (d: \mathcal A_\R^{i - 1}(X) \to \mathcal A_\R^i(X))}.
+\]
+One similarly defines
+\[
+  H_{\text{dR}}^i(X; \C) = \frac{\ker (d: \mathcal A_\C^i(X) \to \mathcal A_\C^{i + 1}(X))}{\im (d: \mathcal A_\C^{i - 1}(X) \to \mathcal A_\C^i(X))}
+  \cong H_{\text{dR}}^i(X; \R) \otimes \C
+\]
+so we do not gain or lose anything.
+
+Much of the course will be devoted to prove Hodge decomposition, which asserts that for a certain class of compact manifolds (which include projective varieties),
+\[
+  H_{\text{dR}}^k(X; \C) \cong \bigoplus_{p + q = k} H_{\conj \p}^{p, q}(X).
+\]
+Note that the statement alone is not true in general.
+
+\begin{ex}
+  If \(F: X \to Y\) is holomorphic then \(F\) induces a map
+  \[
+    F^*: H_{\conj \p}^{p, q}(Y) \to H_{\conj \p}^{p, q}(X)
+  \]
+  via pullback.
+\end{ex}
+
+The Mittag-Leffler problem:  let \(S\) be a Riemann surface, i.e.\ one dimensional complex manifold. A \emph{principal part} at \(x \in S\) is a Laurent series of the form
+\[
+  \sum_{k = 1}^n a_k z^{-k}
+\]
+with \(z\) a local coordinate. Then the Mittag-Leffler problem\index{Mittag-Leffler problem} asks given \(x_1, \dots, x_r \in S\) and principal parts \(P_1, \dots, P_r\), is there a meromorphic function on \(S\) with these principal parts at \(x_i\)'s?
+
+Take local solutions \(f_i\) at \(x_i\), defined on some \(U_i\) which form a cover of \(S\)  and a partition of unity \(\rho_i\) subordinate to the \(U_i\). Then \(\sum_{j = 1}^r \rho_j f_j\) is smooth on \(S \setminus \{x_1, \dots, x_r\}\) with described local expression (which is not necessarily holomorphic).
+
+A calculation shows that \(g = \conj \p (\sum_j \rho_j f_j)\) extends to a smooth \((0, 1)\)-form on \(S\). Clearly \(\conj \p g = 0\) as \(\conj \p^2 = 0\) so \([g] \in H_{\conj \p}^{0, 1}(S)\). Suppose \(H_{\conj \p}^{0, 1}(S) = 0\). Then there is a smooth function \(h\) with \(\conj \p h = g\) and \(f = \sum_j \rho_j f_j - h\) solves the Mittag-Leffler problem (this can be shown to be an if and only if using sheaf cohomology).
+
+\subsection{Del bar-Poincaré lemma}
+% TODO: resolve the title name
+
+Recall that if \(X\) is a contractible smooth manifold then
+\[
+  H_{\text{dR}}^i (X; \R) = 0
+\]
+for \(i > 0\).
+
+We'll show the analogous result for Dolbeault cohomology: if a polydisk \(P = \{|z_i| < r_i\} \subseteq \C^n\) (with \(r = \infty\)) then
+\[
+  H_{\conj \p}^{p, q}(P) = 0
+\]
+if \(p + q > 0\).
+
+\begin{proposition}
+  Let \(D = D(a, r) \subsetneq \C\) be a disk, \(f \in C^\infty(\cl D), z \in D\). Then
+  \[
+    f(z) = \frac{1}{2\pi i} \int_{\p D}\frac{f(w)}{w - z} dw + \frac{1}{2\pi i} \int_D \frac{\p f(w)}{\p \conj w} \frac{dw \w d \conj w}{w - z}.
+  \]
+\end{proposition}
+This is a generalisation of Cauchy integral formula, with a correction term for non-holomorphic term.
+
+\begin{proof}
+  Let \(D_\varepsilon = D(z, \varepsilon)\) and
+  \[
+    \eta = \frac{1}{2\pi i} \frac{f(w)}{w - z} dw \in \mathcal A_\C^1 (D \setminus D_\varepsilon).
+  \]
+  Then
+  \[
+    d\eta
+    = \conj \p \eta
+    = -\frac{1}{2\pi i} \frac{\p f(w)}{\p \conj w} \frac{d w \w d \conj w}{w - z}
+  \]
+  so by Stokes',
+  \[
+    \frac{1}{2\pi i} \int_{\p D_\varepsilon} \frac{f(w)}{w - z} dw
+    = \frac{1}{2\pi i} \int_{\p D} \frac{f(w)}{w - z} dw + \frac{1}{2\pi i} \int_{D \setminus D_\varepsilon} \frac{\p f(w)}{\p \conj w} \frac{dw \w d \conj w}{w - z}
+  \]
+  The first term converges to \(f(z)\) as \(\varepsilon \to 0\): set \(w - z = re^{i\theta}\) so
+  \[
+    \frac{1}{2\pi i} \int_{\p D_\varepsilon} \frac{f(w)}{w - z} dw
+    = \frac{1}{2\pi} \int_0^{2\pi} f(z + re^{i\theta}) d\theta
+  \]
+  which goes to \(f(z)\) as \(\varepsilon \to 0\) since \(f\) is smooth.
+
+  As \(dw \w d \conj w = 2ir dr \w d \theta\),
+  \[
+    \left| \frac{\partial f(w)}{\partial \conj w}  \frac{dw \w d \conj w}{w - z} \right|
+    = 2 \left| \frac{\partial f}{\partial \conj w} dr \w d\theta \right|
+    \leq C |dr \w d\theta|
+  \]
+  so
+  \[
+    \int_{D_\varepsilon} \frac{\partial f(w)}{\partial \conj w} \frac{dw \w d \conj w}{w - z}
+    \to 0
+  \]
+  as \(\varepsilon \to 0\).
+\end{proof}
+
+\begin{theorem}[\(\conj \p\)-Poincaré lemma in one variable]
+  Let \(D = D(a, r)\) be a disk (\(r < \infty\)) and let \(g \in C^\infty(\cl D)\). Then
+  \[
+    f(z) = \frac{1}{2\pi i} \int_D \frac{g(w)}{w - z} dw \w d \conj w \in C^\infty(D)
+  \]
+  and
+  \[
+    \frac{\p f(z)}{\p \conj z} = g(z).
+  \]
+\end{theorem}
+
+\begin{proof}
+  First reduce to the case \(g\) has compact support. Take \(z_0 \in D\) and \(\varepsilon > 0\) such that
+  \[
+    D_{2\varepsilon} = D(z_0, 2\varepsilon) \subsetneq D.
+  \]
+  Using a partition of unity for the cover of \(D\) given by \(\{D \setminus D_\varepsilon, D_{2\varepsilon}\}\), write
+  \[
+    g(z) = g_1(z) + g_2(z)
+  \]
+  where \(g_1\) vanishes outside \(D_{2\varepsilon}\) and \(g_2\) vanishes on \(D_\varepsilon\).
+
+  Define
+  \[
+    f_2(z) = \int_D \frac{g_2(w)}{w - z} dw \w d \conj w.
+  \]
+  Then \(f_2(z)\) is smooth on \(D\) as \(g_2\) vanishes on \(D_\varepsilon\). Differentiate under the integral sign, get
+  \[
+    \frac{\partial f_2(z)}{\partial \conj z} = \frac{1}{2\pi i} \int_D \frac{\partial  }{\partial \conj z} \frac{g_2(w)}{w - z} dw \w d \conj w.
+  \]
+  As \(g_1(z)\) has compact support we can write
+  \begin{align*}
+    \frac{1}{2\pi i} \int_D \frac{g_1(w)}{w - z} dw \w d\conj w
+    &= \frac{1}{2\pi i} \int_\C \frac{g_1(w)}{w - z} dw \w d \conj w \\
+    &= \frac{1}{2\pi i} \int_\C \frac{g_1(u + z)}{u} du \w d \conj u \\
+    &= -\frac{1}{\pi} \int_\C g_1(z + re^{i\theta}) e^{-i\theta} dr \w d\theta \in C^\infty(D)
+  \end{align*}
+  Define this to be \(f_1\). The trick here is that we defined \(f\) in this way so that it is automatically smooth. Then
+  \[
+    \frac{\partial f_1(z)}{\partial \conj z}
+    = \int_\C \frac{\partial g_1(w)}{\partial \conj w} \frac{dw \w d \conj w}{w - z}
+  \]
+  so by Cauchy integral,
+  \[
+    g_1(z)
+    = \frac{1}{2\pi i} \underbrace{\int_{\p D} \frac{g_1(w)}{w - z}dw}_{= 0 \text{ as } g_1 = 0 \text{ on } \p D} + \frac{1}{2\pi i} \int_D \frac{\partial g_1(w)}{\partial \conj w} \frac{dw \w d\conj w}{w - z}
+    = \frac{\partial f_1(z)}{\partial \conj z}
+  \]
+  Setting \(f = f_1 + f_2\) gives
+  \[
+    \frac{\partial f}{\partial \conj z}(z) = g(z)
+  \]
+  for \(z \in D_\varepsilon\). But \(z_0\) was arbitrary so this works for all \(z_0\).
+\end{proof}
+
+In other words, if \(\alpha = g d \conj z \in \mathcal A_\C^{0, 1}(D)\) and \(f\) is as above, then
+\[
+  \conj \p f = \alpha.
+\]
+
+For the general \(\conj \p\)-Poincaré lemma, we shall use \emph{multiindex notation}: if \(I = (I_1, \dots, I_k)\) then
+\begin{align*}
+  dz_I &= dz_{I_1} \w \dots \w dz_{I_k} \\
+  f_I &= f_{I_1 \dots I_k} \\
+  \frac{\partial  }{\partial z_I} &= \frac{\partial }{\partial z_{I_1} \dots z_{I_k}}
+\end{align*}
+and \(|I| = k\).
+
+At some point we are going to extend the result to \(\C^n\) by taking a sequence of holomorphic functions. The following result justifies the process:
+
+\begin{lemma}
+  Let \(U \subseteq \C^n\) be open, \(B \subsetneq B' \subseteq U\) where \(B, B'\) are bounded polydisks. Then for any multiindices \(I, J\) there is a constant \(c_{I, J}\) such that for all \(u\) holomorphic on \(U\), we have
+  \[
+    \norm*{\frac{\partial  }{\partial z_I} \frac{\partial  }{\partial z_J} u}_{C^0(B)} \leq c_{I, J} \norm u_{C^0(B)}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Follows from multivariable Cauchy integral formula, which follows from the single variable version.
+\end{proof}
+
+\begin{corollary}
+  Let \(u_k\) be a sequence of holomorphic functions on \(U\) with \(u_k \to u\) uniformly on compact subsets of \(U\). Then \(u\) is holomorphic.
+\end{corollary}
+
+\begin{proof}
+  By the previous lemma, \(u\) is smooth. Moreover \(\frac{\partial u_k}{\partial \conj z_j} \to \frac{\partial u}{\partial \conj z_j}\) so since \(\frac{\partial u_k}{\partial \conj z_j} = 0\), \(\conj \p u = 0\) so \(u\) is holomorphic.
+\end{proof}
+
+Then we have the following result due to Grothendieck:
+
+\begin{theorem}[\(\conj \p\)-Poincaré lemma]\index{\(\conj \p\)-Poincaré lemma}
+  Let
+  \[
+    P = P(a, r) = \{|z_i - a_i| < r_i\} \subseteq \C^n
+  \]
+  with \(r_i \in (0, \infty]\). Then for all \(q > 0\) we have
+  \[
+    H_{\conj \p}^{p, q}(P) = 0.
+  \]
+  That is, if \(\conj \p \omega = 0\) then exists \(\psi\) with \(\conj \p \psi = \omega\).
+\end{theorem}
+
+\begin{proof}
+  We first reduce to \(p = 0\). Indeed if \(\omega \in \mathcal A_\C^{p, q}(P)\) is closed then \(\conj \p \omega = 0\) so we may write
+  \[
+    \omega = \sum_{|I| = p} \varphi_I dz_I
+  \]
+  where \(\conj \p \varphi_I = 0\). Hence by induction we can find \(\psi_I\) with \(\conj \p \psi_I = \varphi_I\) and then
+  \[
+    \conj \p \left(\sum_{|I| = p} \psi_I \w dz_I\right) = \omega.
+  \]
+  Thus we may assume \(p = 0\). The proof is in two steps.
+
+  \paragraph{Step 1}
+
+  Given \(\omega \in \mathcal A_\C^{0, q}(P)\), we show that if \(P' = P(a, s)\) with \(s_i' < r_i\) finite then we can find \(\psi \in \mathcal A_\C^{0, q - 1}(P')\) with \(\conj \p \psi = \omega|_{P'}\).
+
+  Given a form
+  \[
+    \omega = \sum_{|I| = q} \omega_I d \conj z_I,
+  \]
+  we say
+  \[
+    \omega = 0 \mod \{d\conj z_1, \dots, d\conj z_k\}
+  \]
+  if \(\omega_I = 0\) unless \(I \subseteq \{1, \dots, k\}\). We shall prove that if \(\omega = 0 \mod \{d\conj z_1, \dots, d\conj z_k\}\) then there is \(\psi \in \mathcal A_\C^{0, q - 1}(P')\) such that \(\omega - \conj \p \psi = 0 \mod \{d\conj z_1, \dots, d\conj z_{k - 1}\}\). By induction and \(k = n\) being vacuous, this will prove step 1.
+
+  So suppose \(\omega = 0 \mod \{d\conj z_1, \dots, d\conj z_k\}\) and write
+  \[
+    \omega = \omega_1 \w d\conj z_k + \omega_2
+  \]
+  with \(\omega_2 = 0 \mod \{d\conj z_1, \dots, d\conj z_{k - 1}\}\). Have
+  \[
+    \omega_1 = \sum_{|I| = q, k \in I} \omega_I d \conj z_{I \setminus \{k\}}.
+  \]
+  Since \(\conj \p \omega = 0\), we have
+  \[
+    \frac{\partial \omega_I}{\partial \conj z_\ell} = 0
+  \]
+  for \(\ell > k\). Set
+  \[
+    \psi = \sum_{|I| = q, k \in I} (-1)^{k - 1} \psi_I d\conj z_{I \setminus \{k\}}
+  \]
+  where
+  \[
+    \psi_I = \frac{1}{2\pi i} \int_{|\xi| \leq s_k} \omega_i(z_1, \dots, z_{k - 1}, \xi, z_{k + 1}, \dots, z_n) \frac{d \xi \w d \conj \xi}{\xi - z_k}
+  \]
+  is given by Cauchy integral formula. Then
+  \[
+    \frac{\partial \psi_I}{\partial \conj z_k} = \omega_I
+  \]
+  by \(\conj \p\)-Poincaré in one variable and
+ \[
+   \frac{\partial \psi_I}{\partial \conj z_k} = \frac{1}{2\pi i} \int_{|\xi| \leq s_k} \frac{\partial \omega_I}{\partial \conj z_j} (z_1, \dots, z_{k - 1}, \xi, z_{k + 1}, \dots, z_n) \frac{d \xi \w d \conj \xi}{\xi - z_k}
+   = 0
+ \]
+ by assumption. Hence \(\omega - \conj \p \psi = 0 \mod d\conj z_1, \dots, d\conj z_{k - 1}\).
+  
+  \paragraph{Step 2}
+  Let \(r_{j, k}\) be a strictly increasing sequence, \(r_{j, k} \to r_k\) as \(j \to \infty\) for all \(k = 1, \dots, n\) and let \(P_j = P(a, r_j)\). By step 1 we can find \(\psi_j \in \mathcal A_\C^{0, q - 1}(P_j)\) with \(\conj \p \psi_j = \omega\) on \(P_j\).
+
+  We induct on \(q\), leaving \(q = 1\) for last. Since \(\conj \p(\psi_j - \psi_{j + 1}) = 0\) on \(P_j\), we can choose \(\beta_{j + 1}\) with
+  \[
+    \psi_j - \psi_{j + 1} = \conj \p \beta_{j + 1}
+  \]
+  on \(P_{j - 1}\). Extend \(\psi_{j + 1}, \beta_{j + 1}\) smoothly to \(P\) and set
+  \[
+    \phi_{j + 1} = \psi_{j + 1} + \conj \p \beta_{j + 1}.
+  \]
+  This produces a sequence \((\phi_j)\) such that
+  \begin{align*}
+    \conj \p \phi_{j + 1} &= \omega \text{ on } P_{j + 1} \\
+    \phi_{j + 1} &= \phi_j \text{ on } P_{j - 1}
+  \end{align*}
+  Thus the \((\phi_j)\) converges to \(\phi\) on \(P\) for \(\phi\) such that \(\conj \p \phi = \omega\).
+
+  Now consider the case \(\omega\) is a \((0, 1)\)-form, so \(\psi_j\)'s are functions. We construct a sequence \(\phi_j\) on \(P_j\) such that
+  \begin{align*}
+    \conj \p \phi_j &= \omega \text{ on } P_j \\
+    \phi_{j + 1} &- \phi_j \text{ holomorphic on } P_j \\
+    \norm{\phi_{j + 1} - \phi_j}_{C^0(P_{j + 1})} < 2^{-j}
+  \end{align*}
+  Assuming this, the \((\phi_j)\) converges uniformly to some \(\phi\) on \(P\). Moreover \(\phi - \phi_j\) is holomorphic on \(P_j\) as as a uniform limit of \((\phi_{j + 1} - \phi_j)\), all holomorphic following the corollary. So \(\conj \p \phi = \conj \p \phi_j = \omega\) on \(P_j\), Hence \(\conj \p \phi = \omega\) on \(P\).
+
+  We now construct \((\phi_j)\). SOlve \(\conj \p \psi_j = \omega\) on \(P_j\) as before and set \(\phi_1 = \psi_1\). We construct \(\phi_{j + 1}\), inducting on \(j\). Since \(\conj \p(\phi_j - \psi_{j + 1}) = 0\) on \(P_j\), \(\theta_j - \psi_{j + 1}\) is holomorphic on \(P_j\). Hence it has a Taylor series expansion valid on \(P_j\). Truncating gives a polynomial \(\gamma_{j + 1}\) such that
+  \[
+    \norm{\phi_j - \psi_{j + 1} - \gamma_{j + 1}}_{C^0(P_j - 1)} < 2^{-j}
+  \]
+  idea: approximate holomorphic by polynomial to arbitrary small error and extend the polynomial to the entire disk.
+
+  Extend \(\gamma_j\) holomorphically to \(P_j\) and set
+  \[
+    \phi_{j + 1} = \psi_{j + 1} + \gamma_{j + 1}.
+  \]
+  Then \(\conj \p \phi_{j + 1} = \omega\) on \(P_{j + 1}\), \(\phi_{j + 1} - \phi_j\) holomorphic on \(P_j\) and \(\norm{\phi_{j + 1} - \phi_j}_{C^0(P_{j - 1})} < 2^{-j}\). This ends the proof.
+\end{proof}
+
+\section{Sheaves and cohomology}
+
+We now compare Dolbeault cohomology with sheaf cohomology. Let's begin with general theory of sheaves. Let \(X\) be a topological space.
+
+\begin{definition}
+  A \emph{presheaf} \(\mathcal F\) on \(X\) of abelian groups consists of abelian groups \(\mathcal F(U)\) for all \(U \subseteq X\) open and restriction homomorphisms
+  \[
+    r_{VU}: \mathcal F(U) \to \mathcal F(V)
+  \]
+  for all \(V \subseteq U\) open.
+\end{definition}
+
+
+
+
 
 
 

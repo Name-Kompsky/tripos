@@ -216,12 +216,111 @@ We ask: what are the maximal ideals of \(k[x_1, \dots, x_n]\)? We've observed if
 Not all maximal ideals are of the form \(\mathfrak m_p\), however. For example if \(k = \R\) then \((x^2 + 1) \subseteq \R[x]\) is a maximal ideal as \(\R[x]/(x^2 + 1) \cong \C\). Nevertheless, notice that \(\R \subseteq \C\) and this is an extension of \(\R\).
 
 \begin{theorem}[Nullstellensatz]\index{Nullstellensatz}\leavevmode
-  \begin{enumerate}
-  \item If \(\mathfrak m \subseteq k[x_1, \dots, x_n]\) is a maximal ideal then \(k[x_1, \dots, x_n]/\mathfrak m = L\) is an algebraic field extension of \(k\), hence finite-dimensional over \(k\).
-  \end{enumerate}
+  \label{thm:Nullstellensatz}
+  If \(\mathfrak m \subseteq k[x_1, \dots, x_n]\) is a maximal ideal then \(k[x_1, \dots, x_n]/\mathfrak m = L\) is an algebraic field extension of \(k\), and finite-dimensional over \(k\).
 \end{theorem}
 
+Note that in this setting \(L\) is finite-dimensional over \(k\) if and only if every \(\alpha \in L\) is algebraic over \(k\). For the nontrivial direction, images of \(x_1, \dots, x_n\) in \(L\) generate \(L\) and each satisfies a polynomial equation of degree \(d_i\) so \(\dim_k L \leq d_1 \cdots d_n\).
 
+\begin{corollary}
+  If \(k = \cl k\) then the field embedding \(k \to L\) is an isomorphism, that is every maximal ideal of \(k[x_1, \dots, x_n]\) is of the form
+  \[
+    \mathfrak m_p = (x_1 - p_1, \dots, x_n - p_n)
+  \]
+  for \(p \in k^n\).
+\end{corollary}
+
+\begin{proof}
+  \(L \supseteq k\) is an algebraic extension of fields so \(L = k\) as \(k = \cl k\) and \(p_i\) is the image of \(x_i\) under the map \(k[x_1, \dots, x_n] \to k[x_1, \dots, x_n]/\mathfrak m_p = L\).
+\end{proof}
+
+\begin{corollary}
+  If \(Y \subseteq \A^n\) is an algebraic set. Suppose \(k = \cl k\). then we have bijection
+  \[
+    \begin{tikzcd}
+      \{\text{points in } Y\} \ar[r] & \{\text{algebra homomorphisms } k[Y] \to k\} \ar[r] & \{\text{maximal ideals of } k[Y]\} \\
+      p \ar[r] & \operatorname{ev}_p: f \mapsto f(p) \\
+      & \varphi \ar[r] & \ker \varphi \\
+      \varphi(p) & \varphi \ar[l] \\
+      & k[Y] \to k[Y]/\mathfrak m = k & \mathfrak m \ar[l]
+    \end{tikzcd}
+  \]
+\end{corollary}
+
+\begin{proof}
+  When \(Y = \A^n\) this is Nullstellensatz. In general, an algebra homomorphism \(\varphi: k[x_1, \dots, x_n]/I \to k\) is the same thing as an algebra homomorphism \(k[x_1, \dots, x_n] \to k\) with \(I\) its kernel.
+\end{proof}
+
+We will give better proof later when we are more adept at playing with polynomail equations, but for now we'll prove a special case.
+
+\begin{proof}[Proof of \nameref{thm:Nullstellensatz} when \(k\) is uncountable]
+  Suppose \(L\) is not algebraic. Then there exists \(t \in L\) which is not algebraic over \(k\) so \(k(t) \subseteq L\). But observe the following:
+  \begin{enumerate}
+  \item \(L\) has countable dimension as a vector space over \(k\).
+  \item The set
+    \[
+      \left\{ \frac{1}{t - \lambda}: \lambda \in k\right\} \subseteq L
+    \]
+    is linearly independent: suppose not then exist \(\lambda_1, \dots, \lambda_r, a_1, \dots, a_r \in k\) with
+    \[
+      \sum_{i = 1}^r \frac{a_i}{t - \lambda_i} = 0.
+    \]
+    Clear the denoimators, we get an algebraic identity that \(t\) satisfies, contradicting \(t\) transcendental.
+  \end{enumerate}
+  This implies that \(\{\lambda: \lambda \in k\}\) is countable. Absurd.
+\end{proof}
+
+% aside on logic and model theory
+
+\begin{corollary}[Nullstellensatz]
+  Let \(k = \cl k\), \(I \subseteq k[x_1, \dots, x_n]\) an ideal. Then \(Z(I) \neq \emptyset\) if \(I \neq k[x_1, \dots, x_n]\).
+
+  More generally, let \(k = \cl k\), \(I \subseteq k[Y]\) has \(Z(I) \neq \emptyset\) if \(I \neq k[Y]\).
+\end{corollary}
+
+\begin{proof}
+  If \(I \neq k[x_1, \dots, x_n]\) then \(I \subseteq \mathfrak m\) for some maximal ideal \(\mathfrak m\). But Nullstellensatz says that \(Z(\mathfrak m) = \{p\}\) for some \(p \in k^n\) as \(\mathfrak m = \mathfrak m_p\) for some \(p\). Thus
+  \[
+    Z(I) \supseteq Z(\mathfrak m) = \{p\} \neq 0.
+  \]
+\end{proof}
+
+This motivates us to give an abstract, algebraic definition of algebraic set.
+
+\begin{definition}[radical]\index{radical}
+  Let \(R\) be a ring and \(J \subseteq R\) an ideal. The \emph{radical} of \(J\) is
+  \[
+    \sqrt J = \{f \in R: f^n \in J \text{ for some } n \geq 1\}.
+  \]
+\end{definition}
+
+\begin{lemma}
+  Given an ideal \(J \subseteq R\), \(\sqrt J\) is an ideal.
+\end{lemma}
+
+\begin{proof}
+  If \(f, g \in \sqrt J\) then \(f^n \in J, g^m \in J\) for some \(n, m\). Then
+  \[
+    (f + g)^{n + m} = \sum_{i = 0}^{n + m} \binom{n + m}{c} f^i g^{n + m - i} \in J
+  \]
+  so \(fg \in \sqrt J\).
+
+  if \(r \in R, f \in \sqrt J\) then \(rf \in \sqrt J\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\sqrt{(x^n)} = (x)\) in \(k[x]\).
+  \item If \(J\) is a prime ideal then \(\sqrt J = J\).
+  \item If \(f \in k[x_1, \dots, x_n]\) is irreducible then \((f)\) is a prime ideal. As \(k[x_1, \dots, x_n]\) is a UFD, \(\sqrt{(f)} = (f)\).
+  \end{enumerate}
+\end{eg}
+
+Note that \(Z(J) = Z(\sqrt J)\).
+
+\begin{theorem}[Nullstellensatz]
+  If \(k = \cl k\), \(J \subseteq k[x_1, \dots, x_n]\) then \(I(Z(J)) = \sqrt J\).
+\end{theorem}
 
 
 

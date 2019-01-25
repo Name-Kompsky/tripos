@@ -2772,7 +2772,7 @@ Again \(|\hat \mu(u)| \leq \mu (\R^d)\) and \(\hat \mu\) is continuous.
   \end{align*}
 \end{proof}
 
-We want a condition to ensure \(\hat f \in L^1(\R^d)\). Clearly continuity is necessary. Here we use a generally principle in Fourier analysis: Fourier transform converts decay at infinity to smoothness. In Fourier inversion formula, if \(u\) is large then the Fouier character has fast oscillation. Thus if \(\hat f\) decays fast at infinity then the Fourier coefficients also decays fast, and the resulting transfrom is smoother.
+We want a condition to ensure \(\hat f \in L^1(\R^d)\). Clearly continuity is necessary. Here we use a generally principle in Fourier analysis: Fourier transform converts decay at infinity to smoothness. In Fourier inversion formula, if \(u\) is large then the Fourier character has fast oscillation. Thus if \(\hat f\) decays fast at infinity then the Fourier coefficients also decays fast, and the resulting transfrom is smoother.
 
 \begin{proposition}
   If \(f, f'\) and \(f''\) exists (for example if \(f\) is \(C^2\)) and are in \(L^1\) then \(\hat f \in L^1\).
@@ -2931,7 +2931,7 @@ Therefore \((L^1(\R^d), *)\) forms a \emph{Banach algebra}.
   In particular if \(\hat \mu_X = \hat \mu_Y\) for two random variables \(X\) and \(Y\) then \(X = Y\) in law, i.e.\ \(\mu_X = \mu_Y\).
 \end{theorem}
 
-Thus Fourier transform is an injection from Borel measure.
+Thus Fourier transform is an injection from Borel measure to certain function space.
 
 \begin{proof}\leavevmode
   \begin{itemize}
@@ -2951,7 +2951,7 @@ Thus Fourier transform is an injection from Borel measure.
       \E(g(X_n))
       &= \int \hat g(u) \E(e^{-i \langle u, X_n \rangle}) du \\
       &= \int \hat g(u) \hat \mu_{X_n} (-u) \frac{du}{(2\pi)^d} \\
-      &\to \int \hat g(u) \hat mu_X(-u) \frac{du}{(2\pi)^d} \\
+      &\to \int \hat g(u) \hat m\u_X(-u) \frac{du}{(2\pi)^d} \\
       &= \E(g(X))
     \end{align*}
     by dominated convergence theorem.
@@ -3143,7 +3143,7 @@ In particular this shows that \((\cov(X_i, X_j))_{ij}\) is a non-negative semide
   \[
     \hat \mu_{Y_n}(u) = \E( e^{i \ip{Y_n, u}}),
   \]
-  this is equivalent to show that for all \(u\), \(\ip{Y_n, u}\) converges in law to \(\ip{Y, n}\). But
+  this is equivalent to show that for all \(u\), \(\ip{Y_n, u}\) converges in law to \(\ip{Y, u}\). But
   \[
     \ip{Y_n, u} = \frac{\ip{X_1, u} + \dots + \ip{X_n, u} - n \ip{\V m, u}}{\sqrt n}
   \]
@@ -3232,7 +3232,7 @@ This condition asserts that \(\mathcal T\) is \emph{trivial}, i.e.\ its elements
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item Let \(X\) be a finite space, \(T: X \to X\) a map and \(\mu = \#\) the counting measure, then \(T\) is measure preserving is equivalent to \(T\) being a bijection, and \(T\) is ergodic is equivalent to there does not exists a partition \(X = X_1 \cup X_2\) such that both \(X_1\) and \(X_2\) are \(T\)-invariant, which is equivalent to for all \(x, y \in X\), ther exists \(n\) such that \(T^n x = y\).
+  \item Let \(X\) be a finite space, \(T: X \to X\) a map and \(\mu = \#\) the counting measure, then \(T\) is measure preserving is equivalent to \(T\) being a bijection, and \(T\) is ergodic is equivalent to there does not exists a partition \(X = X_1 \cup X_2\) such that both \(X_1\) and \(X_2\) are \(T\)-invariant, which is equivalent to for all \(x, y \in X\), there exists \(n\) such that \(T^n x = y\).
   \item Let \(X = \R^d/\Z^d\), \(\mathcal A\) the Borel \(\sigma\)-algebra and \(\mu\) the Lebesgue measure. Given \(a \in \R^d\), translation \(T_a: x \mapsto x + a\) is measure-preserving. \(T_a\) is ergodic with respect to \(\mu\) if and only if \((1, a_1, \dots, a_d)\), where \(a_i\)'s are coordinates of \(a\), are linearly independent. See example sheet. (hint: Fourier transform)
   \item Let \(X = \R/\Z\) and again \(\mathcal A\) Borel \(\sigma\)-algebra and \(\mu\) the Lebesgue measure. The doubling map \(T: x \mapsto 2x - \floor{2x}\) is ergodic with respect to \(\mu\). (hint: again consider Fourier coefficeints). Intuitively in the graph of this function the preimage \(\varepsilon\) is two segments each of length \(\varepsilon/2\), so measure-preserving.
   \item Furstenberg conjecture\index{Furstenberg conjecture}: every ergodic measure \(\mu\) on \(\R/\Z\) invariant under \(T_2, T_3\) must be either Lebesgue or finitely supported.
@@ -3310,7 +3310,7 @@ In some sense ergodic system is the study of stationary process.
 The intuition is as follow: if \(f\) is the indicator function of a set, then \(S_nf\) is exactly the average of the time each orbit spending in \(A\).
 
 \begin{proof}
-  Hilbert space argument. Let \(H = L^2(X, \mathcal A, \mu)\) and dfine
+  Hilbert space argument. Let \(H = L^2(X, \mathcal A, \mu)\) and define
   \begin{align*}
     U: H &\to H \\
     f &\mapsto f \compose T

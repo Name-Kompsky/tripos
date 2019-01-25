@@ -10,7 +10,8 @@
 
 \input{header}
 
-\newcommand{\ccl}{{\mathcal C}}
+\newcommand{\ccl}{{\mathcal C}} % conjugacy class
+\newcommand*{\ip}{\innerproduct} % inner product
 
 \begin{document}
 
@@ -298,8 +299,257 @@ via \(\rho_g(v) = R_g(v)\).
     \varphi: V &\to \F^n \\
     v &\mapsto [v]_{\mathcal B}
   \end{align*}
-  Get a representation \(\rho': G \to \GL(\F^n)\) isomorphic to \(\rho\).
+  And \(\varphi\) gives a representation \(\rho': G \to \GL(\F^n)\) isomorphic to \(\rho\).
 \end{remark}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item Transformations in terms of matrix representatives: \(R: G \to \GL_n(\F), R': G \to \GL_n(\F)\) are \(G\)-isomorphic or \(G\)-equivalent if exists \(X \in \GL_n(\F)\) with
+    \[
+      R'(g) = XR(g)X^{-1}
+    \]
+    for all \(g \in G\).
+  \item In terms of linear \(G\)-actions, the action of \(G\) on \(V, V'\) are \(G\)-isomorphic if there exists \(\varphi: V \to V'\) such that
+    \[
+      g\varphi(v) = \varphi(gv)
+    \]
+    for all \(g \in G, v \in V\).
+\end{enumerate}
+\end{proposition}
+
+\subsection{Subrepresentation}
+
+\begin{definition}[\(G\)-subspace]\index{\(G\)-subspace}
+  Let \(\rho: G \to \GL(V)\) be a representation of \(G\). We say that \(W \leq V\) is a \emph{\(G\)-subspace} if it is a subspace and it is \(\rho(G)\)-invariant, i.e.\ \(\rho_g(W) \subseteq W\) for all \(g \in G\).
+\end{definition}
+
+Obviously \(\{0\}\) and \(V\) are \(G\)-subspaces. On the other hand,
+
+\begin{definition}[irreducible/simple representation]\index{representation!irreducible}\index{representation!simple}
+  \(\rho\) is said to be \emph{irreducible} or \emph{simple} representation if there are no proper \(G\)-subspaces.
+\end{definition}
+
+\begin{eg}
+  Any 1 dimensional representation of \(G\) is irreducible. The converse is not true. For example \(D_8\) has a 2 dimensional irreducible representation.
+\end{eg}
+
+\begin{definition}[subrepresentation]\index{subrepresentation}
+  If \(W\) is a \(G\)-subspace then the corresponding map
+  \begin{align*}
+    G &\to \GL(W) \\
+    g &\mapsto \rho(g)|_W
+  \end{align*}
+  is a representation of \(G\), known as a \emph{subrepresentation} of \(\rho\).
+\end{definition}
+
+\begin{lemma}
+  If \(\rho: G \to \GL(V)\) is a representation, \(W\) is a \(G\)-subspace of \(V\) and \(\mathcal B = \{v_1, \dots, v_n\}\) is a basis containing a basis \(\{v_1, \dots, v_m\}\) of \(W\), where \(0 < m \leq n\), then the matrix of \(\rho(g)\) with respect to \(\mathcal B\) has block upper triangular form
+  \[
+    \begin{pmatrix}
+      * & * \\
+      0 & *
+    \end{pmatrix}
+  \]
+  for each \(g \in G\).
+\end{lemma}
+
+\begin{eg}
+  Let \(\F = \C\).
+  \begin{enumerate}
+  \item Irreducible representation of \(C_4 = \langle x: x^4 = 1\rangle\) are all 1 dimensional and four of them are
+    \[
+      x \mapsto i, x \mapsto -1, x \mapsto -i, x \mapsto 1.
+    \]
+
+    In general \(C_m\) has precisely \(m\) inequivalent complex irreducible representations, all of degree 1. Actually all complex irreducible representations of a \emph{finite abelian group} are 1 dimensional, by simultaneous diagonalisation and primary decomposition. Alternatively, this follows from Schur's lemma\index{Schur's lemma}.
+  \item \(G = D_6\): every irreducible \(\C\)-representation has dimension \(\leq 2\). Let \(\rho: G \to \GL(V)\) be an irreducible representation of \(G\). Let \(r\) be a rotation and \(s\) be reflection. Take an eigenvector \(v\) of \(\rho(r)\) so \(\rho(r)v = \lambda v\) for some \(\lambda \in \C, \lambda \neq 0\). Let
+    \[
+      W = \langle v, \rho(s) v \rangle \leq V.
+    \]
+    Since
+    \begin{align*}
+      \rho(s)\rho(s) v &= v \\
+      \rho(r)\rho(s) v &= \rho(s)\rho(r)^{-1}v = \lambda^{-1}\rho(s)v
+    \end{align*}
+    so \(W\) is \(G\)-invariant. Since \(V\) is irreducible \(W = V\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[(in)decomposable representation, direct sum]\index{representation!decomposable}\index{representation!direct sum}\index{representation!indecomposable}
+  We say that \(\rho: G \to \GL(V)\) is \emph{decomposable} if there are proper \(G\)-invariant subspaces \(U, W\) with \(V = U \oplus W\). Say \(\rho\) is the \emph{direct sum} \(\rho_U \oplus \rho_W\). If no such subspaces exist we say \(\rho\) is \emph{indecomposable}.
+\end{definition}
+
+\begin{lemma}
+  If \(\rho: G \to \GL(V)\) is decomposable, \(\mathcal B = \{v_1, \dots, v_k, w_1, \dots, w_\ell\}\) is a basis of \(V\) consisting of a basis of \(U\) and a basis of \(W\), then \(\rho(g)\) with respect to \(\mathcal B\) is block diagonal for all \(g \in G\).
+\end{lemma}
+
+\begin{definition}[direct sum]\index{representation!direct sum}
+  Let \(\rho: G \to \GL(V), \rho': G \to \GL(V')\) be two representations. The \emph{direct sum} of \(\rho, \rho'\) is
+  \begin{align*}
+    \rho \oplus \rho': G &\to \GL(V \oplus V') \\
+    (\rho \oplus \rho') (g) (v + v') &= \rho(g) v + \rho'(g) v'
+  \end{align*}
+
+  For matrix representations \(R: G \to \GL_n(\F), R': G \to \GL_{n'}(\F)\), define \(R \oplus R': G \to \GL_{n + n'}(\F)\) is given by
+  \[
+    g \mapsto
+    \begin{pmatrix}
+      R(g) & 0 \\
+      0 & R'(g)
+    \end{pmatrix}
+  \]
+  for all \(g\).
+\end{definition}
+
+\section{Complete reducibility and Maschke's theorem}
+
+Given \(G, \F\) as usual.
+
+\begin{definition}[completely reducible/semisimple representation]\index{representation!completely reducible}\index{representation!semisimple}
+  A representation \(\rho: G \to \GL(V)\) is \emph{completely reducible} or \emph{semisimple} if it is a direct sum of irreducible representations.
+\end{definition}
+
+\begin{remark}
+  Irreducible implies completely reducible. The converse is not true. See example sheet 1 question 3.
+\end{remark}
+
+From now on take \(G\) to be finite and \(\ch F = 0\) throughout this chapter.
+
+\begin{theorem}[complete reducibility theorem]\index{complete reduciblity theorem}
+  \label{thm:complete reducibility theorem}
+  Every finite-dimensional representation \(V\) of a finite group over a field of characteristic \(0\) is completely reducible, i.e.\ \(V = V_1 \oplus \dots \oplus V_r\) is a direct sum of representations with each \(V_i\) irreducible.
+\end{theorem}
+
+In fact it is enough to prove
+
+\begin{theorem}[Maschke]\index{Maschke's theorem}
+  \label{thm:Maschke}
+  Suppose \(G\) is finite and \(\rho: G \to \GL(V)\) is a representation with \(V\) finite-dimensional, \(\ch F = 0\). If \(W\) is a \(G\)-subspace of \(V\) then there exists a \(G\)-subspace \(U\) of \(V\) such that \(V = W \oplus U\), a direct sum of \(G\)-subspaces.
+\end{theorem}
+
+\begin{proof}
+  Let \(W'\) be any complementary subspace of \(W\) in \(V\), i.e.\ \(V = W \oplus W'\). Let \(q: V \to W\) be the projection of \(V\) onto \(W\) along \(W'\), i.e.\ if \(v = w + w'\) then \(q(v) = w\). Define
+  \[
+    \overline q: v \mapsto \frac{1}{|G|} \sum_{g \in G} g q(g^{-1}(v)),
+  \]
+  the ``average of \(q\) over \(G\)''. Note that we've dropped the \(\rho\) in \(\rho(g)\) and \(\rho(g^{-1})\) to avoid excessive notations.
+
+  Claim that \(\overline q: V \to W\): for \(v \in V\), \(q(g^{-1}(v)) \in W\) and \(g(W) \subseteq W\). Also \(\overline q(w) = w\) for \(w \in W\) as
+  \[
+    \overline q(w)
+    = \frac{1}{|G|} \sum_{g \in G} g q(g^{-1}w)
+    = \frac{1}{|G|} \sum_{g \in G} g (g^{-1}w)
+    = \frac{1}{|G|} \sum_{g \in G} w
+    = w
+  \]
+  Thus \(\overline q\) projects \(V\) onto \(W\).
+
+  As \(\overline q\) is a projection we can write \(V = \im \overline q \oplus \ker \overline q = W \oplus \ker \overline q\). Need to show \(\ker \overline q\) is \(G\)-invariant. Note that if \(h \in G\)
+  \begin{align*}
+    h \overline q(v)
+    &= h \frac{1}{|G|} \sum_g g q(g^{-1}v) \\
+    &= \frac{1}{|G|} \sum_g hg q(g^{-1}v) \\
+    &= \frac{1}{|G|} \sum_g (hg) q((hg)^{-1} hv) \\
+    &= \frac{1}{|G|} \sum_g g q(g^{-1}(hv)) \\
+    &= \overline q(hv).
+  \end{align*}
+
+  Thus if \(v \in \ker \overline q, h \in G\) then
+  \[
+    h\overline q(v) = 0 = \overline q(hv)
+  \]
+  so \(hv \in \ker \overline q\). Therefore
+  \[
+    V = \im \overline q \oplus \ker \overline q = W \oplus \ker \overline q
+  \]
+  which is a \(G\)-subspace decomposition.
+\end{proof}
+
+In fact, we only need \(\ch \F \ndivides |G|\).
+
+\begin{remark}
+  Complements are not unique. For example, take \(G = 1\). Then a representation of \(G\) is just a vector space. Take \(V = \C^2\). Then any proper subspace \(W \leq V\) will do.
+\end{remark}
+
+\begin{ex}
+  Deduce \nameref{thm:complete reducibility theorem} from \nameref{thm:Maschke} by induction on dimension.
+\end{ex}
+
+We'll present another proof using inner product. This will generalise easily to compact Lie groups. Take \(\F = \C\).
+
+Recall that for \(V\) a \(\C\)-vector space. \(\ip{\cdot, \cdot}\) is a \emph{Hermitian inner product}\index{inner product} if
+\begin{enumerate}
+\item \(\ip{w, v} = \conj{\ip{v, w}}\) for all \(v, w\).
+\item sesquilinear: linear in second argument.
+\item positive definite \(\ip{v, v} > 0\) if \(v = 0\).
+\end{enumerate}
+Furthermore \(\ip{\cdot, \cdot}\) is \emph{\(G\)-invariant} if
+\[
+  \ip{gv, gw} = {v, w}
+\]
+for all \(v, w \in V, g \in G\).
+
+If \(W\) is a \(G\)-invariant subspace of \(V\) (with a \(G\)-invariant inner product) then \(W^\perp\) is also \(G\)-invariant and \(W = W \oplus W^\perp\): enough to show for all \(v \in W^\perp, g \in G\), have \(gv \in W^\perp\). But by definition \(\ip{v, w} = 0\) for all \(w \in W\). Thus by \(G\)-invariance \(\ip{gv, gw} = 0\) for all \(g\). Certainly \(\ip{gv, w'} = 0\) for all \(w' \in W\) as we can choose \(w = g^{-1}w' \in W\). The result thus follows.
+
+Therefore if there is a \(G\)-invariant inner product on any complex \(G\)-space then we get another proof of Maschke's theorem.
+
+\begin{lemma}[Weyl's unitary trick]\index{Weyl's unitary trick}
+  Let \(\rho\) be a complex representation of a finite group \(G\) on the \(\C\)-vector space \(V\). Then there is a \(G\)-invariant inner product on \(V\).
+\end{lemma}
+
+\begin{proof}
+  There exists an inner product on \(V\): take basis \(e_1, \dots, e_n\) and define \((e_i, e_j) = \delta_{ij}\). Extend sesquilinearly. Now define
+  \[
+    \ip{v, w} = \frac{1}{|G|} \sum_g (gv, gw).
+  \]
+  Easy exercise that \(\ip{\cdot, \cdot}\) is a \(G\)-invariant inner product. For example for \(G\)-invariance, for all \(h \in G\),
+  \begin{align*}
+    \ip{hv, hw}
+    &= \frac{1}{|G|} \sum_g ((gh)v, (gh)w) \\
+    &= \frac{1}{|G|} \sum_{g'} (g'v, g'w) \\
+    &= \ip{v, w}
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Every finite subgroup of \(\GL_n(\C)\) is conjugate to a subgroup of \(U(n)\).
+\end{corollary}
+
+\begin{proof}
+  Example sheet 1 Q5, Q12.
+\end{proof}
+
+\begin{definition}[regular representation]\index{representation!regular}
+  Recall group algebra of \(G\) is the \(\F\)-space
+  \[
+    \F G = \text{span} \{e_g: g \in G\}.
+  \]
+  There is a linear \(G\)-action
+  \[
+    h . \sum_g a_ge_g = \sum_g a_g e_{hg} = \sum_{g'} a_{h^{-1}g'} e_{g'}.
+  \]
+  This is known as \emph{regular representation} of \(G\), denoted \(\rho_{\text{reg}}\).
+\end{definition}
+
+This is a faithful representation of dimension \(|G|\). We call \(V = \F G\) (sometimes also written \(\F[G]\)) the \emph{regular module}\index{regular module}.
+
+It turns out that every irreducible representation of \(G\) is a subrepresentation of \(\rho_{\text{reg}}\):
+
+\begin{proposition}
+  Let \(\rho\) be an irreducible representation of \(G\) over a field of characteristic \(0\). Then \(\rho\) is isomorphic to a subrepresentation of \(\rho_{\text{reg}}\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\rho: G \to \GL(V)\) be irreducible and let \(v \in V\) nonzero. Consider
+  \begin{align*}
+    \theta: \F G &\to V \\
+    \sum_g a_g e_g &\mapsto \sum_g a_g gv
+  \end{align*}
+  This is a \(G\)-homomorphism. Now \(V\) is irreducible and \(\im \theta = V\) since \(\im \theta\) is a \(G\)-subspace. Then \(\ker \theta\) is a \(G\)-subspace of \(\F G\). Let \(W\) be a \(G\)-complement of \(\ker \theta\) in \(\F G\). Thus
+  \[
+    W \cong \F G/ \ker \theta \cong \im \theta = V.
+  \]
+\end{proof}
 
 
 

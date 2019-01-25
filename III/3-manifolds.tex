@@ -13,6 +13,7 @@
 \renewcommand{\boundary}{\partial}
 \newcommand{\interior}{\ocirc}
 \renewcommand{\P}{{\mathbb P}}
+\newcommand{\immerse}{\looparrowright}
 
 \begin{document}
 
@@ -249,6 +250,73 @@ Thus 3-manifolds up to homeomorphism bijects to 3-manifolds up to diffeomorphism
 In 3-dimensions normal bundles are trivial so a regular neighbourhood \(\nu(X)\) is just \(D^2 \times X \embed Y\) if \(\dim X = 1\) and \(D^1 \times X \embed Y\) if \(\dim Y = 2\).
 
 In particular, neighbourhood of a not \(K \embed S^3\) is just a solid torus \(D^2 \times S^1 \embed S^3\).
+
+\section{Lecture 3: Link diagrams \& Alexander Skein relations}
+
+\begin{eg}
+  Wild knot: not locally flat embedding
+\end{eg}
+
+\begin{definition}[isotopy]\index{isotopy}
+  An \emph{isotopy} in category \(\mathcal C\) from \(f_1\) to \(f_2: X \to Y\) is a homotopy through maps of type \(\mathcal C\).
+\end{definition}
+
+The point is, all knots (including wild knot) are isotopic through non-locally flat embeddings to an unknot, and all knots are homotopic to an unknot so we want to exclude the ``bad'' homotopies where a knot can cross itself.
+
+\subsection{Knot and link diagrams}
+
+\begin{definition}[link]\index{link}
+  A \emph{link} is an (oriented) embedding \(\iota: \coprod_i S_i^1 \embed S^3\) of (oriented circles), considered up to isotopy.
+\end{definition}
+
+\begin{definition}[link projection]
+  A \emph{link projection} is an immersion \(L \immerse \Gamma \embed \R^2\), induced by
+  \[
+    \begin{tikzcd}
+      L \ar[r, hook] \ar[d, "p|_L"] & S^3 \setminus \{x_0\} \ar[r, "\cong"] & \R^3 \ar[r, "\cong"] & \R^2 \times \R \ar[d, "p"] \\
+      \Gamma \ar[rrr] & & & \R^2
+    \end{tikzcd}
+  \]
+  such that \(x_0 \notin L\) and \(p|_L\) is an embedding except at double point singularities.
+\end{definition}
+
+This aweful looking definition is just a formalisation of a familiar concept that facilitates the study of knots:
+
+\begin{definition}[link diagram]\index{link diagram}
+  A \emph{link diagram} \(D = (\Gamma, \text{crossing} (D))\) of a link \(L \subseteq S^3\) is an embedded graph \(\Gamma \embed \R^2\) from a link projection of \(D\), together with decorations at double points to label crossings. We draw a gap in the lower strand.
+\end{definition}
+
+\begin{theorem}[Reidemeister moves]\index{Reidemeister moves}
+  Let \(D_1\) and \(D_2\) be link diagrams for respective links \(L_1, L_2 \subseteq S^3\). Then \(L_1\) and \(L_2\) are isotopic if and only if \(D_1\) and \(D_2\) are related by some combination of the fuollowing moves:
+\end{theorem}
+
+It is more important to know that such moves exist than what they actually are.
+
+\subsection{Alexander Skein relation}
+
+To compute the alexander polynomial, you first choose an orientation for the link \(L \subseteq S^3\). However, the resulting polynomial is independent of choice of orientation for knots.
+
+\begin{theorem}[Alexander]\index{Alexander polynomial}
+  The \emph{Alexander polynomial}
+  \[
+    \Delta: \{\text{link diagram}\} \to \Z[t^{-1/2}, t^{1/2}]
+  \]
+  is specified by 2 conditions:
+  \begin{enumerate}
+  \item normalisation: \(\Delta(u) = 1\) where \(u\) is the unknot.
+  \item Skein relation: \(\Delta(negative crossing) - \Delta(positive crossing) = \Delta(oriented resolution) (t^{-1/2} - t^{1/2})\) for all \(c \in \text{crossing}(D)\).
+  \end{enumerate}
+  \(\Delta(D_1) = \Delta(D_2)\) if \(D_1\) and \(D_2\) are diagrams for isotopic links.
+\end{theorem}
+
+\begin{theorem}[equivalence of Alexander polynomial]
+  Later we will define an Alexander polynomial for 3-manifolds with \(b_1 > 0\). With respect to this definition,
+  \[
+    \Delta_{\text{link}}(L) = \Delta_{\text{3-manifold}}(S^3 \setminus L)
+  \]
+  for any link \(L \subseteq S^3\).
+\end{theorem}
+
 
 
 
