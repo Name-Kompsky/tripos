@@ -671,13 +671,210 @@ Then we have the following result due to Grothendieck:
 
 We now compare Dolbeault cohomology with sheaf cohomology. Let's begin with general theory of sheaves. Let \(X\) be a topological space.
 
-\begin{definition}
-  A \emph{presheaf} \(\mathcal F\) on \(X\) of abelian groups consists of abelian groups \(\mathcal F(U)\) for all \(U \subseteq X\) open and restriction homomorphisms
+\begin{definition}[presheaf]\index{presheaf}
+  A \emph{presheaf} \(\mathcal F\) on \(X\) of abelian groups consists of abelian groups \(\mathcal F(U)\) for all \(U \subseteq X\) open and \emph{restriction homomorphisms}
   \[
     r_{VU}: \mathcal F(U) \to \mathcal F(V)
   \]
-  for all \(V \subseteq U\) open.
+  for all \(V \subseteq U\) open with
+  \begin{align*}
+    r_{WV} \compose r_{VU} &= r_{WU} \\
+    r_{UU} &= \id
+  \end{align*}
+  One similarly defines presheaves of vector spaces.
 \end{definition}
+
+Most often \(\mathcal F(U)\) is some class of functions on \(U\) with restrictions given by restricting the function which we simply write \(r_{VU}(s) = s|_V\). Another frequent example is given by \(\mathcal F(U)\) consists of sections of vector bundles. We call elements of \(\mathcal F(U)\) \emph{sections}\index{section}.
+
+\begin{definition}[sheaf]\index{sheaf}
+  A presheaf \(\mathcal F\) on \(X\) is a \emph{sheaf} if in addition
+  \begin{enumerate}
+  \item for all \(s \in \mathcal F(U)\), if \(U = \bigcup U_i\) is an open cover and \(s|_{U_i} = 0\) for all \(i\) then \(s = 0\).
+  \item If \(U = \bigcup U_i\), \(s_i \in \mathcal F(U_i)\) with
+    \[
+      s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}
+    \]
+    then there exists \(s \in \mathcal F(U)\) with \(s|_{U_i} = s_i\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}
+  The following are sheaves on complex manifolds:
+  \begin{enumerate}
+  \item \(C^0(U)\) of continuous functions on \(U\).
+  \item \(C^\infty(U)\) of smooth functions on \(U\).
+  \item \(\mathcal A_\C^{p, q}(U)\) of \(p, q\)-forms on \(U\).
+  \item \(\mathcal O(U)\) holomorphic functions on \(U\).
+  \item \(\mathcal O^*(U)\) of nowhere vanishing holomorphic functions on \(U\).
+  \item \(\Omega^p(U)\) of holomorphic \(p\)-forms on \(U\), which are defined to be sections \(s \in \mathcal A_\C^{p, 0}(U)\) with \(\conj \p s = 0\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[morphism of (pre)sheaves]\index{sheaf!morphism}
+  A \emph{morphism} \(\alpha: \mathcal F \to \mathcal G\) of (pre)sheaves on \(X\) consists of homomorphisms \(\alpha_U: \mathcal F(U) \to \mathcal G(U)\) for all \(U \subseteq X\) open such that if \(V \subseteq U\) open then the diagram
+  \[
+    \begin{tikzcd}
+      \mathcal F(U) \ar[r, "\alpha_U"] \ar[d, "r_{VU}"] & \mathcal G(U) \ar[d, "r_{VU}"] \\
+      \mathcal F(V) \ar[r, "\alpha_V"] & \mathcal G(V)
+    \end{tikzcd}
+  \]
+  commutes.
+\end{definition}
+
+\begin{definition}[short exact sequence of sheaves]\index{sheaf!short exact sequence}
+  We say that
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathcal F \ar[r, "\alpha"] & \mathcal G \ar[r, "\beta"] & \mathcal H \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is a \emph{short exact sequence} if for all \(U\) the sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathcal F(U) \ar[r, "\alpha_U"] & \mathcal G(U) \ar[r, "\beta_U"] & \mathcal H(U)
+    \end{tikzcd}
+  \]
+  is exact and if \(s \in \mathcal H(U)\) and \(x \in U\) then there exists a neighbourhood \(V\) of \(x\) and \(t \in \mathcal G(V)\) with \(\beta_V(t) = s|_V\).
+\end{definition}
+
+\begin{eg}
+  The sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Z \ar[r, "\times 2\pi i"] & \mathcal O \ar[r, "\exp"] & \mathcal O^* \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is exact. It is called the \emph{exponential short exact squence}. Here \(\Z\) is the \emph{constant sheaf}\index{sheaf!constant}: \(\Z(U)\) is the space of continuous functions \(U \to \Z\), i.e.\ \(\Z\)-valued locally constant functions (similarly we define the sheaf \(\C(U)\) to be continuous functions \(U \to \C\) where \(\C\) has the discrete topology).
+
+  The exactness of
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Z(U) \ar[r, "\times 2\pi i"] & \mathcal O(U) \ar[r, "\exp"] & \mathcal O^*(U)
+    \end{tikzcd}
+  \] 
+  is clear. If \(f \in \mathcal O^*(U)\) then one can take a local branch of \(\log\) on some \(V \subseteq U\) to obtain the last condition
+
+  The moral is, we can have local but not global inverse in complex geometry. For example it is not true that
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Z(\Delta^*) \ar[r, "\times 2\pi i"] & \mathcal O(\Delta^*) \ar[r, "\exp"] & \mathcal O^*(\Delta^*) \ar[r] & 0
+    \end{tikzcd}
+  \] 
+  where \(\Delta^*\) is the punctured disk.
+\end{eg}
+
+\begin{definition}[stalk]\index{stalk}
+  Let \(\mathcal F\) be a sheaf on \(X\) and \(x \in X\). The \emph{stalk} of \(\mathcal F\) at \(x\) is
+  \[
+    \mathcal F_x = \{(U, s): x \in U \subseteq X, s \in \mathcal F(U)\}/\sim
+  \]
+  where \((U, s) \sim (V, t)\) if there is \(W \subseteq U \cap V\) with \(s|_W = t|_W\).
+\end{definition}
+
+A morphism \(\mathcal F \to \mathcal G\) induces a map \(\mathcal F_x \to \mathcal G_x\).
+
+\begin{ex}
+  Show
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathcal F \ar[r, "\alpha"] & \mathcal G \ar[r, "\beta"] & \mathcal H \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is exact if and only if
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathcal F_x \ar[r, "\alpha"] & \mathcal G_x \ar[r, "\beta"] & \mathcal H_x \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is exact for all \(x \in X\).
+\end{ex}
+
+\begin{definition}[kernel of sheaf morphism]\index{kernel}
+  The \emph{kernel} of \(\alpha: \mathcal F \to \mathcal G\) is the sheaf defined by
+  \[
+    \ker \alpha(U) = \ker (\alpha_U: \mathcal F(U) \to \mathcal G(U)).
+  \]
+\end{definition}
+
+The definitions of cokernel and image are more complicated. See example sheet.
+
+\subsection{Čech cohomology}
+
+Our aim is to define \(\check H(X, \mathcal F)\) where \(\mathcal F\) is a sheaf on \(X\), and show
+\[
+  H_{\conj \p}^{p, q}(X) \cong \check H^q(X, \Omega^p).
+\]
+We begin with an example. Let \(X\) be a topological space with \(X = U \cup V\) where \(U, V\) open. If \(s_U \in \mathcal F(U), s_V \in \mathcal F(V)\), when is there \(s \in \mathcal F(X)\) with \(s|_U = s_U, s|_V = s_v\)?
+
+As \(\mathcal F\) is a sheaf, this happens if and only if
+\[
+  s_U|_{U \cap V} = s_V|_{U \cap V}.
+\]
+Define
+\begin{align*}
+  \delta: \mathcal F(U) \oplus \mathcal F(V) &\to \mathcal F(U \cap V) \\
+  (s_U, s_V) &\mapsto s_U|_{U \cap V} - s_V|_{U \cap V}
+\end{align*}
+then \(\mathcal F(X) \cong \ker \delta\).
+
+\begin{notation}
+  Notation: if \(\mathcal U = \{U_\alpha\}_\alpha\) is an open cover indexed by a subset of \(\N\) (or any ordered set), we write
+  \[
+    U_{\alpha_0} \cap \dots \cap U_{\alpha_p} = U_{\alpha_0 \dots \alpha_p}.
+  \]
+\end{notation}
+
+Define
+\begin{align*}
+  C^0(\mathcal U, \mathcal F) &= \prod_\alpha \mathcal F(U_\alpha) \\
+  C^1(\mathcal U, \mathcal F) &= \prod_{\alpha < \beta} \mathcal F(U_{\alpha\beta}) \\
+  C^p(\mathcal U, \mathcal F) &= \prod_{\alpha_0 < \dots < \alpha_p} \mathcal F(U_{\alpha_0 \dots \alpha_p}) \\
+\end{align*}
+If \(\sigma \in C^p(\mathcal U, \mathcal F)\), we also set
+\[
+  \sigma_{\alpha_0 \dots \alpha_i \alpha_{i + 1} \dots \alpha_p} = - \sigma_{\alpha_0 \dots \alpha_{i + 1} \alpha_i \dots \alpha_p}.
+\]
+We define the boundary map
+\begin{align*}
+  \delta: C^p(\mathcal U, \mathcal F) &\to C^{p + 1}(\mathcal U, \mathcal F)
+\end{align*}
+by
+\[
+  (\delta\sigma)_{\alpha_0 \dots \alpha_{p + 1}} = \sum_{j = 0}^{p + 1} (-1)^j \sigma_{\alpha_0 \dots \hat \alpha_j \dots \alpha_{p + 1}} |_{U_{\alpha_0 \dots \alpha_{p + 1}}}.
+\]
+
+\begin{eg}
+  Let \(\mathcal U = \{U_0, U_1, U_2\}\), \(\sigma = \{\sigma_0, \sigma_1, \sigma_3\} \in C^0(\mathcal U, \mathcal F)\). Then \(\delta \sigma\) is given by
+  \begin{align*}
+    (\delta \sigma)_{01} &= (\sigma_0 - \sigma_1)|_{U_{01}} \\
+    (\delta \sigma)_{02} &= (\sigma_0 - \sigma_2)_{U_{02}} \\
+    (\delta \sigma)_{12} &= (\sigma_1 - \sigma_2)_{U_12}
+  \end{align*}
+  and thus
+  \[
+    (\delta \delta \sigma)_{012}
+    = (\delta \sigma)_{12} - (\delta \sigma)_{02} + (\delta \sigma)_{01}
+    = (\sigma_1 - \sigma_2) + (\sigma_0 - \sigma_2) + (\sigma_0 - \sigma_1)
+    = 0
+  \]
+  which is defined on \(U_{012}\).
+\end{eg}
+
+\begin{ex}
+  Show \(\delta \compose \delta = 0\) in general.
+\end{ex}
+
+\begin{definition}[Čech cohomology]\index{Čech cohomology}
+  Define \emph{Čech cohomology}
+  \[
+    \check H^q(\mathcal U, \mathcal F)
+    = \frac{\ker (\delta: C^q(\mathcal U, \mathcal F) \to C^{q + 1}(\mathcal U, \mathcal F))}{\im (\delta: C^{q - 1}(\mathcal U, \mathcal F) \to C^q(\mathcal U, \mathcal F))}
+  \]
+\end{definition}
+
+
+
+
 
 
 

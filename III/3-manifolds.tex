@@ -317,6 +317,82 @@ To compute the alexander polynomial, you first choose an orientation for the lin
   for any link \(L \subseteq S^3\).
 \end{theorem}
 
+\section{Handle decompositions from Morse Singularities}
+
+Handles: index \(k\)-handles are tubular neighbourhood of \(k\)-cell CW complex, also are neighbourhoods of Morse critical points.
+
+\subsection{Morse functions}
+
+Let \(X \to \R\) be a smooth function on a smooth manifold \(X\).
+
+\begin{definition}[Hessian, critial point]\index{Hessian}\index{critcal point}
+  \(\textrm{Hess}_p(x)\) is the Hessian of \(f\) at \(p\), which is local coordintes is
+  \[
+    \left(
+      \frac{\partial^2 f}{\partial x_i \partial x_J}|_{x = p}
+    \right)_{ij}.
+  \]
+
+  \(\textrm{crit} f\) is the set of critical points of \(f\), i.e.\ \(\{p \in X: \frac{\partial f}{\partial x_i} = 0 \text{ for all } i\}\), or more invariantly, \(df = 0\).
+\end{definition}
+
+\begin{definition}[Morse function]\index{Morse function}
+  A smooth function \(f: X \to \R\) on an \(n\)-manifold \(X\) is \emph{Morse} if
+  \begin{enumerate}
+  \item every critical point of \(f\) is isolated. (If \(X\) is compact then this implies that critical points are finite)
+  \item \(\textrm{Hess}_p f\) is nongenerate at each \(p \in \textrm{crit} f\), if and only if \(\det \neq 0\), if and only if has all nonzero eigenvalues.
+  \end{enumerate}
+\end{definition}
+
+\subsection{Morse singularities}
+
+A list of descriptions of Morse functions:
+
+\begin{enumerate}
+\item If \(f: X \to \R\) is Morse, then a Taylor series expansion around a critical point \(p \in \textrm{crit} f\) looks like
+  \[
+    f(x) = f(p) + \frac{1}{2} \sum x_i x_j \frac{\partial^2 f}{\partial x_i x_j}\Bigg|_p + \text{ higher order terms}
+  \]
+\item \(\textrm{Hess}_p f\) is nondegenerate means that we can rescale coordinates so that all eigenvalues are \(\pm 1\).
+\item Since partial derivatives commute, \(\textrm{Hess}_p f\) is symmetric. Thus by linear algebra it is diagonalisable and we can write
+  \[
+    f(x) = f(p) - \sum_{i = 1}^k x_i^2 + \sum_{i = k + 1}^n x_i^2 + \text{ higher order terms}.
+  \]
+\end{enumerate}
+
+\begin{lemma}[Morse lemma]
+  Let \(X\) be a smooth manifold and \(f: X \to \R\) Morse. One can choose coordinates \(x\) centred at \(p \in \textrm{crit} f\) such that
+  \[
+    f(x) = f(p) - sum_{i = 1}^k x_i^2 + \sum_{i = k + 1}^n x_i^2.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Use implicit function theorem.
+\end{proof}
+
+\begin{definition}[index]
+  The \emph{index} \(\operatorname{ind}_p f\) of a Morse function \(f: X \to \R\) at a critical point \(p\) is
+  \[
+    \operatorname{ind}_p f = \# \text{ negative eigenvalues of } \textrm{Hess}_p,
+  \]
+  which is the \(k\) above.
+\end{definition}
+
+Thus Morse lemma says that index is the (only?) invariant of Morse functions.
+
+Moral: there is a standard local model for each index \(k\) Morse critical point.
+
+See printed notes
+
+\begin{definition}[\(k\)-handle]
+  An index \(k\)-handle, or just \(k\)-handle, or \(n\)-dimensional \(k\)-handle is the closure of a tubular neighbourhood of an index \(k\) critical point.
+  \(H_k^m \cong \nu(x) \cong D^k \times D^{n - k} \supseteq \interior B^k\).
+\end{definition}
+
+Note that the corners in \(D^k\) and \(D^{n - k}\) are different
+
+
 
 
 

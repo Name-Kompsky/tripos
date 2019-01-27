@@ -617,7 +617,7 @@ Note that this does not prove prime number theorem. Historically this is a surpr
 
 \subsubsection{Aside: Why is prime number theorem so hard?}
 
-It seems that we've made quite a progress without too much effort. But how far are we from prime number theorem and if the anser is ``quite far'', what makes it so resistant to elementary methods?
+It seems that we've made quite a progress without too much effort. But how far are we from prime number theorem and if the answer is ``quite far'', what makes it so resistant to elementary methods?
 
 Probabilistic heuristic: fix \(p\) prime, ``probability'' that a random \(n\) satisfies \(p \divides n\) is \(\frac{1}{p}\). What is the ``probability'' that \(n\) is prime then? \(n\) is a prime if and only if \(n\) has no prime divisors \(p \leq n^{1/2}\). Guess that the events ``divisble by \(p\)'' are independent, then ``probability'' that \(n\) is prime is roughly
 \[
@@ -655,10 +655,9 @@ but if we just plug this in we will get a trouble. Instead use another trick: co
 Thus
 \[
   \psi(x)
-  = \sum_{a \leq x} \mu(a) \left( \sum_{b \leq x/a} \tau(b) - 2\gamma \frac{x}{a} + O(\frac{x^{1/2}}{a^{1/2}}) \right)
+  = \sum_{a \leq x} \mu(a) \left( \sum_{b \leq x/a} \tau(b) - 2\gamma \frac{x}{a} + O(\frac{x^{1/2}}{a^{1/2}}) \right).
 \]
-
-The first term is
+The first term is (essentially \(\mu * \tau = 1\))
 \begin{align*}
   \sum_{ab \leq x} \mu(a)\tau(b)
   &= \sum_{abc \leq x} \mu(a) \\
@@ -675,7 +674,179 @@ so still need to show that
 \[
   \sum_{a \leq x} \frac{\mu(a)}{a} = o(1).
 \]
-Well it turns out that this is equivalent to prime number theorem! This turns out to be \(1/\zeta(1)\). As \(\zeta\) has a pole at \(z = 1\), this is indeed true.
+Well it turns out that this is equivalent to prime number theorem! This constant can be shown to be \(1/\zeta(1)\). As \(\zeta\) has a pole at \(z = 1\), this is indeed true.
+
+\subsection{Selberg's identity and on elementary proof of prime number theorem}
+
+Define Selberg's function
+\[
+  \Lambda_2(n) = \mu* (\log )^2(n) = \sum_{ab = n} \mu(a) (\log b)^2.
+\]
+The idea is to prove ``prime number theorem for \(\Lambda_2\)'' with elementary methods. The intuition is that \(\Lambda_2\) is like \(\Lambda\) multiplied by \(\log\) and if we do the same expansion as before, hopefully we can get
+\[
+  \sum_{n \leq x} \Lambda_2(n) = \text{main term} + O(x),
+\]
+but now this is now an acceptable error!
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(\Lambda_2(n) = \Lambda(n) \log n + \Lambda * \Lambda (n)\).
+  \item \(0 \leq \Lambda_2(n) \leq (\log n)^2\).
+  \item If \(\Lambda_2(n) \neq 0\) then \(n\) has at most 2 distinct prime divisors.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Use Möbius inversion suffices to show
+    \[
+      \sum_{d \divides n} (\Lambda(d) \log d + \Lambda * \Lambda(d)) = (\log n)^2.
+    \]
+    Start by expanding out,
+    \begin{align*}
+      \sum_{d \divides n} (\Lambda(d) \log d + \Lambda * \Lambda(d))
+      &= \sum_{d \divides n} \Lambda(d) \log d + \sum_{ab \divides n} \Lambda(a) \Lambda(b) \\
+      &= \sum_{d \divides n} \log d + \sum_{a \divides n} \Lambda(a) \underbrace{\sum_{b \divides \frac{n}{a}} \Lambda(b)}_{= \log (n/a)} \\
+      &= \sum_{d \divides n} \log d + \sum_{d \divides n} \Lambda(d) \log \frac{n}{d} \\
+      &= \log n \sum_{d \divides n} \Lambda(d) \\
+      &= (\log n)^2
+    \end{align*}
+  \item \(\Lambda_2(n) \geq 0\) since both terms on RHS in 1 are nonnegative. Since
+    \[
+      \sum_{d \divides n} \Lambda_2(d) = (\log n)^2,
+    \]
+    \(\Lambda_2(n) \leq (\log n)^2\).
+  \item Note that if \(n\) is divisible by 2 distinct primes then \(\Lambda(n) = 0\), and
+    \[
+      \Lambda * \Lambda(n) = \sum_{ab \divides n} \Lambda(a) \Lambda(b) = 0
+    \]
+    since at least one of \(a\) or \(b\) has \(\geq 2\) distinct prime divisors.
+  \end{enumerate}
+\end{proof}
+
+As such while \(\Lambda\) can be thought as the indicator function for numbers with exactly 1 prime divisor, weighted by \(\log\), \(\Lambda_2\) can be thought as the indicator function for numbers with a pair of prime divisors, weighted by \((\log^2)\).
+
+\begin{theorem}[Selberg]
+  \[
+    \sum_{n \leq x} \Lambda_2(n) = 2x \log x + O(x).
+  \]
+\end{theorem}
+
+\begin{proof}
+  \begin{align*}
+    \sum_{n \leq x} \Lambda_2(n)
+    &= \sum_{n \leq x} \mu * (\log)^2 (n) \\
+    &= \sum_{ab \leq x} \mu(a) (\log b)^2 \\
+    &= \sum_{a \leq x} \mu(a) \left( \sum_{b \leq x/a} (\log b)^2 \right)
+  \end{align*}
+  By partial summation,
+  \[
+    \sum_{m \leq x} (\log m)^2
+    = x (\log x)^2 - 2x \log x + 2x + O((\log x)^2).
+  \]
+  We want to use the same trick and substitute sum of divisor function for the leading term. First we have to manufacture a \(x (\log x)^2\) term. By partial summation with
+  \[
+    A(t) = \sum_{n \leq t} \tau(n) = t \log t + Ct + O(t^{1/2}),
+  \]
+  have
+  \begin{align*}
+    \sum_{m \leq x} \frac{\tau(m)}{m}
+    &= \frac{A(x)}{x} + \int_1^x \frac{A(t)}{t^2} dt \\
+    &= \log x + C + O(x^{-1/2}) + \int_1^x \frac{\log t}{t} dt + C \int_1^x \frac{1}{t} dt + O(\int_1^x \frac{1}{t^{3/2}} dt) \\
+    &= \frac{(\log x)^2}{2} + C_1 \log x + C_2 + O(x^{-1/2})
+  \end{align*}
+  Since we dislike \(\log\), we replace it by \(\sum_{m \leq x} \tau(m)\) to get
+  \[
+    \frac{x (\log x)^2}{2}
+    = \sum_{m \leq x} \tau(m) \frac{x}{m} + C_1' \sum_{m \leq x} \tau(m) + C_2'x + O(x^{1/2}).
+  \]
+  Substituting back,
+  \[
+    \sum_{m \leq x} (\log m)^2
+    = 2 \sum_{m \leq x} \tau(m) \frac{x}{m} + C_3 \sum_{m \leq x} \tau(m) + C_4 x + O(x^{1/2})
+  \]
+  so
+  \begin{align*}
+    \sum_{n \leq x} \Lambda_2(n)
+    &= 2 \sum_{a \leq x} \mu(a) \sum_{b \leq x/a} \frac{\tau(b)x}{ab} + C_5 \sum_{a \leq x} \mu(a) \sum_{b \leq x/a} \tau(b) \\
+    &+ C_6 \sum_{a \leq x} \mu(a) \frac{x}{a} + O(\sum_{a \leq x} \frac{x^{1/2}}{a^{1/2}}).
+  \end{align*}
+  We analyse the error terms one by one, starting from the back. First note that
+  \[
+    x^{1/2} \sum_{a \leq x} \frac{1}{a^{1/2}} = O(x).
+  \]
+  Secondly
+  \begin{align*}
+    x \sum_{a \leq x} \frac{\mu(a)}{a}
+    &= \sum_{a \leq x} \mu(a) \floor*{\frac{x}{a}} + O(x) \\
+    &= \sum_{a \leq x} \mu(a) \sum_{b \leq x/a} 1 + O(x) \\
+    &= \sum_{d \leq x} \mu * 1(d) + O(x) \\
+    &= 1 + O(x) \\
+    &= O(x)
+  \end{align*}
+  Thirdly, (again essentially \(\mu * \tau = 1\))
+  \begin{align*}
+    \sum_{a \leq x} \mu(a) \sum_{b \leq x/a} \tau(b)
+    &= \sum_{a \leq x} \mu(a) \sum_{b \leq x/a}\sum_{cd = b} 1 \\
+    &= \sum_{a \leq x} \mu(a) \sum_{cd \leq x/a} 1 \\
+    &= \sum_{acd \leq x} \mu(a)
+    = \sum_{d \leq x} \sum_{ac \leq x/d} \mu(a) \\
+    &= \sum_{d \leq x} \sum_{e \leq x/d} \mu * 1(e) \\
+    &= \sum_{d \leq x} 1 \\
+    &= O(x)
+  \end{align*}
+  Collecting what we've done,
+  \begin{align*}
+    \sum_{n \leq x} \Lambda_2(n)
+    &= 2 \sum_{a \leq x} \mu(a) \sum_{b \leq x/a} \frac{\tau(b) x}{ab} + O(x) \\
+    &= 2x \sum_{d \leq x} \frac{1}{d} \mu * \tau(d) + O(x) \\
+    \intertext{Recall that \(\tau = 1 * 1\) so \(\mu * \tau = \mu * 1 * 1 = 1\),}
+    &= 2x \sum_{d \leq x} \frac{1}{d} + O(x) \\
+    &= 2x \log x + O(x)
+  \end{align*}
+\end{proof}
+
+\subsubsection{*A 14-point plan to prove prime number theorem from Selberg's identity}
+
+Let
+\[
+  r(x) = \frac{\psi(x)}{x} - 1.
+\]
+Then prime number theorem is the statement that
+\[
+  \lim_{x \to \infty} |r(x)| = 0.
+\]
+We will demonstrate how to count from 1 to 14 below. When you finished counting, you will get prime number theorem as a byproduct.
+
+\begin{enumerate}
+\item[1] Show that Selberg's identity implies
+  \[
+    r(x) \log x = - \sum_{n \leq x} \frac{\Lambda(n)}{n} r (\frac{x}{n}) + O(1).
+  \]
+\item[2] Consider 1 with \(x\) replaced by \(\frac{x}{m}\), summing over \(m\), show
+  \[
+    |r(x)| (\log x)^2 \leq \sum_{n \leq x} \frac{\Lambda_2(n)}{n} \left|r(\frac{x}{n})\right| + O(\log x).
+  \]
+\item[3]
+  \[
+    \sum_{n \leq x} \Lambda_2(n) = 2 \int_1^{\floor x} \log t dt + O(x).
+  \]
+\item[4 - 6]
+  \[
+    \sum_{n \leq x} \frac{\Lambda_2(n)}{n} |r(\frac{x}{n})|
+    = 2 \int_1^x \frac{r(x/2)}{t \log t} dt + O(\log x).
+  \]
+\item[7] Let \(V(u) = r(e^u)\). Show that
+  \[
+    u^2 |V(u)| \leq 2 \int_0^u \int_0^v |V(t)| dt dv + O(u).
+  \]
+\item[8] Show
+  \[
+    \alpha = \limsup_{x \to \infty} |r(x)| \leq \limsup_{u \to \infty} \frac{1}{u} \int_0^u |V(t)| dt = \beta.
+  \]
+\item[9 - 14] If \(\alpha > 0\) then can show from 7 that \(\beta < \alpha\), contradiction. So \(\alpha = 0\). Prime number theorem.
+\end{enumerate}
+
 
 
 
