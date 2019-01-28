@@ -95,6 +95,7 @@ Some notes on diagonalisation:
 \end{remark}
 
 \begin{proposition}
+  \label{prop:simultaneous diagonalisable}
   A finite family of commuting separately diagonalisable non-singular transformations of a \(\C\)-vector space can be simultaneously diagonalised.
 \end{proposition}
 
@@ -154,8 +155,8 @@ We have an ample supply of basic groups:
   \end{align*}
   such that
   \begin{align*}
-    1x & x \text{ for all } x \in X \\
-    (gh) x & g (hx) \text{ for all } g, h \in G, x \in X
+    1x &= x \text{ for all } x \in X \\
+    (gh) x &= g (hx) \text{ for all } g, h \in G, x \in X
   \end{align*}
 \end{definition}
 
@@ -273,7 +274,7 @@ via \(\rho_g(v) = R_g(v)\).
     \end{tikzcd}
   \]
 
-  We say \(\varphi\) \emph{intertwines} \(\rho\) and \(\rho'\). Write \(\hom_G(V, V')\) for the \(\F\)-space of all such.
+  We say \(\varphi\) \emph{intertwines} \(\rho\) and \(\rho'\). Write \(\Hom_G(V, V')\) for the \(\F\)-space of all such.
 
   \(\varphi\) is a \emph{\(G\)-isomorphism} if \(\varphi\) is also bijective. If such a \(\varphi\) exists, say \(\rho\) and \(\rho'\) are \emph{isomorphic} or \emph{equivalent}. If \(\varphi\) is a \(G\)-isomorphism we can write the interwinding condition as
   \[
@@ -549,6 +550,96 @@ It turns out that every irreducible representation of \(G\) is a subrepresentati
   \[
     W \cong \F G/ \ker \theta \cong \im \theta = V.
   \]
+\end{proof}
+
+More generally,
+
+\begin{definition}[permutation representation]\index{representation!permutation}
+  Let \(G\) act on a set \(X\). Let \(\F X = \text{span}\{e_x: x \in X\}\) with \(G\) action
+  \[
+    g . \sum_x a_x e_x = \sum_x a_x e_{gx}
+  \]
+  so we have a \(G\)-space \(\F X\). The representation \(G \to \GL(\F X)\) is the corresponding \emph{permutation representation}.
+\end{definition}
+
+\section{Schur's lemma}
+
+\begin{theorem}[Schur's lemma]\index{Schur's lemma}\leavevmode
+  \begin{enumerate}
+  \item Assume \(V\) and \(W\) are irreducible \(G\)-spaces (over field \(\F\)). Then any \(G\)-homomorphism \(\theta: V \to W\) is either \(0\) or a \(G\)-isomorphism.
+  \item Assume \(\F\) is algebraically closed and let \(V\) be an irreducible \(G\)-space. Then any \(G\)-endomorphism \(V \to V\) is a scalar multiple of the identity map \(1_V\) (a \emph{homothety}).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(\theta: V \to W\) be a \(G\)-homomorphism. Then \(\ker \theta\) is a \(G\)-subspace of \(V\). Since \(V\) is irreducible either \(\ker \theta = 0\) or \(\ker \theta = V\). Similarly \(\im \theta = 0\) or \(\im \theta = W\). Hence either \(\theta = 0\) or \(\theta\) is injective and surjective.
+  \item Since \(\F\) is algebraically closd, \(\theta\) has an eigenvalue \(\lambda\). Then \(\theta - \lambda 1_V\) is a singular \(G\)-endomorphsim on \(V\), so must be \(0\).
+  \end{enumerate}
+\end{proof}
+
+Recall the \(\F\)-space \(\Hom_G(V, W)\) of all \(G\)-homomorphisms \(V \to W\), we can restate Schur's lemma
+\begin{corollary}
+  If \(V\) and \(W\) are irreducible complex \(G\)-spaces then
+  \[
+    \dim_\C \Hom_G(V, W) =
+    \begin{cases}
+      1 & \text{if \(V, W\) are \(G\)-isomorphic} \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+\end{corollary}
+
+\begin{proof}
+  If \(V\) and \(W\) are not isomorphic then the only \(G\)-homomorphism \(V \to W\) is \(0\). Assume \(V \cong_G W\) and \(\theta_1, \theta_2 \in \Hom_G(V, W)\), both nonzero. Then \(\theta_2\) is invertible and \(\theta_2^{-1}\theta_1 \in \End_G(V)\) and nonzero, so \(\theta_2^{-1}\theta_1 = \lambda 1_V\). Then \(\theta_1 = \lambda \theta_2\).
+\end{proof}
+
+\begin{corollary}
+  If \(G\) has a faithful complex irreducible representation then \(Z(G)\) is cyclic.
+\end{corollary}
+
+\begin{remark}
+  The converse is false. See example sheet Q10.
+\end{remark}
+
+\begin{proof}
+  Let \(\rho: G \to \GL(V)\) be a faithful representation over \(\C\). Let \(z \in Z(G)\), then \(\varphi_z: v \mapsto zv\) is a \(G\)-endomorphism, hence multiplication by a scalar, say \(\mu_z\). Then
+  \begin{align*}
+    Z(G) &\to \C^\times \\
+    g &\mapsto \mu_g
+  \end{align*}
+  is a representation of \(Z(G)\) and is faithful since \(\rho\) is. Thus \(Z(G)\) is isomorphic to a finite subgroup of \(\C^\times\) so cyclic.
+\end{proof}
+
+This is our first group theoretic result based on representation theory. This is a recurring theme in representation theory.
+
+\begin{corollary}
+  The irreducible \(\C\)-representations of a finite abelian group \(G\) are all 1 dimensional.
+\end{corollary}
+
+\begin{proof}
+  One can use \Cref{prop:simultaneous diagonalisable} to invoke simultaneous diagonalisation: if \(v\) is an eigenvector for each \(g \in G\) and if \(V\) is irreducible then \(V = \langle v \rangle\).
+
+  Alternatively, let \(V\) be an irreducible representation. Given \(g \in G\), the map
+  \begin{align*}
+    \theta_g: V &\to V \\
+    v &\mapsto gv
+  \end{align*}
+  is a \(G\)-endomorphism of \(V\). Hence \(\theta_g = \lambda_g 1_V\) for some \(\lambda_g \in \C\). Thus \(gv = \lambda_g v\) for any \(g \in G\). Thus as \(V \neq 0\) is irreducible, \(V = \langle v \rangle\).
+\end{proof}
+
+\begin{remark}
+  This fails for \(\R\). For example \(C_3\) has two irreducible \(\R\)-representations, one of dimension 1 and one of dimension 2.
+\end{remark}
+
+Recall that every finite abelian group \(G\) is isomorphic to a product of cyclic groups. In fact it can be written as product of \(C_{p^\alpha}\) for various primes \(p\) and \(\alpha \geq 1\). The elements are uniquely determined up to order.
+
+\begin{proposition}
+  The finite abelian group \(G \cong C_{n_1} \times \dots \times C_{n_r}\) has precisely \(|G|\) irreducible \(\C\)-representations as described below.
+\end{proposition}
+
+\begin{proof}
+  Write \(G = \langle x_1 \rangle \times \dots \times \langle x_r \rangle\) where \(|x_j| = n_j\). Suppose \(\rho\) is irreducible so it is 1 dimensional. Let \(\rho(1, \dots, x_j, \dots, 1) = \lambda_j\). Then \(\lambda_j^{n_j} = 1\) so \(\lambda_j\) is an \(n_j\)th root of unity. Now the values \((\lambda_1, \dots, \lambda_r)\) determine \(\rho\).
 \end{proof}
 
 

@@ -3,7 +3,7 @@
 \def\npart{III}
 
 \def\ntitle{Analytic Number Theory}
-\def\nlecturer{T.\ Bloom}
+\def\nlecturer{T.\ F.\ Bloom}
 
 \def\nterm{Lent}
 \def\nyear{2019}
@@ -550,7 +550,7 @@ Compare to \(\sum_{1 \leq n \leq x} \frac{1}{n}\).
   \[
     A(x) = \sum_{p \leq x} \frac{\log p}{p} = \log x + R(x)
   \]
-  where \(R(x) \leq 1\). Then (summing from \(2\) to prevent \(\log t = 0\))
+  where \(R(x) = O(1)\). Then (summing from \(2\) to prevent \(\log t = 0\))
   \begin{align*}
     \sum_{2 \leq p \leq x} \frac{1}{p}
     &= \frac{A(x)}{\log x} + \int_2^x \frac{A(t)}{t (\log t)^2} dt \\
@@ -562,7 +562,7 @@ Compare to \(\sum_{1 \leq n \leq x} \frac{1}{n}\).
     &= 1 + C + O(\frac{1}{\log x}) + \log \log x - \log \log 2 + O(\int_x^\infty \frac{1}{t (\log t)^2} dt) \\
     &= \log \log x + b + O(\frac{1}{\log x})
   \end{align*}
-  It turns out \(b\) can be expresseed in terms of \(\gamma\).
+  It turns out \(b\) can be expressed in terms of \(\gamma\).
 \end{proof}
 
 \begin{theorem}[Chebyshev]
@@ -672,7 +672,7 @@ and the first error term is
 \]
 so still need to show that
 \[
-  \sum_{a \leq x} \frac{\mu(a)}{a} = o(1).
+  x \sum_{a \leq x} \frac{\mu(a)}{a} = O(1).
 \]
 Well it turns out that this is equivalent to prime number theorem! This constant can be shown to be \(1/\zeta(1)\). As \(\zeta\) has a pole at \(z = 1\), this is indeed true.
 

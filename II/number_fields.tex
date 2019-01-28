@@ -874,7 +874,7 @@ But this does not go terribly wrong. In fact, any non-zero \(x \in \O_L\) which 
 The way to get around this is to consider multiplication of ideals insteads of elements. Recall that if \(R\) is a ring and \(I, J\) are ideal of \(R\), we can define
 \begin{align*}
   IJ &= \left\{ \sum_{i = 1}^k a_ib_i: a_i \in I, b_i \in J \right\} \\
-  I + J &= \{ a + b: a \in I b \in J \}
+  I + J &= \{ a + b: a \in I, b \in J \}
 \end{align*}
 
 \begin{definition}[Irreducible ideal]\index{irreducible ideal}
@@ -890,7 +890,7 @@ One caveat: even if \(\alpha \in \O_L\) is irreducible, the principal ideal \((\
 The aim of this chapter is to prove that factorisation of ideals into prime ideals is unique. Recall from IB Groups, Rings and Modules
 
 \begin{definition}[Prime ideal]\index{prime ideal}
-  Let \(R\) is a ring. We say that a proper ideal \(\mathfrak p \subseteq \R\) is \emph{prime} if for all \(x, y \in R\), \(xy \in \mathfrak p \implies x \in \mathfrak p \text{ or } y \in \mathfrak p\).
+  Let \(R\) is a ring. We say that a proper ideal \(\mathfrak p \subseteq R\) is \emph{prime} if for all \(x, y \in R\), \(xy \in \mathfrak p \implies x \in \mathfrak p \text{ or } y \in \mathfrak p\).
 \end{definition}
 
 The following lemma gives us a way to characterise prime ideals:
@@ -975,7 +975,7 @@ From now on let \(L\) be a number field.
   \]
   If \(\beta \in \gamma J\) then \(\beta \in \O_L\) and \(\beta I \subseteq (\alpha)\) so \(\gamma J \subseteq J\).
 
-  Recall that \(J\) admits an integral basis so there is an isomorphism \(J \cong \Z^n\). If \(A \in \matrixring_{n \times n}(\Z)\) be the matrix representing multiplication by \(\gamma\), with \(f(x) \in \Z[x]\) its characteristic polynomial, by Cayley-Hamilton \(f(\gamma) = 0\). Thus \(\gamma \in \O_L\). Absurd.
+  Recall that \(J\) admits an integral basis so there is an isomorphism \(J \cong \Z^n\). Let \(A \in \matrixring_{n \times n}(\Z)\) be the matrix representing multiplication by \(\gamma\), with \(f(x) \in \Z[x]\) its characteristic polynomial. Then by Cayley-Hamilton \(f(\gamma) = 0\) so \(\gamma \in \O_L\). Absurd.
 
   This shows that \(IJ = (\alpha)\).
 \end{proof}
