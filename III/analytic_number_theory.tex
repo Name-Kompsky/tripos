@@ -10,6 +10,8 @@
 
 \input{header}
 
+\usepackage{cancel}
+
 \newtheorem*{fact}{Fact}
 
 \begin{document}
@@ -846,6 +848,156 @@ We will demonstrate how to count from 1 to 14 below. When you finished counting,
   \]
 \item[9 - 14] If \(\alpha > 0\) then can show from 7 that \(\beta < \alpha\), contradiction. So \(\alpha = 0\). Prime number theorem.
 \end{enumerate}
+
+\section{Sieve methods}
+
+Motivation example sieve of Eratosthenes: given natural numbers below \(20\), let's cross out all multiples of \(2\) to get
+\[
+  \begin{array}{cccccccccc}
+    1 & \cancel 2 & 3 & \cancel 4 & 5 & \cancel 6 & 7 & \cancel 8 & 9 & \cancel{10} \\
+    11 & \cancel{12} & 13 & \cancel{14} & 15 & \cancel{16} & 17 & \cancel{18} & 19 & \cancel{20}
+  \end{array}
+\]
+Next we cross out all multiples of \(3\) to get
+\[
+  \begin{array}{cccccccccc}
+    1 & \cancel 2 & \bcancel 3 & \cancel 4 & 5 & \xcancel 6 & 7 & \cancel 8 & \bcancel 9 & \cancel{10} \\
+    11 & \xcancel{12} & 13 & \cancel{14} & \bcancel{15} & \cancel{16} & 17 & \xcancel{18} & 19 & \cancel{20}
+  \end{array}
+\]
+As \(\sqrt{20} < 5\), we know that the numbers left on the list are prime (with the exception of \(1\)). Our interest is in using the sieve to \emph{count} things: we can find how many numbers are left, which by definition are those primes below \(20\) that are not used as sieves, by inclusion-exclusion principle:
+\begin{align*}
+  \pi(20) + 1 - \pi(\sqrt{20})
+  &= 20 - \floor*{\frac{20}{2}} - \floor*{\frac{20}{3}} + \floor*{\frac{20}{6}} \\
+  &= 20 - 10 - 6 + 3 \\
+  &= 7 
+\end{align*}
+By the way if there are more sieves then we naturally include more terms in the inclusion-exclusion expansion. Note that the coefficient/sign in front of each term is precisely the Möbius function of the denominator.
+
+\subsection{Setup}
+
+Consider \(A \subseteq \N\) finite, which is the set to be sifted. Let \(P\) be a set of primes, which are those we sift out by. Usually \(P\) is the set of all primes. Let \(z\) be a sifting limit: we sift all primes in \(P\) that are smaller than \(z\). A \emph{sifting function}
+\[
+  S(A, P; z) = \sum_{n \in A} 1_{(n, P(z)) = 1}
+\]
+where \(P(z) = \prod_{p \in P, p < z} p\). The goal is to estimate \(S(A, P; z)\).
+
+For \(d\), let
+\[
+  A_d = \{n \in A: d \divides n\}.
+\]
+Write
+\[
+  |A_d| = \frac{f(d)}{d} X + R_d
+\]
+where \(f\) is completely multiplicative (\(f(mn) = f(m)f(n)\) for all \(m, n\)) and \(f(d) \geq 0\) for all \(d\). Note that
+\[
+  |A| = \frac{f(1)}{1} X + R_1 = X + R_1
+\]
+Think of \(R_1\) as the remainder term, \(X\) is roughly the size of \(A\). Extending this analogy, for general \(d\), \(R_d\) is the ``error'' term and \(\frac{X}{d}\) measures the number of elements in the \(0\) residue class of \(d\), assuming they are distributed uniformly. Then \(f(d)\) is a factor that says how the residue class is actually distributed.
+
+We choose \(f\) so that \(f(p) = 0\) if \(p \notin P\) (so \(R_p = |A_p|\)). Finally let
+\[
+  W_P(z) = \prod_{p \in P, p < z} \left( 1 - \frac{f(p)}{p} \right),
+\]
+the probability that it is not divisible by any of the \(p\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Sieve of Eratosthenes: \(A = (x, x + y] \cap \N\) and \(P\) is the set of all primes. Then
+    \[
+      |A_d|
+      = \floor*{\frac{x + y}{d}} - \floor*{\frac{x}{d}}
+      = \frac{x + y}{d} - \frac{x}{d} + O(1)
+      = \frac{y}{d} + O(1)
+    \]
+    so \(f(d) = 1\) and \(R_d = O(1)\). Have
+    \[
+      S(A, P; z) = \#\{x < n \leq x + y: \text{ if } p \divides n \text{ then } p \geq z\}.
+    \]
+    For example if \(z \approx (x + y)^{1/2}\) then
+    \[
+      S(A, P; z) = \pi(x + y) - \pi(x) + O((x + y)^{1/2}).
+    \]
+  \item Let \(A = \{1 \leq n \leq y: n = a \mod q\}\). Then
+    \[
+      A_d = \{1 \leq m \leq \frac{y}{d}: dm = a \mod q\}.
+    \]
+    The congruence has solutions if and only if \((d, q) \divides a\). Thus
+    \[
+      |A_d| =
+      \begin{cases}
+        \frac{(d, q)}{dq} y + O((d, q)) & (d, q) \divides a \\
+        O((d, q)) & \text{otherwise}
+      \end{cases}
+    \]
+    So here \(X = \frac{y}{q}\) and
+    \[
+      f(d) =
+      \begin{cases}
+        (d, q) & (d, q) \divides a \\
+        0 & \text{otherwise}
+      \end{cases}
+    \]
+  \item Count twin primes: let \(A = \{n (n + 2): 1 \leq n \leq x\}\) and let \(P\) be all primes except \(2\). So \(p \divides n(n + 2)\) if and only if \(n = 0 \text{ or } 2 \mod p\). Thus
+    \[
+      |A_p| = \frac{2x}{p} + O(1).
+    \]
+    Thus \(f(p) = 2\). By complete multiplicity, \(f(d) = 2^{\omega(d)}\) if \(2 \ndivides d\). Have
+    \begin{align*}
+      S(A, P; x^{1/2})
+      &= \#\{1 \leq p \leq x: p, p + 2 \text{ both primes}\} + O(x^{1/2}) \\
+      &= \pi_2(x) + O(x^{1/2})
+    \end{align*}
+    We would expect \(\pi_2(x) \approx \frac{x}{(\log x)^2}\). We'll prove upper bound using sieves.
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[sieve of Eratosthenes-Legendre]
+  \[
+    S(A, P; z) = XW_P(z) + O(\sum_{d \divides P(z)} |R_d|).
+  \]
+\end{theorem}
+
+\begin{proof}
+  \begin{align*}
+    S(A, P; z)
+    &= \sum_{n \in A} 1_{(n, P(z)) = 1} \\
+    &= \sum_{n \in A} \sum_{d \divides (n, P(z))} \mu(d) \\
+    &= \sum_{n \in A} \sum_{d \divides n, d \divides P(z)} \mu(d) \\
+    &= \sum_{d \divides P(z)} \mu(d) \sum_{n \in A} 1_{d \divides n} \\
+    &= \sum_{d \divides P(z)} \mu(d) |A_d| \\
+    &= X \sum_{d \divides P(z)} \frac{\mu(d) f(d)}{d} + \sum_{d \divides P(z)} \mu(d) R_d \\
+    &= X \prod_{p \in P, p < z} \left(1 - \frac{f(p)}{p} \right) + O(\sum_{d \divides P(z)} |R_d|)
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  \[
+    \pi(x + y) - \pi(x) \ll \frac{y}{\log \log y}.
+  \]
+\end{corollary}
+By taking \(x = 0\) we see this is much worse bound in \(y\) than Chebyshev. On the other hand, however, we get a uniform bound independent of \(x\)!
+
+\begin{proof}
+  In example 1, \(X = y, f = 1\) and \(|R_d| \ll 1\). Thus
+  \[
+    W_P(z)
+    = \prod_{p < z} \left( 1 - \frac{1}{p} \right)
+    \ll (\log z)^{-1}
+  \]
+  and
+  \[
+    \sum_{d \divides P(z)} |R_d| \ll \sum_{d \divides P(z)} 1 \leq 2^z
+  \]
+  so
+  \[
+    \pi(x + y) - \pi(x) \ll \frac{y}{\log z} + 2^z \ll \frac{y}{\log \log y}
+  \]
+  by letting \(z = \log y\).
+\end{proof}
+
+
 
 
 

@@ -449,7 +449,7 @@ An application:
 \end{proposition}
 
 \begin{remark}
-  This is false for total orders in general. For example, From \(\Z\) to \(\Z\) we could take identity or \(x \mapsto x - 5\).
+  This is false for total orders in general. For example, from \(\Z\) to \(\Z\) we could take identity or \(x \mapsto x - 5\).
 \end{remark}
 
 \begin{proof}
@@ -498,7 +498,7 @@ Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\
 \begin{proof}
   First we show existence. Define ``\(h\) is an attempt'' to mean \(h: I \to Y\) where \(I \subseteq X\) is some initial segment, and for all \(x \in I\) we have \(h(x) = G(h|_{I_x})\). Note that if \(h\) and \(h'\) are both attempts defined at \(x\) then \(h(x) = h'(x)\): by induction on \(x\), if \(h(y) = h'(y)\) for all \(y < x\), then \(h(x) = h'(x)\).
 
-  Also for all \(x \in X\) there exists an attempt defined at \(X\), by induction on \(x\). Indeed we want an attempt defined at \(x\), given that for all \(y < x\) there exists an attempt defined at \(y\). So for each \(y < x\) we have a unique attempt \(h_y\) defined on \(\{z: z\leq y\}\) (unique by what we just showed). Let
+  Also for all \(x \in X\) there exists an attempt defined at \(x\) by induction. Indeed we want an attempt defined at \(x\), given that for all \(y < x\) there exists an attempt defined at \(y\). So for each \(y < x\) we have a unique attempt \(h_y\) defined on \(\{z: z\leq y\}\) (unique by what we just showed). Let
   \[
     h = \bigcup_{y < x} h(y),
   \]
@@ -508,7 +508,7 @@ Given \(Y \subseteq X\), intuitively we want to map the smallest element of \(Y\
   \]
   is an attempt defined at \(x\). Now set \(f(x) = y\) if there exists an attempt \(h\) defined at \(x\) with \(h(x) = y\) (also single-valued).
 
-  For uniqueness, if \(f\) and \(f'\) are both suitable then \(f(x) = f'(x)\) for all \(x \in X\) (by induction on \(X\)) --- since if \(f(y) = f'(y)\) for all \(y < x\) then \(f(x) = f'(x)\).
+  For uniqueness, if \(f\) and \(f'\) are both suitable then \(f(x) = f'(x)\) for all \(x \in X\) by induction --- if \(f(y) = f'(y)\) for all \(y < x\) then \(f(x) = f'(x)\).
 \end{proof}
 
 A typical application:
@@ -540,7 +540,7 @@ So far we have proved that if two well-orderings are isomorphic there is a uniqu
 \end{definition}
 
 \begin{eg}
-  Let \(X = \N\), \(Y = \{1 - 1/n: n = 2, 3, \dots\} \cup \{1\}\), then \(X \leq Y\).
+  Let \(X = \N\), \(Y = \{1 - 1/n: n = 1, 2, \dots\} \cup \{1\}\), then \(X \leq Y\).
 \end{eg}
 
 What we would hope is that there is a total order on the set of all well-orderings. Firstly we have
@@ -550,11 +550,11 @@ What we would hope is that there is a total order on the set of all well-orderin
 \end{theorem}
 
 \begin{proof}
-  Suppose \(Y \nleq X\), to obtain \(f: X \to Y\) that is an isomorphic with an initial segment of \(Y\), need for all \(x \in X\),
+  Suppose \(Y \nleq X\). To obtain \(f: X \to Y\) that is an isomorphism with an initial segment of \(Y\), need for all \(x \in X\),
   \[
     f(x) = \min Y \setminus \{f(y): y < x\}.
   \]
-  (we can't have \(Y = \{f(y): y < x\}\) as then \(Y\) is isomorphic to \(I_x\)). Done by the theorem.
+  We can't have \(Y = \{f(y): y < x\}\) as then \(Y\) is isomorphic to \(I_x\). Done by the theorem.
 \end{proof}
 
 \begin{proposition}
@@ -574,7 +574,7 @@ So far we have very few examples of well-orderings, so we wish to build new well
 \end{notation}
 
 \begin{eg}
-  If \(X = \N\), \(Y = \{1 - 1/n: n = 1, \dots, \} \cup \{1\}\) then \(X < Y\).
+  If \(X = \N\), \(Y = \{1 - 1/n: n = 1, 2, \dots\} \cup \{1\}\) then \(X < Y\).
 \end{eg}
 
 We can produce new well-orderings by
@@ -636,10 +636,10 @@ For example, the ordinals \(< \omega\) are \(0, 1, 2, \dots\).
 \end{proposition}
 
 \begin{proof}
-  Choose \(\alpha \in S\). If \(\alpha\) is minimal in \(S\) then done. If not, then \(S \cap I_\alpha \neq 0\), so we have a minimal element of \(S \cap I_\alpha\), which is therefore minimal in \(S\).
+  Choose \(\alpha \in S\). If \(\alpha\) is minimal in \(S\) then done. If not, then \(S \cap I_\alpha \neq \emptyset\), so we have a minimal element of \(S \cap I_\alpha\), which is therefore minimal in \(S\).
 \end{proof}
 
-Given the proposition, it is very tempting to conclude that all well-orderings form a well-order. But there is one technicality that we haven't checked, that well-orders are defined on a set. Unfortunately,
+Given the proposition, it is very tempting to conclude that all well-orderings form a well-order. But there is one thing we haven't checked, namely well-orders are defined on a set. Unfortunately,
 
 \begin{theorem}[Burali-Forti paradox]\index{Burali-Forti paradox}
   The ordinals do not form a set.

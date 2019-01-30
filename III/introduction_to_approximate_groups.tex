@@ -16,12 +16,12 @@
 
 \tableofcontents
 
-\section{Lecture 1: missed}
+\section*{Lecture 1: missed}
 
 \clearpage
 
 
-\section{Lecture 2: Covering and higher sum and product sets}
+\section*{Lecture 2: Covering and higher sum and product sets}
 
 Introduce two techniques we'll use repeatedly: covering and bounding higher product sets. A nice way to do this is by proving the following theorem.
 
@@ -132,7 +132,7 @@ It is therfore unfortunate that the theorem does not hold for non-abelian groups
   so \(|A^2| \leq 3 |A|\). But \(A^3\) contains \(HxH\), which has size \(|H|^2 \sim |A|^2\). So as \(|H| \to \infty\), the theorem cannot hold.
 \end{eg}
 
-Nevertheless, if we strengthen small doubling slightly we can recover a form of the theorem. One way is to replace small doubing with \emph{small tripling}, i.e.\ \(|A^3| \leq K |A|\).
+Nevertheless, if we strengthen small doubling slightly we can recover a form of the theorem. One way is to replace small doubing with \emph{small tripling}\index{small tripling}, i.e.\ \(|A^3| \leq K |A|\).
 
 \begin{proposition}[2.7]
   Suppose \(A \subseteq G\) and \(|A^3| \leq K |A|\). Then
@@ -204,7 +204,7 @@ The key ingredient is the following:
   by induction.
 \end{proof}
 
-\section{Lecture 3: Approximate groups}
+\section*{Lecture 3: Approximate groups}
 
 Last time we saw that assuming all small tripling instead of small doubling allowed us to control higher product sets of the form \(A^{\varepsilon_1} \cdots A^{\varepsilon_m}\). In this lecture we'll see another possible strengening of small doubling. We also saw, in the proof of theorem 2.1 and proposition 2.2, an advantage of having a ``covering'' condition in place of a size bound. This motivates in part the following definition.
 
@@ -335,6 +335,189 @@ The reason \(A\) in example 2.6 failed to have small tripling was the existence 
 \begin{theorem}[theorem 3.5][Tao, Petridis]
   If \(|A^2| \leq K|A|\) and \(|AxA| \leq K|A|\) for all \(x \in A\) then \(|A^m| \leq K^{O(m)}|A|\) for all \(m \geq 3\).
 \end{theorem}
+
+\section*{Lecture 4: Stability of approximate closure under basic operations}
+
+Two familiar properties of genuine subgroups are that they behave well under quotients and intersections: if \(H \leq G\) and \(\pi: G \to \Gamma\) is a homomorphism then \(\pi(H) \leq \Gamma\), and if \(H_1, H_2 \leq G\) then \(H_1 \cap H_2 \leq G\). In this lecture we'll see versions of these properties for approximate groups and set of small tripling.
+
+It's trivial that if \(A \subseteq G\) is a \(K\)-approximate group then \(\pi(A)\) is also a \(K\)-approximate group. The following is the corresponding result for sets of small tripling.
+
+\begin{proposition}[prop 4.1][stability of small tripling under homomorphisms]
+  Let \(A \subseteq G\) be finite, symmetric, containing the idenity. Suppose \(\pi: G \to \Gamma\) is a homomorphism. Then
+  \[
+    \frac{|\pi(A)^m|}{|\pi(A)|} \leq \frac{|A^{m + 2}|}{|A|}
+  \]
+  for all \(m \in \N\).
+
+  In particular if \(|A^3| \leq K |A|\) then
+  \[
+    |\pi(A)^3| \leq K^9 |\pi(A)|
+  \]
+  by prop 2.7.
+\end{proposition}
+
+Prove this using an argument of Helfgolt. We's  start with a simple observation that we'll use repeatedly in this course.
+
+\begin{lemma}[lemma 4.2]
+  Let \(H \leq G\). Let \(A \subseteq G\) be finite and let \(x \in G\). Then
+  \[
+    |A^{-1}A \cap H| \geq |A \cap xH|.
+  \]
+\end{lemma}
+
+\begin{proof}
+  We have
+  \[
+    (A \cap xH)^{-1} (A \cap xH) \subseteq A^{-1}A \cap H.
+  \]
+\end{proof}
+
+\begin{remark}
+  Most of the lemmas and propositions in this lecture will have familiar/trivial analogues for genuine subgroups. It is a useful exercise to think about what they are.
+\end{remark}
+
+\begin{lemma}[lemma 4.3]
+  Let \(H \leq G\). Write \(\pi: g \to G/H\) for the quotient map. Let \(A \subseteq G\) be finite. Then
+  \[
+    |A^{-1}A \cap H| \geq \frac{|A|}{|\pi(A)|}.
+  \]
+\end{lemma}
+
+Note that \(H\) is not assumed to be normal, so \(G/H\) is just the space of left cosets \(xH\), not necessarily a group.
+
+\begin{proof}
+  By pigeonhole principle, there exists \(x \in G\) such that
+  \[
+    |A \subseteq x H| \geq \frac{|A|}{|\pi(A)|}.
+  \]
+  Then apply lemma 4.2.
+\end{proof}
+
+\begin{lemma}[lemma 4.4]
+  Let \(H \leq G\). Write \(\pi: G \to G/H\) for the quotient map and let \(A \subseteq G\) be finite. Then
+  \[
+    |\pi(A^m)| |A^n \cap H| \leq |A^{m + n}|
+  \]
+  for all \(m, n \geq 0\).
+\end{lemma}
+
+\begin{proof}
+  Define \(\varphi: \pi(A^m) \to A^m\) by picking arbitrarily for each \(x \in \pi(A^m)\) some \(\varphi(x)\) such that \(\pi(\varphi(x)) = x\). Then the cosets \(\varphi(x)H\) for \(x \in \pi(A^m)\) are all distinct by definition, so
+  \[
+    |\varphi(\pi(A^m)) (A^n \cap H)| = |\pi(A^m)| |A^n \cap H|.
+  \]
+  But also,
+  \[
+    \varphi(\pi(A^m)) (A^n \cap H) \subseteq A^{m + n}.
+  \]
+\end{proof}
+
+\begin{proof}[Proof of prop 4.1]
+  Write \(H = \ker \pi\). By lemma 4.4,
+  \[
+    |\pi(A^m)| \leq \frac{|A^{m + 2}|}{|A^2 \cap H|}.
+  \]
+  The by lemma 4.3
+  \[
+    |A^2 \cap H| \geq \frac{|A|}{|\pi(A)|}.
+  \]
+  The proposition then follows.
+\end{proof}
+
+Now we'll look at intersections.
+
+\begin{proposition}[prop 4.5][stability of small tripling uder intersections with subgroups]
+  Let \(A \subseteq G\) be finite, symmetric and containing identity. Let \(H \leq G\). Then
+  \[
+    \frac{|A^m \cap H|}{|A^2 \cap H|} \leq \frac{|A^{m + 1}|}{|A|}.
+  \]
+
+  In particular by prop 2.7 if \(|A^3| \leq K|A|\) then
+  \[
+    |(A^m \cap H)^3| \leq K^9 |A^m \cap H|
+  \]
+  for all \(m \geq 2\).
+\end{proposition}
+
+\begin{remark}
+  We'll see in example sheet 1 that even if \(A\) has small tripling, \(A \cap H\) need not. So \(m \geq 2\) really is important for this last condition.
+\end{remark}
+
+\begin{proof}
+  By lemma 4.4
+  \[
+    |A^m \cap H| \leq \frac{|A^{m + 1}|}{|\pi(A)|}
+  \]
+  where \(\pi: G \to G/H\) is the quotient map as before. By lemma 4.3,
+  \[
+    |A^2 \cap H| \geq \frac{|A|}{|\pi(A)}.
+  \]
+  Just combine these two inequalities.
+\end{proof}
+
+\begin{proposition}[prop 4.6][stability of approximate groups under intersections with subgroups]
+  Let \(H \leq G\). Let \(A \subseteq G\) be a \(K\)-approximate group. Then \(A^m \cap H\) is covered by \(\leq K^{m - 1}\) left translates of \(A^2 \cap H\). In particlar \(A^m \cap H\) is a \(K^{2m - 1}\)-approximate subgroup (since \(A^2 \cap H \leq A^m \cap H\) and \((A^m \cap H)^2 \leq A^{2m} \cap H\)).
+\end{proposition}
+
+\begin{proof}
+  By definition, there exists \(X \in G\) with \(|X| = K^{m - 1}\) such that \(A^m \subseteq XA\). In particular
+  \[
+    A^m \cap H \subseteq \bigcup_{x \in X} (xA \cap H).
+  \]
+  For each \(xA \cap H\) that is not empty, exists \(h = xa \in H\) for some \(a \in A\). This means that
+  \[
+    xA \cap H \subseteq h(a^{-1}A \cap H) \subseteq h(A^2 \cap H).
+  \]
+  Hence each set \(xA \cap H\) in this union is contained in a single left translate of \(A^2 \cap H\).
+\end{proof}
+
+In III Introduction to Discrete Analysis, you saw that when studying small doubling/tripling, there is a more general notion of homomorphism that comes into play: the Freiman homomorphisms. To motivate this, consider two sets
+\begin{align*}
+  A &= \{-n, \dots, n\} \subseteq \Z/p\Z \\
+  B &= \{-n, \dots, n\} \subseteq \Z/q\Z
+\end{align*}
+for \(p, q\) two large primes, \(\geq 10 n\) say. These two sets are intuitively ``isomorphic'' from the perspective of \(A + A\) and \(B + B\), but there is no way of encoding this with a group homomorphism \(\Z/p\Z \to \Z/q\Z\).
+
+\begin{definition}[Freiman homomorphism]\index{Freiman homomorphism}\index{Freiman homomorphism!centred}
+  Let \(m \in \N\). Let \(A, B\) be subsets of groups. Then a map \(\varphi: A \to B\) is a \emph{Freiman \(m\)-homomorphism} if for all \(x_1, \dots, x_m, y_1, \dots, y_m \in A\) with \(x_1\cdots x_m = y_1 \cdots y_m\) we have
+  \[
+    \varphi(x_1) \cdots \varphi(x_m) = \varphi(y_1) \cdots \varphi(y_m).
+  \]
+
+  If \(1 \in A\) and \(\varphi(1) = 1\) then we say that \(\varphi\) is \emph{centred}. If \(\varphi\) is injective and its inverse \(\varphi(A) \to A\) is also a Freiman \(m\)-homomorphism we say \(\varphi\) is a \emph{Freiman \(m\)-isomorphism}.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Every map is trivially a \(1\)-homomorphism so we only care about the case \(m \geq 2\).
+  \item This definition gets stronger as \(m\) increases: assume \(A \neq \emptyset\). Picking \(a \in A\). If \(x_1 \cdots x_k = y_1 \cdots y_k\) for \(k \leq m\) then \(x_1 \cdots x_k a \cdots a = y_1 \cdots y_k a \cdots a\).
+  \item If \(\varphi\) is centred and \(a, a^{-1} \in A\) then exercise to check that \(\varphi(a^{-1}) = \varphi(a)^{-1}\) (for \(m \geq 2\)).
+  \end{enumerate}
+\end{remark}
+
+From now on when we say \(\varphi\) is a Freiman homomorphism we mean it is a \(2\)-homomorphism.
+
+\begin{lemma}[lemma 4.7]
+  Suppose \(\varphi: A \to \Gamma\) is a Freiman \(m\)-homomorphism. Then
+  \[
+    |\varphi(A)^m| \leq |A^m|.
+  \]
+
+  In particular if \(\varphi\) is injective then
+  \[
+    \frac{|\varphi(A)^m|}{|\varphi(A)|} \leq \frac{|A^m|}{|A|},
+  \]
+  and if \(\varphi\) is a Frieman \(m\)-isomorphism then this is an equality.
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+
+
+
+
 
 
 \printindex

@@ -639,9 +639,114 @@ Recall that every finite abelian group \(G\) is isomorphic to a product of cycli
 \end{proposition}
 
 \begin{proof}
-  Write \(G = \langle x_1 \rangle \times \dots \times \langle x_r \rangle\) where \(|x_j| = n_j\). Suppose \(\rho\) is irreducible so it is 1 dimensional. Let \(\rho(1, \dots, x_j, \dots, 1) = \lambda_j\). Then \(\lambda_j^{n_j} = 1\) so \(\lambda_j\) is an \(n_j\)th root of unity. Now the values \((\lambda_1, \dots, \lambda_r)\) determine \(\rho\).
+  Write \(G = \langle x_1 \rangle \times \dots \times \langle x_r \rangle\) where \(|x_j| = n_j\). Suppose \(\rho\) is irreducible so it is 1 dimensional. Let \(\rho(1, \dots, x_j, \dots, 1) = \lambda_j\). Then \(\lambda_j^{n_j} = 1\) so \(\lambda_j\) is an \(n_j\)th root of unity. Now the values \((\lambda_1, \dots, \lambda_r)\) determine \(\rho\), and no two are equivalent.
 \end{proof}
 
+Note that however, there is no canonical bijective correspondence between the elements of \(G\) and the representations of \(G\). If you choose an isomorphism \(G \cong C_{a_1} \times \dots C_{a_r}\) then we can identify the two sets, but it depends on the choice of isomorphism.
+
+\subsection{Isotypical decompositions}
+
+We know that in characteristic \(0\), every representation \(V\) of \(G\) decomposes as \(\bigoplus V_i\) where each \(V_i\) is irreducible. How unique is this?
+
+A wishlist of properties:
+\begin{enumerate}
+\item uniqueness: for each \(V\) there is only one way to decompose \(V = \bigoplus V_i\) with \(V_i\) irreducible.
+\item uniqueness of isotypes: for each \(V\) there exist unique subrepresentations \(U_1, \dots, U_k\) such that \(V = \bigoplus U_i\) and if \(V_i \leq U_i, V_j' \leq U_j\) irreducible subrepresentations then \(V_i \cong V_j'\) if and only if \(i = j\).
+\item uniqueness of factors: if \(\bigoplus_{i = 1}^k V_i \cong \bigoplus_{i = 1}^{k'} V_i'\) and \(V_i, V_i'\) are irreducible then \(k = k'\) and there exists \(\pi \in S_k\) such that \(V_{\pi(i)}' \cong V_i\).
+\end{enumerate}
+
+Evidently 1 is too strong (\(G = 1\) acting on any \(V\) with dimension \(> 1\)). However 2 and 3 do work. We will skip the proof and refer the reader to Teleman \textsection 5. However, we shall discuss how to calculate multiplicities of simples in the isotypes.
+
+\begin{lemma}
+  Let \(V, V_1, V_2\) be \(G\)-spaces.
+  \begin{enumerate}
+  \item \(\Hom_G(V, V_1 \oplus V_2) \cong \Hom_G(V, V_1) \oplus \Hom_G(V, V_2)\).
+  \item \(\Hom_G(V_1 \oplus V_2, V) \cong \Hom_G(V_1, V) \oplus \Hom_G(V_2, V)\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Let \(\pi_i: V_1 \oplus V_2 \to V_i\) be the \(G\)-linear projections in \(V_i\) with kernel \(V_{3 - i}\). Then
+  \begin{align*}
+    \Hom_G(V, V_1 \oplus V_2) &\to \Hom_G(V, V_1) \oplus \Hom_G(V, V_2) \\
+    \varphi &\mapsto (\pi_1 \varphi, \pi_2 \varphi)
+  \end{align*}
+  has inverse \((\psi_1, \psi_2) \mapsto \psi_1 + \psi_2\).
+
+  Also the map
+  \begin{align*}
+    \Hom_G(V_1 \oplus V_2, V) &\to \Hom_G(V_1, V) \oplus \Hom_G(V_2, V) \\
+    \varphi &\mapsto (\varphi|_{V_1}, \varphi|_{V_2})
+  \end{align*}
+  has inverse \((\psi_1, \psi_2) \mapsto \psi_1 \pi_1 + \psi_2 \pi_2\).
+\end{proof}
+
+\begin{corollary}
+  Suppose \(\F\) is algebraically closed and \(V = \bigoplus_{i = 1}^n V_i\) is a decomposition into irreducibles. Then for each irreducible representation \(S\) of \(G\),
+  \[
+    \# \{j: V_j \cong S\} \cong \dim \Hom_G(S, V).
+  \]
+  This is known as the \emph{multiplicity}\index{multiplicity} of \(S\) in \(V\).
+\end{corollary}
+
+\begin{proof}
+  By induction on \(n\). Obvious for \(n = 0, 1\). For \(n > 1\), write
+  \[
+    V = (\bigoplus_{i = 1}^{n - 1} V_i) \oplus V_n.
+  \]
+  Then
+  \[
+    \dim \Hom_G(S, (\bigoplus_{i = 1}^{n - 1} V_i) \oplus V_n)
+    = \dim \Hom_G(S, \bigoplus_{i = 1}^{n - 1} V_i) + \dim \Hom_G(S, V_n)
+  \]
+  and use Schur's lemma.
+\end{proof}
+
+\begin{definition}[canonical decomposition]\index{canonical decomposition}
+  A decomposition \(V = \bigoplus W_i\) where each \(W_j\) is isomorphic to \(n_j\) copies of irreducible representation \(S_j\) (each non-isomorphic for each \(j\)) is the \emph{canonical decomposition} or the \emph{decomposition into isotypical components} \(W_j\).
+\end{definition}
+
+For \(\F\) closed, the above lemma says that \(n_j = \dim \Hom_G(S_j, V)\), i.e.\ \(n_j\) is detectable at \(G\)-homomorphism level.
+
+\begin{eg}
+  Teleman \textsection 5 gives an example on \(D_6\).
+
+  If \(G\) is finite abelian then every complex representation \(V\) of \(G\) has unique isotypical decomposition.
+\end{eg}
+
+\section{Character theory}
+
+We want to attach invariants to a representation \(\rho\) of a finite group \(G\) on \(V\). Matrix coefficients of \(\rho(g)\) are basis-dependent so not true invariants.
+
+\(\det\) is an invariant but not a very useful one, as lots of (inequivalent) representations have determinant \(1\). Instead we'll use trace.
+
+Let \(\F = \C\) and let \(\rho = \rho_V: G \to \GL(V)\) be a representation.
+
+\begin{definition}[character]\index{character}\index{character!irreducible}\index{character!faithful}\index{character!faithful, trivial}
+  The \emph{character} \(\chi_\rho = \chi_V = \chi\) is defined as
+  \begin{align*}
+    \chi: G &\to \C \\
+    g &\mapsto \tr \rho(g)
+  \end{align*}
+  The \emph{degree} of \(\chi_V\) is \(\dim V\).
+
+  \(\chi\) is \emph{linear} if \(\dim V = 1\), in which case \(\chi\) is a homomorphism \(G \to \C^\times\). \(\chi\) is \emph{irreducible/faithful/trivial (or principal)} if \(\rho\) is. In the last case we also write \(\chi = 1_G\).
+\end{definition}
+
+It turns out that \(\chi\) is a complete invariant in the sense that it determines \(\rho\) up to isomorphism. We'll prove this later.
+
+\begin{theorem}\leavevmode
+  \begin{enumerate}
+  \item \(\chi_V(1) = \dim V\).
+  \item \(\chi_V\) is a \emph{class function}\index{class function}, namely it is conjugation invariant. Thus \(\chi_V\) is constant on the conjugacy class of \(G\).
+  \item \(\chi_V(g^{-1}) = \conj{\chi_V(g)}\).
+  \item For two representations \(V\) and \(W\),
+    \[
+      \chi_{V \oplus W} = \chi_V + \chi_W.
+    \]
+  \item 
+  \end{enumerate}
+\end{theorem}
 
 
 

@@ -11,9 +11,11 @@
 \input{header}
 
 \renewcommand{\boundary}{\partial}
+\renewcommand{\b}{\boundary}
 \newcommand{\interior}{\ocirc}
 \renewcommand{\P}{{\mathbb P}}
 \newcommand{\immerse}{\looparrowright}
+\DeclareMathOperator{\grad}{grad}
 
 \begin{document}
 
@@ -392,7 +394,106 @@ See printed notes
 
 Note that the corners in \(D^k\) and \(D^{n - k}\) are different
 
+\section{Lecture 5: Handles from cells, Heegard diagrams}
 
+Cell ecomplex interpretation
+
+\begin{definition}[handle, core, cocore]\index{handle}\index{core}\index{cocore}
+  An \emph{\(n\)-dimension \(k\)-handle} \(H^n_k\) or \emph{index \(k\)-handle} is a product decomposition
+  \[
+    H^n_k \cong D^k \times D^{n - k} \cong B^n
+  \]
+  of the closed \(n\)-ball into a \(k\)-dimensional \(k\)-cell \emph{core} \(D^k\) and \emph{cocore} \(D^{n - k}\).
+\end{definition}
+
+If you choose a metric, the core \(D^k\) is fat and the cocore \(D^{n - k}\) is thin.
+
+\begin{definition}[attaching region, belt region]\index{attaching region}\index{belt region}
+  The boundary \(\b H^n_k\) of an \(n\)-dimensional \(k\)-handle decomposes as
+  \begin{align*}
+    \b H^n_k
+    &\cong \b(\text{core} \times \text{cocore}) \\
+    &\cong \b(\text{core}) \times \text{cocore} \cup \text{core} \times \b(\text{cocore}) \\
+    &\cong \underbrace{\b D^k \times D^{n - k}}_{\text{attaching region}} \cup \underbrace{D^k \times \p D^{n - k}}_{\text{belt region}}
+  \end{align*}
+\end{definition}
+
+In a cell complex, we attach a \(k\)-cell \(D^k\) by gluing its boundary \(\b D^k \cong S^{k - 1}\) to the cell-complex we have built so far.
+
+\[
+  \text{attaching region} (H^n_k)
+  \cong \overline{\nu(\p D^k)}
+  \cong \overline{\nu S^{k - 1}}
+  \cong \p D^k \times D^{n - k}
+\]
+
+\begin{definition}[handle attachment]\index{handle attachment}
+  The attachment of a \(k\)-handle \(H^n_k\) to an \(n\)-manifold \(X\) to product an \(n\)-manifold \(X'\) is induced by a \emph{\(k\)-handle attachment} cobordism \(Z\) from \(- \b X\) to \(\b X'\).
+  \[
+    Z = (\b X \times I) \cup_{\text{a.r.}} H^n_r.
+  \]
+  We have
+  \[
+    \p X' \cong (\p X \setminus \text{a.r.} (H^n_k)) \cup (\text{b.r.} (H^n_k)).
+  \]
+\end{definition}
+
+As \(\p X \times I\) deformation retracts to \(\p X\), we have
+\[
+  X' \cong X \cup Z \cong X \cup H^n_k.
+\]
+
+\begin{convention}
+  We usually say that we attach a handle along the \emph{core} of the attaching region.
+\end{convention}
+
+\begin{definition}[attaching/belt sphere]
+  \begin{align*}
+    \text{attaching region} (H^n_k)
+    &\cong \text{core}(\text{attaching region}(H^n_k)) \\
+    &\cong \text{core}(\p D^k \times D^{n - k}) \\
+    &\cong \p D^k
+  \end{align*}
+  \begin{align*}
+    \text{belt region} (H^n_k)
+    &\cong \text{core}(\text{belt region}(H^n_k)) \\
+    &\cong \p D^{n - k}
+  \end{align*}
+\end{definition}
+
+Convention reexpressed: to attach a \(k\)-handle, we specify where the \emph{attaching sphere} will be glued.
+
+Morse interpretation, revisited
+
+\begin{definition}[gradient]
+  Choose a Riemannian metric \(g\) on a smooth \(n\)-manifold \(X\). Let \(f: X \to \R\) be a smooth function. the gradient \(\grad f \in \Gamma(TX)\) of \(f\) is the vector field satisfying
+  \[
+    g(\grad f, V) = df(V)
+  \]
+  for \(V \in \text{Vect} X = \Gamma(TX)\).
+  Locally,
+  \[
+    g_x((\grad f)_x, V_x) = df_x(V_x).
+  \]
+  In local coordinates,
+  \[
+    \grad f = \sum g^{ik} \frac{\partial f}{\partial x^k}e_i
+  \]
+  where \(e_i = \frac{\partial  }{\partial x^i}\).
+\end{definition}
+
+Idea: invariant object from partials of \(f\), \(df = \sum \frac{\partial f}{\partial x^i} \w dx^i\). To get a vector field, need a bilinear form to dualise \(df\). \(\grad f\) comes from bilinear form (metric), and Hamiltonian vector field \(f\) comes from symplectic form.
+
+Moral (Morse theorey intepretation)
+
+Q: In what sense \(H^n_k \cong \overline{\nu(x)}\), \(x \in \text{crit} f, \text{ind}_x f = k\)?
+
+A: Gradient flow at the boundary of \(H^n_k\): \(\grad f\) flows into attaching region \(H^n_k\), into \(x \in \text{crit} f\) in \(k\) directions. \(\grad f\) flows out of belt region \(H^n_k\), out of \(x\) in \(n - k\) directions.
+
+For example, for
+\[
+  f = - \sum_{i = 1}^k x_i^2 + \sum_{j = k + 1}^n x_j^2
+\]
 
 
 

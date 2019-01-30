@@ -426,7 +426,98 @@ In other words, \(Y\) is reducible/disconnected in Zariski topology. In usual to
 
 Recall that if \(R\) is a UFD, \(f \in R\) nonzero then if \(f\) is irreducible then \((f)\) is a prime ideal. Furthermore as \(k[x_1, \dots, x_n]\) is a UFD, it is an exercise to check that \(Z(y -x^2), Z(y^2 - x^3 + x)\) are irreducible.
 
+Zariski topology is very different from usual topology: if \(X\) is an irreducible Zariski closed subset and \(U \subseteq X\) is a nonempty Zarisk open subset in \(X\) then \(\cl U = X\), i.e.\ nonempty Zariski open subsets are dense.
 
+\begin{proof}
+  Let \(Y = X \setminus U\) which is closed. Then \(\cl U \cup Y = X\) and \(U \neq \emptyset\) so \(Y \neq X\). But \(X\) is irreducible so \(\cl U = X\).
+\end{proof}
+
+Application: Cayley-Hamilton theorem.
+
+\begin{proposition}
+  Let \(A \in \textrm{Mat}_n(k)\), an \(n \times n\) matrix. Define its characteristic polynomial to be
+  \[
+    \chi_A(x) = \det(xI - A) \in k[x]
+  \]
+  This defines a map
+  \begin{align*}
+    \textrm{Mat}_n(k) &\to \textrm{Mat}_n(k) \\
+    B &\mapsto \chi_A(B)
+  \end{align*}
+  Then for all \(A\), \(\chi_A(A) = 0\).
+\end{proposition}
+
+\begin{proof}
+  Strategy:
+  \begin{enumerate}
+  \item The set of matrices for which Cayley-Hamilton is true is a Zariski closed subset of \(\A^{n^2}\).
+  \item It is true for diagonalisable matrices, which is a Zariski open subset of \(\A^{n^2}\).
+  \item Hence as \(\A^{n^2}\) is an irreducible algebraic set, it is true for all matrices.
+  \end{enumerate}
+
+  Let \(X = \textrm{Mat}_n(k) = k^{n^2} = \A^{n^2}\) be the space of matrix coefficeints. It is an affine space so irreducible closed. Consider
+  \[
+    C = \{A \in \textrm{Mat}_n(k): \chi_A(A) = 0\}.
+  \]
+  Claim that this is a Zariski closed subset, cut out by \(n^2\) equations of the form \(\chi_A(A)_{ij} = 0\). We must check these equations are polynomial equations in the matrix coefficients of \(A\). Note that
+  \[
+    \chi_A(x) \in k[X \times \A^1] = k[\A^{n^2 + 1}],
+  \]
+  i.e.\ \(\det (xI - A)\) is a polynomial equation in \(n^2 + 1\) variables: matrix coefficients of \(A\) and \(x\). Now substitute \(x = A\). Note that matrix coefficients of \(A^r\), \((A^r)_{ij}\), are polynomials in the matrix coefficients of \(A\) (of degree \(r\)). Hence \(\chi_A(A)_{ij}\) are polynomial equations in coefficients of \(A\).
+
+  As \(\textrm{Mat}_n(k) \subseteq \textrm{Mat}_n(\cl k)\), suffices to prove the case \(k = \cl k\). Note that
+  \begin{align*}
+    \chi_A(x) &= \chi_{gAg^{-1}}(x) \\
+    \chi_A(gBg^{-1}) &= g \chi_A(B) g^{-1}
+  \end{align*}
+  for all \(g \in \GL_n(k)\). so \(\chi_A(A) = 0\) if and only if \(\chi_{gAg^{-1}} (gAg^{-1}) = 0\), so \(A\) satisfies its only characteristic polynomial if and only if \(gAg^{-1}\) does for all \(g \in \GL_n(k)\).
+
+  Now let \(U\) be the set of all matrices with distinct eigenvalues. As \(k = \cl k\), \(A \in U\) implies that there exists \(g \in \GL_n(k)\) such that \(gAg^{-1}\) is
+  \[
+    \begin{pmatrix}
+      \lambda_1 \\
+      & \lambda_2 \\
+      & & \ddots \\
+      & & & \lambda_n
+    \end{pmatrix}
+  \]
+  which clearly satisfies its own characteristic polynomial. Moreover \(U \neq \emptyset\) since we can always find distinct elements \(\lambda_1 \dots \lambda_n\) of \(k\) as \(k = \cl k\).
+
+  Left to show \(U\) is Zariski open. \(A \in U\) if and only \(\chi_A(x) \in k[x]\) has distinct roots. But a polynomial \(f\) has distinct roots if and only if \(f\) and \(f'\) have no common root, if and only if \(\Delta(f) \neq 0\), where the discriminant \(\Delta(f)\) is a polynomial in the coefficients of \(f\). Hence \(A \in U\) if and only if \(\Delta(\chi_A(x)) \neq 0\), so \(U\) is Zariski open.
+\end{proof}
+
+\begin{definition}[hypersurface]\index{hypersurface}
+  If \(f \in k[x_1, \dots, x_n]\) then \(Z(f) \subseteq \A^n\) is called a \emph{hypersurface}.
+\end{definition}
+
+\begin{definition}[affine algebraic variety]\index{affine algebraic variety}\index{point}
+  An \emph{affine algebraic variety} over \(k\), where \(k\) is a field, is a finitely generated \(k\)-algebra \(R\) with no nonzero nilpotent elements.
+
+  If \(k = \cl k\), define a \emph{point} of \(R\) to be a \(k\)-algebra homomorphism \(R \to k\).
+\end{definition}
+
+\begin{eg}
+  Let \(J = \sqrt J \subseteq k[x_1, \dots, x_n]\) be a radical ideal and \(R = k[x_1, \dots, x_n]/J\) is is an affine algebraic variety.
+  
+  Coversely, if \(R\) is such an algebra, choose generators \(\overline x_1, \dots, \overline x_n\) of \(R\) as a \(k\)-algebra so get a surjective map \(k[x_1, \dots, x_n] \dots R\) where \(x_i \mapsto \overline x_i\). Let \(J\) be the kernel and \(J = \sqrt J\) be an exercise before.
+
+  By Nullstellensatz, points of \(R\) is \(Z(J) \subseteq k^n\) given by
+  \begin{align*}
+    Z(J) &\to \{R \to k\} \\
+    p = (p_1, \dots, p_n) &\mapsto \operatorname{ev}_p: \overline x_i \mapsto p_i
+  \end{align*}
+  In general, choice of generators \(\overline x_1, \dots, \overline x_n\) of \(R\) is the \emph{choice} of an embedding of points of \(R\) to \(\A^n\).
+\end{eg}
+
+\begin{remark}
+  If \(k \neq \cl k\), let \(L \supseteq k\) be a field extension. An \emph{\(L\)-point of \(R\)} is a \(k\)-algebra homomorphism \(R \to L\).
+\end{remark}
+
+\begin{eg}
+  \(\R[x]/(x^2 + 1)\) has no \(\R\)-point, but it has two \(\C\)-points, given by \(x \mapsto \pm i\).
+\end{eg}
+
+We indulge in imprecision and often write \(Y\) for the points of \(R\) and \(k[Y] = R\) for ``the polynomial functions on \(Y\)''. What we really mean, when spelt out, is: \(R\) is the algebraic variety and \(Y\) is ...
 
 
 
