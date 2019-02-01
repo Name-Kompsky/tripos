@@ -15,6 +15,7 @@
 
 \DeclareMathOperator{\Cl}{Cl}
 \renewcommand*{\P}{\mathbb{P}}
+\DeclareMathOperator{\Der}{Der} % derivation
 \let\div\relax
 %\AtBeginDocument{DeclareMathOperator{\div}{div}}
 
@@ -480,14 +481,14 @@ Now back to the abstract characterisation of algebraic varieties. We need some p
   Let \(k = \cl k\). If \(Y \subseteq \A^n\) is a Zariski closed subset then \(k[Y]\) is a finitely generated \(k\)-algebra with no nonzero nilpotents.
 \end{corollary}
 
-Conversely, given a finitely generated reduced \(k\)-algebra\(A\), there exists a surjection \(k[t_1, \dots, t_n] \to A\). As \(A\) is reduced, the kernel is radical. This is precisely the definition of a coordinate ring.
+Conversely, given a finitely generated reduced \(k\)-algebra \(A\), there exists a surjection \(k[t_1, \dots, t_n] \to A\). As \(A\) is reduced, the kernel is radical. This is precisely the definition of a coordinate ring.
 
 What do we gain from this? We need not to choose a generator of the \(k\)-algebra, which is the same as an embedding \(Y \embed \A^n\). In this abstract formulation, the ``points'' in the affine space corresponds to maximal ideals of the \(k\)-algebra.
 
 \begin{definition}[affine algebraic variety]\index{affine algebraic variety}\index{point}
   An \emph{affine algebraic variety} over \(k\), where \(k\) is a field, is a finitely generated \(k\)-algebra \(R\) with no nonzero nilpotent elements.
 
-  If \(k = \cl k\), define a \emph{point} of \(R\) to be a \(k\)-algebra homomorphism \(R \to k\). More generally f \(L \supseteq k\) is a field extension then an \emph{\(L\)-point of \(R\)} is a \(k\)-algebra homomorphism \(R \to L\).
+  If \(k = \cl k\), define a \emph{point} of \(R\) to be a \(k\)-algebra homomorphism \(R \to k\). More generally if \(L \supseteq k\) is a field extension then an \emph{\(L\)-point of \(R\)} is a \(k\)-algebra homomorphism \(R \to L\).
 \end{definition}
 
 \begin{eg}
@@ -548,29 +549,137 @@ i.e.\ a morphism \(\A^n \to \A^m\), and the conditions on the polynomials \(\Phi
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item A morphsim \(\A^1 \to \A^m\) is an \(k\)-algebra homomorphism \(k[x_1, \dots, x_n] \to k[t]\), which is the same as an \(n\)-tuple of polynomials \((\Phi_1(t), \dots, \Phi_n(t))\).
-  \item A morphism \(X \to \A^1\) is an \(k\)-algebra homomorphism \(k[t] \to k[X]\), which is an element of \(k[X]\) (i.e.\ where \(t\) is sent to). This says that \(k[X]\) is precisely the morphisms \(X \to \A^1\), which is something we knew before!
-  \item Suppose \(\ch k \neq 2\). Is there a morphism \(\A^1 \to E = \{(x, y): y^2 = x^3 - x\}\)? Suppose \(k = \C\), this is sayting is there a polynomial map from the punctured sphere to the punctured torus?
-
-    More concretely, this is asking if there exist polynomials \(a(t), b(t) \in k[t]\) such that \(b^2 = a^3 - a\). Work out from algebra side.
+  \item A morphsim \(\A^1 \to \A^n\) is a \(k\)-algebra homomorphism \(k[x_1, \dots, x_n] \to k[t]\), which is the same as an \(n\)-tuple of polynomials \((\Phi_1(t), \dots, \Phi_n(t))\).
+  \item A morphism \(X \to \A^1\) is an \(k\)-algebra homomorphism \(k[t] \to k[X]\), which is an element of \(k[X]\) (i.e.\ where \(t\) is sent to). This says that \(k[X]\) is precisely the functions \(X \to \A^1\), which is something we knew before!
+  \item Suppose \(\ch k \neq 2\). Is there a morphism \(\A^1 \to E = \{(x, y): y^2 = x^3 - x\}\)? Suppose \(k = \C\), this is aksing if there is a polynomial map from the punctured sphere to the punctured torus. From analytic point of view this is impossible (there is not even an analytic functions does this). Algebraically, this is asking if there exist polynomials \(a(t), b(t) \in k[t]\) such that \(b^2 = a^3 - a\). Try to work it out!
   \item Let \(X\) be an affine algebraic variety and let \(f \in k[X]\). Consider
     \[
-      k[X] \to k[X][t]/(tf - 1) = k[Y].
+      k[X] \to k[X][t]/(tf - 1) = k[Y]
     \]
-    This defines a morphism \(Y \to X\). What is \(Y\) and what is the morphism? By definition a point of \(Y\) is a \(\cl k\)-algebra homomorphism \(\gamma: k[X][t]/(tf - 1) \to k\). Suppose \(\gamma(t) = a\) and \(\gamma|_{k[X]} = \operatorname{ev}_p\) where \(p \in X\) such that \(a f(p) = 1\), i.e.\ \(f(p) = \frac{1}{a} \neq 0\). Conversely, if \(f(p) \neq 0\), set \(a = \frac{1}{f(p)}\), we get a \(k\)-algebra homomorphism. So
+    which defines a morphism \(Y \to X\). What is \(Y\) and what is the morphism? By definition a point of \(Y\) is a \(k\)-algebra homomorphism \(\gamma: k[X][t]/(tf - 1) \to k\). Suppose \(\gamma(t) = a\) then \(\gamma|_{k[X]} = \operatorname{ev}_p\) where \(p \in X\) such that \(a f(p) = 1\), i.e.\ \(f(p) = \frac{1}{a} \neq 0\). Conversely, if \(f(p) \neq 0\), set \(a = \frac{1}{f(p)}\), we get a \(k\)-algebra homomorphism. So
     \[
       Y = \{x \in X: f(x) \neq 0\} = X \setminus Z(f)
     \]
-    which is Zariski open, and \(\gamma: Y \embed X\) is the inclusion. In general, Zariski open sets of the form \(X \setminus \Z(f)\) are affine varieties in their own right, and the inclusion map is a morphism of affine varieties.
+    which is Zariski open, and \(\gamma: Y \embed X\) is the inclusion. In general, Zariski open sets of the form \(X \setminus Z(f)\) are affine varieties in their own right, and the inclusion map is a morphism of affine varieties.
   \end{enumerate}
 \end{eg}
 
-Question: is every Zariski open set also an affine variety? i.e.\ the image of an affine variety inside some bigger affine space under an injection?. No! \(\{(x, y) \in \A^2: (x, y) \neq (0, 0)\}\) is not an affine variety.
+By the same argument the complement of the subvariety cut out by a single polynomial is a variety. We call them
 
 \begin{definition}[hypersurface]\index{hypersurface}
   If \(f \in k[x_1, \dots, x_n]\) then \(Z(f) \subseteq \A^n\) is called a \emph{hypersurface}.
 \end{definition}
 
+We may ask: is every Zariski open set also an affine variety, i.e.\ the image of an affine variety inside some bigger affine space under an injection?. No! \(\{(x, y) \in \A^2: (x, y) \neq (0, 0)\}\) is not an affine variety.
+
+\section{Smooth points, dimension \& Noether normalisation}
+
+Let \(X \subseteq \A^n\) be an affine variety and \(p \in X\). Let \(X = Z(I)\), \(I = (f_1, \dots, f_r)\). Tentatively we define
+\begin{align*}
+  T_pX
+  &= \{v \in \A^n: \sum v_i \frac{\partial f}{\partial x_i}(p) = 0 \text{ for all } f \in I\} \\
+  &= \{v \in \A^n: \sum v_i \frac{\partial f_j}{\partial x_i}(p) = 0, j = 1, \dots, r\}
+\end{align*}
+Translate \(T_pX\) from the origin to \(p \in \A^n\) so the equations are
+\[
+  \{v \in \A^n: \sum (v_i - p_i) \frac{\partial f}{\partial x_i}(p) = 0 \text{ for all } f \in I\}.
+\]
+This is the best linear approximation to \(X\) at the point \(p\), as
+\[
+  f(x) = f(p) + \sum (x_i - p_i) \frac{\partial f}{\partial x_i}(p) + \dots
+\]
+In \(X\) is complex analytic then this is indeed the analytic definition of tangent space. However it's not always the case.
+
+\begin{eg}
+  If \(I = (x^2 - y^3)\) then
+  \[
+    T_{(a, b)}(X) = \{(v_1, v_2): v_1(2a) + v_2(-3b^2) = 0\}.
+  \]
+  If \((a, b) \neq (0, 0)\) this is a line and if \((a, b) = (0, 0)\) then this is \(\A^2\). (graph)
+\end{eg}
+
+\begin{lemma}
+  \(\{p \in X: \dim T_pX \geq t\}\) is a Zariski closed subset of \(X\) for all \(t \geq 0\).
+\end{lemma}
+
+\begin{proof}
+  Write \(T_p X = \ker (A: k^n \to k^r\) where \(A\) is the matrix
+  \[
+    \begin{pmatrix}
+      \frac{\partial f_1}{\partial x_1}(p) & \cdots & \frac{\partial f_1}{\partial x_n}(p) \\
+      & \ddots \\
+      \frac{\partial f_r}{\partial x_1}(p) & \cdots & \frac{\partial f_r}{\partial x_n}(p)
+    \end{pmatrix}
+  \]
+  By rank-nullity, \(\dim \ker A \geq t\) if and only if \(\text{rank} A \leq n - t\). But rank of a matrix \(A\) is greater than or equal to \(s\) if and only if there exists an \(s \times s\) subminor \(B\) with \(\det B \neq 0\), which is a polynomial equation in matrix coefficients. Thus \(\text{rank} A \leq n - t\) if and only if all \((n + 1 - t) \times (n + 1 - t)\) subminors have zero determinant. Hence
+  \[
+    \{p \in X: \dim T_pX \geq t\} = Z(f_1, \dots, f_r, \text{  determinants of subminors}).
+  \]
+\end{proof}
+
+\begin{definition}[dimension]\index{dimension}
+  Let \(X\) be an irreducible affine variety. Then
+  \[
+    \dim X = \min \{\dim T_pX: p \in X\}.
+  \]
+  If \(k \neq \cl k\) then \(p\) is taken to be \(\cl k\)-points.
+\end{definition}
+
+In a moment we'll show \(T_pX\) is independent of embedding \(X \embed \A^n\).
+
+We require \(X\) to be irreducible as if not then each component can have different dimensions and \(\dim X\) is not a good notion but we may as well define it anyway: we let
+\[
+  \dim X = \max \{\dim X_i: X_i \text{ irreducible component of } X\}.
+\]
+
+\begin{lemma}
+  Suppose \(k = \cl k\). Let \(f \in k[x_1, \dots, x_n]\) be a nonconstant irreducible polynomial. Then \(Z(f)\) has dimension \(n - 1\).
+\end{lemma}
+
+\begin{proof}
+  \(\dim T_p Z(f)\) is either \(n\) or \(n - 1\) as there is only one equation. If \(\dim T_pZ(f) = n\) then \(\frac{\partial f}{\partial x_i}(p) = 0\) for all \(i\) so if \(\dim Z(f) = n\) then
+  \[
+    \frac{\partial f}{\partial x_i} \in I(Z(f)) = \sqrt{(f)} = (f)
+  \]
+  as \(f\) is prime. Write \(\frac{\partial f}{\partial x_i} = fg\) for some \(g \in k[x_1, \dots, x_n]\). But \(\deg_{x_j} \frac{\partial f}{\partial x_i} < \deg_{x_j} f\) so \(g = 0, \frac{\partial f}{\partial x_i} = 0\). Thus we have shown \(\dim Z(f) = n\) implies that \(\frac{\partial f}{\partial x_i} = 0\) for all \(i\).
+
+  If \(\ch k = 0\) then \(f\) is a constant, \(Z(f) = \emptyset\), contradiction. If \(\ch k = p\) this implies \(f \in k[x_1^p, \dots, x_n^p]\). Claim that there exists \(h \in k[x_1, \dots, x_n]\) such that \(f = h^p\), contradicting \(f\) being prime: write \(f = \sum a_\lambda x^{p \lambda}\) for \(a_\lambda \in k\). As \(k = \cl k\), \(a_\lambda^{1/p}\) exists. Set \(h(x) = \sum a_\lambda^{1/p} x^\lambda\). As \(\ch k = p\), \(h^p = f\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\dim \A^n = n\).
+  \item Any plane curve \(f(x, y)\) has dimension \(1\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[smooth, singular point]\index{smooth}\index{singular}
+  Suppose \(k = \cl k\). Let \(X\) be an irreducible algebraic variety and \(p \in X\). \(p\) is \emph{smooth} if \(\dim T_pX = \dim X\). \(p\) is \emph{singular} otherwise.
+\end{definition}
+
+Thus the above lemma says that singular points form a Zariski closed subvariety and smooth points form a Zariski open subset, which is non-empty.
+
+\begin{proposition}[nonexaminable]
+  If \(k = \C\) and \(\dim X = d\), then \(p \in X\) is smooth if and only if there exists an isomorphism from a small ball around \(0 \in \C^d\) to a small neighbourhood of \(p \in X\) in the usual topology.
+\end{proposition}
+
+This is obviously false in Zariski topology.
+
+\begin{proof}
+  This is a consequence of implicit function theorem.
+\end{proof}
+
+\begin{definition}[derivation]\index{derivation}
+  Let \(A\) be a \(k\)-algebra and \(\varphi: A \to k\) a \(k\)-algebra homomorphism. A \emph{derivation centred at \(\varphi\)} is a \(k\)-linear map \(D: A \to k\) such that
+  \[
+    D(fg) = \varphi(f) D(g) + D(f) \varphi(g)
+  \]
+  for all \(f, g \in A\). Write \(\Der(A, \varphi)\) for derivations centred at \(p\).
+\end{definition}
+
+\begin{eg}
+  \(f \mapsto \frac{\partial f}{\partial x}(p)\) is a derivation centred at \(p\).
+\end{eg}
 
 
 

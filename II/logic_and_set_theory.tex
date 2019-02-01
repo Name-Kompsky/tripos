@@ -714,7 +714,7 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
   \[
     R = \{A \in \powerset(\N \times \N): A \text{ is a well-ordering of a subset of } \N\}.
   \]
-  Let \(S\) be the image of \(R\) under the function ``order-type'', i.e.\ \(S\) is the set of all order-types of well-orderings of \(\N\) (or subsets thereof). It is the set of all countable ordinals.
+  Let \(S\) be the image of \(R\) under the function ``order-type'', i.e.\ \(S\) is the set of all order-types of well-orderings of \(\N\) (and subsets thereof). It is the set of all countable ordinals.
 
   Let \(\omega_1 = \sup S\). Then \(\omega_1\) is uncountable: if not then \(\omega_1 \in S\) so \(\omega_1\) would be the greatest member of \(S\), which contradicts \(\omega_1 < \omega_1^+\). Note that by construction \(\omega_1\) is the \emph{least uncountable ordinal}.
 \end{proof}
@@ -730,7 +730,7 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
 \end{theorem}
 
 \begin{proof}
-  Same proof as above, with \(\powerset(X, X)\) in place of \(\powerset(\N, \N)\).
+  Same proof as above, with \(\powerset(X \times X)\) in place of \(\powerset(\N \times \N)\).
 \end{proof}
 
 \begin{notation}
@@ -798,7 +798,7 @@ We can see that addition is not commutative. The is because in the definition of
       &= \sup \{(\alpha + \beta) + \lambda: \lambda < \gamma\} \\
       &= \sup \{\alpha + (\beta + \lambda): \lambda < \gamma\}
     \end{align*}
-    On the other hand, we need to evaluate \(\alpha + (\beta + \gamma)\). Claim \(\beta + \gamma\) is a limit, i.e.\ \(\beta + \gamma = \sup \{\beta + \lambda: \lambda < \gamma\}\): for any \(\beta + \lambda\), since \(\gamma\) is a limit, there exists \(\lambda'\) such that \(\lambda < \lambda' < \gamma\). Thus \(\beta + \lambda < \beta + \lambda'\). Thus \(\beta + \lambda\) is not the greatest element. Therefore
+    On the other hand, we need to evaluate \(\alpha + (\beta + \gamma)\). Claim \(\beta + \gamma\) is a limit, i.e.\ \(\sup \{\beta + \lambda: \lambda < \gamma\}\) is a limit: for any \(\beta + \lambda\), since \(\gamma\) is a limit, there exists \(\lambda'\) such that \(\lambda < \lambda' < \gamma\). Thus \(\beta + \lambda < \beta + \lambda'\). Thus \(\beta + \lambda\) is not the greatest element. Therefore
     \[
       \alpha + (\beta + \gamma) = \sup \{\alpha + \lambda: \lambda < \beta + \gamma\}.
     \]
@@ -840,8 +840,8 @@ With this definition, associativity is trivial by associativity of union.
   Write \(+\) and \(+'\) for inductive and synthetic definition respectively. We want to show that \(\alpha + \beta = \alpha +' \beta\). Induct on \(\beta\).
   \begin{itemize}
   \item \(\beta = 0\): \(\alpha + 0 = \alpha = \alpha +' 0\).
-  \item successor ordinal: \(\alpha + \beta^+ = (\alpha + \beta)^+ = (\alpha +' \beta)^+ = (\alpha +' \beta^+\).
-  \item limit ordinal: \(\alpha + \beta = \sup \{\alpha + \lambda: \lambda < \beta\} = \sup \{\alpha +' \lambda: \lambda < \beta\} = \alpha +' \beta\) where the second equality is becaues taking \(\sup\) is the same as union.
+  \item successor ordinal: \(\alpha + \beta^+ = (\alpha + \beta)^+ = (\alpha +' \beta)^+ = \alpha +' \beta^+\).
+  \item limit ordinal: \(\alpha + \beta = \sup \{\alpha + \lambda: \lambda < \beta\} = \sup \{\alpha +' \lambda: \lambda < \beta\} = \alpha +' \beta\) where the second equality is because taking \(\sup\) is the same as union.
   \end{itemize}
 \end{proof}
 
