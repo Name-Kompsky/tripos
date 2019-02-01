@@ -208,9 +208,9 @@ is an algebra homomorphism. It is surjective and its kernel, denoted
 \]
 is a maximal ideal, as \(k[Y]/\mathfrak m_p\) is a field. So
 \[
-  \{\text{points in } Y\} \embed \{\text{algebra homomorphism } k[Y] \to k\} \embed \{\text{max ideals } \mathfrak m \subseteq k[Y]\}.
+  \{\text{points in } Y\} \embed \{\text{algebra homomorphism } k[Y] \to \cl k\} \embed \{\text{max ideals } \mathfrak m \subseteq k[Y]\}.
 \]
-It is remarkable that if \(k = \cl k\) then all of these coincides (the second equality is not so amazing as it is more or less a statement about field extension).
+It is remarkable that if \(k = \cl k\) then all of these coincides (it is particularly so for the first inclusion, as it gives a translation between geometry and algebra. By contrast, the second inclusion is more or less a corollary of a standard result in algebra).
 
 What are the maximal ideals of \(k[x_1, \dots, x_n]\)? We've observed if \(p \in k^n\) then \(\{f \in k[x_1, \dots, x_n]: f(p) = 0\}\) is a maximal ideal.
 
@@ -343,7 +343,7 @@ Note that \(Z(J) = Z(\sqrt J)\).
   \]
   which is isomorphic as a set to
   \[
-    \{(p_1, \dots, p_n) \in \A^n: f(p) \neq 0\} = \A^n - Z(f).
+    \{(p_1, \dots, p_n) \in \A^n: f(p) \neq 0\} = \A^n \setminus Z(f).
   \]
   So \(Y\) is a Zariski closed subset of \(\A^{n + 1}\) which is isomorphic as a set to \(\A^n \setminus Z(f)\), and our proof was asking in what sense does
   \[
@@ -362,32 +362,7 @@ Note that \(Z(J) = Z(\sqrt J)\).
   \]
 \end{corollary}
 
-The Nullstellensatz gives us an intrinsic characterisation of rings \(k[Y]\).
-
-\begin{definition}[nilpotent]\index{nilpotent}
-  Let \(R\) be a ring. \(y \in R\) is \emph{nilpotent} if exists \(n > 0\) such that \(y^n = 0\).
-\end{definition}
-
-\begin{eg}\leavevmode
-  \begin{enumerate}
-  \item If \(R = k[x]\) then \(0\) is the only nilpotent.
-  \item If \(R = k[x]/(x^7)\) then \(x\) is nilpotent as \(x^7 = 0\).
-  \end{enumerate}
-\end{eg}
-
-\begin{ex}
-  Let \(J \subseteq k[x_1, \dots, x_n]\) be an ideal and \(R = k[x_1, \dots, x_n]/J\). Then \(J = \sqrt J\) if and only if \(R\) has no nonzero nilpotents.
-\end{ex}
-
-\begin{corollary}
-  Let \(k = \cl k\). If \(Y \subseteq \A^n\) is a Zariski closed subset then \(k[Y]\) is a finitely generated \(k\)-algebra with no nonzero nilpotents.
-\end{corollary}
-
-Conversely, given a finitely generated reduced \(k\)-algebra\(A\), there exists a surjection \(k[t_1, \dots, t_n] \to A\). As \(A\) is reduced, the kernel is radical. This is precisely the definition of a coordinate ring.
-
-What do we gain from this? We need not to choose a generator of the \(k\)-algebra, which is the same as an embedding \(Y \embed \A^n\).
-
-In this abstract formulation, the ``points'' in the affine space corresponds to maximal ideals of the \(k\)-algebra.
+This is a hint that we may have an intrinsic characterisation of rings \(k[Y]\). We'll do this shortly.
 
 \begin{definition}[(ir)reducible, disconnected]\index{reducible}\index{irreducible}\index{disconnected}
   An algebraic subset \(Y\) is \emph{reducible} if there exist algebraic subsets \(Y_1, Y_2 \neq Y\) such that \(Y_1 \cup Y_2\). It is \emph{irreducible} if is not reducible. It is \emph{disconnected if \(Y_1 \cap Y_2 = \emptyset\)}.
@@ -432,32 +407,29 @@ Zariski topology is very different from usual topology: if \(X\) is an irreducib
   Let \(Y = X \setminus U\) which is closed. Then \(\cl U \cup Y = X\) and \(U \neq \emptyset\) so \(Y \neq X\). But \(X\) is irreducible so \(\cl U = X\).
 \end{proof}
 
-Application: Cayley-Hamilton theorem.
-
-\begin{proposition}
-  Let \(A \in \textrm{Mat}_n(k)\), an \(n \times n\) matrix. Define its characteristic polynomial to be
+\begin{application}[Cayley-Hamilton]
+  Let \(A \in \text{Mat}_n(k)\), an \(n \times n\) matrix. Define its characteristic polynomial to be
   \[
     \chi_A(x) = \det(xI - A) \in k[x]
   \]
   This defines a map
   \begin{align*}
-    \textrm{Mat}_n(k) &\to \textrm{Mat}_n(k) \\
+    \text{Mat}_n(k) &\to \text{Mat}_n(k) \\
     B &\mapsto \chi_A(B)
   \end{align*}
   Then for all \(A\), \(\chi_A(A) = 0\).
-\end{proposition}
 
 \begin{proof}
   Strategy:
   \begin{enumerate}
-  \item The set of matrices for which Cayley-Hamilton is true is a Zariski closed subset of \(\A^{n^2}\).
-  \item It is true for diagonalisable matrices, which is a Zariski open subset of \(\A^{n^2}\).
-  \item Hence as \(\A^{n^2}\) is an irreducible algebraic set, it is true for all matrices.
+  \item The set of matrices for which Cayley-Hamilton holds is a Zariski closed subset of \(\A^{n^2}\).
+  \item It holds for diagonalisable matrices, which is a Zariski open subset of \(\A^{n^2}\).
+  \item Hence as \(\A^{n^2}\) is an irreducible algebraic set, it holds for all matrices.
   \end{enumerate}
 
-  Let \(X = \textrm{Mat}_n(k) = k^{n^2} = \A^{n^2}\) be the space of matrix coefficeints. It is an affine space so irreducible closed. Consider
+  Let \(X = \text{Mat}_n(k) = k^{n^2} = \A^{n^2}\) be the space of matrix coefficients. It is an affine space so irreducible closed. Consider
   \[
-    C = \{A \in \textrm{Mat}_n(k): \chi_A(A) = 0\}.
+    C = \{A \in \text{Mat}_n(k): \chi_A(A) = 0\}.
   \]
   Claim that this is a Zariski closed subset, cut out by \(n^2\) equations of the form \(\chi_A(A)_{ij} = 0\). We must check these equations are polynomial equations in the matrix coefficients of \(A\). Note that
   \[
@@ -465,7 +437,7 @@ Application: Cayley-Hamilton theorem.
   \]
   i.e.\ \(\det (xI - A)\) is a polynomial equation in \(n^2 + 1\) variables: matrix coefficients of \(A\) and \(x\). Now substitute \(x = A\). Note that matrix coefficients of \(A^r\), \((A^r)_{ij}\), are polynomials in the matrix coefficients of \(A\) (of degree \(r\)). Hence \(\chi_A(A)_{ij}\) are polynomial equations in coefficients of \(A\).
 
-  As \(\textrm{Mat}_n(k) \subseteq \textrm{Mat}_n(\cl k)\), suffices to prove the case \(k = \cl k\). Note that
+  As \(\text{Mat}_n(k) \subseteq \text{Mat}_n(\cl k)\), suffices to prove the case \(k = \cl k\). Note that
   \begin{align*}
     \chi_A(x) &= \chi_{gAg^{-1}}(x) \\
     \chi_A(gBg^{-1}) &= g \chi_A(B) g^{-1}
@@ -481,45 +453,123 @@ Application: Cayley-Hamilton theorem.
       & & & \lambda_n
     \end{pmatrix}
   \]
-  which clearly satisfies its own characteristic polynomial. Moreover \(U \neq \emptyset\) since we can always find distinct elements \(\lambda_1 \dots \lambda_n\) of \(k\) as \(k = \cl k\).
+  which clearly satisfies its own characteristic polynomial. Moreover \(U \neq \emptyset\) since we can always find distinct elements \(\lambda_1, \dots, \lambda_n\) of \(k\) as \(k = \cl k\).
 
   Left to show \(U\) is Zariski open. \(A \in U\) if and only \(\chi_A(x) \in k[x]\) has distinct roots. But a polynomial \(f\) has distinct roots if and only if \(f\) and \(f'\) have no common root, if and only if \(\Delta(f) \neq 0\), where the discriminant \(\Delta(f)\) is a polynomial in the coefficients of \(f\). Hence \(A \in U\) if and only if \(\Delta(\chi_A(x)) \neq 0\), so \(U\) is Zariski open.
 \end{proof}
+\end{application}
 
-\begin{definition}[hypersurface]\index{hypersurface}
-  If \(f \in k[x_1, \dots, x_n]\) then \(Z(f) \subseteq \A^n\) is called a \emph{hypersurface}.
+Now back to the abstract characterisation of algebraic varieties. We need some preliminary definitions:
+
+\begin{definition}[nilpotent]\index{nilpotent}
+  Let \(R\) be a ring. \(y \in R\) is \emph{nilpotent} if exists \(n > 0\) such that \(y^n = 0\).
 \end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(R = k[x]\) then \(0\) is the only nilpotent.
+  \item If \(R = k[x]/(x^7)\) then \(x\) is nilpotent as \(x^7 = 0\).
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}
+  Let \(J \subseteq k[x_1, \dots, x_n]\) be an ideal and \(R = k[x_1, \dots, x_n]/J\). Then \(J = \sqrt J\) if and only if \(R\) has no nonzero nilpotents.
+\end{ex}
+
+\begin{corollary}
+  Let \(k = \cl k\). If \(Y \subseteq \A^n\) is a Zariski closed subset then \(k[Y]\) is a finitely generated \(k\)-algebra with no nonzero nilpotents.
+\end{corollary}
+
+Conversely, given a finitely generated reduced \(k\)-algebra\(A\), there exists a surjection \(k[t_1, \dots, t_n] \to A\). As \(A\) is reduced, the kernel is radical. This is precisely the definition of a coordinate ring.
+
+What do we gain from this? We need not to choose a generator of the \(k\)-algebra, which is the same as an embedding \(Y \embed \A^n\). In this abstract formulation, the ``points'' in the affine space corresponds to maximal ideals of the \(k\)-algebra.
 
 \begin{definition}[affine algebraic variety]\index{affine algebraic variety}\index{point}
   An \emph{affine algebraic variety} over \(k\), where \(k\) is a field, is a finitely generated \(k\)-algebra \(R\) with no nonzero nilpotent elements.
 
-  If \(k = \cl k\), define a \emph{point} of \(R\) to be a \(k\)-algebra homomorphism \(R \to k\).
+  If \(k = \cl k\), define a \emph{point} of \(R\) to be a \(k\)-algebra homomorphism \(R \to k\). More generally f \(L \supseteq k\) is a field extension then an \emph{\(L\)-point of \(R\)} is a \(k\)-algebra homomorphism \(R \to L\).
 \end{definition}
 
 \begin{eg}
-  Let \(J = \sqrt J \subseteq k[x_1, \dots, x_n]\) be a radical ideal and \(R = k[x_1, \dots, x_n]/J\) is is an affine algebraic variety.
+  Let \(J = \sqrt J \subseteq k[x_1, \dots, x_n]\) be a radical ideal and \(R = k[x_1, \dots, x_n]/J\) be an affine algebraic variety.
   
-  Coversely, if \(R\) is such an algebra, choose generators \(\overline x_1, \dots, \overline x_n\) of \(R\) as a \(k\)-algebra so get a surjective map \(k[x_1, \dots, x_n] \dots R\) where \(x_i \mapsto \overline x_i\). Let \(J\) be the kernel and \(J = \sqrt J\) be an exercise before.
+  Coversely, if \(R\) is such an algebra, choose generators \(\overline x_1, \dots, \overline x_n\) of \(R\) as a \(k\)-algebra so get a surjective map \(k[x_1, \dots, x_n] \to R\) where \(x_i \mapsto \overline x_i\). Let \(J\) be the kernel and \(J = \sqrt J\) per the exercise above.
 
   By Nullstellensatz, points of \(R\) is \(Z(J) \subseteq k^n\) given by
   \begin{align*}
     Z(J) &\to \{R \to k\} \\
-    p = (p_1, \dots, p_n) &\mapsto \operatorname{ev}_p: \overline x_i \mapsto p_i
+    p = (p_1, \dots, p_n) &\mapsto (\operatorname{ev}_p: \overline x_i \mapsto p_i)
   \end{align*}
   In general, choice of generators \(\overline x_1, \dots, \overline x_n\) of \(R\) is the \emph{choice} of an embedding of points of \(R\) to \(\A^n\).
 \end{eg}
-
-\begin{remark}
-  If \(k \neq \cl k\), let \(L \supseteq k\) be a field extension. An \emph{\(L\)-point of \(R\)} is a \(k\)-algebra homomorphism \(R \to L\).
-\end{remark}
 
 \begin{eg}
   \(\R[x]/(x^2 + 1)\) has no \(\R\)-point, but it has two \(\C\)-points, given by \(x \mapsto \pm i\).
 \end{eg}
 
-We indulge in imprecision and often write \(Y\) for the points of \(R\) and \(k[Y] = R\) for ``the polynomial functions on \(Y\)''. What we really mean, when spelt out, is: \(R\) is the algebraic variety and \(Y\) is ...
+We indulge in imprecision and often write ``let \(Y\) be an affine algebraic variety and \(R = k[Y]\) be its ring of functions''. What we really mean, when spelt out, is: let \(R\) be an affine algebraic variety with \(\cl k\)-points \(Y\).
 
+\begin{definition}[morphism]\index{morphism}\index{isomorphism}
+  A \emph{morphism} \(\gamma: X \to Y\) of affine algebraic varieties is a \(k\)-algebra homomorphism \(\gamma^*: k[Y] \to k[X]\).
 
+  An \emph{isomorphism} \(\alpha: X \to Y\) is a morphism such that there exists an inverse morphism \(\beta: Y \to X\) such that \(\alpha\beta = 1_Y, \beta\alpha = 1_X\).
+\end{definition}
+
+Let's unpack the definition. Suppose \(X\) and \(Y\) are the points of \(R\) and \(S\) respectively. If \(\gamma^*: S \to R\) is a \(k\)-algebra homomorphism and \(p \in X\) is a point of \(X\), that is, if \(\operatorname{ev}_p: R \to \cl k\) is a \(k\)-algebra homomorphism, then \(\operatorname{ev}_p \compose \gamma^*: S \to \cl k\) is a \(k\)-algebra homomorphism, so a point in \(Y\). Thus \(\gamma^*\) defines a map \(X \to Y\), which we denote by \(\gamma\).
+
+So this definition is a clever way of saying the map \(\gamma\) is defined by polynomial equations.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(X = \A^1, Y = \{(x, y) \in \A^2: x^2 = y^3\} = Z(x^2 - y^3)\). Let \(R = k[t]\). Claim \(t \mapsto (t^3, t^2)\) is a morphism \(X \to Y\). Unpack the definition, we have \(k[Y] = k[x, y]/(x^2 - y^3)\) and a \(k\)-algebra homomorphism
+    \begin{align*}
+      \gamma^*: k[x, y]/(x^2 - y^3) &\to k[t] \\
+      x &\mapsto t^3 \\
+      y &\mapsto t^2
+    \end{align*}
+    Check that \(x^2 - y^3 \mapsto 0\) so it is well-defined.
+  \end{enumerate}
+\end{eg}
+
+Unravel the definition of a morphism in general, let \(k[X] = k[x_1, \dots, x_n]/(s_1, \dots, s_\ell)\), \(k[Y] = k[y_1, \dots, y_m]/(r_1, \dots, r_k)\) (remember choice of generators \(x_1, \dots, x_n\) is choice of embeddings \(X \embed \A^n\)). Let \(\overline y_1, \dots, \overline y_m\) denote the image of \(y_1, \dots, y_m\) in \(k[Y]\). An algebra homomorphism \(\gamma^*: k[Y] \to k[X]\) is uniquely determined by where \(\overline y_1, \dots, \overline y_m\) go, i.e.\ by
+\[
+  \overline \Phi_i = \gamma^*(\overline y_i) \in k[X].
+\]
+Choose a polynomial \(\Phi_i \in k[x_1, \dots, x_n]\) whose reduction is \(\overline \Phi_i\). Such a choice determines an algebra homomorphism
+\begin{align*}
+  k[y_1, \dots, y_m] &\to k[x_1, \dots, x_n] \\
+  y_i &\mapsto \Phi_i
+\end{align*}
+i.e.\ a morphism \(\A^n \to \A^m\), and the conditions on the polynomials \(\Phi_i\) ensure the image is in \(Y\) are the condition that the ideal \((r_1, \dots, r_k)\) is sent to \(0\) in \(k[X]\), i.e.\ \(r_i(\Phi_1, \dots, \Phi_m) \in (s_1, \dots, s_\ell) = 0 \in k[X]\).
+
+\begin{question}
+  Is the morphism in the above example an isomorphism?
+\end{question}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item A morphsim \(\A^1 \to \A^m\) is an \(k\)-algebra homomorphism \(k[x_1, \dots, x_n] \to k[t]\), which is the same as an \(n\)-tuple of polynomials \((\Phi_1(t), \dots, \Phi_n(t))\).
+  \item A morphism \(X \to \A^1\) is an \(k\)-algebra homomorphism \(k[t] \to k[X]\), which is an element of \(k[X]\) (i.e.\ where \(t\) is sent to). This says that \(k[X]\) is precisely the morphisms \(X \to \A^1\), which is something we knew before!
+  \item Suppose \(\ch k \neq 2\). Is there a morphism \(\A^1 \to E = \{(x, y): y^2 = x^3 - x\}\)? Suppose \(k = \C\), this is sayting is there a polynomial map from the punctured sphere to the punctured torus?
+
+    More concretely, this is asking if there exist polynomials \(a(t), b(t) \in k[t]\) such that \(b^2 = a^3 - a\). Work out from algebra side.
+  \item Let \(X\) be an affine algebraic variety and let \(f \in k[X]\). Consider
+    \[
+      k[X] \to k[X][t]/(tf - 1) = k[Y].
+    \]
+    This defines a morphism \(Y \to X\). What is \(Y\) and what is the morphism? By definition a point of \(Y\) is a \(\cl k\)-algebra homomorphism \(\gamma: k[X][t]/(tf - 1) \to k\). Suppose \(\gamma(t) = a\) and \(\gamma|_{k[X]} = \operatorname{ev}_p\) where \(p \in X\) such that \(a f(p) = 1\), i.e.\ \(f(p) = \frac{1}{a} \neq 0\). Conversely, if \(f(p) \neq 0\), set \(a = \frac{1}{f(p)}\), we get a \(k\)-algebra homomorphism. So
+    \[
+      Y = \{x \in X: f(x) \neq 0\} = X \setminus Z(f)
+    \]
+    which is Zariski open, and \(\gamma: Y \embed X\) is the inclusion. In general, Zariski open sets of the form \(X \setminus \Z(f)\) are affine varieties in their own right, and the inclusion map is a morphism of affine varieties.
+  \end{enumerate}
+\end{eg}
+
+Question: is every Zariski open set also an affine variety? i.e.\ the image of an affine variety inside some bigger affine space under an injection?. No! \(\{(x, y) \in \A^2: (x, y) \neq (0, 0)\}\) is not an affine variety.
+
+\begin{definition}[hypersurface]\index{hypersurface}
+  If \(f \in k[x_1, \dots, x_n]\) then \(Z(f) \subseteq \A^n\) is called a \emph{hypersurface}.
+\end{definition}
 
 
 

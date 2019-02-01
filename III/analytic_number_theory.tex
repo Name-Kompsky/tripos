@@ -898,7 +898,7 @@ Think of \(R_1\) as the remainder term, \(X\) is roughly the size of \(A\). Exte
 
 We choose \(f\) so that \(f(p) = 0\) if \(p \notin P\) (so \(R_p = |A_p|\)). Finally let
 \[
-  W_P(z) = \prod_{p \in P, p < z} \left( 1 - \frac{f(p)}{p} \right),
+  W_P(z) = \prod_{\substack{p \in P \\ p < z}} \left( 1 - \frac{f(p)}{p} \right),
 \]
 the probability that it is not divisible by any of the \(p\).
 
@@ -964,7 +964,7 @@ the probability that it is not divisible by any of the \(p\).
     S(A, P; z)
     &= \sum_{n \in A} 1_{(n, P(z)) = 1} \\
     &= \sum_{n \in A} \sum_{d \divides (n, P(z))} \mu(d) \\
-    &= \sum_{n \in A} \sum_{d \divides n, d \divides P(z)} \mu(d) \\
+    &= \sum_{n \in A} \sum_{\substack{d \divides n \\ d \divides P(z)}} \mu(d) \\
     &= \sum_{d \divides P(z)} \mu(d) \sum_{n \in A} 1_{d \divides n} \\
     &= \sum_{d \divides P(z)} \mu(d) |A_d| \\
     &= X \sum_{d \divides P(z)} \frac{\mu(d) f(d)}{d} + \sum_{d \divides P(z)} \mu(d) R_d \\
@@ -996,6 +996,121 @@ By taking \(x = 0\) we see this is much worse bound in \(y\) than Chebyshev. On 
   \]
   by letting \(z = \log y\).
 \end{proof}
+
+\subsection{Selberg's sieve}
+
+Using sieve of Eratosthenes-Legendre, we only get \(\frac{y}{\log\log y}\) instead of the expected \(\frac{y}{\log y}\). What prevents us from getting the result is that we can't take \(z = y\) --- otherwise the error term will \(O(2^z) = O(2^y)\), which is much bigger than the main term.
+
+The problem is that we have to consider \(2^z\) many divisors of \(P(z)\) so get \(2^z\) many error terms. However, we can design a different sieve, and only consider those divisors which are small, say \(\leq D\). The key part of Eratosthenes-Legendre sieve is
+\[
+  1_{(n, P(z)) = 1} = \sum_{d \divides (n, P(z))} \mu(d).
+\]
+However, for an upper bound, it is enough to use \emph{any} function \(F\) such that
+\[
+  F(n) \geq
+  \begin{cases}
+    1 & n = 1 \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+Selberg's observation was that if \((\lambda_i)\) is any sequence of reals with \(\lambda_1 = 1\) then
+\[
+  F(n) = \left( \sum_{d \divides n} \lambda_d \right)^2
+\]
+works.
+
+We assume that \(0 < f(p) < p\) for \(p \in P\), which is a reasonable assumption for the sieve to be ``nontrivial'' (if \(f(p) = 0\) then the sieve does nothing and may well just remove \(p\) from \(P\). If \(f(p) = p\) then it sifts out everything!) The let us define a new multiplicative function \(g\) such that
+\[
+  g(p) = \left( 1 - \frac{f(p)}{p} \right)^{-1} - 1 = \frac{f(p)}{p - f(p)}.
+\]
+
+\begin{theorem}[Selberg's sieve]\index{Selberg's sieve}
+  \label{thm:Selberg's sieve}
+  For all \(t\),
+  \[
+    S(A, P; z) \leq \frac{X}{G(t, z)} + \sum_{\substack{d \divides P(t) \\ d < t^2}} 3^{\omega(d)} |R_d|
+  \]
+  where
+  \[
+    G(t, z) = \sum_{\substack{d \divides P(z) \\ d < t}} g(d).
+  \]
+\end{theorem}
+
+Recall that \(W_P = \prod_{\substack{p \in P \\ p < z}} (1 - \frac{f(p)}{p})\) so expected size of \(S(A, P; z)\) is \(XW_P\). Note that as \(t \to \infty\),
+\[
+  G(t, z)
+  \to \sum_{d \divides P(z)} g(d) 
+  = \prod_{p < z} (1 + g(p))
+  = \prod_{p < z} \left( 1 - \frac{f(p)}{p} \right)^{-1}
+  = \frac{1}{W_P}.
+\]
+
+Let's apply our new machinery:
+\begin{corollary}
+  For all \(x, y\),
+  \[
+    \pi(x + y) - \pi(x) \ll \frac{y}{\log y}.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Let \(A = \{x < n \leq x + y\}, f(p) = 1, R_d = O(1)\) and \(X = y\). As \(g(p) = \frac{1}{p - 1} = \frac{1}{\varphi(p)}\) so \(g(d) = \frac{1}{\varphi(d)}\),
+  \begin{align*}
+    G(z, z)
+    &= \sum_{\substack{d \divides P(z) \\ d < z}} \prod_{p \divides d} (p - 1)^{-1} \\
+    &= \sum_{d = p_1 \cdots p_r < z} \prod_{i = 1}^r \sum_{k = 1}^\infty \frac{1}{p_i^k} \\
+    &= \sum_{\substack{p_1 \cdots p_r < z \\ 1 \leq i \leq r}} \sum_{k_i = 1}^\infty \frac{1}{p_1^{k_1} \cdots p_r^{k_r}} \\
+    &= \sum \frac{1}{n} \quad \text{sum over \(n\) whose square-free part \(< z\)} \\
+    &\geq \sum_{d < z} \frac{1}{d} \\
+    &\gg \log z
+  \end{align*}
+  so the main term \(\ll \frac{y}{\log z}\). Note that
+  \[
+    3^{\omega(d)} \leq \tau_3(d) \ll_\varepsilon d^\varepsilon
+  \]
+  from example sheet 1 so the error term is
+  \[
+    \sum_{\substack{d \divides P(t) \\ d < t^2}} 3^{\omega(d)} |R_d|
+    \ll_\varepsilon t^\varepsilon \sum_{d < t^2} 1
+    \ll t^{2 + \varepsilon} = z^{2 + \varepsilon}
+  \]
+  by setting \(t = z\). Thus
+  \[
+    S(A, P; z) \ll \frac{y}{\log z} + z^{2 + \varepsilon} \ll \frac{y}{\log y}
+  \]
+  by taking \(z = y^{1/3}\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Selberg's sieve}]
+  Let \((\lambda_i)\) be a sequence of reals with \(\lambda_1 = 1\), to be chosen later. Then
+  \begin{align*}
+    S(A, P; z)
+    &= \sum_{n \in A} 1_{(n, P(z)) = 1} \\
+    &\leq \sum_{n \in A} \left( \sum_{d \divides (n, P(z))} \lambda_d \right)^2 \\
+    &= \sum_{d, e \divides P(z)} \lambda_d \lambda_e \sum_{n \in A} 1_{d \divides n, e \divides n} \\
+    &= \sum_{d, e \divides P(z)} \lambda_d \lambda_e |A_{[d, e]}| \\
+    &= X \sum_{d, e \divides P(z)} \lambda_d \lambda_e \frac{f([d, e])}{[d, e]} + \sum_{d, e \divides P(z)} \lambda_d \lambda_e R_{[d, e]}
+  \end{align*}
+  We'll choose \(\lambda_d\) such that \(|\lambda_d| \leq 1\) and \(\lambda_d = 0\) if \(d \geq t\). Then
+  \[
+    \left| \sum_{d, e \divides P(z)} \lambda_d \lambda_e R_{[d, e]} \right|
+    \leq \sum_{\substack{d, e < t \\ d, e \divides P(z)}} |R_{[d, e]}|
+    \leq \sum_{\substack{n \divides P(z) \\ n < t^2}} |R_n| \sum_{d, e} 1_{[d, e] = n}
+  \]
+  and since \(n\) is square-free,
+  \[
+    \sum_{d, e} 1_{[d, e] = n} = 3^{\omega(n)}
+  \]
+  so the error term is settled.
+
+  Now to the main term. Let
+  \[
+    V = X \sum_{d, e \divides P(z)} \lambda_d \lambda_e \frac{f([d, e])}{[d, e]}.
+  \]
+  Write \([d, e] = abc\) where \(d = ab, e = bc\) and \((a, b) = (b, c) = (a, c) = 1\).
+\end{proof}
+
+
 
 
 

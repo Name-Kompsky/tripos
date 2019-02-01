@@ -20,7 +20,6 @@
 
 \clearpage
 
-
 \section*{Lecture 2: Covering and higher sum and product sets}
 
 Introduce two techniques we'll use repeatedly: covering and bounding higher product sets. A nice way to do this is by proving the following theorem.
@@ -38,7 +37,7 @@ So again, like in theorem 1.1., \(A\) is a large propotion of a finite subgroup.
 We'll start by proving the following weaker version:
 
 \begin{proposition}
-  Suppose \(A \subseteq \F_p^r\) satisfies \(|2A - 2A| \leq K |A|\). Then exists \(H \subseteq \F_p^r\) with \(|H| \leq p^K|A - A|\) (so \(\leq p^k K|A|\) such that \(A \subseteq H\).
+  Suppose \(A \subseteq \F_p^r\) satisfies \(|2A - 2A| \leq K |A|\). Then exists \(H \subseteq \F_p^r\) with \(|H| \leq p^K|A - A|\) (so \(\leq p^k K|A|\)) such that \(A \subseteq H\).
 \end{proposition}
 
 We'll prove this using ``covering'', encapsulated by the following lemma:
@@ -434,7 +433,7 @@ Now we'll look at intersections.
 
   In particular by prop 2.7 if \(|A^3| \leq K|A|\) then
   \[
-    |(A^m \cap H)^3| \leq K^9 |A^m \cap H|
+    |(A^m \cap H)^3| \leq K^{9m} |A^m \cap H|
   \]
   for all \(m \geq 2\).
 \end{proposition}
@@ -507,12 +506,161 @@ From now on when we say \(\varphi\) is a Freiman homomorphism we mean it is a \(
   \[
     \frac{|\varphi(A)^m|}{|\varphi(A)|} \leq \frac{|A^m|}{|A|},
   \]
-  and if \(\varphi\) is a Frieman \(m\)-isomorphism then this is an equality.
+  and if \(\varphi\) is a Freiman \(m\)-isomorphism then this is an equality.
 \end{lemma}
 
 \begin{proof}
   Exercise.
 \end{proof}
+
+\begin{lemma}[lemma 4.8]
+  Let \(A \subseteq G\) be a \(K\)-approximate group. Suppose \(\varphi: A^3 \to \Gamma\) is a centred Freiman \(2\)-homomorphism. Then \(\varphi(A)\) is also a \(K\)-homomorphism.
+\end{lemma}
+
+\begin{proof}
+  By definition there exists \(X \subseteq G, |X| \leq K\) such that \(A^2 \subseteq XA\). So given \(a_1, a_2 \in A\), there exists \(x \in X, a_3 \in A\) such that \(a_1a_2 = xa_3\). In particular, \(x \in A^3\) so \(\varphi(x)\) is defined and
+  \[
+    \varphi(a_1) \varphi(a_2) = \varphi(x) \varphi(a_3).
+  \]
+  Hence \(\varphi(A)^2 \subseteq \varphi(X \cap A^3) \varphi(A)\). Also as \(\varphi\) is centred, \(\varphi(A)\) is symmetric and contains \(1\).
+\end{proof}
+
+\section*{Lecture 5: Coset progressions, Bohr sets and the Freiman-Green-Ruzsa theorem}
+
+We'll introduce some non-trivial examples of sets of small doubling in abelian groups.
+
+\begin{definition}[coset progression]\index{coset progression}
+  Let \(G\) be an abelian group, \(x_1, \dots, x_r \in G, L_1, \dots, L_r \in \N\). Then the set
+  \[
+    P(x; L) = P(x_1, \dots, x_r; L_1, \dots, L_r) = \{\ell_1x_1 + \dots + \ell_rx_r: |\ell_1| \leq L_i \text{ for all} i\}
+  \]
+  is called a \emph{progression of rank \(r\)}. If in addition \(H \leq G\) is finite then \(H + P(x; L)\) is called a \emph{coset progression of rank \(r\)}.
+\end{definition}
+
+It is useful to think of \(P(x; L)\) as a homomorphic image of a box in \(\Z^r\). For example if \(G = \Z\) and \(r = 2\) (picture)
+
+It's easy to see that such a box \(B\) in \(\Z^r\) is a \(2^r\)-approximate group. For example in \(r = 2\) (picture)
+
+Hence \(P(x; L)\) is also a \(2^r\)-approximate group, as is \(H + P(r; L)\).
+
+Remarkably, these are essentially the only examples:
+
+\begin{theorem}[Freiman (\(G = \Z\)), Green-Ruzsa (arbitrary abelian \(G\))]
+  Suppose \(A \subseteq G\) abelian satisfies \(|A + A| \leq K |A|\). Then there exists a coset progression \(H + P\) of rank \(\leq O(K^{O(1)})\) such that
+  \[
+    A \subseteq H + P \subseteq O(K^{O(1)}) (A \cup \{0\} \cup (-A).
+  \]
+  In particular theorem 2.5 (Plünnecke-Ruzsa inequality) implies that
+  \[
+    |H + P| \leq \exp(O(K^{O(1)})) |A|
+  \]
+  so \(A\) is a large proportion of \(H + P\).
+\end{theorem}
+
+A substantial part of this result was proved in III Introduction to Discrete Analysis, but with a slightly less explicity version of coset progression.
+
+\begin{definition}[Bohr set]\index{Bohr set}
+  Let \(G\) be a finite abelian group. Let
+  \[
+    \Gamma = \{\gamma_1, \dots, \gamma_r\}
+    \subseteq \hat G = \Hom(G, \R/\Z)
+  \]
+  and let \(\rho \in [0, \frac{1}{2}]\). Then the set
+  \[
+    B(\Gamma, \rho) = \{g \in G: \norm{\gamma_i(g)}_{\R/\Z} \leq \rho \text{ for all } i\}
+  \]
+  is called a \emph{Bohr set} of rank \(r\). Here, given \(x \in \R/\Z\) with representative \(\hat x \in (-\frac{1}{2}, \frac{1}{2}]\), we write
+  \[
+    \norm x_{\R/\Z} = |\hat x|.
+  \]
+\end{definition}
+
+We'll see in example sheet 1 that \(B(\Gamma, \rho)\) is a \(4^r\)-approximate group. Whereas progression were homomorphic images of boxes, \(B(\Gamma, \rho)\) is the pullback of \([-\rho, \rho]^r\) under \((\gamma_1, \dots, \gamma_r) \in \hat G^r\).
+
+It turns out that the notions of coset progression and Bohr set are essentially equivalent. In example sheet 2 we'll see that every coset progression is a Freiman image of a Bohr set of the same rank. Moreover, every Freiman image of a Bohr set is a large proportion of some coset progression. We'll see a special case of that shortly.
+
+\begin{proposition}[from III Introduction to Discrete Analysis]
+  Suppose \(A \subseteq G\) abelian with \(|A + A| \leq K|A|\). Then there exists \(b \subseteq 2A - 2A\), a finite abelian group \(Z\) with \(|Z| \geq |A|\), a set \(\Gamma \subseteq \hat Z\) with \(|\Gamma| \leq O(K^{O(1)})\), some \(\rho \geq \frac{1}{O(K^{O(1)})}\) and a centred Freiman \(2\)-isomorphism \(\varphi: B(\Gamma, \rho) \to B\).
+\end{proposition}
+
+This is saying if \(A\) has small doubling then \(2A - 2A\) contains a large set isomorphic to a Bohr set of bounded rank.
+
+In III Introduction to Discrete Analysis we see this in the special case where \(G\) is torsion-free. The general case is harder, but nonetheless conceptually very similar so we'll assume this result from now on.
+
+To pass from prop 5.2 to theorem 5.1, we use the following results:
+
+\begin{proposition}[prop 5.3]
+  Suppose \(X\) is a finite abelian group, \(\Gamma \subseteq \hat Z\) is of size \(r\), \(\rho < \frac{1}{10}\). Then there exists a coset progression \(H + P \subseteq B(\Gamma, \rho)\) with rank \(r\) and \(|H + P| \geq (\rho/r)^r |Z|\).
+\end{proposition}
+
+\begin{lemma}[lemma 5.4]
+  Suppose \(H + P\) is a coset progression of rank \(r\) and \(\varphi: H + P \to G\), where \(G\) abelian, is a centred Freiman \(2\)-homomorphism. Then \(\varphi(H + P)\) is also a coset progression of rank \(r\).
+\end{lemma}
+
+We'll prove proposition 5.3 in the next couple of lectures.
+
+\begin{proof}[Proof of lemma 5.4]
+  Exercise: if \(H\) is a group and \(\varphi: H \to G\) is a centred Freiman \(2\)-homomorphism then \(\varphi\) is also a group homomorphism.
+
+  In particular in this lemma \(\varphi(H)\) is a finite subgropu. Therefore suffices to show that
+  \[
+    \varphi(H + P(x; L)) = \varphi(H) + P(\varphi(x_1), \dots, \varphi(x_r); L_1, \dots, L_r).
+  \]
+  In fact, we'll show that for all \(h \in H, |\ell_i| \leq L_i\) we have
+  \[
+    \varphi(h + \ell_1 x_1 + \dots + \ell_r x_r) = \varphi(h) + \ell \varphi(x_1) + \dots + \ell_r \varphi(x_r).
+    \tag{5.1}
+  \]
+  Since \(\varphi\) is centred, \(\varphi(-x_i) = - \varphi(x_i)\) so we may assume that \(\ell_i \geq 0\) for all \(i\). Also 5.1 is trivial if \(\ell_i = 0\) for all \(i\). So we may assume there there exists \(\ell_j > 0\). Then
+  \begin{align*}
+    \varphi(h + \ell_1 x_1 + \dots + \ell_r x_r)
+    &= \varphi(h + \ell_1x_1 + \dots + \ell_r x_r) + \varphi(0) \\
+    &= \varphi(h + \ell_1x_1 + \dots + (\ell_j - 1) x_j + \dots + \ell_rx_r) + \varphi(x_j)
+  \end{align*}
+  so lemma follows by induction on \(\sum_i \ell_i\).
+\end{proof}
+
+\begin{proof}[Proof of theorem 5.1]
+  By proposition 5.2 and 5.3 and lemma 5.4, there exists \(H + P\) coset progression of rank \(\leq O(K^{O(1)})\) such that
+  \begin{align*}
+    H + P &\subseteq 2A - 2A \\
+    |H + P| &\geq \exp(-O(K^{O(1)})) |A|
+  \end{align*}
+  We'll now apply a version of Ruzsa's covering lemma due to Change. Define recursively sets \(S_1, S_2, \dots \subseteq A\) such that \(S_i\) the a maximal subset of size \(\leq 2K\) such that the translates \(x + S_{i - 1} + \dots + S_1 + H + P\) are all disjoint. If ever \(|S_i| < 2K\) we stop. Now suppose we get as far as \(S_1, \dots, S_t\). Then
+  \[
+    S_t + \dots + S_1 + H + P \subseteq 2A - 2A + tA
+  \]
+  so by proposition 2.5
+  \[
+    |S_k + \dots + S_1 + H + P| \leq K^{4 + t}|A|.
+  \]
+  On the other hand, disjointness of the translates in the definition of \(S_i\) means that
+  \[
+    |S_k + \dots + S_1 + H + P| \geq (2K)^{t - 1} \exp (-O(K^{O(1)})) |A|.
+  \]
+  Putting these together, we have
+  \[
+    2^{t - 1} \leq K^5 \exp (O(K^{O(1)})),
+  \]
+  hence \(t \leq O(K^{O(1)})\). In particular this process terminates, at \(S_t\), say.
+
+  But also, since \(S_t\) is therefore maximal among \emph{all} subsets of \(A\) such that \(x + S_{t - 1} + \dots + S_1 + H + P\) are disjoint for \(x \in S_t\), Ruzsa's covering lemma from lecture 2 implies that
+  \[
+    A \subseteq H + 2P + S_1 - S_1 + \dots + S_{t - 1} - S_{t - 1} + S_t.
+  \]
+  Enumerating \(\bigcup_i S_i\) as \(s_1, \dots, s_d\), we have \(d \leq O(K^{O(1)})\) and
+  \[
+    A \subseteq H + 2P + P(s_1, \dots, s_d; 1, \dots, 1) \subseteq O(K^{O(1)}) (A \cup \{0\} \cup (-A))
+  \]
+  as claimed.
+\end{proof}
+
+\begin{ex}
+  See what bounds you can get if you apply Ruzsa's covering lemma directly, instead of Chang's argument.
+\end{ex}
+
+
+
 
 
 

@@ -744,11 +744,149 @@ It turns out that \(\chi\) is a complete invariant in the sense that it determin
     \[
       \chi_{V \oplus W} = \chi_V + \chi_W.
     \]
-  \item 
   \end{enumerate}
 \end{theorem}
 
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Clearly \(\tr I_n = n\).
+  \item \(\chi(hgh^{-1}) = \tr(R_hR_gR_h^{-1}) = \tr R_g = \chi(g)\).
+  \item \(g \in G\) has finite order so diagonalisable so can assume \(\rho(g)\) is represented by diagonal matrix
+    \[
+      \begin{pmatrix}
+        \lambda_1 & \cdots & 0 \\
+        & \ddots \\
+        0 & \cdots & \lambda_n
+      \end{pmatrix}
+    \]
+    so \(\chi(g) = \sum \lambda_i\). Now \(g^{-1}\) is represented by
+    \[
+      \begin{pmatrix}
+        \lambda_1^{-1} & \cdots & 0 \\
+        & \ddots \\
+        0 & \cdots & \lambda_n^{-1}
+      \end{pmatrix}
+    \] 
+    hence
+    \[
+      \chi(g^{-1}) = \sum \lambda_i^{-1} = \sum \conj \lambda_i = \conj{\sum \lambda_i} = \conj{\chi(g)}.
+    \]
+  \item Suppose \(V = V_1 \oplus V_2, \rho_i: G \to \GL(V_i), \rho: G \to \GL(V)\). Take basis \(\mathcal B = \mathcal B_1 \cup \mathcal B_2\), where \(\mathcal B_1\) and \(\mathcal B_2\) are basis for \(V_1\) and \(V_2\) respectively, of \(V\). With respect to \(\mathcal B\) \(\rho(g)\) has matrix
+    \[
+      \begin{pmatrix}
+        [\rho_1(g)]_{\mathcal B_1} & 0 \\
+        0 & [\rho_2(g)]_{\mathcal B_2}
+      \end{pmatrix}
+    \]
+    and so
+    \[
+      \chi(g) = \tr \rho_1(g) + \tr \rho_2(g) = \chi_1(g) + \chi_2(g).
+    \]
+  \end{enumerate}
+\end{proof}
 
+\begin{remark}
+  We'll see later that if \(\chi_1, \chi_2\) are characters of \(G\) then \(\chi_1\chi_2\) is also a character of \(G\) (spoiler: tensor product).
+\end{remark}
+
+\begin{lemma}
+  Let \(\rho: G \to \GL(V)\) be a (complex) representation affording the character \(\chi\). Then for \(g \in G\), \(|\chi(g)| \leq \chi(1)\) with equality if and only if \(\rho(g) = \lambda I\) for some \(\lambda \in \C\), a root of unity. Moreover \(\chi(g) = \chi(1)\) if and only if \(g \in \ker \rho\). In other words, the \emph{kernel} of \(\chi\) \(\ker \chi\) is
+  \[
+    \ker \rho = \{g \in G: \chi(g) = \chi(1)\}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Example sheet 2 Q1.
+\end{proof}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(\chi\) is a (complex irreducible, respectively) character of \(G\) then so is \(\conj \chi\).
+  \item If \(\chi\) is a (complex irreducible, respectively) character of \(G\) then so is \(\varepsilon \chi\) for any linear (i.e.\ \(1\) dimensional) character \(\varepsilon\) of \(G\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  If \(R: G \to \GL_n(\C)\) is a (complex irreducible) representation then so is
+  \begin{align*}
+    R: G &\to \GL_n(\C) \\
+    g &\mapsto \conj{R(g)}
+  \end{align*}
+  Similarly \(r': g \mapsto \varepsilon(g) R(g)\). Check the details.
+\end{proof}
+
+\begin{definition}[class function, class number]\index{class function}\index{class number}
+  Define
+  \[
+    \mathcal C(G) = \{f: G \to \C: f(hgh^{-1}) = f(g) \text{ for all } h, g \in \C\},
+  \]
+  the complex space of \emph{class functions}. It is a \(\C\)-vector space.
+
+  Let \(k = k(G)\) be the \emph{class number} of \(G\), i.e.\ number of conjugacy classes of \(G\). List conjugacy classes as \(\mathcal C_1 = \{1\}, \mathcal C_2, \dots, \mathcal C_k\). Choose \(g_1 = 1, g_2, \dots, g_k\) representatives of the classes. Note that \(\dim \mathcal C(G) = k\), as the characteristic functions \(\delta_j\) of the conjugacy classes form a basis.
+\end{definition}
+
+Define a Hermitian inner product on \(\mathcal C(G)\) as follow:
+\begin{align*}
+  \langle f, f' \rangle
+  &= \frac{1}{|G|} \sum_{g \in G} \conj{f(g)} f'(g) \\
+  &= \frac{1}{|G|} \sum_{j = 1}^k |\mathcal C_j| \conj{f(g_j)} f'(g_j) \\
+  &= \sum_{j = 1}^k \frac{1}{|C_G(g_j)|} \conj{f(g_j)} f'(g_j)
+\end{align*}
+For characters we have
+\[
+  \langle \chi, \chi' \rangle
+  = \sum_{j = 1}^k \frac{1}{|C_G(g_j)|} \chi(g_j^{-1}) \chi'(g_j)
+\]
+which is a real symmetric form (in fact we will show it is an integer).
+
+\begin{theorem}[completeness of characters]\index{completeness of characters}
+  The \(\C\)-irreducible characters of \(G\) form an orthonormal basis of \(\mathcal C(G)\). More precisely,
+  \begin{enumerate}
+  \item if \(\rho: G \to \GL(V), \rho': G \to \GL(V')\) are irreducible representations of \(G\), affording characters \(\chi\) and \(\chi'\) then
+    \[
+      \langle \chi, \chi' \rangle =
+      \begin{cases}
+        1 & \text{if \(\rho, \rho'\) are isomorphic} \\
+        0 & \text{otherwise}
+      \end{cases}
+    \]
+    This is called \emph{row orthogonality}\index{row orthogonality}.
+  \item each class function of \(G\) is a linear combination of irreducible characters of \(G\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  See chapter 6.
+\end{proof}
+
+\begin{corollary}
+  Complex representations of finite groups are characterised by their characters.
+\end{corollary}
+
+Note the finiteness condition. For counterexample otherwise take \(G = \Z\), \(1 \mapsto I\) and \(1 \mapsto
+\begin{psmallmatrix}
+  1 & 1 \\
+  0 & 1
+\end{psmallmatrix}
+\).
+
+\begin{proof}
+  Let \(G\) be a finite group and \(\rho: G \to \GL(V)\) be a representation affording \(\chi\). By Maschke's theorem \(\rho = m_1 \rho_1 \oplus \dots \oplus m_k \rho_k\) where \(\rho_1, \dots, \rho_k\) are irreducible and \(m_j \geq 0\). Then \(m_j = \langle \chi_j, \chi \rangle\) where \(\chi_j\) is afforded by \(\rho_j\): for \(\chi = m_1 \chi_1 + \dots + m_k \chi_k\) and thus
+  \[
+    \langle \chi_j, \chi \rangle
+    = \langle \chi_j, m_1 \chi_1 + \dots + m_j \chi_j \rangle
+    = m_j
+  \]
+\end{proof}
+
+\begin{corollary}[irreducibility criterion]\index{irreducibility criterion}
+  If \(\rho\) is a \(\C\)-representation of \(G\) affording \(\chi\) then \(\rho\) is irreducible if and only if \(\langle \chi, \chi \rangle = 1\).
+\end{corollary}
+
+\begin{proof}
+  \(\implies\) is row orthogonality. For \(\impliedby\), suppose \(\langle \chi, \chi \rangle = 1\). Complete reducibility says that \(\chi = \sum m_j \chi_j\) where \(\chi_j\)'s are irreducible and \(m_j \geq 0\). Then \(\sum m_j^2 = 1\) so \(\chi = \chi_j\) for some \(j\), so \(\chi\) is irreducible.
+\end{proof}
 
 
 

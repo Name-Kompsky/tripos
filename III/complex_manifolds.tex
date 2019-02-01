@@ -654,7 +654,7 @@ Then we have the following result due to Grothendieck:
   \end{align*}
   Assuming this, the \((\phi_j)\) converges uniformly to some \(\phi\) on \(P\). Moreover \(\phi - \phi_j\) is holomorphic on \(P_j\) as as a uniform limit of \((\phi_{j + 1} - \phi_j)\), all holomorphic following the corollary. So \(\conj \p \phi = \conj \p \phi_j = \omega\) on \(P_j\), Hence \(\conj \p \phi = \omega\) on \(P\).
 
-  We now construct \((\phi_j)\). SOlve \(\conj \p \psi_j = \omega\) on \(P_j\) as before and set \(\phi_1 = \psi_1\). We construct \(\phi_{j + 1}\), inducting on \(j\). Since \(\conj \p(\phi_j - \psi_{j + 1}) = 0\) on \(P_j\), \(\theta_j - \psi_{j + 1}\) is holomorphic on \(P_j\). Hence it has a Taylor series expansion valid on \(P_j\). Truncating gives a polynomial \(\gamma_{j + 1}\) such that
+  We now construct \((\phi_j)\). Solve \(\conj \p \psi_j = \omega\) on \(P_j\) as before and set \(\phi_1 = \psi_1\). We construct \(\phi_{j + 1}\), inducting on \(j\). Since \(\conj \p(\phi_j - \psi_{j + 1}) = 0\) on \(P_j\), \(\theta_j - \psi_{j + 1}\) is holomorphic on \(P_j\). Hence it has a Taylor series expansion valid on \(P_j\). Truncating gives a polynomial \(\gamma_{j + 1}\) such that
   \[
     \norm{\phi_j - \psi_{j + 1} - \gamma_{j + 1}}_{C^0(P_j - 1)} < 2^{-j}
   \]
@@ -668,6 +668,8 @@ Then we have the following result due to Grothendieck:
 \end{proof}
 
 \section{Sheaves and cohomology}
+
+\subsection{Definitions}
 
 We now compare Dolbeault cohomology with sheaf cohomology. Let's begin with general theory of sheaves. Let \(X\) be a topological space.
 
@@ -904,7 +906,7 @@ by
 
 However, this definition is dependent on the choice of cover. We now take the direct limit of these cohomology groups with respect to cover refinement.
 
-\begin{definition}[refinement of cover]\index{refine}
+\begin{definition}[refinement of cover]\index{refinement}
   Given open covers \(\mathcal U, \mathcal V\), we say \(\mathcal V\) \emph{refines} \(\mathcal U\) if there exists \(\varphi: \N \to \N\) increasing such that for all \(\beta\),
   \[
     \mathcal V \ni V_\beta \subseteq U_{\varphi(\beta)} \in \mathcal U.
@@ -991,7 +993,7 @@ when each intersection of the \(U_i\) is isomorphic to a polydisc.
   \end{enumerate}
 \end{eg}
 
-\paragraph{Short exact sequence of sheaves}
+\subsection{Short exact sequence of sheaves}
 
 Let \(\beta: \mathcal F \to \mathcal G\) be a morphism of sheaves. Then \(\beta\) induces \(C^p(\mathcal U, \mathcal F) \to C^p(\mathcal U, \mathcal G)\) for any \(\mathcal U\). These maps commute with \(\delta\) so induce maps
 \[
@@ -1048,14 +1050,203 @@ We won't prove this in general, but for all sheaves in this course, there exists
 \]
 exact for all \(U \in \mathcal U\). In this case the theorem is an exercise.
 
+We say that
+\[
+  \begin{tikzcd}
+    \mathcal F_1 \ar[r, "\alpha_1"] & \mathcal F_2 \ar[r, "\alpha_2"] & \dots
+  \end{tikzcd}
+\]
+is a \emph{complex} of sheaves if \(\alpha_{i + 1} \compose \alpha_i = 0\) for all \(i\). We say that a complex is \emph{exact} if
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \ker \alpha_i \ar[r] & \mathcal F_i \ar[r] & \ker \alpha_{i + 1} \ar[r] & 0 
+  \end{tikzcd}
+\]
+is a short exact sequence for all \(i\). Equivalently the induced sequence on stalk is exact everywhere.
+
+\subsection{Dolbeault's theorem}
+
+\begin{theorem}[de Rham]
+  If \(X\) is a smooth manifold then
+  \[
+    H^i_{\text{dR}}(X; \R) \cong H^i(X, \R).
+  \]
+\end{theorem}
+
+\begin{remark}
+  It follows that
+  \[
+    H^i(X, \R) \cong H^i_{\text{sing}}(X; \R)
+  \]
+  where \(H^i_{\text{sing}}(X; \R)\) is the singular cohomology.
+\end{remark}
+
+\begin{proof}
+  By Poincaré lemma, the complex
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \R \ar[r] & \mathcal A^0 \ar[r, "d"] & \mathcal A^1 \ar[r, "d"] & \mathcal A^2 \ar[r] & \dots
+    \end{tikzcd}
+  \]
+  is exact. Note that \(\mathcal A^0\) is the sheaf of smooth functions and \(\mathcal A^p\) is the sheaf of \(p\)-forms and \(d\) is the usual exterior derivative. That is, for all \(p\), if \(\mathcal Z^p = \ker (d: \mathcal A^p \to \mathcal A^{p + 1})\) we have exact sequences
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \R \ar[r] & \mathcal A^0 \ar[r] & \mathcal Z^1 \ar[r] & 0 \\
+      & & \vdots \\
+      0 \ar[r] & \mathcal Z^{p - 1} \ar[r] & \mathcal A^{p - 1} \ar[r] & \mathcal Z^p \ar[r] & 0 \\
+    \end{tikzcd}
+  \]
+  We saw that \(H^q(X, \mathcal A^p) = 0\) for all \(p \geq 0, q > 0\).
+
+  The long exact sequence associated to the first short exact sequence gives
+  \begin{align*}
+    H^p(X, \R)
+    &\cong H^{p - 1}(X, \mathcal Z^1) \quad \text{ as } H^p(X, \mathcal A^0) = H^{p - 1}(X, \mathcal A^0) = 0 \\
+    &\cong H^{p - 2}(X, \mathcal Z^2) \\
+    &\cong \dots \\
+    &\cong H^1(X, \mathcal Z^{p - 1})
+  \end{align*}
+  Since
+  \[
+    \begin{tikzcd}
+      & & 0 \ar[dll, out=0, in=180] \\
+      H^0(X, \mathcal Z^{p - 1}) \ar[r] & H^0(X, \mathcal A^{p - 1}) \ar[r, "d"] & H^0(X, \mathcal Z^p) \ar[dll, out=0, in=180] \\
+      H^1(X, \mathcal Z^{p - 1}) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is exact, we have
+  \[
+    H^1(X, \mathcal Z^{p - 1})
+    \cong \frac{H^0(X, \mathcal Z^p)}{d(H^0(X, \mathcal A^{p - 1}))}
+    \cong \frac{\mathcal Z^p(X)}{d(\mathcal A^{p - 1}(X))}
+    \cong H^p_{\text{dR}}(X, \R).
+  \]
+\end{proof}
+
 \begin{theorem}[Dolbeault]\index{Dolbeault's theorem}
   If \(X\) is a complex manifold then
   \[
-    H^{p, q}_{\conj \p}(X) \cong H^q(X, \Omega^p)
+    H^q(X, \Omega^p) \cong H^{p, q}_{\conj \p}(X)
   \]
-  where \(\Omega^p(U)\) is the set of \(\sigma \in \mathcal A_\C^{p, 0}(U)\) with \(\conj \p \sigma = 0\).
+  where \(\Omega^p(U) = \{\sigma \in \mathcal A_\C^{p, 0}(U): \conj \p \sigma = 0\}\).
 \end{theorem}
 
+\begin{proof}
+  Similar to de Rham's theorem but with \(\conj \p\)-Poincaré lemma instead. We have an exact complex
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Omega^p \ar[r] & \mathcal A_\C^{p, 0} \ar[r, "\conj \p"] & \mathcal A_\C^{p, 1} \ar[r, "\conj \p"] & \dots
+    \end{tikzcd}
+  \]
+  by the \(\conj \p\)-Poincaré lemma. We write \(\mathcal Z^{p, q} = \ker (\conj \p: \mathcal A_\C^{p, q} \to \mathcal A_\C^{p, q + 1})\). Thus we have exact sequences
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Omega^p \ar[r] & \mathcal A^{p, 0} \ar[r] & \mathcal Z^{p, 1} \ar[r] & 0 \\
+      & & \vdots \\
+      0 \ar[r] & \mathcal Z^{p, q - 1} \ar[r] & \mathcal A^{p, q - 1} \ar[r] & \mathcal Z^{p, q} \ar[r] & 0 \\
+    \end{tikzcd}
+  \]
+  as any open set in \(X\) has an open subset biholomorphic to a polydisk. 
+
+  It follows that \(H^i(X, \mathcal A_\C^{r, s}) = 0\) for all \(i > 0\), for all \(r, s\). Argue as in de Rham's theorem,
+  \begin{align*}
+    H^q(X, \Omega^p)
+    &\cong H^{q - 1}(X, \mathcal Z^{p, 1}) \\
+    &\cong \dots \\
+    &\cong H^1(X, \mathcal Z^{p, q - 1}) \\
+    &\cong \frac{H^0(X, \mathcal Z^{p, q})}{\conj \p (H^0(X, \mathcal A_\C^{p, q - 1}))} \\
+    &\cong \frac{\mathcal Z^{p, q}(X)}{\conj \p \mathcal A_\C^{p, q - 1}(X)} \\
+    &\cong H^{p, q}_{\conj \p}(X)
+  \end{align*}
+\end{proof}
+
+\subsection{Computation of Čech cohomology}
+
+The direct limit in the definition of Čech cohomology means that it is very difficult to work out the cohomology directly. However, in a previous example we claim that \(H^i(\P^1, \mathcal O)\) equals to \(\check H^i(\{\P^1 \setminus \{0\}, \P^1 \setminus \{\infty\}\}, \mathcal O)\), whose computation is manageable. This is due the following theorem:
+
+\begin{theorem}
+  Let \(X\) be a complex manifold. Suppose \(\mathcal U\) is an open cover with \(H^p(U_{\alpha_0 \cdots \alpha_s}, \mathcal O) = 0\) for all \(p \geq 1\) and all \(\alpha_0, \dots, \alpha_s\). Then
+  \[
+    H^p(X, \mathcal O) \cong \check H^p(\mathcal U, \mathcal O).
+  \]
+\end{theorem}
+
+\begin{proof}
+  We have
+  \[
+    H^1(U_{\alpha_0 \cdots \alpha_s}, \mathcal Z^{0, q - 1})
+    = H^{0, q}_{\conj \p}(U_{\alpha_0 \cdots \alpha_s})
+    = H^q(U_{\alpha_0 \cdots \alpha_s}, \mathcal O)
+    = 0.
+  \]
+  Thus
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathcal Z^{0, q - 1}(U_{\alpha_0 \cdots \alpha_s}) \ar[r] & \mathcal A_\C^{0, q - 1}(U_{\alpha_0 \cdots \alpha_s}) \ar[r] & \mathcal Z^{0, q}(U_{\alpha_0 \cdots \alpha_s}) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is exact. It is true for all intersetions so we have a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & C^p(\mathcal U, \mathcal Z^{0, q - 1}) \ar[r] & C^p(\mathcal U, \mathcal A_\C^{0, q - 1}) \ar[r] & C^p(\mathcal U, \mathcal Z^{0, q}) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  The long exact sequence and \(\check H^p(\mathcal U, \mathcal A^{0, q}) = 0\) gives for all \(p \geq 1, q \geq 1\),
+  \[
+    \check H^p(\mathcal U, \mathcal Z^{0, q}) \cong \check H^{p + 1}(\mathcal U, \mathcal Z^{0, q - 1}).
+  \]
+  Argue as before,
+  \begin{align*}
+    \check H^p(\mathcal U, \mathcal O)
+    &= \check H^p(\mathcal U, \mathcal Z^{0, 0}) \\
+    &\cong \check H^{p - 1}(\mathcal U, \mathcal Z^{0, 1}) \\
+    &\cong \dots \\
+    &\cong \check H^1(\mathcal U, \mathcal Z^{0, p - 1})
+  \end{align*}
+  and
+  \[
+    \check H^1(\mathcal U, \mathcal Z^{0, p - 1})
+    \cong \frac{\mathcal Z^{0, p}(X)}{\conj \p(\mathcal A^{0, p - q}(X))}
+    \cong H^{0, p}_{\conj \p}(X)
+    \cong H^p(X, \mathcal O).
+  \]
+\end{proof}
+
+\begin{remark}
+  It also shows that under the same hypothesis,
+  \[
+    H^q(X, \Omega^p) \cong \check H^q(\mathcal U, \Omega^p).
+  \]
+\end{remark}
+
+\begin{eg}
+  \[
+    H^q(\C^n, \mathcal O) \cong H^{0, q}(\C^n) = 0
+  \]
+  for all \(q \geq 1\).
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item One can show if \(H^p(U_\alpha, \mathcal O) = 0\) for all \(U_\alpha \in \mathcal U\) (no higher intersections) then
+    \[
+      H^p(X, \mathcal O) \cong \check H^p(\mathcal U, \mathcal O).
+    \]
+    See Voisin Section 4. So if \(X\) is projective then one can take \(\mathcal U\) to be a cover by affine subvarieties. When \(X\) is not projective, one can take a cover by \emph{Stein manifolds}\index{Stein manifolds}, which are the complex manifold version of affine subvariety.
+  \item \(H^p(X, \Z) \cong H^p_{\text{sing}}(X; \Z)\).
+  \item One usually cares about \(H^0(X, \mathcal F)\), the global sections, and the \(H^i\)'s are viewed as obstructions. For example, in short exact sequence, Mittag-Leffler problem. Another reason to care about \(H^i\) is the \emph{Euler characteristic}\index{Euler characteristic}
+    \[
+      \chi(X, \mathcal F) = \sum_i (-1)^i \dim H^i(X, \mathcal F)
+    \]
+    which is additive in short exact sequences, and usually constant in families, while \(H^0\) is not. Lastly, \(H^1\) is also ``geometric''.
+  \end{enumerate}
+\end{remark}
+
+\section{Holomorphic vector bundles}
+
+\begin{definition}[holomorphic vector bundle]\index{holomorphic vector bundle}
+  Let \(X\) be a complex manifold. A \emph{holomorphic vector bundle} on \(X\) is a complex manifold \(E\) with a (holomoprhic surjective) map \(\pi: E \to X\) and the structure of an \(r\) dimensional complex vector space on every fibre \(\pi^{-1}(x) = E_x\) satisfying: there is an open cover \(\{U_\alpha\}\) of \(X\) and holomorphic isomorphisms \(\varphi_\alpha: \pi^{-1}(U_\alpha) \to U_\alpha \times \C^r\) commuting with projections to \(U_\alpha\), such that the induced map \(\pi^{-1}(x) \cong \C^r\) is \(\C\)-linear.
+\end{definition}
 
  
 
