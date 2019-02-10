@@ -160,7 +160,7 @@ We have an ample supply of basic groups:
   \end{align*}
 \end{definition}
 
-\begin{proposition}[permutation representation]\index{representation!permutation}
+\begin{proposition}[permutation representation]\index{permutation representation}
   Given an action of \(G\) on \(X\), we obtain a homomorphism \(\theta: G \to \sym(X)\), called the \emph{permutation representation} of \(G\).
 \end{proposition}
 
@@ -261,8 +261,8 @@ via \(\rho_g(v) = R_g(v)\).
 
 \subsection{Equivalent representations}
 
-\begin{definition}[\(G\)-homomorphism, \(G\)-isomorphism]\index{\(G\)-homomorphism}\index{interwining homomorphism}\index{isomorphic}\index{equivalent}
-  Fix \(G\) and \(\F\). Let \(V\) and \(V'\) be \(\F\)-vector spaces and \(\rho: G \to \GL(V), \rho': G \to \GL(V')\) be representations of \(G\). The linear map \(\varphi: V \to V'\) is a \emph{\(G\)-homomorphism} or \emph{interwining homomorphism} if
+\begin{definition}[\(G\)-homomorphism, \(G\)-isomorphism]\index{\(G\)-homomorphism}\index{intertwining homomorphism}\index{isomorphic}\index{equivalent}
+  Fix \(G\) and \(\F\). Let \(V\) and \(V'\) be \(\F\)-vector spaces and \(\rho: G \to \GL(V), \rho': G \to \GL(V')\) be representations of \(G\). The linear map \(\varphi: V \to V'\) is a \emph{\(G\)-homomorphism} or \emph{intertwining homomorphism} if
   \[
     \varphi \rho(g) = \rho'(g) \varphi.
   \]
@@ -276,7 +276,7 @@ via \(\rho_g(v) = R_g(v)\).
 
   We say \(\varphi\) \emph{intertwines} \(\rho\) and \(\rho'\). Write \(\Hom_G(V, V')\) for the \(\F\)-space of all such.
 
-  \(\varphi\) is a \emph{\(G\)-isomorphism} if \(\varphi\) is also bijective. If such a \(\varphi\) exists, say \(\rho\) and \(\rho'\) are \emph{isomorphic} or \emph{equivalent}. If \(\varphi\) is a \(G\)-isomorphism we can write the interwinding condition as
+  \(\varphi\) is a \emph{\(G\)-isomorphism} if \(\varphi\) is also bijective. If such a \(\varphi\) exists, say \(\rho\) and \(\rho'\) are \emph{isomorphic} or \emph{equivalent}. If \(\varphi\) is a \(G\)-isomorphism we can write the intertwining condition as
   \[
     \rho' = \varphi \rho \varphi^{-1}.
   \]
@@ -482,7 +482,7 @@ Recall that for \(V\) a \(\C\)-vector space. \(\ip{\cdot, \cdot}\) is a \emph{He
 \begin{enumerate}
 \item \(\ip{w, v} = \conj{\ip{v, w}}\) for all \(v, w\).
 \item sesquilinear: linear in second argument.
-\item positive definite \(\ip{v, v} > 0\) if \(v = 0\).
+\item positive definite: \(\ip{v, v} > 0\) if \(v \neq 0\).
 \end{enumerate}
 Furthermore \(\ip{\cdot, \cdot}\) is \emph{\(G\)-invariant} if
 \[
@@ -554,7 +554,7 @@ It turns out that every irreducible representation of \(G\) is a subrepresentati
 
 More generally,
 
-\begin{definition}[permutation representation]\index{representation!permutation}
+\begin{definition}[permutation representation]\index{permutation representation}
   Let \(G\) act on a set \(X\). Let \(\F X = \text{span}\{e_x: x \in X\}\) with \(G\) action
   \[
     g . \sum_x a_x e_x = \sum_x a_x e_{gx}
@@ -635,6 +635,7 @@ This is our first group theoretic result based on representation theory. This is
 Recall that every finite abelian group \(G\) is isomorphic to a product of cyclic groups. In fact it can be written as product of \(C_{p^\alpha}\) for various primes \(p\) and \(\alpha \geq 1\). The elements are uniquely determined up to order.
 
 \begin{proposition}
+  \label{prop:representation of abelian group}
   The finite abelian group \(G \cong C_{n_1} \times \dots \times C_{n_r}\) has precisely \(|G|\) irreducible \(\C\)-representations as described below.
 \end{proposition}
 
@@ -790,7 +791,8 @@ It turns out that \(\chi\) is a complete invariant in the sense that it determin
 \end{remark}
 
 \begin{lemma}
-  Let \(\rho: G \to \GL(V)\) be a (complex) representation affording the character \(\chi\). Then for \(g \in G\), \(|\chi(g)| \leq \chi(1)\) with equality if and only if \(\rho(g) = \lambda I\) for some \(\lambda \in \C\), a root of unity. Moreover \(\chi(g) = \chi(1)\) if and only if \(g \in \ker \rho\). In other words, the \emph{kernel} of \(\chi\) \(\ker \chi\) is
+  \label{lemma:kernel of character}
+  Let \(\rho: G \to \GL(V)\) be a (complex) representation affording the character \(\chi\). Then for \(g \in G\), \(|\chi(g)| \leq \chi(1)\) with equality if and only if \(\rho(g) = \lambda I\) for some \(\lambda \in \C\), a root of unity. Moreover \(\chi(g) = \chi(1)\) if and only if \(g \in \ker \rho\). In other words, the \emph{kernel}\index{character!kernel} of \(\chi\) \(\ker \chi\) is
   \[
     \ker \rho = \{g \in G: \chi(g) = \chi(1)\}.
   \]
@@ -841,6 +843,7 @@ For characters we have
 which is a real symmetric form (in fact we will show it is an integer).
 
 \begin{theorem}[completeness of characters]\index{completeness of characters}
+  \label{thm:completeness of character}
   The \(\C\)-irreducible characters of \(G\) form an orthonormal basis of \(\mathcal C(G)\). More precisely,
   \begin{enumerate}
   \item if \(\rho: G \to \GL(V), \rho': G \to \GL(V')\) are irreducible representations of \(G\), affording characters \(\chi\) and \(\chi'\) then
@@ -887,6 +890,496 @@ Note the finiteness condition. For counterexample otherwise take \(G = \Z\), \(1
 \begin{proof}
   \(\implies\) is row orthogonality. For \(\impliedby\), suppose \(\langle \chi, \chi \rangle = 1\). Complete reducibility says that \(\chi = \sum m_j \chi_j\) where \(\chi_j\)'s are irreducible and \(m_j \geq 0\). Then \(\sum m_j^2 = 1\) so \(\chi = \chi_j\) for some \(j\), so \(\chi\) is irreducible.
 \end{proof}
+
+\begin{theorem}
+  If the irreducible \(\C\)-representations of \(G\), \(\rho_1, \dots, \rho_k\) have dimensions \(n_1, \dots, n_k\) then
+  \[
+    |G| = \sum_{i = 1}^k n_i^2.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Recall \(\rho_{\text{reg}}: G \to \GL(\C G)\), the regular representation of \(G\) of dimension \(|G|\). Let \(\pi_{\text{reg}}\) be its character, the \emph{regular character} of \(G\). Note that
+  \[
+    \pi_{\text{reg}}(g) =
+    \begin{cases}
+      |G| & g = 1 \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  Also claim that \(\pi_{\text{reg}} = \sum_j n_j \chi_j\) with \(n_j = \chi_j(1)\):
+  \[
+    n_j
+    = \langle \pi_{\text{reg}}, \chi_j \rangle
+    = \frac{1}{|G|} \sum_{g \in G} \conj{\pi_{\text{reg}}(g)} \chi_j(g)
+    = \frac{1}{|G|} |G| \chi_j(1)
+    = \chi_j(1).
+  \]
+\end{proof}
+
+\begin{corollary}
+  \label{cor:number of irreducible equals to class number}
+  The number of irreducible characters of \(G\) (up to equivalence) equals to the class number.
+\end{corollary}
+
+\begin{corollary}
+  Elements \(g_1, g_2 \in G\) are conjugate if and only if \(\chi(g_1) = \chi(g_2)\) for all irreducible characters \(\chi\) of \(G\).
+\end{corollary}
+
+\begin{proof}
+  \(\implies\) because characters are class functions. \(\impliedby\): if \(\chi(g_1) = \chi(g_2)\) for all irreducible characters \(\chi\) then \(f(g_1) = f(g_2)\) for all class fucntions of \(G\). In particular this is true for the characteristic function \(\delta\) taking \(1\) on conjugacy class of \(g_1\) and \(0\) otherwise.
+\end{proof}
+
+Recall the inner prodcut on \(\ccl(G)\) and the real symmetric form \(\langle \cdot, \cdot \rangle\) for characters.
+
+\begin{definition}\index{character table}\index{character table}
+  Let \(G\) be a finite group and \(\F = \C\). The \emph{character table} of \(G\) is the \(k \times k\) matrix \(X = [\chi_i(g_j)]\) where \(1 = \chi_1, \dots, \chi_k\) are the irreducible characters of \(G\) and \(\ccl_1 = \{1\}, \dots, \ccl_k\) are the conjugacy classes with \(g_j \in \ccl_j\).
+\end{definition}
+
+\begin{eg}
+  \(G = S_3 = D_6 = \langle r, s: r^3 = s^2 = 1, srs^{-1} = r^{-1} \rangle\). The conjugacy classes are
+  \[
+    \ccl_1 = \{1\}, \ccl_2 = \{s, sr, sr^2\}, \ccl_3 = \{r, r^{-1}\}.
+  \]
+  Thus from the corollary there are three representations. It is easy to write down two of them: the trivial representation \(1\) and the sign \(S\) of permutation. Think geometrically, it's not hard to come up with a \(2\) dimensional irreducible representation \(W\) of symmetry of an equilateral triangle. \(sr^j\) acts by matrix with eigenvalues \(\pm 1\) so \(\chi(sr^j) = 0\) for all \(j\). \(r^k\) acts by the matrix
+  \[
+    \begin{pmatrix}
+      \cos \frac{2k\pi}{3} & - \sin \frac{2k\pi}{3} \\
+      \sin \frac{2k\pi}{3} & \cos \frac{2k\pi}{3}
+    \end{pmatrix}
+  \]
+  so \(\chi(r^k) = 2 \cos \frac{2k\pi}{3} = - 1\) for all \(k\). Thus we have character table
+  % TODO: delete this
+  % 
+  % \begin{center}
+  %   \begin{tabular}{c|ccc}
+  %     & \(1\) & \(\ccl_2\) & \(\ccl_3\) \\ \hline
+  %     \(1\) & \(1\) & \(1\) & \(1\) \\
+  %     \(S\) & \(1\) & \(-1\) & \(1\) \\
+  %     \(W\) & \(2\) & \(0\) & \(-1\)
+  %   \end{tabular}
+  % \end{center}
+  \[
+    \begin{array}{c|ccc}
+      & 1 & \ccl_1 & \ccl_2 \\ \hline
+      1 & 1 & 1 & 1 \\
+      S & 1 & -1 & 1 \\
+      W & 2 & 0 & -1
+    \end{array}
+  \]
+  We can do a few sanity checks: the sum of squares of the first column is \(6\), which equals to the order of \(G\). Also
+  \[
+    \langle \chi_W, \chi_W \rangle
+    = \frac{2^2}{6} + \frac{0^2}{2} + \frac{(-1)^2}{3}
+    = 1
+  \]
+  so indeed it is irreducible.
+\end{eg}
+
+\section{Proofs of orthogonality}
+
+\index{completeness of characters}
+
+\begin{proof}[Proof of \nameref{thm:completeness of character} 1]
+  Fix bases of \(V\) and \(V'\). Write \(R(g), R'(g)\) for matrices of \(\rho(g)\) and \(\rho'(g)\) with respect to these bases respectively. Then
+  \[
+    \langle \chi', \chi \rangle
+    = \frac{1}{|G|} \sum_{g \in G} \chi'(g^{-1}) \chi(g)
+    = \frac{1}{|G|} \sum_{\substack{g \in G \\ 1 \leq i, j \leq n}} R'(g^{-1})_{ii} R(g)_{jj}.
+  \]
+  Let \(\varphi: V \to V'\) be linear and define its ``average''
+  \begin{align*}
+    \tilde \varphi: V &\to V' \\
+    v &\mapsto \frac{1}{|G|} \sum_{g \in G} \rho'(g^{-1}) \varphi \rho(g) v
+  \end{align*}
+  then \(\tilde \varphi\) is a \(G\)-homomorphism. To see this, if \(h \in G\) then
+  \begin{align*}
+    \rho'(h^{-1}) \tilde \varphi \rho(h) (v)
+    &= \frac{1}{|G|} \sum_{g \in G} \rho'((gh)^{-1}) \varphi \rho(gh) (v) \\
+    &= \frac{1}{|G|} \sum_{g' \in G} \rho'(g'^{-1}) \varphi \rho(g') (v) \\
+    &= \tilde \varphi(v)
+  \end{align*}
+  
+\paragraph{Case 1: \(\rho, \rho'\) are not isomorphic}
+
+Schur's lemma says \(\tilde \varphi = 0\) for any \(\varphi: V \to V'\) linear. Take \(\varphi = \varepsilon_{\alpha\beta}\), having matrix \(E_{\alpha\beta}\) with respect to our basis with \(0\) everywhere except \(1\) in \((\alpha, \beta)\)th entry. Then
+\[
+  0 = \tilde \varepsilon_{\alpha\beta}
+  = \frac{1}{|G|} \sum_{g \in G} (R'(g^{-1}) E_{\alpha\beta} R(g))_{ij}
+\]
+so
+\[
+  \frac{1}{|G|} \sum_{g \in G} R(g^{-1})_{i\alpha} R(g)_{\beta j} = 0
+\]
+for all \(i, j\). Specialise to \(i = \alpha, j = \beta\) and sum over \(i, j\) to get
+\[
+  \langle \chi', \chi \rangle = 0.
+\]
+
+\paragraph{Case 2: \(\rho, \rho'\) are isomorphic}
+
+\(\chi = \chi'\). Take \(V = V', \rho = \rho'\). If \(\varphi: V \to V\) is linear endomorphism then \(\tilde \varphi \in \End_G(V)\). Now \(\tr \varphi = \tr \tilde \varphi\):
+\[
+  \tr \tilde \varphi
+  = \frac{1}{|G|} \sum_g \tr(\rho(g^{-1}) \varphi \rho(g))
+  = \frac{1}{|G|} \sum_g \tr \varphi
+  = \tr \varphi
+\]
+By Schur, \(\tilde \varphi = \lambda \id_V\) for some \(\lambda \in \C\). Then \(\lambda = \frac{1}{n} \tr \varphi\) where \(n\) is the dimension of \(V\).
+
+Let \(\varphi = \varepsilon_{\alpha\beta}\) so \(\tr \varphi = \delta_{\alpha\beta}\). Hence
+\[
+  \tilde \varphi_{\alpha\beta}
+  = \frac{1}{n} \delta_{\alpha\beta} \id
+  = \frac{1}{|G|} \sum_g \rho(g^{-1}) \varepsilon_{\alpha\beta} \rho(g)
+\]
+In terms of matrices, take \((i, j)\)th entry:
+\[
+  \frac{1}{|G|} \sum_g R(g^{-1})_{i\alpha} R(g)_{\beta j} = \frac{1}{n} \delta_{\alpha\beta} \delta_{ij}
+\]
+and put \(\alpha = i, \beta = j\) to get
+\[
+  \frac{1}{|G|} \sum_g R(g^{-1})_{ii} R(g)_{jj} = \frac{1}{n} \delta_{ij}.
+\]
+Finally sum over \(i, j\) to get
+\[
+  \langle \chi, \chi \rangle = 1.
+\]
+\end{proof}
+
+Before prove 2, let's prove column orthogonality, assuming \Cref{cor:number of irreducible equals to class number}.
+
+\begin{corollary}[column orthogonality relations]\index{column orthogonality}
+  \[
+    \sum_{i = 1}^k \conj{\chi_i(g_j)} \chi_i(g_\ell) = \delta_{j\ell} |C_G(g_j)|.
+  \]
+\end{corollary}
+
+This has an easy corollary:
+
+\begin{theorem}
+  \[
+    |G| = \sum_{i = 1}^k \chi_i^2(1).
+  \]
+\end{theorem}
+
+\begin{proof}
+  \[
+    \delta_{ij}
+    = \langle \chi_i, \chi_j \rangle
+    = \sum_{\ell = 1}^k \frac{1}{|C_G(g_\ell)|} \conj{\chi_i(g_\ell)} \chi_j(g_\ell)
+  \]
+  Consider the character table \(X = (\chi_i(g_j))\). Then
+  \[
+    \conj X D^{-1} X^t = I_k
+  \]
+  where
+  \[
+    D =
+    \begin{pmatrix}
+      |C_G(g_1)| & & 0 \\
+      & \ddots \\
+      0 & & |C_G(g_k)|
+    \end{pmatrix}
+  \]
+  Since \(X\) is square, it follows that \(D^{-1} \conj X^t\) is the inverse of \(X\) so \(\conj X^t X = D\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:completeness of character} 2]
+  List all the irreducible characters \(\chi_1, \dots, \chi_\ell\) of \(G\). Claim these generate \(\mathcal C(G)\), the \(\C\)-space of class functions on \(G\). It's enough to show that the orthogonal complement to \(\text{span} (\chi_1, \dots, \chi_\ell)\) in \(\mathcal C(G)\) is \(0\). To see this let \(f \in \mathcal C(G)\) with \(\langle f, \chi_j \rangle = 0\) for all \(\chi_j\) irreducible. Let \(\rho: G \to \GL(V)\) be irreducible representation affording \(\chi \in \{\chi_1, \dots, \chi_\ell\}\). Then \(\langle f, \chi \rangle = 0\).
+
+  Consider the \(G\)-endormophism
+  \[
+    \frac{1}{|G|} \sum_g \conj{f(g)} \rho(g): V \to V
+  \]
+  so as \(\rho\) is irreducible it must be \(\lambda \id_V\) for some \(\lambda \in \C\). Take trace,
+  \[
+    n \lambda
+    = \tr \frac{1}{|G|} \sum_g \conj{f(g)} \rho(g)
+    = \frac{1}{|G|} \sum_g \conj{f(g)} \chi(g)
+    = \langle f, \chi \rangle
+    = 0
+  \]
+  so \(\lambda = 0\). Hence \(\sum \conj{f(g)} \rho(g) = 0\) for all representation \(\rho\) by complete reducibility. Take \(\rho = \rho_{\text{reg}}\) so
+  \[
+    \sum_g \conj{f(g)} \rho_{\text{reg}}(g)(e_1) = \sum_g \conj{f(g)} e_g = 0
+  \]
+  so \(f(g) = 0\) for all \(g\).
+\end{proof}
+
+\section{Permutation representations}
+
+Let \(G\) be a finite group acting on \(X = \{x_1, \dots, x_n\}\). Recall that \(\C X\) is the free \(\C\)-space generated by \(X\). The corresponding permutation representation
+\begin{align*}
+  \rho_X: G &\to \GL(\C X) \\
+  g &\mapsto \rho(g)
+\end{align*}
+is given by \(\rho(g): e_{x_j} \mapsto e_{gx_j}\). We call \(\rho_X\) the \emph{permutation representation}\index{permutation representation} corresponding to the action of \(G\) on \(X\). Matrices of \(\rho_X(g)\) with respect to basis \(\{e_x\}_{x \in X}\) are permutation matices: \(0\) except for one \(1\) in each row and column and \((\rho(g))_{ij} = 1\) when \(gx_j = x_i\). The corresponding \emph{permutation character}\index{permutation character} \(\pi_X\) is
+\[
+  \pi_X(g) = |\text{fix}_X(g)| = |\{x \in X: gx = x\}|.
+\]
+
+\begin{lemma}
+  \(\pi_X\) always contains \(1_G\).
+\end{lemma}
+
+\begin{proof}
+  \(\text{span}(e_{x_1} + \dots + e_{x_n})\) is a trivial \(G\)-subspace of \(\C X\) with \(G\)-invariant complement \(\text{span}(\sum_{x \in X} a_x e_x: \sum a_x = 0)\).
+\end{proof}
+
+\begin{lemma}
+  \[
+    \langle \pi_X, 1_G \rangle = \# G\text{-orbits of \(G\) on \(X\)}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  If \(X = X_1 \cup \dots \cup X_\ell\) is the disjoint union of orbits then
+  \[
+    \pi_X = \pi_{X_1} + \dots + \pi_{X_\ell}
+  \]
+  with \(\pi_{X_j}\) the permutation character of \(G\) on \(X_j\). So prove the lemma, it is enough to show that if \(G\) acts transitively on \(X\) then \(\langle \pi_X, 1 \rangle = 1\). Assume \(G\) is transitive on \(X\),
+  \begin{align*}
+    \langle \pi_X, 1 \rangle
+    &= \frac{1}{|G|} \sum_g \pi_X(g) \\
+    &= \frac{1}{|G|} |\{(g, x) \in G \times X: gx = x\}| \\
+    &= \frac{1}{|G|} \sum_{x \in X} |G_x| \\
+    &= \frac{1}{|G|} |X| |G_X| \\
+    &= \frac{1}{|G|} |G| \quad \text{orbit stabiliser} \\
+    &= 1
+  \end{align*}
+  The whole proof can be seen as different ways to write fixed points of \(G\).
+\end{proof}
+
+\begin{lemma}
+  Let \(G\) act on the sets \(X_1, X_2\). Then \(G\) acts on \(X_1 \times X_2\) via \(g(x_1, x_2) = (gx_1, gx_2)\). The character \(\pi_{X_1 \times X_2} = \pi_{X_1} \pi_{X_2}\) and so
+  \[
+    \langle \pi_{X_1}, \pi_{X_2} \rangle
+    = \#\{\text{orbits of \(G\) on \(X_1 \times X_2\)}\}
+  \]
+\end{lemma}
+
+\begin{proof}
+  If \(g \in G\) then \(\pi_{X_1 \times X_2}(g) = \pi_{X_1}(g) \pi_{X_2}(g)\). And
+  \[
+    \langle \pi_{X_1}, \pi_{X_2} \rangle
+    = \langle \pi_{X_1} \pi_{X_2}, 1 \rangle
+    = \langle \pi_{X_1 \times X_2}, 1 \rangle
+    = \#\{\text{orbits of \(G\) on \(X_1 \times X_2\)}\}
+  \]
+\end{proof}
+
+\begin{definition}[\(2\)-transitive]\index{\(2\)-transitive}
+  Let \(G\) act on \(X\), \(|X| > 2\). Then \(G\) is \emph{\(2\)-transitive} on \(X\) if \(G\) has exactly two orbits on \(X \times X\): \(\{(x, x): x \in X\}\) and \(\{(x_1, x_2): x_i \in X, x_1 \neq x_2\}\).
+\end{definition}
+
+\begin{lemma}
+  Let \(G\) act on \(X\) with \(|X| > 2\). Then
+  \[
+    \pi_X = 1 + \chi
+  \]
+  with \(\chi\) irreducible if and only if \(G\) is \(2\)-transitive on \(X\).
+\end{lemma}
+
+\begin{proof}
+  Write
+  \[
+    \pi_X = m_1 1 + m_2 \chi_2 + \dots + m_\ell \chi_\ell
+  \]
+  with \(1, \chi_2, \dots, \chi_\ell\) distinct irreducibles and \(m_i \in \N\). Then
+  \[
+    \langle \pi_X, \pi_X \rangle = \sum_{i = 1}^\ell m_i^2.
+  \]
+  Hence \(G\) is \(2\)-transitive if and only if \(\ell = 2, m_1 = m_2 = 1\).
+\end{proof}
+
+\begin{eg}
+  \(S_n\) acting on \(X = \{1, \dots, n\}\) is \(2\)-transitive. Hence \(\pi_X = 1 + \chi\) with \(\chi\) irreducible of degree \(n - 1\). Similar for \(A_n\), \(n > 3\).
+\end{eg}
+
+\begin{eg}
+  Let's write down the table of \(G = S_4\):
+  \[
+    \begin{array}{r|c|c|c|c|c}
+      & 1 & 3 & 8 & 6 & 6 \\
+      & 1 & (12)(34) & (123) & (1234) & (12) \\ \hline
+      \chi_1 & 1 & 1 & 1 & 1 & 1 \\
+      \sgn = \chi_2 & 1 & 1 & 1 & -1 & -1  \\
+      \pi_X - 1 = \chi_3 & 3 & -1 & 0 & -1 & 1 \\
+      \chi_3 \chi_2 = \chi_4 & 3 & -1 & 0 & 1 & -1 \\
+      \chi_5 & 2 & x & y & z & w
+    \end{array}
+  \]
+  By column orthogonality, \(x = 2, y = -1, z = w = 0\). Alternatively, we can use
+  \[
+    \chi_{\text{reg}} = \chi_1 + \chi_2 + 3 \chi_3 + 3 \chi_4 + 2 \chi_5
+  \]
+  to deduce \(\chi_5\). It is the lifting character of \(S_4/V_4 \cong S_3\). See next chapter.
+\end{eg}
+
+\subsection{Alternating groups}
+
+Suppose \(g \in A_n\) then
+\begin{align*}
+  |\mathcal C_{S_n}(g)| &= |S_n : C_{S_n}(g)| \\
+  |\mathcal C_{A_n}(g)| &= |A_n : C_{A_n}(g)|
+\end{align*}
+\(C_{A_n}(g)\) has index \(2\) in \(C_{S_n}(g)\) but they are not necessarily equal. For example, let \(g = (123) \in A_3\). \(\mathcal C_{A_3} (g) = g\) but \(\mathcal C_{S_3}(g) = \{g, g^{-1}\}\). Recall from IA Groups
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(g\) commutes with some odd permutation in \(S_n\) then \(\mathcal C_{S_n}(g) = \mathcal C_{A_n}(g)\).
+  \item If \(g\) does not commute with any odd permutation then \(\mathcal C_{S_n}(g)\) splits into two conjugacy classes in \(A_n\) of equal size.
+  \end{enumerate}
+\end{lemma}
+
+\begin{ex}
+  Character table for \(A_5\). See Teleman \textsection 12.
+\end{ex}
+
+\section{Normal subgroups and lifting characters}
+
+\begin{lemma}[lifting]\index{lifting}
+  \label{lemma:lifting}
+  Let \(N \normal G\) and let \(\tilde \rho: G/N \to \GL(V)\) be a representation of \(G/N\). Then
+  \[
+    \rho: G \to G/N \xrightarrow{\tilde \rho} \GL(V)
+  \]
+  is a representation of \(G\) where \(\rho(g) = \tilde \rho (gN)\). Moreover \(\rho\) is irreducible if \(\tilde \rho\) is. The corresponding characters satisfy
+  \[
+    \chi(g) = \tilde \chi(gN)
+  \]
+  and \(\deg \chi = \deg \tilde \chi\). We say that \(\tilde \chi\) \emph{lifts} to \(\chi\).
+
+  Lifting \(\tilde \chi \to \chi\) is a bijection between
+  \[
+    \{\text{irreducible reps of \(G/N\)}\} \leftrightarrow \{\text{irreducible reps of \(G\) with \(N\) lying in kernel}\}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Example sheet 1 Q4.
+\end{proof}
+
+\begin{lemma}\index{derived subgroup}
+  The derived subgroup \(G' = \langle [a, b]: a, b \in G \rangle\) of \(G\) is the unique minimal normal subgroup of \(G\) such that \(G/G'\) is abelian. \(G\) has precisely \(\ell = |G/G'|\) representations of dimension \(1\), all with kernel containing \(G'\) and obtained by lifting from \(G/G'\). In particular \(\ell \divides |G|\).
+\end{lemma}
+
+\begin{proof}
+  Easy to check \(G' \normal G\) and given \(N \normal G\), \(G' \leq N\) if and only if \(G/N\) is abelian. By \Cref{prop:representation of abelian group}, \(G/G'\) has exactly \(\ell\) characters \(\tilde \chi_1, \dots, \tilde \chi_\ell\), all of degree \(1\). The lifts of these to \(G\) also have degree \(1\) and thus by \Cref{lemma:lifting} these are precisely the irreducible characters \(\chi\) of \(G\) such that \(G' \leq \ker \chi\). But any linear character of \(G\) is a homomorphism \(\chi: G \to \C^\times\), hence \(\chi(g^{-1}h^{-1}gh) = 1\). Thus \(G' \leq \ker \chi\). Thus \(\chi_1, \dots, \chi_\ell\) are all the linear characters of \(G\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(G = S_n\). Show \(S_n' = A_n\). Since \(G/G' \cong C_2\), \(S_n\) must have exactly 2 linear characters.
+  \item \(G = A_4\). Let \(V = \{1, (12)(34), (13)(24), (14)(23)\} \normal G\) and \(G^{\text{ab}} = G/V \cong C_3\). Hence there are three linear characters, all of them trivial on \(V\). Thus \(A_4\) has character table
+    \[
+      \begin{array}{r|c|c|c|c}
+        & 1 & 3 & 4 & 4 \\
+        & 1 & (12)(34) & (123) & (132) \\ \hline
+        1_G & 1 & 1 & 1 & 1 \\
+        \chi_2 & 1 & 1 & \omega & \omega^2 \\
+        \chi_3 & 1 & 1 & \omega^2 & \omega \\
+        \chi_4 & 3 & -1 & 0 & 0
+      \end{array}
+    \]
+    where the last row is from orthogonality.
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  \(G\) is not simple if and only if \(\chi(g) = \chi(1)\) for some irreducible character \(\chi \neq 1_G\) and some \(1 \neq g \in G\). Moreover any normal subgroup of \(G\) is the intersection of the kernerls of some of the irreducible characters of \(G\).
+\end{lemma}
+
+\begin{proof}
+  If \(\chi(g) = \chi(1)\) for some non-principal character \(\chi\) (afforded by \(\rho\)) then \(g \in \ker \rho\) by \Cref{lemma:kernel of character}. So if \(g \neq 1\) then \(\ker \rho\) is a nontrivial proper normal subgroup of \(G\). If \(N\) is a nontrivial proper normal subgroup, take non-principal irreducible \(\tilde \chi\) of \(G/N\). Lift to get an irreducible \(\chi\), afforded by \(\rho\) of \(G\), then \(N \leq \ker \rho \normal G\). Hence \(\chi(g) = \chi(1)\) for all \(g \in N\).
+
+  Claim that if \(1 \neq N \normal G\) then \(N\) is the intersection of the kernels of the lifts of all the irreducibles of \(G/N\): \(\leq\) is clear. For \(\geq\), if \(g \in G \setminus N\) then \(gN \neq N\) so \(\tilde \chi(gN) \neq \tilde \chi(N)\) for some irreducible \(\tilde \chi\) of \(G/N\). Lifting \(\tilde \chi\) to \(\chi\) we have \(\chi(g) \neq \chi(1)\).
+\end{proof}
+
+\section{Dual spaces \& tensor products}
+
+Recall that \(\mathcal C(G)\) is the \(\C\)-space of class functions with dimension \(k\). It has an orthonormal basis \(\chi_1, \dots, \chi_k\) of irreducible characters of \(G\). There exists an involution \(f \mapsto f^*\) where \(f^*(g) = f(g^{-1})\).
+
+\subsection{Duality}
+
+\begin{lemma}[dual representation]\index{dual representation}
+  Let \(\rho: G \to \GL(V)\) be a representation over \(\F\) and let \(V^* = \Hom_\F(V, \F)\), the dual space of \(V\). Then \(V^*\) is a \(G\)-space under
+  \[
+    (\rho^*(g)\varphi)(v) = \varphi(\rho(g^{-1})),
+  \]
+  the \emph{dual representation} to \(\rho\). Its character is
+  \[
+    \chi_{\rho^*}(g) = \chi_\rho(g^{-1}).
+  \]
+\end{lemma}
+
+\begin{proof}
+  First show \(\rho^*: G \to \GL(V^*)\) is indeed a representation:
+  \begin{align*}
+    \rho^*(g_1) (\rho^*(g_2) \varphi)(v)
+    &= (\rho^*(g_2\varphi)) (\rho(g_1^{-1}) (v)) \\
+    &= \varphi(\rho(g_2^{-1}) \varphi(g_1^{-1})(v)) \\
+    &= \varphi(\rho(g_1g_2)^{-1} (v)) \\
+    &= (\rho^*(g_1g_2) \varphi)(v)
+  \end{align*}
+
+  For the character, fix \(g \in G\) and let \(e_1, \dots, e_n\) be a basis of \(V\) of eigenvectors of \(\rho(g)\), say
+  \[
+    \rho(g) e_j = \lambda_j e_j.
+  \]
+  Let \(\varepsilon_1, \dots, \varepsilon_n\) be the dual basis. Then
+  \[
+    (\rho^*(g) \varepsilon_j)(e_i)
+    = \varepsilon_j (\rho(g^{-1}) e_i)
+    = \varepsilon_j \lambda_i^{-1} e_i
+    = \lambda_j^{-1} \varepsilon_j e_i
+  \]
+  for all \(i\) so \(\rho^*(g) \varepsilon_j = \lambda_j^{-1} \varepsilon_j\). Thus
+  \[
+    \chi_{\rho^*}(g) = \sum \lambda_j^{-1} = \chi_\rho (g^{-1}).
+  \]
+\end{proof}
+
+\begin{definition}[self-dual]\index{dual representation!self-dual}
+  \(\rho: G \to \GL(V)\) is \emph{self-dual} if \(V \cong_G V^*\). Over \(\F = \C\), this holds if and only if
+  \[
+    \chi_\rho(g) = \chi_\rho(g^{-1}) = \conj{\chi_\rho(g)}
+  \]
+  if and only if \(\chi_\rho(g) \in \R\) for all \(g\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item All irreducible representations of \(S_n\) are self dual: the conjugacy classes are determined by cycle types so \(g, g^{-1}\) are always \(S_n\)-conjugate. Not always true for \(A_n\).
+  \item Permutation representations \(\C X\) are always self-dual.
+  \end{enumerate}
+\end{eg}
+
+\subsection{Tensor products}
+
+\begin{definition}[tensor product]\index{tensor product}
+  Let \(V, W\) be \(\F\)-spaces with \(\dim V = m, \dim W = n\). Fix basis \(v_1, \dots, v_m\) of \(V\), \(w_1 \dots, w_n\) of \(W\). The \emph{tensor product} space \(V \otimes_\F W\) or \(V \otimes W\) is an \(nm\)-dimensional \(\F\)-space with basis
+  \[
+    \{v_i \otimes w_j: 1 \leq i \leq m, 1 \leq j \leq n \}.
+  \]
+\end{definition}
+
+Thus
+\begin{enumerate}
+\item
+  \[
+    V \otimes W = \left\{\sum \lambda_{ij} v_i \otimes w_j: \lambda_{ij} \in \F \right\}
+  \]
+  with obvious addition and multiplicaiont.
+\item If \(v = \sum \alpha_i v_i \in V, w = \sum \beta_j w_j \in W\) define
+  \[
+    v \otimes w = \sum \alpha_i \beta_j (v_i \otimes w_j).
+  \]
+\end{enumerate}
+
+
+
 
 
 

@@ -12,6 +12,8 @@
 
 \renewcommand{\P}{\mathbb P} % projective space
 \newcommand{\w}{\wedge} % wedge product
+\DeclareMathOperator{\Pic}{Pic} % Picard group
+\DeclareMathOperator{\ord}{ord} % order
 
 \begin{document}
 
@@ -712,7 +714,7 @@ Most often \(\mathcal F(U)\) is some class of functions on \(U\) with restrictio
   \end{enumerate}
 \end{eg}
 
-\begin{definition}[morphism of (pre)sheaves]\index{sheaf!morphism}
+\begin{definition}[morphism of (pre)sheaves]\index{sheaf!morphism}\index{sheaf!isomorphism}
   A \emph{morphism} \(\alpha: \mathcal F \to \mathcal G\) of (pre)sheaves on \(X\) consists of homomorphisms \(\alpha_U: \mathcal F(U) \to \mathcal G(U)\) for all \(U \subseteq X\) open such that if \(V \subseteq U\) open then the diagram
   \[
     \begin{tikzcd}
@@ -721,6 +723,8 @@ Most often \(\mathcal F(U)\) is some class of functions on \(U\) with restrictio
     \end{tikzcd}
   \]
   commutes.
+
+  \(\alpha\) is an \emph{isomorphism} if \(\alpha|_U: \mathcal F(U) \to \mathcal G(U)\) is an isomorphism for all \(U \subseteq X\) open.
 \end{definition}
 
 \begin{definition}[short exact sequence of sheaves]\index{sheaf!short exact sequence}
@@ -746,7 +750,7 @@ Most often \(\mathcal F(U)\) is some class of functions on \(U\) with restrictio
       0 \ar[r] & \Z \ar[r, "\times 2\pi i"] & \mathcal O \ar[r, "\exp"] & \mathcal O^* \ar[r] & 0
     \end{tikzcd}
   \]
-  is exact. It is called the \emph{exponential short exact squence}. Here \(\Z\) is the \emph{constant sheaf}\index{sheaf!constant}: \(\Z(U)\) is the space of continuous functions \(U \to \Z\), i.e.\ \(\Z\)-valued locally constant functions (similarly we define the sheaf \(\C(U)\) to be continuous functions \(U \to \C\) where \(\C\) has the discrete topology).
+  is exact. It is called the \emph{exponential short exact squence}\index{exponential}\index{sheaf!short exact sequence!exponential}. Here \(\Z\) is the \emph{constant sheaf}\index{sheaf!constant}: \(\Z(U)\) is the space of continuous functions \(U \to \Z\), i.e.\ \(\Z\)-valued locally constant functions (similarly we define the sheaf \(\C(U)\) to be continuous functions \(U \to \C\) where \(\C\) has the discrete topology).
 
   The exactness of
   \[
@@ -1244,9 +1248,381 @@ The direct limit in the definition of Čech cohomology means that it is very dif
 
 \section{Holomorphic vector bundles}
 
-\begin{definition}[holomorphic vector bundle]\index{holomorphic vector bundle}
-  Let \(X\) be a complex manifold. A \emph{holomorphic vector bundle} on \(X\) is a complex manifold \(E\) with a (holomoprhic surjective) map \(\pi: E \to X\) and the structure of an \(r\) dimensional complex vector space on every fibre \(\pi^{-1}(x) = E_x\) satisfying: there is an open cover \(\{U_\alpha\}\) of \(X\) and holomorphic isomorphisms \(\varphi_\alpha: \pi^{-1}(U_\alpha) \to U_\alpha \times \C^r\) commuting with projections to \(U_\alpha\), such that the induced map \(\pi^{-1}(x) \cong \C^r\) is \(\C\)-linear.
+\begin{definition}[holomorphic vector bundle]\index{holomorphic vector bundle}\index{vector bundle}
+  Let \(X\) be a complex manifold. A \emph{holomorphic vector bundle} on \(X\) is a complex manifold \(E\) with a (holomoprhic surjective) map \(\pi: E \to X\) and the structure of an \(r\) dimensional complex vector space on every fibre \(\pi^{-1}(x) = E_x\) satisfying: there is an open cover \(\{U_\alpha\}\) of \(X\) and holomorphic isomorphisms \(\varphi_\alpha: \pi^{-1}(U_\alpha) \to U_\alpha \times \C^r\) commuting with projections to \(U_\alpha\), such that the induced map \(E|_x \cong \C^r\) is \(\C\)-linear.
 \end{definition}
+
+\begin{definition}[line bundle]\index{line bundle}
+  A \emph{(holomorphic) line bundle} is a holomorphic vector bundle of rank \(1\).
+\end{definition}
+
+Any holomorphic vector bundle induces a complex vector bundle but not vice versa.
+
+\begin{definition}[morphism of vector bundles]\index{holomorphic vector bundle!morphism}
+  Let \(\pi_E: E \to X, \pi_F: F \to X\) be holomorphic vector bundles. A \emph{morphism} \(f: E \to F\) is a holomorphic map such that
+  \begin{enumerate}
+  \item \(\pi_F \compose f = f \compose \pi_E\).
+  \item the induced map \(f_x: E_x \to F_x\) is linear.
+  \item \(\text{rank}(f_x)\) is constant.
+  \end{enumerate}
+
+  A morphism is an \emph{isomorphism} if \(f_x\) is an isomorphism for all \(x \in X\).
+\end{definition}
+
+\begin{remark}
+  In differential geometry one usually does not required 3. We include it to take kernels and cokernels bundles.
+\end{remark}
+
+Next up is a review of differential geometry. For a holomorphic vector bundle \(E\), its \emph{transition functions}
+\[
+  \varphi_{\alpha\beta} = \varphi_\alpha \compose \varphi_\beta^{-1}: (U_\alpha \cap U_\beta) \times \C^r \to (U_\alpha \cap U_\beta) \times \C^r 
+\]
+can be seen as holomorphic maps
+\[
+  \varphi_{\alpha\beta}: U_\alpha \cap U_\beta \to \GL_r(\C).
+\]
+They satisfy the \emph{cocycle conditions}\index{cocycle conditions}
+\begin{align*}
+  \varphi_{\alpha\alpha} &= \id \\
+  \varphi_{\alpha\beta} &= \varphi_{\beta\alpha}^{-1} \\
+  \varphi_{\alpha\beta} \varphi_{\beta\gamma} \varphi_{\gamma\alpha} &= \id
+\end{align*}
+which should remind us of cocyle conditions in Čech cohomology.
+
+\begin{proposition}
+  Given any open cover \(X = \bigcup U_\alpha\) and holomorphic maps \(\varphi_{\alpha\beta}: U_\alpha \cap U_\beta \to \GL_r(\C)\) satisfying the cocyle conditions, there is a holomorphic vector bundle with these transition function.
+\end{proposition}
+
+\begin{proof}
+  Same as in differential geometry.
+\end{proof}
+
+Given \(E\) and a cover \(\mathcal U = \{U_\alpha\}\) with trivialisations \(\varphi_\alpha: E|_{U_\alpha} \to U_\alpha \times \C^r\), the transition functions
+\[
+  \{\varphi_{\alpha\beta} = \varphi_\alpha \compose \varphi_\beta^{-1}\} \in C^1(\mathcal U, \GL_r(\C))
+\]
+satisfy the cocycle conditions, i.e.
+\[
+  \delta(\{\varphi_{\alpha\beta}\}) = 0
+\]
+so we obtain an element \([\varphi^E] \in H^1(X, \GL_r(\C))\) (viewing \(\GL_r(\C)\) as a group under multiplication)\footnote{Note that \(\GL_r(\C)\) is not abelian for \(r > 1\), and it is not immediately what the corresponding Čech cohomology should be. However, we'll restrict our attention to line bundles in this course.} We now specialise to line bundles so \(\GL_r(\C) = \C^*\) so they are abelian. In particular we have
+\[
+  H^1(X, \GL_r(\C)) = H^1(X, \mathcal O^*).
+\]
+
+\begin{proposition}
+  There is a canonical bijection
+  \[
+    \{\text{holomorphic line bundles up to isomorphism}\} \leftrightarrow H^1(X, \mathcal O^*).
+  \]
+\end{proposition}
+
+\begin{proof}
+  We have already constructed maps in each direction. Suppose \(L \cong F\) are isomorphic line bundles. Choose a cover \(\mathcal U = \{U_\alpha\}\) trivialising both by taking their common refinement. We have isomorphisms
+  \begin{align*}
+    \varphi_\alpha: L|_{U_\alpha} &\to U_\alpha \times \C \\
+    \sigma_\alpha: F|_{U_\alpha} &\to U_\alpha \times \C \\
+  \end{align*}
+  giving \(\varphi_{\alpha\beta}, \sigma_{\alpha\beta}\) as before. We have an isomorphism \(f: L \to F\), giving \(f_\alpha: L|_{U_\alpha} \to F|_{U_\alpha}\). Define
+  \[
+    h_\alpha = \sigma_\alpha f_\alpha \varphi_\alpha^{-1}: U_\alpha \times \C \to U_\alpha \times \C,
+  \]
+  which can alternatively be seen as a section of \(\mathcal O^*\). Moreover
+  \begin{align*}
+    (\delta h)_{\alpha\beta}
+    &= h_\alpha h_\beta^{-1} \\
+    &= \sigma_\alpha f_\alpha \varphi_\alpha^{-1} \varphi_\beta f_\beta^{-1} \sigma_\beta^{-1} \\
+    &= \sigma_\alpha f_\alpha \varphi_{\beta\alpha} f_\beta^{-1} \sigma_\beta^{-1} \\
+    &= \sigma_\alpha \varphi_{\beta\alpha} f_\alpha f_\beta^{-1} \sigma_\beta^{-1} \\
+    &= \sigma_{\alpha\beta} \varphi_{\alpha\beta}^{-1} \quad \text{as } f_\alpha f_\beta^{-1} = \id
+  \end{align*}
+  so \([\sigma] = [\tau] \in H^1(X, \mathcal O^*)\).
+
+  Conversely, let \(L\) and \(F\) be line bundles with \([\varphi] = [\sigma] \in H^1(X, \mathcal O^*)\). This means that there is \(h = \{h_\alpha\} \in C^0(\mathcal U, \mathcal O^*)\) with
+  \[
+    (\delta h)_{\alpha\beta} = \varphi_{\alpha\beta}^{-1} \sigma_{\alpha\beta}.
+  \]
+  Let
+  \[
+    f_\alpha = \sigma_\alpha^{-1} h_\alpha \varphi_\alpha: L|_{U_\alpha} \to F|_{U_\alpha}.
+  \]
+  We claim the \(f_\alpha\)'s induce an isomorphism \(f: L \to M\), i.e.\ \(f_\alpha f_\beta^{-1} = \id\) on \(U_\alpha \cap U_\beta\). Indeed
+  \[
+    f_\alpha f_\beta^{-1} = \sigma_\alpha^{-1} h_\alpha \varphi_\alpha \varphi_\beta^{-1} h_\beta^{-1} \sigma_\beta = \id
+  \]
+  as before.
+\end{proof}
+
+Note that we did not use any properties of holomorphicity so analogous results hold in other smooth/analytic etc categories.
+
+\begin{remark}
+  A similar result is true for vector bundles of all ranks, with the right definition of Čech coholomogy for sheaves of (non-abelian) groups. See course website.
+\end{remark}
+
+\begin{definition}[Picard group]\index{Picard group}
+  We define the \emph{Picard group} \(\Pic(X)\) to be the set of line bundles on \(X\) up to isomorphism.
+\end{definition}
+
+\begin{proposition}
+  \(\Pic(X)\) is a group under tensor product of line bundles and
+  \[
+    \Pic(X) \cong H^1(X, \mathcal O^*).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Easiest proof is using transition functions. The transition functions for \(L \otimes F\) are
+  \[
+    \varphi_{\alpha\beta} \otimes \sigma_{\alpha\beta} \in \mathcal O^*(U_\alpha \cap U_\beta)
+  \]
+  so \(L \otimes L^* \cong \mathcal O\) and \(L \otimes \mathcal O \cong L\).
+\end{proof}
+
+\begin{eg}
+  Any linear algebra operator gives an operation on vector bundles:
+  \begin{enumerate}
+  \item \(E \oplus F\): transition functions are \(\varphi_{\alpha\beta} \oplus \sigma_{\alpha\beta} \in \GL_{r + r'}(\C)\).
+  \item \(E \otimes F\): transition functions \(\varphi_{\alpha\beta} \otimes \sigma_{\alpha\beta} \in \GL(\C^r \otimes \C^{r'})\).
+  \item \(\Lambda^kE\): transition functions \(\Lambda^k \varphi_{\alpha\beta}\). If \(k = r\) we write \(\Lambda^r E = \det E\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[section]\index{section}
+  A \emph{(holomorphic) section} \(s\) of a vector bundle \(\pi: E \to X\) over \(U \subseteq X\) is a holomorphic map \(s: U \to E\) with \(\pi \compose s = \id\). We write \(\mathcal O(E)\) for the sheaf of holomorphic sections of \(E\).
+\end{definition}
+
+Note that the sheaf of holomorphic functions \(\mathcal O\) can be seen as the sheaf of sections of \(X \times \C\), which we have implicitly used in the proof above.
+
+\begin{definition}[subsheaf]\index{sheaf!subseaf}
+  If \(\mathcal F\) is a sheaf on \(X\) and \(U \subseteq X\) open then the \emph{subsheaf} of \(\mathcal F\) on \(U\) is \(\mathcal F|_U(V) = \mathcal F(V)\) for all \(V \subseteq U\) open.
+\end{definition}
+
+\begin{definition}[locally free sheaf]\index{sheaf!locally free}
+  A sheaf \(\mathcal F\) is \emph{locally free of rank \(r\)} if for all \(x \in X\) there is an open set \(x \in U \subseteq X\) open with
+  \[
+    \mathcal F|_U \cong \mathcal O^{\oplus r}|_U.
+  \]
+\end{definition}
+
+\begin{proposition}
+  Associating to a holomorphic vector bundle its sheaf of sections gives a canonical bijection between
+\[
+  \{\text{vector bundles up to isomorphism}\} \leftrightarrow \{\text{locally free sheaves up to isomorphism}\}.
+\]
+\end{proposition}
+
+\begin{proof}
+  Clearly the sheaf of sections of \(E\) is locally free as \(E\) is locally isomorphic to \(U_\alpha \times \C^r\) by definition. Conversely, if we have trivialisations
+  \[
+    \varphi_\alpha: \mathcal F|_{U_\alpha} \to \mathcal O^{\oplus r}|_{U_\alpha}
+  \]
+  then the transition maps
+  \[
+    \varphi_{\alpha\beta} = \varphi_\alpha \compose \varphi_\beta^{-1}: \mathcal O^{\oplus r} (U_\alpha \cap U_\beta) \to \mathcal O^{\oplus r} (U_\alpha \cap U_\beta),
+  \]
+  which are isomorphisms by definition, are given by a matrix of holomorphic functions on \(U_\alpha \cap U_\beta\), giving a cocycle and hence a holomorphic vector bundle. Checking these maps are inverses to each other is straightforward.
+\end{proof}
+
+Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the cohomology of its sheaf of sections
+\[
+  H^i(X, E) = H^i(X, \mathcal O(E)).
+\]
+
+\begin{eg}[holomorphic tangent bundle]\index{holomorphic tangent bundle}
+  Recall \(TX^{1, 0}\), the holomorphic tangent bundle. We show this indeed is a holomorphic vector bundle.
+
+  Let \(X = \bigcup U_\alpha\) be an open covering by chart neighbourhoods \((U_\alpha, \varphi_\alpha)\). The Jacobian of a transition map is
+  \[
+    J(\varphi_{\alpha\beta})(z) = \left( \frac{\partial \varphi_{\alpha\beta}^\gamma}{\partial z^\delta} (\varphi_\beta(z)) \right)_{\gamma, \delta}.
+  \]
+  Then by example sheet 1 Q1, \(TX^{1, 0}\) has transition functions
+  \[
+    \psi_{\alpha\beta} = J(\varphi_{\alpha\beta}) \in \GL_n(\C) (U_\alpha \cap U_\beta).
+  \]
+
+  \begin{definition}[canonical line bundle]\index{canonical line bundle}
+    The \emph{canonical line bundle} of \(X\) is defined to be
+    \[
+      K_X = \det T^*X^{1, 0}
+    \]
+    where \(T^*X^{1, 0} = (TX^{1, 0})^*\) and \(\det E = \Lambda^n E\).
+\end{definition}
+\end{eg}
+
+\begin{eg}[tautological line bundle]\index{tautological line bundle}
+  We construct line bundles on \(\P^n\). Each point \(\ell \in \P^n\) corresponds to a line through \(0\) in \(\C^{n + 1}\). Consider the set
+  \[
+    \mathcal O(-1) = \{(\ell, z) \in \P^n \times \C^{n + 1}: z \in \ell\}.
+  \]
+  We claim that this is a holomorphic line bundle \(\mathcal O(-1) \to \P^n\). Let \(\P^n = \bigcup_{\alpha = 0}^n U_\alpha\) be the standard cover. A trivialisation of \(\mathcal O(-1)\) over \(U_\alpha\) is given by
+  \begin{align*}
+    \psi_\alpha: \pi^{-1}(U_\alpha) &\to U_\alpha \times \C \\
+    (\ell, z) &\mapsto (\ell, z_\alpha)
+  \end{align*}
+  The transition functions are
+  \begin{align*}
+    \psi_{\alpha\beta}(\ell): \C &\to \C \\
+    z &\mapsto \frac{\ell_\beta}{\ell_\alpha} z
+  \end{align*}
+  if \(\ell = [\ell_0 : \dots : \ell_n]\).
+
+  Need to check \(\mathcal O(-1)\) is a complex manifold. If \((U_\alpha, \varphi_\alpha)\) is a chart on \(\P^n\), define chart
+  \[
+    \hat \varphi_\alpha = (\varphi_\alpha \times \id) \compose \psi_\alpha: \pi^{-1}(U_\alpha) \to \C \times \C^n.
+  \]
+  \(\mathcal O(-1)\) is called the \emph{tautological line bundle}. \(\mathcal O(1) = \mathcal O(-1)^*\) is the \emph{hyperplane line bundle}\index{hyperplane line bundle}. Finally define
+  \begin{align*}
+    \mathcal O(k) &= \mathcal O(1)^{\otimes k} & k > 0 \\
+    \mathcal O(k) &= \mathcal O(-1)^{\otimes k} & k < 0 \\
+    \mathcal O(0) &= \mathcal O
+  \end{align*}
+  We will show \(\Pic(\P^n) \cong \Z\) with generator \(\mathcal O(1)\).
+\end{eg}
+
+\begin{eg}
+  If \(p: Y \to X\) is a morphism, \(E \to X\) is a holomorphic vector bundle then one obtains the \emph{pullback bundle}\index{pullback bundle} \(p^*E \to Y\) by simply pulling back transition functions. We write \(E|_Y\) if \(Y \subseteq X\) to the pullback under the inclusion map.
+
+  If \(X\) is projective, \(X \subseteq \P^n\), then \(X\) has a natural line bundle \(\mathcal O(1)|_X \to X\).
+\end{eg}
+
+We now relate sections of line bundles, codimension \(1\) submanifolds and meromorphic functions.
+
+By the implicit function theorem, a subset \(Y \subseteq X\) is a closed complex manifold if and only if for all \(p \in X\) there exists a chart neighbourhood \((U, \varphi)\) of \(p\) and holomorphic functions \(f_1, \dots, f_k: U \to \C\) such that \(0\) is a regular value of \((f_1 \compose \varphi^{-1}, \dots, f_k \compose \varphi^{-1})\) and
+\[
+  Y \cap U = \bigcap_{i = 1}^k f_i^{-1}(0).
+\]
+
+Recall that if \(U \subseteq \C^n\) is open, \(f: U \to \C^k\) holomorphic then
+\[
+  J(f)(z) = \left( \frac{\partial f_\alpha}{\partial z^\beta}(z) \right)_{\substack{1 \leq \alpha \leq k \\ 1 \leq \beta \leq n}}.
+\]
+\(z \in U\) is regular if \(J(f)(z)\) is surjective. If every point \(z \in f^{-1}(w)\) is regular, \(w\) is a called a regular value.
+
+\begin{definition}[analytic subvariety]\index{analytic subvariety}
+  Let \(X\) be a complex manifold. An \emph{analytic subvariety} of \(X\) is a closed subset \(Y \subseteq X\) such that for all \(p \in X\), there is a neighbourhood \(U\) of \(p\) in \(X\) and holomorphic functions \(f_1, \dots, f_k\) with
+  \[
+    Y \cap U = \bigcap_{i = 1}^k f_i^{-1}(0).
+  \]
+
+  Say \(y \in Y\) is \emph{regular} or \emph{smooth} if one can choose the \(f_i\)'s such that \(0\) is regular.
+\end{definition}
+
+By implicit function theorem, if \(Y^{\text s}\) denotes the points which are not regular, then connected components of \(Y^* = Y \setminus Y^{\text s}\) are naturally complex manifolds.
+
+\begin{definition}[irreducible]\index{analytic subvariety!irreducible}
+  An analytic subvariety \(Y\) is \emph{irreducible} if it cannot be written as \(Y = Y_1 \cup Y_2\) where \(Y_1, Y_2\) are analytic subvarieties with \(Y \neq Y_1, Y \neq Y_2\).
+\end{definition}
+
+\begin{definition}
+  For \(Y\) an irreducible analytic subvariety, we define
+  \[
+    \dim Y = \dim Y^*.
+  \]
+  Similarly if each irreducible compoenent has the same dimension.
+
+\end{definition}
+
+If \(\operatorname{codom} Y = 1\) then \(Y\) is an analytic hypersurface.
+
+\section{Commutative algebra on complex manifolds}
+
+Recall that if \(\mathcal F\) is a sheaf on \(X\) and \(x \in X\) we denote by \(\mathcal F_x\) the \emph{stalk}\index{stalk} of \(\mathcal F\) at \(x\).
+
+On \(\C^n\) denote by \(\mathcal O_{\C^n}\) the sheaf of holomorphic functions and set \(\mathcal O_n = \mathcal O_{\C^n, 0}\). Elements of \(\mathcal O_n\) are of the form \((U, f)\) where \(0 \in U\) and \(f \in \mathcal O_{\C^n(U)}\), and \((U, f) = (V, g)\) if there is an open \(W \subseteq U \cap V\) such that \(f|_W = g|_W\).
+
+If \(X\) is an \(n\)-dimensional complex manifold, \(\mathcal O_X\) is the sheaf of holomorphic functions. Have
+\[
+  \mathcal O_{X, x} \cong \mathcal O_n
+\]
+for any \(x \in X\). We call elements of \(\mathcal O_{X, x}\) \emph{germs}\index{germ} of holomorphic functions.
+
+\(\mathcal O_n\) is a local ring, in the sense that it has a unique maximal ideal \(\{f: f(0) = 0\}\). Functions not vanishing at \(0\) are invertible. These are the units of the ring.
+
+We now state several results about \(\mathcal O_n\), proved using commutative algebra and complex analysis. We shall not prove them but proofs can be found in Huybrechts Chapter 1.
+
+\begin{theorem}
+  \(\mathcal O_n\) is a UFD.
+\end{theorem}
+
+\begin{theorem}[weak Nullstellensatz]
+  Let \(f, g \in \mathcal O_n\) with \(f\) irreducible, \(U\) a neighbourhood on which \(f, g\) are defined. suppose \(\{f = 0\} \cap U \subseteq \{g = 0\} \cap U\) then \(f\) divides \(g\) in \(\mathcal O_n\), i.e.\ \(\frac{g}{f}\) is holomorphic near \(0\).
+\end{theorem}
+
+\begin{definition}[thin]\index{thin}
+  Let \(U \subseteq \C^n\) open. Call a set \(V \subseteq U\) \emph{thin} if \(V\) is locally contained in the vanishing set of a set of holomorphic functions.
+\end{definition}
+
+\begin{theorem}\leavevmode
+  \label{thm:thin set}
+  \begin{enumerate}
+  \item Suppose \(f \in \mathcal O_n\) is irreducible. Then there is a thin set \(V\) of codimension \(2\) and an open set \(U\) such that \(f \in \mathcal O_p\) is irreducible for all \(p \in U \setminus V\).
+  \item If \(f, g \in \mathcal O_n\) coprime then there are \(U, V\) as above such that \(f, g\) are coprime in \(\mathcal O_p\) for all \(p \in U \setminus V\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+  Huybrechts Proposition 1.1.35 claims that one can take \(V = \emptyset\), but this is false by counterexample: \(y^2 - xz^3\) is irreducible at \(0 \in \C^3\) but not at \((x_0, 0, 0)\) for \(x_0\) near \(0\). Instead the proof shows the statement above.
+\end{remark}
+
+\begin{definition}[local defining equation]\index{local defining equation}
+  Let \(X\) be a complex manifold and \(Y \subseteq X\) an analytic hypersurface. If \(p \in Y\) then there is an open neighbourhood \(p \in U \subseteq X\) and \(f \in \mathcal O_X(U)\) with \(Y \cap U = f^{-1}(0) \cap U\). Such an \(f\) is called a \emph{local defining equation} for \(Y\).
+\end{definition}
+
+If \(f\) and \(g\) are both defining equations for \(Y\) and \(f = f_1 \cdots f_n, g = g_1 \cdots g_m\) where \(f_i, g_j\)'s are irreducible then by UFD and weak Nullstellensatz \(f_i = g_i\) and \(n = m\).
+
+\begin{theorem}
+  Let \(Y\) be an analytic hypersurface. Then \(Y^*\) is an open dense subset of \(Y\). \(Y^*\) is connected if and only if \(Y\) is irreducible. \(Y^{\text s}\) is contained in an analytic subvariety (of \(X\)) of codimension at least 2.
+\end{theorem}
+
+\section{Meromorphic functions and divisors}
+
+\begin{definition}[meromorphic function]\index{meromorphic function}
+  Let \(X\) be a complex manifold and \(U \subseteq X\) open. A \emph{meromorphic function} on \(U\) is a map \(f: U \to \coprod_{p \in U} K_p\) where \(K_p\) is the field of fractions of \(\mathcal O_p\), such that for all \(p \in U\), \(f(p) \in K_p\) and there is a neighbourhood \(V \subseteq U\) of \(p\) and \(g, h \in \mathcal O_X(V)\) with \(f(q) = \frac{g}{h}\) for all \(q \in V\).
+
+  We denote by \(\mathcal K\) the corresponding sheaf, and \(\mathcal K^*\) the sheaf of meromorphic functions not identically \(0\).
+\end{definition}
+
+\begin{ex}
+  Equivalently, one can specify \(f|_{U_\alpha} = \frac{g_\alpha}{h_\alpha}\) where \(g_\alpha, h_\alpha \in \mathcal O(U_\alpha)\).
+\end{ex}
+
+A meromorphic ``function'' is undefined (even as \(\infty\)) at point \(p\) where \(g(p) = h(p) = 0\).
+
+\begin{definition}
+  Let \(Y \subseteq X\) be an analytic hypersurface, \(p \in Y\) regular, \(f\) a local defining function at \(p\). For \(g \in \mathcal O_{X, p}\), we define the \emph{order} of \(g\) along \(Y\) at \(p\) to be
+  \[
+    \ord_{Y, p}(g) = \max_{a \in \N} \{a: f^a \text{ divides } g \text{ in } \mathcal O_{X, p}\}.
+  \]
+  It is well-defined as \(\mathcal O_{X, p}\) is a UFD and is finite.
+\end{definition}
+
+\begin{lemma}
+  There is a neighboudhood \(U\) of \(p\), a thin set \(V\) of codimension \(2\) such that if \(q \in (U \setminus V) \cap Y\) then
+  \[
+    \ord_{Y, p}(g) = \ord_{Y, q}(g).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Use \Cref{thm:thin set}.
+\end{proof}
+
+\begin{definition}[order]\index{order}
+  We define the \emph{order} of \(g\) along \(Y\), \(Y\) irreducible to be
+  \[
+    \ord_Y(g) = \ord_{Y, p}(g)
+  \]
+  for any \(p \in Y^*\) away from the thin set in the lemma.
+\end{definition}
+
+Here we used \(Y^*\) is tnin and \(V\) has codimension 2 in \(X\).
+
+If \(g, h\) are holomorphic around \(p\) then
+\[
+  \ord_Y (gh) = \ord_Y (g) + \ord_Y (h).
+\]
+
+
 
  
 

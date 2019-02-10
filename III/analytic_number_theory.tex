@@ -299,7 +299,7 @@ Recall that
 
 \begin{theorem}
   \[
-    \sum_{1 \leq n \leq x} \tau(n) = x \log x + (2 \tau - 1) x + O(x^{1/2})
+    \sum_{1 \leq n \leq x} \tau(n) = x \log x + (2 \gamma - 1) x + O(x^{1/2})
   \]
   so in particular average order of \(\tau\) is \(\log\).
 \end{theorem}
@@ -365,7 +365,7 @@ As a side note, asymptotic bounds such as \(\log \log n\) are quite common in an
     \frac{\tau(n)}{n^\varepsilon}
     = \prod_{i = 1}^r \frac{k_i + 1}{p^{k_i\varepsilon}}.
   \]
-  Now enters the trick: split into big and small cases. Note as \(p\) goes large, \(\frac{k + 1}{p^{k \varepsilon}} \to 0\). In particular if \(p \geq 2^{1/\varepsilon}\) then
+  Now entering the trick: split into big and small cases. Note as \(p\) goes large, \(\frac{k + 1}{p^{k \varepsilon}} \to 0\). In particular if \(p \geq 2^{1/\varepsilon}\) then
   \[
     \frac{k + 1}{p^{k\varepsilon}} \leq \frac{k + 1}{2^k} \leq 1.
   \]
@@ -637,7 +637,7 @@ Thus use some questionable squiggles,
 \]
 This constant is approximately \(1.122\dots\), which contradicts Chebyshev's theorem. Therefore somehow the heuristics is wrong: it gives 12\% more prime than should.
 
-One reason is that the error terms are so close to the main term that when we do \(\approx\) they accummulate and excees the main term. Another reason is of course that the ``independence'' of primes are completely false. From an analytic point of view, this can be seen as saying that the ``interference terms'' are not so small that they are be instead.
+One reason is that the error terms are so close to the main term that when we do \(\approx\) they accummulate and excees the main term. Another reason is of course that the ``independence'' of primes are completely false. From an analytic point of view, this can be seen as saying that the ``interference terms'' are not so small that they can be ignored.
 
 This may explain why heuristics don't work. But can we bound \(\pi\) by elementary methods? Recall that \(\mu * \log = \Lambda\) so
 \begin{align*}
@@ -726,7 +726,7 @@ but now this is now an acceptable error!
   \end{enumerate}
 \end{proof}
 
-As such while \(\Lambda\) can be thought as the indicator function for numbers with exactly 1 prime divisor, weighted by \(\log\), \(\Lambda_2\) can be thought as the indicator function for numbers with a pair of prime divisors, weighted by \((\log^2)\).
+As such while \(\Lambda\) can be thought as the indicator function for numbers with exactly 1 prime divisor, weighted by \(\log\), \(\Lambda_2\) can be thought as the indicator function for numbers with a pair of prime divisors, weighted by \((\log)^2\).
 
 \begin{theorem}[Selberg]
   \[
@@ -851,7 +851,7 @@ We will demonstrate how to count from 1 to 14 below. When you finished counting,
 
 \section{Sieve methods}
 
-Motivation example sieve of Eratosthenes: given natural numbers below \(20\), let's cross out all multiples of \(2\) to get
+Sieve of Eratosthenes: given natural numbers below \(20\), let's cross out all multiples of \(2\) to get
 \[
   \begin{array}{cccccccccc}
     1 & \cancel 2 & 3 & \cancel 4 & 5 & \cancel 6 & 7 & \cancel 8 & 9 & \cancel{10} \\
@@ -913,7 +913,7 @@ the probability that it is not divisible by any of the \(p\).
     \]
     so \(f(d) = 1\) and \(R_d = O(1)\). Have
     \[
-      S(A, P; z) = \#\{x < n \leq x + y: \text{ if } p \divides n \text{ then } p \geq z\}.
+      S(A, P; z) = \#\{x < n \leq x + y: p \divides n \implies p \geq z\}.
     \]
     For example if \(z \approx (x + y)^{1/2}\) then
     \[
@@ -999,7 +999,7 @@ By taking \(x = 0\) we see this is much worse bound in \(y\) than Chebyshev. On 
 
 \subsection{Selberg's sieve}
 
-Using sieve of Eratosthenes-Legendre, we only get \(\frac{y}{\log\log y}\) instead of the expected \(\frac{y}{\log y}\). What prevents us from getting the result is that we can't take \(z = y\) --- otherwise the error term will \(O(2^z) = O(2^y)\), which is much bigger than the main term.
+Using sieve of Eratosthenes-Legendre, we only get \(\frac{y}{\log\log y}\) instead of the expected \(\frac{y}{\log y}\). What prevents us from getting the result is that we can't take \(z = y\) --- otherwise the error term will be \(O(2^z) = O(2^y)\), which is much bigger than the main term.
 
 The problem is that we have to consider \(2^z\) many divisors of \(P(z)\) so get \(2^z\) many error terms. However, we can design a different sieve, and only consider those divisors which are small, say \(\leq D\). The key part of Eratosthenes-Legendre sieve is
 \[
@@ -1019,7 +1019,7 @@ Selberg's observation was that if \((\lambda_i)\) is any sequence of reals with 
 \]
 works.
 
-We assume that \(0 < f(p) < p\) for \(p \in P\), which is a reasonable assumption for the sieve to be ``nontrivial'' (if \(f(p) = 0\) then the sieve does nothing and may well just remove \(p\) from \(P\). If \(f(p) = p\) then it sifts out everything!) The let us define a new multiplicative function \(g\) such that
+We assume that \(0 < f(p) < p\) for \(p \in P\), which is a reasonable assumption for the sieve to be ``nontrivial'' (if \(f(p) = 0\) then the sieve does nothing and we may well just remove \(p\) from \(P\). If \(f(p) = p\) then it sifts out everything!) The let us define a new multiplicative function \(g\) such that
 \[
   g(p) = \left( 1 - \frac{f(p)}{p} \right)^{-1} - 1 = \frac{f(p)}{p - f(p)}.
 \]
@@ -1060,7 +1060,7 @@ Let's apply our new machinery:
     &= \sum_{\substack{d \divides P(z) \\ d < z}} \prod_{p \divides d} (p - 1)^{-1} \\
     &= \sum_{d = p_1 \cdots p_r < z} \prod_{i = 1}^r \sum_{k = 1}^\infty \frac{1}{p_i^k} \\
     &= \sum_{\substack{p_1 \cdots p_r < z \\ 1 \leq i \leq r}} \sum_{k_i = 1}^\infty \frac{1}{p_1^{k_1} \cdots p_r^{k_r}} \\
-    &= \sum \frac{1}{n} \quad \text{sum over \(n\) whose square-free part \(< z\)} \\
+    &= \sum \frac{1}{n} \quad \text{square-free part of \(n\) \(< z\)} \\
     &\geq \sum_{d < z} \frac{1}{d} \\
     &\gg \log z
   \end{align*}
@@ -1105,10 +1105,574 @@ Let's apply our new machinery:
 
   Now to the main term. Let
   \[
-    V = X \sum_{d, e \divides P(z)} \lambda_d \lambda_e \frac{f([d, e])}{[d, e]}.
+    V = \sum_{d, e \divides P(z)} \lambda_d \lambda_e \frac{f([d, e])}{[d, e]}.
   \]
-  Write \([d, e] = abc\) where \(d = ab, e = bc\) and \((a, b) = (b, c) = (a, c) = 1\).
+  Write \([d, e] = acb\) where \(d = ac, e = bc\) and \((a, b) = (b, c) = (a, c) = 1\). We also require \(\lambda_d = 0\) if \(d\) is not square-free so the last two conditions are automatically satisfied, leaving the notations a bit clearer.
+  \begin{align*}
+    V
+    &= \sum_{c \divides P(z)} \frac{f(c)}{c} \sum_{\substack{ab \divides P(z) \\ (a, b) = 1}} \frac{f(a)f(b)}{ab} \lambda_{ac} \lambda_{bc} \\
+    &= \sum_{c \divides P(z)} \frac{f(c)}{c} \sum_{ab \divides P(z)} \frac{f(a)}{a} \frac{f(b)}{b} \sum_{d \divides a, d \divides b} \mu(d) \lambda_{ac} \lambda_{bc} \\
+    &= \sum_{c \divides P(z)} \frac{f(c)}{c} \sum_{d \divides P(z)} \mu(d) \left( \sum_{d \divides a \divides P(z)} \frac{f(a)}{a} \lambda_{ac} \right)^2 \\
+    &= \sum_{d \divides P(z)} \mu(d) \sum_{c \divides P(z)} \frac{c}{f(c)} \left( \sum_{cd \divides n \divides P(z)} \frac{f(n)}{n} \lambda_n \right)^2 \quad \text{write \(ac = n\)} \\
+    &= \sum_{d \divides P(z)} \mu(d) \sum_{c \divides P(z)} \frac{c}{f(c)} y^2_{cd} \\
+    &= \sum_{k \divides P(z)} \left( \sum_{cd = k} \mu(d) \frac{c}{f(c)} \right) y_k^2
+  \end{align*}
+  The term in the brackets is a convolution so we want to simply it. Note that both functions are multiplicative so suffice to work out the primes. For prime \(p\),
+  \[
+    \sum_{cd = p} \mu(d) \frac{c}{f(c)}
+    = -1 + \frac{p}{f(p)} = \frac{1}{g(p)}
+  \]
+  and thus for all \(k \divides P(z)\),
+  \[
+    \sum_{cd = k} \mu(d) \frac{c}{f(c)} = \frac{1}{g(k)}.
+  \]
+  Note that if \(k \geq t\) then \(y_k = 0\). Thus
+  \[
+    V = \sum_{\substack{k \divides P(z) \\ k < t}} \frac{y_k^2}{g(k)}.
+  \]
+  We want to choose \(V\) as small as possible. The idea is to find a lower bound for \(V\) and use Cauchy-Schwarz to find the condition on the summands.
+
+  Note that we have now expressed \(V\) in terms of \(y_k\), which is determined by \(\lambda_d\):
+  \[
+    y_k = \sum_{k \divides n \divides P(z)} \frac{f(n)}{n} \lambda_n.
+  \]
+  We would like to invert the relation, so that we can directly control \(y_k\). Use a Möbius inversion heuristics, for a fixed \(d\),
+  \begin{align*}
+    \sum_{d \divides k \divides P(z)} \mu(k) y_k
+    &= \sum_{k \divides P(z)} \mu(k) \sum_{n \divides P(z)} \frac{f(n)}{n} \lambda_n 1_{d \divides k} 1_{k \divides n} \\
+    &= \sum_{n \divides P(z)} \frac{f(n)}{n} \lambda_n 1_{d \divides n} \sum_{d \divides k \divides n} \mu(k)
+  \end{align*}
+  For the last summation, note that \(k = de\) is square-free so
+  \[
+    \sum_{d \divides k \divides n} \mu(k)
+    = \mu(d) \sum_{e \divides \frac{n}{d}} \mu(e)
+    =
+    \begin{cases}
+      \mu(d) & n = d \\
+      0 & n > d
+    \end{cases}
+  \]
+  by multiplicativity. Thus
+  \[
+    \sum_{d \divides k \divides P(z)} \mu(k) y_k
+    = \mu(d) \frac{f(d)}{d} \lambda_d
+  \]
+  Thus instead of choosing \(\lambda_d\), we can choose \(y_k\) to make \(V\) small.
+
+  Recall that \(\lambda_1 = 1\) so must have
+  \[
+    \sum_{k \divides P(z)} \mu(k) y_k = 1.
+  \]
+  Thus
+  \begin{align*}
+    1
+    &= \left( \sum_{\substack{k \divides P(z) \\ k < t}} \mu(k) y_k g(k)^{1/2} \cdot \frac{1}{g(k)^{1/2}} \right)^2 \\
+    &\leq \left( \sum_{\substack{k \divides P(z) \\ k < t}} g(k) \right) \left( \sum_{\substack{k \divides P(z) \\ k < t}} \frac{y_k^2}{g(k)} \right) \\
+    &= GV
+  \end{align*}
+  where \(G = G(t, z)\) by Cauchy-Schwarz, with equaility if and only if there exists \(c\) such that for all \(k\),
+  \[
+    \frac{\mu(k) y_k}{g(k)^{1/2}} = c g(k)^{1/2}
+  \]
+  i.e.
+  \[
+    y_k = c \mu(k) g(k)
+  \]
+  for \(k < t\). To find \(c\), use the normalisation condition
+  \[
+    1 = c \sum_{\substack{k \divides P(z) \\ k < t}} \mu(k)^2 g(k) = cG
+  \]
+  so choose \(c = \frac{1}{G}\). Check that
+  \begin{enumerate}
+  \item \(\lambda_1 = 1\),
+  \item \(\lambda_d = 0\) if \(d \geq t\),
+  \item \(\lambda_d = 0\) if \(d\) is square-free (lecturer said this condition is actually not necessary).
+  \item \(|\lambda_d| \leq 1\). Can be checked as follow:
+    \begin{align*}
+      \lambda_d
+      &= \mu(d) \frac{d}{f(d)} \sum_{d \divides k \divides P(z)} \mu(k) y_k \\
+      &= \frac{d}{f(d)} \frac{1}{G} \sum_{d \divides k \divides P(z)} g(k).
+    \end{align*}
+    Note that
+    \begin{align*}
+      G
+      &= \sum_{\substack{e \divides P(z) \\ e < t}} g(e) \\
+      &= \sum_{k \divides d} \sum_{\substack{e \divides P(z) \\ e < t \\ (d, e) = k}} g(e) \quad \text{for fixed \(d\)} \\
+      &= \sum_{k \divides d} g(k) \sum_{\substack{m \divides P(z) \\ (m, d) = 1 \\ m < t/k}} g(m) \\
+      &\geq \sum_{k \divides d} g(k) \sum_{\substack{m \divides P(z) \\ (m, d) = 1 \\ m < t/d}} g(m)
+    \end{align*}
+    Note that for prime \(p\),
+    \[
+      \sum_{k \divides p} g(k)
+      = 1 + \frac{f(p)}{p - f(p)}
+      = \frac{p}{p - f(p)}
+      = \frac{p}{f(p)} g(p)
+    \]
+    so
+    \[
+      G
+      \geq \frac{d}{f(d)} g(d) ( \sum_{\substack{m \divides P(z) \\ (m, d) = 1 \\ m < t/d}} g(m))
+      = \frac{d}{f(d)} \sum_{d \divides k \divides P(z)} g(k)
+      = |\lambda_d| G
+    \]
+    so \(|\lambda_d| \leq 1\).
+  \end{enumerate}
 \end{proof}
+
+\begin{theorem}[Brun]
+  Let \(\pi_2(x) = \#\{1 \leq n \leq x: n, n + 2 \text{ are prime}\}\). Then
+  \[
+    \pi_2(x) \ll \frac{x}{(\log x)^2}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(A = \{n (n + 2): 1 \leq n \leq x\}\), \(P\) be the the set of all primes except \(2\). Have
+  \[
+    |A_d| = \#\{1 \leq n \leq x: d \divides n (n + 2)\}
+  \]
+  If \(d = p_1 \cdots p_r\) is odd and square-free then \(d \divides n(n + 2)\) if and only if \(p_i \divides n(n + 1)\) for all \(i\), if and only if \(n = 0 \text{ or } -2 \mod p_i\) for all \(i\), and Chinese remainder theorem, if and only if \(n\) lies in one of \(2^{\omega(d)}\) many residue classes mod \(d\). Thus
+  \[
+    |A_d| = \frac{2^{\omega(d)}}{d} X + O(2^{\omega(d)})
+  \]
+  so \(f(d) = 2^{\omega(d)}\) and \(R_d \ll 2^{\omega(d)}\) for \(d\) odd square-free. By \nameref{thm:Selberg's sieve}, with \(t = z = x^{1/4}\),
+  \begin{align*}
+    \pi_2(x)
+    &\leq \#\{1 \leq n \leq x: p \divides n(n + 2) \implies p = 2 \text{ or } p \geq x^{1/4}\} + O(x^{1/4}) \\
+    &= S(A, P; x^{1/4}) + O(x^{1/4}) \\
+    &\leq \frac{x}{G(z, z)} + O(\sum_{\substack{d \divides P(z) \\ d < z^2}} 6^{\omega(d)})
+  \end{align*}
+  As before
+  \[
+    \sum_{d < z^2} 6^{\omega(d)} \leq z^{2 + O(1)} = x^{1/2 + O(1)}.
+  \]
+  To finish the proof need to show \(G(z, z) \gg (\log z)^2\). Note that \(g(2) = 2\) and 
+  \[
+    g(p) = \frac{f(p)}{p - f(p)} = \frac{2}{p - 2} \geq \frac{2}{p - 1},
+  \]
+  so if \(d\) is odd and square-free then
+  \[
+    g(d) \geq \frac{2^{\omega(d)}}{\varphi(d)}.
+  \]
+  so
+  \begin{align*}
+    G(z, z)
+    &\geq \sum_{\substack{d < z \\ d \text{ odd, square-free}}} \frac{2^{\omega(d)}}{\varphi(d)} \\
+    &= \sum_{d = p_1 \cdots p_r < z} 2^{\omega(d)} \prod_{i = 1}^r \left( \frac{1}{p_i} + \frac{1}{p_i^2} + \cdots \right) \\
+    &\geq \sum_{d < z} \frac{2^{\omega(d)}}{d}
+  \end{align*}
+  By partial summation, it's enough to show \(\sum_{d < z} 2^{\omega(d)} \gg z \log z\). Recall that to show
+  \[
+    \sum_{d < z} \tau(d) \gg z \log z
+  \]
+  we used \(\tau = 1 * 1\). So we need to write \(2^{\omega(n)}\) as a convolution of multiplicative functions. Suppose
+  \[
+    2^{\omega(n)} = \sum_{d \divides n} f(d) g(\frac{n}{d})
+  \]
+  where \(f, g\) are multiplicative. We can actually write down values of \(f\) at prime powers:
+  \begin{enumerate}
+  \item[\(1\)]: \(f(1) = g(1) = 1\)
+  \item[\(p\)]: \(2 = f(p) + g(p)\)
+  \item[\(p^2\)]: \(2 = g(p^2) + f(p^2) + f(p)g(p)\).
+  \end{enumerate}
+  Let's say try \(f = \tau\), so \(g(p) = 0\), \(g(p^2) = -1\), \(g(p^k) = 0\) for \(k \geq 3\). Therefore
+  \[
+    g(n) =
+    \begin{cases}
+      0 & n \text{ not a square} \\
+      \mu(d) & n = d^2
+    \end{cases}
+  \]
+  and
+  \[
+    2^{\omega(n)} = \sum_{d \divides n} \tau(d) g(\frac{n}{d}).
+  \]
+  Therefore
+  \begin{align*}
+    \sum_{d < z} 2^{\omega(d)}
+    &= \sum_{a < z} g(a) \sum_{b \leq z/a} \tau(b) \\
+    &= \sum_{a < z} g(a) \left( \frac{z}{a} \log \frac{z}{a} + (2\gamma - 1) \frac{z}{a} + O(\sqrt{z/a}) \right) \\
+    &= \sum_{a < z} g(a) \frac{z}{a} \log \frac{z}{a} + C \sum_{a < z} g(a) \frac{z}{a} + O(\underbrace{z^{1/2} \sum_{a < z} \frac{1}{a^{1/2}}}_{\ll z}) \\
+    &= \sum_{d < z^{1/2}} \mu(d) \frac{z}{d^2} \log z - \underbrace{2 \sum_{d < z^{1/2}} \mu(d) \frac{z}{d^2} \log d}_{\ll z \sum_{d < z^{1/2}} \frac{\log d}{d^2} \ll z} + O(z)
+  \end{align*}
+  Note
+  \begin{align*}
+    \sum_{d < z^{1/2}} \frac{\mu(d)}{d^2}
+    &= \sum_{d = 1}^\infty \frac{\mu(d)}{d^2} - \sum_{d \geq z^{1/2}} \frac{\mu(d)}{d^2} \\
+    &\geq c + \sum_{d \geq z^{1/2}} \frac{1}{d^2} \\
+    &= c + O(\frac{1}{z^{1/2}})
+  \end{align*}
+  so
+  \[
+    \sum_{d < z} 2^{\omega(d)} = c z \log z + O(z) \gg z \log z.
+  \]
+  Remains to show \(c > 0\). Either note LHS can't be \(O(z)\), or calculate the first couple of terms in the series, or note that \(c = \frac{6}{\pi^2} > 0\).
+\end{proof}
+
+\subsection{Combinatorial sieve}
+
+Selberg's sieve is an upper bound sieve, while sieve of Eratosthenes uses the inclusion-exclusion principle
+\[
+  S(A, P; z) = |A| - \sum_p |A_p| + \sum_{p \neq q} |A_{pq}| - \dots
+\]
+to get a precise number. However this requires us to keep track of every term, thus resulting in an accummulation of error. The idea of a combinatorial sieve is to ``truncate'' the sieve process.
+
+\begin{lemma}[Buchstab formula]\index{Buchstab formula}
+  \[
+    S(A, P; z) = |A| - \sum_{p \divides P(z)} S(A_p, P; p).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Rearrange, required to show
+  \[
+    |A|
+    = S(A, P; z) + \sum_{p \divides P(z)} S(A_p, P; p)
+    = S_1 + \sum_{p \divides P(z)} S_p
+  \]
+  where
+  \begin{align*}
+    S_1 &= \#\{n \in A: p \divides n, p \in P \implies p \geq z\} \\
+    S_p &= \#\{n \in A: n = mp, q \divides n, q \in P \implies q \geq p\}
+  \end{align*}
+
+  Every \(n \in A\) is either in the set counted by \(S_1\) or has some prime divisors from \(P(z)\). If \(p\) is the least such prime divisor then \(n \in S_p\). The \(S_p\)'s are disjoint.
+\end{proof}
+
+Similarly,
+
+\begin{lemma}
+ \[
+   W(z) = 1 - \sum_{p \divides P(z)} \frac{f(p)}{p} W(p)
+ \]
+ where recall that
+ \[
+   W(z) = \prod_{p \divides P(z)} \left( 1 - \frac{f(p)}{p} \right).
+ \]
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{corollary}
+  For any \(r \geq 1\),
+  \[
+    S(A, P; z) = \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} \mu(d) |A_d| + (-1)^r \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} S(A_d, P; \ell(d))
+  \]
+  where \(\ell(d)\) is the least prime divisor of \(d\).
+\end{corollary}
+
+\begin{proof}
+  Induction on \(r = 1\). When \(r = 1\) this is just Buchstab's formula. For inductive step, use
+  \[
+    S(A_d, P; \ell(d))
+    = |A_d| - \sum_{\substack{p \in P \\ p < \ell(d)}} S(A_{dp}, P; p)
+  \]
+  so
+  \begin{align*}
+    &\phantom{= } (-1)^r \sum_{\substack{d \divides P(z) \\\omega(d) = r}} \left( |A_d| - \sum_{\substack{p \in P \\ p < \ell(d)}} S(A_{pd}, P; p) \right) \\
+    &= \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} \mu(d) |A_d| + (-1)^{r + 1} \sum_{\substack{e \divides P(z) \\ \omega(e) = r + 1}} S(A_e, P; \ell(e))
+  \end{align*}
+\end{proof}
+
+In particular, if \(r\) is even then
+\[
+  S(A, P; z) \geq \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} \mu(d) |A_d|
+\]
+and similarly if \(r\) is odd we get an upper bound.
+
+\begin{theorem}[Brun's pure sieve]\index{Brun's pure sieve}
+  If \(r \geq 6 \log \frac{1}{W(z)}\) then
+  \[
+    S(A, P; z) = XW(z) + O(2^{-r} X + \sum_{\substack{d \divides P(z) \\ d \leq z^r}} |R_d|).
+  \]
+\end{theorem}
+
+Brun's pure sieve has the same main term as sieve of Erathosthenes, but the error term is split into the fixed bit \(2^{-r}X\) and an accummulation part truncated at \(2^r\).
+
+\begin{proof}
+  Recall that from iterating Buchstab's formula
+  \begin{align*}
+    S(A, P; z)
+    &= \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} \mu(d) |A_d| + (-1)^r \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} S(A_d, P; \ell(d)) \\
+    &= X \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} \mu(d) \frac{f(d)}{d} + \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} \mu(d) R_d + (-1)^r \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} S(A_d, P; \ell(d))
+  \end{align*}
+  By the trivial bounds
+  \[
+    0 \leq S(A_d, P; \ell(d)) \leq |A_d|
+  \]
+  have
+  \begin{align*}
+    S(A, P; z)
+    &= X \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} \mu(d) \frac{f(d)}{d} + O(\sum_{\substack{d \divides P(z) \\ \omega(d) < r}} |R_d| + \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} |A_d|)
+  \end{align*}
+  By Buchstab again, applied to \(W(z)\),
+  \[
+    W(z)
+    = \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} \mu(d) \frac{f(d)}{d} + (-1)^r \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} \mu(d) \frac{f(d)}{d} W(\ell(d))
+  \]
+  so
+  \[
+    S(A, P; z) = XW(z) + O(\sum_{\substack{d \divides P(z) \\ \omega(d) < r}} |R_d| + \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} |A_d| + X\sum_{\substack{d \divides P(z) \\ \omega(d) = r}} \frac{f(d)}{d})
+  \]
+  The error term is
+  \begin{align*}
+    &\phantom{=} \sum_{\substack{d \divides P(z) \\ \omega(d) < r}} |R_d| + \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} |A_d| + X \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} \frac{f(d)}{d} \\
+    &\ll X \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} \frac{f(d)}{d} + \sum_{\substack{d \divides P(z) \\ \omega(d) \leq r}} |R_d| \\
+    &\leq X \sum_{\substack{d \divides P(z) \\ \omega(d) = r}} \frac{f(d)}{d} +\sum_{\substack{d \divides P(z) \\ d \leq z^r}} |R_d| \quad \text{as }
+    d \divides P(z) = \prod_{\substack{p \in P \\ p < z}} P
+  \end{align*}
+  Remains to show
+  \[
+    \sum_{\substack{d \divides P(z) \\\omega(d) = r}} \frac{f(d)}{d} \ll 2^{-r}
+  \]
+  We need the condition on \(r\). Note that
+  \begin{align*}
+    \sum_{\substack{d \divides P(z) \\\omega(d) = r}} \frac{f(d)}{d}
+    &= \sum_{\substack{p_1 \cdots p_r \\ p_i \in P \\ p_i < z}} \frac{f(p_1) \cdots f(p_r)}{p_1 \cdots p_r} \\
+    &\leq \frac{1}{r!} \left( \sum_{p \divides P(z)} \frac{f(p)}{p} \right)^r \\
+    &\leq \left( \frac{e}{r} \sum_{p \divides P(z)} \frac{f(p)}{p} \right)^r \\
+  \end{align*}
+  Furthermore
+  \[
+    \sum_{p \divides P(z)} \frac{f(p)}{p}
+    \leq \sum_{p \divides P(z)} - \log(1 - \frac{f(p)}{p})
+    = - \log W(z)
+  \]
+  so if \(r \geq 2 e |\log W(z)|\) then
+  \[
+    \sum_{\substack{d \divides P(z) \\\omega(d) = r}} \frac{f(d)}{d}
+    \leq \left( \frac{e}{r} |\log W(z)| \right)^r
+    \leq 2^{-r}
+  \]
+  Finally note that \(2e < 6\).
+\end{proof}
+
+Recall that Selberg's sieve shows that \(\pi_2(x) \ll \frac{x}{(\log x)^2}\). In the twin prime seive setting, \(W(z) \asymp \frac{1}{(\log z)^2}\). So in Brun's sieve, need to take \(r \gg 2 \log \log z\). If \(r = C \log \log z\) for \(C\) large enough then
+\[
+  \frac{X}{(\log z)^{100}}.
+\]
+The main term is \(\gg \frac{x}{\log z}^2\). As \(|R_d| \ll 2^{\omega(d)} = d^{o(1)}\). Thus
+\[
+  \sum_{\substack{d \divides P(z) \\ d \leq z^r}}
+  \ll z^{r + o(1)}
+  \ll z^{2 \log \log z + o(1)}
+\]
+so we need to choose a \(z\). For this to be \(o(\frac{x}{(\log z)^2}\), need to choose \(z \approx \exp((\log x)^{1/4})\). So far so good. Now we need to establish the relation between \(\pi_2(x)\) and
+\[
+  S(A, P; z) = \{1 \leq n \leq x: p \divides n(n + 2) \implies p > z\}
+\]
+so \(p \gg x^{1/2}\), so this counts only ``large'' primes
+
+\begin{corollary}
+  For any \(z \leq \exp (o(\frac{\log x}{\log \log x}))\),
+  \[
+    \#\{1 \leq n \leq x: p \divides n \implies p \geq z\} \sim e^{-\gamma} \frac{x}{\log z}.
+  \]
+\end{corollary}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item In particular, \(z = (\log x)^A\) is allowed for any \(A\), but \(z = x^c\) for any \(c > 0\) is not allowed.
+  \item In particular, we can't count primes like this as \(z = x^{1/2}\). Recall heuristic from before says if this asymptotic were correct for primes, then
+    \[
+      \pi(x) \sim 2e^{-\gamma} \frac{x}{\log x}
+    \]
+    which contradicts prime number theorem.
+
+    This is telling us that for primes, the error term is genuinely large, not because of the estimates. Or in other words, \(W(z)\) is not a very good bound, intrinsic
+  \end{enumerate}
+\end{remark}
+
+\begin{proof}
+  Again use \(A = \{1 \leq n \leq x\}\) so \(f(d) = 1, |R_d| \ll 1\). Then
+  \[
+    W(z)
+    = \prod_{p < z} (1 - \frac{1}{p})
+    = \frac{e^{-\gamma}}{\log z} + o(\frac{1}{\log z})
+  \]
+  so
+  \begin{align*}
+    S(A, P; z)
+    &= \#\{1 \leq n \leq x: p \divides n \implies p \geq z\} \\
+    &= e^{-\gamma} \frac{x}{\log z} + o(\frac{x}{\log z} + O(2^{-r} x + \sum_{\substack{d \divides P(z) \\ d < z^r}} |R_d|)
+  \end{align*}
+  if \(r \geq 6 |\log W(z)|\), so \(r \geq 100 \log \log z\) is fine. Have
+  \[
+    2^{-r} x \leq (\log z)^{- (\log 2) 100} x = o(\frac{x}{\log z})
+  \]
+  and, choose \(r = \ceil{100 \log \log z}\),
+  \[
+    \sum_{\substack{d \divides P(z) \\ d < z^r}} |R_d|
+    \ll \sum_{d \leq z^r} 1
+    \ll 2^r
+    \leq 2^{500 (\log \log z) \log z}
+  \]
+  Remains to note that if
+  \[
+    \log z = o(\frac{\log x}{\log \log x}) = \frac{\log x}{\log \log x} F(x)
+  \]
+  then this is
+  \begin{align*}
+    \log z \log \log z
+    = o( \frac{\log x}{\log \log x} \log \log x)
+    = o(\log x)
+  \end{align*}
+  so
+  \[
+    2^{500 (\log \log z) \log z} \leq x^{1/10} = o(\frac{x}{\log z})
+  \]
+  if \(x\) is large enough.
+\end{proof}
+
+\section{The Riemann zeta function}
+
+As a tradition, in analytic number theory we write \(s = \sigma + it\) for a complex number \(s\) where \(\sigma\) and \(t\) are the real and imaginary part respectively. First, a trivial remark: if \(n \in \N\) then
+\[
+  n^s = e^{s \log n} = n^\sigma \cdot e^{it \log n}.
+\]
+
+The \emph{Riemann zeta function}\index{Riemann zeta function} is defined for \(\sigma > 1\) by
+\[
+  \zeta(s) = \sum_{n = 1}^\infty \frac{1}{n^s}.
+\]
+
+\subsection{Dirichlet series}
+
+For any arithmetic \(f: \N \to \C\), we have a \emph{Dirichlet series}\index{Dirichlet series}
+\[
+  L_f(s) = \sum_{i = 1}^\infty \frac{f(n)}{n^s},
+\]
+at least formally.
+
+\begin{lemma}
+  For any \(f\) there is an \emph{abscissa of convergence} \(\sigma_c\) such that
+  \begin{enumerate}
+  \item if \(\sigma < \sigma_c\) then \(L_f(s)\) diverges,
+  \item if \(\sigma > \sigma_c\) then \(L_f(s)\) converges uniformly in some neighbourhood of \(s\). In particular \(L_f(s)\) is holomorphic at \(s\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  It is enough to show that if \(L_f(s)\) converges at \(s_0\) and \(\sigma = \sigma_0\) then there is a neighbourhood of \(s\) on which \(L_f\) converges uniformly, as then we can take
+  \[
+    \sigma_c = \inf \{\sigma: L_f(s) \text{ converges}\}.
+  \]
+  Let
+  \[
+    R(u) = \sum_{n > u} f(n) n^{-s_0}.
+  \]
+  By partial summation
+  \[
+    \sum_{M < n \leq N} f(n) n^{-s}
+    = R(M) M^{s_0 - s} - R(N) N^{s_0 - s} - (s_0 - s) \int_M^N R(u) u^{s_0 - s - 1} du.
+  \]
+  If \(|R(u)| \leq \varepsilon\) for all \(u \geq M\) then 
+  \[
+    \left| \sum_{M < n \leq N} f(n) n^{-s} \right|
+    \leq 2\varepsilon + \varepsilon |s_0 - s| \int_M^N u^{\sigma_0 - \sigma - 1} du
+    \leq (2 + \frac{|s_0 - s|}{|\sigma_0 - \sigma|}) \varepsilon.
+  \]
+  Note that there is a neighbourhood of \(s\) in which \(\frac{|s_0 - s|}{|\sigma_0 - \sigma|} \ll_s 1\) so \(\sum \frac{f(n)}{n^s}\) converges uniformly here.
+\end{proof}
+
+\begin{lemma}
+  If
+  \[
+    \sum \frac{f(n)}{n^s} = \sum \frac{g(n)}{n^s}
+  \]
+  for all \(s\) in some half plane \(\sigma > \sigma_0 \in \R\) then \(f(n) = g(n)\) for all \(n\).
+\end{lemma}
+
+\begin{proof}
+  Enough to consider \(\sum \frac{f(n)}{n^s} = 0\) for all \(\sigma > \sigma_0\). Suppose exists \(n\) such that \(f(n) \neq 0\). Let \(N\) be the least such that \(f(N) \neq 0\). Since \(\sum_{n \geq N} \frac{f(n)}{n^\sigma} = 0\), have
+  \[
+    f(N) = - N^\sigma \sum_{n > N} \frac{f(n)}{n^\sigma}
+  \]
+  so \(|f(n)| \ll n^\sigma\) and so the series
+  \[
+    \sum_{n > N} \frac{f(n)}{n^{\sigma + 1 + \varepsilon}}
+    \]
+    is absolutely convergent. So since \(\frac{f(n)}{n^\sigma} \to 0\) as \(\sigma \to \infty\), RHS also converges to \(0\) so \(f(N) = 0\).
+\end{proof}
+
+\begin{lemma}
+  If \(L_f(s)\) and \(L_g(s)\) are both absolutely convergent at \(s\) then
+  \[
+    L_{f * g} (s) = \sum_{n = 1}^\infty \frac{f * g (n)}{n^s}
+    \]
+    is also absolutely convergent at \(s\) and equals to \(L_f(s) L_g(s)\).
+\end{lemma}
+
+\begin{proof}
+  Because of absolute convergence we can simply multiply them term-by-term:
+  \[
+    \left( \sum_{n = 1}^\infty \frac{f(n)}{n^s} \right) \left( \sum_{n = 1}^\infty \frac{g(n)}{n^s} \right)
+    = \sum_{n, m = 1}^\infty \frac{f(n) g(m)}{(nm)^s} = \sum_{k = 1}^\infty \frac{1}{k^s} \left( \sum_{nm = k} f(n) g(m) \right).
+  \]
+\end{proof}
+
+\begin{lemma}[Euler product]\index{Euler product}
+  If \(f\) is multiplicative and \(L_f(s)\) is absolutely convergent at \(s\) then
+  \[
+    L_f(s) = \prod_p \left( 1 + \frac{f(p)}{p^s} + \frac{f(p^2)}{p^{2s}} + \dots \right).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Informally we just multiply everything and apply fundamental theorem of arithmetics. However, we have to be more careful when dealing with this infinite product. Let \(y\) be arbitrary,
+  \[
+    \prod_{p < y} \left( 1 + \frac{f(p)}{p^s} + \dots \right)
+    = \sum_{\substack{n \\ \forall p \divides n, p < y}} \frac{f(n)}{n^s}.
+  \]
+  Then
+  \[
+    \phantom{=} \left| \prod_{p < y} \left( 1 + \frac{f(p)}{p^s} + \dots \right) - \sum_{n = 1}^\infty \frac{f(n)}{n^s} \right|
+    \leq \sum_{\substack{n \\ \exists p \divides n, p \geq y}} \frac{|f(n)|}{n^\sigma}
+    \leq \sum_{n \geq y} \frac{|f(n)|}{n^\sigma}
+    \to 0
+  \]
+  as \(n \to \infty\).
+\end{proof}
+
+For \(\sigma > 1\),
+\[
+  \zeta(s) = \sum_{n = 1}^\infty \frac{1}{n^s}
+\]
+defines a holomorphic function and converges \emph{absolutely} for \(\sigma > 1\). A word of caution: this series is only define for \(\sigma > 1\). We'll in later part of the course analytically extend \(\zeta\) beyond the line. Also note that for general Dirichlet series, uniform convergence and absolute convergence near a point do \emph{not} imply each other, although for this particular series they do. Because of uniform convergence this function has derivative
+\[
+  \zeta'(s) = - \sum \frac{\log n}{n^s}.
+\]
+
+Since \(1\) is completely multiplicative, we may apply Euler product
+\[
+  1 + \frac{1}{p^s} + \frac{1}{p^{2s}} + \dots = \frac{1}{1 - p^{-s}} = \left( 1 - \frac{1}{p^s} \right)^{-1}
+\]
+so
+\[
+  \zeta(s) = \prod_p \left( 1 - \frac{1}{p^s} \right)^{-1}.
+\]
+Thus
+\begin{align*}
+  \frac{1}{\zeta(s)} &= \prod_p \left( 1 - \frac{1}{p^s} \right) = \sum_n \frac{\mu(n)}{n^s} \\
+  \log \zeta(s) &= - \sum_p \log (1 - \frac{1}{p^s}) = \sum_p\sum_k \frac{1}{k p^{ks}} = \sum \frac{\Lambda(n)}{\log n} \frac{1}{n^s} \\
+  \frac{\zeta'(s)}{\zeta(s)} &= - \sum \frac{\Lambda(n)}{n^s}
+\end{align*}
+We can write many functions and identities in terms of \(\zeta(s)\). For example
+\[
+  \frac{\zeta'(s)}{\zeta(s)} \cdot \zeta(s) = \zeta'(s)
+\]
+corresponds to
+\[
+  \Lambda * 1 = \log,
+\]
+and the equivalence
+\[
+  L_f \cdot \zeta = L_g \iff L_f = \frac{1}{\zeta} \cdot L_g
+\]
+corresponds to Möbius inversion.
+
 
 
 
