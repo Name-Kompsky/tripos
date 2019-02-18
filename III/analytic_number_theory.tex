@@ -13,6 +13,8 @@
 \usepackage{cancel}
 
 \newtheorem*{fact}{Fact}
+\theoremstyle{definition}
+\newtheorem*{conjecture}{Conjecture}
 
 \begin{document}
 
@@ -39,7 +41,7 @@ The course is divided into four parts:
 \item elementary techniques (using real analysis),
 \item sieve methods,
 \item Riemann zeta function/Prime number theorem (using complex analysis),
-\item primes in arithmetic progression. 
+\item primes in arithmetic progression.
 \end{enumerate}
 
 \section{Elementary techniques}
@@ -271,7 +273,7 @@ As a simple application
 
 This is an amazing result and the only thing we did is to replace the discrete summation by the continuous analogue to it. In essence this is the whole reason analytic number theory works.
 
-\(\gamma\) can be seen as a measure of the difference between between \(\log\) and its discrete approximation. It is called \emph{Euler-Mascheroni constant}\index{Euler-Mascheroni constant}. 
+\(\gamma\) can be seen as a measure of the difference between between \(\log\) and its discrete approximation. It is called \emph{Euler-Mascheroni constant}\index{Euler-Mascheroni constant}.
 Surprisingly little is known about \(\gamma\). It is approximately \(0.577\dots\). We don't even know if \(\gamma\) is rational or not.
 
 \begin{lemma}
@@ -676,7 +678,7 @@ so still need to show that
 \[
   x \sum_{a \leq x} \frac{\mu(a)}{a} = O(1).
 \]
-Well it turns out that this is equivalent to prime number theorem! This constant can be shown to be \(1/\zeta(1)\). As \(\zeta\) has a pole at \(z = 1\), this is indeed true.
+Well it turns out that this is equivalent to prime number theorem! This constant can be shown to be \(1/\zeta(1)\). As \(\zeta\) has a pole at \(z = 1\), this is indeed true.\label{proof:attempted elementary proof of PNT}
 
 \subsection{Selberg's identity and on elementary proof of prime number theorem}
 
@@ -870,7 +872,7 @@ As \(\sqrt{20} < 5\), we know that the numbers left on the list are prime (with 
   \pi(20) + 1 - \pi(\sqrt{20})
   &= 20 - \floor*{\frac{20}{2}} - \floor*{\frac{20}{3}} + \floor*{\frac{20}{6}} \\
   &= 20 - 10 - 6 + 3 \\
-  &= 7 
+  &= 7
 \end{align*}
 By the way if there are more sieves then we naturally include more terms in the inclusion-exclusion expansion. Note that the coefficient/sign in front of each term is precisely the Möbius function of the denominator.
 
@@ -1039,7 +1041,7 @@ We assume that \(0 < f(p) < p\) for \(p \in P\), which is a reasonable assumptio
 Recall that \(W_P = \prod_{\substack{p \in P \\ p < z}} (1 - \frac{f(p)}{p})\) so expected size of \(S(A, P; z)\) is \(XW_P\). Note that as \(t \to \infty\),
 \[
   G(t, z)
-  \to \sum_{d \divides P(z)} g(d) 
+  \to \sum_{d \divides P(z)} g(d)
   = \prod_{p < z} (1 + g(p))
   = \prod_{p < z} \left( 1 - \frac{f(p)}{p} \right)^{-1}
   = \frac{1}{W_P}.
@@ -1246,7 +1248,7 @@ Let's apply our new machinery:
   \[
     \sum_{d < z^2} 6^{\omega(d)} \leq z^{2 + O(1)} = x^{1/2 + O(1)}.
   \]
-  To finish the proof need to show \(G(z, z) \gg (\log z)^2\). Note that \(g(2) = 2\) and 
+  To finish the proof need to show \(G(z, z) \gg (\log z)^2\). Note that \(g(2) = 2\) and
   \[
     g(p) = \frac{f(p)}{p - f(p)} = \frac{2}{p - 2} \geq \frac{2}{p - 1},
   \]
@@ -1568,7 +1570,7 @@ at least formally.
     \sum_{M < n \leq N} f(n) n^{-s}
     = R(M) M^{s_0 - s} - R(N) N^{s_0 - s} - (s_0 - s) \int_M^N R(u) u^{s_0 - s - 1} du.
   \]
-  If \(|R(u)| \leq \varepsilon\) for all \(u \geq M\) then 
+  If \(|R(u)| \leq \varepsilon\) for all \(u \geq M\) then
   \[
     \left| \sum_{M < n \leq N} f(n) n^{-s} \right|
     \leq 2\varepsilon + \varepsilon |s_0 - s| \int_M^N u^{\sigma_0 - \sigma - 1} du
@@ -1672,6 +1674,354 @@ and the equivalence
   L_f \cdot \zeta = L_g \iff L_f = \frac{1}{\zeta} \cdot L_g
 \]
 corresponds to Möbius inversion.
+
+A callback to a previous discussion on elementary proof of prime number theorem: recall on page~\pageref{proof:attempted elementary proof of PNT}, if we can show
+\[
+  \frac{1}{\zeta(s)} = \prod_p \left( 1 - \frac{1}{p^s} \right) = \sum_n \frac{\mu(n)}{n^s}
+\]
+converges to \(0\) at \(s = 1\) then we can prove prime number theorem. We can show that if it converges at \(0\) then it does converge to \(0\), but the difficulty is to show it converges at all!
+
+\begin{lemma}
+  For \(\sigma > 1\),
+  \[
+    \zeta(s) = 1 + \frac{1}{s - 1} - s \int_1^\infty \frac{\{t\}}{t^{s + 1}} dt.
+  \]
+\end{lemma}
+
+\begin{proof}
+  By partial summation,
+  \begin{align*}
+    \sum_{1 \leq n \leq x} \frac{1}{n^s}
+    &= \frac{\floor{x}}{x^s} + s \int_1^x \frac{\floor t}{t^{s + 1}} dt \\
+    &= \frac{\floor{x}}{x^s} + s \int_1^x \frac{1}{t^s} dt - s \int_1^x \frac{\{t\}}{t^{s + 1}} dt \\
+    &= \frac{\floor{x}}{x^s} + \frac{s}{s - 1} [t^{-s + 1}]_1^x - s \int_1^x \frac{\{t\}}{t^{s + 1}} dt \\
+    &\to \frac{s}{s - 1} - s \int_1^\infty \frac{\{t\}}{t^{s + 1}} dt \quad \text{as } x \to \infty
+  \end{align*}
+\end{proof}
+
+The integral converges absolutely for \(\sigma > 0\), so this gives
+\[
+  \zeta(s) = \frac{1}{s - 1} + F(s)
+\]
+where \(F(s)\) is holomorphic in \(\sigma > 0\). Thus we \emph{define}\index{Riemann zeta function}
+\[
+  \zeta(s) = 1 + \frac{1}{s - 1} - s \int_1^\infty \frac{\{t\}}{t^{s + 1}} dt
+\]
+for \(\sigma > 0\).
+
+\(\zeta(s)\) is meromorphic in \(\sigma > 0\), with only a simple pole at \(s = 1\). It is possible to analytically continue \(\zeta\) to the entire complex plane, with only a single pole at \(1\). But for the purpose of this course our definition suffices as all interesting things we study happen on this half plane.
+
+\begin{corollary}
+  For \(0 < \sigma < 1\),
+  \[
+    \frac{1}{\sigma - 1} < \zeta(\sigma) < \frac{\sigma}{\sigma - 1}.
+  \]
+  In particular, \(\zeta(\sigma) < 0\) for \(0 < \sigma < 1\) (in particular nonzero).
+\end{corollary}
+
+\begin{proof}
+  Write
+  \[
+    \zeta(\sigma) = 1 + \frac{1}{\sigma - 1} + \sigma \int_1^\infty \frac{\{t\}}{t^{\sigma + 1}} dt
+  \]
+  and note
+  \[
+    0 < \int_1^\infty \frac{\{t\}}{t^{\sigma + 1}} dt < \frac{1}{\sigma}.
+  \]
+\end{proof}
+
+\begin{corollary}
+  For \(0 < \delta \leq \sigma \leq 2, |t| \leq 1\),
+  \[
+    \zeta(s) = \frac{1}{s - 1} + O_\delta(1)
+  \]
+  uniformly.
+\end{corollary}
+
+\begin{proof}
+  \begin{align*}
+    \zeta(s) - \frac{1}{s - 1}
+    &= 1 - s \int_1^\infty \frac{\{t\}}{t^{s + 1}} dt \\
+    &= O(1) + O_\delta(\int_1^\infty \frac{1}{t^{\sigma + 1}} dt) \\
+    &= O(1) + O_\delta(1)
+  \end{align*}
+\end{proof}
+
+\begin{lemma}
+  \(\zeta \neq 0\) for \(\sigma > 1\).
+\end{lemma}
+
+\begin{proof}
+  For \(\sigma > 1\),
+  \[
+    \zeta(s) = \prod_p \left( 1 - \frac{1}{p^s} \right)^{-1}
+  \]
+  and the infinite product converges, and no factors are zero.
+\end{proof}
+
+Again we stress that the Euler product is only valid for \(\sigma > 1\).
+
+\begin{conjecture}[Riemann hypothesis]\index{Riemann hypothesis}
+  If \(\zeta(s) = 0\) and \(\sigma > 0\) then \(\sigma = \frac{1}{2}\).
+\end{conjecture}
+
+\begin{center}
+  \begin{tikzpicture}
+    \fill[blue!5] (0, -2) rectangle (1, 2);
+    \draw [red!50, ultra thick] (0, 0) -- (1, 0);
+    \fill[red!50] (1, -2) rectangle (3, 2);
+
+    \draw [->] (-3, 0) -- (3.5, 0);
+    \draw [->] (0, -2.2) -- (0, 2.2);
+
+    \draw [thick, dashed] (1, -2.2) -- (1, 2.2);
+
+
+    \node at (1, 0) {\(\times\)};
+    \node at (1, 0) [anchor = north east] {\(1\)};
+
+    \draw [blue, dashed] (0.5, -2.2) -- (0.5, 2.2);
+
+    \node at (0.5, -2) [anchor = north] {\(\sigma = \frac{1}{2}\)};
+  \end{tikzpicture}
+\end{center}
+
+\subsection{Prime number theorem}
+
+Let \(\alpha(s) = \sum \frac{a_n}{n^s}\). Partial summation lets us write \(\alpha(s)\) in terms of \(A(x) = \sum_{n \leq x} a_n\). If \(\sigma > \max (0, \sigma_c)\) then
+\[
+  \alpha(s) = s \int_1^\infty \frac{A(t)}{t^{s + 1}} dt
+\]
+This is \emph{Mellin transform}\index{Mellin tranform}.
+
+What about the converse? As a particular case, if \(\alpha(s) = -\frac{\zeta'(s)}{\zeta(s)}\) then \(a_n = \Lambda(n)\) so
+\[
+  A(x) = \sum_{n \leq x} \Lambda(n) = \psi(x).
+\]
+The point of analytic number theory is to study Dirichlet series using analytic methods and convert them back to statements about arithmetic functions.
+
+The converse is given by Perron's formula, which roughly says that
+\[
+  A(x) = \frac{1}{2\pi i} \int_{\sigma - i \infty}^{\sigma + i \infty} \alpha(s) \frac{x^s}{s} ds
+\]
+for \(\sigma > \max (0, \sigma_c)\).
+
+Before we prove the formula, we see how this leads to prime number theorem. By Perron's formula,
+\[
+  \psi(x) = \frac{1}{2\pi i} \int_{\sigma - i \infty}^{\sigma + i \infty} -\frac{\zeta'(s)}{\zeta(s)} \frac{x^s}{s} ds
+\]
+for \(\sigma > 1\).
+
+We see that the integrand has two poles, on at the origin and the other at \(1\). Our first attempt would be to integrate to the right of the critical line as there is no singularity.
+\begin{center}
+  \begin{tikzpicture}
+    \draw [->] (-3, 0) -- (3, 0);
+    \draw [->] (0, -2.2) -- (0, 2.2);
+
+    \draw [dashed] (1, -2.2) -- (1, 2.2);
+
+    \node at (0, 0) {\(\times\)};
+    \node at (1, 0) {\(\times\)};
+
+    \draw[->, blue, thick] (1.5, 2) -- (1.5, -2) -- (2.5, -2) -- (2.5, 2) -- (1.5, 2);
+
+    \node at (1, 0) [anchor=north east] {\(1\)};
+  \end{tikzpicture}
+\end{center}
+
+However we quickly run into problems. As the integrand is holomorphic in this region, by Cauchy's theorem \(\psi(x)\) equals to the contribution of the other segments (up to a sign). The best we can do is \(\psi(x) = O(x^{1 + \varepsilon})\), which, in view of what we have done, totally trivial. Thus we can't simply consider a contour in \(\sigma > 1\).
+
+Instead we have to cross the critial line, whih gives \(O(x^{1 - \varepsilon})\), which is what we need. But now we need to understand \(\zeta\) on/to the left of the critial line.
+
+\begin{center}
+  \begin{tikzpicture}
+    \draw [->] (-3, 0) -- (3, 0);
+    \draw [->] (0, -2.2) -- (0, 2.2);
+
+    \draw [dashed] (1, -2.2) -- (1, 2.2);
+
+    \node at (0, 0) {\(\times\)};
+    \node at (1, 0) {\(\times\)};
+
+    \draw[->, blue, thick] (1.5, 2) -- (1.5, -2) -- (0.9, -2) -- (0.9, 2) -- (1.5, 2);
+
+    \node at (1, 0) [anchor=north east] {\(1\)};
+  \end{tikzpicture}
+\end{center}
+
+We can summarise this intuition with the slogan ``prime number theorem is equivalent to the statment that there is no zeroes on \(\sigma = 1\)''.
+
+\begin{lemma}
+  If \(\sigma_0 > 0\) then
+  \[
+    \frac{1}{2\pi i} \int_{\sigma_0 - iT}^{\sigma_0 + iT} \frac{y^s}{s} ds =
+    \begin{cases}
+      1 & y > 1 \\
+      0 & y < 1
+    \end{cases}
+    + O(\frac{y^{\sigma_0}}{T |\log y|})
+  \]
+\end{lemma}
+Note that we omit the case \(y = 1\).
+
+\begin{proof}
+  Use a rectangular contour that lies either to the left or to the right of the line \(\sigma = \sigma_0\) depending on \(y\), which then determines whether the residue at \(0\) is picked up. The details are left as an exercise.
+\end{proof}
+This gives a way to express indicator function in integral form.
+
+\begin{theorem}[Perron's formula]\index{Perron's formula}
+  Suppose \(\alpha(s) = \sum \frac{a_n}{n^s}\) is absolutely convergent for \(\sigma > \sigma_a\). If \(\sigma_0 > \max (0, \sigma_a)\) and \(x\) is not an integer then
+  \begin{align*}
+    \sum_{n < x} a_n
+    &= \frac{1}{2 \pi i} \int_{\sigma_0 - iT}^{\sigma_0 + iT} \alpha(s) \frac{x^s}{s} ds \\
+    &+ O(\frac{2^{\sigma_0}x}{T} \sum_{\frac{x}{2} < n < 2x} \frac{|a_n|}{|x - n|} + \frac{x^{\sigma_0}}{T} \sum_{n = 1}^\infty \frac{|a_n|}{n^{\sigma_0}}).
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Since \(\sigma_0 > 0\) we can write
+  \[
+    1_{n < x}
+    = \frac{1}{2\pi i} \int_{\sigma_0 - iT}^{\sigma_0 + iT} \frac{(x/n)^s}{s} ds + O(\frac{(x/n)^{\sigma_0}}{T |\log \frac{x}{n}|})
+  \]
+  so
+  \begin{align*}
+    \sum_{n < x} a_n
+    &= \sum_n a_n 1_{n < x} \\
+    &= \frac{1}{2\pi i} \sum_n a_n \int_{\sigma_0 - iT}^{\sigma_0 + iT} \frac{(x/n)^s}{s} ds + \underbrace{O(\frac{x^{\sigma_0}}{T} \sum_n \frac{|a_n|}{n^{\sigma_0} |\log \frac{x}{n}|})}_E \\
+    &= \frac{1}{2\pi i} \int_{\sigma_0 + iT}^{\sigma_0 - iT} \frac{x^s}{s} \sum_n \frac{a_n}{n^s} ds + E \quad \text{absolute convergence} \\
+    &= \frac{1}{2 \pi i} \int_{\sigma_0 - iT}^{\sigma_0 + iT} \alpha(s) \frac{x^s}{s} ds + E
+  \end{align*}
+  For the error term \(E\), there is
+  \begin{enumerate}
+  \item contribution from \(n \leq \frac{x}{2}\) or \(n \geq 2x\), where \(|\log \frac{x}{n}| \gg 1\), is
+    \[
+      \ll \frac{x^{\sigma_0}}{T} \sum_n \frac{|a_n|}{n^{\sigma_0}}.
+    \]
+  \item contribution from \(\frac{x}{2} < n < 2x\), we write
+    \[
+      |\log \frac{x}{n}| = |\log (1 + \frac{n - x}{x})|
+    \]
+    and \(|\log (1 + \delta)| \asymp |\delta|\) uniformly for \(- \frac{1}{2} \leq \delta \leq 1\). So
+    \[
+      \frac{x^{\sigma_0}}{T} \sum_{\frac{x}{2} < n < 2x} \frac{|a_n|}{n^{\sigma_0} |\log \frac{x}{n}|}
+      \ll \frac{x^{\sigma_0}}{T} \sum_{\frac{x}{2} < n < 2x} \frac{|a_n| x}{n^{\sigma_0} |x - n|}
+      \ll \frac{2^{\sigma_0}}{T} \sum_{\frac{x}{2} < n < 2x} \frac{|a_n| x}{|x - n|}
+    \]
+  \end{enumerate}
+\end{proof}
+
+We will now prove a strong form of the prime number theorem, assuming
+\begin{enumerate}
+\item there exists \(c > 0\) such that if \(\sigma > 1 - \frac{c}{\log (|t| + 4)}\) and \(|t| \geq \frac{7}{8}\) then \(\zeta(s) \neq 0\) and
+  \[
+    \frac{\zeta'(s)}{\zeta(s)} \ll \log (|t| + 4).
+  \]
+\item \(\zeta(s) \neq 0\) for \(\frac{8}{9} \leq \sigma \leq 1, |t| \leq \frac{7}{8}\).
+\item Whenever \(|t| \leq \frac{7}{8}\) and
+  \[
+    1 - \frac{c}{\log (|t| + 4)} < \sigma \leq 2
+  \]
+  have
+  \[
+    \frac{\zeta'(s)}{\zeta(s)} = - \frac{1}{s - 1} + O(1).
+  \]
+\end{enumerate}
+
+\begin{center}
+  \begin{tikzpicture}
+    \draw [red!50, ultra thick] (0, 0) -- (2, 0);
+    \fill [red!50] (2, -0.5) rectangle (4, 0.5);
+
+    \path [fill=red!50] (2, 0.5) to [bend right=30] (3.5, 2) -- (3.5, -2) to [bend right=30] (2, -0.5) -- (2, 0.5);
+
+    \draw [->] (-1, 0) -- (5, 0);
+    \draw [->] (0, -2.2) -- (0, 2.2);
+
+    
+    \draw [dashed] (4, -2.2) -- (4, 2.2);
+
+    \node at (0, 0) {\(\times\)};
+    \node at (4, 0) {\(\times\)};
+    
+    \draw[->, blue, thick] (4.3, -2) -- (4.3, 2) -- (3.5, 2) -- (3.5, -2) -- (4.3, -2);
+
+    \node at (4, 0) [anchor=north east] {\(1\)};
+    \node at (4.3, -2) [anchor=north west] {\(\sigma_0 - iT\)};
+    \node at (3.5, -2) [anchor=north east] {\(\sigma_1 - iT\)};
+    \node at (4.3, 2) [anchor=south west] {\(\sigma_0 + iT\)};
+    \node at (3.5, 2) [anchor=south east] {\(\sigma_1 + iT\)};
+
+  \end{tikzpicture}
+\end{center}
+
+\begin{theorem}[prime number theorem]\index{prime number theorem}
+  There exists \(c > 0\) such that
+  \[
+    \psi(x) = x + O(\frac{x}{\exp(c \sqrt{\log x})}).
+  \]
+  In particular \(\psi(x) \sim x\).
+\end{theorem}
+
+This error is better than \(\frac{x}{\log x}\) but worse than \(x^{1 - \varepsilon}\) for any \(\varepsilon > 0\), which is precisely because we can't find an absolute bound on the zero-free region near the critical line.
+
+\begin{proof}
+  Assume that \(x = N + \frac{1}{2}\) for some \(N\). By Perron's formula, for any \(1 < \sigma_0 \leq 2\),
+  \begin{align*}
+    \psi(x)
+    &= \sum_{n \leq x} \Lambda(n) \\
+    &= \frac{1}{2\pi i} \int_{\sigma_0 - iT}^{\sigma_0 + iT} - \frac{\zeta'(s)}{\zeta(s)} \frac{x^s}{s} ds \\
+    &+ O(\underbrace{\frac{x}{T} \sum_{\frac{x}{2} < n < 2x} \frac{\Lambda(n)}{|x - n|}}_{R_1} + \underbrace{\frac{x^{\sigma_0}}{T} \sum_{n = 1}^\infty \frac{\Lambda(n)}{n^{\sigma_0}}}_{R_2})
+  \end{align*}
+  In the error term,
+  \[
+    R_1
+    \ll \log x \cdot \frac{x}{T} \sum_{\frac{x}{2} < n < 2x} \frac{1}{|x - n|}
+    \ll \log x \cdot \frac{x}{T} \sum_{1 \leq m \leq 4x} \frac{1}{m}
+    \ll \frac{x}{T} (\log x)^2
+  \]
+  and using assumption 3,
+  \[
+    R_2
+    \ll \frac{x^{\sigma_0}}{T} \frac{1}{|\sigma_0 - 1|}
+    \ll \frac{x}{T} \log x
+  \]
+  if \(\sigma_0 = 1 + \frac{1}{\log x}\).
+
+  Let \(C\) be the rectangular contour with vertices \(\{\sigma_0 \pm iT, \sigma_1 \pm iT\}\) where \(\sigma_1 < 1\) is to be chosen later. Then
+  \[
+    \frac{1}{2\pi i} \int_C - \frac{\zeta'(s)}{\zeta(s)} \frac{x^s}{s} ds = x
+  \]
+  by residue theorem and assumption 1 and 2.
+
+  Remains to bound the other components of the integral.
+  \[
+    \int_{\sigma_0 + iT}^{\sigma_1 + iT} - \frac{\zeta'(s)}{\zeta(s)} \frac{x^s}{s} ds
+    \ll \log T \int_{\sigma_0}^{\sigma_1} \frac{x^u}{T} du
+    \ll \frac{\log T}{T} x^{\sigma_1} (\sigma_1 - \sigma_0) \ll \frac{x}{T}
+  \]
+  where the last step is because we assumed \(\sigma_1 = 1 - \frac{c}{\log T}\) (?)
+
+  For the other term,
+  \begin{align*}
+    \int_{\sigma_1 - iT}^{\sigma_1 + iT} - \frac{\zeta'(s)}{\zeta(s)} \frac{x^s}{s} ds
+    &\ll \log T \int_{\sigma_1 - iT}^{\sigma_1 - iT} \frac{x^u}{u} du + \int_{\sigma_1 - iT}^{\sigma_1 + iT} x^{\sigma_1} \frac{1}{|\sigma_1 - 1|} \\
+    &\ll x^{\sigma_1} \log T + \frac{x^{\sigma_1}}{1 - \sigma_1} \\
+    &\ll x^{\sigma_1} \log T
+  \end{align*}
+
+  Thus
+  \begin{align*}
+    \psi(x)
+    &= x + O(\frac{x}{T} (\log x)^2 + x^{1 - \frac{c}{\log T}} (\log T)) \\
+    &= x + O(\frac{x}{\exp(c \sqrt{\log x})}) \quad \text{if } T = \exp(c \sqrt{\log x})
+  \end{align*}
+  If you are curious how we chose \(T\), it is the same trick as in chapter 1: want to have \(\frac{x}{T} \approx x^{1 - \frac{c}{\log T}}\) so
+    \[
+      \log T \approx \frac{\log x}{\log T},
+    \]
+    i.e.\ \(\log T \approx \sqrt{\log x}\).
+\end{proof}
 
 
 

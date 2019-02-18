@@ -12,6 +12,8 @@
 
 \newcommand{\ccl}{{\mathcal C}} % conjugacy class
 \newcommand*{\ip}{\innerproduct} % inner product
+\DeclareMathOperator{\Res}{Res} % restriction
+\DeclareMathOperator{\Ind}{Ind} % induction
 
 \begin{document}
 
@@ -107,7 +109,7 @@ We have an ample supply of basic groups:
 \item alternating group \(A_n\) with \(|A_n| = \frac{n!}{2}\) consists of all even permutations.
 \item cyclic group of order \(n\): \(C_n = \langle x: x^m = 1\rangle\). For example \((\Z/m\Z, +)\). It's also
   \begin{itemize}
-  \item the group of \(m\)th root of unity in \(\C\) (which embeds to \(\GL_1(\C) = \C^*\)),
+  \item the group of \(m\)th root of unity in \(\C\) (which embeds to \(\GL_1(\C) = \C^\times\)),
   \item the group of rotations, centre \(0\) of a regular \(m\)-gon in \(\R^2\) (which embeds to \(\GL_2(\R)\)).
   \end{itemize}
 \item diahedral groups: \(D_{2m} = \langle x, y: x^m = y^2 = 1, yxy^{-1} = x^{-1} \rangle\) of order \(2m\). Think of this as set of rotations and reflections preserving a regular \(m\)-gon.
@@ -574,7 +576,7 @@ More generally,
 \begin{proof}\leavevmode
   \begin{enumerate}
   \item Let \(\theta: V \to W\) be a \(G\)-homomorphism. Then \(\ker \theta\) is a \(G\)-subspace of \(V\). Since \(V\) is irreducible either \(\ker \theta = 0\) or \(\ker \theta = V\). Similarly \(\im \theta = 0\) or \(\im \theta = W\). Hence either \(\theta = 0\) or \(\theta\) is injective and surjective.
-  \item Since \(\F\) is algebraically closd, \(\theta\) has an eigenvalue \(\lambda\). Then \(\theta - \lambda 1_V\) is a singular \(G\)-endomorphsim on \(V\), so must be \(0\).
+  \item Since \(\F\) is algebraically closd, \(\theta\) has an eigenvalue \(\lambda\). Then \(\theta - \lambda 1_V\) is a singular \(G\)-endomorphism on \(V\), so must be \(0\).
   \end{enumerate}
 \end{proof}
 
@@ -685,7 +687,7 @@ Evidently 1 is too strong (\(G = 1\) acting on any \(V\) with dimension \(> 1\))
 \begin{corollary}
   Suppose \(\F\) is algebraically closed and \(V = \bigoplus_{i = 1}^n V_i\) is a decomposition into irreducibles. Then for each irreducible representation \(S\) of \(G\),
   \[
-    \# \{j: V_j \cong S\} \cong \dim \Hom_G(S, V).
+    \# \{j: V_j \cong S\} = \dim \Hom_G(S, V).
   \]
   This is known as the \emph{multiplicity}\index{multiplicity} of \(S\) in \(V\).
 \end{corollary}
@@ -703,7 +705,7 @@ Evidently 1 is too strong (\(G = 1\) acting on any \(V\) with dimension \(> 1\))
   and use Schur's lemma.
 \end{proof}
 
-\begin{definition}[canonical decomposition]\index{canonical decomposition}
+\begin{definition}[canonical decomposition]\index{canonical decomposition}\index{isotypical component}
   A decomposition \(V = \bigoplus W_i\) where each \(W_j\) is isomorphic to \(n_j\) copies of irreducible representation \(S_j\) (each non-isomorphic for each \(j\)) is the \emph{canonical decomposition} or the \emph{decomposition into isotypical components} \(W_j\).
 \end{definition}
 
@@ -717,9 +719,7 @@ For \(\F\) closed, the above lemma says that \(n_j = \dim \Hom_G(S_j, V)\), i.e.
 
 \section{Character theory}
 
-We want to attach invariants to a representation \(\rho\) of a finite group \(G\) on \(V\). Matrix coefficients of \(\rho(g)\) are basis-dependent so not true invariants.
-
-\(\det\) is an invariant but not a very useful one, as lots of (inequivalent) representations have determinant \(1\). Instead we'll use trace.
+We want to attach invariants to a representation \(\rho\) of a finite group \(G\) on \(V\). Matrix coefficients of \(\rho(g)\) are basis-dependent so not true invariants. \(\det\) is an invariant but not a very useful one, as lots of inequivalent representations have determinant \(1\). Instead we'll use trace.
 
 Let \(\F = \C\) and let \(\rho = \rho_V: G \to \GL(V)\) be a representation.
 
@@ -792,7 +792,7 @@ It turns out that \(\chi\) is a complete invariant in the sense that it determin
 
 \begin{lemma}
   \label{lemma:kernel of character}
-  Let \(\rho: G \to \GL(V)\) be a (complex) representation affording the character \(\chi\). Then for \(g \in G\), \(|\chi(g)| \leq \chi(1)\) with equality if and only if \(\rho(g) = \lambda I\) for some \(\lambda \in \C\), a root of unity. Moreover \(\chi(g) = \chi(1)\) if and only if \(g \in \ker \rho\). In other words, the \emph{kernel}\index{character!kernel} of \(\chi\) \(\ker \chi\) is
+  Let \(\rho: G \to \GL(V)\) be a (complex) representation affording the character \(\chi\). Then for \(g \in G\), \(|\chi(g)| \leq \chi(1)\) with equality if and only if \(\rho(g) = \lambda I\) for some \(\lambda \in \C\) a root of unity. Moreover \(\chi(g) = \chi(1)\) if and only if \(g \in \ker \rho\). In other words, the \emph{kernel}\index{character!kernel} of \(\chi\) \(\ker \chi\) is
   \[
     \ker \rho = \{g \in G: \chi(g) = \chi(1)\}.
   \]
@@ -927,7 +927,7 @@ Note the finiteness condition. For counterexample otherwise take \(G = \Z\), \(1
 \end{corollary}
 
 \begin{proof}
-  \(\implies\) because characters are class functions. \(\impliedby\): if \(\chi(g_1) = \chi(g_2)\) for all irreducible characters \(\chi\) then \(f(g_1) = f(g_2)\) for all class fucntions of \(G\). In particular this is true for the characteristic function \(\delta\) taking \(1\) on conjugacy class of \(g_1\) and \(0\) otherwise.
+  \(\implies\): characters are class functions. \(\impliedby\): if \(\chi(g_1) = \chi(g_2)\) for all irreducible characters \(\chi\) then \(f(g_1) = f(g_2)\) for all class fucntions of \(G\). In particular this is true for the characteristic function \(\delta\) taking \(1\) on conjugacy class of \(g_1\) and \(0\) otherwise.
 \end{proof}
 
 Recall the inner prodcut on \(\ccl(G)\) and the real symmetric form \(\langle \cdot, \cdot \rangle\) for characters.
@@ -949,16 +949,6 @@ Recall the inner prodcut on \(\ccl(G)\) and the real symmetric form \(\langle \c
     \end{pmatrix}
   \]
   so \(\chi(r^k) = 2 \cos \frac{2k\pi}{3} = - 1\) for all \(k\). Thus we have character table
-  % TODO: delete this
-  % 
-  % \begin{center}
-  %   \begin{tabular}{c|ccc}
-  %     & \(1\) & \(\ccl_2\) & \(\ccl_3\) \\ \hline
-  %     \(1\) & \(1\) & \(1\) & \(1\) \\
-  %     \(S\) & \(1\) & \(-1\) & \(1\) \\
-  %     \(W\) & \(2\) & \(0\) & \(-1\)
-  %   \end{tabular}
-  % \end{center}
   \[
     \begin{array}{c|ccc}
       & 1 & \ccl_1 & \ccl_2 \\ \hline
@@ -1224,7 +1214,7 @@ Suppose \(g \in A_n\) then
   |\mathcal C_{S_n}(g)| &= |S_n : C_{S_n}(g)| \\
   |\mathcal C_{A_n}(g)| &= |A_n : C_{A_n}(g)|
 \end{align*}
-\(C_{A_n}(g)\) has index \(2\) in \(C_{S_n}(g)\) but they are not necessarily equal. For example, let \(g = (123) \in A_3\). \(\mathcal C_{A_3} (g) = g\) but \(\mathcal C_{S_3}(g) = \{g, g^{-1}\}\). Recall from IA Groups
+\(C_{A_n}(g)\) is contained in \(C_{S_n}(g)\) but they are not necessarily equal. For example, let \(g = (123) \in A_3\). \(\mathcal C_{A_3} (g) = g\) but \(\mathcal C_{S_3}(g) = \{g, g^{-1}\}\). Recall from IA Groups
 
 \begin{lemma}\leavevmode
   \begin{enumerate}
@@ -1371,12 +1361,416 @@ Thus
   \[
     V \otimes W = \left\{\sum \lambda_{ij} v_i \otimes w_j: \lambda_{ij} \in \F \right\}
   \]
-  with obvious addition and multiplicaiont.
+  with obvious addition and multiplication.
 \item If \(v = \sum \alpha_i v_i \in V, w = \sum \beta_j w_j \in W\) define
   \[
     v \otimes w = \sum \alpha_i \beta_j (v_i \otimes w_j).
   \]
 \end{enumerate}
+
+\begin{remark}
+  Note not all elements of \(V \otimes W\) are of this form --- some are combinations, e.g.\ \(v_1 \otimes w_1 + v_2 \otimes w_2\), which can't be further simplified.
+\end{remark}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item For \(v \in V, w \in W, \lambda \in \F\),
+    \[
+      (\lambda v) \otimes w = \lambda (v \otimes w) = v \otimes (\lambda w).
+    \]
+  \item If \(x, x_1, x_2 \in V, y, y_1, y_2 \in W\) then
+    \begin{align*}
+      (x_1 + x_2) \otimes y &= x_1 \otimes y + x_2 \otimes y \\
+      x \otimes (y_1 + y_2) &= x \otimes y_1 + x \otimes y_2
+    \end{align*}
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Easy verifications:
+  \begin{enumerate}
+  \item if \(v = \sum \alpha_i v_i, w = \sum \beta_j v_j\) then
+    \begin{align*}
+      \lambda v \otimes w &= \sum_{i, j} (\lambda \alpha_i) \beta_j v_i \otimes w_j \\
+      \lambda (v \otimes w) &= \sum_{i, j} (\lambda \alpha_i) \beta_j v_i \otimes w_j \\
+      v \otimes \lambda w &= \sum_{i, j} (\lambda \alpha_i) \beta_j v_i \otimes w_j
+    \end{align*}
+  \item exercise.
+  \end{enumerate}
+\end{proof}
+
+It follows that the map
+\begin{align*}
+  V \times W &\to V \otimes W \\
+  (v, w) &\mapsto v \otimes w
+\end{align*}
+is bilinear.
+
+\begin{lemma}
+  If \(\{e_1, \dots, e_m\}\) is any basis of \(V\), \(\{f_1, \dots, f_n\}\) any basis of \(W\) then \(\{e_i \otimes f_j: 1 \leq i \leq m, 1 \leq j \leq n\}\) is a basis of \(V \otimes W\).
+\end{lemma}
+
+\begin{proof}
+  Writing \(v_k = \sum_i \alpha_{ik} e_i, w_\ell = \sum_j \beta_{j\ell} f_j\), we have
+  \[
+    v_k \otimes w_\ell = \sum_{i, j} \alpha_{ik} \beta_{j\ell} e_i \otimes f_j,
+  \]
+  hence \(\{e_i \otimes f_j\}\) spans \(V \otimes W\). And since there are \(nm\) of them, they are a basis.
+\end{proof}
+
+\begin{remark}
+  One can define \(V \otimes W\) in a basis independent way in the first place. See Teleman \textsection 6.
+\end{remark}
+
+\begin{proposition}
+  Let \(\rho: G \to \GL(V), \rho': G \to \GL(V')\) be complex representations of \(G\). Define
+  \[
+    (\rho \otimes \rho') (g): \sum \lambda_{ij} v_i \otimes w_j \mapsto \sum \lambda_{ij} \rho(g) v_i \otimes \rho'(g) w_j.
+  \]
+  Then \(\rho \otimes \rho'\) is a representation with character
+  \[
+    \chi_{\rho \otimes \chi'} (g) = \chi_\rho(g) \chi_{\rho'} (g)
+  \]
+  for all \(g\). Hence product of two characters of \(G\) is also a character.
+\end{proposition}
+
+\begin{remark}
+  On example sheet 1, we saw \(\rho\) irreducible, \(\rho'\) of degree \(1\) implies that \(\rho \otimes \rho'\) is irreducible. If \(\rho'\) is not of degree \(1\) this is usually false.
+\end{remark}
+
+\begin{proof}
+  It is clear that \((\rho \otimes \rho') (g) \in \GL(V \otimes V')\) for all \(g \in G\) and so \(\rho \otimes \rho'\) is a homomorphism \(G \to \GL(V \otimes V')\). Let \(g \in G\). Let \(v_1, \dots, v_m\) be a basis of \(V\) of eigenvectors of \(\rho(g)\), \(w_1, \dots, w_n\) be a basis of \(V'\) of eigenvectors of \(\rho'(g)\), say
+  \[
+    \rho(g) v_j = \lambda_j v_j, \rho'(g) w_j = \mu_j w_j.
+  \]
+  Then
+  \[
+    (\rho \otimes \rho')(g) (v_i \otimes w_j)
+    = \rho(g) v_i \otimes \rho'(g) w_j
+    = \lambda_i v_i \otimes \mu_j w_j
+    = (\lambda_i \mu_j) (v_i \otimes w_j)
+  \]
+  so
+  \[
+    \chi_{\rho \otimes \rho'} (g)
+    = \sum_{i, j} \lambda_i \mu_j
+    = \sum \lambda_i \sum \mu_j
+    = \chi_\rho(g) \chi_{\rho'}(g).
+  \]
+\end{proof}
+
+Let \(\F = \C\). Take \(V = V'\) and define
+\[
+  V^{\otimes 2} = V \otimes V.
+\]
+Let \(\tau: \sum \lambda_{ij} v_i \otimes v_j \mapsto \sum \lambda_{ij} v_j \otimes v_i\), a linear \(G\)-endomorphism of \(V^{\otimes 2}\) such that \(\tau^2 = 1\), so has eigenvalues \(\pm 1\).
+
+\begin{definition}[symmetric/exterior square]\index{symmetric power}\index{exterior power}\index{symmetric square}\index{exterior square}
+  Define
+  \begin{align*}
+    S^2V &= \{x \in V^{\otimes 2}: \tau(x) = x\} \\
+    \Lambda^2 V &= \{x \in V^{\otimes 2}: \tau(x) = -x\}
+  \end{align*}
+  the \emph{symmetric} and \emph{exterior square} of \(V\).
+\end{definition}
+
+\begin{lemma}
+  \(S^2V, \Lambda^2 V\) are \(G\)-subspaces of \(V^{\otimes 2}\) and
+  \[
+    V^{\otimes 2} = S^2 V \oplus \Lambda^2V.
+  \]
+  \(S^2V\) has basis
+  \[
+    \{v_iv_j = v_i \otimes v_j + v_j \otimes v_i: 1 \leq i \leq j \leq n\}
+  \]
+  \(\Lambda^2V\) has basis
+  \[
+    \{v_i \wedge v_j = v_i \otimes v_j - v_j \otimes v_i: 1 \leq i < j \leq n\}.
+  \]
+  (Note that in some conventions the definition of \(v_iv_j\) and \(v_i \wedge v_j\) is half what we defined here.) Hence
+  \begin{align*}
+    \dim S^2 V &= \frac{n (n + 1)}{2} \\
+    \dim \Lambda^2 V &= \frac{n (n - 1)}{2}
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  Easy exercise by noting that for any \(x \in V^{\otimes 2}\),
+  \[
+    x = \frac{1}{2} (x + \tau(x)) + \frac{1}{2} (x - \tau(x)).
+  \]
+\end{proof}
+
+\begin{lemma}
+  If \(\rho: G \to \GL(V)\) is a representation affording character \(\chi\), then
+  \[
+    \chi^2 = \chi_S + \chi_A
+  \]
+  where \(\chi_S, \chi_\Lambda\) are the characters of \(G\) in the subrepresentations \(S^2V\) and \(\Lambda^2V\). Moreover
+  \begin{align*}
+    \chi_S(g) &= \frac{1}{2} (\chi^2(g) + \chi(g^2)) \\
+    \chi_\Lambda(g) &= \frac{1}{2} (\chi^2(g) - \chi(g^2))
+  \end{align*}
+\end{lemma}
+
+\begin{proof}
+  Compute the characters \(\chi_S, \chi_\Lambda\) in the usual way: fix an element and choose an eigenbasis.
+\end{proof}
+
+\begin{eg}
+  \(G = S_4\): We have worked out the character table before
+  \[
+    \begin{array}{r|c|c|c|c|c}
+      & 1 & 3 & 8 & 6 & 6 \\
+      & 1 & (12)(34) & (123) & (1234) & (12) \\ \hline
+      \chi_1 & 1 & 1 & 1 & 1 & 1 \\
+      \sgn = \chi_2 & 1 & 1 & 1 & -1 & -1  \\
+      \pi_X - 1 = \chi_3 & 3 & -1 & 0 & -1 & 1 \\
+      \chi_3 \chi_2 = \chi_4 & 3 & -1 & 0 & 1 & -1 \\
+      \chi_5 & 2 & 2 & -1 & 0 & 0
+    \end{array}
+  \]
+  Take \(\chi_3\), we can work out its symmetric and exterior square
+  \[
+    \begin{array}{r|c|c|c|c|c}
+      & 1 & 3 & 8 & 6 & 6 \\
+      & 1 & (12)(34) & (123) & (1234) & (12) \\ \hline
+      \chi_3^2 & 9 & 1 & 0 & 1 & 1 \\
+      \chi_3(g^2) & 3 & 3 & 0 & 3 & -1 \\
+      S^2 \chi_3 & 6 & 2 & 0 & 2 & 0 \\
+      \Lambda^2 \chi_3 & 3 & -1 & 0 & -1 & 1
+    \end{array}
+  \]
+  By simply calculating the inner prodcuct, we see that \(\chi_4 = \Lambda^2\chi_3\) is irreducible.
+
+  We also see
+  \[
+    S^2 \chi_3 = 1 + \chi_3 + \chi_5.
+  \]
+\end{eg}
+
+\subsection{Characters of product groups}
+
+\begin{proposition}
+  If \(G, H\) are finite groups, with their irreducible characters \(\chi_1, \dots, \chi_k\) and \(\psi_1, \dots, \psi_r\) respectively, then the irreducible characters of their direct product \(G \times H\) are precisely \(\{\chi_i \psi_j: 1 \leq i \leq k, 1 \leq j \leq r\}\), where
+  \[
+    \chi_i \psi_j (g, h) = \chi_i(g) \psi_j(h).
+  \]
+\end{proposition}
+
+\begin{proof}
+  If \(\rho: G \to \GL(V)\) affords \(\chi\), \(\rho': H \to \GL(W)\) affords \(\psi\) then
+  \begin{align*}
+    \rho \otimes \rho': G \times H &\to \GL(V \otimes W) \\
+    (g, h) &\mapsto \rho(g) \otimes \rho'(h)
+  \end{align*}
+  is a representation of \(G \times H\) on \(V \otimes W\) and \(\chi_{\rho \otimes \rho'} = \chi\psi\).
+
+  Claim that \(\chi_i \psi_j\)'s are distinct and irreducible:
+  \begin{align*}
+    \langle \chi_i \psi_j, \chi_r \psi_s \rangle_{G \times H}
+    &= \frac{1}{|G \times H|} \sum_{(g, h)} \conj{\chi_i\psi_j (g, h)} \chi_r \psi_s(g, h) \\
+    &= \left( \frac{1}{|G} \sum_g \conj{\chi_i(g)} \chi_r(g) \right) \left( \frac{1}{|H|} \sum_h \conj{\psi_j(h)} \psi_s(h) \right) \\
+    &= \delta_{ir} \delta_{js}
+  \end{align*}
+
+  To show that they are complete, we take their squares at identity:
+  \[
+    \sum_{i, j} \chi_i \psi_j (1)^2
+    = \sum_i \chi_i^1(1) \sum_j \psi_j^2(1)
+    = |G| |H|
+    = |G \times H|.
+  \]
+\end{proof}
+
+\subsection{Symmetric and exterior powers}
+
+Let \(V\) be an \(\F\)-space with \(\dim V = d\). Choose a basis \(\{v_1, \dots, v_d\}\). Let
+\[
+  V^{\otimes n} = \underbrace{V \otimes \dots \otimes V}_n
+\]
+which has a basis \(\{v_{i_1} \otimes \dots \otimes v_{i_n}: i_1, \dots, i_n \in \{1, \dots, d\}\}\) so \(\dim V^{\otimes n} = d^n\).
+
+There is an \(S_n\)-action on the space \(V\): for each \(\sigma \in S_n\), we can define a linear map
+\begin{align*}
+  \sigma: V^{\otimes n} &\to V^{\otimes n} \\
+  v_1 \otimes \dots \otimes v_n &\mapsto v_{\sigma(1)} \otimes \dots \otimes v_{\sigma(n)}
+\end{align*}
+for \(v_1, \dots, v_n \in V\), which induces a (right) action of \(S_n\) on \(V^{\otimes n}\).
+
+Given a representation \(\rho: G \to \GL(V)\), define a (left) action of \(G\) on \(V^{\otimes n}\) by
+\[
+  \rho^{\otimes n}: v_1 \otimes \dots \otimes v_n \mapsto \rho(g) v_1 \otimes \dots \otimes \rho(g) v_n
+\]
+which commutes with the \(S_n\)-action. So we can decompose \(V^{\otimes n}\) as \(S_n\)-spaces, and each isotypical component\index{isotypical component} is a \(G\)-invariant subspace of \(V^{\otimes n}\). In particular
+
+\begin{definition}[symmetric/exterior power]\index{symmetric power}\index{exterior power}
+  For \(G\)-space \(V\), define
+  \begin{enumerate}
+  \item the \emph{\(n\)th symmetric power} of \(V\)
+    \[
+      S^nV = \{x \in V^{\otimes n}: \sigma(x) = x \text{ for all } \sigma \in S_n\},
+    \]
+  \item the \emph{\(n\)th exterior power} of \(V\)
+    \[
+      \Lambda^n V = \{x \in V^{\otimes n}: \sigma(x) = (\sgn \sigma) x \text{ for all } \sigma \in S_n\}.
+    \]
+  \end{enumerate}
+\end{definition}
+Both are \(G\)-subspaces of \(V^{\otimes n}\), but for \(n > 2\), \(S^n V \oplus \Lambda^nV\) is a proper subspace of \(V^{\otimes n}\). See example sheet 3 Q7 for bases of \(S^nV, \Lambda^nV\).
+
+\subsection{Tensor algebra}
+
+Take \(\ch \F = 0\).
+
+\begin{definition}[tensor algebra]\index{tensor algebra}\index{symmetric algebra}\index{exterior algebra}
+  Let \(T^nV = V^{\otimes n}\). The \emph{tensor algebra} of \(V\) is
+  \[
+    T(V) = \bigoplus_{n \geq 0} T^nV
+  \]
+  with \(T^0(V) = \F\). This is an \(\F\)-algebra. \(T(V)\) is a graded ring with product
+  \[
+    x \in T^n(V), y \in T^m(V) \implies x \cdot y = x \otimes y \in T^{n + m}(V).
+  \]
+  There are two graded quotient rings
+  \begin{align*}
+    S(V) &= T(V)/(u \otimes v - v \otimes u) \\
+    \Lambda(V) &= T(V)/(v \otimes v)
+  \end{align*}
+  the \emph{symmetric} and \emph{exterior algebra} respectively. Have
+  \begin{align*}
+    S(V) &= \bigoplus_{n \geq 0} S^n V \\
+    \Lambda(V) &= \bigoplus_{n \geq 0} \Lambda^n V
+  \end{align*}
+\end{definition}
+
+\subsection{Character ring}
+
+\(\mathcal C(G)\) is a commutative ring.
+
+\begin{definition}[character ring, virtual character]\index{character ring}\index{Grothendieck ring}\index{virtual character}
+  The \(\Z\)-submodule of \(\mathcal C(G)\) spanned by irreducible characters of \(G\) is called the \emph{character ring} of \(G\), sometimes also known as \emph{Grothendieck ring}, denoted \(R(G)\). Elements of \(R(G)\) are called \emph{generalised characters} or \emph{virtual characters}.
+\end{definition}
+
+Some properties:
+\begin{enumerate}
+\item \(R(G)\) is a ring. Any generalised character is a difference of two ordinary characters. \(\{\chi_i\}\) form a \(\Z\)-basis for \(R(G)\) as a free \(\Z\)-module.
+\end{enumerate}
+
+\section{Induction and restriction}
+
+Throughout the chapter let \(\F = \C\) and \(H \leq G\).
+
+\begin{definition}[restriction]\index{restriction}
+  Let \(\rho: G \to \GL(V)\) be a representation affording \(\chi\). We can think of \(V\) as a \(H\)-space by restricting attention to \(h \in H\). We get \(\Res^G_H \rho = \rho \downarrow_H = r_H\), the \emph{restriction} of \(\rho\) to \(H\). It affords the character \(\Res^G_H \chi = \chi \downarrow_H = \chi_H\).
+\end{definition}
+
+\begin{lemma}
+  If \(\psi\) is any nonzero character of \(H\) then there exists an irreducible character \(\chi\) of \(G\) such that \(\psi\) is a \emph{constituent}\index{constituent} of \(\Res_H^G \chi\), i.e.
+  \[
+    \ip{\Res_H^G \chi, \psi} \neq 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+  List the irreducible characters of \(G\) as \(\chi_1, \dots, \chi_k\). Recall \(\pi_{\text{reg}}\). Have
+  \[
+    \sum_{i = 1}^k \deg \chi_i \ip{\chi_i\downarrow_H, \psi}
+    = \ip{\pi_{reg} \downarrow_H, \psi}
+    = \frac{|G|}{|H|} \psi(1)
+    \neq 0
+  \]
+  so \(\ip{\chi_i \downarrow_H, \psi} \neq 0\) for some \(i\).
+\end{proof}
+
+\begin{lemma}
+  Let \(\chi\) be an irreducible character of \(G\) and write
+  \[
+    \Res_H^G \chi = \sum_i c_i \chi_i
+  \]
+  where \(\chi_i\)'s are irreducible characters of \(H\). Then
+  \[
+    \sum_i c_i^2 \leq |G:H|
+  \]
+  with equality if and only if \(\chi(g) = 0\) for all \(g \in G \setminus H\).
+\end{lemma}
+
+\begin{proof}
+  We have
+  \begin{align*}
+    1
+    &= \ip{\chi, \chi} \\
+    &= \frac{1}{|G|} \sum_{g \in G} |\chi(g)|^2 \\
+    &= \frac{1}{|G|} \left(\sum_{g \in H} |\chi(g)|^2 + \sum_{g \in G \setminus H} |\chi(g)|^2 \right) \\
+    &= \frac{H}{G} \ip{\chi_H, \chi_h} + \frac{1}{|G|} \sum_{g \in G \setminus H} |\chi(g)|^2 \\
+    &\geq \frac{1}{|G:H|} \sum_i c_i^2
+  \end{align*}
+  with equality if and only if \(\chi(g) = 0\) for all \(g \in G \setminus H\).
+\end{proof}
+
+\begin{definition}[induction]\index{induction}
+  If \(\psi\) is a class function of \(H\), define the \emph{induced class function} \(\Ind_H^G \psi = \psi \uparrow^G = \psi^G\) by
+  \[
+    \Ind_H^G \psi (g) = \frac{1}{|H|} \sum_{x \in G} \ocirc \psi(x^{-1} gx)
+  \]
+  where
+  \[
+    \ocirc \psi(y) =
+    \begin{cases}
+      \psi(y) & y \in H \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+\end{definition}
+
+\begin{lemma}
+  If \(\psi \in \mathcal C(H)\) then \(\Ind_H^G \psi \in \mathcal C(G)\) is a class function of \(G\) and
+  \[
+    \Ind_H^G \psi(1) = |G:H| \psi(1).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Obvious.
+\end{proof}
+
+Let \(n = |G:H|\). Let \(t_1 = 1, t_2, \dots, t_n\) be a \emph{left transversal}\index{left transversal} of \(H\) in \(G\), i.e.\ \(t_1H = H, t_2H, \dots, t_nH\) are precisely the left cosets of \(H\) in \(G\).
+
+\begin{lemma}
+  Given \(\psi \in \mathcal C(H)\) and a left transversal \(t_1, \dots, t_n\), have
+  \[
+    \Ind_H^G \psi(g) = \sum_{i = 1}^n \ocirc \psi(t_i^{-1} g t_i).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Note that every \(x \in G\) can be written as \(t_i h\) where \(h \in H\) and
+  \[
+    \ocirc \psi(x^{-1} g x)
+    = \ocirc \psi(h^{-1}(t_i^{-1} g t_i) h)
+    = \ocirc \psi(t_i^{-1} gt_i)
+  \]
+  as \(\psi\) is a class function of \(H\).
+\end{proof}
+
+\begin{theorem}[Frobenius reciprocity]\index{frobenius reciprocity}
+  Let \(\psi \in \mathcal C(H), \varphi \in \mathcal C(G)\). Then
+  \[
+    \ip{\varphi_H, \psi} = \ip{\varphi, \psi^G}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  \begin{align*}
+    \ip{\varphi, \psi^G}
+    &= \frac{1}{|G|} \sum_{g \in G} \conj{\varphi(g)} \psi^G(g) \\
+    &= \frac{1}{|G| |H|} \sum_{x, g \in G} \conj{\varphi(g)} \ocirc \psi(x^{-1}gx) \\
+    &= \frac{1}{|G| |H|} \sum_{x, y \in G} \conj{\varphi(y)} \ocirc \psi(y) \quad \text{set } x^{-1}gx = y \\
+    &= \frac{1}{|H|} \sum_{y \in G} \conj{\varphi(y)} \ocirc \psi(y) \\
+    &= \frac{1}{|H|} \sum_{y \in G} \conj{\varphi(y)} \psi(y) \\
+    &= \ip{\varphi_H, \psi}
+  \end{align*}
+\end{proof}
 
 
 

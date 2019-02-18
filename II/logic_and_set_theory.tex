@@ -1008,12 +1008,14 @@ Similarly we can define towers and other arithmetic operations inductively. It i
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \((\R, \leq)\) is not complete as \(\Z\) has no supremum. Thus completeness in posets is different to that from analysis.
+  \item \((\R, \leq)\) is not complete as \(\Z\) has no supremum. Thus completeness in posets is different from that in analysis.
   \item \([0, 1]\) is complete.
   \item \((0, 1)\) is not complete as \((0, 1)\) itself has no supremum.
   \item \(\powerset(S)\) is always complete --- \(\{A_i\}_{i \in I}\) has supremum \(\bigcup_{i \in I} A_i\).
   \end{enumerate}
 \end{eg}
+
+Note that in particular in any poset there is a greatest element, namely \(\sup X\), and a least element, namely \(\sup \emptyset\).
 
 \begin{definition}[Order-preserving map]\index{order-preserving map}
   A function \(f: X \to X\) where \(X\) is a poset is \emph{order-preserving} if \(f(x) \leq f(y)\) for all \(x \leq y\).
@@ -1056,7 +1058,7 @@ A typical application of Knaster-Tarski is
 \end{theorem}
 
 \begin{proof}
-  Seek partitions \(A = P \cup Q, B = R \cup S\) such that \(f(P) = R, g(S) = Q\). Then done by seting \(h = \begin{cases} f & \text{on } R \\ g^{-1} & \text{on } Q \end{cases}\).
+  Seek partitions \(A = P \cup Q, B = R \cup S\) such that \(f(P) = R, g(S) = Q\). Then done by seting \(h = \begin{cases} f & \text{on } P \\ g^{-1} & \text{on } Q \end{cases}\).
 
   Note that we are done once we fix \(P\): \(R = f(P), S = B \setminus f(P), Q = g(B \setminus f(P))\). i.e.\ we seek \(P \subseteq A\) such that
   \[
@@ -1087,7 +1089,7 @@ Posets need not have a maximal element, for example \(\N, \Q, \R\) with the usus
 \end{theorem}
 
 \begin{proof}
-  Suppose not, then for each \(x \in X\) there exists \(x' \in X\) with \(x' > x\). Also for any chain \(C\) we have an upper bound \(u(C)\). Pick \(x \in X\). Define \(x_\alpha \in X\) for each \(\alpha \in \gamma(X)\) recursively by
+  Suppose not, then for each \(x \in X\) there exists \(x' \in X\) with \(x' > x\). Also for any chain \(C\) we have an upper bound \(u(C)\). Pick \(x \in X\). Define \(x_\alpha \in X\) for each \(\alpha < \gamma(X)\) recursively by
   \begin{align*}
     x_0 &= x \\
     x_{\alpha + 1} &= x_\alpha' \\
@@ -1141,7 +1143,7 @@ Another application of Zorn's lemma: completeness theorem when the primitive lan
 \end{theorem}
 
 \begin{proof}
-  We seek a maximal consistent \(\cl S \supseteq S\). Then done: for each \(t \in L(P)\) haave \(\cl S \cup \{t\}\) or \(\cl S \cup \{\neg t\}\) consistent, whence \(t \in \cl S\) or \(\neg t \in \cl S\). By maximality of \(\cl S\), and now define
+  We seek a maximal consistent \(\cl S \supseteq S\). Then done: for each \(t \in L(P)\) have \(\cl S \cup \{t\}\) or \(\cl S \cup \{\neg t\}\) consistent, whence \(t \in \cl S\) or \(\neg t \in \cl S\). By maximality of \(\cl S\), and now define
   \begin{align*}
     v(t) =
     \begin{cases}
@@ -1205,12 +1207,12 @@ This is of different character to the other set-building rules, such as union, p
 
 In Zorn's lemma, we used axiom of choice. Is there a proof of Zorn's lemma without axiom of choice? No, because we can deduce axiom of choice from Zorn's lemma.
 
-\begin{proof}[Proof oz axiom of choice from Zorn's lemma]
+\begin{proof}[Proof of axiom of choice from Zorn's lemma]
   Given a family \(\{A_i: i \in I\}\) of non-empty sets, a \emph{partial choice function} is an \(f: J \to \bigcup_{i \in I} A_i\) where \(J \subseteq I\) such that \(f(j) \in A_j\) for all \(j \in J\). Let
   \[
     (J, f) \leq (J', f') \text{ if } J \subseteq J' \text{ and } f'|_J = f.
   \]
-  This poset is non-empty as \((\emptyset, \emptyset)\) is an element. Given a chain \(\{(J_q, f_q)\}_{q \in Q}\), we have \(\bigcup_{q \in Q} (J_q, f_q)\) as an upper bound. Thus by Zorn's lemma there exists a maximal element \((J, f)\). We must have \(J = I\), as if not we choose \(i \in I \setminus J, x \in A_i\), and put \(J' = J \cup \{i\}, f' = f \cup \{(i, x)\}\). Absurd.
+  This poset is non-empty as \((\emptyset, \emptyset)\) is an element. Given a chain \(\{(J_q, f_q)\}_{q \in Q}\), we have \((\bigcup_{q \in Q} J_q, \bigcup_{q \in Q} f_q)\) as an upper bound. Thus by Zorn's lemma there exists a maximal element \((J, f)\). We must have \(J = I\), as if not we choose \(i \in I \setminus J, x \in A_i\), and put \(J' = J \cup \{i\}, f' = f \cup \{(i, x)\}\). Absurd.
 \end{proof}
 
 In conclusion, Zorn's lemma \(\iff\) axiom of choice (in the presence of the set-building rules).
@@ -1257,7 +1259,7 @@ Bourbaki-Witt follows immediately from Zorn's lemma: take maximal \(x\) and sinc
 However, intriguingly, we can prove Bourbaki-Witt \emph{without} axiom of choice: injecting \(\gamma(X)\) into \(X\) by explicitly set \(x_{\alpha + 1} = f(x_\alpha)\) and \(x_\alpha = \sup\{x_\beta: \beta < \alpha\}\) for a non-zero limit \(\alpha\) and derive a contradiction. We circumvent the issue of choice by exhibit an explicit upper bound.
 
 \begin{note}
-  In chapter 2, we never used axiom of choice except in remark that well-ordering is equivalent to the absence of decreasing sequece, and that \(\omega_1\) does not have a countable supremum.
+  In chapter 2, we never used axiom of choice except in remark that well-ordering is equivalent to the absence of decreasing sequence, and that \(\omega_1\) does not have a countable supremum.
 \end{note}
 
 In fact, it is easy to deduce Zorn's lemma from Bourbaki-Witt (with axiom of choice) so we can view it as the ``choice-free version of Zorn's lemma''.
@@ -1266,9 +1268,9 @@ In fact, it is easy to deduce Zorn's lemma from Bourbaki-Witt (with axiom of cho
 
 We studied propositional logic in chapter 1 but it is not powerful enough to express objects outside of primitive propositions. In this chapter we will introduce predicate logic, which is more intricate but more powerful. Before that we will have an overview of the theory we will develop.
 
-A mathematical \emph{structure} is a set with functions and relations defined on it. A function has an \emph{arity} associated to it, which is the number of arguments it take. For example, recall that a group is a set \(A\) equipped with functions \(m: A^2 \to A\) (arity \(2\)), and \(i: A \to A\) (arity \(1\)), and a constant \(e \in A\), which could be seen as a function of arity \(0\), such that
+A mathematical \emph{structure} is a set with functions and relations defined on it. A function has an \emph{arity} associated to it, which is the number of arguments it takes. For example, recall that a group is a set \(A\) equipped with functions \(m: A^2 \to A\) (arity \(2\)), and \(i: A \to A\) (arity \(1\)), and a constant \(e \in A\), which could be seen as a function of arity \(0\), such that
 \begin{align*}
-  & (\forall x, y \in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
+  & (\forall x, y, z\in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
   & (\forall x \in A) (m(x, e) = x \land m(e, x) = x) \\
   & (\forall x \in A) (m(x, i(x)) = e \land m(i(x), x) = e)
 \end{align*}
