@@ -1278,7 +1278,7 @@ Suppose \(g \in A_n\) then
 \end{eg}
 
 \begin{lemma}
-  \(G\) is not simple if and only if \(\chi(g) = \chi(1)\) for some irreducible character \(\chi \neq 1_G\) and some \(1 \neq g \in G\). Moreover any normal subgroup of \(G\) is the intersection of the kernerls of some of the irreducible characters of \(G\).
+  \(G\) is not simple if and only if \(\chi(g) = \chi(1)\) for some irreducible character \(\chi \neq 1_G\) and some \(1 \neq g \in G\). Moreover any normal subgroup of \(G\) is the intersection of the kernels of some of the irreducible characters of \(G\).
 \end{lemma}
 
 \begin{proof}
@@ -1504,7 +1504,7 @@ Let \(\tau: \sum \lambda_{ij} v_i \otimes v_j \mapsto \sum \lambda_{ij} v_j \oti
 \begin{lemma}
   If \(\rho: G \to \GL(V)\) is a representation affording character \(\chi\), then
   \[
-    \chi^2 = \chi_S + \chi_A
+    \chi^2 = \chi_S + \chi_\Lambda
   \]
   where \(\chi_S, \chi_\Lambda\) are the characters of \(G\) in the subrepresentations \(S^2V\) and \(\Lambda^2V\). Moreover
   \begin{align*}
@@ -1675,12 +1675,12 @@ Throughout the chapter let \(\F = \C\) and \(H \leq G\).
 \begin{proof}
   List the irreducible characters of \(G\) as \(\chi_1, \dots, \chi_k\). Recall \(\pi_{\text{reg}}\). Have
   \[
-    \sum_{i = 1}^k \deg \chi_i \ip{\chi_i\downarrow_H, \psi}
-    = \ip{\pi_{reg} \downarrow_H, \psi}
+    \sum_{i = 1}^k \deg \chi_i \ip{\Res_H^G \chi_i, \psi}
+    = \ip{\Res_H^G \pi_{\text{reg}}, \psi}
     = \frac{|G|}{|H|} \psi(1)
     \neq 0
   \]
-  so \(\ip{\chi_i \downarrow_H, \psi} \neq 0\) for some \(i\).
+  so \(\ip{\Res_H^G \chi_i, \psi} \neq 0\) for some \(i\).
 \end{proof}
 
 \begin{lemma}
@@ -1756,23 +1756,162 @@ Let \(n = |G:H|\). Let \(t_1 = 1, t_2, \dots, t_n\) be a \emph{left transversal}
 \begin{theorem}[Frobenius reciprocity]\index{frobenius reciprocity}
   Let \(\psi \in \mathcal C(H), \varphi \in \mathcal C(G)\). Then
   \[
-    \ip{\varphi_H, \psi} = \ip{\varphi, \psi^G}.
+    \ip{\Res_H^G \varphi, \psi} = \ip{\varphi, \Ind_H^G \psi}.
   \]
 \end{theorem}
 
 \begin{proof}
   \begin{align*}
-    \ip{\varphi, \psi^G}
-    &= \frac{1}{|G|} \sum_{g \in G} \conj{\varphi(g)} \psi^G(g) \\
+    \ip{\varphi, \Ind_H^G \psi}
+    &= \frac{1}{|G|} \sum_{g \in G} \conj{\varphi(g)} \Ind_H^G \psi(g) \\
     &= \frac{1}{|G| |H|} \sum_{x, g \in G} \conj{\varphi(g)} \ocirc \psi(x^{-1}gx) \\
     &= \frac{1}{|G| |H|} \sum_{x, y \in G} \conj{\varphi(y)} \ocirc \psi(y) \quad \text{set } x^{-1}gx = y \\
     &= \frac{1}{|H|} \sum_{y \in G} \conj{\varphi(y)} \ocirc \psi(y) \\
     &= \frac{1}{|H|} \sum_{y \in G} \conj{\varphi(y)} \psi(y) \\
-    &= \ip{\varphi_H, \psi}
+    &= \ip{\Res_H^G \varphi, \psi}
   \end{align*}
 \end{proof}
 
+\begin{corollary}
+  If \(\psi\) is a character of \(H\) then \(\Ind_H^G \psi\) is a character of \(G\).
+\end{corollary}
 
+\begin{proof}
+  If \(\chi\) is an irreducible character of \(G\) then by Frobenius reciprocity
+  \[
+    \ip{\chi, \Ind_H^G \psi} = \ip{\Res_H^G \chi, \psi} \in \Z_{\geq 0}
+  \]
+  since \(\psi, \Res_H^G \chi\) are characters. Hence \(\Ind_H^G \psi\) is a linear combination of irreducible characters with nonnegative coefficients, hence a character.
+\end{proof}
+
+\begin{proposition}
+  Let \(\psi\) be a character of \(H \leq G\) and let \(g \in G\). Let
+  \[
+    \mathcal C_G(g) \cap H = \bigcup_{i = 1}^m \mathcal C_H(x_i)
+  \]
+  where \(x_i\)'s are representatives of the \(m\) \(H\)-conjugacy classes of elements of \(H\) conjugate to \(g\). Then if \(m = 0\) then \(\Ind_H^G \psi(g) = 0\). Otherwise
+  \[
+    \Ind_H^G \psi(g) = |C_G(g)| \sum_{i = 1}^m \frac{\psi(x_i)}{|C_H(x_i)|}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  If \(m = 0\) then \(\{x \in G: x^{-1} g x \in H\} = \emptyset\)  and so \(\Ind_H^G \psi(g) = 0\). Assume that \(m > 0\) and let
+  \[
+    X_i = \{x \in G: x^{-1} g x \in H \text{ and conjugate in \(H\) to \(x_i\)}\}.
+  \]
+  The \(X_i\)'s are pairwise disjoint and their union is \(\{x \in G: x^{-1} g x \in H\}\). By definition
+  \begin{align*}
+    \Ind_H^G \psi(g)
+    &= \frac{1}{|H|} \sum_{x \in G} \ocirc \psi(x^{-1} g x) \\
+    &= \frac{1}{|H|} \sum_{\substack{x \in G \\ x^{-1} g x \in H}} \psi(x^{-1} gx) \\
+    &= \frac{1}{|H|} \sum_{i = 1}^m \sum_{x \in X_i} \psi(x^{-1} g x) \\
+    &= \frac{1}{|H|} \sum_{i = 1}^m \sum_{x \in X_i} \psi(x_i) \\
+    &= \sum_{i = 1}^m \frac{|X_i|}{|H|} \psi(x_i)
+  \end{align*}
+
+  Need to understand the quotient \(\frac{|X_i|}{|H|}\). Fix some \(1 \leq i \leq m\) and choose some \(g_i \in G\) such that \(g_i^{-1} g g_i = x_i\). So for all \(c \in C_G(g)\) and \(h \in H\),
+  \[
+    (cg_ih)^{-1} g (cg_ih)
+    = h_i^{-1} g_i^{-1} c^{-1} g c g_i h
+    = h^{-1} g_i^{-1} g g_i h
+    = h^{-1} x_i h
+    \in H
+  \]
+  i.e.\ \(cg_ih \in X_i\), hence \(C_G(g) g_i H \subseteq X_i\).
+
+  Conversely, if \(x \in X_i\) then
+  \[
+    x^{-1} g x
+    = h^{-1} x_i h 
+    = h^{-1} (g_i^{-1} g g_i) h
+  \]
+  for some \(h \in H\). Thus \(x h^{-1} g_i^{-1} \in C_G(g)\) and
+  \[
+    x \in C_G(g) g_i h \subseteq C_G(g) g_i H
+  \]
+  so we have equality
+  \[
+    X_i = C_G(g) g_i H.
+  \]
+  Thus
+  \begin{align*}
+    |X_i|
+    &= |C_G(g) g_i H| \\
+    &= \frac{|C_G(g)| |H|}{|H \cap g_i^{-1} C_G(g) g_i|} \\
+    \intertext{Note that \(g_i^{-1} C_G(g) g_i = C_G(g_i^{-1} g g_i) = C_G(x_i)\),}
+    &= |H: H \cap C_G(x_i)| |C_G(g)| \\
+    &= |H: C_H(x_i)| |C_G(g)|
+  \end{align*}
+  where we used a formula for double coset size. The result thus follows.
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(H, K \leq G\), an \emph{\((H, K)\)-double coset}\index{double coset} of \(H\) and \(K\) in \(G\) is a set
+    \[
+      HgK = \{hgk: h \in H, k \in K\}
+    \]
+    for some \(g \in G\). Facts:
+    \begin{enumerate}
+    \item two double cosets are either disjoint or equal.
+    \item for finite \(|HK|\),
+      \[
+        |H g K|
+        = \frac{|H| |K|}{|H \cap g K g^{-1}|}
+        = \frac{|H| |K|}{|g^{-1} H g  \cap K|}
+      \]
+    \end{enumerate}
+    See chapter 12 for more on double cosets.
+  \item An alternative proof can be founded in James and Liebeck, chapter 21, 23.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}
+  \(H = C_4 = \langle (1234) \rangle \leq G = S_4\) with index \(6\). We calculate the character of induced representations \(\Ind_H^G(\alpha)\), where \(\alpha\) is a 1 dimensional faithful representation of \(C_4\).
+
+  If \(\alpha(1234) = i\) then character of \(\alpha\) is
+  \[
+    \begin{array}{r|cccc}
+      & 1 & (1234) & (13)(24) & (1432) \\ \hline
+      \chi_\alpha & 1 & i & -1 & -i
+    \end{array}
+  \]
+  The induced representation of \(S_4\) is
+  \[
+    \begin{array}{r|cccccc}
+      & 1 & 6 & 8 & 3 & 6 \\
+      & 1 & (12) & (123) & (12)(24) & (1234) \\ \hline
+      \Ind_H^G \chi_\alpha  & 6 & 0 & 0 & -2 & 0
+    \end{array}
+  \]
+  The first three entries are easy. For \((12)(34)\), only one of the three elements in \(C_4\) it's conjugate to lies in \(H\), namely \((13)(24)\) so
+  \[
+    \Ind_H^G \chi_\alpha ((12)(34)) = 8 \cdot \frac{-1}{4} = -2.
+  \]
+  For \((1234)\) its conjugate to six elements of \(S_4\), of which two are in \(C_4\): \((1234)\) and \((1432)\). So
+  \[
+    \Ind_H^G \chi_\alpha (1234) = 4 \cdot \left(\frac{i}{4} - \frac{i}{4} \right) = 0.
+  \]
+\end{eg}
+
+\subsection{Induced representations}
+
+What are the representations affording induced characters? Let \(H \leq G\) with index \(n\). Let \(1 = t_1, \dots, t_n\) be transversals. Let \(W\) be an \(H\)-space.
+
+\begin{definition}
+  Let
+  \[
+    V = \Ind_H^G W = \bigoplus_i t_i \otimes W
+  \]
+  where \(t_i \otimes W = \{t_i \otimes w: w \in W\}\).
+\end{definition}
+Have \(\dim V = n \dim W\).
+
+We can define a \(G\)-action on \(V\). If \(g \in G\) then for all \(i\) there exists a unique \(j\) with \(t_j^{-1} g t_i \in H\) (namely \(t_j H\) is the coset containing \(gt_i\)). Define
+\[
+  g (t_i \otimes w) = t_j \otimes (t(t_j g t_i) w).
+\]
 
 
 

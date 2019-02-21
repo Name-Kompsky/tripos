@@ -2023,6 +2023,307 @@ This error is better than \(\frac{x}{\log x}\) but worse than \(x^{1 - \varepsil
     i.e.\ \(\log T \approx \sqrt{\log x}\).
 \end{proof}
 
+\subsection{Zero-free region}
+
+Firstly, near \(s = 1\), things are easy because of the pole.
+
+\begin{theorem}
+  If \(\sigma > \frac{1 + t^2}{2}\) then \(\zeta(s) \neq 0\). In particular, \(\zeta(s) \neq 0\). If \(\frac{8}{9} \leq \sigma \leq 1, |t| \leq \frac{7}{8}\).
+
+  Also
+  \begin{align*}
+    \zeta(s) &= \frac{1}{s - 1} + O(1) \\
+    - \frac{\zeta'(s)}{\zeta(s)} &= \frac{1}{s - 1} + O(1)
+  \end{align*}
+  uniformly in \(\frac{8}{9} \leq \sigma \leq 1, |t| \leq \frac{7}{8}\)
+\end{theorem}
+
+\begin{proof}
+  Recall that
+  \[
+    \zeta(s) = \frac{s}{s - 1} + s \int_1^\infty \frac{\{u\}}{u^{s + 1}} du
+  \]
+  so
+  \[
+    \Big| \zeta(s) - \frac{s}{s - 1} \Big| \leq |s| \int_1^\infty \frac{1}{u^{\sigma + 1}} du \leq \frac{|s|}{\sigma}
+    \]
+    so if \(\sigma > |s - 1|\), \(\zeta(s) \neq 0\), i.e.\ if \(\sigma < \frac{1 + t^2}{2}\). Also
+    \[
+      |\zeta(s) - \frac{1}{s - 1}| \leq 1 + |s| \int_1^\infty \frac{1}{u^{\sigma + 1}} du = O(1)
+    \]
+    so same holds for \(- \frac{\zeta'}{\zeta}\), by general theory of holomorphic functions.
+\end{proof}
+
+For \(|t|\) large, we need a different idea. How do we show that there aren't zeros on \(\sigma = 1\)? Suppose there is a zero, of order \(m\), at \(1 + it\). Then
+\[
+  - \frac{\zeta'}{\zeta} (1 + \delta + it) \sim \frac{m}{\delta}
+\]
+so
+\[
+  sum \frac{\Lambda(n)}{n^{1 + \delta + it}} \sim -\frac{m}{\delta}.
+\]
+Absolute value of LHS
+\[
+  \leq \sum \frac{\Lambda(n)}{n^{1 + \delta}}
+  = - \frac{\zeta'}{\zeta} (1 + \delta) \sim \frac{1}{\delta}
+\]
+so this shows \(m \leq 1\). If there is a zero, it is a simple zero.
+
+This also tells us
+\[
+  \sum_p \frac{\log p}{p^{1 + \delta}} e^{i t \log p} \sim - \sum \frac{\log p}{p^{1 + \delta}}
+\]
+so
+\[
+  \cos (t \log p) \approx -1
+\]
+for almost all \(p\), so \(p^{it} \approx -1, p^{2it} \approx 1\) for almost all \(p\), so there exists a pole at \(1 + 2i t\), which is a contradiction.
+
+We now present a rigorous proof. Before that we need to take a detour in complex analysis.
+
+\begin{lemma}[Borel-Carathéodory lemma]\index{Borel-Carathéodory lemma}
+  If \(f\) is holomorphic on \(|z| \leq R\) and \(f(0) = 0\). If \(\Re f(z) \leq M\) for all \(|z| \leq R\), then for any \(r < R\),
+  \[
+    \sup_{|t| \leq r} (|f(z)|, |f'(z)|) \ll_{r, R} M.
+  \]
+\end{lemma}
+If we replace \(\Re f(z)\) by \(|f(z)|\) then this is just maximum value principle.
+
+\begin{proof}
+  Let
+  \[
+    g(z) = \frac{f(z)}{z (2M - f(z))}.
+  \]
+
+  This is holomorphic in \(|z| \leq R\). If \(|z| = R\) then
+  \[
+    |2M - f(z)| \geq |f(z)|
+  \]
+  and so
+  \[
+    |g(z)| \leq \frac{|f(z)|}{R |f(z)|} \leq \frac{1}{R}.
+  \]
+  So for all \(|z| \leq r < R\), by maximum modules,
+  \[
+    |g(z)| = \frac{|f(z)|}{|z| |2m - f(z)|} < \frac{1}{R}
+  \]
+  so
+  \[
+    R |f(z)| \leq r |2M - f(z)| \leq 2M r + r |f(z)|
+  \]
+  so
+  \[
+    |f(z)| \leq \frac{2M r}{R - r} \ll M.
+  \]
+
+  For \(f'(z)\), we use Cauchy's formula
+  \[
+    f'(z) = \frac{1}{\pi i} \int_{|w| = r'} \frac{f(w)}{(z - w)^2} dw
+  \]
+  for \(r < r' < R\). (coefficient 2?)
+\end{proof}
+
+\begin{lemma}
+  If \(f\) is holomorphic on a domain including \(|z| \leq 1\), \(|f(z)| \leq M\) in that disc, and \(f(0) \neq 0\). If \(0 < r < R < 1\) then for \(|z| \leq r\)
+  \[
+    \frac{f'}{f} (z) = \sum_{k = 1}^K \frac{1}{z - z_k} + O_{r, R} (\log \frac{M}{|f(0)|})
+  \]
+  where \(z_k\) ranges over all zeros of \(f\) in \(|z| \leq R\).
+\end{lemma}
+c.f. fundamental theorem of algebra, and holomorphicity. This depends crucially on \(\C\) being algebraically closed.
+
+\begin{proof}
+  Suppose wlog \(f(0) = 1\). Say first there are no zeros. Consider \(h(z) = \log f(z)\) and
+  \[
+    \Re h(z) = \log |f(z)| \leq \log M
+  \]
+  so by Borel-Carathéodory lemma,
+  \[
+    |h'(z)| = |\frac{f'}{f(z)}| \ll \log M
+  \]
+  so done.
+
+  In general, we define an auxillary function \(g\) with no zeros. Let
+  \[
+    g(z) = f(z) \prod_{k = 1}^K \frac{R^2 - z \conj z_k}{(z - z_k) R}.
+  \]
+  The \(k\)th factor has a pole at \(z = z_k\) and on \(|z| = R\), has modulus \(1\) so on \(|z| \leq R\), \(|g(z)| \leq M\). In particular, \(|g(0)| = \prod_{k = 1}^K \frac{R}{|z_k|} \leq M\). Now let
+  \[
+    h(z) = \log \frac{g(z)}{g(0)}
+  \]
+  and
+  \[
+    \Re h(z) = \log |g(z)| - \log |g(0)| \leq \log M
+  \]
+  for \(|z| \leq R\). By Borel-Carathéodory lemma,
+  \[
+    |h'(z)| = |\frac{f'}{f} (z) - \sum_{k = 1}^K \frac{1}{z - z_k} + \sum_{k = 1}^K \frac{1}{z - R^2/\conj z_k} \ll \log M
+  \]
+  so
+  \[
+    \frac{f'}{f} (z) = \sum_{k = 1}^K \frac{1}{z - z_k} - \sum_{k = 1}^K \frac{1}{z - R^2/\conj z_k} + O(\log M)
+  \]
+  and if \(|z| \leq r\),
+  \[
+    |z - \frac{R^2}{\conj z_k}| \geq \frac{R^2}{z_k} - |z| \geq R - r \gg 1
+  \]
+  and \(K \ll \log M\).
+\end{proof}
+
+\begin{corollary}
+  If \(|t| \geq \frac{7}{8}\) and \(\frac{5}{6} \leq \sigma \leq 2\) then
+  \[
+    \frac{\zeta'}{\zeta}(s) = \sum_\rho \frac{1}{s - \rho} + O(\log |t|)
+  \]
+  where \(\rho\) is over all zeros in
+  \[
+    |\rho - (\frac{3}{2} + it)| \leq \frac{5}{6}.
+  \]
+\end{corollary}
+
+\begin{theorem}
+  There exists \(c > 0\) such that \(\zeta(s) \neq 0\) if \(\sigma \geq 1 - \frac{c}{\log t}\).
+\end{theorem}
+
+\begin{proof}
+  Assume \(\zeta(\rho) = 0\) where \(\rho = \sigma + it\). Let \(\delta > 0\) be chosen later.
+  \[
+    \frac{\zeta'}{\zeta} (1 + \delta + i t)
+    = \frac{1}{1 + \delta + it - \rho} + \sum_{\rho' \neq \rho} \frac{1}{1 + \delta + it - \rho'} + O(\log t)
+  \]
+  (assuming that \(\sigma\) is sufficiently close to \(1\)). Then
+  \begin{align*}
+    \Re \frac{\zeta'}{\zeta} (1 + \delta + i t)
+    &= \Re \frac{1}{1 + \delta + it - \rho} + \Re \sum_{\rho' \neq \rho} \frac{1}{1 + \delta + it - \rho'} + O(\log t) \\
+    &= \frac{1}{1 + \delta - \sigma} + O(\log t) + (> 0)
+  \end{align*}
+  since \(\Re \rho' \leq 1\), \(\Re \frac{1}{1 + \delta + it - \rho'} > 0\). Thus
+  \[
+    \Re \frac{\zeta'}{\zeta} (1 + \delta + i t)
+    > \frac{1}{1 + \delta - \sigma} + O(\log t)
+  \]
+  Similarly
+  \[
+    \Re \frac{\zeta'}{\zeta} (1 + \delta + 2 it) > O(\log t).
+  \]
+  Also
+  \[
+    \frac{\zeta'}{\zeta} (1 + \delta) = - \frac{1}{\delta} + O(1).
+  \]
+
+  Here comes the clever bit:
+  \begin{align*}
+    \Re(-3 \frac{\zeta'}{\zeta} (1 + \delta) - 4 \frac{\zeta'}{\zeta} (1 + \delta + it) - \frac{\zeta'}{\zeta} (1 + \delta + 2it))
+    &< \frac{3}{\delta} - \frac{4}{1 + \delta - \sigma} + O(\log t)
+      \tag{\dagger}
+  \end{align*}
+  As \(\delta \to 0\), \(\dagger\) is going to be negative. On the other hand, it is a a Dirichlet series
+  \begin{align*}
+    \dagger
+    &= \Re( 3 \sum_n \frac{\Lambda(n)}{n^{1 + \delta}} + 4 \sum_n \frac{\Lambda(n)}{n^{1 + \delta + it}} + \sum_n \frac{\Lambda(n)}{n^{1 + \delta + 2it}} ) \\
+    &= \sum_n \frac{\Lambda(n)}{n^{1 + \delta}} (3 + 4 \cos (t \log n) + \cos (2t \log n))
+  \end{align*}
+  Note
+  \[
+    3 + 4 \cos \theta + \cos (2\theta) = 2 (1 + \cos \theta)^2 \geq 0
+  \]
+  so \(\dagger \geq 0\).
+
+  So
+  \[
+    \frac{3}{\delta} > \frac{4}{1 + \delta - \sigma} + O(\log t).
+  \]
+  Choose \(\delta = \frac{C}{\log t}\) for large enough \(C\), so get a contradiction if \(\sigma \geq 1 - \frac{c}{\log t}\) for some \(c > 0\).( so
+  \[
+    \frac{4}{1 + \delta - \sigma} < \frac{10}{\delta}
+  \]
+  so \(\sigma \geq 1 - \frac{c}{\log t}\).)
+\end{proof}
+
+It's essentially what we are able to do nowadays. Best known to date is
+\[
+  \sigma \geq 1 - \frac{c (\log \log t)^{1/3}}{(\log t)^{2/3}}.
+\]
+
+\begin{lemma}
+  If \(\sigma > 1 - \frac{c}{2 \log t}\) and \(|t| \geq \frac{7}{8}\) then
+  \[
+    |\frac{\zeta'}{\zeta}(s)| \ll \log t.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(s_1 = 1 + \frac{1}{\log t} + it = \sigma_1 + it\). Here
+  \[
+    |\frac{\zeta'}{\zeta}(s_1)|
+    \ll \sum_{n = 1}^\infty \frac{\Lambda(n)}{n^{\sigma_1}}
+    \ll \frac{1}{\sigma_1 - 1}
+    \ll \log t.
+  \]
+  Use the corollary
+  \[
+    \frac{\zeta'}{\zeta}(s_1) = \sum_\rho \frac{1}{s_1 - \rho} + O(\log t)
+  \]
+  so therefore
+  \[
+    \Re \sum_\rho \frac{1}{s_1 - \rho} \ll \log t.
+  \]
+  Now if \(s = \sigma + it\), where \(\sigma > 1 - \frac{c}{2 \log t}\) then
+  \[
+    \frac{\zeta'}{\zeta}(s) - \frac{\zeta'}{\zeta}(s_1)
+    = \sum_\rho (\frac{1}{s - \rho} - \frac{1}{s_1 - \rho}) + O(\log t)
+  \]
+  Also \(|s - \rho| \asymp |s_1 - \rho|\) so
+  \[
+    |\frac{1}{s - \rho} - \frac{1}{s_1 - \rho}|
+    \ll \frac{1}{|s_1 - \rho|^2 \log t}
+    \ll \Re \frac{1}{s_1 - \rho}
+  \]
+  as \(\Re \frac{1}{z} = \frac{\Re z}{|z|^2}\). Then
+  \[
+    \sum_\rho |\frac{1}{s - \rho} - \frac{1}{s_1 - \rho}|
+    \ll \Re \sum_\rho \frac{1}{s_1 - \rho}
+    \ll \log t.
+  \]
+\end{proof}
+
+Assuming the Riemann Hypothesis, we can show
+\[
+  \psi(x) = x + O(x^{1/2} (\log x)^2).
+\]
+See example sheet. Using partial summation, we can deduce that
+\[
+  \pi(x) = \operatorname{Li} (x) + O_\varepsilon(x^{1/2 + \varepsilon})
+\]
+where
+\[
+  \operatorname{Li} (x)
+  = \int_2^x \frac{1}{\log t} dt
+  = \frac{x}{\log x} + O(\frac{x}{(\log x)^2}).
+\]
+Thus if we write \(\pi(x) = \frac{x}{\log x} + E(x)\) then
+\[
+  E(x) \gg \frac{x}{(\log x)^2}
+\]
+just because of \(\operatorname{Li}\).
+
+\subsection{Error terms}
+
+Indeed if we assume Riemann Hypothesis then we could get the error term as above. Can we do better? In this section we will show that
+\[
+  |\psi(x) - x| \gg x^{1/x}
+\]
+``often''. Thus apart from the factor \((\log x)^2\) we are getting the best possible error term. The reason is basically that there are many zeros of \(\zeta\) on the critical line. Acually, we will show that
+\[
+  \psi(x) = x + \Omega_{\pm} (x^{1/2}),
+\]
+i.e.
+\begin{align*}
+  \limsup_{x \to \infty} \frac{\psi(x) - x}{x^{1/2}} &> 0 \\
+  \liminf_{x \to \infty} \frac{\psi(x) - x}{x^{1/2}} &< 0
+\end{align*}
+
+
 
 
 

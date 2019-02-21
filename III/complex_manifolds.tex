@@ -1853,7 +1853,7 @@ which induces a long exact sequence in sheaf cohomology. In particular, as \(\Pi
   c_1: \Pic(X) \to H^2(X, \Z).
 \]
 
-\begin{definition}[first Chern class]\index{Chern class}
+\begin{definition}[first Chern class]\index{first Chern class}
   For \(L \in \Pic(X)\), we call \(c_1(L) \in H^2(X, \Z)\) the \emph{first Chern class} of \(L\).
 \end{definition}
 We'll return to Chern classes later.
@@ -2090,7 +2090,183 @@ so
 \[
   \int_X \omega^n > 0
 \]
-when \(X\) is compact.
+when this is defined, for example when \(X\) is compact.
+
+\begin{proposition}
+  If \(X\) is compact Kähler then
+  \[
+    \dim H^{2q}_{\text{dR}} (X; \R) > 0.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let \(\omega\) be a Kähler metric and \(\tau = \bigwedge^q \omega\). Then \(\d \tau = 0\) as \(\d \omega = 0\) so \([\tau] \in H^{2q}_{\text{dR}} (X; \R)\). Suppose \(\tau = \d \sigma\) where \(\sigma \in \mathcal A^{2q - 1}_\R(X)\). Then
+  \[
+    \int_X \omega^n
+    = \int_X \omega^{n - q} \w \tau
+    = \int_X \d (\sigma \w \omega^{n - q})
+    = 0
+  \]
+  by Stokes' theorem, a contradiction.
+\end{proof}
+
+Thus there is a topological obstruction for compact complex manifolds to be Kähler. For example Hopf surface on example sheet 3.
+
+\begin{remark}
+  We saw that every (smooth) projective manifold is Kähler. Recall that for \(L \in \Pic(X)\) we defined the first Chern class\index{first Chern class}
+  \[
+    c_1(L) \in H^2(X; \Z) \subseteq H^2(X; \R).
+  \]
+  The Kodaira embedding theorem states that on a compact complex manifold, a class \(\alpha \in H^2(X; \Z)\) is a Kähler class (i.e.\ there is a Kähler metric \(\omega \in \alpha\)) if and only if \(\alpha = c_1(L)\) for \(L \in \Pic(X)\) ample. This gives a complex differential geometric interpretation of ampleness and characterises which compact Kähler manifolds are projective.
+\end{remark}
+
+\begin{proposition}
+  Let \(\omega\) be a \((1, 1)\)-form associated to a Hermitian metric \(h\) on \(X\). Then \(\d \omega = 0\) if and only if for all \(x \in X\) there exist holomorphic coordinates \(z_1, \dots, z_n\) around \(x\) such that locally
+  \[
+    \omega = \frac{i}{2} \sum h_{jk} \d z_j \w \d \conj z_k
+  \]
+  with
+  \[
+    h_{jk} = \delta_{jk} + O(|z|^2).
+  \]
+  Thus \(\omega\) is Kähler if and only if \(\omega = \omega_0 + O(|z|^2)\) where \(\omega_0\) is the usual Kähler form on \(\C^n\).
+\end{proposition}
+This is analogous to the Riemannian geometric statement that we can choose a normal coordinates with to a Riemannian metric of this form.
+
+\begin{proof}
+  Let
+  \[
+    \omega = \frac{i}{2} \sum h_{jk} \d z_j \w \d \conj z_k.
+  \]
+  Then
+  \[
+    \d \omega
+    = \frac{i}{2} \sum \frac{\partial h_{jk}}{\partial z_\ell} \d z_\ell \w \d z_j \w \d \conj z_k
+    + \frac{i}{2} \sum \frac{\partial h_{jk}}{\partial \conj z_\ell} \d \conj z_\ell \w \d z_j \w \d \conj z_k
+  \]
+  Thus if \(h_{jk} = \delta_{jk} + O(|z|^2)\) then
+  \[
+    \frac{\partial h_{jk}}{\partial z_\ell}(x) = \frac{\partial h_{jk}}{\partial \conj z_\ell}(x) = 0
+  \]
+  so \(\d \omega = 0\).
+
+  Conversely, suppose \(\d \omega = 0\) and write
+  \[
+    \omega = \frac{i}{2} \sum h_{jk} \d z_j \w \d \conj z_k.
+  \]
+  By a linear change of coordinates, we may assume
+  \[
+    h_{jk}(x) = \delta_{jk}.
+  \]
+  The Taylor series expansion looks like
+  \[
+    h_{jk} = \delta_{jk} + \sum_\ell a_{jk\ell} z_\ell + \sum_\ell b_{jk\ell} \conj z_\ell + O(|z|^2).
+  \]
+  As \(h\) is Hermitian, \(h_{jk} = \conj h_{kj}\). Thus \(b_{jk\ell} = \conj{a_{kj\ell}}\). As \(\d \omega = 0\),
+  \[
+    0 = \sum_{j, k, \ell} a_{jk\ell} \d z_\ell \w \d z_j \w \d \conj z_k
+    + \sum_{j, k, \ell} b_{j, k, \ell} \d \conj z_\ell \w \d z_j \w \d \conj z_k.
+  \]
+  Thus
+  \begin{align*}
+    a_{jk\ell} &= a_{\ell kj} \\
+    b_{jk\ell} &= b_{j\ell k}
+  \end{align*}
+  Now let
+  \[
+    \xi_k = z_k + \frac{1}{z} \sum a_{jk\ell} z_j z_\ell,
+  \]
+  a valid change of coordinates in a neighbourhood of \(x\). Then
+  \begin{align*}
+    \d \xi_k &= \d z_k + \frac{1}{2} \sum a_{jk\ell} (z_j \d z_\ell + z_\ell \d z_j) \\
+    \d \conj \xi_k &= \d z_k + \frac{1}{2} \sum \conj a_{jk\ell} (\conj z_j \d \conj z_\ell + \conj z_\ell \d \conj z_j)
+  \end{align*}
+  Now we compute their wedge product
+  \begin{align*}
+    \d \xi_k \w d \conj \xi_k
+    &= \sum \d z_k \w \d \conj z_k \\
+    &+ \frac{1}{2} \sum \conj a_{jk\ell} (\conj z_j \d z_k \w \d \conj z_\ell + \conj z_\ell \d z_k \w \d \conj z_j) \\
+    &+ \frac{1}{2} \sum a_{jk\ell} (z_j \d \conj z_\ell \w \d \conj z_k + z_\ell \d z_j \w \d \conj z_k)
+      + O(|z|^2) \\
+    &= \sum \d z_k \w \d \conj z_k \\
+    &+ \sum a_{jk\ell} z_\ell \d z_j \w \d \conj z_k + \sum b_{jk\ell} \conj z_\ell \d z_k \w \d \conj z_j + O(|z|^2) \\
+    &= \frac{2}{i} \omega + O(|z|^2)
+  \end{align*}
+\end{proof}
+
+Thus any identity only involving the metric \(h\) and its first derivative, valid on \(\C^n\) with its usual Kähler metric is true on any Kähler manifold. We'll use this several times.
+
+Hodge theory. Revision of differential geometry
+
+Let \((X, g)\) be an oriented Riemannian manifold of dimension \(2n\). The exterior derivative \(\d: \mathcal A^k \to \mathcal A^{k + 1}\) satisfies \(\d^2 = 0\). Let \(\d \text{Vol}\) be the volume form associated to \(g\). The \emph{Hodge star operator}\index{Hodge star operator} is
+\[
+  \star: \mathcal A^k \to \mathcal A^{2n - k}
+\]
+defined in such a way that
+\[
+  \alpha \w \star \beta = \ip{\alpha, \beta}_g \d \text{Vol}
+\]
+for \(\alpha, \beta \in \mathcal A^k\).
+
+Set
+\[
+  \d^* = - \star \d \star: \mathcal A^k \to \mathcal A^{k - 1}.
+\]
+The \emph{Laplacian}\index{Laplacian} is
+\[
+  \Delta_\d = \d^* \d + \d \d^*: \mathcal A^k \to \mathcal A^k.
+\]
+Now suppose \(X\) is a complex manifold of dimension \(n\), with Riemannian metric \(g\) compatible with \(J\). Then the Hodge star operator extends naturally to
+\[
+  \star: \mathcal A_\C^k \to \mathcal A_\C^{2n - k}
+\]
+in such a way that
+\[
+  \alpha \w \star \beta = g_\C(\alpha, \beta) \d \text{Vol}.
+\]
+Write \(\d = \p + \conj \p\) with
+\begin{align*}
+  \p: \mathcal A_\C^{p, q} &\to \mathcal A^{p + 1, q} \\
+  \conj \p: \mathcal A_\C^{p, q} &\to \mathcal A^{p, q + 1}
+\end{align*}
+We define
+\begin{align*}
+  \p^* &= - \star \p \star \\
+  \conj \p^* &= - \star \conj \p \star
+\end{align*}
+and subsequently two more Laplacians
+\begin{align*}
+  \Delta_\p &= \p^* \p + \p \p^* \\
+  \Delta_{\conj \p} &= \conj \p^* \conj \p + \conj \p \conj\p^*
+\end{align*}
+
+If \(\omega\) is Kähler, set
+\begin{align*}
+  L: \mathcal A_\C^{p, q} &\to \mathcal A_\C^{p + 1, q + 1} \\
+  \alpha &\mapsto \alpha \w \omega
+\end{align*}
+This is the \emph{Lefschetz operator}\index{Lefschetz operator}. Finally set
+\[
+  \Lambda = \star^{-1} L \star: \mathcal A_\C^{p, q} \to \mathcal A_\C^{p - 1, q - 1}
+\]
+the \emph{inverse Lefschetz operator}\index{inverse Lefschetz operator} or sometimes the \emph{contraction operator}\index{contraction operator}.
+
+The operators \(\p^*\) and \(\conj \p^*\) are adjoint to \(\p, \conj \p\) respectively. Recall
+\[
+  \ip{\alpha, \beta}_{L^2} = \int_X \alpha \w \beta.
+\]
+
+\begin{lemma}
+  Suppose \(\alpha \in \mathcal A_\C^{p, q}, \beta \in \mathcal A_\C^{n - (p + 1), n - q}\) then
+  \begin{align*}
+    \ip{\p^* \alpha, \beta}_{L^2} &= \ip{\alpha, \p \beta} \\
+    \ip{\conj \p^* \alpha, \beta}_{L^2} &= \ip{\alpha, \conj \p \beta}
+  \end{align*}
+\end{lemma}
+
+
+
+
 
 
  

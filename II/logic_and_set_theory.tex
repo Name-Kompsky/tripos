@@ -1270,7 +1270,7 @@ We studied propositional logic in chapter 1 but it is not powerful enough to exp
 
 A mathematical \emph{structure} is a set with functions and relations defined on it. A function has an \emph{arity} associated to it, which is the number of arguments it takes. For example, recall that a group is a set \(A\) equipped with functions \(m: A^2 \to A\) (arity \(2\)), and \(i: A \to A\) (arity \(1\)), and a constant \(e \in A\), which could be seen as a function of arity \(0\), such that
 \begin{align*}
-  & (\forall x, y, z\in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
+  & (\forall x, y, z \in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
   & (\forall x \in A) (m(x, e) = x \land m(e, x) = x) \\
   & (\forall x \in A) (m(x, i(x)) = e \land m(i(x), x) = e)
 \end{align*}
@@ -1300,14 +1300,16 @@ The axioms and deduction rules in predicate logic is going to be more complicate
 
 \subsection{Definitions}
 
+Let \(\Omega, \Pi\) be disjoint sets and set \(\alpha: \Omega \cup \Pi \to \N\).
+
 \begin{definition}[Language]\index{language}
-  A \emph{language} \(L(\Omega, \Pi, \alpha)\) is the set of \emph{formulæ}, defined by
+  Let \(\Omega, \Pi\) be disjoint and \(\alpha: \Omega \cup \Pi \to \N\). A \emph{language} \(L(\Omega, \Pi, \alpha)\) is the set of \emph{formulæ}, defined by
   \begin{itemize}
   \item \emph{variables}\index{variable}: \(x_1, x_2, \dots\). We sometimes use \(x, y, \dots\),
   \item \emph{terms}: defined inductively by
     \begin{enumerate}
     \item each variable is an a term,
-    \item if \(f \in \Omega, \alpha(f) = n\) and \(t_1, \dots, t_n\) are terms then \(ft_1, \dots t_n\) is a term. We usually write \(f(t_1, \dots, t_n)\).
+    \item if \(f \in \Omega, \alpha(f) = n\) and \(t_1, \dots, t_n\) are terms then \(ft_1, \dots, t_n\) is a term. We usually write \(f(t_1, \dots, t_n)\).
     \end{enumerate}
     \begin{eg}
       In the language of groups, we have \(\Omega = (m, i, e)\), with arities \(2, 1, 0\) respectively. \(\Pi = \emptyset\).
@@ -1359,11 +1361,11 @@ The axioms and deduction rules in predicate logic is going to be more complicate
 \end{definition}
 
 \begin{eg}
-  In \(m(x, x) = e \implies (\exists y) (m(y, y) = e)\), \(x\) is free and \(y\) is bounded.
+  In \(m(x, x) = e \implies (\exists y) (m(y, y) = e)\), \(x\) is free and \(y\) is bound.
 \end{eg}
 
 \begin{note}
-  It is possible to have a variable that is both free and bound in a formula. For example,
+  We say an ``occurrence'' and not a ``variable'' is bound or free because officially, it is possible to have a variable that is both free and bound in a formula. For example,
   \[
     (m(x, x) = e) \implies (\forall x)(\forall y) (m(x, y) = m(y, x)).
   \]
@@ -1379,7 +1381,7 @@ The axioms and deduction rules in predicate logic is going to be more complicate
 \end{eg}
 
 \begin{definition}[Substitution]\index{substitution}
-  For a formula \(p\), a variable \(x\) and a term \(t\), the \emph{substitution} \(p[t/x]\) is obtained by replacing each free occurrence of \(x\) with \(e\).
+  For a formula \(p\), a variable \(x\) and a term \(t\), the \emph{substitution} \(p[t/x]\) is obtained by replacing each free occurrence of \(x\) with \(t\).
 \end{definition}
 
 Do not worry too much about the word ``free'' in the above definition, it is there to prevent us from doing stupid things in stupid formula such as the bad example above where a variable is both free and bound. Just follow your common sense!
@@ -1394,10 +1396,10 @@ Do not worry too much about the word ``free'' in the above definition, it is the
 \subsection{Semantic Entailment}
 
 \begin{definition}[Structure]\index{structure}
-  An \emph{\(L\)-structure} is a non-empty set \(A\) equipped with
+  Let \(L = L(\Omega, \Pi, \alpha)\). An \emph{\(L\)-structure} is a non-empty set \(A\) equipped with
   \begin{enumerate}
   \item for each \(f \in \Omega\) with \(\alpha(f) = n\), a function \(f_A: A^n \to A\),
-  \item for each \(\phi \in \Pi\) with \(\alpha(\phi) = n\), a relation \(\phi_A \in A^n\).
+  \item for each \(\phi \in \Pi\) with \(\alpha(\phi) = n\), a relation \(\phi_A \subseteq A^n\).
   \end{enumerate}
 \end{definition}
 
@@ -1406,16 +1408,16 @@ See note on page~\pageref{note:empty structure} for why ``non-empty''.
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item Suppose \(L\) is the language of groups, then an \(L\)-structure is a set \(A\) with functions \(m_A: A^2 \to A, i_A: A \to A, e_A \in A\). Note that \(A\) need not be a group.
-  \item Suppose \(L\) is the language of posets, then an \(L\)-structure is a set \(A\) with a relation \((\leq_A) \in A^2\).
+  \item Suppose \(L\) is the language of posets, then an \(L\)-structure is a set \(A\) with a relation \((\leq_A) \subseteq A^2\).
   \end{enumerate}
 \end{eg}
 
-We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \(p\) in an \(L\)-structure \(A\). For example, \((\forall x) (m(x, x) = e)\) should be ``true in \(A\)'' if \(\forall a \in A, m_A(a, a) = e_A\). Informally this can be done by inserting ``\(\in A\)'' and subscripting \(A\), and saying it aloud. This recipe captures the essence of the definition of interpretation and is perfectly valid, except that it precludes, for example, the entire French community from studying predicate logic. Thus we rephrase it in the language common to all mathematicians:
+We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \(p\) in an \(L\)-structure \(A\) as ``\(p\) holds in \(A\)''. For example, \((\forall x) (m(x, x) = e)\) should be ``true in \(A\)'' if \(\forall a \in A, m_A(a, a) = e_A\). Informally this can be done by inserting ``\(\in A\)'' and subscripting \(A\), and saying it aloud. This recipe captures the essence of the definition of interpretation and is perfectly valid, except that it precludes, for example, the entire French community from studying predicate logic. Thus we rephrase it in the language common to all mathematicians:
 
 \begin{definition}[Interpretation]\index{interpretation}
-  For an \(L\)-structure \(A\), define \emph{interpretation} of \(A\) \(p_A \in \{0, 1\}\) for a sentence \(p\) recursively by
+  For an \(L\)-structure \(A\), define \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \(p\) recursively by
   \begin{enumerate}
-  \item closed term: define \(t_A\) recursively by \((ft_1, \dots, f_n)_A = f_A(t_{1_A}, \dots, t_{n_A})\) for any \(f \in \Omega, \alpha(f) = n\) and closed terms \(t_1, \dots, t_n\).
+  \item closed term: define \(t_A\) recursively by \((ft_1, \dots, t_n)_A = f_A((t_1)_A, \dots, (t_n)_A)\) for any \(f \in \Omega, \alpha(f) = n\) and closed terms \(t_1, \dots, t_n\).
     \begin{eg}
       \(m(e, i(e))_A = m_A(e_A, i_A(e_A))\). Note that \(e_A\) is already defined.
     \end{eg}
@@ -1423,7 +1425,7 @@ We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \
     \begin{enumerate}
     \item \(\bot_A = 0\),
     \item \((s = t)_A = \begin{cases} 1 & \text{if } s_A = t_A \\ 0 & \text{otherwise} \end{cases}\) for closed terms \(s, t\).
-    \item \(\phi(t_1, \dots, t_n) = \begin{cases} 1 & \text{if } (t_{1_A}, \dots, t_{n_A}) \in \phi_A \\ 0 & \text{otherwise} \end{cases}\) for each \(\phi \in \Pi, \alpha(\phi) = n\) and closed terms \(t_1, \dots, t_n\).
+    \item \((\phi t_1, \dots, t_n)_A = \begin{cases} 1 & \text{if } ((t_1)_A, \dots, (t_n)_A) \in \phi_A \\ 0 & \text{otherwise} \end{cases}\) for each \(\phi \in \Pi, \alpha(\phi) = n\) and closed terms \(t_1, \dots, t_n\).
     \end{enumerate}
   \item sentence: \(p_A\) defined inductively by
     \begin{enumerate}
@@ -1433,9 +1435,9 @@ We want to define the \emph{interpretation} \(p_A \in \{0, 1\}\) of a sentence \
   \end{enumerate}
 \end{definition}
 
-If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variables of \(p\)}}\). For example, if \(p\) is the formula \((\exists y) (m(y, y) = x)\), then
+If \(p\) has free vairables, we can define \(p_A \subseteq A^{\#\text{free variables of \(p\)}}\). For example, if \(p\) is the formula \((\exists y) (m(y, y) = x)\), then
 \[
-  p_A = \{a \in A: \exists b \in A \text{ with } m_A(b, b) = e\}.
+  p_A = \{a \in A: \exists b \in A \text{ with } m_A(b, b) = a\}.
 \]
 
 \begin{definition}[Model]\index{model}
@@ -1458,14 +1460,14 @@ If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variab
   \begin{enumerate}
   \item Theory of groups: \(\Omega = \{m, i, e\}, \Pi = \emptyset\). Let \(T\) be the usual group axioms, i.e.
     \begin{align*}
-      & (\forall x, y \in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
+      \{& (\forall x, y \in A) (m(x, m(y, z)) = m(m(x, y), z)) \\
       & (\forall x \in A) (m(x, e) = x \land m(e, x) = x) \\
-      & (\forall x \in A) (m(x, i(x)) = e \land m(i(x), x) = e)
+      & (\forall x \in A) (m(x, i(x)) = e \land m(i(x), x) = e)\}
     \end{align*}
     Then an \(L\)-structure is a model of \(T\) if and only if \(T\) is a group. Note that there are two implications here (compare with, for example, a group is a model of the sentence representing associativity). We say \(T\) \emph{axiomatises the class of groups} or \emph{axiomatises the theory of groups}. Sometimes call the elements of \(T\) the \emph{axioms}\index{axiom} of \(T\).
   \item Theory of fields: \(\Omega = \{+, \times, -, 0, 1\}, \Pi = \emptyset\). Note that multiplicative inverse is not among them. \(T\) is
     \begin{align*}
-      & \{ \text{abelian group under } (+, -, 0) \\
+      \{& \text{abelian group under } (+, -, 0) \\
       & \times \text{ is commutative, associative, and distributive over } + \\
       & (\forall x) (1x = x) \\
       & \neg (1 = 0) \\
@@ -1477,13 +1479,13 @@ If \(p\) has free vaiables, we can define \(p_A \subseteq A^{\#\text{free variab
     \]
   \item Theory of posets: \(\Omega = \emptyset, \Pi = \{\leq\}\). \(T\) is
     \begin{align*}
-      & \{ (\forall x) (x \leq x) \\
+      \{& (\forall x) (x \leq x) \\
       & (\forall x) (\forall y) (\forall z) ((x \leq y \land y \leq z) \implies x \leq z) \\
       & (\forall x) (\forall y) ((x \leq y) \land (y \leq x) \implies x = y) \}
     \end{align*}
   \item Theory of graphs: \(\Omega = \emptyset, \Pi = \{a\}\) where \(a\) means ``is adjacent to''. \(T\) is
     \begin{align*}
-      & \{ (\forall x) (\neg a(x, x)) \\
+      \{& (\forall x) (\neg a(x, x)) \\
       & (\forall x) (\forall y) (a(x, y) \implies a(y, x)) \}
     \end{align*}
   \end{enumerate}
