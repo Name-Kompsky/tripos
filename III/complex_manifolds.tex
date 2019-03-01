@@ -10,7 +10,7 @@
 
 \input{header}
 
-\renewcommand{\d}{\mathrm{d}} % exterior derivative
+\usepackage{mathdots} % \iddots
 \renewcommand{\P}{\mathbb P} % projective space
 \newcommand{\w}{\wedge} % wedge product
 \DeclareMathOperator{\Pic}{Pic} % Picard group
@@ -266,7 +266,7 @@ Note that
   J(\d z_j) &= i \d z_j, J(\d\conj z_j) = -i \d\conj z_j \\
   J(\frac{\partial  }{\partial z_j}) &= i \frac{\partial  }{\partial z_j}, J(\frac{\partial  }{\partial \conj z_j}) = -i \frac{\partial  }{\partial \conj z_j}
 \end{align*}
-We see the \(\d z_j\) form a local frame for \(TX^{1, 0}\), similarly \(\d\conj z_j\) form a local frame for \(T^*X^{0, 1}\). Same for tangent bundle.
+We see the \(\d z_j\) form a local frame for \(T^*X^{1, 0}\), similarly \(\d\conj z_j\) form a local frame for \(T^*X^{0, 1}\). Same for tangent bundle.
 
 If \(f: X \to \C\), say \(f = u + iv\) then \(\d f = \d u + i\d v\) is a smooth section of
 \[
@@ -275,9 +275,11 @@ If \(f: X \to \C\), say \(f = u + iv\) then \(\d f = \d u + i\d v\) is a smooth 
 We denote by \(p_1, p_2\) the two projections.
 
 \begin{definition}
-  \[
-    \p f = p_1 (\d f)
-  \]
+  Define
+  \begin{align*}
+    \p f &= p_1 (\d f) \\
+    \conj \p f&= p_2 (\d f)
+  \end{align*}
 \end{definition}
 
 In a local frame,
@@ -2030,7 +2032,7 @@ So far the requirement of closedness seems quite arbitrary, but we'll soon prove
     \omega_{\text{FS}}|_{U_0}
     &= \frac{i}{2\pi} \p \conj \p \log (1 + \sum |w_j|^2) \\
     &= \frac{i}{2\pi} \p \left( \frac{\sum w_j \d \conj w_j}{1 + \sum |w_j|^2} \right) \\
-    &= \frac{i}{2\pi} \left( \frac{\sum \d w_j \w \d \conj w_j}{1 + \sum |w_j|^2} - \frac{(\sum \conj w_j \d w_j) \w (\sum w_j \d \conj w_j)}{(1 + \sum |w_j|^2)^2} \right) \\
+    &= \frac{i}{2\pi} \left( \frac{\sum \d w_j \w \d \conj w_j}{1 + \sum |w_j|^2} - \frac{(\sum \conj w_j \d w_j) \w (\sum w_k \d \conj w_k)}{(1 + \sum |w_j|^2)^2} \right) \\
     &= \frac{i}{2\pi} \left( \sum_{j,k} \frac{(1 + \sum |w_\ell|^2) \delta_{jk} - \conj w_j w_k}{(1 + \sum |w_\ell|)^2} \d w_j \w \d \conj w_k \right) \\
     &= \frac{i}{2\pi} h_{jk} \d w_j \w \d \conj w_k
   \end{align*}
@@ -2040,7 +2042,7 @@ So far the requirement of closedness seems quite arbitrary, but we'll soon prove
     &= \ip{u, u} + \ip{w, w} \ip{u, u} - u^T \conj w w^T \conj u \\
     &= \ip{u, u} + \ip{w, w} \ip{u, u} - \ip{u, w} \ip{w, u} \\
     &= \ip{u, u} + \ip{w, w} \ip{u, u} - |\ip{w, u}|^2 \\
-    &\geq0
+    &> 0
   \end{align*}
   By Cauchy-Schwarz.
 \end{eg}
@@ -2074,7 +2076,7 @@ Let \(\eta_j = \Re \varphi_j, \xi_j = \Im \varphi_j\). One checks
 \]
 with volume form
 \[
-  \d \text{Vol} = \eta_1 \w \xi_1 \w \dots \w \eta_n \w \xi_n.
+  \d \text{Vol} = \eta_1 \w \xi_1 \w \cdots \w \eta_n \w \xi_n.
 \]
 On the other hand
 \[
@@ -2100,7 +2102,7 @@ when this is defined, for example when \(X\) is compact.
 \end{proposition}
 
 \begin{proof}
-  Let \(\omega\) be a Kähler metric and \(\tau = \bigwedge^q \omega\). Then \(\d \tau = 0\) as \(\d \omega = 0\) so \([\tau] \in H^{2q}_{\text{dR}} (X; \R)\). Suppose \(\tau = \d \sigma\) where \(\sigma \in \mathcal A^{2q - 1}_\R(X)\). Then
+  Let \(\omega\) be a Kähler metric and \(\tau = \omega^q\). Then \(\d \tau = 0\) as \(\d \omega = 0\) so \([\tau] \in H^{2q}_{\text{dR}} (X; \R)\). Suppose \(\tau = \d \sigma\) where \(\sigma \in \mathcal A^{2q - 1}_\R(X)\). Then
   \[
     \int_X \omega^n
     = \int_X \omega^{n - q} \w \tau
@@ -2131,7 +2133,7 @@ Thus there is a topological obstruction for compact complex manifolds to be Käh
   \]
   Thus \(\omega\) is Kähler if and only if \(\omega = \omega_0 + O(|z|^2)\) where \(\omega_0\) is the usual Kähler form on \(\C^n\).
 \end{proposition}
-This is analogous to the Riemannian geometric statement that we can choose a normal coordinates with to a Riemannian metric of this form.
+This is analogous to the Riemannian geometric statement that we can choose a normal coordinates with respect to a Riemannian metric of this form.
 
 \begin{proof}
   Let
@@ -2165,38 +2167,39 @@ This is analogous to the Riemannian geometric statement that we can choose a nor
   As \(h\) is Hermitian, \(h_{jk} = \conj h_{kj}\). Thus \(b_{jk\ell} = \conj{a_{kj\ell}}\). As \(\d \omega = 0\),
   \[
     0 = \sum_{j, k, \ell} a_{jk\ell} \d z_\ell \w \d z_j \w \d \conj z_k
-    + \sum_{j, k, \ell} b_{j, k, \ell} \d \conj z_\ell \w \d z_j \w \d \conj z_k.
+    + \sum_{j, k, \ell} b_{jk\ell} \d \conj z_\ell \w \d z_j \w \d \conj z_k.
   \]
   Thus
   \begin{align*}
-    a_{jk\ell} &= a_{\ell kj} \\
-    b_{jk\ell} &= b_{j\ell k}
+    a_{jk\ell} &= a_{\ell k j} \\
+    b_{jk\ell} &= b_{j \ell k}
   \end{align*}
   Now let
   \[
-    \xi_k = z_k + \frac{1}{z} \sum a_{jk\ell} z_j z_\ell,
+    \xi_k = z_k + \frac{1}{2} \sum a_{jk\ell} z_j z_\ell,
   \]
   a valid change of coordinates in a neighbourhood of \(x\). Then
   \begin{align*}
     \d \xi_k &= \d z_k + \frac{1}{2} \sum a_{jk\ell} (z_j \d z_\ell + z_\ell \d z_j) \\
-    \d \conj \xi_k &= \d z_k + \frac{1}{2} \sum \conj a_{jk\ell} (\conj z_j \d \conj z_\ell + \conj z_\ell \d \conj z_j)
+    \d \conj \xi_k &= \d \conj z_k + \frac{1}{2} \sum \conj a_{jk\ell} (\conj z_j \d \conj z_\ell + \conj z_\ell \d \conj z_j)
   \end{align*}
   Now we compute their wedge product
   \begin{align*}
     \d \xi_k \w d \conj \xi_k
     &= \sum \d z_k \w \d \conj z_k \\
-    &+ \frac{1}{2} \sum \conj a_{jk\ell} (\conj z_j \d z_k \w \d \conj z_\ell + \conj z_\ell \d z_k \w \d \conj z_j) \\
-    &+ \frac{1}{2} \sum a_{jk\ell} (z_j \d \conj z_\ell \w \d \conj z_k + z_\ell \d z_j \w \d \conj z_k)
+    &\quad + \frac{1}{2} \sum \conj a_{jk\ell} (\conj z_j \d z_k \w \d \conj z_\ell + \conj z_\ell \d z_k \w \d \conj z_j) \\
+    &\quad + \frac{1}{2} \sum a_{jk\ell} (z_j \d z_\ell \w \d \conj z_k + z_\ell \d z_j \w \d \conj z_k)
       + O(|z|^2) \\
     &= \sum \d z_k \w \d \conj z_k \\
-    &+ \sum a_{jk\ell} z_\ell \d z_j \w \d \conj z_k + \sum b_{jk\ell} \conj z_\ell \d z_k \w \d \conj z_j + O(|z|^2) \\
+    &\quad + \sum a_{jk\ell} z_\ell \d z_j \w \d \conj z_k \\
+    &\quad + \sum b_{jk\ell} \conj z_\ell \d z_k \w \d \conj z_j + O(|z|^2) \\
     &= \frac{2}{i} \omega + O(|z|^2)
   \end{align*}
 \end{proof}
 
-Thus any identity only involving the metric \(h\) and its first derivative, valid on \(\C^n\) with its usual Kähler metric is true on any Kähler manifold. We'll use this several times.
+Thus any identity only involving the metric \(h\) and its first derivative, if true on \(\C^n\) with its usual Kähler metric, is true on any Kähler manifold. We'll use this several times.
 
-Hodge theory. Revision of differential geometry
+\subsection{Kähler identities}
 
 Let \((X, g)\) be an oriented Riemannian manifold of dimension \(2n\). The exterior derivative \(\d: \mathcal A^k \to \mathcal A^{k + 1}\) satisfies \(\d^2 = 0\). Let \(\d \text{Vol}\) be the volume form associated to \(g\). The \emph{Hodge star operator}\index{Hodge star operator} is
 \[
@@ -2226,8 +2229,8 @@ in such a way that
 \]
 Write \(\d = \p + \conj \p\) with
 \begin{align*}
-  \p: \mathcal A_\C^{p, q} &\to \mathcal A^{p + 1, q} \\
-  \conj \p: \mathcal A_\C^{p, q} &\to \mathcal A^{p, q + 1}
+  \p: \mathcal A_\C^{p, q} &\to \mathcal A_\C^{p + 1, q} \\
+  \conj \p: \mathcal A_\C^{p, q} &\to \mathcal A_\C^{p, q + 1}
 \end{align*}
 We define
 \begin{align*}
@@ -2251,18 +2254,780 @@ This is the \emph{Lefschetz operator}\index{Lefschetz operator}. Finally set
 \]
 the \emph{inverse Lefschetz operator}\index{inverse Lefschetz operator} or sometimes the \emph{contraction operator}\index{contraction operator}.
 
-The operators \(\p^*\) and \(\conj \p^*\) are adjoint to \(\p, \conj \p\) respectively. Recall
+\begin{remark}
+  For \(\alpha \in \mathcal A_\C^k\),
+  \[
+    \star \star \alpha = (-1)^{k (2n - k)} \alpha
+  \]
+  so
+  \[
+    \star^{-1} = (-1)^{k (2n - k)} \star.
+  \]
+\end{remark}
+
+The operators \(\p^*\) and \(\conj \p^*\) are adjoint to \(\p, \conj \p\) respectively with respect to \(L^2\) inner product, which is defined as
 \[
-  \ip{\alpha, \beta}_{L^2} = \int_X \alpha \w \beta.
+  \ip{\alpha, \beta}_{L^2}
+  = \int_X \alpha \w \star \beta
+  = \int_X g_\C(\alpha, \beta) \d \text{Vol}.
 \]
 
 \begin{lemma}
-  Suppose \(\alpha \in \mathcal A_\C^{p, q}, \beta \in \mathcal A_\C^{n - (p + 1), n - q}\) then
+  Suppose \(\alpha \in \mathcal A_\C^{p, q}, \beta \in \mathcal A_\C^{p + 1, q}\) then
+  \[
+    \ip{\p \alpha, \beta}_{L^2} = \ip{\alpha, \p^* \beta}_{L^2}.
+  \]
+  Similarly if \(\alpha \in \mathcal A_\C^{p, q}, \beta \in \mathcal A_\C^{p, q + 1}\) then
+  \[
+    \ip{\conj \p \alpha, \beta}_{L^2} = \ip{\alpha, \conj \p^* \beta}_{L^2}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  We prove the first identity. By Stokes' theorem
+  \[
+    0
+    = \int_X \d (\alpha \w \star \beta)
+    = \int_X \p (\alpha \w \star \beta)
+  \]
+  because
+  \[
+    \alpha \w \star \beta \in \mathcal A_\C^{p + (n - (p + 1)), q + (n - q)} = \mathcal A_\C^{n - 1, n}
+  \]
+  so \(\conj \p (\alpha \w \star \beta) = 0\). Thus
+  \[
+    0
+    = \int_X \p (\alpha \w \star \beta)
+    = \int_X \p\alpha \w \star \beta + (-1)^k \alpha \w \p \star \beta
+  \]
+  where \(k = p + q\), thus
   \begin{align*}
-    \ip{\p^* \alpha, \beta}_{L^2} &= \ip{\alpha, \p \beta} \\
-    \ip{\conj \p^* \alpha, \beta}_{L^2} &= \ip{\alpha, \conj \p \beta}
+    \ip{\p \alpha, \beta}_{L^2}
+    &= \int_X \p \alpha \w \star \beta \\
+    &= (-1)^{k + 1} \int_X \alpha \w \p \star \beta \\
+    &= (-1)^{k + 1 + k(2n - k)} \int_X \alpha \w \star (\star \p \star) \beta \\
+    &= \ip{\alpha, \p^* \beta}_{L^2}
+  \end{align*}
+  since \(k(2n - k + 1)\) is even.
+\end{proof}
+
+We now prove the \emph{Kähler identities}\index{Kähler identities}:
+\begin{align*}
+  [\conj \p^*, L] &= i \p, [\p^*, L] = -i \conj \p \\
+  [\Lambda, \conj \p] &= - i \p^*, [\Lambda, \p] = i\conj \p^*
+\end{align*}
+
+We begin with \(\C^n\) equipped with the standard Kähler metric. We have
+\begin{align*}
+  \omega &= \frac{i}{2} \sum \d z_j \w \d \conj z_j \\
+  g &= \frac{1}{2} \sum \d z_j \otimes \d \conj z_j
+\end{align*}
+
+We introduce some notations
+\begin{definition}
+  For \(\alpha \in \mathcal A_\C^k, \xi \in \mathcal A_\C^1\). Define \(\xi \vee \alpha \in \mathcal A_\C^{k - 1}\) by
+  \[
+    g_\C(\xi \vee \alpha, \beta) = g_\C(\alpha, \conj \xi \w \beta)
+  \]
+  for all \(\beta \in \mathcal A_\C^{k - 1}\).
+\end{definition}
+It is an exercise in linear algebra to check this exists and is well-defined, as \(g_\C\) is nondegenerate. For example in holomorphic coordinates,
+\[
+  \d z_1 \vee \alpha = \alpha( \frac{\partial  }{\partial z}, -).
+\]
+
+For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
+
+\begin{definition}
+  If \(\alpha \in \mathcal A_\C^k\), using multiindex notation, write
+  \[
+    \alpha = \sum_{|I| + |J| = k} \alpha_{IJ} \d z_I \w \d \conj z_J
+  \]
+  Define
+  \begin{align*}
+    \p_j \alpha &= \sum_{|I| + |J| = k} \frac{\partial \alpha_{IJ}}{\partial z_j} \d z_I \w \d \conj z_J \\
+    \conj \p_j \alpha &= \sum_{|I| + |J| = k} \frac{\partial \alpha_{IJ}}{\partial \conj z_j} \d z_I \w \d \conj z_J
+  \end{align*}
+\end{definition}
+
+\begin{lemma}
+  \begin{align*}
+    \d z_j \vee \d z_k &= 0 \\
+    \d z_j \vee \d \conj z_k &= \delta_{jk}
   \end{align*}
 \end{lemma}
+
+\begin{proof}
+  \begin{align*}
+    \d z_j \vee \d z_k &= \ip{\d z_j, \d \conj z_k} = 0 \\
+    \d z_j \vee \d \conj z_k &= \ip{\d z_j, \d z_k} = \delta_{ik}
+  \end{align*}
+\end{proof}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(\conj \p \alpha = \sum_j \d \conj z_j \w \conj \p_j \alpha\).
+  \item \(\p_j \ip{\alpha, \beta} = \ip{\p_j, \beta} + \ip{\alpha, \conj \p_j \beta}\).
+  \item \(\p_j (\d z_k \vee \alpha) = \d z_k \vee \p_j \alpha\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Follows from definition of \(\conj \p\).
+  \item Follows as the metric is the standard one so has no dependency on coordinate:
+    \[
+      \p_j \ip{\alpha, \beta}
+      = \p_j \sum \alpha_{IJ} \conj \beta_{IJ}
+      = \sum ((\p_j \alpha_{IJ}) \conj \beta_{IJ} + \alpha_{IJ} \p_j \conj \beta_{IJ}).
+    \]
+  \item Follows as \(\p_j\) commutes with \((\d z_k \vee -)\), since it commutes with \((\d \conj z_k \w -)\). Explicitly,
+    \begin{align*}
+      \ip{\p_j (\d z_k \vee \alpha), \beta}
+      &= \p_j \ip{\d z_k \vee \alpha, \beta} - \ip{\d z_k \vee \alpha, \conj \p_j \beta} \\
+      &= \p_j \ip{\alpha, \d \conj z_k \w \beta} - \ip{\alpha, \d \conj z_k \w \conj \p_j \beta} \\
+      &= \ip{\p_j \alpha, \d \conj z_k \w \beta} \\
+      &= \ip{\d z_k \vee \p_j \alpha, \beta}
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  \[
+    \conj \p^* \alpha = - \sum_j \d z_j \vee \p_j \alpha.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(\alpha \in \mathcal A_\C^k, \beta \in \mathcal A_\C^{k - 1}\) have compact support. Then
+  \[
+    \int_{\C^n} \p_j \ip{\d z_j \vee \alpha, \beta} \d \text{Vol} = 0
+  \]
+  by Stokes' theorem, with \(\d \text{Vol}\) being the stardard volume form, and \(\beta\) having compact support. Thus
+  \begin{align*}
+    0
+    &= \int_{\C^n} \p_j \ip{\d z_j \vee \alpha, \beta} \d \text{Vol} \\
+    &= \ip{\p_j (\d z_j \vee \alpha), \beta}_{L^2} + \ip{\d z_j \vee \alpha, \conj \p_j \beta}_{L^2} \\
+    &= \ip{\d z_j \vee \p_j \alpha, \beta}_{L^2} + \ip{\d z_j \vee \alpha, \conj \p_j \beta}_{L^2}
+  \end{align*}
+  so
+  \begin{align*}
+    \ip{\conj \p^* \alpha, \beta}_{L^2}
+    &= \ip{\alpha, \conj \p \beta}_{L^2} \qquad \text{adjoint relation} \\
+    &= \sum \ip{\alpha, \d \conj z_j \w \conj \p_j \beta}_{L^2} \\
+    &= \sum \ip{\d z_j \vee \alpha, \conj \p_j \beta}_{L^2} \\
+    &= - \sum \ip{\d z_j \vee \p_j \alpha, \beta}_{L^2}
+  \end{align*}
+  This gives the result as it holds for all such \(\beta\).
+\end{proof}
+
+\begin{lemma}
+  On \(\C^n\) with the standard metric,
+  \[
+    [\conj \p^*, L] = i\p.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Give a form \(\alpha\),
+  \[
+    [\conj \p^*, L] \alpha
+    = \conj \p^* L \alpha - L \conj \p^* \alpha
+    = \conj \p^* (\omega \w \alpha) - \omega \w \conj \p^* \alpha.
+  \]
+  The first term is
+  \begin{align*}
+    \conj \p^* (\omega \w \alpha)
+    &= - \sum \d z_j \vee \p_j (\omega \w \alpha) \quad \text{by the previous lemma} \\
+    &= - \sum \d z_j \vee ((\p_j \omega \w \alpha) + \omega \w \p_j \alpha) \\
+    \intertext{As \(\omega\) is the standard Kähler form, \(\p_j \omega = 0\).}
+    &= - \frac{i}{2} \sum \d z_j \vee (\sum_k \d z_k \w \d \conj z_k \w \p_j \alpha) \\
+    &= - \frac{i}{2} \sum_{j, k} \underbrace{(\d z_j \vee \d z_k)}_{= 0} \w \d \conj z_k \w \p_j \alpha \\
+    &\quad + \frac{i}{2} \sum_{j, k} \d z_k \w \underbrace{(\d z_j \vee \d \conj z_k)}_{= \delta_{jk}} \w \p_j \alpha \\
+    &\quad \underbrace{- \frac{i}{2} \sum_{j, k} \d z_k \w \d \conj z_k \w (\d z_k \vee \p_j \alpha)}_{= - \omega \w \sum_j \d z_j \vee \p_j \alpha} \\
+    &= 0 + i \p \alpha + \omega \w \conj \p^* \alpha
+  \end{align*}
+  so indeed
+  \[
+    [\conj \p^*, L] \alpha
+    = i \p \alpha + \omega \w \conj \p^* \alpha - \omega \w \conj \p^* \alpha
+    = i \p \alpha.
+  \]
+\end{proof}
+
+\begin{theorem}[Kähler identities]\index{Kähler identites}\leavevmode
+  \begin{enumerate}
+  \item \([\conj \p^*, L] = i \p\).
+  \item \([\p^*, L] = -i \conj \p\).
+  \item \([\Lambda, \conj \p] = - i \p^*\).
+  \item \([\Lambda, \p] = i\conj \p^*\).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item As \(\omega\) is Kähler around any \(x \in X\) there are coordinates \(z_1, \dots, z_k\) in which
+    \[
+      \omega = \omega_0 + O(|z|^2)
+    \]
+    where \(\omega_0\) is the standard metric on \(\C^n\). As \([\conj \p^*, L]\) only involves the metric and the first derivative of its coefficients, this follows from the result for \(\C^n\).
+  \item Conjugate 1 and notice that \(\omega\) is real.
+  \item Adjoint of 1.
+  \item Adjoint of 2.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  On a Kähler manifold \((X, \omega)\), we have
+  \[
+    \Delta_\d = 2 \Delta_\p = 2 \Delta_{\conj \p}.
+  \]
+\end{theorem}
+
+\begin{remark}
+  This is not true on arbitrary complex manifolds.
+\end{remark}
+
+\begin{proof}
+  First we claim
+  \begin{align*}
+    \conj \p^* \p + \p \conj \p^* &= 0 \\
+    \p^* \conj \p + \conj \p \p^* &= 0
+  \end{align*}
+  Kähler identities give
+  \[
+    \conj \p^* = -i [\Lambda, \p]
+  \]
+  then
+  \begin{align*}
+    \conj \p^* \p + \p \conj \p^*
+    &= - i[\Lambda, \p] \p - i\p[\Lambda, \p] \\
+    &= -i\Lambda \p \p + i\p \Lambda \p - i\p \Lambda \p + i \p \p \Lambda \\
+    &= 0
+  \end{align*}
+  as \(\p^2 = 0\). Next we show
+  \[
+    \Delta_\d = \Delta_\p + \Delta_{\conj \p}.
+  \]
+  This is because
+  \begin{align*}
+    \Delta_\d
+    &= \d^* \d + \d \d^* \\
+    &= (\p^* + \conj \p^*) (\p + \conj \p) + (\p + \conj \p) (\p^* + \conj \p^*) \\
+    &= \Delta_\p + \Delta_{\conj \p}
+  \end{align*}
+  as the cross terms cancel. Finally we next show
+  \[
+    \Delta_\p = \Delta_{\conj \p}.
+  \]
+  This is because
+  \begin{align*}
+    \Delta_\p
+    &= \p\p^* + \p^*\p \\
+    &= i\p[\Lambda, \conj \p] + i[\Lambda, \conj \p]\p \\
+    &= i \p \Lambda \conj \p - i \p \conj \p \Lambda + i \Lambda \conj \p \p - i \conj \p \Lambda \p
+  \end{align*}
+  and similarly
+  \begin{align*}
+    \Delta_{\conj \p}
+    &= \conj \p \conj \p^* + \conj \p^* \p \\
+    &= -i \conj \p[\Lambda, \p] - i [\Lambda, \p] \conj \p \\
+    &= \Delta_\p
+  \end{align*}
+\end{proof}
+
+This theorem shows that no matter which (co)differential we choose, there is no ``weird'' Hodge theory on Kähler manifold as all three Laplacians coincide.
+
+\begin{lemma}
+  Let \(\alpha \in \mathcal A_\C^{p, q}(X), \beta \in \mathcal A_\C^{p - 1, q - 1}(X)\). Then
+  \[
+    g_\C(\alpha, L\beta) = g_\C(\Lambda \alpha, \beta).
+  \]
+\end{lemma}
+So \(L\) is the adjoint of \(\Lambda\).
+
+\begin{proof}
+  \begin{align*}
+    g_\C(L\alpha, \beta) \d \text{Vol}
+    &= L\alpha \w \star \beta \\
+    &= \omega \w \alpha \w \star \beta \\
+    &= \alpha \w \omega \w \star \beta \\
+    &= g_\C(\alpha, \star^{-1} L \star \beta) \d \text{Vol} \\
+    &= g_\C(\alpha, \Lambda \beta) \d \text{Vol}
+  \end{align*}
+  as \(\Lambda = \star^{-1} L \star\).
+\end{proof}
+
+\begin{theorem}[Kähler identities II]\index{Kähler identities}
+  Let \((X, \omega)\) be a Kähler manifold. Let \(\pi_k: \mathcal A_\C^* \to \mathcal A_\C^k\) be the projection and define the \emph{counting operator}\index{counting operator}
+  \[
+    H = \sum_{k = 0}^{2n} (n - k) \pi_k
+  \]
+  where \(2n\) is the real dimension of \(X\). Then
+  \begin{enumerate}
+  \item \(H, \Lambda, L\) commute with \(\Delta_\d\).
+  \item
+    \begin{align*}
+      [\Lambda, L] &= H \\
+      [H, L] &= -2L \\
+      [H, \Lambda] &= 2\Lambda
+    \end{align*}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  We first consider commutators with \(H\). By linearity, it suffices to prove these results for some \(\alpha \in \mathcal A_\C^{p, q}\) where \(p + q = k\). Then
+  \[
+    [H, \Delta_\d] \alpha
+    = (n - k) \Delta_\d \alpha - \Delta_\d (n - k) \alpha
+    = 0.
+  \]
+  Also
+  \begin{align*}
+    [H, L]\alpha
+    &= HL\alpha - LH\alpha \\
+    &= (n - (k + 2)) L\alpha - L(n - k) \alpha \\
+    &= -2L\alpha
+  \end{align*}
+  Taking adjoints and using \(H = H^*\) as
+  \[
+    g_\C(H\alpha, \beta) = g_\C(\alpha, H\beta)
+  \]
+  gives
+  \[
+    [H, \Lambda] = 2\Lambda.
+  \]
+
+  Showing \([L, \Delta_\d] = 0\) is equivalent to asking \(\Delta_\d \omega = 0\) (i.e.\ \(\omega\) is harmonic) and this is on example sheet 3. As \(\Delta_\d = \Delta_\d^*\),
+  \[
+    [\Lambda, \Delta_\d] = 0.
+  \]
+
+  We show lastly that
+  \[
+    [\Lambda, L] = H.
+  \]
+  That is, if \(\alpha \in \mathcal A_\C^{p, q}\) where \(p + q = k\) then
+  \[
+    [\Lambda, L] \alpha = (n - k) \alpha.
+  \]
+  This identity has no derivatives, so holds for \((X, \omega)\) if it holds for \(\C^n\) with respect to the standard Kähler metric. We check this explicitly. When \(n = 1\) we have
+  \[
+    \Lambda(\frac{i}{2} g(z) \d z \w \d \conj z) = g(z)
+  \]
+  so the identity holds. In general, write
+  \begin{align*}
+    L &= \sum L_j \\
+    L_j \alpha &= \frac{i}{2} \d z_j \w \d \conj z_j \w \alpha
+  \end{align*}
+  and \(\Lambda = \sum \Lambda_j\), where \(\Lambda_j = L_j^*\) removes \(\d z_j \w \d \conj z_j\) if \(\alpha\) has a \(\d z_j \w \d \conj z_j\) term and \(\Lambda_j \alpha = 0\) otherwise (up to an appropriate dimensional constant). Then
+  \[
+    [L_j, \Lambda_\ell] = 0
+  \]
+  if \(j \neq \ell\), so this reduces to (a small variant of) the one dimensional case. By linearity one reduces to
+  \[
+    \alpha = \frac{i}{2} \d z_j \w \d \conj z_j \w \hat \alpha
+  \]
+  where \(\hat \alpha \in \mathcal A_\C^{p - 1, q - 1}\), then
+  \[
+    [\Lambda_j, L_j] \alpha = (n - p - q) \alpha
+  \]
+  as in the one dimensional case.
+\end{proof}
+
+\begin{remark}
+  See Huybrechts Proposition 1.2.26 for a proof which carefully keeps track of the constants.
+\end{remark}
+
+\section{Hodge Theory}
+
+We wish to understand the Dolbeault cohomology groups\index{Dobeault cohomology} \(H^{p, q}_{\conj \p}(X)\), and how they compare with the sheaf cohomology \(H^k (X, \C)\) where \(p + q = k\). We begin by picking canonical representatives of cohomology.
+
+Recall that
+\begin{definition}[harmonic form]\index{harmonic form}
+  Given an oriented Riemannian manifold \((X, g)\), we define the space of \emph{harmonic forms} of degree \(k\) to be
+  \[
+    \mathcal H^k(X, g) = \{\alpha \in \mathcal A^k(X), \Delta_\d \alpha = 0\}.
+  \]
+\end{definition}
+
+\begin{remark}
+  On \(\R^n\) with the Euclidean metric, if \(f \in C^\infty(\R^n)\) then
+  \[
+    \Delta_\d f = \Delta f,
+  \]
+  the usual Laplacian. Thus \(\Delta_\d f = 0\) if and only if \(f\) is harmonic in the classical sense.
+\end{remark}
+
+\begin{lemma}
+  Suppose \((X, \omega)\) is compact. \(\Delta_{\conj \p} \alpha = 0\) if and only if
+  \[
+    \conj \p \alpha = \conj \p^* \alpha = 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Similar to that in Riemannian geometry. If \(\conj \p \alpha = \conj \p^* \alpha = 0\) then \(\Delta_{\conj \p} \alpha = 0\) by definition of \(\Delta_{\conj \p}\).
+
+  Conversely, if \(\Delta_{\conj \p} \alpha = 0\) then
+  \begin{align*}
+    0
+    &= \ip{\Delta_{\conj \p} \alpha, \alpha}_{L^2} \\
+    &= \ip{(\conj \p^* \conj \p + \conj \p \conj \p^*) \alpha, \alpha}_{L^2} \\
+    &= \norm{\conj \p \alpha}_{L^2}^2 + \norm{\conj \p^* \alpha}_{L^2}^2
+  \end{align*}
+  so \(\conj \p \alpha = \conj \p^* \alpha = 0\).
+\end{proof}
+
+Recall that if \((X, \omega)\) is Kähler then
+\[
+  \Delta_\d \alpha = 0 \iff \Delta_{\conj \p} \alpha = 0 \iff \Delta_\p \alpha = 0
+\]
+so we can define \emph{harmonic forms}\index{harmonic forms} on \(X\) with respect to any of the Laplacian
+\[
+  \mathcal H^{p, q}_{\conj \p} (X, g) = \{\alpha \in \mathcal A_\C^{p, q}(X): \Delta_{\conj \p} \alpha = 0\}.
+\]
+Recall from III Differential Geometry
+\begin{theorem}[Hodge decomposition for Riemannian manifolds]\index{Hodge decomposition}
+  If \((X, g)\) is a compact Riemannian manifold then there is an \(L^2\)-orthogonal decomposition
+  \begin{align*}
+    \mathcal A^k(X)
+    &\cong \mathcal H^k(X) \oplus \d \mathcal A^{k - 1}(X) \oplus \d^* \mathcal A^{k + 1}(X) \\
+    &\cong \mathcal H^k(X) \oplus \Delta_\d(\mathcal A^k(X))
+  \end{align*}
+  The space \(\mathcal H^k(X)\) of harmonic forms is finite-dimensional.
+\end{theorem}
+The second isomorphism is because
+\[
+  \Delta_\d \mathcal A^k(X)
+  = \d \d^* \mathcal A^k(X) \oplus \d^* \d \mathcal A^k(X)
+  = \d \mathcal A^{k - 1}(X) \oplus \d^* \mathcal A^{k + 1}(X).
+\]
+For example if \(\alpha = \d \beta \in \d \mathcal A^{k - 1}(X), \beta = \beta_1 + \beta_2 + \beta_3 \) then
+\[
+  \d \beta = \d \beta_3 = \d \d^* \gamma
+\]
+for some \(\gamma\).
+
+\begin{theorem}[Hodge deomposition for Kähler manifolds]\index{Hodge decomposition}
+  If \((X, \omega)\) is a compact Kähler manifold then there is an \(L^2\)-orthogonal decomposition
+  \begin{align*}
+    \mathcal A_\C^{p, q}(X)
+    &\cong \mathcal H_{\conj \p}^{p, q}(X) \oplus \conj \p \mathcal A_\C^{p, q - 1}(X) \oplus \conj \p^* \mathcal A_\C^{p, q + 1}(X) \\
+    &\cong \mathcal H_\p^{p, q}(X) \oplus \p \mathcal A_\C^{p - 1, q}(X) \oplus \p^* \mathcal A_\C^{p + 1, q}(X)
+  \end{align*}
+\end{theorem}
+Note that
+\[
+  \mathcal H_\p^{p, q}(X) = \mathcal H_{\conj \p}^{p, q}(X) = \mathcal H_\d^{p, q}(X)
+\]
+as
+\[
+  \Delta_\d = 2 \Delta_{\conj \p} = 2 \Delta_\p.
+\]
+
+\begin{remark}
+  Just as in III Differential Geometry, we shall not prove this result. The proof uses techniques from elliptic PDE theory. See Griffiths-Harris chapter 0.6.
+\end{remark}
+
+\begin{corollary}
+  The map
+  \[
+    \mathcal H_{\conj \p}^{p, q}(X) \to H_{\conj \p}^{p, q}(X)
+  \]
+  sending \(\alpha\) to its class is an isomorphism. That is, each class in \(H_{\conj \p}^{p, q}(X)\) is represented by a unique harmonic form.
+\end{corollary}
+
+\begin{proof}
+  The map is well-defined: if \(\Delta_{\conj \p} \alpha = 0\) then \(\conj \p \alpha = 0\).
+
+  We first show surjectivity. Let \(\alpha \in \mathcal A_\C^{p, q}(X)\) satisfy \(\conj \p \alpha = 0\). By Hodge decomposition we may write
+  \[
+    \alpha = \beta_1 + \conj \p \beta_2 + \conj \p^* \beta_3
+  \]
+  with \(\beta_1\) harmonic. Thus
+  \[
+    0 = \conj \p \alpha = \conj \p \conj \p^* \beta_3.
+  \]
+  But then
+  \[
+    0
+    = \ip{\conj \p \conj \p^* \beta_3, \beta_3}_{L^2}
+    = \ip{\conj \p^* \beta_3, \conj \p^* \beta_3}_{L^2}
+    = \norm{\conj \p^* \beta_3}_{L^2}^2
+  \]
+  so \(\conj \p^* \beta_3 = 0\). So \(\alpha = \beta_1 + \conj \p \beta_2\) and
+  \[
+    [\alpha] = [\beta_1] \in H_{\conj \p}^{p, q}(X)
+  \]
+  with \(\beta_1\) harmonic.
+
+  Now we show injectivity. Suppose \(\alpha \in \mathcal H_{\conj \p}^{p, q}(X)\) is harmonic with \(0 = [\alpha] \in H_{\conj \p}^{p, q}(X)\). Then \(\alpha = \conj \p \beta\). As \(\alpha\) is harmonic,
+  \[
+    0 = \conj \p^* \alpha = \conj \p^* \conj \p \beta
+  \]
+  so \(\conj \p \beta = 0\) by an \(L^2\) argument. Thus \(\alpha = 0\).
+\end{proof}
+
+\begin{corollary}
+  The map
+  \[
+    \mathcal H_{\conj \p} ^k(X) \to H_{\textrm{dR}}^k(X; \C)
+  \]
+  is an isomorphism. That is each cohomology class is represented by a unique harmonic form.
+\end{corollary}
+
+\begin{proof}
+  Same as before.
+\end{proof}
+
+\begin{remark}
+  The vector spaces \(\mathcal H^{p, q}(X)\) (\(\cong H_{\conj \p}^{p, q}(X)\)) admits the following operations:
+  \begin{enumerate}
+  \item conjugation \(\alpha \mapsto \conj \alpha\) sends harmonic forms to harmonic forms (since \(\conj{\p} \conj \alpha = \conj{\p \alpha}\)), hence inducing an isomorphism
+    \[
+      \mathcal H^{p, q}(X) \cong \mathcal H^{q, p}(X).
+    \]
+    We used Kähler identities (\(\Delta_\p \alpha = 0\) if and only if \(\Delta_{\conj \p} \alpha = 0\)) and this is not true for arbitrary compact complex manifolds.
+  \item Hodge star operator \(\alpha \mapsto \star \alpha\) sends harmonic forms to harmonic forms (since \(\p^* \star \alpha = - \star \p \alpha = 0\) if \(\alpha\) is harmonic), hence inducing an isomorphism
+    \[
+      \mathcal H^{p, q}(X) \cong \mathcal H^{n - p, n - q}(X).
+    \]
+  \item another way to see this is Serre duality\index{Serre duality}: consider the pairing
+    \begin{align*}
+      \mathcal H^{p, q}(X) \times \mathcal H^{n - p, n - q}(X) &\to \C \\
+      (\alpha, \beta) &\mapsto \int_X \alpha \w \beta
+    \end{align*}
+    if \(\alpha \neq 0\) then
+    \[
+      (\alpha, \star \conj \alpha) \mapsto \int_X \alpha \w \star \conj \alpha > 0
+    \]
+    giving an isomorphism
+    \[
+      \mathcal H^{p, q}(X) \cong \mathcal H^{n - p, n - q}(X).
+    \]
+  \item Lefschetz operator
+    \begin{align*}
+      L: \mathcal A_\C^{p, q}(X) &\to \mathcal A_\C^{p + 1, q + 1}(X) \\
+      \alpha &\mapsto \omega \w \alpha
+    \end{align*}
+    It satisfies \([L, \Delta_{\conj \p}] = 0\), giving a map
+    \[
+      L: \mathcal H^{p, q}(X) \to \mathcal H^{p + 1, q + 1}(X).
+    \]
+    We will revisit this shortly.
+  \end{enumerate}
+  These induce symmetries and pairings on Dolbeault cohomology groups using the canonical isomorphism
+  \[
+    \mathcal H_{\conj \p}^{p, q}(X) \cong H_{\conj \p}^{p, q}(X).
+  \]
+\end{remark}
+
+Denote \(h^{p, q} = \dim H_{\conj \p}^{p, q}(X)\). This is finite as \(X\) is compact. The \emph{Hodge diamond}\index{Hodge diamnond} is the array
+\[
+  \begin{array}{ccccccccc}
+    &&&& h^{0, 0} \\
+    &&& h^{0, 1} && h^{1, 0} \\
+    && h^{0, 2} && h^{1, 1} && h^{2, 0} \\
+    & \iddots &&& \vdots &&& \ddots \\
+    h^{0, n} && \cdots && h^{n, n} && \cdots && h^{n, 0} \\
+    & \ddots &&& \vdots &&& \iddots \\
+    && h^{n, n - 2} && h^{n - 1, n - 1} && h^{n - 2, n} \\
+    &&& h^{n, n - 1} && h^{n - 1, n} \\
+    &&&& h^{n, n}
+  \end{array}
+\]
+The rows are symmetric by conjugation and the columns are symmetric by the Hodge star operator.
+
+\begin{theorem}
+  Let \((X, \omega)\) be compact Kähler. Then there is a decomposition
+  \[
+    H_{\text{dR}}^k(X; \C) = H^k(X, \C) \cong \bigoplus_{p + q = k} H^{p, q}_{\conj \p}(X)
+  \]
+  \emph{independent} of the chosen Kähler metric.
+\end{theorem}
+
+\begin{proof}
+  The decomposition is induced by the Hodge decomposition
+  \[
+    H_{\text{dR}}^k(X; \C)
+    \cong \mathcal H_{\conj \p}^k(X)
+    \cong \bigoplus_{p + q = k} \mathcal H_{\conj \p}^{p, q}(X)
+    \cong \bigoplus_{p + q = k} H_{\conj \p}^{p, q}(X).
+  \]
+  We must show that this decomposition is independent of chosen \(\omega\). It suffices to show that if
+  \begin{align*}
+    \alpha_1 &\in \mathcal H_{\conj \p}^{p, q}(X, \omega_1) \\
+    \alpha_2 &\in \mathcal H_{\conj \p}^{p, q}(X, \omega_2)
+  \end{align*}
+  with \([\alpha_1] = [\alpha_2] \in H_{\conj \p}^{p, q}(X)\)  then \([\alpha_1] = [\alpha_2] \in H_{\text{dR}}^k(X; \C)\). Write \(\alpha_1 = \alpha_2 + \conj \p \gamma\) for some \(\gamma\). As \(\alpha_1, \alpha_2\) are \(\Delta_\d\)-harmonic, they are \(\d\)-closed (which is independent of the Kähler metric) so
+  \[
+    \d(\conj \p \gamma) = \d(\alpha_1 - \alpha_2) = 0.
+  \]
+  Then \(\conj \p \gamma\) is \(L^2\)-orthogonal to \(\mathcal H_{\conj \p}^{p, q}(X, \omega)\) by Kähler Hodge decomposition. As \(\mathcal H_{\conj \p}^k(X, \omega) = \mathcal H^k_\d(X, \omega)\), \(\conj \p \gamma\) is orthogonal to \(\mathcal H_\d^k(X, \omega)\).
+
+  Since
+  \[
+    \ip{\conj \p \gamma, \d^* \varphi} = 0
+  \]
+  for all \(\varphi\), so \(\conj \p \gamma \in \d \mathcal A^{k + 1}\). Thus by Riemannian Hodge decomposition \(\conj \p \gamma \in \d \mathcal A^{k - 1}(X)\). Thus \([\alpha_1] = [\alpha_2] \in H_{\text{dR}}^k(X; \C)\).
+\end{proof}
+
+\section{Hermitian vector bundles}
+
+Let \(E \to X\) be a complex vector bundle over a complex manifold \(X\).
+
+\begin{definition}
+  We define
+  \[
+    \mathcal A_\C^k(E)(U) = \mathcal A_\C^k(U) \otimes C^\infty(E)(U),
+  \]
+  where \(C^\infty(E)(U)\) denotes the smooth sections of \(E\).
+\end{definition}
+
+We have a splitting
+\[
+  \mathcal A_\C^k(E) = \bigoplus_{p + q = k} \mathcal A_\C^{p, q}(E)
+\]
+arising from the splitting \(\mathcal A_\C^k(U) = \bigoplus \mathcal A_\C^{p, q}(U)\) as \((p, q)\)-forms.
+
+\begin{definition}[hermitian metric]\index{hermitian metric}
+  A \emph{hermitian metric} \(h\) on \(E\) is a smooth varying hermitian metric \(h_x\) on the fibre \(E_x\) over \(x \in X\).
+\end{definition}
+If \(e_1, \dots, e_r\) is a local frame for \(E\) (of rank \(r\)), then \([h_{jk} = h(e_j, e_k)]\) is a hermitian matrix for each \(x\) whose coefficients vary smoothly in \(x\). As in the smooth case, a partition of unity argument produces hermitian metrics on any complex vector bundle.
+
+\begin{ex}
+  If \(E, F\) are given hermitian metrics then \(E \oplus F, E \otimes F, E^*, \Lambda^j E\) all admit natural hermitian metrics.
+\end{ex}
+
+We now take \(E\) to be holomorphic.
+
+\begin{proposition}
+  There is a natural \(\C\)-linear operator
+  \[
+    \conj \p_E: \mathcal A_\C^{p, q}(E) \to \mathcal A_\C^{p, q + 1}(E)
+  \]
+  satisfying
+  \[
+    \conj \p_E (\alpha \otimes s) = (\conj \p \alpha) \otimes s + \alpha \otimes \conj \p_E s
+  \]
+  for all \(\alpha \in \mathcal A_\C^{p, q}(U), s \in C^\infty(E)(U)\).
+\end{proposition}
+
+\begin{proof}
+  In a local holomorphic frame \(e_1, \dots, e_r\) we define
+  \[
+    \conj \p_E (\alpha \otimes e_j) = \conj \p \alpha \otimes e_j.
+  \]
+  To see this is well-defined, let \(e_j' = \sum_{\ell = 1}^r \varphi_{j\ell} e_\ell\) be another local holomorphic frame so that the \(\varphi_{j \ell}\) are local holomorphic functions. Then
+  \begin{align*}
+    \conj \p_E(\alpha \otimes \sum_\ell \varphi_{j\ell} e_\ell)
+    &= \sum_\ell \varphi_{j\ell} \conj \p \alpha \otimes e_\ell \\
+    &= \conj \p \alpha \otimes \sum \varphi_{j \ell} e_\ell \\
+    &= \conj \p \alpha \otimes e_j'
+  \end{align*}
+\end{proof}
+
+\begin{definition}[connection]\index{connection}
+  A \emph{connection} on a complex vector bundle is a sheaf morphism
+  \[
+    D: \mathcal A_\C^0(E) \to \mathcal A_\C^1(E)
+  \]
+  such that
+  \[
+    D(fs) = \d f \otimes s + f Ds
+  \]
+  where \(f \in C^\infty(E)(U), s \in \mathcal A_\C^0(E)(U)\).
+\end{definition}
+If \(e_1, \dots, e_r\) is a local frame for \(E\), this gives a connection matrix
+\[
+  D e_j = \sum \Theta_{j\ell} e_\ell
+\]
+where \(\Theta = (\Theta_{j\ell})\) is a matrix of \(1\)-forms.
+
+A connection may be compatible with holomorphic structure or with hermitian structure. We will then prove that there is a unique connection compatible with both.
+
+\begin{definition}[connection compatible with holomorphic structure]
+  Let \(E\) be a holomorphic vector bundle. We define
+  \begin{align*}
+    D': \mathcal A_\C^0(E) &\to \mathcal A_\C^{1, 0}(E) \\
+    D'': \mathcal A_\C^0(E) &\to \mathcal A_\C^{0, 1}(E)
+  \end{align*}
+  by \(D = D' + D''\). We say \(D\) is \emph{compatible} with the holomorphic structure if
+  \[
+    D'' = \conj \p_E: \mathcal A_\C^0(E) \to \mathcal A_\C^{0, 1}(E).
+  \]
+\end{definition}
+
+\begin{proposition}
+  A connection \(D\) on \(E\) is compatible with the holomorphic structure if and only if for all local holomorphic frames, the connection matrix \((\Theta_{j\ell})\) is given by \((1, 0)\)-forms.
+\end{proposition}
+This gives a local characteriation of compatibility.
+
+\begin{proof}
+  Suppose \(D\) is compatible. Then the \((0, 1)\)-part of \((\Theta_{j\ell})\) vanishes as
+  \[
+    D e_j = \sum \Theta_{j\ell} e_\ell
+  \]
+  and \(e_\ell\)'s holomorphic.
+
+  Conversely, if \(e_1, \dots, e_r\) is a local frame and \(\alpha_j \in C^\infty(U)\) then
+  \[
+    D(\sum \alpha_j e_j) = \sum \d \alpha_j \otimes e_j + \alpha_j D e_j
+  \]
+  and projecting to the \((0, 1)\)-part,
+  \[
+    D''(\sum \alpha_j e_j) = \sum \conj \p \alpha_j \otimes e_j.
+  \]
+  But this is our local expression for \(\conj \p_E\).
+\end{proof}
+
+\begin{definition}[connection compactible with hermitian structure]
+  Let \((E, h)\) be a hermitian vector bundle. We say \(D\) is \emph{compatible} with \(h\) if
+  \[
+    \d(\alpha, \beta)_h = (D\alpha, \beta)_h + (\alpha, D\beta)_h
+  \]
+  where \(\alpha, \beta \in \mathcal A_\C^0(E)\).
+\end{definition}
+
+\begin{proposition}
+  A connection \(D\) on \((E, h)\) is compatible with \(h\) if and only if for every unitary frame \(e_1, \dots, e_r\), the connection matrix is skew-Hermitian, i.e.
+  \[
+    \Theta_{j\ell} = - \conj{\Theta_{\ell j}}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  If \(e_1, \dots, e_r\) is an unitary frame, then \((e_j, e_\ell)_h = \delta_{j \ell}\). Then
+  \begin{align*}
+    0
+    &= \d (e_j, e_\ell)_h \\
+    &= (De_j, e_\ell)_h + (e_j, De_\ell)_h \\
+    &= (\sum \Theta_{jk} e_k, e_\ell)_h + (e_j, \sum \Theta_{\ell k} e_k)_h \\
+    &= \Theta_{j\ell} + \conj{\Theta_{\ell j}}
+  \end{align*}
+
+  Conversely, suppose \((\Theta_{j\ell})\) is skew-Hermitian in any unitary frame. It suffices to show
+  \[
+    \d(\alpha, \beta)_h = (D\alpha, \beta)_h + (\alpha, D\beta)_h
+  \]
+  locally. This holds by above when \(\alpha, \beta \in \{e_1, \dots, e_r\}\). Thus it suffices to show
+  \[
+    \d (f \alpha, \beta)_h = (D(f\alpha), \beta)_h + (f\alpha, D\beta)_h.
+  \]
+  LHS is
+  \begin{align*}
+    \d(f\alpha, \beta)_h
+    &= \d f \otimes (\alpha, \beta)_h + f \d (\alpha, \beta)_h \\
+    &= \d f \otimes (\alpha, \beta)_h + f((D\alpha, \beta)_h + (\alpha, D\beta)_h)
+  \end{align*}
+  RHS is
+  \begin{align*}
+    (D(f\alpha), \beta)_h + (f\alpha, D\beta)_h
+    &= (\d f \otimes \alpha, \beta)_h + (f D\alpha, \beta)_h + (f\alpha, D\beta)_h \\
+    &= \d f \otimes (\alpha, \beta)_h + f(D\alpha, \beta) + f(\alpha, D\beta)
+  \end{align*}
+\end{proof}
 
 
 

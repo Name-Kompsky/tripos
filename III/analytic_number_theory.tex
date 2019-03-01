@@ -2287,7 +2287,7 @@ It's essentially what we are able to do nowadays. Best known to date is
   \]
 \end{proof}
 
-Assuming the Riemann Hypothesis, we can show
+Assuming the Riemann hypothesis, we can show
 \[
   \psi(x) = x + O(x^{1/2} (\log x)^2).
 \]
@@ -2309,11 +2309,11 @@ just because of \(\operatorname{Li}\).
 
 \subsection{Error terms}
 
-Indeed if we assume Riemann Hypothesis then we could get the error term as above. Can we do better? In this section we will show that
+Indeed if we assume Riemann hypothesis then we could get the error term as above. Can we do better? In this section we will show that
 \[
   |\psi(x) - x| \gg x^{1/x}
 \]
-``often''. Thus apart from the factor \((\log x)^2\) we are getting the best possible error term. The reason is basically that there are many zeros of \(\zeta\) on the critical line. Acually, we will show that
+``often''. Thus apart from the factor \((\log x)^2\) we are getting the best possible error term. The reason is basically that there are many zeros of \(\zeta\) on the critical line. Actually, we will show that
 \[
   \psi(x) = x + \Omega_{\pm} (x^{1/2}),
 \]
@@ -2322,6 +2322,490 @@ i.e.
   \limsup_{x \to \infty} \frac{\psi(x) - x}{x^{1/2}} &> 0 \\
   \liminf_{x \to \infty} \frac{\psi(x) - x}{x^{1/2}} &< 0
 \end{align*}
+
+For contradiction, suppose that \(\psi(x) - x \leq cx^{1/2}\) for all large \(x\), so \(cx^{1/2} - \psi(x) = x \geq 0\). Take Mellin transform of this,
+
+\begin{lemma}[Landau]
+  Let \(A(x)\) be intergrable and boundedon any finite interval and \(A(x) \geq 0\) for all \(x \geq X\). Let
+  \[
+    \sigma_c = \inf \{\sigma: \int_X^\infty A(x) x^{-\sigma} dx < \infty\}.
+  \]
+  Then if
+  \[
+    F(s) = \int_1^\infty A(x) x^{-s} dx
+  \]
+  then \(F\) is analytic for \(\Re s > \sigma_c\) and \emph{not} at \(s = \sigma_c\).
+\end{lemma}
+General fact about poles of Dirichlet series with positive coefficients.
+
+\begin{proof}
+  Divide integrand into \([1, X]\) and \([X, \infty)\) , corresponding partition of \(F = F_1 + F_2\). \(F_1\) is entire. If \(\Re s > \sigma_c\), the integral converges absolutely so \(F_2\) is analytic.
+
+  By contradiction, suppose \(F_2\) is analytic at \(s = \sigma_c\). Write \(F_2\) as a Taylor series around \(\sigma_c + 2\)
+  \[
+    F_2(s) = \sum_{k = 0}^\infty c_k (s - \sigma_c - 1)^k
+  \]
+  where
+  \[
+    c_k = \frac{F_2^{(k)}(\sigma_c + 1)}{k!} = \frac{1}{k!} \int_x^\infty A(x) (-\log x)^k x^{- \sigma_c - 1} dx.
+  \]
+  This power series has a radius of convergence, which must be \(1 + \delta\) for some \(\delta > 0\). So
+  \[
+    F_2(s) = \sum_{k = 0}^\infty \frac{(1 - \sigma_c - s)^k}{k!} \int_x^\infty A(x) (\log x)^k x^{-1 - \sigma_c} dx
+  \]
+  Evaluate the series at \(s = \sigma_c - \frac{\delta}{2}\), we can intercahnge the integral and summation so
+  \[
+    F_2(\sigma_c - \frac{\delta}{2})
+    = \int_x^\infty A(x) x^{-1 - \sigma_c} \exp((1 + \sigma_c - s) \log x) dx
+    = \int_x^\infty A(x) s^{-s} dx
+  \]
+  so the integral converges at \(\sigma_c - \frac{\delta}{2}\), contradicting the definition of \(\sigma_c\).
+\end{proof}
+
+\begin{theorem}[Landau]
+  If \(\sigma_0\) is the supremum of the real parts of
+  \[
+    \{\rho: \zeta(\rho) = 0\}
+  \]
+  then
+  \begin{enumerate}
+  \item for any \(\sigma < \sigma_0\),
+    \[
+      \psi(x) - x = \Omega_\pm (x^\sigma),
+    \]
+  \item if there is zero \(\rho\) with \(\sigma = \sigma_0\) then
+    \[
+      \psi(x) - x = \Omega_\pm (x^{\sigma_0}).
+    \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+  (Assuming there is a zero with \(\sigma = \frac{1}{2}\), which is indeed true)
+  \[
+    \psi(x) - x = \Omega_\pm (x^{1/2}).
+  \]
+\end{corollary}
+Proof by splitting into cases Riemann hypothesis is true/false.
+
+\begin{corollary}
+  \label{cor:RH equivalent to bound on PNT}
+  Riemann hypothesis is equivalent to
+  \[
+    \psi(x) = x + O(x^{1/2 + o(1)}).
+  \]
+\end{corollary}
+
+\begin{proof}
+  Let \(c > 0\) be chosen later and suppose that \(\psi(x) - x \leq c x^\sigma\) for all \(x \geq X\). Consider
+  \[
+    F(s) = \int_1^\infty (cx^\sigma - \psi(x) + x) x^{-s - 1} dx.
+  \]
+  Recall that by partial summation, for \(\Re s > 1\),
+  \begin{align*}
+    \frac{\zeta'}{\zeta}(s) &= -s \int_1^\infty \psi(x) x^{-s - 1} dx \\
+    \int_1^\infty x^{-s} &= \frac{1}{s - 1}
+  \end{align*}
+  so
+  \[
+    F(s) = \frac{c}{s - \sigma} + \frac{\sigma'(s)}{s \zeta(s)} + \frac{1}{s - 1}.
+  \]
+  This has a pole at \(s = \sigma\) and is analytic for \(\Re s > \sigma\). By Landau's lemma, in fact this integral converges for all \(s\) with \(\Re s > \sigma\). This proves 1 because if \(\sigma < \sigma_0\) then there is a zero of \(\zeta\) with \(0 < \Re \rho < \sigma_0\) and at \(\rho\) \(F\) has a singularity since \(\rho \notin \R\).
+
+  Suppose there is \(\rho = \sigma_0 + it_0\). Repeat the above with \(\sigma = \sigma_0\). Consider instead
+  \[
+    G(s) = F(s) + \frac{e^{i\theta} F(s + it_0) + e^{-i\theta} F(s - it_0)}{2}
+  \]
+  where \(\theta \in \R\) is to be chosen later. \(G(s)\) is still analytic for \(\Re s > \sigma\), and has a pole at \(s = \sigma_0\). From \(F(s)\), have residue. From \(F(s + it_0)\), have residue \(\frac{m}{\rho}\) where \(m\) is the order of \(\rho\). From \(F(s - it_0)\) have residue \(\frac{m}{\conj \rho}\). So \(G(s)\) has a pole at \(s = \sigma_0\) with residue
+  \[
+    c + \frac{e^{i\theta} m}{2 \rho} + \frac{e^{-i\theta}m}{2 \conj \rho} = c - \frac{m}{|\rho|}
+  \]
+  by choosing appropriate \(\theta\). In particular if \(c < \frac{m}{|\rho|}\) then this residue is negative. As \(s \to \sigma_0\) from right along \(\R\), \(G(s) \to - \infty\). But for \(\Re s > \sigma_0\),
+  \[
+    G(s) = \int_1^\infty (c x^{\sigma_0} - \psi(x) = x) x^{-s - 1} \underbrace{(1 + \frac{e^{i\theta} x^{-it_0}}{2} +  \frac{e^{-i\theta} x^{it_0}}{2})}_{1 + \cos (\theta - t_0 \log x) \geq 0} dx
+  \]
+  so splitting the integral into \([1, X]\) and \([X, \infty)\), \(G(s) = G_1(s) + G_2(s)\) where \(G_1\) is entire and \(G_2(s) \geq 0\) as \(s \in \R, \Re s > \sigma_0\). Absurd. This proves
+  \[
+    \psi(x) - x = \Omega_+(x^\sigma).
+  \]
+  \(\Omega_-\) is the same.
+\end{proof}
+
+\subsection{Functional equation}
+
+Recall that for \(\sigma > 0\), we defined
+\[
+  \zeta(s) = 1 + \frac{1}{s - 1} - s \int_1^\infty \frac{\{t\}}{t^{s + 1}} dt.
+\]
+How does it behave in the negative half plane?
+
+First define \(f(t) = \frac{1}{2} - \{t\}\), so
+\[
+  \zeta(s) = \frac{1}{s - 1} + \frac{1}{2} + s \int_1^\infty \frac{f(t)}{t^{s + 1}} dt
+\]
+which actually converges when \(\sigma > -1\). To see this, let
+\[
+  F(x) = \int_0^x f(t) dt
+\]
+so
+\[
+  \int_X^Y \frac{f(t)}{t^{s + 1}} dt
+  = \frac{F(t)}{t^{s + 1}} \Big|_X^Y + (s + 1) \int_X^Y \frac{F(t)}{t^{s + 1}} dt
+\]
+and note that \(F(t)\) is bounded (as seen from the graph of \(f\)). Therefore
+\[
+  \int_1^\infty \frac{f(t)}{t^{s + 1}} dt
+\]
+converges when \(\sigma > -1\). We can take this as the definition of \(\zeta(s)\) for \(\sigma > -1\). At this point, we can do (perfectly sensible) things such as
+\[
+  \zeta(0) = -\frac{1}{2} = 1 + 1 + 1 + \cdots
+\]
+It is evident that we by iterating the process we may extend \(\zeta(s)\) to arbitrary \(\sigma < 0\), but there is a more elegant way to do this. First let's simplify the integral. Note that for \(-1 < \sigma < 0\),
+\[
+  s \int_0^1 \frac{f(t)}{t^{s + 1}}
+  = \frac{s}{2} \int_0^1 \frac{1}{t^{s + 1}} dt - s \int_0^1 \frac{1}{t^s} dt
+  = \frac{1}{2} + \frac{1}{s - 1}
+\]
+so in the strip \(-1 < \sigma < 0\), have
+\[
+  \zeta(s) = s \int_0^\infty \frac{f(t)}{t^{s + 1}} dt.
+\]
+By Fourier analysis, \(f(t)\) has a Fourier seires
+\[
+  f(t) = \sum_{n = 1}^\infty \frac{\sin (2n \pi t)}{n \pi}
+\]
+which converges whenver \(t \notin \Z\). In the region \(-1 < \sigma < 0\), we get (by a standard argument exchanging summation and integration)
+\begin{align*}
+  \zeta(s)
+  &= s \int_0^\infty \frac{1}{t^{s + 1}} \sum_{n = 1}^\infty \frac{\sin (2n \pi t)}{n \pi} dt \\
+  &= s \sum_{n = 1}^\infty \frac{1}{n\pi} \int_0^\infty \frac{\sin(2n \pi t)}{t^{s + 1}} dt \\
+  &= s \sum_{n = 1}^\infty \frac{(2n\pi)^s}{n\pi} \int_0^\infty \frac{\sin y}{y^{s + 1}} dy \quad y = 2n\pi t
+\end{align*}
+Here
+\[
+  \sum_{n = 1}^\infty \frac{(2n\pi)^s}{n\pi} = 2^s \pi^{s - 1} \zeta(1 - s)
+\]
+and
+\[
+  \int_0^\infty \frac{\sin y}{y^{s + 1}} dy
+  = \frac{1}{2i} \left( \int_0^\infty \frac{e^{iy}}{y^{s + 1}} dy - \int_0^\infty \frac{e^{-iy}}{y^{s + 1}} dy \right)
+  = - \sin \left( \frac{s\pi}{2} \right) \Gamma(-s)
+\]
+where
+\[
+  \Gamma(s) = \int_0^\infty t^{s - 1}e^{-t} dt
+\]
+for \(\sigma > 0\) is the \emph{gamma function}\index{gamma function}. We do a sanity check that the Dirichlet series and gamma function makes sense in the region.
+
+Let's have a digression about gamma function. The first identity is
+\[
+  \Gamma(s + 1)
+  = \int_0^\infty t^s e^{-t} dt
+  = -t^s e^{-t} \big|_0^\infty + s \int_0^\infty t^{s - 1} e^{-t} dt
+  = s \Gamma(s).
+\]
+In particular, since \(\Gamma(1) = 1\),
+\[
+  \Gamma(n) = (n - 1)!
+\]
+which generalises factorial\footnote{As a side remark, really we should have \(t^s\) in the integrand in the definition of gamma function so it is more consistent and things look nicer on the whole, at least from a number theory point of view. There were people in the 19th century using this notation but unfortunately a huge literature war ensued and obviously it didn't catch up.}. Also note \(\Gamma(s + 1) = s \Gamma(s)\) allows us to extend \(\Gamma(s)\) to \(\C\) with poles at \(s = 0, -1, -2, \cdots\).
+
+Back to the zeta function. This mean that for \(-1 < \sigma < 0\),
+\begin{align*}
+  \zeta(s)
+  &= s 2^s \pi^{s - 1} \zeta(1 - s) (- \sin \left( \frac{\pi s}{2} \right) \Gamma(-s)) \\
+  &= 2^s \pi^{s - 1} \sin \left( \frac{s \pi}{2} \right) \Gamma(1 - s) \zeta(1 - s)
+\end{align*}
+RHS is defined for all \(\sigma < 0\), so we define
+\[
+  \zeta(s) = 2^s \pi^{s - 1} \sin \frac{s \pi}{2} \Gamma(1 - s) \zeta(1 - s)
+\]
+for \(\sigma < 0\). This gives an analytic continuation of \(\zeta(s)\) to the negative half plane. Together with the integral expression for \(\sigma > -1\), this gives a meromorphic zeta function on \(\C\).
+
+\begin{theorem}[functional equation]
+  For all \(s \in \C\),
+  \[
+    \zeta(s) = 2^s \pi^{s - 1} \sin \left( \frac{\pi s}{2} \right) \Gamma(1 - s) \zeta(1 - s).
+  \]
+\end{theorem}
+
+We can poke around the equation and do some reality check:
+\begin{itemize}
+\item At \(s = 1\),
+  \[
+    \zeta(1) = 2 \gamma(0) \zeta(0)
+  \]
+  and as \(\zeta(0) = -\frac{1}{2}\), \(\Gamma\) has a pole at \(0\), this makes sense.
+\item Does \(\zeta(s)\) have any other poles? Since
+  \[
+    \zeta(s) = \underbrace{2^s \pi^{s - 1} \sin \left( \frac{\pi s}{2} \right)}_{\text{entire}} \underbrace{\Gamma(1 - s) \zeta(1 - s)}_{\text{entire for } \sigma < 0}
+  \]
+  \(\zeta(s)\) is analytic everywhere in \(\C\) except for a simple pole at \(s = 1\).
+\item At \(s = 2\),
+  \[
+    \zeta(2) = 4 \pi \cdot 0 \cdot \Gamma(-1) \zeta(-1).
+  \]
+  The zero and pole of \(\Gamma\) at \(-1\) cancels and we get a constant \(\frac{\pi^2}{6}\).
+\item At \(s = -1\),
+  \[
+    \zeta(-1)
+    = \frac{1}{2} \cdot \frac{1}{\pi^2} \cdot (-1) \cdot \Gamma(2) \zeta(2)
+    = -\frac{1}{12}.
+  \]
+  Of course to physicists, this implies that
+  \[
+    -\frac{1}{12} = 1 + 2 + 3 + \cdots
+  \]
+\end{itemize}
+
+What about zeros of zeta function? At a zero we have
+\[
+  0 = \zeta(s) = \text{nonzero term} \cdot \sin \left( \frac{\pi s}{2} \right) \Gamma(1 - s) \zeta(1 - s).
+\]
+If \(\sigma < 1\), \(\zeta(1 - s) \neq 0, \Gamma(1 - s) \neq 0\) except \(s = -2n\) where \(n \in \N\). This is a necessary and sufficient condition so \(\zeta(s)\) has zeros at \(-2, -4, \cdots\). We knew that \(\zeta(s)\) has no zeros for \(\sigma \geq 1\) and \(\sigma = 0\). Thus except for the trivial zeros, \(\zeta(s)\) only has zeros in the critical strip \(0 < \sigma < 1\).
+
+In the region \(0 < \sigma < 1\),
+\[
+  0 = \zeta(s) = \text{nonzero term} \cdot \underbrace{\Gamma(1 - s)}_{\neq 0} \zeta(1 - s)
+\]
+so \(\zeta(1 - s) = 0\). Also because \(\zeta(\conj s) = \conj{\zeta(s)}\), zeros appear in quadruples. The dream that they actually come in pairs leads to, of course, the Riemann hypothesis.
+
+Now we can fully justify \cref{cor:RH equivalent to bound on PNT}, which states that Riemann hypothesis is equivalent to
+\[
+  \psi(x) = x + O(x^{1/2 + o(1)}).
+\]
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): contour integration
+  \item \(\impliedby\): we know if \(\sigma_0 = \sup \{\Re \rho: \zeta(\rho) = 0\}\) then
+    \[
+      \psi(x) = x + \Omega_\pm (x^\sigma)
+    \]
+    for all \(\sigma < \sigma_0\). If Riemann hypothesis is false then there exists a zero \(\rho\) with \(0 < \sigma < 1, \sigma \neq \frac{1}{2}\). By symmetry, we have
+    \[
+      \sigma_0 \geq \max (\sigma, 1 - \sigma) > \frac{1}{2}
+    \]
+    so
+    \[
+      \psi(x) = x + \Omega_\pm(x^{\sigma'})
+    \]
+    where \(\frac{1}{2} < \sigma' < \sigma\).
+  \end{itemize}
+\end{proof}
+
+\section{Primes in arithmetic progressions}
+
+In this last chapter we will introduce Dirchlet characters and use them to prove Dirichlet's theorem, which says that any arithmetic progression satisfying obviously necessary conditions contains infinitely many primes.
+
+\subsection{Dirichlet characters and \(L\)-functions}
+
+\begin{definition}[Dirichlet character]\index{Dirichlet character}
+  Fix \(q \in \N\). A \emph{Dirichlet character} of modulus \(q\) is a group homomorphism \(\chi: (\Z/q\Z)^\times \to \C^\times\).
+\end{definition}
+
+\((\Z/q\Z)^\times\) is a finite abelian group of order \(\phi(q)\), so the set of Dirichlet characters of modulus \(q\) forms a finite abelian group of order \(\phi(q)\).
+
+We can also think of \(\chi\) as defining a function \(\chi: \Z \to \C\), given by
+\[
+  \chi(a) =
+  \begin{cases}
+    \chi(a \bmod q) & (a, q) = 1 \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+Note that this \(\chi\) is periodic with period \(q\) and is totally multiplicative.
+
+If \(\chi\) is the trivial homomorphism on \((\Z/q\Z)^\times\), we call it the \emph{principal Dirichlet character}\index{Dirichlet character!principal} modulus \(q\) and usually denote it as \(\chi_0\).
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item Let \(\chi\) be a Dirichlet character of modulus \(q\). Then
+    \[
+      \sum_{a \in (\Z/q\Z)^\times} \chi(a)
+      = \sum_{1 \leq a \leq q} \chi(a)
+      =
+      \begin{cases}
+        \phi(q) & \chi = \chi_0 \\
+        0 & \chi \neq \chi_0
+      \end{cases}
+    \]
+  \item Let \(a \in (\Z/q\Z)^\times\). Then
+    \[
+      \sum_\chi \chi(a) =
+      \begin{cases}
+        \phi(q) & q = 1 \bmod q \\
+        0 & a \neq 1 \bmod q
+      \end{cases}
+    \]
+  \end{enumerate}
+\end{lemma}
+For those of you familiar with representation theory, this is the row and column orthogonality for character table of the abelian group \((\Z/q\Z)^\times\).
+
+\begin{proof}
+  We treat 2. If \(a = 1 \bmod q\) then \(\chi(a) = 1\) for all \(\chi\) so
+  \[
+    \sum_\chi \chi(a) = \sum_\chi 1 = \phi(q).
+  \]
+  If \(q \neq 1 \bmod q\) then there exists \(\psi: (\Z/q\Z)^\times \to \C^\times\) such that \(\psi(a) \neq 1\). The map \(\chi \mapsto \chi \psi\) is a permutation of the set of Dirichlet characters mod \(q\). Hence
+  \[
+    \sum_\chi \chi(a)
+    = \sum_\chi (\chi \psi) (a)
+    = \psi(a) \sum_\chi \chi(a)
+  \]
+  so \(\sum_\chi \chi(a) = 0\).
+\end{proof}
+
+Let \(a \in \Z, (a, q) = 1\). Consider \(1_{x = a \bmod q}: \Z \to \C\). The the lemma says that
+\[
+  1_{x = a \bmod q} (x) = \frac{1}{\phi(q)} \sum_\chi \chi(a)^{-1} \chi(x).
+\]
+It follows that
+\[
+  \sum_{\substack{p \leq x \\ p = a \bmod q}} 1
+  = \sum_{p \leq x} 1_{x = a \bmod q}(p)
+  = \frac{1}{\phi(q)} \sum_{p \leq x} \sum_\chi \chi(a)^{-1} \chi(p).
+\]
+Estimating this is closely related to estimating 
+\[
+  \frac{1}{\phi(q)} \sum_{n \leq x} \sum_\chi \chi(a)^{-1} \chi(n) \Lambda(n)
+  = \sum_\chi \frac{\chi(a)^{-1}}{\phi(q)} \sum_{n \leq x} \chi(n) \Lambda(n).
+\]
+The strategy to prove Dirichlet's theorem is to consider the contribution of each character \(\chi\) separately. We will do this using the \emph{Dirichlet \(L\)-function}\index{Dirichlet \(L\)-function}
+\[
+  L(s, \chi) = \sum_{n \geq 1} \chi(n) n^{-s}.
+\]
+This series converges absolutely in the region \(\sigma > 1\) and defines an analytic function there.
+
+\begin{lemma}
+  If \(\chi \neq \chi_0\) then \(\sum_{n \geq 1} \chi(n) n^{-s}\) converges in \(\sigma > 0\).
+\end{lemma}
+
+\begin{proof}
+  Use partial summmation,
+  \[
+    \sum_{n \leq x} \chi(n) n^{-s} = A(x) x^{-s} - \int_1^x A(t) f'(t) dt
+  \]
+  where \(A(x) = \sum_{n \leq x} \chi(n)\). Note that by the lemma \(\sum_{1 \leq n \leq q} \chi(n) = 0\) as \(\chi \neq \chi_0\). Hence \(A(n)\) is periodic and \(|A(x)| \leq \phi(q)\) for all \(x\). Thus \(|A(x)x^{-s}| \leq \phi(q) x^{-\sigma}\) and the integral is absolutely convergent.
+\end{proof}
+Thus \(L(s, \chi)\) is analytic in the same region and in particular does not have a pole at \(s = 1\).
+
+Since \(\chi(n)\) is multiplicative, we have an Euler product identity\index{Euler product}
+\[
+  L(s, \chi) = \prod_p (1 - \chi(p) p^{-s})^{-1}
+\]
+valid in the region \(\sigma > 1\). This implies that when \(\chi = \chi_0\),
+\[
+  L(s, \chi_0) = \zeta(s) \prod_{p \divides q} (1 - p^{-s})
+\]
+so \(L(s, \chi_0)\) has a meromorphic continuation to all \(s \in \C\) and a simple pole at \(s = 1\). We can show that
+\[
+  \log L(s, \chi) = \sum_p \sum_{k \geq 1} \chi(p)^k p^{-ks}/k
+\]
+and hence
+\[
+  \frac{L'}{L}(s, \chi)
+  = \sum_p \sum_{k \geq 1} \chi(p)^k (-\log p) p^{-s}
+  = -\sum_{n \geq 1} \chi(n) \Lambda(n) n^{-s}
+\]
+valid in \(\sigma > 1\).
+
+Fix \(a \in \N, (a, q) = 1\). We combine this with the identity valid for any \(n \in \N\)
+\[
+  1_{n = a \bmod q} (n) = \frac{1}{\phi(q)} \sum_\chi \chi(a^{-1})\chi(n)
+\]
+we get
+\[
+  \sum_{n \geq 1} 1_{n = a \bmod q}(n)  \Lambda(n)n^{-s}
+  = - \frac{1}{\phi(q)} \sum_\chi \chi(a^{-1}) \frac{L'(s, \chi)}{L(s, \chi)}
+\]
+again valid in \(\sigma > 1\).
+
+\subsection{Dirichlet's theorem}
+
+\begin{theorem}
+  Given \(q \in \N, (a, q) = 1\), there are infinitely many primes \(p\) such that \(p = a \mod q\).
+\end{theorem}
+
+As \(L(s, \chi_0)\) has a simple pole at \(s = 1\), we can write
+\[
+  \sum_{n \geq 1} 1_{n = a \bmod q} (n) \Lambda(n) n^{-s}
+  = \frac{1}{\phi(q)} \frac{1}{s - 1} + O(1) - \frac{1}{\phi(q)} \sum_{\chi \neq \chi_0} \chi(a^{-1}) \frac{L'(s, \chi)}{L(s, \chi)}.
+\]
+Assume the unknown term is convergent, so RHS has a pole at \(s = 1\) so diverges there. If there were finitely many prime \(p = a \bmod q\), LHS would be bounded as \(s \to 1\), absurd. Thus to show Dirichlet's theorem it is enough to show that for all \(\chi \neq \chi_0\), \(\frac{L'}{L} (s, \chi)\) is analytic at \(s = 1\). This is equivalent to show that if \(\chi \neq \chi_0\) then \(L(1, \chi) \neq 0\).
+
+\begin{theorem}
+  If \(\chi \neq \chi_0\) then \(L(1, \chi) \neq 0\).
+\end{theorem}
+
+\begin{proof}
+  In \(\sigma > 1\), by choosing a branch of logarithm
+  \begin{align*}
+    \prod_\chi L(s, \chi)
+    &= \exp \sum_\chi \log L(s, \chi) \\
+    &= \exp \sum_\chi \sum_p \sum_{k \geq 1} \chi(p)^k p^{-ks}/k \\
+    &= \exp \sum_\chi \sum_{n \geq 1} \frac{\chi(n) n^{-s} \Lambda(n)}{\log n} \\
+    &= \exp \sum_{n \geq 1} \frac{n^{-s} \Lambda(n)}{\log n} \sum_\chi \chi(n) \quad \text{absolute convergence}
+  \end{align*}
+  We have
+  \[
+    \sum_\chi \chi(n) =
+    \begin{cases}
+      0 & (q, n) > 1 \text{ or } (q, n) = 1 \text{ and } n \neq 1 \bmod q \\
+      \phi(q) & n = 1 \bmod q
+    \end{cases}
+  \]
+  so
+  \[
+    \prod_\chi L(s, \chi)
+    = \exp \sum_{\substack{n \geq 1 \\ n = 1 \bmod q}} \frac{n^{-s} \Lambda(n)}{\log n} \phi(q)
+  \]
+  valid in \(\sigma > 1\). For \(s\) real, \(s > 1\), the exponent is a non-negative real numbur. Thus for \(s \in (1, \infty)\),
+  \[
+    \prod_\chi L(s, \chi) \in [1, \infty).
+  \]
+  Note that \(L(s, \chi_0)\) has a simple pole at \(s = 1\). If there are at least two distinct characters \(\psi, \psi'\) of modulus \(q\) such that \(L(1, \psi) = L(1, \psi') = 0\) then \(\prod_\chi L(s, \chi)\) would be analytic in a neighbourhood of \(s = 1\), and vanish at \(s = 1\). This cannot happen so there is at most one character \(\psi\) such that \(L(1, \psi) = 0\).
+
+  Note also that for any \(\chi\),
+  \[
+    L(1, \conj \chi) = \conj{L(1, \chi)}.
+  \]
+  If \(L(1, \chi) = 0\) then \(L(1, \conj \chi) = 0\). Hence if \(L(1, \chi) = 0\) then \(\chi = \conj \chi\). In other words, \(\chi\) takes values in \(\{\pm 1\}\). We call such characters \emph{quadratic}\index{Dirichlet character!quadratic},
+
+  Suppose for contradiction there exists a non-principal quadratic character \(\psi: (\Z/q\Z)^\times \to \{\pm 1\}\) such that \(L(1, \psi) = 0\). We consider the product \(L(s, \psi) \zeta(s)\). This function is analytic in \(\sigma > 0\). In \(\sigma > 1\) we have the expressoin
+  \[
+    L(s, \psi) \zeta(s)
+    = \left( \sum_{n \geq 1} \psi(n) n^{-s} \right) \left( \sum_{n \geq 1} n^{-s} \right)
+    = \sum_{n \geq 1} r(n) n^{-s}
+  \]
+  where \(r(n) = \sum_{d \divides n} \psi(d)\). Note that \(r(n)\) is multiplicative and \(r(n) \geq 0\):
+  \[
+    r(p^k) = \psi(1) + \psi(p) + \dots + \psi(p^k) =
+    \begin{cases}
+      k + 1 & \psi(p) = 1 \\
+      1 & \psi(p) = 0 \text{ or } \psi(p) = -1, k \text{ is even} \\
+      0 & \psi(p) = -1, k \text{ is odd}
+    \end{cases}
+  \]
+  Note also that \(r(n^2) \geq 1\) by the same argument.
+
+  We now use Landau's lemma
+  \begin{lemma}
+    Let \(f(s) = \sum_{n \geq 1} a_n n^{-s}\) where \(a_n\) are non-negative real numbers. Suppose given \(\sigma_0 \in \R\) such that \(f(s)\) is convergent in \(\sigma > \sigma_0\). Suppose that \(f(s)\) admits an analytic continuation to the disk \(\{|s - \sigma_0| < \varepsilon\}\). Then \(f(s)\) is convergent in \(\sigma > \sigma_0 - \varepsilon\).
+  \end{lemma}
+  Let
+  \[
+    f(s) = L(\psi, s) \zeta(s) = \sum_{n \geq 1} r(n)n^{-s},
+  \]
+  valid in \(\sigma > 1\). Then we can use Landau's lemma, together with the fact that \(f(s)\) is analytic in \(\sigma > 0\), to conclude that \(f(s)\) is convergent in \(\sigma > 0\). But
+  \[
+    f\left(\frac{1}{2}\right)
+    = \sum_{n \geq 1} r(n) n^{-1/2} \geq \sum_{n \geq 1} r(n^2)/n 
+    \geq \sum_{n \geq 1} \frac{1}{n}
+  \]
+  and this series diverges, absurd. Thus \(L(1, \psi) \neq 0\).
+\end{proof}
+
 
 
 

@@ -1,0 +1,234 @@
+\documentclass[a4paper]{article}
+
+%\input{header}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newtheorem{theorem}{Theorem}
+\usepackage{tikz-cd}
+\newcommand*{\N}{{\mathbb{N}}}
+
+\renewcommand{\c}[1]{\mathbf{#1}}
+\newcommand{\Set}{{\c{Set}}}
+
+\title{A unified view towards diagonal arguments}
+\author{Qiangru Kuang}
+\date{February 25, 2019}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Cantor's diagonal argument is a simple yet deep theorem. Perhaps less known is that the same idea in the proof powers many famous results, including but not limited to: Russell's paradox, halting theorem, undefinability theorem and Gödel incompleteness theorem. This talk aims to state and prove an abstract form of diagonal argument and derive all of the above as corollaries if time permits. The talk will be self-contained. IA Numbers and Sets or knowing Cantor's diagonal argument will be helpful but not necessary.
+\end{abstract}
+
+\section{Acknowledgement}
+
+I would like to thank Archimedeans for organising this talk. My gratitude goes especially to Jeremy, who invited me to give a talk at an early stage of the event, and whose continual checking of my progress eventuates in this article, instead of another draft in the limbo of unfinished blog posts.
+
+I am also grateful to Rob, Linshu and Jenny for listening to an earlier version of the talk and kindly providing advice which substantially improved the talk.
+
+\section{Exponential}
+
+We start by staring at the notation \(Y^Z\) where \(Y\) and \(Z\) are sets. This is by definition the set of all functions \(Z \to Y\). There are two thing worth remarking: firstly \(Y^Z\) is a set itself. This statement does not hold in a general cateogry. For example given two manifolds \(M\) and \(N\), the set of all smooth maps \(M \to N\) is not obviously a manifold. Given two groups \(G\) and \(H\), it is not clear how we can endow the space of all homomorphisms \(G \to H\) a group strucutre (however if \(G\) and \(H\) are abelian groups there is an obvious abelian group structure induced by pointwise addition, although pursuing in this direction will lead us astray from today's talk).
+
+The second fact is a consequence of our definition. Consider another set \(X\). There is a canonical bijection
+\[
+  \{X \times Z \to Y\} \leftrightarrow \{X \to Y^Z\}
+\]
+given by what compskis call ``currying'' and ``uncurrying'': given a map \(f: X \times Z \to Y\), we may plug in some \(x \in X\) to get
+\[
+  g(-) := f(x, -): Z \to Y.
+\]
+In this case we say \(g\) is \emph{represented} by \(x\). Conversely, ``uncurrying'' is the process of, given \(X \to Y^Z\), i.e.\ a family of maps \(Z \to Y\) parameterised by \(X\), we turn it into a function \(X \times Z \to Y\).
+
+We may ask the question: when can \(X\) fully represent \(Y^Z\)? Obviously you can just take \(X\) to be \(Y^Z\). A more meaningful question would be when can \(X\) fully represent \(Y^X\). Cantor's theorem says that if \(Y\) has more than one element then there can be no surjection \(X \to Y^X\), so there is always an element that is not represented.
+
+\section{Lawvere fixed point theorem}
+
+We need to develop a little bit category theory to state Lawvere fixed point theorem in full. If you are not familiar with category theory, you can safely take \(\c C\) to be \(\Set\), every instance of \(X, Y, Z\) to be a set, a point \(x: 1 \to X\) to be an actual element in \(X\) and operations to be the obvious set theoretical operations.
+
+A category \(\c C\) is \emph{cartesian closed} if there are finite products and for every object \(Z\) there is a right adjoint to \((-) \times Z: \c C \to \c C\). The adjunction is usually written as \((-) \times Z \dashv (-)^Z\), ergo the name exponential. The unit and counit of this adjunction are denoted
+\begin{align*}
+  \eta^Z_Y &: Y \to (Y \times Z)^Z \\
+  \varepsilon^Z_Y &: Y^Z \times Z \to Y
+\end{align*}
+respectively. The counit is usually called \(\operatorname{ev}\), which is the internal language version of taking an ordered pair \((f, x) \in Y^Z \times Z\) and sending it to \(f(x)\).
+
+There is an bijection between \(f: X \times Z \to Y\) and \(\tilde f: X \to Y^Z\). More specifically, given \(f: X \times Z \to Y\), \(\tilde f\) is the composition
+\[
+  \begin{tikzcd}
+    X \ar[r, "\eta_Y^Z"] & (X \times Z)^Z \ar[r, "f^Z"] & Y^Z
+  \end{tikzcd}
+\]
+and given \(\tilde f: X \to Y^Z\), \(f\) is the composition
+\[
+  \begin{tikzcd}
+    X \times Z \ar[r, "\tilde f \times 1_Z"] & Y_Z \times Z \ar[r, "\varepsilon^Z_Y"] & Y.
+  \end{tikzcd}
+\]
+
+By abuse of notation we take the liberty to use \(f\) to denote both morphisms. In particular, we identify a morphism \(f: 1 \times Z \cong Z \to Y\) with \(f: 1 \to Y^Z\), i.e.\ an element of \(Y^Z\).
+
+Finally, a morphism \(f: A \to B\) is \emph{point-surjective} if for every point \(b: 1 \to B\) there exists \(a: 1 \to A\) such that \(fa = b\). The corresponding notion in \(\Set\) is surjectivity.
+
+\begin{theorem}[Lawvere fixed point theorem]
+  In a cartesian closed category \(\c C\), if \(f: X \to Y\) is point-surjective then every \(\alpha: Y \to Y\) has a fixed point \(1 \to Y\).
+\end{theorem}
+
+This is proven by William Lawvere in 1970s, an influential category theorist who made contibutions to category theory and foundation of maths, as well as philosophy. He is credited with introducing, for example, elementary topos and ETCS.
+
+\begin{proof}
+  Define \(q: X \to Y\) to be the following composition
+  \[
+    \begin{tikzcd}
+      X \ar[r, "\Delta"] & X \times X \ar[r, "f \times 1_X"] & Y^X \times X \ar[r, "\operatorname{ev}"] & Y \ar[r, "\alpha"] & Y
+    \end{tikzcd}
+  \]
+  By point-surjectivity of \(f\) exists \(x: 1 \to X\) that represents \(q\), i.e.\ \(f(x_0, -) = q\). Now if we plug \(x_0\) back in we get
+  \begin{align*}
+    q(x_0)
+    &= \alpha(f(x_0, x_0)) \quad \text{by definition of } q \\
+    &= \alpha(q(x_0)) \quad \text{by definition of } f(x_0, -) \\
+  \end{align*}
+  so \(q(x_0) \in Y\) is a fixed point of \(\alpha\).
+\end{proof}
+
+It might be instructive to consider the contrapositive:
+
+\begin{theorem}
+  If there exists \(\alpha: Y \to Y\) with no fixed point then \(f: X \to Y^X\) is not point-surjective.
+\end{theorem}
+
+By the way this is named by Lawvere ``Cantor's theorem'', which we'll justify in a second.
+
+\begin{proof}
+  The same argument as above will exhibit a function \(q: X \to Y\) that is not represented by \(X\): suppose for contradiction it is represented by \(x_0 \in X\), i.e.\ \(f(x_0, -) = q\). But
+  \[
+    q(x_0) = f(x_0, x_0) = \alpha(q(x_0)) \neq q(x_0),
+  \]
+  contradiction.
+\end{proof}
+
+The idea is that if there exists a point-surjection \(X \to Y^X\), i.e.\ every map \(X \to Y\) can be represented by an element of \(X\) then \(Y\) has a particularly simple ``internal structure'' in the sense that every endomorphism as a fixed point. When we are in the setting of sets, the only such \(Y\) is singletons.
+
+\section{Cantor's diagonal argument}
+
+By the trivial observation that \(2 = \{0, 1\}\) admits a self map with no fixed point, it follows from Lawvere fixed point theorem that a nonempty set \(X\) cannot surject its power set \(2^X\), which is Cantor's diagonal argument. As the proof of the theorem is constructive, we may well apply the proof and see what nonrepresentable element we get.
+
+We will use as example the classical Cantor's diagonal argument, demonstrating the nonexistence of surjection \(\N \to 2^\N\). Any attempted enumeration of \(2^\N\) can be seen as a map
+\begin{align*}
+  f: \N \times \N &\to 2 \\
+  (n, k) &\mapsto \text{\(k\)th digit of \(n\)th binary sequence in the enumeration}
+\end{align*}
+so suppose \(f\) looks like
+\[
+  \begin{array}{c|ccccc}
+    n, k & 1 & 2 & 3 & \cdots \\ \hline
+    1 & 1 & 0 & 1 & \cdots \\
+    2 & 0 & 0 & 1 & \cdots \\
+    3 & 1 & 1 & 1 & \cdots \\
+    \vdots
+  \end{array}
+\]
+then \(q \in 2^\N\) is obtained by negating elements along the diagonals.
+
+\section{Russell's paradox}
+
+Recall Russell's paradox: we cannot have a set of all sets as otherwise consider the set \(\{A: A \notin A\}\).
+
+%(Digression for those familiar with set theory: point of Russell's paradox is that naive set theory fails, namely not every statement we write down defines a set. It might worth noting how we settled Russell's paradox using axiomatic set theory. It is not because (or not directly because) we added axioms such as axiom of foundation. Note that adding axioms does not pick out those ``bad sets'' from the model. Instead, it is because we banned unrestricted comprehension.)
+
+Suppose we have the set of all sets \(\Set\). We have a membership function
+\begin{align*}
+  f = \in: \Set \times \Set &\to 2 \\
+  (A, B) &\mapsto 1_{A \in B}
+\end{align*}
+so the nonrepresentable element \(q \in 2^\Set\) we get is the indicator function \(1_{A \neq A}\). By Yoneda lemma this is the same as the set \(\{A: A \notin A\}\), which is what we get in classical proof of Russell's paradox.
+
+\section{Entertainment maths}
+
+Many self-referential paradoxes find their way into entertainment maths. You might have heard of this one. Some adjectives in English describe themselves. For example ``English'' is an English word, ``polysyllabic'' is itself polysyllabic, but ``monosyllabic'' is not\footnote{Let's just say for the moment that this notion is well-defined so we don't have to fight to decide if ``short'' is indeed short.}. Call such adjectives describing themselves ``autological'' and ``heterological'' otherwise. But then you will find that heterological is heterological if and only if it is not.
+
+It is mildly interesting on an entertainment level that we can produce an example witnessed the paradox. However, it has the disadvantage of being overly constructive and more importantly, depending on the semantics of the adjective ``heterological'' in English language. A more convincing presentation of the paradox can be given by Lawvere fixed point theorem: consider the function
+\begin{align*}
+  f: \c{Adj} \times \c{Adj} &\to 2 \\
+  (A, B) &\mapsto 1_{A \text{ describes } B}
+\end{align*}
+Then the nonrepresentable \(q\) is the indicator function of the set of adjectives whose element has the property that it describes itself if and only if it doesn't. ``Heterological'' is an element of this set under ordinary semantics.
+
+Exercise: exhibit Liar's paradox as an instance of Lawvere fixed point theorem.
+
+\section{Gödel incompleteness theorem}
+
+There is actually a moral in the paradox example. The function \(f: \c{Adj} \times \c{Adj} \to 2\) comes for free with the category \(\c{Adj}\). By constrast, in Cantor's diagonal argument we rely on extra data to define \(f\) (membership function in Russell's paradox can also be seen as ``free'' if we allow unrestricted comprehension, which is granted since we assume for contradiction there is a set of all sets). In \(\c{Adj}\), an object \(A\) serves an additional syntactical role, namely the ability to form the predicate ``\(B\) is described by \(A\)''.
+
+More generally, consider \(X\), a collection of syntactical entities such as nouns, formulae, proofs, programs etc. We can define a function
+\[
+  f: X \times X \to \Omega
+\]
+where \(\Omega\) should be thought as values predicate can take, that describe all decribable properties \(X \to \Omega\).
+
+The innovation of Gödel to introduce Gödel number is an example of this, which is roughly speaking a way to name formulae in PA. This allows us to talk about predicates of the form ``the natural number \(3\) satisfies the formula with Gödel number \(5\), which is \(t^3 = 3t\)''. We denote by \(\ulcorner A \urcorner\) the Gödel number of fomula \(A\).
+
+We claim that for \(E(x) \in L^1\), there exists a formula \(C\) such that
+\[
+  \vdash (C \iff E(\ulcorner C \urcorner)).
+\]
+Thus if we take \(E\) to be
+\[
+  E(x) := (\forall y)\neg \text{Prov}(y, x)
+\]
+where \(\text{Prov}(y, x)\) is the predicate ``\(y\) is the Gödel number of the proof of a formula whose Gödel number is \(x\)'', then by the assertion we can find closed \(C\) such that
+\[
+  \vdash (C \iff E(C)),
+\]
+i.e.\ \(C\) is equivalent to its own unprovability. This is the famous Gödel incompleteness theorem.
+
+\begin{proof}[Proof of claim]
+  We define an auxillary function \(D: \N \to \N\): for every formula \(A(x) \in L^1\),\footnote{\(L^1\) is the Lindebaum algebra of 1 free variable, defined as the set of all formula with 1 free variable with provably equivalent formulas identified.} where \(x\) is its only free variable, we have
+  \begin{align*}
+    D: \N &\to \N \\
+    \ulcorner A(x) \urcorner &\mapsto \ulcorner A(\ulcorner A(x) \urcorner) \urcorner
+  \end{align*}
+
+  We let
+  \begin{align*}
+    f: L^1 \times L^1 &\to L^0 \\
+    (A(x), B(x)) &\mapsto \ulcorner A(\ulcorner B(x) \urcorner) \urcorner
+  \end{align*}
+  and
+  \begin{align*}
+    \alpha: L^0 &\to L^0 \\
+    A &\mapsto E(A)
+  \end{align*}
+  Then we consider the usual composite \(q\) which is given by
+  \begin{align*}
+    q: L^1 &\to L^0 \\
+    A(x) &\mapsto E(\ulcorner A(\ulcorner A(x) \urcorner) \urcorner)
+  \end{align*}
+  We claim that \(q\) is represented by \(G(x) = E(D(x))\): indeed
+  \[
+    f(G(x), A(x)) = G(\ulcorner A(x) \urcorner) = E(\ulcorner A(\ulcorner A(x) \urcorner) \urcorner)
+  \]
+  which is the same as \(q(A(x))\). It follows from general Lawvere fixed point argument that \(C = q(G(x)) = G(\ulcorner G(x) \urcorner)\) is a fixed point of \(E\), i.e.\ \(C = E(C)\).
+\end{proof}
+
+\begin{thebibliography}{9}
+\bibitem{diagonal arguments}
+  F.\ W.\ Lawvere.
+  \textit{Diagonal arguments and Cartesian closed categories}.
+  Reprints in Theory and Applications of Categories, No. 15, 2006
+\bibitem{self-referential paradoxes}
+  N.\ S.\ Yanofsky.
+  \textit{A Universal Approach to Self-Referential Paradoxes, Incompleteness and Fixed Points}.
+  arXiv:math/0305282 [math.LO]
+\bibitem{conceptual mathematics}
+  F.\ W.\ Lawvere, S.\ H.\ Schanuel.
+  \textit{Conceptual Mathematics: A first introduction to categories}.
+  Cambridge University Press, 2011
+\end{thebibliography}
+\end{document}

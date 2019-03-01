@@ -12,13 +12,17 @@
 
 \renewcommand{\A}{\mathbb{A}}
 \DeclareMathOperator{\ev}{ev}
-
-
 \DeclareMathOperator{\Cl}{Cl}
 \renewcommand*{\P}{\mathbb{P}}
 \DeclareMathOperator{\Der}{Der} % derivation
+\newcommand{\rational}{\dashrightarrow} % rational map
+\DeclareMathOperator{\Div}{Div} % divisor
+%\let\div\relax
+%\DeclareMathOperator{\div}{div}
 
-\let\div\relax
+
+
+%\let\div\relax
 %\AtBeginDocument{DeclareMathOperator{\div}{div}}
 
 \begin{document}
@@ -94,7 +98,7 @@ The conclusion is that we should think of \(k[x_1, \dots, x_n]\) as very special
   \item If \(f(x) = (x - \lambda_1) \dots (x - \lambda_n)\) then \(Z(f) = \{\lambda_1, \dots, \lambda_n\}\).
   \item if \(k = \cl k\) then algebraic subsets of \(\A^1\) are \(\emptyset, \A^1\) or finite set of points of \(k\).
   \item In \(\A^2\), \(Z(y^2 - x^3 + x) = E\) which we sketched in introduction.
-  \item In \(\A^2\), \(Z(x, y) = \{(0, 0)\}\), \(Z(xy)\) is the union of two axes. \(Z(y)\) is the \(x\)-axis and \(Z(y(y - 1), x(y - 1))\) is the union of a point and a line
+  \item In \(\A^2\), \(Z(x, y) = \{(0, 0)\}\), \(Z(xy)\) is the union of two axes. \(Z(y)\) is the \(x\)-axis and \(Z(y(y - 1), x(y - 1))\) is the union of a point and a line.
   \end{enumerate}
 \end{eg}
 
@@ -110,7 +114,7 @@ Recall from IB Groups, Rings and Modules
   If \(k\) is Noetherian then so is \(k[x]\).
 \end{theorem}
 
-So every ideal in \(k[x_1, \dots, x_n]\) is finitely generated. Therfore there exist \(f_1, \dots, f_r \in k[x_1, \dots, x_n]\) such that
+So every ideal in \(k[x_1, \dots, x_n]\) is finitely generated. Therefore there exist \(f_1, \dots, f_r \in k[x_1, \dots, x_n]\) such that
 \[
   Z(S) = Z(f_1, \dots, f_r).
 \]
@@ -255,7 +259,7 @@ Note that in this setting \(L\) is finite-dimensional over \(k\) if and only if 
   When \(Y = \A^n\) this is Nullstellensatz. In general, an algebra homomorphism \(\varphi: k[x_1, \dots, x_n]/I \to k\) is the same thing as an algebra homomorphism \(k[x_1, \dots, x_n] \to k\) with \(I\) its kernel.
 \end{proof}
 
-We will give better proof later when we are more adept at playing with polynomail equations, but for now we'll prove a special case.
+We will give better proof later when we are more adept at playing with polynomial equations, but for now we'll prove a special case.
 
 \begin{proof}[Proof of \nameref{thm:Nullstellensatz} when \(k\) is uncountable]
   Suppose \(L\) is not algebraic. Then there exists \(t \in L\) which is not algebraic over \(k\) so \(k(t) \subseteq L\). But observe the following:
@@ -269,7 +273,7 @@ We will give better proof later when we are more adept at playing with polynomai
     \[
       \sum_{i = 1}^r \frac{a_i}{t - \lambda_i} = 0.
     \]
-    Clear the denoimators, we get an algebraic identity that \(t\) satisfies, contradicting \(t\) transcendental.
+    Clear the denominators, we get an algebraic identity that \(t\) satisfies, contradicting \(t\) transcendental.
   \end{enumerate}
   This implies that \(\{\lambda: \lambda \in k\}\) is countable. Absurd.
 \end{proof}
@@ -391,7 +395,7 @@ In other words, \(Y\) is reducible/disconnected in Zariski topology. In usual to
   \]
   But \(f, g \notin I(Y)\) so \(I(Y)\) is not prime.
 
-  Conversely if \(I(Y)\) is not prime then exists \(f_1, \dots, f_2 \in k[x_1, \dots, x_n]\) with \(f_1, f_2 \notin I(Y)\) but \(f_1f_2 \in I(Y)\). Set \(Y_i = Y \cap Z(f_i)\). Then \(Y_1 \cup Y_1 = Y\) as for \(p \in Y\), \(f_1f_2(p) = 0\) so \(f_1(p) = 0\) or \(f_2(p) = 0\) and \(Y_i \neq Y\) as \(f_2 \notin I(Y)\).
+  Conversely if \(I(Y)\) is not prime then exists \(f_1, \dots, f_2 \in k[x_1, \dots, x_n]\) with \(f_1, f_2 \notin I(Y)\) but \(f_1f_2 \in I(Y)\). Set \(Y_i = Y \cap Z(f_i)\). Then \(Y_1 \cup Y_2 = Y\) as for \(p \in Y\), \(f_1f_2(p) = 0\) so \(f_1(p) = 0\) or \(f_2(p) = 0\) and \(Y_i \neq Y\) as \(f_2 \notin I(Y)\).
 \end{proof}
 
 \begin{eg}
@@ -713,10 +717,10 @@ This is obviously false in Zariski topology.
 Observe that if \(\alpha: X \to Y\) is a morphism of varieties, i.e.\ \(\alpha^*: k[Y] \to k[X]\) is a \(k\)-algebra homomorphism, \(D \in \Der(k[X], \ev_p)\) then \(D \compose \alpha^* \in \Der(k[Y], \ev_{\alpha(p)})\). Thus we get a linear map \(T_pX \to T_{\alpha(p)}Y\).
 
 \begin{ex}
-  Let \(f \in k[X]\). Consider \(k[X] \to k[U] = k[X][t]/(tf - 1) = k[U]\). We get a morphism \(U = X \setminus Z(f) \to X\). Let \(p \in U\). Show this defines an isomorphism \(T_pU \to T_pX\).
+  Let \(f \in k[X]\). Consider \(k[X] \to k[U] = k[X][t]/(tf - 1)\). We get a morphism \(U = X \setminus Z(f) \to X\). Let \(p \in U\). Show this defines an isomorphism \(T_pU \to T_pX\).
 \end{ex}
 
-We have two more definitions of dimension of varieties, which turns out to be the same as the old one. To prove so we need some algebraic tools.
+We have two more definitions of dimension of varieties, which agree with our current definition. To prove so we need some algebraic tools.
 
 \begin{definition}[Krull dimension]\index{Krull dimension}
   Let \(X\) be an irreducible affine variety. The \emph{Krull dimension} of \(X\) is
@@ -943,11 +947,11 @@ Note that \(k[Y] \subseteq k[X]\) is an \emph{integral extension} of rings.
     F_N(\lambda_1, \dots, \lambda_n) \neq 0.
   \]
   Set \(x_i' = x_i - \lambda_i x_n\) for \(i < n\) and \(x_n' = x_n\). Note that
-  \[
+  \begin{align*}
     x_1^{e_1} \cdots x_n^{e_n}
-    = (x_1' + \lambda_1 x_n)^{e_1} \cdots (x_{n - 1}' + \lambda_{n - 1} x_n)^{e_{n - 1}} x_n^{e_n}
-    = \lambda_1^{e_1} \lambda_{n - 1}^{e_1 + \dots + e_n} + \text{ polynomials in \(x_1', \dots, x_n'\) whose \(x_n'\) degree is smaller}
-  \]
+    &= (x_1' + \lambda_1 x_n)^{e_1} \cdots (x_{n - 1}' + \lambda_{n - 1} x_n)^{e_{n - 1}} x_n^{e_n} \\
+    &= \lambda_1^{e_1} \lambda_{n - 1}^{e_1 + \dots + e_n} + \text{ polynomials in \(x_1', \dots, x_n'\) whose \(x_n'\) degree is smaller}
+  \end{align*}
   Hence
   \[
     f(x_1', \dots, x_n') = F_N(\lambda_1, \dots, \lambda_n) \cdot x_n^{e_1, \dots, e_n} + \text{ lower \(x_n\)-degree poly}
@@ -1010,7 +1014,7 @@ Claim \(\P^n = \A^n \amalg \P^{n - 1}\):
   \]
 \end{corollary}
 
-We can't make \(\P^n\) an algebraic variety by gluing together a closed and open subset (more data is needed).
+We can't make \(\P^n\) an algebraic variety by gluing together a closed and open subset as more data is needed.
 
 \begin{ex}
   Consider \(Z(x^2 - y^3) \subseteq \A^2\), which can be written as \(k^\times \amalg \{\text{pt}\}\). On the other hand, \(\A^1 = k^\times \amalg \{\text{pt}\}\).
@@ -1263,7 +1267,7 @@ Suppose \(k = \C\). Let \(X\) be a curve, \(p \in X\) a smooth curve. Then a sma
 \end{theorem}
 
 \begin{eg}
-  Intuition: Consider \(\{x^2 + y^2 = 2\} \subseteq \A^1\). If \(p \neq (0, \pm 1)\) then \(y - y_0\) is a ``local coordinate'' at \(p\). If \(k = \C\), \(p \neq (0, \pm 1)\), then we can write \(x\) in terms of \(y\) as a convergence power series for \(|y - y_0| < \varepsilon\). For example at \((1, 0)\),
+  Intuition: Consider \(\{x^2 + y^2 = 1\} \subseteq \A^1\). If \(p \neq (0, \pm 1)\) then \(y - y_0\) is a ``local coordinate'' at \(p\). If \(k = \C\), \(p \neq (0, \pm 1)\), then we can write \(x\) in terms of \(y\) as a convergence power series for \(|y - y_0| < \varepsilon\). For example at \((1, 0)\),
   \[
     x
     = (1 - y^2)^{1/2}
@@ -1341,7 +1345,7 @@ Suppose \(k = \C\). Let \(X\) be a curve, \(p \in X\) a smooth curve. Then a sma
   \]
   Nakayama 2 says that \(\mathfrak m \subseteq (x_1)\). But \((x_1) \subseteq \mathfrak m\) so equality. In particular \(\mathfrak m\) is the principal ideal generated by \(x_1\).
 
-  Now let \(M = \bigcap_{n \geq 1} \mathfrak m^n\), \(J = \mathfrak m \subseteq \mathcal O_{X, p}\) so a finitely generated ideal. But \(\mathfrak m M = M\) so by Nakayama 1 \(M = 1\).
+  Now let \(M = \bigcap_{n \geq 1} \mathfrak m^n\), \(J = \mathfrak m \subseteq \mathcal O_{X, p}\) so a finitely generated ideal. But \(\mathfrak m M = M\) so by Nakayama 1 \(M = 0\).
 \end{proof}
 
 \begin{ex}
@@ -1375,6 +1379,634 @@ Such is not unique but if \(t\) is a local parameter so is \(ut\) if \(u \in \ma
   \end{align*}
 \end{corollary}
 This is independent of the choice of \(t\).
+
+\begin{proof}
+  Given \(f \in \mathcal O_{X, p}\), as \(\bigcap_{n \geq 0} \mathfrak m^n = 0\), there exists a unique \(n \geq 0\) such that \(f \in \mathfrak m^n \setminus \mathfrak m^{n + 1}\). Define \(\nu_p(f) = n\). As \(\mathfrak m^n = (t^n)\), \(f = t^n u\) with \(u \in \mathcal O_{X, p} \setminus \mathfrak m_{X, p} = \mathcal O_{X, p}^*\). Note if \(t^n u' = t^m u\) where \(n \geq m\) then \(t^{n - m} = u' u^{-1} \in \mathcal O^*\) so \(n = m\).
+
+  If \(f \in k(X)^*\), \(f \notin \mathcal O_{X, p}\) then \(f^{-1}\) is. Apply the above and define \(\nu_p(f) = - \nu_p(f^{-1})\).
+\end{proof}
+
+\begin{eg}
+  \(X = \P^1\) so \(k(X) = k(x)\). Let \(f \in k(x), f \neq 0\). Then \(f = \prod (x - a_i)^{n_i}\), where \(a_i\)'s are distinct. Consider \(\nu_p(f)\).
+  \begin{enumerate}
+  \item If \(p = a \in \A^1\), i.e.\ \(p \neq \infty\), then a local coordinate \(t\) is \(x - a\) so
+    \[
+      \nu_a(f) =
+      \begin{cases}
+        0 & a \notin \{a_1, \dots, a_m\} \\
+        n_i & a = a_i
+      \end{cases}
+    \]
+  \item If \(p = \infty\) then \(\frac{1}{x}\) is a coordinate. For example if ...
+    \[
+      f(x) = (\frac{1}{x})^{- \sum n_i} \underbrace{\prod (1 - \frac{a_i}{x})^{n_i}}_{\text{regular at } \infty}
+    \]
+    so \(\nu_\infty(f) = - \sum n_i\).
+  \end{enumerate}
+\end{eg}
+
+\begin{proof}[Proof of Nakayama]
+  Let \(M\) be generated by \(m_1, \dots, m_n\) as an \(R\)-module. As \(JM = M\), there exists \(x_{ij} \in J\) such that \(m_i = \sum x_{ij} m_j\), i.e.
+  \[
+    \sum_j \underbrace{(\delta_{ij} - x_{ij})} m_j = 0
+  \]
+  for all \(i\). Recall that
+  \[
+    X \cdot \adj X = \det X \cdot I,
+  \]
+  so multiply the above by \(\adj (I - X)\) to get \(d m_i = 0\) for all \(i\), where
+  \[
+    d = \det (I - X) = 1 + r
+  \]
+  for some \(r \in J\). expanding out the det, i.e.\ \((1 + r)M = 0\) as required.
+
+  The second part is immediate by applying Nakayama's lemma to \(M/N\).
+\end{proof}
+
+\begin{ex}
+  Show
+  \[
+    \mathcal O_{X, p} / \mathfrak m^n = \mathcal O_{X, p}/(t^n) = k[t]/(t^n).
+  \]
+  (inverse limit)
+\end{ex}
+
+Discussion on projective space having no holes:
+\begin{proposition}
+  Let \(X\) be a curve, \(U = X \setminus \{\text{finite set of points}\}\) and \(\alpha: U \to Y\) a morphism with \(Y\) a projective variety. Let \(p \in X\) be smooth. Then \(\alpha\) extends to a morphism \(U \cup \{p\} \to Y\).
+\end{proposition}
+
+\begin{proof}
+  wlog \(Y = \P^m\) (by continuity). In some neighbourhood of \(p\), \(\alpha = [f_0: \cdots: f_m]\) where \(f_i \in k(X)\). Let \(t\) be a local coordinate at \(p\). Let \(n_i = \nu_p(f_i)\) so either \(f_i(p) = 0\) or \(f_i = t^{n_i} u_i\) where \(u_i \in \mathcal O_{X, p}^*\). Let \(N = \min \{n_1, \dots, n_m\}\), say it is attained at \(n_j\), that is \(N = n_j\) for some \(j\). Then
+  \[
+    \alpha = [t^{-N} f_0: \cdots :t^{-N} f_m]
+  \]
+  but \(f_i t^{-N} \in \mathcal O_{X, p}\) has no pole at \(p\) and \(f_j t^{-N} = u_j\) which does not vanish at \(p\).
+\end{proof}
+
+\begin{definition}[rational map]\index{rational map}
+  Let \(X, Y\) be arbitrary algebraic varieties. A \emph{rational map} \(\varphi: X \rational Y\) is a pair of a Zariski open \(U \subseteq X\) and a morphism \(\varphi: U \to Y\) (i.e.\ it is a partially defined map).
+\end{definition}
+
+Using this terminology, the proposition is saying that a rational map to a projective variety extends to a smooth point.
+
+\begin{eg}
+  If \(F_0, \dots, F_m\) are homogeneous polynomials of degree \(d\) in \(X_0, \dots, X_n\) then
+  \[
+    [X_0: \cdots : X_n] \mapsto [F_0(X): \cdots : F_m(X)]
+  \]
+  is a rational map \(\P^n \rational \P^m\) defined on the open set where some \(F_i\) is nonzero, i.e.\ on the complement of \(Z(F_0, \dots, F_n)\).
+\end{eg}
+
+\begin{definition}
+  Two rational maps \(\varphi_1, \varphi_2: X \rational Y\) defined on \(U_1, U_2\) are \emph{equal} if there exists a Zariski open \(V \subseteq V_1 \cap V_2\) with \(\varphi_1|_V = \varphi_2|_V\). That is, the rational map defined by \(\varphi\) doesn't depend on \(U\) --- we can shrink and think of them as the same rational map.
+\end{definition}
+
+\begin{definition}
+  \(X, Y\) are \emph{birational} if there exist rational maps \(\varphi: X \rational Y, \psi: Y \rational X\) such that
+  \begin{align*}
+    \psi \varphi &= \id_X \\
+    \varphi \psi &= \id_Y
+  \end{align*}
+  as rational maps.
+\end{definition}
+
+\begin{remark}
+  The proposition is false if \(\dim X > 1\) or \(p \in X\) is not smooth. For example
+  \begin{align*}
+    \A^2 &\rational \P^1 \\
+    (x, y) &\mapsto \frac{x - y}{x + y}
+  \end{align*}
+  cannot be extended to \((0, 0)\). More interestingly, consider
+  \[
+    [X: Y: Z] \mapsto [YZ: XZ: XY] ``='' [\frac{1}{X} : \frac{1}{Y}: \frac{1}{Z}]
+  \]
+  which cannot be extended to three points. This is the beginning of high dimensional algebraic geometry.
+\end{remark}
+
+\begin{proposition}
+  Let \(\alpha: X \to Y\) be a nonconstant morphism of irreducible curves.
+  \begin{enumerate}
+  \item For all \(q \in Y\), \(\alpha^{-1}(q)\) is a finite set.
+  \item \(\alpha\) induces an embedding of fields \(k(Y) \embed k(X)\) such that \([k(X): k(Y)]\) is finite.
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition}[degree]\index{degree}
+  The degree of the extension is called the \emph{degree} of \(\alpha\).
+\end{definition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\alpha^{-1}(q)\) is a closed subset of \(X\). But the only closed subsets are fintie set of points and \(X\). As \(\alpha\) is nonconstant the result follows.
+  \item If \(f \in k(Y)\) then exists \(U \subseteq Y\) affine such that \(f \in k[U]\). Then \(f \compose \alpha: \alpha^{-1}(U) \to k\) is well-defined in \(k[\alpha^{-1}(U)] \subseteq k(X)\) so map of fields \(k(Y) \to k(X)\). Have \(k \subseteq k(Y) \subseteq k(X)\) where \(k(X)\) and \(k(Y)\) are both algebraic over \(k\). Thus \(k(X)/k(Y)\) is algebraic.
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}
+  Consider the morphism
+  \begin{align*}
+    \alpha: \A^1 &\to \A^1 \\
+    z &\mapsto z^r
+  \end{align*}
+  which induces a filed extension \(k(Y) = k(y) \subseteq k(X) = k(x), y \mapsto x^r\) so \(k(x^r) \subseteq k(x)\). The degree of \(\alpha\) is \(r\).
+\end{eg}
+
+Let \(\alpha: X \to Y\) be a nonconstant morphism of smooth irreducible projective curves. Then \(\alpha\) is surjective (as \(\alpha(X) \subseteq Y\) is a closed subvariety (?) and not a finite set of points). Let \(y \in Y, t \in \mathcal O_{Y, y}\) a local coordinate. If \(x \in X, \alpha(x) = y\). Then \(t \compose \alpha \in \mathcal O_{X, x}\), i.e.\ \(t \compose \alpha\) is a function defined in some neighbourhood of \(x \in X\). So we can ask what is the order of vanishing of \(t \compose \alpha\) at \(x\), i.e.\ \(\nu_x(t\alpha)\). Call this the \emph{multiplicity} or \emph{ramification index} of \(\alpha\) at \(x\), denote it \(e_\alpha(x)\). How to calculate this? Choose a local parameter \(s\) at \(x\) then \(t\alpha = s^n \cdot u\) for some \(n \geq 0, u \in \mathcal O_{X, x}^*\). Then \(n = \nu_x(t\alpha) = e_\alpha(x)\).
+
+\begin{eg}
+  Assume \(\ch k \ndivides r\) and consider
+  \begin{align*}
+    \alpha: \A^1 &\to \A^1 \\
+    z &\mapsto z^r
+  \end{align*}
+  Let's compute \(e_\alpha(x)\). Suppose \(a \in \A^1\). A local parameter at \(\alpha(a) = a^r\) is \(t = x - a^r\). Now
+  \[
+    t \compose \alpha(x) = x^r - a ^r = \prod_{i = 0}^{r - 1} (x - \zeta^ia)
+  \]
+  where \(\zeta\) is a primitive \(r\)th root of unity (here we used the assumption \(\ch k \ndivides r\)). Hence
+  \[
+    \nu_a (x^r - a^r) =
+    \begin{cases}
+      1 & a \neq 0 \\
+      r & a = 0
+    \end{cases}
+  \]
+  as \(x - a\) is a local parameter at \(a\).
+
+  Notice that \(\# \alpha^{-1}(a) = r\) for all \(a \in \A^1\) if we count the points with multiplicity. This is a general phnomenom.
+\end{eg}
+
+\begin{theorem}[finiteness theorem]
+  Let \(\alpha: X \to Y\) be a morphism of smooth projective irreducible curves. Then
+  \begin{enumerate}
+  \item for all \(y \in Y\),
+    \[
+      \sum_{x \in \alpha^{-1}(y)} e_\alpha(x) = \deg \alpha.
+    \]
+  \item if \(k(X)/k(Y)\) is separable then \(e_\alpha(x) = 1\) for all but finitely many \(x \in X\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{ex}
+  Check the separability assumption in 2 is necessary.
+\end{ex}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+\begin{corollary}
+  Let nonzero \(f \in k(X)\) where \(X\) is a smooth projective curve. Then the number of zeros of \(f\) equals to the number of poles of \(f\). More precisely, there are only finitely many zeros and poles, \(\{p \in X: \nu_p(f) \neq 0\}\) is finite and
+  \[
+    \sum_{p \in X} \nu_p(f) = 0.
+  \]
+\end{corollary}
+Cauchy's theorem implies this if \(k = \C\).
+
+\begin{proof}
+  \(f \in k(X)\) is a rational map \(X \rational \P^1\). As \(X\) is smooth this extends to a well-defined morphism of algebraic varieties \(X \to \P^1\). Now \(x \in k(\P^1)\) is a local coordinate around \(0 \in \P^1\), so if \(f(p) = 0\) then \(e_f(p) = \nu_p(f)\). \(\frac{1}{x}\) is a local coordinate around \(\infty \in \P^1\) so if \(f(p) = \infty\) then \(e_f(p) = - \nu_p(f)\). If \(f(p) \neq 0\) or \(\infty\) then \(\nu_p(f) = 0\). Thus finiteness theorem says that
+  \[
+    \deg f = \sum_{p: f(p) = 0} \nu_p(f) = \sum_{p: f(p) = \infty} - \nu_p(f)
+  \]
+  and hence the result.
+\end{proof}
+
+The rest of this course aims to answer the question, given a curve and points on the curve, can we find a function with prescribed order of vanishing at these points?
+
+\begin{definition}[divisor]\index{divisor}
+  A \emph{divisor} \(D\) on a curve \(X\) is a formal sum \(D = \sum n_i P_i\) where \(n_i \in \Z, P_i \in X\) and only finitely many nonzero terms. \(\Div (X)\) is the abelian group of all divisors on \(X\), i.e.\ the free abelian group generated by points of \(X\).
+\end{definition}
+
+There is a homomorphism
+\begin{align*}
+  \deg: \Div(X) &\to \Z \\
+  \sum n_i P_i &\mapsto \sum n_i
+\end{align*}
+
+If \(f \in k(X)\), define
+\[
+  \div(f) =  \sum_{p \in X} \nu_p(f) p.
+\]
+We just saw that
+\[
+  \deg \div (f) = 0.
+\]
+Define \(\Div^n(X) = \{D \in \Div(X): \deg D = n\}\). Divisors of the form \(\div (f)\) are called \emph{pincipal divisors}, \(\div k(X)^*\). We will study
+\[
+  \Cl (X) = \operatorname{Pic} (X) = \Div(X) / \div k(X)^*,
+\]
+the class group, Picard group or group of line bundles on \(X\). Note that we have an induced homomorphism \(\deg: \Cl (X) \to \Z\).
+
+\begin{proposition}
+  If \(X = \P^1\) then \(\Cl (X) = \Z\).
+\end{proposition}
+
+\begin{remark}
+  We will show this characterises \(\P^1\).
+\end{remark}
+
+\begin{proof}
+  For any curve \(X\), \(\deg: \Cl(X) \to \Z\) is surjective so we must show \(\ker (\deg: \Cl(X) \to \Z) = 0\), i.e.\ any degree \(0\) divisor is of the form \(\div(f)\).
+
+  Let
+  \[
+    D = \sum_{a \in \A^1} n_a (a) + n_\infty (\infty)
+  \]
+  so \(0 = \deg D = \sum n_a +n_\infty\) implies that \(n_\infty = -\sum n_a\). Consider \(f(x) = \prod_{a \in \A^1} (x - a)^{n_a}\). It is clear that \(\div (f) = D\).
+\end{proof}
+
+Write \([D]\) for the class of \(D \in \Div(X)\) in \(\Cl X\) and \(D \sim D'\) if \([D] = [D']\), i.e.\ if \(D = D' + \div (f)\) for some \(f \in k(X)^*\).
+
+If \(D = \sum n_i P_i\), say \(D\) is \emph{effective} if \(n_i \geq 0\) for all \(i\). Write \(D \geq 0\).
+
+\begin{eg}
+  Let \(\alpha: X \to Y\) be a morphism. Then \(\sum_{x \in \alpha^{-1}(y)} e_\alpha(x) (x)\) is an effective divisor of degree \(\deg \alpha\).
+\end{eg}
+
+Suppose \(k = \cl k\) and let \(X\) be a smooth irreducible projective curve. Let \(D = \sum_{i = 1}^n n_i P_i\) be a divisor. Let
+\begin{align*}
+  L(D)
+  &= \{f \in k(X)^*: D + \div (f) \geq 0\} \cup \{0\} \\
+  &= \{f \in k(X)^*: \nu_{p_i}(f) \geq -n_i, \nu_p(f) \geq 0 \text{ for } p \notin \{p_1, \dots, p_r\}\}
+\end{align*}
+As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \(\Gamma(X, \mathcal O(D))\)).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(L(n P) = \{f \in k(X) \text{ with a pole of order \(\leq n\) at \(p\) and no other poles}\}\)
+  \item If \(X = \P^1\), \(L(n(\infty))\) is the set of polynomials of degree \(\leq n\). \(L(n(\infty) - (a))\) where \(a \in \A^1\) equals to \((x - a) \cdot \{\text{polynomials of deg } \leq n - 1\}\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(\deg D < 0\) then \(L(D) = 0\).
+  \item \(L(0) = k\).
+  \item If \(D \sim D'\), i.e.\ \(D = D' + \div(g)\) where \(g \in k(X)\) then
+    \begin{align*}
+      L(D) &\to L(D') \\
+      f &\mapsto fg
+    \end{align*}
+    is an isomorphism.
+  \item If \(L(D) \neq 0\) then there exists \(D' \geq 0\) with \(D' \sim D\).
+  \item \(\dim L(D) \leq \deg D + 1\) if \(\deg D \geq 0\). Indeed,
+    \[
+      \dim L(D) \leq \dim (L(D - p)) + 1
+    \]
+    for all \(p \in X\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item If \(f \in L(D)\) then \(\deg f \leq \deg D\) from the definition. But \(\deg f \geq 0\).
+  \item Exercise.
+  \item As \(\div (fg) = \div(f) + \div(g)\) as \(\nu_p(fg) = \nu_p(f) + \nu_p(g)\).
+  \item Obvious from definition.
+  \item Induct on \(\deg D\). If \(\deg D < 0\) then \(L(D) = 0\) by 1. Pick \(p \notin \{p_1, \dots, p_r\}\). Consider the map \(\lambda: L(D) \to k, f \mapsto f(p)\). This is well-defined as \(f\) has no pole at \(p\). Then \(f \in \ker \lambda\) if and only if \(f \in L(D)\) and \(\nu_p(f) \geq 1\), if and only if \(f \in L(D - p)\). Note that \(\lambda\) need not be surjective. As \(\ker \lambda = L(D - p)\), induction gives
+    \[
+      \dim L(D) \leq 1 + \dim L(D - p) \leq 1 + (\deg D - 1) + 1
+    \]
+    by induction. More generally, if \(D = n_p \cdot p + \sum_{q \neq p} n_q \cdot q\) then define
+    \begin{align*}
+      \lambda: L(D) &\to k \\
+      f &\mapsto (t^{n_p} f)(p)
+    \end{align*}
+    if \(t\) is a local coordinate at \(p\).
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}
+  \[
+    \ell(D) = \dim L(D).
+  \]
+\end{definition}
+
+\begin{eg}
+  If \(X = \P^1\) and \(\deg D = n \geq 0\) then \(\ell(D) = \deg D + 1\).
+
+  Proof: by 3, this only depends on \([D] \in \Cl \P^1 = \Z\), so may as well take \(D = n (\infty)\) and we have \(\ell(n (\infty)) = n + 1\).
+\end{eg}
+
+\begin{eg}
+  Let \(E^0 = \{(x, y) \in \A^2: y^2 = (x - \lambda_1) (x - \lambda_2) (x - \lambda_3)\}\) where \(\lambda_i\)'s are zero and \(\lambda_1 \lambda_2 \lambda_3 \neq 0\). Let \(E\) be the plane curve contained in \(\P^2\) defined by this, i.e.\ the closure of \(E^0\) in \(\P^2\). (Recall that \(E\) is the projective variety given by
+  \[
+    ZY^2 = (X - \lambda_1Z)(X - \lambda_2Z)(X - \lambda_3Z).
+  \]
+  It has an extra point when \(Z = 0\), which implies \(X = 0, Y \neq 0\), so a unique point at \(\infty\), \(P_\infty = [0:1:0]\))
+
+  We will compute \(L(nP_\infty)\) for \(n\) small. Start by computing \(\div (x), \div (y)\). \(x = 0\) when \(y = \pm \sqrt{\lambda_1\lambda_2\lambda_3} = \pm c\). \(x = \infty\) at \(P_\infty\). Note that at \((x, y) = (0, \pm c)\), \(\frac{\partial f}{\partial y} \neq 0\) so \(x\) is a local parameter at these points and so
+  \[
+    \div (x) = a P_\infty + \underbrace{[0:c:1] + [0:-c:1]}_{\text{vanishes of order \(1\) at these points}}
+  \]
+  To find \(a\) we can either take a local coordinate, or use the fact that \(\deg (\div(x)) = 0\) so \(a = -2\). Similarly
+  \[
+    \div (y) = -3 P_\infty + \sum_{i = 1}^3 [\lambda_i:0:1]
+  \]
+  as \(\frac{\partial f}{\partial x} \neq 0\) at \([\lambda_i:0:1]\) so \(y\) is a local parameter there. Thus \(x \in L(2P_\infty), y \in L(3P_\infty)\). Similar to computation of Weierstrass \(\wp\)-function.
+
+  Claim that \(L(P_\infty) = k\).
+
+  Granting the claim, the lemma 5 implies that \(\dim L(nP_\infty) \leq n\), but
+  \begin{align*}
+    1, x &\in L(2 P_\infty) \\
+    1, x, y &\in L(3 P_\infty) \\
+    1, x, y, x^2 &\in L(4 P_\infty) \\
+    1, x, y, x^2, xy &\in L(5 P_\infty)
+  \end{align*}
+  Note that all these are linearly independent. But
+  \[
+    1, x, y, x^2, xy, x^3, y^2 \in L(6 P_\infty),
+  \]
+  which are \emph{not} linearly indepedent as
+  \[
+    y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3).
+  \]
+
+  Exercise: \(\{x^i, x^iy: i \geq 0\}\) are linearly independent in \(k(X)\) and hence \(\dim L(n P_\infty) = n\) for all \(n \geq 1\).
+
+  Compare with when \(X = \P^1\), \(\dim L(n \infty) = n + 1\) when \(n \geq 0\).
+
+  Note that \(\lambda_i\)'s being distinct is essential as it ensures the curve is smooth. On the other hand, \(\lambda_1\lambda_2\lambda_3 \neq 0\) is just a convenience (without which \(x\) vanishes at \([0:c:1]\) with order \(2\).
+
+  Proof of claim: if \(L(P_\infty) \neq k\) then \(L(P_\infty) = k + kt\) for some function \(t \in k(E)\). Then \(t^n \in L(n P_\infty) \setminus L((n - 1) P_\infty)\) so \(1, t, \dots, t^n\) are a basis of \(L(n P_\infty)\). But \(x \in L(2 P_\infty), y \in L(3P_\infty)\) so exist \(g_2(t), g_3(t)\) polynomials of degree \(2\) and \(3\) such that \(x = g_2(t), y = g_3(t)\), so \(x = (a t + b)^2 + d\), \(a \neq 0, b, d \in k\). By a change of variable (replacing \(t\) by \(a t + b\), the defining equation
+  \[
+    y^2 = \prod (x - \lambda_i)
+  \]
+  becomes
+  \[
+    g_3(t)^2 = \prod (t^2 - (\lambda_i - d)).
+  \]
+  But \(\lambda_i\)'s distinct implies that \(\lambda_i - d\) distinct so RHS is not a square in \(k(t)\), contradiction.
+\end{eg}
+
+Suppose \(X\) is a smooth projective curve, \(D \in \Div (X)\) with \(\ell(D) \geq 1\). Set \(m = \ell(D) - 1\). Choose a basis \(f_0, \dots, f_m\) of \(L(D)\). We get a rational map
+\begin{align*}
+  X &\rational \P^m = \P(L(D)^*) \\
+  p &\mapsto [f_0(p): \cdots : f_m(p)]
+\end{align*}
+which, as \(X\) is smooth, extends to a morphism \(\alpha_D: X \to \P^m\).
+
+Moreover if \(D \sim D'\), i.e.\ \(D' = D + \div (g)\) then \(f_0g, \dots, f_mg\) is a basis of \(L(D')\) by part 3 of the lemma and
+\[
+  [(gf_0)(p) : \cdots : (gf_n)(p)] = [f_0(p): \cdots: f_m(p)]
+\]
+so we get the same map to projective space. Thus the map \(\alpha_D: X \to \P^m\) depends only on \([D] \in \Cl(X)\).
+
+\begin{eg}
+  \(X = \P^1, D = n \infty, \ell(D) = n + 1\). Choose basis \(1, t, \dots, t^n\) of \(L(D)\). Have
+  \[
+    \alpha_D(t) = [1: t: \cdots :t^n]: \P^1 \to \P^n
+  \]
+  Write \(t = \frac{x_1}{x_0}\),
+  \[
+    \alpha_D[x_0: x_1] = [1: \frac{x_1}{x_0}: \cdots : \left( \frac{x_1}{x_0} \right)^n] = [x_0^n:x_0^{n - 1} x_1: \cdots : x_1^n]
+  \]
+\end{eg}
+
+\begin{definition}[embedding]\index{embedding}
+  \(\alpha: X \to Y\) is an \emph{embedding} of \(X\) if it is a morphism which induces an isomorphism between \(\alpha(X)\) and \(X\).
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show \(\alpha_{n \infty}: \P^1 \to \P^n\) is an embedding if \(n \geq 1\).
+  \item Show that the map
+    \begin{align*}
+      \alpha: \P^1 &\to \P^2 \\
+      t &\mapsto [1: t^2 : t^3]
+    \end{align*}
+    is \emph{not} an embedding.
+  \end{enumerate}
+\end{ex}
+
+\begin{eg}
+  Let
+  \[
+    X = E = \Cl \{(x, y): y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\} \subseteq \P^2.
+  \]
+  Show
+  \begin{align*}
+    \alpha_{P_\infty}: E &\to \P^0 = \text{pt} \\
+    \alpha_{2 P_\infty}: E &\to \P^1 = \P(\langle 1, x \rangle^*), \alpha_{2 P_\infty} (x, y) = x \\
+    \alpha_{3 P_\infty}: E &\to \P^2 = \P(\langle 1, x, y \rangle^*), \alpha_{3P_\infty}(x, y) = (x, y)
+  \end{align*}
+\end{eg}
+
+\begin{theorem}[embedding criterion]
+  Let \(X\) be a smooth projective curve and \(D \in \Div(X)\). Then \(\alpha_D: X \to \P^m\) is an embedding if and only if for all \(p, q \in X\),
+  \[
+    \ell(D - p - q) = \ell(D) - 2.
+  \]
+\end{theorem}
+Intuition: if \(p \neq q\) then this ensures this is an injection. If \(p \neq q\) then this gives a criterion for singular point.
+
+\begin{proof}
+  Omitted for now. Instead, we will define the degree of a curve in \(\P^m\).
+\end{proof}
+
+When this happens, \(X\) is a curve in \(\P^m\) of \emph{degree} \(\deg D\).
+
+\(X \subseteq \P^m = \P V\) where \(\dim V = m + 1\), \(X\) a smooth curve. Let \(H \subseteq \P^m\) be a hyperlplane such that \(X \nsubseteq H\) (otherwise take \(m - 1)\)). Define
+\[
+  [H \cap X] \in \Cl(X)
+\]
+as \(H \cap X\) ``counted with multiplicity''. (picture) There exists a linear function \(x_0 \in V^*\) such that \(H = \{p: x_0(p) = 0\}\). Write this as \(x_0 = 0\). Claim \(x_0 \notin k(X)\) (?). to get a rational function on \(X\), pick \(x_1 \in V^*\) such that \(x_1(p) \neq 0\). Now \(\frac{x_0}{x_1} \in k(X)\) and \(\nu_p(\frac{x_0}{x_1})\) is defined and we set it to be \(n_p\). If \(x_1'\) is another line with \(x_1'(p) \neq 0\) then
+\[
+  \nu_p(\frac{x_0}{x_1'}) = \nu_p(\frac{x_0}{x_1}) + \underbrace{\nu_p(\frac{x_1}{x_1'})}_{= 0}
+\]
+so \(n_p\) is independent of the choice of \(x_1\). We thus define
+\[
+  [H \cap X] = \sum_{p \in H \cap X} n_p p \in \Div(X).
+\]
+Notice that \(n_p \geq 0\) for all \(p\), i.e.\ \([H \cap X] \geq 0\). Moreover, if we picked another hyperplane \(H' = \{x_0' = 0\}\) with \(X \nsubseteq H'\) then
+\[
+  \nu_p(\frac{x_0}{x_1}) = \nu_p(\frac{x_0'}{x_0}) + \nu_p(\frac{x_0}{x_0'})
+\]
+hence
+\[
+  [H \cap X] = [H' \cap X] + \div (\frac{x_0}{x_0'}),
+\]
+so image in the class group is independent of the choice of \(H\). Thus we define
+\begin{definition}
+  \[
+    \deg X = \deg [H \cap X]
+  \]
+  for any hyperplane \(H\) not containing \(X\).
+\end{definition}
+
+\begin{theorem}
+  Let \(F(X_0, X_1, X_2)\) be a homogeneous polynomial of degree \(d\) and suppose \(Z(F) \subseteq \P^2\) is smooth irreducible. Then
+  \[
+    \deg Z(F) = d.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Linearly change coordinates if necessary so \([1: 0 : 0] \notin Z(F)\). Then
+  \[
+    F = \sum_{i + j + k = d} a_{ijk} X_0^i X_1^j X_2^k
+  \]
+  and \(F[1: 0: 0] \neq 0\) implies that \(a_{d, 0, 0} \neq 0\). Thus set \(x = \frac{X_0}{X_1}, z = \frac{X_2}{X_1}\) and
+  \[
+    f(x, z) = \frac{1}{a_{d, 0, 0}} F(x, 1, z)
+    = x^d + a_{d - 1} x^{d - 1} + \cdots + a_0
+  \]
+  where \(a_i = a_i(z)\) is a polynomial in \(z\) of degree \(\leq d - i\). \(f(x, z)\) is a polynomial of degree \(d\) in variable \(x\). In picture \(z = 0\) is the hyperplane \(H\) (yellow line) and we are computing \(H \cap X\) using chart \(X_1 \neq 0\) (complement of green line).
+
+  We will now compute \(\nu_p(z)\) for all \(p \in Z(F)\), that is for all \(p \in Z(F) \subseteq \{X_1 \neq 0\} = \mathcal X_0 = \{(x, z): f(x, z) = 0\}\), where the last expression is affine. But
+  \[
+    k[\mathcal X_0]/(z)
+    = k[x, z]/(z, f(x, z))
+    = k[x]/(f(x, 0)).
+  \]
+  Now write
+  \[
+    f(x, 0) = (x - \alpha_1)^{n_1} \cdots (x - \alpha_r)^{n_r}
+  \]
+  with \(\alpha_i\)'s distinct and \(\sum n_i = d\) and notice that points \((\alpha_i, 0)\) are exactly the intersections \(\mathcal X_0 \cap \{z = 0\}\). But Chinese remainder theorem says
+  \[
+    k[x]/(x - \alpha_1)^{n_1} \cdots (x - \alpha_r)^{n_r} = \bigoplus k[x]/(x - \alpha_i)^{n_i}.
+  \]
+
+  Consider \(\nu_p(z)\). Claim (define \(\mathcal X = Z(F)\))
+  \[
+    \nu_p(z) = \dim \mathcal O_{\mathcal X, p}/(z) = \dim \mathcal O_{\mathcal X_0, p} /(z)
+  \]
+  by definition: as if \(t\) is a local parameter at \(p\), \(z = t^n \cdot u\) where \(n = \nu_p(z)\), and we've seen
+  \[
+    \mathcal O_{\mathcal X_0, p}/(z) = k[t]/(t^n)
+  \]
+  which has dimension \(n\). So
+  \[
+    k[\mathcal X_0]/(z) = \bigoplus_{p \in \mathcal X \cap H} \mathcal O_{\mathcal X, p}/(z) = \bigoplus_{i = 1}^r \mathcal O_{\mathcal X_0, (\alpha_i, 0)} /(z).
+  \]
+  Have
+  \[
+    \dim LHS = \sum n_i = \sum \nu_{p_i}(z) = d.
+  \]
+\end{proof}
+
+\begin{remark}
+  Quadrics: \(x^2 + y^2 = 1\), \(xy = 1\) and \(y = x^2\) are three type of curves over \(\R\), and two types over \(\C\). But they all correspond to curves in \(\P^2\): \(XY = Z^2\) has two points \([1:0:0]\) and \([0:1:0]\) at infinity while for \(YZ = X^2\), there is one point (with multiplicity 2) at \(\infty\). There is only one family of quadric (degree \(2\) curve) in \(\P^2\), isomorphic to \(\P^1\).
+\end{remark}
+
+\begin{corollary}[Bezout's theorem]\index{Bezout's theorem}
+  If \(X = Z(F), W = Z(G)\) with \(\deg F = d, \deg G = d'\) are two curves in \(\P^2\) such that \(X \nsubseteq W, W \nsubseteq X\) then they intersect in \(\leq dd'\) points.
+\end{corollary}
+
+\begin{proof}
+  Given a curve \(\mathcal X\) in \(\P^m\) and \(G \in k[X_0, \dots, X_n]\) homogeneous of degree \(d'\) such that \(X \nsubseteq Z(G)\). Let \(W = Z(G)\) and define
+  \[
+    [\mathcal X \cap W] = \sum_{p \in \mathcal X \cap W} m_p p
+  \]
+  where \(m_p = \nu_p(G/X_1^{d'})\) for any linear function \(X_1\) such that \(X_1(p) \neq 0\) (\(X_1\) overloaded). As
+  \[
+    \frac{G}{X_1^{d'}} = \left( \frac{X_0}{X_1} \right)^{d'} \cdot \left( \frac{G}{X_0} d' \right)
+  \]
+  but \(\nu_p(X_0/X_1)\) is the order of vanishing of \(\mathcal X\) along \(X_0\) so
+  \[
+    [\mathcal X \cap W] = d'[\mathcal X \cap H] + \div \frac{G}{X_0^{d'}}
+  \]
+  hence
+  \[
+    [\mathcal X \cap W] = d' [\mathcal X \cap H] \in \Cl(\mathcal X)
+  \]
+  with \(\deg [\mathcal X \cap W] = d' \deg [\mathcal X \cap H]\). So if \(m = 2\) and \(W, \mathcal X \subseteq \P^2\), \(\deg[\mathcal X \cap H] = d\), by the theorem. Hence \(\# (\mathcal X \cap W) \leq dd'\).
+\end{proof}
+
+\section{Differentials}
+
+Let \(B\) be a ring, \(A \subseteq B\) a subring.
+
+\begin{definition}
+  The \emph{Kähler differential}, \emph{\(1\)-form} or \emph{relative cotangent bundle} \(\Omega^1_{B/A}\) is the free \(B\)-module generated by \(B\), which we denote by \(\d b\) for \(b \in B\), quotient by the submodule generated by
+  \begin{align*}
+    &\d(fg) - f \d g - g \d f \\
+    &\d(b + b') - \d b - \d b' \\
+    &\d a
+  \end{align*}
+  where \(b, b', f, g \in B, a \in A\).
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Let \(X\) be an affine algebraic variety over \(k\), \(x \in X\) and \(\ev_x: k[X] \to k\) the corresponding \(k\)-algebra homomorphism. Show that
+    \[
+      \Hom_{k[X]} (\Omega^1_{k[X]/k}, k) \cong \Der(k[X], \ev_x)
+    \]
+    where on LHS \(k\) is regarded as a \(k[X]\)-module via \(\ev_x\).
+  \item More generally,
+    \[
+      \Hom_B(\Omega^1_{B/A}, M) = \{A\text{-linear derivations } B \to M\}
+    \]
+    Hence \(\Omega^1_{k[X]/k}\) is dual to the tangent bundle, called the \emph{cotangent bundle}.
+  \end{enumerate}
+\end{ex}
+
+\begin{definition}[rational differential]\index{rational differential}
+  The \emph{rational differentials} on \(X\) is defined to be \(\Omega^1_{k(X)/k}\).
+\end{definition}
+If you prefer the language of complex geometry, this is the space of meromorphic differential forms.
+
+Usual rules of calculus apply so for example
+\[
+  0 = \d (1) = \d (\frac{g}{g}) = \frac{1}{g} \d g + g \frac{1}{g}
+\]
+by Leibniz so
+\[
+  \d \frac{1}{g} = -\frac{1}{g^2} \d g.
+\]
+Similarly
+\[
+  \d(fg) = \frac{g \d f - f \d g}{g^2}.
+\]
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item \(\Omega^1_{k(x)/k} = \Omega^1_{k(\P^1)/k} = k(x) \d x\) where \(x\) is transcendental over \(k\).
+  \item If \(L \supseteq k\) is a separable algebraic extension then \(\Omega^1{L/k} = 0\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  If \(\alpha \in L\) then by definition there exists a monic \(f(z) \in k[z]\) such that \(f(\alpha) = 0\) and \(f'(\alpha) \neq 0\). Differentiate the relation \(f(\alpha) = 0\) to get \((\d f)(\alpha) = 0\). But \(\d f(\alpha) = f'(\alpha) \d \alpha\) and \(f'(\alpha) \neq 0\) so \(\d \alpha = 0\).
+\end{proof}
+
+Combining these, get
+
+\begin{lemma}
+  If \(X\) is a curve, \(p \in X\) smooth and \(t\) a smooth parameter at \(p\) then
+  \[
+    \Omega^1_{k(X)/k} = k(X) \d t.
+  \]
+\end{lemma}
+
+\begin{proof}
+  If \(t\) is a local parameter then the extension \(k(X)/k(t)\) is algebraic and separable (the first one is obvious by transcendence degree and the second requires proof, but we omit it). Thus is \(\alpha \in k(X)\) there exists \(f \in k(t)[z]\) such that \(f(\alpha) = 0, \frac{\partial f}{\partial z}(\alpha) \neq 0\). Write \(f(z) = \sum f_i(t) z^i\) where \(f_i(t) \in k(t)\). Differentiate,
+  \[
+    0 = \d 0 = \d f(\alpha) = \d (\sum f_i(t) \alpha^i)
+    = \sum (f_i'(t) \alpha^i) \d t + \underbrace{\sum i f_i(t) \alpha^{i - 1}}_{= \frac{\partial f}{\partial z}(\alpha)} \d \alpha
+  \]
+  by linearity and Leibniz rule. We get
+  \[
+    \d \alpha = \frac{- \sum f_i'(t) \alpha^i}{(\p f/\p z)(\alpha)} \d t \in k(X) \d t.
+  \]
+\end{proof}
+
+\begin{definition}[regular]\index{differential form!regular}
+  If \(\omega \in \Omega^1_{k(X)/k}\), \(p \in X\) smooth and \(t\) a local parameter at \(p\) so \(\omega = f \d t\) for some \(f \in k(X)\). Define the order of vanishing of \(\omega\) at \(p\) to be
+  \[
+    \nu_p(\omega) = \nu_p(f)
+  \]
+  and the divisor of \(\omega\) to be
+  \[
+    \div(\omega) = \sum_p \nu_p(\omega) p.
+  \]
+  Say \(\omega\) is \emph{regular} at \(p\) if \(\nu_p(\omega) \geq 0\).
+\end{definition}
+Need to show that \(\nu_p(\omega)\) is independent of choice of local parameter \(t\).
 
 
 

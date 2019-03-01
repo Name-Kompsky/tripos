@@ -15,6 +15,10 @@
 \DeclareMathOperator{\Res}{Res} % restriction
 \DeclareMathOperator{\Ind}{Ind} % induction
 
+\theoremstyle{definition}
+\newtheorem*{fact}{Fact}
+
+
 \begin{document}
 
 \input{titlepage}
@@ -1702,7 +1706,7 @@ Throughout the chapter let \(\F = \C\) and \(H \leq G\).
     &= \ip{\chi, \chi} \\
     &= \frac{1}{|G|} \sum_{g \in G} |\chi(g)|^2 \\
     &= \frac{1}{|G|} \left(\sum_{g \in H} |\chi(g)|^2 + \sum_{g \in G \setminus H} |\chi(g)|^2 \right) \\
-    &= \frac{H}{G} \ip{\chi_H, \chi_h} + \frac{1}{|G|} \sum_{g \in G \setminus H} |\chi(g)|^2 \\
+    &= \frac{|H|}{|G|} \ip{\Res_H^G \chi, \Res_H^G chi} + \frac{1}{|G|} \sum_{g \in G \setminus H} |\chi(g)|^2 \\
     &\geq \frac{1}{|G:H|} \sum_i c_i^2
   \end{align*}
   with equality if and only if \(\chi(g) = 0\) for all \(g \in G \setminus H\).
@@ -1813,7 +1817,7 @@ Let \(n = |G:H|\). Let \(t_1 = 1, t_2, \dots, t_n\) be a \emph{left transversal}
   Need to understand the quotient \(\frac{|X_i|}{|H|}\). Fix some \(1 \leq i \leq m\) and choose some \(g_i \in G\) such that \(g_i^{-1} g g_i = x_i\). So for all \(c \in C_G(g)\) and \(h \in H\),
   \[
     (cg_ih)^{-1} g (cg_ih)
-    = h_i^{-1} g_i^{-1} c^{-1} g c g_i h
+    = h^{-1} g_i^{-1} c^{-1} g c g_i h
     = h^{-1} g_i^{-1} g g_i h
     = h^{-1} x_i h
     \in H
@@ -1895,6 +1899,36 @@ Let \(n = |G:H|\). Let \(t_1 = 1, t_2, \dots, t_n\) be a \emph{left transversal}
   \]
 \end{eg}
 
+\begin{lemma}
+  If \(\psi = 1_H\) then
+  \[
+    \Ind_H^G 1_H = \pi_X,
+  \]
+  the permutation character of \(G\) on the set \(X\) of left cosets of \(H\) in \(G\).
+\end{lemma}
+
+\begin{proof}
+  \begin{align*}
+    \Ind_H^G 1_H(g)
+    &= \sum_{i = 1}^n \ocirc 1_H(t_i^{-1} g t_i) \\
+    &= |\{i: t_i^{-1} g t_i \in H\}| \\
+    &= |\{i: g \in t_iHt_i^{-1}\}| \\
+    &= |\text{fix}_X(g)| \\
+    &= \pi_X (g)
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  It follows from Frobenius reciprocity
+  \[
+    \ip{\pi_X, 1_G}_G
+    = \ip{\Ind_H^G 1_H, 1_G}_G
+    = \ip{1_H, 1_H}_H
+    = 1
+  \]
+  as predicted in chapter 7.
+\end{remark}
+
 \subsection{Induced representations}
 
 What are the representations affording induced characters? Let \(H \leq G\) with index \(n\). Let \(1 = t_1, \dots, t_n\) be transversals. Let \(W\) be an \(H\)-space.
@@ -1910,9 +1944,430 @@ Have \(\dim V = n \dim W\).
 
 We can define a \(G\)-action on \(V\). If \(g \in G\) then for all \(i\) there exists a unique \(j\) with \(t_j^{-1} g t_i \in H\) (namely \(t_j H\) is the coset containing \(gt_i\)). Define
 \[
-  g (t_i \otimes w) = t_j \otimes (t(t_j g t_i) w).
+  g (t_i \otimes w)
+  = t_j \otimes (\underbrace{(t_j^{-1} g t_i)}_{\in H} w)
+  =  t_j ((t_j^{-1} g t_i) w).
+\]
+where we omit the tensor symbol in the last expression. Check this is a \(G\)-action:
+\begin{align*}
+  g_1(g_2 t_i w)
+  &= g_1 (t_j (t_j^{-1} g_2 t_i)w) \\
+  &= t_\ell ((t_\ell^{-1} g_1 t_j) (t_j^{-1} g_2 t_i) w) \\
+  &= t_\ell (t_\ell^{-1} (g_1g_2)t_i)w \\
+  &= (g_1g_2) (t_i w)
+\end{align*}
+where \(j, \ell\) is the unique such that \(g_2 t_i H = t_j H\) and \(g_1 t_jH = t_\ell H\). It follows that \(\ell\) is the unique such that \((g_1g_2) t_i H = t_\ell H\). Note that \(g\) permutes the cosets as
+\[
+  g: t_i w \mapsto t_j(t_j^{-1} g t_i)w
+\]
+so the contribution to the character is \(0\) unless \(j = i\), i.e.\ \(t_i^{-1}g t_i \in H\), then it contributes \(\psi(t_i^{-1}gt_i)\) so
+\[
+  \Ind_H^G \psi(g) = \sum_{i = 1}^n \ocirc \psi(t_i^{-1} gt_i).
 \]
 
+\begin{proposition}[properties of induced modules]\leavevmode
+  \begin{enumerate}
+  \item \(\Ind_H^G (A \oplus B) = \Ind_H^G A \oplus \Ind_H^G B\) where \(A, B\) are \(H\)-spaces.
+  \item \(\dim \Ind_H^G W = |G: H| \dim W\).
+  \item \(\Ind_{\{1\}}^G 1 = \rho_{\text{reg}}\).
+  \item If \(H \leq K \leq G\) then
+    \[
+      \Ind^G_K \Ind^K_H W \cong \Ind^G_H W.
+    \]
+  \item (Frobenius reciprocity)
+    \[
+      \Hom_H(W, \Res_H^G V) \cong \Hom_G(\Ind_H^G W, V)
+    \]
+    naturally.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Exercises. For 4 see exmaple sheet 3. For 5 see Teleman 15.6.
+\end{proof}
+
+\section{Frobenius groups}
+
+\begin{theorem}
+  \label{thm:Frobenius theorem}
+  Let \(G\) be a transitive permutation group on finite set \(X\), say \(|X| = n\). Assume that each non-identity element fixes at most one element of \(X\). Then
+  \[
+    K = \{1\} \cup \{g \in G: g \alpha \neq \alpha \text{ for all } \alpha \in X\}
+  \]
+  is a normal subgroup of \(G\) of order \(n\).
+\end{theorem}
+Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigma_X\).
+
+\begin{proof}[Proof Due to I.\ M.\ Issacs]
+  Required to show that \(K \normal G\). Let \(H = G_\alpha\), the stabiliser of \(\alpha\) for some \(\alpha \in X\), so conjugates of \(H\) are the stabilisers of single elements of \(X\), i.e.
+  \[
+    G_{g\alpha} = g G_\alpha g^{-1}.
+  \]
+  No two conjugates can share a non-identity element by hypothesis so \(H\) has \(n\) distinct conjugates and \(G\) has \(n (|H| - 1)\) elements that fix exactly one element of \(X\). Now
+  \[
+    |G| = |X| |H| = n |H|
+  \]
+  because \(X\) and \(G/H\) are isomorphic as \(G\)-sets by transitivity. Hence
+  \[
+    |K| = |G| - n (|H| - 1) = n
+  \]
+  If \(1 \neq h \in H\) and suppose \(h = g h' g^{-1}\) for some \(g \in G, h' \in H\), then \(h\) lies in both \(H = G_\alpha\) and \(gHg^{-1} = G_{g\alpha}\), by hypothesis \(g\alpha = \alpha\), hence \(g \in H\). Therefore the conjugacy class in \(G\) of \(h\) is precisely the conjugacy class in \(H\) of \(h\).
+
+  Similarly if \(g \in C_G(h)\) then
+  \[
+    h = ghg^{-1} \in G_{g\alpha}
+  \]
+  and hence \(g \in H\), which implies
+  \[
+    C_G(h) = C_H(h).
+  \]
+
+  Every element of \(G\) is either an element of \(K\) or lies in one of the \(n\) stabilisers, each of which is conjugate to \(H\). Thus every element of \(G \setminus K\) is conjugate to a non-identity element of \(H\). Hence
+  \[
+    \{1, h_2, \dots, h_t, y_1, \dots, y_u\}
+  \]
+  is a set of conjugacy class representatives for \(G\), with \(1, \dots, h_t\) representatives of \(H\)-conjugacy classes and \(y_1, \dots, y_u\) representatives of conjugacy classes of \(G\) comprises \(K \setminus \{1\}\).
+
+  Let \(1_H = \psi_1, \psi_2, \dots, \psi_t\) be irreducible characters of \(H\). Fix \(1 \leq i \leq t\). Then if \(g \in G\),
+  \[
+    \Ind_H^G \psi_i =
+    \begin{cases}
+      |G: H| \psi_i(1) = n \psi_i(1) & g = 1 \\
+      \psi_i(h_j) & g = h_j, 2 \leq j \leq t \\
+      0 & g = y_k, 1 \leq k \leq u
+    \end{cases}
+  \]
+  Let \(\theta_1 = 1_G\). Fix some \(2 \leq i \leq t\) and define virtual characters\index{virtual character}
+  \[
+    \theta_i = \psi_i^G - \psi_i(1) \psi_1^G + \psi_i(1) \theta_1 \in R(G)
+  \]
+  Write down a table
+  \[
+    \begin{array}{r|cccc}
+      & 1 & h_j & y_k \\ \hline
+      \psi_i^G & n \psi_i(1) & \psi_i(h_j) & 0 \\
+      \psi_i(1) \psi_1(G) & n\psi(1) & \psi_i(1) & 0 \\
+      \psi_i(1) \theta_1 & \psi_i(1) & \psi_i(1) & \psi_i(1) \\ \hline
+      \theta_i & \psi_i(1) & \psi_i(h_j) & \psi_i(1)
+    \end{array}
+  \]
+  Check the inner product:
+  \begin{align*}
+    \ip{\theta_i, \theta_i}
+    &= \frac{1}{|G|} \sum_{g \in G} |\theta_i(g)|^2 \\
+    &= \frac{1}{|G|} \left( \sum_{g \in K} |\theta_i(g)|^2 + \sum_{\alpha \in X} \sum_{1 \neq g \in G_\alpha} |\theta_i(g)|^2 \right) \\
+    &= \frac{1}{|G|} \left( n \psi_i(1)^2 + n \sum_{1 \neq h \in H} |\theta_i(h)|^2 \right) \\
+    &= \frac{1}{|H|} \sum_{h \in H} |\psi_i(h)|^2 \\
+    &= \ip{\psi_i, \psi_i} \\
+    &= 1
+  \end{align*}
+  Thus (cf 9.15) either \(\theta_i\) or \(-\theta_i\) is an irreducible character of \(G\). But since \(\theta_i(1) > 0\), it must be \(\theta_i\) is an actual character.
+
+  Now define \(\theta = \sum_{i = 1}^t \theta_i(1) \theta_i\). By column orthogonality, for \(1 \neq h \in H\)
+  \[
+    \theta(h) = \sum_{i = 1}^t \psi_i(1) \psi_i(h) = 0,
+  \]
+  and for any \(y \in K\),
+  \[
+    \theta(y) = \sum_{i = 1}^t \psi_i(1)^2 = |H|.
+  \]
+  Hence \(\theta(g) =
+  \begin{cases}
+    |H| & g \in K \\
+    0 & g \notin K
+  \end{cases}
+  \) so
+  \[
+    K = \{g \in G: \theta(g) = \theta(1)\} = \ker \theta \normal G.
+  \]
+\end{proof}
+
+\begin{definition}[Frobenius group]\index{Frobenius group}\index{Frobenius complement}
+  A \emph{Frobenius group} is a group \(G\) having subgroup \(H\) such that \(H \cap gHg^{-1} = 1\) for all \(g \notin H\). \(H\) is the \emph{Frobenius complement} of \(G\).
+\end{definition}
+
+\begin{proposition}
+  Any finite Frobenius group satisfies the hypothesis of \Cref{thm:Frobenius theorem}. The normal subgroup \(K\) is a \emph{Frobenius kernel}\index{Frobenius kernel} of \(G\).
+\end{proposition}
+
+\begin{proof}
+  Suppose \(G\) is Frobenius with complement \(H\). Then the action of \(G\) on \(G/H\) is transitive and faithful. Furthermore, if \(1 \neq g \in G\) fixes both \(xH\) and \(yH\) then \(g \in xHx^{-1} \cap yHy^{-1}\) and hence
+  \[
+    H \cap (y^{-1}x) H (y^{-1} x)^{-1} \neq 1.
+  \]
+  Hence \(xH = yH\).
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(p, q\) are distinct primes and \(p = 1 \pmod q\), the unique non-abelian group of order \(pq\) is a Frobenius group. See JL \textsection 25 and Teleman \textsection 11.
+  \item If \(n\) is odd, \(D_{2n}\) is a Frobenius group with complement \(C_2\). The smallest example is \(S_3\) with \(K = C_3, H = C_2\).
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item J.\ Thompson (thesis, 1959) proved that any finite group having a fixed-point-free automorphism of prime power order is nilpotent. This implies that the Frobenius kernel of a Frobenius group is nilpotent (which is equivalent to \(K\) being the direct product of its Sylow subgroups).
+  \item There is no known proof of \Cref{thm:Frobenius theorem} in which character theory is not used.
+  \end{enumerate}
+\end{remark}
+
+\section{Mackey theory}
+
+Let \(\F = \C\). Mackey theory describes restriction to a subgroup \(K \leq G\) of an induced representation \(\Ind_H^G W\). \(K\) and \(H\) are unrelated, but usually we take \(K = H\), in which case we can characterise when \(\Ind_H^G W\) is irreducible.
+
+We'll work with the special case \(W = 1_H\) first. Then \(\Ind_H^G 1_H\) is the permutation representation of \(G\) on \(G/H\). Recall that if \(G\) is transitive on a set \(X\) and \(H = G_\alpha\) for some \(a \in X\) then the action of \(G\) on \(X\) is isomorphic to the action of \(G\) on \(G/H\), namely
+\[
+  g . \alpha \leftrightarrow gH
+  \tag{*, 12. 1}
+\]
+is a well-defined bijection and commutes with the \(G\)-action
+\[
+  x(g\alpha) = (xg) \alpha \leftrightarrow x(gH) = (xg)H.
+\]
+Consider the action of \(G\) on \(G/H\) and let \(K \leq G\). Then \(G/H\) splits into \(K\)-orbits: those correspond to \emph{double cosets}\index{double coset}
+\[
+  KgH = \{kgh: k \in K, h \in H\},
+\]
+namely the \(K\)-orbit containing \(gH\), contains precisely all \(kgH\) for \(k \in K\).
+
+\begin{notation}
+  Denote by \(K \setminus G/H\) the set of \((K, H)\)-double cosets. They paritition \(G\). Let \(S\) be the set of representatives. Note
+  \[
+    \# K \setminus G /H = \ip{\pi_{G/K}, \pi_{G/H}}
+  \]
+  by 7.3.
+\end{notation}
+
+  Clearly \(G_{gH} = gHg^{-1}\). Restricting to \(K\), we get
+  \[
+    H_g := K_{gH} = gHg^{-1} \cap K.
+  \]
+  %TODO: check this
+  % (?) By equation 12.1 the action of \(G\) on the orbit containing \(gH\) is isomorphic to the action of \(K\) on
+  % \[
+  %   K/(gHg^{-1} \cap K) = K/H_g.
+  % \]
+  So as a set with \(K\)-action, \(KgH \cong K/K \cap gHg^{-1}\). By 10.10,
+  \[
+    \Ind_H^G 1_H = \C X
+  \]
+where \(G/H\), if \(X = \bigcup X_i\) then decomposes into orbits \(\C X = \bigcup \C X_i\).
+
+\begin{proposition}
+  If \(G\) is finite, \(H, K \leq G\) then
+  \[
+    \Res_K^G \Ind_H^G 1 \cong \bigoplus_g \Ind_{K \cap gHg^{-1}}^K 1
+  \]
+  where the summation is over all representatives \(g \in K \setminus G/H\).
+\end{proposition}
+
+Let \(S = \{1 = g_1, \dots, g_r\}\) be the such that \(G = \bigcup_i Kg_iH\) as a union of disjoint set. Let \(H_g = gHg^{-1} \cap K \leq K\). Take a representation \((\rho, W)\) of \(H\). For \(g \in G\) define \((\rho_g, W_g)\) to be the representation of \(H_g\) with the same underlying vector space \(W\) but now the \(H_g\)-action is
+\[
+  \rho_g(x) = \rho(h) = \rho(g^{-1}xg)
+\]
+where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x \in gHg^{-1}\). Since \(H_g \leq K\) we obtain an induced representation \(\Ind_{H_g}^K W_g\).
+
+\begin{theorem}[Mackey's restriction formula]\index{Mackey's restriction formula}
+  \label{thm:Mackey's restriction formula}
+  Let \(W\) be an \(H\)-space. Then
+  \[
+    \Res_K^G \Ind_H^G W \cong \bigoplus_{g\in S} \Ind_{H_g}^K W_g
+  \]
+  as representations of \(K\).
+\end{theorem}
+
+\begin{corollary}[character version of Mackey's restriction formula]
+  If \(\psi\) is a character of a representation of \(H\) then
+  \[
+    \Res_K^G \Ind_H^G \psi = \sum_{g \in S} \Ind_{H_g}^K \psi_g
+  \]
+  where \(\psi_g\) is the character of \(H_g\) given as \(\psi_g(x) = \psi(g^{-1}xg)\).
+\end{corollary}
+
+\begin{corollary}[Mackey's irreducibility criterion]\index{Mackey's irreducibility criterion}
+  \label{cor:Mackey's irreducibility criterion}
+  Let \(H \leq G\) and \(W\) an \(H\)-space. Then \(V = \Ind_H^G W\) is irreducible if and only if
+  \begin{enumerate}
+  \item \(W\) is irreducible,
+  \item and for each \(g \in S \setminus H\) the two \(H_g\)-spaces \(W_g\) and \(\Res_{H_g}^H W\) have no irreducible constituents in common.
+  \end{enumerate}
+\end{corollary}
+
+\begin{remark}
+  The set \(f\) of representatives was arbitrary so we could just as easily demand in 2 that \(g \in G \setminus H\). However it suffices to check for \(g \in S \setminus H\).
+\end{remark}
+
+\begin{proof}[Proof of \nameref{cor:Mackey's irreducibility criterion}]
+  Use characters and recall that \(W\) is irreducbile if and only if \(\ip{\psi, \psi} = 1\) where \(W\) affords the character \(\psi\). Take \(K = H\) in Mckey's restriction formula. Note \(H_g = gHg^{-1} \cap H\). Use Frobenius reciprocity,
+  \begin{align*}
+    \ip{\Ind_H^G \psi, \Ind_H^G \psi}_G
+    &= \ip{\psi, \Res_H^G \Ind_H^G \psi}_H \\
+    &= \sum_{g \in S} \ip{\psi, \Ind_{H_g}^H \psi_g}_H \\
+    &= \sum_{g \in S} \ip{\Res_{H_g}^H \psi, \psi_g}_{H_g} \\
+    &= \ip{\psi, \psi}_H + \sum_{\substack{g \in S \\ g \notin H}} d_g
+  \end{align*}
+  where \(d_g = \ip{\Res_{H_g}^G \psi, \psi_g}_{H_g}\). For \(g = 1\) we have \(H_g = H\). Hence this is a sum of nonnegative integers which is \(\geq 1\), so \(\Ind_H^G \psi\) is irreducible if and only if \(\ip{\psi, \psi} = 1\) and all the other terms are \(0\). In other words \(W\) is irreducible and for all \(g \notin H\), \(W\) and \(W_g\) are disjoint representations (of \(H \cap gHg^{-1}\)).
+\end{proof}
+
+\begin{corollary}
+  If \(H \normal G\), assume \(\psi\) is an irreducible character of \(G\). Then \(\Ind_H^G \psi\) is irreducible if and only if \(\psi\) is disjoint from all its conjugates \(\psi_g\) for \(g \in G \setminus H\).
+\end{corollary}
+
+\begin{proof}
+  Take \(K = H\). Double cosets are left or right cosets and \(H_g = gHg^{-1} \cap H = H\) for all \(g\). Moreover \(W_g\) is irreducible since \(W\) is irreducible. Thus \(\Ind_H^G\) is irreducible precisely if \(W \ncong W_g\) for all \(g \in G \setminus H\). This is equivalent to \(\psi \neq \psi_g\). [Again could check condiition on set of representatives: actually the isomorphism class of \(W_g\), where \(g \in G\) depends only on \(gH\)]
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Mackey's restriction formula}]
+  Write \(V = \Ind_H^G W\). Fix \(g \in G\). Now \(V\) is direct sum of \(x \otimes W\) with \(x\) running through set of representatives of left cosets of \(H\) in \(G\). Consider a particular double coset \(KgH \in K \setminus G/H\). The terms
+  \[
+    \mathcal V(g) = \bigoplus_{\substack{x \text{ rep} \\ x \in KgH}} x \otimes W
+  \]
+  form a subspace invariant under the action of \(K\) (it is the direct sum of an orbit of subspaces permuted by \(K\) as \(kx \in KgH\) for all \(x \in KgH\).
+
+  Now viewing \(V\) as a \(K\)-space, \(\Res_K^G V = \bigoplus_{g \in S} \mathcal V(g)\). Thus need to show \(\mathcal V(g) \cong \Ind_{H_g}^K W_g\) as \(K\)-spaces for each \(g \in S\).
+
+  Now
+  \begin{align*}
+    \operatorname{Stab}_K (g \otimes W)
+    &= \{k \in K: kg \otimes W = g \otimes W\} \\
+    &= \{k \in : g^{-1}kg \in \operatorname{Stab}_G(1 \otimes W) = H\} \\
+    &= K \cap gHg^{-1} \\
+    &= H_g
+  \end{align*}
+  This implies that if \(x = kgh, x' = k'gh'\) then \(x \otimes W = x' \otimes W\) if and only if \(k, k'\) lie in the same coset in \(K/H_g\). Hence \(\mathcal V(g)\) is the direct sum \(\bigoplus_{\text{rep } k \in K/H_g} k \otimes (g \otimes W)\).
+
+  Therefore as a representation for \(K\), this space is
+  \[
+    \mathcal V(g) \cong \Ind_{H_g}^K (g \otimes W).
+  \]
+  But \(W_g \cong g \otimes W\) as representations of \(H_g\) using linear isomorphism \(w \mapsto g \otimes w\). Putting all these expressions together gives the result.
+\end{proof}
+
+\section{Integrality and group algebra}
+
+\begin{definition}[algebraic integer]\index{algebraic integer}
+  \(a \in \C\) is an \emph{algebraic integer} if \(a\) is a root of a monic polynomial in \(\Z[x]\). Equivalently, the subring of \(\C\)
+  \[
+    \Z[a] = \{f(a): f(x) \in \Z[x]\}
+  \]
+  is a finitely-generated \(\Z\)-algebra.
+\end{definition}
+
+\begin{fact}\leavevmode
+  \begin{enumerate}
+  \item The algebraic integers form a subring of \(\C\).
+  \item If \(a \in \C\) is both an algebraic integer and a rational number then \(a \in \Z\).
+  \item Any subring \(S\) of \(\C\) which is a finitely-generately \(\Z\)-module consists of algebraic integers. (suppose \(s_1, \dots, s_n\) are generators of \(S\) as \(\Z\)-module and \(a \in S\). Then for all \(i\) exists \(a_{ij} \in \Z\) such that \(as_i = \sum_j a_{ij} s_j\). Put \(A = (a_{ij})\) then \(Av = av\) where \(v = (s_1, \dots, s_n)\), so \(a\) is the root of the characteristic polynomial of \(A\), and is thus an algebraic integer.
+  \end{enumerate}
+\end{fact}
+
+\begin{proposition}
+  If \(\chi\) is a character of \(G\) and \(g \in G\) then \(\chi(g)\) is an algebraic integer.
+\end{proposition}
+
+\begin{proof}
+  \(\chi(g)\) is the sum of \(n\)th roots of unity, where \(n\) is the order of \(g\). Each root of unity is an algebraic integer.
+\end{proof}
+
+\begin{corollary}
+  There are no entries in the character table of any finite group which are rational but not integers.
+\end{corollary}
+
+\subsection{The centre of \(C G\)} % TODO
+
+Recall that the \emph{group algebra}\index{group algebra} \(\C G\) of a finite group \(G\), the \(\C\)-space with basis \(G\) and dimension \(|G|\). Also a ring and a \(\C\)-algebra.
+
+List \(\{1\} = \ccl_1, \ccl_2, \dots, \ccl_k\) be the \(G\)-conjugacy classes. Define the \emph{class sums}\index{class sums}
+\[
+  C_j = \sum_{g \in \mathcal C_j} g \in \C G.
+\]
+Now each \(C_j \in Z(\C G)\), the centre of \(\C G\). Moreover
+\begin{proposition}
+  \(C_1, \dots, C_k\) is a basis of \(Z(\C G)\). There exist non-negative integers \(a_{ij\ell}\), \(1 \leq i, j, \ell \leq k\) with
+  \[
+    C_iC_j = \sum_\ell a_{ij\ell} C_\ell.
+  \]
+  These are the \emph{class algebra constants}\index{class algebra constant} or \emph{structure constants}\index{structure constant} for \(Z(\C G)\).
+\end{proposition}
+
+\begin{proof}
+  Check \(g C_j g^{-1} = C_j\) for all \(g \in G\) so \(C_j \in Z(\C G)\). Clearly \(C_j\)'s are linearly independent because \(\ccl_j\)'s are disjoint. For spanning, suppose \(z = \sum_{g \in G} \alpha_g g \in Z(\C G)\). Then for all \(h \in G\), \(\alpha_{h^{-1}gh} = \alpha_g\) so the function \(g \mapsto \alpha_g\) is constant on \(G\)-conjugacy classes. Writing \(\alpha_g = \alpha_j\) if \(g \in \ccl C_j\). Then
+  \[
+    z = \sum_{j = 1}^k \alpha_j C_j.
+  \]
+  Finally \(Z(\C G)\) is a \(\C\)-algebra so \(C_iC_j = \sum_{\ell = 1}^k \alpha_{ij\ell} C_\ell\) as the \(C_\ell\)'s span. We claim that \(a_{ij\ell} \in \Z_{\geq 0}\): fix \(g_\ell \in \ccl_\ell\) then
+    \[
+      a_{ij\ell} = |\{(x, y) \in \ccl_i \times \ccl_j: xy = g_\ell\}| \in \Z_{\geq 0}.
+    \]
+\end{proof}
+
+\begin{definition}[representation of algebra]\index{representation of algebra}
+  Let \(\rho: G \to \GL(V)\) be an irreducible representation over \(\C\) affording character \(\chi\). Extend linearly to a map \(\rho: A = \C G \to \End(V)\), an algebra homomorphism. Such a homomorphism of algebra \(A\) into \(\End(V)\) is called a \emph{representation} of \(A\).
+
+  A \emph{central homomorphism} is a ring homomorphism \(Z(A) \to \C\).
+\end{definition}
+
+Let \(z \in Z(\C G)\). Then \(\rho(z)\) commutes with \(\rho(g)\) for all \(g \in G\), so by Schur's lemma \(\rho(z) = \lambda_z I\) for some \(\lambda_z \in \C\). Consider the central homomorphism
+\begin{align*}
+  \omega_\chi = \omega: Z(\C G) &\to \C \\
+  z &\mapsto \lambda_z
+\end{align*}
+Now \(\rho(C_i) = \omega_\chi(C_i) I\) so taking traces,
+\[
+  \chi(1) \omega_\chi(C_i)
+  = \sum_{g \in \ccl_i} \chi(g)
+  = |\ccl_i| \chi(g_i).
+\]
+Thus
+\[
+  \omega_\chi(C_i) = \frac{\chi(g_i)}{\chi(1)} |\ccl_i|.
+\]
+
+\begin{lemma}
+  The values of \(\omega_\chi(C_i)\) are algebraic integers.
+\end{lemma}
+
+\begin{proof}
+  Since \(\omega_\chi\) is a homomorphism
+  \[
+    \omega_\chi(C_i) \omega_\chi(C_j) = \sum_{\ell = 1}^k a_{ij\ell} \omega_\chi (C_\ell)
+  \]
+  where \(a_{ij\ell} \in \Z_{\geq 0}\). Thus the span of \(\{\omega_\chi(C_j): 1 \leq j \leq k\}\) is a subring of \(\C\), and is a finitely-generated abelian group, so consists of algebraic integers.
+\end{proof}
+
+\begin{ex}
+  Show that \(a_{ij\ell}\) can be obtained from the character table. In fact,
+  \[
+    a_{ij\ell} = \frac{|G|}{|C_G(g_i) |C_G(g_j)|} \sum_{s = 1}^k \frac{\chi_s(g_i) \chi_s(g_j) \chi_s(g_\ell^{-1})}{\chi_s(1)}.
+  \]
+  See JL 30.4.
+\end{ex}
+
+\begin{theorem}
+  The degree of any irreducible complex character of \(G\) divides \(|G|\).
+\end{theorem}
+
+\begin{proof}
+  Given an irreducible character \(\chi\),
+  \begin{align*}
+    \frac{|G|}{\chi(1)}
+    &= \frac{1}{\chi(1)} \sum_{g \in G} \chi(g) \chi(g^{-1}) \\
+    &= \frac{1}{\chi(1)} \sum_{i = 1}^k |\ccl_i| \chi(g_i) \chi(g_i^{-1}) \\
+    &= \sum_{i = 1}^k \underbrace{\frac{|\ccl_i| \chi(g_i)}{\chi(1)}}_{\text{alg integer}} \chi(g_i^{-1})
+  \end{align*}
+  which is algebraic integer. LHS is rational.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(G\) is a \(p\)-group then \(\chi(1)\) is a \(p\)-power. In particular if \(|G| = p^2\) then \(\chi(1) = 1\) for all \(\chi\), hence \(G\) must be abelian.
+  \end{enumerate}
+\end{eg}
+
+
+
+  
 
 
 

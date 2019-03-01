@@ -1473,10 +1473,13 @@ If \(p\) has free vairables, we can define \(p_A \subseteq A^{\#\text{free varia
       & \neg (1 = 0) \\
       & (\forall x) (\neg(x = 0)) \implies (\exists y)(xy = 1) \}
     \end{align*}
-    Then \(T\) axiomatises the class of fields. Then \(T\) models ``inverses are unique'', i.e.
+    Then \(T\) axiomatises the class of fields.
+
+    \(T\) entails ``inverses are unique'', i.e.
     \[
       T \models (\forall x) (\neg (x = 0)) \implies ((\forall y) (\forall z) ((yx = 1) \land (zx = 1) \implies (y = z))).
     \]
+    \(T\) does not entail ``characteristic equals \(2\)'', i.e.\ \(T \nvDash 1 + 1 = 0\).
   \item Theory of posets: \(\Omega = \emptyset, \Pi = \{\leq\}\). \(T\) is
     \begin{align*}
       \{& (\forall x) (x \leq x) \\
@@ -1507,7 +1510,7 @@ As before, we need some logical axioms. There are 7 of them: 3 from propositiona
 
 As deduction rules we have
 \begin{enumerate}
-\item moduls ponens: from \(p, p \implies q\) can deduce \(q\).
+\item modus ponens: from \(p, p \implies q\) can deduce \(q\).
 \item generalisation\index{generalisation}: from \(p\) can deduce \((\forall x) p\), if \(x\) does not occur free in any premise used to prove \(p\).
 \end{enumerate}
 
@@ -1529,7 +1532,7 @@ As deduction rules we have
     \[
       ((\forall x) \bot) \implies \bot
     \]
-    does not hold in \(A\), which is an instance of axiom 6. To resolve the issue, we can either obfuscate our axioms by adding more technical restrictions (of the form, for example, ``with \(x\) occurring bounded''), or simply ban empty structure.
+    does not hold in \(A\), which is an instance of axiom 6. To resolve the issue, we can either obfuscate our axioms by adding more technical restrictions (of the form, for example, ``with \(x\) occurring bound''), or simply ban empty structure.
   \end{enumerate}
 \end{note}
 
@@ -1555,15 +1558,15 @@ As deduction rules we have
 \begin{proof}\leavevmode
   \begin{itemize}
   \item \(\implies\): write down \(p\) and apply MP to obtain \(S \cup \{p\} \yields q\).
-  \item As before, show \(S \yields p \implies t_i\) for each \(t_i\) in the proof of \(S \cup \{p\} \yields q\). The only new case is generalisation. So in proof of \(q\) from \(S \cup \{p\}\) we have line
+  \item \(\impliedby\): as before, show \(S \yields p \implies t_i\) for each \(t_i\) in the proof of \(S \cup \{p\} \yields q\). The only new case is generalisation. So in proof of \(q\) from \(S \cup \{p\}\) we have line
     \begin{enumerate}
     \item \(r\)
     \item \((\forall x) r\)
     \end{enumerate}
     and have a proof of \((p \implies r)\) from \(S\), and we want \(S \yields (p \implies (\forall x) r)\). But in proof of \(r\) from \(S \cup \{p\}\), no premise had \(x\) free. Thus in proof of \((p \implies r)\) from \(S\), no proof had \(x\) free either. Hence \(S \yields (\forall x) (p \implies r)\) by generalisation. Now
     \begin{itemize}
-    \item if \(x\) does not occur free in \(p\), have \(S \yields (p \implies (\forall x) r)\) by A6 and MP,
-    \item if \(x\) does occur free in \(p\), proof of \(r\) from \(S \cup \{p\}\) cannot have used \(p\). So in fact \(S \yields (\forall x)r\), whence \(S \yields (p \implies (\forall x)r)\) by A1.
+    \item if \(x\) does not occur free in \(p\), have \(S \yields (p \implies (\forall x) r)\) by A7 and MP,
+    \item if \(x\) does occur free in \(p\), proof of \(r\) from \(S \cup \{p\}\) cannot have used \(p\). So in fact \(S \yields (\forall x)r\), whence \(S \yields (p \implies (\forall x)r)\) by A1 and MP.
     \end{itemize}
   \end{itemize}
 \end{proof}
@@ -1615,7 +1618,7 @@ Unlike most other proofs we have met in tripos, this proof has not one, not two,
     \end{tikzcd}
   \]
 
-  Put \(\cl S = S_1 \cup S_2 \cup \dots\) in language \(\cl L = L(\cl \Omega, \Pi)\) where \(\cl \Omega = \Omega \cup C_1 \cup \cdots\). Check
+  Put \(\cl S = S_1 \cup S_2 \cup \cdots\) in language \(\cl L = L(\cl \Omega, \Pi)\) where \(\cl \Omega = \Omega \cup C_1 \cup \cdots\). Check
   \begin{itemize}
   \item \(\cl S\) is consistent: if \(\cl S \yields \bot\) then some \(S_n \yields \bot\) as proofs are finite. Absurd.
   \item \(\cl S\) is complete: given sentence \(p \in \cl L\), have \(p \in L_n\) for some \(n\) as \(p\) contains only finitely many constants. So \(S_{n + 1} \yields p\) or \(S_{n + 1} \yields (\neg p)\).
@@ -1737,7 +1740,7 @@ Similarly, we could find a model into which \(\powerset (\powerset(\R))\) inject
 \end{corollary}
 
 \begin{proof}
-  The model constructed in \nameref{thm:model existence lemma} in \(\cl S\) is countable.
+  The model constructed in \nameref{thm:model existence lemma} of \(\cl S\) is countable.
 \end{proof}
 
 Note that this theorem and its proof \emph{are} examinable.
@@ -1747,7 +1750,7 @@ Note that this theorem and its proof \emph{are} examinable.
 We try to make the usual axioms of \(\N\) into a first-order theory.
 
 \begin{definition}[Peano arithmetic]\index{Peano arithmetic}
-  \emph{Peano arithmetic} (PA) or \emph{formal number theory} has language \(L\) consist of \(\Omega = \{0, s, + ,\times\}\) where \(\alpha(0) = 0\), \(\alpha(s) = 1\) is the \emph{successor}, \(\alpha(+) = \alpha(\times) = 2\). \(\Pi = \emptyset\). The axioms are
+  \emph{Peano arithmetic} (PA) or \emph{formal number theory} has language \(L\) consisting of \(\Omega = \{0, s, + ,\times\}\) where \(\alpha(0) = 0\), \(\alpha(s) = 1\) is the \emph{successor}, \(\alpha(+) = \alpha(\times) = 2\). \(\Pi = \emptyset\). The axioms are
   \begin{enumerate}
   \item \((\forall x) \neg(s(x) = 0)\).
   \item \((\forall x)(\forall y) (s(x) = s(y) \implies x = y)\).
