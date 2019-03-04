@@ -1,7 +1,5 @@
 \documentclass[a4paper]{article}
 
-%\input{header}
-\usepackage{microtype}
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{amsmath}
@@ -29,11 +27,11 @@
 
 I would like to thank Archimedeans for organising this talk. My gratitude goes especially to Jeremy, who invited me to give a talk at an early stage of the event, and whose continual checking of my progress eventuates in this article, instead of another draft in the limbo of unfinished blog posts.
 
-I am also grateful to Rob, Linshu and Jenny for listening to an earlier version of the talk and kindly providing advice which substantially improved the talk.
+I am also grateful to Rob, Linshu and Jenny for listening to an earlier version of the talk and for kindly providing advice which substantially improved the talk.
 
 \section{Exponential}
 
-We start by staring at the notation \(Y^Z\) where \(Y\) and \(Z\) are sets. This is by definition the set of all functions \(Z \to Y\). There are two thing worth remarking: firstly \(Y^Z\) is a set itself. This statement does not hold in a general cateogry. For example given two manifolds \(M\) and \(N\), the set of all smooth maps \(M \to N\) is not obviously a manifold. Given two groups \(G\) and \(H\), it is not clear how we can endow the space of all homomorphisms \(G \to H\) a group strucutre (however if \(G\) and \(H\) are abelian groups there is an obvious abelian group structure induced by pointwise addition, although pursuing in this direction will lead us astray from today's talk).
+We start by staring at the notation \(Y^Z\) where \(Y\) and \(Z\) are sets, which is by definition the set of all functions \(Z \to Y\). There are two things worth remarking: firstly \(Y^Z\) is a set itself. This statement does not hold in a general category. For example given two manifolds \(M\) and \(N\), the set of all smooth maps \(M \to N\) is not obviously a manifold. Given two groups \(G\) and \(H\), it is not clear how we can endow the space of all homomorphisms \(G \to H\) a group structure (however if \(G\) and \(H\) are abelian groups then \(\operatorname{Hom}(G, H)\) is obviously an abelian group, although pursuing in this direction will lead us astray from today's topic).
 
 The second fact is a consequence of our definition. Consider another set \(X\). There is a canonical bijection
 \[
@@ -45,13 +43,13 @@ given by what compskis call ``currying'' and ``uncurrying'': given a map \(f: X 
 \]
 In this case we say \(g\) is \emph{represented} by \(x\). Conversely, ``uncurrying'' is the process of, given \(X \to Y^Z\), i.e.\ a family of maps \(Z \to Y\) parameterised by \(X\), we turn it into a function \(X \times Z \to Y\).
 
-We may ask the question: when can \(X\) fully represent \(Y^Z\)? Obviously you can just take \(X\) to be \(Y^Z\). A more meaningful question would be when can \(X\) fully represent \(Y^X\). Cantor's theorem says that if \(Y\) has more than one element then there can be no surjection \(X \to Y^X\), so there is always an element that is not represented.
+We may ask the question: when does \(X\) fully represent \(Y^Z\)? Obviously we can just take \(X\) to be \(Y^Z\). A more meaningful question would be when \(X\) fully represents \(Y^X\). Cantor's theorem says that if \(Y\) has more than one element then there can be no surjection \(X \to Y^X\), so there is always an element that is not represented.
 
 \section{Lawvere fixed point theorem}
 
-We need to develop a little bit category theory to state Lawvere fixed point theorem in full. If you are not familiar with category theory, you can safely take \(\c C\) to be \(\Set\), every instance of \(X, Y, Z\) to be a set, a point \(x: 1 \to X\) to be an actual element in \(X\) and operations to be the obvious set theoretical operations.
+We need to develop a little bit category theory to state Lawvere fixed point theorem in full. If you are not familiar with category theory, you can safely take \(\c C\) to be \(\Set\), every instance of \(X, Y, Z\) to be a set, a point \(x: 1 \to X\) to be an element of \(X\) and operations to be the obvious set theoretical operations.
 
-A category \(\c C\) is \emph{cartesian closed} if there are finite products and for every object \(Z\) there is a right adjoint to \((-) \times Z: \c C \to \c C\). The adjunction is usually written as \((-) \times Z \dashv (-)^Z\), ergo the name exponential. The unit and counit of this adjunction are denoted
+A category \(\c C\) is \emph{cartesian closed} if there are finite products and for every object \(Z\) there is a right adjoint to \((-) \times Z: \c C \to \c C\). The adjunction is usually written as \((-) \times Z \dashv (-)^Z\), ergo the name exponential. Let the unit and counit of this adjunction be
 \begin{align*}
   \eta^Z_Y &: Y \to (Y \times Z)^Z \\
   \varepsilon^Z_Y &: Y^Z \times Z \to Y
@@ -117,9 +115,9 @@ The idea is that if there exists a point-surjection \(X \to Y^X\), i.e.\ every m
 
 \section{Cantor's diagonal argument}
 
-By the trivial observation that \(2 = \{0, 1\}\) admits a self map with no fixed point, it follows from Lawvere fixed point theorem that a nonempty set \(X\) cannot surject its power set \(2^X\), which is Cantor's diagonal argument. As the proof of the theorem is constructive, we may well apply the proof and see what nonrepresentable element we get.
+By the trivial observation that \(2 = \{0, 1\}\) admits a self map with no fixed point, it follows from Lawvere fixed point theorem that a nonempty set \(X\) cannot surject its power set \(2^X\), which is Cantor's diagonal argument. As the proof is constructive, we may well apply it and see what nonrepresentable element we get.
 
-We will use as example the classical Cantor's diagonal argument, demonstrating the nonexistence of surjection \(\N \to 2^\N\). Any attempted enumeration of \(2^\N\) can be seen as a map
+We will use as example the classical Cantor's diagonal argument which proves the nonexistence of surjection \(\N \to 2^\N\). Any attempted enumeration of \(2^\N\) can be seen as a map
 \begin{align*}
   f: \N \times \N &\to 2 \\
   (n, k) &\mapsto \text{\(k\)th digit of \(n\)th binary sequence in the enumeration}
@@ -153,7 +151,7 @@ so the nonrepresentable element \(q \in 2^\Set\) we get is the indicator functio
 
 Many self-referential paradoxes find their way into entertainment maths. You might have heard of this one. Some adjectives in English describe themselves. For example ``English'' is an English word, ``polysyllabic'' is itself polysyllabic, but ``monosyllabic'' is not\footnote{Let's just say for the moment that this notion is well-defined so we don't have to fight to decide if ``short'' is indeed short.}. Call such adjectives describing themselves ``autological'' and ``heterological'' otherwise. But then you will find that heterological is heterological if and only if it is not.
 
-It is mildly interesting on an entertainment level that we can produce an example witnessed the paradox. However, it has the disadvantage of being overly constructive and more importantly, depending on the semantics of the adjective ``heterological'' in English language. A more convincing presentation of the paradox can be given by Lawvere fixed point theorem: consider the function
+It is mildly interesting on an entertainment level that we can produce an example witnessing the paradox. However, it has the disadvantage of being overly constructive and more importantly, depending on the semantics of the adjective ``heterological'' in English language. A more convincing presentation of the paradox can be given by Lawvere fixed point theorem: consider the function
 \begin{align*}
   f: \c{Adj} \times \c{Adj} &\to 2 \\
   (A, B) &\mapsto 1_{A \text{ describes } B}
@@ -164,13 +162,13 @@ Exercise: exhibit Liar's paradox as an instance of Lawvere fixed point theorem.
 
 \section{Gödel incompleteness theorem}
 
-There is actually a moral in the paradox example. The function \(f: \c{Adj} \times \c{Adj} \to 2\) comes for free with the category \(\c{Adj}\). By constrast, in Cantor's diagonal argument we rely on extra data to define \(f\) (membership function in Russell's paradox can also be seen as ``free'' if we allow unrestricted comprehension, which is granted since we assume for contradiction there is a set of all sets). In \(\c{Adj}\), an object \(A\) serves an additional syntactical role, namely the ability to form the predicate ``\(B\) is described by \(A\)''.
+There is actually a moral in the paradox. The function \(f: \c{Adj} \times \c{Adj} \to 2\) comes for free with the category \(\c{Adj}\). By constrast, in Cantor's diagonal argument we rely on extra data to define \(f\) (membership function in Russell's paradox can also be seen as ``free'' if we allow unrestricted comprehension, which is granted since we assume for contradiction there is a set of all sets). In \(\c{Adj}\), an object \(A\) serves an additional syntactical role, namely the ability to form the predicate ``\(B\) is described by \(A\)''.
 
 More generally, consider \(X\), a collection of syntactical entities such as nouns, formulae, proofs, programs etc. We can define a function
 \[
   f: X \times X \to \Omega
 \]
-where \(\Omega\) should be thought as values predicate can take, that describe all decribable properties \(X \to \Omega\).
+where \(\Omega\) should be thought as values predicate can take, that describe all describable properties \(X \to \Omega\).
 
 The innovation of Gödel to introduce Gödel number is an example of this, which is roughly speaking a way to name formulae in PA. This allows us to talk about predicates of the form ``the natural number \(3\) satisfies the formula with Gödel number \(5\), which is \(t^3 = 3t\)''. We denote by \(\ulcorner A \urcorner\) the Gödel number of fomula \(A\).
 

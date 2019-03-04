@@ -1966,7 +1966,7 @@ Similarly
 \begin{corollary}\leavevmode
   \begin{enumerate}
   \item \(\Omega^1_{k(x)/k} = \Omega^1_{k(\P^1)/k} = k(x) \d x\) where \(x\) is transcendental over \(k\).
-  \item If \(L \supseteq k\) is a separable algebraic extension then \(\Omega^1{L/k} = 0\).
+  \item If \(L \supseteq k\) is a separable algebraic extension then \(\Omega^1_{L/k} = 0\).
   \end{enumerate}
 \end{corollary}
 
@@ -1984,7 +1984,7 @@ Combining these, get
 \end{lemma}
 
 \begin{proof}
-  If \(t\) is a local parameter then the extension \(k(X)/k(t)\) is algebraic and separable (the first one is obvious by transcendence degree and the second requires proof, but we omit it). Thus is \(\alpha \in k(X)\) there exists \(f \in k(t)[z]\) such that \(f(\alpha) = 0, \frac{\partial f}{\partial z}(\alpha) \neq 0\). Write \(f(z) = \sum f_i(t) z^i\) where \(f_i(t) \in k(t)\). Differentiate,
+  If \(t\) is a local parameter then the extension \(k(X)/k(t)\) is algebraic and separable (the first one is obvious by transcendence degree and the second requires proof, but we omit it). Thus if \(\alpha \in k(X)\) there exists \(f \in k(t)[z]\) such that \(f(\alpha) = 0, \frac{\partial f}{\partial z}(\alpha) \neq 0\). Write \(f(z) = \sum f_i(t) z^i\) where \(f_i(t) \in k(t)\). Differentiate,
   \[
     0 = \d 0 = \d f(\alpha) = \d (\sum f_i(t) \alpha^i)
     = \sum (f_i'(t) \alpha^i) \d t + \underbrace{\sum i f_i(t) \alpha^{i - 1}}_{= \frac{\partial f}{\partial z}(\alpha)} \d \alpha
@@ -2008,8 +2008,147 @@ Combining these, get
 \end{definition}
 Need to show that \(\nu_p(\omega)\) is independent of choice of local parameter \(t\).
 
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(f \in \mathcal O_{X, p}\) then \(\nu_p(\d f) \geq 0\).
+  \item If \(t_1\) is any local coordinate at \(p\) then \(\nu_p(\d t_1) = 0\). In particular, \(\nu_p(\omega)\) is well-defined and
+    \[
+      \nu_p(f \d t_1) = \nu_p(f) + \nu_p(\d t_1).
+    \]
+  \item If \(f \in k(X)\) has \(\nu_p(f) = n < 0\) then \(\nu_p(\d f) = \nu_p(f) - 1\) if \(\ch k \ndivides n\).
+  \end{enumerate}
+\end{lemma}
 
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Choose an affine open neighbourhood \(X_0\) of \(X\) so \(p \in X_0 \subseteq \A^N\). Then \(f \in \mathcal O_{X, p}\) means that \(f = \frac{g}{h}\) where \(g, h \in k[x_1, \dots, x_N]\), \(h(p) \neq 0\). So
+    \[
+      \d f = \frac{h \d g - g \d h}{h^2} = \sum_{i = 1}^N \gamma_i \d x_i
+    \]
+    for some \(\gamma_i \in \mathcal O_{X, p}\), that is \(\nu_p(\gamma_i) \geq 0\). Hence
+    \[
+      \nu_p(\d f) \geq \min \{\nu_p(\d x_i): i = 1, \dots, N\}.
+    \]
+    Hence \(\{\nu_p(\d f): f \in \mathcal O_{X, p}\}\) is bounded below. Choose \(f \in \mathcal O_{X, p}\) with \(\nu_p(\d f)\) minimal. Write \(f - f(p) = t f_1\), \(f_1 \in \mathcal O_{X, p}\). Hence
+    \[
+      \d f = \d(f - f(p) = f_1 \d t + t \d f_1.
+      \tag{*}
+    \]
+    If \(\nu_p(f) < 0\) then as \(\nu_p(f_1 \d t) = \nu_p(f_1) \geq 0\) by definition, then * implies that
+    \[
+      \nu_p(\d f_1) = \nu_p(\d f) - 1,
+    \]
+    contradicting minimality of \(\nu_p(\d f)\).
+  \item \(t_1 = u t\) for some \(u \in \mathcal O_{X, p}^*\) and hence
+    \[
+      \d t_1 = u \d t + t \d u.
+    \]
+    By 1, \(\d u = g \d t\) with \(\nu_p(g) \geq 0\). So \(\d t_1 = (u + tg) \d t\) and \(\nu_p(u + tg) = \nu_p(u) = 0\).
+  \item \(f = t^n u\) then \(\d f = n t^{n - 1} u \d t + t^n \d u\) and 2 implies the result.
+  \end{enumerate}
+\end{proof}
 
+\begin{proposition}
+  Let \(\omega \in \Omega^1_{k(X)/k}\). Then \(\nu_p(\omega) = 0\) for all but finitely many \(p \in X\).
+\end{proposition}
+
+\begin{proof}
+  Choose \(t \in k(X)\) such that \(k(X)/k(t)\) is separable algebraic (for example \(t\) is a local parameter at some point \(p\), or \(t\) is obtained from Noether normalisation). Then \(t\) defines a rational map \(\alpha = [1: t]: X \rational \P^1\), hence extends to a map \(\alpha: X \to \P^1\) as \(X\) is smooth projective. Finiteness theorem says that only finitely many points \(p\) with \(\alpha(p) = \infty\), or with \(e_\alpha(p) > 1\). For any other \(p \in X\), \(t - t(p)\) is a local coordinate at \(p\), and so \(\nu_p(\d t) = 0\) for all but finitely many \(p\). Thus the proposition holds if \(\omega = \d t\).
+
+  For any arbitrary \(\omega \in \Omega^1_{k(X)/k}\), \(\omega = f \d t\) and
+  \[
+    \nu_p(f \d t) = \nu_p(f) + \nu_p(\d t)
+  \]
+  and \(\nu_p(f) = 0\) for all but finitely many \(p\), proving the result.
+\end{proof}
+
+\begin{definition}
+  The divisor of a Kähler form is defined to be
+  \[
+    \dim \omega = \sum_{p \in X} \nu_p(\omega) p \in \Div(X).
+  \]
+\end{definition}
+We have just shown that this is a finite sum and indeed well-defined.
+
+As \(\div (f\omega) = \div v + \div \omega\), the class of \(\div(\omega)\) in \(\Cl(X)\) is \emph{independent} of \(\omega\). This is called the \emph{canonical class}\index{canonical class} \(\mathcal K_X = [\div \omega]\) for any \(0 neq \omega \in \Omega^1_{k(X)/k}\).
+
+Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
+\begin{align*}
+  L(\mathcal K_X)
+  &= L(\div(\omega_0)) \\
+  &= \{f \in k(X): \div(\omega_0) + \div (f) \geq 0\} \\
+  &= \{f \in k(x): \div (f \omega_0) \geq 0\} \\
+  &= \{\omega \in \Omega^1_{k(X)/k}: \div \omega \geq 0\}
+\end{align*}
+
+\begin{definition}[genus]\index{genus}
+  We define the \emph{genus} of \(X\) to be
+  \[
+    \ell(\mathcal K_X) = \dim L(\mathcal K_X).
+  \]
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(X = \P^1\). Let \(x\) be a coordinate on \(\P^1\) and choose \(\omega = \d x\). Must compute \(\nu_p(\d x)\) for \(p \in \P^1\). If \(p \in \A^1\) then \(x - p\) is a local coordinate and \(\d (x - p) = \d x\) has \(\nu_p(\d x) = 0\).
+
+    If \(p = \infty\) then \(t = \frac{1}{x}\) is a local coordinate and
+    \[
+      \d x = d \left( \frac{1}{t} \right) = -\frac{1}{t^2} \d t
+    \]
+    so \(\nu_\infty(\d x) = -2\) so \(\div(\d x) = -2 \infty = \mathcal K_X\). Thus \(\deg \mathcal K_X = 0\). Then by a lemma \(\ell(\mathcal K_X) = 0\) so \(\P^1\) has genus \(0\).
+  \item \(y^2 = f(x) = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) where \(\lambda_i\)'s distinct. This gives \(X = E \subseteq \P^2\) with a unique point at \(\infty\), \(P_\infty = [0:1:0]\). Take derivative, \(2 y \d y = f'(x) \d x\). Let's consider the 1-form
+    \[
+      \omega = \frac{\d x}{y} = \frac{2 ]d y}{f'(x)} \in \Omega^1_{k(E)/k}.
+    \]
+    Need to compute \(\div \omega\). Given \(p = (x_0, y_0) \in \A^2\), if \(f'(x_0) \neq 0\) then \(y - y_0\) is a local coordinate so
+    \[
+      \omega = \frac{2}{f'(x_0)} \d y = \frac{2}{f'(x_0)} \d (y - y_0)
+    \]
+    and thus \(\nu_p(\omega) = 0\).
+
+    If \(y_0 = \frac{1}{2} \frac{\partial  }{\partial y}(y^2 - f(x))|_p\) then \(x - x_0\) is a local parameter so
+    \[
+      \omega = \frac{1}{y} \d (x - x_0)
+    \]
+    has \(\nu_p(\omega) = 0\). Since at least one of these happens (as \(\lambda_i\)'s are distinct and the curve is smooth at \(p\)).
+
+    At \(p = P_\infty\), have
+    \[
+      Y^2Z = (X - \lambda_1Z)(X - \lambda_2Z)(X - \lambda_3Z).
+    \]
+    Consider the chart \(Y \neq 0\). Write
+    \begin{align*}
+      u &= \frac{x}{y} = \frac{X}{Y} \\
+      v &= \frac{1}{y} = \frac{Z}{Y}
+    \end{align*}
+    In this chart, \(E\) becomes \(\{(u, v): g(u, v) = 0\}\) where
+    \[
+      g(u, v) = v - (u - \lambda_1v)(u - \lambda_2v)(u - \lambda_3v).
+    \]
+    In this chart \(P_\infty\) corresponds to \((u, v) = (0, 0)\). Thus
+    \[
+      \frac{\partial g}{\partial v}|_{(0, 0)} = 1 \neq 0
+    \]
+    so \(u\) is a local parameter at \((0, 0)\). Thus \(\nu_{P_\infty}(u) = 1\) and \(\nu_{P_\infty}(v) \geq 1\). Here is an ad hoc way of computing it:
+    \[
+      \nu_{P_\infty}(u - \lambda_i v) \geq 1
+    \]
+    so \(\nu_{P_\infty}(v) \geq 3\). Thus \(\nu_{P_\infty}(u - \lambda_i v) = 1\) and \(\nu_{P_\infty}(v) = 3\). But then \(y = \frac{1}{y}\) so \(\nu_{P_\infty}(y) = -3\). So
+    \[
+      \nu_{P_\infty}(x) = \nu_{P_\infty}(ux) = 1 - 3 = -2.
+    \]
+    So
+    \[
+      \nu_{P_\infty}(\d x) = -2 - 1 = -3
+    \]
+    if \(\ch k \neq 2\) by lemma 3. Thus
+    \[
+      \nu_{P_\infty} \left(\frac{\d x}{y}\right) = -3 - (-3) = 0
+    \]
+    so \(\div \omega = 0\), i.e.\ \(\mathcal K_X = 0\). Thus \(g = \ell(0) = 1\). \(E\) has genus \(1\).
+  \end{enumerate}
+\end{eg}
 
 
 

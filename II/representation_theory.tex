@@ -1706,7 +1706,7 @@ Throughout the chapter let \(\F = \C\) and \(H \leq G\).
     &= \ip{\chi, \chi} \\
     &= \frac{1}{|G|} \sum_{g \in G} |\chi(g)|^2 \\
     &= \frac{1}{|G|} \left(\sum_{g \in H} |\chi(g)|^2 + \sum_{g \in G \setminus H} |\chi(g)|^2 \right) \\
-    &= \frac{|H|}{|G|} \ip{\Res_H^G \chi, \Res_H^G chi} + \frac{1}{|G|} \sum_{g \in G \setminus H} |\chi(g)|^2 \\
+    &= \frac{|H|}{|G|} \ip{\Res_H^G \chi, \Res_H^G \chi} + \frac{1}{|G|} \sum_{g \in G \setminus H} |\chi(g)|^2 \\
     &\geq \frac{1}{|G:H|} \sum_i c_i^2
   \end{align*}
   with equality if and only if \(\chi(g) = 0\) for all \(g \in G \setminus H\).
@@ -2292,11 +2292,11 @@ Now each \(C_j \in Z(\C G)\), the centre of \(\C G\). Moreover
 \end{proposition}
 
 \begin{proof}
-  Check \(g C_j g^{-1} = C_j\) for all \(g \in G\) so \(C_j \in Z(\C G)\). Clearly \(C_j\)'s are linearly independent because \(\ccl_j\)'s are disjoint. For spanning, suppose \(z = \sum_{g \in G} \alpha_g g \in Z(\C G)\). Then for all \(h \in G\), \(\alpha_{h^{-1}gh} = \alpha_g\) so the function \(g \mapsto \alpha_g\) is constant on \(G\)-conjugacy classes. Writing \(\alpha_g = \alpha_j\) if \(g \in \ccl C_j\). Then
+  Check \(g C_j g^{-1} = C_j\) for all \(g \in G\) so \(C_j \in Z(\C G)\). Clearly \(C_j\)'s are linearly independent because \(\ccl_j\)'s are disjoint. For spanning, suppose \(z = \sum_{g \in G} a_g g \in Z(\C G)\). Then for all \(h \in G\), \(a_{h^{-1}gh} = \alpha_g\) so the function \(g \mapsto a_g\) is constant on \(G\)-conjugacy classes. Writing \(a_g = \alpha_j\) if \(g \in \ccl C_j\). Then
   \[
     z = \sum_{j = 1}^k \alpha_j C_j.
   \]
-  Finally \(Z(\C G)\) is a \(\C\)-algebra so \(C_iC_j = \sum_{\ell = 1}^k \alpha_{ij\ell} C_\ell\) as the \(C_\ell\)'s span. We claim that \(a_{ij\ell} \in \Z_{\geq 0}\): fix \(g_\ell \in \ccl_\ell\) then
+  Finally \(Z(\C G)\) is a \(\C\)-algebra so \(C_iC_j = \sum_{\ell = 1}^k a_{ij\ell} C_\ell\) as the \(C_\ell\)'s span. We claim that \(a_{ij\ell} \in \Z_{\geq 0}\): fix \(g_\ell \in \ccl_\ell\) then
     \[
       a_{ij\ell} = |\{(x, y) \in \ccl_i \times \ccl_j: xy = g_\ell\}| \in \Z_{\geq 0}.
     \]
@@ -2362,9 +2362,123 @@ Thus
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item If \(G\) is a \(p\)-group then \(\chi(1)\) is a \(p\)-power. In particular if \(|G| = p^2\) then \(\chi(1) = 1\) for all \(\chi\), hence \(G\) must be abelian.
+  \item If \(G = S_n\) then every prime \(p\) dividing the degree of an irreducible character also divides \(n!\), so in particular \(p \leq n\).
+  \item No simple group has an irreducible character of degree 2. See James and Liebeck 22.13.
   \end{enumerate}
 \end{eg}
 
+\begin{theorem}
+  If \(\chi\) is irreducible then \(\chi(1)\) divides \(|G:Z(G)|\).
+\end{theorem}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\section{Burnside's theorem}
+
+\begin{theorem}[Burnside]\index{Burnside's theorem}
+  \label{thm:Burnside}
+  Let \(p, q\) be primes. Let \(|G| = p^a q^b\) where \(a, b \in \Z_{\geq 0}\), with \(a + b \geq 2\). Then \(|G|\) is not simple.
+\end{theorem}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If fact more is true: \(G\) is soluble.
+  \item This is the best possible in the sense that \(|A_5| = 2^2 \cdot 3 \cdot 4\) has exactly \(3\) prime factors.
+  \item If either \(a\) or \(b = 0\) then \(G\) is \(p\)-group, so nilpotent so soluble.
+  \item Feit and Thompson proved in 1963 that any group of odd order is soluble.
+  \item H.\ Bender and D.\ Goldschmidt independently found the first proof without the use of representation.
+  \end{enumerate}
+\end{remark}
+
+The theorem follows from two lemmas, one of which is starred.
+
+\begin{lemma}
+  Suppose \(0 \neq \alpha = \frac{1}{m} \sum_{j = 1}^m \lambda_j\) with \(\lambda_j^n = 1\) is an algebraic integer. Then \(|\alpha| = 1\).
+\end{lemma}
+
+\begin{proof}[Proof*]
+  Clearly \(0 < |\alpha| \leq 1\). Observe that \(\alpha \in F = \Q(\varepsilon)\) where \(\varepsilon = e^{\frac{2\pi i}{n}}\). Let \(G = \gal(F/\Q)\). We know
+  \[
+    \{\beta \in F: \sigma(\beta) = \beta \text{ for all } \sigma \in G\} = \Q.
+  \]
+  Define norm
+  \[
+    N(\alpha) = \prod_{\sigma \in G} \sigma(\alpha).
+  \]
+  Then \(N(\alpha)\) is fixed by every element of \(G\) so \(N(\alpha) \in \Q\). Now \(N(\alpha)\) is an algebraic integer since Galois conjugates of algebraic integers are algebraic integers. Thus \(N(\alpha) \in \Z\). But for \(\sigma \in G\),
+  \[
+    |\sigma(\alpha)| = \left| \frac{1}{m} \sum \sigma(\lambda_j) \right| \leq 1.
+  \]
+  Thus \(N(\alpha) = \pm 1\), which implies that \(|\alpha| = 1\).
+\end{proof}
+
+\begin{lemma}
+  Suppose \(\chi\) is an irreducible character of \(G\) and \(\ccl\) is a conjugacy class in \(G\) such that \(\chi(1)\) and \(|\ccl|\) are coprime. Then for all \(g \in \ccl\), \(|\chi(g)| = \chi(1)\) or \(0\).
+\end{lemma}
+
+\begin{proof}
+  By Bézout's theorem exist \(a, b \in \Z\) with \(a \chi(1) + b |\ccl| = 1\). Define
+  \[
+    \alpha = \frac{\chi(g)}{\chi(1)} = a \chi(g) + b \frac{\chi(g)}{\chi(1)} |\ccl|
+    \]
+    which is an algebraic integer. Thus \(\alpha\) satisfies the conditions of the previous lemma.
+\end{proof}
+
+\begin{proposition}
+  If in a finite group \(G\), the number of elements in a conjugacy class \(\ccl_i \neq 1\) is of prime power order then \(G\) is not (non-abelian) simple.
+\end{proposition}
+
+Granted this, we can prove \nameref{thm:Burnside}: if \(a, b > 0\) let \(Q\) be a Sylow \(q\)-subgroup, so \(Q \neq 1\) (otherwise \(G\) is \(p\)-group). Now \(1 \neq Z(Q)\) so exists \(1 \neq g \in Z(Q)\). Then as \(C_G(g) \geq Q\), we have
+\[
+  |\mathcal C_G(g)| = |G: C_G(g)| = p^r
+\]
+for some \(0 \leq r \leq a\).
+
+\begin{proof}
+  Suppose \(G\) is non-abelian simple, and there exists \(1 \neq g \in G\) lying in the conjugacy class \(\ccl\) of order \(p^r\). If \(\chi \neq 1_G\) is a non-trivial irreducible character of \(G\) then \(|\chi(g)| < \chi(1)\) (otherwise \(G\) not simple). Then for every non-trivial irreducible character, either \(p \divides \chi(1)\) or \(|\chi(g)| = 0\). By column orthogonality applied to \(\{1\}\) and \(\ccl\),
+  \[
+    0 = 1 + \sum_{\substack{\chi \neq 1_G \\ p \divides \chi(1)}} \chi(1) \chi(g)
+  \]
+  so
+  \[
+    -\frac{1}{p} = \sum_{\chi \neq 1} \frac{\chi(1)}{p} \chi(g)
+  \]
+  is an algebraic integer in \(\Q\). Absurd.
+\end{proof}
+
+\section{Representations of compact groups}
+
+See Teleman \textsection 19 - 22 and C.\ Thomas \textsection 6 for more detailed treatment of this chapter.
+
+\begin{definition}[topological group]\index{topological group}
+  A \emph{topological group} is a group \(G\) is a group \(G\) which is also a topological space and for which multiplication \(G \times G \to G\) and inversion \(G \to G\) are continuous. It is \emph{compact} if it is so as a topological space.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Any finite group \(G\) with discrete topology.
+  \item \(\GL_n(\C)\) and \(\GL_n(\R)\) are topological groups (as open subsets of \(\C^{n^2}\) or \(\R^{n^2}\)).
+  \item Examples of compact groups:
+    \begin{enumerate}
+    \item finite groups,
+    \item \(S^1 = \{z \in \C: |z| = 1\}\) under multiplication, the \emph{circle group},
+    \item torus: finite product \(S^1 \times \cdots \times S^1\),
+    \item \(O(n) = \{A \in \GL_n(\R): AA^t = I_n\}\), orthogonal group,
+    \item \(\SO(n) = \{A \in O(n): \det A = 1\}\), special orthogonal group,
+    \item \(U(n) = \{A \in \GL_n(\C): A \conj A^t = I_n\}\), unitary group,
+    \item \(\SU(n) = \{A \in U(n): \det A = 1\}\), speical unitary group.
+    \end{enumerate}
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item \(U(1) \cong \SO(2) \cong S^1\). Note that the second isomorphism is also a homeomorphism.
+  \item \(\SU(2) = \{(z_1, z_2) \in \C^2: z_1 \conj z_1 + z_2 \conj z_2 = 1\} \subseteq \R^4 \cong \C^2\) is isomorphic and homeomorphic to \(S^3\).
+  \end{enumerate}
+\end{remark}
 
 
   

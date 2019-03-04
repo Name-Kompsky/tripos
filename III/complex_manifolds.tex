@@ -84,7 +84,7 @@ Thus if \(|f|\) achieves its maximum at an interior point, \(f\) is constant.
 
 Let \(X\) be a second countable Hausdorff topological space. We always assume \(X\) is connected.
 
-\begin{definition}[holomorphic atlas]\index{holomorphic atlas}\index{atlas}
+\begin{definition}[holomorphic atlas]\index{atlas}
   A \emph{holomorphic atlas} for \(X\) is a collection of \((U_\alpha, \varphi_\alpha)\) where \(\varphi_\alpha: U_\alpha \to \varphi_\alpha(U_\alpha) \subseteq \C^n\) is a homeomorphism, with
   \begin{enumerate}
   \item \(X = \bigcup_\alpha U_\alpha\),
@@ -98,7 +98,7 @@ Let \(X\) be a second countable Hausdorff topological space. We always assume \(
   Equivalently, their union is an atlas.
 \end{definition}
 
-\begin{definition}[complex manifold, complex structure]\index{complex manifold, complex structure}
+\begin{definition}[complex manifold, complex structure]\index{complex manifold}\index{complex structure}
   A \emph{complex manifold} is a topological space as above with an equivalence class of holomorphic atlases. Such an equivalence class is called a \emph{complex structure}.
 \end{definition}
 
@@ -757,7 +757,7 @@ Most often \(\mathcal F(U)\) is some class of functions on \(U\) with restrictio
       0 \ar[r] & \Z \ar[r, "\times 2\pi i"] & \mathcal O \ar[r, "\exp"] & \mathcal O^* \ar[r] & 0
     \end{tikzcd}
   \]
-  is exact. It is called the \emph{exponential short exact squence}\index{exponential}\index{sheaf!short exact sequence!exponential}. Here \(\Z\) is the \emph{constant sheaf}\index{sheaf!constant}: \(\Z(U)\) is the space of continuous functions \(U \to \Z\), i.e.\ \(\Z\)-valued locally constant functions (similarly we define the sheaf \(\C(U)\) to be continuous functions \(U \to \C\) with \(\C\) given the discrete topology).
+  is exact. It is called the \emph{exponential short exact squence}\index{exponential short exact sequence}\index{sheaf!short exact sequence!exponential}. Here \(\Z\) is the \emph{constant sheaf}\index{sheaf!constant}: \(\Z(U)\) is the space of continuous functions \(U \to \Z\), i.e.\ \(\Z\)-valued locally constant functions (similarly we define the sheaf \(\C(U)\) to be continuous functions \(U \to \C\) with \(\C\) given the discrete topology).
 
   The exactness of
   \[
@@ -1288,7 +1288,7 @@ can be seen as holomorphic maps
 \[
   \varphi_{\alpha\beta}: U_\alpha \cap U_\beta \to \GL_r(\C).
 \]
-They satisfy the \emph{cocycle conditions}\index{cocycle conditions}
+They satisfy the \emph{cocycle conditions}\index{cocycle condition}
 \begin{align*}
   \varphi_{\alpha\alpha} &= \id \\
   \varphi_{\alpha\beta} &= \varphi_{\beta\alpha}^{-1} \\
@@ -1447,7 +1447,7 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
     \psi_{\alpha\beta} = J(\varphi_{\alpha\beta}) \in \GL_n(\C) (U_\alpha \cap U_\beta).
   \]
 
-  \begin{definition}[canonical line bundle]\index{canonical line bundle}
+  \begin{definition}[canonical line bundle]\index{canonical line bundle}\index{line bundle!canonical}
     The \emph{canonical line bundle} of \(X\) is defined to be
     \[
       K_X = \det T^*X^{1, 0}
@@ -1456,7 +1456,7 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
 \end{definition}
 \end{eg}
 
-\begin{eg}[tautological line bundle]\index{tautological line bundle}
+\begin{eg}[tautological line bundle]\index{tautological line bundle}\index{line bundle!tautological}
   We construct line bundles on \(\P^n\). Each point \(\ell \in \P^n\) corresponds to a line through \(0\) in \(\C^{n + 1}\). Consider the set
   \[
     \mathcal O(-1) = \{(\ell, z) \in \P^n \times \C^{n + 1}: z \in \ell\}.
@@ -1862,7 +1862,7 @@ We'll return to Chern classes later.
 
 Recall that \(X\) is projective\index{projective manifold} if it is biholomorphic to a closed submanifold of \(\P^m\) for some \(m\).
 
-\begin{definition}[ample line bundle]\index{ample line bundle}
+\begin{definition}[ample line bundle]\index{ample line bundle}\index{line bundle!ample}
   We say that a line bundle \(L\) on \(X\) is \emph{ample} if there is an embedding \(\iota: X \embed \P^m\) for some \(m\) and \(k \in \Z_{> 0}\) such that
   \[
     L^{\otimes k} \cong \iota^*(\mathcal O(1))
@@ -1948,7 +1948,7 @@ It is easy to see that this generalises in case of manifolds. Recall from III Di
     \omega(u, v) = g(Ju, v).
   \]
 \end{definition}
-\(\omega\) extends \(\C\)-linearly to \(\omega \in \Lambda^{1, 1} (T^*X)_\C\). The extension \(g_\C\) of \(g\) gives a \emph{Hermitian metric}\index{Hermitian metric} on \((TX)_\C\) and hence on \(TX^{1, 0}\).
+\(\omega\) extends \(\C\)-linearly to \(\omega \in \Lambda^{1, 1} (T^*X)_\C\). The extension \(g_\C\) of \(g\) gives a \emph{hermitian metric}\index{hermitian metric} on \((TX)_\C\) and hence on \(TX^{1, 0}\).
 
 Suppose on \(X\) we have holomorphic coordinates \(z_1, \dots, z_n\). Then \(\d z_1, \dots, \d z_n\) form a local holomorphic frame for \(T^*X^{1, 0}\). Let
 \[
@@ -1973,11 +1973,11 @@ Suppose on \(X\) we have holomorphic coordinates \(z_1, \dots, z_n\). Then \(\d 
       \omega = \frac{i}{2} \sum_{j = 1}^n \d z_j \w \d \conj z_j
     \]
     is a Kähler metric.
-  \item By a standard partition of unity argument, any complex manifold admits a Hermitian metric. Alternatively, if \(g\) is any Riemannian metric then define
+  \item By a standard partition of unity argument, any complex manifold admits a hermitian metric. Alternatively, if \(g\) is any Riemannian metric then define
     \[
       \tilde g(u, v) = g(u, v) + g(Ju, Jv)
     \]
-    which is compatible with \(J\), giving a Hermitian metric. The only obstacle to being Kähler form is closedness. If \(\dim X = 1\) then every \((1, 1)\)-form is closed, giving lots of Kähler forms.
+    which is compatible with \(J\), giving a hermitian metric. The only obstacle to being Kähler form is closedness. If \(\dim X = 1\) then every \((1, 1)\)-form is closed, giving lots of Kähler forms.
   \end{enumerate}
 \end{eg}
 
@@ -1989,7 +1989,7 @@ Note that any two of \(g, J, \omega\) determine the third.
 
 So far the requirement of closedness seems quite arbitrary, but we'll soon prove that all projective manifolds are Kähler.
 
-\begin{eg}[Fubini-Study metric on \(\P^n\)]
+\begin{eg}[Fubini-Study metric on \(\P^n\)]\index{Fubini-Study metric}
   Let \(U \subseteq \P^n\) be open and \(\pi: \C^{n + 1} \setminus \{0\} \to \P^n\) be the natural projection. Suppose \(s: U \to \C^{n + 1}\) is a holomorphic lift of \(\pi\), i.e.\ \(\pi(s(z)) = z\) for all \(z \in U\). Let \(U_j = \{[z_0 : \dots : z_n]: z_j \neq 0\}\). Then on \(U_j\),
   \[
     s([z_0: \dots : z_n]) = (\frac{z_0}{z_j}, \dots, \frac{z_{j - 1}}{z_j}, 1, \dots, \frac{z_n}{z_j}).
@@ -2064,7 +2064,7 @@ So far the requirement of closedness seems quite arbitrary, but we'll soon prove
 
 This is also precisely the intuition we should have when dealing with Kähler manifold: that is, they are the closest thing to projective manifold (the class of Kähler manifolds is strictly larger, but they share many similarities with projective manifolds).
 
-Using the Hermitian metric \(h = g_\C\) on \(TX^{1, 0}\), choose a unitary frame \(\{\varphi_1, \dots, \varphi_n\}\) of \(T^*X^{1, 0}\) on a neighbourhood \(U\) of \(x \in X\), so that
+Using the hermitian metric \(h = g_\C\) on \(TX^{1, 0}\), choose a unitary frame \(\{\varphi_1, \dots, \varphi_n\}\) of \(T^*X^{1, 0}\) on a neighbourhood \(U\) of \(x \in X\), so that
 \[
   h = \sum \varphi_j \otimes \conj \varphi_j.
 \]
@@ -2123,7 +2123,7 @@ Thus there is a topological obstruction for compact complex manifolds to be Käh
 \end{remark}
 
 \begin{proposition}
-  Let \(\omega\) be a \((1, 1)\)-form associated to a Hermitian metric \(h\) on \(X\). Then \(\d \omega = 0\) if and only if for all \(x \in X\) there exist holomorphic coordinates \(z_1, \dots, z_n\) around \(x\) such that locally
+  Let \(\omega\) be a \((1, 1)\)-form associated to a hermitian metric \(h\) on \(X\). Then \(\d \omega = 0\) if and only if for all \(x \in X\) there exist holomorphic coordinates \(z_1, \dots, z_n\) around \(x\) such that locally
   \[
     \omega = \frac{i}{2} \sum h_{jk} \d z_j \w \d \conj z_k
   \]
@@ -2455,7 +2455,7 @@ For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
   \]
 \end{proof}
 
-\begin{theorem}[Kähler identities]\index{Kähler identites}\leavevmode
+\begin{theorem}[Kähler identities]\index{Kähler identities}\leavevmode
   \begin{enumerate}
   \item \([\conj \p^*, L] = i \p\).
   \item \([\p^*, L] = -i \conj \p\).
@@ -2641,7 +2641,7 @@ So \(L\) is the adjoint of \(\Lambda\).
 
 \section{Hodge Theory}
 
-We wish to understand the Dolbeault cohomology groups\index{Dobeault cohomology} \(H^{p, q}_{\conj \p}(X)\), and how they compare with the sheaf cohomology \(H^k (X, \C)\) where \(p + q = k\). We begin by picking canonical representatives of cohomology.
+We wish to understand the Dolbeault cohomology groups\index{Dolbeault cohomology} \(H^{p, q}_{\conj \p}(X)\), and how they compare with the sheaf cohomology \(H^k (X, \C)\) where \(p + q = k\). We begin by picking canonical representatives of cohomology.
 
 Recall that
 \begin{definition}[harmonic form]\index{harmonic form}
@@ -2683,7 +2683,7 @@ Recall that if \((X, \omega)\) is Kähler then
 \[
   \Delta_\d \alpha = 0 \iff \Delta_{\conj \p} \alpha = 0 \iff \Delta_\p \alpha = 0
 \]
-so we can define \emph{harmonic forms}\index{harmonic forms} on \(X\) with respect to any of the Laplacian
+so we can define \emph{harmonic forms}\index{harmonic form} on \(X\) with respect to any of the Laplacian
 \[
   \mathcal H^{p, q}_{\conj \p} (X, g) = \{\alpha \in \mathcal A_\C^{p, q}(X): \Delta_{\conj \p} \alpha = 0\}.
 \]
@@ -2823,7 +2823,7 @@ as
   \]
 \end{remark}
 
-Denote \(h^{p, q} = \dim H_{\conj \p}^{p, q}(X)\). This is finite as \(X\) is compact. The \emph{Hodge diamond}\index{Hodge diamnond} is the array
+Denote \(h^{p, q} = \dim H_{\conj \p}^{p, q}(X)\). This is finite as \(X\) is compact. The \emph{Hodge diamond}\index{Hodge diamond} is the array
 \[
   \begin{array}{ccccccccc}
     &&&& h^{0, 0} \\
@@ -2962,14 +2962,14 @@ A connection may be compatible with holomorphic structure or with hermitian stru
 \begin{proposition}
   A connection \(D\) on \(E\) is compatible with the holomorphic structure if and only if for all local holomorphic frames, the connection matrix \((\Theta_{j\ell})\) is given by \((1, 0)\)-forms.
 \end{proposition}
-This gives a local characteriation of compatibility.
+This gives a local characterisation of compatibility.
 
 \begin{proof}
   Suppose \(D\) is compatible. Then the \((0, 1)\)-part of \((\Theta_{j\ell})\) vanishes as
   \[
     D e_j = \sum \Theta_{j\ell} e_\ell
   \]
-  and \(e_\ell\)'s holomorphic.
+  and \(e_\ell\)'s are holomorphic.
 
   Conversely, if \(e_1, \dots, e_r\) is a local frame and \(\alpha_j \in C^\infty(U)\) then
   \[
@@ -3025,9 +3025,176 @@ This gives a local characteriation of compatibility.
   \begin{align*}
     (D(f\alpha), \beta)_h + (f\alpha, D\beta)_h
     &= (\d f \otimes \alpha, \beta)_h + (f D\alpha, \beta)_h + (f\alpha, D\beta)_h \\
-    &= \d f \otimes (\alpha, \beta)_h + f(D\alpha, \beta) + f(\alpha, D\beta)
+    &= \d f \otimes (\alpha, \beta)_h + f(D\alpha, \beta)_h + f(\alpha, D\beta)_h
   \end{align*}
 \end{proof}
+
+\begin{proposition}
+  Let \((E, h)\) be a hermitian vector and holomorphic vector bundle. Then there is a unique connection compatible with both structures.
+\end{proposition}
+
+\begin{definition}[Chern connection]\index{Chern connection}
+  This connection is called the \emph{Chern connection}.
+\end{definition}
+
+\begin{remark}
+  In practice, one typically has a hermitian holomorphic vector bundle, and the Chern connection can be seen as the ``canonical'' extra information.
+\end{remark}
+
+\begin{proof}
+  We begin with uniqueness. Let \(e_1, \dots, e_r\) be a local holomorphic frame (not necessarily unitary) and let
+  \[
+    h_{ij} = h(e_j, e_k).
+  \]
+  Define the connection matrix by
+  \[
+    De_j = \sum_k \Theta_{jk} e_k.
+  \]
+  Then
+  \begin{align*}
+    \d h_{jk}
+    &= \d h(e_j, e_k) \\
+    &= (\sum_\ell \Theta_{j\ell} e_\ell, e_k)_h + (e_j, \sum_\ell \Theta_{k\ell} e_\ell)_h \\
+    &= \sum \Theta_{j\ell} h_{\ell k} + \sum \conj{\Theta_{k\ell}} h_{j\ell}
+  \end{align*}
+  As \(D\) is compatible with the holomorphic structure, \((\Theta_{j\ell})\) is a matrix of \((1, 0)\)-forms. So
+  \begin{align*}
+    \p h_{jk} &= \sum \Theta_{j\ell} h_{\ell k} \\
+    \conj \p h_{jk} &= \sum \conj{\Theta_{k\ell}} h_{j\ell}
+  \end{align*}
+  thus \(\Theta =  \p h \cdot h^{-1}\). This gives uniqueness.
+
+  This also constructs such a connection on each trivialisation. By uniqueness, these local connections glue to a connection on \((E, h)\).
+\end{proof}
+
+\begin{lemma}
+  If \(D_1, D_2\) are two connections on a complex vector bundle, then \(D_1 - D_2\) is \(\mathcal A_\C^0\)-linear, hence gives an element of \(\mathcal A^1_\C(\End)\). If \(D\) is a connection on \(E\) and \(a \in \mathcal A_\C^1(\End E)\) then \(D + a\) is a connection.
+\end{lemma}
+
+\begin{proof}
+  Using that \(\d f \otimes s\) cancel in the definition, we have
+  \[
+    (D_1 - D_2)(fs) = f D_1 s - f D_2 s.
+  \]
+  \(a \in \mathcal A_\C^1(\End E)\) acts on \(\mathcal A^0_\C(E)\) by multiplication in the form part and evaluation in the \(E\) component (\(E \times \End E \to E\)). Then
+  \[
+    (D + a)(fs)
+    = D(fs) + a(fs)
+    = \d f \otimes s + f Ds + fas
+    = \d f \otimes s + f(D + a) s
+  \]
+  so \(D + a\) is a connection.
+\end{proof}
+Thus given a connection \(D\), any other connection is given by the sum of \(D\) with an element of \(\mathcal A_\C^1(\End)\).
+
+A connection extends to
+\[
+  D: \mathcal A^p_\C(E) \to \mathcal A^{p + 1}_\C(E)
+\]
+by
+\[
+  D(\alpha \otimes s) = \d \alpha \otimes + (-1)^p \alpha \w Ds
+\]
+for \(\alpha \in \mathcal A_\C^p(U), s \in C^\infty(E)(U)\).
+
+\begin{definition}[curvature]\index{curvature}
+  The \emph{curvature} of \(D\) is the map
+  \[
+    F_D = D \compose D: \mathcal A^0_\C(E) \to \mathcal A^2_\C(E).
+  \]
+\end{definition}
+
+\begin{lemma}
+  \(F_D\) is \(C^\infty\)-linear.
+\end{lemma}
+
+\begin{proof}
+  For \(f \in C^\infty_\C(u), s \in \mathcal A_\C^0(E)(U)\),
+  \begin{align*}
+    F_D(fs)
+    &= D(\d f \otimes s + f Ds) \\
+    &= \d^2 f \otimes s - \d f \otimes Ds + \d f \otimes Ds + fD^2s \\
+    &= fD^2s \\
+    &= fF_D(s)
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  \(F_D\) is induced by an element of \(\mathcal A_\C^2(\End E)\).
+\end{corollary}
+
+Let \(e_1, \dots, e_r\) be a local frame. Let \(\Theta\) be the connection matrix defined by \(D e_j = \sum \Theta_{jk} e_k\) where \(\Theta_{jk}\)'s are \(1\)-forms. Given a local section \(s = \sum s_j e_j\), we have
+\[
+  Ds = \sum \d s_j \otimes e_j + \sum s_j \Theta_{jk} e_k.
+\]
+We write this as
+\[
+  D = \d + \Theta.
+\]
+In this notation we can also write down the expression for curvature. Have
+\begin{align*}
+  F_D s
+  &= D^2s \\
+  &= (\d + \Theta)(\d + \Theta)s \\
+  &= \d^2 + (\d \Theta)s - \Theta(\d s) + \Theta(\d s) + \Theta \w \Theta s \\
+  &= (\d \Theta + \Theta \w \Theta) s
+\end{align*}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \((E, h)\) is hermitian and \(D\) is compatible with \(h\) then
+    \[
+      h(F_D s_j, s_k) + h(s_j, F_D s_k) = 0.
+    \]
+  \item If \(E\) is holomorphic and \(D\) is compatible with the holomorphic structure then \(F_D\) has no \((0, 2)\)-component, i.e.
+    \[
+      F_D \in \mathcal A_\C^{2, 0}(\End E) \oplus \mathcal A_\C^{1, 1}(\End E).
+    \]
+  \item If \(D\) is the Chern connection then \(F_D\) is a skew-Hermitian form in \(\mathcal A_\C^{1, 1}(\End E)\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item The statement is local so let \(e_1, \dots, e_r\) be a local unitary frame, \(D = \d + \Theta\) with \(\Theta^* = - \Theta\). We have
+    \begin{align*}
+      (\d \Theta + \Theta \w \Theta)^*
+      &= (\d \Theta)^* - \Theta^* \w \Theta^* \\
+      &= \d \Theta^* - \Theta^* \w \Theta^* \\
+      &= -\d \Theta - \Theta \w \Theta \\
+      &= -F_D
+    \end{align*}
+  \item \(D: \mathcal A_\C^k(E) \to \mathcal A_\C^{k + 1}(E)\) splits as \(D = D' + D''\). Then \(D'' = \conj \p_E\) by hypothesis. Thus
+    \[
+      D \compose D
+      = (D' + \conj \p_E) \compose (D' + \conj \p_E)
+      = D' \compose D' + D' \compose \conj \p_E + \conj \p_E D' + \underbrace{\conj \p_E^2}_{= 0}
+    \]
+    so the \((0, 2)\)-component vanishes.
+  \item Follows from 1 and 2.
+  \end{enumerate}
+\end{proof}
+
+From now on we focus on line bundles. Let \((L, h)\) be a hermitian holomorphic line bundle and \(D\) be the Chern connection. Then \(F_D \in \mathcal A_\C^{1, 1}(\End L)\) is skew-Hermitian, so \(F_D\) is a real \((1, 1)\)-form. In this case
+\begin{align*}
+  \Theta &= \p \log h = h^{-1} \p h \\
+  F_D &= \conj \p \log h
+\end{align*}
+We can interpret Fubini-Study metric\index{Fubini-Study metric} now. If \(X = \P^n\) and \(L = \mathcal O(1)\), there is a natural hermitian metric on \(\mathcal O(-1)\) arising from the usual hermitian metric on \(\C^{n + 1}\). This induces a hermitian metric on \(L = \mathcal O(1)\). Then on \(U_0 = \{[z_0: \cdots z_n]: z_0 \neq 0\}\)
+\[
+  \omega_{\text{FS}} = \frac{i}{2\pi} \p \conj \p \log (1 + \sum |z_j|^2)
+\]
+(\(z_0 = 1\)) which is \(\frac{i}{2\pi} F_D\) where \(F_D\) is the curvature of the natural hermitian metric on \(\mathcal O(1)\).
+
+\begin{definition}[positive]
+  We say that \(L\) is \emph{positive} if there is a hermitian metric \(h\) on \(L\) such that \(\frac{i}{2\pi}F_D\), where \(F_D\) is the curvature of the Chern connection, is a Kähler metric on \(X\).
+\end{definition}
+
+\begin{ex}
+  Show that \([\frac{i}{2\pi} F_D] \in H^2(X, \C)\) is equal \(c_1(L)\), the first Chern class\index{first Chern class} of \(L\).
+\end{ex}
+Moreover, \(L\) is positive if and only if \(c_1(L)\) is a Kähler class, i.e.\ admits a Kähler metric.
+
 
 
 
