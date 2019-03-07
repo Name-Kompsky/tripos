@@ -2035,7 +2035,7 @@ Firstly, near \(s = 1\), things are easy because of the pole.
     \zeta(s) &= \frac{1}{s - 1} + O(1) \\
     - \frac{\zeta'(s)}{\zeta(s)} &= \frac{1}{s - 1} + O(1)
   \end{align*}
-  uniformly in \(\frac{8}{9} \leq \sigma \leq 1, |t| \leq \frac{7}{8}\)
+  uniformly in \(\frac{8}{9} \leq \sigma \leq 1, |t| \leq \frac{7}{8}\).
 \end{theorem}
 
 \begin{proof}
@@ -2060,7 +2060,7 @@ For \(|t|\) large, we need a different idea. How do we show that there aren't ze
 \]
 so
 \[
-  sum \frac{\Lambda(n)}{n^{1 + \delta + it}} \sim -\frac{m}{\delta}.
+  \sum \frac{\Lambda(n)}{n^{1 + \delta + it}} \sim -\frac{m}{\delta}.
 \]
 Absolute value of LHS
 \[
@@ -2724,7 +2724,7 @@ again valid in \(\sigma > 1\).
 \subsection{Dirichlet's theorem}
 
 \begin{theorem}
-  Given \(q \in \N, (a, q) = 1\), there are infinitely many primes \(p\) such that \(p = a \mod q\).
+  Given \(q \in \N, (a, q) = 1\), there are infinitely many primes \(p\) such that \(p = a \bmod q\).
 \end{theorem}
 
 As \(L(s, \chi_0)\) has a simple pole at \(s = 1\), we can write
@@ -2806,7 +2806,135 @@ Assume the unknown term is convergent, so RHS has a pole at \(s = 1\) so diverge
   and this series diverges, absurd. Thus \(L(1, \psi) \neq 0\).
 \end{proof}
 
+\subsection{Zero-free region}
 
+We have proved there are infinitely many primes congruent to \(a\) mod \(q\) if \((a, q) = 1\), using
+\[
+  -\frac{L'}{L}(s, \chi) = \sum_n \frac{\Lambda(n) \chi(n)}{n^s}.
+\]
+We want to prove a prime number theorem for such primes. To do this, we'll use Perron's formula just as the case for Riemann zeta function. We need more information about the zeros of \(L(s, \chi)\). (roughly speaking \(L(1, \chi) \neq 0\) is the statement there are infinitely many primes. Specialising to \(\chi = 1\) (Riemann zeta function) we get a pole so it is particularly easy to prove there are infinitely many primes).
+
+Similarities to zero-free region for \(\zeta(s)\), but important difference: \(\zeta(s)\) has a pole at \(s = 1\), while \(L(s, \chi)\) has \emph{no} poles for \(\sigma > 0\) for \(\chi \neq \chi_0\).
+
+Some shorthands: let \(\tau = |t| + 4\). Recall
+\begin{lemma}
+  If \(f(z)\) is analytic on a region containing \(|z| \leq 1\) and \(f(0) \neq 0\) and \(|f(z)| \leq M\) for \(|z| \leq 1\), then for \(0 < r < R < 1\), for \(|z| \leq r\),
+  \[
+    \frac{f'}{f}(z) = \sum \frac{1}{z - z_k} + O(\log \frac{M}{|f(0)|})
+  \]
+  where \(z_k\) ranges over zeros of \(f\) in \(|z| \leq R\).
+\end{lemma}
+
+\begin{lemma}
+  If \(\chi \neq \chi_0\) and \(\frac{5}{6} \leq \sigma \leq 2\) then
+  \[
+    \frac{L'}{L}(s, \chi) = \sum_\rho \frac{1}{s - \rho} + O(\log qt)
+  \]
+  over \(\rho\) with \(|\rho - (\frac{3}{2} + it)| \leq \frac{5}{6}\).
+\end{lemma}
+
+\begin{proof}
+  Follows from the lemma with \(f(z) = L(z + \frac{3}{2} + it, \chi), R = \frac{5}{6}, r = \frac{2}{3}\). Verify that
+  \[
+    |f(0)|
+    = |L(\frac{3}{2} + it, \chi)|
+    = \prod_p \left| 1 - \frac{\chi(p)}{p^{3/2 + it}} \right|
+    \geq \prod_p \left( 1+ \frac{1}{p^{3/2}} \right)^{-1}
+    \gg 1.
+  \]
+  By partial summation, if \(F(t) = \sum_{1 \leq n \leq t} \chi(n)\) for \(\sigma > 0\) then
+  \[
+    L(s, \chi) = s\int_1^\infty \frac{F(t)}{t^{s + 1}} \d t
+  \]
+  so
+  \[
+    |L(s, \chi)|
+    \ll |s| q \int_1^\infty \frac{1}{t^{\sigma + 1}} \d t
+    \ll q \tau.
+  \]
+\end{proof}
+
+\begin{theorem}
+  Let \(\chi\) be a non-quadratic character\index{Dirichlet character!quadratic}. Then there is an absolute constant \(c > 0\)  such that \(L(s, \chi) \neq 0\) if \(\sigma > 1 - \frac{c}{\log (q\tau)}\)
+\end{theorem}
+
+\begin{proof}
+  Since
+  \[
+    L(s, \chi_0) = \zeta(s) \prod_{p \divides q} (1 - p^{-s}),
+  \]
+  in this region \(\sigma > 0\), zeroes of \(L(s, \chi_0)\) are the same as those of \(\zeta(s)\) so done.
+
+  Suppose \(\chi\) is non-principal. Let \(\rho = \sigma + it\) be such that \(L(\rho, \chi) = 0\). The idea is to compare
+  \[
+    \frac{L'}{L}(1 + \delta + it, \chi),
+    \frac{L'}{L}(1 + \delta + 2it, \chi^2),
+    \frac{L'}{L}(1 + \delta, \chi_0)
+  \]
+  as \(\delta \to 0\). Note that
+  \begin{align*}
+    &\Re(-3 \frac{L'}{L}(1 + \delta, \chi_0) - 4 \frac{L'}{L}(1 + \delta + it, \chi) - \frac{L'}{L}(1 + \delta + 2it, \chi^2)) \\
+    =& \sum_{\substack{n \geq 1 \\ (n, q) = 1}} \frac{\Lambda(n)}{n^{1 + \delta}} \Re(3 + 4 \chi(n) n^{-it} + \chi(n)^2 n^{-2it})
+  \end{align*}
+  and for all \(\theta\),
+  \[
+    3 + 4 \cos \theta + \cos 2\theta = \Re (3 + 4e^{i\theta} + e^{i2\theta}) \geq 0.
+  \]
+  By the lemma,
+  \begin{align*}
+    -\Re \frac{L'}{L}(1 + \delta, \chi_0) &= \frac{1}{\delta} + O(\log q) \\
+    -\Re \frac{L'}{L}(1 + \delta + it, \chi) &\leq - \frac{1}{1 + \delta - \sigma} + O(\log q\tau) \\
+    \Re \frac{L'}{L}(1 + \delta + 2it, \chi^2) &\ll \log(q\tau)
+  \end{align*}
+  Note that the last step depends crucially on \(\chi\) being non-quadratic so that \(\chi^2 \neq \chi_0\). Thus
+  \[
+    \frac{3}{\delta} - \frac{4}{1 + \delta - \sigma} + O(\log q\tau) \geq 0,
+  \]
+  contradiction if \(\delta \approx \frac{c'}{\log q\tau}\) and \(\sigma \geq 1 - \frac{c}{\log q\tau}\).
+\end{proof}
+
+\begin{theorem}
+  If \(\chi\) is a quadratic character, there exists \(c > 0\) such that \(L(s, \chi) \neq 0\) if \(\sigma > 1 - \frac{c}{\log q\tau}\) and \(t \neq 0\).
+\end{theorem}
+In other words, we \emph{cannot} rule out a zero \(\rho\) of \(L(s, \chi)\) with \(\rho \in \R\) close to \(1\). However,
+
+\begin{theorem}
+  Let \(\chi\) be a quadratic character. Then there is an absolute constant \(c > 0\) such that \(L(s, \chi)\) has at most one zero \(\rho \in (0, 1)\) such that \(\rho \geq 1 - \frac{c}{\log q}\).
+\end{theorem}
+These are called \emph{exceptional zeroes} or \emph{Siegel zeroes}\index{Siegel zeroes}.
+
+First we need a lemma for \(L(s, \chi_0)\).
+\begin{lemma}
+  If \(\frac{5}{6} \leq \sigma \leq 2\) then
+  \[
+    -\frac{L'}{L}(s, \chi_0) = \frac{1}{s - 1} - \sum_\rho \frac{1}{s - \rho} + O(\log q \tau)
+  \]
+  over zeroes \(\rho\) with \(|\rho - (\frac{3}{2} + it)| \leq \frac{5}{6}\).
+\end{lemma}
+
+\begin{proof}
+  Follows from
+  \[
+    -\frac{\zeta'}{\zeta}(s) = - \sum_\rho \frac{1}{s - \rho} + O(\log \tau) + \frac{1}{s - 1}
+  \]
+  since
+  \begin{enumerate}
+  \item \(\sigma > 0\), zeroes of \(\zeta(s)\) is the same as zeroes of \(L(s, \chi_0)\), and
+  \item by the Euler product,
+    \[
+      \frac{L'}{L}(s, \chi_0)
+      = \frac{\zeta'}{\zeta}(s) + \sum_{p \divides q} \frac{\log p}{p^s - 1}
+      \ll \omega(q)
+      \ll \log q
+    \]
+  \end{enumerate}
+\end{proof}
+
+Quick sketch of proof:
+\begin{enumerate}
+\item theorem 1: for \(t\) large, same as previous proof (\(\chi^2 = \chi_0\) but no pole). For \(t\) small, \(0 < |t| \ll \frac{1}{\log q\tau}\). Instead of comparing \(\chi_0, \chi, \chi^2\) we compare \(\rho\) and \(\conj \rho\).
+\item theorem 2: compare two such real zeroes.
+\end{enumerate}
 
 
 

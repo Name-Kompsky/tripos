@@ -727,7 +727,7 @@ We want to attach invariants to a representation \(\rho\) of a finite group \(G\
 
 Let \(\F = \C\) and let \(\rho = \rho_V: G \to \GL(V)\) be a representation.
 
-\begin{definition}[character]\index{character}\index{character!irreducible}\index{character!faithful}\index{character!faithful, trivial}
+\begin{definition}[character]\index{character}\index{character!irreducible}\index{character!faithful, trivial}
   The \emph{character} \(\chi_\rho = \chi_V = \chi\) is defined as
   \begin{align*}
     \chi: G &\to \C \\
@@ -970,7 +970,7 @@ Recall the inner prodcut on \(\ccl(G)\) and the real symmetric form \(\langle \c
   so indeed it is irreducible.
 \end{eg}
 
-\section{Proofs of orthogonality}
+\section{Proof of orthogonality}
 
 \index{completeness of characters}
 
@@ -1757,7 +1757,7 @@ Let \(n = |G:H|\). Let \(t_1 = 1, t_2, \dots, t_n\) be a \emph{left transversal}
   as \(\psi\) is a class function of \(H\).
 \end{proof}
 
-\begin{theorem}[Frobenius reciprocity]\index{frobenius reciprocity}
+\begin{theorem}[Frobenius reciprocity]\index{Frobenius reciprocity}
   Let \(\psi \in \mathcal C(H), \varphi \in \mathcal C(G)\). Then
   \[
     \ip{\Res_H^G \varphi, \psi} = \ip{\varphi, \Ind_H^G \psi}.
@@ -2028,9 +2028,9 @@ Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigm
   \]
   is a set of conjugacy class representatives for \(G\), with \(1, \dots, h_t\) representatives of \(H\)-conjugacy classes and \(y_1, \dots, y_u\) representatives of conjugacy classes of \(G\) comprises \(K \setminus \{1\}\).
 
-  Let \(1_H = \psi_1, \psi_2, \dots, \psi_t\) be irreducible characters of \(H\). Fix \(1 \leq i \leq t\). Then if \(g \in G\),
+  Let \(1_H = \psi_1, \psi_2, \dots, \psi_t\) be irreducible characters of \(H\). Fix \(1 \leq i \leq t\). Then
   \[
-    \Ind_H^G \psi_i =
+    \Ind_H^G \psi_i(g) =
     \begin{cases}
       |G: H| \psi_i(1) = n \psi_i(1) & g = 1 \\
       \psi_i(h_j) & g = h_j, 2 \leq j \leq t \\
@@ -2046,7 +2046,7 @@ Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigm
     \begin{array}{r|cccc}
       & 1 & h_j & y_k \\ \hline
       \psi_i^G & n \psi_i(1) & \psi_i(h_j) & 0 \\
-      \psi_i(1) \psi_1(G) & n\psi(1) & \psi_i(1) & 0 \\
+      \psi_i(1) \psi_1^G & n\psi_i(1) & \psi_i(1) & 0 \\
       \psi_i(1) \theta_1 & \psi_i(1) & \psi_i(1) & \psi_i(1) \\ \hline
       \theta_i & \psi_i(1) & \psi_i(h_j) & \psi_i(1)
     \end{array}
@@ -2061,7 +2061,7 @@ Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigm
     &= \ip{\psi_i, \psi_i} \\
     &= 1
   \end{align*}
-  Thus (cf 9.15) either \(\theta_i\) or \(-\theta_i\) is an irreducible character of \(G\). But since \(\theta_i(1) > 0\), it must be \(\theta_i\) is an actual character.
+  Thus either \(\theta_i\) or \(-\theta_i\) is an irreducible character of \(G\). But since \(\theta_i(1) > 0\), it must be that \(\theta_i\) is an actual character.
 
   Now define \(\theta = \sum_{i = 1}^t \theta_i(1) \theta_i\). By column orthogonality, for \(1 \neq h \in H\)
   \[
@@ -2083,7 +2083,7 @@ Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigm
 \end{proof}
 
 \begin{definition}[Frobenius group]\index{Frobenius group}\index{Frobenius complement}
-  A \emph{Frobenius group} is a group \(G\) having subgroup \(H\) such that \(H \cap gHg^{-1} = 1\) for all \(g \notin H\). \(H\) is the \emph{Frobenius complement} of \(G\).
+  A \emph{Frobenius group} is a group \(G\) having a subgroup \(H\) such that \(H \cap gHg^{-1} = 1\) for all \(g \notin H\). \(H\) is the \emph{Frobenius complement} of \(G\).
 \end{definition}
 
 \begin{proposition}
@@ -2093,9 +2093,9 @@ Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigm
 \begin{proof}
   Suppose \(G\) is Frobenius with complement \(H\). Then the action of \(G\) on \(G/H\) is transitive and faithful. Furthermore, if \(1 \neq g \in G\) fixes both \(xH\) and \(yH\) then \(g \in xHx^{-1} \cap yHy^{-1}\) and hence
   \[
-    H \cap (y^{-1}x) H (y^{-1} x)^{-1} \neq 1.
+    H \cap (y^{-1}x) H (y^{-1} x)^{-1} \neq 1
   \]
-  Hence \(xH = yH\).
+  so \(xH = yH\).
 \end{proof}
 
 \begin{eg}\leavevmode
@@ -2116,7 +2116,7 @@ Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigm
 
 Let \(\F = \C\). Mackey theory describes restriction to a subgroup \(K \leq G\) of an induced representation \(\Ind_H^G W\). \(K\) and \(H\) are unrelated, but usually we take \(K = H\), in which case we can characterise when \(\Ind_H^G W\) is irreducible.
 
-We'll work with the special case \(W = 1_H\) first. Then \(\Ind_H^G 1_H\) is the permutation representation of \(G\) on \(G/H\). Recall that if \(G\) is transitive on a set \(X\) and \(H = G_\alpha\) for some \(a \in X\) then the action of \(G\) on \(X\) is isomorphic to the action of \(G\) on \(G/H\), namely
+We'll work with the special case \(W = 1_H\) first. Then \(\Ind_H^G 1_H\) is the permutation representation of \(G\) on \(G/H\). Recall that if \(G\) is transitive on a set \(X\) and \(H = G_\alpha\) for some \(\alpha \in X\) then the action of \(G\) on \(X\) is isomorphic to the action of \(G\) on \(G/H\), namely
 \[
   g . \alpha \leftrightarrow gH
   \tag{*, 12. 1}
@@ -2129,12 +2129,12 @@ Consider the action of \(G\) on \(G/H\) and let \(K \leq G\). Then \(G/H\) split
 \[
   KgH = \{kgh: k \in K, h \in H\},
 \]
-namely the \(K\)-orbit containing \(gH\), contains precisely all \(kgH\) for \(k \in K\).
+namely the \(K\)-orbits containing \(gH\), contains precisely all \(kgH\) for \(k \in K\).
 
 \begin{notation}
-  Denote by \(K \setminus G/H\) the set of \((K, H)\)-double cosets. They paritition \(G\). Let \(S\) be the set of representatives. Note
+  Denote by \(K \backslash G/H\) the set of \((K, H)\)-double cosets. They paritition \(G\). Let \(S\) be the set of representatives. Note
   \[
-    \# K \setminus G /H = \ip{\pi_{G/K}, \pi_{G/H}}
+    \# K \backslash G /H = \ip{\pi_{G/K}, \pi_{G/H}}
   \]
   by 7.3.
 \end{notation}
@@ -2143,11 +2143,6 @@ namely the \(K\)-orbit containing \(gH\), contains precisely all \(kgH\) for \(k
   \[
     H_g := K_{gH} = gHg^{-1} \cap K.
   \]
-  %TODO: check this
-  % (?) By equation 12.1 the action of \(G\) on the orbit containing \(gH\) is isomorphic to the action of \(K\) on
-  % \[
-  %   K/(gHg^{-1} \cap K) = K/H_g.
-  % \]
   So as a set with \(K\)-action, \(KgH \cong K/K \cap gHg^{-1}\). By 10.10,
   \[
     \Ind_H^G 1_H = \C X
@@ -2159,7 +2154,7 @@ where \(G/H\), if \(X = \bigcup X_i\) then decomposes into orbits \(\C X = \bigc
   \[
     \Res_K^G \Ind_H^G 1 \cong \bigoplus_g \Ind_{K \cap gHg^{-1}}^K 1
   \]
-  where the summation is over all representatives \(g \in K \setminus G/H\).
+  where the summation is over all representatives \(g \in K \backslash G/H\).
 \end{proposition}
 
 Let \(S = \{1 = g_1, \dots, g_r\}\) be the such that \(G = \bigcup_i Kg_iH\) as a union of disjoint set. Let \(H_g = gHg^{-1} \cap K \leq K\). Take a representation \((\rho, W)\) of \(H\). For \(g \in G\) define \((\rho_g, W_g)\) to be the representation of \(H_g\) with the same underlying vector space \(W\) but now the \(H_g\)-action is
@@ -2219,7 +2214,7 @@ where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x 
 \end{proof}
 
 \begin{proof}[Proof of \nameref{thm:Mackey's restriction formula}]
-  Write \(V = \Ind_H^G W\). Fix \(g \in G\). Now \(V\) is direct sum of \(x \otimes W\) with \(x\) running through set of representatives of left cosets of \(H\) in \(G\). Consider a particular double coset \(KgH \in K \setminus G/H\). The terms
+  Write \(V = \Ind_H^G W\). Fix \(g \in G\). Now \(V\) is direct sum of \(x \otimes W\) with \(x\) running through set of representatives of left cosets of \(H\) in \(G\). Consider a particular double coset \(KgH \in K \backslash G/H\). The terms
   \[
     \mathcal V(g) = \bigoplus_{\substack{x \text{ rep} \\ x \in KgH}} x \otimes W
   \]
@@ -2465,9 +2460,9 @@ See Teleman \textsection 19 - 22 and C.\ Thomas \textsection 6 for more detailed
     \item finite groups,
     \item \(S^1 = \{z \in \C: |z| = 1\}\) under multiplication, the \emph{circle group},
     \item torus: finite product \(S^1 \times \cdots \times S^1\),
-    \item \(O(n) = \{A \in \GL_n(\R): AA^t = I_n\}\), orthogonal group,
+    \item \(\OO(n) = \{A \in \GL_n(\R): AA^t = I_n\}\), orthogonal group,
     \item \(\SO(n) = \{A \in O(n): \det A = 1\}\), special orthogonal group,
-    \item \(U(n) = \{A \in \GL_n(\C): A \conj A^t = I_n\}\), unitary group,
+    \item \(\UU(n) = \{A \in \GL_n(\C): A \conj A^t = I_n\}\), unitary group,
     \item \(\SU(n) = \{A \in U(n): \det A = 1\}\), speical unitary group.
     \end{enumerate}
   \end{enumerate}
@@ -2475,10 +2470,143 @@ See Teleman \textsection 19 - 22 and C.\ Thomas \textsection 6 for more detailed
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item \(U(1) \cong \SO(2) \cong S^1\). Note that the second isomorphism is also a homeomorphism.
+  \item \(U(1) \cong \SO(2) \cong_h S^1\) where \(\cong_h\) means the homomorphism is also a homeomorphism.
   \item \(\SU(2) = \{(z_1, z_2) \in \C^2: z_1 \conj z_1 + z_2 \conj z_2 = 1\} \subseteq \R^4 \cong \C^2\) is isomorphic and homeomorphic to \(S^3\).
   \end{enumerate}
 \end{remark}
+
+\begin{definition}[representation of topological group]\index{representation!of topological group}
+  A representation of a topological group \(G\) on a finite-dimensional space \(V\) is a continuous group homomorphism \(\rho: G \to \GL(V)\).
+\end{definition}
+
+\begin{remark}
+  If \(X\) is a topological space then \(\rho: X \to \GL(V) \cong \GL_n(\C)\) is continuous if and only if \(x \mapsto \rho(x)_{ij}\) are continuous for all \(i, j\).
+\end{remark}
+
+\subsection{The compact group \(\operatorname{SU}(1)\)}
+
+We prove
+\begin{theorem}
+  \label{thm:representation of S1}
+  Every 1-dimensional continuous representation of \(S^1\) is of the form \(z \mapsto z^n\) for some \(n \in \Z\).
+\end{theorem}
+
+\begin{remark}
+  It can be easily seen that these are representations. Why are they the only ones? If one drops continuity condition, the number of 1-dimensional representations is uncountably infinite. See Teleman \textsection 19.8.
+\end{remark}
+
+To prove the theorem we need two lemmas from real analysis
+\begin{lemma}
+  If \(\psi: (\R, +) \to (\R, +)\) is a continuous group homomorphism then there exists \(c \in \R\) such that \(\psi(x) = cx\) for all \(x \in \R\).
+\end{lemma}
+
+\begin{proof}
+  Given \(\psi: (\R, +) \to (\R, +)\) continuous, let \(c = \psi(1)\). As \(\psi\) is a homomorphism,
+  \[
+    \psi(nx) = \psi(x + \dots + n) = n \psi(x)
+  \]
+  for \(x \in \R, n \in \Z_{\geq 0}\). In particular \(\psi(n) = cn\). Also \(\psi(-n) = - \psi(n) = -cn\) so \(\psi(n) = cn\) for all \(n \in \Z\). Put \(x = \frac{m}{n} \in \Q\),
+  \[
+    n \psi(x) = \psi(nx) = \psi(m) = cm
+  \]
+  so \(\psi(x) = cx\) for all \(x \in \Q\). As \(\Q \subseteq \R\) is dense and \(\psi\) is continuous, \(\psi(x) = cx\) for all \(x \in \R\).
+\end{proof}
+
+\begin{lemma}
+  Continuous homomorphisms \(\psi: (\R, +) \to S^1\) are of the form \(\psi(x) = e^{icx}\) for some \(c \in \R\).
+\end{lemma}
+
+\begin{proof}
+  Define
+  \begin{align*}
+    \varepsilon: (\R, +) &\to S^1 \\
+    x &\mapsto e^{ix}
+  \end{align*}
+  This homomorphism wraps real line around \(S^1\) with period \(2\pi\).
+
+  Claim given any continuous map \(\varphi: (\R, +) \to S^1\) such that \(\varphi(0) = 1\), there exists a unique continuous map \(\psi: \R \to \R\), called a \emph{lifting}, such that \(\psi(0) = 0\), making the diagram
+  \[
+    \begin{tikzcd}
+      & (\R, +) \ar[d, "\varepsilon"] \\
+      (\R, +) \ar[ur, "\psi", dashed] \ar[r, "\varphi"] & S^1
+    \end{tikzcd}
+  \]
+  commute. (The lifting is constructed by starting with \(\psi(0) = 0\) and then extending a small interval at a time to get a continuous map \((\R, +) \to (\R, +)\))
+
+  If \(\varphi\) is a homomorphism then so is its lifting \(\psi\): \(\varphi(x + y) = \varphi(x) \varphi(y)\) so \(\varepsilon(\psi(x + y) - \psi(x) - \psi(y)) = 1\). Thus \(\psi(x + y) - \psi(x) - \psi(y) = 2k\pi\) for some integer \(k\) depending continuously on \(x, y\), so must be constant. Setting \(x = y = 0\) we get \(k = 0\).
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:representation of S1}]
+  Let \(\rho: S^1 \to \C^\times\) be a continuous 1-dimensional representation. Then \(\rho: S^1 \to S^1\): since \(S^1\) is compact and \(\rho\) is continous, \(\rho(S^1)\) is closed and bounded. As \(\rho(z^n) = \rho(z)^n\) for all \(n \in \Z\), we must have \(\rho(S^1) \subseteq S^1\). We get a continuous homomorphism
+  \begin{align*}
+    \R &\to S^1 \\
+    x &\mapsto \rho(e^{ix})
+  \end{align*}
+  so exists \(c \in \R\) such that \(\rho(e^{ix}) = e^{icx}\). But \(1 = \rho(e^{2\pi i}) = e^{2\pi ic}\) so \(c \in \Z\). Put \(n = c\), \(\rho(z) = z^n\) as claimed.
+\end{proof}
+
+In studying representations of finite groups we ``averaged'' over the group via the operation \(\frac{1}{|G|} \sum\). An analogous operation exists for topological groups, if we replace ``sum'' by \(\int_G \d g\).
+
+\begin{definition}[Haar measure]\index{Haar measure}
+  If \(G\) is a topological group, let
+  \[
+    \mathcal C(G) = \{f: G \to \C: f \text{ continuous}, f(gxg^{-1}) = f(x) \text{ for all } g, x \in G\}
+  \]
+  Then a non-trivial functional
+  \[
+    \int_G: \mathcal C(G) \to \C
+  \]
+  is called a \emph{Haar measure} if
+  \begin{enumerate}
+  \item normalisation: \(\int_G 1 \d g = 1\),
+  \item translation invariance: \(\int_G f(xg) \d g = \int_G f(g) \d g = \int_G f(gx) \d g\) for all \(x \in G\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(G\) is finite then
+    \[
+      \int_G f = \frac{1}{|G|} \sum_{g \in G} f(g)
+    \]
+    is a Haar measure.
+  \item \(G = S^1\):
+    \[
+      \int_G f = \frac{1}{2\pi} \int_0^{2\pi} f(e^{i\theta}) d\theta.
+    \]
+  \item \(G = \SU(2)\): see later.
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}
+  If \(G\) is compact and Hausdorff then there exists a unique Haar measure on \(G\).
+\end{theorem}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+We compute Haar measure for \(\SU(2)\) below. Henceforth ``compact'' means ``compact Hausdorff''.
+
+As a general theme, results we proved using ``averaging'' techniques work for compact groups by replacing averaging by the Haar measure on the topological group.
+
+\begin{corollary}[Weyl's unitary trick]\index{Weyl's unitary trick}
+  Let \(G\) be compact. Then every representation \((\rho, V)\) has \(G\)-invariant inner product.
+\end{corollary}
+
+\begin{proof}
+  Take any inner product \((\cdot, \cdot)\) on \(V\). Then
+  \[
+    \ip{v, w} = \int_G (\rho(g) v, \rho(g) w) \d g
+  \]
+  is a \(G\)-invariant inner product.
+\end{proof}
+
+\begin{corollary}[Maschke]\index{Maschke's theorem}
+  If \(G\) is compact then every representation of \(G\) is completely reducible.
+\end{corollary}
+
+
 
 
   

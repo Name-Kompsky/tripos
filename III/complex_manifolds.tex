@@ -657,9 +657,9 @@ Then we have the following result due to Grothendieck:
 
   Now consider the case \(\omega\) is a \((0, 1)\)-form, so \(\psi_j\)'s are functions. We construct a sequence \(\phi_j\) on \(P_j\) such that
   \begin{align*}
-    \conj \p \phi_j &= \omega \text{ on } P_j \\
-    \phi_{j + 1} &- \phi_j \text{ holomorphic on } P_j \\
-    \norm{\phi_{j + 1} - \phi_j}_{C^0(P_{j + 1})} &< 2^{-j}
+    &\conj \p \phi_j = \omega \text{ on } P_j \\
+    &\phi_{j + 1} - \phi_j \text{ holomorphic on } P_j \\
+    &\norm{\phi_{j + 1} - \phi_j}_{C^0(P_{j + 1})} < 2^{-j}
   \end{align*}
   Assuming this, the \((\phi_j)\) converges uniformly to some \(\phi\) on \(P\). Moreover \(\phi - \phi_j\) is holomorphic on \(P_j\) as as a uniform limit of \((\phi_{j + 1} - \phi_j)\), all holomorphic following the corollary. So \(\conj \p \phi = \conj \p \phi_j = \omega\) on \(P_j\), Hence \(\conj \p \phi = \omega\) on \(P\).
 
@@ -757,7 +757,7 @@ Most often \(\mathcal F(U)\) is some class of functions on \(U\) with restrictio
       0 \ar[r] & \Z \ar[r, "\times 2\pi i"] & \mathcal O \ar[r, "\exp"] & \mathcal O^* \ar[r] & 0
     \end{tikzcd}
   \]
-  is exact. It is called the \emph{exponential short exact squence}\index{exponential short exact sequence}\index{sheaf!short exact sequence!exponential}. Here \(\Z\) is the \emph{constant sheaf}\index{sheaf!constant}: \(\Z(U)\) is the space of continuous functions \(U \to \Z\), i.e.\ \(\Z\)-valued locally constant functions (similarly we define the sheaf \(\C(U)\) to be continuous functions \(U \to \C\) with \(\C\) given the discrete topology).
+  is exact. It is called the \emph{exponential short exact squence}\index{exponential short exact sequence}\index{sheaf!short exact sequence!exponential}. Here \(\Z\) is the \emph{constant sheaf}\index{sheaf!constant}: \(\Z(U)\) is the space of continuous functions \(U \to \Z\), i.e.\ \(\Z\)-valued locally constant functions (similarly we define the sheaf \(\C\) to be continuous functions \(U \to \C\) with \(\C\) given the discrete topology).
 
   The exactness of
   \[
@@ -813,10 +813,11 @@ The definitions of cokernel and image are more complicated. See example sheet.
 
 \subsection{Čech cohomology}
 
-Our aim is to define \(\check H(X, \mathcal F)\) where \(\mathcal F\) is a sheaf on \(X\), and show
+Our aim is to define \emph{sheaf cohomology} groups \(H(X, \mathcal F)\) where \(\mathcal F\) is a sheaf on \(X\), and show that
 \[
-  H_{\conj \p}^{p, q}(X) \cong \check H^q(X, \Omega^p).
+  H_{\conj \p}^{p, q}(X) \cong H^q(X, \Omega^p).
 \]
+
 We begin with an example. Let \(X\) be a topological space with \(X = U \cup V\) where \(U, V\) open. If \(s_U \in \mathcal F(U), s_V \in \mathcal F(V)\), when is there \(s \in \mathcal F(X)\) with \(s|_U = s_U, s|_V = s_V\)?
 
 As \(\mathcal F\) is a sheaf, this happens if and only if
@@ -831,7 +832,7 @@ Define
 then \(\mathcal F(X) \cong \ker \delta\).
 
 \begin{notation}
-  Notation: if \(\mathcal U = \{U_\alpha\}_\alpha\) is a locally finite open cover indexed by a subset of \(\N\) (or any ordered set), we write
+  If \(\mathcal U = \{U_\alpha\}_\alpha\) is a locally finite open cover indexed by a subset of \(\N\) (or any ordered set), we write
   \[
     U_{\alpha_0} \cap \dots \cap U_{\alpha_p} = U_{\alpha_0 \dots \alpha_p}.
   \]
@@ -947,7 +948,7 @@ for all \(q\). One can check that this is independent of \(\varphi\).
   Note that we omit the check symbol.
 \end{definition}
 
-A quick recap of direct limit: if \(I\) is a partially ordered set, \(G_i\) is an abelian group for all \(i \in I\) with maps \(\varphi_{ij}: G_i \to G_j\) for \(i \leq j\) with
+A quick recap of direct limit\index{direct limit}: if \(I\) is a partially ordered set, \(G_i\) is an abelian group for all \(i \in I\) with maps \(\varphi_{ij}: G_i \to G_j\) for \(i \leq j\) with
 \[
   \varphi_{ij} \compose \varphi_{jk} = \varphi_{ik},
 \]
@@ -995,7 +996,7 @@ when each intersection of the \(U_i\) is isomorphic to a polydisk.
       &= \tau_V - \tau_U \\
       &= \rho_V \sigma_{VU} + \rho_W \sigma_{WV} - \rho_V \sigma_{VU} - \rho_W \sigma_{WU} \\
       &= \rho_V \sigma_{VU} + \rho_V \sigma_{UV} + \rho_W \sigma_{WV} - \rho_W \sigma_{WU} \\
-      &= (\rho_U + \rho_V + \rho_W) \sigma_{UV} \text{ use cocycle condition} \\
+      &= (\rho_U + \rho_V + \rho_W) \sigma_{UV} \quad \text{ use cocycle condition} \\
       &= \sigma_{UV}
     \end{align*}
     The general case is an exercise on example sheet 2.
@@ -1041,7 +1042,13 @@ Thus we can find \(\mu \in C^{p + 1}(\mathcal V, \mathcal E)\) such that \(\alph
 Since \(\alpha\) is injective, \(\delta \mu = 0\). This defines \(\delta^*[\sigma] = [\mu] \in H^{p + 1}(X, \mathcal E)\).
 
 \begin{theorem}
-  The following
+  Given a short exact sequence of sheaves on \(X\)
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathcal E \ar[r, "\alpha"] & \mathcal F \ar[r, "\beta"] & \mathcal G \ar[r] & 0
+    \end{tikzcd}
+  \]
+  we have a long exact sequence of coholomogy groups
   \[
     \begin{tikzcd}
       & & 0 \ar[dll, out=0, in=180] \\
@@ -1050,7 +1057,6 @@ Since \(\alpha\) is injective, \(\delta \mu = 0\). This defines \(\delta^*[\sigm
       H^2(X, \mathcal E) \ar[r] & \dots
     \end{tikzcd}
   \]
-  is a long exact sequence of cohomology groups.
 \end{theorem}
 
 We won't prove this in general, but for all sheaves in this course, there exists arbitrarily fine open covers \(\mathcal U\) with
@@ -1096,7 +1102,7 @@ is a short exact sequence for all \(i\). Equivalently the induced sequence on st
   By Poincaré lemma, the complex
   \[
     \begin{tikzcd}
-      0 \ar[r] & \R \ar[r] & \mathcal A^0 \ar[r, "d"] & \mathcal A^1 \ar[r, "d"] & \mathcal A^2 \ar[r] & \dots
+      0 \ar[r] & \R \ar[r] & \mathcal A^0 \ar[r, "\d"] & \mathcal A^1 \ar[r, "\d"] & \mathcal A^2 \ar[r] & \dots
     \end{tikzcd}
   \]
   is exact. Note that \(\mathcal A^0\) is the sheaf of smooth functions and \(\mathcal A^p\) is the sheaf of \(p\)-forms and \(\d\) is the usual exterior derivative. That is, for all \(p\), if \(\mathcal Z^p = \ker (\d: \mathcal A^p \to \mathcal A^{p + 1})\) we have exact sequences
@@ -1121,16 +1127,16 @@ is a short exact sequence for all \(i\). Equivalently the induced sequence on st
   \[
     \begin{tikzcd}
       & & 0 \ar[dll, out=0, in=180] \\
-      H^0(X, \mathcal Z^{p - 1}) \ar[r] & H^0(X, \mathcal A^{p - 1}) \ar[r, "d"] & H^0(X, \mathcal Z^p) \ar[dll, out=0, in=180] \\
+      H^0(X, \mathcal Z^{p - 1}) \ar[r] & H^0(X, \mathcal A^{p - 1}) \ar[r, "\d^*"] & H^0(X, \mathcal Z^p) \ar[dll, out=0, in=180] \\
       H^1(X, \mathcal Z^{p - 1}) \ar[r] & 0
     \end{tikzcd}
   \]
   is exact, we have
   \[
     H^1(X, \mathcal Z^{p - 1})
-    \cong \frac{H^0(X, \mathcal Z^p)}{d(H^0(X, \mathcal A^{p - 1}))}
-    \cong \frac{\mathcal Z^p(X)}{d(\mathcal A^{p - 1}(X))}
-    \cong H^p_{\text{dR}}(X, \R).
+    \cong \frac{H^0(X, \mathcal Z^p)}{\d^*(H^0(X, \mathcal A^{p - 1}))}
+    \cong \frac{\mathcal Z^p(X)}{\d(\mathcal A^{p - 1}(X))}
+    \cong H^p_{\text{dR}}(X; \R).
   \]
 \end{proof}
 
@@ -1301,7 +1307,7 @@ which should remind us of cocyle conditions in Čech cohomology.
 \end{proposition}
 
 \begin{proof}
-  Same as in differential geometry.
+  Same as in III Differential Geometry.
 \end{proof}
 
 Given \(E\) and a cover \(\mathcal U = \{U_\alpha\}\) with trivialisations \(\varphi_\alpha: E|_{U_\alpha} \to U_\alpha \times \C^r\), the transition functions
@@ -1312,7 +1318,7 @@ satisfy the cocycle conditions, i.e.
 \[
   \delta(\{\varphi_{\alpha\beta}\}) = 0
 \]
-so we obtain an element \([\varphi^E] \in H^1(X, \GL_r(\C))\) (viewing \(\GL_r(\C)\) as a group under multiplication)\footnote{Note that \(\GL_r(\C)\) is not abelian for \(r > 1\), and it is not immediately what the corresponding Čech cohomology should be. However, we'll restrict our attention to line bundles in this course.}. We now specialise to line bundles so \(\GL_r(\C) = \C^*\) so they are abelian. In particular we have
+so we obtain an element \([\varphi^E] \in H^1(X, \GL_r(\C))\) (viewing \(\GL_r(\C)\) as a group under multiplication)\footnote{Note that \(\GL_r(\C)\) is not abelian for \(r > 1\), and it is not immediately clear what the corresponding Čech cohomology should be. However, we'll restrict our attention to line bundles in this course.}. We now specialise to line bundles so \(\GL_r(\C) = \C^*\) so they are abelian. In particular we have
 \[
   H^1(X, \GL_r(\C)) = H^1(X, \mathcal O^*).
 \]
@@ -1770,7 +1776,7 @@ We shall say \(D \in \Div(X)\) is given by local data \((U_\alpha, f_\alpha)\) u
 \end{proof}
 
 \begin{ex}
-  Show that there is an exact sequence sequence
+  Show that there is a short exact sequence
   \[
     \begin{tikzcd}
       0 \ar[r] & \mathcal O^* \ar[r] & \mathcal K^* \ar[r] & \mathcal K^*/\mathcal O^* \ar[r] & 0
@@ -1862,7 +1868,7 @@ We'll return to Chern classes later.
 
 Recall that \(X\) is projective\index{projective manifold} if it is biholomorphic to a closed submanifold of \(\P^m\) for some \(m\).
 
-\begin{definition}[ample line bundle]\index{ample line bundle}\index{line bundle!ample}
+\begin{definition}[ample line bundle]\index{ample}\index{line bundle!ample}
   We say that a line bundle \(L\) on \(X\) is \emph{ample} if there is an embedding \(\iota: X \embed \P^m\) for some \(m\) and \(k \in \Z_{> 0}\) such that
   \[
     L^{\otimes k} \cong \iota^*(\mathcal O(1))
@@ -1870,7 +1876,7 @@ Recall that \(X\) is projective\index{projective manifold} if it is biholomorphi
   where \(\mathcal O(1)\) is the hyperplane line bundle\index{hyperplane line bundle} on \(\P^m\).
 \end{definition}
 
-Kähler geometry (in part) gives a differential geometric interpretation of amplitude.
+Kähler geometry (in part) gives a differential geometric interpretation of ampleness.
 
 \section{Kähler manifolds}
 
@@ -2119,7 +2125,7 @@ Thus there is a topological obstruction for compact complex manifolds to be Käh
   \[
     c_1(L) \in H^2(X; \Z) \subseteq H^2(X; \R).
   \]
-  The Kodaira embedding theorem states that on a compact complex manifold, a class \(\alpha \in H^2(X; \Z)\) is a Kähler class (i.e.\ there is a Kähler metric \(\omega \in \alpha\)) if and only if \(\alpha = c_1(L)\) for \(L \in \Pic(X)\) ample. This gives a complex differential geometric interpretation of ampleness and characterises which compact Kähler manifolds are projective.
+  Kodaira embedding theorem\index{Kodaira embedding theorem} states that on a compact complex manifold, a class \(\alpha \in H^2(X; \Z)\) is a Kähler class (i.e.\ there is a Kähler metric \(\omega \in \alpha\)) if and only if \(\alpha = c_1(L)\) for \(L \in \Pic(X)\) ample. This gives a complex differential geometric interpretation of ampleness and characterises which compact Kähler manifolds are projective.
 \end{remark}
 
 \begin{proposition}
@@ -3193,8 +3199,85 @@ We can interpret Fubini-Study metric\index{Fubini-Study metric} now. If \(X = \P
 \begin{ex}
   Show that \([\frac{i}{2\pi} F_D] \in H^2(X, \C)\) is equal \(c_1(L)\), the first Chern class\index{first Chern class} of \(L\).
 \end{ex}
-Moreover, \(L\) is positive if and only if \(c_1(L)\) is a Kähler class, i.e.\ admits a Kähler metric.
+One can show that this is equivalent to \(c_1(L) \in H^2(X, \Z)\) being a Kähler class, i.e.\ there is an \(\omega \in c_1(L)\) Kähler.
 
+On a projective space, \(\mathcal O(1) \to \P^n\) admits a hermitian metric \(h_{\text{FS}}\) with curvature \(\omega_{\text{FS}} = \frac{i}{2\subseteq} F_D\) which is Kähler. Thus \(\mathcal O(1)\) is positive.
+
+If \(\varphi: X \to Y\) is a morphism of complex manifolds and \((E, h) \to Y\) a hermitian holomorphic vector bundle, then we can pullback to get \((\varphi^*E, \varphi^*h)\) a hermitian holomorphic vector bundle on \(X\). If \(E = L\) is a line bundle then \(F_D = \conj \p \p \log h\) and \(\varphi^* F_D = \varphi^*(\conj \p \p \log h) = \conj \p \p \log (\varphi^*h)\).
+
+If \(\iota: X \embed \P^n\) is projective, we obtain \(\iota^* \mathcal O(1) = \mathcal O(1)|_X\) on \(X\). If \(h_{\text{FS}}\) is the Fubini-Study hermitian metric then \(\iota^* h_{\text{FS}}\) has curvature \(\iota^* \omega_{\text{FS}} = \omega_{\text{FS}}\) (up to \(\frac{i}{2\pi}\)). But we showed \(\omega_{\text{FS}}|_X\) is a Kähler metric on \(X\). Thus \(\mathcal O(1)|_X \to X\) is positive.
+
+We now turn to the algebro-geometric analogue.
+
+\subsection{Ampleness}
+
+If \(X\) is a compact complex manifold, one cannot embed \(X\) in \(\C^n\) for any \(n\) as \(X\) admits no nonconstant holomorphic functions. Instead we use (holomorphic) sections of line bundles to embed \(X\) in \(\P^n\).
+
+Let \(L \to X\) be a holomorphic line bundle.
+\begin{definition}[trivialisation]\index{trivialisation}
+  A \emph{trivialisation} of \(L\) over \(U \subseteq X\) is a \(\xi \in \mathcal O^*(L)(U)\), a nowhere vanishing section.
+\end{definition}
+
+Let \(s_0, \dots, s_n \in H^0(X, L)\) be global sections and suppose for all \(x \in X\) there is an \(s_j\) with \(s_j(x) \neq 0\). Let \(\xi\) be a trivialisation over \(U \subseteq X\) so \(s_j = \xi f_j\) for some \(f_j \in \mathcal O(U)\). Then \([f_0(x): \cdots : f_n(x)] \in \P^n\) as not all \(s_j(x) = 0\). We claim this is independent of \(\xi\). if \(\tilde \xi\) is another trivialisation then \(\tilde \xi = g \xi\) for some \(g \in \mathcal O^*(U)\). Then
+\[
+  [f_0(x): \cdots :f_n(x)] = [g(x) f_0(x): \cdots : g(x) f_n(x)].
+\]
+We denote this by \([s_0(x): \cdots : s_n(x)] \in \P^n\).
+
+\begin{definition}[basepoint-free]\index{basepoint-free}
+  We say \(L\) is \emph{basepoint-free} if for all \(x \in X\), there is \(s \in H^0(X, L)\) with \(s(x) \neq 0\).
+\end{definition}
+If \(L\) is basepoint-free, after choosing a basis of \(H^0(X, L)\), we obtain a map
+\begin{align*}
+  \varphi_L: X &\to \P^n \\
+  x &\mapsto [s_0(x): \cdots :s_n(x)]
+\end{align*}
+
+\begin{definition}[very ample]\index{very ample}
+  We say that \(L\) is \emph{very ample} if \(\varphi_L\) is an embedding (for some basis). We say \(L\) is \emph{ample}\index{ample} if \(L^{\otimes k}\) is very ample for some \(k \in \Z_{\geq 0}\).
+\end{definition}
+This is independent of basis: any two bases are related by an element \(\nu \in \GL(n + 1)\). \(\nu\) induces a biholomorphism of \(\P^n\) and \(X \to \nu^*X\) using the two bases.
+
+Suppose \(L\) is very ample, using the embedding \(\varphi_L\), we have \(\varphi_L^* \mathcal O(1) \cong L\) (if \(z_0\) is viewed as a global section of \(\mathcal O(1) \to \P^n\), then \(\varphi_L^*z_0\) is a global section of \(L\)). Hence \(L\) is very ample if and only if there is an embedding \(\iota: X \embed \P^n\) with \(\iota^* \mathcal O(1) \cong L\). This is how ampleness was mentioned earlier.
+
+Thus \(L\) is ample if \(L^{\otimes k}\) has enough global sections such that (\(k \gg 0\))
+\begin{enumerate}
+\item \(L^{\otimes k}\) is basepoint-free.
+\item \(\varphi_{L^{\otimes k}}\) is injective: if \(x \neq y \in X\), there is an \(s \in H^0(X, L^{\otimes k})\) with \(s(x) \neq s(y)\).
+\item \(d \varphi_{L^{\otimes k}}\) is injective.
+\end{enumerate}
+By inverse function theorem this is equivalent to \(X\) being biholomorphic to a submanifold of \(\P^n\).
+
+We want to relate ampleness to positivity.
+\begin{lemma}
+  If \(L \to X\) is ample then \(L\) is positive.
+\end{lemma}
+
+\begin{proof}
+  \(L^{\otimes k}\) is very ample for some \(k \gg 0\) so \(L^{\otimes k} \cong \varphi_{L^{\otimes k}}^* \mathcal O(1)\) with \(\varphi_{L^{\otimes k}}: X \embed \P^n\) an embedding. Hence \(L^{\otimes k}\) is positive, i.e.\ it has a hermitian metric \(h\) with curvature \(\frac{i}{2\pi} F_D\) Kähler.
+
+  Let \(\xi\) be a trivialisation of \(L\) over \(U \subseteq X\). Then \(\xi^{\otimes k}\) is a trivialisation of \(L^{\otimes k}\). Define a metric on \(L\) by
+  \[
+    |\xi|_h = \sqrt[k]{|\xi^{\otimes k}|_h}.
+  \]
+  This characterises \(h\) as \(\xi\) is a trivialisation. The curvature \(\frac{i}{2\pi} F_D = \frac{i}{2\pi} \conj \p \p \log h\) for \(h\) is related to the curvature \(\frac{i}{2\pi} F_{\frac{1}{k}}\) of \(h^{1/k}\) we constructed above by
+  \[
+    \frac{i}{2\pi} F_{\frac{1}{k}}
+    = \frac{i}{2\pi} \conj \p \p \log h^{1/k}
+    = \frac{1}{k} \frac{i}{2\pi} \conj \p \p \log h
+  \]
+  seen clearly in a trivialisation. Lastly \(\frac{1}{k} \frac{i}{2\pi} F_D\) is Kähler.
+\end{proof}
+
+Conversely,
+\begin{theorem}[Kodaira embedding theorem]\index{Kodaira embedding theorem}
+  Let \(X\) be a compact complex manifold. If \(L \to X\) is positive then \(L\) is ample.
+\end{theorem}
+
+\begin{corollary}
+  A compact complex manifold is projective if and only if it admits a line bundle \(L\) with \(c_1(L)\) a Kähler class.
+\end{corollary}
+To prove this we return to the cohomology of line bundles via Hodge theory.
 
 
 

@@ -1510,7 +1510,7 @@ As before, we need some logical axioms. There are 7 of them: 3 from propositiona
 
 As deduction rules we have
 \begin{enumerate}
-\item modus ponens: from \(p, p \implies q\) can deduce \(q\).
+\item modus ponens\index{modus ponens}: from \(p, p \implies q\) can deduce \(q\).
 \item generalisation\index{generalisation}: from \(p\) can deduce \((\forall x) p\), if \(x\) does not occur free in any premise used to prove \(p\).
 \end{enumerate}
 
@@ -1818,7 +1818,7 @@ The aim of this chapter is to answer the question, what does ``the universe of s
 
 \subsection{Zermelo-Fraenkel Set Theory}
 
-\begin{definition}[Zermelo-Fraenkel set theory]\index{Zermelo-Fraenkel set theory}
+\begin{definition}[Zermelo-Fraenkel set theory]\index{Zermelo-Fraenkel set theory}\index{ZF}
   \emph{Zermelo-Fraenkel set theory} (ZF) has language \(L\) consisting of \(\Omega = \emptyset, \Pi = \{\in\}, \alpha(\in) = 2\) with the ZF axioms (to be stated below).
 \end{definition}
 
@@ -1928,6 +1928,8 @@ The axioms so far should be quite intuitive. The next three are more subtle. Not
 \end{align*}
 But this shows that \(V\) is infinite, which is not the question we are interested in. We want to know whether \(V \) has an infinite set, e.g.\ an \(x\) such that \(\emptyset \in x, \emptyset^+ \in x\) etc.
 
+In the real world of maths, yes, we do have \(V\) (which is defined to be a set in the first place). However, in \(V\) we cannot take \(V\) because of Russell's paradox.
+
 \begin{definition}[Successor set]\index{successor set}
   \(x\) is a \emph{successor set} if
   \[
@@ -1963,14 +1965,14 @@ Subsequently, we say \(x\) is \emph{finite} if \((\exists y) (y \in \omega \land
 
 \begin{axiom*}[Axiom of foundation]
   \[
-    (\forall x) (x \neq \emptyset \implies (\exists y) (y \in x \land (\forall z) (z \in x \implies \neg (z \in y)).
+    (\forall x) (x \neq \emptyset \implies (\exists y) (y \in x \land (\forall z) (z \in x \implies \neg (z \in y)))).
   \]
 \end{axiom*}
 ``Sets are built up from simpler sets'', or every (non-empty) set has an \(\in\)-minimal member.
 
 The intuition behind is like this: we want to disallow \(x \in x\) to avoid possible contradiction, \(x \in y \land y \in x\) to agree with our intuition that ``sets have a hierarchy'', and also infinite chains \(\dots \in x_3 \in x_2 \in x_1 \in x_0\). What is common to all of them is that they do not have a \(\in\)-minimal element: \(\{x\}\), \(\{x, y\}\) and \(\{x_0, x_1, \dots\}\) respectively do not have such an element in the above examples.
 
-For our next axiom, we want if for each \(i \in I\) we have \(A_i\), then we can take \(\{A_i: i \in I\}\). But how do we know that \(\{A_i: i \in I\}\) is a set? One may say that ``\(i \mapsto A_i\)'' looks like a function, so the image is a set. What recall that functions are also sets, but is this rule a set?
+For our next axiom, we want if for each \(i \in I\) we have \(A_i\), then we can take \(\{A_i: i \in I\}\). But how do we know that \(\{A_i: i \in I\}\) is a set? One may say that ``\(i \mapsto A_i\)'' looks like a function, so the image is a set. But recall that functions are also sets. Is this rule a set?
 
 This one is different from previous axioms we have. So far every axiom allows us to build a new set ``near'' the one in the universe we starting with, e.g.\ power set, union set. However, this one goes far out to \(V\) from \(I\).
 
@@ -1979,7 +1981,7 @@ Thus what we really want to say is ``the image of a set, under something that lo
 \begin{axiom*}[Axiom of replacement]
   \begin{align*}
     & (\forall t_1) \cdots (\forall t_n) \underbrace{((\forall x) (\forall y) (\forall z) ((p \land p[z/y]) \implies y = z))}_{p \text{ a function-class}} \\
-    \implies & \underbrace{((\forall x) (\exists y) (\forall z) (z \in y \iff (\exists t) (t \in x \land p[t/x, z/y])))}_{\text{image of \(x\) under \(p\) is a set}}
+    \implies & \underbrace{((\forall x) (\exists y) (\forall z) (z \in y \iff (\exists t) (t \in x \land p[ty])))}_{\text{image of \(x\) under \(p\) is a set}}
   \end{align*}
   for each formula \(p\), free variables \(x, y, t_1, \dots, t_n\).
 \end{axiom*}
@@ -1990,7 +1992,7 @@ Intuitively we think this axiom exactly as what the slogan says, but since class
 Note that this holds also for partial functions.
 
 \begin{eg}
-  For any set \(x\), can form \(\{\{t\}: t \in x\}\), with function-class \(t \mapsto \{t\}\). This is a ``bad'' example as we don't actually need axiom of replacement to know this is a set. See later for ``good'' examples.
+  For any set \(x\), can form \(\{\{t\}: t \in x\}\), with function-class \(t \mapsto \{t\}\). This is a ``bad'' example as we don't actually need axiom of replacement to know this is a set (it is a subset of the power set of \(x\)). See later for ``good'' examples.
 \end{eg}
 
 Those are all the ZF axioms.
@@ -1998,10 +2000,11 @@ Those are all the ZF axioms.
 \begin{note}\leavevmode
   \begin{enumerate}
   \item Sometimes axiom of separation is called ``axiom of comprehension'' and axiom of foundation is called ``axiom of regularity''.
-  \item ZF axioms do not include axiom of choice. ZF~\(+\)~AC is called ZFC where
+  \item ZF axioms do not include axiom of choice. ZF~\(+\)~AC is called ZFC where\index{ZFC}
   \end{enumerate}
 \end{note}
 \begin{axiom*}[Axiom of choice]
+  \index{axiom of choice}
   \begin{align*}
     & (\forall f) (f \text{ a function} \land (\forall x) (x \in \dom f \implies \neg (f(x) = \emptyset)) \\
     \implies & (\exists g) (g \text{ a function} \land \dom g = \dom f \land (\forall x) (x \in \dom f \implies g(x) \in f(x)))).
@@ -2013,7 +2016,7 @@ Those are all the ZF axioms.
   We have not proven ZF is consistent, i.e.\ there exists a model of ZF. Sadly, by one of Gödel incomplete theorem ZF~\(\nyields\)~``ZF has a model'', so no proof in ordinary maths (including ZF, ZFC etc).
 \end{remark}
 
-In this course, every theorem we prove about ZF will be preceded with the premise that, either explicitly or implicitly, it holds in a model of ZF. Thus incompleteness does not pose a problem to our theory, although to make some practical sense out of the theory, we better have some faith in the existence of such a model!
+In this course, every theorem we prove about ZF will be preceeded with the premise that, either explicitly or implicitly, it holds in a model of ZF. Thus incompleteness does not pose a problem to our theory, although to make some practical sense out of the theory, we better have some faith in the existence of such a model!
 
 \subsection{Properties of ZF}
 
@@ -2022,12 +2025,12 @@ In this course, every theorem we prove about ZF will be preceded with the premis
   \[
     (\forall y) ((\exists z) (y \in z \land z \in x) \implies y \in x),
   \]
-  i.e.\ \(\bigcup x = x\).
+  i.e.\ \(\bigcup x \subseteq x\).
 \end{definition}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(2 = \{\emptyset, \{\emptyset\}\}\) is transitive.
+  \item Every member of \(\omega\), e.g.\ \(2 = \{\emptyset, \{\emptyset\}\}\), is transitive.
   \item \(\omega\) is transitive as \(n = \{0, 1, \dots, n - 1\}\) for all \(n \in \omega\).
   \end{enumerate}
 \end{eg}
@@ -2038,7 +2041,7 @@ In this course, every theorem we prove about ZF will be preceded with the premis
 
 \begin{remark}\leavevmode
   \begin{enumerate}
-  \item It officially says: let \((V, \in)\) be a model of ZF, then in \(V\) this statement holds, or equivalently, ZF~\(\yields\)~the statement.
+  \item It officially says: let \((V, \in)\) be a model of ZF, then in \(V\) this statement holds, or equivalently, ZF~\(\yields\)~the statement (by completeness).
   \item Any intersection of transitive sets is transitive, so we will know that there exists a \emph{least} transitive set containing \(x\), called the \emph{transitive closure}\index{transitive closure} of \(x\), written \(TC(x)\).
   \end{enumerate}
 \end{remark}
@@ -2064,14 +2067,14 @@ In this course, every theorem we prove about ZF will be preceded with the premis
   \end{align*}
   Then attempts exist, i.e.
    \[
-    (\forall n \in \omega) (\exists f) (f \text{ attempt} \land n \in \dom f)
+    (\forall n) (\exists f) (f \text{ attempt} \land n \in \dom f)
   \]
   and are unqiue wherever they are defined, i.e.
   \begin{align*}
-    & (\forall m \in \omega) (\forall f) (\forall f') ((f, f' \text{ attempts} \land n \in \dom f \land n \in \dom f') \\
+    & (\forall n) (\forall f) (\forall f') ((f, f' \text{ attempts} \land n \in \dom f \land n \in \dom f') \\
     \implies & f(n) = f'(n))
   \end{align*}
-  by \(\omega\)-induction. So take \(p(y, z)\) to be
+  by \(\omega\)-induction. So take function-class \(p(y, z)\) to be
   \[
     (\exists f) (f \text{ an attempt} \land y \in \dom f \land f(y) = z).
   \]
@@ -2081,20 +2084,20 @@ In this course, every theorem we prove about ZF will be preceded with the premis
   This is a ``good'' use of axiom of replacement.
 \end{remark}
 
-Now let's take a look at axiom of foundation. THe slogan says ``sets are built out of simpler set'', but does it achieve what it claims to do, or are we just banning things randomly for no reason? Actually there exists a good test: if the slogan is true, then suppose \(p(y) \forall \in x\) implies \(p(x)\), we have \(p(x) \forall x\), 
+Now let's take a look at axiom of foundation. The slogan says ``sets are built out of simpler set'', but does it achieve what it claims to do, or are we just banning things randomly for no reason? Actually there exists a good test: if the slogan is true, then suppose \(p(y) \forall y \in x\) implies \(p(x)\), we have \(p(x) \forall x\), 
 
 \begin{theorem}[Principle of \(\in\)-induction]\index{\(\in\)-induction}
   Let \(p\) be a formula, free variables \(x, t_1, \dots, t_n\). Then
   \[
-    (\forall t_1) \cdots (\forall t_n) ((\forall x) (\forall y) (y \in x \implies p(y)) \implies p(x)) \implies (\forall x) p(x)
+    (\forall t_1) \cdots (\forall t_n) ((\forall x) ((\forall y) (y \in x \implies p(y)) \implies p(x))) \implies (\forall x) p(x)
   \]
   where \(p(y)\) means \(p[y/x]\), \(p(x)\) means \(p\).
 \end{theorem}
 
 \begin{proof}
-  Given \(t_1, \dots, t_n\), have \(p(y) \forall y \in x \implies p(x)\), and suppose \((\forall x) p(x)\) is not true, so \((\exists x) (\neg p(x))\). We want to say: ``choose \(\in\)-minimal of \(\{x: \neg p(x)\}\)'', then contradiction. But this might not be a set, e.g.\ if \(p(x)\) is \(x \neq x\). This is where transitive closure comes in.
+  Given \(t_1, \dots, t_n\), have \(p(y) \forall y \in x \implies p(x)\), and suppose \((\forall x) p(x)\) is not true, so \((\exists x) (\neg p(x))\). We want to say: ``choose \(\in\)-minimal \(y\) of \(\{x: \neg p(x)\}\)'', then \(\neg p(t)\), but \(p(s) \forall s \in t\), contradiction. But this might not be a set, e.g.\ if \(p(x)\) is \(x \neq x\). This is where transitive closure comes in.
 
-  Let \(t = TC(\{x\})\) so \(x \in t\) and \(\neg p(x)\). Let \(u = \{y \in t: \neg p(y)\}\) and let \(y\) be an \(\in\)-minimal element of \(u\). Then \(\neg p(y)\). But \((\forall z \in y) p(z)\) (as \(z \in y \implies z \in t\) and \(y\) is \(\in\)-minimal in \(n\)), contradiction.
+  Let \(t = TC(\{x\})\) so \(x \in t\) and \(\neg p(x)\). Let \(u = \{y \in t: \neg p(y)\}\). Obviously \(u \neq \emptyset\) so let \(y\) be an \(\in\)-minimal element of \(u\). Then \(\neg p(y)\). But \((\forall z \in y) p(z)\) (as \(z \in y \implies z \in t\) and \(y\) is \(\in\)-minimal in \(n\)), so \(p(y)\). Contradiction.
 \end{proof}
 
 \begin{remark}\leavevmode
@@ -2104,7 +2107,7 @@ Now let's take a look at axiom of foundation. THe slogan says ``sets are built o
     \[
       (\forall y) (x \in y \implies y \text{ has an \(\in\)-minimal element}).
     \]
-    Then axiom of foundation says every set is regular. To prove this by \(\in\)-induction, given \(y\) regular for all \(y \in x\), want \(x\) to be regular. For \(x \in z\), if \(x\) is minimal then done.If not, some \(y \in x\) has \(y \in z\). But \(y\) is regular so \(z\) has a minimal element.
+    Then axiom of foundation says every set is regular. To prove this by \(\in\)-induction, given \(y\) regular for all \(y \in x\), want \(x\) to be regular. For \(x \in z\), if \(x\) is minimal then done. If not, some \(y \in x\) has \(y \in z\). But \(y\) is regular so \(z\) has a minimal element.
   \end{enumerate}
 \end{remark}
 
@@ -2597,13 +2600,13 @@ And by the same reasoning above,
 \section{Classes}
 \label{sec:classes}
 
-\(x \mapsto \{x\}\) for all \(x\) looks like a function, but isn't because the ``domain'' is too big: every function \(f\) has a domain \(\dom f\) (defined as a suitable subset of \(V \cap f\)) and this ``function'' would have domain \(V\), absurd as there is no universal set, i.e.\ \(\neg (\exists x) (\forall y) (y \in x)\) (Russel's paradox).
+\(x \mapsto \{x\}\) for all \(x\) looks like a function, but isn't because the ``domain'' is too big: every function \(f\) has a domain \(\dom f\) (defined as a suitable subset of \(V \cup f\)) and this ``function'' would have domain \(V\), absurd as there is no universal set, i.e.\ \(\neg (\exists x) (\forall y) (y \in x)\) (Russell's paradox).
 
 \begin{definition}[Class]\index{class}
-  For an \(L\)-structure \(V\), a collection \(C\) of elements of \(V\) is called a \emph{class} if there is a formula \(p\), free variables \(x\) (parameterised), such that \(x \in C\) if and only if \(p(x)\) holds in \(V\).
+  For an \(L\)-structure \((V, \in)\), a collection \(C\) of points of \(V\) is called a \emph{class} if there is a formula \(p\), free variables \(x\) (parameterised), such that \(x\) belongs to \(C\) if and only if \(p(x)\) holds in \(V\).
 \end{definition}
 
-Here ``collection'' is simply a subset, in the true maths world. But to avoid confusion with subset in the sense of ZF we give it an alias.
+Here ``collection'' is simply a set, in the true maths world. But to avoid confusion with subset in the sense of ZF we give it an alias. Same for ``points'' and ``belongs to''.
 
 \begin{eg}\leavevmode
   \begin{enumerate}

@@ -22,7 +22,7 @@
 \author{\nauthor}
 \date{\ndate}
 
-\usepackage{microtype}
+%\usepackage{microtype}
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{stmaryrd}%symbols used so far: \mapsfrom
@@ -45,6 +45,8 @@
 \AtBeginDocument{\let\Im\relax}
 \AtBeginDocument{\DeclareMathOperator{\Re}{Re}}
 \AtBeginDocument{\DeclareMathOperator{\Im}{Im}}
+\AtBeginDocument{\let\div\relax}
+\AtBeginDocument{\DeclareMathOperator{\div}{div}}
 
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning}
@@ -195,7 +197,9 @@
 \DeclareMathOperator{\PGL}{PGL}
 \DeclareMathOperator{\PSL}{PSL}
 \DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\UU}{U}
 \DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\OO}{O}
 \DeclareMathOperator{\PSU}{PSU}
 
 %hyperbolic
@@ -296,6 +300,7 @@
 %differential geometry
 \renewcommand*{\H}{\mathbb{H}}
 \newcommand*{\transversal}{\pitchfork}
+\renewcommand{\d}{\mathrm{d}} % exterior derivative
 
 %number theory
 \newcommand*{\legendre}[2]{\genfrac{(}{)}{}{}{#1}{#2}}%Legendre symbol

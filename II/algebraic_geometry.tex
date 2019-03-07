@@ -17,13 +17,8 @@
 \DeclareMathOperator{\Der}{Der} % derivation
 \newcommand{\rational}{\dashrightarrow} % rational map
 \DeclareMathOperator{\Div}{Div} % divisor
-%\let\div\relax
-%\DeclareMathOperator{\div}{div}
 
 
-
-%\let\div\relax
-%\AtBeginDocument{DeclareMathOperator{\div}{div}}
 
 \begin{document}
 
@@ -1686,7 +1681,7 @@ As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \
 \begin{eg}
   If \(X = \P^1\) and \(\deg D = n \geq 0\) then \(\ell(D) = \deg D + 1\).
 
-  Proof: by 3, this only depends on \([D] \in \Cl \P^1 = \Z\), so may as well take \(D = n (\infty)\) and we have \(\ell(n (\infty)) = n + 1\).
+  Proof: by 3, this only depends on \([D] \in \Cl (\P^1) \cong \Z\), so may as well take \(D = n (\infty)\) and we have \(\ell(n (\infty)) = n + 1\).
 \end{eg}
 
 \begin{eg}
@@ -2065,12 +2060,12 @@ Need to show that \(\nu_p(\omega)\) is independent of choice of local parameter 
 \begin{definition}
   The divisor of a Kähler form is defined to be
   \[
-    \dim \omega = \sum_{p \in X} \nu_p(\omega) p \in \Div(X).
+    \div \omega = \sum_{p \in X} \nu_p(\omega) p \in \Div(X).
   \]
 \end{definition}
 We have just shown that this is a finite sum and indeed well-defined.
 
-As \(\div (f\omega) = \div v + \div \omega\), the class of \(\div(\omega)\) in \(\Cl(X)\) is \emph{independent} of \(\omega\). This is called the \emph{canonical class}\index{canonical class} \(\mathcal K_X = [\div \omega]\) for any \(0 neq \omega \in \Omega^1_{k(X)/k}\).
+As \(\div (f\omega) = \div f + \div \omega\), the class of \(\div(\omega)\) in \(\Cl(X)\) is \emph{independent} of \(\omega\). This is called the \emph{canonical class}\index{canonical class} \(\mathcal K_X = [\div \omega]\) for any \(0 \neq \omega \in \Omega^1_{k(X)/k}\).
 
 Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
 \begin{align*}
@@ -2096,10 +2091,10 @@ Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
     \[
       \d x = d \left( \frac{1}{t} \right) = -\frac{1}{t^2} \d t
     \]
-    so \(\nu_\infty(\d x) = -2\) so \(\div(\d x) = -2 \infty = \mathcal K_X\). Thus \(\deg \mathcal K_X = 0\). Then by a lemma \(\ell(\mathcal K_X) = 0\) so \(\P^1\) has genus \(0\).
+    so \(\nu_\infty(\d x) = -2\) so \(\div(\d x) = -2 \infty = \mathcal K_X\). Thus \(\deg \mathcal K_X = 0\). Then by a lemma \(\ell(\mathcal K_X) = -2\) so \(\P^1\) has genus \(0\).
   \item \(y^2 = f(x) = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) where \(\lambda_i\)'s distinct. This gives \(X = E \subseteq \P^2\) with a unique point at \(\infty\), \(P_\infty = [0:1:0]\). Take derivative, \(2 y \d y = f'(x) \d x\). Let's consider the 1-form
     \[
-      \omega = \frac{\d x}{y} = \frac{2 ]d y}{f'(x)} \in \Omega^1_{k(E)/k}.
+      \omega = \frac{\d x}{y} = \frac{2 \d y}{f'(x)} \in \Omega^1_{k(E)/k}.
     \]
     Need to compute \(\div \omega\). Given \(p = (x_0, y_0) \in \A^2\), if \(f'(x_0) \neq 0\) then \(y - y_0\) is a local coordinate so
     \[
@@ -2134,7 +2129,7 @@ Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
     \[
       \nu_{P_\infty}(u - \lambda_i v) \geq 1
     \]
-    so \(\nu_{P_\infty}(v) \geq 3\). Thus \(\nu_{P_\infty}(u - \lambda_i v) = 1\) and \(\nu_{P_\infty}(v) = 3\). But then \(y = \frac{1}{y}\) so \(\nu_{P_\infty}(y) = -3\). So
+    so \(\nu_{P_\infty}(v) \geq 3\). Thus \(\nu_{P_\infty}(u - \lambda_i v) = 1\) and \(\nu_{P_\infty}(v) = 3\). But then \(y = \frac{1}{v}\) so \(\nu_{P_\infty}(y) = -3\). So
     \[
       \nu_{P_\infty}(x) = \nu_{P_\infty}(ux) = 1 - 3 = -2.
     \]
@@ -2149,6 +2144,205 @@ Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
     so \(\div \omega = 0\), i.e.\ \(\mathcal K_X = 0\). Thus \(g = \ell(0) = 1\). \(E\) has genus \(1\).
   \end{enumerate}
 \end{eg}
+
+\begin{definition}[elliptic curve]\index{elliptic curve}
+  A curve of genus \(1\) is called an \emph{elliptic curve}.
+\end{definition}
+We showed \(y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) has genus \(1\).
+
+\begin{proposition}
+  Let \(\mathcal X = Z(F) \subseteq \P^2\) be an irreducible smooth projective curve, \(F = F(X, Y, Z)\) homogeneous of degree \(d\). Then
+  \[
+    \mathcal K_X = (d - 3) [\mathcal X \cap H]
+  \]
+  where \(\mathcal X \cap H\) is the divisor of the intersection of any line \(H\) (i.e.\ hyperplane) with \(\mathcal X\). In particular
+  \[
+    \deg \mathcal K_X = d(d - 3).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let \(x = \frac{X}{Z}, y = \frac{Y}{Z}\) and \(f(x, y) = F(x, y, 1)\) be the equation of \(\mathcal X\) on \(\A^2\) which is the chart \(Z \neq 0\) in \(\P^2\). Differentiate,
+  \[
+    \d f = \frac{\partial f}{\partial x} \d x + \frac{\partial f}{\partial y} \d y = 0 \in \Omega_{k(X)/k}^1
+  \]
+  as \(f = 0 \in k(X)\). Take
+  \[
+    \omega = \frac{\d x}{\partial f/\partial y} = - \frac{\d y}{\partial f/\partial x}
+  \]
+  and need to compute \(\nu_p(\omega)\) for all \(p \in \mathcal X\).
+
+  Let \(p = (x_0, y_0) \in \A^2 \cap \mathcal X\). If \(\frac{\partial f}{\partial y}(p) \neq 0\) then \(x - x_0\) is a local coordinate at \(p\) so \(\omega = \frac{\d(x - x_0)}{\p f/\p y}\) has \(\nu_p(\omega) = 0\). If \(\frac{\partial f}{\partial x}(p) \neq 0\) then \(y - y_0\) is a local coordinate so \(\nu_p(\omega) = 0\). As \(\mathcal X\) is smooth by hypothesis, at least one of this is nonzero, so \(\nu_p(\omega) = 0\) for all \(p \in \A^2 \cap \mathcal X\), i.e.\ with the choice of \(\omega\), all contributions occur at the line at \(\infty\), which is \(z = 0\).
+
+  If necessary, change coordinates on the \(z = 0\) line so \([1:0:0] \notin \mathcal X\). Then \(\mathcal X \cap \{z = 0\}\) is contained in the chart \(Y \neq 0\). (the only case in which we can't do this operation is \(\{z = 0\} \subseteq \mathcal X\), but in this case \(X\) is just \(\P^1\)). Let
+  \begin{align*}
+    u &= \frac{Z}{Y} = \frac{1}{y} \\
+    v &= \frac{X}{Y} = \frac{x}{y}
+  \end{align*}
+  so \(u, v\) are coordinates on \(Y \neq 0\) chart. Now the equation of \(\mathcal X\) is given by
+  \[
+    g(u, v) = F(v, 1, u) = F(\frac{x}{y}, 1, \frac{1}{y}) = y^{-d} F(x, y, 1) = y^{-d} f(x, y),
+  \]
+  that is
+  \[
+    f(x, y) = y^d g(u, v).
+  \]
+  Now differentiate and use chain rule,
+  \[
+    \frac{\partial f}{\partial x}
+    = y^d \left( \frac{\partial g}{\partial v} \frac{\partial v}{\partial x} + \frac{\partial g}{\partial u} \underbrace{\frac{\partial u}{\partial x}}_{= 0} \right)
+    = y^{d - 1} \frac{\partial g}{\partial v}
+  \]
+  Also \(\d y = - \frac{1}{u^2} \d u\) so
+  \[
+    \omega = - \frac{\d y}{\p f/\p x} = u^{d - 3} \frac{\d u}{\p g/\p v} = u^{d - 3} \eta
+  \]
+  where
+  \[
+    \eta = \frac{\d u}{\p g/\p v} = - \frac{\d v}{\p g/\p u}
+  \]
+  For exactly the same reason as before, \(\nu_p(\eta) = 0\) for all \(p \in \A^2_{(u, v)} \cap \mathcal X\). Thus
+  \[
+    \nu_p(\omega) = (d - 3) \nu_p(u) + \nu_p(\eta) = (d - 3) \nu_p(u).
+  \]
+  Finally observe that
+  \[
+    \nu_p(u) = \nu_p(\frac{Z}{Y})
+  \]
+  is just the contact order of the line \(Z = 0\) with \(\mathcal X\), i.e.\ \([\mathcal X \cap \{Z = 0\}] = \sum_{p \in \mathcal X \subseteq \{Z = 0\}} \nu_p(\omega) p\), by definition.
+\end{proof}
+
+\section{Riemann-Roch}
+
+\begin{theorem}[classical Riemann-Roch]\index{Riemann-Roch theorem}
+  Let \(X\) be a smooth projective curve with genus \(g = g(X) = \ell(\mathcal K_X)\). Let \(D = \sum n_i P_i \in \Div(X)\). Then
+  \[
+    \ell(D) - \ell(\mathcal K_X - D) = 1 - g + \deg D.
+  \]
+\end{theorem}
+We will not prove this theorem but will spend the rest of the course understanding the statement and consequence of the theorem.
+
+Immediate consequences:
+\begin{enumerate}
+\item take \(D = 0\). As \(\ell(0) = 1\), this says that \(\ell(\mathcal K_X) = g\), which is the definition of genus.
+\item take \(D = \mathcal K_X\), we get \(\deg \mathcal K_X = 2g - 2\).
+\item If \(\deg D > 2g - 2\) then \(\deg (\mathcal K_X - D) < 0\) so \(\ell(\mathcal K_X - D) = 0\) so by Riemann-Roch,
+  \[
+    \ell(D) = 1 - g + \deg D.
+  \]
+  Warning: if \(0 < \deg D \leq 2g - 2\), the behaviour of \(\ell(D)\) is complicated as you vary \(D\) in \(\Cl^a(X)\), \(a = \deg D\) fixed, \(\ell\) can jump. In fact \(\Cl^a(X)\) is an algebraic variety and it stratifies into subvarieties according to \(\ell(D)\). This is \emph{Brill-Noether loci}.
+\item If \(\deg D > 2g\) then for all \(p, q \in X\),
+  \[
+    \ell(D - p - q) = \ell(D) - 2 = 1- g - 2 + \deg D.
+  \]
+  Hence by a previous theorem
+  \[
+    \alpha_D: X \to \P(L(D)^*) \cong \P^n
+  \]
+  is an embedding, with image a curve of degree \(\deg D\).
+\end{enumerate}
+
+\begin{corollary}
+  If \(\mathcal X\) is a smooth plane curve of degree \(d\), then as \(\deg \mathcal K_X = d(d - 3)\) then
+  \[
+    g = \frac{1}{2}(d - 1)(d - 2).
+  \]
+\end{corollary}
+
+For example if \(d = 1\) or \(2\), correponding to line and conics respectively, we have \(g = 0\). If \(d = 3\) then \(g\) = 1. In general we have a progression
+\[
+  0, 0, 1, 3, 6, 10, \cdots
+\]
+which does not have every natural number in there. Thus smooth projective of genus \(2, 4, 5, 7, \cdots\) cannot occur inside \(\P^2\).
+
+Let's study curves of small genus using Riemann-Roch.
+
+\begin{proposition}
+  \(X\) has genus \(0\) if and only if \(X = \P^1\).
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\impliedby\): done earlier.
+  \item \(\implies\): suppose \(X\) has genus \(0\). Let \(p \in X\). The divisor \((p)\) has degree \(1\). As \(1 > -2 = 2g - 2\), by Riemann-Roch \(\ell((p)) = 2\). But \(k = L(0) \subseteq L((p))\) so exists \(f \in L((p)) \setminus k\). Have \(\div(f) + (p) \geq 0\), i.e.\ \(f\) has a pole at \(p\) and no other pole. But \(\div(f)\) has degree \(0\), so \(\deg (\div(f) + (p)) = 1\), which is saying \(\div(f) = -(p) + (q)\) for some \(q \in X\). In addition \(p \neq q\) as \(f\) is not constant. As \(p \neq q\), \(f\) is not constant so \(\alpha = [1:f]: X \rational \P^1\) is a non-constant rational map, hence a morphism (as \(X\) is smooth) of degree \(1\). Thus by an exercise on example sheet 3 \(\alpha\) is an isomorphism.
+  \end{itemize}
+\end{proof}
+Note that there are two parts of the proof: we showed that if \(\ell((p)) = 2\) for some \(p \in X\) then \(X \cong \P^1\), and we used Riemann-Roch to show such \(p\) exists.
+
+\subsection{Curve of genus 1}
+
+Let \(X\) be a smooth projective curve with genus \(g = 1\). Then by Riemann-Roch, if \(\deg D > 0\) then \(\ell(D) = \deg D\).
+
+Fix a point \(p_\infty \in X\). Have
+\[
+  \underbrace{L(0)}_k \subseteq \underbrace{L(p_\infty)}_k \subsetneq \underbrace{L(2p_\infty)}_{k\langle 1, x \rangle} \subsetneq \underbrace{L(3p_\infty)}_{k \langle 1, x, y\rangle} \subsetneq \cdots
+\]
+where we choose \(x \in L(2p_\infty) \setminus k, y \in L(3p_\infty) \setminus L(2p_\infty)\). As before, \(L(6p_\infty)\) containes \(1, x, y, x^2, xy, x^3, y^2\). But \(\dim L(6p_\infty) = 6\) so there exist a linear relation between these monomials, with \(x^3, y^2\) appearing with non-zero coefficients (as \(1, x, y, x^2, xy \in L(5 p_\infty)\) are linearly independnet, and we cannot have only one of \(x^3, y^2\) with nonzero coefficient by considering the degree of pole at \(\infty\)). Rescale \(x \mapsto \lambda x, y \mapsto \mu y\), we get a relation in \(k(X)\)
+\[
+  y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6
+\]
+for some \(a_i \in k\). This equation defines a curve \(C_0\) in \(\A^2\) (exericse: this is irreducible) with a unique point at \(\infty\), call it \(p_\infty\), so \(C = C^0 \cup \{p_\infty\} \subseteq \P^2\), and
+\[
+  \alpha_{3p_\infty} = [1:x:y]: X \to \P^2
+\]
+maps \(X\) into \(C\). As \(\alpha_{3p_\infty}\) is not constant and \(C\) is irreducible, this map is surjective. The embedding criterion tells us \(\alpha_{3p_\infty}\) is an isomorphism \(X \cong C\).
+
+We can do better: if \(\ch k \neq 3\), we can complete the cube by \(x \mapsto x - \frac{a_2}{3}\) so the equation becomes (by renaming the coefficients)
+\[
+  y^2 + a_1xy + a_3y = x^3 + a_4x + a_6.
+\]
+If \(\ch k \neq 2\), we can complete the square by \(y \mapsto y - \frac{a_1x + a_3}{2}\) to get
+\[
+  y^2 = x^3 + q_2x^2 + a_4x + a_6.
+\]
+Combining these two, if \(\ch k \neq 2, 3\), do them in this order to get
+\[
+  y^2 = x^3 + a_4x + a_6 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)
+\]
+for \(\lambda_i\)'s distinct (smoothness!).
+
+\begin{theorem}
+  Every curve of genus \(1\) is isomorphic to a smooth plane curve of the form
+  \[
+    y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6.
+  \]
+\end{theorem}
+
+Every curve of genus \(1\) is a group by the following:
+\begin{proposition}
+  Let \(E\) be a curve of genus \(1\), \(p_\infty \in E\). Then the map
+  \begin{align*}
+    E &\to \Cl^0(E) \\
+    p &\mapsto [p - p_\infty]
+  \end{align*}
+  is a bijection.
+\end{proposition}
+
+\begin{proof}
+  For injectivity, if \(p - p_\infty = q - p_\infty\) in \(\Cl(E)\) the \(p - q = \div (f)\) for some \(f \in k(E)\). But the \([1:f]: E \to \P^1\) is an isomorphism, contradicting \(E\) having genus \(1\).
+
+  For surjectivity, if \(D \in \Div(E)\) and \(\deg D = 0\), then
+  \[
+    \deg(D + (p_\infty)) = 1 > 2g - 2 = 0
+  \]
+  so by Riemann-Roch \(\ell(D + p_\infty) = 1\). Let \(0 \neq f \in L(D + p_\infty)\) so \(D + p_\infty + \div (f) \geq 0\). Bu the degree of this is \(1\), so this says as \(D + p_\infty + \div(f) = q\), i.e.\ \(D = q - p_\infty\) in \(\Cl(E)\).
+\end{proof}
+
+\begin{corollary}
+  \(E\) is an algebraic group, where the group operation \(\boxplus\) is define by
+  \[
+    p \boxplus q = R \iff (p - p_\infty) + (q - p_\infty) = (R - p_\infty)
+  \]
+  in \(\Cl(E)\), i.e.\ if \(P + Q = R + p_\infty\) in \(\Cl(E)\).
+\end{corollary}
+Notice that the zeroes of this addition law is \(p_\infty\).
+
+In fact, the group law is algebraic: consider \(\alpha_{3p_\infty}: E \to \P^2\). Give \(\P^2\) coordinate \(X, Y, Z\). As we know \(E \subseteq \{Z = 0\} = 3p_\infty\) and if \(L = \{\ell = 0\}\) is any line in \(\P^2\), \([L \cap E] = p_1 + p_2 + p_3\) and \(\div(\ell/z) = p_1 + p_2 + p_3 - 3p_\infty\). Note \(\ell/z \in k(E)\). Thus \(p_1 + p_2 + p_3 = 3p_\infty\) in \(\Cl(E)\), i.e.
+\[
+  p_1 \boxplus p_2 \boxplus p_3 = p_\infty \boxplus p_\infty \boxplus p_\infty = p_\infty.
+\]
+Thus choose any line \(L\), it intersects \(E\) at three points, ad the sum of the three points in the group is \(p_\infty\).
+
 
 
 
