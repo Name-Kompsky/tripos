@@ -1209,7 +1209,7 @@ Then \(\mathfrak p \divides p \O_L\) and \(\n(\mathfrak p) = p^f\) for some \(f 
   \[
     A/pA \cong \Z[x]/(p, f(x)) \cong \F_p[x]/(\red f(x)).
   \]
-  We have \(\red f(x) = \prod_{i = 1}^r \red g_i(x)^{e_1}\), so there are homomorphisms
+  We have \(\red f(x) = \prod_{i = 1}^r \red g_i(x)^{e_i}\), so there are homomorphisms
   \[
     \F_p[x]/(\red f(x)) \to \F_p[x]/(\red g_i(x))
   \]
@@ -1943,7 +1943,7 @@ Now we start the proof of \nameref{thm:Dirichlet unit}, which in non-examinable.
   \]
 
   \begin{lemma}
-    Extend \(\ell\) to \(\O_L\). Let \(\alpha \in \O_L \setminus \{0\}\) such that \(\ell(\alpha) = (a_1, \dots, a_{r + s})\). Fix an integer \(1 \leq k \leq r + s\). Then there exists \(\beta \in \O_L \setminus \{0\}\) such that if \(\ell(\beta) = (b_1, \dots, b_{r + s}) \in \R^{r + s}\) then \(b_i < a_i\) if \(i \neq k\). Moreover,
+    Extend \(\ell\) to \(\O_L \setminus \{0\}\). Let \(\alpha \in \O_L \setminus \{0\}\) be such that \(\ell(\alpha) = (a_1, \dots, a_{r + s})\). Fix an integer \(1 \leq k \leq r + s\). Then there exists \(\beta \in \O_L \setminus \{0\}\) such that if \(\ell(\beta) = (b_1, \dots, b_{r + s}) \in \R^{r + s}\) then \(b_i < a_i\) if \(i \neq k\). Moreover,
     \[
       \n(\beta) \leq \left( \frac{2}{\pi} \right)^s \sqrt{|D_L|}.
     \]
@@ -2038,7 +2038,7 @@ Now we start the proof of \nameref{thm:Dirichlet unit}, which in non-examinable.
     \[
       \ell(u) - \lambda \in \left\{ \sum_{i = 1}^{r + s - 1} t_i \ell(v_i): t_i \in [0, 1) \text{ for all } 1 \leq i \leq r + s - 1 \right\} = P.
     \]
-    But the set of units \(\ell^{-1}(P)\) is finite by \Cref{lem:Dirichlet lemma 4}. Hence the quotient \(\ell(\O_L^\times)/\Lambda\) is finite. By Lagrange, there exists \(N \in \Z, N \geq 1\) such that \(N \cdot \ell(\O_L^\times) \leq \Lambda\). Hence
+    But the set of units in \(\ell^{-1}(P)\) is finite by \Cref{lem:Dirichlet lemma 4}. Hence the quotient \(\ell(\O_L^\times)/\Lambda\) is finite. By Lagrange, there exists \(N \in \Z, N \geq 1\) such that \(N \cdot \ell(\O_L^\times) \leq \Lambda\). Hence
     \[
       \Lambda \leq \ell(\O_L^\times) \leq \frac{1}{N} \Lambda.
     \]
@@ -2111,7 +2111,7 @@ From now on \(p\) is an odd prime.
   \]
   In particular, \(f_p(\zeta_p) = 0\) and \([K: \Q] \leq p - 1\). We also have
   \[
-    f_p(1) = p = \prod_{j = 1}^{p - 1} (1 - \zeta_p^i).
+    f_p(1) = p = \prod_{j = 1}^{p - 1} (1 - \zeta_p^j).
   \]
   Claim that for \(1 \leq j < p\),  we have \((1 - \zeta_p^j) = (1 - \zeta_p)\) as ideals of \(\O_K\). We show this by exhibiting inclusion both ways:
   \[
@@ -2167,7 +2167,7 @@ From now on \(p\) is an odd prime.
   \[
     \disc(\O_K) [\O_K: \Z[\zeta_p]]^2 = \disc(1, \zeta_p, \dots, \zeta_p^{p - 2}) = \pm p^{p - 2}.
   \]
-  Hence \(\Z[\zeta_p] \subseteq \O_K\) if of \(p\)-power index, which we are going to prove to be \(1\). Look at the quotient ring \(\O_K/(1 - \zeta_p)\), which has order \(\n(1 - \zeta_p) = p\) so is just the finite field of \(p\) elements. Thus the characteristic homomorphism \(\Z \to \O_K/(1 - \zeta_p)\) is surjective. Hence for any \(z_0 \in \O_K\), there exists \(a_0 \in \Z, z_1 \in \O_K\) such that
+  Hence \(\Z[\zeta_p] \subseteq \O_K\) is of \(p\)-power index, which we are going to prove to be \(1\). Look at the quotient ring \(\O_K/(1 - \zeta_p)\), which has order \(\n(1 - \zeta_p) = p\) so is just the finite field of \(p\) elements. Thus the characteristic homomorphism \(\Z \to \O_K/(1 - \zeta_p)\) is surjective. Hence for any \(z_0 \in \O_K\), there exists \(a_0 \in \Z, z_1 \in \O_K\) such that
   \[
     z_0 = a_0 + (1 - \zeta_p)z_1.
   \]
@@ -2326,10 +2326,10 @@ Again we will not prove this. Instead we will prove
   \]
 \end{theorem}
 
-Kummer called this the ``first case'' of Fermat's Last Theorem. He dealt with the ``second case'' (where \(p \divides xzy\)) using similar techniques.
+Kummer called this the ``first case'' of Fermat's Last Theorem. He dealt with the ``second case'' (where \(p \divides xyz\)) using similar techniques.
 
 \begin{proof}
-  Let \(x, y, z \in \Z\) such that \(x^p + y^p + z^p = 0\), \(p \ndivides xyz\). Wlog \(\gcd(x, y, z) = 1\). Then we factor
+  Let \(x, y, z \in \Z\) such that \(x^p + y^p + z^p = 0\), \(p \ndivides xyz\). wlog \(\gcd(x, y, z) = 1\). Then we factor
   \[
     x^p + y^p = \prod_{i = 0}^{p - 1} (x + \zeta_p^i y) = -z^p \in \Z[\zeta_p].
   \]
@@ -2341,7 +2341,7 @@ Kummer called this the ``first case'' of Fermat's Last Theorem. He dealt with th
     \]
     If \(\mathfrak q \divides (y)\) then \(\mathfrak q \divides (z)\) so \(\mathfrak q \divides (x)\). Taking norm, we get \(\ell \divides \gcd(x, y, z)\) where \(\n(\mathfrak q) = \ell^f\), absurd.
 
-    If \(\mathfrak q \divides (1 - \zeta_p) \). Hence \(\mathfrak q = (1 - \zeta_p)\) and \((1 - \zeta_p) \divides (z)\) so \(p \divides z\), absurd.
+    If \(\mathfrak q \divides (1 - \zeta_p) \) then \(\mathfrak q = (1 - \zeta_p)\) and \((1 - \zeta_p) \divides (z)\) so \(p \divides z\), absurd.
   \end{proof}
 
   Thus by
@@ -2451,7 +2451,7 @@ Alternatively we may define \(B_n\) as
 \[
   B_n = -n\zeta(1 - n)
 \]
-where \(\zeta(s)\) is the Riemann zeta function. This is not coincidental. In fact the Riemann zeta function and its generalisation are closed related to the arithmetic of number fields.
+where \(\zeta(s)\) is the Riemann zeta function. This is not coincidental. In fact the Riemann zeta function and its generalisation are closely related to the arithmetics of number fields.
 
 \begin{definition}[Dedekind zeta function]\index{Dedekind zeta function}
   Let \(L\) be a number field. Its \emph{Dedekind zeta function} is

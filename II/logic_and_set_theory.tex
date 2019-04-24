@@ -10,7 +10,7 @@
 
 \input{header}
 
-\DeclareMathOperator{\dom}{dom}%domain of a function
+\DeclareMathOperator{\dom}{dom} %domain of a function
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\card}{card}
 
@@ -614,7 +614,7 @@ We have shown that well-orderings can be compared, but are they totally ordered?
   For \(X\) of order-type \(\alpha\) and \(Y\) of order-type \(\beta\), write \(\alpha \leq \beta\) if \(X \leq Y\). This is well-defined. Similarly \(\alpha < \beta\) and so on.
 \end{notation}
 
-Equipped with these definitions, we now know for all \(\alpha, \beta\), \(\alpha \leq \beta\) or \(\beta \leq \alpha\) and if \(\alpha \leq \beta, \beta \leq \alpha\) then \(\alpha = \beta\), i.e.\ ordinals are total ordered. But are they well-ordered?
+Equipped with these definitions, we now know for all \(\alpha, \beta\), \(\alpha \leq \beta\) or \(\beta \leq \alpha\) and if \(\alpha \leq \beta, \beta \leq \alpha\) then \(\alpha = \beta\), i.e.\ ordinals are totally ordered. But are they well-ordered?
 
 \begin{theorem}
   Let \(\alpha\) be an ordinal. Then the ordinals \(< \alpha\) form a well-ordered set with order-type \(\alpha\).
@@ -708,7 +708,7 @@ For example, we can well-order \(\N\) and \(\Q\), but what about \(\R\)? Unfortu
 \end{theorem}
 
 \begin{proof}
-  The idea is to take the supremum of all countable ordinals, but first we have to check that it is a set, meaning that we can build it from existing sets using rules such as intersection, cartesian product, images of functions etc.
+  The idea is to take the supremum of all countable ordinals, but first we have to check that it is a set, meaning that we can build it from existing sets using operations such as intersection, cartesian product, images of functions etc.
 
   Let
   \[
@@ -798,7 +798,7 @@ We can see that addition is not commutative. The is because in the definition of
       &= \sup \{(\alpha + \beta) + \lambda: \lambda < \gamma\} \\
       &= \sup \{\alpha + (\beta + \lambda): \lambda < \gamma\}
     \end{align*}
-    On the other hand, we need to evaluate \(\alpha + (\beta + \gamma)\). Claim \(\beta + \gamma\) is a limit, i.e.\ \(\sup \{\beta + \lambda: \lambda < \gamma\}\) is a limit: for any \(\beta + \lambda\), since \(\gamma\) is a limit, there exists \(\lambda'\) such that \(\lambda < \lambda' < \gamma\). Thus \(\beta + \lambda < \beta + \lambda'\). Thus \(\beta + \lambda\) is not the greatest element. Therefore
+    On the other hand, we need to evaluate \(\alpha + (\beta + \gamma)\). Claim \(\beta + \gamma\) is a limit, i.e.\ \(\beta + \gamma = \sup \{\beta + \lambda: \lambda < \gamma\}\): for any \(\beta + \lambda\), since \(\gamma\) is a limit, there exists \(\lambda'\) such that \(\lambda < \lambda' < \gamma\). Thus \(\beta + \lambda < \beta + \lambda'\). Thus \(\beta + \lambda\) is not the greatest element. Therefore
     \[
       \alpha + (\beta + \gamma) = \sup \{\alpha + \lambda: \lambda < \beta + \gamma\}.
     \]
@@ -903,7 +903,7 @@ Similarly we can define towers and other arithmetic operations inductively. It i
   \begin{enumerate}
   \item reflexive: for all \(x\), \(x \leq x\),
   \item transitive: for all \(x, y, z\), \(x \leq y, y \leq z\) implies \(x \leq z\),
-  \item antisymmetry: for all \(x, y\), \(x \leq y, y \leq x\) implies \(x = y\).
+  \item antisymmetric: for all \(x, y\), \(x \leq y, y \leq x\) implies \(x = y\).
   \end{enumerate}
 \end{definition}
 
@@ -1085,7 +1085,7 @@ A typical application of Knaster-Tarski is
 Posets need not have a maximal element, for example \(\N, \Q, \R\) with the ususal order. We notice something in common: in each of thoses cases, there exists a chain without an upper bound.
 
 \begin{theorem}[Zorn's lemma]\index{Zorn's lemma}
-  Let \(X\) be a (non-empty) set in which every chain has an upper bound, then \(X\) has a maximal element.
+  Let \(X\) be a (non-empty) poset in which every chain has an upper bound, then \(X\) has a maximal element.
 \end{theorem}
 
 \begin{proof}
@@ -1186,12 +1186,12 @@ One final application:
 \end{proof}
 
 \begin{remark}
-  Proof of Zorn's lemma was easy because we knew ordinals, recursion  and Hartog's lemma.
+  Proof of Zorn's lemma was easy because we knew ordinals, recursion  and Hartogs' lemma.
 \end{remark}
 
 \subsection{Zorn's Lemma and Axiom of Choice}
 
-In the proof of Zorn's lemma, we chose for each \(x \in X\) an \(x' > x\) --- i.e.\ we made infinitely many arbitrary choices (note that this has nothing to do with Hartog's lemma. We made infinitely many choices even by the time we get to \(x_\omega\)). We did the same in IA Numbers and Sets, in proving that the countable union of countable sets is countable: we chose for each set in the family an ordering whereof.
+In the proof of Zorn's lemma, we chose for each \(x \in X\) an \(x' > x\) --- i.e.\ we made infinitely many arbitrary choices (note that this has nothing to do with Hartogs' lemma. We made infinitely many choices even by the time we get to \(x_\omega\)). We did the same in IA Numbers and Sets, in proving that the countable union of countable sets is countable: we chose for each set in the family an ordering whereof.
 
 In terms of ``rules for building sets'', this is appealing to \emph{axiom of choice}, which says that we may choose an element of each set in a family of non-empty sets. More precisely,
 
@@ -1356,7 +1356,7 @@ Let \(\Omega, \Pi\) be disjoint sets and set \(\alpha: \Omega \cup \Pi \to \N\).
   \(e, m(e, e), m(e, m(e, e))\) are closed terms, but \(m(x, i(x))\) isn't.
 \end{eg}
 
-\begin{definition}[Bound \& free variable]\index{variable!bound}\index{variable!free}
+\begin{definition}[Bound/free variable]\index{variable!bound}\index{variable!free}
   An occurrence of variable \(x\) in formula \(p\) is \emph{bound} if it is inside the brackets of a ``\(\forall x\)'' quantifier. Otherwise it is \emph{free}.
 \end{definition}
 
@@ -1504,7 +1504,7 @@ As before, we need some logical axioms. There are 7 of them: 3 from propositiona
 \item \((\neg\neg p) \implies p\) for any formula \(p\).
 \item \((\forall x) (x = x)\) for any variable \(x\).
 \item \((\forall x) (\forall y) ((x = y) \implies (p \implies p[y/x]))\) for any variables \(x, y\) and formula \(p\) in which \(y\) does not occur bound.
-\item \((\forall x) (p) \implies p[t/x]\) for any vairable \(x\), term \(t\) and formula \(p\) with no variable in \(t\) occurring bound in \(p\).
+\item \((\forall x) (p) \implies p[t/x]\) for any variable \(x\), term \(t\) and formula \(p\) with no variable in \(t\) occurring bound in \(p\).
 \item \(((\forall x) (p \implies q)) \implies (p \implies (\forall x) q)\) for any variable \(x\) and formulæ \(p, q\) with \(x\) not occurring free in \(p\).
 \end{enumerate}
 
@@ -1653,7 +1653,7 @@ Unlike most other proofs we have met in tripos, this proof has not one, not two,
 By remark before, have
 
 \begin{corollary}[Adequacy]\index{adequacy}
-  Let \(S \subseteq L, p \in L\). Then if \(S \models p\) then \(S \implies p\).
+  Let \(S \subseteq L, p \in L\). Then if \(S \models p\) then \(S \yields p\).
 \end{corollary}
 
 \begin{theorem}[Gödel completeness theorem for first-order logic]\index{completeness}\index{Gödel completeness theorem for first-order logic}
@@ -1786,7 +1786,7 @@ Note that in PA the only constant is \(0\). We write \(1 = s(0), 2 = 1 + 1 = s(1
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item The set of square numbers. \(p(x)\) is \((\exists x) (y \times y = x)\).
+  \item The set of square numbers. \(p(x)\) is \((\exists y) (y \times y = x)\).
   \item The set of primes. \(p(x)\) is \(\neg (x = 0) \land \neg (x = 1) \land (\forall y) (y \divides x \implies y = 1 \lor y = x)\) where \(y \divides x\) means \((\exists z) (y \times z = x)\). 
   \item Powers of \(2\). \(p(x)\) is \((\forall x) ((y \divides x \land y \text{ prime}) \implies y = 2)\).
   \end{enumerate}
@@ -1831,10 +1831,10 @@ There are 9 ZF axioms in total: 2 to get started, 4 to build things and the last
     (\forall x) (\forall y) ((\forall z) (z \in x \iff z \in y) \implies x = y).
   \]
 \end{axiom*}
-``If two sets have the same member, then they are equivalent.''
+``If two sets have the same member, then they are equal.''
 
 \begin{note}
-  The converse is also true, which is an instance of logical axiom.
+  The converse is also true, which is an instance of a logical axiom.
 \end{note}
 
 \begin{axiom*}[Axiom of separation]
@@ -1843,7 +1843,7 @@ There are 9 ZF axioms in total: 2 to get started, 4 to build things and the last
   \]
   for each formula \(p\) with free variables \(z, t_1, \dots, t_n\).
 \end{axiom*}
-``We can form a subset of a set.'' More precisely, given a set \(x\) and a property \(z\), we can form \(\{z \in x: p(z)\}\).
+``We can form a subset of a set.'' More precisely, given a set \(x\) and a property \(p\), we can form \(\{z \in x: p(z)\}\).
 
 \begin{note}
   We do want parameters, e.g.\ to have \(\{z \in x: t \in z\}\) where \(t\) is chosen earlier.
@@ -2113,8 +2113,8 @@ Now let's take a look at axiom of foundation. The slogan says ``sets are built o
 
 Now we have induction, what about recursion? We want ``\(f(x)\) defined in terms of the \(f(y)\) where \(y \in x\)''.
 
-\begin{theorem}[\(\in\)-recursion theorem]\index{\(\in\)-recursion}
-  Let \(G\) be a function-class everywhere defined. Then there is a function class \(F\) (i.e.\ \((x, y) \in F \iff p(x, y)\) for some formula \(p)\) such that
+\begin{theorem}[\(\in\)-recursion]\index{\(\in\)-recursion}
+  Let \(G\) be a function-class everywhere defined. Then there is a function class \(F\) (i.e.\ \((x, y) \in F \iff q(x, y)\) for some formula \(q)\) such that
   \[
     (\forall x) (F(x) = G(F|_x)).
   \]
@@ -2138,7 +2138,7 @@ Now we have induction, what about recursion? We want ``\(f(x)\) defined in terms
   \[
     (\forall x) (\exists \text{ an attempt \(f\) defined at } x)
   \]
-  by \(\in\)-induction. Indeed suppose \((\forall y \in x) (\exists \text{ an attempt defined at } x)\). So \(\forall y \in x\) there exists a unique attempt \(f_y\) defined of \(TC(\{y\})\). Put \(f = \bigcup_{y \in x} f_y\) and now put
+  by \(\in\)-induction. Indeed suppose \((\forall y \in x) (\exists \text{ an attempt defined at } x)\). So \(\forall y \in x\) there exists a unique attempt \(f_y\) defined on \(TC(\{y\})\). Put \(f = \bigcup_{y \in x} f_y\) and now set
   \[
     f' = f \cup \{(x, G(f|_x))\}.
   \]
@@ -2157,16 +2157,16 @@ What properties of the ``relation-class'' \(\in\) (i.e.\ the formula \(p(x, y) =
 
 \begin{enumerate}
 \item \(p\) is well-founded: every non-empty set has a \(p\)-minimal element. We used it to make everything work.
-\item \(p\) is local: \(\{y: p(y, x)\}\) is a set for each \(x\). We used this to build \(p\)-closure, i.e.\ transitive closure.
+\item \(p\) is local: \(\{y: p(y, x)\}\) is a set for each \(x\). We used this to build \(p\)-closure, i.e.\ transitive closure. By contrast \(\ni\) and ``superset of'' is not local.
 \end{enumerate}
 
 So in fact we have \(p\)-induction and \(p\)-recursion for any \(p(x, y)\) that is well-founded and local. In particular, for a relation \(r\) on a set \(a\), trivially \(r\) is local (as \(a\) is a set), so to have \(r\)-induction and \(r\)-recursion, just need \(r\) to be well-founded. Thus with this view in mind, induction and recursion from chapter 2 are special cases of this.
 
 Recall that in chapter 2, we spend effort on induction so as to prove subset collapse. Here something similar happens: can we ``model'' a relation by \(\in\)?
 
-For example, let \(a = \{a_1, a_2, a_3\}\) and \(r = \{(a_1, a_2), (a_2, a_3)\}\). Can we build a set \(b\) with the same relations but using \(\in\)? i.e.\ can we find \(b = \{b_1, b_2, b_3\}\) and relation \(s\) defined by \(b_i s b_j \iff b_i \in b_j\), and \((a, r)\) is isomorphic to \((b, s)\)? Certainly yes. We put \(b_1 = \emptyset, b_2 = \{\emptyset\}, b_3 = \{\{\emptyset\}\}\). Then \(a_i r a_j \iff b_i s b_j\) for all \(i, j\). Moreover \(b\) is transitive.
+For example, let \(a = \{a_1, a_2, a_3\}\) and \(r = \{(a_1, a_2), (a_2, a_3)\}\). Can we build a set \(b\) with the same relations but using \(\in\)? i.e.\ can we find \(b = \{b_1, b_2, b_3\}\) and relation \(s\) defined by \(b_i s b_j \iff b_i \in b_j\), and \((a, r)\) is isomorphic to \((b, s)\)? Certainly. We put \(b_1 = \emptyset, b_2 = \{\emptyset\}, b_3 = \{\{\emptyset\}\}\). Then \(a_i r a_j \iff b_i s b_j\) for all \(i, j\). Moreover \(b\) is transitive.
 
-Can we do this for all relations? Well not for all, since for example, axiom of foundation forbides the relation \(x r x\).
+Can we do this for all relations? Well not for all, since for example, axiom of foundation forbids the relation \(x r x\).
 
 \begin{definition}[Extensionality]\index{extensionality}
   A relation \(r\) on a set \(a\) is \emph{extensional} if
@@ -2212,7 +2212,7 @@ The analogue of subset collapse is
   For uniqueness, if \(f\) and \(f'\) are both suitable then \((\forall x \in a) (f(x) = f'(x))\) by \(r\)-induction.
 \end{proof}
 
-Now we can do something that is owed from chapter 2. We defined ordinals to be equivalent classes of well-orderings, with two well-orderings regarded the same if there is an order-isomorphisms between them. But a hiccup is that the set of all well-orderings do not form a set so ``equivalence class'' does not make sence. Now we can instead define it formally in the language of ZF.
+Now we can do something that is owed from chapter 2. We defined ordinals to be equivalent classes of well-orderings, with two well-orderings regarded the same if there is an order-isomorphisms between them. But a hiccup is that the set of all well-orderings do not form a set so ``equivalence class'' does not make sense. Now we can instead define it formally in the language of ZF.
 
 \begin{definition}[von Neumann ordinal]\index{ordinal!von Neumann}
   An \emph{ordinal} or \emph{von Neumann ordinal} is a transitive set that is well-ordered by \(\in\).
@@ -2266,8 +2266,8 @@ How do we know this is the whole universe? We want to show every set \(x\) belon
   Induction on \(\alpha\):
   \begin{itemize}
   \item \(0\): done.
-  \item successors: given \(x \in y \in V_{\alpha + 1}\), have \(y \in \powerset(V_\alpha)\) so \(x \in V_\alpha\) so \(x \subseteq V_\alpha\), i.e.\ \(x \in \powerset(V_\alpha) = V_{\alpha + 1}\).
-  \item limits: any union of transitive sets is transitive.
+  \item successor: Power set of a transitive set is transitive. More specifically, given \(x \in y \in V_{\alpha + 1}\), have \(y \in \powerset(V_\alpha)\) so \(x \in V_\alpha\) so \(x \subseteq V_\alpha\), i.e.\ \(x \in \powerset(V_\alpha) = V_{\alpha + 1}\).
+  \item limit: any union of transitive sets is transitive.
   \end{itemize}
 \end{proof}
 
@@ -2309,15 +2309,15 @@ The slogan is ``the universe is the union of sets'', or the suggestive identity 
 \end{eg}
 
 \begin{proof}
-  We will show that \((\forall x) (\exists \alpha) (x \subseteq V_\alpha)\) by \(\in\)-induction. Given \(x\), for each \(y \in x\), we have \(y \subseteq V_\alpha\) for some \(\alpha\), so \(y \subseteq V_{\rank(y)}\), i.e.\ \(y \in V_{\rank(y) + 1}\). 
-  Let \(\alpha = \sup\{\rank(y) + 1: y \in x\}\), then \(x \subseteq V_\alpha\).
+  We will show that \((\forall x) (\exists \alpha) (x \subseteq V_\alpha)\) by \(\in\)-induction. Given \(x\), for each \(y \in x\), we have \(y \subseteq V_\alpha\) for some \(\alpha\), so \(y \subseteq V_{\rank(y)}\), i.e.\ \(y \in V_{\rank(y)^+}\). 
+  Let \(\alpha = \sup\{\rank(y)^+: y \in x\}\), then \(x \subseteq V_\alpha\).
 \end{proof}
 
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item What the proof says essentially is
     \[
-      \rank(x) = \sup\{\rank(y) + 1: y \in x\},
+      \rank(x) = \sup\{\rank(y)^+: y \in x\},
     \]
     which is the right way to think about rank. For example, \(\rank(\{6\})\) is \(7\) as \(\rank(6) = 6\) since it is an ordinal.
   \item Most of maths takes place in \(V_{\omega + 10}\), except in this course when we discussed order-types!
@@ -2326,7 +2326,7 @@ The slogan is ``the universe is the union of sets'', or the suggestive identity 
 
 \section{Cardinals}
 
-We will discuss ``sizes'' of sets in this chapter. We will work predomiantly under ZFC, insofar not refraining ourselves from comparing and contrasting results under ZF.
+We will discuss ``sizes'' of sets in this chapter. We will work predomiantly under ZFC, insofar we do not refrain ourselves from comparing and contrasting results under ZF.
 
 \subsection{Definitions}
 
@@ -2336,11 +2336,13 @@ We want to define \(\card x\) so that \(\card x = \card y\) if and only if \(x \
 \]
 as this may not be a set. But we do know \(x \biject \alpha\) for some ordinal \(\alpha\) so we can define \(\card x\) to be the least such \(\alpha\). It follows that \(\card x = \card y\) if and only if \(x \biject y\).
 
-If we choose to work without axiom of choice, among all \(y\) that bijects with \(x\), we need to pick one. This seems impossible without choice, but we have the clever \emph{Scott trick}: define the \emph{essential rank} of \(x\) \(\operatorname{essrank}(x)\) to be the least rank of any \(y\) that bijects with \(x\), and then define \(\card x = \{y \subseteq V_{\operatorname{essrank}(n)}: y \biject x\}\).
+If we choose to work without axiom of choice, among all \(y\) that bijects with \(x\), we need to pick one. This seems impossible without choice, but we have the clever \emph{Scott trick}: define the \emph{essential rank} of \(x\) \(\operatorname{essrank}(x)\) to be the least rank such that there exists \(y\) of this rank that bijects with \(x\), and then define \(\card x = \{y \subseteq V_{\operatorname{essrank}(x)}: y \biject x\}\).
 
 \begin{definition}[Cardinal]\index{cardinal}
   \(m\) is a \emph{cardinal} or a \emph{cardinality} if \(m = \card x\) for some \(x\).
 \end{definition}
+
+For \(x \in \omega\), we write ``\(x\)'' for \(\card x\). For example \(\card 3 = 3\).
 
 For cardinals \(m\) and \(n\), say \(m \leq n\) if \(M\) injects into \(N\) for some \(M\) and \(N\) with \(\card M = m, \card N = n\) (which does not depend on the choice of \(M\) and \(N\)). Similarly, write \(m < n\) if \(m \leq n\) and \(m \neq n\). For example, \(\card \omega < \card \powerset(\omega)\).
 
@@ -2353,10 +2355,10 @@ What do the cardinals look like? Of course there are the finite (i.e.\ boring) o
 \end{definition}
 
 \begin{eg}
-  \(0, 1, 2, \dots, \omega, \omega_1, \gamma(X)\) for any set \(X\) are initial ordinals. However \(\omega^2\) is not initial as \(\omega^2 \biject \omega\).
+  \(0, 1, 2, \dots, \omega, \omega_1, \gamma(X)\) for any set \(X\). However \(\omega^2\) is not initial as \(\omega^2 \biject \omega\).
 \end{eg}
 
-How do we get all the initial ordinals then? Obviously we have \(\omega = \omega_0, \omega_1 = \gamma(\omega_0), \omega_2 = \gamma(\omega_1), \dots\). Think a little longer and we find their supremum \(\omega_\omega = \sup \{\omega_n: n = 0, 1, \dots\}\) is also initial as otherwise...
+How do we get all the initial ordinals then? Obviously we have \(\omega = \omega_0, \omega_1 = \gamma(\omega_0), \omega_2 = \gamma(\omega_1), \dots\). Think for a little longer and we find their supremum \(\omega_\omega = \sup \{\omega_n: n = 0, 1, \dots\}\) is also initial as otherwise some smaller cardinal \(\alpha\) would bijects with some \(\beta < \alpha\).
 
 Define \(\omega_\alpha\), for each ordinal \(\alpha\), recursively by
 \begin{align*}
@@ -2366,7 +2368,7 @@ Define \(\omega_\alpha\), for each ordinal \(\alpha\), recursively by
 \end{align*}
 Then every \(\omega_\alpha\) is initial by induction.
 
-Also every infinite initial ordinal \(\delta\) is an \(\omega_\alpha\). Indeed, the \(\omega_\alpha\)'s are unbounded in the ordinals (e.g.\ \(\omega_\alpha \geq \alpha\) by induction) so there exists least \(\alpha\) with \(\omega_\alpha \geq \delta\), so \(\omega_\alpha = \delta\).
+Also every infinite initial ordinal \(\delta\) is an \(\omega_\alpha\). Indeed, the \(\omega_\alpha\)'s are unbounded in the ordinals (e.g.\ \(\omega_\alpha \geq \alpha\) by induction) so there exists least \(\alpha\) with \(\omega_\alpha \geq \delta\), so \(\omega_\alpha = \delta\) by definition of \(\omega_\alpha\).
 
 \begin{definition}[Aleph number]\index{aleph number}\index{\(\aleph_\alpha\)}
   Define the \emph{aleph number} for each ordinal \(\alpha\)
@@ -2409,7 +2411,7 @@ Note that axiom of choice is needed for this to be well-defined.
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(\R \biject \powerset(\omega) \biject \{0, 1\}^\omega\) so \(\card(\R) = 2^{\aleph_0}\).
-  \item How many real sequences are there? In IA Numbers and Sets we have to fiddle aroud but this course provides a slick proof:
+  \item How many real sequences are there? In IA Numbers and Sets we have to fiddle around but this course provides a slick proof:
     \[
       \card(\R^\omega) = (2^{\aleph_0})^{\aleph_0} = 2^{\aleph_0 \aleph_0} = 2^{\aleph_0}.
     \]
@@ -2433,7 +2435,7 @@ We know \(\aleph_0 \aleph_0 = \aleph_0\) but what about \(\aleph_1 \aleph_1\)? I
 \end{theorem}
 
 \begin{proof}
-  We will show that \(\omega_\alpha \times \omega_\alpha \biject \omega_\alpha\) by induction. Since \(\omega_\alpha\) is an ordinal we naturally want to equip \(\omega_\alpha \times \omega_\alpha\) with a well-ordering. Product order doesn't work since it isn't a well-order. Recall that proof of \(\N \times \N \biject \N\) in IA Numbers and Sets: we traverse the half-lattice by following successive anti-diagonals. We use the same idea here, with anti-diagonals replaced by squares for easier of presentation.
+  We will show that \(\omega_\alpha \times \omega_\alpha \biject \omega_\alpha\) by induction. Since \(\omega_\alpha\) is an ordinal we naturally want to equip \(\omega_\alpha \times \omega_\alpha\) with a well-ordering. Product order doesn't work since it doesn't embed into \(\omega_\alpha\). Recall that proof of \(\N \times \N \biject \N\) in IA Numbers and Sets: we traverse the half-lattice by following successive anti-diagonals. We use the same idea here, with anti-diagonals replaced by squares for easier of presentation.
 
   Define a well-ordering on \(\omega_\alpha \times \omega_\alpha\) by ``going up in squares'': put \((x, y) < (z, t)\) if
   \begin{itemize}
@@ -2447,7 +2449,7 @@ We know \(\aleph_0 \aleph_0 = \aleph_0\) but what about \(\aleph_1 \aleph_1\)? I
   \end{itemize}
  This is obviously a well-ordering.
 
-  Given \(r \in \omega_\alpha \times \omega_\alpha\), we have \(r \in \beta \times \beta\) for some \(\beta < \omega_\alpha\) (since \(\omega_\alpha\) is initial), so \(I_r \subseteq \beta \times \beta\) by definition of \(<\). But \(\beta \times \beta \biject \beta\) (or \(\beta\) is finite) by induction hypothesis (\(\omega_\alpha\) is initial). Thus \(I_r\) has order-type \(< \omega_\alpha\). Thus every proper initial segment of \((\omega, <)\) has order-type \(< \omega_\alpha\). Thus \((\omega, <)\) has order-type \(\leq \omega_\alpha\). Take cardinality, \(\aleph_\alpha \aleph_\alpha \leq \aleph_\alpha\). The other direction is trivial by, for example, the diagonal embedding.
+  Given \(r \in \omega_\alpha \times \omega_\alpha\), we have \(r \in \beta \times \beta\) for some \(\beta < \omega_\alpha\) (since \(\omega_\alpha\) is a limit), so \(I_r \subseteq \beta \times \beta\) by definition of \(<\). But \(\beta \times \beta \biject \beta\) (or \(\beta\) is finite) by induction hypothesis. Thus \(I_r\) has order-type \(< \omega_\alpha\). Thus every proper initial segment of \((\omega, <)\) has order-type \(< \omega_\alpha\). Thus \((\omega, <)\) has order-type \(\leq \omega_\alpha\). Take cardinality, \(\aleph_\alpha \aleph_\alpha \leq \aleph_\alpha\). The other direction is trivial by, for example, the diagonal embedding.
 \end{proof}
 
 \begin{corollary}
@@ -2485,7 +2487,7 @@ To get an idea of how hard cardinal exponentiation is, \(2^{\aleph_0}\) might no
 
 This is the \emph{continuum hypothesis}\index{continuum hypothesis}, and has proven to be independent of ZFC. Depending on your philosophical view, this is not so intuitively obvious as the other axioms in ZF or ZFC.
 
-Even today, not all implications about values of \(2^{\aleph_\alpha}\) are known. For example, if we are given that \(2^{\alpha_\alpha} = \aleph_{\alpha + 1}\) for \(\alpha = 0, 1, 2, \dots\), the best we can say, based on the results so far, is that \(2^{\aleph_\omega} \leq \aleph_{\omega_4}\).
+Even today, not all implications about values of \(2^{\aleph_\alpha}\) are known. For example, if we are given that \(2^{\aleph_\alpha} = \aleph_{\alpha + 1}\) for \(\alpha = 0, 1, 2, \dots\), the best we can say, based on the results so far, is that \(2^{\aleph_\omega} \leq \aleph_{\omega_4}\).
 
 \section{Gödel Incompleteness Theorem*}
 
@@ -2625,7 +2627,7 @@ Here ``collection'' is simply a set, in the true maths world. But to avoid confu
 \end{eg}
 
 \begin{definition}[Function-class]\index{function-class}
-  A \emph{function-class} is a collection \(F\) of ordered pairs from \(V\) such that for each formula \(p\), free vaiables \(x, y\) (parameterised), we have
+  A \emph{function-class} is a collection \(F\) of ordered pairs from \(V\) such that there is a formula \(p\), free vaiables \(x, y\) (parameterised), such that
   \begin{enumerate}
   \item \((x, y) \in F\) if and only if \(p(x, y)\),
   \item if \((x, y) \in F, (x, z) \in F\) then \(y = z\).

@@ -580,7 +580,7 @@ More generally,
 \begin{proof}\leavevmode
   \begin{enumerate}
   \item Let \(\theta: V \to W\) be a \(G\)-homomorphism. Then \(\ker \theta\) is a \(G\)-subspace of \(V\). Since \(V\) is irreducible either \(\ker \theta = 0\) or \(\ker \theta = V\). Similarly \(\im \theta = 0\) or \(\im \theta = W\). Hence either \(\theta = 0\) or \(\theta\) is injective and surjective.
-  \item Since \(\F\) is algebraically closd, \(\theta\) has an eigenvalue \(\lambda\). Then \(\theta - \lambda 1_V\) is a singular \(G\)-endomorphism on \(V\), so must be \(0\).
+  \item Since \(\F\) is algebraically closed, \(\theta\) has an eigenvalue \(\lambda\). Then \(\theta - \lambda 1_V\) is a singular \(G\)-endomorphism on \(V\), so must be \(0\).
   \end{enumerate}
 \end{proof}
 
@@ -1041,7 +1041,7 @@ Finally sum over \(i, j\) to get
 \]
 \end{proof}
 
-Before prove 2, let's prove column orthogonality, assuming \Cref{cor:number of irreducible equals to class number}.
+Before proving 2, let's prove column orthogonality, assuming \Cref{cor:number of irreducible equals to class number}.
 
 \begin{corollary}[column orthogonality relations]\index{column orthogonality}
   \[
@@ -1139,7 +1139,7 @@ is given by \(\rho(g): e_{x_j} \mapsto e_{gx_j}\). We call \(\rho_X\) the \emph{
     &= \frac{1}{|G|} |\{(g, x) \in G \times X: gx = x\}| \\
     &= \frac{1}{|G|} \sum_{x \in X} |G_x| \\
     &= \frac{1}{|G|} |X| |G_X| \\
-    &= \frac{1}{|G|} |G| \quad \text{orbit stabiliser} \\
+    &= \frac{1}{|G|} |G| \quad \text{orbit-stabiliser} \\
     &= 1
   \end{align*}
   The whole proof can be seen as different ways to write fixed points of \(G\).
@@ -1574,14 +1574,14 @@ Let \(\tau: \sum \lambda_{ij} v_i \otimes v_j \mapsto \sum \lambda_{ij} v_j \oti
   \begin{align*}
     \langle \chi_i \psi_j, \chi_r \psi_s \rangle_{G \times H}
     &= \frac{1}{|G \times H|} \sum_{(g, h)} \conj{\chi_i\psi_j (g, h)} \chi_r \psi_s(g, h) \\
-    &= \left( \frac{1}{|G} \sum_g \conj{\chi_i(g)} \chi_r(g) \right) \left( \frac{1}{|H|} \sum_h \conj{\psi_j(h)} \psi_s(h) \right) \\
+    &= \left( \frac{1}{|G|} \sum_g \conj{\chi_i(g)} \chi_r(g) \right) \left( \frac{1}{|H|} \sum_h \conj{\psi_j(h)} \psi_s(h) \right) \\
     &= \delta_{ir} \delta_{js}
   \end{align*}
 
   To show that they are complete, we take their squares at identity:
   \[
     \sum_{i, j} \chi_i \psi_j (1)^2
-    = \sum_i \chi_i^1(1) \sum_j \psi_j^2(1)
+    = \sum_i \chi_i^2(1) \sum_j \psi_j^2(1)
     = |G| |H|
     = |G \times H|.
   \]
@@ -1656,10 +1656,7 @@ Take \(\ch \F = 0\).
   The \(\Z\)-submodule of \(\mathcal C(G)\) spanned by irreducible characters of \(G\) is called the \emph{character ring} of \(G\), sometimes also known as \emph{Grothendieck ring}, denoted \(R(G)\). Elements of \(R(G)\) are called \emph{generalised characters} or \emph{virtual characters}.
 \end{definition}
 
-Some properties:
-\begin{enumerate}
-\item \(R(G)\) is a ring. Any generalised character is a difference of two ordinary characters. \(\{\chi_i\}\) form a \(\Z\)-basis for \(R(G)\) as a free \(\Z\)-module.
-\end{enumerate}
+\(R(G)\) is a ring. Any generalised character is a difference of two ordinary characters. \(\{\chi_i\}\) form a \(\Z\)-basis for \(R(G)\) as a free \(\Z\)-module.
 
 \section{Induction and restriction}
 
@@ -1771,7 +1768,7 @@ Let \(n = |G:H|\). Let \(t_1 = 1, t_2, \dots, t_n\) be a \emph{left transversal}
     &= \frac{1}{|G| |H|} \sum_{x, g \in G} \conj{\varphi(g)} \ocirc \psi(x^{-1}gx) \\
     &= \frac{1}{|G| |H|} \sum_{x, y \in G} \conj{\varphi(y)} \ocirc \psi(y) \quad \text{set } x^{-1}gx = y \\
     &= \frac{1}{|H|} \sum_{y \in G} \conj{\varphi(y)} \ocirc \psi(y) \\
-    &= \frac{1}{|H|} \sum_{y \in G} \conj{\varphi(y)} \psi(y) \\
+    &= \frac{1}{|H|} \sum_{y \in H} \conj{\varphi(y)} \psi(y) \\
     &= \ip{\Res_H^G \varphi, \psi}
   \end{align*}
 \end{proof}
@@ -1956,7 +1953,7 @@ where we omit the tensor symbol in the last expression. Check this is a \(G\)-ac
   &= t_\ell (t_\ell^{-1} (g_1g_2)t_i)w \\
   &= (g_1g_2) (t_i w)
 \end{align*}
-where \(j, \ell\) is the unique such that \(g_2 t_i H = t_j H\) and \(g_1 t_jH = t_\ell H\). It follows that \(\ell\) is the unique such that \((g_1g_2) t_i H = t_\ell H\). Note that \(g\) permutes the cosets as
+where \(j, \ell\) is unique such that \(g_2 t_i H = t_j H\) and \(g_1 t_jH = t_\ell H\). It follows that \(\ell\) is unique such that \((g_1g_2) t_i H = t_\ell H\). Note that \(g\) permutes the cosets as
 \[
   g: t_i w \mapsto t_j(t_j^{-1} g t_i)w
 \]
@@ -2011,7 +2008,7 @@ Note that \(G\) is necessarily finite, being isomorphic to a subgroup of \(\Sigm
   \[
     |K| = |G| - n (|H| - 1) = n
   \]
-  If \(1 \neq h \in H\) and suppose \(h = g h' g^{-1}\) for some \(g \in G, h' \in H\), then \(h\) lies in both \(H = G_\alpha\) and \(gHg^{-1} = G_{g\alpha}\), by hypothesis \(g\alpha = \alpha\), hence \(g \in H\). Therefore the conjugacy class in \(G\) of \(h\) is precisely the conjugacy class in \(H\) of \(h\).
+  If \(1 \neq h \in H\) and suppose \(h = g h' g^{-1}\) for some \(g \in G, h' \in H\), then \(h\) lies in both \(H = G_\alpha\) and \(gHg^{-1} = G_{g\alpha}\), by hypothesis \(g\alpha = \alpha\), hence \(g \in H\). Therefore the intersection of conjugacy class in \(G\) of \(h\) with \(H\) is precisely the conjugacy class in \(H\) of \(h\).
 
   Similarly if \(g \in C_G(h)\) then
   \[
@@ -2132,7 +2129,7 @@ Consider the action of \(G\) on \(G/H\) and let \(K \leq G\). Then \(G/H\) split
 namely the \(K\)-orbits containing \(gH\), contains precisely all \(kgH\) for \(k \in K\).
 
 \begin{notation}
-  Denote by \(K \backslash G/H\) the set of \((K, H)\)-double cosets. They paritition \(G\). Let \(S\) be the set of representatives. Note
+  Denote by \(K \backslash G/H\) the set of \((K, H)\)-double cosets. They partition \(G\). Let \(S\) be the set of representatives. Note
   \[
     \# K \backslash G /H = \ip{\pi_{G/K}, \pi_{G/H}}
   \]
@@ -2253,7 +2250,7 @@ where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x 
   \begin{enumerate}
   \item The algebraic integers form a subring of \(\C\).
   \item If \(a \in \C\) is both an algebraic integer and a rational number then \(a \in \Z\).
-  \item Any subring \(S\) of \(\C\) which is a finitely-generately \(\Z\)-module consists of algebraic integers. (suppose \(s_1, \dots, s_n\) are generators of \(S\) as \(\Z\)-module and \(a \in S\). Then for all \(i\) exists \(a_{ij} \in \Z\) such that \(as_i = \sum_j a_{ij} s_j\). Put \(A = (a_{ij})\) then \(Av = av\) where \(v = (s_1, \dots, s_n)\), so \(a\) is the root of the characteristic polynomial of \(A\), and is thus an algebraic integer.
+  \item Any subring \(S\) of \(\C\) which is a finitely-generately \(\Z\)-module consists of algebraic integers. (suppose \(s_1, \dots, s_n\) are generators of \(S\) as \(\Z\)-module and \(a \in S\). Then for all \(i\) exists \(a_{ij} \in \Z\) such that \(as_i = \sum_j a_{ij} s_j\). Put \(A = (a_{ij})\) then \(Av = av\) where \(v = (s_1, \dots, s_n)\), so \(a\) is the root of the characteristic polynomial of \(A\), and is thus an algebraic integer)
   \end{enumerate}
 \end{fact}
 
@@ -2271,9 +2268,9 @@ where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x 
 
 \subsection{The centre of \(C G\)} % TODO
 
-Recall that the \emph{group algebra}\index{group algebra} \(\C G\) of a finite group \(G\), the \(\C\)-space with basis \(G\) and dimension \(|G|\). Also a ring and a \(\C\)-algebra.
+Recall that the \emph{group algebra}\index{group algebra} \(\C G\) of a finite group \(G\), the \(\C\)-space with basis \(G\) and dimension \(|G|\). It is also a ring and a \(\C\)-algebra.
 
-List \(\{1\} = \ccl_1, \ccl_2, \dots, \ccl_k\) be the \(G\)-conjugacy classes. Define the \emph{class sums}\index{class sums}
+Let \(\{1\} = \ccl_1, \ccl_2, \dots, \ccl_k\) be the \(G\)-conjugacy classes. Define the \emph{class sums}\index{class sum}
 \[
   C_j = \sum_{g \in \mathcal C_j} g \in \C G.
 \]
@@ -2287,7 +2284,7 @@ Now each \(C_j \in Z(\C G)\), the centre of \(\C G\). Moreover
 \end{proposition}
 
 \begin{proof}
-  Check \(g C_j g^{-1} = C_j\) for all \(g \in G\) so \(C_j \in Z(\C G)\). Clearly \(C_j\)'s are linearly independent because \(\ccl_j\)'s are disjoint. For spanning, suppose \(z = \sum_{g \in G} a_g g \in Z(\C G)\). Then for all \(h \in G\), \(a_{h^{-1}gh} = \alpha_g\) so the function \(g \mapsto a_g\) is constant on \(G\)-conjugacy classes. Writing \(a_g = \alpha_j\) if \(g \in \ccl C_j\). Then
+  Check \(g C_j g^{-1} = C_j\) for all \(g \in G\) so \(C_j \in Z(\C G)\). Clearly \(C_j\)'s are linearly independent because \(\ccl_j\)'s are disjoint. For spanning, suppose \(z = \sum_{g \in G} a_g g \in Z(\C G)\). Then for all \(h \in G\), \(a_{h^{-1}gh} = \alpha_g\) so the function \(g \mapsto a_g\) is constant on \(G\)-conjugacy classes. Writing \(a_g = \alpha_j\) if \(g \in \ccl_j\). Then
   \[
     z = \sum_{j = 1}^k \alpha_j C_j.
   \]
@@ -2374,7 +2371,7 @@ Thus
 
 \begin{theorem}[Burnside]\index{Burnside's theorem}
   \label{thm:Burnside}
-  Let \(p, q\) be primes. Let \(|G| = p^a q^b\) where \(a, b \in \Z_{\geq 0}\), with \(a + b \geq 2\). Then \(|G|\) is not simple.
+  Let \(p, q\) be primes. Let \(|G| = p^a q^b\) where \(a, b \in \Z_{\geq 0}\), with \(a + b \geq 2\). Then \(|G|\) is not nonabelian simple.
 \end{theorem}
 
 \begin{remark}\leavevmode
@@ -2422,7 +2419,7 @@ The theorem follows from two lemmas, one of which is starred.
 \end{proof}
 
 \begin{proposition}
-  If in a finite group \(G\), the number of elements in a conjugacy class \(\ccl_i \neq 1\) is of prime power order then \(G\) is not (non-abelian) simple.
+  If in a finite group \(G\), the number of elements in a conjugacy class \(\ccl_i \neq 1\) is of prime power order then \(G\) is not nonabelian simple.
 \end{proposition}
 
 Granted this, we can prove \nameref{thm:Burnside}: if \(a, b > 0\) let \(Q\) be a Sylow \(q\)-subgroup, so \(Q \neq 1\) (otherwise \(G\) is \(p\)-group). Now \(1 \neq Z(Q)\) so exists \(1 \neq g \in Z(Q)\). Then as \(C_G(g) \geq Q\), we have
@@ -2432,7 +2429,7 @@ Granted this, we can prove \nameref{thm:Burnside}: if \(a, b > 0\) let \(Q\) be 
 for some \(0 \leq r \leq a\).
 
 \begin{proof}
-  Suppose \(G\) is non-abelian simple, and there exists \(1 \neq g \in G\) lying in the conjugacy class \(\ccl\) of order \(p^r\). If \(\chi \neq 1_G\) is a non-trivial irreducible character of \(G\) then \(|\chi(g)| < \chi(1)\) (otherwise \(G\) not simple). Then for every non-trivial irreducible character, either \(p \divides \chi(1)\) or \(|\chi(g)| = 0\). By column orthogonality applied to \(\{1\}\) and \(\ccl\),
+  Suppose \(G\) is nonabelian simple, and there exists \(1 \neq g \in G\) lying in the conjugacy class \(\ccl\) of order \(p^r\). If \(\chi \neq 1_G\) is a non-trivial irreducible character of \(G\) then \(|\chi(g)| < \chi(1)\) (otherwise \(G\) not simple). Then for every non-trivial irreducible character, either \(p \divides \chi(1)\) or \(|\chi(g)| = 0\). By column orthogonality applied to \(\{1\}\) and \(\ccl\),
   \[
     0 = 1 + \sum_{\substack{\chi \neq 1_G \\ p \divides \chi(1)}} \chi(1) \chi(g)
   \]
@@ -2448,7 +2445,7 @@ for some \(0 \leq r \leq a\).
 See Teleman \textsection 19 - 22 and C.\ Thomas \textsection 6 for more detailed treatment of this chapter.
 
 \begin{definition}[topological group]\index{topological group}
-  A \emph{topological group} is a group \(G\) is a group \(G\) which is also a topological space and for which multiplication \(G \times G \to G\) and inversion \(G \to G\) are continuous. It is \emph{compact} if it is so as a topological space.
+  A \emph{topological group} \(G\) is a group which is also a topological space and for which multiplication \(G \times G \to G\) and inversion \(G \to G\) are continuous. It is \emph{compact} if it is so as a topological space.
 \end{definition}
 
 \begin{eg}\leavevmode
@@ -2483,7 +2480,7 @@ See Teleman \textsection 19 - 22 and C.\ Thomas \textsection 6 for more detailed
   If \(X\) is a topological space then \(\rho: X \to \GL(V) \cong \GL_n(\C)\) is continuous if and only if \(x \mapsto \rho(x)_{ij}\) are continuous for all \(i, j\).
 \end{remark}
 
-\subsection{The compact group \(\operatorname{SU}(1)\)}
+\subsection{The compact group \(\operatorname{U}(1)\)}
 
 We prove
 \begin{theorem}
@@ -2513,7 +2510,7 @@ To prove the theorem we need two lemmas from real analysis
 \end{proof}
 
 \begin{lemma}
-  Continuous homomorphisms \(\psi: (\R, +) \to S^1\) are of the form \(\psi(x) = e^{icx}\) for some \(c \in \R\).
+  Continuous homomorphisms \(\varphi: (\R, +) \to S^1\) are of the form \(\varphi(x) = e^{icx}\) for some \(c \in \R\).
 \end{lemma}
 
 \begin{proof}
@@ -2605,6 +2602,517 @@ As a general theme, results we proved using ``averaging'' techniques work for co
 \begin{corollary}[Maschke]\index{Maschke's theorem}
   If \(G\) is compact then every representation of \(G\) is completely reducible.
 \end{corollary}
+
+We can use the Haar measure to endow \(\mathcal C(G)\), the space of continuous functions, with an inner product
+\[
+  \ip{f, f'} = \int_G \conj{f(g)} f'(g) \d g.
+\]
+If \(\rho: G \to \GL(V)\) is a representation then \(\chi_V = \chi_\rho = \tr \rho\) is a continuous class function since each \(\rho(g)_{ii}\) is continuous.
+
+\begin{theorem}[row orthogonality]\index{row orthogonality}
+  Suppose \(G\) is compact and \(V, W\) are irreducible representations of \(G\). Then
+  \[
+    \ip{\chi_V, \chi_W} =
+    \begin{cases}
+      1 & V \cong W \\
+      0 & V \ncong W
+    \end{cases}
+  \]
+\end{theorem}
+Naturally one may wonder if irreducible characters form a basis of \(\mathcal C(G)\). The answer is not quite. We need some Hilbert space theory and Peter-Weyl theorem. For \(S^1\) see Teleman \textsection 19.14, 19.15.
+
+\subsection{Representations of \(\operatorname{SU}(2)\)}
+
+Let
+\begin{align*}
+  G = \SU(2)
+  &= \{A \in \GL_2(\C): \conj A^t A = I, \det A = 1\} \\
+  &= \left\{
+    \begin{pmatrix}
+      a & b \\
+      - \conj b & \conj a
+    \end{pmatrix},
+                  a, b \in \C, |a|^2 + |b|^2 = 1\right\}
+\end{align*}
+Topologically \(G \cong_h S^3\). More precisely, let
+\[
+  \H = \left\{
+    \begin{pmatrix}
+      z & w \\
+      -\conj w & \conj z
+    \end{pmatrix}
+  \right\}
+\]
+\emph{Hamilton's quaternion algebra}\index{Hamilton's quaternion algebra}. \(\H\) is a 4 dimensional Euclidean space and \(\norm A^2 = \det A\) defines a norm on \(\H \cong \R^4\) with \(G\) the unit ball. If \(A \in G\) and \(X \in \H\) then
+\[
+  \norm{AX} = \norm{X} = \norm{XA}.
+\]
+Thus after normalisation (by \(\frac{1}{2\pi^2}\)), usual integration of functions on \(S^3\) defines Haar measure on \(G\).
+
+We first discuss conjugacy classes in \(G\). Let
+\[
+  T = \left\{
+    \begin{pmatrix}
+      a & 0 \\
+      0 & \conj a
+    \end{pmatrix}
+    :a \in \C, |a| = 1 \right\} \cong S^1
+\]
+the \emph{maximal torus} in \(G\). Let \(s =
+\begin{pmatrix}
+  0 & 1 \\
+  -1 & 0
+\end{pmatrix}
+\in G
+\).
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(t \in T\) then \(sts^{-1} = t^{-1}\).
+  \item \(s^2 = -I \in Z(G)\).
+  \item \(N_G(T) = T \cup sT = \left\{
+      \begin{pmatrix}
+        a & 0 \\
+        0 & a^{-1}
+      \end{pmatrix},
+      \begin{pmatrix}
+        0 & a \\
+        -a^{-1} & 0
+      \end{pmatrix}
+      : a \in \C, |a| = 1\right\}
+    \)
+  \item Every conjugacy class \(\ccl\) in \(G\) contains an element of \(T\), i.e.\ \(\ccl \cap T \neq \emptyset\). In fact,
+  \item \(\ccl \cap T = \{t, t^{-1}\}\) for some \(t \in T\). Moreover \(t = t^{-1}\) if and only if \(t = \pm I\) when \(\ccl = \{t\}\).
+  \item There exists a bijection \(\{\text{conjugacy classes of } G\} \leftrightarrow [-1, 1]\) given by \(A \mapsto \frac{1}{2} \tr A\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Direct computation.
+  \item Ditto.
+  \item Ditto.
+  \item Every unitary matrix \(X\) has an orthonormal basis of eigenvectors, hence is conjugate in \(\UU(2)\) to one in \(T\), say \(QX \conj Q^t \in T\). We want \(Q\) such that \(\det Q = 1\). Put \(\delta = \det Q\) so \(|\delta| = 1\). If \(\varepsilon\) is a square root of \(\delta\) then \(Q_1 = \conj \varepsilon Q \in \SU(2)\) and \(Q_1X \conj Q_1^t \in T\).
+  \item Let \(g \in G\) and suppose \(g \in \ccl\). If \(g = \pm I\) then \(\ccl \cap T = \{g\}\). Otherwise \(g\) has distinct eigenvalues \(\lambda, \lambda^{-1}\) and \(\ccl = \{
+    h
+    \begin{psmallmatrix}
+      \lambda & 0 \\
+      0 & \lambda^{-1}
+    \end{psmallmatrix}
+    h^{-1}: h \in G\}.
+    \)
+    Hence \(\ccl \cap T = \{
+    \begin{psmallmatrix}
+      \lambda & 0 \\
+      0 & \lambda^{-1}
+    \end{psmallmatrix}
+    ,
+    \begin{psmallmatrix}
+      \lambda^{-1} & 0 \\
+      0 & \lambda
+    \end{psmallmatrix}
+    \}\), by noting that
+    \[
+      s
+      \begin{pmatrix}
+        \lambda & 0 \\
+        0 & \lambda^{-1}
+      \end{pmatrix}
+      s^{-1}
+      =
+      \begin{pmatrix}
+        \lambda^{-1} & 0 \\
+        0 & \lambda
+      \end{pmatrix}.
+    \]
+    Furthermore, if \(
+    \begin{psmallmatrix}
+      \mu & 0 \\
+      0 & \mu^{-1}
+    \end{psmallmatrix}
+    \in \ccl \) then \(\{\mu, \mu^{-1}\} = \{\lambda, \lambda^{-1}\}\) (i.e.\ eigenvalues preserved under conjugation).
+  \item By 5 matrices are conjugate in \(G\) if and only if their eigenvalues agree up to reordering. Now
+    \[
+      \frac{1}{2} \tr
+      \begin{pmatrix}
+        \lambda & 0 \\
+        0 & \lambda^{-1}
+      \end{pmatrix}
+      = \frac{1}{2}(\lambda + \conj \lambda)
+      = \Re \lambda
+      = \cos \theta
+    \]
+    where \(\lambda = e^{i\theta}\). Hence the map is surjective. It's also injective: if \(\frac{1}{2} \tr g = \frac{1}{2} \tr g'\) then \(g, g'\) have the same characteristic polynomial, namely
+    \[
+      X^2 - (\tr g) X + 1,
+    \]
+    hence the same eigenvalues and are conjugate.
+  \end{enumerate}
+\end{proof}
+Thus we write
+\[
+  \ccl_t = \{g \in G: \frac{1}{2} \tr g = t\}
+\]
+for \(t \in [-1, 1]\). In particular \(\ccl_1 = \{I\}, \ccl_{-1} = \{-I\}\). In fact
+
+\begin{proposition}
+  For \(t \in (-1, 1)\), \(\ccl_t \cong_h S^2\).
+\end{proposition}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+Now we can study the representations of \(G\). Let \(V_n\) be the space of all homogeneous polynomials of degree \(n\) in variables \(x, y\), i.e.
+\[
+  V_n = \{r_0x^n + r_1x^{n - 1}y + \dots + r_ny^n: r_i \in \C\},
+\]
+an \((n + 1)\) dimensional \(\C\)-space, with standard basis \(x^n, x^{n - 1}y, \dots, y^n\). Then \(\GL_2(\C) = \GL(\C^2)\) acts on \(V_n\) via
+\begin{align*}
+  \rho_n: \GL(\C^2) &\to \GL(V_n) \\
+  \rho_n
+  \begin{psmallmatrix}
+    a & b \\
+    c & d
+  \end{psmallmatrix}
+        f(x, y) &= f(ax + cy, bx + dy)
+\end{align*}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item If \(n = 0\) then \(\rho_0\) is trivial.
+  \item If \(n = 1\) then \(\rho_1\) is the natural \(2\) dimensional representation where \(\rho_1
+    \begin{psmallmatrix}
+      a & b \\
+      c & d
+    \end{psmallmatrix}
+    \) has matrix \(
+    \begin{psmallmatrix}
+      a & b \\
+      c & d
+    \end{psmallmatrix}
+    \) with respect to standard basis of \(V_1\).
+  \item If \(n = 2\) then
+    \[
+      \rho_2
+      \begin{pmatrix}
+        a & b \\
+        c & d
+      \end{pmatrix}
+      =
+      \begin{pmatrix}
+        a^2 & ab & b^2 \\
+        2ac & ad + bc & 2bd \\
+        c^2 & cd & d^2
+      \end{pmatrix}
+    \]
+    with repsect to standard basis of \(V_2\).
+  \end{enumerate}
+\end{ex}
+
+Now \(G \leq \GL_2(\C)\) so view \(V_n\) as a representation of \(G\) by restriction.
+
+\begin{lemma}
+  \label{lem:represntation of SU(2) determined by its restriction to maximal torus}
+  A continuous class function \(f: G \to \C\) is determined by its restriction to \(T\), and \(f|_T\) is even (in the sense that \(f
+  \begin{psmallmatrix}
+    \lambda & 0 \\
+    0 & \lambda^{-1}
+  \end{psmallmatrix}
+  = f
+  \begin{psmallmatrix}
+    \lambda^{-1} & 0 \\
+    0 & \lambda
+  \end{psmallmatrix}
+  \)).
+\end{lemma}
+
+\begin{proof}
+  Each conjugacy class in \(G\) meets \(T\) so a class function is determined by its restriction to \(T\). Evenness follows from \(T \cap \ccl = \{t, t^{-1}\}\).
+\end{proof}
+
+\begin{lemma}
+  If \(\chi\) is a character of a representation of \(G\) then \(\chi|_T\) is a Laurent polynomial, i,e.\ finite \(\N_0\)-linear combination of functions \(
+  \begin{psmallmatrix}
+    \lambda & 0 \\
+    0 & \lambda^{-1}
+  \end{psmallmatrix}
+  \mapsto \lambda^n
+  \) where \(n \in \Z\).
+\end{lemma}
+
+\begin{proof}
+  If \(V\) is a representation of \(G\) then \(\Res^G_T V\) is a representation of \(T\) and its character \(\chi_{\Res^G_T V}\) is the restriction of \(\chi_V\) to \(T\). But every representation of \(T\) has character of given form by \Cref{thm:representation of S1}.
+\end{proof}
+
+Put
+\begin{align*}
+  \N_0[z, z^{-1}] &= \left\{ \sum_{n \in \Z} a_n z^n: a_n \in \N_0, \text{ finitely many } a_n \neq 0 \right\} \\
+  \N_0[z, z^{-1}]_{\text{ev}} &= \{f \in \N_0[z, z^{-1}]: f(z) = f(z^{-1})\}
+\end{align*}
+By these lemmas for continuous representations of \(G\), the character \(\chi_V \in \N_0[z, z^{-1}]_{\text{ev}}\) by identifying it with its restriction to \(T\). We calculate the character \(\chi_n\) of \((\rho_n, V_n)\). Recall
+\[
+  \rho_n
+  \begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}
+  : x^{n - j} y^j \mapsto (ax + cy)^{n - j} (bx + dy)^j
+\]
+and extend linearly. To find \(\chi_n(g) = \tr \rho_n(g)\), note that \(g \sim
+\begin{psmallmatrix}
+  z & 0 \\
+  0 & z^{-1}
+\end{psmallmatrix}
+\in T\) and
+\[
+  \rho_n(
+  \begin{pmatrix}
+    z & 0 \\
+    0 & z
+  \end{pmatrix}
+  (x^i y^j) = (zx)^i (z^{-1} y)^j = z^{i - j} x^i y^j
+\]
+so \(\rho_n
+\begin{psmallmatrix}
+  z & 0 \\
+  0 & z^{-1}
+\end{psmallmatrix}
+\) has matrix
+\[
+  \begin{pmatrix}
+    z^n \\
+    & z^{n - 2} \\
+    & & \ddots \\
+    & & & z^{2 - n} \\
+    & & & & z^{-n}
+  \end{pmatrix}
+\]
+with respect to standard basis. Hence
+\[
+  \chi_n
+  \begin{pmatrix}
+    z & 0 \\
+    0 & z^{-1}
+  \end{pmatrix}
+  = z^n + z^{n - 2} + \cdots + z^{-n}.
+\]
+
+\begin{ex}
+  \(\chi_0 = 1_G\), \(\chi_1 = e^{i\theta} + e^{-i\theta} = 2 \cos \theta\), \(\chi_3 = 1 + 2 \cos 2\theta\). In general it equals to \(\frac{z^{n + 1} - z^{-(n + 1)}}{z - z^{-1}}\) unless \(z = \pm 1\).
+\end{ex}
+
+\begin{theorem}
+  The representations \(\rho_n: G \to \GL(V_n)\) of dimension \(n + 1\) are irreducible for all \(n \in \Z_{\geq 0}\).
+\end{theorem}
+
+\begin{proof}
+  Assume \(0 \neq W \leq V_n\) is a \(G\)-invariant subspace. Claim \(V_n = W\). Claim if \(0 \neq w = \sum r_j x^{n - j} y^j \in W\) with some \(r_i \neq 0\) then \(x^{n - i}y^i \in W\). Argue by induction on the number of non-zero \(r_j\). If unique \(r_i \neq 0\) then result is clear (as \(w\) is a non-zero multiple of \(x^{n - i} y^i\)). So assume more than one and choose \(i\) such that \(r_i \neq 0\). Pick \(z \in S^1\) with \(z^n, z^{n - 2}, \dots, z^{2 - n}, z^{-n}\) distinct in \(\C\). Then
+  \[
+    \rho_n (
+    \begin{pmatrix}
+      z & 0 \\
+      0 & z^{-1}
+    \end{pmatrix}
+    )w - z^{n - 2i} w
+    = \sum_j r_j (z^{n - 2j} - z^{n - 2i}) (x^{n - j} y^j) \in W
+  \]
+  as \(W\) is \(G\)-invariant. Now \(r_j (z^{n - 2j} - z^{n - 2i}) \neq 0\) precisely when \(r_j \neq 0\) and \(j \neq i\). By induction \(x^{n - j} y^j \in W\) for all \(j \neq i\) with \(r_j \neq 0\). Hence also
+  \[
+    x^{n - i} y^i = \frac{1}{r_i} (w - \sum_j r_j x^{n - j} y^j) \in W
+  \]
+  as required.
+
+  We now know \(x^{n - i} y^i \in W\) for some \(i\). We find matrices in \(G\), the action of which will give all \(x^{n - i} y^i \in W\). Since
+  \[
+    \frac{1}{\sqrt 2}
+    \begin{pmatrix}
+      1 & -1 \\
+      1 & 1
+    \end{pmatrix}
+    : x^{n - i} y^i \mapsto \frac{1}{\sqrt 2^n} (x + y)^{n - i} (-x + y)^i \in W
+  \]
+  and we can use the claim to deduce \(x^n \in W\). Similarly if \(a, b \neq 0\)
+  \[
+    \begin{pmatrix}
+      a & -\conj b \\
+      b & \conj a
+    \end{pmatrix}
+    : x^n \mapsto (ax + by)^n \in W
+  \]
+  and so by the claim \(x^{n - i} y^i \in W\) for all \(i\). Thus \(W = V_n\).
+\end{proof}
+
+\begin{remark}
+  Alternatively, see Teleman \textsection 21.1 we can evaluate \(\ip{\chi_n, \chi_n} = 1\) using Weyl's integration formula.
+\end{remark}
+
+Now show all irreducible representations of \(G\) are of this form.
+
+\begin{theorem}
+  Every finite-dimensional continuous irreducible representation of \(G\) is one of the \(\rho_n: G \to \GL(V_n)\) above.
+\end{theorem}
+
+\begin{proof}
+  Assume \(\rho_V: G \to \GL(V)\) is irreducible affording character \(\chi_V \in \N_0[z, z^{-1}]_{\text{ev}}\). We show \(\chi = \chi_n\) for some \(n\). Now \(\chi_0, \chi_1, \dots\) form a basis of \(\Q[z, z^{-1}]_{\text{ev}}\). Hence \(\chi_V = \sum_n a_n \chi_n\), a finite \(\Q\)-linear combination. Clearing the denominators and moving all summands with negative coefficients to LHS gives the relation
+  \[
+    m\chi_V + \sum_{i \in I} m_i \chi_i = \sum_{j \in J} n_j \chi_j
+  \]
+  with \(I, J\) disjoint finite subsets of \(\N_0\) and \(m, m_i, n_i \in \N_0\). The left and right hand sides are characters of \(G\). Hence
+  \[
+    m V \oplus \bigoplus_{i \in I} m_i V_i \cong \bigoplus_{j \in J} n_j V_j.
+  \]
+  Since \(V\) is irreducible we must have \(V \cong V_n\) for some \(n \in J\).
+\end{proof}
+
+\subsubsection{Tensor products of representations of \(G\)}
+
+We know from \Cref{lem:represntation of SU(2) determined by its restriction to maximal torus} for \(V, W\) representation of \(G\), \(\Res_T^G V \cong \Res_T^G W\) implies \(V \cong W\). We want to understand tensor products of representations for \(G\).
+
+\begin{proposition}
+  If \(G = \SU(2)\) or \(S^1\), \(V, W\) representations of \(G\) then
+  \[
+    \chi_{V \otimes W} = \chi_V \chi_W.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Suffice to consider \(G \cong S^1\). \(V, W\) have eigenbases \(e_1, \dots, e_n, f_1, \dots, f_m\) such that
+  \begin{align*}
+    z e_i &= z^{n_i} e_i \\
+    z f_j &= z^{m_j} f_j
+  \end{align*}
+  respectively. Then
+  \[
+    z(e_i \otimes f_j) = z^{n_i + m_j} (e_i \otimes f_j)
+  \]
+  so
+  \[
+    \chi_{V \otimes W} (z) = \sum_{i, j} z^{n_i + m_j} = \chi_V(z) \chi_W(z).
+  \]
+\end{proof}
+
+\begin{eg}
+  \begin{align*}
+    \chi_{V_1 \otimes V_1}(z) &= (z + z^{-1})^2 = z^2 + 2 + z^{-2} = (z^2 + 1 + z^{-1}) + 1 = \chi_{V_2} + \chi_{V_0} \\
+    \chi_{V_1 \otimes V_2}(z) &= (z^2 + 1 + z^{-2}) (z + z^{-1}) = z^3 + 2z + 2z^{-1} + z^{-3} = \chi_{V_3} + \chi_{V_1}
+  \end{align*}
+\end{eg}
+
+The next result analyses the product structure of representations
+\begin{theorem}[Clebsch-Gordon formula]\index{Clebsch-Gordon formula}
+  For any \(n, m \in \N_0\),
+  \[
+    V_n \otimes V_m \cong V_{n + m} \oplus V_{n + m - 2} \oplus \dots \oplus V_{|n - m| + 2} \oplus V_{|n - m|}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Use characters. Wlog \(n \geq m\) so
+  \begin{align*}
+    (\chi_n \chi_m) (z)
+    &= \frac{z^{n + 1} - z^{-n - 1}}{z - z^{-1}} (z^m + z^{m - 2} + \dots + z^{-m}) \\
+    &= \sum_{j = 0}^m \frac{z^{n + m + 1 - 2j} - z^{2j - n - m - 1}}{z - z^{-1}} \\
+    &= \sum_{j = 0}^m \chi_{n + m - 2j}(z)
+  \end{align*}
+\end{proof}
+
+\subsubsection{Representation of some closely related groups}
+
+\begin{proposition}\leavevmode
+  \label{prop:isomorphisms of Lie groups}
+  \begin{enumerate}
+  \item \(\SO(3) \cong \SU(2) /\{\pm 1\} = \PSU(2)\).
+  \item \(\SO(4) \cong \SU(2) \times \SU(2)/\{\pm (I, I)\}\).
+  \item \(\UU(2) \cong \UU(1) \times \SU(2)/\{\pm (I, I)\}\).
+  \end{enumerate}
+  In fact, these are not only group isomorphisms but also homeomorphisms.
+\end{proposition}
+The homeomorphism bit can be deduced from a continuous bijection from compact space to Hausdorff space being a homeomorphism.
+
+\begin{corollary}
+  Every irreducible representation of \(\SO(3)\) is of the form
+  \[
+    \rho_{2m}: \SO(3) \to \GL(V_{2m})
+  \]
+  for some \(m \geq 0\).
+\end{corollary}
+
+\begin{proof}
+  Irreducible representations of \(\SO(3)\) correspond to irreducible representations of \(\SU(2)\) such that \(-I\) acts trivially. But \(-I\) acts on \(V_n\) as \(-1\) when \(n\) is odd, and as \(1\) when \(n\) is even.
+\end{proof}
+
+\begin{proof}[Sketch proof of \Cref{prop:isomorphisms of Lie groups} 1]
+  Recall \(\SU(2)\) can be viewd as the space of unit norm quaternions in \(\H \cong \R^4\). Let \(\H_0 = \{A \in \H: \tr A = 0\}\), called \emph{pure quaternions}, which are spanned as \(\R\)-space by
+  \[
+    \V i =
+    \begin{pmatrix}
+      i & 0 \\
+      0 & - i
+    \end{pmatrix},
+    \V j =
+    \begin{pmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{pmatrix},
+    \V k =
+    \begin{pmatrix}
+      0 & i \\
+      i & 0
+    \end{pmatrix},
+  \]
+  equipped with norm \(\norm A^2 = \det A\). It is a 3 dimensional Euclidean space and \(\SU(2)\) acts by isometries on \(\H_0\):
+  \[
+    X \cdot A = XAX^{-1}.
+  \]
+  This gives a group homomorphism \(\varphi: \SU(2) \to \OO(3)\) with kernel \(Z(\SU(2)) = \{\pm I\}\). Now \(\SU(2)\) is compact, \(\OO(3)\) is Hausdorff, hence we have a continuous group isomorphism \(\overline \varphi: \SU(2)/\{\pm I\} \to \im \phi\) which is also a homeomorphism.
+
+  Left to show \(\im \varphi = \SO(3)\). \(\im \varphi \leq \SO(3)\): we know \(\SU(2)\) is path-connected, so only one of the two possible values \(\pm 1\) can be taken by the continuous function \(\det \varphi\). But \(\varphi(I_2) = I_3\) with determinant \(1\), so have value \(1\).
+
+  Need to show that all rotations in \((\V i, \V j)\)-plane are implemented by elements \(a + b \V k\), and similarly with any permutations of \(\V i, \V j, \V k\). (the rotations generate \(\SO(3)\)). Now
+  \[
+    \begin{pmatrix}
+      e^{i\theta} & 0 \\
+      0 & e^{-i\theta}
+    \end{pmatrix}
+    \begin{pmatrix}
+      ai & b \\
+      - \conj b & -ai
+    \end{pmatrix}
+    \begin{pmatrix}
+      e^{-i\theta} & 0 \\
+      0 & e^{i\theta}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      ai & e^{2i\theta} b \\
+      -\conj b e^{-2i\theta} & -ai
+    \end{pmatrix}
+  \]
+  so \(
+  \begin{psmallmatrix}
+    e^{i\theta} & 0 \\
+    0 & e^{-i\theta}
+  \end{psmallmatrix}
+  \) acts on \(\R \langle \V i, \V j, \V k \rangle = \H_0\) by rotation in \((\V j, \V k)\)-plane through an angle \(2\theta\). Check
+  \[
+    \begin{pmatrix}
+      \cos \theta & \sin \theta \\
+      -\sin \theta & \cos \theta
+    \end{pmatrix},
+    \begin{pmatrix}
+      \sin \theta & i \sin \theta \\
+      - i \sin \theta & \cos \theta
+    \end{pmatrix}
+  \]
+  act by rotation of \(2 \theta \) in \((\V i, \V k)\)- and \((\V i, \V j)\)-planes respectively.
+\end{proof}
+
+\begin{ex}
+  Mimick this for \(\SO(4)\) and \(\UU(2)\).
+\end{ex}
+To get the representations in 2 and 3, we need results about products \(G \times H\) of two compact groups \(G\) and \(H\).  Complete list of irreducible representations comprises the tensor products \(V \otimes W\), as \(V, W\) ranges over the irreudibles of \(G, H\) respectively. Compare with the finite case. So complete list of irreducibles of \(\SO(4)\) is \(\rho_m \otimes \rho_n\), \(m, n \geq 0 , m = n \bmod 2\). Complete list of \(\UU(2)\) is \(\det^{\otimes m} \otimes \rho_n\), \(m, n \in \Z, n \geq 0\).
+
 
 
 

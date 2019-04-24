@@ -17,6 +17,7 @@
 \DeclareMathOperator{\ord}{ord} % order
 \DeclareMathOperator{\Div}{Div} % divisor group
 \newcommand*{\ip}{\innerproduct}
+\DeclareMathOperator{\Bl}{Bl} % blow-up
 
 \begin{document}
 
@@ -3279,23 +3280,637 @@ Conversely,
 \end{corollary}
 To prove this we return to the cohomology of line bundles via Hodge theory.
 
+Let \((X, \omega)\) be a compact Kähler manifold and \((E, h)\) a hermitian holomorphic vector bundle. We obtain a hermitian metric on \(\Lambda^{p, q} T^*X\) through \(\omega\) and hence on \(\Lambda^{p, q}T^*X \otimes E\). We denote this by \(\ip{\cdot, \cdot}\).
 
+\(h\) gives a conjugate linear map \(h: E \to E^*\) (which is not an isomorphism of complex vector bundles in the strict sense).
 
+\begin{definition}
+  Define \(\conj{\star_E}: \Lambda^{p, q}T^*X \otimes E \to \Lambda^{p, q}T^*X \otimes E^*\) by
+  \[
+    \conj{\star_E}(\varphi \otimes s)
+    = \conj{\star \varphi} \otimes h(s)
+    = \star \conj \varphi \otimes h(s).
+  \]
+\end{definition}
+We can define
+\[
+  (\alpha, \beta) \d \text{Vol} = \alpha \w \conj{\star_E} \beta
+\]
+where \(\w\) here means wedge product on the form part, and evaluation \(E \otimes E^* \to \C\) on the bundle part.
 
+\begin{definition}
+  \(\conj \p_E^*: \mathcal A^{p, q}_\C(E) \to \mathcal A^{p, q - 1}_\C(E)\) is defined by
+  \[
+    \conj \p_E^* = - \conj{\star_E} \conj \p_E \conj{\star_E}.
+  \]
+\end{definition}
 
+Note that when \(E = \mathcal O\) is trivial, \(\conj \star(\varphi) = \conj{\star \varphi} = \star \conj \varphi\) so
+\begin{align*}
+  \conj \p_{\mathcal O}^*(\varphi)
+  &= - \conj \star \conj \p \conj \star (\varphi) \\
+  &= - \conj \star \conj \p (\conj{\star \varphi}) \\
+  &= - \conj \star (\conj{\p \star \varphi}) \\
+  &= - \star \p \star (\varphi)
+\end{align*}
+as desired.
 
- 
+\begin{definition}
+  Define
+  \[
+    \Delta_E = \conj \p_E^* \conj \p_E + \conj \p_E \conj \p^*_E.
+  \]
+  then \(\alpha \in \mathcal A^{p, q}_\C(E)\) is \emph{harmonic} if
+  \[
+    \Delta_E\alpha = 0.
+  \]
+  We write
+  \[
+    \mathcal H^{p, q}(X, E) = \{\alpha \in \mathcal A^{p, q}_\C(E): \Delta_E\alpha = 0\}.
+  \]
+\end{definition}
 
+\(\mathcal A^{p, q}_\C(E)\) admits an \(L^2\)-inner product
+\[
+  \ip{\alpha, \beta}_{L^2} = \int_X (\alpha, \beta) \d \text{Vol}.
+\]
 
+\begin{lemma}
+  \(\conj \p_E^*\) is the \(L^2\)-adjoint of \(\conj \p_E\), and \(\Delta_E\) is self-adjoint. Moreover \(\Delta_E\alpha = 0\) if and only if
+  \[
+    \conj \p_E \alpha = \conj \p_E^* \alpha = 0.
+  \]
+\end{lemma}
 
+\begin{proof}
+  Similar to the case \(E\) is trivial.
+\end{proof}
 
+\begin{theorem}[Hodge decomposition for bundles]\index{Hodge decomposition}\index{Hodge decomposition!bundle}
+  There is an \(L^2\)-orthogonal decomposition
+  \[
+    \mathcal A^{p, q}_\C(E) = \mathcal H^{p, q}(X, E) \oplus \conj \p_E \mathcal A^{p, q - 1}_\C(E) \otimes \conj \p_E^* \mathcal A^{p, q + 1}_\C(E)
+  \]
+  and \(\mathcal H^{p, q}(X, E)\) is finite-dimensional.
+\end{theorem}
 
+The natural thing to do is to relate this to Dolbeault cohomology.
 
+\begin{definition}[Dolbeault cohomology for bundle]\index{Dolbeault cohomology!bundle}
+  The \emph{Dolbeault cohomology} for the bundle \(E\) is
+  \[
+    H^{p, q}_{\conj \p}(X, E)
+    = \frac{\ker (\conj \p_E: \mathcal A^{p, q}_\C(E) \to \mathcal A^{p, q + 1}_\C(E))} {\im (\conj \p_E: \mathcal A^{p, q - 1}_\C(E) \to \mathcal A^{p, q}_\C(E))}
+  \]
+\end{definition}
 
+\begin{theorem}[Dolbeault theorem for bundles]\index{Dolbeault theorem!bundle}
+  We have isomorphisms between Dolbeault cohomology and Čech cohomology
+  \[
+    H^{p, q}_{\conj \p}(X, E) \cong H^q(X, \Omega^p \otimes E)
+  \]
+  where \(\Omega^p\) is the sheaf of holomorphic \(p\)-forms.
+\end{theorem}
 
+\begin{proof}
+  Similar to the case \(E\) trivial.
+\end{proof}
 
+\begin{lemma}
+  There is a natural map
+  \[
+    \mathcal H^{p, q}(X, E) \to H^{p, q}_{\conj \p}(X, E)
+  \]
+  which is an isomorphism. Thus
+  \[
+    \mathcal H^{p, q}(X, E) \cong H^{p, q}_{\conj \p}(X, E) \cong H^q(X, \Omega^p \otimes E).
+  \]
+\end{lemma}
 
+\begin{proof}
+  Similar to the case \(E\) trivial.
+\end{proof}
 
+Now let \(D\) be the Chern connection associated to \((E, h)\). Then in a local holomorphic frame \(D = \d + \Theta\) where \(\Theta\) is a matrix of \((1, 0)\)-forms.
+
+Recall that the key ingredient in proving Kähler identities is that we can find a normal frame.
+\begin{proposition}
+  Given \(x \in X\), there is a holomorphic frame \(e_j\) and coordinates \(z_\ell\) such that
+  \[
+    \ip{e_j(z), e_k(z)}_h = \delta_{jk} + O(|z|^2).
+  \]
+\end{proposition}
+The \(e_j\)'s are called a \emph{normal frame}\index{normal frame}. Thus for the Chern connection, one can find a holomorphic frame which is orthonormal to first order.
+
+\begin{proof}
+  Nonexaminable. Similar to the proof of being able to pick \(z_j\) with
+  \[
+    \omega = \omega_0 + O(|z|^2)
+  \]
+  where \(\omega_0\) is the standard metric on \(\C^n\). See Demailly ``Complex Analytic and Differential Geometry'', Proposition 12.10 Chapter VI.
+\end{proof}
+
+\begin{definition}[Lefschetz operator, inverse Lefschetz operator]\index{Lefschetz operator}\index{inverse Lefschetz operator}
+  Define \emph{Lefschetz operator}
+  \begin{align*}
+    L: \mathcal A^{p, q}_\C(E) &\to \mathcal A^{p + 1, q + 1}_\C(E) \\
+    \varphi \otimes s &\mapsto L\varphi \otimes s = \omega \w \varphi \otimes s
+  \end{align*}
+  and \emph{inverse Lefschetz operator}
+  \begin{align*}
+    \Lambda: \mathcal A^{p, q}_\C(E) &\to \mathcal A^{p - 1, q - 1}_\E(E) \\
+    \varphi \otimes s &\mapsto \Lambda \varphi \otimes s
+  \end{align*}
+  where \(\varphi \in \mathcal A^{p, q}_\C(X), s \in \mathcal A^0(E)\).
+\end{definition}
+
+Recall the Kähler identities\index{Kähler identities}
+\begin{align*}
+  [\Lambda, L] &= (n - (p + q)) \id \\
+  [\Lambda, \conj \p] &= -i \p^*
+\end{align*}
+The first extends directly to bundles. For the second one, we have
+
+\begin{lemma}[Nakano identity]\index{Nakano identity}
+  Let \(D\) be the Chern connection. Then
+  \[
+    [\Lambda, \conj \p_E] = i (D^{1, 0})^*
+  \]
+  where by definition
+  \[
+    (D^{1, 0})^* = \conj{\star_E} D^{1, 0}_{E^*} \conj{\star_E}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(\tau \in \mathcal A^{p, q}_\C(E)\) be given in a normal frame as
+  \[
+    \tau = \sum \varphi_j \otimes e_j
+  \]
+  where \(\varphi_j \in \mathcal A^{p, q}_\C(U)\). Then one checks
+  \[
+    D\tau = \sum \d \varphi_j \otimes e_j + O(|z|)
+  \]
+  so
+  \[
+    \conj \p_E s = D^{0, 1}s = \sum \conj \p \varphi_j \otimes e+j + O(|z|)
+  \]
+  and
+  \[
+    (D^{1, 0})^* \tau = \sum \p^* \varphi_j \otimes e_j + O(|z|)
+  \]
+  as \(\conj{\star_E} = \conj \star + O(|z|)\) using that the frame is normal. The result follows from
+  \[
+    [\Lambda, \conj \p] = -i\p^*.
+  \]
+\end{proof}
+
+\begin{remark}
+  Huybrechts' proof (Lemma 5.2.3) seems to be incorrect.
+\end{remark}
+
+\begin{lemma}
+  \((D^{1, 0})^*\) is \(L^2\)-adjoint to \(D^{1, 0}\), i.e.
+  \[
+    \ip{(D^{1, 0})^*\alpha, \beta}_{L^2} = \ip{\alpha, D^{1, 0} \beta}_{L^2}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Follows from the definition of \((D^{1, 0})^*\) and similar to the case \(E\) trivial.
+\end{proof}
+
+Following is a technical lemma for harmonic forms:
+\begin{lemma}
+  Let \(\alpha \in \mathcal H^{p, q}(X, E)\) be harmonic. Then
+  \begin{enumerate}
+  \item \(i \ip{F_D \Lambda \alpha, \alpha}_{L^2} \leq 0\),
+  \item \(i \ip{\Lambda F_D \alpha, \alpha}_{L^2} \geq 0\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \(\Lambda \alpha \in \mathcal A^{p - 1, q - 1}_\C(E)\) so \(F_D \Lambda \alpha \in \mathcal A^{p, q}_\C(X, E)\) so the statement makes sense. Here \(F_D\) acts on \(\alpha\) by wedge in the form part and evaluation \(\End E \times E \to E\) in the bundle part.
+
+  As \(D\) is the Chern connection,
+  \[
+    F_D = D^{1, 0} \compose \conj \p_E + \conj \p_E \compose D^{1, 0}.
+  \]
+  As \(\alpha\) is harmonic,
+  \[
+    \conj \p_E \alpha = \conj \p_E^* \alpha = 0
+  \]
+  so
+  \begin{align*}
+    i \ip{F_D \Lambda \alpha, \alpha}_{L^2}
+    &= i \ip{D^{1, 0} \conj \p_E \Lambda \alpha, \alpha}_{L^2} + i \ip{\conj \p_E D^{1, 0} \Lambda \alpha, \alpha}_{L^2} \\
+    &= - \ip{\conj \p_E \Lambda \alpha, i(D^{1, 0})^* \alpha}_{L^2} + i \ip{D^{1, 0} \Lambda \alpha, \underbrace{\conj \p_E^* \alpha}_{= 0}}_{L^2} \\
+    &= \ip{\conj p_E \Lambda \alpha, [\Lambda, \conj \p_E] \alpha}_{L^2} \quad \text{Nakano} \\
+    &= -\norm{\conj \p_E \Lambda \alpha}_{L^2}^2 \\
+    &\leq 0
+  \end{align*}
+
+  Similarly
+  \begin{align*}
+    \ip{i \Lambda F_D \alpha, \alpha}_{L^2}
+    &= i\ip{\Lambda \conj \p_E D^{1, 0}\alpha, \alpha}_{L^2} \\
+    &= i\ip{[\Lambda, \conj \p_E] D^{1, 0} \alpha, \alpha}_{L^2} \\
+    &= i\ip{-i (D^{1, 0})^* D^{1, 0}\alpha, \alpha}_{L^2} + i\ip{\Lambda D^{1, 0}\alpha, \underbrace{\conj \p_E^* \alpha}_{=0}}_{L^2} \\
+    &= \norm{D^{1, 0} \alpha}_{L^2}^2 \\
+    &\geq 0
+  \end{align*}
+\end{proof}
+
+Finally we have
+
+\begin{theorem}[Kodaira vanishing theorem]
+  Let \(L\) be positive. Then
+  \[
+    H^q(X, \Omega^p \otimes L) = 0
+  \]
+  for \(p + q > n\).
+\end{theorem}
+
+\begin{proof}
+  Let \(L\) be positive, i.e.\ \(\frac{i}{2\pi} F_D\) Kähler. Thus
+  \[
+    L\alpha = \frac{i}{2\pi} F_D \w \alpha.
+  \]
+  Let \(\alpha \in \mathcal H^{p, q}(X, L)\). Then \([\Lambda, L] = -H\), the counting operator. Thus
+  \begin{align*}
+    0
+    &\leq \ip{\frac{i}{2\pi} [\Lambda, F_D]\alpha, \alpha}_{L^2} \\
+    &= \ip{[\Lambda, L] \alpha, \alpha}_{L^2} \\
+    &= (n - (p + q)) \norm \alpha_{L^2}^2
+  \end{align*}
+  so \(\alpha = 0\) as \(p + q > n\). Finally
+  \[
+    \mathcal H^{p, q}(X, L) \cong H^q(X, \Omega^p \otimes L).
+  \]
+\end{proof}
+
+Another useful vanishing theorem is
+\begin{theorem}[Serre vanishing theorem]\index{Serre vanishing theorem}
+  If \(E \to X\) is a holomorphic vector bundle, \(L \to X\) positive. Then
+  \[
+    H^j(X, E \otimes L^{\otimes k}) = 0
+  \]
+  for all \(k \gg 0\).
+\end{theorem}
+Thus positive (i.e.\ ample) line bundles are those that kill all higher cohomologies of a holomorphic vector bundle tensored with a high enough power.
+
+\begin{proof}
+  Omitted. Similar techniques to Kodaira vanishing.
+\end{proof}
+
+\section{Blow-ups}
+
+The \emph{blow-up}\index{blow-up} of a complex manifold \(X\) at a point \(p \in X\) is a complex manifold \(\pi: \Bl_p X \to X\) with \(\pi^{-1}(p) \cong \P^{n - 1} = E\), a divisor and \(\pi: \Bl_p X \setminus E \to X \setminus \{p\}\) an isomorphism.
+
+Let \(\Delta\) be the unit disk in \(\C^n\). Let \(z_1, \dots, z_n\) be coordinates on \(\C^n\). and \(\ell = [\ell_1: \cdots : \ell_n]\) homogeneous coordinates on \(\P^{n - 1}\). Define
+\[
+  \Bl_0 \Delta = \{(z, \ell): z_j \ell_k = z_k \ell_j \text{ for all } j, k\} \subseteq \Delta \times \P^{n - 1}.
+\]
+This consists of pairs \((z, \ell)\) with \(z \in \ell\), i.e.\ if and only if \(z \w \ell = 0\) (wedge product of vectors in \(\C^n\)).
+
+If one replaces \(\Delta\) with \(\C^n\), this is how we constructed \(\mathcal O(-1) \to \P^{n - 1}\). As \(\mathcal O(-1)\) is a complex manifold, \(\Bl_0 \Delta\) is also a complex manifold.
+
+\(\pi: \Bl_0 \Delta \to \Delta\) is given by \((z, \ell) \to z\). A non-zero point \(z\) is contained in a unique line. Thus \(\pi: \Bl_0 \Delta \setminus \{\pi^{-1}(0)\} \to \Delta \setminus \{0\}\) is an isomorphism. Moreover \(\pi^{-1}(0)\) consists of all lines, so is isomorphic to \(\P^{n - 1}\).
+
+In general, let \(X\) be a complex manifold and \(p \in X\). Let \(z: U \to \Delta \subseteq X\) be (biholomorphic to) a disk. The restriction \(\pi: \Bl_p\Delta \setminus E \to \Delta \setminus \{p\}\) gives an isomorphism between a neighbourhood of \(E\) in \(\Bl_p \Delta\) and of \(p\) in \(X\). So we can construct \(\Bl_p X\) as
+\[
+  (X \setminus \{p\}) \cup_\pi \Bl_p \Delta,
+\]
+i.e.\ obtained by replacing \(\Delta\) with \(\Bl_p \Delta\). One obtains \(\pi: \Bl_p X \to X\) with the desired properties. We call \(E = \pi^{-1}(p) \cong \P^{n - 1}\) the \emph{exceptional divisor}\index{exceptional divisor}.
+
+We claim this is independent of choice of coordinates on \(\Delta\). Let \(\{z_j' = f_j z\}\) be another choice of coordinates with \(f_j(0) = 0\) and let \(\Bl_0 \Delta'\) be the blow-up in these coordinates. Then the isomorphism
+\[
+  f: \Bl_p \Delta \setminus E \to \Bl_p \Delta' \setminus E'
+\]
+extends to an isomorphism \(f: \Bl_p \Delta \to \Bl_p \Delta'\) by setting \(f(0, \ell) = (0, \ell')\) where
+\[
+  \ell_j' = \sum \frac{\partial f_k(0)}{\partial z_j} \ell_k.
+\]
+It is an exercise that this indeed gives the claim.
+
+Similarly the identification
+\begin{align*}
+  E &\to \P(T_p X^{1, 0}) \\
+  (0, \ell) &\mapsto \sum \ell_j \frac{\partial  }{\partial z_j}
+\end{align*}
+is independent of coordinate choice. Thus blow-up is the process of replacing a point with (the projectivisation of) the tangent space at that point.
+
+Let \(\mathcal O(E)\) be the line bundle associate to the divisor \(E\). Then \(\mathcal O(E)\) can be identified with \(\coprod_{(z, \ell)} \ell \to \Bl_p \Delta\) as this admits a section \(t(z, \ell) = ((\ell, z), z)\) which vanishes along \(E\) with multiplicity \(1\). Thus \(\mathcal O(E) \cong p^* \mathcal O(-1)\) where \(p: \Bl_p \Delta \to \P^{n - 1}\) is the projection from \(\Bl_p \Delta \subseteq \C^n \times \P^{n - 1}\). It follows that \(\mathcal O(E)|_E \cong \mathcal O(-1)\), which is then true for any complex manifold.
+
+The dual bundle \(\mathcal O(E) \cong \mathcal O(-E)\) has fibre over \((z, \ell) \in \Bl_p \Delta\) the space of linear functionals on the line \(\ell \subseteq \C^n\) so \(\mathcal O(-E)|_E\) is the hyperplane bundle \(\mathcal O(1)\) on \(\P^{n - 1}\).
+
+As \(E \cong \P(T_p X^{1, 0})\), we get an isomorphism
+\[
+  H^0(E, \mathcal O(-E)|_E) \cong T^*_p X^{1, 0}.
+\]
+
+If \(f \in \mathcal O(\Delta)\) vanishes at \(p\) (\(= 0\)), the function \(\pi^* f\) vanishes along \(E\), so can be considered a section of \(\mathcal O(-E) \to \Bl_p \Delta\). The isomorphism above is
+\begin{align*}
+  H^0(E, \mathcal O(-E)|_E) &\to T^*_p X^{1, 0} \\
+  \pi^*f &\mapsto \d f_p
+\end{align*}
+Thus the diagram
+\[
+  \begin{tikzcd}
+    H^0(\Bl_p \Delta, \mathcal O(-E)|_E) \ar[r, "r_E"] & H^0(E, \mathcal O(-E)|_E) \\
+    H^0(\Delta, \mathcal I_p) \ar[u, "\text{pullback}"] \ar[r, "\d_p"] & T_p^* X^{1, 0} \ar[u, "="]
+  \end{tikzcd}
+\]
+commutes. Here \(\mathcal I_p\) is the ideal sheaf of \(p\) given by
+\[
+  \mathcal I_p(U) = \{f \in \mathcal O(U): f(p) = 0\}.
+\]
+
+\begin{proposition}
+  Let \(F\) be any line bundle on \(X\) and \(L \to X\) positive. Then for any integers \(d_1, \dots, d_\ell > 0\), the line bundle
+  \[
+    \pi^* (L^{\otimes k} \otimes F) \otimes \mathcal O(-\sum d_j E_j)
+  \]
+  is positive on \(\Bl_{p_1, \dots, p_\ell} X\) for \(k \gg 0\). Here \(E_j\)'s are the exceptional divisors.
+\end{proposition}
+For example when \(F = \mathcal O\) is trivial, which is the most important application.
+
+\begin{proof}
+  In a neighbourhood \(p_j \in U_j \subseteq X\), the blow-up is \(\Bl_{p_j} U_j \subseteq U_j \times \P^{n - 1}\), \(\mathcal O(E_j) \cong p_j^*(\mathcal O(-1))\). We give \(\mathcal O(E_j)\) the pullback of the Fubini-Study metric. Using a partition of unity, this produces metrics (by tensor product) on \(\mathcal O(\sum - d_j E_j)\). Locally near  \(E_j\), the curvature is
+  \[
+    - d_j (2\pi i) p_j^* \omega_{\text{FS}}.
+  \]
+  Thus this metric is strictly positive on \(E_j\) (on vectors tangent to \(E_j\)) and semipositive locally. Let \(\frac{i}{2\pi} F_D\) be the curvature, and let \(\omega \in c_1(L)\) be the curvature of a positive metric on \(L\) (\(\omega\) Kähler). Let \(\alpha\) be the curvature of a metric on \(F\).
+
+  \(\pi^* \omega\) is trivial along \(E\), positive everywhere else. Thus
+  \[
+    \pi^*( k \omega + \alpha ) + \frac{i}{2\pi} F_D
+  \]
+  is Kähler for \(k \gg 0\) (maybe also need \(X\) compact), and is the curvature of a metric on the desired line bundle.
+\end{proof}
+
+\begin{ex}
+  Set \(K_X = \Lambda^n T^*X^{1, 0}\), then
+  \[
+    K_{\Bl_p X} \cong \pi^* K_X \otimes (\mathcal O(-n + 1)E).
+  \]
+\end{ex}
+
+One analytic tool we need to prove Kodaira embedding theorem is
+\begin{theorem}[Hartogs' extension theorem]\index{Hartogs' extension theorem}
+  Let \(U \subseteq \C^n\) be open with \(n \geq 2\). Let \(f: U \setminus \{z_1 = z_2 = 0\} \to \C\) be holomorphic. Then there is a unique holomorphic extension \(\tilde f: U \to \C\) of \(f\).
+\end{theorem}
+
+\begin{proof}
+  Non-examinable and omitted. See Huybrechts Proposition 2.16.
+\end{proof}
+
+\begin{ex}
+  Let \(L \in \Pic(X)\) and \(Y \subseteq X\) a submanifold of codimension \(\geq 2\). Then the restriction
+  \[
+    H^0(X, L) \to H^0(X \setminus Y, L)
+  \]
+  is an isomorphism.
+\end{ex}
+
+We state again
+\begin{theorem}[Kodaira embedding theorem]\index{Kodaira embedding theorem}
+  If \(X\) is a compact complex manifold. If \(L \to X\) is positive then \(L\) is ample.
+\end{theorem}
+
+\begin{proof}
+  In this proof we write \(L^k\) for \(L^{\otimes k}\). Let \(N_k + 1 = \dim H^0(X, L^k)\). We need to show that there is \(k > 0\) such that
+  \begin{enumerate}
+  \item basepoint-free: for all \(x \in X\), there is an \(s \in H^0(X, L^k)\) with \(s(x) \neq 0\).
+  \item injectivity: for all \(x, y \in X\), there are sections \(s \in H^0(X, L^k)\) with \(s(x) \neq s(y)\).
+  \item embedding: for all \(x \in X\), \(d \varphi_{L^k, x}: T_xX \to T_{\varphi_{L^k}(x)} \P^{N_k}\) is injective where
+    \begin{align*}
+      \varphi_{L^k}: X &\to \P^{N_k} \\
+      x &\mapsto [s_0(x): \cdots : s_{N_k}(x)]
+    \end{align*}
+    after choosing some \(s_0, \dots, s_{N_k} \in H^0(X, L^k)\).
+  \end{enumerate}
+  In the sheaf cohomology language, let \(L^k_x\) be the fibre of \(L^k\) at \(x \in X\). Then 1 asks for \(\psi: H^0(X, L^k) \to L^k_x\) to be surjective. There is a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & L^k \otimes \mathcal I_x \ar[r] & L^k \ar[r] & L^k_x \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where \(L^k \otimes \mathcal I_x\) denotes the sehaf of sections of \(L^k\) vanishing at \(x\). \(\psi\) is surjective if \(H^1(X, L^k \otimes \mathcal I_x) = 0\).
+
+  Similarly
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & L^k \otimes \mathcal I_{x, y} \ar[r] & L^k \ar[r] & L_x^k \oplus L_y^k \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is related to 2.
+
+  We prove 2 and 1 is similar. We do not have theorems for points, but we do have lots of vanishing theorems for line bundles. We thus pass from points to divisors (hence line bundles) by blowing-up.
+
+  Let \(\tilde X\) be the blow-up of \(X\) at \(x, y\) with exceptional divisors \(E_x, E_y\). Set \(E = E_x + E_Y\). Let \(\tilde L = \pi^* L\) where \(\pi: \tilde X \to X\) is the natural map. (If \(\dim X = 1\), we set \(\pi = \id\) and \(\tilde X = X\))
+
+  Consider the pullback
+  \[
+    \pi^*: H^0(X, L^k) \to H^0(\tilde X, \tilde L^k)
+  \]
+  which is injective. Any \(\tilde \sigma \in H^0(\tilde X, \tilde L^k)\) induces a section \(\sigma \in H^0(X \setminus \{x, y\}, L^k)\) as \(X \setminus \{x, y\} \cong \tilde X \setminus E\), inducing \(\sigma \in H^0(X, L^k)\) by Hartogs' theorem. Thus \(\pi^*\) is an isomorphism. By construction \(\tilde L^k\) is trivial along \(E_x, E_y\), i.e.\
+  \begin{align*}
+    \tilde L^k|_{E_x} &\cong E_x \times L^k_x \\
+    \tilde L^k|_{E_y} &\cong E_y \times L^k_y
+  \end{align*}
+  so
+  \[
+    H^0(E, \tilde L^k|_E) \cong L^k_x \oplus L^k_y.
+  \]
+  If \(r_E\) is the restruction then the diagram
+  \[
+    \begin{tikzcd}
+      H^0(\tilde X, \tilde L^k) \ar[r, "r_E"] & H^0(E, \tilde L^k|_E) \ar[d, "\cong"] \\
+      H^0(X, L^k) \ar[u, "\pi^*"] \ar[r, "r_{x, y}"] & L_x^k \oplus L_y^k
+    \end{tikzcd}
+  \]
+  commutes. Thus it suffices to show \(r_E\) is surjective to prove 2. Choose \(k\) such that
+  \[
+    L'
+    = \tilde L^k \otimes K_{\tilde X}^* \otimes \mathcal O(-E)
+    \cong \pi^*(L^k \otimes K_X^*) \otimes \mathcal O(-nE)
+  \]
+  is positive. Then by Kodaira vanishing theorem
+  \[
+    H^1(\tilde X, \tilde L^k \otimes \mathcal O(-E)) = H^1(\tilde X, L' \otimes K_{\tilde X}) = 0
+  \]
+  so considering
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \tilde L^k \otimes \mathcal O(-E) \ar[r] & \tilde L^k \ar[r, "r_E"] & \tilde L^k|_E \ar[r] & 0
+    \end{tikzcd}
+  \]
+  we see \(r_E: H^0(\tilde X, \tilde L^k) \to H^0(E, \tilde L^k|_E)\) is surjective, proving 2 near \(x, y\).
+
+  If \(\varphi_{L^k}\) is defined at \(x, y\) and \(\varphi_{L^k}(x) \neq \varphi_{L^k}(y)\) then the same is true for nearby points. As \(X\) is compact, cone can find \(k \gg 0\) with \(L^k\) basepoint-free and injective.
+
+  For 3, let \(\varphi_\alpha: U_\alpha \times \C \to L^k|_{U_\alpha}\) be a trivialisation. Then
+  \[
+    d \varphi_{L^k, x}: T_xX \to T_{\varphi_{L^k}(x)} \P^{N_k}
+  \]
+  is injective if and only if for all \(v^* \in T_x^*X^{1, 0}\), there is an \(s \in H^0(X, L^k)\) with \(s_\alpha = \varphi_\alpha^*s_\alpha\), \(s(x) = 0, d s_\alpha(x) = v^*\) (here we view \(\varphi_{L^k}\) locally as (if \(s_0(x) \neq 0\)) a function
+  \begin{align*}
+    X &\to \C^{N_k} \\
+    y &\mapsto (s_1(y), \dots, s_{N_k}(y))
+  \end{align*}
+  More intrinsically, let \(L^k \otimes \mathcal I_x\) be as before. If \(s \in L^k \otimes \mathcal I_x(U)\), \(\varphi_\alpha, \varphi_\beta\) trivialisations of \(L^k\) over \(U\),
+  \begin{align*}
+    s_\alpha &= \varphi_\alpha^* s \\
+    s_\beta &= \varphi_\beta^* s \\
+    s_\alpha &= \varphi_{\alpha \beta} s_\beta \\
+    d(s_\alpha) &= d(s_\beta) \varphi_{\alpha \beta} + d \varphi_{\alpha\beta} s_\beta = d(s_\beta) \varphi_{\alpha\beta}
+  \end{align*}
+  as \(s_\beta(x) = 0\), giving a sheaf morphism
+  \[
+    d_x: L^k \otimes \mathcal I_x \to T_x^*X^{1, 0} \otimes L_x^k
+  \]
+  where \(L^k_x\) comes from \(\varphi_{\alpha\beta}\). Then 3 states that
+  \[
+    d_x: H^0(X, L^k \otimes \mathcal I_x) \to T_x^*X^{1, 0} \otimes L_x^k
+  \]
+  is surjective (or \(H^1(X, L^k \otimes \mathcal I_x^2) = 0\)) for all \(x \in X\).
+
+  If \(\sigma \in H^0(X, L^k)\) then \(\sigma(x) = 0\) if and only if \(\pi^* \sigma = \tilde \sigma\) vanishes along \(E\) (\(\tilde X = \Bl_x X\)). Thus \(\pi^*\) induces an isomorphism
+  \[
+    H^0(X, L^k \otimes \mathcal I_x) \to H^0(\tilde X, \tilde L^k \otimes \mathcal O(-E)).
+  \]
+  We can identify
+  \[
+    H^0(E, (\tilde L^k \otimes \mathcal O(-E))|_E)
+    = L^k_x \otimes H^0(E, \mathcal O(-E)|_E)
+    = L^k_x \otimes T_x^* X^{1, 0}
+  \]
+  as \(\tilde L^k|_E\) is trivial.
+
+  Moreover the diagram
+  \[
+    \begin{tikzcd}
+      H^0(\tilde X, \tilde L^k \otimes \mathcal O(-E)) \ar[r, "r_E"] & H^0 (E, (\tilde L^k \otimes \mathcal O(-E))|_E) \ar[d, "="] \\
+      H^o(X, L^k \otimes \mathcal I_x) \ar[r, "d_x"] \ar[u, "\pi^*", "\cong"'] & T_x^*X^{1, 0} \otimes L^k_x
+    \end{tikzcd}
+  \]
+  commutes so suffices to prove \(r_E\) is surjective.
+
+  Taking \(k \gg 0\) such that
+  \[
+    H^1(\tilde X, \tilde L^k \otimes \mathcal O(-2E)) = 0
+  \]
+  as before (by positivity and Kodaira vanishing theorem), \(r_E\) is surjective. One obtains \(k\) which works for all \(x \in X\) as before.
+\end{proof}
+
+\section{Classification of surfaces*}
+
+Recall that a \emph{Riemann surface}\index{Riemann surface} \(S\) is a compact complex manifold of dimension 1. As any \((1, 1)\)-form is closed (as \(\dim_\R S = 2\)), \(S\) is Kähler. Thus
+\[
+  H^2(S, \Z) \cong \Z
+\]
+so let \(\alpha \in H^2(X, \Z)\) Kähler then \(\alpha = c_1(L)\) for some \(L\) ample by Kodaira embedding theorem, so \(S\) is projective.
+
+By Riemann-Roch, a line bundle \(L \to S\) is ample if and only if
+\[
+  \deg L = \int_S \omega = \int_S c_1(L) > 0
+\]
+where \(\omega \in c_1(L)\).
+
+Riemann surfaces are classified by their genus:
+\begin{itemize}
+\item \(g = 0\): \(\P^1\) unique.
+\item \(g = 1\): elliptic curves, isomorphic to \(\C/\Lambda\) for some lattice \(\Lambda\). They are classified by the \emph{\(j\)-invariant} \(j \in \C\).
+\item \(g \geq 2\): \(3g - 3\) dimensional moduli space \(\mathcal M_g\).
+\end{itemize}
+
+For \(\P^1\), \(\mathcal O(1) = K^*_{\P^1}\) is ample so \(c_1(X) = c_1(K_S^*)\) is Kähler. For elliptic curve, \(K_S \cong \mathcal O_S\) and \(c_1(S) = 0\). Finallly for \(g \geq 2\), \(K_S\) is ample so \(c_1(S)\) is ample.
+
+\subsection{Enriques-Kodaira classification of surfaces}
+
+Let \(X\) be a compact surface. For line bundles \(L_1, L_2\), let
+\[
+  L_1 . L_2 = \int_X \omega_1 \w \omega_2 = \int_X c_1(L_1) cup c_1(L_2)
+\]
+where \(\omega_1 \in c_1(L_1), \omega_2 \in c_1(L_2)\). One thing to note that if \(\mathcal O(D) \cong L\) then \(Z(s) = D\) where \(s \in H^0(X, L)\). Thus
+\[
+  D. L_2 = \int_X \omega_1 \w \omega_2 = \int_D c_1(L_2) = \int_D \omega_2.
+\]
+If \(E \subseteq \Bl_p X\) is the exceptional divisor then
+\[
+  E. E = \int_E \mathcal O(E)|_E = \int_{\P^1} \mathcal O(-1) = -1.
+\]
+Given \(X\), we can blow-up to get \(\Bl_p X\) to get a new compact complex surface. Conversely
+\begin{theorem}[Castelnuovo]
+  If \(\P^1 \cong C \subseteq X\) has \(C. C = -1\) then there is a \(Y\) with \(X = \Bl_pY\) and \(C\) the exceptional divisor.
+\end{theorem}
+In practice, we classify minimal surfaces, which are those with no such \(C\) (i.e.\ \(X\) not a blow-up).
+
+We say \(\varphi: X \to Y\) is \emph{meromorphic} if \(\varphi: X \setminus Z \to Y\) is holomorphic where \(Z\) is an analytic hypersurface. \(X, Y\) are \emph{bimeromorphic} if there is a meromorphic \(\varphi: X \to Y\) with meromorphic inverse. It turns out that all bimeromorphic maps between surfaces are compositions of blow-ups and ``blow-downs''.
+
+Define \emph{plurigenera}\index{plurigenera} to be
+\[
+  P_r = \dim H^0(X, K_X^{\otimes r}).
+\]
+These are bimeromorphic invariants. Define Kodaira dimension by growth of \(P_r\):
+\begin{itemize}
+\item \(\mathcal K(X) = -\infty\) if \(P_r = 0\) for all \(r\).
+\item \(\mathcal K(X) = 0\) if \(P_r \in \{0, 1\}\).
+\item \(\mathcal K(X) = 1\) if exists \(C\) with \(P_r < Cr\).
+\item \(\mathcal K(X) = 2\) otherwise.
+\end{itemize}
+Equivalently, this can be formulated as
+\[
+  \mathcal K(X) = \limsup_{r \to \infty} \log \frac{\dim H^0(X, K_X^{\otimes r})}{\log r}.
+\]
+
+\begin{itemize}
+\item \(\mathcal K(X) = -\infty\): all projective
+  \begin{itemize}
+  \item rational surfaces \(\P^2, \P^1 \times \P^1\) and \(\Sigma_n\) with \(\pi: \Sigma_n \to \P^1, \pi^{-1}(x) \cong \P^1\) for all \(x\). \(\Sigma_n\) has a \(\P^1 \cong C \subseteq \Sigma_n\) with \(C.C = -n\).
+    \begin{remark}
+      If \(K_X^*\) is ample then \(X\) is called \emph{Fano}\index{Fano variety} or \emph{del Pezzo surfaces}\index{del Pezzo surfaces}. For example \(\P^2, \P^1 \times \P^1, \Bl_{p_1, \dots, p_8} \P^2\) for 8 general points.
+    \end{remark}
+  \item ruled surfaces of genus \(> 0\). These have a map \(\pi: X \to S, \pi^{-1}(x) \cong \P^1\) for all \(x\). \(S\) has genus \(\geq 1\).
+  \end{itemize}
+\item \(\mathcal K(X) = 0\): not all are projective.
+  \begin{itemize}
+  \item abelian surfaces (complex tori) \(\C^2/\Lambda\). Projective if and only if Hodge-Riemann relation holds on \(\Lambda\). \(K_X \cong \mathcal O_X\) and \(H^0(X, \mathcal O_X) = 1\). Can have no divisors.
+  \item K3 surfaces. \(K_X \cong \mathcal O_X\). In general \(K_X \cong \mathcal O_X\) says \(X\) is Calabi-Yau. They are sometimes non-projective. More precisely, they have 20 dimensional family, 19 dimensional family are projective.
+
+    For example \(V(f) \subseteq \P^3\) where \(f\) has degree \(4\).
+  \item Enriques surfaces. \(K_X^{\otimes 2} \cong \mathcal O_X\) but \(K_X \ncong \mathcal O(X)\). For example \(Y/(\Z/(2))\) where \(Y\) is a K3 surface.
+  \end{itemize}
+\item \(\mathcal K(X) = 1\): (some) elliptic surfaces. \(\pi: X \to S\), \(\pi^{-1}(x)\) an ellitpic curve for \(x \in S \setminus \{p_1, \dots, p_k\}\). The other fibres can be singular (and non-reduced). \(K_X . K_X = 0\).
+
+Note that not all elliptic surfaces have \(\mathcal K(X) = 1\). For example \(\P^1 \times E\) where \(E\) is an elliptic curve.
+
+As an aside, \(\pi: X \to B\), \(F\) a general fibre, \(\mathcal K(X) \geq \mathcal K(B) + \mathcal K(F)\) is the Iltaka conjecture.
+\item \(\mathcal K(X) = 2\): surfaces of general type. \(K_X . K_X > 0\). These are wild and difficult to study. They do have nice moduli space (generalising \(\mathcal M_g\)) by Giesecker (Kollár-Shepherd compactification). We don't know, for exmaple, what their topology is (for a general one)
+\end{itemize}
+
+\subsection{Non-Kähler surfaces}
+
+If \(b_1 = \dim H^2(X, \R)\) is even then \(X\) is Kähler. THus \(b_1\) is odd.
+\begin{itemize}
+\item \(\mathcal K(X) = 1\): can have non-Kähler elliptic surfaces.
+\item \(\mathcal K(X) = 0\)
+  \begin{itemize}
+  \item primary Kodaira surfaces. Let \(S\) be an elliptic curve, \(L \to S\) with \(\deg L \neq 0\). Let \(L^* = \{\text{complement of zero section}\}\). Let \(L^*/q^\Z\) where \(q^\Z\) is an infinite discrete cyclic subgroup of \(\C\).
+  \item secondary Kodaira surfaces: they are quotients \(X_{\text{prim}}/G\) where \(G\) is a finite group acting on the primary Kodaira surface \(X_{\text{prim}}\).
+  \end{itemize}
+\item \(\mathcal K(X) = -\infty\), \(b_1(X) = 1\).
+  \begin{itemize}
+  \item If \(b_2 = 0\) then have Hopf surfaces and \(\C^2\setminus \{0\}/\text{discrete group acting freely}\).
+
+    Inoue: \(\C \times \H/\text{solvable discrete group}\) where \(\H\) is upper half plane. No divisors.
+  \item \(b_2 = 1\): classified by Nakamura (1984) and A.\ Teleman (2005).
+  \item \(b_2 > 1\): still open.
+  \end{itemize}
+\end{itemize}
+
+For \(\dim X \geq 3\), we try to reduce to \(K_X^*\) or \(K_X\) ample, \(K_X \cong \mathcal O_X\). This is known as minimal model program. It is mostly open except \(K_X\) ample, done by Birkar-Cascini-Hacon-Mclernan. ``Most'' \(3\)-folds are not projective and ``most'' complex \(3\)-folds are not Kähler. Minimal fails for non-Kähler 3-folds (Wilson).
 
 \printindex
 \end{document}

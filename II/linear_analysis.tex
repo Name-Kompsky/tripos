@@ -560,7 +560,7 @@ The converse is also true:
     \subseteq \dots
     \subseteq Y + B_{2^{-m}}(0)
   \]
-  for all \(m \in \N\). Therefore \(B_1(0) \subseteq \cl Y = Y\). Since \(X\) is linear, \(X \subseteq Y\). Thus \(\dim X \leq n\).
+  for all \(m \in \N\). Therefore \(B_1(0) \subseteq \cl Y = Y\). Since \(Y\) is linear, \(X \subseteq Y\). Thus \(\dim X \leq n\).
 \end{proof}
 
 \subsection{Completion, products, quotients}
@@ -610,9 +610,9 @@ In the case of normed spaces, the metric completion has more structure:
 \end{proof}
 
 \begin{proposition}
-  Let \(X\) and \(Y\) be normed spaces and let \(T \in B(X, Y)\). Then there is a unique \(\tilde T \in B(\tilde X, \tilde Y)\) such that
+  Let \(X\) and \(Y\) be normed spaces, \(Y\) complete and let \(T \in B(X, Y)\). Then there is a unique \(\tilde T \in B(\tilde X, \tilde Y)\) such that
   \[
-    \tilde T|_X = T, \norm{\tilde T} = \tilde T.
+    \tilde T|_X = T, \norm{\tilde T} = \norm T.
   \]
 \end{proposition}
 
@@ -621,7 +621,7 @@ In the case of normed spaces, the metric completion has more structure:
   \[
     \norm{\tilde T \tilde x} = \lim_{n \to \infty} \norm{T x_n} \leq \norm T \lim_{n \to \infty} \norm{x_n} = \norm T \norm{\tilde x},
   \]
-  so \(\norm{\tilde T} = \norm T\) so equality. Uniqueness follows from continuity and density of \(X\) in \(\tilde X\).
+  so \(\norm{\tilde T} \leq \norm T\) so equality. Uniqueness follows from continuity and density of \(X\) in \(\tilde X\).
 \end{proof}
 
 \begin{remark}
@@ -672,7 +672,7 @@ As expected for a product construction, the projections \(\pi_X: X \times Y \to 
     \[
       \norm{\pi(x)} = \inf_{y \in Y} \norm{x + y} = 0,
     \]
-    then there exist \((x_n) \subseteq X\) such that \(x_n \to 0\) and \(\pi(x_n) = \pi(x)\), i.e.\ \(x - x_n \in Y\). Thus \(x \in \cl Y = Y\).
+    then there exists \((x_n) \subseteq X\) such that \(x_n \to 0\) and \(\pi(x_n) = \pi(x)\), i.e.\ \(x - x_n \in Y\). Thus \(x \in \cl Y = Y\).
   \item
     \[
       \norm{\pi(x)} = \inf_{y \in Y} \norm{x + y} \leq \norm x
@@ -945,11 +945,11 @@ The point of the theorem is not so much of finding a uniform bound on the functi
     \[
       \cl{T(B_1(0))} \supseteq B_r(0)
     \]
-    for some \(r > 0\). We use Baire category theorem to do this. Since \(T\) is surjective, \(Y = \bigcup_{k = 1} \cl{T(B_k(0))}\). Since \(Y\) is complete, the Baire category theorem implies that there is \(k_0 \in \N\) such that \(\cl{T(B_{k_0}(0))}\) has nonempty interior, i.e.\ there is \(r_0 > 0, y_0 = Tx_0\) such that
+    for some \(r > 0\). We use Baire category theorem to do this. Since \(T\) is surjective, \(Y = \bigcup_{k \geq 1} \cl{T(B_k(0))}\). Since \(Y\) is complete, the Baire category theorem implies that there is \(k_0 \in \N\) such that \(\cl{T(B_{k_0}(0))}\) has nonempty interior, i.e.\ there is \(r_0 > 0, y_0 = Tx_0\) such that
     \[
       B_{r_0}(y_0) \subseteq \cl{T(B_{k_0}(0))}.
     \]
-    By linearlity,
+    By linearity,
     \begin{align*}
       B_{r_0}(0)
       &= B_{r_0}(y_0) - Tx_0 \subseteq \cl{T(B_{k_0}(0))} - Tx_0 \\
@@ -1023,14 +1023,14 @@ The point of the theorem is not so much of finding a uniform bound on the functi
 
 \subsection{Normal topological spaces}
 
-Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in X, x \neq y\), there exist open neighbourhodds \(U\) of \(x\) and \(V\) of \(y\) such that \(U \cap V \neq \emptyset\).
+Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in X, x \neq y\), there exist open neighbourhoods \(U\) of \(x\) and \(V\) of \(y\) such that \(U \cap V \neq \emptyset\).
 
 \begin{proposition}
   Let \(X\) be a Hausdorff space and \(K_1, K_2 \subseteq X\) are compact sets with \(K_1 \cap K_2 = \emptyset\). Then there exist open \(U_1 \supseteq K_1, U_2 \supseteq K_2\) such that \(U_1 \cap U_2 = \emptyset\).
 \end{proposition}
 
 \begin{proof}
-  This a mundane exercise in general topology. For any \(x \in K_1, y \in K_2\), let \(U_{xy}\) and \(V_{xy}\) be open neighbourhoods such that \(x \in U_{xy}, y \in V_{xy}\) and \(U_{xy} \cap V_{xy} = \emptyset\). Then \(K_1 \subseteq \bigcup_{x \in K_1} U_{xy}\). Since \(K_1\) is compact, there are finitely many points \(x_1, \dots, x_n \in K_1\) such that \(K_1 \subseteq \bigcup_{i = 1}^n U_{x_iy}\). Set \(U_y = \bigcup_{i = 1}^n U_{x_iy}\) and \(Y_y = \bigcap_{i = 1}^n V_{x_iy}\). Then \(U_y \cap V_y = \emptyset\) and \(K_1 \subseteq U_y, y \in V_y\) for all \(y \in Y\). Then \(K_2 \subseteq \bigcup_{y \in K_2} V_y\). Again by compactness there exist \(y_1, \dots y_m \in K_2\) such that \(K_2 \subseteq \bigcup_{i = 1}^m V_{y_i}\). Set
+  This is a mundane exercise in general topology. For any \(x \in K_1, y \in K_2\), let \(U_{xy}\) and \(V_{xy}\) be open neighbourhoods such that \(x \in U_{xy}, y \in V_{xy}\) and \(U_{xy} \cap V_{xy} = \emptyset\). Then \(K_1 \subseteq \bigcup_{x \in K_1} U_{xy}\). Since \(K_1\) is compact, there are finitely many points \(x_1, \dots, x_n \in K_1\) such that \(K_1 \subseteq \bigcup_{i = 1}^n U_{x_iy}\). Set \(U_y = \bigcup_{i = 1}^n U_{x_iy}\) and \(Y_y = \bigcap_{i = 1}^n V_{x_iy}\). Then \(U_y \cap V_y = \emptyset\) and \(K_1 \subseteq U_y, y \in V_y\) for all \(y \in Y\). Then \(K_2 \subseteq \bigcup_{y \in K_2} V_y\). Again by compactness there exist \(y_1, \dots y_m \in K_2\) such that \(K_2 \subseteq \bigcup_{i = 1}^m V_{y_i}\). Set
   \[
     V = \bigcup_{i = 1}^m V_{y_i}, U = \bigcap_{i = 1}^m U_{y_i}.
   \]
@@ -1193,7 +1193,7 @@ The generalises the fact that a subset of a finite-dimensional space is relative
     \]
     so in particular \(\norm f \leq \varepsilon + \max_i \norm{f_i}\) for all \(f \in \mathcal F\) so \(\mathcal F\) is bounded.
 
-    Let \(\varepsilon > 0\), \(f_1, \dots, f_n\) as above and \(x \in K\). Since the \(f_i\)'s are continuous, there exsit neighbourhoods \(U_i\) of \(x\) such that
+    Let \(\varepsilon > 0\), \(f_1, \dots, f_n\) as above and \(x \in K\). Since the \(f_i\)'s are continuous, there exist neighbourhoods \(U_i\) of \(x\) such that
     \[
       |f_i(x) - f_i(y)| < \varepsilon
     \]
@@ -1280,7 +1280,7 @@ In general, if \(Y\) is a Banach space then \(T: X \to Y\) is compact if and onl
   \[
     T(B_1(0)) \subseteq \bigcup_{i = 1}^k B_{2\varepsilon} (T_n x_i) \subseteq \bigcup_{i = 1}^k B_{3 \varepsilon} (Tx_i)
   \]
-  which is a finite \(\varepsilon\)-net for \(T(B_1(0))\). \(T(B_1(0))\) is totally bounded so \(T\) is compact.
+  which is a finite \(3\varepsilon\)-net for \(T(B_1(0))\). \(T(B_1(0))\) is totally bounded so \(T\) is compact.
 \end{proof}
 
 In particular this shows that limits of finite rank operators are compact:
@@ -1367,7 +1367,7 @@ Recall in IB Analysis II
   The set of polynomials with real coefficients is dense in \(C([a, b], \R)\) in the uniform topology.
 \end{theorem}
 
-The theorem follows more or less directly from the approxmation of a single function: the absolute value function. As any continuous function can be approximated uniformly by piecewise linear function.
+The theorem follows more or less directly from the approxmation of a single function: the absolute value function, as any continuous function on \([0, 1]\) can be approximated uniformly by a piecewise linear function.
 
 \begin{lemma}
   \label{lem:approximation of absolute value}
@@ -1387,7 +1387,7 @@ The theorem follows more or less directly from the approxmation of a single func
   \[
     1 - q(t) = \sqrt{1 - t}
   \]
-  which is square root up translation and have
+  which is square root up to translation and have
   \[
     |t| = 1 - q(1 - t^2).
   \]
@@ -1441,7 +1441,7 @@ We now state and prove a more abstract and general version of the approximation 
   If there exists \(1 \in A \setminus \{0\}\) such that \(1a = a = a1\) for all \(a \in A\) then \(A\) is \emph{unital}.
 \end{definition}
 
-\begin{definition}[normed/Banach algebra]\index{normed algebra}\index{Banach algebra}
+\begin{definition}[normed/Banach algebra]\index{normed algebra}\index{Banach algebra}\index{algebra!normed}\index{algebra!Banach}
   If an algebra \(A\) is a normed vector space such that
   \[
     \norm{ab} \leq \norm a \norm b
@@ -1511,7 +1511,7 @@ We set up some terminologies and intermediate results before we prove the theore
 
 \begin{lemma}
   \label{lem:lattice}
-  Let \(L \subseteq C(K, \R)\) be a sublattice. If \(g \in C(K, \R)\) is such that for all \(\varepsilon > 0\), for all \(x, y \in K\), exists \(f \in L\) such that
+  Let \(L \subseteq C(K, \R)\) be a lattice. If \(g \in C(K, \R)\) is such that for all \(\varepsilon > 0\), for all \(x, y \in K\), exists \(f \in L\) such that
   \[
     \label{eqn:lattice}
     \left\{
@@ -1586,7 +1586,7 @@ We set up some terminologies and intermediate results before we prove the theore
 \end{proof}
 
 \begin{eg}
-  Let \(K \subseteq \R^n\) be compact. Then \(C(K)\) is separable, i.e.\ there is a countable dense set (given by polynomial with rational coefficients). Then by Stone-Weierstrass theorem we can approximate continuous functions on \(K\) by this set.
+  Let \(K \subseteq \R^n\) be compact. Then \(C(K)\) is separable, i.e.\ there is a countable dense set, given by polynomial with rational coefficients as by Stone-Weierstrass theorem we can approximate continuous functions on \(K\) by this set.
 
   In example sheet 3, we will show that given \(K\) compact Hausdorff, \(C(K)\) is separable if and only if \(K\) is metrisable.
 \end{eg}
@@ -1601,7 +1601,7 @@ We set up some terminologies and intermediate results before we prove the theore
 \end{eg}
 
 \begin{corollary}
-  For every \(f \in C([0, 1] \times C[0, 1])\), have
+  For every \(f \in C([0, 1]^2)\), have
   \[
     \int_0^1 \int_0^1 f(x, y) dx dy = \int_0^1 \int_0^1 f(x, y) dy dx.
   \]
@@ -1619,7 +1619,7 @@ We set up some terminologies and intermediate results before we prove the theore
   then \(\cl A = C(K, \C)\).
 \end{theorem}
 
-This is important in spectral theory, which we'll get back to in the last bit of the course.
+This is important in spectral theory, which we'll get back to in the last chapter of the course.
 
 \begin{definition}[\(C^*\)-algebra]\index{\(C^*\)-algebra}
   A \emph{\(C^*\)-algebra} is a complex unital Banach algebra \(A\) with an antilinear involution \(a \mapsto a^*\) satisfying
@@ -1648,7 +1648,7 @@ This is important in spectral theory, which we'll get back to in the last bit of
     \Re f &= \frac{1}{2} (f + \conj f) \in A \\
     \Im f &= \frac{1}{2i} (f - \conj f) \in A
   \end{align*}
-  Let \(A_\R\) be the subalgebra of \(C(K, \R)\) generated by \(\Re f, \Im f\) for \(f \in A\). Then \(A_\R\) vanishes nowhere and separates points since \(A\) does, so the real version Stone-Weierstrass theorem implies that \(\cl A_\R = C(K, \R)\). Let \(f = u + iv \in C(K, \C)\) where \(U, v \in C(K, \R)\). There are \((u_j) \subseteq A_\R, (v_j) \subseteq A_\R\) such that \(u_j \to u, v_j \to v\). Since \(u_j + iv_j \in A\), \(\cl A = C(K, \C)\).
+  Let \(A_\R\) be the subalgebra of \(C(K, \R)\) generated by \(\Re f, \Im f\) for \(f \in A\). Then \(A_\R\) vanishes nowhere and separates points since \(A\) does, so the real version Stone-Weierstrass theorem implies that \(\cl A_\R = C(K, \R)\). Let \(f = u + iv \in C(K, \C)\) where \(u, v \in C(K, \R)\). There are \((u_j) \subseteq A_\R, (v_j) \subseteq A_\R\) such that \(u_j \to u, v_j \to v\). Since \(u_j + iv_j \in A\), \(\cl A = C(K, \C)\).
 \end{proof}
 
 \begin{eg}[Hardy space]\index{Hardy space}
@@ -1656,7 +1656,7 @@ This is important in spectral theory, which we'll get back to in the last bit of
   \[
     A = \{f \in C(K, \C): f \text{ analytic on } K\}
   \]
-  is an algebra. It separates points and vanishes nowhere. But \(\cl A \neq C(K, \C)\) since \(z \mapsto \conj z\) is not in \(\cl A\).
+  is a subalgebra. It separates points and vanishes nowhere. But \(\cl A \neq C(K, \C)\) since \(z \mapsto \conj z\) is not in \(\cl A\).
 \end{eg}
 
 \begin{eg}
@@ -1900,7 +1900,7 @@ By polarisation identities, such inner product is unique if exists. The exercise
 In particular this holds if \(X\) is a Hilbert space and \(Y \subseteq X\) is a closed subspace.
 
 \begin{proof}
-  Let \(x \in X\) and \(D = \inf_{y \in Y} \norm{x - y}\). Choose any sequence \((y_k) \subseteq Y\) such that \(|y_k - x| \to D\). Claim that \((y_k)\) is Cauchy: by the parallelogram identity applied to \(x - y_j, x - y_k\),
+  Let \(x \in X\) and \(D = \inf_{y \in Y} \norm{x - y}\). Choose any sequence \((y_k) \subseteq Y\) such that \(\norm{y_k - x} \to D\). Claim that \((y_k)\) is Cauchy: by the parallelogram identity applied to \(x - y_j, x - y_k\),
   \[
     \norm{y_j - y_k}^2 + \norm{2x - y_j - y_k}^2 = 2 \norm{x - y_j}^2 + 2 \norm{x - y_k}^2.
   \]
@@ -1913,7 +1913,7 @@ In particular this holds if \(X\) is a Hilbert space and \(Y \subseteq X\) is a 
   \end{align*}
   for all \(\varepsilon > 0\) for all \(j, k\) sufficiently large. By completeness of \(Y\), the claim implies that \(y_j \to x_\parallel\) for some \(x_\parallel \in Y\). By continuity of norm \(\norm{x - x_\parallel} = D\).
 
-  Now let \(x_\perp = x - x_\parallel\). Have to show that \(x_\perp \in Y^\perp\). Suppose not, then there must by \(\tilde y \in Y\) such that \((\tilde y, x_\perp) > 0\). Thus
+  Now let \(x_\perp = x - x_\parallel\). Have to show that \(x_\perp \in Y^\perp\). Suppose not, then there must be \(\tilde y \in Y\) such that \((\tilde y, x_\perp) > 0\). Thus
   \begin{align*}
     \norm{x_\perp - t \tilde y}^2
     &= \norm{x_\perp}^2 - 2t(x_\perp, \tilde y) + t^2 \norm{\tilde y}^2 \\

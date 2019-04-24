@@ -18,8 +18,6 @@
 \newcommand{\rational}{\dashrightarrow} % rational map
 \DeclareMathOperator{\Div}{Div} % divisor
 
-
-
 \begin{document}
 
 \input{titlepage}
@@ -125,7 +123,7 @@ Thus algebraic sets are solutions of finitely many polynomial equations.
 \end{lemma}
 
 \begin{proof}
-  1, 2, 3 are clear. For 4, \(\subseteq\) follows from 1. For \(\supseteq\), if \(x \notin Z(I)\) then exists \(f_1 \in I\) with \(f_1(x) \neq 0\) and if \(x \notin Z(J)\) then exists \(f_2 \in J\) with \(f_2(x) \neq 0\). Thus \(f_1f_2(x) = f_1(x)f_2(x) \neq 0\) so \(x \notin Z(f_1f_2)\). But \(f_1f_2 \in I \cap J\) as \(I\) and \(J\) are ideals. Thus \(x \notin Z(I \cap J)\).
+  1, 2, 3 are clear. For 4, \(\supseteq\) follows from 1. For \(\subseteq\), if \(x \notin Z(I)\) then exists \(f_1 \in I\) with \(f_1(x) \neq 0\) and if \(x \notin Z(J)\) then exists \(f_2 \in J\) with \(f_2(x) \neq 0\). Thus \(f_1f_2(x) = f_1(x)f_2(x) \neq 0\) so \(x \notin Z(f_1f_2)\). But \(f_1f_2 \in I \cap J\) as \(I\) and \(J\) are ideals. Thus \(x \notin Z(I \cap J)\).
 \end{proof}
 
 We can define a map goes the other direction. If \(Z \subseteq \A^n(\cl k)\) is a subset, define
@@ -191,10 +189,11 @@ Let \(Y \subseteq \A^n\) be an algebraic subset so \(Y = Z(I(Y))\). Recall that 
 
 We've just seen \(k[Y] \embed \{Y \to \cl k\}\) so \(k[Y]\) is a special class of functions on \(Y\), namely ``polynomial functions on \(Y\) with \(k\)-coefficients''.
 
-\begin{eg}
-  \(k[\A^n] = k[x_1, \dots, x_n]\).
-
-  \(k[E] = k[x, y]/(y^2 - x^3 + x)\).
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item \(k[\A^n] = k[x_1, \dots, x_n]\).
+  \item \(k[E] = k[x, y]/(y^2 - x^3 + x)\).
+  \end{itemize}
 \end{eg}
 
 Clearly \(k[Y]\) is a \(k\)-algebra. Our aim is to recover \(Y\) completely from this \(k\)-algebra.
@@ -238,23 +237,25 @@ Note that in this setting \(L\) is finite-dimensional over \(k\) if and only if 
 \end{proof}
 
 \begin{corollary}
-  If \(Y \subseteq \A^n\) is an algebraic set. Suppose \(k = \cl k\). then we have bijection
+  Suppose \(k = \cl k\). If \(Y \subseteq \A^n\) is an algebraic set then we have bijections
   \[
-    \begin{tikzcd}
-      \{\text{points in } Y\} \ar[r] & \{\text{algebra homomorphisms } k[Y] \to k\} \ar[r] & \{\text{maximal ideals of } k[Y]\} \\
-      p \ar[r] & \ev_p: f \mapsto f(p) \\
-      & \varphi \ar[r] & \ker \varphi \\
-      \varphi(p) & \varphi \ar[l] \\
-      & k[Y] \to k[Y]/\mathfrak m = k & \mathfrak m \ar[l]
-    \end{tikzcd}
+    \begin{array}{ccccc}
+      \{\text{points in } Y\} & \to & \{\text{algebra homomorphisms } k[Y] \to k\} & \to & \{\text{maximal ideals of } k[Y]\} \\
+      \\
+      p & \mapsto & \ev_p:f \mapsto f(p) \\
+                              & & \varphi & \mapsto & \ker \varphi \\
+      \\
+      \varphi(p) & \mapsfrom & \varphi \\
+      & & k[Y] \to k = k[Y]/\mathfrak m & \mapsfrom & \mathfrak m
+    \end{array}
   \]
 \end{corollary}
 
 \begin{proof}
-  When \(Y = \A^n\) this is Nullstellensatz. In general, an algebra homomorphism \(\varphi: k[x_1, \dots, x_n]/I \to k\) is the same thing as an algebra homomorphism \(k[x_1, \dots, x_n] \to k\) with \(I\) its kernel.
+  When \(Y = \A^n\) this is Nullstellensatz. In general, an algebra homomorphism \(\varphi: k[x_1, \dots, x_n]/I \to k\) is the same thing as an algebra homomorphism \(k[x_1, \dots, x_n] \to k\) with \(I\) in its kernel.
 \end{proof}
 
-We will give better proof later when we are more adept at playing with polynomial equations, but for now we'll prove a special case.
+We will give a better proof later when we are more adept at playing with polynomial equations, but for now we'll prove a special case.
 
 \begin{proof}[Proof of \nameref{thm:Nullstellensatz} when \(k\) is uncountable]
   Suppose \(L\) is not algebraic. Then there exists \(t \in L\) which is not algebraic over \(k\) so \(k(t) \subseteq L\). But observe the following:
@@ -347,7 +348,7 @@ Note that \(Z(J) = Z(\sqrt J)\).
   \[
     \{(p_1, \dots, p_n) \in \A^n: f(p) \neq 0\} = \A^n \setminus Z(f).
   \]
-  So \(Y\) is a Zariski closed subset of \(\A^{n + 1}\) which is isomorphic as a set to \(\A^n \setminus Z(f)\), and our proof was asking in what sense does
+  So \(Y\) is a Zariski closed subset of \(\A^{n + 1}\) which is isomorphic as a set to \(\A^n \setminus Z(f)\), and our proof was asking in what does
   \[
     Z(f) \cap (\A^n \setminus Z(f)) = \emptyset
   \]
@@ -377,7 +378,7 @@ This is a hint that we may have an intrinsic characterisation of rings \(k[Y]\).
   \end{enumerate}
 \end{eg}
 
-In other words, \(Y\) is reducible/disconnected in Zariski topology. In usual topology, such as the usual one \(\R\), almost every set is reducible. However, in Zariski topology there is so little closed sets that this is actually a useful definition. In fact, they have a very nice algebraic characterisation:
+In other words, \(Y\) is reducible/disconnected in Zariski topology. In usual topology, such as the usual one \(\R\), almost every set is reducible. However, in Zariski topology there are so few closed sets that this is actually a useful definition. In fact, they have a very nice algebraic characterisation:
 
 \begin{lemma}
   \(Y\) is irreducible if and only if \(I(Y)\) is a prime ideal in \(k[x_1, \dots, x_n]\).
@@ -401,7 +402,9 @@ In other words, \(Y\) is reducible/disconnected in Zariski topology. In usual to
   is an integral domain.
 \end{eg}
 
-Recall that if \(R\) is a UFD, \(f \in R\) nonzero then if \(f\) is irreducible then \((f)\) is a prime ideal. Furthermore as \(k[x_1, \dots, x_n]\) is a UFD, it is an exercise to check that \(Z(y -x^2), Z(y^2 - x^3 + x)\) are irreducible.
+\begin{ex}
+  Recall that if \(R\) is a UFD, \(f \in R\) nonzero then if \(f\) is irreducible then \((f)\) is a prime ideal. Furthermore as \(k[x_1, \dots, x_n]\) is a UFD, it is an exercise to check that \(Z(y -x^2), Z(y^2 - x^3 + x)\) are irreducible.
+\end{ex}
 
 Zariski topology is very different from usual topology: if \(X\) is an irreducible Zariski closed subset and \(U \subseteq X\) is a nonempty Zarisk open subset in \(X\) then \(\cl U = X\), i.e.\ nonempty Zariski open subsets are dense.
 
@@ -484,7 +487,7 @@ Now back to the abstract characterisation of algebraic varieties. We need some p
 
 Conversely, given a finitely generated reduced \(k\)-algebra \(A\), there exists a surjection \(k[t_1, \dots, t_n] \to A\). As \(A\) is reduced, the kernel is radical. This is precisely the definition of a coordinate ring.
 
-What do we gain from this? We need not to choose a generator of the \(k\)-algebra, which is the same as an embedding \(Y \embed \A^n\). In this abstract formulation, the ``points'' in the affine space corresponds to maximal ideals of the \(k\)-algebra.
+What do we gain from this? We need not choose a generator set of the \(k\)-algebra, which is the same as an embedding \(Y \embed \A^n\). In this abstract formulation, the ``points'' in the affine space corresponds to maximal ideals of the \(k\)-algebra.
 
 \begin{definition}[affine algebraic variety]\index{affine algebraic variety}\index{point}
   An \emph{affine algebraic variety} over \(k\), where \(k\) is a field, is a finitely generated \(k\)-algebra \(R\) with no nonzero nilpotent elements.
@@ -552,7 +555,7 @@ i.e.\ a morphism \(\A^n \to \A^m\), and the conditions on the polynomials \(\Phi
   \begin{enumerate}
   \item A morphsim \(\A^1 \to \A^n\) is a \(k\)-algebra homomorphism \(k[x_1, \dots, x_n] \to k[t]\), which is the same as an \(n\)-tuple of polynomials \((\Phi_1(t), \dots, \Phi_n(t))\).
   \item A morphism \(X \to \A^1\) is an \(k\)-algebra homomorphism \(k[t] \to k[X]\), which is an element of \(k[X]\) (i.e.\ where \(t\) is sent to). This says that \(k[X]\) is precisely the functions \(X \to \A^1\), which is something we knew before!
-  \item Suppose \(\ch k \neq 2\). Is there a morphism \(\A^1 \to E = \{(x, y): y^2 = x^3 - x\}\)? Suppose \(k = \C\), this is aksing if there is a polynomial map from the punctured sphere to the punctured torus. From analytic point of view this is impossible (there is not even an analytic functions does this). Algebraically, this is asking if there exist polynomials \(a(t), b(t) \in k[t]\) such that \(b^2 = a^3 - a\). See example sheet 1.
+  \item Suppose \(\ch k \neq 2\). Is there a morphism \(\A^1 \to E = \{(x, y): y^2 = x^3 - x\}\)? Suppose \(k = \C\), this is asking if there is a polynomial map from the punctured sphere to the punctured torus. From analytic point of view this is impossible (there is not even an analytic functions does this). Algebraically, this is asking if there exist polynomials \(a(t), b(t) \in k[t]\) such that \(b^2 = a^3 - a\). See example sheet 1.
   \item Let \(X\) be an affine algebraic variety and let \(f \in k[X]\). Consider
     \[
       k[X] \to k[X][t]/(tf - 1) = k[Y]
@@ -596,7 +599,7 @@ If \(X\) is complex analytic then this is indeed the analytic definition of tang
   \[
     T_{(a, b)}(X) = \{(v_1, v_2): v_1(2a) + v_2(-3b^2) = 0\}.
   \]
-  If \((a, b) \neq (0, 0)\) this is a line and if \((a, b) = (0, 0)\) then this is \(\A^2\). (graph)
+  If \((a, b) \neq (0, 0)\) this is a line and if \((a, b) = (0, 0)\) then this is \(\A^2\).
 \end{eg}
 
 \begin{lemma}
@@ -722,7 +725,7 @@ We have two more definitions of dimension of varieties, which agree with our cur
   \begin{align*}
     \dim_{\text{Kr}} X
     &= \max \{r: Z_0 \subsetneq Z_1 \subsetneq \dots \subsetneq Z_r = X: Z_i \text{ irreducible Zariski closed}\} \\
-    &= \max \{r: 0 = Z_r \lneq I_{r - 1} \lneq \dots \lneq I_0 = k[x]: I_r \text{ prime}\}
+    &= \max \{r: 0 = I_r \subsetneq I_{r - 1} \subsetneq \dots \subsetneq I_0 = k[x]: I_i \text{ prime}\}
   \end{align*}
 \end{definition}
 
@@ -734,7 +737,7 @@ We have two more definitions of dimension of varieties, which agree with our cur
 \end{eg}
 
 \begin{definition}[function field]\index{function field}
-  Let \(X\) be an irrducible affine variety. Define the \emph{function field} of \(X\)
+  Let \(X\) be an irrducible affine variety. Define the \emph{function field} of \(X\) to be
   \[
     k(X)
     = \operatorname{Frac} k[X]
@@ -752,7 +755,7 @@ We have two more definitions of dimension of varieties, which agree with our cur
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(k(\A^n) = k(x_1, \dots, x_n)\).
-  \item \(E = \{(x, y): y^2 = x^3 - x\}\). Then \(k(E) = k(x)[y]/(y^2 - x^3 + x)\) which is an algebraic extension of \(k(x)\), so has trancedence dimension \(1\).
+  \item \(E = \{(x, y): y^2 = x^3 - x\}\). Then \(k(E) = k(x)[y]/(y^2 - x^3 + x)\) which is an algebraic extension of \(k(x)\), so has transcedence dimension \(1\).
   \end{enumerate}
 \end{eg}
 
@@ -927,15 +930,15 @@ Note that \(k[Y] \subseteq k[X]\) is an \emph{integral extension} of rings.
 \end{proof}
 
 \begin{proof}
-  Let \(z_1, \dots, z_n\) be as in Noether, so \(A\) is generated by \(z_1, \dots, z_n\) and \(z_1, \dots, z_d\) are transcendental over \(k\) and \(z_{i + 1}\) is integral over \(k[z_1, \dots, z_i]\) for \(i \geq d\). Claim that if \(d > 0\) then \(A\) is \emph{not} a field: if \(d > 0\) then the unit in \(k[z_1, \dots, z_d]\) are just \(k^\times\). So \(z_1\) is not invertible in \(k[z_1, \dots, z_d]\), so not invertible in \(A\) by the lemma.
+  Let \(z_1, \dots, z_n\) be as in Noether, so \(A\) is generated by \(z_1, \dots, z_n\) and \(z_1, \dots, z_d\) are transcendental over \(k\) and \(z_i\) is integral over \(k[z_1, \dots, z_d]\) for \(i > d\). Claim that if \(d > 0\) then \(A\) is \emph{not} a field: if \(d > 0\) then the units in \(k[z_1, \dots, z_d]\) are just \(k^\times\). So \(z_1\) is not invertible in \(k[z_1, \dots, z_d]\), so not invertible in \(A\) by the lemma.
 \end{proof}
 
 \begin{proof}
-  As \(A\) is finitely generated, there exist generators \(z_1, \dots, z_n\). wlog \(z_1, \dots, z_d\) are algebraiclly independent and \(A\) is algebraic over \(k[z_1, \dots, z_d]\). If \(d = n\) then done. Otherwise assume the theorem holds for all \(k\)-algebras with \(\leq n - 1\) generators. Let \(A' = k[z_1, \dots, z_{n - 1}]\). There exists nonzero \(f \in k[z_1, \dots, x_n]\) such that
+  As \(A\) is finitely generated, there exist generators \(z_1, \dots, z_n\). wlog \(z_1, \dots, z_d\) are algebraically independent and \(A\) is algebraic over \(k[z_1, \dots, z_d]\). If \(d = n\) then done. Otherwise assume the theorem holds for all \(k\)-algebras with \(\leq n - 1\) generators. Let \(A' = k[z_1, \dots, z_{n - 1}]\). There exists nonzero \(f \in k[x_1, \dots, x_n]\) such that
   \[
-    f(z_2, \dots, z_{n - 1}, z_n) = 0.
+    f(z_1, \dots, z_{n - 1}, z_n) = 0.
   \]
-  Write \(f = \sum_{i \leq N} F_i\) where \(F_N, F_i \in k[x_1, \dots, x_n]\) of degree \(i\) as a polynomial in \(x_n\).
+  Write \(f = \sum_{i \leq N} F_i\) where \(F_i \in k[x_1, \dots, x_n]\) has degree \(i\) in \(x_n\).
 
   Suppose \(k\) is infinite, then there exist \(\lambda_1, \dots, \lambda_n \in k\) such that
   \[
@@ -945,11 +948,11 @@ Note that \(k[Y] \subseteq k[X]\) is an \emph{integral extension} of rings.
   \begin{align*}
     x_1^{e_1} \cdots x_n^{e_n}
     &= (x_1' + \lambda_1 x_n)^{e_1} \cdots (x_{n - 1}' + \lambda_{n - 1} x_n)^{e_{n - 1}} x_n^{e_n} \\
-    &= \lambda_1^{e_1} \lambda_{n - 1}^{e_1 + \dots + e_n} + \text{ polynomials in \(x_1', \dots, x_n'\) whose \(x_n'\) degree is smaller}
+    &= \lambda_1^{e_1} \cdots \lambda_{n - 1}^{e_{n - 1}} x_n^{e_1 + \dots + e_n} + \text{ terms in \(x_1', \dots, x_n'\) with lower \(x_n'\) degree}
   \end{align*}
   Hence
   \[
-    f(x_1', \dots, x_n') = F_N(\lambda_1, \dots, \lambda_n) \cdot x_n^{e_1, \dots, e_n} + \text{ lower \(x_n\)-degree poly}
+    f(x_1', \dots, x_n') = F_N(\lambda_1, \dots, \lambda_n) \cdot x_n^{e_1 + \dots + e_n} + \text{ lower \(x_n\) degree terms}.
   \]
   But this implies that \(z_n' = z_n\) is integral over \(k[z_1', \dots, z_{n - 1}'] = A''\). But \(A''\) is generated by \(n - 1\) elements, so inductive hypothesis gives the result.
 
@@ -958,19 +961,17 @@ Note that \(k[Y] \subseteq k[X]\) is an \emph{integral extension} of rings.
   If \(k\) is finite then we use an argument of Nagata: let \(x_i = x_i - x_n^{\gamma_i}\) for \(\gamma_i\) sufficiently large.
 \end{proof}
 
-Fri 8 Feb
-
-Exercise
-
-Let \(k = \cl k\)  and \(X, Y\) irreducible varieties over \(k\) with \(\varphi: X \to Y\) a morphism. Show that
-\begin{enumerate}
-\item \(k[Y] \embed k[X]\) if and oif \(\cl{\varphi(X) = Y}\) 
-\item If \(\cl{\varphi(X)} = Y\) then \(\dim X \geq \dim Y\). In fact, for all \(y \in \varphi(X)\),
-  \[
-    \dim \varphi^{-1}(y) \geq \dim X - \dim Y
-  \]
-  and equality holds on a dense open subset. (hard! Require Noether normalisation)
-\end{enumerate}
+\begin{ex}
+  Let \(k = \cl k\) and \(X, Y\) irreducible varieties over \(k\) with \(\varphi: X \to Y\) a morphism. Show that
+  \begin{enumerate}
+  \item \(k[Y] \embed k[X]\) if and only if \(\cl{\varphi(X)} = Y\)
+  \item If \(\cl{\varphi(X)} = Y\) then \(\dim X \geq \dim Y\). In fact, for all \(y \in \varphi(X)\),
+    \[
+      \dim \varphi^{-1}(y) \geq \dim X - \dim Y
+    \]
+    and equality holds on a dense open subset. (hard! Require Noether normalisation)
+  \end{enumerate}
+\end{ex}
 
 \section{Projective space}
 
@@ -980,21 +981,17 @@ We will first define projective space as a set. Let \(V\) be a vector space over
 \]
 Suppose \(v \in V, v \neq 0\), \(kv = \{\lambda v: \lambda \in k\}\) is a line. Conversely, \(\ell \in \P V\) is a line if and only if \(\ell = kv\) for any \(v \in \ell \setminus \{0\}\).
 
-\begin{note}\leavevmode
+Note that it is not clear that \(\P^n\) is a variety (affine or otherwise) as it is the result of two operations, neither of which gives a variety:
   \begin{enumerate}
   \item \(V \setminus \{0\}\) is not an affine algebraic variety if \(\dim V > 1\).
-  \item Quotienting a vaiety by the action of group like \(k^\times\) is subtle, even if the variety is affine. This is the subject of geometric invariant theory.
+  \item quotienting a vaiety by the action of group like \(k^\times\) is subtle, even if the variety is affine. This is the subject of geometric invariant theory.
   \end{enumerate}
-\end{note}
 
-Choose a basis \(e_0, \dots, e_n\) of \(V\), i.e.\ an isomorphism \(V \cong k^{n + 1}\), write \([x_0 : \dots : x_n] \in \P^n\) for the line through \(\sum x_i e_i\) so
+The first we can do to analyse the projective space is to give it homoegeneous coordiantes. Choose a basis \(e_0, \dots, e_n\) of \(V\), i.e.\ an isomorphism \(V \cong k^{n + 1}\), write \([x_0 : \dots : x_n] \in \P^n\) for the line through \(\sum x_i e_i\). Thus
 \[
   [x_0: \dots : x_n] = [\lambda x_0 : \cdots : \lambda x_n]
 \]
-for all \(\lambda \in k^\times\).
-
-Claim \(\P^n = \A^n \amalg \P^{n - 1}\):
-
+for all \(\lambda \in k^\times\). Claim \(\P^n = \A^n \amalg \P^{n - 1}\):
 \begin{proof}
   Consider \(p = [x_0 : \dots : x_n]\). If \(x_n = 0\), \(p = [x_0 : \dots : x_{n - 1} : 0]\) determines a unique point in \(\P^{n - 1}\), and conversely if \(x_n \neq 0\) then
   \[
@@ -1009,27 +1006,23 @@ Claim \(\P^n = \A^n \amalg \P^{n - 1}\):
   \]
 \end{corollary}
 
-We can't make \(\P^n\) an algebraic variety by gluing together a closed and open subset as more data is needed.
+This gives a nice set theoretic description of \(\P^n\), although we still cannot quite make it into an algebraic variety by gluing together a closed and an open subset. For example, \(Z(x^2 - y^3) \subseteq \A^2\) can be written as \(k^\times \amalg \{\text{pt}\}\). On the other hand, \(\A^1 = k^\times \amalg \{\text{pt}\}\). More data is needed.
 
-\begin{ex}
-  Consider \(Z(x^2 - y^3) \subseteq \A^2\), which can be written as \(k^\times \amalg \{\text{pt}\}\). On the other hand, \(\A^1 = k^\times \amalg \{\text{pt}\}\).
-\end{ex}
-
-We want to rephrase \(\P^n = \A^n \amalg \P^{n - 1}\). Let \(H \leq V\) be a hyperplane, let \(w_0 \in V \setminus H\). For example \(H = \{x: x_n = 0\}, w_0 = (0, \dots, 0, 1)\). Then
+We want to rephrase \(\P^n = \A^n \amalg \P^{n - 1}\). Let \(H \leq V\) be a hyperplane, let \(w_0 \in V \setminus H\) (for example \(H = \{x: x_n = 0\}, w_0 = (0, \dots, 0, 1)\)). Then we have an inclusion of the projectivisation of \(H\)
 \begin{align*}
   \P H &\embed \P V \\
   kv &\mapsto kv
 \end{align*}
-We also have
+as well as the affine hyperplane
 \begin{align*}
   H &\embed \P V \\
   h &\mapsto k(h + w_0)
 \end{align*}
 It is an exercise to show that
 \[
-  \P V \setminus \P H \cong H = \A^n
+  \P V \setminus \P H \cong H = \A^n,
 \]
-and the isomorphism depends on the choice of \(w_0\).
+with the isomorphism depends on the choice of \(w_0\).
 
 Set \(U_i = \{x = [x_0: \dots : x_n] \in \P^n: x_i \neq 0\}, H_i = \{(x_0, \dots, x_n): x_i = 0\} \cong \A^n\) so \(\P V \setminus \P H_i = U_i\). It is clear that
 \[
@@ -1059,8 +1052,6 @@ As each \(U_i \cong \A^n\) is an affine variety, and
 \end{align*}
 is a morphism of affine variety, the \(\P^n\) is a well-defined algebraic variety, and \(U \to \P^n\) is a morphism of algebraic varieties.
 
-11/Feb/19
-
 Lots of maps \(\A^n \embed \P^n\) (choose a hyperplane and a point off the hyperplane. \((x_0, \dots, x_{n -1}) \mapsto (x_0, \dots, x_{n - 1}, 1)\). Call the map \(i: \A^2 \to \P^2\).
 
 Let \(E^0 = \{(x, y) \in \A^2: y^2 = x^3 - x\}\). What is \(\cl{i(E^0)}\) in \(\P^2\)? Let's work it out. As \([x: y: 1] = [X: Y: Z]\) for \(z \neq 0\), have \(x = \frac{X}{Z}, y = \frac{Y}{Z}\) so \(y^2 = x^3 - x\) gives
@@ -1071,19 +1062,43 @@ so
 \[
   i(E^0) = \{[X: Y: Z] \in \P^2: Y^2Z = X^3 - XZ^2, Z \neq 0\}.
 \]
-From now on write \(E^0\) for \(i(E^0)\). Then the closure will be the same equation but allow \(Z = 0\). This is done as follow. There are three charts: \(X \neq 0, Y \neq 0, Z \neq 0\). In chart \(Z \neq 0\), \(y^2 = x^3 - x\). In chart \(Y \neq 0\), put \(z = \frac{Z}{Y}, x = \frac{X}{Y}\) so the equation for \(E^0\) is \(z = x^3 - xz^2\) and \(z \neq 0\). On chart \(X \neq 0\), put \(y = \frac{Y}{X}, z = \frac{Z}{X}\), equation is \(y^2 = 1 - z^2\) and now take closure of \(E^0\) in each chart, gievs closure of \(E^0\) in \(\P^2\).
+From now on write \(E^0\) for \(i(E^0)\). Then the closure will be the same equation but allow \(Z = 0\). This can be done as follow. There are three charts: \(X \neq 0, Y \neq 0, Z \neq 0\). In chart \(Z \neq 0\), \(y^2 = x^3 - x\). In chart \(Y \neq 0\), put \(z = \frac{Z}{Y}, x = \frac{X}{Y}\) so the equation for \(E^0\) is \(z = x^3 - xz^2\) and \(z \neq 0\). On chart \(X \neq 0\), put \(y = \frac{Y}{X}, z = \frac{Z}{X}\), equation is \(y^2 = 1 - z^2\) and \(z = 1\). Now taking closure of \(E^0\) in each chart gives closure of \(E^0\) in \(\P^2\).
 
-If \([X: Y: Z]\) is in the chart \(Y \neq 0\) but not in chart \(Z \neq 0\), that says \(z = 0\). The equation says \(x^3 = 0\), which has a unique solution \(x = 0\), so we get an extra point \([0: 1: 0]\).
+If \([X: Y: Z]\) is in the chart \(Y \neq 0\) but not in chart \(Z \neq 0\), must have \(z = 0\). The equation says \(x^3 = 0\), which has a unique solution \(x = 0\), so we get an extra point \([0: 1: 0]\).
 
-If \([X: Y: Z]\) is  in the chart \(X \neq 0\) and not in the chart \(Z \neq 0\) then \(z = 0\) and have \(0 = 1\) which has no solution, so no extra points.
+If \([X: Y: Z]\) is  in the chart \(X \neq 0\) and not in the chart \(Z \neq 0\) then \(z = 0\) and have \(0 = 1\) which has no solution, so no extra point.
 
 Thus the projective curve \(E\), defined as the closure of \(E^0\) in \(\P^2\), is \(E^0 \cup \{[0: 1: 0]\}\), which is what we wanted in the first lecture.
 
-Given \(X = Z(I) \subseteq \A^n\) where \(I \subseteq k[x_1, \dots, x_n]\), what is the closure of \(X\) in \(\P^n\) under the map \((x_1, \dots, x_n) \mapsto [1: x_1: \cdots : x_n]\)? Given \(f \in k[x_1, \dots, x_n]\), make it homogeneous : if \(\deg f = d\), define
+In general, given \(X = Z(I) \subseteq \A^n\) where \(I \subseteq k[x_1, \dots, x_n]\), we may ask what is the closure of \(X\) in \(\P^n\) under the embedding \((x_1, \dots, x_n) \mapsto [1: x_1: \cdots : x_n]\). To do so we would like to talk about varieties in projective spaces just as in affine spaces. However, note that the zero of a general polynomial in \(\P^n\) is not well-defined as it is not invariant under the action of \(k^\times\).
+
+\begin{definition}[homogeneous polynomial]\index{homogeneous polynomial}
+  Given \(f \in k[x_1, \dots, x_n]\), \(f\) is \emph{homogeneous} of degree \(d\) if
+  \[
+    f = \sum_{c_1 + \dots + c_n = d} a_{i_1 \cdots i_n} x_1^{i_1} \cdots x_n^{i_n}.
+  \]
+  If \(k\) is infinite then this holds if and only if
+  \[
+    f(\lambda x_1, \dots, \lambda x_n) = \lambda^d f(x_1, \dots, x_n)
+  \]
+  for all \(\lambda \in k^\times\).
+\end{definition}
+
+Any \(f \in k[x_1, \dots, x_n]\) can be written as \(f = \sum_{r = 0}^n f_{(r)}\) where \(f_{(r)}\) is homogeneous of degree \(r\).
+
+\begin{definition}[homogeneous ideal]
+  An ideal \(I \subseteq k[x_1, \dots, x_n]\) is \index{homogeneous} if for all \(f \in I\), \(f = \sum_r f_{(r)}\) then \(f_{(r)} \in I\) for all \(I\).
+\end{definition}
+
+\begin{eg}
+  \((xy + y^2, y^3, x^2)\) is homogeneous but \((xy + y^3)\) is not.
+\end{eg}
+
+Given \(f \in k[x_1, \dots, x_n]\), we homogenise it by defining
 \[
   \tilde f(X_0, \dots, X_n) = X_0^d f(\frac{X_1}{X_0}, \dots, \frac{X_n}{X_0})
 \]
-so
+where \(d = \deg f\). \(f\) can be recovered by
 \[
   \tilde f(1, x_1, \dots, x_n) = f(x_1, \dots, x_n).
 \]
@@ -1091,9 +1106,8 @@ so
 \begin{eg}
   If \(f = y^2 - x^3 + x\) then
   \[
-    \tilde f = Z^3((Y/Z)^2 - (X/Z)^3 + (X/Z)) = ZY^2 - X^3 + XZ^2
+    \tilde f = Z^3((Y/Z)^2 - (X/Z)^3 + (X/Z)) = ZY^2 - X^3 + XZ^2.
   \]
-  and define \(\tilde 0 = 0\).
 \end{eg}
 
 For an ideal \(I \subseteq k[x_1, \dots, x_n]\), define
@@ -1104,28 +1118,6 @@ For an ideal \(I \subseteq k[x_1, \dots, x_n]\), define
 \begin{ex}
   \(\tilde I\) is an ideal and is homogeneous. \(\tilde I|_{X_0 = 1} = I\).
 \end{ex}
-
-\begin{definition}
-  Given \(f \in k[x_1, \dots, x_n]\), \(f\) is \emph{homogeneous} of degree \(d\) if
-  \[
-    f = \sum_{c_1 + \dots + c_n = d} a_{i_1 \cdots i_n} x_1^{i_1} \cdots x_n^{i_n},
-  \]
-  if and only if
-  \[
-    f(\lambda x_1, \dots, \lambda x_n) = \lambda^d f(x_1, \dots, x_n)
-  \]
-  for all \(\lambda \in k^\times\), if \(k\) is infinite.
-\end{definition}
-
-Any \(f \in k[x_1, \dots, x_n]\) can be written as \(f = \sum_{r = 0}^n f_{(r)}\) where \(f_{(r)}\) is homogeneous of degree \(r\).
-
-\begin{definition}
-  An ideal \(I \subseteq k[x_1, \dots, x_n]\) is homogeneous if for all \(f \in I\), \(f = \sum_r f_{(r)}\) then \(f_{(r)} \in I\) for all \(I\).
-\end{definition}
-
-\begin{eg}
-  \((xy + y^2, y^3, x^2)\) is homogeneous but \((xy + y^3)\) is not.
-\end{eg}
 
 \begin{lemma}\leavevmode
   \begin{enumerate}
@@ -1138,18 +1130,23 @@ Any \(f \in k[x_1, \dots, x_n]\) can be written as \(f = \sum_{r = 0}^n f_{(r)}\
   Exercise.
 \end{proof}
 
-This shows that Zariski closed subsets of \(\P^n\) are defined by homogeneous ideals in \(k[x_0, \dots, x_n]\), corresponding to \(k^\times\)-invariant closed subsets of \(\A^{n + 1}\).
+This shows that Zariski closed subsets of \(\P^n\), defined to be zeros cut out by homogeneous ideals in \(k[x_0, \dots, x_n]\), are well-defined. They correspond to \(k^\times\)-invariant closed subsets of \(\A^{n + 1}\).
 
-Warning: if \(I = (f_1, \dots, f_r) \subseteq k[x_1, \dots, x_n]\), it need not be the case that \(\tilde I = (\tilde f_1, \dots, \tilde f_r)\). For example if \(I = (x - y^2, y) = (x, y) = I(\{0\})\), but \((xz - y^2, y) = (xz, y) \neq (x, y) = \tilde I\).
+\begin{note}
+  If \(I = (f_1, \dots, f_r) \subseteq k[x_1, \dots, x_n]\), it need \emph{not} be the case that \(\tilde I = (\tilde f_1, \dots, \tilde f_r)\). For example given \(I = (x - y^2, y) = (x, y) = I(\{0\})\),
+  \[
+    (xz - y^2, y) = (xz, y) \neq (x, y) = \tilde I.
+  \]
+\end{note}
 
 \begin{ex}
-  Can you find an ideal such that \(\tilde I \neq (\tilde f_1, \dots, \tilde f_r)\) for any minimal generator \(f_1, \dots, f_r\) of \(I\)?
+  Find an ideal such that \(\tilde I \neq (\tilde f_1, \dots, \tilde f_r)\) for any minimal generator \(f_1, \dots, f_r\) of \(I\).
 \end{ex}
 
 \begin{definition}[quasi-projective/affine variety]\index{quasi-projective variety}\index{quasi-affine variety}
   A \emph{quasi-projective variety} is an open subvariety of a projective variety.
 
-  A \emph{quasi-affine variety} is an open subvariety of a projective variety.
+  A \emph{quasi-affine variety} is an open subvariety of an affine variety.
 \end{definition}
 
 \begin{eg}
@@ -1172,9 +1169,7 @@ Warning: if \(I = (f_1, \dots, f_r) \subseteq k[x_1, \dots, x_n]\), it need not 
   \]
 \end{remark}
 
-Projective space is compact
-
-Let \(k = \C\). Claim
+We end this chapter with a brief discussion of compactness of projective spaces. Let \(k = \C\). Claim
 \[
   \P^n = (\C^{n + 1} \setminus \{0\}) / \C^\times = S^{2n + 1}/S^1.
 \]
@@ -1193,10 +1188,8 @@ Let \(k = \C\). Claim
   \[
     (\C^{n + 1} \setminus 0)/ \C^\times \to S^{2n + 1}/S^1.
   \]
-  \(S^{2n + 1}\) is compact in the usual topology and so is its quotient. Thus \(\P^n\) is compact in the usual topology.
 \end{proof}
-
-Surprisingly, this has an algebraic version in the Zariski topology.
+\(S^{2n + 1}\) is compact in the usual topology and so is its quotient. Thus \(\P^n\) is compact in the usual topology. Surprisingly, this has an algebraic version in the Zariski topology.
 
 \begin{definition}[proper]\index{proper}
   \(X\) is \emph{proper} if for every continuous map \(\varphi: X \to Y\), the image of a closed subset under \(\varphi\) is closed.
@@ -1251,7 +1244,7 @@ Warning: not all curves can be embedded in \(\P^2\).
   \end{enumerate}
 \end{ex}
 
-Suppose \(k = \C\). Let \(X\) be a curve, \(p \in X\) a smooth curve. Then a small open neighbourhood of \(p\) in the usual topology is diffeomorphic to a small open neighbourhood of \(0\) in \(\C\) by implicit funciton theorem. The corresponding notion is power series convergent on some neighbourhood of \(p\). It is completely analogous that here is an algebraic replacement for it.
+Suppose \(k = \C\). Let \(X\) be a curve, \(p \in X\) a smooth curve. Then a small open neighbourhood of \(p\) in the usual topology is diffeomorphic to a small open neighbourhood of \(0\) in \(\C\) by implicit function theorem. The corresponding notion is convergent power series on some neighbourhood of \(p\). It is completely analogous that here is an algebraic replacement for it.
 
 \begin{theorem}
   Let \(X\) be a curve, \(p \in X\) a smooth point. Write \(\mathfrak m = \mathfrak m_{X, p}\).
@@ -1376,7 +1369,7 @@ Such is not unique but if \(t\) is a local parameter so is \(ut\) if \(u \in \ma
 This is independent of the choice of \(t\).
 
 \begin{proof}
-  Given \(f \in \mathcal O_{X, p}\), as \(\bigcap_{n \geq 0} \mathfrak m^n = 0\), there exists a unique \(n \geq 0\) such that \(f \in \mathfrak m^n \setminus \mathfrak m^{n + 1}\). Define \(\nu_p(f) = n\). As \(\mathfrak m^n = (t^n)\), \(f = t^n u\) with \(u \in \mathcal O_{X, p} \setminus \mathfrak m_{X, p} = \mathcal O_{X, p}^*\). Note if \(t^n u' = t^m u\) where \(n \geq m\) then \(t^{n - m} = u' u^{-1} \in \mathcal O^*\) so \(n = m\).
+  Given \(f \in \mathcal O_{X, p}\), as \(\bigcap_{n \geq 0} \mathfrak m^n = 0\), there exists a unique \(n \geq 0\) such that \(f \in \mathfrak m^n \setminus \mathfrak m^{n + 1}\). Define \(\nu_p(f) = n\). As \(\mathfrak m^n = (t^n)\), \(f = t^n u\) with \(u \in \mathcal O_{X, p} \setminus \mathfrak m_{X, p} = \mathcal O_{X, p}^*\). Note if \(t^n u' = t^m u\) where \(n \geq m\) then \(t^{n - m} = u' u^{-1} \in \mathcal O_{X, p}^*\) so \(n = m\).
 
   If \(f \in k(X)^*\), \(f \notin \mathcal O_{X, p}\) then \(f^{-1}\) is. Apply the above and define \(\nu_p(f) = - \nu_p(f^{-1})\).
 \end{proof}
@@ -1392,7 +1385,7 @@ This is independent of the choice of \(t\).
         n_i & a = a_i
       \end{cases}
     \]
-  \item If \(p = \infty\) then \(\frac{1}{x}\) is a coordinate. For example if ...
+  \item If \(p = \infty\) then \(\frac{1}{x}\) is a coordinate.
     \[
       f(x) = (\frac{1}{x})^{- \sum n_i} \underbrace{\prod (1 - \frac{a_i}{x})^{n_i}}_{\text{regular at } \infty}
     \]
@@ -1454,7 +1447,7 @@ Using this terminology, the proposition is saying that a rational map to a proje
 \end{eg}
 
 \begin{definition}
-  Two rational maps \(\varphi_1, \varphi_2: X \rational Y\) defined on \(U_1, U_2\) are \emph{equal} if there exists a Zariski open \(V \subseteq V_1 \cap V_2\) with \(\varphi_1|_V = \varphi_2|_V\). That is, the rational map defined by \(\varphi\) doesn't depend on \(U\) --- we can shrink and think of them as the same rational map.
+  Two rational maps \(\varphi_1, \varphi_2: X \rational Y\) defined on \(U_1, U_2\) are \emph{equal} if there exists a Zariski open \(V \subseteq U_1 \cap U_2\) with \(\varphi_1|_V = \varphi_2|_V\). That is, the rational map defined by \(\varphi\) doesn't depend on \(U\) --- we can shrink and think of them as the same rational map.
 \end{definition}
 
 \begin{definition}
@@ -1494,7 +1487,7 @@ Using this terminology, the proposition is saying that a rational map to a proje
 \begin{proof}\leavevmode
   \begin{enumerate}
   \item \(\alpha^{-1}(q)\) is a closed subset of \(X\). But the only closed subsets are fintie set of points and \(X\). As \(\alpha\) is nonconstant the result follows.
-  \item If \(f \in k(Y)\) then exists \(U \subseteq Y\) affine such that \(f \in k[U]\). Then \(f \compose \alpha: \alpha^{-1}(U) \to k\) is well-defined in \(k[\alpha^{-1}(U)] \subseteq k(X)\) so map of fields \(k(Y) \to k(X)\). Have \(k \subseteq k(Y) \subseteq k(X)\) where \(k(X)\) and \(k(Y)\) are both algebraic over \(k\). Thus \(k(X)/k(Y)\) is algebraic.
+  \item If \(f \in k(Y)\) then exists \(U \subseteq Y\) affine such that \(f \in k[U]\). Then \(f \compose \alpha: \alpha^{-1}(U) \to k\) is well-defined in \(k[\alpha^{-1}(U)] \subseteq k(X)\) so we have a map of fields \(k(Y) \to k(X)\). Have \(k \subseteq k(Y) \subseteq k(X)\) where \(k(X)\) and \(k(Y)\) are both algebraic over \(k\). Thus \(k(X)/k(Y)\) is algebraic.
   \end{enumerate}
 \end{proof}
 
@@ -1529,7 +1522,7 @@ Let \(\alpha: X \to Y\) be a nonconstant morphism of smooth irreducible projecti
   \]
   as \(x - a\) is a local parameter at \(a\).
 
-  Notice that \(\# \alpha^{-1}(a) = r\) for all \(a \in \A^1\) if we count the points with multiplicity. This is a general phnomenom.
+  Notice that \(\# \alpha^{-1}(a) = r\) for all \(a \in \A^1\) if we count the points with multiplicity. This is a general phenomenon.
 \end{eg}
 
 \begin{theorem}[finiteness theorem]
@@ -1587,7 +1580,7 @@ We just saw that
 \[
   \deg \div (f) = 0.
 \]
-Define \(\Div^n(X) = \{D \in \Div(X): \deg D = n\}\). Divisors of the form \(\div (f)\) are called \emph{pincipal divisors}, \(\div k(X)^*\). We will study
+Define \(\Div^n(X) = \{D \in \Div(X): \deg D = n\}\). Divisors of the form \(\div (f)\) are called \emph{principal divisors}, denoted \(\div k(X)^*\). We will study
 \[
   \Cl (X) = \operatorname{Pic} (X) = \Div(X) / \div k(X)^*,
 \]
@@ -1623,9 +1616,9 @@ Suppose \(k = \cl k\) and let \(X\) be a smooth irreducible projective curve. Le
 \begin{align*}
   L(D)
   &= \{f \in k(X)^*: D + \div (f) \geq 0\} \cup \{0\} \\
-  &= \{f \in k(X)^*: \nu_{p_i}(f) \geq -n_i, \nu_p(f) \geq 0 \text{ for } p \notin \{p_1, \dots, p_r\}\}
+  &= \{f \in k(X)^*: \nu_{p_i}(f) \geq -n_i, \nu_p(f) \geq 0 \text{ for } p \notin \{p_1, \dots, p_r\}\} \cup \{0\}
 \end{align*}
-As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \(\Gamma(X, \mathcal O(D))\)).
+As \(\nu_p(f + g) \geq \min\{\nu_p(f), \nu_p(g)\}\), \(L(D)\) is a vector space (usual notation: \(\Gamma(X, \mathcal O(D))\)).
 
 \begin{eg}\leavevmode
   \begin{enumerate}
@@ -1638,7 +1631,7 @@ As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \
   \begin{enumerate}
   \item If \(\deg D < 0\) then \(L(D) = 0\).
   \item \(L(0) = k\).
-  \item If \(D \sim D'\), i.e.\ \(D = D' + \div(g)\) where \(g \in k(X)\) then
+  \item If \(D \sim D'\), i.e.\ \(D = D' + \div(g)\) where \(g \in k(X)^*\) then
     \begin{align*}
       L(D) &\to L(D') \\
       f &\mapsto fg
@@ -1657,7 +1650,7 @@ As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \
   \begin{enumerate}
   \item If \(f \in L(D)\) then \(\deg f \leq \deg D\) from the definition. But \(\deg f \geq 0\).
   \item Exercise.
-  \item As \(\div (fg) = \div(f) + \div(g)\) as \(\nu_p(fg) = \nu_p(f) + \nu_p(g)\).
+  \item As \(\div (fg) = \div(f) + \div(g)\) since \(\nu_p(fg) = \nu_p(f) + \nu_p(g)\).
   \item Obvious from definition.
   \item Induct on \(\deg D\). If \(\deg D < 0\) then \(L(D) = 0\) by 1. Pick \(p \notin \{p_1, \dots, p_r\}\). Consider the map \(\lambda: L(D) \to k, f \mapsto f(p)\). This is well-defined as \(f\) has no pole at \(p\). Then \(f \in \ker \lambda\) if and only if \(f \in L(D)\) and \(\nu_p(f) \geq 1\), if and only if \(f \in L(D - p)\). Note that \(\lambda\) need not be surjective. As \(\ker \lambda = L(D - p)\), induction gives
     \[
@@ -1681,11 +1674,13 @@ As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \
 \begin{eg}
   If \(X = \P^1\) and \(\deg D = n \geq 0\) then \(\ell(D) = \deg D + 1\).
 
-  Proof: by 3, this only depends on \([D] \in \Cl (\P^1) \cong \Z\), so may as well take \(D = n (\infty)\) and we have \(\ell(n (\infty)) = n + 1\).
+  \begin{proof}
+    By 3, this only depends on \([D] \in \Cl (\P^1) \cong \Z\), so may as well take \(D = n (\infty)\) and we have \(\ell(n (\infty)) = n + 1\).
+  \end{proof}
 \end{eg}
 
 \begin{eg}
-  Let \(E^0 = \{(x, y) \in \A^2: y^2 = (x - \lambda_1) (x - \lambda_2) (x - \lambda_3)\}\) where \(\lambda_i\)'s are zero and \(\lambda_1 \lambda_2 \lambda_3 \neq 0\). Let \(E\) be the plane curve contained in \(\P^2\) defined by this, i.e.\ the closure of \(E^0\) in \(\P^2\). (Recall that \(E\) is the projective variety given by
+  Let \(E^0 = \{(x, y) \in \A^2: y^2 = (x - \lambda_1) (x - \lambda_2) (x - \lambda_3)\}\) where \(\lambda_i\)'s are distinct and \(\lambda_1 \lambda_2 \lambda_3 \neq 0\). Let \(E\) be the plane curve contained in \(\P^2\) defined by this, i.e.\ the closure of \(E^0\) in \(\P^2\). (Recall that \(E\) is the projective variety given by
   \[
     ZY^2 = (X - \lambda_1Z)(X - \lambda_2Z)(X - \lambda_3Z).
   \]
@@ -1699,11 +1694,9 @@ As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \
   \[
     \div (y) = -3 P_\infty + \sum_{i = 1}^3 [\lambda_i:0:1]
   \]
-  as \(\frac{\partial f}{\partial x} \neq 0\) at \([\lambda_i:0:1]\) so \(y\) is a local parameter there. Thus \(x \in L(2P_\infty), y \in L(3P_\infty)\). Similar to computation of Weierstrass \(\wp\)-function.
+  as \(\frac{\partial f}{\partial x} \neq 0\) at \([\lambda_i:0:1]\) so \(y\) is a local parameter there. Thus \(x \in L(2P_\infty), y \in L(3P_\infty)\). This is similar to computation of Weierstrass \(\wp\)-function.
 
-  Claim that \(L(P_\infty) = k\).
-
-  Granting the claim, the lemma 5 implies that \(\dim L(nP_\infty) \leq n\), but
+  Claim that \(L(P_\infty) = k\). Granting the claim, lemma 5 implies that \(\dim L(nP_\infty) \leq n\), but
   \begin{align*}
     1, x &\in L(2 P_\infty) \\
     1, x, y &\in L(3 P_\infty) \\
@@ -1719,21 +1712,25 @@ As \(\nu_p(f + g) \geq \nu_p(f)\), \(L(D)\) is a vector space (usual notation: \
     y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3).
   \]
 
-  Exercise: \(\{x^i, x^iy: i \geq 0\}\) are linearly independent in \(k(X)\) and hence \(\dim L(n P_\infty) = n\) for all \(n \geq 1\).
+  \begin{ex}
+    \(\{x^i, x^iy: i \geq 0\}\) are linearly independent in \(k(X)\) and hence \(\dim L(n P_\infty) = n\) for all \(n \geq 1\).
+  \end{ex}
 
-  Compare with when \(X = \P^1\), \(\dim L(n \infty) = n + 1\) when \(n \geq 0\).
+  Compare this with \(X = \P^1\), \(\dim L(n \infty) = n + 1\) when \(n \geq 0\).
 
-  Note that \(\lambda_i\)'s being distinct is essential as it ensures the curve is smooth. On the other hand, \(\lambda_1\lambda_2\lambda_3 \neq 0\) is just a convenience (without which \(x\) vanishes at \([0:c:1]\) with order \(2\).
+  Note that \(\lambda_i\)'s being distinct is essential as it ensures the curve is smooth. On the other hand, \(\lambda_1\lambda_2\lambda_3 \neq 0\) is just a convenience (without which \(x\) vanishes at \([0:c:1]\) with order \(2\)).
 
-  Proof of claim: if \(L(P_\infty) \neq k\) then \(L(P_\infty) = k + kt\) for some function \(t \in k(E)\). Then \(t^n \in L(n P_\infty) \setminus L((n - 1) P_\infty)\) so \(1, t, \dots, t^n\) are a basis of \(L(n P_\infty)\). But \(x \in L(2 P_\infty), y \in L(3P_\infty)\) so exist \(g_2(t), g_3(t)\) polynomials of degree \(2\) and \(3\) such that \(x = g_2(t), y = g_3(t)\), so \(x = (a t + b)^2 + d\), \(a \neq 0, b, d \in k\). By a change of variable (replacing \(t\) by \(a t + b\), the defining equation
-  \[
-    y^2 = \prod (x - \lambda_i)
-  \]
-  becomes
-  \[
-    g_3(t)^2 = \prod (t^2 - (\lambda_i - d)).
-  \]
-  But \(\lambda_i\)'s distinct implies that \(\lambda_i - d\) distinct so RHS is not a square in \(k(t)\), contradiction.
+  \begin{proof}[Proof of claim]
+    If \(L(P_\infty) \neq k\) then \(L(P_\infty) = k + kt\) for some function \(t \in k(E)\). Then \(t^n \in L(n P_\infty) \setminus L((n - 1) P_\infty)\) so \(1, t, \dots, t^n\) are a basis of \(L(n P_\infty)\). But \(x \in L(2 P_\infty), y \in L(3P_\infty)\) so exist \(g_2(t), g_3(t)\) polynomials of degree \(2\) and \(3\) such that \(x = g_2(t), y = g_3(t)\), so \(x = (a t + b)^2 + d\), \(a \neq 0, b, d \in k\). By a change of variable (replacing \(t\) by \(a t + b\)), the defining equation
+    \[
+      y^2 = \prod (x - \lambda_i)
+    \]
+    becomes
+    \[
+      g_3(t)^2 = \prod (t^2 - (\lambda_i - d)).
+    \]
+    But \(\lambda_i\)'s distinct implies that \(\lambda_i - d\) distinct so RHS is not a square in \(k(t)\), contradiction.
+  \end{proof}
 \end{eg}
 
 Suppose \(X\) is a smooth projective curve, \(D \in \Div (X)\) with \(\ell(D) \geq 1\). Set \(m = \ell(D) - 1\). Choose a basis \(f_0, \dots, f_m\) of \(L(D)\). We get a rational map
@@ -1776,7 +1773,7 @@ so we get the same map to projective space. Thus the map \(\alpha_D: X \to \P^m\
   \end{enumerate}
 \end{ex}
 
-\begin{eg}
+\begin{ex}
   Let
   \[
     X = E = \Cl \{(x, y): y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\} \subseteq \P^2.
@@ -1784,10 +1781,12 @@ so we get the same map to projective space. Thus the map \(\alpha_D: X \to \P^m\
   Show
   \begin{align*}
     \alpha_{P_\infty}: E &\to \P^0 = \text{pt} \\
-    \alpha_{2 P_\infty}: E &\to \P^1 = \P(\langle 1, x \rangle^*), \alpha_{2 P_\infty} (x, y) = x \\
-    \alpha_{3 P_\infty}: E &\to \P^2 = \P(\langle 1, x, y \rangle^*), \alpha_{3P_\infty}(x, y) = (x, y)
+    \alpha_{2 P_\infty}: E &\to \P^1 = \P(\langle 1, x \rangle^*) \\
+    (x, y) &\mapsto x \\
+    \alpha_{3 P_\infty}: E &\to \P^2 = \P(\langle 1, x, y \rangle^*) \\
+    (x, y) &\mapsto (x, y)
   \end{align*}
-\end{eg}
+\end{ex}
 
 \begin{theorem}[embedding criterion]
   Let \(X\) be a smooth projective curve and \(D \in \Div(X)\). Then \(\alpha_D: X \to \P^m\) is an embedding if and only if for all \(p, q \in X\),
@@ -1803,11 +1802,11 @@ Intuition: if \(p \neq q\) then this ensures this is an injection. If \(p \neq q
 
 When this happens, \(X\) is a curve in \(\P^m\) of \emph{degree} \(\deg D\).
 
-\(X \subseteq \P^m = \P V\) where \(\dim V = m + 1\), \(X\) a smooth curve. Let \(H \subseteq \P^m\) be a hyperlplane such that \(X \nsubseteq H\) (otherwise take \(m - 1)\)). Define
+\(X \subseteq \P^m = \P V\) where \(\dim V = m + 1\), \(X\) a smooth curve. Let \(H \subseteq \P^m\) be a hyperplane such that \(X \nsubseteq H\) (otherwise take \(m - 1)\)). Define
 \[
   [H \cap X] \in \Cl(X)
 \]
-as \(H \cap X\) ``counted with multiplicity''. (picture) There exists a linear function \(x_0 \in V^*\) such that \(H = \{p: x_0(p) = 0\}\). Write this as \(x_0 = 0\). Claim \(x_0 \notin k(X)\) (?). to get a rational function on \(X\), pick \(x_1 \in V^*\) such that \(x_1(p) \neq 0\). Now \(\frac{x_0}{x_1} \in k(X)\) and \(\nu_p(\frac{x_0}{x_1})\) is defined and we set it to be \(n_p\). If \(x_1'\) is another line with \(x_1'(p) \neq 0\) then
+as \(H \cap X\) ``counted with multiplicity''. (picture) There exists a linear function \(x_0 \in V^*\) such that \(H = \{p: x_0(p) = 0\}\). Write this as \(x_0 = 0\). \(x_0\) is not a well-defined function in \(k(X)\). To get a rational function on \(X\), pick \(x_1 \in V^*\) such that \(x_1(p) \neq 0\). Now \(\frac{x_0}{x_1} \in k(X)\) and \(\nu_p(\frac{x_0}{x_1})\) is defined and we set it to be \(n_p\). If \(x_1'\) is another line with \(x_1'(p) \neq 0\) then
 \[
   \nu_p(\frac{x_0}{x_1'}) = \nu_p(\frac{x_0}{x_1}) + \underbrace{\nu_p(\frac{x_1}{x_1'})}_{= 0}
 \]
@@ -1839,18 +1838,18 @@ so image in the class group is independent of the choice of \(H\). Thus we defin
 \end{theorem}
 
 \begin{proof}
-  Linearly change coordinates if necessary so \([1: 0 : 0] \notin Z(F)\). Then
+  Linearly change coordinates if necessary so \([0: 1 : 0] \notin Z(F)\). Then
   \[
     F = \sum_{i + j + k = d} a_{ijk} X_0^i X_1^j X_2^k
   \]
-  and \(F[1: 0: 0] \neq 0\) implies that \(a_{d, 0, 0} \neq 0\). Thus set \(x = \frac{X_0}{X_1}, z = \frac{X_2}{X_1}\) and
+  and \(F[0: 1: 0] \neq 0\) implies that \(a_{0, d, 0} \neq 0\). Thus set \(x = \frac{X_0}{X_1}, z = \frac{X_2}{X_1}\) and
   \[
-    f(x, z) = \frac{1}{a_{d, 0, 0}} F(x, 1, z)
+    f(x, z) = \frac{1}{a_{0, d, 0}} F(x, 1, z)
     = x^d + a_{d - 1} x^{d - 1} + \cdots + a_0
   \]
   where \(a_i = a_i(z)\) is a polynomial in \(z\) of degree \(\leq d - i\). \(f(x, z)\) is a polynomial of degree \(d\) in variable \(x\). In picture \(z = 0\) is the hyperplane \(H\) (yellow line) and we are computing \(H \cap X\) using chart \(X_1 \neq 0\) (complement of green line).
 
-  We will now compute \(\nu_p(z)\) for all \(p \in Z(F)\), that is for all \(p \in Z(F) \subseteq \{X_1 \neq 0\} = \mathcal X_0 = \{(x, z): f(x, z) = 0\}\), where the last expression is affine. But
+  We will now compute \(\nu_p(z)\) for all \(p \in \mathcal X_0\) where \(\mathcal X_0 = Z(F) \cap \{X_1 \neq 0 \} = \{(x, z): f(x, z) = 0\}\). Note the last expression is affine. But
   \[
     k[\mathcal X_0]/(z)
     = k[x, z]/(z, f(x, z))
@@ -1862,10 +1861,10 @@ so image in the class group is independent of the choice of \(H\). Thus we defin
   \]
   with \(\alpha_i\)'s distinct and \(\sum n_i = d\) and notice that points \((\alpha_i, 0)\) are exactly the intersections \(\mathcal X_0 \cap \{z = 0\}\). But Chinese remainder theorem says
   \[
-    k[x]/(x - \alpha_1)^{n_1} \cdots (x - \alpha_r)^{n_r} = \bigoplus k[x]/(x - \alpha_i)^{n_i}.
+    k[x]/(x - \alpha_1)^{n_1} \cdots (x - \alpha_r)^{n_r} \cong \bigoplus k[x]/(x - \alpha_i)^{n_i}.
   \]
 
-  Consider \(\nu_p(z)\). Claim (define \(\mathcal X = Z(F)\))
+   Let \(\mathcal X = Z(F)\). Claim
   \[
     \nu_p(z) = \dim \mathcal O_{\mathcal X, p}/(z) = \dim \mathcal O_{\mathcal X_0, p} /(z)
   \]
@@ -1875,16 +1874,16 @@ so image in the class group is independent of the choice of \(H\). Thus we defin
   \]
   which has dimension \(n\). So
   \[
-    k[\mathcal X_0]/(z) = \bigoplus_{p \in \mathcal X \cap H} \mathcal O_{\mathcal X, p}/(z) = \bigoplus_{i = 1}^r \mathcal O_{\mathcal X_0, (\alpha_i, 0)} /(z).
+    k[\mathcal X_0]/(z) \cong \bigoplus_{p \in \mathcal X \cap H} \mathcal O_{\mathcal X, p}/(z) \cong \bigoplus_{i = 1}^r \mathcal O_{\mathcal X_0, (\alpha_i, 0)} /(z).
   \]
   Have
   \[
-    \dim LHS = \sum n_i = \sum \nu_{p_i}(z) = d.
+    \dim k[\mathcal X_0]/(z) = \sum n_i = \sum \nu_{p_i}(z) = d.
   \]
 \end{proof}
 
-\begin{remark}
-  Quadrics: \(x^2 + y^2 = 1\), \(xy = 1\) and \(y = x^2\) are three type of curves over \(\R\), and two types over \(\C\). But they all correspond to curves in \(\P^2\): \(XY = Z^2\) has two points \([1:0:0]\) and \([0:1:0]\) at infinity while for \(YZ = X^2\), there is one point (with multiplicity 2) at \(\infty\). There is only one family of quadric (degree \(2\) curve) in \(\P^2\), isomorphic to \(\P^1\).
+\begin{remark}[quadrics]
+  \(x^2 + y^2 = 1\), \(xy = 1\) and \(y = x^2\) are three type of curves over \(\R\), and two types over \(\C\). But they all correspond to curves in \(\P^2\): \(XY = Z^2\) has two points \([1:0:0]\) and \([0:1:0]\) at infinity while for \(YZ = X^2\), there is one point (with multiplicity 2) at infinity. There is only one family of quadric (degree \(2\) curve) in \(\P^2\), isomorphic to \(\P^1\).
 \end{remark}
 
 \begin{corollary}[Bezout's theorem]\index{Bezout's theorem}
@@ -1892,13 +1891,13 @@ so image in the class group is independent of the choice of \(H\). Thus we defin
 \end{corollary}
 
 \begin{proof}
-  Given a curve \(\mathcal X\) in \(\P^m\) and \(G \in k[X_0, \dots, X_n]\) homogeneous of degree \(d'\) such that \(X \nsubseteq Z(G)\). Let \(W = Z(G)\) and define
+  Given a curve \(\mathcal X\) in \(\P^m\) and \(G \in k[X_0, \dots, X_n]\) homogeneous of degree \(d'\) such that \(X \nsubseteq W = Z(G)\). Define
   \[
     [\mathcal X \cap W] = \sum_{p \in \mathcal X \cap W} m_p p
   \]
-  where \(m_p = \nu_p(G/X_1^{d'})\) for any linear function \(X_1\) such that \(X_1(p) \neq 0\) (\(X_1\) overloaded). As
+  where \(m_p = \nu_p(G/X_1^{d'})\) for any linear function \(X_1\) such that \(X_1(p) \neq 0\). As
   \[
-    \frac{G}{X_1^{d'}} = \left( \frac{X_0}{X_1} \right)^{d'} \cdot \left( \frac{G}{X_0} d' \right)
+    \frac{G}{X_1^{d'}} = \left( \frac{X_0}{X_1} \right)^{d'} \cdot \left( \frac{G}{X_0^{d'}} \right)
   \]
   but \(\nu_p(X_0/X_1)\) is the order of vanishing of \(\mathcal X\) along \(X_0\) so
   \[
@@ -1915,8 +1914,8 @@ so image in the class group is independent of the choice of \(H\). Thus we defin
 
 Let \(B\) be a ring, \(A \subseteq B\) a subring.
 
-\begin{definition}
-  The \emph{Kähler differential}, \emph{\(1\)-form} or \emph{relative cotangent bundle} \(\Omega^1_{B/A}\) is the free \(B\)-module generated by \(B\), which we denote by \(\d b\) for \(b \in B\), quotient by the submodule generated by
+\begin{definition}[Kähler differential]\index{Kähler differential}\index{cotangent bundle}
+  The \emph{Kähler differential}, \emph{\(1\)-form} or \emph{relative cotangent bundle} \(\Omega^1_{B/A}\) is the free \(B\)-module generated by \(B\), which we denote by \(\d b\) for \(b \in B\), quotiented by the submodule generated by
   \begin{align*}
     &\d(fg) - f \d g - g \d f \\
     &\d(b + b') - \d b - \d b' \\
@@ -1932,11 +1931,11 @@ Let \(B\) be a ring, \(A \subseteq B\) a subring.
       \Hom_{k[X]} (\Omega^1_{k[X]/k}, k) \cong \Der(k[X], \ev_x)
     \]
     where on LHS \(k\) is regarded as a \(k[X]\)-module via \(\ev_x\).
-  \item More generally,
+  \item More generally, for any \(B\)-module \(M\),
     \[
-      \Hom_B(\Omega^1_{B/A}, M) = \{A\text{-linear derivations } B \to M\}
+      \Hom_B(\Omega^1_{B/A}, M) \cong \{A\text{-linear derivations } B \to M\}.
     \]
-    Hence \(\Omega^1_{k[X]/k}\) is dual to the tangent bundle, called the \emph{cotangent bundle}.
+    Hence \(\Omega^1_{k[X]/k}\) is dual to the tangent bundle, hence called the \emph{cotangent bundle}.
   \end{enumerate}
 \end{ex}
 
@@ -1947,7 +1946,7 @@ If you prefer the language of complex geometry, this is the space of meromorphic
 
 Usual rules of calculus apply so for example
 \[
-  0 = \d (1) = \d (\frac{g}{g}) = \frac{1}{g} \d g + g \frac{1}{g}
+  0 = \d (1) = \d (\frac{g}{g}) = \frac{1}{g} \d g + g \d \frac{1}{g}
 \]
 by Leibniz so
 \[
@@ -1972,7 +1971,7 @@ Similarly
 Combining these, get
 
 \begin{lemma}
-  If \(X\) is a curve, \(p \in X\) smooth and \(t\) a smooth parameter at \(p\) then
+  If \(X\) is a curve, \(p \in X\) smooth and \(t\) a local parameter at \(p\) then
   \[
     \Omega^1_{k(X)/k} = k(X) \d t.
   \]
@@ -2025,11 +2024,12 @@ Need to show that \(\nu_p(\omega)\) is independent of choice of local parameter 
       \nu_p(\d f) \geq \min \{\nu_p(\d x_i): i = 1, \dots, N\}.
     \]
     Hence \(\{\nu_p(\d f): f \in \mathcal O_{X, p}\}\) is bounded below. Choose \(f \in \mathcal O_{X, p}\) with \(\nu_p(\d f)\) minimal. Write \(f - f(p) = t f_1\), \(f_1 \in \mathcal O_{X, p}\). Hence
-    \[
-      \d f = \d(f - f(p) = f_1 \d t + t \d f_1.
-      \tag{*}
-    \]
-    If \(\nu_p(f) < 0\) then as \(\nu_p(f_1 \d t) = \nu_p(f_1) \geq 0\) by definition, then * implies that
+    \begin{equation*}
+      \label{eqn:differential}
+      \d f = \d(f - f(p)) = f_1 \d t + t \d f_1.
+      \tag{\ast}
+    \end{equation*}
+    If \(\nu_p(f) < 0\) then as \(\nu_p(f_1 \d t) = \nu_p(f_1) \geq 0\) by definition, then \eqref{eqn:differential} implies that
     \[
       \nu_p(\d f_1) = \nu_p(\d f) - 1,
     \]
@@ -2212,7 +2212,7 @@ We showed \(y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) has genus \(1\
   is just the contact order of the line \(Z = 0\) with \(\mathcal X\), i.e.\ \([\mathcal X \cap \{Z = 0\}] = \sum_{p \in \mathcal X \subseteq \{Z = 0\}} \nu_p(\omega) p\), by definition.
 \end{proof}
 
-\section{Riemann-Roch}
+\section{Riemann-Roch theorem}
 
 \begin{theorem}[classical Riemann-Roch]\index{Riemann-Roch theorem}
   Let \(X\) be a smooth projective curve with genus \(g = g(X) = \ell(\mathcal K_X)\). Let \(D = \sum n_i P_i \in \Div(X)\). Then
@@ -2331,7 +2331,7 @@ Every curve of genus \(1\) is a group by the following:
 \begin{corollary}
   \(E\) is an algebraic group, where the group operation \(\boxplus\) is define by
   \[
-    p \boxplus q = R \iff (p - p_\infty) + (q - p_\infty) = (R - p_\infty)
+    p \boxplus q = R \iff (p - p_\infty) + (q - p_\infty) = (r - p_\infty)
   \]
   in \(\Cl(E)\), i.e.\ if \(P + Q = R + p_\infty\) in \(\Cl(E)\).
 \end{corollary}
@@ -2343,10 +2343,225 @@ In fact, the group law is algebraic: consider \(\alpha_{3p_\infty}: E \to \P^2\)
 \]
 Thus choose any line \(L\), it intersects \(E\) at three points, ad the sum of the three points in the group is \(p_\infty\).
 
+\begin{definition}[elliptic curve]\index{elliptic curve}
+  An elliptic curve is a pair \((E, p_\infty)\) where \(E\) is a curve of genus \(1\) and \(p_\infty \in E\).
+\end{definition}
 
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show that for fixed \(p \in E\), the map
+    \begin{align*}
+      E &\rational E \\
+      e &\mapsto e \boxplus p
+    \end{align*}
+    is a rational map, hence a morphism, hence an isomorphism.
+  \item Show the map \(y \mapsto \boxminus y\) is a morphism (i.e.\ it is a rational function).
+  \item (?) and does define a morphism \(\boxplus: E \times E \to E\) so \(E\) is a group object in the category of smooth projective varieties.
+  \end{enumerate}
+\end{ex}
 
+Suppose \(E = \{y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\} \cup \{p_\infty\}\) and \(\ch k \neq 2, 3\). Consider the line \(x = a\) in \(\P^2\). It intersects \(E\) at \(p_\infty\) and it also intersects \(E\) at \((a, \pm b)\) for some \(b \in k\). Hence
+\[
+  (a, b) \boxplus (a, -b) \boxplus p_\infty = p_\infty
+\]
+i.e.
+\[
+  (a, b) \boxplus (a, -b) = p_\infty,
+\]
+that is \(\boxminus (a, b) = (a, -b)\), so this proves a special case of 2. This implies that \([2] p = 0\), that is \(p \boxplus p = p_\infty\) if and only if \(b = 0\) or \(p = p_\infty\), i.e.\ \(p = (\lambda_i, 0)\) or \(p = p_\infty\). These are exactly the ramification points of the morphism \(\alpha_{2p_\infty} = [x:1]: E \to \P^1\). That is, \(E\) is a double cover of \(\P^1\), ramified at 4 points, and these four points are just the points of order \(2\) on \(E\), i.e.\ \(\P^1 = E/(\Z/(2))\) where \(\Z/(2)\) acts on \(E\) by \(p \mapsto \boxminus p\). These 4 points are well-defined, independent of choices, up to a coordinate change on \(\P^1\), i.e.\ up to action of \(\PGL_2\) on \(\P^1\).
 
+Let \(j(E)\) be the cross ratio of these 4 points \(\infty, \lambda_1, \lambda_2, \lambda_3\). It is an invariant of \((\P^1)^2/\PGL_2\). For example if we scale (change of coordinates?) so that \(y^2 = x(x - 1)(x - \lambda)\), then
+\[
+  j(E) = j(\lambda) = 2^8 \frac{(\lambda^2 - \lambda + 1)^3}{\lambda^2 (l - 1)^2}.
+\]
+Thus \(j(E) = j(E')\) if and only if \(E \cong E'\): only if because given \(\lambda_1, \lambda_2, \lambda_3, \infty\), we can define \(E\), if by the discussion above.
 
+\begin{corollary}
+  Set of genus \(1\) curevs up to isomorphism, bijects with \(4 \{\text{distinct points in } \P^1/\PGL_2\), bijects by \(j\) with \(\A^1\).
+\end{corollary}
+
+\subsection{Riemann-Hurwitz}
+
+\begin{theorem}[Riemann-Hurwitz]\index{Riemann-Hurwitz}
+  Let \(\alpha: X \to Y\) be a nonconstant morphisms of smooth projective curves such that \(k(X)/k(Y)\) is a separable algebraic extension (for example if \(\ch k = 0\)). Set \(\chi(X) = 2 - 2g(X)\). Then
+  \[
+    \chi(X) = \chi(Y) \deg \alpha - \sum_{p \in X} (e_p(\alpha) - 1).
+  \]
+\end{theorem}
+
+\begin{proof}
+  \(\alpha\) defines a map
+  \begin{align*}
+    \alpha^*: \Omega^1_{k(Y)/k} &\to \Omega^1_{k(X)/k} \\
+    f \d g &\mapsto (f \alpha) \d (g\alpha)
+  \end{align*}
+  Separability implies that \(\alpha^*\) is injective (as \(\alpha\) is non-constant). Pick \(0 \neq \omega \in \Omega^1_{k(Y)/k}\), then by Riemann-Roch
+  \[
+    \deg \omega = 2 g(Y) - 2 = - \chi(Y).
+  \]
+  let \(p \in X, q = \alpha(p) \in Y\) and pick local coordinates \(t_p, t_q\) at \(p, q\) respectively, so \(t_q \compose \alpha = u t_p^{e_p(\alpha)}\) where \(u\) is a unit. Write \(\omega = f \d t_q\) for some \(f \in k(Y)\), so \(\alpha^* \omega = f \alpha \d (f u t^{e_p})\). Hence
+  \begin{align*}
+    \nu_p(\alpha^* \omega)
+    &= \nu_p(f \alpha) + \nu_p(\d (ut^{e_p})) \\
+    &= \nu_q(f) e_p + \nu_p(u t^{e_p}) - 1 \quad \text{if } \ch k \ndivides e_p \\
+    &= \nu_q(\omega) e_p + e_p - 1
+  \end{align*}
+  Therefore
+  \begin{align*}
+    -\chi(X)
+    &= \deg \alpha^* \omega \\
+    &= \sum_{q \in Y} (\sum_{p \in \alpha^{-1}(q)} e_p) \nu_q(\omega) + \sum_{p \in X} (e_p - 1) \\
+    &= \deg \alpha \sum_{q \in Y} \nu_q(\omega) + \sum_{p \in X} (e_p - 1)
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Let \(k = \C\). Then the topological Euler characteristic of a smooth projective curve \(X\) is \(2 - 2g\), i.e.\ \(g\) is the ``number of holes''.
+\end{corollary}
+
+\begin{proof}
+  The topological characteristic of \(\P^1\) is \(2 = 2 - 0\) so the statement holds for \(X = \P^1\). In general, let \(f \in k(X)\) nonconstant. Then \(f\) defines a morphism \(\alpha: X \to \P^1\). Now Riemann-Hurwitz for \(f\) as a Riemann surface and as an algebraic curve coincide.
+\end{proof}
+
+\begin{corollary}
+  If \(g(X) < g(Y)\) then there are no non-constant maps \(X \to Y\). In particular if \(g(Y) > 0\) then there are no non-constant maps \(\P^1 \to Y\).
+\end{corollary}
+c.f.\ exercise proving the non-existence of non-constant map from \(\P^1\) to an elliptic curve.
+
+\begin{proof}
+  By Riemann-Hurwitz for any \(\alpha: X \to Y\) non-constant,
+  \[
+    0 \leq (g(Y) + 2g(X)) + (-2g(Y) + 2)(\deg \alpha - 1) < 0,
+  \]
+  absurd.
+\end{proof}
+
+\begin{definition}[hyperelliptic]\index{hyperelliptic}
+  If a curve \(X\) admits a degree \(2\) map \(X \to \P^1\), we say \(X\) is \emph{hyperelliptic}.
+\end{definition}
+For example an elliptic curve is hyperelliptic.
+
+Suppose \(X\) is hyperelliptic, \(\pi: X \to \P^1\) is a degree \(2\) map and \(\ch k \neq 2\). If \(p \in X\), either \(e_p = 1\) and \(p\) is unramified, or \(e_p = 2\) and \(p\) is ramified. (Constrast this with the case \(\alpha: X \to \P^1\) with degree \(\geq 3\), where there are more than one type of ramification.) Then Riemann-Hurwitz syas that
+\[
+  2 - 2g = 2 \times 2 - \#\{\text{ramification points}\}
+\]
+so there are \(2 + 2g\) ramification points, which in partiular is always even. For example if \(g = 1\) then ther are \(4\), if \(g = 2\) then there are \(6\).
+
+\subsection{Curves of genus \(2\)}
+
+If a curve \(X\) has \(g(X) > 0\) then \(\deg \mathcal K_X \geq 1\). We can then consider the map \(\alpha_{\mathcal K}: X \to \P^{g - 1}\), the \emph{canonical morphism}. This is not very interesting for \(g(X) = 1\). Suppose \(X\) has genus \(2\).
+
+\begin{proposition}
+  \(\alpha_{\mathcal K}\) is a map of degree \(2\), so \(X\) is a hyperelliptic curve and \(\alpha_{\mathcal K}\) is ramified at \(6\) points.
+\end{proposition}
+
+\begin{proof}
+  Only thing needs proving is that \(\alpha_{\mathcal K}\) has degree \(2\). Write \(\mathcal K_X = \sum n_i p_i\) and let \(f \in L(K_X)\), but this is of degree \(2\), so equals to \(p + q\) for some \(p, q \in X\). As \(X\) has genus \(2\), \(\mathcal K_X = p + q\) in \(\Cl(X)\) and
+  \[
+    \ell(p + q) = \ell(\mathcal K_X) = 2 > 1
+  \]
+  so there exists a non-constant function \(h \in L(p + q)\), i.e.\ with \(\div (h) + p + q \geq 0\). As \(h\) has poles at most at \(p\) and \(q\), \(\deg h = 1\) or \(2\). But \(\deg h = 1\) would imply \(X \cong \P^1\), contradicting \(X\) has genus \(2\). Thus \(\deg h = 2\) and \(h \in L(\mathcal K_X) = L(p + q)\). Thus \(\alpha_{\mathcal K_X} = [1:h]: X \to \P^1\) has degree \(2\).
+\end{proof}
+
+\begin{corollary}
+  There is a map from
+  
+  the set of isomorphism classes of curves of genus 2 embeds
+
+  to
+
+  \{tuples of 6 points in \(\P^1\)\}/\(\PGL_2\),
+\end{corollary}
+We'll see in a moment these 6 points determine the curve, so this is an open embedding, suggesting that \(\dim\) \{curves of genus \(2\)\} is \(6 - 3 = 3\).
+
+\begin{remark}
+  For \(g \geq 2 (?)\), \(\alpha_{2\mathcal K_X}: X \to \P^?\) is always an embedding by Riemann-Roch and embedding theorem.
+\end{remark}
+
+\begin{proposition}
+  Let \(X\) be a smooth curve of genus \(g\), \(g \geq 2\). Then
+  \begin{enumerate}
+  \item either \(X\) is hyperelliptic, i.e.\ admits a degree \(2\) map to \(\P^1\), in which case the canonical map factors
+    \[
+      \alpha_{\mathcal K_X}: X \surj \P^1 \embed \P^{g - 1}
+    \]
+    and \(\alpha_{\mathcal K_X}: X \to \P^1\) has degree \(2\).
+  \item or \(X\) is not hyperelliptic, in which case \(\alpha_{\mathcal K_X}: X \to \P^{g - 1}\) is an embedding, called the \emph{canonical embedding}.
+  \end{enumerate}
+  Moreover, 2 happens for most curves of genus \(g\), \(g \geq 3\). The set of all curves of genus \(g\), i.e.\ the moduli space of curves of genus \(g\), denoted \(\mathcal M_g\), is an algebraic variety of dimension \(3g - 3\), and the set of all hyperelliptic curves of genus \(g\) is a subvariety, isomorphic to \((\P^1)^{2g + 2}/\PGL_2\), of dimension \(2g - 1\).
+\end{proposition}
+
+\begin{proof}
+  We prove 2 first. The embedding criteria says \(\alpha_{\mathcal K_Z}\) is an embedding if and only if for all \(p, q \in X\),
+  \[
+    \ell(\mathcal K_X - p - q) = \ell(\mathcal K_X) - 2 = g - 2.
+  \]
+  Riemann-Roch says \(\ell(\mathcal K_X - p - q) = \ell(p + q) + g - 3\) so the embedding criteria is equivalent to \(\ell(p + q) = 1\). But \(\ell(p + q) > 1\) implies that \(X\) is hyperelliptic by the argument last time on \(g = 2\) curves. Conversely if \(X\) is hyperelliptic there exist \(p, q\) with \(\ell(p + q) > 1\) (obvious). Thus \(\ell(p + q) = 1\) if and only if \(X\) is not hyperelliptic and \(\alpha_{\mathcal K_X}\) is an embedding.
+
+  For the first part, suppose \(X\) is hyperelliptic, i.e.\ there exists a double cover (degree \(2\) map) \(X \to \P^1\). This gives an embedding \(k(x) = k(\P^1) \embed k(X)\) which makes \(k(X)/k(x)\) an algebraic extension of degree \(2\). Assume \(\ch k \neq 2\), there exists \(y \in k(X)\) such that \(y^2 = f(x)\) for some \(f \in k(x)\) (by completing the square). This gives a rational function \(f: X \rational \P^1\). As \(X\) is smooth, get a morphism \(f: X \to \P^1\), ramified at \(\infty\) and at points \(a_1, \dots, a_r\) if \(f(x) = (x - a_1) \cdots (x - a_r)\). But we say that Riemann-Roch implies that there are \(2g + 2\) ramification oints, so \(\deg f = 2g + 1\). Need to sho that \(\alpha_{\mathcal K_X}\) factors through \(\P^1\). To finish choose \(\omega = \frac{\d x}{y}\), and check that \(X^0\), defined to be
+  \[
+    \begin{tikzcd}
+      X \ar[r, "f"] \ar[d, "\subseteq"] & \P^1 = \A^1 \cup \{\infty\} \ar[d, "\subseteq"] \\
+      X^0 = f^{-1}(A) \ar[r] & \A^1
+    \end{tikzcd}
+  \]
+  has \(X^0 = \{(x, y): y^2 = f(x)\}\) and \(L(\mathcal K_X) = \langle \omega, x\omega, \dots, x^{g - 1} \omega \rangle\) and \(f|_{X^0}: X^0 \to \A^1\) is \((x, y) \mapsto x\), so that
+  \[
+    \alpha_{\mathcal K_X} = [1:x:x^2:\cdots:x^{g - 1}]: X \to \P^{g - 1}
+  \]
+  Indeed factors through \(\P^1\) as
+  \begin{align*}
+    X &\to \P^1 &\to \P^{g - 1} \\
+    (x, y) &\mapsto x &\mapsto [1:x: \cdots : x^{g - 1}]
+  \end{align*}
+
+  Finally we will not prove 3. See what happens when you restrict \(f\) to \(f^{-1}(\P^1 \setminus \{0\})\).
+\end{proof}
+
+\section{Abel-Jacobi theorem}
+
+Let \(k = \C\) and \(X\) a smooth curve. Pick \(\omega \in L(\mathcal K_X)\). For concreteness consider \(y^2 = x^3 - a_2 x + a_4\), \(\omega = \frac{\d x}{y} = \frac{\d x}{\sqrt{x^3 - a_2 x + a_4}}\). Observe that if \(P, Q \in X\). We would like to define \(\int_P^Q \omega\), but this is not defined unless unless we choose a path \(\gamma\) from \(P\) to \(Q\). If \(\gamma\) is a loop and the loop is contractible then \(\int_\gamma \omega = 0\), but if we choose \(\gamma\) to be \(\gamma_1, \gamma_2\), (two elements giving independent class in homology) then the integral is not zero. THus \(\int_P^Q\) is not well-defined, but it is well-defined up to multiples
+\[
+  k_1 \int_{\gamma_1} \omega + k_2 \int_{\omega_2} \omega,
+\]
+i.e.\ up to an element of \(\Z \tau_1 + \Z \tau_2\). Thus there is a well-defined pairing
+\begin{align*}
+  H_1(X; \Z) \times L(\mathcal K_X) &\to \C \\
+  ([\gamma], \omega) &\mapsto \int_\gamma \omega
+\end{align*}
+which is linear, so defines a map
+\[
+  L(\mathcal K_X) \to \Hom_\Z(H_1(X, \Z), \C) \cong H^1(X; \C)
+\]
+If \(\ell(\mathcal K_G) = g\) then \(H_1(X, \Z) \cong \Z^{2g}\), so the cohomology group is \(\C^{2g}\). It is a fact that this is an injection, and RHS does not depende on the complex structure on \(X\) (and in particular, on the algebraic structure of \(X\)). However the map does change so we get a faimly of \(\C^g\) sitting inside a fixed \(\C^{2g}\).
+
+\begin{theorem}[Abel-Jacobi]\index{Abel-Jacobi theorem}
+  Pick a basis \(\omega_1, \dots, \omega_g\) of \(L(\mathcal K_X)\). Then the map
+  \[
+    P - Q \mapsto (\int_P^Q \omega_1, \dots, \int_P^Q \omega_g)
+  \]
+  extends to a well-defined map
+  \[
+    \Cl^0(X) \to \C^{g}/\Z^{2g}
+  \]
+  which is an isomorphism, so
+  \[
+    \Cl^0(X) \cong \C^g/\Z^{2g} = (S^1)^{2g}.
+  \]
+  The number \(\int_\gamma \omega\) for \(\gamma \in H_!(X; \Z)\) are called \emph{periods}.
+
+  Moreover \(\Cl^0(X)\) is a projective algebraic variety, so an \emph{abelian variety}.
+\end{theorem}
+
+Elementary application: we can do integrals
+\[
+  \int_\gamma \frac{\d x}{x^2 + ax + b}
+\]
+by writing in elementary terms. but we cannot integrate
+\[
+  \int_\gamma \frac{\d x}{x^3 - x + 1}.
+\]
+The former is a quadric so isomorphic to \(\P^1\). The failure in doing so for cubic gives a point in \(\Cl^0(X)\).
 
 
 

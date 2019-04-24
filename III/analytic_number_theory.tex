@@ -2894,11 +2894,13 @@ Some shorthands: let \(\tau = |t| + 4\). Recall
 \end{proof}
 
 \begin{theorem}
+  \label{thm:zero-free region of quadratic character}
   If \(\chi\) is a quadratic character, there exists \(c > 0\) such that \(L(s, \chi) \neq 0\) if \(\sigma > 1 - \frac{c}{\log q\tau}\) and \(t \neq 0\).
 \end{theorem}
 In other words, we \emph{cannot} rule out a zero \(\rho\) of \(L(s, \chi)\) with \(\rho \in \R\) close to \(1\). However,
 
 \begin{theorem}
+  \label{thm:zero of non-quadratic character}
   Let \(\chi\) be a quadratic character. Then there is an absolute constant \(c > 0\) such that \(L(s, \chi)\) has at most one zero \(\rho \in (0, 1)\) such that \(\rho \geq 1 - \frac{c}{\log q}\).
 \end{theorem}
 These are called \emph{exceptional zeroes} or \emph{Siegel zeroes}\index{Siegel zeroes}.
@@ -2936,16 +2938,469 @@ Quick sketch of proof:
 \item theorem 2: compare two such real zeroes.
 \end{enumerate}
 
+\begin{proof}[Proof of \Cref{thm:zero-free region of quadratic character}]
+  As before let \(\rho = \sigma + it\) be a zero of \(L(s, \chi)\). Let \(\delta > 0\). Then by lemma 1 (expansion of \(L\)-function for non-principal character)
+  \[
+    -\frac{L'}{L}(1 + \delta + it, \chi) = - \sum_{\rho'} \frac{1}{1 + \delta + it - \rho'} + O(\log q\tau)
+  \]
+  so
+  \begin{align*}
+    -\Re \frac{L'}{L} (1 + \delta + it, \chi)
+    &\leq - \frac{1}{1 + \delta + it - \rho} + O(\log q\tau) \\
+    &= - \frac{1}{1 + \delta - \sigma} + O(\log q\tau)
+  \end{align*}
+  Also by lemma 2 (expansion of \(L\)-function for principal character)
+  \[
+    -\Re \frac{L'}{L} (1 + \delta, \chi_0) \leq \frac{1}{\delta} + O(\log q\tau).
+  \]
 
+  First suppose \(\tau \geq C(1 - \sigma)\). Here
+  \begin{align*}
+    -Re \frac{L'}{L} (1 + \delta + 2it, \chi^2)
+    &= -\Re \frac{L'}{L}(1 + \delta + 2it, \chi_0) \\
+    &\leq \Re \frac{1}{\delta + 2it} + O(\log q\tau) \\
+    &\leq \frac{\delta}{\delta^2 + 4t^2} + O(\log q\tau)
+  \end{align*}
+  As before,
+  \[
+    \Re(-3 \frac{L'}{L} (1 + \delta, \chi_0) - 4 \frac{L'}{L} (1 + \delta + it, \chi) - \frac{L'}{L} (1 + \delta + 2it, \chi^2))
+  \]
+  But
+  \[
+    LHS \leq \frac{3}{\delta} - \frac{4}{1 + \delta - \sigma} + \frac{\delta}{\delta^2 + 4t^2} + O(\log q\tau).
+  \]
+  If \(\sigma = 1\) then contradiction as \(\delta \to 0\).
 
+  For \(\sigma \neq 1\), if we chhose \(\delta = 1 - \sigma\), then this is (\(\tau \gg 1 - \sigma \gg \delta\))
+  \[
+    0 \leq \frac{3}{c(1 - \sigma)} - \frac{4}{(c + 1)(1 - \sigma)} + \frac{c'}{1 - \sigma} + O(\log q\tau).
+  \]
+  Can choose \(c, C\), hence \(c'\) such that this is \(\leq - \frac{c''}{1 - \sigma} + O(\log q\tau)\) and so \(\sigma \leq 1 - \frac{c'''}{\log q\tau}\).
 
+  For small \(\tau\) we need a distinct argument. Since \(L(\rho, \chi = L(\conj \rho, \chi) = 0\), it follows that
+  \[
+    -\Re \frac{L'}{L}(1 + \delta + it, \chi)
+    \leq -\Re \frac{1}{1 + \delta - \rho} - \Re \frac{1}{1 + \delta - \conj \rho} + O(\log q\tau)
+  \]
+  (assuming that \(|t| \leq c(1 - \sigma)\), in particular \( |t| \leq c'\) for some small constant, so both \(\rho\) and \(\rho'\) are both picked up) RHS is
+  \[
+    \frac{-2(1 + \delta - \sigma)}{(1 + \delta - \sigma)^2 + t^2} + O(\log q\tau).
+  \]
+  As before
+  \[
+    - \frac{L'}{L}(1 + \delta, \chi_0) \leq \frac{1}{\delta} + O(\log q\tau).
+  \]
+  Now
+  \begin{align*}
+    &\quad -\Re \frac{L'}{L}(1 + \delta, \chi_0) - \Re \frac{L'}{L} (1 + \delta + it, \chi) \\
+    &= \sum_{\substack{n \geq 1 \\ (n, q) = 1}} \frac{\Lambda(n)}{n^{1 + \delta}} (1 + \Re (\underbrace{\chi(n) n^{it}}_{|z| = 1})) \\
+    &\geq 0
+  \end{align*}
+  so putting these together,
+  \[
+    \frac{1}{\delta} - \frac{2 (1 + \delta - \sigma)}{(1 + \delta - \sigma)^2 + t^2} + O(\log q\tau) \geq 0.
+  \]
+  If we choose \(\delta = c(1 - \sigma)\), LHS is \(\leq - \frac{c'}{1 - \sigma} + O(\log q\tau)\) so \(\sigma \leq 1 - \frac{c''}{\log q\tau}\).
+\end{proof}
 
+\begin{proof}[Proof of \Cref{thm:zero of non-quadratic character}]
+  Suppose \(\rho_0 < \rho_1 \leq 1\) are zeroes of \(L(s, \chi)\). Then for \(\sigma \in (0, 1)\)
+  \begin{align*}
+    -\Re \frac{L'}{L}(\sigma, \chi)
+    &\leq -\Re \frac{1}{\sigma - \rho_0} - \Re \frac{1}{\sigma - \rho_1} + O(\log q) \quad \text{for \(\sigma \geq 1 - 10^{-6}\), say} \\
+    &\leq - \frac{2}{\sigma - \rho_0} + O(\log q)
+  \end{align*}
+  so
+  \[
+    \frac{1}{\sigma - 1} - \frac{2}{\sigma - \rho_0} + O(\log q)
+    \geq - \Re \frac{L'}{L}(\sigma, \chi_0) - \Re \frac{L'}{L}(\sigma, \chi)
+    \geq 0.
+  \]
+  Hence \(\rho_0 < 1 - \frac{c}{\log q}\).
+\end{proof}
 
+\begin{lemma}
+  If \(\chi \neq \chi_0\) and \(\sigma \geq 1 - \frac{c}{\log q\tau}\) (some absolute \(c > 0\)) then
+  \begin{itemize}
+  \item either \(\chi\) has no exceptional zero,
+  \item or \(\chi\) has an exceptional zero at \(\beta\). But \(|s - \beta| \geq \frac{1}{\log q}\) so
+    \[
+      \frac{L'}{L}(s, \chi) \ll \log q\tau.
+    \]
+  \end{itemize}
+\end{lemma}
 
+\begin{proof}
+  If \(\sigma > 1\), note
+  \[
+    \left|\frac{L'}{L(s, \chi)} \right|\leq \sum_{\substack{n \geq 1 \\ (n, q) = 1}} \frac{\Lambda(n)}{n^\sigma} \ll \frac{1}{\sigma - 1}.
+    \]
+    In particular, if \(s = \sigma + it\) and \(s_1 = 1 + \frac{1}{\log q\tau} + it\),
+    \[
+      \left|\frac{L'}{L}(s_1, \chi)\right| \ll \log q\tau.
+    \]
+    By lemma 1,
+    \[
+      \frac{L'}{L}(s, \chi) = \sum_\rho \frac{1}{s - \rho} + O(\log q\tau)
+    \]
+    for all zeroes \(\rho\). \(|s - \rho| \asymp |s_1 - \rho|\) so
+    \begin{align*}
+      \left| \frac{L'}{L}(s, \chi) - \frac{L'}{L}(s, \chi)\right|
+      &\ll \left| \sum_\rho \frac{1}{s - \rho} - \frac{1}{s_1 - \rho} \right| + O(\log q\tau) \\
+      &\ll \Re \sum_\rho \frac{1}{s_1 - \rho} + O(\log q\tau) \\
+      &\ll \log q\tau
+    \end{align*}
+\end{proof}
 
+\begin{theorem}
+  If \(\chi_1, \chi_2\) are distinct quadratic characters modulo \(q\) then \(L(s, \chi_1) L(s, \chi_2)\) has at most one real zero \(\beta\) with \(1 - \frac{c}{\log q} < \beta < 1\).
+\end{theorem}
+This justifies ``the exceptional zero of \(q\)''.
 
+\begin{proof}
+  Say \(\beta_i\) is a real zero of \(L(s, \chi_i\) for \(i = 1, 2\). wlog \(\frac{5}{6} \leq \beta_1 \leq \beta_2 < 1\). Fix \(\delta > 0\).
+  \begin{enumerate}
+  \item \(- \Re \frac{L'}{L}(1 + \delta, \chi_i) = - \frac{1}{1 + \delta - \beta_i} + O(\log q)\), \(i = 1, 2\).
+  \item \(- \Re \frac{L'}{L}(1 + \delta, \chi_1 \chi_2) \leq O(\log q)\). Here we used \(\chi_1 \chi_2 \neq \chi_0\).
+  \item \(- \frac{\zeta'}{\zeta}(1 + \delta) \leq \frac{1}{\delta} + O(1)\) (or equivalently using \(-\Re \frac{L'}{L}(1 + \delta, \chi_0)\)).
+  \end{enumerate}
+  Therefore
+  \begin{align*}
+    &\quad \sum \frac{\Lambda(n)}{n^{1 + \delta}} \Re(1 + \chi_1(n) + \chi_2(n) + \chi_1\chi_2(n)) \\
+    &= - \frac{\zeta'}{\zeta}(1 + \delta) - \frac{L'}{L}(1 + \delta, \chi_1) - \frac{L'}{L}(1 + \delta, \chi_2) - \frac{L'}{L}(1 + \delta, \chi_1\chi_2) \\
+    &\leq \frac{1}{\delta} - \frac{2}{1 + \delta - \beta_1} + O(\log q)
+  \end{align*}
+  Choose \(\delta = c(1 - \beta_1)\), and therefore \(\beta_1 \leq 1 - \frac{c}{\log q}\).
+\end{proof}
 
+\subsection{Prime number theorem for arithmetric progressions}
 
+Recall that
+\[
+  \sum_{\substack{1 \leq n \leq x \\ n = a \bmod q}} \Lambda(n)
+  = \frac{1}{\varphi(q)} \sum_\chi \conj{\chi(a)} \sum_{1 \leq n \leq x} \Lambda(n) \chi(n)
+  = \frac{1}{\varphi(q)} \sum_\chi \conj{\chi(a)} \psi(x, \chi)
+\]
+
+\begin{theorem}
+  If \(q \leq \exp(O(\sqrt{\log x}))\) then
+  \begin{enumerate}
+  \item \(\psi(x, \chi_0) = x + O(x \exp(-c \sqrt{\log x}))\).
+  \item If \(\chi \neq \chi_0\) and \(\chi\) has no exceptional zero then
+    \[
+      \psi(x, \chi) = O(x \exp(-c \sqrt{\log x})).
+    \]
+  \item If \(\chi \neq \chi_0\) and \(\chi\) has an exceptional zero at \(\beta\) then
+    \[
+      \psi(x, \chi) = - \frac{x^\beta}{\beta} + O(x \exp(-c \sqrt{\log x})).
+    \]
+  \end{enumerate}
+\end{theorem}
+
+Recall that
+\[
+  1_{n = a \bmod q} = \frac{1}{\varphi(q)} \sum_\chi \conj{\chi(a)} \chi(n)
+\]
+so
+\[
+  \chi(x; q, a) = \sum_{\substack{n \leq x \\ n = a \bmod q}} \Lambda(n) = \frac{1}{\varphi(q)} \sum_\chi \conj{\chi(a)} \psi(x, \chi).
+\]
+
+\begin{corollary}
+  If \((a, q) = 1\), \(q \leq \exp (O(\sqrt{\log x}))\) then if \(q\) has no exceptional zero then
+  \[
+    \psi(x; q, a) = \frac{x}{\varphi(q)} + O(x \exp (-c \sqrt{\log x})),
+  \]
+  and if \(q\) has an exceptional zero at \(\beta\) and \(\chi_1\) then
+  \[
+    \psi(x; q, a) = \frac{x}{\varphi(q)} - \frac{\chi_1(a)}{\varphi(q)} \frac{x^\beta}{\beta} + O(x \exp(-c \sqrt{\log x})).
+  \]
+\end{corollary}
+
+\begin{proof}
+  We give a sketch as the proof is similar to that of zeta function. By Perron's formula (given \(\sigma_0 > 1\), \(T \geq 1\)),
+  \[
+    \psi(x, \chi) = -\frac{1}{2\pi i} \int_{\sigma_0 - iT}^{\sigma_0 + iT} \frac{L'}{L}(s, \chi) \frac{x^s}{s} \d s + O(\frac{x}{T} \sum_{\frac{x}{2} < n < 2x} \frac{\Lambda(n)}{|x - n|} + \frac{x}{T} \sum_{n \geq 1} \frac{\Lambda(n)}{\sigma^{\sigma_0}}).
+  \]
+  By the same argument as for \(\zeta(s)\), the error term is \(\ll \frac{x(\log x)^2}{T}\) (choosing \(\sigma_0 = 1 + \frac{1}{\log x}\)). Take \(C\) to be the rectangular contour with corners at \(\sigma_0 \pm iT, \sigma_1 \pm iT\). So
+  \[
+    \psi(x, \chi) = \frac{1}{2\pi i} \int_C + O(\int_{\sigma_1 \pm iT} + \int_{\sigma_0 + iT}^{\sigma_1 + iT} + \int_{\sigma_0 - iT}^{\sigma_0 + iT} + \frac{x (\log x)^2}{T})
+  \]
+  Error terms are bound as for \(\zeta(s)\), so in total,
+  \[
+    \psi(x, \chi) = - \frac{1}{2\pi i} \int_C \frac{L'}{L}(s, \chi) \frac{x^s}{s} \d s + \underbrace{O(\frac{x (\log x)^2}{T} + x^{1 - q \sigma_1})}_{\ll \exp{-c \sqrt{\log x}}, T = \exp(o(\sqrt{\log x}))}
+  \]
+  as we take \(\sigma_1 = 1 - \frac{c}{\log qT}\) so \(x^{\sigma_1} \ll x \exp(-c \sqrt{\log x})\) if \(q \ll T \approx \exp (O(\sqrt{\log x}))\).
+
+  For the main term, if \(\chi = \chi_0\) then take \(\sigma_1\) as above, so no zeroes of \(L(s, \chi_0)\) so \(\frac{L'}{L}\) has just a simple pole at \(s = 1\), and the main term is \(x\).
+
+  If \(\chi \neq \chi_0\) and there is no exceptional zero then there is no zero of \(L(s, \chi)\) with \(\sigma \geq \sigma_1\) so no poles of \(\frac{L'}{L}(s, \chi)\), so the main term is \(0\).
+
+  Finally if \(\chi\) has an exceptional zero at \(\beta\), then inside \(C\), \(\frac{L'}{L}\) has a pole at \(\beta\). Thus \(\frac{L'}{L}(s, \chi) \frac{x^s}{s}\) has residue \(\frac{x^\beta}{\beta}\) at this pole, so the main term is \(\frac{x^\beta}{\beta}\).
+\end{proof}
+
+\subsection{Siegel-Walfisz theorem}
+
+\begin{theorem}[Siegel-Walfisz]\index{Siegel-Walfisz theorem}
+  For all \(A > 0\), if \((a, q) = 1\) and \(q \leq (\log x)^A\) then
+  \[
+    \psi(x; q, a) = \frac{x}{\varphi(q)} + O_A(x \exp(-c \sqrt{\log x})).
+  \]
+\end{theorem}
+
+This follows from
+\begin{theorem}
+  \label{thm:theorem 2}
+  If \(q \leq (\log x)^A\) and \(x\) is large enough (depending on \(A\)) and if \(\chi \neq \chi_0\) then
+  \[
+    \psi(x, \chi) = O_A(\exp (-c \sqrt{\log x})).
+  \]
+\end{theorem}
+
+This in turn follows from
+\begin{theorem}
+  \label{thm:theorem 3}
+  For all \(\varepsilon > 0\), there exists \(C_\varepsilon\) such that if \(\chi\) is a quadratic character modulo \(q\) and \(\beta\) is a real zero then
+  \[
+    \beta < 1 - C_\varepsilon q^{-\varepsilon}.
+  \]
+\end{theorem}
+Therefore even if \(q\) has an exceptional zero, it is not too close to \(1\).
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+A curious fact is that the constant \(C_\varepsilon\) is \emph{ineffective} --- the proof gives no way to calculate \(C(\varepsilon)\). It follows that the big \(O\) (actually the constatnt \(c\)) in the statement of Siegel-Walfisz is also ineffective.
+
+\begin{proof}[Proof that \Cref{thm:theorem 3} implies \Cref{thm:theorem 2}]
+  If there is an exceptional zero then \(\beta < 1 - C_\varepsilon q^\varepsilon\) for all \(\varepsilon > 0\). Thus
+  \begin{align*}
+    \psi(x, \chi)
+    &= O(\frac{x^\beta}{\beta} + x \exp (-c \sqrt{\log x})) \\
+    &= x o(\exp(-C_\varepsilon q^\varepsilon \log x) + \exp(-c \sqrt{\log x}))
+  \end{align*}
+  since \(q \leq (\log x)^A\), this is \(O(\exp(C_\varepsilon'(\sqrt{\log x})))\) by choosing \(\varepsilon = \frac{1}{3A}\), say.
+\end{proof}
+
+\begin{corollary}
+  If \((a, q) = 1\) then
+  \[
+    \pi(x; q, a) = \frac{\operatorname{Li}(x)}{\varphi(q)} + O(x \exp (-c \sqrt{\log x}))
+  \]
+  and if \(q \leq (\log x)^A\) (unconditionally) or if \(q \leq \exp(O(\sqrt{\log x})\) (if \(q\) has no exceptional zero)
+\end{corollary}
+Note that assuming GRH, the bound on \(q\) when \(q\) has no exceptional zero can be improved to \(q \leq x^{\frac{1}{2} - o(1)}\).
+
+\begin{proof}
+  Let
+  \[
+    F(x)
+    = \sum_{\substack{p \leq x \\ p = a \bmod q}} \log p
+    = \psi(x; q, a) + O(x^{1/2})
+  \]
+  and so
+  \begin{align*}
+    \pi(x; q, a)
+    &= \sum_{\substack{p \leq x \\ p = a \bmod q}} 1 \\
+    &= \frac{F(x)}{\log x} + \int_x^x \frac{F(t)}{t (\log t)^2} \d t \\
+    &= \frac{1}{\varphi(q)} \left(\frac{x}{\log x} + \underbrace{\int_2^x \frac{1}{(\log t)^2} \d t}_{= \operatorname{Li}(x)}\right) + O(x \exp(-c \sqrt{\log x}))
+  \end{align*}
+\end{proof}
+
+Two applications of Siegel-Walfisz:
+\begin{application}
+  For fixed \((a, q) = 1\), how large is the smallest prime congurent to \(a\) modulo \(q\)? Call this prime \(P_{a, q}\).
+  \begin{corollary}
+    For all \(\varepsilon > 0\),
+    \[
+      P_{a, q} \ll_\varepsilon \exp(q^\varepsilon).
+    \]
+  \end{corollary}
+  \begin{proof}
+    Let \(x < P_{q, a}\) so \(\psi(x; q, a) = 0\). Thus if \(q \leq (\log x)^A\), must have by Siegel-Walfisz
+  \[
+    \frac{x}{\varphi(q)} = O_A(x \exp(-c \sqrt{\log x})).
+  \]
+  Thus
+  \[
+    \exp(c \sqrt{\log x}) = O_A(q)
+  \]
+  so
+  \[
+    \log x \leq (\log q)^2 + O_A(1),
+  \]
+  contradicting \(q \leq (\log x)^A\). Thus if \(q\) is large enough, \(q \leq (\log P_{a, q})^A\).
+  \end{proof}
+
+  Similarly
+  \begin{corollary}
+    If \(q\) has no exceptional zero then
+    \[
+      P_{a, q} \leq q^{O(\log q)}.
+    \]
+  \end{corollary}
+  It has been conjectured that
+  \[
+    P_{a, q} \leq q^{1 + o(1)}.
+  \]
+  On GRH, we have \(P_{a, q} \leq q^{2 + o(1)}\). Amazingly, we have an unconditional result
+  \begin{theorem}
+    There exists \(L\) constant such that
+    \[
+      P_{a, q} \ll q^L.
+    \]
+  \end{theorem}
+  So far the best known result is \(L = 5\), by Xylouris 2011.
+\end{application}
+
+\begin{application}
+  \begin{theorem}[Walfisz]
+    For any \(n\), let \(r(n)\) be the number of ways of writing \(n\) as the sum of a prime a square-free natural number. Then
+    \[
+      r(n) \sim c_n \operatorname{Li}(n),
+    \]
+    where
+    \[
+      c_n = \prod_{p \divides n} (1 + \frac{1}{p^2 - p - 1}) \prod_p (1 - \frac{1}{p (p - 1)}).
+    \]
+  \end{theorem}
+  The second term is a constant, which is approximately \(0.3739 \dots\).
+
+  \begin{proof}
+    Note that
+    \[
+      1_{\text{square-free}}(m) = \sum_{d^2 \divides m} \mu(d),
+    \]
+    easily checked since both sides are multiplicative. Thus
+    \begin{align*}
+      r(n)
+      &= \sum_{p < n} 1_{\text{square-free}}(n - p) \\
+      &= \sum_{p < n} \sum_{d^2 \divides (n - p)} \mu(d) \\
+      &= \sum_{d < \sqrt n} \mu(d) \sum_{\substack{p < n \\ p = n \bmod d^2}} 1 \\
+      &= \sum_{d < \sqrt n} \mu(d) \pi(n - 1; d^2, n)
+    \end{align*}
+    If \((n, d) > 1\) then
+    \[
+      \pi(n - 1; d^2, n) = O(1)
+    \]
+    so in total this contributes \(O(n^{1/2})\) to \(r(n)\). If \((d, n) = 1\) and \(d \leq (\log n)^A\) then
+    \[
+      \pi(n - 1; d^2, n) = \frac{\operatorname{Li}(x)}{\varphi(d^2)} + O(n \exp(-c \sqrt{\log n})).
+    \]
+    Thus the contribution is
+    \[
+      \sum_{\substack{d < (\log n)^A \\ (d, n) = 1}} \mu(d) \pi(n - 1; d^2, n)
+      = \operatorname{Li}(n) \sum_{\substack{d < (\log n)^A \\ (d, n) = 1}} \frac{\mu(d)}{\varphi(d^2)} + O(n \exp(-c \sqrt{\log n})).
+    \]
+    Note that \(\varphi(d^2) = d \varphi(d)\) so
+    \[
+      \sum_{(d, n) = 1} \frac{\mu(d)}{d \varphi(d)}
+      = \prod_{\p \ndivides}(1 - \frac{1}{p(p - 1)}) = c_n.
+    \]
+    The tail term of this estimation is
+    \[
+      \sum_{\substack{d > (\log n)^A \\ (d, n) =1 }} \frac{\mu(d)}{d \varphi(d)}
+      \leq \sum_{d > (\log n)^A} \frac{1}{d^{3/2}}
+      \ll \frac{1}{(\log n)^{A/2}}
+      = o(1)
+    \]
+    as \(n \to \infty\).
+
+    For \(d > (\log n)^A\), use the trivial bound
+    \[
+      \pi(x; q, a) \ll 1 + \frac{x}{q}
+    \]
+    so
+    \[
+      \sum_{\substack{(\log n)^A < d < n^{1/2} \\ (d, n) = 1}} \mu(d) \pi(n - 1; d^2, n)
+      \ll \sum_{(\log n)^A < d < n^{1/2}} (1 + \frac{n}{d^2})
+      \ll n^{1/2} + n \sum_{d > (\log n)^A} \frac{1}{d^2}
+      \ll \frac{n}{(\log n)^A}
+    \]
+    where in the first step we simply through away the condition \((d, n) = 1\) and the term \(\pi(d)\).
+
+    Thus in conclusion,
+    \begin{align*}
+      r(n)
+      &= c_n \operatorname{Li}(n) + O(n^{1/2} + \frac{\operatorname{Li}(n)}{(\log n)^{A/2}} + \frac{n}{(\log n)^A} + n\exp (-c \sqrt{\log n})) \\
+      &= (1 + o(1))c_n \operatorname{Li}(n)
+    \end{align*}
+    as \(\operatorname{Li}(n) = (1 + o(1)) \frac{n}{\log n}\).
+  \end{proof}
+\end{application}
+
+\section{Highlights of Analytic Number Theory*}
+
+\subsection{Gaps between primes}
+
+Note that prime number theory implies that \(p_n \sim n \log n\) so
+\[
+  p_{n + 1} - p_n \sim (n + 1) \log(n + 1) - n \log n \sim \log n.
+\]
+This is the average behaviour and we may ask how small or how big it can get. Twin prime conjecture says \(p_{n + 1} - p_n = 2\) infinitely often. Goldeston-Pintz-Yildirim (2005) proved that
+\[
+  \liminf_{n \to \infty} \frac{p_{n + 1} - p_n}{\log n} = n.
+\]
+Zhang (2013) proved that
+\[
+  p_{n + 1} - p_n = O(1)
+\]
+infinitely often. The bound given by Zhang is \(70,000,000\). Over the next few months Polymath project managed to improve the bound gradually. Coincidentally, Maynard proved in the same year, six months after ZHang, using a different method, that \(p_{n + 1} - p_n \leq 600\) infinitely often. By combining these two approaches, the current best bound is \(246\).
+
+As for large gaps, Westzynthius (1931) prove that
+\[
+  \limsup_{n \to \infty} \frac{p_{n + 1} - p_n}{\log n} = \infty.
+\]
+Rankin (1938) used an improved version to prove the quantitative result
+\[
+  p_{n + 1} - p_n \gg \log n \left( \frac{\log\log n \log\log\log\log n}{(\log\log\log n)^2} \right)
+\]
+infinitely often. Erdos offter a prize of \$10,000, the largest ever, that the bound goes to infinity (?). In 2014, this is cracked by Ford-Green-Konyagin-Maynard-Tao that
+\[
+  p_{n + 1} - p_n \gg \log n \left( \frac{\log\log n \log\log\log\log n}{\log\log\log n} \right)
+\]
+infinitely often. It has been conjectured that \(p_{n + 1} - p_n \gg (\log n)^2\) infinitely often. However this is way out of reach at this moment, even more so than twin prime conjecture. To have an idea, the best upper bound so far is \(p_{n + 1} - p_n \ll n^{0.525}\) for every \(n\). If we assume GRH then the result is \(\leq n^{1/2 + o(1)}\).
+
+\subsection{Digits of primes}
+
+Mauduit-Rivat looked at sum of binary digits of primes and showed it is even half the time and odd half the time. Maynard (2016) showed there are infintely primes without, say, a \(1\) in base \(10\). The result would be much harder for smaller base. For example for base \(2\) this is equivalent to the statement that there are infintely many primes of the form \(2^n - 1\).
+
+\subsection{Arithmetic progressions}
+
+In 1930s (Vinogradov, Estermann et al) people proved there are infinitely many \(3\)-APs of primes, e.g.\ \((3, 5, 7), (11, 17, 23), \dots\). However, for any \(k > 4\) this is much more difficult. Green-Tao (2004) showed that for any \(k\), there are infinitely many \(k\)-APs of primes, using tools of additive combinatorics. Another important theorem is Szemerédi (1975), that if
+\[
+  \liminf_{N \to \infty} \frac{|A \cap \{1, \dots, N\}|}{N} > 0
+\]
+then \(A\) has infinitely many \(k\)-APs.
+
+\subsection{Sieve theorey success}
+
+Chen (1973) showed that there are inifinitely many primes \(p\) such that \(p + 2\) is either prime or the product of \(2\) primes. Iwaniec (1978) showed there are infinitely many \(n\) such that \(n^2 + 1\) is either prime or the product of two primes.
+
+\subsection{Number theory without zeta zeros}
+
+People have wondered if we can develop analytic number theory without knowing the zeros of zeta function. Instead of Perrons's formula, Halsesz in 1960s proved that (informally) if \(\sum_{n \leq x} a_n\) behaves randomly then \(a_n\) behaves like \(\chi(n)\) or \(n^{it}\). Granville-Soundararajan resurrected this approach to study functions ``pretending'' to be \(\chi(n)\). The official name of this subject is \emph{pretentious number theory}, and fantastic notes can be found on Granville's website when he taught the course a few years ago.
+
+\subsection{Circle method: additive number theory}
+
+Develped by Hardy and Littlewood in 1920s,
+\begin{enumerate}
+\item Golbach conjecture: every even number is the sum of two primes.
+\item partition function \(p(n)\).
+\item Waring's problesm: all integers are sum of \(4\) squares, all (large) integers are sum of \(4\) cubes (this is still open, best known bound \(7\).
+
+  Let \(G(k)\) be the minimum \(s\) such that every large \(n\) is the sum of \(x_1^k, \dots, x_s^k\). The only result we know is
+  \[
+    G(2) = 4, 4 \leq G(3) \leq 7, G(4) = 16.
+  \]
+
+  Wooley (1996) proved
+  \[
+    G(k) \leq (1 + o(1)) k \log k.
+  \]
+  It's been conjectured that \(G_k) \ll k\).
+\end{enumerate}
 
 \printindex
 \end{document}
