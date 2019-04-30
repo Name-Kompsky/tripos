@@ -595,7 +595,7 @@ This is a generalisation of results about finite dimensional vector spaces (i.e.
 \end{proposition}
 
 \begin{proof}
-  Let \(\beta_1, \dots, \beta_n \in L\) be a \(\Q\)-basis for \(L\). Wlog \(\beta_1, \dots, \beta_n \in \O_L\). Then \(\O_L \supseteq \bigoplus_{i = 1}^n \beta_i\Z\).
+  Let \(\beta_1, \dots, \beta_n \in L\) be a \(\Q\)-basis for \(L\). wlog \(\beta_1, \dots, \beta_n \in \O_L\). Then \(\O_L \supseteq \bigoplus_{i = 1}^n \beta_i\Z\).
 
   Recall that
   \begin{align*}
@@ -948,7 +948,7 @@ From now on let \(L\) be a number field.
 \end{lemma}
 
 \begin{proof}
-  Let \(\alpha \in I \setminus \{0\}\). Let \(\mathfrak{p}_1, \dots, \mathfrak{p}_r \subseteq \O_L\) be non-zero prime ideals such that \(\mathfrak{p}_1 \dots \mathfrak{p}_r \subseteq (\alpha)\). Wlog \(r\) is minimal among all such expressions. Let \(\mathfrak{p}\) be a maximal ideal containing \(I\). Then
+  Let \(\alpha \in I \setminus \{0\}\). Let \(\mathfrak{p}_1, \dots, \mathfrak{p}_r \subseteq \O_L\) be non-zero prime ideals such that \(\mathfrak{p}_1 \dots \mathfrak{p}_r \subseteq (\alpha)\). wlog \(r\) is minimal among all such expressions. Let \(\mathfrak{p}\) be a maximal ideal containing \(I\). Then
   \[
     \mathfrak{p} \supseteq I \supseteq (\alpha) \supseteq \mathfrak{p}_1 \cdots \mathfrak{p}_r
   \]
@@ -1027,7 +1027,7 @@ Finally, the theorem we have promised:
   \[
     \mathfrak{p}_1 \cdots \mathfrak{p}_r = \mathfrak{q}_1 \cdots \mathfrak{q}_s.
   \]
-  Then \(\mathfrak{p}_1 \divides \mathfrak{q}_1 \cdots \mathfrak{q}_s\) so \(\mathfrak{p}_1 \supseteq \mathfrak{q}_i\) for some \(1 \leq i \leq s\). Wlog \(\mathfrak{p}_1 \supseteq \mathfrak{q}_1\). But both \(\mathfrak{p}_1\) and \(\mathfrak{q}_1\) are maximal so \(\mathfrak{p}_1 = \mathfrak{q}_1\). Cancel to get
+  Then \(\mathfrak{p}_1 \divides \mathfrak{q}_1 \cdots \mathfrak{q}_s\) so \(\mathfrak{p}_1 \supseteq \mathfrak{q}_i\) for some \(1 \leq i \leq s\). wlog \(\mathfrak{p}_1 \supseteq \mathfrak{q}_1\). But both \(\mathfrak{p}_1\) and \(\mathfrak{q}_1\) are maximal so \(\mathfrak{p}_1 = \mathfrak{q}_1\). Cancel to get
   \[
     \mathfrak{p}_2\cdots \mathfrak{p}_r = \mathfrak{q}_2 \cdots \mathfrak{q}_s.
   \]
@@ -2000,7 +2000,7 @@ Now we start the proof of \nameref{thm:Dirichlet unit}, which in non-examinable.
     \[
       \sum_{i = 1}^{N - 1} t_i A_{ij} = 0
     \]
-    for \(1 \leq j \leq N\). Wlog after rescaling, there exists \(1 \leq k < N\) such that \(t_k = 1\) and \(t_i \leq 1\) if \(i \neq k\). Then
+    for \(1 \leq j \leq N\). wlog after rescaling, there exists \(1 \leq k < N\) such that \(t_k = 1\) and \(t_i \leq 1\) if \(i \neq k\). Then
     \[
       0 = \sum_{i = 1}^{N - 1} t_iA_{ik}
       \geq \sum_{i = 1}^{N - 1} A_{ik}
@@ -2067,7 +2067,7 @@ An warm-up exercise:
   Find all Pythagorean triples \(x^2 + y^2 = z^2\) where \(x, y, z \in \Z\) not all zero.
 \end{question}
 
-Wlog \(\gcd(x, y, z) = 1\). Consider the parity: if \(2\) divides both \(x\) and \(y\) then \(2\) divides \(z\), so assume \(x\) is odd, \(y\) is even. The idea is to factor the equation in \(\Z[i]\) to get
+wlog \(\gcd(x, y, z) = 1\). Consider the parity: if \(2\) divides both \(x\) and \(y\) then \(2\) divides \(z\), so assume \(x\) is odd, \(y\) is even. The idea is to factor the equation in \(\Z[i]\) to get
 \[
   (x + iy)(x - iy) = z^2.
 \]
@@ -2280,7 +2280,7 @@ For those familiar with Galois theory, we have the tower of fields
 \end{lemma}
 
 \begin{proof}
-  For all \(\alpha \in \O_K\), there exist \(b \in \Z\) such that \(\alpha = b \mod{(1 - \zeta_p)}\). Note the identity
+  For all \(\alpha \in \O_K\), there exists \(b \in \Z\) such that \(\alpha = b \mod{(1 - \zeta_p)}\). Note the identity
   \[
     \alpha^p - b^p = \prod_{i = 0}^{p - 1}(\alpha - \zeta_p^i b).
   \]
@@ -2372,7 +2372,7 @@ Kummer called this the ``first case'' of Fermat's Last Theorem. He dealt with th
   \[
     \zeta_p^{-g} x + \zeta_p^{1 - g} y - \zeta_p^g x - \zeta_p^{g - 1} y = 0 \mod{p\O_K}
   \]
-  together with the fact the \(\{\zeta_p^i\}_{i = 1}^{p - 1}\) is an integral basis of \(\Z[\zeta_p]\), forces \(p \divides x, p \divides y\), absurd.
+  together with the fact that \(\{\zeta_p^i\}_{i = 1}^{p - 1}\) is an integral basis of \(\Z[\zeta_p]\), forces \(p \divides x, p \divides y\), absurd.
 
   Since \(g \neq 0, 1 \pmod p\), the only possibility is \(-g = g - 1 \pmod p\), i.e.\  \(2g = 1 \pmod p\). Hence
   \begin{align*}
@@ -2385,11 +2385,11 @@ Kummer called this the ``first case'' of Fermat's Last Theorem. He dealt with th
   \[
     x^p + y^p + z^p = 0
   \]
-  is symmetric in \(x, y, z\) so the same argument also give \(y = z \pmod p\), hence
+  is symmetric in \(x, y, z\) so the same argument also gives \(y = z \pmod p\), hence
   \[
     3x^p = 0 \pmod p.
   \]
-  If \(p \neq 3\) then \(p \divides x\), absurd. If \(p = 3\) then reduce modulo \(9\) shows there are no solutions, which is left as an exercise.
+  If \(p \neq 3\) then \(p \divides x\), absurd. If \(p = 3\) then reducing modulo \(9\) shows there are no solutions, which is left as an exercise.
 \end{proof}
 
 The rest of the course is non-examinable.

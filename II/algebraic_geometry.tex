@@ -2089,9 +2089,9 @@ Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
 
     If \(p = \infty\) then \(t = \frac{1}{x}\) is a local coordinate and
     \[
-      \d x = d \left( \frac{1}{t} \right) = -\frac{1}{t^2} \d t
+      \d x = \d \left( \frac{1}{t} \right) = -\frac{1}{t^2} \d t
     \]
-    so \(\nu_\infty(\d x) = -2\) so \(\div(\d x) = -2 \infty = \mathcal K_X\). Thus \(\deg \mathcal K_X = 0\). Then by a lemma \(\ell(\mathcal K_X) = -2\) so \(\P^1\) has genus \(0\).
+    so \(\nu_\infty(\d x) = -2\) so \(\div(\d x) = -2 \infty = \mathcal K_X\). Thus \(\deg \mathcal K_X = -2\). Then by a lemma \(\ell(\mathcal K_X) = 0\) so \(\P^1\) has genus \(0\).
   \item \(y^2 = f(x) = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) where \(\lambda_i\)'s distinct. This gives \(X = E \subseteq \P^2\) with a unique point at \(\infty\), \(P_\infty = [0:1:0]\). Take derivative, \(2 y \d y = f'(x) \d x\). Let's consider the 1-form
     \[
       \omega = \frac{\d x}{y} = \frac{2 \d y}{f'(x)} \in \Omega^1_{k(E)/k}.
@@ -2102,11 +2102,11 @@ Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
     \]
     and thus \(\nu_p(\omega) = 0\).
 
-    If \(y_0 = \frac{1}{2} \frac{\partial  }{\partial y}(y^2 - f(x))|_p\) then \(x - x_0\) is a local parameter so
+    If \(y_0 = \frac{1}{2} \frac{\partial  }{\partial y}(y^2 - f(x))|_p \neq 0\) then \(x - x_0\) is a local parameter so
     \[
       \omega = \frac{1}{y} \d (x - x_0)
     \]
-    has \(\nu_p(\omega) = 0\). Since at least one of these happens (as \(\lambda_i\)'s are distinct and the curve is smooth at \(p\)).
+    has \(\nu_p(\omega) = 0\). Since \(\lambda_i\)'s are distinct and the curve is smooth at \(p\), at least one of these happens.
 
     At \(p = P_\infty\), have
     \[
@@ -2121,11 +2121,11 @@ Pick \(0 \neq \omega_0 \in \Omega^1_{k(X)/k}\). Recall that
     \[
       g(u, v) = v - (u - \lambda_1v)(u - \lambda_2v)(u - \lambda_3v).
     \]
-    In this chart \(P_\infty\) corresponds to \((u, v) = (0, 0)\). Thus
+    In this chart \(P_\infty\) corresponds to \((u, v) = (0, 0)\). As
     \[
-      \frac{\partial g}{\partial v}|_{(0, 0)} = 1 \neq 0
+      \frac{\partial g}{\partial v}\Big|_{(0, 0)} = 1 \neq 0
     \]
-    so \(u\) is a local parameter at \((0, 0)\). Thus \(\nu_{P_\infty}(u) = 1\) and \(\nu_{P_\infty}(v) \geq 1\). Here is an ad hoc way of computing it:
+    \(u\) is a local parameter at \((0, 0)\). Thus \(\nu_{P_\infty}(u) = 1\) and \(\nu_{P_\infty}(v) \geq 1\). Here is an ad hoc way of computing it:
     \[
       \nu_{P_\infty}(u - \lambda_i v) \geq 1
     \]
@@ -2220,9 +2220,7 @@ We showed \(y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) has genus \(1\
     \ell(D) - \ell(\mathcal K_X - D) = 1 - g + \deg D.
   \]
 \end{theorem}
-We will not prove this theorem but will spend the rest of the course understanding the statement and consequence of the theorem.
-
-Immediate consequences:
+We will not prove this theorem but will spend the rest of the course understanding the statement and its consequences. Immediate consequences are:
 \begin{enumerate}
 \item take \(D = 0\). As \(\ell(0) = 1\), this says that \(\ell(\mathcal K_X) = g\), which is the definition of genus.
 \item take \(D = \mathcal K_X\), we get \(\deg \mathcal K_X = 2g - 2\).
@@ -2235,7 +2233,7 @@ Immediate consequences:
   \[
     \ell(D - p - q) = \ell(D) - 2 = 1- g - 2 + \deg D.
   \]
-  Hence by a previous theorem
+  Hence by embedding criterion
   \[
     \alpha_D: X \to \P(L(D)^*) \cong \P^n
   \]
@@ -2243,7 +2241,7 @@ Immediate consequences:
 \end{enumerate}
 
 \begin{corollary}
-  If \(\mathcal X\) is a smooth plane curve of degree \(d\), then as \(\deg \mathcal K_X = d(d - 3)\) then
+  If \(\mathcal X\) is a smooth plane curve of degree \(d\), then as \(\deg \mathcal K_X = d(d - 3)\), have
   \[
     g = \frac{1}{2}(d - 1)(d - 2).
   \]
@@ -2253,7 +2251,7 @@ For example if \(d = 1\) or \(2\), correponding to line and conics respectively,
 \[
   0, 0, 1, 3, 6, 10, \cdots
 \]
-which does not have every natural number in there. Thus smooth projective of genus \(2, 4, 5, 7, \cdots\) cannot occur inside \(\P^2\).
+which does not have every natural number in there. Thus smooth projective curves of genus \(2, 4, 5, 7, \cdots\) cannot occur inside \(\P^2\).
 
 Let's study curves of small genus using Riemann-Roch.
 
@@ -2264,12 +2262,12 @@ Let's study curves of small genus using Riemann-Roch.
 \begin{proof}\leavevmode
   \begin{itemize}
   \item \(\impliedby\): done earlier.
-  \item \(\implies\): suppose \(X\) has genus \(0\). Let \(p \in X\). The divisor \((p)\) has degree \(1\). As \(1 > -2 = 2g - 2\), by Riemann-Roch \(\ell((p)) = 2\). But \(k = L(0) \subseteq L((p))\) so exists \(f \in L((p)) \setminus k\). Have \(\div(f) + (p) \geq 0\), i.e.\ \(f\) has a pole at \(p\) and no other pole. But \(\div(f)\) has degree \(0\), so \(\deg (\div(f) + (p)) = 1\), which is saying \(\div(f) = -(p) + (q)\) for some \(q \in X\). In addition \(p \neq q\) as \(f\) is not constant. As \(p \neq q\), \(f\) is not constant so \(\alpha = [1:f]: X \rational \P^1\) is a non-constant rational map, hence a morphism (as \(X\) is smooth) of degree \(1\). Thus by an exercise on example sheet 3 \(\alpha\) is an isomorphism.
+  \item \(\implies\): suppose \(X\) has genus \(0\). Let \(p \in X\). The divisor \((p)\) has degree \(1\). As \(1 > -2 = 2g - 2\), by Riemann-Roch \(\ell((p)) = 2\). But \(k = L(0) \subseteq L((p))\) so exists \(f \in L((p)) \setminus k\). Have \(\div(f) + (p) \geq 0\), i.e.\ \(f\) has a pole at \(p\) and no other pole. But \(\div(f)\) has degree \(0\), so \(\deg (\div(f) + (p)) = 1\), which is saying \(\div(f) = -(p) + (q)\) for some \(q \in X\). In addition \(p \neq q\) as \(f\) is not constant. As \(p \neq q\), \(f\) is not constant so \(\alpha = [1:f]: X \rational \P^1\) is a nonconstant rational map, hence a morphism (as \(X\) is smooth) of degree \(1\). Thus by an exercise on example sheet 3 \(\alpha\) is an isomorphism.
   \end{itemize}
 \end{proof}
 Note that there are two parts of the proof: we showed that if \(\ell((p)) = 2\) for some \(p \in X\) then \(X \cong \P^1\), and we used Riemann-Roch to show such \(p\) exists.
 
-\subsection{Curve of genus 1}
+\subsection{Curves of genus 1}
 
 Let \(X\) be a smooth projective curve with genus \(g = 1\). Then by Riemann-Roch, if \(\deg D > 0\) then \(\ell(D) = \deg D\).
 
@@ -2277,7 +2275,7 @@ Fix a point \(p_\infty \in X\). Have
 \[
   \underbrace{L(0)}_k \subseteq \underbrace{L(p_\infty)}_k \subsetneq \underbrace{L(2p_\infty)}_{k\langle 1, x \rangle} \subsetneq \underbrace{L(3p_\infty)}_{k \langle 1, x, y\rangle} \subsetneq \cdots
 \]
-where we choose \(x \in L(2p_\infty) \setminus k, y \in L(3p_\infty) \setminus L(2p_\infty)\). As before, \(L(6p_\infty)\) containes \(1, x, y, x^2, xy, x^3, y^2\). But \(\dim L(6p_\infty) = 6\) so there exist a linear relation between these monomials, with \(x^3, y^2\) appearing with non-zero coefficients (as \(1, x, y, x^2, xy \in L(5 p_\infty)\) are linearly independnet, and we cannot have only one of \(x^3, y^2\) with nonzero coefficient by considering the degree of pole at \(\infty\)). Rescale \(x \mapsto \lambda x, y \mapsto \mu y\), we get a relation in \(k(X)\)
+where we choose \(x \in L(2p_\infty) \setminus k, y \in L(3p_\infty) \setminus L(2p_\infty)\). As before, \(L(6p_\infty)\) contains \(1, x, y, x^2, xy, x^3, y^2\). But \(\dim L(6p_\infty) = 6\) so there exist a linear relation between these monomials, with \(x^3, y^2\) appearing with non-zero coefficients (as \(1, x, y, x^2, xy \in L(5 p_\infty)\) are linearly independent, and we cannot have only one of \(x^3, y^2\) with nonzero coefficient by considering the degree of pole at \(\infty\)). Rescale \(x \mapsto \lambda x, y \mapsto \mu y\), we get a relation in \(k(X)\)
 \[
   y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6
 \]
@@ -2299,7 +2297,7 @@ Combining these two, if \(\ch k \neq 2, 3\), do them in this order to get
 \[
   y^2 = x^3 + a_4x + a_6 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)
 \]
-for \(\lambda_i\)'s distinct (smoothness!).
+for \(\lambda_i\)'s distinct (by smoothness).
 
 \begin{theorem}
   Every curve of genus \(1\) is isomorphic to a smooth plane curve of the form
@@ -2308,7 +2306,7 @@ for \(\lambda_i\)'s distinct (smoothness!).
   \]
 \end{theorem}
 
-Every curve of genus \(1\) is a group by the following:
+Amazingly, every curve of genus \(1\) is a group by the following:
 \begin{proposition}
   Let \(E\) be a curve of genus \(1\), \(p_\infty \in E\). Then the map
   \begin{align*}
@@ -2319,33 +2317,37 @@ Every curve of genus \(1\) is a group by the following:
 \end{proposition}
 
 \begin{proof}
-  For injectivity, if \(p - p_\infty = q - p_\infty\) in \(\Cl(E)\) the \(p - q = \div (f)\) for some \(f \in k(E)\). But the \([1:f]: E \to \P^1\) is an isomorphism, contradicting \(E\) having genus \(1\).
+  For injectivity, if \(p - p_\infty = q - p_\infty\) in \(\Cl(E)\) the \(p - q = \div (f)\) for some \(f \in k(E)\). But then \([1:f]: E \to \P^1\) is an isomorphism, contradicting \(E\) having genus \(1\).
 
   For surjectivity, if \(D \in \Div(E)\) and \(\deg D = 0\), then
   \[
-    \deg(D + (p_\infty)) = 1 > 2g - 2 = 0
+    \deg(D + p_\infty) = 1 > 2g - 2 = 0
   \]
-  so by Riemann-Roch \(\ell(D + p_\infty) = 1\). Let \(0 \neq f \in L(D + p_\infty)\) so \(D + p_\infty + \div (f) \geq 0\). Bu the degree of this is \(1\), so this says as \(D + p_\infty + \div(f) = q\), i.e.\ \(D = q - p_\infty\) in \(\Cl(E)\).
+  so by Riemann-Roch \(\ell(D + p_\infty) = 1\). Let \(0 \neq f \in L(D + p_\infty)\) so
+  \[
+    D + p_\infty + \div (f) \geq 0.
+  \]
+  But the degree of this is \(1\), implying that \(D + p_\infty + \div(f) = q\), i.e.\ \(D = q - p_\infty\) in \(\Cl(E)\).
 \end{proof}
 
 \begin{corollary}
   \(E\) is an algebraic group, where the group operation \(\boxplus\) is define by
   \[
-    p \boxplus q = R \iff (p - p_\infty) + (q - p_\infty) = (r - p_\infty)
+    p \boxplus q = r \iff (p - p_\infty) + (q - p_\infty) = (r - p_\infty)
   \]
-  in \(\Cl(E)\), i.e.\ if \(P + Q = R + p_\infty\) in \(\Cl(E)\).
+  in \(\Cl(E)\), i.e.\ if \(p + q = r + p_\infty\) in \(\Cl(E)\).
 \end{corollary}
-Notice that the zeroes of this addition law is \(p_\infty\).
+Notice that the identity of the group is \(p_\infty\).
 
-In fact, the group law is algebraic: consider \(\alpha_{3p_\infty}: E \to \P^2\). Give \(\P^2\) coordinate \(X, Y, Z\). As we know \(E \subseteq \{Z = 0\} = 3p_\infty\) and if \(L = \{\ell = 0\}\) is any line in \(\P^2\), \([L \cap E] = p_1 + p_2 + p_3\) and \(\div(\ell/z) = p_1 + p_2 + p_3 - 3p_\infty\). Note \(\ell/z \in k(E)\). Thus \(p_1 + p_2 + p_3 = 3p_\infty\) in \(\Cl(E)\), i.e.
+\begin{definition}[elliptic curve]\index{elliptic curve}
+  An \emph{elliptic curve} is a pair \((E, p_\infty)\) where \(E\) is a curve of genus \(1\) and \(p_\infty \in E\).
+\end{definition}
+
+In fact, the group law is algebraic: consider \(\alpha_{3p_\infty}: E \to \P^2\) and let \(X, Y, Z\) be coordinates on \(\P^2\). As we know \(E \cap \{Z = 0\} = 3p_\infty\) and if \(L = \{\ell = 0\}\) is any line in \(\P^2\), \([L \cap E] = p_1 + p_2 + p_3\) and \(\div(\ell/z) = p_1 + p_2 + p_3 - 3p_\infty\). Note \(\ell/z \in k(E)\). Thus \(p_1 + p_2 + p_3 = 3p_\infty\) in \(\Cl(E)\), i.e.
 \[
   p_1 \boxplus p_2 \boxplus p_3 = p_\infty \boxplus p_\infty \boxplus p_\infty = p_\infty.
 \]
-Thus choose any line \(L\), it intersects \(E\) at three points, ad the sum of the three points in the group is \(p_\infty\).
-
-\begin{definition}[elliptic curve]\index{elliptic curve}
-  An elliptic curve is a pair \((E, p_\infty)\) where \(E\) is a curve of genus \(1\) and \(p_\infty \in E\).
-\end{definition}
+Thus geometrically the group law can be characterised as follow: any line \(L\) intersects \(E\) at three points, and the sum of the three points in the group is \(p_\infty\).
 
 \begin{ex}\leavevmode
   \begin{enumerate}
@@ -2356,11 +2358,11 @@ Thus choose any line \(L\), it intersects \(E\) at three points, ad the sum of t
     \end{align*}
     is a rational map, hence a morphism, hence an isomorphism.
   \item Show the map \(y \mapsto \boxminus y\) is a morphism (i.e.\ it is a rational function).
-  \item (?) and does define a morphism \(\boxplus: E \times E \to E\) so \(E\) is a group object in the category of smooth projective varieties.
+  \item Show that \(\boxplus: E \times E \to E\) defines a morphism so \(E\) is a group object in the category of smooth projective varieties.
   \end{enumerate}
 \end{ex}
 
-Suppose \(E = \{y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\} \cup \{p_\infty\}\) and \(\ch k \neq 2, 3\). Consider the line \(x = a\) in \(\P^2\). It intersects \(E\) at \(p_\infty\) and it also intersects \(E\) at \((a, \pm b)\) for some \(b \in k\). Hence
+Suppose \(E = \{y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\} \cup \{p_\infty\}\) and \(\ch k \neq 2, 3\). Consider the line \(\{x = a\}\) in \(\P^2\). It intersects \(E\) at \(p_\infty\) and at \((a, \pm b)\) for some \(b \in k\). Hence
 \[
   (a, b) \boxplus (a, -b) \boxplus p_\infty = p_\infty
 \]
@@ -2377,13 +2379,18 @@ Let \(j(E)\) be the cross ratio of these 4 points \(\infty, \lambda_1, \lambda_2
 Thus \(j(E) = j(E')\) if and only if \(E \cong E'\): only if because given \(\lambda_1, \lambda_2, \lambda_3, \infty\), we can define \(E\), if by the discussion above.
 
 \begin{corollary}
-  Set of genus \(1\) curevs up to isomorphism, bijects with \(4 \{\text{distinct points in } \P^1/\PGL_2\), bijects by \(j\) with \(\A^1\).
+  There is a three way correspondence
+  \begin{align*}
+    &\{\text{genus 1 curves up to isomorphism}\} \\
+    \leftrightarrow & \{4 \text{ distinct points in } \P^1\}/\PGL_2 \\
+    \leftrightarrow & \A^1 \quad \text{ given by } j
+  \end{align*}
 \end{corollary}
 
 \subsection{Riemann-Hurwitz}
 
 \begin{theorem}[Riemann-Hurwitz]\index{Riemann-Hurwitz}
-  Let \(\alpha: X \to Y\) be a nonconstant morphisms of smooth projective curves such that \(k(X)/k(Y)\) is a separable algebraic extension (for example if \(\ch k = 0\)). Set \(\chi(X) = 2 - 2g(X)\). Then
+  Let \(\alpha: X \to Y\) be a nonconstant morphism of smooth projective curves such that \(k(X)/k(Y)\) is a separable algebraic extension (for example if \(\ch k = 0\)). Set \(\chi(X) = 2 - 2g(X)\). Then
   \[
     \chi(X) = \chi(Y) \deg \alpha - \sum_{p \in X} (e_p(\alpha) - 1).
   \]
@@ -2395,11 +2402,11 @@ Thus \(j(E) = j(E')\) if and only if \(E \cong E'\): only if because given \(\la
     \alpha^*: \Omega^1_{k(Y)/k} &\to \Omega^1_{k(X)/k} \\
     f \d g &\mapsto (f \alpha) \d (g\alpha)
   \end{align*}
-  Separability implies that \(\alpha^*\) is injective (as \(\alpha\) is non-constant). Pick \(0 \neq \omega \in \Omega^1_{k(Y)/k}\), then by Riemann-Roch
+  Separability implies that \(\alpha^*\) is injective (as \(\alpha\) is nonconstant). Pick \(0 \neq \omega \in \Omega^1_{k(Y)/k}\), then by Riemann-Roch
   \[
     \deg \omega = 2 g(Y) - 2 = - \chi(Y).
   \]
-  let \(p \in X, q = \alpha(p) \in Y\) and pick local coordinates \(t_p, t_q\) at \(p, q\) respectively, so \(t_q \compose \alpha = u t_p^{e_p(\alpha)}\) where \(u\) is a unit. Write \(\omega = f \d t_q\) for some \(f \in k(Y)\), so \(\alpha^* \omega = f \alpha \d (f u t^{e_p})\). Hence
+  Let \(p \in X, q = \alpha(p) \in Y\) and pick local coordinates \(t_p, t_q\) at \(p, q\) respectively, so \(t_q \compose \alpha = u t_p^{e_p(\alpha)}\) where \(u\) is a unit. Write \(\omega = f \d t_q\) for some \(f \in k(Y)\), so \(\alpha^* \omega = f \alpha \d (u t^{e_p})\). Hence
   \begin{align*}
     \nu_p(\alpha^* \omega)
     &= \nu_p(f \alpha) + \nu_p(\d (ut^{e_p})) \\
@@ -2431,7 +2438,7 @@ c.f.\ exercise proving the non-existence of non-constant map from \(\P^1\) to an
 \begin{proof}
   By Riemann-Hurwitz for any \(\alpha: X \to Y\) non-constant,
   \[
-    0 \leq (g(Y) + 2g(X)) + (-2g(Y) + 2)(\deg \alpha - 1) < 0,
+    0 \leq 2(g(X) - g(Y)) + (-2g(Y) + 2)(\deg \alpha - 1) < 0,
   \]
   absurd.
 \end{proof}
@@ -2441,22 +2448,22 @@ c.f.\ exercise proving the non-existence of non-constant map from \(\P^1\) to an
 \end{definition}
 For example an elliptic curve is hyperelliptic.
 
-Suppose \(X\) is hyperelliptic, \(\pi: X \to \P^1\) is a degree \(2\) map and \(\ch k \neq 2\). If \(p \in X\), either \(e_p = 1\) and \(p\) is unramified, or \(e_p = 2\) and \(p\) is ramified. (Constrast this with the case \(\alpha: X \to \P^1\) with degree \(\geq 3\), where there are more than one type of ramification.) Then Riemann-Hurwitz syas that
+Suppose \(X\) is hyperelliptic, \(\pi: X \to \P^1\) is a degree \(2\) map and \(\ch k \neq 2\). If \(p \in X\), either \(e_p = 1\) and \(p\) is unramified, or \(e_p = 2\) and \(p\) is ramified (constrast this with the case \(\alpha: X \to \P^1\) with degree \(\geq 3\), where there are more than one type of ramification). Then Riemann-Hurwitz says that
 \[
   2 - 2g = 2 \times 2 - \#\{\text{ramification points}\}
 \]
-so there are \(2 + 2g\) ramification points, which in partiular is always even. For example if \(g = 1\) then ther are \(4\), if \(g = 2\) then there are \(6\).
+so there are \(2 + 2g\) ramification points, which in particular is always even. For example if \(g = 1\) then there are \(4\), if \(g = 2\) then there are \(6\).
 
 \subsection{Curves of genus \(2\)}
 
-If a curve \(X\) has \(g(X) > 0\) then \(\deg \mathcal K_X \geq 1\). We can then consider the map \(\alpha_{\mathcal K}: X \to \P^{g - 1}\), the \emph{canonical morphism}. This is not very interesting for \(g(X) = 1\). Suppose \(X\) has genus \(2\).
+If a curve \(X\) has \(g(X) > 0\) then we can then consider the map \(\alpha_{\mathcal K}: X \to \P^{g - 1}\), the \emph{canonical morphism}\index{canonical morphism}. This is not very interesting for \(g(X) = 1\). Suppose \(X\) has genus \(2\).
 
 \begin{proposition}
   \(\alpha_{\mathcal K}\) is a map of degree \(2\), so \(X\) is a hyperelliptic curve and \(\alpha_{\mathcal K}\) is ramified at \(6\) points.
 \end{proposition}
 
 \begin{proof}
-  Only thing needs proving is that \(\alpha_{\mathcal K}\) has degree \(2\). Write \(\mathcal K_X = \sum n_i p_i\) and let \(f \in L(K_X)\), but this is of degree \(2\), so equals to \(p + q\) for some \(p, q \in X\). As \(X\) has genus \(2\), \(\mathcal K_X = p + q\) in \(\Cl(X)\) and
+  Only thing needs proving is that \(\alpha_{\mathcal K}\) has degree \(2\). Write \(\mathcal K_X = \sum n_i p_i\) and let \(f \in L(\mathcal K_X)\), which is of degree \(2\), so equals to \(p + q\) for some \(p, q \in X\). As \(X\) has genus \(2\), \(\mathcal K_X = p + q\) in \(\Cl(X)\) and
   \[
     \ell(p + q) = \ell(\mathcal K_X) = 2 > 1
   \]

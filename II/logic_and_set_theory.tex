@@ -1822,7 +1822,7 @@ The aim of this chapter is to answer the question, what does ``the universe of s
   \emph{Zermelo-Fraenkel set theory} (ZF) has language \(L\) consisting of \(\Omega = \emptyset, \Pi = \{\in\}, \alpha(\in) = 2\) with the ZF axioms (to be stated below).
 \end{definition}
 
-A universe of sets will be a model \((V, \in)\) of the ZF axioms, so a worked example from chapter 4, except that every model \((V, \in)\) should be incredible complicated (contains the entire world of maths, or a copy of it).
+A universe of sets will be a model \((V, \in)\) of the ZF axioms, so a worked example from chapter 4, except that every model \((V, \in)\) should be incredibly complicated (contains the entire world of maths, or a copy of it).
 
 There are 9 ZF axioms in total: 2 to get started, 4 to build things and the last 3 might not be the things we would have thought of at first.
 
@@ -1981,7 +1981,7 @@ Thus what we really want to say is ``the image of a set, under something that lo
 \begin{axiom*}[Axiom of replacement]
   \begin{align*}
     & (\forall t_1) \cdots (\forall t_n) \underbrace{((\forall x) (\forall y) (\forall z) ((p \land p[z/y]) \implies y = z))}_{p \text{ a function-class}} \\
-    \implies & \underbrace{((\forall x) (\exists y) (\forall z) (z \in y \iff (\exists t) (t \in x \land p[ty])))}_{\text{image of \(x\) under \(p\) is a set}}
+    \implies & \underbrace{((\forall x) (\exists y) (\forall z) (z \in y \iff (\exists t) (t \in x \land p[t/x, z/y])))}_{\text{image of \(x\) under \(p\) is a set}}
   \end{align*}
   for each formula \(p\), free variables \(x, y, t_1, \dots, t_n\).
 \end{axiom*}
