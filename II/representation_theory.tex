@@ -492,7 +492,7 @@ Recall that for \(V\) a \(\C\)-vector space. \(\ip{\cdot, \cdot}\) is a \emph{He
 \end{enumerate}
 Furthermore \(\ip{\cdot, \cdot}\) is \emph{\(G\)-invariant} if
 \[
-  \ip{gv, gw} = {v, w}
+  \ip{gv, gw} = \ip{v, w}
 \]
 for all \(v, w \in V, g \in G\).
 
@@ -538,7 +538,7 @@ Therefore if there is a \(G\)-invariant inner product on any complex \(G\)-space
   This is known as \emph{regular representation} of \(G\), denoted \(\rho_{\text{reg}}\).
 \end{definition}
 
-This is a faithful representation of dimension \(|G|\). We call \(V = \F G\) (sometimes also written \(\F[G]\)) the \emph{regular module}\index{regular module}.
+This is a faithful representation of dimension \(|G|\). We call \(V = \F G\) (sometimes also written as \(\F[G]\)) the \emph{regular module}\index{regular module}.
 
 It turns out that every irreducible representation of \(G\) is a subrepresentation of \(\rho_{\text{reg}}\):
 
@@ -743,7 +743,7 @@ It turns out that \(\chi\) is a complete invariant in the sense that it determin
 \begin{theorem}\leavevmode
   \begin{enumerate}
   \item \(\chi_V(1) = \dim V\).
-  \item \(\chi_V\) is a \emph{class function}\index{class function}, namely it is conjugation invariant. Thus \(\chi_V\) is constant on the conjugacy class of \(G\).
+  \item \(\chi_V\) is a \emph{class function}\index{class function}, namely it is conjugation invariant. Thus \(\chi_V\) is constant on conjugacy classes of \(G\).
   \item \(\chi_V(g^{-1}) = \conj{\chi_V(g)}\).
   \item For two representations \(V\) and \(W\),
     \[
@@ -936,7 +936,7 @@ Note the finiteness condition. For counterexample otherwise take \(G = \Z\), \(1
 
 Recall the inner prodcut on \(\ccl(G)\) and the real symmetric form \(\langle \cdot, \cdot \rangle\) for characters.
 
-\begin{definition}\index{character table}\index{character table}
+\begin{definition}[character table]\index{character table}
   Let \(G\) be a finite group and \(\F = \C\). The \emph{character table} of \(G\) is the \(k \times k\) matrix \(X = [\chi_i(g_j)]\) where \(1 = \chi_1, \dots, \chi_k\) are the irreducible characters of \(G\) and \(\ccl_1 = \{1\}, \dots, \ccl_k\) are the conjugacy classes with \(g_j \in \ccl_j\).
 \end{definition}
 
@@ -1146,6 +1146,7 @@ is given by \(\rho(g): e_{x_j} \mapsto e_{gx_j}\). We call \(\rho_X\) the \emph{
 \end{proof}
 
 \begin{lemma}
+  \label{lem:product permutation character}
   Let \(G\) act on the sets \(X_1, X_2\). Then \(G\) acts on \(X_1 \times X_2\) via \(g(x_1, x_2) = (gx_1, gx_2)\). The character \(\pi_{X_1 \times X_2} = \pi_{X_1} \pi_{X_2}\) and so
   \[
     \langle \pi_{X_1}, \pi_{X_2} \rangle
@@ -1345,7 +1346,7 @@ Recall that \(\mathcal C(G)\) is the \(\C\)-space of class functions with dimens
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item All irreducible representations of \(S_n\) are self dual: the conjugacy classes are determined by cycle types so \(g, g^{-1}\) are always \(S_n\)-conjugate. Not always true for \(A_n\).
+  \item All irreducible representations of \(S_n\) are self-dual: the conjugacy classes are determined by cycle types so \(g, g^{-1}\) are always \(S_n\)-conjugate. Not always true for \(A_n\).
   \item Permutation representations \(\C X\) are always self-dual.
   \end{enumerate}
 \end{eg}
@@ -1864,7 +1865,7 @@ Let \(n = |G:H|\). Let \(t_1 = 1, t_2, \dots, t_n\) be a \emph{left transversal}
       \]
     \end{enumerate}
     See chapter 12 for more on double cosets.
-  \item An alternative proof can be founded in James and Liebeck, chapter 21, 23.
+  \item An alternative proof can be found in James and Liebeck, chapter 21, 23.
   \end{enumerate}
 \end{remark}
 
@@ -2116,7 +2117,6 @@ Let \(\F = \C\). Mackey theory describes restriction to a subgroup \(K \leq G\) 
 We'll work with the special case \(W = 1_H\) first. Then \(\Ind_H^G 1_H\) is the permutation representation of \(G\) on \(G/H\). Recall that if \(G\) is transitive on a set \(X\) and \(H = G_\alpha\) for some \(\alpha \in X\) then the action of \(G\) on \(X\) is isomorphic to the action of \(G\) on \(G/H\), namely
 \[
   g . \alpha \leftrightarrow gH
-  \tag{*, 12. 1}
 \]
 is a well-defined bijection and commutes with the \(G\)-action
 \[
@@ -2126,32 +2126,31 @@ Consider the action of \(G\) on \(G/H\) and let \(K \leq G\). Then \(G/H\) split
 \[
   KgH = \{kgh: k \in K, h \in H\},
 \]
-namely the \(K\)-orbits containing \(gH\), contains precisely all \(kgH\) for \(k \in K\).
+namely the \(K\)-orbits containing \(gH\).
 
 \begin{notation}
-  Denote by \(K \backslash G/H\) the set of \((K, H)\)-double cosets. They partition \(G\). Let \(S\) be the set of representatives. Note
+  Denote by \(K \backslash G/H\) the set of \((K, H)\)-double cosets. They partition \(G\). Let \(S\) be a set of representatives. Note
   \[
     \# K \backslash G /H = \ip{\pi_{G/K}, \pi_{G/H}}
   \]
-  by 7.3.
+  by \Cref{lem:product permutation character}.
 \end{notation}
 
   Clearly \(G_{gH} = gHg^{-1}\). Restricting to \(K\), we get
   \[
     H_g := K_{gH} = gHg^{-1} \cap K.
   \]
-  So as a set with \(K\)-action, \(KgH \cong K/K \cap gHg^{-1}\). By 10.10,
+  So by above as \(K\)-set, \(KgH \cong K/K \cap gHg^{-1} = K/H_g\). As
   \[
     \Ind_H^G 1_H = \C X
   \]
-where \(G/H\), if \(X = \bigcup X_i\) then decomposes into orbits \(\C X = \bigcup \C X_i\).
+where \(X = G/H\), and if \(X = \bigcup X_i\) then it decomposes into orbits \(\C X = \bigcup \C X_i\) we have
 
 \begin{proposition}
   If \(G\) is finite, \(H, K \leq G\) then
   \[
-    \Res_K^G \Ind_H^G 1 \cong \bigoplus_g \Ind_{K \cap gHg^{-1}}^K 1
+    \Res_K^G \Ind_H^G 1 \cong \bigoplus_{g \in S} \Ind_{K \cap gHg^{-1}}^K 1.
   \]
-  where the summation is over all representatives \(g \in K \backslash G/H\).
 \end{proposition}
 
 Let \(S = \{1 = g_1, \dots, g_r\}\) be the such that \(G = \bigcup_i Kg_iH\) as a union of disjoint set. Let \(H_g = gHg^{-1} \cap K \leq K\). Take a representation \((\rho, W)\) of \(H\). For \(g \in G\) define \((\rho_g, W_g)\) to be the representation of \(H_g\) with the same underlying vector space \(W\) but now the \(H_g\)-action is
@@ -2187,11 +2186,11 @@ where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x 
 \end{corollary}
 
 \begin{remark}
-  The set \(f\) of representatives was arbitrary so we could just as easily demand in 2 that \(g \in G \setminus H\). However it suffices to check for \(g \in S \setminus H\).
+  The set of representatives is arbitrary so we could just as easily demand in 2 that \(g \in G \setminus H\). However it suffices to check for \(g \in S \setminus H\).
 \end{remark}
 
 \begin{proof}[Proof of \nameref{cor:Mackey's irreducibility criterion}]
-  Use characters and recall that \(W\) is irreducbile if and only if \(\ip{\psi, \psi} = 1\) where \(W\) affords the character \(\psi\). Take \(K = H\) in Mckey's restriction formula. Note \(H_g = gHg^{-1} \cap H\). Use Frobenius reciprocity,
+  Use characters and recall that \(W\) is irreducbile if and only if \(\ip{\psi, \psi} = 1\) where \(W\) affords the character \(\psi\). Take \(K = H\) in Mackey's restriction formula. Note \(H_g = gHg^{-1} \cap H\). Use Frobenius reciprocity,
   \begin{align*}
     \ip{\Ind_H^G \psi, \Ind_H^G \psi}_G
     &= \ip{\psi, \Res_H^G \Ind_H^G \psi}_H \\
@@ -2199,15 +2198,15 @@ where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x 
     &= \sum_{g \in S} \ip{\Res_{H_g}^H \psi, \psi_g}_{H_g} \\
     &= \ip{\psi, \psi}_H + \sum_{\substack{g \in S \\ g \notin H}} d_g
   \end{align*}
-  where \(d_g = \ip{\Res_{H_g}^G \psi, \psi_g}_{H_g}\). For \(g = 1\) we have \(H_g = H\). Hence this is a sum of nonnegative integers which is \(\geq 1\), so \(\Ind_H^G \psi\) is irreducible if and only if \(\ip{\psi, \psi} = 1\) and all the other terms are \(0\). In other words \(W\) is irreducible and for all \(g \notin H\), \(W\) and \(W_g\) are disjoint representations (of \(H \cap gHg^{-1}\)).
+  where \(d_g = \ip{\Res_{H_g}^G \psi, \psi_g}_{H_g}\). For \(g \in H\) we have \(H_g = H\). Hence this is a sum of nonnegative integers which is \(\geq 1\), so \(\Ind_H^G \psi\) is irreducible if and only if \(\ip{\psi, \psi} = 1\) and all the other terms are \(0\). In other words \(W\) is irreducible and for all \(g \notin H\), \(W\) and \(W_g\) are disjoint representations (of \(H \cap gHg^{-1}\)).
 \end{proof}
 
 \begin{corollary}
-  If \(H \normal G\), assume \(\psi\) is an irreducible character of \(G\). Then \(\Ind_H^G \psi\) is irreducible if and only if \(\psi\) is disjoint from all its conjugates \(\psi_g\) for \(g \in G \setminus H\).
+  If \(H \normal G\) and \(\psi\) is an irreducible character of \(H\) then \(\Ind_H^G \psi\) is irreducible if and only if \(\psi\) is distinct from all its conjugates \(\psi_g\) for \(g \in G \setminus H\).
 \end{corollary}
 
 \begin{proof}
-  Take \(K = H\). Double cosets are left or right cosets and \(H_g = gHg^{-1} \cap H = H\) for all \(g\). Moreover \(W_g\) is irreducible since \(W\) is irreducible. Thus \(\Ind_H^G\) is irreducible precisely if \(W \ncong W_g\) for all \(g \in G \setminus H\). This is equivalent to \(\psi \neq \psi_g\). [Again could check condiition on set of representatives: actually the isomorphism class of \(W_g\), where \(g \in G\) depends only on \(gH\)]
+  Take \(K = H\). Double cosets are left or right cosets and \(H_g = gHg^{-1} \cap H = H\) for all \(g\). Moreover \(W_g\) is irreducible since \(W\) is irreducible. Thus \(\Ind_H^G\) is irreducible precisely if \(W \ncong W_g\) for all \(g \in G \setminus H\). This is equivalent to \(\psi \neq \psi_g\). (Again could check condition on set of representatives: actually the isomorphism class of \(W_g\), where \(g \in G\), depends only on \(gH\))
 \end{proof}
 
 \begin{proof}[Proof of \nameref{thm:Mackey's restriction formula}]
@@ -2215,7 +2214,7 @@ where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x 
   \[
     \mathcal V(g) = \bigoplus_{\substack{x \text{ rep} \\ x \in KgH}} x \otimes W
   \]
-  form a subspace invariant under the action of \(K\) (it is the direct sum of an orbit of subspaces permuted by \(K\) as \(kx \in KgH\) for all \(x \in KgH\).
+  form a subspace invariant under the action of \(K\) (it is the direct sum of an orbit of subspaces permuted by \(K\) as \(kx \in KgH\) for all \(x \in KgH\)).
 
   Now viewing \(V\) as a \(K\)-space, \(\Res_K^G V = \bigoplus_{g \in S} \mathcal V(g)\). Thus need to show \(\mathcal V(g) \cong \Ind_{H_g}^K W_g\) as \(K\)-spaces for each \(g \in S\).
 
@@ -2229,7 +2228,7 @@ where \(x = ghg^{-1}\). This is well-defined because \(g^{-1}xg \in H\) for \(x 
   \end{align*}
   This implies that if \(x = kgh, x' = k'gh'\) then \(x \otimes W = x' \otimes W\) if and only if \(k, k'\) lie in the same coset in \(K/H_g\). Hence \(\mathcal V(g)\) is the direct sum \(\bigoplus_{\text{rep } k \in K/H_g} k \otimes (g \otimes W)\).
 
-  Therefore as a representation for \(K\), this space is
+  Therefore as a representation of \(K\), this space is
   \[
     \mathcal V(g) \cong \Ind_{H_g}^K (g \otimes W).
   \]
@@ -2850,7 +2849,7 @@ Put
   \N_0[z, z^{-1}] &= \left\{ \sum_{n \in \Z} a_n z^n: a_n \in \N_0, \text{ finitely many } a_n \neq 0 \right\} \\
   \N_0[z, z^{-1}]_{\text{ev}} &= \{f \in \N_0[z, z^{-1}]: f(z) = f(z^{-1})\}
 \end{align*}
-By these lemmas for continuous representations of \(G\), the character \(\chi_V \in \N_0[z, z^{-1}]_{\text{ev}}\) by identifying it with its restriction to \(T\). We calculate the character \(\chi_n\) of \((\rho_n, V_n)\). Recall
+By these lemmas for continuous representations of \(G\), the character \(\chi_V\) is in \(\N_0[z, z^{-1}]_{\text{ev}}\) by identifying it with its restriction to \(T\). We calculate the character \(\chi_n\) of \((\rho_n, V_n)\). Recall
 \[
   \rho_n
   \begin{pmatrix}

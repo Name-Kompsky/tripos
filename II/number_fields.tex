@@ -203,10 +203,10 @@ so by minimality of \(\deg f_\alpha'\), \(r = 0\). Then \(\deg f_\alpha = \deg f
     \Z[\alpha, \beta] \cong \Z^r
   \]
   for some \(r \geq 1\). Now there is a \(\Z\)-module endomorphism
-  \begin{align}
+  \begin{align*}
     m_{\alpha\beta}: \Z[\alpha, \beta] &\to \Z[\alpha, \beta] \\
     \gamma &\mapsto \alpha\beta\gamma
-  \end{align}
+  \end{align*}
   \(m_{\alpha\beta}\) can be represented by an \(r \times r\) matrix \(A_{\alpha\beta} \in \matrixring_{r \times r}(\Z)\). Let
   \[
     F_{\alpha\beta}(x) = \det(x \cdot I_r - A_{\alpha\beta}) \in \Z[x]
@@ -551,7 +551,7 @@ Let \(L\) be a number field, \(n = [L:\Q]\) and \(\sigma_1, \dots, \sigma_n: L \
   \]
   for some \(m_i \in \Z\). Thus \(\beta = \sum_{i = 1}^m \frac{m_1}{N} \alpha_i\). Thus \(\alpha_i\)'s span \(L\) and thus form a basis of \(L\).
 
-  If \(f(m_1, \dots, m_n) = 0\) then \(\sum_{i = 1}^n m_i\alpha_i = 0\) so \(m_i = 0\) by linear independent of \(\alpha_i\)'s.
+  If \(f(m_1, \dots, m_n) = 0\) then \(\sum_{i = 1}^n m_i\alpha_i = 0\) so \(m_i = 0\) by linear independence of \(\alpha_i\)'s.
 \end{proof}
 
 We will soon prove that every number field has an integral basis.
@@ -933,8 +933,8 @@ From now on let \(L\) be a number field.
   \end{align*}
   By minimality of \(\n(I)\), we can find non-zero prime ideals \(\mathfrak{p}_1, \dots, \mathfrak{p}_r, \mathfrak{q}_1, \dots, \mathfrak{q}_s\) such that
   \begin{align*}
-    \mathfrak{p}_1, \dots, \mathfrak{p}_r &\subseteq I + (x) \\
-    \mathfrak{q}_1, \dots, \mathfrak{q}_s &\subseteq I + (y)
+    \mathfrak{p}_1 \cdots \mathfrak{p}_r &\subseteq I + (x) \\
+    \mathfrak{q}_1 \cdots \mathfrak{q}_s &\subseteq I + (y)
   \end{align*}
   so
   \[
@@ -1515,7 +1515,7 @@ Note that the special case we used above corresponds to \(n = 2\) and \(E\) clos
     \[
       \vol((1 + \frac{1}{m})E) > 2^n A(\Lambda).
     \]
-    By 1, for all \(m \in \N\) there exists \(\lambda_m \in (\Lambda \setminus \{0\}) \cap ((1 + \frac{1}{m})E)\). \((1 + \frac{1}{m}) E \subseteq 2E\) and \(2E \cap \Lambda\) is finite as \(2E\) is bounded. By pigenhole principle, we can assume there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda_m = \lambda\) for all \(m \geq 1\). \(E\) is closed and \(\lambda \in (1 + \frac{1}{m})E\) for all \(m \geq 1\). Thus \(\lambda \in E\).
+    By 1, for all \(m \in \N\) there exists \(\lambda_m \in (\Lambda \setminus \{0\}) \cap ((1 + \frac{1}{m})E)\). \((1 + \frac{1}{m}) E \subseteq 2E\) and \(2E \cap \Lambda\) is finite as \(2E\) is bounded. By pigeonhole principle, we can assume there exists \(\lambda \in \Lambda \setminus \{0\}\) such that \(\lambda_m = \lambda\) for all \(m \geq 1\). \(E\) is closed and \(\lambda \in (1 + \frac{1}{m})E\) for all \(m \geq 1\). Thus \(\lambda \in E\).
   \end{enumerate}
 \end{proof}
 

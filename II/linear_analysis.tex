@@ -126,12 +126,12 @@ for all \(s, t \in \R^+, \lambda \in (0, 1)\). Graphically, the graph of \(f\) l
 \begin{theorem}[Hölder's inequality]\index{Hölder's inequality}
   Let \(1 < p, q < \infty\) with \(\frac{1}{p} + \frac{1}{q} = 1\), let \(x \in \ell^p, y \in \ell^q\). Then \(xy = (x_ny_n)_n \in \ell^1\) and
   \[
-    \norm{xy}_1 \leq \norm x_p \norm x_q.
+    \norm{xy}_1 \leq \norm x_p \norm y_q.
   \]
 \end{theorem}
 
 \begin{proof}
-  It suffcies to assumes that \(\norm x_p = 1 = \norm y_q\). By Hölder's inequality,
+  It suffices to assumes that \(\norm x_p = 1 = \norm y_q\). By Hölder's inequality,
   \[
     \sum_{n = 1}^N |x_n y_n| \leq \frac{1}{p} \sum_{n = 1}^N |x_n|^p + \frac{1}{q} \sum_{n = 1}^N |y_n|^q.
   \]
@@ -572,7 +572,7 @@ The converse is also true:
 \end{proposition}
 
 \begin{proof}
-The construction is as follow. For two Cauchy sequences \(x = (x_n), y = (y_n) \subseteq X\), define \(x \sim y\) if and only if \(d(x_n, y_n) \to 0\). This is an equivalence relation. Denote the equivalence class of a Cauchy seuqence \(x\) by \(\tilde x\). Define
+The construction is as follow. For two Cauchy sequences \(x = (x_n), y = (y_n) \subseteq X\), define \(x \sim y\) if and only if \(d(x_n, y_n) \to 0\). This is an equivalence relation. Denote the equivalence class of a Cauchy sequence \(x\) by \(\tilde x\). Define
 \[
   \tilde X = \{\tilde x: x \text{ Cauchy in } X\}
 \]
@@ -582,7 +582,7 @@ and define a metric
 \]
 The limit exists and is independent of the representatives. Then \(\tilde d\) is a metric: if \(\tilde d(\tilde x, \tilde y) = 0\) then \(d(x_n, y_n) \to 0\) so \(x \sim y\) so \(\tilde x = \tilde y\). Symmetry and triangle inequality follow from those for \(d\).
 
-Now we show \(X \embed \tilde X\). For \(x \in X\), define \(j(x) \in \tilde X\) as the equivalence class of \((x, x, \dots)\). Then
+Now we show \(X \embed \tilde X\). For \(x \in X\), define \(j(x) \in \tilde X\) to be the equivalence class of \((x, x, \dots)\). Then
 \[
   \tilde d(j(x), j(y)) = d(x, y)
 \]
@@ -610,14 +610,14 @@ In the case of normed spaces, the metric completion has more structure:
 \end{proof}
 
 \begin{proposition}
-  Let \(X\) and \(Y\) be normed spaces, \(Y\) complete and let \(T \in B(X, Y)\). Then there is a unique \(\tilde T \in B(\tilde X, \tilde Y)\) such that
+  Let \(X\) and \(Y\) be normed spaces and let \(T \in B(X, Y)\). Then there is a unique \(\tilde T \in B(\tilde X, \tilde Y)\) such that
   \[
     \tilde T|_X = T, \norm{\tilde T} = \norm T.
   \]
 \end{proposition}
 
 \begin{proof}
-  For \(\tilde x \in \tilde X\), choose \((x_n) \subseteq X\) such that \(x_n \to \tilde x\). Then \((x_n)\) is Cauchy, and since \(T\) is bounded, \((Tx_n) \subseteq Y\) is Cauchy as well. By completeness of \(\tilde Y\), there is \(\tilde y \in \tilde Y\) such that \(Tx_n = \tilde y\). Set \(\tilde T \tilde x = \tilde y\). Note that \(\tilde T\) is well-defined, linear and \(\tilde T|_X = T\). Also
+  For \(\tilde x \in \tilde X\), choose \((x_n) \subseteq X\) such that \(x_n \to \tilde x\). Then \((x_n)\) is Cauchy, and since \(T\) is bounded, \((Tx_n) \subseteq \tilde Y\) is Cauchy as well. By completeness of \(\tilde Y\), there is \(\tilde y \in \tilde Y\) such that \(Tx_n = \tilde y\). Set \(\tilde T \tilde x = \tilde y\). Note that \(\tilde T\) is well-defined, linear and \(\tilde T|_X = T\). Also
   \[
     \norm{\tilde T \tilde x} = \lim_{n \to \infty} \norm{T x_n} \leq \norm T \lim_{n \to \infty} \norm{x_n} = \norm T \norm{\tilde x},
   \]
@@ -858,7 +858,7 @@ Yet another formulation of Baire category theorem is
   \]
 \end{proof}
 
-The point of the theorem is not so much of finding a uniform bound on the functionals, as the proof (of Baire category theorem) requires axiom of choice and is nonconstructive. Rather it shows that pointwise boundedness implies uniform boundedness so we don't risk losing anything by trying to prove uniform boundedness from onset. As we'll see, in most cases pointwise bound gives uniform bound straightaway. % TODO: check and revise
+The point of the Baire category theorem is not so much of finding a uniform bound on the functionals, as the proof requires axiom of choice and is nonconstructive. Rather it shows that pointwise boundedness implies uniform boundedness so we don't risk losing anything by trying to prove uniform boundedness from onset. As we'll see, in most cases pointwise bound gives uniform bound straightaway.
 
 \subsection{Open mapping theorem}
 
@@ -974,11 +974,11 @@ The point of the theorem is not so much of finding a uniform bound on the functi
 \end{remark}
 
 \begin{remark}
-  The basic problem in linear PDE is the following one: given \(f \in Y\), e.g.\ \(Y = L^2(\Omega)\) for some nice \(\Omega \subseteq \R^d\), and a linear partial differential operator \(L: X \to Y\), say \(X = H_0^2(\Omega)\) and \(L = \Delta\), is there a unique solution \(u \in X\) to \(Lu = f\)? The typical procedure is to show that for \(f\) ``nice'', say \(f \in C^\infty(\Omega)\), spanning a a dense subspace of \(Y\), there is a unique solution such that
+  The basic problem in linear PDE is the following one: given \(f \in Y\), for example \ \(Y = L^2(\Omega)\) for some nice \(\Omega \subseteq \R^d\), and a linear partial differential operator \(L: X \to Y\), say \(X = H_0^2(\Omega)\) and \(L = \Delta\), is there a unique solution \(u \in X\) to \(Lu = f\)? The typical procedure is to show that for \(f\) ``nice'', say \(f \in C^\infty(\Omega)\), spanning a dense subspace of \(Y\), there is a unique solution such that
   \[
     \norm u \leq C \norm f.
   \]
-  such an \emph{a priori} estimate allows us to solve \(Lu = f\) for general \(f \in Y\) by approximation. This implies that \(L\) is surjective. The open mapping theorem guarantees that this strategy works if \(L\) is surjective.
+  Such an \emph{a priori} estimate allows us to solve \(Lu = f\) for general \(f \in Y\) by approximation. This implies that \(L\) is surjective. The open mapping theorem guarantees that this strategy works if \(L\) is surjective.
 \end{remark}
 
 \subsection{Closed graph theorem}
@@ -1091,7 +1091,7 @@ Recall that a topological space \(X\) is \emph{Hausdorff} if for any \(x, y \in 
   (where \(\inf \emptyset = 1, \sup \emptyset = 0\)). Clearly \(0 \leq f \leq 1\). If \(x \notin U = U_0\) then \(f(x) = 0\). If \(x \in A = A_1\) then \(x \in U_q\) for all \(q\) so \(f(x) = 1\). To show continuity, note that for any \(t \in \R\),
   \begin{align*}
     \{x: f(x) > t\} &= \bigcup_{q > t} U_q \\
-    \{x: f(x) < t\} &= \bigcup_{q > t} X \setminus A_q
+    \{x: f(x) < t\} &= \bigcup_{q < t} X \setminus A_q
   \end{align*}
   both of which are open. Thus \(f\) is continuous.
 \end{proof}
@@ -2698,7 +2698,7 @@ The strategy is to diagonalise \(T\), construct a sequence of eigenvalues and ei
   \[
     H_k = (\bigoplus_{j = 1}^k E_{\lambda_j})^\perp
   \]
-  Then \(H_k \subseteq H\) is closed so is itself a Hilbert space. Also \(T\) is \(H_k\)-stable and \(\norm{T|_{H_k}} \leq |\lambda_k|\). Thus there is an eigenvalue \(\lambda_{k + 1}\) different from the \(\lambda_i\)'s, \(i \leq k\), with \(|\lambda_{k + 1}| = \norm{T|_{H_k}} \leq |\lambda_k|\) and there is no other eigenvalue \(\mu\) with \(|\lambda_{k + 1}| < |\mu| \leq |\lambda_k|\). This defines a sequence \((\lambda_i)\) with \(|\lambda_{i + 1}| \leq |\lambda_i|\) for all \(i\). Since \(\bigoplus_{|\lambda_i| \geq \varepsilon} E_{\lambda_i}\) is finite-dimensional, the sequence can only accummulate at \(0\). In particular \((\lambda_k)\) is finite or countable with \(\lambda_k \to 0\).
+  Then \(H_k \subseteq H\) is closed so is itself a Hilbert space. Also \(T\) is \(H_k\)-stable and \(\norm{T|_{H_k}} \leq |\lambda_k|\). Thus there is an eigenvalue \(\lambda_{k + 1}\) different from the \(\lambda_i\)'s for \(i < k\), with \(|\lambda_{k + 1}| = \norm{T|_{H_k}} \leq |\lambda_k|\) and there is no other eigenvalue \(\mu\) with \(|\lambda_{k + 1}| < |\mu| \leq |\lambda_k|\). This defines a sequence \((\lambda_i)\) with \(|\lambda_{i + 1}| \leq |\lambda_i|\) for all \(i\). Since \(\bigoplus_{|\lambda_i| \geq \varepsilon} E_{\lambda_i}\) is finite-dimensional, the sequence can only accummulate at \(0\). In particular \((\lambda_k)\) is finite or countable with \(\lambda_k \to 0\).
 
   Since \(T|_{(\bigoplus_{\lambda \neq 0} E_\lambda)^\perp} = T|_{(\cl{\bigoplus_{\lambda \neq 0} E_\lambda})^\perp}\) cannot have a nonzero eigenvalue, must have \(\norm{T|_{(\cl{\bigoplus_{\lambda \neq 0} E_\lambda})^\perp}} = 0\). Thus
   \[
@@ -2772,7 +2772,7 @@ and where \(V \in C[a, b]\).
 We want to apply the spectral theorem but there are two imminent problems: \(C^2[a, b]\) is not a Hilbert space, and \(T\) is not even a operator on \(C^2[a, b]\).
 
 \begin{theorem}
-  There exists a continuous function (\emph{Green function}\index{Green function}) \(k: [a, b] \to \R\) such that the unique solution \(u \in C^2[a, b]\) to the bundary value problem
+  There exists a continuous function (\emph{Green function}\index{Green function}) \(k: [a, b] \to \R\) such that the unique solution \(u \in C^2[a, b]\) to the boundary value problem
   \begin{align*}
     Tu(x) &= f(x) \quad f \text{ continuous} \\
     u(a) &= u(b) = 0

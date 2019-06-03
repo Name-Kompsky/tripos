@@ -851,7 +851,7 @@ where \(U\) has finite fibre and \(\varphi\) restricted to \(\varphi^{-1}(U)\) i
   \[
     \dim T_{(y, t)}X = \dim T_yY = \dim Y
   \]
-  for all \((y, t) \in \varphi^{-1}(y)\). But \(\varphi^{-1}(U \cap Y^{\text{sm}}\) is an open set and \(X\) is irreducible, so
+  for all \((y, t) \in \varphi^{-1}(y)\). But \(\varphi^{-1}(U \cap Y^{\text{sm}})\) is an open set and \(X\) is irreducible, so
   \[
     \dim X = \dim T_xX = \dim Y
   \]
@@ -2463,11 +2463,11 @@ If a curve \(X\) has \(g(X) > 0\) then we can then consider the map \(\alpha_{\m
 \end{proposition}
 
 \begin{proof}
-  Only thing needs proving is that \(\alpha_{\mathcal K}\) has degree \(2\). Write \(\mathcal K_X = \sum n_i p_i\) and let \(f \in L(\mathcal K_X)\), which is of degree \(2\), so equals to \(p + q\) for some \(p, q \in X\). As \(X\) has genus \(2\), \(\mathcal K_X = p + q\) in \(\Cl(X)\) and
+  Only thing needs proving is that \(\alpha_{\mathcal K}\) has degree \(2\). As \(\ell(\mathcal K_X) = g(X) = 2 > 0\), \(\mathcal K_X = p + q\) in \(\Cl(X)\) and
   \[
     \ell(p + q) = \ell(\mathcal K_X) = 2 > 1
   \]
-  so there exists a non-constant function \(h \in L(p + q)\), i.e.\ with \(\div (h) + p + q \geq 0\). As \(h\) has poles at most at \(p\) and \(q\), \(\deg h = 1\) or \(2\). But \(\deg h = 1\) would imply \(X \cong \P^1\), contradicting \(X\) has genus \(2\). Thus \(\deg h = 2\) and \(h \in L(\mathcal K_X) = L(p + q)\). Thus \(\alpha_{\mathcal K_X} = [1:h]: X \to \P^1\) has degree \(2\).
+  so there exists a non-constant function \(h \in L(p + q)\), i.e.\ \(\div (h) + p + q \geq 0\). As \(h\) has poles at most at \(p\) and \(q\), \(\deg h = 1\) or \(2\). But \(\deg h = 1\) would imply \(X \cong \P^1\), contradicting \(X\) has genus \(2\). Thus \(\deg h = 2\) and \(\alpha_{\mathcal K_X} = [1:h]: X \to \P^1\) has degree \(2\).
 \end{proof}
 
 \begin{corollary}
@@ -2482,7 +2482,7 @@ If a curve \(X\) has \(g(X) > 0\) then we can then consider the map \(\alpha_{\m
 We'll see in a moment these 6 points determine the curve, so this is an open embedding, suggesting that \(\dim\) \{curves of genus \(2\)\} is \(6 - 3 = 3\).
 
 \begin{remark}
-  For \(g \geq 2 (?)\), \(\alpha_{2\mathcal K_X}: X \to \P^?\) is always an embedding by Riemann-Roch and embedding theorem.
+  For \(g \geq 2\), \(\alpha_{2\mathcal K_X}: X \to \P^n\) is always an embedding by Riemann-Roch and embedding theorem.
 \end{remark}
 
 \begin{proposition}
@@ -2505,7 +2505,7 @@ We'll see in a moment these 6 points determine the curve, so this is an open emb
   \]
   Riemann-Roch says \(\ell(\mathcal K_X - p - q) = \ell(p + q) + g - 3\) so the embedding criteria is equivalent to \(\ell(p + q) = 1\). But \(\ell(p + q) > 1\) implies that \(X\) is hyperelliptic by the argument last time on \(g = 2\) curves. Conversely if \(X\) is hyperelliptic there exist \(p, q\) with \(\ell(p + q) > 1\) (obvious). Thus \(\ell(p + q) = 1\) if and only if \(X\) is not hyperelliptic and \(\alpha_{\mathcal K_X}\) is an embedding.
 
-  For the first part, suppose \(X\) is hyperelliptic, i.e.\ there exists a double cover (degree \(2\) map) \(X \to \P^1\). This gives an embedding \(k(x) = k(\P^1) \embed k(X)\) which makes \(k(X)/k(x)\) an algebraic extension of degree \(2\). Assume \(\ch k \neq 2\), there exists \(y \in k(X)\) such that \(y^2 = f(x)\) for some \(f \in k(x)\) (by completing the square). This gives a rational function \(f: X \rational \P^1\). As \(X\) is smooth, get a morphism \(f: X \to \P^1\), ramified at \(\infty\) and at points \(a_1, \dots, a_r\) if \(f(x) = (x - a_1) \cdots (x - a_r)\). But we say that Riemann-Roch implies that there are \(2g + 2\) ramification oints, so \(\deg f = 2g + 1\). Need to sho that \(\alpha_{\mathcal K_X}\) factors through \(\P^1\). To finish choose \(\omega = \frac{\d x}{y}\), and check that \(X^0\), defined to be
+  For the first part, suppose \(X\) is hyperelliptic, i.e.\ there exists a double cover (degree \(2\) map) \(X \to \P^1\). This gives an embedding \(k(x) = k(\P^1) \embed k(X)\) which makes \(k(X)/k(x)\) an algebraic extension of degree \(2\). Assume \(\ch k \neq 2\), there exists \(y \in k(X)\) such that \(y^2 = f(x)\) for some \(f \in k(x)\) (by completing the square). This gives a rational function \(f: X \rational \P^1\). As \(X\) is smooth, get a morphism \(f: X \to \P^1\), ramified at \(\infty\) and at points \(a_1, \dots, a_r\) if \(f(x) = (x - a_1) \cdots (x - a_r)\). But we say that Riemann-Roch implies that there are \(2g + 2\) ramification oints, so \(\deg f = 2g + 1\). Need to show that \(\alpha_{\mathcal K_X}\) factors through \(\P^1\). To finish choose \(\omega = \frac{\d x}{y}\), and check that \(X^0\), defined to be
   \[
     \begin{tikzcd}
       X \ar[r, "f"] \ar[d, "\subseteq"] & \P^1 = \A^1 \cup \{\infty\} \ar[d, "\subseteq"] \\
@@ -2527,7 +2527,12 @@ We'll see in a moment these 6 points determine the curve, so this is an open emb
 
 \section{Abel-Jacobi theorem}
 
-Let \(k = \C\) and \(X\) a smooth curve. Pick \(\omega \in L(\mathcal K_X)\). For concreteness consider \(y^2 = x^3 - a_2 x + a_4\), \(\omega = \frac{\d x}{y} = \frac{\d x}{\sqrt{x^3 - a_2 x + a_4}}\). Observe that if \(P, Q \in X\). We would like to define \(\int_P^Q \omega\), but this is not defined unless unless we choose a path \(\gamma\) from \(P\) to \(Q\). If \(\gamma\) is a loop and the loop is contractible then \(\int_\gamma \omega = 0\), but if we choose \(\gamma\) to be \(\gamma_1, \gamma_2\), (two elements giving independent class in homology) then the integral is not zero. THus \(\int_P^Q\) is not well-defined, but it is well-defined up to multiples
+Let \(k = \C\) and \(X\) a smooth curve. Pick \(\omega \in L(\mathcal K_X)\). For concreteness, consider
+\begin{align*}
+  y^2 &= x^3 - a_2 x + a_4 \\
+  \omega &= \frac{\d x}{y} = \frac{\d x}{\sqrt{x^3 - a_2 x + a_4}}
+\end{align*}
+For \(P, Q \in X\), we would like to define \(\int_P^Q \omega\), but this is not defined unless unless we choose a path \(\gamma\) from \(P\) to \(Q\). If \(\gamma\) is a loop and the loop is contractible then \(\int_\gamma \omega = 0\), but if we choose \(\gamma\) to be \(\gamma_1, \gamma_2\), two elements giving independent classes in homology, then the integral is not zero. Thus \(\int_P^Q\) is not well-defined, but it is well-defined up to multiples
 \[
   k_1 \int_{\gamma_1} \omega + k_2 \int_{\omega_2} \omega,
 \]
@@ -2555,7 +2560,7 @@ If \(\ell(\mathcal K_G) = g\) then \(H_1(X, \Z) \cong \Z^{2g}\), so the cohomolo
   \[
     \Cl^0(X) \cong \C^g/\Z^{2g} = (S^1)^{2g}.
   \]
-  The number \(\int_\gamma \omega\) for \(\gamma \in H_!(X; \Z)\) are called \emph{periods}.
+  The number \(\int_\gamma \omega\) for \(\gamma \in H_1(X; \Z)\) are called \emph{periods}.
 
   Moreover \(\Cl^0(X)\) is a projective algebraic variety, so an \emph{abelian variety}.
 \end{theorem}
@@ -2569,172 +2574,6 @@ by writing in elementary terms. but we cannot integrate
   \int_\gamma \frac{\d x}{x^3 - x + 1}.
 \]
 The former is a quadric so isomorphic to \(\P^1\). The failure in doing so for cubic gives a point in \(\Cl^0(X)\).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\iffalse
-
-\section{Algebraic curves}
-
-\begin{eg}
-  \(E^0 = \{y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\}, \lambda_1\lambda_2\lambda_3 \neq 0, \lambda_i \neq \lambda_j\) for \(i \neq j\). Let \(E = \cl{E^0} \subseteq \P^2\). The closure is
-  \[
-    y^2t = (x - \lambda_1z)(x - \lambda_2z)(x - \lambda_3z).
-  \]
-  Each point on the other chart when \(z = 0\). Unique extra point \(x = z = 0, y \neq 0\), \(P_\infty = [0:1:0]\). We will compute \(L(nP_\infty)\). To begin, let's compute \(\div(x), div(y)\).
-  \begin{align*}
-    x &= 0 \text{ when } y = \pm \sqrt{-\lambda_1\lambda_2\lambda_3} = \pm c \\
-    x &= \infty \text{ at } P_\infty
-  \end{align*}
-  At \(y = \pm c, \frac{\p f}{\p y} (0, \pm c) \neq 0\) so \(x\) is a local parameter so
-  \[
-    \div(x) = [0: c: 1] + [0: -c: 1] + n_\infty P_\infty.
-  \]
-  Let \(\deg \div(x) = 0\), so \(n_\infty = -2\). Similarly,
-  \[
-    \div(y) = \sum_{i = 1}^3 [\lambda_i: 0: -1] - 3 P_\infty.
-  \]
-  Hence \(x \in L(2 P_\infty), y \in L(3 P_\infty)\).
-
-  Example \(xy \in L(5P_\infty)\), Claim \(L(P_\infty) = k\). Granting claim, get \(\dim L(nP_\infty) \leq n\) for \(n \geq 1\) by proposition v. But
-  \begin{align*}
-    1, x &\in L(2P_\infty) \\
-    1, x, y &\in L(3P_\infty) \\
-    1, x, y, x^2 &\in L(4P_\infty) \\
-    1, x, y, x^2, xy &\in L(5P_\infty)
-  \end{align*}
-  Claim that these are linearly independent, so \(\dim L(nP_\infty) = n\) for \(n \leq 5\): this is obvious in \(k(x) \supseteq L(nP_\infty)\).
-  \[
-    1, x, y, x^2, xy, x^3, y^2 \in L(6P_\infty)
-  \]
-  but these are not linearly independent by our general result, or more importantly, \(y^2 = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)\) is the linear relation between them.
-  \begin{ex}\leavevmode
-    \begin{enumerate}
-    \item Show that \(xx^i, x^iy\) are linearly independent and hence
-    \item \(\dim L(nP_\infty) = n\) for all \(n \geq 1\).
-    \end{enumerate}
-  \end{ex}
-
-  Observe how this compares with \(\P^1\), when \(\dim L(nP) = n + 1\) for \(n \geq 0\).
-
-  Proof of claim that \(L(P_\infty) = k\): if not, \(L(P_\infty) = k + kt\) for some \(t \in k(E)\), then
-  \[
-    t^n \in L(nP_\infty) \setminus L((n - 1)P_\infty)
-  \]
-  so \(1, t, \dots, t^n \in L(nP_\infty)\) and are linearly independent so must be a basis (as \(\dim L(nP_\infty) \leq n + 1\)). But \(x \in L(2P_\infty), y \in L(3P_\infty)\), so \(x = a't^2 + b't + c = (at + b)^2 + d\) by completing the square if \(\ch k \neq 2\). Replace \(t\) with \(at + b\), so \(x = t^2 + d\) and \(y = g_3(t)\) for some cubic polynomial in \(t\). But that
-  \[
-    g_3(t)^2 = \prod_{i = 1}^3 (t^2 - (\lambda_i - d)).
-  \]
-  Now \(\lambda_i\)'s are distinct, so \(\lambda_i - d\) are distinct, so RHS is not a square in \(k[t]\), absurd.
-\end{eg}
-
-Given \(D \in \div X\) where \(X\) is a smooth projective curve, \(\ell(D) = \dim L(D) \geq 1\), put \(m = \ell (D) - 1\). Choose a basis \(f_0, \dots, f_m\) of \(L(D)\). Get a rational map \(\alpha_D = [f_0: \dots: f_n], X \to \P^m = \P(L(D)^*)\). As \(X\) is a smooth projective curve, \(\alpha_D\) extends to a morphism \(\alpha_D: X \to \P^m\). Notice that if \(D' = D + \div(g)\), \(f_0g, \dots, f_mg\) is a basis of \(L(D')\) but
-\[
-  [f_0g: \dots: f_mg] = [f_0: \dots: f_m]
-\]
-so \(\alpha_D: X \to \P^m = \P(L(D)^*)\) equals to \(\alpha_{D'}: X \to \P^m = \P(L(D')^*)\), i.e.\ the map only depends on the class of \(D\) in \(\Cl(X)\).
-
-\begin{eg}
-  \(X = \P^1, D = n(\alpha), \ell(D) = n + 1\). Choose a basis \(1, t, \dots, t^n\) of \(L(n(\infty))\), then
-  \[
-    \alpha_D(t) = [1:t: \dots: t^n]: \P^1 \to \P^n.
-  \]
-  i.e.
-  \[
-    \alpha_D[x_0: x_1] = [1: \frac{x_1}{x_0}: \dots: \frac{x_1^n}{x_0^n}] = [x_0^n: x_0^{n - 1}x_1: \dots: x_1^n].
-  \]
-\end{eg}
-
-\begin{definition}[Embedding]\index{embedding}
-  An \emph{embedding} is a morphism \(\alpha: X \to Y\) with the property that \(X\) is isomorphic to \(\alpha(X)\) via \(\alpha\).
-\end{definition}
-
-\begin{ex}\leavevmode
-  \begin{enumerate}
-  \item Show that the above \(\alpha_{n(\infty)}: \P^1 \to \P^n\) is an embedding.
-  \item Show that the morphism
-    \begin{align*}
-      alpha: \P^1 &\to \P^2 \\
-      t &\mapsto [1: t^2: t^3]
-    \end{align*}
-    is injective but \emph{not} an embedding.
-  \end{enumerate}
-\end{ex}
-
-\begin{ex}
-  Let \(X = E\) be elliptical curve, \(D = nP_\infty\). Show
-  \begin{align*}
-    \alpha_{P_\infty}: E &\to \P^0 \\
-    \alpha_{2P_\infty}: E &\to \P^1 \\
-    (x, y) &\mapsto x \\
-    \alpha_{3P_\infty}: E &\to P^2 \\
-    (x, y) &\mapsto (x, y)
-  \end{align*}
-
-  basis of \(L(2P_\infty)\) \(1, x\), basis of \(L(3P_\infty)\) \(1, x, y\).
-  
-  Notice that \(\alpha_{3P_\infty}\)  is an embedding \(E \subseteq \R^2\) but \(\alpha_{2P_\infty}, \alpha_{P_\infty}\) are not.
-\end{ex}
-
-\begin{theorem}[Embedding criteria]
-  \(\alpha_D: X \to \P^m\) is an embedding if and only if for all \(p, q \in X\), \(\ell(D - p - q) = \ell(D) - 2\). When this happens, \(X\) is a curve in \(\P^m\) of degree \(\deg D\).
-\end{theorem}
-
-We have not yet defined the degree of a curve \(X \subseteq \P^m\). Suppose \(X \subseteq \P V, \dim V = m + 1\), \(X\) smooth. Let \(H \subseteq \P V\) be a hyperplane and suppose \(X \nsubseteq H\). Then \(X \cap H\) is a closed subvariety of \(X\), so a finite set of points, and we define
-\[
-  [X \cap H] \in \div X
-\]
-to be these points ``counted with multiplicity''. Define \(\deg X\) ot be \(\deg [X \cap H]\) which will depend on \(X \subseteq \P^m\) but no other choices.
-
-\begin{eg}
-  Let \(H = \{x_0 = 0\}\) for some linear function \(x_0 \in V^*\). If \(p \in X \cap H\), want to define \(v_p(x_0)\). But \(x_0 \in k(X)\). Pick \(x_1 \in V^*\) wit \(x_1(p) \neq 0\). Now \(\frac{x_0}{x_1} \in k(X)\). Then \(v_p(\frac{x_0}{x_1}\) makes sense, and
-  \[
-    v_p(\frac{x_0}{x_1'}) = v_p(\frac{x_0}{x_1}) + v_p(\frac{x_1}{x_1'}).
-  \]
-  If \(x_1'\) is another function in \(V^*\) with \(x_1'(p) \neq 0\) but then the last term is \(0\). So define
-  \[
-    n_p = v_p(\frac{x_0}{x_1})
-  \]
-  which is independent of choice of \(x_1\).
-\end{eg}
-
-\begin{definition}
-  Let \([H \cap X] = \sum_{p \in H \cap X} n_pP \in \div (X), [H \cap X] \geq 0\). Define
-  \[
-    \deg X = \deg [H \cap X].
-  \]
-\end{definition}
-
-If we pick \(H' = \{x_0' = 0\}, X \nsubseteq H'\).
-\[
-  v_p(\frac{x_0}{x_1'}) = v_p(\frac{x_0}{x_1}) + v_p(\frac{x_1}{x_1'})
-\]
-so \([H \cap X] = [H' \cap X] + \div (\frac{x_0}{x_0'})\), i.e.\ \([H \cap X] = [H' \cap X]\) are equal in \(\Cl(X)\).
-
-\begin{lemma}
-  Let \(X = Z(F) \subseteq \P^2\) where \(F\) is a homogeneous polynomial of degree \(d\), then
-  \[
-    \deg Z(F) = \deg F.
-  \]
-\end{lemma}
-\fi
-
 
 \printindex
 \end{document}

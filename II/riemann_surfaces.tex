@@ -135,7 +135,7 @@ Why do we make such a definition? We know the power series
 \[
   \sum_{r \geq 0} z^k = \frac{1}{1 - z}
 \]
-is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to natural boundary. However, \(\frac{1}{1 - z}\) is homomorphic  on \(\C \setminus \{1\}\) so sometimes the domain forced by definition of a function is not the maximal possible. In other words, sometimes we are looking at the ``correct'' function with a ``wrong'' domain.
+is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to natural boundary. However, \(\frac{1}{1 - z}\) is holomorphic on \(\C \setminus \{1\}\) so sometimes the domain forced by the definition of a function is not the maximal possible. In other words, sometimes we are looking at the ``correct'' function with a ``wrong'' domain.
 
 \begin{definition}[analytic continuation along path]\index{analytic continuation!along path}
   We say \((g, E)\) is an \emph{analytic continuation of \((f, D)\) along \(\gamma\)} if \(\gamma: [0, 1] \to U\) and there exist function elements \((f_i, D_i)\), \(i \in \{0, \dots, n\}\) and \(0 = t_0 < t_2 < \dots < t_n = 1\) such that
@@ -158,12 +158,12 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item If \((f, D) \approx_\gamma (g, E)\) and \((f, D) \approx_\gamma (h, E)\) then \(g = h\) by repeated application of the identity principle. In other words, \(g\) is completely determined by \(f\) and \(\gamma\).
-  \item Analytic continuation is an equivalence relation (exercise), but direct analytic continuation is \emph{not} transitive, even if the pairwise intersections of the domains are nonempty. If fact, that is the whole point of analytic continuation along path.
+  \item Analytic continuation is an equivalence relation (exercise), but direct analytic continuation is \emph{not} transitive, even if we require pairwise intersections of the domains to be nonempty. If fact, that is the whole point of analytic continuation along path.
   \end{enumerate}
 \end{remark}
 
 \begin{definition}[complete analytic function]\index{complete analytic function}
-  An equivalence class of function elements under \(\approx\) is a \emph{complete analytic function}.
+  An equivalence class of a function element under \(\approx\) is a \emph{complete analytic function}.
 \end{definition}
 
 \begin{eg}[complex logarithm]
@@ -197,7 +197,7 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
   \[
     f_C(z) = f_A(z) + 2\pi i, z \in E_A \cap E_C
   \]
-  which shows nontransitivity of \(\sim\). In fact, \(f_A + 2\pi i \sim f_C\). However we see \((f_A, E_A) \approx_\gamma (f_C, E_C)\) and so \((f_A, E_A) \approx (f_C, E_C)\). By repeating the process with intervals moving to infinity to \(\R\), we see that all the \(\log r + (2\pi n + \theta) i\) are in the same class for \(\approx\). On the other hand, if \((f, D) \approx_\gamma (f_{A'}, E_{A'})\) for some interval \(A'\) then applying identity principle along the path to \(e^{f_i}\) shows that \(f\) is one of the branches of \(\log\).
+  which shows nontransitivity of \(\sim\). In fact, \(f_A + 2\pi i \sim f_C\). However we see \((f_A, E_A) \approx_\gamma (f_C, E_C)\) and so \((f_A, E_A) \approx (f_C, E_C)\). By repeating the process with intervals moving to infinity in \(\R\), we see that all the \(\log r + (2\pi n + \theta) i\) are in the same class for \(\approx\). On the other hand, if \((f, D) \approx_\gamma (f_{A'}, E_{A'})\) for some interval \(A'\) then applying identity principle along the path to \(e^{f_i}\) shows that \(f\) is one of the branches of \(\log\).
 
   Now we can define a space that contains all branches of logarithm. On \(U = \C \setminus \R_{\geq 0}\), define
   \[
@@ -226,7 +226,7 @@ is defined on \(D(0, 1)\) and cannot be extended to any larger domain due to nat
     \]
   \end{enumerate}
 
-Check that this makes \(R\) a Hausdorff, path-connected space. \(R\) comes with a natural projection \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\). This is a continuous map as the preimage of a small disk \(D(\eta, r) \subseteq \C^*\) is countably many copies of that disk, one for each sheet. This is precisely the definition of a covering space.
+Check that this makes \(R\) a Hausdorff, path-connected space. \(R\) comes with a natural projection \(\pi: R \to \C^*, (\eta, k) \mapsto \eta\). This is a continuous map as the preimage of a small disk \(D(\eta, r) \subseteq \C^*\) is the union of countably many copies of that disk, one for each sheet. This is precisely the definition of a covering space.
 \end{eg}
 
 \begin{definition}[covering space]\index{covering space}\index{covering space!regular}
@@ -270,7 +270,7 @@ A similar construction can be done for the multivalued function \(z^{1/n}\) wher
 \[
   (r e^{i\theta})^{1/n} = r^{1/n} e^{i\theta/n} e^{2\pi ki/n}
 \]
-for \(k \in \Z/n\Z\). Define \(R_n = \coprod_{k \in \Z/n\Z} \C^*\) but glue near modulo \(n\) (``top sheet to bottom sheet''). Then we have \(f_n, \pi_n\) such that the following diagram commutes:
+for \(k \in \Z/n\Z\). Define \(R_n = \coprod_{k \in \Z/n\Z} \C^*\) and glue near modulo \(n\) (``top sheet to bottom sheet''). Then we have \(f_n, \pi_n\) such that the following diagram commutes:
 \[
   \begin{tikzcd}
     R_n \ar[r, "f_n"] \ar[d, "\pi_n"] & \C^* \ar[dl, "z \mapsto z^n"] \\
@@ -357,7 +357,7 @@ In other words, a Riemann surface is precisely a connected one-dimensional compl
 \end{remark}
 
 \begin{definition}[equivalent atlas]\index{atlas!equivalent}
-  Two atlases \(\{(U_\alpha, \phi_\alpha\}\) and \(\{(V_\beta, \psi_\beta)\}\) are \emph{equivalent} if their union is also an atlas, i.e.\ whenever \(U_\alpha \cap V_\beta \neq \emptyset\) then \(\psi_\beta \compose \phi_\alpha^{-1}\) on \(\phi(U_\alpha \cap V_\beta)\) is analytic.
+  Two atlases \(\{(U_\alpha, \phi_\alpha)\}\) and \(\{(V_\beta, \psi_\beta)\}\) are \emph{equivalent} if their union is also an atlas, i.e.\ whenever \(U_\alpha \cap V_\beta \neq \emptyset\) then \(\psi_\beta \compose \phi_\alpha^{-1}\) on \(\phi(U_\alpha \cap V_\beta)\) is analytic.
 \end{definition}
 
 \begin{eg}
@@ -452,7 +452,7 @@ Recall from IB Analysis II and IB Complex Analysis
   Given analytic \(g\) on a domain \(V \subseteq \C\) and \(a \in V\) such that \(g'(a) \neq 0\), there exists a neighbourhood \(N\) of \(a\) such that \(g|_N : N \to g(N)\) is a conformal equivalence.
 \end{theorem}
 
-Consider an analytic function \(f: R \to \C\). Given \(p \in R\), choose a chart \((U, \varphi)\) with \(p \in U\). wlog \(f(p) = 0\). and write \(a = \varphi(p)\). Locally around \(a\), \(f \compose \varphi^{-1}\) is analytic so can be written as \(g(z)^r\) where \(g\) is a conformal equivalence: we can write any nonconstant analytic function sending \(a \mapsto 0\) as \((z - a)^r h(z)\) where \(h\) is analytic and nonzero on a neighbourhood of \(a\). Then there is a neighbourhood \(V\) of \(a\) such that \(h(V)\) does not intersect any ray from the origin. This allows us to define a logarithm on \(h(V)\) and \(r\)th root
+Consider an analytic function \(f: R \to \C\). Given \(p \in R\), choose a chart \((U, \varphi)\) with \(p \in U\). wlog \(f(p) = 0\). and write \(a = \varphi(p)\). Locally around \(a\), \(f \compose \varphi^{-1}\) is analytic so can be written as \(g(z)^r\) where \(g\) is a conformal equivalence: we can write any nonconstant analytic function sending \(a \mapsto 0\) as \((z - a)^r h(z)\) where \(h\) is analytic and nonzero on a neighbourhood of \(a\). Then there is a neighbourhood \(V\) of \(a\) such that \(h(V)\) does not intersect some ray from the origin. This allows us to define a logarithm on \(h(V)\) and \(r\)th root
 \[
   \ell(z) := \exp( \frac{1}{r} \log h(z)).
 \]
@@ -476,9 +476,9 @@ The complex structure is constructed as follow. Equip the quotient group \(T = \
   \[
     P_z = \{z + r \tau_1 + s \tau_2: r, s \in [0, 1]\}
   \]
-  maps onto \(T\) by \(\pi\). So \(T\) is the continuous image of a compact set so compact. \(T\) is also Hausdorff: note first that \(\Lambda\) is a discrete set: if \(\Lambda\) contained an accummultaion point then \(0\) is also a limit point, i.e.\ for all \(k \in \N\) there exists \(m_k, n_k \in \Z\) (and wlog \(n_k \neq 0\)) such that
+  maps onto \(T\) by \(\pi\). So \(T\) is the continuous image of a compact set so compact. \(T\) is also Hausdorff: note first that \(\Lambda\) is a discrete set: if \(\Lambda\) contained an accummultaion point then \(0\) would also be a limit point, i.e.\ for all \(k \in \N\) there exists \(m_k, n_k \in \Z\) (and wlog \(n_k \neq 0\)) such that
   \[
-    |m_k \tau_1 + n_k \tau_2| < \frac{1}{k}
+    |m_k \tau_1 - n_k \tau_2| < \frac{1}{k}
   \]
   but then
   \[
@@ -487,7 +487,7 @@ The complex structure is constructed as follow. Equip the quotient group \(T = \
     \leq \frac{1}{k|\tau_1|}
     \to 0
   \]
-  as \(k \to \infty\) so \(\frac{\tau_2}{\tau_1} \in \R\), contradiction. Thus given two points \(w_1, w_2 \in T\) we can choose preimages \(x_i \in p^{-1}(w_i)\) and neighbourhoods \(N_i\) or \(z_i\) such that
+  as \(k \to \infty\) so \(\frac{\tau_2}{\tau_1} \in \R\), contradiction. Thus given two points \(w_1, w_2 \in T\) we can choose preimages \(x_i \in p^{-1}(w_i)\) and neighbourhoods \(N_i\) of \(x_i\) such that
   \[
     \left( \bigcup_{\omega \in \Lambda} N_1 + \omega \right) \cap \left( \bigcup_{\omega \in \Lambda} N_2 + \omega \right) = \emptyset,
   \]
@@ -499,7 +499,7 @@ The complex structure is constructed as follow. Equip the quotient group \(T = \
   \]
   is a disjoint union of \(\pi(N)\).
 
-  Finally for the complex structure of \(T\), given \(a \in T\), choose \(z \in \C\) such that \(\pi(z) = a\) and a neighbourhood \(N_a\) of \(a\) on which the regularity is realised. In particular, the component \(N_z\) of \(\pi^{-1}(N_a)\) containing \(z\) has \(\pi|_{N_z}: N_z \to N_a\) a homeomorphism. Define a chart to be the image of a disk \(D_z\) about \(z\) contained in \(N_z\). Write \(U_a = \pi(D_z)\) and define a chart map \(\phi_a = (\pi|_{N_z})^{-1}\) on \(U_a\). Claim this defines an atlas on \(T\): clearly this is a cover and claim the trasition maps are translations: suppose \(U_a \cap U_b = \emptyset\), for each \(w \in U_a \cap U_b\) there exists \(\omega_w \in \Lambda\) such that \(\phi_b^{-1} \compose \phi_a(w) = w + \omega_w\). But \(w \mapsto \omega_w\) is a continuous function on a connected set and it takes values in a discrete set so is constant. Thus the transition functions are translations so analytic.
+  Finally for the complex structure of \(T\), given \(a \in T\), choose \(z \in \C\) such that \(\pi(z) = a\) and a neighbourhood \(N_a\) of \(a\) on which the regularity is realised. In particular, the component \(N_z\) of \(\pi^{-1}(N_a)\) containing \(z\) has \(\pi|_{N_z}: N_z \to N_a\) a homeomorphism. Define a chart to be the image of a disk \(D_z\) about \(z\) contained in \(N_z\). Write \(U_a = \pi(D_z)\) and define a chart map \(\phi_a = (\pi|_{N_z})^{-1}\) on \(U_a\). Claim this defines an atlas on \(T\): clearly this is a cover and claim the trasition maps are translations: suppose \(U_a \cap U_b \neq \emptyset\), then for each \(w \in U_a \cap U_b\) there exists \(\omega_w \in \Lambda\) such that \(\phi_b^{-1} \compose \phi_a(w) = w + \omega_w\). But \(w \mapsto \omega_w\) is a continuous function on a connected set and it takes values in a discrete set so is constant. Thus the transition functions are translations so analytic.
 
 In example sheet 1 we'll show that different lattices can yield conformally equivalent tori. In example sheet 2 we give characterisation of conformal equivalence classes of tori in terms of \(\Lambda\). Complex tori are an important class of Riemann surfaces.
 
@@ -537,7 +537,7 @@ In example sheet 1 we'll show that different lattices can yield conformally equi
 
 We have seen a special case of this in IB Complex Analysis: if \(f: \C_\infty \to \C\) is analytic then \(f(\infty) \in \C\) so \(f\) is bounded on a neighbourhood of \(\infty\). By Liouville's theorem \(f\) is constant.
 
-\begin{definition}
+\begin{definition}[harmonic]\index{harmonic}
   Let \(h: R \to \R\) be a continuous function on a Riemann surface \(R\). \(h\) is \emph{harmonic} if for all charts \((U, \phi)\) of \(R\), \(h \compose \phi^{-1}\) is harmonic on \(\phi(U)\).
 \end{definition}
 
@@ -623,7 +623,7 @@ Here we digress a little bit on non-examibable content before heading to the nex
   \end{align*}
   Claim that both are open in \([0, 1]\). First suppose \(\tau \in I_2\). As \(\tilde X\) is Hausdorff, there exist open disjoint \(U_1, U_2\) with \(\tilde \gamma_1(\tau) \in U_1, \tilde \gamma_2(\tau) \in U_2\). Paths are continuous so \(\tilde \gamma_1^{-1}(U_1)\) and \(\tilde \gamma_2^{-1}(U_2)\) are open neighbourhoods of \(\tau\) in \([0, 1]\), their intersection is thus open and contained in \(I_2\), so \(I_2\) is open.
 
-  Suppose now that \(\tau \in I_1\). Choose an open neighbourhood \(\tilde N\) of \(\tilde \gamma_1(\tau) = \tilde \gamma_2(\tau)\) in \(\tilde X\) such that \(\pi|_{\tilde N}\) is a homeomorphism onto its image. We have \(\pi(\tilde \gamma_1(t)) = \pi(\tilde \gamma_2(t))\) for all \(t\) as they are both lifts for \(\gamma\), so on \(\tilde N\) this implies that \(\tilde \gamma_1(t) = \tilde \gamma_2(t)\). By continuity of paths, there exists \(\delta > 0\) such that \(t \in (\tau - \delta, \tau + \delta) \subseteq [0, 1]\) implies \(\tilde \gamma_1(t), \tilde \gamma_2(t) \in \tilde N\). So the interval \((\tau - \delta, \tau + \delta) \subseteq [0, 1] \subseteq I_1\) so \(I_1\) is open. THus \(I_1 = [0, 1]\) by connectivity.
+  Suppose now that \(\tau \in I_1\). Choose an open neighbourhood \(\tilde N\) of \(\tilde \gamma_1(\tau) = \tilde \gamma_2(\tau)\) in \(\tilde X\) such that \(\pi|_{\tilde N}\) is a homeomorphism onto its image. We have \(\pi(\tilde \gamma_1(t)) = \pi(\tilde \gamma_2(t))\) for all \(t\) as they are both lifts for \(\gamma\), so on \(\tilde N\) this implies that \(\tilde \gamma_1(t) = \tilde \gamma_2(t)\). By continuity of paths, there exists \(\delta > 0\) such that \(t \in (\tau - \delta, \tau + \delta) \subseteq [0, 1]\) implies \(\tilde \gamma_1(t), \tilde \gamma_2(t) \in \tilde N\). So the interval \((\tau - \delta, \tau + \delta) \subseteq [0, 1] \subseteq I_1\) so \(I_1\) is open. Thus \(I_1 = [0, 1]\) by connectivity.
 \end{proof}
 
 In summary, lifts are unique up to choice of basepoints.
@@ -670,7 +670,7 @@ As for existence, lifts may not exist if the cover is not regular. c.f.\ nonregu
 \end{proof}
 
 \begin{eg}
-  Consider \(z \mapsto z^n\) on \(\C^* = \C \setminus \{0\}\). This is a regular covering map. Consider a loop \(\gamma\) based at \(1\). The preimages of \(1\) are the \(n\)th roots of unity \(\xi_n^k\), \(1 \leq k \leq n\). Any lift of \(\gamma\) will start at some \(\xi_n^k\) and end at \(\xi_n^{k + 1}\). As this is a regular cover, monodromy theorem tells that any path based at \(1\) has a lift whose endpoints are the same as if we lifted \(\gamma^{0n}\) for some \(n \in \Z\). Note that to any path \(\gamma\) we have an associated permutation of the set \(\{\xi_n^k\}_{1 \leq k \leq n}\) by considering where the lift starting at \(\xi_n^k\) ends, i.e.\ an element of \(S_n\). The subgroup of \(S_n\) arising in this way is generated by \((123\dots n)\), which is the cyclic subgroup \(C_n\).
+  Consider \(z \mapsto z^n\) on \(\C^* = \C \setminus \{0\}\). This is a regular covering map. Consider a loop \(\gamma\) based at \(1\). The preimages of \(1\) are the \(n\)th roots of unity \(\zeta_n^k\), \(1 \leq k \leq n\). Any lift of \(\gamma\) will start at some \(\zeta_n^k\) and end at \(\zeta_n^{k + 1}\). As this is a regular cover, monodromy theorem tells that any path based at \(1\) has a lift whose endpoints are the same as if we lifted \(\gamma^{0n}\) for some \(n \in \Z\). Note that to any path \(\gamma\) we have an associated permutation of the set \(\{\zeta_n^k\}_{1 \leq k \leq n}\) by considering where the lift starting at \(\zeta_n^k\) ends, i.e.\ an element of \(S_n\). The subgroup of \(S_n\) arising in this way is generated by \((123\dots n)\), which is the cyclic subgroup \(C_n\).
 
   (It is an exercise to show that any closed path in the punctured plane is homotopic to an integer multiple of \(\gamma\).)
 \end{eg}
@@ -789,7 +789,7 @@ We can also derive the so-called classical monodromy theorem
 \end{corollary}
 
 \begin{proof}
-  Define for \(z \in G\) \(f(z)\) as follows: we fix \(z_0 \in D\) and find a path \(\gamma\) on \(G\) with \(\gamma(0) = z_0\) and \(\gamma(1) = z\). By assumption \(f\) can be analytically continued along the path so by classical monodromy theorem and simply connectedness this is well-defined for all \(z \in G\).
+  Define for \(z \in G\), \(f(z)\) as follows: we fix \(z_0 \in D\) and find a path \(\gamma\) on \(G\) with \(\gamma(0) = z_0\) and \(\gamma(1) = z\). By assumption \(f\) can be analytically continued along the path so by classical monodromy theorem and simply connectedness this is well-defined for all \(z \in G\).
 \end{proof}
 
 
@@ -967,7 +967,7 @@ See how false this can be for noncompact Riemann surfaces!
   \]
   We want to show \(n: S \to \Z\) is constant. But \(S\) is connected so suffice to show \(n\) is locally constant. Fix \(w_0 \in S\) and let \(f^{-1}(w_0) = \{z_1, \dots, z_q\}\). For each \(z_k\), By choosing appropriate charts centred at \(z_k\) and \(w_0\), \(f\) is locally \(z \mapsto z^{m_f(z_k)}\). Moreover we can wlog choose a chart \((N_k, \phi)\) around \(z_k\) such that \(\phi(N_k)\) is a disk around \(\phi(z_k)\), on which \(f|_{N_k}\) is an \(m_f(z_k)\)-to-\(1\) map to its image. wlog choose the \(N_k\) disjoint. Note that \(R \setminus \bigcup N_k\) is compact so \(f(R \setminus \bigcup N_k)\) is compact, and there exists open neighbourhood \(M\) of \(w_0\) such that \(f(R \setminus \bigcup N_k) \cap M = \emptyset\). Let \(N = f(N_1) \cap \dots \cap f(N_q) \cap M\), an open neighbourhood of \(w_0\). For \(w \in N\), \(f^{-1}(w) \subseteq \bigcup_{k = 1}^q N_k\) so
   \[
-    n(w) = \sum_{z \in f^{-1}(w)} m_f(w) = \sum_{z \in f^{-1}(w_0)} m_f(z) = n(w_0).
+    n(w) = \sum_{z \in f^{-1}(w)} m_f(z) = \sum_{z \in f^{-1}(w_0)} m_f(z) = n(w_0).
   \]
 \end{proof}
 
@@ -998,7 +998,7 @@ As a consequence we have
   \[
     \frac{1}{f(z)} = (z - b_i)^{m_f(b_i)} g(z)
   \]
-  where \(g\) is nonzero analytic at \(b_i\), so
+  where \(g\) is nonzero analytic at \(b_i\), so \(f\) has Laurent series
   \[
     f(z) = \sum_{j = -k_i}^\infty a_{j, i} (z - b_i)^j
   \]
@@ -1178,7 +1178,7 @@ Intuitively, the first term on RHS says that in a covering every sufficiently sm
   \[
     \{(t, u) \in \C^2: 1+ u^d = t^d\}
   \]
-  via \(t = \frac{1}{x}, u = \frac{y}{x}\), and \(\pi_x, \pi_y\) extend to analytic maps \(F_d \to \C_\infty\). Note that there are \(d\) points in \(F_d \setminus F_d'\). \(\pi_x\) has degree \(d\) with ramification at \((\xi_d, 0)\) for all \(d\)th roots of unity \(\xi_d\). By Riemann-Hurwitz, as \(\pi_x\) has multiplicity \(d\) at such point,
+  via \(t = \frac{1}{x}, u = \frac{y}{x}\), and \(\pi_x, \pi_y\) extend to analytic maps \(F_d \to \C_\infty\). Note that there are \(d\) points in \(F_d \setminus F_d'\). \(\pi_x\) has degree \(d\) with ramification at \((\zeta_d, 0)\) for all \(d\)th roots of unity \(\zeta_d\). By Riemann-Hurwitz, as \(\pi_x\) has multiplicity \(d\) at such point,
 \[
   2g_{F_d} - 2 = d(2 \cdot 0 - 2) + d(d - 1)
 \]
@@ -1324,7 +1324,7 @@ As a comment, in general when trying to understand a series defined in terms of 
   We show \(\wp\) converges on compact sets: choose \(R \gg 1\) and let \(|z| \leq R\). There exist finitely many points \(\Lambda \cap D(0, 2R)\) and if \(|\omega| > 2R\) for \(\omega \in \Lambda\),
   \[
     \Bigg| \frac{1}{(z - \omega)^2} - \frac{1}{\omega^2} \Bigg|
-    = \Bigg| \frac{2\omega z - z^2}{\omega^2(z  \omega)^2} \Bigg|
+    = \Bigg| \frac{2\omega z - z^2}{\omega^2(z - \omega)^2} \Bigg|
     \leq \frac{R |2\omega - z|}{|\omega|^4 \cdot \frac{1}{4}}
     \leq \frac{12R}{|\omega|^3}
   \]
@@ -1357,7 +1357,7 @@ As a comment, in general when trying to understand a series defined in terms of 
 \end{remark}
 
 \begin{proposition}
-  Let \(\Lambda\) be a lattice. There exist constants \(g_2, g_3\) (depending on \(\Lambda\)) such that the \(\wp_\Lambda\)-function satisfies
+  Let \(\Lambda\) be a lattice. There exist constants \(g_2, g_3\) (depending on \(\Lambda\)) such that \(\wp_\Lambda\) satisfies
   \[
     (\wp')^2 = 4 \wp^3 - g_2 \wp - g_3.
   \]
@@ -1441,7 +1441,7 @@ Compare this with the statement that meromorphic functions on \(\C_\infty\) are 
   \[
     g(z) = \frac{f(z) - d}{f(z) - c}
   \]
-  have single zeros and poles. Then in a period parallelogram centred at \(0\), we can write the zeros of \(g\) as \(\{a_1, \dots, a_n, -a_1, \dots, -a_n\}\) and poles as \(\{b_1, \dots, b_n, -b_1, \dots, -b_n\}\). Define
+  has only simple zeros and poles. Then in a period parallelogram centred at \(0\), we can write the zeros of \(g\) as \(\{a_1, \dots, a_n, -a_1, \dots, -a_n\}\) and poles as \(\{b_1, \dots, b_n, -b_1, \dots, -b_n\}\). Define
   \[
     h(z) = \frac{(\wp(z) - \wp(a_1)) \cdots (\wp(z) - \wp(a_n))}{(\wp(z) - \wp(b_1)) \cdots (\wp(z) - \wp(b_n))}
   \]
@@ -1482,7 +1482,7 @@ Given such a group action, we can form the quotient \(X/G\) and equip it with qu
 \end{proof}
 
 \begin{eg}
-  \(\C/\Lambda\) is the lattice acting by translation.
+  \(\C/\Lambda\) is the lattice resulted from translation action.
 \end{eg}
 
 \begin{proposition}[Hurwitz]\index{Hurwitz theorem}
@@ -1510,7 +1510,7 @@ Given such a group action, we can form the quotient \(X/G\) and equip it with qu
 \end{proof}
 
 \begin{remark}
-  There is no such bound on \(|G|\) for \(g_X = 1\): complex tori admit translations via the group structure so choose a large discrete subgroup of \(\C/\Lambda\) to translate by, we obtain arbitrarily large \(|G|\). For example let \(G\) be the points \(P \in \C/\Lambda\) such that
+  There is no such bound on \(|G|\) for \(g_X = 1\): complex tori admit translations via the group structure so choosing an arbitrarily large discrete subgroup of \(\C/\Lambda\) to translate by, we obtain arbitrarily large \(|G|\). For example let \(G\) be the points \(P \in \C/\Lambda\) such that
   \[
     [n] P = \id_{\C/\Lambda}.
   \]
@@ -1578,7 +1578,7 @@ Let's discuss different cases.
 \end{corollary}
 
 \begin{proof}
-  Claim that \(\C \setminus \{0, 1\}\) has \(\mathbb D\) as universal cover: if not then as it is noncompact it is isomorphic to either \(\C\) or \(\C^*\). Suppose \(\varphi: \C \setminus \{0, 1\} \to \C\) is an isomorphism, then by Liouville this is unbounded near \(\infty\), if the singularity at \(\infty\) is essential then by Casorati-Weierstrass \(\deg \varphi > 1\). So there is a pole of order \(1\) at \(\infty\), so \(\varphi\) extends to an isomorphism \(\C_\infty \setminus \{0, 1\} \to \C_\infty\). Similar for \(\C^*\).
+  Claim that \(\C \setminus \{0, 1\}\) has \(\mathbb D\) as universal cover: if not then as it is noncompact it is isomorphic to either \(\C\) or \(\C^*\). Suppose \(\varphi: \C \setminus \{0, 1\} \to \C\) is an isomorphism, then by Liouville this is unbounded near \(\infty\). If the singularity at \(\infty\) is essential then by Casorati-Weierstrass \(\deg \varphi > 1\). So there is a pole of order \(1\) at \(\infty\), so \(\varphi\) extends to an isomorphism \(\C_\infty \setminus \{0, 1\} \to \C_\infty\). Similar for \(\C^*\).
   
   Given such an \(f\), as \(\C\) is simply connected it can be lifted to \(\tilde f: \C \to \mathbb D\). Can check \(\tilde f\) is analytic so constant, so \(f\) is too.
   \[
@@ -1607,11 +1607,11 @@ where \(\alpha_1, \dots, \alpha_{2g + 2}\) are distinct points in \(\C\). \(X'\)
 \[
   Y' = \{(z, w) \in \C^2: w^2 = (1 - \alpha_1z) \cdots (1 - \alpha_{2g + 2} z)\}
 \]
-and \((x, y) \mapsto (\frac{1}{x}, \frac{y}{x^{g + 1}})\). Call the compactification \(X\) and note that \(X \setminus X'\) contains 2 points (points where \(x = 0\)?). \(\pi_x\) extends to \(X\) with \(\pi_x(X \setminus X') = \{\infty\}\), has degree \(2\) so by Riemann-Hurwitz
+and \((x, y) \mapsto (\frac{1}{x}, \frac{y}{x^{g + 1}})\). Call the compactification \(X\) and note that \(X \setminus X'\) contains 2 points. \(\pi_x\) extends to \(X\) with \(\pi_x(X \setminus X') = \{\infty\}\), has degree \(2\) so by Riemann-Hurwitz
 \[
   2g_X - 2 = 2(-2) + (2g + 2)
 \]
-so \(g_X = g\). This is a natural generalisation of Fermat curve\index{Fermat curve} and in particular shows that we can construct a Rieamnn surface with arbitrary genus.
+so \(g_X = g\). This is a natural generalisation of Fermat curve\index{Fermat curve} and in particular shows that we can construct a Riemann surface with arbitrary genus.
 
 Define \(i_h: X \to X\) by \((x, y) \mapsto (x, -y)\) on \(X'\) and \((z, w) \mapsto(z, -w)\) on \(Y'\). Check it is well-defined.
 \[
