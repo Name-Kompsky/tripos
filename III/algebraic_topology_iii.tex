@@ -1,0 +1,156 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Algebraic Topology}
+\def\nlecturer{J.\ Rassmussen}
+
+\def\nterm{Michaelmas}
+\def\nyear{2019}
+
+\input{header}
+
+\DeclareMathOperator{\Map}{Map} % space of continuous maps between spaces
+\renewcommand{\b}{\p}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Homotopy}
+
+\begin{definition}[homotopy]\index{homotopy}
+  Suppose \(X, Y\) are topological spaces, \(f_0, f_1: X \to Y\) continuous. We say \(f_0\) is \emph{homotopic} to \(f_1\) is there is a continuous \(F: X \times I \to Y\) with \(F(x, 0) = f_0(x), F(x, 1) = f_1(x)\). We write \(f_0 \sim f_1\).
+\end{definition}
+
+Let \(f_t(x) = F(x, t)\). Then \(f_t\) is a path from \(f_0\) to \(f_1\) in \(\Map(X, Y) = \{f: X \to Y \text{ continuous}\}\).
+
+\begin{convention}
+  All spaces are topological spaces and all maps are continous.
+\end{convention}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(f_0, f_1: \R^n \to \R^n\), \(f_0(x) = 0, f_1(x) = x\) then \(f_0 \sim f_1\) via \(f_t(x) = tx\).
+  \item Let \(S^1 = \{z \in \C: |z| = 1\}\). Take \(f_0, f_1: S^1 \to S^1\), \(f_0(z) = z, f_1(z) = -z\). Then \(f_0 \sim f_1\) via \(f_t(z) = e^{i\pi t}z\).
+  \item Let \(S^n = \{v \in \R^{n + 1}: \norm v = 1\}\). Take \(f_0, f_1: S^n \to S^n\), \(f_0(v) = v, f_1(v) = -v\) the \emph{antipodal map}. We already knew \(f_0 \sim f_1\) and we'll soon see \(f_0 \nsim f_1\).
+  \item Let \(f_0, f_1: S^1 \to S^2\), \(f_0(x, y) = (0, 0, 1), f_1(x, y) = (x, y, 0)\). Then \(f_0 \sim f_1\) via \(f_t(x, y) = (tx, ty, \sqrt{1 - t^2})\).
+  \item Let \(D^n = \{v \in \R^n: \norm v \leq 1\}\). Say \(f: S^{n - 1} \to Y\) extends to \(D^n\) if there exists \(F: D^n \to Y\) with \(F|_{S^{n - 1}} = f\). Then \(f\) extends to \(D^n\) if and only if \(f\) is homotopic to a constant map as we can define \(f_t(v) = F(tv)\).
+  \end{enumerate}
+\end{eg}
+
+We state here some lemmas that will be assumed and whose proofs are omitted.
+
+\begin{lemma}
+  Homotopy is an equivalence relation on \(\Map(X, Y)\).
+\end{lemma}
+
+\begin{definition}
+  We let \([X, Y]\) to be \(\Map(X, Y)/\sim\), i.e.\ the set of homotopy classes of maps \(X \to Y\). It is also the set of path components of \(\Map(X, Y)\). We write \([f]\) for the class of \(f\) in \([X, Y]\).
+\end{definition}
+
+\begin{lemma}
+  Suppose \(f_0, f_1: X \to Y, g_0, g_1 : Y \to Z\). If \(f_0 \sim f_1, g_0 \sim g_1\) then \(g_0 \compose f_0 \sim g_1 \compose f_1\).
+\end{lemma}
+
+\begin{notation}
+  If \(c \in Y\), we denote by \(c_X: X \to Y\) the constant map with image \(c\).
+\end{notation}
+
+\begin{corollary}
+  Any \(f: X \to \R^n\) is homotopic to \(0_X\).
+\end{corollary}
+
+In other words, \([X, \R^n]\) has one element.
+
+\begin{proof}
+  We know \(\id_{\R^n} \sim 0_{\R^n}\) so
+  \[
+    f = \id_{\R^n} \compose f \sim 0_{\R^n} \compose f = 0_X.
+  \]
+\end{proof}
+
+\begin{definition}[contractible]\index{contractible}
+  \(X\) is \emph{contractible} if \(\id_X \sim c_X\) for some \(c \in X\).
+\end{definition}
+
+\begin{proposition}
+  \(Y\) is contractible if and only if \([X, Y]\) has one element for all \(Y\).
+\end{proposition}
+
+\begin{proof}
+  Only if is the same as the proof of the corollary. For the other direction, \([Y, Y]\) has one element so \(\id_Y \sim c_Y\) for any \(c \in Y\).
+\end{proof}
+
+\begin{definition}[homotopy equivalence]\index{homotopy equivalence}
+  Spaces \(X\) and \(Y\) are \emph{homotopy equivalence} if there are maps \(f: X \to Y, g: Y \to X\) such that \(f \compose g \sim \id_Y, g \compose f \sim \id_X\). We write \(X \sim Y\).
+\end{definition}
+
+\begin{eg}
+  \(X \sim \{p\}\) if and only if \(X\) is contractible.
+\end{eg}
+
+\begin{proof}
+  The only map \(f: X \to \{p\}\) is \(f(x) = p\). Let \(g: \{p\} \to X, g(p) = c\). Then \(f \compose g = \id_{\{p\}}\) and \(g \compose f = c_X\). Then \(g \compose f \sim \id_X\) if and only if \(c_X \sim \id_X\) if and only if \(X\) is contractible.
+\end{proof}
+
+\begin{lemma}
+  If \(X_1 \sim X_2, Y_1 \sim Y_2\) then there is a bijection between \([X_1, Y_1]\) and \([X_2, Y_2]\).
+\end{lemma}
+
+The basic questions that algebraic topology tries to answer is the follow: given spaces \(X\) and \(Y\), is \(X \sim Y\)? What is \([X, Y]\)?
+
+One of the tools used is homotopy groups, which we mention briefly here.
+
+\begin{definition}[map of pairs]\index{map of pairs}
+  A map \(f: (X, A) \to (Y, B)\) means that
+  \begin{itemize}
+  \item \(A \subseteq X, B \subseteq Y\),
+  \item \(f: X \to Y\),
+  \item \(f(A) \subseteq B\).
+  \end{itemize}
+\end{definition}
+
+If \(f_0, f_1: (X, A) \to (Y, B)\), we say \(f_0 \sim f_1\) is there exist \(F: (X \times I, A \times I) \to (Y, B)\) with \(F(x, 0) = f_0(x), F(x, 1) = f_1(x)\).
+
+\begin{notation}
+  We denote by \(*\) the point \((-1, 0, \dots, 0) \in S^n\).
+\end{notation}
+
+\begin{definition}[homotopy group]\index{homotopy group}
+  If \(p \in X\), we define the \emph{\(n\)th homotopy group} of \((X, p)\) to be
+  \[
+    \pi_n(X, p) = [(S^n, *), (X, p)] = [(D^n, S^{n - 1}), (X, p)] = [(I^n, \b I^n), (X, p)]
+  \]
+  where the last equality is a homeomorphism and the second equality is induced by
+  \begin{align*}
+    \pi: D^n &\to D^n/S^{n -1} = S^n \\
+    v &\mapsto (1 - 2 \norm v, v \sqrt{1 - (1 - 2\norm v)^2})
+  \end{align*}
+\end{definition}
+
+For \(n > 0\), \(\pi_n(X, p)\) is a group. The identity is \(p_{S^n}\). For \(n > 1\), \(\pi_n(X, p)\) is abelian.
+
+A pointed map between pointed spaces \(f: (X, p) \to (Y, q)\) induces
+\begin{align*}
+  f_*: \pi_n(X, p) &\to \pi_n(Y, q) \\
+  [\gamma] &\mapsto [f \compose \gamma]
+\end{align*}
+which is well-defined by lemma 2.
+
+This defines a functor between the cateogry of pointed spaces with pointed maps to the category of groups with homomorphisms: it sends a space \((X, p)\) to \(\pi_n(X, p)\) and a map \(f: (X, p) \to (Y, q)\) to the homomorphism \(f_*: \pi_n(X, p) \to \pi_n(Y, q)\), satisfying
+\begin{enumerate}
+\item \((\id_{(X, p)})_* = \id_{\pi_n(X, p)}\),
+\item \((f \compose g)_* = f_* \compose g_*\).
+\end{enumerate}
+
+
+
+
+
+\printindex
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Algebraic Geometry}
+\def\nlecturer{M.\ Gross}
+
+\def\nterm{Michaelmas}
+\def\nyear{2019}
+
+\input{header}
+
+\renewcommand{\c}[1]{\mathbf{#1}} % category
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+\subsection{Variety vs Scheme}
+
+In classical algebraic geometry, we study varieties which are points where polynomials vanish.
+
+Why do we need schemes? Why not varieties?
+\begin{enumerate}
+\item With varieties, we always work with algebraically closed fields. Otherwise, the ideals are not really classical geometric objects. For example, consider \(I = (x^2 + y^2 + 1) \subseteq \R[x, y]\). \(V(I) = \emptyset\), \(I(V(I)) = \R[x, y]\).
+\item Suppose one want to work on number theory. One is usually interested in Diophantine equations, for example if \(I \subseteq \Z[x_1, \dots, x_n]\) then \(V(I) \subseteq \Z^n\). 
+\item Consider \(X_1 = V(x - y^2) \subseteq \A^2, X_2 = V(x)\). Then
+  \[
+    X_1 \cap X_2 = V(x, x - y^2).
+  \]
+  Consider \(I = (x, x - y^2) = (x, y^2) \subseteq k[x, y]\). \(V(I)\) contains exactly one point, namely the origin, but the ideal \(I\) is not radical, reflecting the fact that \(X_2\) is the tangent to \(X_1\). Might it be reasonable to consider \(k[x, y]/(x, y^2)\) as the coordinate ring of \(X_1 \cap X_2\) rather than \(k[x, y]/(x, y)\)? Note \(y \in k[x, y]/(x, y^2)\) is non-zero but \(y^2 = 0\).
+\end{enumerate}
+
+\subsection{Categorical philosophy}
+
+What is a point? Let \(\c{Sets}\) be the category of sets. Let \(*\) be the set with one element. Then if \(X\) is a set there is an obvious bijection \(X \to \Hom(*, X)\). Put in another way, you know \(X\) if you know \(\Hom(Y, X)\) for all \(Y\).
+
+In the category of affine varieties over \(k\), a point is a point with coordinate ring \(k\). Given \(I \subseteq k[x_1, \dots, x_n]\), giving a morphism from a point to \(V(I) = X\) is the same as giving a \(k\)-algebra homomorphism \(\varphi: k[x_1, \dots, x_n]/I \to k\) given by \(x_i \mapsto a_i \in k\) such that for all \(f \in I\), \(f(a_1, \dots, a_n) = 0\), i.e.\ \((a_1, \dots, a_n) \in V(I)\). \(\varphi\) is surjective so \(k[X]/\ker \varphi \cong k\), so \(\ker \varphi\) is a maximal ideal of \(k[X]\). Conversely, given a mximal ideal \(\mathfrak m \subseteq k[X]\), \(k[X]/\mathfrak m\) is a finite field extension of \(k\) by Hilbert's Nullstellensatz. So if \(k = \overline k\) then \(k[X]/\mathfrak m \cong k\) and the map \(\varphi: k[X] \to k[X]/\mathfrak m \cong k\) gives a point \((a_1, \dots, a_n) = (\varphi(x_1), \dots, \varphi(x_n)) \in X\).
+
+Why not also consider field extensions \(k \subseteq k'\) and consider \(k\)-algebra homomorphisms \(\varphi: k[X] t\o k'\). Same as before we get a set of solutions in \((k')^n\). Note \(k[X]/\ker \varphi \subseteq k'\) and hence \(k[X]/\ker \varphi\) is an integral domain. Thus \(\ker \varphi\) is prime. For example take \(k[X]\) to be \(\R[x, y]/(x^2 + y^2 + 1)\) and \(\R\)-algebra map \(k[X] \to \R\). There does not exist such map. But there is certainly a map \(k[X] \to \C\), for example \(x \mapsto 0, y \mapsto i\). We have \(\ker \varphi = (x, y^2 + 1)\) is a maximal ideal. Note that this ideal corresponds to two points \((0, \pm i)\), a \(\operatorname{Gal}(\C/\R)\)-orbit of points with \(\C\)-coordinates.
+
+\printindex
+\end{document}

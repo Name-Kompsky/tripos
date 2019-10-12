@@ -1,0 +1,208 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Algebraic Number Theory}
+\def\nlecturer{J.\ A.\ Thorne}
+
+\def\nterm{Michaelmas}
+\def\nyear{2019}
+
+\input{header}
+
+\theoremstyle{definition}
+\newtheorem*{observation}{Observation}
+
+\DeclareMathOperator{\Frac}{Frac}
+\renewcommand*{\O}{\mathcal{O}}
+\DeclareMathOperator{\n}{N}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\Cl}{Cl} % ideal class group
+\newcommand*{\red}[1]{\overline{#1}} % reduction mod
+\DeclareMathOperator{\vol}{vol}
+
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+In IID Number Fields, we studied finite extensions of \(\Q\) and their rings of integers. We proved two fundamental theorem for \(\O_K\):
+\begin{itemize}
+\item finiteness of ideal class group,
+\item finite generation of \(\O_K^\times\).
+\end{itemize}
+
+In this course, we'll study
+\begin{itemize}
+\item completion at a prime,
+\item Galois theory of local and global fields.
+\end{itemize}
+and finally we'll describe class field theory (description only).
+
+\section{Dedekind domains}
+
+\begin{definition}[discrete valuation ring]\index{discrete valuation ring}
+  Let \(A\) be a ring. We say \(A\) is a \emph{discrete valuation ring} (DVR) if \(A\) is a principal ideal domain (PID) and \(A\) has a unique non-zero prime ideal.
+\end{definition}
+
+Let \(A\) be a DVR. Then the unique non-zero prime ideal \(\mathfrak m_A\) of \(A\) is also maximal, so \(A\) is also a local ring, i.e.\ \(A\) has a unique maximal ideal. Hence \(k_A = A/\mathfrak m_A\) is a field, the residue field of \(A\).
+
+As \(A\) is a PID, \(\mathfrak m_A = (\pi)\) is principal. Any generator \(\pi\) is called a \emph{uniformiser}\index{uniformiser}. If \(\pi, \pi'\) are uniformisers then \((\pi) = (\pi')\) so \(\pi' = \pi u\) for some \(u \in A^\times\).
+
+Since \(A\) is a local, \(A\) can be written as the disjoint union
+\begin{align*}
+  A &= A^\times \cup \mathfrak m_A \\
+    &= A^\times \cup \pi A \\
+    &= A^\times \cup \pi A^\times \cup \pi^2 A \\
+    &= \bigcup_{i \geq 0} \pi^i A^\times \cup \bigcap_{i \geq 0} \pi^i A
+\end{align*}
+
+In fact, the ideal \(I = \bigcap_{i \geq 0} \pi^i A\) is zero. This follows from
+\begin{lemma}[Nakayama's lemma]\index{Nakayama's lemma}
+  Let \(R\) be a local ring, \(P \subseteq R\) the unique maximal ideal, \(M\) a finitely generated (fg) \(R\)-module. Then
+  \begin{enumerate}
+  \item if \(M = P M\) then \(M = 0\). This is equivalent to \(M/PM = 0\).
+  \item if \(N \leq M\) is an \(R\)-submodule such that \(N + PM = M\) then \(N = M\). This is saying there is a surjection \(N \surj M/PM\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(a_1, \dots a_g\) be a generating set for \(M\) with \(g\) as small as possible, \(g \geq 1\). Then \(a_1 \in M = PM\) so we can write
+    \[
+      a = \sum_{i = 1}^g x_i a_i
+    \]
+    where \(x_i \in P\). Hence
+    \[
+      (1 - x_1) a_1 = \sum_{i = 2}^g x_i a_i.
+    \]
+    Since \(R\) is local, \(1 - x_1 \in R^\times\) so \(a_1 \in \generation{a_2, \dots, a_g}\), contradicting the minimality of \(g\).
+  \item Apply first part to \(M/N\).
+  \end{enumerate}
+\end{proof}
+
+Now back to the statement. Note \(\pi I = I\) so Nakayama's lemma implies that \(I = 0\). Hence each element of \(x \in A, x \neq 0\) admits a aunique description \(x = \pi^n u\), \(n \geq 0, u \in A^\times\). Each non-zero ideal of \(A\) has the form \((\pi^i)\) for some \(i \geq 0\).
+
+Therefore we can define a function \(v: K^\times \to \Z\) where \(K = \Frac A\) with the following properties:
+\begin{enumerate}
+\item \(v\) is a surjective homomorphism,
+\item for all \(x, y \in K^\times\) such that \(x + y \neq 0\), \(v(x + y) \geq \min(v(x), v(y))\), with equality if \(v(x) \neq v(y)\).
+\end{enumerate}
+We define \(v(x) = n\) when \(x = \pi^n u\) for some \(n \in \Z, u \in A^\times\).
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\pi^n u \cdot \pi^m \cdot v = \pi^{n + m} uv\).
+  \item wlog \(x = \pi^a u, y = \pi^{a + b} v\) where \(a \in \Z, b \geq 0\). Then
+    \[
+      x + y = \pi^a(u + v \pi^ b).
+    \]
+    If \(b > 0\) then \(u + v \pi^b \in A^\times\).
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[valuation]\index{valuation}
+  If \(L\) is a field, we call a function \(w: L^\times \to \Z\) a \emph{valuation} if satisfies 1, 2 above.
+\end{definition}
+
+Thus if we have a DVR then we have a valuation. The converse also holds: if \(w: L^\times \to \Z\) is a valuation, we define
+\begin{align*}
+  A_L &= \{x \in L^\times: w(x) \geq 0\} \cup \{0\} \\
+  \mathfrak m_L &= \{x \in L^\times: w(x) > 0\} \cup \{0\}
+\end{align*}
+
+\begin{lemma}
+  If \(k\) is a field, then there is a bijection between
+  \begin{enumerate}
+  \item subrings \(A \leq K\) such that \(A\) is a DVR and \(\Frac A = K\),
+  \item valuations \(v: K^\times \to \Z\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item let \(p\) be a prime, \(v: \Q^\times \to \Z\) defined by
+    \[
+      v(p^n \frac{r}{s}) = n
+    \]
+    if \(r, s \in \Z\), \((p, rs) = 1\).
+  \item Let \(K\) be the field of meromorphic functions on \(\C\), \(v: K^\times \to \Z\) defined by
+    \[
+      v(f) = \operatorname{ord}_{z = 0} f(z).
+    \]
+  \end{enumerate}
+\end{eg}
+
+We will see via localisation we can reduce problems to DVR. Hence we need a way to recognise DVR. This is the content of the next proposition
+
+\begin{proposition}
+  Let \(A\) be a Noetherian domain. Then TFAE:
+  \begin{enumerate}
+  \item \(A\) is a DVR.
+  \item \(A\) is integrally closed in \(\Frac A\) and \(A\) has a unique non-zero prime ideal.
+  \end{enumerate}
+\end{proposition}
+
+Recall that \(A\) is integrally closed if for all \(\gamma \in K, a_1, \dots, a_n \in A\), if
+there is a relation
+\[
+  \gamma^n + a_1 \gamma^{n - 1} + \dots + a_n = 0
+\]
+then \(\gamma \in A\). Equivalently, for all \(\gamma \in K\), \(A[\gamma]\) is fg as an \(A\)-module then \(\gamma \in A\).
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(2 \implies 1\): suppose \(\gamma \in K - A\) and there exist \(a_1, \dots a_n \in A\) such that
+    \[
+      \gamma^n + a_1 \gamma^{n - 1} + \dots + a_n = 0.
+    \]
+    We can write \(\gamma = \pi^{-k} u\) for some \(k > 0, u \in A^\times\). Hence
+    \[
+      -\pi^{-nk} u^n = a_1 \pi^{-(n - 1)k} u^{n - 1} + \dots + a_n.
+    \]
+    The valuation of LHS is \(-nk\) and the valuation of RHS is at least
+    \[
+      \min_{i = 1}^n v(a_i \pi^{- (n - i) k}) \geq \min v(\pi^{-(n - i)k}) = \min -(n - i) k \geq -(n - 1) k.
+    \]
+    These two expressions must be equal, absurd. Thus \(A\) is integrally closed in \(K\). \(A\) has a unique non-zero prime ideal as \(A\) is a DVR.
+  \item \(2 \implies 1\): Let \(\mathfrak m \subseteq A\) be the unique non-zero prime ideal. Claim that for any proper non-zero ideal \(I \subseteq A\), there exists \(n \geq 1\) such that \(\mathfrak m^n \subseteq I \subseteq \mathfrak m\).
+
+    \begin{proof}
+      \(I \subseteq \mathfrak m\) as \(\mathfrak m\) is the unique maximal ideal. Suppose for contradiction exists \(I\) such that \(\mathfrak m^n \nsubseteq I\) for all \(n \geq 1\). Since \(A\) is Noetherian, we can assume that \(I\) is maximal with this property. Note \(I\) is not prime as otherwise \(I = \mathfrak m\). This means that there exist \(a, b \in A\) such that \(a, b \notin I\) but \(ab \in I\). Then the inclusions \(I \subseteq I + (a), I \subseteq I + (b)\) are proper. By maximality of \(I\), there exists \(n_1, n_2 \geq 1\) such that
+      \begin{align*}
+        \mathfrak m^{n_1} &\subseteq I + (a) \\
+        \mathfrak m^{n_2} &\subseteq I + (b)
+      \end{align*}
+      Then
+      \begin{align*}
+        \mathfrak m^{n_1 + n_2} &\subseteq (I + (a)) (I + (b)) \\
+                                &\subseteq I + (ab) \\
+                                &\subseteq I
+      \end{align*}
+      as \(ab \in I\). Absurd.
+    \end{proof}
+    Now we can show \(\mathfrak m\) is principal. Choose \(\alpha \in \mathfrak m - \{0\}\). If \(\mathfrak m = (\alpha)\) then done. Otherwise, choose \(n \geq 2\) minimal such that \(\mathfrak m^n \subseteq (\alpha) \subseteq \mathfrak m\). Then \(\mathfrak m^{n - 1} \nsubseteq (\alpha)\) so exists \(\beta \in \mathfrak m^{n - 1} - (\alpha)\) such that
+    \[
+      \gamma = \frac{\beta}{\alpha} \in \frac{1}{\alpha} \mathfrak m^{n - 1} - A.
+    \]
+    Then
+    \[
+      \gamma \mathfrak m = \frac{\beta}{\alpha} \mathfrak m \subseteq \frac{1}{\alpha} \mathfrak m^{n - 1} \mathfrak m \subseteq \frac{1}{\alpha} \mathfrak m^n \subseteq A.
+    \]
+    If \(\gamma \mathfrak m \subseteq \mathfrak m\) then \(A[\gamma] \embed \End_A(\mathfrak m)\) as \(A\)-modules. \(\End_A(\mathfrak m)\) is a fg \(A\)-module as \(A\) is Noetherian. So \(A\) integrally closed in \(K\) implies that \(\gamma \in A\). So we must have \(\gamma \mathfrak m = A\). Hence \(\mathfrak m = \gamma^{-1} A\). So \(\pi = \gamma^{-1} \in A\) and \(\pi\) generates \(\mathfrak m\).
+  \end{itemize}
+\end{proof}
+
+
+\printindex
+\end{document}

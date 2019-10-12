@@ -1,0 +1,100 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Mapping Class Groups}
+\def\nlecturer{H.\ Wilton}
+
+\def\nterm{Michaelmas}
+\def\nyear{2019}
+
+\input{header}
+
+\graphicspath{{figures/}}
+
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Diff}{Diff}
+\DeclareMathOperator{\Mod}{Mod}
+\renewcommand{\b}{\p}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+\subsection{Classification of surfaces}
+
+The subject of this course is surfaces, i.e.\ two-dimensional manifolds. We assume throughout the manifold \(S\) is connected, smooth and oriented. More importantly, we assume it is of \emph{finite type}: \(S = \overline S - \{\text{finite set}\}\) where \(\overline S\) is a compact manifold possibly with boundary, and the finite set is contained in its interior.
+
+\begin{theorem}[classification of surfaces of finite type]
+  Every connected orientable surface of finite type is diffeomorphic to some \(S_{g, n, b}\) which is a surface of genus \(g\) with \(n\) punctures and \(b\) boundary components.
+\end{theorem}
+
+\begin{figure}[ht]
+  \centering
+  \def\svgwidth{.8\columnwidth}
+  \input{figures/surface.pdf_tex}
+  \caption{\(S_{g, n, b}\)}
+\end{figure}
+
+It has Euler characteristic \(\chi(S) = 2 - 2g - (n + b)\).
+
+\begin{eg}
+  Suppose \(\chi(S) > 0\) then \(g = 0, n + 1 = 0 \text{ or } 1\). Thus \(S\) is either \(S^2\), or \(S^2\) with a puncture which is isomorphic to \(\C\), or \(S^2\) with one boundary component which is isomorphic of \(D^2\), which can be thought as sitting inside \(\C\) as the unit disk.
+
+  Note that we can either think of a puncture as a deleted point, or as a marked point on the surface. These two views are equivalent and we will use whichever that is more convenient.
+\end{eg}
+
+\begin{eg}
+  Suppose \(\chi(S) = 0\) then either \(g = 1, n + b = 0\) or \(g = 0, n + b = 2\). Thus it is either the torus, the punctured plane \(\C_*\), \(S^1 \times I\) or the punctured disk \(D^2_*\).
+\end{eg}
+
+\subsection{Mapping class groups}
+
+The natural group associated to a surface \(S\) is the group of orientation-preserving homeomorphism \(\Homeo^+(S)\). However this is a huge group. It might be easier to consider the maps up to homotopy. Suppose \(\phi_0, \phi_1: S \to S\) are homeomorphisms. We can define an equivalence relation \(\phi_0 \sim \phi_1\) if there exists an isotopy \(\phi_t: S \times I \to S\) from \(\phi_0\) to \(\phi_1\).
+
+Another way to think about this: give \(\Homeo^+(S)\) the compact-open topology. Let \(\Homeo_0(S)\) be the path component of \(1_S\). It is an exercise to show that \(\Homeo_0(S)\) is a normal subgroup of \(\Homeo(S)\).
+
+\begin{definition}[mapping class group]\index{mapping class group}
+  The \emph{mapping class group} of \(S\) is
+  \[
+    \Mod(S) = \Homeo^+(S, \b S)/ \Homeo_0(S, \b S)
+  \]
+  where \(\Homeo(S, \b S)\) is the subgroup of \(\Homeo(S)\) that fixes \(\b S\) pointwise.
+\end{definition}
+
+We might ask if we can replace homeomorphism by diffeomorphism, or we replace isotopy by homotopy. Indeed we have
+
+\begin{theorem}[Baer, Munkres]
+  For any smooth surface \(S\) of finite type,
+  \[
+    \Mod(S) \cong \Diff^+(S, \b S)/ \Diff_0(S, \b S) \cong \Homeo^+(S, \b S)/ \sim
+  \]
+  where the equivalence relation is homotopy.
+\end{theorem}
+
+\subsection{Context \& Motivation}
+
+\paragraph{bundles}
+
+Let \(\phi \in \Diff(S)\). We can define \(M_\phi = S \times [0, 1]/ \sim\) where \((x, 1) \sim (\phi(x), 1)\). This is called a \emph{surface bundle} over \(S^1\). Note that \(M_\phi\) only depends on \([\phi] \in \Mod(S)\).
+
+More generally, if \(B\) is a space and \(\rho: \pi_1(B) \to \Mod (S)\) then we get a bundle \(\tilde B \times S\) ... this leads to an \(S\)-bundle over \(B\).
+
+\paragraph{moduli space}
+
+More handwavy motivation. Let \(S = S_g = S_{g, 0, 0}\). It turns out the moduli space \(\mathcal M_g\) of geometric structures on \(S_g\) is the same as the moduli space of complex structures on \(S_g\). Morally (but not actually true), the universal cover \(\tilde{\mathcal M_g}\) is \(\mathcal T_g\), the Teichüller space, and \(\pi_1(\mathcal M_g)\) is \(\Mod(S)\), so we have \(\mathcal M_g = \Mod(S_g) \setminus \mathcal T_g\).
+
+
+
+
+
+\printindex
+\end{document}
+
+% Farb & Margalit: Mapping Class Groups

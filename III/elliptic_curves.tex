@@ -1,0 +1,145 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Elliptic Curves}
+\def\nlecturer{T.\ A.\ Fisher}
+
+\def\nterm{Michaelmas}
+\def\nyear{2019}
+
+\input{header}
+
+\begin{document}
+
+\renewcommand*{\P}{\mathbb{P}}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Fermat's method of infinite descent}
+
+Let \(\Delta = (a, b, c)\) be a right angle triangle with sides \(a, b, c\) where \(c\) is the hypotenuse.
+
+\begin{definition}
+  \(\Delta\) is rational if \(a, b, c \in \Q\). \(\Delta\) is primitive if \(a, b, c \in \Z\) and coprime.
+\end{definition}
+
+\begin{lemma}
+  Every primitive triangle is of the form \((u^2 - v^2, 2uv, u^2 + v^2)\) for some \(u, v \in \Z, u > v > 0\).
+\end{lemma}
+
+\begin{proof}
+  \(a\) and \(b\) cannot be both even. They cannot be both odd as then \(c^2 = 2 \mod 4\). Thus wlog \(a\) is odd and \(b\) is even, so \(c\) odd. Then
+  \[
+    \left(\frac{b}{2}\right)^2 = \frac{c + a}{2} \cdot \frac{c - a}{2}
+  \]
+  and the two terms on RHS are coprime positive integers. By unique factorisation in \(\Z\), there exist \(u, v \in \Z\) such that
+  \begin{align*}
+    \frac{c + a}{2} &= u^2 \\
+    \frac{c - a}{2} &= v^2
+  \end{align*}
+  Rearrange.
+\end{proof}
+
+\begin{definition}
+  \(D \in \Q_{> 0}\) is a \emph{congruent number} if there exists a right angle triangle whose area is \(D\).
+\end{definition}
+
+\begin{note}
+  Suffices to consider \(D \in \Z_{> 0}\) square-free.
+\end{note}
+
+\begin{eg}
+  \(D = 5, 6\) are congruent.
+\end{eg}
+
+\begin{lemma}
+  \(D \in \Q_{> 0}\) is congruent if and only if \(D y^2 = x^3 - x\) for some \(x, y \in \Q, y \neq 0\).
+\end{lemma}
+
+\begin{proof}
+  Lemma 1 shows that \(D\) is congruent if and only if \(Dw^2 = uv(u^2 - v^2)\) for some \(u, v, w \in \Q, w \neq 0\). Let \(x = \frac{u}{v}, y = \frac{w}{v^2}\).
+\end{proof}
+
+Fermat showed that \(1\) is not a congruent number.
+
+\begin{theorem}
+  There are no solutions to
+  \begin{equation}
+    \label{eqn:fermat}
+    w^2 = uv (u - v)(u + v)
+    \tag{\ast}
+  \end{equation}
+  for \(u, v, w \in \Z, w \neq 0\).
+\end{theorem}
+
+\begin{proof}
+  wlog \(u, v \) coprime, \(u > 0, w > 0\). If \(v < 0\) then replace \((u, v, w)\) by \((-v, u, w)\). If \(u = v \mod 2\) then replace \((u, v, w)\) by \((\frac{u + v}{2}, \frac{u - v}{2}, \frac{w}{2})\). Then \(u, v, u - v, u + v\) are positive coprime integers whose product is a square. By unique prime factorisation, \(u = a^2, v = b^2, u + v = c^2, u - v = d^2\) for some \(a, b, c, d \in \Z_{> 0}\). As \(u \neq v \mod 2\), \(c, d\) are both odd. Consider a new triangle with sides \(\frac{c + d}{2}, \frac{c - d}{2}\). Then
+  \[
+    \left( \frac{c + d}{2} \right)^2 + \left( \frac{c - d}{2} \right)^2 = \frac{c^2 + d^2}{2} = u = a^2
+  \]
+  so this is another primitive triangle. Its area is
+  \[
+    \frac{c^2 - d^2}{8} = \frac{v}{4} = \left( \frac{b}{2} \right)^2.
+  \]
+
+  Let \(w_1 = \frac{b}{2}\) so by lemma 1
+  \[
+    w_1^2 = u_1v_1 (u_1 - v_1)(u_1 + v_1),
+  \]
+  i.e.\ we have a new solution to \eqref{eqn:fermat}. But \(4 w_1^2 = b^2 = v \divides w^2\) so \(w_1 \leq \frac{1}{2} w\). So by Fermat's method of infinite descend, there is no solution to \eqref{eqn:fermat}.
+\end{proof}
+
+\subsection{A variant for polynomials}
+
+Let \(K\) be a field with \(\ch K \neq 2\). Let \(\overline K\) be an algebraic closure of \(k\).
+
+\begin{lemma}
+  Let \(u, v \in K[t]\) coprime. If \(\alpha u + \beta v\) is a square for four distinct \((\alpha: \beta) \in \P^1\) then \(u, v \in K\).
+\end{lemma}
+
+\begin{proof}
+  wlog \(K = \overline K\). Changing coordinates on \(\P^1\), we may assume the ratio \((\alpha: \beta)\) are \((1: 0), (0: 1), (1: -1), (1: -\lambda)\) for some \(\lambda \in K \setminus \{0, 1\}\). Thus we have
+  \begin{align*}
+    u &= a^2 \\
+    v &= b^2 \\
+    u - v &= (a - b)(a + b) \\
+    u - \lambda v &= (a - \mu b)(a + \mu b)
+  \end{align*}
+  where \(\mu = \sqrt \lambda\). Use unqiue factorisation in \(K[t]\),  as \(a, b\) are coprime, \(a + b, a - b, a - \mu b, a + \mu b\) are squares. But
+  \[
+    \max (\deg (a), \deg (b)) \leq \frac{1}{2} \max (\deg (u), \deg (v))
+  \]
+  so by Fermat's method of infinite descend, \(u, v \in K\).
+\end{proof}
+
+\begin{definition}[elliptic curve]\index{ellptic curve}\leavevmode
+  \begin{enumerate}
+  \item An \emph{elliptic curve} \(E/K\) is the projective closure of a plane affine curve \(y^2 = f(x)\) where \(f \in K[x]\) is a monic cubic polynomial with distinct roots in \(\overline K\). The equation \(y^2 = f(x)\) is called a \emph{Weierstrass function}\index{Weierstrass function}.
+  \item For \(L/K\) a field extension,
+    \[
+      E(L) = \{(x, y) \in L^2: y^2 = f(x)\} \cup \{0\}
+    \]
+    where \(0\) is the point at infinity in the projective closure.
+  \end{enumerate}
+\end{definition}
+
+Fact: \(E(L)\) is naturally an abelian group.
+
+In this course we study \(E(L)\) for \(L\) finite field, local field (meaning \(L/\Q_p\) finite in this course) or number field (\(L/\Q\) finite).
+
+\begin{theorem}
+  If \(E: y^2 = x^3 - x\) then \(E(\Q) = \{0, (0, 0), (\pm 1, 0)\}\).
+\end{theorem}
+
+\printindex
+\end{document}
+
+% Silverman, The arithmetic of elliptic curves, Springer 1986
+% Cassels, Lectures on ellptic curves, CUP 1991
+
+% Introductory reading
+% Silverman & Tate, Rational points on elliptic curves, Springer 1992
+% Milne, Elliptic curves, Booksurge 2006

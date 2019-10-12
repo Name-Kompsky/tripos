@@ -1301,10 +1301,10 @@ They satisfy the \emph{cocycle conditions}\index{cocycle condition}
   \varphi_{\alpha\beta} &= \varphi_{\beta\alpha}^{-1} \\
   \varphi_{\alpha\beta} \varphi_{\beta\gamma} \varphi_{\gamma\alpha} &= \id
 \end{align*}
-which should remind us of cocyle conditions in Čech cohomology.
+which should remind us of cocycle conditions in Čech cohomology.
 
 \begin{proposition}
-  Given any open cover \(X = \bigcup U_\alpha\) and holomorphic maps \(\varphi_{\alpha\beta}: U_\alpha \cap U_\beta \to \GL_r(\C)\) satisfying the cocyle conditions, there is a holomorphic vector bundle with these transition function.
+  Given any open cover \(X = \bigcup U_\alpha\) and holomorphic maps \(\varphi_{\alpha\beta}: U_\alpha \cap U_\beta \to \GL_r(\C)\) satisfying the cocycle conditions, there is a holomorphic vector bundle with these transition function.
 \end{proposition}
 
 \begin{proof}
@@ -1798,7 +1798,7 @@ We shall say \(D \in \Div(X)\) is given by local data \((U_\alpha, f_\alpha)\) u
   not identically zero. We thus have
   \[
     f_\alpha f_\beta^{-1}
-    = \varphi_\alpha(s|_{U_\alpha}) \varphi(s|_{U_\beta})^{-1}
+    = \varphi_\alpha(s|_{U_\alpha}) \varphi_\beta(s|_{U_\beta})^{-1}
     = \varphi_{\alpha\beta} \in \mathcal O^*(U_\alpha \cap U_\beta).
   \]
   Thus one obtains \(Z(s) \in \Div(X)\) as \(\{(U_\alpha, f_\alpha)\}\).
@@ -1840,7 +1840,7 @@ In addition \(Z(s_1 + s_2) = Z(s_1) + Z(s_2)\).
 Note that \(s\) is not unique: if \(\lambda \in H^0(X, \mathcal O^*)\) (for example \(\lambda \in \C^*\)) then \(Z(\lambda s) = Z(s)\).
 
 \begin{corollary}
-  If \(0 \neq s \in H^0(X, L), 0 \neq s' \neq H^0(X, L')\) then
+  If \(0 \neq s \in H^0(X, L), 0 \neq s' \in H^0(X, L')\) then
   \[
     Z(s) \sim Z(s')
   \]
@@ -1997,7 +1997,7 @@ Note that any two of \(g, J, \omega\) determine the third.
 So far the requirement of closedness seems quite arbitrary, but we'll soon prove that all projective manifolds are Kähler.
 
 \begin{eg}[Fubini-Study metric on \(\P^n\)]\index{Fubini-Study metric}
-  Let \(U \subseteq \P^n\) be open and \(\pi: \C^{n + 1} \setminus \{0\} \to \P^n\) be the natural projection. Suppose \(s: U \to \C^{n + 1}\) is a holomorphic lift of \(\pi\), i.e.\ \(\pi(s(z)) = z\) for all \(z \in U\). Let \(U_j = \{[z_0 : \dots : z_n]: z_j \neq 0\}\). Then on \(U_j\),
+  Let \(U \subseteq \P^n\) be open and \(\pi: \C^{n + 1} \setminus \{0\} \to \P^n\) be the natural projection. Suppose \(s: U \to \C^{n + 1}\) is a holomorphic section of \(\pi\), i.e.\ \(\pi(s(z)) = z\) for all \(z \in U\). Let \(U_j = \{[z_0 : \dots : z_n]: z_j \neq 0\}\). Then on \(U_j\),
   \[
     s([z_0: \dots : z_n]) = (\frac{z_0}{z_j}, \dots, \frac{z_{j - 1}}{z_j}, 1, \dots, \frac{z_n}{z_j}).
   \]
@@ -2005,7 +2005,7 @@ So far the requirement of closedness seems quite arbitrary, but we'll soon prove
   \[
     \omega_{\text{FS}}|_U = \frac{i}{2\pi} \p \conj \p \log \norm s^2,
   \]
-  where \(\norm \cdot\) is the Euclidean norm on \(\C^{n + 1}\). We need to check this is well-define, closed and positive definite.
+  where \(\norm \cdot\) is the Euclidean norm on \(\C^{n + 1}\). We need to check this is well-defined, closed and positive definite.
 
   Choose another \(s'\) defined on \(U'\). Then \(s' = fs\) for some \(f \in \mathcal O^*(U \cap U')\), by the same argument as in the construction of line bundle and
   \begin{align*}
@@ -3037,7 +3037,7 @@ This gives a local characterisation of compatibility.
 \end{proof}
 
 \begin{proposition}
-  Let \((E, h)\) be a hermitian vector and holomorphic vector bundle. Then there is a unique connection compatible with both structures.
+  Let \((E, h)\) be a hermitian and holomorphic vector bundle. Then there is a unique connection compatible with both structures.
 \end{proposition}
 
 \begin{definition}[Chern connection]\index{Chern connection}
