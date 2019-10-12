@@ -115,6 +115,111 @@ Throughout this chapter \(R\) is a commutative ring with a unit.
   An \(R\)-module \(M\) is \emph{Noetherian} if it satisfies any of the conditions above.
 \end{definition}
 
+\begin{definition}[Noetherian ring]\index{Noetherian}
+  A commutative ring is \emph{Noetherian} if it is Noetherian as a (left) module.
+\end{definition}
+
+\begin{remark}
+  Submodules of a ring are the ideals.
+\end{remark}
+
+\begin{lemma}
+  Let \(N\) be a submodule of \(M\). Then \(M\) is Noetherian if and only if \(N\) and \(M/N\) are Noetherian.
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Images of Noetherian modules are Noetherian.
+  \item Ring images of Noetherian rings are Noetherian.
+  \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+  Let \(R\) be a Noetherian ring. The finitely generated \(R\)-modules are Noetherian.
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Fields are Noetherian.
+  \item Principal ideal domains, e.g.\ \(\Z, k[x]\) and fields, are Noetherian.
+  \item \(\{q \in \Q: q \text{ of the form } \frac{m}{n}, m, n \in \Z, n \neq 0\, p \ndivides n\}\) is Noetherian. This is an example of a localisation of \(\Z\). In general, localisations of Noetherian rings are Noetherian.
+  \item \(k[x_1, \dots, x_n], \Z[x_1, \dots, x_n]\) are Noetherian from basis theorem.
+  \item \(\k[x_1, x_2, \dots]\) with infinitely many variables is not Noetherian as
+    \[
+      (x_1) \subseteq (x_1, x_2) \subseteq \cdots
+    \]
+    is an infinite strictly ascending chain of ideals.
+  \item A finitely generated commutative ring \(R\) (there exists a set \(\{a_1, \dots, a_n\}\) such that there is a surjective ring homomorphism \(\Z[x_1, \dots, x_n] \to R, x_i \mapsto a_i\)) is Noetherian.
+  \item \(k[[x]]\), formal power series ring, is Noetherian (proof shortly).
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[basis theorem]
+  Let \(R\) be a Noetherian ring then \(R[x]\) is Noetherian.
+\end{theorem}
+
+\begin{proof}[sketch]
+  We prove every ideal \(I\) of \(R[x]\) is finitely generated. Define \(I(n)\) to be elements of \(I\) of degree \(\leq n\). \(I(n) \neq \emptyset\) as \(0 \in I(n)\) and we have
+  \[
+    I(0) \subseteq I(1) \subseteq I(2) \subseteq \cdots
+  \]
+  Define \(R(n)\) to be the set of all (leading) coefficients of \(x^n\) for all elements of \(I\) of degree \(\leq n\). Then \(R(n)\) is an ideal of \(R\) and
+  \[
+    R(0) \subseteq R(1) \subseteq R(2) \subseteq \cdots
+  \]
+  As \(R\) is Noetherian, we must have \(R(n) = R(N)\) for all \(n \geq N\) for some \(N\). Each \(R(n) = R a_{n1} + \dots + R a_{n m_n}\) say. There are polynomials \(f_{nj}(x) = a_{nj} x^n + \text{ lower terms} \in I\). The set
+  \[
+    \{f_{ij}(x): 1 \leq i \leq N, 1 \leq j \leq m_i\}
+  \]
+  is finite. Claim that they generate \(I\) as an ideal, which is left as an exercise.
+\end{proof}
+
+\begin{remark}
+  In computation it's usually important to be dealing with generating sets without too much redundancy. Such set are Gröbner basis and underlie a lot of algorithms in computer algebra and computational algebraic geometry.
+\end{remark}
+
+\begin{theorem}
+  If \(R\) is Noetherian then \(R[[x]]\) is Noetherian.
+\end{theorem}
+
+We can either use a proof similar to that of the basis theorem but using trailing coefficients instead of leading coefficients, which is left as an exercise, or we can use a more interesting prooof. We use the following two results
+
+\begin{theorem}[Cohn]\index{Cohn's theorem}
+  \label{thm:Cohn}
+  A ring is Noetherian if and only if all its prime ideals are finitely generated. 
+\end{theorem}
+
+\begin{lemma}
+  Let \(P\) be a prime ideal of \(R[[x]]\) and \(\theta: R[[x]] \to R\) be the ring homomorphism ``taking the constant term''. Then \(P\) is a finitely generated ideal if and only if \(\theta(P)\).
+\end{lemma}
+
+\begin{proof}[Proof of \Cref{thm:Cohn}]
+  Suppose \(R\) is not Notherian and so there are non-finitely generated ideals. Consider the eset of all such. It is non-empty by supposition. We can partially order the set by inclusion. The union of a chain of such ideals is also non-finitely generated. By Zorn's lemma, this set has maximal members. Let \(P\) be one such (note it is proper). Claim \(P\) is prime:
+
+  \begin{proof}
+    Suppose \(P\) is not prime, so there exist \(a, b\) with \(ab \in P, a \notin P, b \notin P\). Then \(P + Ra\) is an ideal strictly containing \(P\) so by maximality of \(P\), \(P + Ra\) is finitely generated, say by \(p_1 + r_1 a, \dots , p_n + r_n a\). Set
+    \[
+      J = \{r \in R: ra \in P\} \supseteq P + Rb \supsetneq P
+    \]
+    so \(J\) is a finitely generated ideal. We show \(P = Rp_1 + \dots Rp_n + Ja\) and so \(P\) is finitely generated, a contradiction: take \(t \in P \subseteq P + Ra\). Then
+    \[
+      t = u_1(p_1 + r_1a) + \dots + u_n(p_n + r_na)
+    \]
+    for some \(u_i \in R\). Hence
+    \[
+      u_1r_1 + \dots + u_nr_n \in J
+    \]
+    and so \(P\) is of the required form.
+  \end{proof}
+\end{proof}
 
 
 
