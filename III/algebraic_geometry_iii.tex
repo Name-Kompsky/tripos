@@ -10,7 +10,9 @@
 
 \input{header}
 
+\renewcommand*{\P}{\mathbb{P}}
 \renewcommand{\c}[1]{\mathbf{#1}} % category
+\newcommand{\sh}[1]{\mathcal{#1}} % sheaf
 
 \begin{document}
 
@@ -43,7 +45,332 @@ What is a point? Let \(\c{Sets}\) be the category of sets. Let \(*\) be the set 
 
 In the category of affine varieties over \(k\), a point is a point with coordinate ring \(k\). Given \(I \subseteq k[x_1, \dots, x_n]\), giving a morphism from a point to \(V(I) = X\) is the same as giving a \(k\)-algebra homomorphism \(\varphi: k[x_1, \dots, x_n]/I \to k\) given by \(x_i \mapsto a_i \in k\) such that for all \(f \in I\), \(f(a_1, \dots, a_n) = 0\), i.e.\ \((a_1, \dots, a_n) \in V(I)\). \(\varphi\) is surjective so \(k[X]/\ker \varphi \cong k\), so \(\ker \varphi\) is a maximal ideal of \(k[X]\). Conversely, given a mximal ideal \(\mathfrak m \subseteq k[X]\), \(k[X]/\mathfrak m\) is a finite field extension of \(k\) by Hilbert's Nullstellensatz. So if \(k = \overline k\) then \(k[X]/\mathfrak m \cong k\) and the map \(\varphi: k[X] \to k[X]/\mathfrak m \cong k\) gives a point \((a_1, \dots, a_n) = (\varphi(x_1), \dots, \varphi(x_n)) \in X\).
 
-Why not also consider field extensions \(k \subseteq k'\) and consider \(k\)-algebra homomorphisms \(\varphi: k[X] t\o k'\). Same as before we get a set of solutions in \((k')^n\). Note \(k[X]/\ker \varphi \subseteq k'\) and hence \(k[X]/\ker \varphi\) is an integral domain. Thus \(\ker \varphi\) is prime. For example take \(k[X]\) to be \(\R[x, y]/(x^2 + y^2 + 1)\) and \(\R\)-algebra map \(k[X] \to \R\). There does not exist such map. But there is certainly a map \(k[X] \to \C\), for example \(x \mapsto 0, y \mapsto i\). We have \(\ker \varphi = (x, y^2 + 1)\) is a maximal ideal. Note that this ideal corresponds to two points \((0, \pm i)\), a \(\operatorname{Gal}(\C/\R)\)-orbit of points with \(\C\)-coordinates.
+Why not also consider field extensions \(k \subseteq k'\) and consider \(k\)-algebra homomorphisms \(\varphi: k[X] \to k'\). Same as before we get a set of solutions in \((k')^n\). Note \(k[X]/\ker \varphi \subseteq k'\) and hence \(k[X]/\ker \varphi\) is an integral domain. Thus \(\ker \varphi\) is prime. For example take \(k[X]\) to be \(\R[x, y]/(x^2 + y^2 + 1)\) and \(\R\)-algebra map \(k[X] \to \R\). There does not exist such map. But there is certainly a map \(k[X] \to \C\), for example \(x \mapsto 0, y \mapsto i\). We have \(\ker \varphi = (x, y^2 + 1)\) is a maximal ideal. Note that this ideal corresponds to two points \((0, \pm i)\), a \(\operatorname{Gal}(\C/\R)\)-orbit of points with \(\C\)-coordinates. In fact this also follows from Hilbert's Nullstellensata: if \(A\) is a finitely-generated \(k\)-algebra, \(\mathfrak m \subseteq A\) a maximal ideal then \(A/\mathfrak m\) is a finite field extension of \(k\).
+
+Let \(K\) be the field of fractions of \(A\). Then \(\varphi: A \embed K\) defines a point in \(K\), i.e.\ \((x, y)\) satisfying \(x^2 + y^2 + 1 = 0\) in \(K\). Note \(\ker \varphi = 0\) so this point corresponds not to a maximal ideal but to a prime ideal. This may promopt to us to consider all prime ideals instead of just maximal ideals.
+
+Consider another example \(A = \Z[x_1, \dots, x_n]/I\). We may want to consider solutions to the system of equations \(I\) with coordinates in any ring \(R\). Such is given by a ring homomorphism \(\varphi: A \to R\), i.e.\ \((r_1, \dots, r_n)\) satisfying \(f(r_1, \dots, r_n) = 0\) for \(f \in I\). We may then consider different choices of \(R\). We may take \(R = \Z\) or a number ring, or \(R = \Q\), or \(R = \F_p\).
+
+What we wnat: give a ring \(A\) (all rings in this course are commutative with \(1\)), we want a geometric object \(X = ``\Spec A''\). For a ring \(R\), the set of ``\(R\)-valued points'' of \(X\) should be
+\[
+  X(R) = \Hom_{\text{Ring}}(A, R).
+\]
+A morphism \(X = \Spec A \to Y = \Spec B\) should be determined by a ring homomorphism \(\varphi: B \to A\).
+
+\begin{definition}
+  The category of affine scheme is the opposite category to the category of rings.
+\end{definition}
+This is a purely formal definition and there is no geometry. Instead, we want to study more general objects.
+
+\begin{definition}
+  A scheme is an object which is locally an affine scheme.
+\end{definition}
+This time, we do need geometry to talk about local properties!
+
+\section{Sheaves}
+
+\begin{definition}[spectrum]\index{spectrum}
+  Let \(A\) be a ring. Then the \emph{spectrum} of \(A\) is
+  \[
+    \Spec A = \{\mathfrak p \subseteq A: \mathfrak p \text{ a prime ideal}\}.
+  \]
+
+  If \(I \subseteq A\) is an ideal, define
+  \[
+    V(I) = \{\mathfrak p \subseteq \Spec A: \mathfrak p \supseteq I\}.
+  \]
+\end{definition}
+
+\begin{proposition}[Zariski topology]\index{Zariski topology}
+  The set \(V(I)\) form the closed sets of a topology on \(\Spec A\), called the \emph{Zariski topology}.
+\end{proposition}
+
+\begin{proof}
+  \(V(0) = \Spec A, V(A) = \emptyset\). If \(\{I_j\}_{j \in J}\) is a collection of ideals then
+  \[
+    V(\sum_{j \in J} I_j) = \bigcap_{j \in J} V(I_j)
+  \]
+  and finally
+  \[
+    V(I_1 \cap I_2) = V(I_1) \cup V(I_2).
+  \]
+  One direction is trivial. For the other, if \(\mathfrak p \supseteq I_1 \cap I_2\) then \(\mathfrak p \supseteq I_1\) or \(\mathfrak p \supseteq I_2\).
+\end{proof}
+
+\begin{eg}
+  \(A = k[x_1, \dots, x_n]\) where \(k = \overline k\), \(I \subseteq A\), then the maximal ideals in \(V(I)\) is in one-to-one correspondence with points of the variety \(V(I)\) in affine \(n\)-spece.
+\end{eg}
+
+So far we only have a topology. To talk about geometry, we need a good notion of functions. This is where we need \emph{sheaves}. From now on fix a topologial space \(X\).
+
+\begin{definition}[presheaf]\index{presheaf}
+  A \emph{presheaf} of abeliean groups on \(X\) \(\sh F\) consists of data
+  \begin{enumerate}
+  \item for every open set \(U \subseteq X\), an abelian group \(\sh F(U)\),
+  \item whenever \(V \subseteq U\), a group homomorphism \(\rho_{UV}: \sh F(U) \to \sh F(V)\) such that \(\rho_{UU} = \id, \rho_{VW} \compose \rho_{UV} = \rho_{UW}\) when \(W \subseteq V \subseteq U\).
+  \end{enumerate}
+\end{definition}
+
+The maps \(\rho_{UV}\) are called the \emph{restriction maps} and for \(V \subseteq U, s \in \sh F(U)\), we often write \(s|_V\) for \(\rho_{UV}(s)\).
+
+\begin{remark}
+  This is just a contravariant functor \(\sh F: \text{Open}(X) \to \c{Ab}\) where \(\text{Open}(X)\) is the category of open sets with inclusions.
+\end{remark}
+
+\begin{definition}[morphism of presheaves]\index{presheaf!morphism}
+  A \emph{morphism} of presheaves \(f: \sh F \to \sh G\) on \(X\) is a collection of homomorphisms \(f_U: \sh F(U) \to \sh G(U)\) with, for \(V \subseteq U\), the commutative diagram
+  \[
+    \begin{tikzcd}
+      \sh F(U) \ar[r, "f_U"] \ar[d, "\rho_{UV}"] & \sh G(U) \ar[d, "\rho_{UV}"] \\
+      \sh F(V) \ar[r, "f_V"] & \sh G(V)
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{definition}[sheaf]\index{sheaf}
+  A presheaf \(\sh F\) is a \emph{sheaf} is it satisfies
+  \begin{enumerate}
+  \item if \(U \subseteq X\) has a cover \(\{U_i\}\) and \(s \in \sh F(U)\) such that \(s|_{U_i} = 0\) for all \(i\) then \(s = 0\).
+  \item if \(U \subseteq X\) has a cover \(\{U_i\}\) and \(s_i \in \sh F(U_i)\) given with \(s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}\) for all \(i, j\) then exists \(s \in \sh F(U)\) with \(s|_{U_i} = s_i\) for all \(i\).
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(\sh F\) is a sheaf then \(\emptyset\) has an empty cover and hence \(\sh F(\emptyset) = 0\).
+  \item The two axioms S1, S2 together can be described as saying for each open cover \(\{U_i\}\) of \(U\),
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & \sh F(U) \ar[r, "\alpha"] & \displaystyle\prod_i \sh F(U_i) \ar[r, "\beta_1", shift left] \ar[r, "\beta_2"', shift right] & \displaystyle\prod_{i, j} \sh F(U_i \cap U_j)
+      \end{tikzcd}
+    \]
+    is exact, where
+    \begin{align*}
+      \alpha(s) &= (s|_{U_i}) \\
+      \beta_1((s_i)) &= (s_i|_{U_i \cap U_j}) \\
+      \beta_2((s_i)) &= (s_j|_{U_i \cap U_j})
+    \end{align*}
+    Exact means that \(\alpha\) is injective (S1), and \(\beta_1 \compose \alpha = \beta_2 \compose \alpha\), and for any \((s_i) \in \prod_i \sh F(U_i)\) with \(\beta_1((s_i)) = \beta_2((s_i))\) then exists \(s \in \sh F(U)\) with \(\alpha(s) = (s_i)\), i.e.\ \(\alpha\) is the equaliser of \(\beta_1, \beta_2\).
+
+    The sheaf axioms make sense when \(\c{Ab}\) is replaced by any category with equalisers, for example \(\c{Set}\).
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(X\) is any topological space, set
+    \begin{align*}
+      \sh F(U) &= \{f: U \to \R: f \text{ continuous}\} \\
+      \rho_{UV}(f) &= f|_V
+    \end{align*}
+    Then \(\sh F\) is a sheaf.
+  \item Let \(X = \C\) with the Euclidean topology. Set
+    \[
+      \sh F(U) = \{f: U \to \C: f \text{ bounded holomorphic function}\}.
+    \]
+    Then \(\sh F\) satisfies S1 but not S2. For example take \(U_i = \{z \in \C: |z| < i\}, f_i: U_i \to \C\) the identity map. Take \(i \in \N\), then the glued function is \emph{not} bounded.
+  \item Take any group \(G\) and set \(\sh F(U) = G\) for all \(U\), \(\rho_{UV} = \id\). \(\sh F\) is the \emph{constant presheaf}. It is a not a sheaf if \(G \neq 0\) as \(\sh F(\emptyset) = G\). To get a sheaf, give \(G\) the discrete topology and define
+    \[
+      \sh G(U) = \{f: U \to G: f \text{ continuous}\}.
+    \]
+    Note if \(U\) is connected then \(\sh G(U) = G\). If \(U_i, i \in I\) are disjoint then
+    \[
+      \sh G(\coprod U_i) = \prod \sh G(U_i).
+    \]
+  \item Let \(X\) be an algebraic variety, \(U \subseteq X\) a Zariski open set. Define
+    \[
+      \sh O_X(U) = \{f: U \to k: f \text{ a regular function}\}.
+    \]
+    Then \(\sh O_X\) is a sheaf, the \emph{structure sheaf}\index{structure sheaf} of \(X\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[stalk]\index{stalk}
+  Let \(\sh F\) be a presheaf on \(X\), \(p \in X\). Then the \emph{stalk} of \(\sh F\) at \(p\) is
+  \[
+    \sh F_p = \{(U, s): U \text{ open neighbourhood of } p, s \in \sh F(U)\} / \sim
+  \]
+  where \((U, s) \sim (V, s')\) if there exists \(W \subseteq U \cap V\) with \(p \in W\) such that \(s|_W = s'|_W\). It can be described as the direct limit
+  \[
+    \sh F_p = \varinjlim_{p \in U} \sh F(U).
+  \]
+\end{definition}
+
+Note a morphism \(f: \sh F \to \sh G\) induces a homomorphism
+\begin{align*}
+  f_p: \sh F_p &\to \sh G_p \\
+  (U, s) &\mapsto (U, f_U(s))
+\end{align*}
+We call \((U, s)\) the \emph{germ}\index{germ} of \(s\) at \(p\).
+
+\begin{proposition}
+  Let \(f: \sh F \to \sh G\) be a morphism of sheaves. Then \(f\) is an isomorphism if and only if \(f_p\) is an isomorphism for all \(p \in X\).
+\end{proposition}
+
+\begin{proof}
+  Only if is obvious. For if, assume \(f_p\) is an isomorphism for all \(p \in X\). Need to show each \(f_U: \sh F(U) \to \sh G(U)\) is an isomorphism as can then construct \(f^{-1}\) via \((f^{-1})_U = (f_U)^{-1}\).
+  \begin{itemize}
+  \item \(f_U\) injective: suppose \(s \in \sh F(U)\) with \(f_U(s) = 0\). Then \(f_p(U, s) \in \sh G_p\) for any \(p \in U\), and \(f_p(U, s) = (U, f_U(s)) = 0\). Thus \((U, s) = 0 \in \sh F_p\), which means that exists \(p \in V_p \subseteq U\) such that \(s|_{V_p} = 0\). Now \(\{V_p: p \in U\}\) form an open cover of \(U\) so by S1, \(s = 0\).
+  \item \(f_U\) surjective: let \(t \in \sh G(U)\). Then \(t_p = (U, t) \in \sh G_p\). By surjectivity of \(f_p\), let \(s_p \in \sh F_p\) with \(f_p(s_p) = t_p\). In other words, exists a neighbourhood \(V_p\) of \(p\) and a germ \((V_p, s_p)\) such that \((V_p, f_{V_p}(s_p)) = (U, t) \in \sh G_p\). By shrinking \(V_p\) if necessary, we can assume \(f_{V_p}(s_p) = t|_{V_p}\). \(\{V_p\}\) is an open cover of \(U\). On \(V_p \cap V_q\),
+    \[
+      f_{V_p \cap V_q} (s_p|_{V_p \cap V_q} - s_q|_{V_p \cap V_q}) = t|_{V_p \cap V_q} - t|_{V_p \cap V_q} = 0.
+    \]
+    By injectivity already proved, \(f_{V_p \cap V_q}\) is injective so \(s_p|_{V_p \cap V_q} = s_q|_{V_p \cap V_q}\) for all \(p, q \in U\). By S2, there exists \(s \in \sh F(U)\) with \(s|_{V_p} = s_p\) for all \(p\) so
+    \[
+      f_U(s)|_{V_p} = f_{V_p}(s|_{V_p}) = f_{V_p}(s_p) = t|_{V_p}
+    \]
+    so by S1, \(f_U(s) = t\).
+  \end{itemize}
+\end{proof}
+Note the asymmetry: injectivity comes directly from injectivity on stalks, while surjectivity follows from both surjectivity on stalks and injectivity on sections. This will appear often in the future.
+
+\subsection{Sheafification}
+
+Given a presheaf \(\sh F\), there is a sheaf \(\sh F^+\) an a morphism \(\theta: \sh F \to \sh F^+\) satisfying the following universal property: for any sheaf \(\sh G\) and morphism \(\varphi: \sh F \to \sh G\), there exists a unique morphism \(\varphi^+: \sh F^+ \to \sh G\) with \(\varphi = \varphi^+ \compose \theta\).
+
+\(\sh F^+\) is called the \emph{sheaf associated} to \(\sh F\) and \(\theta_p: \sh F_p \to \sh F_p^+\) is an isomorphism for all \(p\).
+
+Define
+\[
+  \sh F^+(U) =
+  \left\{
+    \begin{tabular}{l}
+      \(s: U \to \coprod_{p \in U} \sh F_p\): \(s(p) \in \sh F_p\), \\
+      for each \(\in U\), exists \(p \in V \subseteq U\), \(t \in \sh F(V)\) \\
+      such that \(s(q) = (U, t) \in \sh F_q\) for all \(q \in V\)
+    \end{tabular}
+  \right\}
+\]
+We define \(\theta_U(s)\) to be \(p \mapsto (U, s) \in \sh F_p\) for all \(p \in U\).
+
+The verification of the universal property and other properties is left as exercises on example sheet 1.
+
+\begin{definition}
+  Let \(f: \sh F \to \sh G\) be a morphism of presheaves.
+  \begin{itemize}
+  \item The \emph{presheaf kernel} of \(f\) is the presheaf
+    \[
+      (\ker f)(U) = \ker f_U.
+    \]
+  \item The \emph{presheaf cokernel} of \(f\) is the presheaf
+    \[
+      (\coker f)(U) = \coker f_U.
+    \]
+  \item The \emph{presheaf image} of \(f\) is the presheaf
+    \[
+      (\im f)(U) = \im f_U.
+    \]
+  \end{itemize}
+\end{definition}
+
+\begin{remark}
+  If \(f: \sh F \to \sh G\) is a morphism of sheaves then \(\ker f\) is also a sheaf: any sub-presheaf of a sheaf satisfies S1, and given \(s_i \in (\ker f)(U_i)\) with \(s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}\), we can glue to get \(s \in \sh F(U)\). But then
+  \[
+    f_U(s)|_{U_i} = f_{U_i}(s|_{U_i}) = f_{U_i}(s_i) = 0
+  \]
+  so by S1 \(f_U(s) = 0\) so \(s \in (\ker f)(U)\).
+\end{remark}
+
+\begin{eg}
+  Let \(X\) be the variety \(\P^1_k\). Let \(P, Q \in X\) be distinct points. Let \(\sh G\) be the sheaf of regular functions on \(X\). Let \(\sh F\) be the sheaf of regular functions on \(X\) vanishing at \(P\) and \(Q\). Have an obvious inclusion \(i: \sh F \to \sh G\) and \(\sh F(U) = \sh G(U)\) if \(U \cap \{P, Q\} = \emptyset\). Then
+  \begin{align*}
+    (\coker i) (\P^1) &= \frac{\sh G (\P^1)}{\sh F(\P^1)} = \frac{k}{0} = k \\
+    (\coker i) (\P^1 \setminus \{P\}) &= \frac{\sh G (\P^1 \setminus \{P\})}{\sh F (\P^1 \setminus \{P\})} \cong \frac{k[x]}{(x)} = k
+  \end{align*}
+  Similarly
+  \[
+    (\coker i) (\P^1 \setminus \{Q\}) = k
+  \]
+  and
+  \[
+    (\coker i) (\P^1 \setminus \{P, Q\}) = 0.
+  \]
+  Note \(U = \P^1 \setminus \{P\}, V = \P^1 \setminus \{Q\}\) cover \(\P^1\) so if \(\coker i\) were a sheaf, any \(s_U \in (\coker i)(U), s_V \in (\coker i)(V)\) would have to get an element of \((\coker i)(\P^1)\). In particular
+  \[
+    (\coker i) (\P^1) = k \oplus k \neq k.
+  \]
+  Absurd.
+
+  This is not a bug but a feature of the theory. At the end of the course we will find ourselves secretly calculating the sheaf cohomology in this example.
+\end{eg}
+
+\begin{definition}[sheaf kernel/image/cokernel]\index{sheaf!kernel}\index{sheaf!image}\index{sheaf!cokernel}
+  Let \(f: \sh F \to \sh G\) be a morphism of sheaves. Then the \emph{sheaf kernel} is the presheaf kernel. The \emph{sheaf image} is the sheaf associated to the presheaf image and the \emph{sheaf cokernel} is the sheaf associated to the presheaf cokernel.
+\end{definition}
+
+These are the categorical notions of kernel/image/cokernel.
+
+\begin{ex}
+  The sheaf image \(\im f\) is a subsheaf of \(\sh G\).
+\end{ex}
+
+\begin{definition}[exact sequence of sheaves]
+  We say \(f: \sh F \to \sh G\) is \emph{injective} if \(\ker f = 0\), \emph{surjective} if \(\im f = \sh G\).
+
+  We say a sequence of sheaves
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & \sh F^{i - 1} \ar[r, "f^i"] & \sh F^i \ar[r, "f^{i + 1}"] & \sh F^{i + 1} \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+  is \emph{exact} if \(\ker f^i = \im f^{i - 1}\) for all \(i\).
+\end{definition}
+
+\(f\) is injective if and only if \(f_U\) is injective for all \(U\) but the analogous statement is false for surjectivity.
+
+If \(\sh F' \subseteq \sh F\) is a subsheaf, we write \(\sh F/\sh F'\) for the sheaf associated to the presheaf \(U \mapsto \sh F(U)/\sh F'(U)\). This is \(\coker (\sh F' \embed \sh F)\).
+
+\begin{lemma}
+  Let \(f: \sh F \to \sh G\) be a morphism of sheaves. Then
+  \begin{align*}
+    (\ker f)_p &= \ker f_p \\
+    (\im f)_p &= \im f_p
+  \end{align*}
+  for all \(p \in X\).
+\end{lemma}
+
+\begin{proof}
+  We have a natural map \((\ker f)_p \to \ker f_p\): if \((U, s) \in (\ker f)_p\) where \(s \in (\ker f)(U)\) then
+  \[
+    f_p(U, s) = (U, f_U(s)) = (U, 0) = 0
+  \]
+  so \((U, s) \in \ker f_p\).
+
+  For injectivity, if \((U, s) = 0 \in \ker f_p\) then \((U, s) = 0 \in \sh f_p\). Shrinking \(U\) if necessary, we can assume \(s = 0\). Then \((U, s) = 0 \in (\ker f)_p\). For surjectivity, if \((U, s) \in \ker f_p\) then \((U, f_U(s)) = 0 \in \sh G_p\). Shrinking \(U\) if necessary, we can assume \(f_U(s) = 0\) and hence \((U, s) \in (\ker f)_p\) since \(s \in (\ker f)(U)\).
+
+  Now we prove the statement about image sheaf. Let \(\im' f\) be the presheaf image so \(\im f\) is the associated sheaf. We have an isomorphism \((\im ' f)_p = (\im f)_p\), so enough to show the natural map \((\im' f)_p \to \im f_p\) is an isomorphism.
+
+  For injectivity, if \((U, s) = 0 \in \sh G_p\) then shrinking \(U\) we can assume \(s = 0\). Then \((U, s) = 0 \in (\im' f)_p\). For surjectivity, if \((U, s) \in \im f_p\) then exists \((V, t) \in \sh F_p\) such that \(f_p(V, t) = (U, s)\) so exists a neighbourhood \(W \subseteq U \cap V\) of \(p\) such that \(f_V(t)|_W = f_W(t) = s|_W\). Thus \((W, s|_W) \in (\im' f)_p\).
+\end{proof}
+
+\begin{proposition}
+  Let \(f: \sh F \to \sh G\) be a morphism of sheaves. Then \(f\) is injective (surjective respectively) if and only if \(f_p: \sh F_p \to \sh G_p\) is injective (surjective respectively) for all \(p\).
+\end{proposition}
+
+\begin{proof}
+  \(f_p\) is injective for all \(p\) if and only if \(\ker f_p = 0\) for all \(p\), if and only if \((\ker f)_p = 0\) for all \(p\), if and only if \(\ker f = 0\), since \(0 \to \ker f\) is an isomorphism on stalks, if and only if \(f\) is injective. Analogous for \(\im f\) by noting the inclusion \(\im f \to \sh G\).
+\end{proof}
+
+It is strongly recommended at this point to do all problems in \(II.1\) of Hartshorne.
+
+\begin{definition}
+  Let \(f: X \to Y\) be a continuous map of topological spaces. Let \(\sh F\) be a sheaf on \(X\), \(\sh G\) a sheaf on \(Y\). We define \(f_* \sh F\) to be the sheaf with
+  \[
+    (f_* \sh F)(U) = \sh F (f^{-1}(U))
+  \]
+  and obvious restriction maps. We define \(f^{-1} \sh G\) to be the sheaf associated to the presheaf
+  \[
+    U \to \varinjlim_{V \supseteq f(U)} \sh G(V) = \{(V, s): V \supseteq f(U) \text{ open}, s \in \sh G(V)\}/ \sim
+  \]
+  where \((V, s) \sim (V', s')\) if exists \(W \subseteq V \cap V'\) with \(f(U) \subseteq \) and \(s|_W = s'|_W\).
+\end{definition}
+
+\begin{eg}
+  If \(f: \{p\} \to X\) and \(\sh G\) is a sheaf on \(X\) then \(f^{-1} \sh G = \sh G_p\). More generally if \(i: Z \embed X\) and \(\sh F\) is a sheaf in \(X\) we write \(\sh F|_Z = i^{-1} \sh F\). In particular if \(Z\) is open then \(\sh F|_Z\) is easy to describe: \(\sh F|_Z(U) = \sh F(U)\).
+\end{eg}
+
+
+
 
 \printindex
 \end{document}

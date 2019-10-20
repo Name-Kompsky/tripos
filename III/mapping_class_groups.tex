@@ -16,6 +16,9 @@
 \DeclareMathOperator{\Diff}{Diff}
 \DeclareMathOperator{\Mod}{Mod}
 \renewcommand{\b}{\p}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Axis}{Axis}
 
 \begin{document}
 
@@ -43,6 +46,8 @@ The subject of this course is surfaces, i.e.\ two-dimensional manifolds. We assu
 \end{figure}
 
 It has Euler characteristic \(\chi(S) = 2 - 2g - (n + b)\).
+
+A \emph{closed surface} is a surface with \(n = b = 0\). A \emph{compact surface} is a surface with \(n = 0\).
 
 \begin{eg}
   Suppose \(\chi(S) > 0\) then \(g = 0, n + 1 = 0 \text{ or } 1\). Thus \(S\) is either \(S^2\), or \(S^2\) with a puncture which is isomorphic to \(\C\), or \(S^2\) with one boundary component which is isomorphic of \(D^2\), which can be thought as sitting inside \(\C\) as the unit disk.
@@ -89,6 +94,167 @@ More generally, if \(B\) is a space and \(\rho: \pi_1(B) \to \Mod (S)\) then we 
 \paragraph{moduli space}
 
 More handwavy motivation. Let \(S = S_g = S_{g, 0, 0}\). It turns out the moduli space \(\mathcal M_g\) of geometric structures on \(S_g\) is the same as the moduli space of complex structures on \(S_g\). Morally (but not actually true), the universal cover \(\tilde{\mathcal M_g}\) is \(\mathcal T_g\), the Teichüller space, and \(\pi_1(\mathcal M_g)\) is \(\Mod(S)\), so we have \(\mathcal M_g = \Mod(S_g) \setminus \mathcal T_g\).
+
+\paragraph{analogy}
+
+There is an analogy between the torus and a surface \(S\).
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{c|c}
+    \(S\) & \(T\) \\ \hline
+    \(\pi_1(S)\) & \(\Z^n\) \\ \hline
+    \(\Mod(S)\) & \(\SL_n(\Z)\) \\ \hline
+    closed curves (up to isotopy) & vectors
+  \end{tabular}
+  \caption{Comparison of \(S\) with \(T^n\)}
+\end{table}
+
+\section{Curves, Surfaces \& Hyperbolic geometry}
+
+\subsection{The hyperblic plane}
+
+There are two models of hyperbolic geometry.
+
+\paragraph{The upper half-plane model}
+
+It is the half-plane \(\H^2 = \{x + iy: y > 0\}\) with metric
+\[
+  ds^2 = \frac{dx^2 + dy^2}{y^2}.
+\]
+The geodesics are either vertical lines or semicircles on the \(x\)-axis. Then both meet the \(x\)-axis at right angle. The orientation preserving isometries are
+\[
+  \Isom^+(\H^2) = PSL_2(\R)
+\]
+where an element in \(PSL_2(\R)\) acts by Möbius transformation:
+\[
+  \begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}
+  z = \frac{az + b}{cz + d}
+\]
+where \(a, b, c, d \in \R\) and \(ad - bc > 0\) (by rescaling). As the entries are real, it preserves the \(x\)-axis and the point at infinity.
+
+\paragraph{The Poincaré disc model}
+
+Conjugating the isometry group by \(z \mapsto \frac{z - i}{z + i}\), we can map \(\H^2\) to the interior unit disc. The metric is
+\[
+  ds^2 = 4 \frac{dx^2 + dy^2}{(1 - r^2)^2}.
+\]
+Note that it is radically symmetric. As Möbius transformations are conformal, the geodesics are diameters and arcs meeting the boundary of the disc at right angle.
+
+The (Gromov) boundary (at infinity) \(\b \H^2\) is the unit circle bounding the disc. We write \(\overline \H^2 = \H^2 \cup \b \H^2\).
+
+\begin{note}
+  Each isometry \(f\) of \(\H^2\) extend uniquely to Möbius transformation \(\overline f\) of \(\b \H^2\).
+\end{note}
+
+Let \(f \in \Isom^+ \H^2 = \PSL_2(\R)\) and let \(n\) be the number of fixed points of \(\overline f\). Brouwer fixed point theorem says \(n \geq 1\). On the other hand, \(n \leq 2\) unless \(f = \id\).
+
+\paragraph{\(n = 2\)}
+
+Let be \(\{\xi_+, \xi_-\} = \Fix(\overline f) \subseteq \overline \H^2\). If one of them is in the interior then there is a geodesic between them lying in \(\H^2\). But then \(f\) fixes every point on the geodesic, absurd. Thus \(\xi_+, \xi_- \in \b \H^2\) and there is a unique geodesic between them.
+
+There exists \(g \in \PSL_2(\R)\) such that \(g(\xi_-) = 0, g(\xi_+) = \infty\) in the upper half-plane model, and \(\Fix(g \overline f g^{-1}) = g \Fix(\overline f)\). Thus after conjugation, wlog \(\xi_- = 0, \xi_+ = \infty\) so
+\[
+  f(z) = \lambda z = e^{\tau(f)} z
+\]
+where \(\lambda > 0\). So \(f\) now acts as translation on the \(y\)-axis by \(\tau(f)\).
+
+In general, \(f\) preserves a geodesic line called \(\Axis(f)\), acting by translation. Such an \(f\) is called \emph{hyperbolic} or \emph{loxodromic}.
+
+fact: If \(x \notin \Axis(f)\) then \(d(x, f(x)) > \tau(f)\).
+
+\paragraph{\(n = 1\)}
+
+Let \(\Fix(\overline f) = \{\xi\}\). If \(\xi \in \H^2\) wlog \(\xi = 0\) in the disc model. Then must have \(f(z) = e^{i\theta} z\). Such an \(f\) is called \emph{elliptic}. If \(\xi \in \b \H^2\) wlog \(\xi = \infty\) in the upper half-plane model. It follows that \(f(z) = z \pm 1\). Such an \(f\) is called \emph{parabolic}.
+
+\begin{remark}
+  This classification is invariant under conjugacy.
+\end{remark}
+
+\subsection{Hyperbolic structures}
+
+A \emph{hyperbolic structure} on \(S\) is a complete, finite-area Riemannian metric of constant curvature \(\kappa = +1, 0 \text{ or } -1\), in which every boundary components are geodesic.
+
+What kind of hyperbolic structure can we put on a surface? Recall Gauss-Bonnet which says that if \(S\) has finite area then
+\[
+  \int_S \kappa dA = 2\pi \chi(S)
+\]
+so the sign of \(\kappa\) is the same as the sign of \(\chi(S)\). In particular
+\begin{enumerate}
+\item if \(\chi(S) > 0\) then \(\kappa = 1\) so \(S\) is locally \(S^2\).
+\item if \(\chi(S) = 0\) then \(\kappa = 0\) so \(S\) is locally \(\R^2\).
+\item if \(\chi(S) < 0\) then \(\kappa = -1\) so \(S\) is locally \(\H^2\).
+\end{enumerate}
+
+\begin{eg}
+  Recall that \(\chi(S) > 0\) implies \(S\) is \(S^2, D^2\) or \(\C\). \(S^2\) will just have the geometric structure of the sphere. For \(\C\), there is no complete finite-area metric. For \(D^2\), recall that we require the boundary component to be a geodesic so the geometric structure on \(D^2\) will just be the semisphere.
+
+  If \(\chi(S) = 0\) then \(S\) is \(T^2, A = S^1 \times [0, 1], \C_*\) or \(D_*^2\). Again \(\C_*\) and \(D_*^2\) do not admit finite-area complete metric. \(T\) will then be the flat torus, i.e.\ \(\Z^2 \setminus \R^2\). \(A\) has the geometric structure of a cylinder.
+\end{eg}
+
+\begin{theorem}
+  If \(S\) is connected, oriented and of finite type and \(\chi(S) < 0\) then there is a convex subspace \(\tilde S \subseteq \H^2\) with geodesic boundary and an action \(\pi_1S\) on \(\tilde S\) by isometry such that
+  \[
+    S \cong \pi_1 S \setminus \tilde S
+  \]
+  has finite area. In particular, \(S\) has curvature \(-1\) everywhere.
+\end{theorem}
+
+\begin{proof}[Sketch proof when \(S = S_{g, 0, 0}\)]
+  Cut along \(2g\) loops to get a \(4g\)-gon with sides identified appropriately. Then it suffices to find a \(4g\)-gon in the hyperbolic disk whose internal angles sum up to \(2\pi\). A regular \(4g\)-gon with vertices on \(\b \H\) has total interior angle \(0\), while as we shrink the polygon it resembles more and more like a Euclidean polygon so the total interior angle approachs \((4g - 2)\pi\). As \(g > 1\), by intermediate value theorem we can find a regular \(4g\)-gon whose total interior angle is \(2\pi\).
+
+  The metric on \(S\) then has constant curvature \(\kappa = -1\). Then by Jacobi theorem \(\tilde S \cong \H^2\) (homeo?). The statement about fundamental group follows from algebraic topology (note that \(\pi_1\) does act by isometry since the upstairs metric is lifted from the downstairs').
+\end{proof}
+
+Such a surface \(S\) is called \emph{hyperbolic}.
+
+\begin{remark}
+  When \(S\) has no boundary components \(\tilde S = \H^2\).
+\end{remark}
+
+\subsection{Curves on hyperbolic surface}
+
+A \emph{closed curve} on \(S\) is a smooth map \(\alpha: S^1 \to S\). It gives a conjugacy class \([\sigma] \in \pi_1S\). This leads to an isometry of \(\H^2\) (up to isometry) when \(S\) is hyperbolic. Thus we could talk about conjugacy-invariant properties of \(\alpha\).
+
+\begin{definition}
+  We say \(\alpha\) is \emph{inessential} if \(\alpha\) is homotopic to a point or a puncture. Otherwise \(\alpha\) is essential.
+\end{definition}
+
+Picture of an (embedded) hyperbolic surface. Note that a puncture is a cusp because of finite-area and completeness.
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item If \(\alpha\) is elliptic then it is homotopic to a point.
+  \item If \(\alpha\) is parabolic then it is homotopic to a puncture.
+  \item If \(\alpha\) is hyperbolic then it is essential.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\alpha\) is elliptic implies that \(\alpha\) fixes a point of \(\H^2\). But the action of \(\pi_1\) is free so \(\alpha = \id\) as isometry. so \(\alpha\) is homotopic to a point.
+  \item If \(\alpha\) is parabolic then wlog \(\alpha: z \mapsto z + 1\). Take \(\alpha(0) = x_0 \in S\) to be a basepoint and choose \(\tilde x_0\) a lift in \(\H^2\). Let \(\tilde \alpha\) be the lift of \(\alpha\) at \(\tilde x_0\). Let \(\tilde \alpha_s(t) = \tilde \alpha(t) + is\) for \(s \in [0, \infty)\). For all \(s\),
+    \[
+      \tilde \alpha_s(1) = \tilde \alpha_s(0) + 1
+    \]
+    so \(\tilde \alpha_s\) descends to a loop \(\alpha_s\) in \(S\) and \(\alpha_s\) tends to a puncture of \(s\) by compactness of \(\overline \H^2\).
+  \end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

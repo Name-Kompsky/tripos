@@ -10,9 +10,18 @@
 
 \input{header}
 
-\begin{document}
+\theoremstyle{definition}
+\newtheorem*{fact}{Fact}
+
 
 \renewcommand*{\P}{\mathbb{P}}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Div}{Div} % divisor
+\DeclareMathOperator{\Pic}{Pic} % Picard group
+\newcommand{\rational}{\dashrightarrow} % rational map
+
+\begin{document}
+
 
 \input{titlepage}
 
@@ -133,6 +142,460 @@ In this course we study \(E(L)\) for \(L\) finite field, local field (meaning \(
 \begin{theorem}
   If \(E: y^2 = x^3 - x\) then \(E(\Q) = \{0, (0, 0), (\pm 1, 0)\}\).
 \end{theorem}
+
+\begin{corollary}
+  Let \(E/K\) be an elliptic curve. Then \(E(K(t)) = E(K)\).
+\end{corollary}
+
+\begin{proof}
+  wlog \(K = \overline K\). By a change of coordinates we may assume
+  \[
+    E: y^2 = x(x - 1)(x - \lambda)
+  \]
+  for some \(\lambda \in K \setminus \{0, 1\}\). Suppose \((x, y) \in E(K(t))\). Write \(x = \frac{u}{v}\) where \(u, v \in K[t]\) coprime. Then
+  \[
+    w^2 = uv(u - v)(u - \lambda v)
+  \]
+  for some \(w \in K[t]\). Using same unique factorisation argument as before, \(u, v, u - v, u - \lambda v\) are all squares so by lemma \(u, v \in K\) so \(x, y \in K\).
+\end{proof}
+
+\section{Some remarks on algebraic curves}
+
+Let \(K = \overline K, \ch K \neq 2\).
+
+\begin{definition}[rational plane curve]\index{rational plane curve}
+  A plane algebraic curve (always assumed to be irreducible)
+  \[
+    C = \{f(x, y) = 0\} \subseteq \A^2
+  \]
+  is \emph{rational} if it has a rational parameterisation, i.e.\ there exist \(\phi, \psi \in K(t)\) such that
+  \begin{enumerate}
+  \item \(\A^1 \to \A^2, t \mapsto (\phi(t), \psi(t))\) is injective on \(\A^1 \setminus \{\text{finite set}\}\).
+  \item \(f(\phi(t), \psi(t)) = 0\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Any nonsingular plane conic is rational. For example \(x^2 + y^2 = 1\). Pick a point \((-1, 0)\). Putting a line through the point with slope \(t\), i.e.\ \(y = t(x + 1)\). Solve for the intersection. In general we will get a root, which is not rational. But in the quadratic case we already have one solution so the other solution can be expressed as a rational function. we have
+    \[
+      x^2 + t^2(x + 1)^2 = 1
+    \]
+    which is saying
+    \[
+      (x + 1)(x - 1 + t^2(x + 1)) = 0
+    \]
+    so \(x = -1\) or \(x = \frac{1 - t^2}{1 + t^2}\). Similarly one can solve \(y\). Then we get rational parameterisation
+    \[
+      (x, y) = \left( \frac{1 - t^2}{1 + t^2}, \frac{2t}{1 + t^2} \right).
+    \]
+  \item Any singular plane curve is rational. Two examples: \(y^2 = x^3, y^2 = x^2 (x + 1)\). Same recipe as before except that we have to pick the singular point, which is the origin in both cases. The line \(y = tx\) intersects the curve. We get rational parameterisation \((x, y) = (t^2, t^3)\) for the first one. The second is an exercise.
+  \item Corollary 1.6 shows that elliptic curves are \emph{not} rational.
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}
+  The genus \(g(C) \in \Z_{\geq 0}\) is an invariant of a smooth projective curve \(C\). Some facts:
+  \begin{enumerate}
+  \item if \(k = \C\) then \(g(C)\) is the genus of the Riemann surface.
+  \item a smooth plane curve \(C \subseteq \P^2\) of degree \(d\) has genus \(g(C) = \frac{(d - 1)(d - 2)}{2}\).
+  \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+  Let \(C\) be a smooth projective curve.
+  \begin{enumerate}
+  \item \(C\) is rational if and only if \(g(C) = 0\).
+  \item \(C\) is an elliptic curve if and only if \(g(C) = 1\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Omitted.
+  \item For only if, check the projective closure is smooth and use remark. For if, see later.
+  \end{enumerate}
+\end{proof}
+
+\subsection{Order of vanishing}
+
+Let \(C\) be an algebraic curve with function field \(K(C)\). Let \(P \in C\) be a smooth point. We write \(\ord_P(f)\) to be the order of vanishing to be the order of vanishing of \(f \in K(C)\) at \(P\). It is negative if \(f\) has a pole at \(P\).
+
+Some facts: \(\ord_P(f): K(C)^* \to \Z\) is a discrete valuation, i.e.
+\begin{align*}
+  \ord_P(f_1f_2) &= \ord_P(f_1) + \ord_P(f_2) \\
+  \ord_P(f_1 + f_2) & \geq \min(\ord_P(f_1), \ord_P(f_2))
+\end{align*}
+
+\begin{definition}[uniformiser]\index{uniformiser}
+  \(t \in K(C)^*\) is a \emph{uniformiser} at \(P\) if \(\ord_P(t) = 1\).
+\end{definition}
+
+\begin{eg}
+  Let \(C = \{g = 0\} \subseteq \A^2\) for some \(g \in K[x, y]\) irreducible. Then
+  \[
+    K(C) = \operatorname{Frac} \frac{K[x, y]}{(g)}.
+  \]
+  Write
+  \[
+    g = g_0 + g_1(x, y) + g_2(x, y) + \dots
+  \]
+  where \(g_i\) is homogeneous of degree \(i\). Suppose \(P = (0, 0) \in C\) is smooth, i.e.\ \(g_0 = 0, g_1(x, y) = \alpha x + \beta y\) where \(\alpha, \beta\) not both zero. (Picture). Let \(\gamma, \delta \in K\). It is a fact that \(\gamma x + \delta y \in K(C)\) is a uniformiser at \(P\) if and only if \(\alpha \delta - \beta \gamma \neq 0\).
+\end{eg}
+
+\begin{eg}
+  Consider \(\{y^2 = x(x - 1)(x - \lambda)\} \subseteq \A^2\) where \(\lambda \neq 0, 1\). Its projective closure is \(\{Y^2Z = X(X - Z)(X - \lambda Z)\} \subseteq \P^2\), then we get one point \(P = (0: 1: 0)\) at infinity. We can compute \(\ord_P(x)\) and \(\ord_P(y)\). We work on the affine piece \(\{Y \neq 0\}\). Put \(w = \frac{Z}{Y}, t = \frac{X}{Y}\), then the equation becomes
+  \[
+    w = t(t - w)(t - \lambda w).
+  \]
+  Now \(P\) is the point \((t, w) = (0, 0)\). This is a smooth point and using the fact in the above example,
+  \[
+    \ord_P(t) = \ord_P(t - w) = \ord_P(t - \lambda w) = 1,
+  \]
+  so \(\ord_P(w) = 3\). Finally,
+  \begin{align*}
+    \ord_P(x) &= \ord_P \frac{X}{Z} = \ord_P \frac{t}{w} = -2 \\
+    \ord_P(y) &= \ord_P \frac{Y}{Z} = \ord_P \frac{1}{w} = -3
+  \end{align*}
+\end{eg}
+
+Let \(C\) be a smooth projective curve.
+
+\begin{definition}[divisor]\index{divisor}
+  A \emph{divisor} is a formal sum of points on \(C\), say \(D = \sum_{P \in C} n_P P\) with \(n_P \in \Z\) and \(n_P = 0\) for all but finitely many \(P\). The \emph{degree} of \(D\) is
+  \[
+    \deg D = \sum n_P.
+  \]
+\end{definition}
+
+\begin{definition}[effective divisor]\index{divisor!effective}
+  A divisor \(D\) is \emph{effective}, written \(D \geq 0\), if \(n_P \geq 0\) for all \(P\).
+\end{definition}
+
+If \(f \in K(C)^*\) then we write
+\[
+  \div(f) = \sum_{P \in C} \ord_P(f) P.
+\]
+
+The \emph{Riemann-Roch space} of \(D \in \Div(C)\) is
+\[
+  \mathcal L(D) = \{f \in K(C)^*: \div(f) + D \geq 0\} \cup \{0\},
+\]
+i.e.\ the \(K\)-vector space of rational functions on \(C\) with ``pole no worse than specified by \(D\)''.
+
+Riemann-Roch for genus \(1\) curve says that
+\[
+  \dim \mathcal L(D) =
+  \begin{cases}
+    \deg D & \deg D > 0 \\
+    0 \text{ or } 1 & \deg D = 0 \\
+    0 & \deg D < 0 
+  \end{cases}
+\]
+
+\begin{eg}
+  Let us revisit some of the previous example. Consider \(\{y^2 = x(x - 1)(x - \lambda)\} \subseteq \A^2\) and let \(P\) the point at infinity. We calculated \(\ord_P(x) = -2, \ord_P(y) = -3\). Then
+  \begin{align*}
+    \mathcal L(2P) &= \langle 1, x \rangle \\
+    \mathcal L(3P) &= \langle 1, x, y \rangle
+  \end{align*}
+\end{eg}
+
+\begin{proposition}
+  Let \(C \subseteq \P^2\) be a smooth plane cubic and \(P \in C\) a point of inflection. Then we can change coordinates such that \(C: Y^2Z = X(X - Z)(X - \lambda Z)\) and \(P = (0: 1: 0)\).
+\end{proposition}
+
+\begin{fact}
+  The points of inflection on \(C = \{F = 0\} \subseteq \P^2\) are given by
+  \[
+    F = \det \frac{\p^2 F}{\p x_i \p x_j} = 0.
+  \]
+\end{fact}
+
+\begin{proof}
+  We change coordinates such that \(P = (0 : 1 : 0)\) and \(T_pC = \{Z = 0\}\), where \(C = \{F(X, Y, Z) = 0\}\). \(P \in C\) is a point of inflection, meaning that the intersection of the tangent at \(P\) with \(C\) has multiplicity \(3\), so \(F(t, 1, 0)\) is a constant multiple of \(t^3\). Thus there is no \(X^2Y, XY^2\) and \(Y^3\) term, so
+  \[
+    F \in \langle Y^2Z, XYZ, YZ^2, X^3, X^2Z, XZ^2, Z^3 \rangle.
+  \]
+  The coefficient of \(X^3\) is nonzero as otherwise \(\{Z = 0\} \subseteq C\). The coefficient of \(Y^2Z\) is nonzero as otherwise \(P \in C\) is singular. We are free to rescale \(X, Y, Z\) and \(F\), so wlog \(C\) is defined by
+  \[
+    Y^2Z + a_1 XYZ + a_3 YZ^2 = X^3 + a_2 X^2Z + a_4 XZ^2 + a_6 Z^3.
+  \]
+  Making substitutions \(Y \mapsto Y - \frac{1}{2} a_1X - \frac{1}{2} a_3 X\), w may asssume \(a_1 = a_3 = 0\). Now \(C: Y^2Z = Z^3 f(X/Z)\) where \(f\) is a monic cubic polynomial. As \(C\) is smooth, \(f\) has distinct roots so wlog \(0, 1, \lambda\) so \(C\) is
+  \[
+    Y^2Z = X(X - Z)(X - \lambda Z).
+  \]
+\end{proof}
+
+The equation
+\[
+  Y^2Z + a_1 XYZ + a_3 YZ^2 = X^3 + a_2 X^2Z + a_4 XZ^2 + a_6 Z^3
+\]
+is called \emph{Weierstrass form} and
+\[
+  Y^2Z = X(X - Z)(X - \lambda Z)
+\]
+is called \emph{Legendre form}.
+
+\subsection{Degree of a morphism}
+
+Let \(\phi: C_1 \to C_2\) be a nonconstant morphism of smooth projective curves. Let \(\phi^*: K(C_2) \to K(C_1)\) be the pullback by \(\phi\).
+
+\begin{definition}[degree of morphism]
+  The \emph{degree} of \(\phi\) is
+  \[
+    \deg \phi = [K(C_1): \phi^*K(C_2)],
+  \]
+  the degree of the field extension. \(\phi\) is \emph{separable} if the corresponding field extension is separable (which is automatic if \(\ch K = 0\)).
+\end{definition}
+
+\begin{fact}
+  \(\deg \phi = 1\) if and only if \(\phi\) is an isomorphism.
+\end{fact}
+
+\begin{definition}[ramification index]\index{ramification index}
+  Suppose \(P \in C_1, Q \in C_2\) are such that \(\phi(P) = Q\). Let \(t \in K(C_2)\) be an uniformiser at \(Q\). The \emph{ramification index} of \(\phi\) at \(P\) is
+  \[
+    e_\phi(P) = \ord_P(\phi^*t).
+  \]
+\end{definition}
+
+It is independent of the choice of uniformiser and is always greater than \(0\).
+ 
+\begin{theorem}
+  Let \(\phi: C_1 \to C_2\) be a nonconstant morphism of smooth projective curves. Then
+  \[
+    \sum_{P \in \phi^{-1}(Q)} e_\phi(P) = \deg \phi
+  \]
+  for all \(Q \in C_2\).
+
+  Moreover, if \(\phi\) is separable then \(e_\phi(P) = 1\) for all but finitely many \(P \in C_1\).
+\end{theorem}
+
+In particular,
+\begin{enumerate}
+\item \(\phi\) is surjective (note that we are working over algebraically closed fields).
+\item \(\# \phi^{-1}(Q) \leq \deg \phi\) with equality for all but finitely many \(Q \in C_2\).
+\end{enumerate}
+
+\begin{remark}
+  Let \(C\) be an algebraic curve. A rational map is given by
+  \begin{align*}
+    \phi: C &\rational \P^n \\
+    P &\mapsto (f_0(P) : f_1(P) : \cdots : f_n(P))
+  \end{align*}
+  where \(f_0, \dots, f_n \in K(C)\) not all zero.
+\end{remark}
+
+\begin{fact}
+  If \(C\) is smooth then \(\phi: C \rational \P^n\) is a morphism.
+\end{fact}
+
+\section{Weierstrass equations}
+
+We assume \(K\) is a perfect field with algebraic closure \(\overline K\) in this chapter.
+
+\begin{definition}[elliptic curve]\index{elliptic curve}
+  An \emph{elliptic curve} \(E\) over \(K\) is a smooth projective curve of genus \(1\) defined over \(K\) with a specified \(K\)-rational point \(0_E\).
+\end{definition}
+
+\begin{eg}
+  \(\{X^3 + pY^3 + p^2Z^3 = 0\} \subseteq \P^2\) is smooth but is \emph{not} an elliptic curve over \(\Q\) since it has no \(\Q\)-rational pionts.
+\end{eg}
+
+\begin{theorem}
+  Every elliptic curve \(E\) is isomorphic over \(K\) to a curve in Weierstrass form via an isomorphism taking \(0_E\) to \((0 : 1 : 0)\).
+\end{theorem}
+
+\begin{remark}
+  Proposition 2.7 treated the special case \(E\) is a smooth plane cubic and \(0_E\) is a point of inflection.
+\end{remark}
+
+\begin{fact}
+  If \(D \in \Div(E)\) is defined over \(K\) (i.e. it is fixed by \(\operatorname{Gal}(\overline K/K)\)) then \(\mathcal L(D)\) has a basis in \(K(E)\) (not just \(\overline K(E)\).
+\end{fact}
+
+\begin{proof}
+  We have \(\mathcal L(2 \cdot 0_E) \subseteq \mathcal L(3 \cdot 0_E)\) with dimension \(2\) and \(3\) respectively. Pick basis \(1, x\) for \(\mathcal L(2 \cdot 0_E)\) and \(1, x, y \in \mathcal L(3 \cdot 0_E)\). Note that this implies \(\ord_{0_E}(x) = 2, \ord_{0_E}(y) = 3\). The seven elements \(1, x, y, x^2, xy, x^3, y^2\) in the \(6\)-dim vector space \(\mathcal L(6 \cdot 0_E)\) must satisfy a dependence relation. Leaving out \(x^3\) or \(y^2\) gives a basis for \(\mathcal L(6 \cdot 0_E)\) since each term has a different order of pole at \(0_E\), so coefficients of \(x^3\) and \(y^2\) are nonzero. Rescaling \(x\) and \(y\), we get
+  \[
+    y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6.
+  \]
+  By the fact above, we can take \(a_i \in K\).
+
+  Let \(E'\) be the projective closure of the curve defined by Weierstrass form. There is a morphism
+  \begin{align*}
+    \phi: E &\to E' \\
+    p &\mapsto (x(P) : y(P) : 1)
+  \end{align*}
+  Left to show \(\phi\) is an isomorphism, i.e.\ \(\deg \phi = 1\). We have
+  \begin{align*}
+    [K(E) : K(x)] &= \deg (x: E \to \P^1) = \ord_{0_E}(\frac{1}{x}) = 2 \\
+    [K(E) : K(y)] &= \deg (y: E \to \P^1) = \ord_{0_E}(\frac{1}{y}) = 3
+  \end{align*}
+  So by tower law
+  \[
+    [K(E): K(x, y)] = 1.
+  \]
+  As \(K(x, y) = \phi^* K(E')\) so \(\deg \phi = 1\) so \(\sigma\) is birational. If \(E'\) is singular then (? genus 0) \(E\) and \(E'\) are both rational. So \(E'\) is nonsingular and \(\phi^{-1}\) is a morphism.
+
+  To find the image of \(0_E\), we cannot simply plug \(0_E\) in as \(x, y\) both have poles at infinity. Instead, we multiply through to get
+  \begin{align*}
+    \phi: E &\to E' \\
+    P &\mapsto (\frac{x}{y} (P) : 1 : \frac{1}{y} (P))
+  \end{align*}
+  so \(\phi(0_E) = (0 : 1 : 0)\).
+\end{proof}
+
+\begin{proposition}
+  Let \(E\) and \(E'\) be elliptic curves over \(K\) in Weierstrass form. Then \(E \cong E'\) over \(K\) if and only if the equations are related by a change of variables
+  \begin{align*}
+    x &= u^2 x' + r \\
+    y &= u^3 y' + u^2 s x' + t
+  \end{align*}
+  where \(u, r, s, t \in K, u \neq 0\).
+\end{proposition}
+
+\begin{proof}
+  We check the process of putting a single elliptic curve in Weierstrass form and see what choices we can make. Suppose
+  \begin{align*}
+    \langle 1, x \rangle &= \mathcal L(2 \cdot 0_E) = \langle 1, x' \rangle \\
+    \langle 1, x, y \rangle &= \mathcal L(3 \cdot 0_E) = \langle 1, x', y' \rangle
+  \end{align*}
+  so
+  \begin{align*}
+    x &= \lambda x' + r \\
+    y &= \mu y' + \sigma x' + t
+  \end{align*}
+  where \(\lambda, r, \mu, \sigma, t \in K, \lambda, \mu \neq 0\). Looking at coefficients of \(x^3\) and \(y^2\), must have \(\lambda^3 = \mu^2\) so \((\lambda, \mu) = (u^2, u^3)\) for some \(u \in K^*\). Finally put \(s = \sigma/u^2\).
+\end{proof}
+
+A Weierstrass equation defines an elliptic curve if and only if it defines a smooth curve, if and only if \(\Delta(a_1, \dots a_6) \neq 0\) where \(\Delta \in \Z[a_1, \dots, a_6]\) is a certain polynomial. Details can be found out in the lecture handout.
+
+If \(\ch K \neq 2, 3\) then we can reduce the curve to
+\[
+  E: y^2 = x^3 + ax + b
+\]
+with discriminant
+\[
+  \Delta = -16(4a^3 + 27b^2).
+\]
+
+\begin{corollary}
+  Assume \(\ch k \neq 2, 3\). Elliptic curves
+  \begin{align*}
+    E: y^2 &= x^3 + ax + b \\
+    E': y^2 &= x^3 + a'x + b'
+  \end{align*}
+  are isomorphic over \(K\) if and only if
+  \begin{align*}
+    a' &= u^4a \\
+    b' &= u^6b
+  \end{align*}
+  for some \(u \in K^*\).
+\end{corollary}
+
+\begin{proof}
+  \(E\) and \(E\)' are related as in proposition 3.2 with \(r = s = t = 0\).
+\end{proof}
+
+\begin{definition}[\(j\)-invariant]\index{\(j\)-invariant}
+  The \emph{\(j\)-invariant} of an elliptic curve \(E\) is
+  \[
+    j(E) = \frac{1728 (4a^3)}{4a^3 + 27b^2}.
+  \]
+\end{definition}
+
+This is just the ratio \((a^3 : b^2)\) up to a Möbius transform.
+
+\begin{corollary}
+  If \(E \cong E'\) then \(j(E) = j(E')\) and the converse holds if \(K = \overline K\).
+\end{corollary}
+
+\begin{proof}
+  \(E \cong E'\) if and only if \(a' = u^4 a, b' = u^6 b\) for some \(u \in K^*\), which implies that \((a^3: b^2) = ((a')^3 : (b')^2)\), which holds if and only if \(j(E) = j(E')\). If \(K = \overline K\) then we can extract roots and the converse of the second implication holds.
+\end{proof}
+
+\section{The group law}
+
+Let \(E \subseteq \P^2\) be a smooth plane cubic and \(0_E \in E(K)\). \(E\) meets each line in 3 points, counted with multiplicity. Given \(P, Q \in E\), let \(S\) be the third point of intersection of \(PQ\) and \(E\). Let \(R\) be the third point of intersection of \(0_ES\) and \(E\). We define
+\[
+  P \oplus Q = R.
+\]
+If \(P = Q\) then take the tangent at \(P\) instead of \(PQ\). This is the ``chord and tangent process''.
+
+\begin{theorem}
+  \((E, \oplus)\) is an abelian group.
+\end{theorem}
+
+Notation: \(E = E(\overline K)\).
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(P \oplus Q = Q \oplus P\).
+  \item \(0_E\) is the identity.
+  \item For inverse, let \(S\) be the point of intersection of \(T_{0_E}E\) and \(E\), \(Q\) the third point of intersection of \(PS\) and \(E\). Then \(P \oplus Q = 0_E\).
+  \item Associativity is much harder, and we'll prove it using divisors.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[linearly equivalent divisor]\index{divisor!lienarly equivalent}
+  \(D_1, D_2 \in \Div(E)\) are \emph{linearly equivalent}, written \(D_1 \sim D_2\), if exists \(f \in \overline K(E)^*\) such that \(\div (f) = D_1 - D_2\).
+\end{definition}
+
+This is an equivalence relation and we define
+
+\begin{definition}[Picard group]\index{Picard group}
+  The \emph{Picard group} is defined to be
+  \[
+    \Pic(E) = \Div (E)/\sim.
+  \]
+\end{definition}
+
+\begin{definition}
+  We let
+  \[
+    \Div^0(E) = \ker (\deg: \Div(E) \to \Z)
+  \]
+  and
+  \[
+    \Pic^0(E) = \Div^0(E)/\sim.
+  \]
+\end{definition}
+
+\begin{proposition}
+  Let
+  \begin{align*}
+    \phi: E &\to \Pic^0(E) \\
+    P &\mapsto [P - 0_E]
+  \end{align*}
+  then
+  \begin{enumerate}
+  \item \(\phi(P \oplus Q) = \phi(P) + \phi(Q)\).
+  \item \(\phi\) is a bijection.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(\ell\) be the line \(PQ\) and \(m\) the curve \(0_ES\). Then
+    \[
+      \div (\frac{\ell}{m})
+      = (P) + (S) + (Q) - (R) - (S) - (0_E)
+      = (P) + (Q) - (P \oplus Q) - (0_E)
+    \]
+    so \((P) + (Q) \sim (P \oplus Q) + (0_E)\) and so
+    \[
+      (P) - (0_E) + \dots
+    \]
+    so \(\phi(P \oplus Q) = \phi(P) + \phi(Q)\).
+  \end{enumerate}
+\end{proof}
+
+
+
+
+
+
 
 \printindex
 \end{document}

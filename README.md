@@ -52,6 +52,7 @@ Currently, the repository contains the following course notes.
   * Algebraic Number Theory
   * Elliptic Curves
   * Mapping Class Groups
+  * Lie Algebras and Their Representations
 * Incomplete
   * Differential Geometry
   * Combinatorics

@@ -10,17 +10,11 @@
 
 \input{header}
 
-\theoremstyle{definition}
-\newtheorem*{observation}{Observation}
-
 \DeclareMathOperator{\Frac}{Frac}
-\renewcommand*{\O}{\mathcal{O}}
-\DeclareMathOperator{\n}{N}
-\DeclareMathOperator{\disc}{disc}
-\DeclareMathOperator{\Cl}{Cl} % ideal class group
-\newcommand*{\red}[1]{\overline{#1}} % reduction mod
-\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Div}{Div}
 
+\renewcommand*{\O}{\mathcal{O}}
+\DeclareMathOperator{\Cl}{Cl} % ideal class group
 
 \begin{document}
 
@@ -98,7 +92,7 @@ We define \(v(x) = n\) when \(x = \pi^n u\) for some \(n \in \Z, u \in A^\times\
 
 \begin{proof}\leavevmode
   \begin{enumerate}
-  \item \(\pi^n u \cdot \pi^m \cdot v = \pi^{n + m} uv\).
+  \item \(\pi^n u \cdot \pi^m v = \pi^{n + m} uv\).
   \item wlog \(x = \pi^a u, y = \pi^{a + b} v\) where \(a \in \Z, b \geq 0\). Then
     \[
       x + y = \pi^a(u + v \pi^ b).
@@ -131,7 +125,7 @@ Thus if we have a DVR then we have a valuation. The converse also holds: if \(w:
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item let \(p\) be a prime, \(v: \Q^\times \to \Z\) defined by
+  \item Let \(p\) be a prime, \(v: \Q^\times \to \Z\) defined by
     \[
       v(p^n \frac{r}{s}) = n
     \]
@@ -162,7 +156,7 @@ then \(\gamma \in A\). Equivalently, for all \(\gamma \in K\), \(A[\gamma]\) is 
 
 \begin{proof}\leavevmode
   \begin{itemize}
-  \item \(2 \implies 1\): suppose \(\gamma \in K - A\) and there exist \(a_1, \dots a_n \in A\) such that
+  \item \(2 \implies 1\): suppose \(\gamma \in K - A\) and there exist \(a_1, \dots, a_n \in A\) such that
     \[
       \gamma^n + a_1 \gamma^{n - 1} + \dots + a_n = 0.
     \]
@@ -200,6 +194,456 @@ then \(\gamma \in A\). Equivalently, for all \(\gamma \in K\), \(A[\gamma]\) is 
       \gamma \mathfrak m = \frac{\beta}{\alpha} \mathfrak m \subseteq \frac{1}{\alpha} \mathfrak m^{n - 1} \mathfrak m \subseteq \frac{1}{\alpha} \mathfrak m^n \subseteq A.
     \]
     If \(\gamma \mathfrak m \subseteq \mathfrak m\) then \(A[\gamma] \embed \End_A(\mathfrak m)\) as \(A\)-modules. \(\End_A(\mathfrak m)\) is a fg \(A\)-module as \(A\) is Noetherian. So \(A\) integrally closed in \(K\) implies that \(\gamma \in A\). So we must have \(\gamma \mathfrak m = A\). Hence \(\mathfrak m = \gamma^{-1} A\). So \(\pi = \gamma^{-1} \in A\) and \(\pi\) generates \(\mathfrak m\).
+
+    Since \(A\) is a local ring, we have
+    \begin{align*}
+      A &= A^\times \cup \mathfrak m \\
+        &= A^\times \cup \pi A \\
+        &= \bigcup_{i \geq 0} \pi^i A^\times \cup I
+    \end{align*}
+    where \(I = \bigcap_{i \geq 0} \pi^i A\). \(I = 0\) as \(I\) is fg (as \(A\) is Noetherian) and \(\pi I = I\), so we can apply Nakayama's lemma. Hence
+    \[
+      A = \{0\} \cup \bigcup_{i \geq 0} \pi^iA^\times
+    \]
+    and \(A\) is a DVR.
+  \end{itemize}
+\end{proof}
+
+\begin{definition}[multiplicative subset]\index{multiplicative subset}
+  Let \(A\) be a ring. A \emph{multiplicative subset} of \(A\) is a subset \(S \subseteq A\) satisfying
+  \begin{enumerate}
+  \item \(1 \in S\),
+  \item for all \(x, y \in S\), \(xy \in S\).
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[localisation of ring]\index{localisation}
+  Let \(S \subseteq A\) be a multiplicative subset. We define \(S^{-1} A\) to be the set of equivalence classes of pairs \((a, s) \in A \times S\) under the relation \((a, x) \sim (a', s')\) if there exists \(t \in S\) such that \(t(s'a - sa') = 0\).
+
+  We write \(\frac{a}{s} \in S^{-1} A\) for the equivalence class of \((a, s)\).
+\end{definition}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(S^{-1}A\) is well-defined and admits a ring structure.
+  \item There is a ring homomorphism
+    \begin{align*}
+      A &\to S^{-1} A \\
+      a &\mapsto \frac{a}{1}
+    \end{align*}
+    with kernel \(\{a \in A: \text{ exists } s \in S, sa = 0\}\).
+  \item If \(A\) is a domain and \(0 \notin S\) then \(S^{-1}A\) may be identified with the subring \(\{\frac{a}{s}: a \in A, s \in S\}\) of \(\Frac A = (A - \{0\})^{-1} A\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(\sim\) is an equivalence relation: it is reflexive and symmetric by definition. For transitivity, suppose \((a, s) \sim (a', s') \sim (a'', s'')\), then exist \(t, t' \in S\) such that \(tas' = ta's, t'a's'' = t'a''s'\). Then
+    \[
+      tt's'as'' = tt's''a's = tt'a''s's
+    \]
+    i.e.
+    \[
+      tt's'(as'' - a''s) = 0.
+    \]
+
+    To make \(S^{-1}A\) a ring, the zero element is \(\frac{0}{1}\), the multiplicative identity is \(\frac{1}{1}\), and addition and multiplication are defined as
+    \begin{align*}
+      \frac{a}{s} + \frac{a'}{s'} &= \frac{as' + a's}{ss'} \\
+      \frac{a}{s} \cdot \frac{a'}{s'} &= \frac{aa'}{ss'}
+    \end{align*}
+    Check the ring axioms are satisfied.
+  \item \(f: A \to S^{-1}A\) is a ring homomorphism by definition.
+    \[
+      \ker f = \{a \in A: \frac{a}{1} = \frac{0}{1}\} = \{a \in A: \text{ exists } s \in S \text{ such that } sa = 0\}.
+    \]
+  \item Now we suppose \(A\) is a domain. Recall that
+    \[
+      \Frac A = \{(a, s) \in A \times (A - \{0\})\} / \bullet
+    \]
+    where \((a, s) \bullet (a', s')\) if \(as' = a's\). We need to check that if \(S \subseteq A\) if a multiplicative subset with \(0 \notin S\) then \((a, s) \sim (a', s')\) implies \((a, s) \bullet (a', s')\).
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[localisation of module]\index{localisation}
+  Let \(S \subseteq A\) to be a multiplicative subset and let \(M\) be an \(A\)-module. Then we define \(S^{-1}M\) to be the set of equivalence classes in \(M \times S\) for the relation \((m, s) \sim (m', s')\) if there exists \(t \in S\) such that \(t(ms - m's) = 0\).
+
+  We write \(\frac{m}{s}\) for the equivalence class of \((m, s)\).
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item \(S^{-1}M\) is an \(S^{-1}A\)-module via
+    \begin{align*}
+      \frac{a}{s} \cdot \frac{m}{s'} &= \frac{am}{ss'} \\
+      \frac{a}{s} + \frac{a'}{s'} &= \frac{as' + a's}{ss'}
+    \end{align*}
+  \item If \(f: M \to N\) is an \(A\)-module homomorphism then there is a homomorphism
+    \begin{align*}
+      S^{-1}f: S^{-1}M &\to S^{-1}N \\
+      \frac{m}{s} &\mapsto \frac{f(m)}{s}
+    \end{align*}
+  \item \(S^{-1}\) is a functor from the category of \(A\)-modules to the category of \(S^{-1}A\)-modules.
+  \end{enumerate}
+\end{ex}
+
+\begin{lemma}
+  Let
+  \[
+    \begin{tikzcd}
+      M' \ar[r, "f"] & M \ar[r, "f'"] & M''
+    \end{tikzcd}
+  \]
+  be an exact sequence of \(A\)-modules. Then
+  \[
+    \begin{tikzcd}
+      S^{-1}M' \ar[r, "S^{-1}f"] & S^{-1}M \ar[r, "S^{-1}f'"] & S^{-1}M''
+    \end{tikzcd}
+  \]
+  is also exact.
+\end{lemma}
+
+\begin{proof}
+  \(f' \compose f = 0\) so \(S^{-1}f' \compose S^{-1} f = 0\). For the other inclusion, let \(\frac{m}{s} \in \ker S^{-1} f'\), i.e.\ \(\frac{f'(m)}{s} = 0\), i.e.\ there exists \(s' \in S\) such that \(0 = s'f'(m) = f'(s'm)\) so \(s'm \in \ker f' = \im f\). Hence there exists \(m' \in M'\) such that \(f(m') = s'm\). Then
+  \[
+    S^{-1}f (\frac{m'}{ss'}) = \frac{f(m')}{ss'} = \frac{s'm}{ss'} = \frac{m}{s}.
+  \]
+\end{proof}
+
+\begin{corollary}
+  If \(f\) is surjective (injective, resp) then so is \(S^{-1} f\).
+\end{corollary}
+
+Let \(I \subseteq A\) be an ideal. Then \(I \embed A\) is an injective homomorphism of \(A\)-modules. Hence \(S^{-1}I \embed S^{-1}A\) is an injective homomorphism of \(S^{-1}A\)-module. Hence \(S^{-1}I\) may be identified with an ideal of \(S^{-1}A\). It's the ideal
+\[
+  S^{-1}A \cdot I = \{\frac{x}{s}: x \in I, s \in S\} \subseteq S^{-1}A.
+\]
+
+\begin{proposition}
+  Let \(S \subseteq A\) be a multiplicative subset. Then there is a bijection between the following two sets:
+  \begin{enumerate}
+  \item prime ideals \(P \subseteq A\) such that \(P \cap S = \emptyset\),
+  \item prime ideal \(Q \subseteq S^{-1}A\),
+  \end{enumerate}
+  given by \(P \mapsto S^{-1}P, Q \mapsto f^{-1}(Q)\) where \(f: A \to S^{-1}A\) is the localisation map.
+\end{proposition}
+
+\begin{proof}
+  Check the maps are well-defined: if \(1 \in S^{-1}P\) then \(\frac{1}{s} = \frac{x}{s}\) for some \(x \in P, s \in S\) so exists \(t \in S\) such that \(t(s - x) = 0\). Then \(ts = tx \in P\) so \(t \in P\) or \(s \in P\).
+
+  If \(\frac{a}{s}, \frac{a'}{s'} \in S^{-1}A\) and \(\frac{aa'}{ss'} \in S^{-1}P\) then \(\frac{aa'}{ss'} = \frac{x}{t}\). Hence exists \(t' \in S\) such that
+  \[
+    tt' aa' = t'ss'x \in P.
+  \]
+  Since \(P\) is prime, \(aa' = P\) so \(a \in P\) or \(a' \in P\). Hence \(\frac{a}{s}\) or \(\frac{a'}{s'} \in S^{-1}P\). Thus \(S^{-1}P\) is prime.
+
+  If \(Q \subseteq S^{-1}A\) then \(S^{-1}A/Q\) is a non-zero domain. Then \(A/f^{-1}(Q) \embed S^{-1}A/Q\) so \(A/f^{-1}(Q)\) is also a non-zero domain so \(f^{-1}(Q)\) is a prime ideal (this in fact follows from the fact that pullback of any prime ideal is prime).
+
+  It is left as an exercise to check the maps in the statement of the proposition are mutually inverse bijections.
+\end{proof}
+
+\begin{corollary}
+  Let \(A\) be a ring and \(P \subseteq A\) a prime ideal. Then
+  \begin{enumerate}
+  \item \(S = A - P\) is a multiplicative subset of \(A\).
+  \item \(S^{-1}A\) is a local ring with unique maximal ideal \(S^{-1} P\).
+  \end{enumerate}
+  We usually write \(A_P\) for \((A - P)^{-1}A\).
+\end{corollary}
+
+For example \(\Z_{(p)} = (\Z - p\Z)^{-1}\Z\).
+
+\begin{proposition}
+  Let \(A\) be a Noetherian domain. Then TFAE:
+  \begin{enumerate}
+  \item For every non-zero prime ideal \(P \subseteq A\), \(A_P\) is a DVR.
+  \item \(A\) is integrally closed in \(K = \Frac A\) and every non-zero prime ideal is maximal.
+  \end{enumerate}
+\end{proposition}
+
+Consequently, for any \(P\) there is the valuation \(v_P: K^\times \to \Z\) associated to \(A_P\).
+
+\begin{definition}[Dedekind domain]\index{Dedekind domain}
+  Any ring satisfying the conditions is called a \emph{Dedekind domain}.
+\end{definition}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \implies 2\): wlog we can assume \(A\) does have non-zero prime ideals. Suppose given a relation
+    \[
+      a^n + a_1 a^{n - 1} + \dots + a_n = 0
+    \]
+    where \(a \in A, a_i \in A\). Then \(A_P\) is a DVR implies that \(A_P\) is integrally closed in \(K\) so \(a \in A_P\) for all \(P\). Therefore for all \(P\) we can find \(x_P \in A, s_P \in A - P\) such that \(a = \frac{x_P}{s_P}\) in \(K\). In particular \(s_Pa \in A\).
+
+    The ideal
+    \[
+      I = (s_P: P \subseteq A \text{ non-zero prime ideal})
+    \]
+    is the unit ideal, since it is not contained in any maximal ideal of \(A\). Therefore there exists element \(t_P \in A\), with only finitely many non-zero, such that
+    \[
+      1 = \sum_P t_P s_P.
+    \]
+    Then
+    \[
+      a = \sum_P t_P s_Pa \in A.
+    \]
+
+    Let \(P \subseteq Q\) be non-zero prime ideals of \(A\), with \(Q\) maximal. Then \(PA_Q \subseteq QA_Q\) are non-zero prime ideals of \(A_Q\), a DVR. Hence \(PA_Q = QA_Q\) and \(P = Q\).
+  \item \(2 \implies 1\): Again we can assume that \(A\) has a non-zero prime ideal \(P\). We must show \(A_P\) is a DVR, or equivalently that \(A_P\) is integrally closed in \(K\) and has a unique non-zero prime ideal.
+
+    Suppose given a relation
+    \[
+      \left( \frac{a}{s} \right)^n + \frac{a_1}{s_1} \left( \frac{a}{s} \right)^{n - 1} + \dots + \frac{a_n}{s_n} = 0
+    \]
+    where \(a, a_1, \dots, a_n \in A, s_1, \dots, s_n \in A - P, s \in A - \{0\}\). Multiply through by \((s_1 \cdots s_n)^n\),
+    \[
+      \left( \frac{as_1 \cdots s_n}{s} \right)^n + \left( \frac{as_1 \cdots s_n}{s} \right)^{n - 1} a_1 s_2 \cdots s_n + \dots + s_1s_2 \cdots a_n = 0.
+    \]
+    As \(A\) is integrally closed, \(\frac{as_1 \cdots s_n}{s} \in A\) so
+    \[
+      \frac{a}{s} = \frac{as_1 \cdots s_n}{s} \cdot \frac{1}{s_1 \cdots s_n} \in A_P
+    \]
+    so \(A_P\) is integrally closed.
+
+    Let \(Q \subseteq A_P\) be a non-zero prime ideal. Then eixsts \(Q' \subseteq P\) such that \(Q'A_P = Q\). By assumption we must have \(Q' = P\) and hence \(Q = PA_P\).
+  \end{itemize}
+\end{proof}
+
+\begin{definition}[fractional ideal]\index{fractional ideal}
+  Let \(A\) be a domain, \(K = \Frac A\). A \emph{fractional ideal} of \(A\) is a fg \(A\)-submodule of \(K\).
+\end{definition}
+
+If \(I, J \subseteq K\) are fractional ideals then
+\begin{align*}
+  I + J &= \{x + y: x \in I, y \in J\} \\
+  IJ &= \{xy: x \in I, y \in J\} \\
+\end{align*}
+are also fractional ideals. On the other hand,
+\[
+  (I: J) = \{x \in K: xJ \subseteq I\}
+\]
+is an \(A\)-submodule of \(K\) but is in general not fg.
+
+\begin{lemma}
+  Let \(A\) be a Noetherian domain, \(S \subseteq A\) a multiplicative subset. Then
+  \begin{enumerate}
+  \item if \(I, J\) are fractional ideals then \(S^{-1}I\) is a fractional ideal of \(S^{-1}A\) and
+    \begin{align*}
+      S^{-1}(I + J) &= S^{-1}I + S^{-1}J \\
+      S^{-1}(IJ) &= S^{-1}I \cdot S^{-1}J
+    \end{align*}
+  \item if \(I, J\) are fractional ideals of \(A\) and \(J\) is non-zero then \((I : J)\) is a fractional ideal of \(A\) and
+    \[
+      S^{-1}(I : J) = (S^{-1}I : S^{-1}J).
+    \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Exercise.
+  \item If \(a \in A - \{0\}\) then
+    \[
+      (I : (a)) = \{x \in K: x(a) \subseteq I\} = \{x \in K: xa \in I\} = a^{-1}I.
+    \]
+    In partuclar \((I : (a))\) is fg and hence a fractional ideal.
+
+    In general, write \(J = (a_1, \dots, a_n)\) where \(a_i \in K^\times\). Then
+    \[
+      (I : J) = \{x \in K: \text{for all } i, xa_i \in I\} = \bigcap_{i = 1}^n a_i^{-1}I.
+    \]
+    In paricular \((I : (a)) \subseteq (I : (a_1))\). Since \(A\) is Noetherian, any submodule of \((I : (a_1))\) is fg and hence \((I : J)\) is a fractional ideal.
+
+    To show \(S^{-1}(I : J) = (S^{-1}I : S^{-1}J)\), we have
+    \begin{align*}
+      \text{LHS} &= S^{-1} \bigcap_{i = 1}^n a_i^{-1} I \\
+      \text{RHS} &= \bigcap_{i = 1}^n a_i^{-1} S^{-1} I = \bigcap_{i = 1}^n S^{-1} (a_i^{-1} I)
+    \end{align*}
+    so in fact it's enough to show that if \(I, J \subseteq K\) are fractional ideals of \(A\) then
+    \[
+      S^{-1}(I \cap J) = (S^{-1}I) \cap (S^{-1}J).
+    \]
+    We certainly have \(S^{-1}(I \cap J) \subseteq (S^{-1}I) \cap (S^{-1}J)\). Suppose \(\frac{x}{s} = \frac{y}{t}\) where \(x \in I, y \in J, s, t \in S\) then \(xt = sy \in I \cap J\) and
+    \[
+      \frac{x}{s} = \frac{xt}{st} \in S^{-1}(I \cap J).
+    \]
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+  Let \(A\) be a Dedekind domain and let \(\Div A\) be the set of non-zero fractional ideals of \(A\). Then \(\Div A\) forms a group under the multiplication of fractional ideals.
+\end{proposition}
+
+\begin{proof}
+  \(A = (1)\) is a multiplicative identity. Must show that for any non-zero fractional ideal \(I\),
+  \[
+    I (A : I) = A.
+  \]
+  Observe that if \(P \subseteq A\) is a non-zero prime ideal then \(IA_P = (\pi_P^i)\) as \(A_P\) is a DVR, so \((A_P: IA_P) = (\pi_P^{-i})\) so
+  \[
+    \text{LHS}_P = IA_P (A_P: IA_P) = A_P = \text{RHS}_P
+  \]
+  so it is enough to show that if \(I, J\) are fractional ideals of \(A\) such that \(IA_P = JA_P\) for all \(P\) then \(I = J\). In fact, we are going to show if \(IA_P \subseteq JA_P\) then \(I \subseteq J\). Suppose \(IA_P \subseteq JA_P\) for any non-zero prime ideal \(P \subseteq A\). Let \(x \in I\). Then \(x \in IA_P \subseteq JA_P\) so we can write \(x = \frac{y_P}{s_P}\) where \(y_P \in J, s_P \in A - P\). Now we use
+  \[
+    (s_P: P \subseteq A \text{ non-zero prime ideal}) = (1)
+  \]
+  to write \(1 = \sum_P s_P t_P\) where \(t_P \in A\) and only finitely many are non-zero. Then
+  \[
+    x = \sum_P t_Ps_P x \in J.
+  \]
+\end{proof}
+
+Observe that for any \(P\), there is a homomorphism
+\begin{align*}
+  \Div A &\to \Div A_P \\
+  I &\mapsto IA_P
+\end{align*}
+But \(\Div A_P \cong \Z\) canonically as every non-zero fractional ideal of \(A_P\) has the form \((\pi^i)\) for some \(i \in \Z\).
+
+We can define a homomorphism \(v_P: \Div A \to \Z\) by \(v_P(I) = v_P(x)\) where \(IA_P = (x)\). In particular, for any \(x \in K^\times\), \(v_P((x)) = v_P(x)\). Note that \(v_P\) is surjective since \(P A_P = (\pi)\) as \(v_P(P) = 1\) for any \(P\). Taking the product over all non-zero prime ideals, we get a homomorphism
+\[
+  \prod_P v_P: \Div A \to \prod_P \Z.
+\]
+This is injective as we showed that for any \(I, J \in \Div A\), \(I = J\) if and only if for all \(P\), \(I A_P = J A_P\). Now we characterise the image.
+
+\begin{lemma}
+  For any \(I \in \Div A\), the set \(\{P: v_P(I) \neq 0\}\) is finite. 
+\end{lemma}
+
+In other words, \(\prod_P v_P\) takes values in \(\bigoplus_P \Z \subseteq \prod_P \Z\).
+
+\begin{proof}
+  Suppose \(I = (\frac{a_1}{b_1}, \dots, \frac{a_n}{b_n})\) where \(a_i \in A, b_i \in A - \{0\}\). Let \(b = b_1 \cdots b_n\). Then \(J = bI\) is an ideal of \(A\) and
+  \[
+    v_P(I) = v_P(J) - v_P((b)).
+  \]
+  So it's enough to prove the lemma in the case \(I \subseteq A\) is an ideal.
+
+  Let \(\alpha \in I - \{0\}\). Then \((\alpha) \subseteq I\) and for any non-zero prime ideal \(P \subseteq A\), \(v_P(\alpha) \geq v_P(I) \geq 0\) so in fact we can assume \(I = (\alpha)\) is principal.
+
+  Now we observe that \(v_P(\alpha) > 0\) if and only if \(\alpha \in P A_P\) if and only if \(\alpha \in P\). So it's enough to show that there are only finitely many \(P\)'s such that \(\alpha \in P\).
+
+  Suppose for contradiction there are infinitely many \(P_1, P_2, \dots\) such that \(\alpha \in P_i\). Define \(J_i = P_1 \cap \cdots \cap P_i\). Then
+  \[
+    J_1 \supseteq J_2 \supseteq \cdots \supseteq (\alpha)
+  \]
+  so
+  \[
+    \alpha J_1^{-1} \subseteq \alpha J_2^{-1} \subseteq \cdots \subseteq A.
+  \]
+  This is an ascending chain of ideals of \(A\) so there exists \(n \geq 1\) such that \(\alpha J_n^{-1} = \alpha J_{n + 1}^{-1}\). Hence \(J_n = J_{n + 1}\), i.e.
+  \[
+    P_1 \cap \cdots \cap P_n = P_1 \cap \cdots \cap P_n \cap P_{n + 1}.
+  \]
+  Choose \(x_i \in P_i - P_{n + 1}\) for \(i \leq n\). Then
+  \[
+    x_1 \cdots x_n \in P_1 \cap \cdots \cap P_n = P_1 \cap \cdots \cap P_n \cap P_{n + 1}.
+  \]
+  Since \(P_{n + 1}\) is prime, we have \(x_i \in P_{n + 1}\) for some \(i \leq n\). Absurd.
+\end{proof}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(\prod_P v_P: \Div A \to \bigoplus_P \Z\) is an isomorphism.
+  \item For any \(I \in \Div A\),
+    \[
+      I = \prod_I P^{v_P(I)}
+    \]
+    so we have unique factorisation of fractional ideals.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item It's enough to show
+    \[
+      v_Q(P) =
+      \begin{cases}
+        1 & P = Q \\
+        0 & \text{otherwise}
+      \end{cases}
+    \]
+    as then \((\delta_{PQ})_Q\) are in the ring and they generate \(\bigoplus_P \Z\). \(v_P(P) = 1\) by definition as \(P A_P\) is the maximal ideal of \(A_P\). If \(Q \neq P\) then we must show \(P A_Q = A_Q\): if \(P A_Q \neq A_Q\) then \(P A_Q \subseteq Q A_Q\) so \(P \subseteq Q\). This is impossible as both \(P\) and \(Q\) are maximal ideals.
+  \item \(I = \prod_P P^{v_P(I)}\) if and only if for all \(Q\),
+    \[
+      v_Q(I) = v_Q(\prod_P P^{v_P(I)}).
+    \]
+    As \(v_Q(P) = \delta_{PQ}\), RHS equals to \(v_Q(I)\).
+  \end{enumerate}
+\end{proof}
+
+\section{Complete DVRs}
+
+\begin{definition}[inverse system, inverse limit]\index{inverse limit}
+  Suppose given groups \(A_i\) and homomorphisms \(f_i: A_{i + 1} \to A_i\) for all \(i \geq 1\)
+  \[
+    \begin{tikzcd}
+      A_1 & A_2 \ar[l, "f_1"'] & A_3 \ar[l, "f_2"'] & \cdots \ar[l, "f_3"']
+    \end{tikzcd}
+  \]
+  we call such a collection an \emph{inverse system}. Its \emph{inverse limit} is
+  \[
+    \varprojlim_i A_i = \{(a_i) \in \prod_{i = 1}^\infty A_i: f_i(a_{i + 1}) = a_i \text{ for all } i \geq 1\} \subseteq \prod_{i = 1}^\infty A_i.
+  \]
+\end{definition}
+
+This is a group. If the \(A_i\)'s (\(f_i\)'s respectively) are abelian groups/rings (homomorphisms/ring homomorphisms) then so is \(\varprojlim_i A_i\).
+
+Suppose \(A\) is a DVR with uniformiser \(\pi\). Then we can make an inverse system
+\[
+  \begin{tikzcd}
+    A/(\pi^1) & A/(\pi^2) \ar[l] & A/(\pi^3) \ar[l] & \cdots \ar[l]
+  \end{tikzcd}
+\]
+with maps the natural quotient maps. There's a homomorphism \(A \to A/(\pi^i)\), hence \(A \to \prod_{i = 1}^\infty A/(\pi^i)\) which takes values in \(\varprojlim_i A/(\pi^i)\).
+
+\begin{definition}[complete]\index{complete DVR}
+  We say \(A\) is \emph{complete} if the homomorphism
+  \[
+    A \to \varprojlim_i A/(\pi^i)
+  \]
+  is an isomorphism.
+\end{definition}
+
+The kernel of this homomorphism is \(\bigcap_{i \geq 1} (\pi^i) = 0\) so \(A\) is complete if and only if the map is surjective.
+
+\begin{lemma}
+  TFAE:
+  \begin{enumerate}
+  \item \(A\) is complete.
+  \item \(A\) is complete as a metric space with respect to the metric
+    \[
+      d(x, y) =
+      \begin{cases}
+        0 & x = y \\
+        2^{-v(x - y)} & x \neq y
+      \end{cases}
+    \]
+  \item \(K\) is complete as a metric space with respect to the metric given by the formula.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  We first explain why \(d\) is a metric. \(d\) satisfies the ultrametric triangle inequality
+  \[
+    d(x, y) \leq \max(d(x, y), d(y, z))
+  \]
+  for all \(x, y, z\). This is because we can assume \(x, y, z\). Then this is equivalent to
+  \[
+    v(x - z) \geq \min(v(x - y), v(y - z))
+  \]
+  but LHS is equal to \(v((x - y) + (y - z))\). This is the axiom defining a valuation.
+  \begin{itemize}
+  \item \(1 \implies 2\): Let \((a_n)_{n \geq 1}\) be a Cauchy sequence in \(A\), meaning that for all \(\varepsilon > 0\), exists \(N\) such that for all \(n, m \geq N\), \(d(a_n, a_m) < \varepsilon\). Equivalently, for all \(M > 0\), exists \(N(M)\) such that for all \(n, m \geq N(M)\),
+    \[
+      a_n = a_m \pmod{\pi^M}.
+    \]
+    We can define \(b = (b_i)_{i \geq 1} \in \prod_{i = 1}^\infty A/(\pi^i)\) by
+    \[
+      b_n = a_{N(n)} \pmod {\pi^n}
+    \]
+    By definition of Cauchy sequence, \(b \in \varprojlim_i A/(\pi^i)\). Since \(A\) is a complete DVR, exists \(a \in A\) such that \(a = a_{N(n)} \pmod{\pi^n}\) for all \(n \geq 1\). Hence \(v(a - a_{N(n)}) \geq n\), i.e.\ \(d(a, a_{N(n)}) \leq 2^{-n}\) so \(\lim_{n \to \infty} a_n = a\).
+  \item \(2 \implies 1\): Suppose given \((a_n)_{n \geq 1} \in \varprojlim_n A/(\pi^n)\). Let \(\tilde a_n \in A\) be any element such that \(\tilde a_n \pmod{\pi^n} = a_n\). Then for all \(m \geq n\), \(\tilde a_m = \tilde a_n \pmod{\pi^n}\) by definition of inverse limit, i.e.\ \(d(\tilde a_m, \tilde a_n) \leq 2^{-n}\), so \((\tilde a_n)_{n \geq 1}\) is a Cauchy sequence in \(A\). So there exists \(a \in A\) such that \(\tilde a_n \to a\) in \(A\), i.e.\ for all \(M \geq 1\) exists \(N(M)\) such that for all \(n \geq N(M)\), \(\tilde a_n = a \pmod{\pi^M}\). Hence \(a\) is a preimage of \((a_n)_{n \geq 1}\) under the map \(A \to \varprojlim_i A/(\pi^i)\).
   \end{itemize}
 \end{proof}
 

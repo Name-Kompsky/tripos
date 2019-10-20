@@ -1,0 +1,407 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Lie Algebras and Their Representations}
+\def\nlecturer{I.\ Grojnowski}
+
+\def\nterm{Michaelmas}
+\def\nyear{2019}
+
+\input{header}
+
+\DeclareMathOperator{\Mat}{Mat}
+\newcommand*{\Lie}[1]{\mathfrak{#1}} % Lie groups
+\renewcommand*{\P}{\mathbb{P}}
+\DeclareMathOperator{\ad}{ad} % adjoint
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Introduction \& Motivation}
+
+The objects of interest in this course are
+\begin{align*}
+  \SL_n &= \{A \in \Mat_n: \det A = 1\} \\
+  \SO_n &= \{A \in \SL_n: AA^T = I\} \\
+  \Sp_{2n} &= \cdots
+\end{align*}
+and five more examples. First of all they are algebraic groups.
+
+We have \(\SU_2 \subseteq \SL_2\). Note that \(\SU_2\) is homeomorphic to \(S^3\) and so is compact. In fact it is maximal compact and every maximal compact subgroup of \(\SL_2\) is conjugate to \(\SU_2\).
+
+We will look at the tangent space of the group at the identity, which is just a finite-dimensional vector space.
+
+\begin{definition}
+  A \emph{linear algebraic group} is a subgroup of \(\Mat_n\) which is defined by polynomial equations in the matrix coefficients.
+\end{definition}
+
+For example \(\SL_n\) and \(\SO_n\) are linear algebraic groups. \(\GL_n\) is also an example as we have embedding
+\begin{align*}
+  \GL_n &\to \Mat_{n + 1} \\
+  A &\to
+      \begin{pmatrix}
+        A & \\
+        & \lambda
+      \end{pmatrix}
+\end{align*}
+where the image is given by \(\det A \cdot \lambda = 1\).
+
+\begin{eg}
+  Let \(G = \SL_2\) and let
+  \[
+    g =
+    \begin{pmatrix}
+      1 & \\
+      & 1
+    \end{pmatrix}
+    + \varepsilon
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+    + \cdots
+  \]
+  so
+  \[
+    \det g = 1 + \varepsilon(a + d) + \text{higher terms}
+  \]
+  so \(\det g = 1\) if and only if \(a + d = 0\) if we pretend to be physicists for a second. Now introduce the dual numbers
+  \[
+    E = \C[\varepsilon]/(\varepsilon^2) = \{a + b \varepsilon: a, b \in \C\}.
+  \]
+  If \(G\) is an algebraic group then we define
+  \[
+    G(E) = \{A \in \Mat_n(E): A \text{ satisfies the defining equations of } G\}.
+  \]
+  Then
+  \[
+    \SL_2(E) = \{
+    \begin{pmatrix}
+      \alpha & \beta \\
+      \gamma & \delta
+    \end{pmatrix}
+    : \alpha, \beta, \gamma, \delta \in E, \alpha \delta - \beta \gamma = 1\}
+  \]
+  Now the map \(E \to \C, \varepsilon \mapsto 0\) defines a map \(\pi: G(E) \to G\). We define the \emph{Lie algebra}\index{Lie algebra} of \(G\) to be
+  \[
+    \Lie g \cong \pi^{-1}(I) \cong \{X \in \Mat_n(\C): I + \varepsilon X \in G(E)\}.
+  \]
+  In particular,
+  \[
+    \SL_2 = \{
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+    \in \Mat_2(\C): a + d = 0\}.
+  \]
+\end{eg}
+
+\begin{ex}
+  Show that \(G(E) = TG\) is the tangent bundle of \(G\) and \(\Lie g\) is the tangent space at \(1\), \(I + X \varepsilon\) is the germ of a curve through \(1 \in G\).
+\end{ex}
+
+\begin{eg}
+  Let \(G = \GL_n\). Then
+  \begin{align*}
+    G(E) &= \{\tilde A \in \Mat_n(E): \tilde A^{-1} \text{ exists}\} \\
+         &= \{A + B \varepsilon: A, B \in \Mat_n(\C), A^{-1} \text{ exists}\}
+  \end{align*}
+  where the second equality is because
+  \[
+    (A + B \varepsilon) (A^{-1} - A^{-1}B A^{-1} \varepsilon) = I.
+  \]
+  So there is no condition on \(B\) so \(\Lie{gl}_n = \Mat_n(\C)\). Another explantion for this result is that \(\det\) does not vanish in a neighbourhood of the identity matrix so we get all matrices in the Lie algebra.
+\end{eg}
+
+\begin{ex}
+  Let \(G = \SL_n\). Show that
+  \[
+    \det (I + \varepsilon X) = 1 + \varepsilon \tr X
+  \]
+  and hence
+  \[
+    \Lie{sl}_n = \{X \in \Mat_n(\C): \tr X = 0\}.
+  \]
+\end{ex}
+
+\begin{eg}
+  Let
+  \[
+    G = \OO_n = \{A \in \Mat_n: AA^T = I\}.
+  \]
+  Then
+  \begin{align*}
+    \Lie g &= \{X \in \Mat_n(\C): (I + \varepsilon X)(I + \varepsilon X)^T = I\} \\
+                &= \{X \in \Mat_n(\C): X + X^T = 0\}
+  \end{align*}
+  Note \(\tr X^T = \tr X\) so \(\tr X = \tr X^T = 0\). Thus \(\SO_n\) has the same Lie algebra. In other words, by just looking into the Lie algebras we cannot distinguish the groups \(\OO_n\) and \(\SO_n\). This is because \(\OO_n\) has two connected component, and the component of the identity is \(\SO_n\). Of course the tangent space at the identity doesn't tell us anything in the other component. Thus this undesirable situation can be remedied by restricting to connected Lie groups.
+\end{eg}
+
+What structure does \(\Lie g\) have that it inherits from \(G\)? It is not a (multiplicative) group as
+\[
+  (I + A \varepsilon) (I + B \varepsilon) = I + \varepsilon (A + B)
+\]
+has nothing to do with multiplication. Instead, we can consider the commutator
+\begin{align*}
+  G \times G &\to G \\
+  (P, Q) &\mapsto PQP^{-1}Q^{-1}
+\end{align*}
+This sends \((I, I) \mapsto I\) so by differentiating at the origin we get a map \(\Lie g \times \Lie g \to \Lie g\). Actually, we want a bilinear map \(\Lie g \times \Lie g \to \Lie g\), so differentiate in each variable separately: fix \(P\) and differentiate \(f_P: Q \mapsto PQP^{-1}Q^{-1}\) to get \(df_P: \Lie g \to \Lie g\). Then we differentiate it as a function of \(P\).
+
+Explicitly, write
+\begin{align*}
+  P &= I + \varepsilon A \\
+  Q &= I + \delta B
+\end{align*}
+where \(\varepsilon^2 = \delta^2 = 0, \varepsilon \delta = \delta \varepsilon \neq 0\). Then
+\[
+  PQP^{-1}Q^{-1} = I + (AB - BA) \varepsilon\delta
+\]
+so the map constructed out of the commutators is
+\begin{align*}
+  \Lie g \times \Lie g &\to \Lie g \\
+  (A, B) &\mapsto AB - BA
+\end{align*}
+This is called the \emph{Lie bracket} of \(A\) and \(B\).
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show by differentiation that
+    \[
+      (PQP^{-1}Q^{-1})^{-1} = QPQ^{-1}P^{-1}
+    \]
+    implies that
+    \[
+      [B, A] = -[A, B]
+    \]
+    so the Lie bracket is anti-symmetric.
+  \item Show associativity of multiplication implies that
+    \[
+      [[X, Y], Z] + [[Y, Z], X] + [[Z, X], Y] = 0.
+    \]
+    This is the \emph{Jacobi identity}.
+
+    Also show this is true from the definition \([A, B] = AB - BA \in \Mat_n\).
+  \end{enumerate}
+\end{ex}
+
+\begin{definition}[Lie algebra]\index{Lie algebra}
+  Let \(k\) be a field, \(\ch k \neq 2\). A \emph{Lie algebra} \(\Lie g\) is a \(k\)-vector space equipped with a bilinear map \([\cdot, \cdot]: \Lie g \times \Lie g \to \Lie g\) that
+  \begin{enumerate}
+  \item is anti-symmetric: \([X, Y] = - [Y, X]\),
+  \item satisfies the Jacobi identity
+    \[
+      [[X, Y], Z] + [[Y, Z], X] + [[Z, X], Y] = 0.
+    \]
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\Lie{gl}_n = \Mat_n\) with \([A, B] = AB - BA\). More generally, if \(V\) is a vector space, write \(\Lie{gl}(V) = \End(V)\).
+  \item \(\Lie{so}_n = \{A \in \Lie{gl}_n: A + A^T = 0\}\).
+  \item \(\Lie{sl}_n = \{A \in \Lie{gl}_n: \tr A = 0\}\).
+  \item \(\Lie{sp}_{2n} = \{A \in \Lie{gl}_{2n}: JA^TJ^{-1} + A = 0\}\) where
+    \[
+      J =
+      \begin{psmallmatrix}
+        & & & & & 1 \\
+        & & & & 1 \\
+        & & & \cdots \\
+        & -1 \\
+        -1
+      \end{psmallmatrix}
+    \]
+  \item \(\Lie{b}_n = \{
+    \begin{psmallmatrix}
+      * & \cdots & * \\
+      & \ddots & * \\
+      0 & & *
+    \end{psmallmatrix}
+    \}
+    \) of upper triangular matrices.
+  \item \(\Lie u_n\) of strictly upper triangular matrices.
+  \item If \(V\) is any vector space, let \([\cdot, \cdot]: V \times V \to V\) be the zero map. This is a Lie algebra, called \emph{abelian Lie algebra}.
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show \(\Lie{gl}_n\) is a Lie algebra.
+  \item Show examples 2 - 7 are sub-Lie algebras of \(\Lie{gl}_n\).
+  \item Find algebraic groups whose Lie algebras are the examples above.
+  \item Show \(\{
+    \begin{psmallmatrix}
+      * & * \\
+      * & 0
+    \end{psmallmatrix}
+    \} \subseteq \Lie{gl}_2\) is not a Lie algebra.
+  \end{enumerate}
+\end{ex}
+
+\begin{eg}
+  Any \(1\)-dim Lie algebra is abelian by anti-symmetry.
+\end{eg}
+
+\begin{ex}
+  Classify all Lie algebras of dimension \(3\).
+\end{ex}
+
+\begin{definition}[representation]\index{representation}
+  A \emph{representation} of a Lie algebra \(\Lie g\) on a vector space \(V\) is a Lie algebra homomorphism \(\Lie g \to \Lie{gl}(V)\). We say \(\Lie g\) acts on \(V\).
+\end{definition}
+
+We have the silly example of trivial representation: \(\Lie g\) acts on \(V = k\) by \(x \mapsto 0\).
+
+Less trivially, for any \(x \in \Lie g\), define
+\begin{align*}
+  \ad x: \Lie g &\to \Lie g \\
+  y &\mapsto [x, y]
+\end{align*}
+
+\begin{lemma}
+  \(\ad: \Lie g \to \End(\Lie g)\) is a representation of \(\Lie g\), i.e.\ \(\Lie g\) acts on it self. This is called the \emph{adjoint representation}\index{adjoint representation}.
+\end{lemma}
+
+\begin{proof}
+  Must show
+  \[
+    \ad [x, y] = \ad x \ad y - \ad y \ad x.
+  \]
+  If \(z \in \Lie g\) then
+  \begin{align*}
+    (\ad [x, y])(z) &= [[x, y], z] \\
+    \text{RHS}(z) &= [x, [y, z]] - [y, [x, z]] = -[[y, z], x] - [[z, x], y]
+  \end{align*}
+  and they are equal by Jacobi.
+\end{proof}
+
+\begin{definition}[center]\index{center}
+  The \emph{center} of \(\Lie g\) is
+  \[
+    \{x \in \Lie g: [x, y] = 0 \text{ for all } y \in \Lie g\} = \ker (\ad: \Lie g \to \Lie{gl}(\Lie g)),
+  \]
+  which is an abelian Lie algebra.
+\end{definition}
+
+In particular, the center of \(\Lie g\) is \(0\) if and only if \(\ad\) is an embedding. Question: does every finite-dimensional Lie algebra \(\Lie g\) have a faithful finite-dimensional representation? In other words, does \(\Lie g \embed \Lie{gl}(V)\) for some \(V\)?
+
+Note: every affine algebraic group has a faithful representation.
+
+\begin{theorem}[Ado]
+  Any finite-dimensional Lie algebra \(\Lie g\) over \(k\) has a faithful finite-dimensional rep, i.e.\ \(\Lie g \embed \Lie{gl}_n\) for some \(.\)
+\end{theorem}
+
+\begin{eg}
+  Let \(\Lie g = \Lie{sl}_2\) with basis
+  \[
+    e =
+    \begin{pmatrix}
+      0 & 1 \\
+      0 & 0
+    \end{pmatrix},
+    f =
+    \begin{pmatrix}
+      0 & 0 \\
+      1 & 0
+    \end{pmatrix},
+    h =
+    \begin{pmatrix}
+      1 & 0 \\
+      0 & -1
+    \end{pmatrix}
+  \]
+  so we have
+  \[
+    [e, f] = h,
+    [h, e] = 2e,
+    [h, f] = -2f
+  \]
+  so a representation of \(\Lie{sl}_2\) is a triple of matrices \(E, F, H \in \Mat_n\) with these relations. How can we find such? The answer, at this moment, is to find reps of the algebraic group \(\SL_2\) and differentiating. Later we will find them just by using linear algebra.
+\end{eg}
+
+\begin{definition}[algebraic representation]\index{algebraic representation}
+  If \(G\) is an algebraic group. An \emph{algebraic representation} of \(G\) on a vector space \(V\) is a homomorphism \(G \to \GL(V)\) defined by polynomial equations in the matrix coefficients.
+\end{definition}
+
+Let \(\rho: G \to \GL(V)\) be an algebraic rep. We have \(\rho(I) = I\). Consider the map \(G(E) \to \GL(V)(E)\). We get
+\[
+  \rho(I + A\varepsilon) = I + \varepsilon d\rho(A)
+\]
+for some function \(d\rho(A)\) of \(A\).
+
+\begin{ex}
+  \(d \rho\) is the derivative of \(\rho\) at identity.
+\end{ex}
+
+\begin{ex}
+  \(\rho: G \to \GL(V)\) implies that \(d\rho: \Lie g \to \Lie{gl}(V)\) is a Lie algebra homomorphism, so \(V\) is a representation of \(\Lie g\).
+\end{ex}
+
+Let \(G = \SL_2\) and let \(L(n)\) be homogeneous polynomials in \(x, y\) of degree \(n\), with basis \(x^n, x^{n - 1}y, \cdots, y^n\), so has dimension \(n + 1\). \(\GL_2\) acts on \(L(n)\) by change of coordinates: if \(g =
+\begin{pmatrix}
+  a & b \\
+  c & d
+\end{pmatrix}
+\), \(f \in L(n)\) then
+\[
+  (\rho_n(g)f)(x, y) = f(ax + cy, bx + dy).
+\]
+Check that
+\begin{enumerate}
+\item \(\rho_0\) is the trivial rep.
+\item \(\rho_1\) is the usual \(2\)-dim rep.
+\item
+  \[
+    \rho_2
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      a^2 & ab & b^2 \\
+      2ac & ad + bc & 2bd \\
+      c^2 & cd & d^2
+    \end{pmatrix}
+  \]
+\end{enumerate}
+Differentiate and we get an action of \(\Lie{sl}_2\) on \(L(n)\). Explicitly,
+\[
+  \rho(I + \varepsilon e) x^iy^j
+  = x^i (y + \varepsilon x)^j
+  = x^iy^j + \varepsilon jx^{i + 1} y^{j - 1}
+\]
+and hence
+\[
+  d\rho(e) x^iy^j = jx^{i + 1} y^{j - 1}.
+\]
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item The Lie algebra acts by
+    \begin{align*}
+      e \cdot (x^iy^j) &= jx^{i + 1} y^{j - 1} \\
+      f \cdot (x^iy^j) &= ix^{i - 1} y^{j + 1} \\
+      h \cdot (x^iy^j) &= (i - j) x^iy^j
+    \end{align*}
+  \item Check directly this gives a rep of \(\Lie{sl}_2\).
+  \item Show \(L(2)\) is isomorphic to the adjoint rep.
+  \item Show that
+    \[
+      e = x \frac{\partial  }{\partial y}, f = y \frac{\partial  }{\partial x}, h = x \frac{\partial  }{\partial x} - y \frac{\partial  }{\partial y}
+    \]
+    defines an (infinite-dimensional) rep of \(\Lie{sl}_2\) on \(k[x, y]\). Some implication: this can be defined for all characteristics, and the differential operator is suggesting that reps of Lie groups might have something to do with calculus.
+  \end{enumerate}
+\end{ex}
+
+
+
+
+\printindex
+\end{document}

@@ -3,12 +3,14 @@
 \def\npart{III}
 
 \def\ntitle{Algebraic Topology}
-\def\nlecturer{J.\ Rassmussen}
+\def\nlecturer{J.\ Rasmussen}
 
 \def\nterm{Michaelmas}
 \def\nyear{2019}
 
 \input{header}
+
+\graphicspath{{figures/}}
 
 \DeclareMathOperator{\Map}{Map} % space of continuous maps between spaces
 \renewcommand{\b}{\p}
@@ -147,6 +149,550 @@ This defines a functor between the cateogry of pointed spaces with pointed maps 
 \item \((\id_{(X, p)})_* = \id_{\pi_n(X, p)}\),
 \item \((f \compose g)_* = f_* \compose g_*\).
 \end{enumerate}
+Furthermore \(f_*\) is homotopy invariant: if \(f \sim g\) then \(f_* = g_*\) since
+\[
+  f_*([\gamma]) = [f \compose \gamma] = [g \compose \gamma] = g_*([\gamma]).
+\]
+
+\begin{eg}
+  \begin{table}[ht]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+      & 1 & 2 & 3 & 4 & 5 \\ \hline
+      \(\pi_n(S^1)\) & \(\Z\) &&&&&& \\ \hline
+      \(\pi_n(S^2)\) & \(0\) & \(\Z\) & \(\Z\) & \(\Z/2\) & \(\Z/2\) & \(\Z/12\) &\(\Z/2\)
+    \end{tabular}
+    \caption{Homotopy groups of \(S^n\)}
+  \end{table}
+\end{eg}
+
+\section{Homology}
+
+The goal is to define functors \(H_n\) from the category of spaces with continuous maps to the category of abelian groups with homomorphisms, satifying
+\begin{enumerate}
+\item if \(f \sim g\) then \(f_* = g_8\),
+\item dimension axiom: informally \(H_n(X) = 0\) if \(n > \dim X\).
+\end{enumerate}
+
+\subsection{Chain complexes}
+
+Let \(R\) be a commutative ring (e.g.\ \(\Z, \Q, \Z/p\)).
+
+\begin{definition}[chain complex]\index{chain complex}
+  A \emph{chain complex} \((C_*, d)\) over \(R\) is
+  \begin{enumerate}
+  \item \(R\)-modules \(C_i\) for \(i \in \Z\), and
+  \item homomorphisms \(d_i: C_i \to C_{i - 1}\) such that
+  \item \(d_i \compose d_{i + 1} = 0\) for all \(i\).
+  \end{enumerate}
+  We usually write
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & C_{i + 1} \ar[r, "d_{i + 1}"] & C_i \ar[r, "d_i"] & C_{i - 1} \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{notation}
+  Note that \(C_*\) can mean two different things: it can either mean
+  \[
+    C_* =
+    \begin{cases}
+      \Z & * = 0 \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  or \(C_* = \bigoplus_{i \in \Z} C_i, d = \sum d_i: C_* \to C_{* - 1}\).
+\end{notation}
+
+\subsubsection{Chain complex of a simplex}
+
+\begin{definition}[simplex]\index{simplex}
+  The \emph{\(n\)-dimensional simplex} is
+  \[
+    \Delta^n = \{(v_0, \dots, v_n) \in \R^{n + 1}: v_i \geq 0, \sum_{i = 0}^n v_i = 1\}.
+  \]
+  For \(n < 0\) we set \(\Delta^n = \emptyset\).
+\end{definition}
+
+\begin{definition}[face]
+  If \(I = \{i_0 < i_1 < \dots < i_k\} \subseteq \{0, 1, \dots n\}\) then
+  \[
+    f_I = \{v \in \Delta^n: v_i = 0 \text{ if } i \notin I\}
+  \]
+  is a \(k\)-dimensional \emph{face} of \(\Delta^n\). The \emph{face map} is
+  \begin{align*}
+    F_I: \Delta^k &\to f_I \\
+    w &\mapsto v
+  \end{align*}
+  where
+  \[
+    v_i =
+    \begin{cases}
+      0 & i \notin I \\
+      w_j & i = \varphi(j)
+    \end{cases}
+  \]
+  where
+  \begin{align*}
+    \varphi: \{0, \dots, k\} &\to I \\
+    j &\mapsto i_j
+  \end{align*}
+\end{definition}
+
+\begin{definition}
+  The \emph{reduced chain complex} of the simplex \(\Delta^n\) \(\widetilde S_*(\Delta^n)\) is the chain complex over \(\Z\) defined by
+  \[
+    \widetilde S_k(\Delta^n) = \langle f_I: |I| = k + 1 \rangle,
+  \]
+  the free abelian group with basis \(f_I\) for \(I\) a \(k\)-dimensional face, and
+  \begin{align*}
+    d_k: \widetilde S_k(\Delta^n) &\to \widetilde S_{k - 1}(\Delta^n) \\
+    f_I &\mapsto \sum_{j = 0}^k (-1)^j f_{I \setminus \{i_j\}}
+  \end{align*}
+\end{definition}
+
+\begin{eg}
+  Take \(n = 2\). Then
+  \begin{align*}
+    C_2 &= \langle f_{012} \rangle \\
+    C_1 &= \langle f_{01}, f_{02}, f_{12} \rangle \\
+    C_0 &= \langle f_0, f_1, f_2 \rangle \\
+    C_{-1} &= \langle f_\emptyset \rangle
+  \end{align*}
+  and for example we have
+  \begin{align*}
+    d(f_{012}) &= f_{12} - f_{02} + f_{01} \\
+    d(f_{12}) &= f_2 - f_1 \\
+    d(f_{02}) &= f_2 - f_0 \\
+    d(f_{01}) &= f_1 - f_0
+  \end{align*}
+  so
+  \[
+    d^2(f_{012}) = 0.
+  \]
+\end{eg}
+
+\begin{proposition}
+  We have
+  \[
+    d^2 = 0
+  \]
+  so it is indeed a chain complex.
+\end{proposition}
+
+\begin{proof}
+  Enough to check \(d^2(f_I) = 0\). \(d^2(f_I)\) is a sum of terms of the form \(f_{I \setminus \{i_j, i_{j'}\}}\) where \(i_j < i_{j'}\). The coefficient of \(f_{I \setminus \{i_j, i_{j'}\}}\) is
+  \[
+    (-1)^j (-1)^{j' - 1} + (-1)^{j'} (-1)^{j}
+  \]
+  where the first term is by omitting \(i_j\) first and then \(i_{j'}\), and the second by omitting \(i_{j'}\) first and then \(i_j\). Then have opposite signs.
+\end{proof}
+
+Note that if we have a chain complex then \(d^2 = 0\) so \(\im d_{i + 1} \subseteq \ker d_i\).
+
+\begin{definition}[homology group]\index{homology group}
+  If \((C_*, d)\) is a chain complex, its \emph{\(i\)th homology group} is
+  \[
+    H_i(C_*) = \frac{\ker d_i}{\im d_{i + 1}}.
+  \]
+  We let
+  \[
+    H_*(C_*) = \bigoplus_{i \in \Z} H_i = \frac{\ker d}{\im d}.
+  \]
+\end{definition}
+
+\begin{eg}
+  \(H_*(\widetilde S_*(\Delta^2)) = 0\).
+\end{eg}
+
+\begin{eg}[unreduced complex of a simplex]
+  Define the unreduced complex to be
+  \[
+    S_*(\Delta^n) =
+    \begin{cases}
+      \widetilde S_k(\Delta^n) & k \geq 0 \\
+      0 & k < 0
+    \end{cases}
+  \]
+  Check that
+  \[
+    H_*(S(\Delta^2)) =
+    \begin{cases}
+      \Z & k = 0 \\
+      0 & k \neq 0
+    \end{cases}
+  \]
+\end{eg}
+
+\begin{definition}[chain maps]\index{chain maps}
+  If \((C, d)\) and \((C', d')\) are chain complexes over \(R\), a \emph{chain map} \(f: (C, d) \to (C', d')\) is homomorphisms \(f_i: C_i \to C_i'\) such that
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & \ar[r] C_{i + 1} \ar[r, "d_{i + 1}"] \ar[d, "f_{i + 1}"] & C_i \ar[r, "d_i"] \ar[d, "f_i"] & C_{i - 1} \ar[r] \ar[d, "f_{i - 1}"] & \cdots \\
+      \cdots \ar[r] & \ar[r] C'_{i + 1} \ar[r, "d'_{i + 1}"] & C'_i \ar[r, "d'_i"] & C'_{i - 1} \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+  commutes. That is to say let \(f = \sum f_i: C_* \to C'_*\) then we have
+  \[
+    d'f = fd.
+  \]
+\end{definition}
+
+\begin{eg}
+  If \(f_I\) is a \(k\)-dim face of \(\Delta^n\) then there is a chain map
+  \begin{align*}
+    \varphi_I: \widetilde S_*(\Delta^k) &\to \widetilde S_*(\Delta^n) \\
+    f_J &\mapsto f_{\varphi(J)}
+  \end{align*}
+  where \(\varphi(j) = i_j\) as before.
+\end{eg}
+
+If \(f: (C, d) \to (C', d')\) is a chain map then it follows that \(f(\ker d) \subseteq \ker d', f(\im d) \subseteq \im d'\), so there is a well-defined map
+\begin{align*}
+  f_*: H_*(C) &\to H_*(C') \\
+  [z] &\mapsto [f(z)]
+\end{align*}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(\id_C\) is a chain map and \((\id_C)_* = \id_{H_*(C)}\).
+  \item If \(f: C \to C', g: C' \to C''\) are chain maps then so is \(g \compose f\) and \((g \compose f)_* = g_* \compose f_*\).
+  \end{enumerate}
+  In other words, there is a functor \(H_*\) from the category of chain complexes over \(R\) with chain maps to the category of \(R\)-modules.
+\end{lemma}
+
+\subsection{Singular chain complex}
+
+Let \(X\) be a topological space. A \emph{singular \(k\)-simplex} in \(X\) is a map \(\sigma: \Delta^k \to X\). Thus a singular \(0\)-simplex is a point in \(X\) and a \(1\)-simplex is a curve in \(X\).
+
+\begin{definition}[singular chain complex]\index{singular chain complex}
+  A \emph{singular chain complex} \(C_*(X)\) is given by
+  \[
+    C_k(X) = \langle \sigma: \Delta^k \to X \text{ continuous} \rangle,
+  \]
+  the free abelian group generated by \(\sigma\)'s and for \(\sigma: \Delta^k \to X\),
+  \[
+    d(\sigma) = \sum_{j = 0}^k (-1)^j \sigma \compose F_{\{0, \dots, k\} \setminus \{j\}}.
+  \]
+\end{definition}
+
+Elements of the chain groups are finite sums \(\sum_{i = 1}^N a_i \sigma_i\) where \(a_i \in \Z\).
+
+\begin{lemma}
+  \(d^2 = 0\) so this is a chain complex.
+\end{lemma}
+
+\begin{proof}
+  If \(\sigma: \Delta^k \to X\), consider the homomorphism
+  \begin{align*}
+    \varphi_\sigma: S_*(\Delta^k) &\to C_*(X) \\
+    f_I &\mapsto \sigma \compose F_I
+  \end{align*}
+  \(d\) was chosen so \(d \varphi_\sigma = \varphi_\sigma d\). Then
+  \[
+    d^2(\sigma) = d^2(\sigma \compose \id_{\Delta^k}) = d^2(\varphi_\sigma(f_{\{0, \dots, k\}}))
+    = \varphi_\sigma(d^2(f_{\{0, \dots, k\}})) = \varphi_\sigma(0) = 0
+  \]
+  since \(d^2 = 0\) in \(S_*(\Delta^k)\).
+\end{proof}
+
+We have a variant called \emph{reduced singular chain complex} of \(X\) which is defined by
+\[
+  \widetilde C_k(X) = \langle \sigma: \Delta^k \to X \rangle
+\] 
+for \(k \geq -1\) and \(\widetilde C_k(X) = 0\) for \(k < -1\). We have
+\[
+  \widetilde C_k(X) =
+  \begin{cases}
+    C_k(X) & k \geq 0 \\
+    \langle \sigma_\emptyset \rangle \cong \Z & k = -1
+  \end{cases}
+\]
+and if \(\sigma: \Delta^0 \to X\) then \(d\sigma = \sigma_\emptyset\).
+
+\begin{definition}[singular homology]\index{singular homology}
+  \(H_n(X) = H_n(C_*(X))\) and \(\widetilde H_n(X) = H_n(\widetilde C_*(X))\) are the \(n\)th \emph{(reduced) singular homology groups} of \(X\).
+\end{definition}
+
+If \(f: X \to Y\) is a map, define
+\begin{align*}
+  f_\#: C_*(X) &\to C_*(Y) \\
+  \sigma &\mapsto f \compose \sigma
+\end{align*}
+Then
+\begin{align*}
+  d(f_\#(\sigma)) &= \sum_{j = 0}^n (-1)^j (f \compose \sigma) \compose F_{\{0, \dots, k\} \setminus \{j\}} \\
+  &= \sum_{j = 0}^k (-1)^j f \compose (\sigma \compose F_{\{0, \dots, k\} \setminus \{j\}}) \\
+  &= f_\# (d \sigma)
+\end{align*}
+so \(f_\#\) is a chain map.
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \((\id_X)_\# = \id_{C_*(X)}\).
+  \item \((f \compose g)_\# = f_\# \compose g_\#\).
+  \end{enumerate}
+  In other words, there is a functor from the category of topological spaces to the cateogory of chain complexes over \(\Z\).
+\end{lemma}
+
+\begin{notation}
+  If \(f: X \to Y\), write \(f_*: H_*(X) \to H_*(Y)\) instead of \((f_\#)_*\).
+\end{notation}
+
+\begin{corollary}
+  There is a functor from the category of topological spaces to the category of \(\Z\)-modules.
+\end{corollary}
+
+\begin{proof}
+  Composition of functors is a functor.
+\end{proof}
+
+\begin{eg}
+  Let \(X = S^1\) and \(\sigma \in C_1(S^1)\) be the loop starting at \(p\) and loops around \(S^1\) once. Then \(d \sigma = \sigma_p - \sigma_p = 0\). Let \(\sigma_1, \sigma_2\) be paths from \(p\) to \(q\) and from \(q\) to \(p\). It is an exercise to find \(\tau \in C_2(X)\) with \(d\tau = \sigma - (\sigma_1 + \sigma_2)\), so \([\sigma] = [\sigma_1 + \sigma_2]\).
+  \begin{figure}[ht]
+  \centering
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \def\svgwidth{.8\columnwidth}
+    \input{figures/singular1_on_S1.pdf_tex}
+  \end{minipage}%
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \def\svgwidth{.8\columnwidth}
+    \input{figures/singular2_on_S1.pdf_tex}
+  \end{minipage}
+\end{figure}
+\end{eg}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item If \(X\) is path-connected then \(H_0(X) \cong \Z\).
+  \item If \(X\) is the singleton \(\{p\}\) then
+    \[
+      H_*(X) =
+      \begin{cases}
+        \Z & * = 0 \\
+        0 & \text{otherwise}
+      \end{cases}
+    \]
+    and \(\widetilde H_*(X) = 0\).
+  \item Let \(\pi_0(X)\) be the set of path-components of \(X\). Then
+    \[
+      H_*(X) = \bigoplus_{P \in \pi_0(X)} H_*(P).
+    \]
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item We have
+    \begin{align*}
+      \ker d_0 &= C_0(X) = \langle \sigma_p: p \in X \rangle \\
+      \im d_1 &= \text{span} \{\sigma_p - \sigma_q: p, q \in X\}
+    \end{align*}
+    since \(X\) is path-connected. Thus
+    \begin{align*}
+      \ker d_0 &\to \Z \\
+      \sum a_i \sigma_{p_i} &\mapsto \sum a_i
+    \end{align*}
+    is a surjective homomorphism with kernel \(\im d_1\).
+  \item There is a unique map \(\sigma_n: \Delta^n \to X\) and
+    \[
+      d \sigma_n = \sum_{j = 0}^n (-1)^j \sigma_{n - 1} =
+      \begin{cases}
+        \sigma_{n - 1} & n \text{ even and } n > 0 \\
+        0 & \text{otherwise}
+      \end{cases}
+    \]
+    so
+    \begin{align*}
+      \ker d &= \langle \sigma_0, \sigma_1, \sigma_3, \dots \rangle \\
+      \im d &= \langle \sigma_1, \sigma_3, \sigma_5, \dots \rangle
+    \end{align*}
+    so the result follows. The reduced homology is left as an exercise.
+  \item Let \(\iota_P: P \embed X\) be the inclusion. Then we have
+    \[
+      j = \sum (C_p)_\#: \bigoplus_{P \in \pi_0(X)} C_*(P) \to C_*(X)
+    \]
+    an injective map. \(\Delta^k\) is path-connected so if \(\sigma: \Delta^k \to X\) then \(\im \sigma \subseteq P\) for some \(P \in \pi_0(X)\) so \(j\) is also surjective.
+
+    In general, if \(\{(C^\alpha, d^\alpha)\}_{\alpha \in A}\) is a family of chain complexes then so is
+    \[
+      (C^{\text{tot}}, D) = (\bigoplus_{\alpha \in A} C^\alpha, \sum_{\alpha \in A} d^\alpha)
+    \]
+    and
+    \begin{align*}
+      \ker D &= \bigoplus_{\alpha \in A} \ker d^\alpha \\
+      \im D &= \bigoplus_{\alpha \in A} \im d^\alpha
+    \end{align*}
+    so
+    \[
+      H_*(C^{\text{tot}}) \cong \bigoplus_{\alpha \in A} H_*(C^\alpha).
+    \]
+    Now apply this to \(j\).
+  \end{enumerate}
+\end{proof}
+
+\subsection{Homotopy invariance}
+
+If \(g_0, g_1: X \to Y\) are homotopic then we want to show \(g_{0*} = g_{1*}: H_*(X) \to H_*(Y)\).
+
+\begin{definition}[chain homotopy]\index{chain homotopy}
+  Two chain maps \(g_0, g_1: (C, d) \to (C', d')\) are \emph{chain homotopic}, written \(g_0 \sim g_1\), if there is a homomorphism \(h: C_* \to C_{* + 1}'\) such that
+  \[
+    d'h + hd = g_1 - g_0.
+  \]
+\end{definition}
+
+\begin{lemma}
+  Chain homotopy is an equivalence relation.
+\end{lemma}
+
+\begin{proposition}
+  If \(g_0\) and \(g_1\) are chain homotopic then \(g_{0*} = g_{1*}: H_*(C) \to H_*(C')\).
+\end{proposition}
+
+\begin{proof}
+  Suppose \([x] \in H_*(C)\). Then
+  \begin{align*}
+    g_{1*}[x] - g_{0*}[x]
+    &= [g_1(x) - g_0(x)] \\
+    &= [d'h(x) + hd(x)] \\
+    &= [d'h(x)] \\
+    &= 0
+  \end{align*}
+  since \(d'h(x) \in \im d'\).
+\end{proof}
+
+\begin{definition}[chain homotopy equivalent]\index{chain homotopy equivalent}
+  Chain complexes \((C, d)\) and \((C', d')\) are \emph{chain homotopy equivalent}, written \(C \sim C'\) if there exist chain maps \(f: C \to C', g: C' \to C\) such that \(fg \sim \id_{C'}, gf \sim \id_C\).
+\end{definition}
+
+\begin{ex}
+  If \(C \sim C'\) then \(H_*(C) \cong H_*(C')\).
+\end{ex}
+
+\subsubsection{Universal chain homotopy}
+
+Let \(c_n, c_n': \Delta^n \to \Delta^n \times [0, 1]\), \(c_n(v) = (v, 0), c_n'(v) = (v, 1)\) and consider the chain maps \(\varphi_{c_n}, \varphi_{c_n'}: S_*(\Delta^n) \to C_*(\Delta^n \times [0, 1])\), \(\varphi_{c_n}(f_I) = c_n \compose F_I\).
+
+\begin{notation}
+  \(\Delta^n \times [0, 1]\) is a convex subset of \(\R^{n + 1} \times [0, 1]\). If \(p_0, \dots, p_k \in \Delta^n \times [0, 1]\), define a map
+  \begin{align*}
+    [p_0 \cdots p_k]: \Delta^k &\to \Delta^n \times [0, 1] \\
+    v &\mapsto \sum_{i = 0}^k v_i p_i
+  \end{align*}
+  Then
+  \[
+    d[p_0 \cdots p_k] = \sum_{j = 0}^k (-1)^j [p_0 \cdots \hat p_j \cdots p_k]
+  \]
+  where the hat above \(\hat p_j\) means that \(p_j\) is omitted.
+
+  Furthermore we call \(f_i \times 0 = i\) and \(f_i \times 1 = i'\).
+\end{notation}
+
+\begin{figure}[ht]
+  \centering
+  \def\svgwidth{.8\columnwidth}
+  \input{figures/chain_homotopy.pdf_tex}
+  \caption{\(\Delta^1 \times [0, 1]\)}
+  \label{fig:chain homotopy}
+\end{figure}
+
+The intuition for chain homotopy is illustrated by \Cref{fig:chain homotopy}. Suppose we set \(h(f_0), h(f_1)\) to be the segments \(0 \times [0, 1]\) and \(1 \times [0, 1]\), and \(h(f_{01})\) the square \(\Delta^1 \times [0, 1]\). Then
+\begin{align*}
+  dh(f_0) &= \varphi_{c'}(f_0) - \varphi_c(f_0) \\
+  hd(f_0) &= h(0) = 0
+\end{align*}
+so \(dh(f_0) + hd(f_0) = \varphi_{c'}(f_0) - \varphi_c(f_0)\) and
+\begin{align*}
+  dh(f_{01}) &= (\text{top} + \text{bottom}) + (\text{sides}) \\
+  hd(f_{01}) &= - (\text{sides})
+\end{align*}
+so again
+\[
+  dh(f_{01}) + hd(f_{01}) = \text{top} + \text{bottom} = \varphi_{c'}(f_{01}) - \varphi_c(f_{01}).
+\]
+Thus \(h\) would be a chain homotopy if it didn't map \(f_{01}\) to the square, which is not a simplex. To overcome this problem we cut the square into triangles \(00'1'\) and \(011'\). It is worthwhile to pause for a second to think what a chain homotopy for \(\Delta^2\) looks like.
+
+\begin{proposition}
+  \(\varphi_{c_n} \sim \varphi_{c_n'}\).
+\end{proposition}
+
+\begin{proof}
+  Define
+  \begin{align*}
+    U_n: S_*(\Delta^n) &\to C_{* + 1}(\Delta^n \times [0, 1]) \\
+    f_I &\mapsto \sum_{j = 0}^k (-1)^j [i_0 \dots i_j i_j' \cdots i_k']
+  \end{align*}
+  for \(I = \{i_0 < i_1 < \dots < i_k\}\). Then
+  \begin{align*}
+    U_n d(f_I) &= \sum_{a < b} (-1)^{a + b - 1} [i_0 \cdots \hat i_a i_b i_b' \cdots i_k'] \\
+               &+ \sum_{a > b} (-1)^{a + b} [i_0 \cdots i_b i_b' \cdots \hat i_a' \cdots i_k'] \\
+    dU_n(f_I) &= \sum_{a < b} (-1)^{b + a} [i_0 \cdots \hat i_a \cdots i_b i_b' \cdots i_k'] \\
+               &+ \sum_{a > b} (-1)^{b + a + 1} [i_0 \cdots i_b i_b' \cdots \hat i_a \cdots i_k'] \\
+               &+ \sum_{b = 0}^k (-1)^{b + b} [i_0 \cdots i_{b - 1} i_b' \cdots i_k'] \\
+               &+ \sum_{b = 1}^{k + 1} (-1)^{b - 1 + b} [i_0 \cdots i_{b - 1} i_b' \cdots i_k']
+  \end{align*}
+  so almost everything cancels out and we have
+  \[
+    (dU_n + U_nd) (f_I) = [i_0' \cdots i_k'] - [i_0 \cdots i_k] = \varphi_{c_n'} (f_I) - \varphi_{c_n}(f_I).
+  \]
+\end{proof}
+
+\begin{notation}
+  Let \(\overline F_I = F_I \times \id_{[0, 1]}: \Delta^k \times [0, 1] \to \Delta^n \times [0, 1]\).
+\end{notation}
+
+\begin{lemma}
+  The following diagram commutes:
+  \[
+    \begin{tikzcd}
+      S_*(\Delta^k) \ar[r, "\varphi_I"] \ar[d, "U_k"] & S_*(\Delta^n) \ar[d, "U_n"] \\
+      C_{* + 1}(\Delta^k \times [0, 1]) \ar[r, "\overline F_{I \#}"] & C_{* + 1} (\Delta^n \times [0, 1])
+    \end{tikzcd}
+  \]
+\end{lemma}
+
+\begin{proof}
+  Checking definitions.
+\end{proof}
+
+\begin{theorem}
+  Suppose \(g_0, g_1: X \to Y\) are homotopic then \(g_{0\#} \sim g_{1\#}\).
+\end{theorem}
+
+\begin{proof}
+  Let \(G: X \times [0, 1] \to Y\) be the homotopy. Define
+  \begin{align*}
+    G_\sigma: \Delta^n \times [0, 1] &\to Y \\
+    (v, t) &\mapsto G(\sigma(v), t)
+  \end{align*}
+  Then \(G_{\sigma \compose F_I} = G_\sigma \compose \overline F_I\). Define
+  \begin{align*}
+    h: C_*(X) &\to C_{* + 1}(Y) \\
+    \sigma &\mapsto G_{\sigma \#} (U_n (f_{0 \cdots n}))
+  \end{align*}
+  then
+  \begin{align*}
+    dh(\sigma) &= d G_{\sigma \#} (U_n (f_{0 \cdots n})) = G_{\sigma \#} (d U_n(f_{0 \cdots n})) \\
+    hd(\sigma) &= h (\sum (-1)^j \sigma \compose F_{\hat j}) \\
+               &= \sum (-1)^j G_{\sigma \compose F_{\hat j} \#} (U_{n - 1} (f_{0 \cdots n - 1})) \\
+               &= \sum (-1)^j G_{\sigma \#} \overline F_{\hat j\#} (U_{n - 1}(f_{0 \cdots n - 1})) \\
+               &= \sum (-1)^j G_{\sigma \#} (U_n(\varphi_{\hat j} (f_{0 \cdots n - 1}))) \quad \text{by lemma} \\
+               &= G_{\sigma \#} (U_n (\sum (-1)^j \varphi_{\hat j} (f_{0 \cdots n - 1}))) \\
+               &= G_{\sigma \#} (U_n d(f_{0 \cdots n}))
+  \end{align*}
+  so
+  \begin{align*}
+    (dh + hd)(\sigma) &= G_{\sigma \#} (U_nd + dU_n) (f_{0 \cdots n}) \\
+                      &= G_{\sigma \#} ((\varphi_{i_n'} - \varphi_{i_n}) (f_{0 \cdots n})) \\
+                      &= G_{\sigma \#} (i_n' - i_n) \\
+                      &= g_1 \compose \sigma - g_0 \compose \sigma \\
+                      &= g_{1\#}(\sigma) - g_{0\#}(\sigma)
+  \end{align*}
+\end{proof}
 
 
 
