@@ -644,8 +644,139 @@ The kernel of this homomorphism is \(\bigcap_{i \geq 1} (\pi^i) = 0\) so \(A\) i
     \]
     By definition of Cauchy sequence, \(b \in \varprojlim_i A/(\pi^i)\). Since \(A\) is a complete DVR, exists \(a \in A\) such that \(a = a_{N(n)} \pmod{\pi^n}\) for all \(n \geq 1\). Hence \(v(a - a_{N(n)}) \geq n\), i.e.\ \(d(a, a_{N(n)}) \leq 2^{-n}\) so \(\lim_{n \to \infty} a_n = a\).
   \item \(2 \implies 1\): Suppose given \((a_n)_{n \geq 1} \in \varprojlim_n A/(\pi^n)\). Let \(\tilde a_n \in A\) be any element such that \(\tilde a_n \pmod{\pi^n} = a_n\). Then for all \(m \geq n\), \(\tilde a_m = \tilde a_n \pmod{\pi^n}\) by definition of inverse limit, i.e.\ \(d(\tilde a_m, \tilde a_n) \leq 2^{-n}\), so \((\tilde a_n)_{n \geq 1}\) is a Cauchy sequence in \(A\). So there exists \(a \in A\) such that \(\tilde a_n \to a\) in \(A\), i.e.\ for all \(M \geq 1\) exists \(N(M)\) such that for all \(n \geq N(M)\), \(\tilde a_n = a \pmod{\pi^M}\). Hence \(a\) is a preimage of \((a_n)_{n \geq 1}\) under the map \(A \to \varprojlim_i A/(\pi^i)\).
+  \item \(3 \implies 2\): We must show \(A\) is a closed subspace of \(K\). Claim that
+    \[
+      A = \{x \in K: d(0, x) \leq 1\},
+    \]
+    as \(d(0, x) \leq 1\) if and only if \(x = 0\) and \(v(x) \geq 0\).
+  \item \(2 \implies 3\): For any \(x, y \in K\),
+    \[
+      d(\pi x, \pi y) = \frac{1}{2} d(x, y).
+    \]
+    Let \((a_n)_{n \geq 1}\) be a Cauchy sequence in \(K\). Then there exists \(N \geq 1\) such that \(\pi^N a_n \in A\) for all \(n \geq 1\): there exists \(M\) such that for all \(n, m \geq M\), \(d(a_n, a_m) \leq 1\). Equvalently, \(a_n - a_m \in A\) so it's enough to choose \(N\) so that \(\pi^N a_n \in A\) for \(1 \leq n \leq M\). \((\pi^N a_n)_{n \geq 1}\) is a Cauchy sequence in \(A\) so exists \(a \in A\) such that \(d(\pi^N a_n, a) \to 0\) as \(n \to \infty\). Thus \(a_n \to \pi^{-N} a\) in \(K\).
   \end{itemize}
 \end{proof}
+
+\begin{ex}
+  Show that \(A\) is also open in \(K\). Show futhermore that \(K\) is totally disconnected.
+\end{ex}
+
+\begin{remark}
+  When we speak of topology on \(K\) or convergence in \(K\) we always mean with respect to the metric \(d\).
+\end{remark}
+
+\begin{proposition}
+  Let \(A\) be a DVR, \(\pi \in A\) a uniformiser. Then
+  \begin{enumerate}
+  \item \(A \to \hat A = \varprojlim_i A/(\pi^i)\) is injective, \(\hat A\) is a complete \(DVR\) and \(\pi\) is a uniformiser of \(\hat A\).
+  \item For all \(i \geq 1\), the map \(A/\pi^iA \to \hat A/\pi^i \hat A\) is an isomorphism.
+  \item Let \(X \subseteq A\) be a subset of representatives for the residue classes of \(A/(\pi)\), with \(0 \in X\). Then for all \(a \in \hat A\), there exists a unique expression
+    \[
+      a = \sum_{i = 0}^\infty a_i \pi^i
+    \]
+    with \(a_i \in X\) for all \(i \geq 0\). This is the \emph{\(\pi\)-adic expansion}\index{\(\pi\)-adic expression} of \(a\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  We first observe that for all \(a \in A/(\pi^i)\), there exist unique \(a_0, \dots, a_{i - 1} \in X\) such that
+  \[
+    a = a_0 + a_1 \pi + \dots + a_{i - 1} \pi^{i - 1} \pmod{\pi^i}.
+  \]
+  Induction on \(i\): for \(i = 1\) this is the definition of \(X\). To show this for \(i + 1\), let \(a \in A/(\pi^{i + 1})\). Then \(a \pmod{\pi^i} \in A/(\pi^i)\) so by induction there exist unqiue \(a_0, \dots, a_{i - 1}\) such that
+  \[
+    a - (a_0 + a_1 \pi + \dots + a_{i - 1} \pi^{i - 1}) \in \pi^i A/ \pi^{i + 1}A.
+  \]
+  The map
+  \begin{align*}
+    X &\to A/(\pi) \to \pi^iA/\pi^{i + 1}A \\
+    x &\mapsto x \pmod \pi \\
+    &\phantom{\to} y \pmod \pi \mapsto \pi^i y \pmod{\pi^{i + 1}}
+  \end{align*}
+  is bijective. Hence there eixsts unique \(a_i \in X\) such that
+  \[
+    a - (a_0 + \dots + a_i \pi^i) = 0 \pmod{\pi^{i + 1}}.
+  \]
+
+  Note that we have a commmutative diagram
+  \[
+    \begin{tikzcd}
+      A/(\pi^{i + 1}) \ar[r, "="] \ar[d] & \{a_0 + a_1 \pi + \dots + a_i \pi^i: a_j \in X\} \ar[d] \\
+      A/(\pi^i) \ar[r, "="] & \{a_0 + a_1 \pi + \dots + a_{i - 1} \pi^{i - 1}: a_j \in X\}
+    \end{tikzcd}
+  \]
+  where the map on the right is to forget the last digit. Thus there is a bijection between \(\hat A\) and the set of formal sums \(\sum_{i = 0}^\infty a_i \pi^i\) where \(a_i \in X\) for all \(i \geq 0\).
+
+  How do we interpret \(a_0 + a_1 \pi + \cdots\) as an element of \(\hat A\)? We can't yet think of it as an infinite sum since we haven't yet shown \(\hat A\) is a DVR. For any \(i\), we set
+  \[
+    x_ i = a_0 + a_1\pi + \dots + a_{i - 1}\pi^{i - 1} \pmod{\pi^i} \in A/(\pi^i),
+  \]
+  then \(x = (x_i)_{i \geq 1} \in \varprojlim_i A/(\pi^i) = \hat A\).
+
+  Let's now show \(\hat A\) is a DVR. We know \(A \to \hat A\) is injective. We'll show each nonzero element \(x \in \hat A\) has a unique expression \(x = \pi^n u\) where \(n \geq 0, u \in \hat A^\times\). Let's write \(x = a_0 + a_1 \pi + \cdots\) and say
+  \[
+    a_0 = a_1 = \dots = a_{n - 1} = 0, a_n \neq 0.
+  \]
+  Then \(x = \pi^n y\) where \(y = a_n + a_{n + 1} \pi + \cdots\). We must show \(y \in \hat A^\times\). Note \(0 \in X \subseteq A\). If \(\alpha \in X - \{0\}\) then \(\alpha \pmod \pi\) is nonzero and hence \(\alpha \in A^\times\). So \(y = a_n(1 - \pi b)\) where
+  \[
+    b = 1 - \pi a_n^{-1} a_{n + 1} - \pi^2 a_n^{-1} a_{n + 2} + \cdots \in \hat A.
+  \]
+  It's enough to show \(1 - \pi b \in \hat A^\times\). An inverse is given by
+  \[
+    1 + \pi b + \pi^2 b^2 + \cdots \in \hat A.
+  \]
+  This shows \(\hat A\) is a DVR with uniformiser \(\pi\).
+
+  The map \(A/\pi^i A \to \hat A/ \pi^i \hat A\) is bijective as elements of both sides can be uniquely represented by elements of the form
+  \[
+    a_0 + a_1 \pi + \dots + a_{i - 1}\pi^{i - 1} \pmod{\pi^i}
+  \]
+  where \(a_i \in X\). It follows that \(\hat A\) is complete, as the map
+  \[
+    \hat A \to \varprojlim_i \hat A/\pi^i \hat A \cong \varprojlim_i A/\pi^i A
+  \]
+  is an isomorphism by the definition of \(\hat A\).
+\end{proof}
+
+\begin{remark}
+  If \(A\) is complete then \(\hat A \cong A\).
+\end{remark}
+
+\begin{definition}[\(p\)-adic integer]\index{\(p\)-adic integer}
+  Let \(p\) be a prime. Then we define the \emph{\(p\)-adic integers} and \emph{\(p\)-adic rational numbers} to be
+  \begin{align*}
+    \Z_p &= \hat \Z_{(p)} \\
+    \Q_p &= \Frac \Z_p
+  \end{align*}
+  respectively.
+\end{definition}
+
+\(p \in \Z_p\) is a uniformiser and \(\Z_p/(p) \cong \Z_{(p)}/(p)\). To compute the residue field of \(\Z_{(p)}\), we use the exact sequence
+\[
+  \begin{tikzcd}
+    0 \ar[r] & p\Z \ar[r] & \Z \ar[r] & \Z/p\Z \ar[r] & 0
+  \end{tikzcd}
+\]
+of \(\Z\)-modules. It remains exact after localisation so
+\[
+  \begin{tikzcd}
+    0 \ar[r] & p\Z_{(p)} \ar[r] & \Z_{(p)} \ar[r] & (\Z - (p))^{-1} (\Z/p\Z) \ar[r] & 0
+  \end{tikzcd}
+\]
+is still exact so
+\[
+  \Z_{(p)}/p\Z_{(p)} \cong (\Z - (p))^{-1}\Z/p\Z.
+\]
+In fact \(\Z/p\Z \to (\Z - (p))^{-1} \Z/p\Z\) is an isomorphism as every element of \(\Z - (p)\) has image in \(\Z/p\Z\) contained in \((\Z/p\Z)^\times\).
+
+As a consequence, we have \(\Z_p/(p) \cong \Z/p\Z\) so we can choose the set of representatives to be \(\{0, 1, \dots, p- 1\}\). It follows that each element of \(\Z_p\) has a unique expression as \(\sum_{i = 0}^\infty a_i p^i\) and each element of \(\Q_p\) has a unique expression \(\sum_{i \in \Z} a_i p^i\) where \(a_i \in \{0, \dots, p_1\}\) and the set \(\{i < 0: a_i \neq 0\}\) is finite.
+
+\begin{eg}
+  \(-1 \in \Z \subseteq \Z_2\) has
+  \[
+    -1 = \frac{1}{1 - 2} = 1 + 2 + 2^2 + \cdots
+  \]
+\end{eg}
 
 
 \printindex

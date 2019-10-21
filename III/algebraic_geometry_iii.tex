@@ -236,7 +236,7 @@ Define
   \left\{
     \begin{tabular}{l}
       \(s: U \to \coprod_{p \in U} \sh F_p\): \(s(p) \in \sh F_p\), \\
-      for each \(\in U\), exists \(p \in V \subseteq U\), \(t \in \sh F(V)\) \\
+      for each \(p\in U\), exists \(p \in V \subseteq U\), \(t \in \sh F(V)\) \\
       such that \(s(q) = (U, t) \in \sh F_q\) for all \(q \in V\)
     \end{tabular}
   \right\}
@@ -368,6 +368,98 @@ It is strongly recommended at this point to do all problems in \(II.1\) of Harts
 \begin{eg}
   If \(f: \{p\} \to X\) and \(\sh G\) is a sheaf on \(X\) then \(f^{-1} \sh G = \sh G_p\). More generally if \(i: Z \embed X\) and \(\sh F\) is a sheaf in \(X\) we write \(\sh F|_Z = i^{-1} \sh F\). In particular if \(Z\) is open then \(\sh F|_Z\) is easy to describe: \(\sh F|_Z(U) = \sh F(U)\).
 \end{eg}
+
+\begin{notation}
+  If \(s \in \sh F(U)\), we say \(s\) is a \emph{section}\index{section} of \(\sh F\) over \(U\). We often write \(\Gamma(U, \sh F)\) for \(\sh F(U)\), thinking of \(\Gamma(U, \cdot)\) as a covariant functor \(\c{PreSh}_X \to \c{Ab}\).
+\end{notation}
+
+\section{Schemes}
+
+The first goal is to for a ring \(A\) construct a sheaf \(\sh O = \mathcal O_{\Spec A}\) on \(\Spec A\), the sheaf of ``regular functions'' on \(\Spec A\).
+
+We recall some facts about localisation. Let \(S \subseteq A\) be a multiplicatively closed subset, i.e.\ \(1 \in S\) and if \(s_1, s_2 \in S\) then \(s_1, s_2 \in S\). Define
+\[
+  S^{-1}A = \{(a, s): a \in A, s \in S\}/\sim
+\]
+where \((a, s) \sim (a', s')\) if exists \(s'' \in S\) such that \(s''(as' - a's) = 0\). We write \(\frac{a}{s}\) for the equivalence class of \((a, s)\). This is the \emph{localisation}\index{localisation} of \(A\) at \(S\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(S = \{1, f, f^2, \dots\}\) for some \(f \in A\). We write \(A_f = S^{-1}A\).
+  \item Let \(\mathfrak p \subseteq A\) a prime ideal, \(S = A \setminus \mathfrak p\). We write \(A_{\mathfrak p} = S^{-1}A\), called \(A\) localised at \(\mathfrak p\). There is a canonical homomorphism
+    \begin{align*}
+      A &\to A_{\mathfrak p} \\
+      a &\mapsto \frac{a}{1}
+    \end{align*}
+    and the image of \(\mathfrak p\) generates the unique maximal ideal of \(A_{\mathfrak p}\), which we write as \(\mathfrak p A_{\mathfrak p}\). A ring \(A\) is \emph{local} if it has a unqiue maximal ideal, so \(A_{\mathfrak p}\) is local.
+  \end{enumerate}
+\end{eg}
+
+Now we construct \(\sh O = \mathcal O_{\Spec A}\). In particular we want \(\sh O_{\mathfrak p} = A_{\mathfrak p}\). Define
+\[
+  \sh O(U) =
+  \left\{
+    \begin{tabular}{l}
+      \(s: U \to \coprod_{\mathfrak p \in U} A_{\mathfrak p}\): \(s(\mathfrak p) \in A_{\mathfrak p}\), \\
+      for each \(\mathfrak p \in U\), exists \(\mathfrak p \in V \subseteq U\) and \(a, f \in A\) \\
+      such that \(f \notin \mathfrak q, s(\mathfrak q) = \frac{a}{f} \in A_{\mathfrak q}\) for all \(\mathfrak q \in V\)
+    \end{tabular}
+  \right\}
+\]
+and the restriction maps are restrictions of functions. This is defined locally so \(\sh O\) is a sheaf (of rings).
+
+\begin{proposition}
+  For any \(\mathfrak p \in \Spec A\), \(\sh O_{\mathfrak p} = A_{\mathfrak p}\).
+\end{proposition}
+
+\begin{proof}
+  We have a well-defined map
+  \begin{align*}
+    \phi: \sh O_{\mathfrak p} &\to A_{\mathfrak p} \\
+    (U, s) &\mapsto s(\mathfrak p)
+  \end{align*}
+  Surjectivity: any element of \(A_{\mathfrak p}\) can be written as \(\frac{a}{f}\) for some \(a \in A, f \in A \setminus \mathfrak p\). Let
+  \[
+    D(f) = \Spec A \setminus V((f)) = \{\mathfrak q \in \Spec A: f \notin \mathfrak q\}
+  \]
+  which is an open neighbourhood of \(\mathfrak q\). Now \(\frac{a}{f}\) defines a section of \(\sh O\) over \(D(f)\) via
+  \[
+    s(\mathfrak q) = \frac{a}{f} \in A_{\mathfrak q}
+  \]
+  for all \(\mathfrak q \in D(f)\). In particular \(\phi\) is surjective.
+
+  Injectivity: let \(\mathfrak p \in U \subseteq \Spec A\) and \(s \in \sh O(U)\) with \(s(\mathfrak p) = 0 \in A_{\mathfrak p}\) so \((U, s) \in \ker \phi\). By shrinking we can assume \(s(\mathfrak q) = \frac{a}{f}\) for some \(a \in A, f \notin \mathfrak q\) for all \(\mathfrak q \in U\). There exists \(f' \notin \mathfrak p\) such that \(f'a = 0\). Let \(V = D(f') \cap U\) which is an open neighbourhood of \(\mathfrak p\). Then \((V, s|_V) = 0\) since \(f'a = 0\) implies \(\frac{a}{f} = 0 \in A_{\mathfrak q}\) for all \(\mathfrak q \in V\). Thus \((U, s) = 0 \in \sh O_{\mathfrak p}\) so \(\phi\) is injective.
+\end{proof}
+
+\begin{proposition}
+  For any \(f \in A\), \(\sh O(D(f)) \cong A_f\). In particular \(\sh O(\Spec A) = A\).
+\end{proposition}
+
+\begin{proof}
+  Define
+  \begin{align*}
+    \psi: A_f &\to \sh O(D(f)) \\
+    \frac{a}{f^n} &\mapsto (\mathfrak p \mapsto \frac{a}{f^n} \in A_{\mathfrak p})
+  \end{align*}
+  We first show \(\psi\) is injective: if \(\psi(\frac{a}{f^n}) = 0\) then \(\frac{a}{f^n} = 0 \in A_{\mathfrak p}\) for all \(\mathfrak p \in D(f)\). Thus for each \(\mathfrak p\), exists \(h \notin \mathfrak p\) such that \(ah = 0\) in \(A\). Let
+  \[
+    I = \{g \in A: g a = 0\}
+  \]
+  so \(h \in I, h \notin \mathfrak p\) so \(I \nsubseteq \mathfrak p\). This is true for all \(\mathfrak p \in D(f)\), so \(V(I) \cap D(f) = \emptyset\). Thus
+  \[
+    f \in \bigcap_{\mathfrak p \in V(I)} \mathfrak p = \sqrt I,
+  \]
+  the radical of \(I\). Thus \(f^n \in I\) for some \(I\). Thus \(f^n a = 0\) so \(\frac{a}{f} = 0 \in A_f\).
+
+  To show surjectivity, let \(s \in \sh O(D(f))\). Cover \(D(f)\) with open sets \(V_i\) on which \(s\) is represented by \(\frac{a_i}{gi}\) where \(a_i \in A, g_i \notin \mathfrak q\) for all \(\mathfrak q \in V_i\). By example sheet 1 question 1, the basic open sets form a basis for the topology of \(\Spec A\), so we can asume \(V_i = D(h_i)\) for some \(h_i \in A\). Since \(D(h_i) \subseteq D(g_i)\) and
+  \begin{align*}
+    D(h_i) \subseteq D(g_i)
+    &\iff V((h_i)) \supseteq V((g_i)) \\
+    &\iff \sqrt{(h_i)} \subseteq \sqrt{(g_i)} \\
+    &\iff h_i^n \in (g_i) \text{ for some } n
+  \end{align*}
+  so \(h_i^n = c_i g_i\) for some \(c_i \in A\). Since \(\frac{a_i}{g_i} = \frac{c_i a_i}{h_i^n}\), w can assume \(g_i = h_i^n\). But also \(D(h_i) = D(h_i^n)\), we can replace \(h_i\) by \(h_i^n\) and assume that \(D(f)\) is covered by set \(D(h_i)\) on which \(s\) represented by \(\frac{a_i}{h_i}\).
+\end{proof}
 
 
 

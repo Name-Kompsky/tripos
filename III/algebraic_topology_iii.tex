@@ -694,6 +694,254 @@ Thus \(h\) would be a chain homotopy if it didn't map \(f_{01}\) to the square, 
   \end{align*}
 \end{proof}
 
+\begin{corollary}
+  If \(g_0, g_1: X \to Y\) are homotopic then \(g_{0*} = g_{1*}: H_*(X) \to H_*(Y)\).
+\end{corollary}
+
+\begin{corollary}
+  If \(X\) are \(Y\) are homotopy equivalent then \(H_*(X) \cong H_*(Y)\).
+\end{corollary}
+
+\begin{proof}
+  \(X \sim Y\) so we have \(f: X \to Y, g: Y \to X\) with \(f \compose g \sim \id_Y, g \compose f \sim \id_X\). Then
+  \[
+    f_* \compose g_* = (f \compose g)_* = (\id_Y)_* = \id_{H_*(Y)}
+  \]
+  and similarly \(g_* \compose f_* = \id_{H_*(X)}\) so \(g_*\) and \(f_*\) are inverses to each other.
+\end{proof}
+
+\begin{corollary}
+  If \(X\) is contractible then
+  \[
+    H_*(X) =
+    \begin{cases}
+      \Z & * = 0 \\
+      0 & * > 0
+    \end{cases}
+  \]
+\end{corollary}
+
+\subsection{Homology of a pair}
+
+\subsubsection{Exact sequence}
+
+Suppose we have a sequence
+\[
+  \begin{tikzcd}
+    \cdots \ar[r] & A_{i + 1} \ar[r, "f_{i + 1}"] & A_i \ar[r, "f_i"] & A_{i - 1} \ar[r, "f_{i - 1}"] & \cdots
+  \end{tikzcd}
+\]
+where \(A_i\)'s are \(R\)-modules and \(f_i\)'s are homomorphisms.
+
+\begin{definition}[exact sequence]\index{exact sequence}
+  We say the sequence is \emph{exact} at \(A_i\) if \(\ker f_i = \im f_{i + 1}\). We say the sequence is \emph{exact} if it is exact at all \(A_i\).
+\end{definition}
+
+In other words, the sequence is exact is the same as saying \((A_*, f)\) is a chain complex with \(H_*(A) = 0\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(
+    \begin{tikzcd}
+      0 \ar[r] & A \ar[r, "\iota"] & B 
+    \end{tikzcd}
+  \) is exact at \(A\) if and only if \(\iota\) is injective.
+
+\item \(
+    \begin{tikzcd}
+      B \ar[r, "\pi"] & C \ar[r] & 0
+    \end{tikzcd}
+  \) is exact at \(C\) if and only if \(\pi\) is surjective.
+\item \(
+  \begin{tikzcd}
+    0 \ar[r] & A \ar[r] & 0
+  \end{tikzcd}
+  \) is exact if and only if \(A = 0\).
+\item \(
+  \begin{tikzcd}
+    0 \ar[r] & A \ar[r, "f"] & B \ar[r] & 0
+  \end{tikzcd}
+  \) is exact if and only if \(f: A \to B\) is an isomorphism.
+\item \(
+  \begin{tikzcd}
+    0 \ar[r] & A \ar[r, "\iota"] & B \ar[r, "\pi"] & C \ar[r] & 0
+  \end{tikzcd}
+  \) is exact if and only if \(\iota: A \embed B \) and \(\pi: B \to C\) is a surjection with kernel \(\im A\). This is called a \emph{short exact sequence} (SES). In particular, a long exact sequence gives a bunch of short exact sequences
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \coker f_{i + 2} \ar[r, "f_{i + 1}"] & A_i \ar[r, "f_i"] & \ker f_{i - 1} \ar[r] & 0
+    \end{tikzcd}
+  \]
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}
+  A sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A_* \ar[r, "\iota"] & B_* \ar[r, "\pi"] & C_* \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is a \emph{SES of chain complexes} if
+  \begin{enumerate}
+  \item \(A_*, B_*, C_*\) are chain complexes arnd \(\iota, \pi\) are chain maps.
+  \item \(
+    \begin{tikzcd}
+      0 \ar[r] & A_i \ar[r, "\iota"] & B_i \ar[r, "\pi"] & C_i \ar[r] & 0
+    \end{tikzcd}
+    \) is a exact for all \(i\).
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}[snake lemma]\index{snake lemma}
+  If
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A_* \ar[r, "\iota"] & B_* \ar[r, "\pi"] & C_* \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is a SES of chain complexes then there is a long exact sequence on homology
+  \[
+    \begin{tikzcd}
+      H_*(A) \ar[r, "\iota_*"] & H_*(B) \ar[r, "\pi_*"] & H_*(C) \ar[dll, "\b", out=0, in=180] \\
+      H_{* - 1}(A) \ar[r, "\iota_*"] & H_{* - 1}(B) \ar[r, "\pi_*"] & H_{* - 1}(C) \ar[dll, "\b", out=0, in=180] \\
+      H_{* - 2} \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+  where the map \(\b\) is called the \emph{boundary map}.
+\end{proposition}
+
+\begin{proof}
+  The map \(\b\) is defined as follow: suppose given \([c] \in H_n(C)\) so \(dc = 0\).
+  \begin{enumerate}
+  \item \(\pi\) is surjective so exists \(b \in B_n\) with \(\pi(b) = c\).
+  \item \(\pi db = d\pi b = dc = 0\).
+  \item The sequence is exact at \(B_{n - 1}\) so exists \(a \in A_{n - 1}\) with \(\iota a = db\).
+  \item \(\iota d a = d \iota a = ddb = d^2 b = 0\) so by injectivity of \(\iota\), \(da = 0\).
+  \item Finally define \(\b([c]) = [a]\).
+  \end{enumerate}
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A_n \ar[r, "\iota"] \ar[d, "d"] & B_n \ar[r, "\pi"] \ar[d, "d"] & C_n \ar[r] \ar[d, "d"] & 0 \\
+      0 \ar[r] & A_{n - 1} \ar[r] & B_{n - 1} \ar[r] & C_{n - 1} \ar[r] & 0
+    \end{tikzcd}
+  \]
+  We have to check this is well-defined and the resulting sequence is exact. We check exactness at \(H_{n - 1}(A)\):
+  \begin{align*}
+    [a] \in \ker \iota_*
+    &\iff \iota a = db \text{ for some } b \in B_n \\
+    &\iff [a] = \b [\pi b] \\
+    &\iff [a] \in \im \b
+  \end{align*}
+  The rest are left as exercises.
+\end{proof}
+
+\begin{eg}
+  Recall that if \(X \neq \emptyset\), we can express unreduced homology as
+  \[
+    H_*(X) =
+    \begin{cases}
+      \widetilde H_*(X) & * > 0 \\
+      \widetilde H_*(X) \oplus \Z & * = 0
+    \end{cases}
+  \]
+  We can show this using the snake lemma. Let \(K_* = \langle \sigma_\emptyset \rangle\) if \(* = -1\) and \(0\) otherwise, then
+  \[
+    H_*(K) =
+    \begin{cases}
+      \langle \sigma_\emptyset \rangle & * = -1 \\
+      0 & * \neq -1
+    \end{cases}
+  \]
+  so we have a SES
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & K_* \ar[r] & \widetilde C_*(X) \ar[r] & C_*(X) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  so we have a long exact sequence that looks like
+  \[
+    \begin{tikzcd}
+      H_*(K) \ar[r] & \widetilde H_*(X) \ar[r] & H_*(X) \ar[r] & H_{* - 1}(K)
+    \end{tikzcd}
+  \]
+  so for \(* > 0\), \(\tilde H_*(X) \cong H_*(X)\). The only interesting thing happens at \(* = 0\) which gives
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \widetilde H_0(X) \ar[r] & H_0(X) \ar[r, "\b"] & \Z \ar[r] & \widetilde H_{-1}(X) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Let \(p \in X\) be any point and let \(\sigma_p: \Delta^0 \to X\) be an element of \(\widetilde H_0\). As \(d \sigma_p = \sigma_\emptyset\), we have \(\b[\sigma_p] = \sigma_\emptyset\) so \(\b\) is surjective. Thus \(\widetilde H_{-1}(X) = 0\) so \(H_0(X) \cong \widetilde H_0(X) \oplus \Z\) by example sheet 1 question 3.
+\end{eg}
+
+\subsubsection{Subcomplexes and quotient complexes}
+
+\begin{definition}[subcomplex, quotient complex]\index{chain complex!subcomplex}\index{chain complex!quotient complex}
+  Suppose \((C_*, d)\) is a chain complex. We say \(A_*\) is a \emph{subcomplex} of \(C_*\) if
+  \begin{enumerate}
+  \item \(A_* = \bigoplus_{i \in \Z} A_i\) where \(A_i \subseteq C_i\) is a submodule.
+  \item \(d(A_i) \subseteq A_{i - 1}\).
+  \end{enumerate}
+  If so then \((A_*, d)\) is a chain complex.
+
+  Let \(Q_i = C_i/A_i\) then \(d: C_i \to C_{i - 1}\) induces \(d_Q: Q_i \to Q_{i - 1}\) with \(d_Q^2 = d^2 = 0\). Call \((Q_*, d_Q)\) the \emph{quotient complex}.
+
+  In other words, there is a SES
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A_* \ar[r] & C_* \ar[r] & Q_* \ar[r] & 0
+    \end{tikzcd}
+  \]
+\end{definition}
+
+Suppose \(A \subseteq X\). If \(\sigma: \Delta^k \to X\) has \(\im \sigma \subseteq A\) then \(\sigma \compose F_{\{0, \dots, k\} \setminus \{j\}}: \Delta^{k - 1} \to X\) has image in \(A\) as well, so \(d \sigma \in C_*(A)\). Therefore \(C_*(A)\) is a subcomplex of \(C_*(X)\). We then define
+
+\begin{definition}[homology of a pair]\index{homology group!of a pair}
+  If \(A \subseteq X\), we define
+  \[
+    C_*(X, A) = C_*(X)/C_*(A)
+  \]
+  and \(H_*(X, A) = H_*(C_*(X, A))\) is the \emph{homology of the pair} \((X, A)\).
+\end{definition}
+
+We have the SES
+\[
+  \begin{tikzcd}
+    0 \ar[r] & C_*(A) \ar[r] & C_*(X) \ar[r] & C_*(X, A) \ar[r] & 0
+  \end{tikzcd}
+\]
+whose corresponding long exact sequence is the \emph{long exact sequence of the pair} \((X, A)\)
+\[
+  \begin{tikzcd}
+    \cdots \ar[r] & H_*(A) \ar[r, "\iota_*"] & H_*(X) \ar[r] & H_*(X, A) \ar[r, "\b"] & H_{* - 1}(A) \ar[r] & \cdots
+  \end{tikzcd}
+\]
+where \(\iota: A \embed X\) is the inclusion.
+
+\begin{eg}
+  Let \((X, A) = (D^1, S^0)\). We have
+  \[
+    H_*(S^0) =
+    \begin{cases}
+      \Z \oplus \Z & * = 0 \\
+      0 & * \neq 0
+    \end{cases}
+    \quad
+    H_*(D^1) =
+    \begin{cases}
+      \Z & * = 0 \\
+      0 & * \neq 0
+    \end{cases}
+  \]
+  so the long exact sequence of the pair \((D^1, S^0)\) gives
+  \[
+    \begin{tikzcd}
+      H_1(D^1) \ar[r] \ar[d, equal] & H_1(X, A) \ar[r] & H_0(S^0) \ar[r] \ar[d, equal] & H_0(D^1) \ar[r] \ar[d, equal] & H_0(X, A) \ar[r] & 0\\
+      0 & & \Z \oplus \Z & \Z &
+    \end{tikzcd}
+  \]
+  It is an exercise to check the map \(H_0(S^0) \to H_0(D^1)\) is surjective and thus \(H_1(X, A) \cong \Z\).
+\end{eg}
 
 
 
