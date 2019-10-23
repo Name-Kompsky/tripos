@@ -397,10 +397,150 @@ and hence
       e = x \frac{\partial  }{\partial y}, f = y \frac{\partial  }{\partial x}, h = x \frac{\partial  }{\partial x} - y \frac{\partial  }{\partial y}
     \]
     defines an (infinite-dimensional) rep of \(\Lie{sl}_2\) on \(k[x, y]\). Some implication: this can be defined for all characteristics, and the differential operator is suggesting that reps of Lie groups might have something to do with calculus.
+  \item Show if \(\ch k = 0\) then \(L(n)\) is irreducible as an \(\Lie{sl}_2\), hence \(\SL_2\)-module.
   \end{enumerate}
 \end{ex}
 
+The map \(\rho \mapsto d \rho\) defines a functor from the category of a linear algebraic group \(G\) to the category of Lie algebra reps of \(\Lie g\). However, this is not as nice a map as you might hope.
 
+\begin{eg}
+  Let \(G = \C^\times\) so \(\Lie g = \C\) is the abelian Lie algebra. A rep of \(\Lie g\) on a vector space \(V\) is the same as an element \(A \in \End(V)\). A submodule \(W \subseteq V\) is a subspace \(W\) such that \(gW \subseteq W\), i.e.\ \(A \cdot W \subseteq W\), so the same as an \(A\)-subspace of \(V\). Check that \(A\) and \(A'\) in \(\End(V)\) determine isomorphic reps of \(\Lie g\) if and only if \(A, A'\) are conjugate. Hence isomorphism classes of reps of \(\Lie g = \C\) is in bijection with conjugacy classes of matrices, and hence is determined by its Jordan normal form.
+
+  In addition, any \(A \in \End(V)\) has an eigenvector as \(V\) is a vector space over \(\C\). Thus the only irreducible rep of \(\Lie g\) are the 1-dim ones.
+
+  A rep is isomorphic to a direct sum of irred reps if and only if \(A\) is diagonalisable. For example if \(A =
+  \begin{psmallmatrix}
+    0 & 1 \\
+    & 0 & 1 \\
+    & & & \ddots \\
+    & & & & 1 \\
+    & & & & 0
+  \end{psmallmatrix}
+  \) then the associated rep is \emph{indecomposable}, i.e.\ it does not split into a direct sum, as the only \(A\)-subspaces are \(\langle e_1, \rangle, \langle e_1, e_2 \rangle, \cdots, \langle e_1, \dots, e_n \rangle\).
+
+  Now in constrast consider reps of \(G = \C^\times\). It is a theorem that the irred algebraic reps of \(\C^\times\) are the 1-dim reps where \(z \in \C^\times\) acts on \(\C\) by \(z \cdot v = z^n v\) for \(n \in \Z\). In other words they are given by \(G \to \GL_1, z \mapsto z^n\). Moreover, any finite-dimensional rep of \(G\) is a direct sum of irreducible (this is similar to the proof that the only irred reps of the compact group \(S^1\) are given by \(z \mapsto z^n\), once we set up the theory of algebraic groups).
+\end{eg}
+
+\begin{ex}
+  Show \(\rho \mapsto d\rho\) sends \(z \mapsto z^n\) to the algebraic rep \(n \in \C\).
+\end{ex}
+
+The rep of Lie algebra \(\C\) is continuous while that of the algebraic group \(\C^\times\) is discrete. This has something to do with \(S^1\) and its topology. Later we'll see that the functor \(d\) gives an equivalence of category when restricted to simply connected Lie groups.
+
+\begin{note}
+  Notice \(\Lie g\) is also the Lie algebra of the additive group \((\C, +)\), whose algebraic reps resemble the reps of \(\Lie g\).
+\end{note}
+
+Less distressingly, if \(Z \subseteq G\) is a finite central subgroup then \(T_1(G/Z) = T_1G\) so the Lie algebras of \(G\) and \(G/Z\) agree.
+
+\begin{ex}
+  Let \(G_n = \C^* \ltimes \C\) where \(\C^*\) acts on \(\C\) by \(t \cdot \lambda = t^n \lambda\) so
+  \[
+    (t, \lambda) (t', \lambda') = (tt', t'^n \lambda + \lambda').
+  \]
+  Show that \(G_n \cong G_m\) if and only if \(n = \pm m\), but
+  \[
+    \operatorname{Lie} G_n = \operatorname{Lie} G_m = \C x + \C y
+  \]
+  where \([x, y] = y\), so the functor is not faithful.
+\end{ex}
+As a side note, the functor is not surjective either.
+
+\section{Representations of \(\Lie{sl}_2\)}
+
+Recall that \(\Lie{sl}_2\) has basis
+\[
+  e =
+  \begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}
+  , f =
+  \begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix}
+  , h =
+  \begin{pmatrix}
+    1 & 0 \\
+    0 & -1
+  \end{pmatrix}
+\]
+so we have
+\[
+  [e, f] = h, [h, e] = 2e, [h, f] = -2f
+\]
+ 
+We would like to prove
+\begin{theorem}\leavevmode
+  \begin{enumerate}
+  \item For each \(n \geq 0\) there is a unique irreducible rep of \(\Lie{sl}_2\) of dimension \(n + 1\).
+  \item Every finite-dimensional rep of \(\Lie{sl}_2\) is a direct sum of irred reps.
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}[weight space]\index{weight space}
+  Let \(V\) be a rep of \(\Lie{sl}_2\). If \(\lambda \in \C\), the \emph{\(\lambda\)-weight space} of \(V\) is
+  \[
+    V_\lambda = \{v \in V: h v = \lambda v\},
+  \]
+  the eigenspace of \(h\).
+\end{definition}
+
+\begin{eg}
+  \(L(n)_\lambda = \C x^i y^j\) if \(i - j = \lambda\).
+\end{eg}
+
+Let \(v \in V_\lambda\) and we have
+\[
+  h \cdot ev = (he - eh + eh) v = ([h, e] + eh) v = 2ev + e \lambda v = (\lambda + 2) ev
+\]
+so if \(v \in V_\lambda\) then \(ev \in V_{\lambda + 2}\), if and only if \(ev \neq 0\). Similarly \(fv \in V_{\lambda - 2}\). Thus \(f\) and \(e\) shifts between a string of spaces \(V_{\lambda + 2}, V_\lambda, V_{\lambda - 2}, \dots\)
+\[
+  \begin{tikzcd}
+    \cdots \ar[r,  shift left] & V_{\lambda - 2} \ar[l, shift left] \ar[r, "e", shift left] & V_\lambda \ar[l, "f", shift left] \ar[r, "e", shift left] & V_{\lambda + 2} \ar[l, "f", shift left] \ar[r, shift left] & \cdots \ar[l, shift left]
+  \end{tikzcd}
+\]
+
+If \(v \in V_\lambda \cap \ker e\), that is \(ev = 0, hv = \lambda v\) we say \(v\) is a \emph{highest weight vector with highest weight \(\lambda\)}.
+
+\begin{lemma}
+  Let \(V\) be a rep of \(\Lie{sl}_2\), \(v \in V_\lambda\) a highest weight vector of weight \(\lambda\) then \(W = \langle v, fv, f^2v, \cdots \rangle\) is an \(\Lie{sl}_2\)-invariant subspace, that is a subrep of \(V.\)
+\end{lemma}
+
+\begin{proof}
+  We must show the image of \(W\) under \(f, h, e\) are contained in \(W\). \(fW \subseteq W\) by construction. As \(v \in V_\lambda\), we see that \(f^kv \in V_{\lambda - 2k}\) and so \(hW \subseteq W\). Finally \(ev = 0 \in W\) and
+  \begin{align*}
+    e \cdot fv &= (ef - fe + fe) v = hv = \lambda v \in W \\
+    e \cdot f^2 v &= ([e, f] + fe) fv = (\lambda - 2) fv + f\cdot \lambda v = (2\lambda - 2) fv \in W \\
+    e \cdot f^3 v &= ([e, f] + fe) f^2 = (\lambda - 4) f^2v + f(2\lambda - 2) fv = (3\lambda - 6)f^2 v \in W
+  \end{align*}
+  and so on. It is an exercise to show by induction
+  \[
+    e\cdot f^n v = n (\lambda - n + 1) f^{n - 1} v.
+  \]
+\end{proof}
+
+We have a surprising result:
+\begin{lemma}
+  Let \(V\) be a finite-dimensional \(\C\)-space and a rep of \(\Lie{sl}_2\) and \(v \in V\) a highest weight vector with highest weight \(\lambda\) then \(\lambda \in \{0, 1, \dots \} = \Z_{\geq 0}\).
+\end{lemma}
+
+\begin{proof}
+  Note that all \(f^k v\) lie in different eigenspaces for \(h\) so if non-zero they are linearly independent. But \(V\) is finite dimensional so exists \(k\) such that \(f^k v \neq 0, f^{k + 1} = 0\). The exercise shows
+  \[
+    0 = ef^{k + 1}v = (k + 1)( \lambda - k)f^k v
+  \]
+  so \(k + 1 \neq 0\) so \(\lambda = k\).
+\end{proof}
+
+\begin{lemma}
+  If \(V\) is a finite-dimensional rep of \(\Lie{sl}_2\) then it has a highest weight vector.
+\end{lemma}
+
+\begin{proof}
+  As \(V\) is a \(\C\)-space \(h\) has an eigenvector. Apply \(e\) to it get \(v, ev, e^2v, \dots\) which are eigenvectors with different eigenvectors so if nonzero are linearly independent so exists \(k\) such that \(e^kv = 0\), so \(e^kv\) is a highest weight eigenvector.
+\end{proof}
 
 
 \printindex

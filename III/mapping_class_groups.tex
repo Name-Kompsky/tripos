@@ -241,7 +241,69 @@ Picture of an (embedded) hyperbolic surface. Note that a puncture is a cusp beca
       \tilde \alpha_s(1) = \tilde \alpha_s(0) + 1
     \]
     so \(\tilde \alpha_s\) descends to a loop \(\alpha_s\) in \(S\) and \(\alpha_s\) tends to a puncture of \(s\) by compactness of \(\overline \H^2\).
+  \item It's enough to prove that \(\alpha\) homotopic to a puncture then it is parabolic. By shrinking \(\alpha\) we get a sequence of annuli. Since the hyperbolic structure is complete and of finite area, there exists \(\alpha_n \sim \alpha\) such that \(\ell(\alpha_n) \to 0\) as \(n \to \infty\). Lift \(\alpha\) to a path \(\tilde \alpha: [0, 1] \to \H^2\) and moreover we get well-defined lifts \(\tilde \alpha_n\) of \(\alpha_n\). Let \(\tilde x_n = \tilde \alpha_n(0)\). Note \(\tilde \alpha_n(1) = \alpha \cdot \tilde x_n\). Then the translation distance is
+    \begin{align*}
+      \tau(\alpha)
+      &\leq d(\tilde x_n, \alpha \cdot \tilde x_n) \\
+      &= d(\tilde \alpha_n(0), \tilde \alpha_n(1)) \\
+      &\leq \ell(\tilde \alpha_n) \\
+      &= \ell(\alpha_n) \\
+      &\to 0
+    \end{align*}
+    as \(n \to \infty\) so \(\alpha\) is not hyperbolic.
   \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  Let \(S\) be a hyperbolic surface and \(\alpha\) an essential closed curve on \(S\). Then there is a unique geodesic representative in the homotopy class of \(\alpha\).
+\end{lemma}
+
+Note that for Euclidean space, such as a torus, such a representative exists but is not unique.
+
+\begin{proof}
+  The universal cover of \(S^1\) is \(\R\) and the universal cover of \(\widetilde S \subseteq \H^2\) of \(S\). Then each \(\alpha: S^1 \to S\) lifts to \(\tilde \alpha: \R \to \widetilde S\). Note that \(\tilde \alpha\) is \(\Z\)-equivariant by considering the action of \(\pi_1 S^1\). From the lemma above we know \(\alpha\) has an axis \(\Axis(\alpha)\). Let \(\pi: \H^2 \to \Axis(\alpha)\) be the orthogonal projection (equivalently, it projects a point \(x\) to \(\pi(x)\) on \(\Axis(\alpha)\) such that the length of the geodesic between \(x\) and \(\pi(x)\) is the shortest so. See example sheet 1). Let \(\tilde \gamma_t: [0, 1] \to \H^2\) be the unique constant speed geodesic from \(\tilde \alpha(t)\) to \(\pi \compose \tilde \alpha(t)\). Since \(\langle \alpha \rangle\) acts on both \(\tilde \alpha\) and \(\Axis(\alpha)\) and the \(\tilde \gamma_t\) are determined canonically, taking the quotient by \(\Z = \langle \alpha \rangle\) defines a homotopy from \(\alpha\) to some closed curve \(\beta\) on \(S\) in the image of \(\Axis(\alpha)\). The image of \(\beta\) is a local geodesic and after reparameterisation, \(\beta\) is a constant-speed geodesic.
+
+  Unqiueness: suppose \(\alpha \simeq \beta\) are both geodesics on \(S\). Lift \(\alpha, \beta\) to \(\tilde \alpha, \tilde: \R \to \H^2\) geodesics in \(\H^2\) that are contained in a bounded neighbourhood of each other (since \(\sup_{t \in S^1} d(\alpha(t), \beta(t)) < \infty\) by compactness). It follows that \(\tilde \alpha, \tilde \beta\) are geodesics in \(\H^2\) with the same endpoints on \(\b \H^2\). It follws that \(\tilde \alpha = \tilde \beta\) so \(\alpha = \beta\).
+\end{proof}
+
+\section{Simple closed curves \& Intersection number}
+
+A closed curve \(\alpha: S^1 \to S\) is \emph{simple} if it is injective. The idea is that simple closed curves are like basis of a vector space and we can understand mapping class groups by understanding its action on simplex closed curves.
+
+\begin{definition}[(ambient) isotopy of simple closed curves]\index{ambient isotopy}
+  A homotopy \(\alpha_\bullet\) between simple closed curves \(\alpha_0\) to \(\alpha_1\) is an \emph{isotopy} if each \(\alpha_t\) is simple.
+
+  If \(\phi_|bullet: S \to S\) is an isotopy such that \(\phi_0 = \id_S\) and \(\phi_1 \compose \alpha_0 = \alpha_1\) then we say \(\alpha_0, \alpha_1\) are \emph{ambient isotopic}.
+\end{definition}
+
+\begin{lemma}
+  Two essential simple closed curves on an orientable surface \(S\) are homotopic relative to \(\b S\) if and only if they are ambient isotopic.
+\end{lemma}
+
+We'll prove this later.
+
+\begin{definition}
+  An element \(h \in \pi_1(S)\) is \emph{primitive} if \(h \neq g^n\) for some \(n > 1\).
+\end{definition}
+
+\begin{lemma}
+  Let \(T^2\) be the torus. The homotopy class of essential simple closed curves on \(T^2\) correspond to primitive elements of \(\pi_1 T^2 = \Z^2\).
+\end{lemma}
+
+\begin{proof}
+  Example sheet 1, question 8.
+\end{proof}
+
+\begin{lemma}
+  If \(\alpha\) is an essential simple closed curve on a hyperbolic surface \(S\) then \(\alpha \in \pi_1S\) is primitive. In fact the it has centraliser \(C(\alpha) = \langle \alpha\rangle\).
+\end{lemma}
+
+\begin{proof}
+  wlog \(\alpha\) is a geodesic and we may consider \(\Axis(\alpha) \subseteq \H^2\). Let \(g \in C(\alpha), x \in \Axis(\alpha)\). Then
+  \[
+    d(gx, \alpha gx) = d(gx, g\alpha x) = d(x, \alpha x) = \tau(x)
+  \]
+  as \(x\) is on the axis. Therefore \(g\) preserves \(\Axis(\alpha)\) so \(C(\alpha\) acts on \(\Axis(\alpha)\). We have \(\langle \alpha \rangle \subseteq C(\alpha)\). \(\alpha\) is injective then \(\deg p = 1 = |C(\alpha): \langle a \rangle|\) so the result follows.
 \end{proof}
 
 

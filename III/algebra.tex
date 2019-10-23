@@ -11,6 +11,8 @@
 \input{header}
 
 \DeclareMathOperator{\Ann}{Ann} % annihilator
+\newcommand{\nilrad}[1]{\mathcal{N}({#1})} % nilradical
+\newcommand{\jac}[1]{\operatorname{Jac}({#1})} % nilradical
 \iffalse
 \DeclareMathOperator{\Tor}{Tor}
 \DeclareMathOperator{\Ext}{Ext}
@@ -292,7 +294,7 @@ There is a ring homomorphism
       S = 1 + I = \{1 + r: r \in I\}.
     \]
   \item \(R_f\) where \(S = \{1, f, f^2, \dots\}\).
-  \item If \(P\) is a prime ideal of \(R\) then take \(S = R \setminus P\). Write \(R_P\) for \(S^{-1}P\) in this case. The process of going from \(R\) to \(R_P\) is called \emph{localisation}\index{localisation}. The elements \(\frac{r}{s} \in R_P\) with \(r \in P\) form an ideal \(P_P\) of \(R_P\). The is the unique maximal ideal of \(R_P\): if \(r \notin P\) then \(r \in S\) so \(\frac{r}{s}\) is a unit.
+  \item If \(P\) is a prime ideal of \(R\) then take \(S = R \setminus P\). Write \(R_P\) for \(S^{-1}P\) in this case. The process of going from \(R\) to \(R_P\) is called \emph{localisation}\index{localisation}. The elements \(\frac{r}{s} \in R_P\) with \(r \in P\) form an ideal \(P_P\) of \(R_P\). This is the unique maximal ideal of \(R_P\): if \(r \notin P\) then \(r \in S\) so \(\frac{r}{s}\) is a unit.
   \end{enumerate}
 \end{eg}
 
@@ -646,6 +648,133 @@ Given an \(R\)-module \(M\), we can form \(T \otimes_R M\) which can be regarded
 \begin{eg}
   Localisation is an example of extension of scalars. Given an \(R\)-module \(M\) and multiplicatively closed subset \(S\) of \(R\), there is a unique isomorphism \(f: S^{-1}R \otimes_R M \to S^{-1}M\) since there is a bilinear map \(S^{-1}R \times M \to S^{-1}M, (\frac{r}{s}, m) \mapsto \frac{rm}{s}\) and universality yields the map \(f\). Check this is an isomorphism.
 \end{eg}
+
+\paragraph{Tensor products of maps}
+
+Given \(R\)-module maps \(\theta: M_1 \to M_2, \phi: N_1 \to N_2\), then we can define an \(R\)-module
+\begin{align*}
+  \theta \otimes \phi: M_1 \otimes N_1 &\to M_2 \otimes N_2 \\
+  m_1 \otimes n_1 &\mapsto \theta(m_1) \otimes \phi(n_1)
+\end{align*}
+This is induced by the bilinear map
+\begin{align*}
+  M_1 \times N_1 &\to M_2 \otimes N_2 \\
+  (m_1, n_1) &\mapsto \theta(m_1) \otimes \phi(n_1)
+\end{align*}
+
+Given a short exact sequence
+\[
+  \begin{tikzcd}
+    0 \ar[r] & M_1 \ar[r, "\theta"] & M \ar[r, "\phi"] & M_2 \ar[r] & 0
+  \end{tikzcd}
+\]
+by tensoring with \(N\) we can form a sequence
+\[
+  \begin{tikzcd}
+    0 \ar[r] & N \otimes M_1 \ar[r, "\id \otimes \theta"] & N \otimes M \ar[r, "\id \otimes \phi"] & N \otimes M_2 \ar[r] & 0
+  \end{tikzcd}
+\]
+where \(\id: N \to N\) is the identity.
+
+We saw that when \(N = S^{-1}R\) then localisation is exact so we have a short exact sequence. However, in general it is not exact.
+
+\begin{eg}
+  Let \(R = \Z\) and a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Z \ar[r, "2"] & \Z \ar[r] & \Z/2\Z \ar[r] & 0
+    \end{tikzcd}
+  \]
+  set \(N = \Z/2\Z\), we observe that
+  \[
+    N \otimes_\Z \Z \cong \Z/2\Z, N \otimes_\Z \Z/2\Z \cong \Z/2\Z
+  \]
+  so we have a sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Z/2\Z \ar[r, "\id \otimes 2"] & \Z/2\Z \ar[r] & \Z/2\Z \ar[r] & 0
+    \end{tikzcd}
+  \]
+  with \(\id \otimes 2 = 0\) so we do not have exactness on the left hand side. So \(N \otimes_\Z -\) does not preserve exactness. However, it is indeed right exact. This is the starting point of homology theory.
+\end{eg}
+
+\begin{definition}[flat module]\index{flat module}
+  \(N\) is a \emph{flat} \(R\)-module if \(N \otimes_R -\) preserves exactness of all short exact sequence.
+\end{definition}
+
+\begin{eg}
+  \(S^{-1}R\) is a flat \(R\)-module for all multiplicatively closed subsets \(S\) of \(R\). In particular \(R\) itself is a flat \(R\)-module. Moreoever \(R^n\) is flat.
+\end{eg}
+
+\begin{definition}[algebra]\index{algebra}
+  Given \(\phi: R \to T\) a ring homomorphism, we say \(T\) is an \emph{\(R\)-algebra}.
+\end{definition}
+
+\begin{definition}[tensor product of algebras]\index{algebra!tensor product}\index{tensor product!of algebras}
+  Given \(R\)-algebras \(\phi_i: R \to T_i\) for \(i = 1, 2\), we can define the \emph{tensor product over \(R\)} by endowing \(T_1 \otimes_R T_2\) with a product
+  \[
+    (t_1 \otimes t_2) (t_1' \otimes t_2') = t_1t_1' \otimes t_2t_2'
+  \]
+  and
+  \begin{align*}
+    R &\to T_1 \otimes_R T_2 \\
+    r &\mapsto \phi_1(r) \otimes 1 = 1 \otimes \phi_2(r) = r(1 \otimes 1)
+  \end{align*}
+  This is well-defined and \(1 \otimes 1\) is the multiplicative identity.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(R = k\) be a field. Then \(k[x_1] \otimes_k k[x_2] \cong k[x_1, x_2]\).
+  \item \(\Q[x]/(x^2 + 1) \otimes_\Q \C \cong \C[x]/(x^2 + 1)\).
+  \item \(k[x_1]/(f(x_1)) \otimes_k k[x_2]/(g(x_2)) \cong k[x_1, x_2]/(f(x_1), g(x_2))\).
+  \end{enumerate}
+\end{eg}
+
+\section{Ideal structure}
+
+Throughout this chapter \(R\) is commutative with a \(1\).
+
+\begin{lemma}
+  The set of nilpotent elements of a commutative ring \(R\) form an ideal \(\mathcal N(R)\) and \(R/\nilrad R\) has no nilpotent elements.
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{definition}[nilradical]\index{nilradical}
+  The ideal \(\nilrad R\) is the \emph{nilradical} of \(R\).
+\end{definition}
+
+\begin{lemma}[Krull]
+  \(\nilrad R\) is the intersection of all the prime ideals of \(R\).
+\end{lemma}
+
+\begin{proof}
+  Let \(I = \bigcap_{P \text{ prime}} P\). If \(x \in R\) is nilpotent then \(x^m = 0 \in P\) for some \(m\). \(P\) prime implies that \(x \in P\) so \(x \in I\). If \(x\) is not nilpotent then consider \(S = \{1, x, x^2, \dots\}\) which does not contain \(0\). Localise to get \(S^{-1}R = R_x\) which is not zero. Take a maximal ideal of \(R_x\). By prime ideal correspondence this maximal ideal of \(R_x\) corresponds to a prime ideal \(P\) with \(P \cap S = \emptyset\). In particular \(x \notin P\) so \(x \notin I\). Thus \(I = \nilrad R\).
+\end{proof}
+
+\begin{definition}[radical]\index{radical}
+  For an ideal \(I\) of \(R\) its \emph{radical} is
+  \[
+    \sqrt I = \{x: x^m \in I \text{ for some } m\}.
+  \]
+\end{definition}
+Note that \(\sqrt I /I = \nilrad R/I\).
+
+\begin{definition}[Jacobson radical]\index{Jacobson radical}
+  The \emph{Jacobson radical} of \(R\) is the intersection of all the maximal ideals of \(R\), written \(\jac R\).
+\end{definition}
+Thus
+\[
+  \nilrad R = \bigcap_{\text{prime}} P \subseteq \bigcap_{\text{maximal}} P = \jac R.
+\]
+In general we don't have equality. For example if \(R\) is a local ring with unique maximal ideal \(P\) then \(\jac R = P\). But if \(R = \Z_{(p)} \subseteq \Q\) which is an integral domain then it does not have nonzero nilpotent elements so \(\nilrad R = (0)\).
+
+
+
+
 
 
 
