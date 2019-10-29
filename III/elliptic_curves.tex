@@ -471,14 +471,7 @@ We assume \(K\) is a perfect field with algebraic closure \(\overline K\) in thi
 
 A Weierstrass equation defines an elliptic curve if and only if it defines a smooth curve, if and only if \(\Delta(a_1, \dots a_6) \neq 0\) where \(\Delta \in \Z[a_1, \dots, a_6]\) is a certain polynomial. Details can be found out in the lecture handout.
 
-If \(\ch K \neq 2, 3\) then we can reduce the curve to
-\[
-  E: y^2 = x^3 + ax + b
-\]
-with discriminant
-\[
-  \Delta = -16(4a^3 + 27b^2).
-\]
+If \(\ch K \neq 2, 3\) then we can reduce the curve to \(E: y^2 = x^3 + ax + b\) with discriminant \(\Delta = -16(4a^3 + 27b^2)\).
 
 \begin{corollary}
   Assume \(\ch k \neq 2, 3\). Elliptic curves
@@ -495,7 +488,7 @@ with discriminant
 \end{corollary}
 
 \begin{proof}
-  \(E\) and \(E\)' are related as in proposition 3.2 with \(r = s = t = 0\).
+  \(E\) and \(E'\) are related as in proposition 3.2 with \(r = s = t = 0\).
 \end{proof}
 
 \begin{definition}[\(j\)-invariant]\index{\(j\)-invariant}
@@ -527,7 +520,7 @@ If \(P = Q\) then take the tangent at \(P\) instead of \(PQ\). This is the ``cho
   \((E, \oplus)\) is an abelian group.
 \end{theorem}
 
-Notation: \(E = E(\overline K)\).
+Here we recall a convention: if we don't specify the field extension the we mean the algebraic claosure. In notation: \(E = E(\overline K)\).
 
 \begin{proof}\leavevmode
   \begin{enumerate}
@@ -701,12 +694,370 @@ The isomorphism is understood as isomorphism of Riemann surfaces and isomorphism
   Every elliptic curve over \(\C\) arises this way.
 \end{theorem}
 
-For elliptic curve \(E/\C\) w have
+For elliptic curve \(E/\C\) we have
 \begin{enumerate}
 \item \(E[n] \cong (\Z/n\Z)^2\).
 \item \(\deg [n] = n^2\).
 \end{enumerate}
 We'll show 2 holds for any field \(K\), and 1 holds if \(\ch k \ndivides n\).
+
+Statement of results
+\begin{enumerate}
+\item If \(K = \C\) then \(E(\C) \cong \C/\Lambda \cong \R/\Z \cong \R/\Z\).
+\item If \(K = \R\) then \(E(\R) \cong
+  \begin{cases}
+    \Z/2\Z \times \R/\Z & \Delta > 0 \\
+    \R/\Z & \Delta < 0
+  \end{cases}
+  \)
+\item If \(K = \F_q\) then \(|E(\F_q) - (q + 1)| \leq 2 \sqrt q\). This is Hasse's theorem.
+\item If \([K: \Q_p] < \infty\) with rings of integers \(\mathcal O_K\) then \(E(K)\) has a subgroup of finite index isomorphic to \((\mathcal O_K, +)\).
+\item If \([K: \Q] < \infty\) then \(E(K)\) is a finitely generated abelian group. This is Mordell-Weil theorem.
+\end{enumerate}
+
+\begin{remark}
+  The isomorphisms in 1, 2 and 4 resepcted the relevant topologies.
+\end{remark}
+
+\section{Isogenies}
+
+Let \(K\) be any perfect field in this chapter.
+
+Let \(E_1, E_2\) be elliptic curves.
+
+\begin{definition}[isogeny]\index{isogeny}
+  An \emph{isogeny} \(\phi: E_1 \to E_2\) is a nonconstant morphism with \(\phi(0_{E_1}) = 0_{E_2}\). We say \(E_1\) and \(E_2\) are \emph{isogenous} if there exists an isogeny from \(E_1\) to \(E_2\).
+
+  We define \(\Hom(E_1, E_2)\) to the be set of all isogenies \(E_1 \to E_2\) plus \(0\). This is a group under
+  \[
+    (\phi + \psi)(P) = \phi(P) + \psi(P).
+  \]
+\end{definition}
+Note that nonconstant implies that surjectivity on \(\overline K\)-points. The composition of isogenies is an isogeny.
+
+\begin{lemma}
+  If \(0 \neq n \in \Z\) then \([n]: E \to E\) is an isogeny.
+\end{lemma}
+
+\begin{proof}
+  We have checked that \([n]\) is a morphism. We must show \([n] \neq 0\). There is a trick that we can use, if we assume \(\ch K \neq 2\). If \(n = 2\) then we computed last time that \(\E[2]\) has 4 points so \([2] \neq 0\). If \(n\) is odd then let \(T \in E[2]\) be nonzero then \(nT = T \neq 0\) so again \([n] \neq 0\). Now use \([mn] = [m] \compose [n]\).
+
+  If \(\ch K = 2\), we can compute \(E[3]\) as in the lemma before.
+\end{proof}
+
+\begin{corollary}
+  \(\Hom(E_1, E_2)\) is torsion-free as a \(\Z\)-module.
+\end{corollary}
+
+\begin{lemma}
+  Let \(\phi: E_1 \to E_2\) be an isogeny. Then \(\phi(P + Q) = \phi(P) + \phi(Q)\) for all \(P, Q \in E\).
+\end{lemma}
+
+\begin{proof}[Sketch proof]
+  \(\phi\) induces a map
+  \begin{align*}
+    \phi_*: \Div^0(E_1) &\to \Div^0(E_2) \\
+    \sum n_P P &\mapsto \sum n_P \phi(P)
+  \end{align*}
+  Recall we have a field extension \(\phi^*: K(E_2) \to K(E_1)\) so there is a norm map \(N_{K(E_1)/K(E_2)}: K(E_1) \to K(E_2)\). It is a fact that if \(f \in K(E_1)^*\) then
+  \[
+    \div (N_{K(E_1)/K(E_2)} f) = \phi_*(\div f)
+  \]
+  so \(\phi_*\) takes principal divisors to principal divisors. Since \(\phi(0_{E_1}) = 0_{E_2}\), we have a commutative diagram
+  \[
+    \begin{tikzcd}
+      E_1 \ar[r, "\phi"] \ar[d, "\cong"] & E_2 \ar[d, "\cong"] \\
+      \Pic^0(E_1) \ar[r, "\phi_*"] & \Pic^0(E_2)
+    \end{tikzcd}
+  \]
+  As \(\phi_*\) is a group homomorphism, so is \(\phi\).
+\end{proof}
+
+\begin{eg}
+  Let \(E/K\) be an elliptic curve. Suppose \(\ch K \neq 2\) and exists \(0 \neq T \in E(K)[2]\). wlog assume \(E: y^2 = x(x^2 + ax + b)\) with \(a, b \in K, b(a^2 - 4b) \neq 0\) so \(T = (0, 0)\). If \(P = (x, y)\) and \(P' = P + T = (x', y')\) then
+  \begin{align*}
+    x' &= \left( \frac{y}{x} \right)^2 - a - x = \frac{b}{x} \\
+    y' &= - \left( \frac{y}{x} \right) x' = \frac{-by}{x^2}
+  \end{align*}
+  We define two variables that remain unchanged under (?) swapping
+  \begin{align*}
+    \xi &= x + x' + a = \left( \frac{y}{x} \right)^2 \\
+    \eta &= y + y' = \frac{y}{x} (x - \frac{b}{x})
+  \end{align*}
+  Then
+  \begin{align*}
+    \eta^2 &= \left( \frac{y}{x} \right)^2 ((x + \frac{b}{x})^2 - 4b) \\
+           &= \zeta ((\zeta - a)^2 - 4b) \\
+           &= \zeta (\zeta^2 - 2a\zeta + a^2 - 4b)
+  \end{align*}
+  Let \(E': y^2 = (x^2 + a'x + b')\) where \(a' = -2a, b' = a^2 - 4b\). Then there is an isogeny
+  \begin{align*}
+    \phi: E &\to E' \subseteq \P^2 \\
+    (x, y) &\mapsto (\xi : \eta : 1)
+  \end{align*}
+  Left to show \(\phi(0_E) = 0_{E'}\). The three coordinates has a pole of order \(-2, -3, 0\) respectively at \(0_E\) so multiply by uniformiser to the power of three we get \((0:1:0)\).
+\end{eg}
+
+\begin{lemma}
+  Let \(\phi: E_1 \to E_2\) be an isogeny. Then exists morphism \(\xi\) making the following diagram commute
+  \[
+    \begin{tikzcd}
+      E_1 \ar[r, "\phi"] \ar[d, "x_1"] & E_2 \ar[d, "x_2"] \\
+      \P^1 \ar[r, "\xi"] & \P^1
+    \end{tikzcd}
+  \]
+  where \(x_i\) is the \(x\) coordinate on a Weierstrass equation for \(E_i\). Moreover if \(\xi(t) = \frac{r(t)}{s(t)}\) where \(r, s \in K[t]\) coprime then
+  \[
+    \deg \phi = \deg \xi = \max (\deg (r), \deg (s)).
+  \]
+\end{lemma}
+
+\begin{eg}
+  In the example above we just have \(\xi = \frac{x^2 + ax + b}{x}\) so in particular it has degree \(2\).
+\end{eg}
+
+\begin{proof}
+  For \(i = 1, 2\), \(K(E_i)/K(x_i)\) is a degree \(2\) Galois extension with Galois group generated by \([-1]^*\).
+
+  \[
+    \begin{tikzcd}
+      & K(E_1) \ar[dd] \\
+      K(x_1) \ar[ur] \ar[dd, dashed] \\
+      & K(E_2) \\
+      K(x_2) \ar[ur]
+    \end{tikzcd}
+  \]
+  If \(f \in K(x_2)\) then \([-1]^* f = f\) so
+  \[
+    [-1]^*(\phi^* f) = \phi^*([-1]^* f) = \phi^* f
+  \]
+  so indeed \(\phi^*f \in K(x_1)\). Taking \(f = x_2\) gives \(\phi^*x_2 = \xi(x_1)\) for some rational function \(\xi\). By tower law \(\deg \phi = \deg \xi\). Now \(K(x_2) \embed K(x_1), x_2 \mapsto \xi(x_1) = \frac{r(x_1)}{s(x_1)}\) for some \(r, s \in K[t]\) coprime. Claim the minimal polynomial of \(x_1\) over \(K(x_2)\) is
+  \[
+    f(t) = r(t) - s(t)x_2 \in K(x_2)[t].
+  \]
+  Check \(f(x_1) = 0\). \(f\) is irreducible in \(k[x_2, t]\) (since \(r, s\) are corpime) so by Gauss' lemma \(f\) is irreducible in \(K(x_2)[t]\). Therefore
+  \[
+    \deg \phi = \deg \xi = [K(x_1): K(x_2)] = \deg(f) = \max(\deg(r), \deg(s)).
+  \]
+\end{proof}
+
+The lemma shows that the example \(\phi\) above has degree 2. We say \(\phi\) is a \emph{\(2\)-isogeny}.
+
+\begin{lemma}
+  \(\deg [2] = 4\).
+\end{lemma}
+
+\begin{proof}
+  Assume \(\ch K \neq 2, 3\) so write \(E: y^2 = f(x) = x^3 + ax + b\). If \(P = (x, y)\) then
+  \[
+    x(2P)
+    = \left( \frac{2x^2 + a}{2y} \right)^2 - 2x
+    = \frac{(3x^2 + a)^2 - 8x f(x)}{4 f(x)} 
+    = \frac{x^4 + \cdots}{4 f(x)}
+  \]
+  The numerator and the denominator are coprime. Indeed otherwise exists \(\theta \in \overline K\) with \(f(\theta) = f'(\theta) = 0\), so \(f\) has a multiple root, absurd. Therefore by the lemma \(\deg [2] = max(4, 3) = 4\).
+\end{proof}
+
+We will show that \(\deg [n] = n^2\) by showing that \(\deg\) is a quadratic form. This will also be useful when we prove Hasse's theorem later.
+
+\begin{definition}
+  Let \(A\) be an abelian group. \(q: A \to \Z\) is a quadratic form if
+  \begin{enumerate}
+  \item \(q(nx) = n^2 q(x)\) for all \(n \in \Z, x \in A\).
+  \item \((x, y) \mapsto q(x + y) - q(x) - q(y)\) is \(\Z\)-bilinear.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  \(q: A \to \Z\) is a quadratic form if and only if it satisfies the parallelogram law
+  \[
+    q(x + y) + q(x - y) = 2q(x) + 2q(y)
+  \]
+  for all \(x, y \in A\).
+\end{lemma}
+
+\begin{proof}
+  Only if is an easy exercise. If will be on example sheet 2.
+\end{proof}
+
+\begin{theorem}
+  \(\deg: \Hom(E_1, E_2) \to \Z\) is a quadratic form.
+\end{theorem}
+Here by convention the 0 map has degree \(0\).
+
+For the proof we assume \(\ch K \neq 2, 3\) and write \(E_2: y^2 = f(x) = x^3 + ax + b\). Let \(P, Q \in E_2\) with \(P, Q, P + Q, P - Q \neq 0\). Let \(x_1, \dots, x_4\) be the \(x\) coordinates of these four points.
+
+\begin{lemma}
+  There exist \(W_0, W_1, W_2 \in \Z[a, b][x_1, x_2]\) of degree \(\leq 2\) in \(x\) and of degree \(\leq 2\) in \(x_2\) such that
+  \[
+    (1: x_3 + x_4: x_3x_4) = (W_0: W_1: W_2).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Method 1 is to calculate directly and get \(W_0 = (x_1 - x_2)^2, \dots\). See formula sheet.
+
+  Method 2: let \(y = \lambda x + \nu\) be the line through \(P\) and \(Q\) so
+  \[
+    f(x) - (\lambda x + \nu)^2 = (x - x_1)(x - x_2)(x - x_3).
+  \]
+  By comparing coefficients we get
+  \begin{align*}
+    \lambda^2 &= s_1 \\
+    -2 \lambda \nu &= s_2 - a \\
+    \nu^2 &= s_3 + b
+  \end{align*}
+  where \(s_i\) is the \(i\)th elementary symmetric polynomial in \(x_1, x_2, x_3\). Eliminating \(\lambda\) and \(\mu\) gives
+  \[
+    \underbrace{(s_2 - a)^2 - 4s_1 (s_3 + b)}_{F(x_1, x_2, x_3)} = 0
+  \]
+  where \(F\) has degree \(\leq 2\) in each \(x_i\). \(x_3\) is a root of the quadratic \(W(t) = F(x_1, x_2, t)\). Repeating for line through \(P\) and \(-Q\) shows \(x_4\) is also a root of \(W(t)\). Write \(W(t) = W_0t^2 - W_1t + W_2\) and then
+  \[
+    (1: x_3 + x_4: x_3x_4) = (W_0: W_1: W_2).
+  \]
+\end{proof}
+
+We show that if \(\phi, \psi \in \Hom(E_1, E_2)\) then
+\[
+  \deg (\phi + \psi) + \deg (\phi - \psi) \leq 2 \deg(\phi) + 2 \deg(\psi).
+\]
+We may assume \(\phi, \psi, \phi + \psi, \phi - \psi \neq 0\) as the other cases are trivial or we may use \(\deg [2] = 4\). Let the \(x\) coordinate of \(\phi(x, y), \psi(x, y), (\phi + \psi)(x, y), (\phi - \psi)(x, y)\) be \(\xi_1(x), \dots, \xi_4(x)\) respectively. Put \(\xi_i = \frac{r_i}{s_i}\) where \(r_i, s_i \in K[x]\) coprime and use the above lemma, we get
+\[
+  (s_3s_4: r_3s_4 + r_4s_3: r_3r_4) = ((r_1s_2 - r_2s_1)^2: \cdots ).
+\]
+Note that the three coordinates on LHS are coprime. We have
+\begin{align*}
+  &\deg (\phi + \psi) + \deg (\phi - \psi) \\
+  &= \max(\deg (r_3), \deg (s_3)) + \max (\deg (r_4), \deg (s_4)) \\
+  &= \max(\deg (s_3s_4), \deg (r_3s_4 + r_4s_3), \deg (r_3r_4)) \quad \text{case checking} \\
+  &\leq 2 \max(\deg(r_1), \deg(s_1)) + 2 \max(\deg (r_2), \deg (s_2)) \quad \text{as terms on LHS are coprime} \\
+  &= 2 \deg (\phi) + 2 \deg (\psi)
+\end{align*}
+
+Now replace \(\phi, \psi\) by \(\phi + \psi\) and \(\phi - \psi\) to get
+\[
+  \deg (2\phi) + \deg (2\psi) \leq 2 \deg (\phi + \psi) + 2 \deg(\phi - \psi)
+\]
+Since \(\deg [2] = 4\) we get
+\[
+  2 \deg (\phi) + 2 \deg (\psi) \leq \deg (\phi + \psi) + \deg (\phi - \psi)
+\]
+Together they show \(\deg\) satisfies the parallelogram law, so \(\deg\) is a quadratic form.
+
+\begin{corollary}
+  \(\deg (n\phi) = n^2 \deg (\phi)\) for all \(n \in \Z, \phi \in \Hom(E_1, E_2)\). In particular \(\deg [n] = n^2\).
+\end{corollary}
+
+\section{Invariant differential}
+
+We want to find out when a morphism is separable so we may apply Riemann-Hurwitz. To do so we use differentials.
+
+Let \(C\) be an algebraic curve over \(K = \overline K\). The space of differentials \(\Omega_C\) is the \(K(C)\)-vector spaces generated by \(df\) for \(f \in K(C)\) subject to the relations
+\begin{enumerate}
+\item \(d(f + g) = df + dg\),
+\item \(d(fg) = f dg + g df\),
+\item \(da = 0\) for all \(a \in K\).
+\end{enumerate}
+
+\begin{fact}
+  \(\Omega_C\) is a \(1\)-dimensional \(K(C)\)-vector space.
+\end{fact}
+
+Let \(0 \neq \omega \in \Omega_C\). Let \(P \in C\) be a smooth point with uniformiser \(t \in K(C)\). It is a fact that \(dt \neq 0\) so we may write \(\omega = f dt\) for some \(f \in K(C)^*\). We define \(\ord_p(\omega) = \ord_p(f)\). This is independent of choice of \(t\).
+
+\begin{fact}
+  Suppose \(f \in K(C)^*\) and \(\ord_P(f) = n \neq 0\). If \(\ch K \ndivides n\) then \(\ord_P(df) = n - 1\).
+\end{fact}
+
+We now assume \(C\) is a smooth projective curve.
+
+\begin{fact}
+  \(\ord_p(\omega) = 0\) for all but finitely many \(P \in C\).
+\end{fact}
+
+\begin{definition}
+  We define \(\div(\omega) = \sum_{P \in C} \ord_P(\omega) P \in \Div(C)\).
+\end{definition}
+
+\begin{definition}
+  We define the genus of \(C\) to be
+  \[
+    g(C) = \dim_K \{\omega \in \Omega_C: \div(\omega) \geq 0\},
+  \]
+  the dimension of the space of \emph{regular differentials}.
+\end{definition}
+
+As a consequence of Riemann-Roch, we have if \(0 \neq \omega \in \Omega_C\) then \(\deg(\div(\omega)) = 2 g(C) - 2\).
+
+\begin{lemma}
+  Assume \(\ch k \neq 2\) and \(E: y^2 = (x - e_1)(x - e_2)(x - e_3)\). Then \(\omega = \frac{dx}{y}\) is a differential on \(E\) with no zeros or poles. In particular \(g(E) = 1\) and the \(K\)-vector space of regular differentials on \(E\) is \(1\)-dimensional, spanned by \(\omega\).
+\end{lemma}
+
+\begin{proof}
+  Let \(T_i = (e_i, 0)\) and we know \(E[2] = \{0, T_1, T_2, T_3\}\). We have
+  \[
+    \div (y) = (T_1) + (T_2) + (T_3) - 3(0_E)
+  \]
+  \(T_i\) appears with multiplicity \(1\) in \(\div y\) since we know \(\deg \div y = 0\). If \(P \in E \setminus \{0\}\) then
+  \[
+    \div (x - x_P) = (P) + (-P) - 2(0_E).
+  \]
+  If \(P \in E \setminus E[2]\) then \(\ord_P(x - x_P) = 1\) so \(ord_P(dx) = 0\). If \(P = T_i\) then \(\ord_P(x - x_P) = 2\) so \(\ord_P(dx) = 1\). Finally if \(P = 0_E\) then \(\ord_P(x) = -2\) so \(\ord_P(dx) = -3\). Therefore
+  \[
+    \div(dx) = (T_1) + (T_2) + (T_3) - 3(0_E).
+  \]
+  It follows that \(\div (\frac{dx}{y}) = 0\).
+\end{proof}
+
+\begin{definition}
+  If \(\phi: C_1 \to C_2\) is a nonconstant morphism then we have \emph{pullback of differentials} defined by
+  \begin{align*}
+    \phi^*: \Omega_{C_2} &\to \Omega_{C_1} \\
+    f dg &\mapsto (\phi^* f) d(\phi^*g)
+  \end{align*}
+\end{definition}
+
+\begin{lemma}
+  Let \(P \in E\) and \(\tau_P: E \to E, X \mapsto P + X\). If \(\omega = \frac{dx}{y}\) then \(\tau_P^* \omega = \omega\). \(\omega\) is called the \emph{invariant differential}\index{invariant differential}.
+\end{lemma}
+
+\begin{proof}
+  \(\tau_p^*\omega\) is again a regular differential on \(E\) so \(\tau_P^* \omega = \lambda_P \omega\) for some \(\lambda_P \in K^*\). The map \(E \to \P^1, P \mapsto \lambda_P\) (after a calculation we know the map is rational) is a morphism of smooth projective curve but \emph{not} surjective, as it misses \(0, \infty\). Therefore it is constant. Thus exists \(\lambda \in K^*\) such that \(\tau_P^* \omega = \lambda \omega\) for all \(P \in E\). Taking \(P = 0_E\) shows \(\lambda = 1\).
+\end{proof}
+
+\begin{remark}
+  If \(K = \C\) then remember we have an isomorphism \(\C/\Lambda \cong E(\C), z \mapsto (\wp(z), \wp'(z))\) so
+  \[
+    \frac{dx}{y} = \frac{\wp'(z) dz}{\wp'(z)} = dz,
+  \]
+  which is manifestly invariant under \(z \mapsto z + \text{ constant}\).
+\end{remark}
+
+\begin{lemma}
+  Let \(\phi, \psi \in \Hom(E_1, E_2)\) and \(\omega\) the invariant differential on \(E_2\). Then \((\phi + \psi)^* \omega = \phi^*\omega + \psi^*\omega\).
+\end{lemma}
+
+\begin{proof}
+  Write \(E = E_2\). We have three maps
+  \begin{align*}
+    E \times E &\to E \\
+    \mu: (P, Q) &\mapsto P + Q \\
+    \pi_1: (P, Q) &\mapsto P \\
+    \pi_2: (P, Q) &\mapsto Q
+  \end{align*}
+  As \(E \times E\) is \(2\)-dimensional, it is a fact that \(\Omega_{E \times E}\) is a \(2\)-dimensional \(K(E \times E)\)-vector space with basis \(\pi_1^* \omega, \pi_2^* \omega\). Then \(\mu^* \omega = f \pi_1^* \omega + g \pi_2^* \omega\) for some \(f, g \in K(E \times E)\). For \(Q \in E\) let \(\iota_Q: E \to E \times E, P \mapsto (P, Q)\). Applying \(\iota_Q^*\) gives
+  \[
+    (\mu \iota_Q)^* \omega = (\iota_Q^* f) (\pi_1 \iota_Q)^* \omega + (\iota_Q^* g) (\pi_2 \iota_Q)^* \omega,
+  \]
+  i.e.
+  \[
+    \tau_Q^* \omega = (\iota_Q^* f) \omega + 0
+  \]
+  so \(\iota_Q^*f = 1\) for all \(Q \in E\), so \(f(P, Q) = 1\) for all \(P, Q \in E\). Similarly \(g(P, Q) = 1\). Thus \(\mu^*\omega = \pi_1^* \omega + \pi_2^* \omega\). Now pullback by \(E \to E \times E, P \mapsto (\phi(P), \psi(P))\) to get
+  \[
+    (\phi + \psi)^*\omega = \phi^*\omega + \psi^*\omega.
+  \]
+\end{proof}
 
 
 

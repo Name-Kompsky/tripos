@@ -1053,8 +1053,8 @@ Since \(\alpha\) is injective, \(\delta \mu = 0\). This defines \(\delta^*[\sigm
   \[
     \begin{tikzcd}
       & & 0 \ar[dll, out=0, in=180] \\
-      H^0(X, \mathcal E) \ar[r, "\alpha^*"] & H^0(X, \mathcal F) \ar[r, "\beta^*"] & H^0(X, \mathcal G) \ar[dll, "\delta^*"', out=0, in=180] \\
-      H^1(X, \mathcal E) \ar[r, "\alpha^*"] & H^1(X, \mathcal F) \ar[r, "\beta^*"] & H^1(X, \mathcal G) \ar[dll, "\delta^*"', out=0, in=180] \\
+      H^0(X, \mathcal E) \ar[r, "\alpha^*"] & H^0(X, \mathcal F) \ar[r, "\beta^*"] & H^0(X, \mathcal G) \ar[dll, "\delta^*"', out=0, in=180, overlay] \\
+      H^1(X, \mathcal E) \ar[r, "\alpha^*"] & H^1(X, \mathcal F) \ar[r, "\beta^*"] & H^1(X, \mathcal G) \ar[dll, "\delta^*"', out=0, in=180, overlay] \\
       H^2(X, \mathcal E) \ar[r] & \dots
     \end{tikzcd}
   \]
@@ -1071,7 +1071,7 @@ exact for all \(U \in \mathcal U\). In this case the theorem is an exercise.
 We say that
 \[
   \begin{tikzcd}
-    \mathcal F_1 \ar[r, "\alpha_1"] & \mathcal F_2 \ar[r, "\alpha_2"] & \dots
+    \mathcal F_1 \ar[r, "\alpha_1"] & \mathcal F_2 \ar[r, "\alpha_2"] & \cdots
   \end{tikzcd}
 \]
 is a \emph{complex} of sheaves if \(\alpha_{i + 1} \compose \alpha_i = 0\) for all \(i\). We say that a complex is \emph{exact} if
@@ -1127,8 +1127,8 @@ is a short exact sequence for all \(i\). Equivalently the induced sequence on st
   Since
   \[
     \begin{tikzcd}
-      & & 0 \ar[dll, out=0, in=180] \\
-      H^0(X, \mathcal Z^{p - 1}) \ar[r] & H^0(X, \mathcal A^{p - 1}) \ar[r, "\d^*"] & H^0(X, \mathcal Z^p) \ar[dll, out=0, in=180] \\
+      & & 0 \ar[dll, out=0, in=180, overlay] \\
+      H^0(X, \mathcal Z^{p - 1}) \ar[r] & H^0(X, \mathcal A^{p - 1}) \ar[r, "\d^*"] & H^0(X, \mathcal Z^p) \ar[dll, out=0, in=180, overlay] \\
       H^1(X, \mathcal Z^{p - 1}) \ar[r] & 0
     \end{tikzcd}
   \]

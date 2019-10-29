@@ -458,7 +458,267 @@ and the restriction maps are restrictions of functions. This is defined locally 
     &\iff \sqrt{(h_i)} \subseteq \sqrt{(g_i)} \\
     &\iff h_i^n \in (g_i) \text{ for some } n
   \end{align*}
-  so \(h_i^n = c_i g_i\) for some \(c_i \in A\). Since \(\frac{a_i}{g_i} = \frac{c_i a_i}{h_i^n}\), w can assume \(g_i = h_i^n\). But also \(D(h_i) = D(h_i^n)\), we can replace \(h_i\) by \(h_i^n\) and assume that \(D(f)\) is covered by set \(D(h_i)\) on which \(s\) represented by \(\frac{a_i}{h_i}\).
+  so \(h_i^n = c_i g_i\) for some \(c_i \in A\). Since \(\frac{a_i}{g_i} = \frac{c_i a_i}{h_i^n}\), we can assume \(g_i = h_i^n\). But also \(D(h_i) = D(h_i^n)\), we can replace \(h_i\) by \(h_i^n\) and assume that \(D(f)\) is covered by sets \(D(h_i)\) on which \(s\) is represented by \(\frac{a_i}{h_i}\). In fact, we claim that \(D(f)\) can be covered by a finite number of the \(D(h_i)\):
+  \begin{align*}
+    D(f) \subseteq \bigcup D(h_i)
+    &\iff V((f)) \supseteq \bigcap_{i \in I} V((h_i)) = V(\sum_{i \in I} (h_i)) \\
+    &\iff f \in \sqrt{\sum_{i \in I} (h_i)} \\
+    &\iff f^m \in \sum_{i \in I} (h_i)
+  \end{align*}
+  for some \(n\). This means that \(f^m = \sum b_i h_i\) where all but a finite number of \(b_i\)'s are zero. So we can just take these \(h_i\) with \(b_i \neq 0\) and then \(\{D(h_i)\}\) still cover \(D(f)\).
+
+  Thus we can now assume we have a finite covering \(\{D(h_i)\}\) of \(D(f)\) with \(s\) represented by \(\frac{a_i}{h_i}\) on \(D(h_i)\). On \(D(h_i) \cap D(h_j) = D(h_i h_j)\), note \(\frac{a_i}{h_i}, \frac{a_j}{h_j}\) both represent \(s\) so
+  \[
+    \frac{a_i}{h_i} = \frac{a_j}{h_j} \in A_{h_ih_j}
+  \]
+  which follows from injectivity of \(\psi\) on the open set \(D(h_ih_j)\). Therefore there exists \(n\) such that
+  \[
+    (h_ih_j)^n (h_j a_i - h_i a_j) = 0.
+  \]
+  Choose \(n\) large enough to work for all \(i, j\). Rewrite the equation as \(h_j^{n + 1} (h_ia_j) - h_i^{n + 1} (h_j^n a_i) = 0\). Replace each \(h_i\) by \(h_i^{n + 1}\) and \(a_i\) by \(h_i^n a_i\), we can assume \(h_ja_i - h_ia_j = 0\) for all \(i, j\). We also have \(f^m = \sum b_ih_i\) as in the proof of the claim. Let \(a = \sum b_i a_i\). Then for any \(j\),
+  \[
+    h_j a = \sum_i h_jb_ia_i = \sum_i h_ib_ia_j = f^n.
+  \]
+  Thus \(\frac{a}{f^n} = \frac{a_j}{h_j}\) on \(D(h_j) \cap D(f)\), i.e.\ in the ring \(A_{fh_j}\). Thus \(\frac{a}{f^n} \in A_f\) defines a section of \(\sh O(D(f))\) whose restriction to \(D(h_j) \cap D(f)\) agrees with \(s\) so \(\psi(\frac{a}{f^n}) = s\) and \(\psi\) is surjective.
+\end{proof}
+
+\begin{definition}[ringed space]\index{ringed space}
+  A \emph{ringed space} is a pair \((X, \sh O_X)\) with \(X\) a topological space and \(\sh O_X\) a sheaf of rings on \(X\).
+
+  A \emph{morphism between ringed spaces} \(f: (X, \sh O_X) \to (Y, \sh O_Y)\) is data
+  \begin{enumerate}
+  \item \(f: X \to Y\) continuous,
+  \item \(f^\#: \sh O_Y \to f_* \sh O_X\) a morphism of sheaves of rings, i.e.\ for all \(U \subseteq X\), \(f_U^\#: \sh O_Y(U) \to \sh O_X(f^{-1}(U))\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(X\) be a topological space and \(\sh O_X(u) = \{\varphi: U \to \R \text{ continuous}\}\). Note \(f: X \to Y\) induces \(f: (X, \sh O_X) \to (Y, \sh O_Y)\) by
+    \[
+      f_U^\#(\varphi) = \varphi \compose f: f^{-1}(U) \to \R.
+    \]
+    In other words, there is no additional information in the ringed space structure and all data is encoded in the topological spaces themselves.
+  \item Let \(X\) be a variety and \(\sh O_X\) the sheaf of regular functions on \(X\). Given \(f: X \to Y\) a morphism of varieties, we again get \(f_U^\#\) which acts by pullback.
+  \end{enumerate}
+\end{eg}
+
+Both of these examples have the feature that \(\sh O_{X, p}\) is a local ring with maximal ideal \(\{(U, f) \in \sh O_{X, p}: f(p) = 0\}\) by shrinking \(U\): if \(f(p) \neq 0\) then we can assume \(f\) is nowhere zereo so \((U, f^{-1}) \in \sh O_{X, p}\). This inspires us to define
+
+\begin{definition}[locally ringed space]\index{locally ringed space}
+  A \emph{locally ringed space} \((X, \sh O_X)\) is a ringed space such that \(\sh O_{X, p}\) is a lcoal ring for all \(p \in X\).
+
+  A \emph{morphism between locally ringed spaces} \(f: (X, \sh O_X) \to (Y, \sh O_Y)\) is a morphism of ringed spaces such that \(f_p^\#: \sh O_{Y, f(p)} \to \sh O_{X, p}\) is a local homomorphism for all \(p \in X\).
+\end{definition}
+Here
+\begin{align*}
+  f_p^\#: \sh O_{Y, f(p)} &\to \sh O_{X, p} \\
+  (U, s) &\mapsto (f^{-1}(U), f_U^\#(s))
+\end{align*}
+and a homomorphism \(\varphi: (A, \mathfrak m_A) \to (B, \mathfrak m_B)\) between local rings is \emph{local}\index{local homomorphism} if \(\varphi^{-1}(\mathfrak m_B) = \mathfrak m_A\). Note that we always have \(\varphi^{-1}(\mathfrak m_B) \subseteq \mathfrak m_A\).
+
+The local homomorphism condition thus says that, for example in the two examples above, if a function vanishes at \(f(p)\) then its pullback vanishes at \(p\).
+
+\begin{eg}
+  \((\Spec A, \sh O_{\Spec A})\) is a locally ringed space.
+\end{eg}
+
+\begin{definition}[affine scheme]\index{affine scheme}
+  The \emph{category of affine schemes} is the category whose objects are \((\Spec A, \sh O_{\Spec A})\) for all rings \(A\) and morphisms are morphisms as locally ringed spaces.
+\end{definition}
+
+\begin{theorem}
+  The category of affine schemes is equivalent to \(\c{Ring}^{\mathrm{op}}\).
+\end{theorem}
+
+\begin{proof}
+  Need to show
+  \begin{enumerate}
+  \item if \(\varphi: A \to B\) is a homomorphism then we get a morphism of locally ringed spaces \((f, f^\#): (\Spec B, \sh O_{\Spec B}) \to (\Spec A, \sh O_{\Spec A})\).
+  \item any morphism \((f, f^\#): (\Spec B, \sh O_{\Spec B}) \to (\Spec A, \sh O_{\Spec A})\) is contructed as in 1 from some ring homomorphism \(\varphi: A \to B\).
+  \end{enumerate}
+
+  Let's do 1 first. Given \(\varphi: A \to B\), define
+  \begin{align*}
+    f: \Spec B &\to \Spec A \\
+    \mathfrak p &\mapsto \varphi^{-1}(\mathfrak p)
+  \end{align*}
+  \(f\) is continuous as for \(I \subseteq A\),
+  \begin{align*}
+    f^{-1}(V(I))
+    &= \{\mathfrak p \in \Spec B: \varphi^{-1}(\mathfrak p) \supseteq I\} \\
+    &= \{\mathfrak p \in \Spec B: \mathfrak p \supseteq \varphi(I)\} \\
+    &= V(\varphi(I))
+  \end{align*}
+  For \(\mathfrak p \in \Spec B\), we obtain
+  \begin{align*}
+    \varphi_{\mathfrak p}: A_{\varphi^{-1}({\mathfrak p})} &\to B_{\mathfrak p} \\
+    \frac{a}{s} &\mapsto \frac{\varphi(a)}{\varphi(s)}
+  \end{align*}
+  which makes sense as if \(s \notin \varphi^{-1}(\mathfrak p)\) then \(\varphi(s) \notin \mathfrak p\). It is also well-defined. Note \(\varphi_{\mathfrak p}\) is a local homomorphism: indeed the maximal ideal of \(B_{\mathfrak p}\) is generated by the image of \(\mathfrak p\), which we often write as \(\mathfrak p B_{\mathfrak p}\) and similarly the maximal ideal of \(A_{\varphi^{-1}(\mathfrak p)}\) is \(\varphi^{-1}(\mathfrak p) A_{\varphi^{-1}(\mathfrak p)}\) and clearly \(\varphi_{\mathfrak p}^{-1} (\mathfrak p B_{\mathfrak p}) = \varphi^{-1}(\mathfrak p) A_{\varphi^{-1}(\mathfrak p)}\).
+
+  Thus given \(V \subseteq \Spec A\), we get
+  \begin{align*}
+    f_V^\#: \sh O_{\Spec A} (V) &\to (f_* \sh O_{\Spec B})(V) = \sh O_{\Spec B}(f^{-1}(V)) \\
+    (\mathfrak p \mapsto s(\mathfrak p)) &\mapsto (\mathfrak q \mapsto \varphi_{\mathfrak q} (s (f(\mathfrak q))))
+  \end{align*}
+  where \(\mathfrak p \in V, \mathfrak q \in f^{-1}(V)\). If locally \(s\) is represented on \(W\) by \(\frac{a}{f}\) then \(f_V^\#(s)\) is locally represented on \(f^{-1}(W)\) by \(\frac{\varphi(a)}{\varphi(f)}\). This defined \(f^\#: \sh O_{\Spec A} \to f_* \sh O_{\Spec B}\) and since \(f^\#\) induces \(\varphi_{\mathfrak q}\) on stalks, this defines a morphism of locally ringed spaces.
+
+  Conversely, suppose given \((f, f^\#): (\Spec B, \sh O_{\Spec B}) \to (\Spec A, \sh O_{\Spec A})\), we get
+  \[
+    \varphi = f_{\Spec A}^\#: \Gamma(\Spec A, \sh O_{\Spec A}) = A \to \Gamma(\Spec B, \sh O_{\Spec B}) = B
+  \]
+  and we need to show \(\varphi\) gives rise to \((f, f^\#)\) using the construction in the first part. We have a commutative diagram
+  \[
+    \begin{tikzcd}
+      A \ar[r, "\varphi"] \ar[d] & B \ar[d] \\
+      A_{f(\mathfrak p)} \ar[r, "f_{\mathfrak p}^\#"] & B_{\mathfrak p}
+    \end{tikzcd}
+  \]
+  where \(\varphi\) is induced by the map on sections, the vertical maps are passing to stalks, which are easily seen to be localisations, and the bottom map is the induced map on stalks so is a local homomorphism. Since pullback of the maximal ideal in the localisation gives the prime ideal, we have \(\varphi^{-1}(\mathfrak p) = f(\mathfrak p)\). Note that this depends crucially on the fact that we have a local homomorphism. Thus we conclude that \(f\) is induec by \(\varphi\) and \(f_{\mathfrak p}^\# = \varphi_{\mathfrak p}\). Thus \(f^\#\) agrees with the map constructed from \(\varphi\) in the first part.
+\end{proof}
+
+Now we make a slight modification to the definition of affine scheme:
+\begin{definition}[affine scheme]\index{affine scheme}
+  An \emph{affine scheme} is a locally ringed space isomorphic in the category of locally ringed spaces to \((\Spec A, \sh O_{\Spec A}\) for some \(A\).
+\end{definition}
+
+\begin{definition}[scheme]\index{scheme}
+  A \emph{scheme} is a locally ringed space \((X, \sh O_X)\) with an open cover \(\{(U_i, \sh O_X|_{U_i})\}\) with each \((U_i, \sh O_X|_{U_i})\) an affine scheme.
+
+  A \emph{morphism of schemes} is a morphism as locally ringed spaces.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(k\) be a field. Then \(\Spec k\) consists of a singleton \(\{0\}\) and a sheaf over the point, which is just the field \(k\). We write \(\Spec k = (\{0\}, k)\).
+
+    What does a morphism \(f: \Spec k \to X\) for \(X\) a scheme mean? First it selects a point \(f(0) = x \in X\). Second we get a local homomorphism \(f_x^\#: \sh O_{X, x} = \sh O_{\Spec k, 0} = k\), meaning that \(\ker f_x^\# = (f_x^\#)^{-1}(0) = \mathfrak m_x \subseteq \sh O_{X, x}\), where \(\mathfrak m_x\) is the maximal ideal of \(\sh O_{X, x}\). In particular we get a factorisation
+    \[
+      \sh O_{X, x} \to \sh O_{X, x}/\mathfrak m_x \embed k
+    \]
+    We call \(k(x) = \sh O_{X, x}/\mathfrak m_x\) the \emph{residue field}\index{residue field} of \(x\) in \(X\).
+
+    Conversely, if given an inclusion \(k(x) \embed k\), we get a morphism \(f: \Spec k \to X\) with \(f(0) = x\) and
+    \begin{align*}
+      f_U^\#: \sh O_X(U) &\to (f_* k)(U) \\
+      s &\mapsto
+          \begin{cases}
+            (U, s \pmod{\mathfrak m_x}) & x \in U \\
+            0 & x \notin U
+          \end{cases}
+    \end{align*}
+
+    We can ask the opposite question: what does it mean to give a morphism \(f: X \to \Spec k\)? \(f\) is constant but we need \(f^\#: k \to f_* \sh O_X\), i.e.\ \(f^\#_{\Spec k}: k \to \sh O_X(X)\) so \(\Gamma(X, \sh O_X)\) has the structure of a \(k\)-algebra and via omposition with restriction
+    \[
+      k \to \Gamma(X, \sh O_X) \to \Gamma(U, \sh O_X)
+    \]
+    so \(\sh O_X\) becomes a sheaf of \(k\)-algebras. We say \(X\) is a \emph{scheme over \(\Spec k\)}\index{scheme!over \(k\)}. A morphism of schemes over \(\Spec k\) is a commutative diagram
+    \[
+      \begin{tikzcd}[column sep=tiny]
+        X \ar[rr, "f"] \ar[dr] & & Y \ar[dl] \\
+        & \Spec k
+      \end{tikzcd}
+    \]
+    i.e.\ \(f^\#: \sh O_Y \to f_* \sh O_X\) is a morphsim of sheaves of \(k\)-algebras. More generally we can replace \(\Spec k\) by any scheme \(Z\) and talk about schemes over \(Z\) and their morphisms.
+  \item Affine variety: let \(k\) be a field and \(A = k[x_1, \dots, x_n]/I\) with \(I = \sqrt I\). In other words, \(A\) is a finitely generated \(k\)-algebra with no nilpotents. The homomorphism \(k \to A\) gives a map \(\Spec A \to \Spec k\). We say \(\Spec A\) is an \emph{affine variety over \(k\)}.
+
+    If \(k'\) is a field extension of \(k\), a diagram
+    \[
+      \begin{tikzcd}[column sep=tiny]
+        \Spec k' \ar[rr] \ar[dr] & & \Spec A \ar[dl] \\
+        & \Spec k
+      \end{tikzcd}
+    \]
+    is the same as giving a \(k\)-algebra homomorphism \(A \to k'\), i.e.\ this is the same thing as giving \((a_1, \dots, a_n) \in (k')^n\) with \(f(a_1, \dots, a_n) = 0\) for all \(f \in I\). With \(X = \Spec A\), we write \(X(k')\) for the set of all such diagrams.
+
+    More generally, we usually fix a base scheme \(S\) and consider the category of schemes over \(S\). Given \(X \to S, T \to S\), we write \(X(T)\) to be the set of morphisms \(T \to X\), the set of \emph{\(T\)-valued points} of \(X\).
+  \item An example of a scheme that is not a variety: \(D = \Spec k[t]/(t^2) = (\{(t)\}, k[t]/(t^2))\). \(t\) is a ``function'' on a single point which squares to \(0\). What information is contained in \(D\)? Let \(X\) be any scheme over \(\Spec k\) and consider a morphism \(f: D \to X\) over \(\Spec k\). This specifies a point \(x = f((t)) \in X\) and a local homomorphism of \(k\)-algebras.
+    \begin{align*}
+      f_x^\#: \sh O_{X, x} &\to \sh O_{D, (t)} = k[t]/(t^2) \\
+      \mathfrak m_x &\to (t) \\
+      \mathfrak m_x^2 &\to 0
+    \end{align*}
+    so we obtain a map \(\mathfrak m_x/\mathfrak m_x^2 \to (t) \cong k\) where the isomorphism is as a \(k\)-vector space. We also have a corresponding \(k\)-algebra homomorphism
+    \[
+      \sh O_{X, x} \to k[t]/(t^2) \to k[t]/(t) \cong k
+    \]
+    with kernel \(\mathfrak m_x\). This gives an inclusion \(k(x) = \sh O_{X, x}/\mathfrak m_x \embed k\) of \(k\)-algebras, i.e.\ \(k(x) \cong k\). Note \(\mathfrak m_x/\mathfrak m_x^2\) is a \(\sh O_{X, x}/\mathfrak m_x\)-vector space and thus \(\mathfrak m_x/\mathfrak m_x^2 \to k \cong k(x)\) is a map of \(k\)-vector spaces, i.e.\ an element of \((\mathfrak m_x/\mathfrak m_x^2)^*\). This is the \emph{Zariski tangent space}\index{Zariski tangent space} to \(X\) at \(x\). Thus giving \(D \to X\) is the same as giving a point \(x \in X\) with \(k(x) = k\) plus a Zariski tangent vector at \(x\).
+  \end{enumerate}
+\end{eg}
+
+\paragraph{glued scheme}
+
+(special case of example sheet 1 Q14): given schemes \(X_1, X_2\) and \(U_1 \subseteq X_1, U_2 \subseteq X_2\) open subsets with induced scheme structure \((U_i, \sh O_{X_i}|_{U_i})\) and an isomorphism \(f: U_1 \cong U_2\), we can then glue \(X_1, X_2\) along \(f\) to get a scheme \(X\) with open subsets \(X_1', X_2'\) with \(X_i' \cong X_i, X_1' \cap X_2' \cong U_i\).
+
+\begin{eg}
+  Define \(\A_k^n = \Spec k[x_1, \dots, x_n]\). In particular \(\A_k^1 = \Spec k[x]\). Glue
+  \begin{align*}
+    U_1 &= \A_k^1 \setminus \{0\} \subseteq \A_k^1 = X_1 \\
+    U_2 &= \A_k^1 \setminus \{0\} \subseteq \A_k^1 = X_2
+  \end{align*}
+  where \(0\) denotes the maximal ideal at \(0\) via \(\id: U_1 \to U_2\), then we obtain the affine line with double origin. This is pathological in some sense as in the classical topology this is non-Hausdorff. Later we will be able to pin down precisely what the pathology is.
+
+  Alternatively, glue \(U_1\) to \(U_2\) via \(x \mapsto x^{-1}\): since
+  \[
+    U_i = D(x) = \Spec k[x]_x = \Spec k[x, x^{-1}]
+  \]
+  we specify this map via the ring homomorphism \(k[x, x^{-1}] \to k[x, x^{-1}], x \mapsto x^{-1}\). This gives a glued scheme \(\P_k^1\), the \emph{projective line}.
+\end{eg}
+
+\subsection{Projective schemes}
+
+The gluing contruction brings about a whole class of schemes that are not affine, called \emph{projective schemes}. They are geometric objects associated to graded rings.
+
+Let \(S = \bigcup_{d \geq 0} S_d\) be a graded ring, meaning that \(S_d \cdot S_e \subseteq S_{d + e}\). For example \(S = k[x_1, \dots, x_n] = \bigcup_{d \geq 0} S_d\) where \(S_d\) is the space of homogeneous polynomials of degree \(d\). If \(f \in S_d\), we say \(f\) is \emph{homogeneous of degree \(d\)} and write \(\deg f = d\). Define \(S_+ = \bigoplus_{d > 0} S_d\), the \emph{irrelevant ideal}\index{irrelevant ideal}. An ideal \(I \subseteq S\) is \emph{homogeneous}\index{homogeneous ideal} if it is generated by homogeneous elements. Define
+\[
+  \Proj S = \{\mathfrak p \subseteq S \text{ homogeneous prime ideals not containing } S_+\}.
+\]
+
+\begin{eg}
+  Suppose \(k\) is algebraically closed and define \(\P^1_k = \Proj k[x_0, x_1]\). The maximal ideals of \(k[x_0, x_1]\) are of the form \((x_0 - a_0, x_1 - a_1)\), which is homogeneous if and only if \(a_0 = a_1 = 0\). Hence no maximal ideals of \(k[x_0, x_1]\) lies in \(\Proj k[x_0, x_1]\). By results in commutative algebra, \(k[x_1, x_2]\) has dimesion \(2\) and all other primes of \(k[x_1, x_2]\) are either \(0\) or principal. Consider \(\mathfrak p = (f)\) with \(f\) homogeneous. Thus since \(k = \overline k\), \(f\) can be factored into linear factors. So if \(\mathfrak p\) is prime, in fact \(\mathfrak p = (a_1 x_0 - a_0 x_1)\) for some \(a_0, a_1 \in k\) not both \(0\). Note that the generators of the ideal are written in this way to show that \((a_0, a_1)\) is only defined by up to scaling by an element of \(k^\times\), so these points are in one-to-one correspondence with points of \((k^2 \setminus \{0\})/k^*\).
+\end{eg}
+
+Back to the construction of projective schemes. We start to define a topology and a structure sheaf on \(\Proj S\). For \(I \subseteq S\) homogeneous, define
+\[
+  V(I) = \{\mathfrak p \subseteq \Proj S: \mathfrak p \supseteq I\}.
+\]
+Check these are the closed sets for a topology in \(\Proj S\).
+
+Fix \(\mathfrak p \in \Proj S\). Let
+\[
+  T = \{f \in S \setminus \mathfrak p: f \text{ homogeneous}\} \subseteq S
+\]
+which is a multiplicatively closed set, and let \(S_{(\mathfrak p)} \subseteq T^{-1}S\) be the subring of elements of degree \(0\), where we define \(\deg \frac{a}{b} = \deg a - \deg b\). We require the numerator and the denominator to be the same degree so that it defines a well-defined function on \(\Proj S\). Similarly if \(f \in S\) is homogeneous  write \(S_{(f)} \subseteq S_f\) for the set of elements of degree \(0\) in \(S_f\).
+
+We now define the structure sheaf \(\sh O_{\Proj S}\). For \(U \subseteq S\), define
+\[
+  \sh O_{\Proj S}(U) =
+  \left\{
+    \begin{tabular}{l}
+      \(s: U \to \coprod_{\mathfrak p \in U} S_{(\mathfrak p)}\): \(s(\mathfrak p) \in S_{(\mathfrak p)}\), \\
+      for each \(\mathfrak p \in U\), exists \(\mathfrak p \in V \subseteq U\) \\
+      and \(a, f \in S\) homogeneous of the same degree \\
+      such that \(f \notin \mathfrak q, s(\mathfrak q) = \frac{a}{f} \in S_{(\mathfrak q)}\) for all \(\mathfrak q \in V\)
+    \end{tabular}
+  \right\}
+\]
+This defines \(\sh O_{\Proj S}\) with \(\sh O_{\Proj S, \mathfrak q} = S_{(\mathfrak q)}\), making \((\Proj S, \sh O_{\Proj S})\) a locally ringed space.
+
+\begin{proposition}
+  For \(f \in S_+\) homogeneous, define
+  \[
+    D_+(f) = \{\mathfrak p \in \Proj S: f \notin \mathfrak p\},
+  \]
+  an open subset of \(\Proj S\). Then \(D_+(f)\)'s cover \(\Proj S\) and
+  \[
+    (D_+(f), \sh O_{\Proj S}|_{D_+(f)}) \cong \Spec S_{(f)}.
+  \]
+  In particular \((\Proj S, \sh O_{\Proj S})\) is a scheme.
+\end{proposition}
+
+\begin{proof}
+  Example sheet 2.
 \end{proof}
 
 

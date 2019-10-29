@@ -674,7 +674,7 @@ The kernel of this homomorphism is \(\bigcap_{i \geq 1} (\pi^i) = 0\) so \(A\) i
     \[
       a = \sum_{i = 0}^\infty a_i \pi^i
     \]
-    with \(a_i \in X\) for all \(i \geq 0\). This is the \emph{\(\pi\)-adic expansion}\index{\(\pi\)-adic expression} of \(a\).
+    with \(a_i \in X\) for all \(i \geq 0\). This is the \emph{\(\pi\)-adic expansion}\index{\(\pi\)-adic expansion} of \(a\).
   \end{enumerate}
 \end{proposition}
 
@@ -742,6 +742,16 @@ The kernel of this homomorphism is \(\bigcap_{i \geq 1} (\pi^i) = 0\) so \(A\) i
   If \(A\) is complete then \(\hat A \cong A\).
 \end{remark}
 
+Observe that if \(K = \Frac A, \hat K = \Frac \hat A\) then the valuation \(v: K^\times \to \Z\) extends to a valuation \(v: \hat K^\times \to \Z\) such that \(\hat A = \{x \in \hat K: v(x) \geq 0\}\).
+\[
+  \begin{tikzcd}
+    A \ar[r, hook] \ar[d, hook] & K \ar[d, hook] \\
+    \hat A \ar[r, hook] & \hat K
+  \end{tikzcd}
+\]
+
+An element of \(\hat A\) admits a unique \(\pi\)-adic expansion \(\sum_{i = 0}^\infty a_i \pi^i\) where \(a_i\) lie in a fixed set representatives in \(A\) for \(A/(\pi)\), and the series \(\sum_{i = 0}^\infty a_i \pi^i\) is a convergent infinite sum in \(\hat A\).
+
 \begin{definition}[\(p\)-adic integer]\index{\(p\)-adic integer}
   Let \(p\) be a prime. Then we define the \emph{\(p\)-adic integers} and \emph{\(p\)-adic rational numbers} to be
   \begin{align*}
@@ -777,6 +787,372 @@ As a consequence, we have \(\Z_p/(p) \cong \Z/p\Z\) so we can choose the set of 
     -1 = \frac{1}{1 - 2} = 1 + 2 + 2^2 + \cdots
   \]
 \end{eg}
+
+What is \(\Q_p\) like? It is a mixture of \(\R\) and \(\F_p\) and has features of both analytic (\(\R\)) and algebraic (number fields) objects.
+
+\begin{lemma}[Hensel's lemma]\index[Hensel's lemma]
+  \label{lem:Hensel lemma}
+  Let \(A\) be a complete DVR. Let \(f(x) \in A[x]\) be monic. Suppose given \(\alpha \in A\) such that \(v(f(\alpha)) > 2v(f'(\alpha))\). Then exists a unique \(a \in A\) such that \(f(a) = 0\) and \(v(a - \alpha) > v(f'(\alpha))\).
+\end{lemma}
+
+\begin{corollary}
+  Let \(A\) be a complete DVR and \(f(x) \in A[x]\) a monic polnomial. Let \(k = A/(\pi)\) and \(\overline f(x) = f(x) \pmod \pi \in k[x]\). Suppose there exists \(\overline \alpha \in K\), a simple root of \(\overline f(x)\), then exists a unique \(a \in A\) such that \(f(a) = 0\) and \(a = \overline \alpha \pmod \pi\).
+\end{corollary}
+
+\begin{proof}
+  Let \(\alpha \in A\) be a lift of \(\overline \alpha\). Then \(\overline f'(\overline \alpha) \neq 0\) implies that \(f'(\alpha) \in A^\times\) so \(v(f'(\alpha)) = 0\). Then apply the lemma.
+\end{proof}
+
+\begin{proof}[Proof of \nameref{lem:Hensel lemma}]
+  We first show existence of \(a\) by Newton's method. Define
+  \[
+    a_1 = \alpha, \quad a_{n + 1} = a_n - \frac{f(a_n)}{f'(a_n)}.
+  \]
+  We show the following claims by induction on \(n \geq 1\):
+  \begin{enumerate}
+  \item \(a_n \in A\), or equivalently \(v(a_n) \geq 0\).
+  \item \(v(f'(a_n)) = v(f'(a_1))\).
+  \item \(v(f(a_n)) \geq 2v(f'(a_n)) + 2^{n - 1} v(f(a_1)/f'(a_1)^2)\).
+  \end{enumerate}
+  For \(n = 1\),
+  \begin{enumerate}
+  \item \(a_n = \alpha \in A\) by hypothesis.
+  \item Tautological.
+  \item \(v(f(a_1)) \geq 2v(f'(a_1)) + v(f(a_1)/f'(a_1)^2) = v(f(a_1))\).
+  \end{enumerate}
+  Suppose the three statements hold for \(1, 2, \dots, n\). We will show they hold for \(n + 1\).
+  \begin{enumerate}
+  \item By definition \(a_{n + 1} = a_n - f(a_n)/f'(a_n)\) so \(a_{n + 1} \in A\) if and only if \(v(f(a_n)/f'(a_n)) \geq 0\). But 3 says
+    \[
+      v(f(a_n)/f'(a_n)) \geq v(f'(a_n)) + 2^{n - 1} v(f(a_1)/f'(a_1)^2) \geq 0.
+    \]
+  \item Enough to show \(v(f'(a_{n + 1})) = v(f'(a_n))\). Easy to see that \(f'(a_{n + 1}) - f'(a_n)\) is divisible by \(-a_{n + 1} + a_n = f(a_n)/f'(a_n)\) so we'll have \(v(f'(a_{n + 1})) = v(f'(a_n))\) if
+    \[
+      v(f(a_n)/f'(a_n)) > v(f'(a_n)),
+    \]
+    i.e.\ \(v(f(a_n)/f'(a_n)^2) > 0\). But
+    \[
+      v(f(a_n)/f'(a_n)^2) \geq 2^{n - 1} v(f(a_1)/f'(a_1)^2) > 0.
+    \]
+  \item Suppose \(f(x) = \sum_{i = 0}^m a_i x^i\) where \(a_i \in A\). Then we use Taylor expansion with a small tweak
+    \begin{align*}
+      f(X + Y)
+      &= \sum_{i = 0}^m a_i (X + Y)^i \\
+      &= \sum_{i = 0}^m a_i (X^i + iX^{i - 1}Y + Y^2 g_i(X, Y)) \quad g_i(X, Y) \in \Z[X, Y] \\
+      &= f(X) + f'(X) Y + Y^2 g(X, Y) \quad g(X, Y) \in A[X, Y]
+    \end{align*}
+    hence
+    \begin{align*}
+      f(a_{n + 1})
+      &= f(a_n - f(a_n)/f'(a_n)) \\
+      &= f(a_n) - f'(a_n)f(a_n)/ f'(a_n) \\
+      &+ (f(a_n)/f'(a_n))^2 \underbrace{g(a_n, f(a_n)/f'(a_n))}_{\in A}
+    \end{align*}
+    so
+    \begin{align*}
+      v(f(a_{n + 1}))
+      &\geq 2v(f(a_n)) - 2v(f'(a_n)) \\
+      &\geq 2(2v(f'(a_n)) + 2^{n - 1} v(f(a_1)/f'(a_1)^2)) - 2v(f'(a_n)) \\
+      &= 2v(f'(a_n)) + 2^n v(f(a_1)/f'(a_1)^2)
+    \end{align*}
+  \end{enumerate}
+  We've also shown \((a_n)_{n \geq 1}\) is a Cauchy sequence as
+  \[
+    v(a_{n + 1} - a_n) = v(f(a_n)/f'(a_n)) \to \infty
+  \]
+  as \(n \to \infty\) so there is a limit \(a \in A\). We have \(f(a) = \lim_{n \to \infty} f(a_n) = 0\) so \(a\) is a root.
+
+  For uniqueness, we need to show if \(a + h \in A\) is another root such that \(v(a + h - \alpha) > v(f'(\alpha))\) then \(h = 0\). Since \(v(a - \alpha) > v(f'(\alpha))\), we must have \(v(h) > v(f'(\alpha))\). Using Taylor expansion, we find
+  \[
+    0 = f(a + h) = f(a) + hf'(a) + h^2 g(a, h)
+  \]
+  and hence \(hf'(\alpha) = -h^2 g(a, h)\). If \(h \neq 0\) then \(f'(\alpha) = -h g(a, h)\). Hence
+  \[
+    v(f'(\alpha)) \geq v(h) > v(f'(\alpha)),
+  \]
+  absurd.
+\end{proof}
+
+\begin{eg}
+  Which elements in \(\Q_p^\times\) are squares? Any element of \(\Q_p^\times\) admits a unqiue expression \(x = p^n u\) where \(n \in \Z, u \in \Z_p^\times\). Equivalently, there is an isomorphism
+  \begin{align*}
+    \Q_p^\times &\cong \Z \times \Z_p^\times \\
+    x &\mapsto (n, u)
+  \end{align*}
+  It's enough to determine when \(u \in \Z_p^\times\) is a square. Equivalently, when the polynomial \(f(x) = x^2 - u\) has a root in \(\Z_p\). There is a simple necessary condition from arithmetics: there is a surjective homomorphism \(\Z_p^\times \to \F_p^\times, x \mapsto \overline x \pmod p\) and if \(u \in (\Z_p^\times)^2\) then \(\overline u \in (\F_p^\times)^2\). Let's check if it is sufficient: if \(\overline u \in (\F_p^\times)^2\) and let \(v \in \Z_p^\times\) satisfy \(\overline v^2 = \overline u\). Then \(\overline f(\overline v) = 0\) so we are in the position to use Hensel's lemma. Note \(f'(v) = 2v\) and \(v(f'(v)) = v(2)\). If \(p\) is odd then \(f'(v)\) is a unit, so by the corollary there exists a unique \(w \in \Z_p^\times\) such that \(w^2 = u\) and \(\overline w = \overline v\).
+
+  If \(p = 2\) then we have \(v(f(v)) \geq 1, v(f'(v)) = 1\) so we can't conclude anything yet. Note for any \(n \geq 1\) there is a homomorphism \(\Z_p^\times \to (\Z/p^n\Z)^\times\) so if \(u\) is a square, \(u \pmod{p^n}\) is also a square for any \(n \geq 1\). For \(n = 3\) we have a map
+  \[
+    \Z_2^\times \to (\Z/8\Z)^\times \cong \Z/2\Z \times \Z/2\Z
+  \]
+  hence if \(u \in (\Z_2^\times)^2\) then \(u = 1 \pmod 8\). Conversely, if \(u = 1 \pmod 8\) then \(f(1) = 1 - u = 0 \pmod 8\), i.e.\ \(v(f(1)) \geq 3\), and \(f'(1) = 2\) so \(v(f'(1)) = 1\). In this case Hensel's lemma does apply and \(u\) is indeed a square.
+\end{eg}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item If \(p\) is odd then \(u \in \Z_p^\times\) is a square if and only if \(u \pmod p \in \F_p^\times\) is a square.
+  \item If \(p = 2\) then \(u \in \Z_2^\times\) is a square if and only if \(u = 1 \pmod 8\), or equivalently \(u \pmod 8 \in (\Z/8\Z)^2\) is a square.
+  \end{enumerate}
+\end{proposition}
+
+In the previous example we use the surjective homomorphism \(\Z_p^\times \to \F_p^\times, \sum_{i = 0}^\infty a_i p^i \mapsto a_0 \pmod p\). In fact, this homomoprhism has a unique splitting, i.e.\ exists a unique homomorphism \(\tau: \F_p^\times \to \Z_p^\times\) such that for all \(\overline \alpha \in \F_p^\times\), \(\tau(\overline \alpha) \pmod p = \overline \alpha\). This \(\tau\) is called the \emph{Teichmüller lift}\index{Teichmüller lift} and is constructed as follow: let \(f(x) = x^p - x\). Then for all \(\overline \alpha \in \F_p, \overline f(\overline \alpha) = 0\), and \(\overline f'(x) = px^{p - 1} - 1 \pmod p = -1\) so never vanishes. So Hensel's lemma says that for all \(\overline \alpha \in \F_p\), exists a unique \(\alpha \in \Z_p\) such that \(\alpha^p = \alpha\) and \(\alpha \pmod{p\Z_p} = \overline \alpha\). Define \(\tau(\overline \alpha) = \alpha\).
+
+If \(\overline \alpha, \overline \beta \in \F_p^\times\) then
+\[
+  (\tau(\overline \alpha) \tau(\overline \beta))^p
+  = \tau(\overline \alpha)^p \tau(\overline \beta)^p
+  = \tau(\overline \alpha) \tau(\overline \beta)
+\]
+and \(\tau(\overline \alpha) \tau(\overline \beta) \pmod{p\Z_p} = \overline \alpha \overline \beta\). Uniqueness part of Hansel's lemma thus says that \(\tau(\overline \alpha \overline \beta) = \tau(\overline \alpha) \tau(\overline \beta)\), i.e.\ \(\tau\) is a homomorphism.
+
+\(\tau\) is the unique splitting: if \(\sigma: \F_p^\times \to \Z_p^\times\) is another splitting then for all \(\overline \alpha \in \F_p^\times\),
+\[
+  \sigma(\overline \alpha)^p = \sigma(\overline \alpha^p) = \sigma(\overline \alpha)
+\]
+so \(f(\sigma(\overline \alpha)) = 0\). Uniqueness again says that \(\sigma = \tau\).
+
+As a consequence
+\[
+  \Q_p^\times \cong \Z \times \Z_p^\times \cong \Z \times (1 + p \Z_p) \times \F_p^\times
+\]
+since each element can be written as \(p^n \cdot u \cdot \tau(\overline \alpha)\). There is an isomorphism
+\[
+  1 + p \Z_p \cong \varprojlim_i \underbrace{\ker ((\Z/p^i\Z)^\times \to (\Z/p\Z)^\times)}_{\text{\(p\)-power order}}
+\]
+so for any \(n \in \N, (n, p) = 1\), the map
+\begin{align*}
+  1 + p \Z_p &\to 1 + p\Z_p \\
+  x &\mapsto x^n
+\end{align*}
+is a bijective group homomorphism. Hence there is an isomorphism
+\[
+  \Q_p^\times /(\Q_p^\times)^n \cong \Z/n\Z \times \F_p^\times/(\F_p^\times)^n.
+\]
+
+Suppose \(q\) is a prime such that \(p = 1 \pmod q\). Then \(\Q_p^\times\) contains a primitive \(q\)th root of unit \(\zeta_q\). This is because \(\zeta_q \in \Q_p^\times\) if and only if \(\Q_p^\times\) contains an element of order \(q\). But \(\F_p^\times\) is cyclic of order \(p - 1\) so this is true.
+
+\begin{lemma}
+  Under this assumption, \(\Q_p\) has exactly \(q + 1\) isomorphism classes of Galois extensions of degree \(q\).
+\end{lemma}
+
+\begin{proof}
+  Since \(\zeta_q \in \Q_p^\times\), Kummer theory tells us that such extensions correspond to subgroups of \(\Q_p^\times/(\Q_p^\times)^q\) of order \(q\), where an element \(z\) of the subgroup corresponds to the extension \(\Q_p(\sqrt[q]{z})\). We've computed \(\Q_p^\times/(\Q_p^\times)^q \cong \Z/q\Z \times \Z/q\Z\), which has \(q + 1\) subgroups of order \(q\).
+\end{proof}
+
+End of this chapter. Where are we going?
+
+\[
+  \begin{tikzcd}
+    K & \O_K & \Q & \O_{K_Q} & K_Q \\
+    \Q & \Z & p & \Z_p & \Q_p
+  \end{tikzcd}
+\]
+if \(K/\Q\) is Galoios then \(K_Q/\Q_p\) is Glaois and \(\gal(K_\Q/\Q_p) \embed \gal(K/\Q)\). We are going to study \(\gal(K_\Q/\Q_p)\).
+
+\section{Extensions of Dedekind domains}
+
+Let \(A\) be a Dedekind domain and \(K = \Frac A\). Let \(E/K\) be a finite separable extension.
+
+\begin{definition}[integral element]\index{integral element}
+  We say \(\gamma \in E\) is \emph{integral} over \(A\) if exists \(n \geq 1\), \(a_1, \dots, a_n \in A\) such that
+  \[
+    \gamma^n + a_1 \gamma^{n - 1} + \dots + a_n = 0.
+  \]
+\end{definition}
+
+\begin{lemma}
+  TFAE:
+  \begin{enumerate}
+  \item \(\gamma\) is integral over \(A\).
+  \item \(A[\gamma]\) is a finitely generated \(A\)-module.
+  \item there exists a nonzero \(A[\gamma]\)-submodule \(M \leq E\) which is a finitely generated \(A\)-module.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \implies 2\): If \(\gamma^n + a_1 \gamma^{n - 1} + \dots + a_n = 0\) then \(A[\gamma] = A + A \gamma + \dots + A\gamma^{n - 1}\).
+  \item \(2 \implies 1\): \(A\) is Noetherian and \(A[\gamma]\) is a finitely generated \(A\)-module so
+    \[
+      A \subseteq A + A[\gamma] \subseteq A + A\gamma +A\gamma^2 \subseteq \cdots
+    \]
+    is eventually stationary, so exists \(n \geq 1\) such that \(\gamma^n \in A + A\gamma + \dots + A\gamma^{n - 1}\).
+  \item \(2 \implies 3\): \(M = A[\gamma]\).
+  \item \(3 \implies 2\): Since \(M\) is finitely generated and \(A\) is Noetherian, \(\End_A(M)\) is a finitely generated \(A\)-module. Since \(M\) is non-zero, \(A[\gamma] \to \End_A(M), x \mapsto (m \mapsto xm)\) is an injective homomorphism of \(A\)-modules. Hence \(A[\gamma]\) is a finitely generated \(A\)-module.
+  \end{itemize}
+\end{proof}
+
+Let \(B = \{\gamma \in E: \gamma \text{ integral over } A\}\), the integral closure of \(A\) in \(E\).
+
+\begin{lemma}
+  \(B\) is a subring of \(E\) and \(B\) is integrally closed in \(E\).
+\end{lemma}
+
+\begin{proof}
+  Suppose \(b_1, \dots, b_m \in B\). Then \(A[b_1, \dots, b_m]\) is a finitely generated \(A\)-module: if we have relations
+  \[
+    b_i^{n_i} + a_{1, i} b_i^{n_i - 1} + \dots + a_{n_i, i} = 0
+  \]
+  for all \(i\) then \(\{\prod_{i = 1}^m b_i^{m_i}: 0 \leq m_i < n_i\}\) is a generating set for \(A[b_1, \dots, b_m]\).
+
+  This also shows that \(B\) is a ring: if \(b_1, b_2 \in B\) then \(A[b_1, b_2] \subseteq E\) is a fg \(A\)-module stable under multiplication by \(b_1 + b_2\) and \(b_1b_2\). So part 3 of the lemma implies that \(b_1 + b_2, b_1b_2 \in B\).
+
+  Now suppose \(\gamma \in E\) and exists \(n \geq 1\), \(b_1, \dots, b_n \in B\) such that
+  \[
+    \gamma^n + b_1 \gamma^{n - 1} + \dots + b_n = 0.
+  \]
+  We must show \(\gamma \in B\). This relation shows \(A[b_1, \dots, b_n][\gamma] = A[b_1, \dots, b_n, \gamma]\) is a fg \(A[b_1, \dots, b_n]\)-module. But \(A[b_1, \cdots, b_n]\) is a fg \(A\)-module, so \(A[b_1, \dots, b_m, \gamma]\) is a fg \(A\)-module: if \(\{x_i\}\) generates \(A[b_1, \dots, b_m, \gamma]\) as an \(A[b_1, \dots, b_m]\)-module and \(\{y_j\}\) generates \(A[b_1, \dots, b_m]\) as an \(A\)-module then \(\{x_i y_j\}\) generates \(A[b_1, \dots, b_n, \gamma]\) as an \(A\)-module. In particular \(\gamma\) is integral over \(A\) so \(\gamma \in B\).
+\end{proof}
+
+\begin{lemma}
+  Let \(T: E \times E \to K\) be the symmetric \(K\)-bilinear form defined by \(T(x, y) = \tr_{E/K} (xy)\). Then \(T\) is nondegenerate.
+\end{lemma}
+
+\begin{proof}
+  This is a consequence of the assumption that \(E/K\) is separable. Let \(L/K\) be the Galois closure of \(E/K\). Let \(\sigma_1, \dots, \sigma_n: E \to L\) be the distinct \(K\)-embeddings, where \(n = [E: K]\). Then for all \(x \in E\)
+  \[
+    \tr_{E/K}(x) = \sigma_1(x) + \dots + \sigma_n(x).
+  \]
+  Recall from Galois theory that \(\sigma_1, \dots, \sigma_n\) are linearly independent (over \(K\)) as homomorphisms \(\sigma_i: E^\times \to L^\times\), so there exists \(x \in E^\times\) such that \(\sigma_1(x) + \dots + \sigma_n(x) \neq 0\) and therefore \(\tr_{E/K}(x) \neq 0\). Then for all \(y \in E^\times\),
+  \[
+    T(xy^{-1}, y) = \tr_{E/K}(x) \neq 0,
+  \]
+  i.e.\ \(\ker T = 0\) and \(T\) is nondegenerate.
+\end{proof}
+
+\begin{remark}
+  If \(x \in B\) then \(\tr_{E/K}(x) \in A\): \(\sigma_i(x) \in L\) is integral over \(A\) and hence \(\sigma_1(x) + \dots + \sigma_n(x)\) is an element of \(L\) which is in \(K\) and integral over \(A\). \(A\) is integrally closed implies that \(\tr_{E/K}(x) \in A\).
+\end{remark}
+
+Observe that if \(S \subseteq A\) is multiplicatively closed and \(0 \notin S\) then \(S^{-1}A\) is a Dedekind domain with field of fractions \(K\). Moreover, the integral closure of \(S^{-1}A\) in \(E\) is \(S^{-1}B\). This is because \(S^{-1}B\) is contained in the integral closure of \(S^{-1}A\) in \(E\). Conversely, if \(\gamma \in E\) satisfies
+\[
+  \gamma^n + \frac{a_1}{s_1} \gamma^{n - 1} + \cdots + \frac{a_n}{s_n} = 0
+\]
+where \(a_i \in A, s_i \in S\) then
+\[
+  (\gamma s_1 \cdots s_n)^n + \frac{a_1}{s_1} (s_1 \cdots s_n)^{n - 1} (\gamma s_1 \cdots s_n)^{n - 1} + \cdots = 0
+\]
+and hence \(\gamma s_1 \cdots s_n \in B\) so \(\gamma \in S^{-1}B\).
+
+For example \((A - \{0\})^{-1} A = K\) so \((A - \{0\})^{-1}B = E\). In particular \(B\) always span \(E\) as a \(K\)-vector space and \(\Frac B = E\).
+
+\begin{proposition}
+  \(B\) is fg as \(A\)-module and is a Dedekind domain.
+\end{proposition}
+
+\begin{proof}
+  Let \(e_1, \dots, e_n\) be basis of \(E\) as \(K\)-vector space. We assume that in fact \(e_1, \dots, e_n \in B\). Recall that there is a \(K\)-bilinear form \(T: E \times E \to K, (x, y) \mapsto \tr_{E/K}(xy)\) and is non-degenerate as \(E/K\) is separable. Moreover if \(x \in B\) then \(\tr_{E/K}(x) \in A\). Let \(f_1, \dots, f_n\) be the dual basis of \(e_1, \dots, e_n\) with respect to \(T\), i.e.\ for all \(i, j\), \(T(e_i, f_j) = \tr_{E/K}(e_if_j) = \delta_{ij}\). If \(x \in B\) we can write \(x = \sum_{j = 1}^n a_jf_j\) where \(a_j \in K\), and
+  \[
+    \tr_{E/K}(x e_i) = T(x, e_i) = \sum_{j = 1}^n a_j T(f_j, e_i) = a_i \in A.
+  \]
+  As \(x\) is arbitrary, this shows \(B \subseteq \sum_{j = 1}^n Af_j\). As \(A\) is Noetherian, \(B\) is fg as an \(A\)-module. Hence \(B\) is fg as an \(A\)-algebra, so by Hilbert basis theorem \(B\) is Noetherian as a ring.
+
+  To show \(B\) is a Dedekind domain, it remains to show that every non-zero prime ideal \(Q \subseteq B\) is maximal or equivalently, \(B/Q\) is a field. To show this let \(P = A \cap Q\). Then \(P\) is prime. It is also non-zero: if \(\gamma \in Q - \{0\}\) then it satisfies an equation
+  \[
+    \gamma^m + a_1 \gamma^{m - 1} + \dots + a_m = 0
+  \]
+  where \(a_i \in A\). We can assume \(a_m \neq 0\) (otherwise divide by \(\gamma\)). Then
+  \[
+    a_m = - (\gamma^m + a_1 \gamma^{m - 1} + \dots + a_{m - 1} \gamma) \in A \cap Q - \{0\}.
+  \]
+  \[
+    \begin{tikzcd}
+      E \ar[r, dash] \ar[d, dash] & B \ar[r, dash] \ar[d, dash] & Q \ar[d, dash] \\
+      K \ar[r, dash] & A \ar[r, dash] & P
+    \end{tikzcd}
+  \]
+  We have an injective ring homomorphism \(A/P \to B/Q\) where \(A/P\) is a field, \(B/Q\) is a domain and \(B/Q\) is finite dimensional as an \(A/P\)-vector space (as \(B\) is fg as \(A\)-module). It follows that \(B/Q\) is a field: let \(\alpha \in B/Q - \{0\}\) and consider the map \(M_\alpha: B/Q \to B/Q, \beta \mapsto \beta\alpha\). \(M_\alpha\) is a linear map of \(A/P\)-vector spaces and is injective because \(A \neq 0\) and \(B/Q\) is a domain. Since \(B/Q\) has finite dimension, \(M_\alpha\) must be surjective. Hence exists \(\alpha' \in B/Q\) such that \(M_\alpha(\alpha') = \alpha\alpha' = 1\).
+\end{proof}
+
+We showed in the proof that if \(Q \subseteq B\) is a non-zero prime ideal then \(P = A \cap Q \subseteq A\) is a non-zero prime ideal. In this case, we say \emph{\(Q\) lies above \(P\)}\index{lie above}. We have \(Q\) lies above \(P\) if and only if \(Q \supseteq PB\) if and only if \(v_Q(PB) > 0\) where \(v_Q: E^\times \to \Z\) is the valuation corresponding to \(Q\). This is left as an exercise.
+
+\begin{definition}[residue degree, ramification index]\index{residue degree}\index{ramification index}
+  If \(Q\) lies above \(P\), we define the \emph{residue degree} of \(Q\) over \(P\) to be
+  \[
+    f_{Q/P} = [B/Q: A/P]
+  \]
+  and the \emph{ramification index} to be
+  \[
+    e_{Q/P} = v_Q(PB).
+  \]
+\end{definition}
+Note that they are both integers greater than \(0\).
+
+\begin{proposition}
+  Let \(P \subseteq A\) be a non-zero prime ideal. Then
+  \[
+    \sum_{v_Q(PB) > 0} e_{Q/P} f_{Q/P} = [E : K].
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let \(S = A - P\). Then \(S^{-1}B\) is the integral closure of \(S^{-1}A\). In addition localisation preserves residue degree and ramification index: we have
+  \[
+    e_{S^{-1}Q/S^{-1}P} = e_{Q/P}, \quad f_{S^{-1}Q/S^{-1}P} = f_{Q/P}.
+  \]
+  The first is because by unique factorisation,
+  \begin{align*}
+    PB &= \prod_Q Q^{e_{Q/P}} \\
+    S^{-1}PB &= \prod_{Q} Q^{e_{Q/S^{-1}P}}
+  \end{align*}
+  so by prime ideal correspondence for localisation we must have equality. The second is because the maps \(A/P \to S^{-1}A/S^{-1}P, B/Q \to S^{-1}B/S^{-1}Q\) are both isomophisms. Therefore we can replace \(A\) by \(S^{-1}A\) and assume that \(A\) is a DVR, in particular a PID. Then \(B\) is a fg \(A\)-module which is torsion free (i.e.\ for all \(b \in B\) if exists \(a \in A - \{0\}\) such that \(ab = 0\) then \(b = 0\)), so we can use the classification of fg modules over a PID to conclude that as an \(A\)-module, \(B \cong A^n\) for some \(n \in \N\). Then
+  \[
+    E = (A - \{0\})^{-1}B \cong (A - \{0\})^{-1}A^n \cong K^n
+  \]
+  and hence \(n = [E : K]\).
+
+  By reduction modulo \(P\), we have an isomorphism \(B/PB \cong (A/PA)^n\) of \(A/P\)-vector spaces. By the Chinese remainder theorem, we have an isomorphism
+  \[
+    B/PB \cong \prod_{Q: v_Q(PB) > 0} B/Q^{v_Q(PB)}.
+  \]
+  Hence
+  \[
+    [E : K] = n = \sum_{Q: v_Q(PB) > 0} \dim_{A/P} B/Q^{v_Q(PB)}.
+  \]
+  We have a chain of inclusions
+  \[
+    B \supseteq Q \supseteq Q^2 \supseteq \cdots \supseteq Q^{v_Q(PB)}
+  \]
+  so
+  \[
+    \dim_{A/P} B/Q^{v_Q(B)} = \sum_{i = 0}^{e_{Q/P} - 1} \dim_{A/P} Q^i/Q^{i + 1}.
+  \]
+  For any \(i \geq 0\), \(Q^i/Q^{i + 1}\) has dimension \(1\) as a \(B/Q\)-vector space (as \(Q^i/Q^{i + 1} \to Q^iB_Q/Q^{i + 1}B_Q\) is an isomorphism, so can reduce to the case of \(B_Q\)). Therefore
+  \[
+    \dim_{A/P} Q^i/Q^{i + 1} = [B/Q : A/P] \dim_{B/Q} Q^i/Q^{i + 1} = f_{Q/P}.
+  \]
+  We thus get
+  \[
+    [E : K] = n = \sum_{Q: v_Q(PB) > 0} \sum_{i = 0}^{e_{Q/P} - 1} f_{Q/P} = \sum_Q e_{Q/P} f_{Q/P}.
+  \]
+\end{proof}
+
+\[
+  \begin{tikzcd}
+    E \ar[r, dash] \ar[d, dash] & B \ar[r, dash] \ar[d, dash] & \{Q_1, \dots, Q_r\} \ar[d, dash] \\
+    K \ar[r, dash] & A \ar[r, dash] & P
+  \end{tikzcd}
+\]
+Let \(e_i = e_{Q_i/P}, f_i = f_{Q_i/P}\) and so \(\sum_{i = 1}^r e_if_i = [E : K]\).
+
+\begin{definition}[unramified ideal, split ideal]\index{unramified ideal}\index{split ideal}
+  If for all \(1 \leq i \leq r, e_i = 1\), \(B/Q_i\) is a separable extension of \(A/P\) we say \(P\) is \emph{unramified} in \(B\) (or \(E\)).
+
+  If for all \(1 \leq i \leq r, e_i = f_i = 1\), we say \(P\) \emph{splits completely} in \(B\) (or \(E\)).
+\end{definition}
+
+\begin{eg}
+  If \(K/Q\) is a number field (i.e.\ finite extension), we write \(\O_K\) for the integral closure of \(\Z\) in \(K\). If \(K = Q(\sqrt d)\) where \(d \in \Z, d \neq 0, 1\) is a squarefree integer, then we can compute
+  \[
+    \O_K =
+    \begin{cases}
+      \Z[\sqrt d] & d = 2, 3 \pmod 4 \\
+      \Z[\frac{1 + \sqrt d}{2}] & d = 1 \pmod 4
+    \end{cases}
+  \]
+\end{eg}
+
+
 
 
 \printindex

@@ -14,6 +14,9 @@
 \newcommand*{\Lie}[1]{\mathfrak{#1}} % Lie groups
 \renewcommand*{\P}{\mathbb{P}}
 \DeclareMathOperator{\ad}{ad} % adjoint
+\let\ch\relax
+\DeclareMathOperator{\ch}{ch} % character
+\DeclareMathOperator{\cha}{ch} % characteristic
 
 \begin{document}
 
@@ -191,7 +194,7 @@ This is called the \emph{Lie bracket} of \(A\) and \(B\).
 \end{ex}
 
 \begin{definition}[Lie algebra]\index{Lie algebra}
-  Let \(k\) be a field, \(\ch k \neq 2\). A \emph{Lie algebra} \(\Lie g\) is a \(k\)-vector space equipped with a bilinear map \([\cdot, \cdot]: \Lie g \times \Lie g \to \Lie g\) that
+  Let \(k\) be a field, \(\cha k \neq 2\). A \emph{Lie algebra} \(\Lie g\) is a \(k\)-vector space equipped with a bilinear map \([\cdot, \cdot]: \Lie g \times \Lie g \to \Lie g\) that
   \begin{enumerate}
   \item is anti-symmetric: \([X, Y] = - [Y, X]\),
   \item satisfies the Jacobi identity
@@ -397,7 +400,7 @@ and hence
       e = x \frac{\partial  }{\partial y}, f = y \frac{\partial  }{\partial x}, h = x \frac{\partial  }{\partial x} - y \frac{\partial  }{\partial y}
     \]
     defines an (infinite-dimensional) rep of \(\Lie{sl}_2\) on \(k[x, y]\). Some implication: this can be defined for all characteristics, and the differential operator is suggesting that reps of Lie groups might have something to do with calculus.
-  \item Show if \(\ch k = 0\) then \(L(n)\) is irreducible as an \(\Lie{sl}_2\), hence \(\SL_2\)-module.
+  \item Show if \(\cha k = 0\) then \(L(n)\) is irreducible as an \(\Lie{sl}_2\), hence \(\SL_2\)-module.
   \end{enumerate}
 \end{ex}
 
@@ -527,7 +530,7 @@ We have a surprising result:
 \end{lemma}
 
 \begin{proof}
-  Note that all \(f^k v\) lie in different eigenspaces for \(h\) so if non-zero they are linearly independent. But \(V\) is finite dimensional so exists \(k\) such that \(f^k v \neq 0, f^{k + 1} = 0\). The exercise shows
+  Note that all \(f^k v\) lie in different eigenspaces for \(h\) so if non-zero they are linearly independent. But \(V\) is finite dimensional so exists \(k\) such that \(f^k v \neq 0, f^{k + 1} v = 0\). The exercise shows
   \[
     0 = ef^{k + 1}v = (k + 1)( \lambda - k)f^k v
   \]
@@ -541,6 +544,264 @@ We have a surprising result:
 \begin{proof}
   As \(V\) is a \(\C\)-space \(h\) has an eigenvector. Apply \(e\) to it get \(v, ev, e^2v, \dots\) which are eigenvectors with different eigenvectors so if nonzero are linearly independent so exists \(k\) such that \(e^kv = 0\), so \(e^kv\) is a highest weight eigenvector.
 \end{proof}
+
+\begin{corollary}
+  Let \(k = \C\). If \(V\) is an irreducible finite dimensional representation of \(\Lie{sl}_2\) then \(\dim V = n + 1\) and \(V\) has basis \(v_0, v_1, \dots, v_n\) with
+  \begin{align*}
+    hv_i &= (n - 2i) v_i \\
+    fv_i &= v_{i + 1} \\
+    ev_i &= i (n - i + 1) v_{i - 1}
+  \end{align*}
+  In particular there is a unique irreducible representation of dimension \(n + 1\), which is isomorphic to \(L(n)\).
+\end{corollary}
+
+(Picture of string)
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Find the explicit relation between this basis and the \(x^ay^b\) basis earlier, where \(a + b = n\).
+  \item Recall \(\C[x, y] = \bigoplus_{n \geq 0} L(n)\) as a representation of \(\Lie{sl}_2\) where \(e, h, f\) acts as differential operators. Show that the same operators give a rep of \(\Lie{sl}_2\) on \(x^\lambda y^\mu \C[x/y, y/x]\) for all \(\lambda, \mu \in \C\). Determine the submodules of this rep.
+  \end{enumerate}
+\end{ex}
+
+Now we show that all reps can be written as direct sum of the irreducible ones. This is one of the more difficult theorem but will lead us towards the general result later. We will show strings of different lengths don't interact, then strings of the same lengths do not interact.
+
+\begin{definition}
+  Let \(V\) be a rep of \(\Lie{sl}_2\). Define \(\Omega \in \End(V)\) by
+  \[
+    \Omega = ef + fe + \frac{1}{2}h^2,
+  \]
+  the \emph{Casimir} of \(\Lie{sl}_2\).
+\end{definition}
+
+\begin{lemma}
+  \(\Omega\) is central, that is \(e\Omega = \Omega e, f \Omega = \Omega f, h \Omega = \Omega h\).
+\end{lemma}
+
+\begin{proof}
+  We will later show a slick proof. For now this is left as an exercise. For example
+  \begin{align*}
+    e \Omega
+    &= e (ef +fe + \frac{1}{2} h^2) \\
+    &= e(ef - fe) + 2efe \\
+    &+ \frac{1}{2} (eh - he) h + \frac{1}{2} heh \\
+    &= 2efe + \frac{1}{2} heh \\
+    &= \cdots \\
+    &= \Omega e
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  If \(V\) is an irreducible rep of \(\Lie{sl}_2\), then \(\Omega\) acts on \(V\) by a scalar.
+\end{corollary}
+
+\begin{proof}
+  Similar to Schur's lemma.
+\end{proof}
+
+\begin{lemma}
+  \(\Omega\) acts on \(L(n)\) as multiplication by \(\frac{1}{2} n^2 + n\).
+\end{lemma}
+
+\begin{proof}
+  We can choose any nonzero element and use the above corollary. Alternatively we can do it by hand. Let \(v\) be the highest weight vector of \(L(n)\) so \(ev = 0, hv = nv\). Then
+  \[
+    \Omega = (ef - fe) + 2fe + \frac{1}{2} h^2 = (\frac{1}{2} h^2 + h) + 2fe
+  \]
+  so
+  \begin{align*}
+    \Omega v &= (\frac{1}{2} n^2 + n) v \\
+    \Omega (f^k v) &= f^k \Omega v = (\frac{1}{2} n^2 + n) f^k v
+  \end{align*}
+\end{proof}
+
+This immediately implies ``strings of different lengths don't interact'', which we shall make sense of now.
+
+Let \(V\) be a finite dimensional rep of \(\Lie{sl}_2\). Let
+\[
+  V^\lambda = \{v \in V: (\Omega - \lambda)^{\dim V} v = 0\}
+\]
+be the generalised eigenspace for \(\Omega\) with eigenvalue \(\lambda\). By linear algebra, \(V = \bigoplus_\lambda V^\lambda\). Claim that each \(V^\lambda\) is a subrep, i.e.\ preserved by \(\Lie{sl}_2\), so this is a direct sum decomposition of \(V\) as reps of \(\Lie{sl}_2\).
+
+\begin{proof}
+  Let \(x \in \Lie{sl}_2, v \in V^\lambda\). Then
+  \[
+    (\Omega - \lambda)^{\dim V} xv = x(\Omega - \lambda)^{\dim V} v = 0
+  \]
+  as \(\Omega\) is central so \(xv \in V^\lambda\).
+\end{proof}
+
+Claim that if \(V^\lambda \neq 0\) then \(\lambda = \frac{1}{2} n^2 + n\) for a unique \(n \in \Z_{\geq 0}\), and ``\(V^\lambda\) is glued together from copies of \(L(n)\)''. Formally, ``gluing'' refers to the following:
+
+\begin{definition}[composition series]\index{composition series}
+  Let \(W\) be a finite dimensional representation of \(\Lie g\). A \emph{composition series} for \(W\) is a sequence of submodules
+  \[
+    0 = W_0 \subseteq W_1 \subseteq W_2 \subseteq \cdots \subseteq W_r = W
+  \]
+  such that each \(W_i/W_{i - 1}\) is a non-zero irreducible module.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(\Lie g = \C, W = \C^r\) where \(1 \in \Lie g\) acts as \(
+    \begin{psmallmatrix}
+    0 & 1 \\
+    & 0 & 1 \\
+    & & & \ddots \\
+    & & & & 1 \\
+    & & & & 0
+  \end{psmallmatrix}
+  \). Then there is a unique composition series for \(W\), namely
+  \[
+    0 \subseteq \langle e_1 \rangle \subseteq \langle e_1, e_2 \rangle \subseteq \cdots \subseteq \langle e_1, \dots, e_r \rangle.
+  \]
+\item Let \(\Lie g = \C, W = \C^r\) and \(1 \in \Lie g\) acts as \(0\). Then any chain of subspaces
+  \[
+    W_0 \subseteq W_1 \subseteq \cdots \subseteq W_r
+  \]
+  with \(\dim W_i = i\) is a composition series.
+  \end{enumerate}
+\end{eg}
+
+The intuition is that by choosing a suitable basis, we can put each element of \(\Lie g\) into \emph{block triangular form}, with the diagonal blocks \(A_i\) the action on the subquotient \(W_i/W_{i - 1}\), which we require to be irreducible.
+\[
+  \begin{pmatrix}
+    A_1 & & & * \\
+    & A_2 \\
+    & & \ddots \\
+    0 & & & A_r
+  \end{pmatrix}
+\]
+
+\begin{lemma}
+  Composition series always exist.
+\end{lemma}
+
+\begin{proof}
+  Induct on \(\dim W\). Take an irreducible subrep of \(W\) (why does it always exist?), call it \(W_1\). Then \(W/W_1\) has smaller dimension than \(W\) so has a composition series. Take the preimage of this in \(W\) and stick \(W_1\) in the front.
+\end{proof}
+
+\begin{remark}
+  The subquotients \(W_i/W_{i - 1}\) are unique (up to reordering). This requires proof in general, but will follow for Lie algebras from what we show in a bit.
+\end{remark}
+
+Now we can rephrase the claim as follow: if \(V^\lambda \neq 0\) then \(\lambda = \frac{1}{2} n^2 + n\) for a unique \(n \in \Z_{\geq 0}\), and \(V^\lambda\) has a composition series where all of the subquotients \(W_i/W_{i - 1}\) are isomorphic to \(L(n)\). This proves the slogan ``strings of different lengths don't interact''.
+
+\begin{proof}
+  First observe that if \(n \neq m\) then \(\Omega\) acts on \(L(n)\) and \(L(m)\) by different numbers, as \(n \mapsto \frac{1}{2} n^2 + n\) is an increasing function for \(n \geq -1\). Thus if \(V^\lambda \neq 0\), let \(L(n)\) be an irreducible submodule of \(V^\lambda\). As \(\Omega\) acts on \(L(n)\) by \(\frac{1}{2} n^2 + n\), we have \(\lambda = \frac{1}{2}n^2 + n\), and then \(\Omega\) acts on \(V^\lambda/L(n)\) with generalised eigenvalue \(\lambda = \frac{1}{2} n^2 + n\), and for the same reason all composition factors of \(V^\lambda\) must be \(L(n)\) for this \(n\).
+\end{proof}
+
+Now we have \(V = \bigoplus_{n \geq 0} V^{\frac{1}{2}n^2 + n}\) where each \(V^{\frac{1}{2}n^2 + n}\) has all composition factors \(L(n)\). We now show strings of the same lengths don't interact.
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(hf^k = f^k (h - 2k)\) for all \(k \geq 0\).
+  \item \(ef^{k + 1} = f^{k + 1} e + (k + 1) f^k (h - k)\) for all \(k \geq 0\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+If \(W' \subseteq W\) and \(h\) preserves \(W'\) then the set of generalised eigenvalues of \(h\) on \(W\) is the union on that of \(h\) on \(W'\) and \(W/W'\). As a result, \(h\) acts on \(V^\lambda\) with generalised eigenvalues in \(\{-n, -n + 2, \dots, n - 2, n\}\). Also the only generalised eigenvalue of \(h\) on \(\ker (e: V^\lambda \to V^\lambda)\) is \(n\), that is \((h - n)^{\dim V^\lambda} \cdot x = 0\) for all \(x \in V^\lambda \cap \ker e\).
+
+\begin{proposition}
+  \(h\) acts diagonally on \(\ker (e: V^\lambda \to V^\lambda)\), that is it acts by multiplication by \(n\). Thus
+  \[
+    \ker (e: V^\lambda \to V^\lambda) = (V^\lambda)_n = \{x \in V^\lambda: hx = nx\}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  If \(hx = nx\) then \(ex \in (V^\lambda)_{n + 2} = 0\) so \(x \in \ker e\). Conversely let \(x \in \ker e\). We know \((h - n)^{\dim V^\lambda} x = 0\). By exercises
+  \[
+    (h - n + 2k)^{\dim V^\lambda} f^kx = f^k (h - n)^{\dim V^\lambda} x = 0
+  \]
+  so \(f^n x\) is in the generalised eigenspace of \(h\) with eigenvalue \(n - 2k\). Claim that on the other hand, for any \(0 \neq y \in \ker e\), \(f^n y \neq 0\).
+  \begin{proof}
+    Let \(0 = W_0 \subseteq W_1 \subseteq \cdots \subseteq W_r = V^\lambda\) be a composition series of \(V^\lambda\) such that \(W_i/W_{i - 1} \cong L(n)\) for all \(i\). Then exists \(i\) such that \(y \in W_i, y \neq W_{i - 1}\). Then \(\overline y = y + W_{i - 1} \in W_i/W_{i - 1} \cong L(n)\). Then \(\overline y\) is a highest weight vector of \(L(n)\), so \(f^n(\overline y) \neq 0 \in W_i/W_{i - 1}\) so \(f^n y \neq 0 \in W_i \subseteq V^\lambda\).
+  \end{proof}
+  
+  Now \(f^{n + 1}x\) belongs to the generalised eigenspace of \(h\) with eigenvalue \(-n - 2\), which must be \(0\) by the observation above. Thus \(0 = ef^{n + 1}x\). By exercise this equals to
+  \[
+    0 = ef^{n + 1}x = (n + 1)f^n (h - n)x + \underbrace{f^{n + 1} ex}_{= 0}
+  \]
+  so \((n + 1) f^n (h - n)x = 0\). As \(e(h - n)x = (h - n - 2)ex = 0\), we have \((h - n) x \in \ker e\) so if \((h - n)x \neq 0\) then \(f^n (h - n)x \neq 0\). As we are over \(\C\), \(n + 1 \neq 0\) and we just showed \(y \ne o, y \in \ker e\) but \(f^ny \neq 0\), impossible. Thus \((h - x)x = 0\) so \(hx = nx\).
+\end{proof}
+
+To show complete reducibility, do the following exercise:
+
+\begin{ex}
+  Take a basis \(w_1, \dots, w_k\) of \(\ker e\) and consider the string generated by each \(w_i\), that is \(w_i, fw_i, \dots, f^n w_i\). Show that these give a basis of \(V^\lambda\), each such string is a subrep isomorphic to \(L(n)\) and this gives a direct sum decomposition. In particular \(h\) acts diagonally on all of \(V\) for \(V\) a finite-dimensional rep.
+\end{ex}
+
+\begin{ex}
+  Show all of this is false in characteristic \(p\). More precisely, show the irreducible reps of \(\Lie{sl}_2\) over \(\overline F_p\) are \emph{not} parameterised by \(n \in \Z_{\geq 0}\). Find a rep of \(\Lie{sl}_2(\overline F_p)\) which does not decompose as a direct sum.
+\end{ex}
+
+\subsection{Consequences}
+
+\begin{definition}[tensor product]\index{tensor product}
+  Let \(V\) and \(W\) be \(\Lie g\)-reps. Then the \emph{tensor product} of \(V\) and \(W\) is a rep via the map
+  \begin{align*}
+    \Lie g &\to \End(V \otimes W) = \End(V) \otimes \End(W) \\
+    x &\mapsto x \otimes 1 + 1 \otimes x
+  \end{align*}
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show the above map is a homomorphism of Lie algebras.
+  \item Suppose \(G\) acts on \(V\) and \(W\). Show it acts on \(V \otimes W\) by \(g \mapsto g \otimes g\) and the above action is obtained by differentiating this action.
+  \end{enumerate}
+\end{ex}
+
+Take \(\Lie g = \Lie{sl}_2\). Then by complete reducibility we know \(L(n) \otimes L(m) \cong \bigoplus_{a \geq 0} m_a L(a)\) for some \(m_a\)'s.
+
+\begin{ex}
+  Find the highest weight vectors in \(L(1) \otimes L(n)\) and \(L(2) \otimes L(n)\) and hence decompose these.
+\end{ex}
+
+To start, let \(v_a\) be a highest weight vector in \(L(a)\). Claim that \(v_n \otimes v_m\) is a highest weight vector in \(L(n) \otimes L(m)\):
+\begin{align*}
+  h(v_n \otimes v_m &= (hv_n) \otimes v_m + v_n \otimes (hv_m) = (n + m) (v_n \otimes v_m) \\
+  e(v_n \otimes v_m) &= (ev_n) \otimes v_m + v_n \otimes (ev_m) = 0
+\end{align*}
+so \(L(n) \otimes L(m) = L(n + m) \oplus \text{ other stuff}\).
+
+\begin{definition}[character]\index{character}
+  Let \(V\) be a finite-dimensional rep of \(\Lie{sl}_2\). Define the \emph{character} of \(V\) to be
+  \[
+    \ch V = \sum_{n \in \Z} \dim V_n \cdot z^n \in \N[z, z^{-1}].
+  \]
+\end{definition}
+
+It has the following properties:
+\begin{enumerate}
+\item \(\ch V|_{z = 1} = \dim V\). This is a consequence of the fact that \(h\) is diagonalisable with integer eigenvalues.
+\item \(\ch L(n) = z^n + z^{n - 2} + \dots + z^{2 - n} + z^{-n} = \frac{z^{n + 1} - z^{-{n + 1}}}{z - z^{-1}}\).
+\item \(\ch V = \ch W\) if and only if \(V \cong W\) as \(\Lie{sl}_2\) reps.
+  \begin{proof}
+    Notice that
+    \begin{align*}
+      \ch L(0) &= 1 \\
+      \ch L(1) &= z + z^{-1} \\
+      \ch L(2) &= z^2 + 1 + z^{-1} \\
+               &\cdots
+    \end{align*}
+    form a basis of \(\Z[z, z^{-1}]^{S_2}\), the space of symmetric Laurent polynomials with integer coefficients. Now by complete reducibility if \(V \cong \bigoplus _{a\geq 0} n_a L(a), W \cong \bigoplus_{a \geq 0} m_a L(a)\) then \(V \cong W\) if and only if \(n_a = m_a\) for all \(a \geq 0\). As \(\{\ch L(n): n \geq 0\}\) is a basis of \(\Z[z, z^{-1}]^{S_2}\), \(\ch V = \sum m_a \ch L(n)\) determines \(V\).
+  \end{proof}
+\item \(\ch (V \otimes W) = \ch V \cdot \ch W\).
+
+  Exercise: show that \(V_n \otimes W_m \subseteq (V \otimes W)_{n + m}\) and hence \((V \otimes W)_p = \bigoplus_{n + m = p} V_n \otimes W_m\)
+\end{enumerate}
+
+
+
+
+
+
 
 
 \printindex

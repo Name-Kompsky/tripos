@@ -14,6 +14,7 @@
 
 \DeclareMathOperator{\Map}{Map} % space of continuous maps between spaces
 \renewcommand{\b}{\p}
+\DeclareMathOperator{\Int}{Int} % interior
 
 \begin{document}
 
@@ -325,7 +326,7 @@ Note that if we have a chain complex then \(d^2 = 0\) so \(\im d_{i + 1} \subset
   \]
 \end{eg}
 
-\begin{definition}[chain maps]\index{chain maps}
+\begin{definition}[chain map]\index{chain map}
   If \((C, d)\) and \((C', d')\) are chain complexes over \(R\), a \emph{chain map} \(f: (C, d) \to (C', d')\) is homomorphisms \(f_i: C_i \to C_i'\) such that
   \[
     \begin{tikzcd}
@@ -803,8 +804,8 @@ In other words, the sequence is exact is the same as saying \((A_*, f)\) is a ch
   is a SES of chain complexes then there is a long exact sequence on homology
   \[
     \begin{tikzcd}
-      H_*(A) \ar[r, "\iota_*"] & H_*(B) \ar[r, "\pi_*"] & H_*(C) \ar[dll, "\b", out=0, in=180] \\
-      H_{* - 1}(A) \ar[r, "\iota_*"] & H_{* - 1}(B) \ar[r, "\pi_*"] & H_{* - 1}(C) \ar[dll, "\b", out=0, in=180] \\
+      H_*(A) \ar[r, "\iota_*"] & H_*(B) \ar[r, "\pi_*"] & H_*(C) \ar[dll, "\b"', out=0, in=180] \\
+      H_{* - 1}(A) \ar[r, "\iota_*"] & H_{* - 1}(B) \ar[r, "\pi_*"] & H_{* - 1}(C) \ar[dll, "\b"', out=0, in=180] \\
       H_{* - 2} \ar[r] & \cdots
     \end{tikzcd}
   \]
@@ -936,12 +937,603 @@ where \(\iota: A \embed X\) is the inclusion.
   so the long exact sequence of the pair \((D^1, S^0)\) gives
   \[
     \begin{tikzcd}
-      H_1(D^1) \ar[r] \ar[d, equal] & H_1(X, A) \ar[r] & H_0(S^0) \ar[r] \ar[d, equal] & H_0(D^1) \ar[r] \ar[d, equal] & H_0(X, A) \ar[r] & 0\\
+      H_1(D^1) \ar[r] \ar[d, equal] & H_1(X, A) \ar[r] & H_0(S^0) \ar[r] \ar[d, equal] & H_0(D^1) \ar[r] \ar[d, equal] & H_0(X, A) \ar[r] & 0 \\
       0 & & \Z \oplus \Z & \Z &
     \end{tikzcd}
   \]
   It is an exercise to check the map \(H_0(S^0) \to H_0(D^1)\) is surjective and thus \(H_1(X, A) \cong \Z\).
 \end{eg}
+
+\paragraph{Induced maps}
+
+Suppose \(f: (X, A) \to (Y, B)\) is a map of pairs, meaning \(f: X \to Y\) and \(f(A) \subseteq B\). Then if \(\sigma: \Delta^k \to A\) then \(f_\#: C_*(X) \to C_*(Y)\) is such that \(f_\#(\sigma) = f \compose \sigma: \Delta^k \to B\) so \(f_\#(C_*(A)) \subseteq C_*(B)\) and hence \(f_\#\) descends to a chain map \(f_\#^{(q)}: C_*(X)/C_*(A) \to C_*(Y)/C_*(B)\), which we usually just write \(f_\#: C_*(X, A) \to C_*(Y, B)\). We define \(f_*: H_*(X, A) \to H_*(Y, B)\) to be the induced map.
+
+\begin{lemma}
+  Suppose
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A_* \ar[r, "\iota"] \ar[d, "f"] & B_* \ar[r, "\pi"] \ar[d, "f"] & C_* \ar[r] \ar[d, "f"] & 0 \\
+      0 \ar[r] & A_*' \ar[r, "\iota'"] & B_*' \ar[r, "\pi'"] & C_*' \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is a commutative diagram of chain complexes and chain maps, and the rows are exact. Then we have a commutative diagram of long exact sequences
+  \[
+    \begin{tikzcd}
+      \ar[r] & H_*(A) \ar[r] \ar[d, "f_*"] & H_*(B) \ar[r] \ar[d, "f_*"] & H_*(C) \ar[r, "\b"] \ar[d, "f_*"] & H_{* - 1}(A) \ar[r] \ar[d, "f_*"] & \cdots \\
+      \ar[r] & H_*(A') \ar[r] & H_*(B') \ar[r] & H_*(C') \ar[r, "\b'"] & H_{* - 1}(A') \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+\end{lemma}
+
+\begin{proof}
+  We check the square involving \(\b\) and \(\b'\) commutes and the rest are left as exercises. If \([c] \in H_n(C)\), pick \(b \in B_n, a \in A_{n - 1}\) with \(\pi b = c, \iota a = db\). Then \(\b [c] = [a]\). Let \(a' = fa, b' = fb, c' = fc\). Then \(\pi' b' = c'\) and \(\iota' a' = db'\) so \(\b' [c'] = [a']\). Then
+  \[
+    \b' f_*[c] = f_*[a] = f_* \b [c].
+  \]
+\end{proof}
+
+In the language of cateogry theory, this says that there is a functor from the category of short exact sequences with morphisms like the hypothesis of the lemma to the category of long exact sequences of \(R\)-modules with morphism like that in the conclusion.
+
+\begin{corollary}
+  If \(f: (X, A) \to (X, B)\) then there is a commutative diagram
+  \[
+    \begin{tikzcd}
+      \ar[r] & H_*(A) \ar[r] \ar[d, "f_*"] & H_*(X) \ar[r] \ar[d, "f_*"] & H_*(X, A) \ar[r, "\b"] \ar[d, "f_*"] & H_{* - 1}(A) \ar[r] \ar[d, "f_*"] & \cdots \\
+      \ar[r] & H_*(B) \ar[r] & H_*(Y) \ar[r] & H_*(Y, B) \ar[r, "\b'"] & H_{* - 1}(B) \ar[r] & \cdots
+    \end{tikzcd}
+  \] 
+\end{corollary}
+
+\begin{proof}
+  We have a commutative diagram of SES
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & C_*(A) \ar[r] \ar[d, "f_\#"] & C_*(X) \ar[r] \ar[d, "f_\#"] & C_*(X, A) \ar[r] \ar[d, "f_\#"] & 0 \\
+      0 \ar[r] & C_*(B) \ar[r] & C_*(Y) \ar[r] & C_*(Y, B) \ar[r] & 0
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\paragraph{Homotopy invariance}
+
+If \(g_0, g_1: (X, A) \to (Y, B)\) are homotopic as maps of pairs then \(g_{0*} = g_{1*}: H_*(X, A) \to H_*(Y, B)\).
+
+\begin{proof}
+  The maps \(g_{0\#}, g_{1\#}: C_*(X) \to C_*(Y)\) are chain homotopic via \(h(\sigma) = G_{\sigma\#}(U_n(f_{0 \cdots n}))\) where \(\sigma: \Delta^n \to X\) and \(G: X \times [0, 1] \to Y\) is a homotopy such that \(G(A \times [0, 1]) \subseteq B\). If \(\sigma: \Delta^n \to A\) then \(G_\sigma: \Delta^n \times [0, 1] \subseteq B\) so \(h(\sigma) \in C_*(B)\), i.e.\ \(h(C_*(A)) \subseteq C_*(B)\) so it descends to \(h^{(q)}: C_*(X)/C_*(A) \to C_*(Y)/C_*(B)\) with
+  \[
+    d h^{(q)} + h^{(q)} d = g_{1\#}^{(q)} - g_{0 \#}^{(q)}
+  \]
+  so \(g_{1\#}^{(q)} \sim g_{0\#}^{(q)}: C_*(X, A) \to C_*(Y, B)\).
+\end{proof}
+
+\paragraph{Reduced homology}
+
+Define \(\widetilde C_*(X, A) = \widetilde C_*(X)/\widetilde C_*(A)\) and similarly \(\widetilde H_*(X, A) = H_*(\widetilde C_*(X, A))\). Again we have a long exact sequence of pairs.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(H_*(X, A) = \widetilde H_*(X, A)\) if \(A \neq \emptyset\).
+    \begin{proof}
+      In fact they are isomorphic on the chain complex level: we have
+      \[
+        \widetilde C_*(X) \cong C_*(X) \oplus \langle \sigma_\emptyset \rangle, \quad
+        \widetilde C_*(A) \cong C_*(A) \oplus \langle \sigma_\emptyset \rangle
+      \]
+      so
+      \[
+        \widetilde C_*(X, A) = \widetilde C_*(X)/\widetilde C_*(A) \cong C_*(X)/C_*(A) = C_*(X, A).
+      \]
+    \end{proof}
+  \item If \(p \in X\) then
+    \[
+      \widetilde H_*(X) \cong \widetilde H_*(X, p) \cong H_*(X, p).
+    \]
+    \begin{proof}
+      Recall that \(\widetilde H_*(\{p\}) = 0\) so we have a long exact sequence
+      \[
+        \begin{tikzcd}
+          \widetilde H_*(\{p\}) \ar[r] \ar[d, equal] & \widetilde H_*(X) \ar[r, "\pi_*"] & \widetilde H_*(X, p) \ar[r] & \widetilde H_{* - 1}(\{p\}) \ar[d, equal] \\
+          0 & & & 0
+        \end{tikzcd}
+      \]
+      so \(\pi_*\) is an isomorphism.
+    \end{proof}
+  \item \(H_*(D^n, S^{n - 1}) \cong \widetilde H_{* -1}(S^{n - 1})\).
+    \begin{proof}
+      \(D^n\) is contractible so \(\widetilde H_*(D^n) = 0\). Then by considering the long exact sequence we again have \(\b: \widetilde H_*(D^n, S^{n -1}) \to \widetilde H_{* - 1}(S^{n - 1})\) an isomorphism.
+    \end{proof}
+  \end{enumerate}
+\end{eg}
+
+So far we have developed a lot of theory and are able to make certain simplifications of homology groups, but we haven't computed anything (that isn't contractible) explicitly. However, with the help of the following tool, which will be proven in the next section, we can compute virtually the homology of everything.
+
+\paragraph{Collapsing a pair}
+
+\begin{definition}[deformation retraction]\index{deformation retraction}
+  \(A \subseteq U\) is a \emph{deformation retraction} of \(U\) if exists \(\pi: (U, A) \to (A, A)\) with \(\iota \compose \pi \sim \id_{(U, A)}\) as maps of pairs.
+\end{definition}
+
+\begin{eg}
+  \(S^{n - 1}\) is a deformation retraction of \(D^n \setminus \{0\}\) via \(\pi(v) = \frac{v}{\norm v}\).
+\end{eg}
+
+\begin{definition}[good pair]\index{good pair}
+  The pair \((X, A)\) is \emph{good} if
+  \begin{enumerate}
+  \item \(A \subseteq X\) is closed.
+  \item there is some \(U \subseteq X\) open, \(A \subseteq U\) and \(A\) is a deformation retract of \(U\).
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \((D^n, S^{n - 1})\) is good as we can take \(U = D^n \setminus \{0\}\).
+  \item \((D^n, D^n \setminus \{0\})\) is not good as \(D^n \setminus \{0\}\) is not closed.
+  \item \(A = \{\frac{1}{n}: n \in \Z \setminus \{0\}\} \cup \{0\} \subseteq \R\) is closed but \((\R, A)\) is not good.
+  \item A pair consisting of a smooth manifold and a compact submanifold is good.
+  \item A pair consisting of a simplicial complex and a subcomplex is good.
+  \end{enumerate}
+\end{eg}
+
+If \(A \subseteq X\), we have a quotient map
+\[
+  \pi: (X, A) \to (X/A, A/A) = (X/A, \{p_A\}).
+\]
+
+\begin{theorem}[collapsing a pair]\index{collapsing a pair}
+  If a pair \((X, A)\) is good then \(\pi_*: H_*(X, A) \to H_*(X/A, \{p_A\}) \cong \widetilde H_*(X/A)\) is an isomorphism.
+\end{theorem}
+
+\begin{proposition}
+  The reduced homology of \(S^n\) is
+  \begin{align*}
+    \widetilde H_*(S^n) =
+    \begin{cases}
+      \Z & * = n \\
+      0 & * \neq n
+    \end{cases}
+  \end{align*}
+\end{proposition}
+
+\begin{proof}
+  Induction on \(n\). When \(n = 0\) then \(S^0 = \{-1, 1\}\) so
+  \[
+    H_*(S^0) = H_*(\{-1\}) \oplus H_*(\{1\}) =
+    \begin{cases}
+      \Z \oplus \Z & * = 0 \\
+      0 & * \neq 0
+    \end{cases}
+  \]
+  As \(H_0(X) \cong \widetilde H_0(X) \oplus \Z\), the result holds for \(n = 0\). We know \(D^n/S^{n - 1} \cong S^n\) so inductively
+  \begin{align*}
+    \widetilde H_*(S^n)
+    &\cong H_*(D^n, S^{n - 1}) \quad \text{collapsing a pair} \\
+    &\cong \widetilde H_{* - 1}(S^{n - 1}) \quad \text{computation above} \\
+    &=
+      \begin{cases}
+        \Z & * = n \\
+        0 & * \neq n
+      \end{cases}
+  \end{align*}
+\end{proof}
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item \(S^n\) is not contractible.
+  \item If \(S^n \cong S^m\) then \(n = m\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{corollary}
+  The map \(\id: S^n \to S^n\) does not extend to \(D^{n + 1}\), i.e.\ there does not exists \(F: D^{n + 1} \to S^n\) such that \(F \compose \iota = \id_{S^n}\).
+\end{corollary}
+
+\begin{proof}
+  By functoriality \(F_* \compose \iota_* = \id_{\widetilde H_*(S^n)}\) but \(D^{n + 1}\) is contractible so \(\widetilde H_*(D^{n + 1}) = 0\) so \(\iota_*\) is the zero map. Absurd.
+\end{proof}
+
+\begin{corollary}
+  \(\pi_n(S^n, *)\) is nontrivial.
+\end{corollary}
+
+\begin{proof}
+  \(f: S^n \to X\) is homotopic to a constant if and only if \(f\) extends to \(D^{n + 1}\) so \(\id_{S^n} \neq 0\) in \(\pi_n(S^n, *)\).
+\end{proof}
+
+\begin{eg}[homology of torus]
+  Let \(X = S^2, A = S^0 = \{p, q\} \subseteq S^2\). Claim that \(H_*(X, A) = \Z\) if \(* = 1, 2\) and \(0\) otherwise, which easily follows from the long exact sequence of reduced homologies for the pair \((X, A)\).
+
+  Let \(Y = T^2 = S^1 \times S^1\). Let \(B = S^1 \times 1 \subseteq T^2\). Note that \(Y/B \cong X/A\) so we know \(\widetilde H_*(T^2, B)\). Then the long exact sequence for \((T^2, B)\) gives
+  \[
+    \begin{tikzcd}
+      \widetilde H_2(B) \ar[r] & \widetilde H_2(T^2) \ar[r] & \widetilde H_2(T^2, B) \ar[dll, out=0, in=180] \\
+      \widetilde H_1(B) \ar[r, "\iota_*"] & \widetilde H_1(T^2) \ar[r] & \widetilde H_1(T^2, B) \ar[dll, out=0, in=180] \\
+      \widetilde H_0(B) \ar[r] & \widetilde H_0(T^2) \ar[r] & \widetilde H_0(T^2, B)
+    \end{tikzcd}
+  \]
+  Claim that \(\iota_*: H_1(B) \to H_1(T^2)\) is injective: let \(\pi: S^1 \times S^1 \to S^1\) be projection onto the first factor, then \(\pi \compose \iota = \id_{S^1}\) so \(\pi_* \compose \iota_* = \id_{H_*(S^1)}\).
+
+  Then the long exact sequence splits into SES's
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H_2(T^2) \ar[r] & H_2(T^2, B) \ar[r] \ar[d, equal] & \ker \iota_* \ar[r] \ar[d, equal] & 0 \\
+      & & \Z & 0 \\
+      0 \ar[r] & H_1(B) \ar[r] \ar[d, equal] & H_1(T^2) \ar[r] & H_1(T^2, B) \ar[r] \ar[d, equal] & 0 \\
+      & \Z & & \Z
+    \end{tikzcd}
+  \]
+  so in summary
+  \[
+    H_*(T^2) =
+    \begin{cases}
+      \Z & * = 0, 2 \\
+      \Z^2 & * = 1 \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+\end{eg}
+
+\subsection{Subdivide, Excise \& Collapse}
+
+\subsubsection{Subdivision}
+
+Suppose \(\mathcal U = \{U_\alpha\}\) is an open cover of \(X\).
+
+\begin{notation}
+  In this subsection, if \(\sigma: \Delta^k \to X\), write \(\sigma \trianglelefteq \mathcal U\) if \(\im \sigma \subseteq U_\alpha\) for some \(\alpha\).
+\end{notation}
+
+\begin{definition}
+  We define
+  \[
+    C_k^{\mathcal U} (X) = \langle \sigma: \Delta^k \to X, \sigma \trianglelefteq \mathcal U \rangle.
+  \]
+\end{definition}
+
+If \(\im \sigma \subseteq U_\alpha\) then \(\im \sigma \compose F_I \subseteq U_\alpha\) so \(C_*^{\mathcal U}(X)\) is a subcomplex of \(C_*(X)\). Let \(\iota: C_*^{\mathcal U}(X) \to C_*(X)\) be the inclusion.
+
+\begin{theorem}[subdivision]
+  \(\iota_*: H_*^{\mathcal U}(X) \to H_*(X)\) is an isomorphism.
+\end{theorem}
+
+\begin{proof}[Sketch proof]
+  The idea is as follow: suppose we have an open cover \(\{U_1, U_2\}\). Given \([\sigma] \in H_1(X)\), by example sheet 1 question 1 we can replace \([\sigma]\) by \([\sigma_1] + [\sigma_2]\) and so on, and eventually each \(\sigma_i\) will be contained in one of the \(U_i\)'s. The difficulty is to find an efficient way to write down this process. See the lecture handout for details.
+\end{proof}
+
+Suppose \(U_1, U_2 \subseteq X\) open and \(U_1 \cap U_2 = X\), i.e.\ \(\mathcal U = \{U_1, U_2\}\) is an open cover of \(X\). Then we have a diagram of inclusions
+\[
+  \begin{tikzcd}
+    U_1 \cap U_2 \ar[r, "i_1"] \ar[d, "i_2"] & U_1 \ar[d, "j_1"] \\
+    U_2 \ar[r, "j_2"] & X
+  \end{tikzcd}
+\]
+
+\begin{proposition}[Mayer-Vietoris sequence]\index{Mayer-Vietoris sequence}
+  There is a long exact sequence
+  \[
+    \begin{tikzcd}
+      H_*(U_1 \cap U_2) \ar[r, "i_{1*} \oplus i_{2*}"] & H_*(U_1) \oplus H_*(U_2) \ar[r, "j_{1*} - j_{2*}"] & H_*(X) \ar[dll, "\b"', out=0, in=180, overlay] \\
+      H_{* - 1}(U_1 \cap U_2) \ar[r, "i_{1*} \oplus i_{2*}"] & H_{* - 1}(U_1) \oplus H_{* - 1}(U_2) \ar[r, "j_{1*} - j_{2*}"] & H_{* - 1}(X) \ar[dll, "\b"', out=0, in=180, overlay] \\
+      \cdots
+    \end{tikzcd}
+  \]
+\end{proposition}
+
+\begin{proof}
+  There is a SES
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & C_*(U_1 \cap U_2) \ar[r, "i_{1\#} \oplus i_{2\#}"] & C_*(U_1) \oplus C_*(U_2) \ar[r, "j_{1\#} - j_{2\#}"] \ar[r] & C_*^{\mathcal U}(X) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Take LES on homology and use \(H_*^{\mathcal U}(X) \cong H_*(X)\).
+\end{proof}
+
+There is a similar sequence for reduced homologies.
+
+\begin{eg}
+  Let \(X = S^n, U_1 = S^n - \{p\}, U_2 = S^n - \{q\}\) so \(U_1 \cap U_2 \sim S^{n - 1}\). Then the Mayer-Vietoris sequence gives
+  \[
+    \begin{tikzcd}
+      \widetilde H_*(U_1) \oplus \widetilde H_*(U_2) \ar[r] \ar[d, equal] & \widetilde H_*(S^n) \ar[r] & \widetilde H_{* - 1}(U_1 \cap U_2) \ar[r] & \widetilde H_{* - 1}(U_1) \oplus \widetilde H_{* - 1}(U_2) \ar[d, equal] \\
+      0 & & & 0
+    \end{tikzcd}
+  \]
+  so \(\widetilde H_*(S^n) \cong \widetilde H_{* - 1}(S^{n - 1})\). Note that this is the same calculation as before using collapsing. This is a general principle: anything that can be calculated using Mayer-Vietoris can be calculated by collapsing subspace, and vice versa.
+\end{eg}
+
+\subsubsection{Excision}
+
+Suppose \(A \subseteq X\) and \(\mathcal U\) is an open cover of \(X\). Let \(\mathcal U_A = \{U_\alpha \cap A\}\) be an open cover of \(A\). Then \(C_*^{\mathcal U_A}(A)\) is a subcomplex of \(C_*^{\mathcal U}(X)\). We define \(C_*^{\mathcal U}(X, A) = C_*^{\mathcal U}(X)/C_*^{\mathcal U_A}(A)\) and we would like to show it is isomorphic to \(C_*(X, A)\).
+
+\begin{lemma}[five lemma]\index{five lemma}
+  Suppose
+  \[
+    \begin{tikzcd}
+      A_1 \ar[r] \ar[d, "f_1"] & A_2 \ar[r] \ar[d, "f_2"] & A_3 \ar[r] \ar[d, "f_3"] & A_4 \ar[r] \ar[d, "f_4"] & A_5 \ar[d, "f_5"] \\
+      B_1 \ar[r] & B_2 \ar[r] & B_3 \ar[r] & B_4 \ar[r] & B_5
+    \end{tikzcd}
+  \]
+  is a commutative diagram of exact sequences. If \(f_1, f_2, f_4, f_5\) are all isomorphisms then so is \(f_3\).
+\end{lemma}
+
+\begin{proof}
+  Example sheet.
+\end{proof}
+
+\begin{corollary}
+  \(H_*^{\mathcal U}(X, A) \cong H_*(X, A)\).
+\end{corollary}
+
+\begin{proof}
+  There is a map of SES's
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & C_*^{\mathcal U_A}(A) \ar[r] \ar[d] & C_*^{\mathcal U}(X) \ar[r] \ar[d] & C_*^{\mathcal U}(X, A) \ar[r] \ar[d] & 0 \\
+      0 \ar[r] & C_*(A) \ar[r] & C_*(X) \ar[r] & C_*(X, A) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  so we have a commutative diagram of long exact sequences
+  \[
+    \begin{tikzcd}
+      H_*^{\mathcal U_A}(A) \ar[r] \ar[d] & H_*^{\mathcal U}(X) \ar[r] \ar[d] & H_*^{\mathcal U}(X, A) \ar[r] \ar[d, dashed] & H_{* - 1}^{\mathcal U}(A) \ar[r] \ar[d] & H_{* - 1}^{\mathcal U}(X) \ar[d] \\
+      H_*(A) \ar[r] & H_*(X) \ar[r] & H_*(X, A) \ar[r] & H_{* - 1}(A) \ar[r] & H_{* - 1}(X)
+    \end{tikzcd}
+  \]
+  The four solid arows are isomorphisms by subdivision by the dotted arrow is also an isomorphism by five lemma.
+\end{proof}
+
+Suppose \(B \subseteq A \subseteq X\) and \(j: (X - B, A - B) \to (X, A)\) is the inclusion.
+
+\begin{theorem}[excision]\index{excision theorem}
+  If the closure of \(B\) is contained in the interior of \(A\) then \(j_*: H_*(X - B, A - B) \to H_*(X, A)\) is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+  As the \(\overline B \subseteq \Int A\), \(\mathcal U = \{X - \overline B, \Int A\}\) is an open cover of \(X\). Then
+  \begin{align*}
+    C_*^{\mathcal U} (X)
+    &= \langle \sigma \trianglelefteq \mathcal U: \im \sigma \cap B = \emptyset \rangle
+    \oplus \langle \sigma \trianglelefteq \mathcal U: \im \sigma \cap B \ne \emptyset \rangle \quad \text{as a group} \\
+    &= C_*^{\mathcal U'}(X - B) \oplus \langle \sigma: \im \sigma \subseteq \Int A \rangle
+  \end{align*}
+  where \(\mathcal U' = \mathcal U_{X - B}\). Similarly
+  \[
+    C_*^{\mathcal U_A}(A) = C_*^{\mathcal U_A'}(A - B) \oplus \langle \sigma: \im \sigma \subseteq \Int A \rangle
+  \]
+  so
+  \[
+    \frac{C_*^{\mathcal U}(X)}{C_*^{\mathcal U}(A)} \cong \frac{C_*^{\mathcal U'}(X - A)}{C_*^{\mathcal U_A'}(A - B)}
+  \]
+  so \(j_\#^{\mathcal U}: C_*^{\mathcal U'}(X - B, A - B) \to C_*^{\mathcal U}(X, A)\) is an isomorphism. Then we have a commutative diagram
+  \[
+    \begin{tikzcd}
+      C_*^{\mathcal U'}(X - B, A - B) \ar[r, "j_\#^{\mathcal U}"] \ar[d, "\iota_*'"] & C_*^{\mathcal U}(X, A) \ar[d, "\iota_*"] \\
+      C_*(X - B, A - B) \ar[r, "j_\#"] & C_*(A, B)
+    \end{tikzcd}
+  \]
+  By the corollary \(\iota_*'\) and \(\iota_*\) are isomorphisms, and \(j^{\mathcal U}_*\) is an isomorphism since \(j^{\mathcal U}_\#\) is. Thus \(j_*\) is an isomorphism.
+\end{proof}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(H_*(\R^n, \R^n - p) = \Z\) if \(* =  n\) and \(0\) otherwise.
+    \begin{proof}
+      \(\R^n - p \cong \R^n - 0 \sim S^{n - 1}\) so LES of \((\R^n, \R^n - p)\) is
+      \[
+        \begin{tikzcd}
+          \widetilde H_*(\R^n) \ar[r] \ar[d, equal] & \widetilde H_*(\R^n, \R^n - p) \ar[r, "\b"] & \widetilde H_{* - 1}(\R^n - p) \ar[r] & \widetilde H_{* - 1}(\R^n) \ar[d, equal] \\
+          0 & & & 0
+        \end{tikzcd}
+      \]
+      so \(\b: H_*(\R^n, \R^n - p) \to H_{* - 1}(\R^n - p)\) is an isomorphism.
+    \end{proof}
+    Note that this does not equal to \(\widetilde H_*(\R^n/(\R^n - p))\), which is a two-point non-Hausdorff space that does not even depend on \(n\).
+  \item If \(U \subseteq \R^n\) is open then \(H_*(U, U - p) = \Z\) if \(* = n\) and \(0\) otherwise.
+    \begin{proof}
+      \(C = \R^n - U\) is closed in \(\R^n\) so \(\overline C \subseteq \R^n - p\). Thus by excision
+      \[
+        H_*(\R^n, \R^n - p) \cong H_*(\R^n - C, \R^n - p - C) = H_*(U, U - p).
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{eg}
+
+\begin{corollary}
+  If \(U \subseteq \R^n, V \subseteq \R^m\) are open and \(U \cong V\) then \(n = m\).
+\end{corollary}
+
+Therefore open subsets of Euclidean spaces have an intrinsic dimension that is invariant under homeomorphism.
+
+\begin{proof}
+  If \(f: U \to V\) is a homeomorphism then so is \(f: (U, U - p) \to (V, V - f(p))\) so \(H_*(U, U - p) \cong H_*(V, V - f(p))\).
+\end{proof}
+
+\paragraph{Deformation retraction}
+
+Suppose \(A \subseteq U\) and let \(i: A \to U\) be the inclusion. If \(\pi: U \to A\), we have maps of pairs
+\[
+  (U, A) \xrightarrow{\tilde \pi} (A, A) \xrightarrow{\tilde \iota} (U, A).
+\]
+
+\begin{definition}[deformation retraction]\index{deformation retraction}
+  \(\pi: U \to A\) is a \emph{deformation retraction} if \(\tilde \iota \compose \tilde \pi \sim \id_{(U, A)}\) as maps of pairs.
+\end{definition}
+Thus \(\iota \compose \pi \sim \id_U, \pi \compose \iota \sim \id_A\) so in particular \(A \sim U\).
+
+\begin{lemma}
+  \label{lem:quotient of deformation retraction}
+  If \(\pi: U \to A\) is a deformation retraction then so is \(\pi': U/A \to A/A\).
+\end{lemma}
+
+\begin{lemma}
+  Suppose \(B \subseteq A \subseteq X\). Then there is a LES
+  \[
+    \begin{tikzcd}
+      H_*(A, B) \ar[r, "i_*"] & H_*(X, B) \ar[r, "j_*"] & H_*(X, A) \ar[r, "\b"] & H_{* - 1}(A, B) \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+  where \(i_*, j_*\) are induced by inclusions of pairs.
+\end{lemma}
+
+\begin{proof}
+  There is a SES
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \dfrac{C_*(A)}{C_*(B)} \ar[r, "i_\#"] & \dfrac{C_*(X)}{C_*(B)} \ar[r, "j_\#"] & \dfrac{C_*(X)}{C_*(A)} \ar[r] & 0
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\begin{lemma}
+  \label{lem:relative homology of deformation retraction}
+  Suppose \(A \subseteq U \subseteq X\) and \(A\) is a deformation retraction of \(U\) then \(\iota_*: H_*(X, A) \to H_*(X, U)\) is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+  \(\iota: A \to U\) is a homotopy equivalence so \(\iota_*: H_*(A) \to H_*(U)\) is an isomorphism. The LES of \((U, A)\) gives
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \coker \iota_*^{(n)} \ar[r] \ar[d, equal] & H_*(U, A) \ar[r] & \ker \iota_*^{(n - 1)} \ar[r] \ar[d, equal] & 0 \\
+      & 0 & & 0
+    \end{tikzcd}
+  \]
+  so \(H_*(U, A) = 0\). Now the LES for the triple \((X, U, A)\) gives
+  \[
+    \begin{tikzcd}
+      H_*(U, A) \ar[r] \ar[d, equal] & H_*(X, A) \ar[r] & H_*(X, U) \ar[r] & H_{* - 1}(U, A) \ar[d, equal] \\
+      0 & & & 0
+    \end{tikzcd}
+  \]
+\end{proof}
+
+Recall that \((X, A)\) is a good pair\index{good pair} if \(A \subseteq X\) is closed and exists \(U \subseteq X\) open such that \(A \subseteq U\) is a deformation retraction.
+
+\begin{theorem}[collapsing a pair]\index{collapsing a pair}
+  If \((X, A)\) is good then \(\pi_*: H_*(X, A) \to H_*(X/A, A/A)\) is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+  We have a commutative diagram
+  \[
+    \begin{tikzcd}
+      H_*(X, A) \ar[r, "i_*"] \ar[d, "\pi_{1*}"] & H_*(X, U) \ar[d, "\pi_{2*}"] & H_*(X - A, U - A) \ar[l, "j_*"'] \ar[d, "\pi_{3*}"] \\
+      H_*(X/A, A/A) \ar[r, "i_*'"] & H_*(X/A, U/A) & H_*(X/A - A/A, U/A - A/A) \ar[l, "j_*'"']
+    \end{tikzcd}
+  \]
+  Note \(\pi_3: (X - A, U - A) \to (X/A - A/A, U/A - A/A)\) is a homeomorphism. \(A\) is closed, \(U\) is open so \(\overline A \subseteq \Int U\) so by excision \(j_*, j_*'\) are isomorphisms. Thus \(\pi_{2*}\) is an isomorphism. \(i_*, i_*'\) are isomorphisms by \Cref{lem:relative homology of deformation retraction} and \Cref{lem:quotient of deformation retraction} so \(\pi_{1*}\) is also an isomorphism.
+\end{proof}
+
+\subsection{Maps \(S^n \to S^n\)}
+
+Fix generators for \(\widetilde H_n(S^n) \cong \Z\) as follow: for \(S^0 = \{\pm 1\}\), \([S^0] = \sigma_{+1} - \sigma_{-1}\) generates \(\widetilde H_0(S^0)\). We have isomorphisms
+\[
+  \begin{tikzcd}
+    \widetilde H_n(S^n) & H_n(D^n, S^{n - 1}) \ar[l, "p_*"'] \ar[r, "f_*"] \ar[d, "\b"] & H_n(I^n, \b I^n) \\
+    & \widetilde H_{n - 1}(S^{n - 1})
+  \end{tikzcd}
+\]
+and use it to inductively define generators of \(\widetilde H_n(S^n)\).
+
+\begin{definition}[degree]\index{degree}
+  If \(f: S^n \to S^n\) then \(f_*([S^n]) = k[S^n]\) for some \(k \in \Z\). We call \(\deg f_* = k\) the \emph{degree} of \(f: S^n \to S^n\).
+\end{definition}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(\deg (f \compose g) = \deg f \compose \deg g\) by functoriality.
+  \item If \(f \sim g\) then \(\deg f = \deg g\) by homotopy invariance.
+  \item \(\deg \id_{S^n} = 1\).
+  \item If \(f: S^n \to S^n\) is constant then \(\deg f = 0\).
+  \item If \(f: S^n \to S^n\) is a homeomorphism then \(\deg f = \pm 1\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+  If \(\rho: S^n \to S^n\) is reflection in a hyperplane then \(\deg \rho = -1\).
+\end{proposition}
+
+We'll prove this shortly but let's see some applications first.
+
+\begin{corollary}
+  If \(A: S^n \to S^n, v \mapsto -v\) is the antipodal map then \(\deg A = (-1)^{n + 1}\).
+\end{corollary}
+
+\begin{proof}
+  \(A = \rho_1 \compose \rho_2 \compose \cdots \compose \rho_{n + 1}\) where \(\rho_i(v) = (v_1, v_2, \dots, -v_i, v_{i + 1}, \dots, v_{n + 1})\) is a reflection.
+\end{proof}
+
+\begin{corollary}
+  If \(n\) is even then \(A \nsim \id_{S^n}\).
+\end{corollary}
+
+\paragraph{Hurewicz homomorphism}
+
+\begin{definition}[Hurewicz homomorphism]\index{Hurewicz homomorphism}
+  The \emph{Hurewicz homomorphism} is
+  \begin{align*}
+    \psi: \pi_n(X, p) &\to H_n(X) \\
+    [\tilde \alpha] &\mapsto \tilde \alpha_*[S^n]
+  \end{align*}
+  where \(\tilde \alpha: (S^n, *) \to (X, p)\). If we write
+  \[
+    \begin{tikzcd}
+      (S^n, *) \ar[r, "\tilde \alpha"] & (X, p) \\
+      (I^n, \b I^n) \ar[u, "\pi"] \ar[ur, "\alpha"]
+    \end{tikzcd}
+  \]
+  then equivalently \(\psi([\alpha]) = \alpha_*[I^n, \b I^n]\).
+\end{definition}
+
+\(\psi\) is well-defined: if \(\alpha \sim \beta\) then \(\alpha_* = \beta_*\).
+
+\begin{proposition}
+  We have \(\psi([\alpha + \beta]) = \psi([\alpha]) + \psi([\beta])\).
+\end{proposition}
+
+Therefore
+\begin{align*}
+  \psi: \pi_n(S^n, +) &\to H_n(S^n) \cong \Z \\
+  f &\mapsto \deg f
+\end{align*}
+is a homomorphism. As \(\psi(\id_{S^n}) = 1\), \(\psi\) is surjective.
+
+Define
+\begin{align*}
+  R: I^n &\to I^n \\
+  (x_1, x) &\mapsto (1 - x_1, x)
+\end{align*}
+to be reflection in the first coordinate.
+
+\begin{lemma}
+  \([\alpha] + [\alpha \compose R] = 0\) in \(\pi_n(X, p)\), i.e.\ \([\alpha \compose R] = -[\alpha]\).
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{corollary}
+  \(R_*[I^n, \b I^n] = -[I^n, \b I^n]\).
+\end{corollary}
+
+\begin{proof}
+  \(0 = [\alpha + \alpha \compose R] = [\alpha] + \deg R [\alpha]\).
+\end{proof}
+This implies that if \(\rho: S^{n - 1} \to S^{n - 1}\) is a reflection then \(\deg \rho = \deg R = -1\).
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
