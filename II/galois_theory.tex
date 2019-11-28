@@ -544,7 +544,7 @@ We use the following construction to produce splitting field in general.
 \end{theorem}
 
 \begin{proof}
-  Suppose \(L\) and \(L'\) are splitting fields for \(f(t) \in K[t]\) over \(K\). We need to show that there is a \(K\)-isomorphism \(L \to L'\). Suppose \(K \leq M \leq L\) and there exists \(K \leq M' \leq L\) and a \(K\)-isomorphism \(\psi: M \to M'\). Cearly we can take \(M = K\) so such intermediate fields exist. Pick \(M\) so that \(|M : K|\) is maximal among such \(M, M'\) and \(\psi\).
+  Suppose \(L\) and \(L'\) are splitting fields for \(f(t) \in K[t]\) over \(K\). We need to show that there is a \(K\)-isomorphism \(L \to L'\). Suppose \(K \leq M \leq L\) and there exists \(K \leq M' \leq L'\) and a \(K\)-isomorphism \(\psi: M \to M'\). Clearly we can take \(M = K\) so such intermediate fields exist. Pick \(M\) so that \(|M : K|\) is maximal among such \(M, M'\) and \(\psi\).
 
   Now we want to show that \(M = L\) and \(M' = L'\). Note that if \(M = L\) then \(f(t)\) splits over \(M\), say
   \[
@@ -554,9 +554,9 @@ We use the following construction to produce splitting field in general.
   \[
     \psi(f)(t) = \psi(a) (t - \psi(\alpha_1) \dots (t - \psi(\alpha_m))
   \]
-  so \(f(t)\) splits over \(\psi(M) = M'\). But \(L'\) is a splitting field and \(M' \leq L'\) so we have equality.
+  so \(f(t)\) splits over \(\psi(M) = M'\). But \(L'\) is a splitting field and \(L' \leq M'\) so we have equality.
 
-  Now suppose \(M \neq L\) and we'll arrive at a contradition of maximimality of \(M\). Since \(M \neq L\), there is a root \(\alpha\) of \(f(t)\) in \(L\) which isn't in \(M\). Factorise \(f(t) = g(t)h(t) \in M[t]\) so that \(g(t) \in M[t]\) is irreducible and \(g(\alpha) = 0\) in \(L\). Then there exists a \(K\)-homomorphism
+  Now suppose \(M \neq L\) and we'll arrive at a contradition of maximality of \(M\). Since \(M \neq L\), there is a root \(\alpha\) of \(f(t)\) in \(L\) which isn't in \(M\). Factorise \(f(t) = g(t)h(t) \in M[t]\) so that \(g(t) \in M[t]\) is irreducible and \(g(\alpha) = 0\) in \(L\). Then there exists a \(K\)-homomorphism
   \begin{align*}
     M[t]/(g(t)) &\to L \\
     t + (g(t)) &\mapsto \alpha
@@ -600,7 +600,7 @@ We use the following construction to produce splitting field in general.
 \end{eg}
 
 \begin{theorem}
-  Let \(G\) be a finite subgroup of the multiplicative gorup of a field \(K\). Then \(G\) is cyclic.
+  Let \(G\) be a finite subgroup of the multiplicative group of a field \(K\). Then \(G\) is cyclic.
 
   In particular the multiplicative group of a finite field is cyclic.
 \end{theorem}
@@ -787,7 +787,7 @@ We use the following construction to produce splitting field in general.
 \end{remark}
 
 \begin{theorem}\label{thm:separability of finite extension}
-  Let \(K \leq N\) be a field extension with \(|N:K| = n\) and \(N = K(\alpha_1, \dots, \alpha_n)\), say. Then TFAE:
+  Let \(K \leq N\) be a field extension with \(|N:K| = n\) and \(N = K(\alpha_1, \dots, \alpha_i)\), say. Then TFAE:
   \begin{enumerate}
   \item \(K \leq N\) is separable.
   \item Each \(\alpha_i\) is separable over \(K(\alpha_1, \dots, \alpha_{i - 1})\).
@@ -952,7 +952,7 @@ Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\t
 
 \begin{proof}
   \label{proof:vandermonde}
-  By \nameref{thm:primitive}, separability implies that \(M = K(\alpha)\) for some \(\alpha\). We have a \(K\)-basis \(\{\alpha^i\}_{i = 0}^{n - 1}\) of \(K(\alpha)\) where \(n = |M:K|\). The \(K\)-belinear form \(T\) is represented by the matrix
+  By \nameref{thm:primitive}, separability implies that \(M = K(\alpha)\) for some \(\alpha\). We have a \(K\)-basis \(\{\alpha^i\}_{i = 0}^{n - 1}\) of \(K(\alpha)\) where \(n = |M:K|\). The \(K\)-bilinear form \(T\) is represented by the matrix
   \[
     A =
     \begin{pmatrix}
@@ -961,7 +961,7 @@ Recall from \Cref{thm:trace and norm} that the characteristic polynomial of \(\t
       \cdots & \cdots & \cdots
     \end{pmatrix}
   \]
-  Let \(L\) be a splitting field of the minimal polynomial \(f(t)\) of \(\alpha\) over \(K\).Then \(f_\alpha(t) = \prod_{i = 1}^n (t - \alpha_i)\) with \(\alpha_1, \dots, \alpha_n \in L\). The entries in \(A\) are of the form \(\Tr_{M/K}(\alpha^\ell)\) which is \(\alpha_1^\ell + \dots + \alpha_n^\ell\) by \Cref{thm:trace and norm of separable extension}.
+  Let \(L\) be a splitting field of the minimal polynomial \(f(t)\) of \(\alpha\) over \(K\). Then \(f_\alpha(t) = \prod_{i = 1}^n (t - \alpha_i)\) with \(\alpha_1, \dots, \alpha_n \in L\). The entries in \(A\) are of the form \(\Tr_{M/K}(\alpha^\ell)\) which is \(\alpha_1^\ell + \dots + \alpha_n^\ell\) by \Cref{thm:trace and norm of separable extension}.
 
   Now consider \(\Delta = \prod_{i < j} (\alpha_i - \alpha_j)\), the \emph{Vandermonde determinant}, is the determinant of the \emph{Vandermonde matrix}
   \[
@@ -1009,7 +1009,7 @@ We met this definition before:
     By normality, each \(f_{\alpha_i}(t)\) splits over \(M\) and so is \(f(t)\). \(M\) is the splitting field of \(f(t)\) over \(K\) since if \(\beta_1, \dots, \beta_m\) are the roots of \(f(t)\) then \(M = K(\beta_1, \dots, \beta_m)\).
   \item \(\Leftarrow\): suppose \(M\) is a splitting field for \(f(t)\) over \(K\). Then \(M = K(\beta_1, \dots, \beta_m)\) where \(\beta_j\) are the roots of \(f(t)\) over \(M\). Take \(\alpha \in M\). Let \(f_\alpha(t)\) be the minimal polynomial of \(\alpha\) over \(K\). Let \(M \leq L\) be large enough so that \(f_\alpha(t)\) splits over \(L\).
 
-    Now consdier a \(K\)-homomorphism \(\phi: M \to L\): \(\phi(\beta_j)\) is also a root of \(f(t)\) and is therefore one of the \(\beta_j\). Injectivity of \(K\)-homomorphisms implies that \(\phi\) permutes \(\beta_j\). However, \(M = K(\beta_1, \dots, \beta_m)\) and so \(\phi\) is determined by the images of \(\beta_j\), thus \(\phi(M) = M\).
+    Now consider a \(K\)-homomorphism \(\phi: M \to L\): \(\phi(\beta_j)\) is also a root of \(f(t)\) and is therefore one of the \(\beta_j\). Injectivity of \(K\)-homomorphisms implies that \(\phi\) permutes \(\beta_j\). However, \(M = K(\beta_1, \dots, \beta_m)\) and so \(\phi\) is determined by the images of \(\beta_j\), thus \(\phi(M) = M\).
 
     However, if \(\alpha_i\) is a root of \(f_\alpha(t)\) in \(L\), then there is a \(K\)-homomorphism
     \begin{align*}

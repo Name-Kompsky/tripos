@@ -12,16 +12,19 @@
 
 \DeclareMathOperator{\Ann}{Ann} % annihilator
 \newcommand{\nilrad}[1]{\mathcal{N}({#1})} % nilradical
-\newcommand{\jac}[1]{\operatorname{Jac}({#1})} % nilradical
-\DeclareMathOperator{\Ass}{Ass} % assocaited prime
+\DeclareMathOperator{\jac}{Jac} % nilradical
+\DeclareMathOperator{\Ass}{Ass} % associated prime
+\DeclareMathOperator{\htt}{ht} % height of an ideal
+\DeclareMathOperator{\trdeg}{trdeg} % transcendence degree
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\soc}{soc} % socle
+\DeclareMathOperator{\gr}{gr} % associated gradation
+\DeclareMathOperator{\Rees}{Rees} % Rees ring
 
-\iffalse
 \DeclareMathOperator{\Tor}{Tor}
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\Der}{Der}
 \DeclareMathOperator{\Innder}{Innder}
-\DeclareMathOperator{\gr}{gr}
-\fi
 
 \begin{document}
 
@@ -82,7 +85,7 @@ It is easy to see that it is an ideal of \(\C[x_1, \dots, x_n]\) and in fact a \
 
 One form of Nullstellensatz says that there is a bijective correspondence
 \begin{align*}
-  \{\text{radical ideals of } \C[x_1, \dots, x_n]\} &\leftrightarrow \{\text{algebraic subsets of } \C^n\} \\
+  \{\text{radical ideals of } \C[x_1, \dots, x_n]\} &\longleftrightarrow \{\text{algebraic subsets of } \C^n\} \\
   I &\mapsto Z(I) \\
   I(\mathcal S) &\mapsfrom \mathcal S
 \end{align*}
@@ -159,7 +162,7 @@ Throughout this chapter \(R\) is a commutative ring with a unit.
   \item Principal ideal domains, e.g.\ \(\Z, k[x]\) and fields, are Noetherian.
   \item \(\{q \in \Q: q \text{ of the form } \frac{m}{n}, m, n \in \Z, n \neq 0\, p \ndivides n\}\) is Noetherian. This is an example of a localisation of \(\Z\). In general, localisations of Noetherian rings are Noetherian.
   \item \(k[x_1, \dots, x_n], \Z[x_1, \dots, x_n]\) are Noetherian from basis theorem.
-  \item \(\k[x_1, x_2, \dots]\) with infinitely many variables is not Noetherian as
+  \item \(k[x_1, x_2, \dots]\) with infinitely many variables is not Noetherian as
     \[
       (x_1) \subseteq (x_1, x_2) \subseteq \cdots
     \]
@@ -411,7 +414,7 @@ Recall that we have a map \(\theta: R \to S^{-1}R\). If \(I\) is an ideal then \
   \item Every ideal \(J \subseteq S^{-1}R\) is of the form \(S^{-1}I\) for some ideal \(I\) of \(R\).
   \item There is a bijective correspondence
     \begin{align*}
-      \{\text{prime ideals of } S^{-1}R\} &\leftrightarrow \{\text{prime ideals disjoint from } S\} \\
+      \{\text{prime ideals of } S^{-1}R\} &\longleftrightarrow \{\text{prime ideals disjoint from } S\} \\
       S^{-1}P &\mapsfrom P \\
       Q &\mapsto \{r \in R: \frac{r}{1} \in Q\}
     \end{align*}
@@ -777,15 +780,15 @@ Thus
 In general we don't have equality. For example if \(R\) is a local ring with unique maximal ideal \(P\) then \(\jac R = P\). But if \(R = \Z_{(p)} \subseteq \Q\) which is an integral domain then it does not have nonzero nilpotent elements so \(\nilrad R = (0)\).
 
 \begin{proposition}[Nakayama's lemma]\index{Nakayama's lemma}
-  Let \(M\) be a finitely generated \(R\)-modul. Then \(M = 0\) if and only if \(\jac R M = M\).
+  Let \(M\) be a finitely generated \(R\)-module. Then \(M = 0\) if and only if \(\jac(R) M = M\).
 \end{proposition}
 
 \begin{proof}
-  Only if is trivial. Suppose \(M \neq 0\). We consider the family of proper submodules. If \(m_1, \dots, m_n\) is a generating set for \(M\), these are the submodules that do not contain all of \(m_1, \dots, m_n\). Zorn's lemma applies to this family and so we have a maximal member, a maximal submodule \(M_1\). Thus \(M/M_1\) is a simple (or irreducible) module (i.e.\ any non-zero element generates \(M/M_1)\)). Take \(\overline m\) to be nonzero in \(M/M_1\), then \(R \overline m \cong R/\Ann_R(\overline m)\) and \(Q = \Ann_R(\overline m)\) is a maximal ideal of \(R\). Thus \(QM \leq M_1 \lneq M\) but \(\jac R\) is the intersection of all maximal ideals so
+  Only if is trivial. Suppose \(M \neq 0\). We consider the family of proper submodules. If \(m_1, \dots, m_n\) is a generating set for \(M\), these are the submodules that do not contain all of \(m_1, \dots, m_n\). Zorn's lemma applies to this family and so we have a maximal member, a maximal submodule \(M_1\). Thus \(M/M_1\) is a simple (or irreducible) module (i.e.\ any non-zero element generates \(M/M_1\)). Take \(\overline m\) to be nonzero in \(M/M_1\), then \(R \overline m \cong R/\Ann_R(\overline m)\) and \(Q = \Ann_R(\overline m)\) is a maximal ideal of \(R\). Thus \(QM \leq M_1 \lneq M\) but \(\jac R\) is the intersection of all maximal ideals so
   \[
-    \jac R M \leq QM \lneq M
+    \jac(R)M \leq QM \lneq M
   \]
-  so \(\jac R M \neq M\).
+  so \(\jac(R)M \neq M\).
 \end{proof}
 
 \begin{remark}\leavevmode
@@ -833,11 +836,11 @@ We need two results.
 
 Now let \(k = \C\). In the introduction we get a bijection
 \[
-  \{\text{radical ideals of } \C[x_1, \dots, x_n]\} \leftrightarrow \{\text{algebraic subsets of } \C^n\}
+  \{\text{radical ideals of } \C[x_1, \dots, x_n]\} \longleftrightarrow \{\text{algebraic subsets of } \C^n\}
 \]
 The weak Nullstellensatz says that all the maximal ideals of the complex polynomial algebra are of the form \(Q_{(a_1, \dots, a_n)} = (x_1 - a_1, \dots, x_n - a_n)\). We can restate the bijection:
 \begin{align*}
-  \{\text{radical ideals of } \C[x_1, \dots, x_n]\} &\leftrightarrow \{\text{algebraic subsets of } \C^n\} \\
+  \{\text{radical ideals of } \C[x_1, \dots, x_n]\} &\longleftrightarrow \{\text{algebraic subsets of } \C^n\} \\
   I &\mapsto \{(a_1, \dots, a_n) \in k^n: Q_{(a_1, \dots, a_n)} \supseteq I\} \\
   \bigcap_{(a_1, \dots, a_n) \in \mathcal S} Q_{(a_1, \dots, a_n)} &\mapsfrom \mathcal S
 \end{align*}
@@ -906,7 +909,7 @@ What we have just produced for an ideal of a Noetherian ring is the set of minim
 \end{lemma}
 
 \begin{definition}[associated prime]\index{associated prime}
-  Let \(R\) be a Noetherian ring and let \(M\) be a finitely generated \(R\)-module. A prime ideal \(P\) is an \emph{associated prime} of \(M\) if \(P = \Ann_R(m)\) for some \(m \in M\). We write \(\Ass(M)\) for the set of assocaited primes of \(M\).
+  Let \(R\) be a Noetherian ring and let \(M\) be a finitely generated \(R\)-module. A prime ideal \(P\) is an \emph{associated prime} of \(M\) if \(P = \Ann_R(m)\) for some \(m \in M\). We write \(\Ass(M)\) for the set of associated primes of \(M\).
 \end{definition}
 
 \begin{definition}[primary submodule]\index{primary module}
@@ -916,12 +919,1524 @@ What we have just produced for an ideal of a Noetherian ring is the set of minim
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item If \(P\) is obvious from the context then we just say it is primary.
-  \item There is an alternative definition of \(P\)-primary submodules, which is in example sheet 2.
+  \item There is an alternative definition of \(P\)-primary submodules, which is on example sheet 2.
+  \end{enumerate}
+\end{remark}
+
+Our aim is to show that for \(R\) Noetherian, non-zero finitely generated \(R\)-module \(M\), \(\Ass(M)\) is non-empty and finite, and in the case of \(M = R/I\), \(\Ann(R/I) \supseteq \{\text{minimal primes over } I\}\). However we don't necessarily have equality here.
+
+\begin{eg}
+  Let \(R = k[x, y], Q = (x, y) \supseteq P = (x)\) and \(I = PQ\). Then \(\Ass(R/I) = \{P, Q\}\) but the only prime over \(I\) is \(P\). Note that \(I\) is not primary. But \(I = (x^2, xy, y^2) \cap (x)\), with \((x^2, xy, y^2) = Q^2\) is \(Q\)-primary, \((x)\) is \(P\)-primary. This is an example of primary decomposition.
+\end{eg}
+
+\begin{theorem}[primary decomposition]\index{primary decomposition}
+  Suppose \(R\) is Noetherian, \(M\) a finitely generated \(R\)-module and \(N\) a submodule of \(M\). Then there exist \(N_1, \dots, N_s\) with \(N_1 \cap \cdots \cap N_s = N\) and \(\Ass(M/N_i) = \{P_i\}\) for prime ideal \(P_i\) all distinct.
+
+  In particular given an ideal \(I \subseteq R\) then \(I = J_1 \cap \cdots \cap J_s\)for some \(P_i\)-primary ideal \(J_i\). If one takes a minimal decomposition like this then the \(P_i\)'s appearing are precisely the associated primes of \(I\).
+\end{theorem}
+
+\begin{proof}
+  Atiyah and MacDonald.
+\end{proof}
+
+In practice, one needs to know \(\Ass(M)\) or \(\Ass(R/I)\) rather than the primary decomposition. Instead you tend to consider localisations.
+
+\begin{lemma}
+  If \(\Ann(M) = \{r: rm = 0 \text{ for all } m \in M\} = \bigcap_{m \in M} \Ann(m)\) for a finitely generated \(M\) is a prime ideal \(P\), then \(P \in \Ass(M)\).
+\end{lemma}
+
+\begin{proof}
+  Let \(m_1, \dots, m_s\) be a generating set for \(M\) and \(I_i = \Ann(m_i)\). Then \(\prod I_j\) annhilates each \(m_j\) so \(\prod I_j \subseteq \Ann(M) = P\) by supposition. Hence some \(I_j \subseteq P\) since \(P\) is prime. However \(I_j = \Ann(m_j) \supseteq \Ann(M) = P\) so \(P = I_j\) for some \(j\) so \(P = \Ann(m_j) \in \Ass(M)\).
+\end{proof}
+
+\begin{lemma}
+  Suppose \(M\) is a non-zero module over a Noetherian ring \(R\) and \(Q\) is maximal among all annihilators of non-zero elements of \(M\). Then \(Q\) is prime and so \(Q \in \Ass(M)\).
+\end{lemma}
+So \(\Ass(M)\) for non-zero \(M\) is non-empty.
+
+\begin{proof}
+  Take such a \(Q\) and suppose \(Q = \Ann(m)\) with \(r_1r_2 \in Q, r_2 \notin Q\). We are going to show \(r_1 \in Q\). \(r_1r_2m = 0\) so \(r_1 \in \Ann(r_2m)\). As \(r_2 \notin Q\), \(r_2m \neq 0\). But \(Q \subseteq \Ann(r_2m)\). Hence \(Q\) and \(r_1\) lie in \(\Ann(r_2m)\) so by maximality of \(Q\), \(r_1 \in Q\).
+\end{proof}
+
+\begin{lemma}
+  \label{lem:chain of submodules related to associated primes}
+  For a non-zero finitely generated \(R\)-module \(M\) with \(R\) Noetherian, there is a chain of submodules
+  \[
+    0 = M_0 \subsetneq M_1 \subsetneq \cdots \subsetneq M_s = M
+  \]
+  with each factor \(M_j/M_{j - 1} \cong R/P_j\) for some prime \(P_j\) not necessarily distinct.
+\end{lemma}
+
+\begin{proof}
+  There is \(m_1 \in M\) non-zero with \(\Ann(m_1) = P_1\) for some \(P_1\). Set \(M_1 = Rm_1\) and thus \(M_1 \cong R/P_1\). Repeat for \(M/M_1\) to find \(M_2\) with \(M_2/M_1 \cong R/P_2\). \(M\) is Noetherian and so the process terminates.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:associated prime of sub and quotient}
+  If \(N \leq M\) then \(\Ass(M) \subseteq \Ass(N) \cup \Ass(M/N)\).
+\end{lemma}
+
+\begin{proof}
+  Suppose \(P = \Ann(m)\) for some \(m \in M\) and \(P\) is prime. Let \(M_1 = Rm \cong R/P\). Note that for any \(m_1 \in M_1\) nonzero, \(\Ann(m_1) = P\). If \(M_1 \cap N \neq 0\) then there exists \(m_1 \in M_1 \cap N\) non-zero with \(\Ann(m_1) = P\) so \(P \in \Ass(N)\). If \(M_1 \cap N = 0\) then the image of \(M_1\) in \(M/N\) is isomorphic to \(M_1 \cong R/P\) and \(\Ann(m + N) = P\). Thus \(P \in \Ass(M/N)\).
+\end{proof}
+
+\begin{lemma}
+  Suppose \(M\) is a finitely generated module over a Noetherian ring \(R\) then \(\Ass(M)\) is finite.
+\end{lemma}
+
+\begin{proof}
+  Use \Cref{lem:associated prime of sub and quotient} inductively on the chain obtained in \Cref{lem:chain of submodules related to associated primes} \(\Ass(M) \subseteq \{P_1, \dots, P_s\}\) for the \(P_i\)'s.
+\end{proof}
+
+\begin{lemma}
+  Minimal primes over \(I\) are in \(\Ass(R/I)\).
+\end{lemma}
+
+\begin{proof}
+  Recall that there is a product of minimal primes over \(I\), perhaps with repetition, contained in \(I\), so \(P_1^{s_1} \cdots P_n^{s_n} \subseteq I\) with \(P_i \nsubseteq P_j\) for \(i \neq j\). Let \(M = (P_2^{s_2} \cdots P_n^{s_n} + I)/I\) and consider \(J = \Ann(M)\). Clearly \(J \supseteq P_1^{s_1}\). Also \(JP_2^{s_2} \cdots P_n^{s_n} \subseteq I \subseteq P_1\) and since \(P_1\) is a minimal prime over \(I\) and it is distinct from \(P_2, \dots, P_n\), so must have \(J \subseteq P_1\).
+
+  Note that \(M \neq 0\) since \(J \subseteq P_1 \subsetneq R\) so we have a chain of submodules of \(M\)
+  \[
+    0 = M_0 \subsetneq M_1 \subsetneq \cdots \subsetneq M_t = M
+  \]
+  with each factor \(M_j/M_{j - 1} \cong R/Q_j\) with \(Q_j\) prime. But \(P_1^{s_1}\) annihilates \(M\) and hence each factor \(M_j/M_{j - 1}\) and primality of \(Q_j\) ensures \(P_1 \subseteq Q_j\) for all \(j\). Since \(\prod Q_j \subseteq J \subseteq P_1\), have \(Q_j \subseteq P_1\) for some \(j\) and hence \(Q_j = P_1\). Now pick least \(j\) with \(Q_j = P_1\) and thus \(\prod_{k < j} Q_k \nsubseteq P_1\). Take \(x \in M_j \setminus M_{j - 1}\). If \(j = 1\) then \(\Ann(x) = Q_1 = P_1\) and so \(P_1 \in \Ass(R/I)\). If \(j > 1\) then pick \(r \in (\prod_{k < j} Q_k) \setminus P_1\). Note \(r(sx) = 0\) for any \(s \in P_1 = Q_j\) so \(s(rx) = 0\) and \(P_1 \subseteq \Ann(rx)\). However \(rx \notin M_{j - 1}\) since \(r \notin P_1\) and \(\Ann(rx + M_{j - 1}) = P_1\). Hence \(\Ann(rx) \subseteq P_1\) so equality. This shows that \(P_1 \in \Ass(M) \subseteq \Ass(R/I)\).
+\end{proof}
+
+\section{Dimension}
+
+\subsection{Krull dimension}
+
+In this chapter all rings are commutative with a \(1\).
+
+\begin{definition}[prime spectrum]\index{prime spectrum}
+  The \emph{prime spectrum} of \(R\) is
+  \[
+    \Spec R = \{P: P \text{ prime ideal of } R\}.
+  \]
+\end{definition}
+
+\begin{definition}[length]\index{length}
+  The \emph{length} of a chain of prime ideals
+  \[
+    P_0 \subsetneq P_1 \subsetneq \cdots \subsetneq P_n
+  \]
+  is \(n\). Note the numbering starts at \(0\).
+\end{definition}
+
+\begin{definition}[Krull dimension]\index{Krull dimension}
+  The \emph{(Krull) dimension} \(\dim R\) of \(R\) is defined as the supremum of \(n\) where there is a chain of prime ideals of length \(n\), if this exists, and \(\infty\) otherwise.
+\end{definition}
+
+\begin{definition}[height]\index{height}
+  Then \emph{height} \(\htt(P)\) of \(P \in \Spec R\) is the supremum of \(n\) where there is a strict chain of prime ideals
+  \[
+    P_0 \subsetneq P_1 \subsetneq \cdots \subsetneq P_n = P
+  \]
+  if this exists.
+\end{definition}
+
+\begin{note}
+  The correspondence between primes of \(R_P\) and the prime ideals of \(R\) contained in \(P\) tells us that \(\htt(P) = \dim R_P\).
+\end{note}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item We'll see later that being Artinian (i.e.\ satisfying DCC) \index{Artinian} is equivalent to being Notherian of dimension \(0\).
+  \item \(\dim \Z = 1\) and \(\dim k[X] = 1\). These are examples of \emph{Dedekind domains}\index{Dedekind domains}, i.e.\ integrally closed dimension 1 Noetherian integral domains.
+  \item \(\dim k[X_1, \dots, X_n] \geq n\) since we can write down chain of prime ideals
+    \[
+      0 \subsetneq (X_1) \subsetneq (X_1, X_2) \subsetneq \cdots \subsetneq (X_1, \cdots, X_n)
+    \]
+    In fact, we'll prove it has dimension \(n\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  The height one primes of \(k[X_1, \dots, X_n]\) are precisely those of the form \((f)\) for prime element \(f\).
+\end{lemma}
+
+\begin{proof}
+  Recall Kaplansky from example sheet 1: \(k[X_1, \dots, X_n]\) is a UFD and so each non-zero prime contains a non-zero principal prime ideal, so a height one prime is principal. Conversely if \((f)\) is a principal prime ideal and \(0 \subsetneq P \subseteq (f)\) for prime ideal \(P\) then there exists principal prime \((g)\) such that \(0 \subsetneq (g) \subseteq P \subseteq (f)\). Since \(f, g\) are prime elements we have equality.
+\end{proof}
+
+\begin{remark}
+  In general for a Noetherian \(R\) the height 1 primes are precisely the minimal primes over principal ideal. This is Krull's principal ideal theorem. A generalisation of this theorem shows that any prime ideal has finite height. Thus the dimension of any Noetherian local ring is finite.
+\end{remark}
+
+\subsection{Integral extensions}
+
+\begin{definition}[integral element]\index{integral}
+  Suppose \(R \subseteq T\) are rings. \(x \in T\) is \emph{integral over \(R\)} if it satisfies a monic polynomial with coefficients in \(R\).
+
+  \(T\) is \emph{integral over \(R\)} if \(x\) is integral over \(R\) for all \(x \in T\).
+\end{definition}
+
+Our next aim is to discuss the relationship between \(\Spec R\) and \(\Spec T\) when \(T\) is integral over \(R\).
+
+\begin{lemma}
+  TFAE:
+  \begin{enumerate}
+  \item \(x \in T\) is integral over \(R\).
+  \item \(R[x]\), the subring of \(T\) generated by \(R\) and \(x\), is a finitely generated \(R\)-module.
+  \item \(R[x]\) is contained in a subring \(T_1\) of \(T\) where \(T_1\) is a finitely generated \(R\)-module.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Left to show \(3 \implies 1\). Consider multiplication by \(x\) in \(T_1\). Take \(y_1, \dots, y_m \in T_1\), an \(R\)-module generating set for \(T_1\). Suppose \(xy_i = \sum r_{ij} y_j\) so \(\sum (x \delta_{ij} - r_{ij}) y_j = 0\). Multiply by the adjugate of the matrix \((A_{ij}) = (x \delta_{ij} - r_{ij})\) to deduce \((\det A) y_j = 0\) for all \(j\). But \(1\) is a linear combination of the \(y_j\) and so we deduce \(\det A = 0\). But this gives a monic polynomial with coefficients in \(R\) and satisfied by \(x\).
+\end{proof}
+
+\begin{lemma}
+  If \(x_1, \dots, x_n \in T\) are integral over \(R\) then \(R[x_1, \dots, x_n]\), the subring of \(T\) generated by \(R\) and \(x_1, \dots, x_m\), is a finitely generated \(R\)-module.
+\end{lemma}
+
+\begin{proof}
+  Induction.
+\end{proof}
+
+\begin{lemma}
+  The set \(T_1 \subseteq T\) of elements integral over \(R\) form a subring containing \(R\).
+\end{lemma}
+
+\begin{proof}
+  Clearly if \(x \in R\) it is integral over \(R\). If \(x, y \in T_1\) then \(x \pm y, xy\) lie in \(R[x, y]\) which is finitely generated as an \(R\)-module so are in \(T_1\).
+\end{proof}
+
+\begin{definition}[integral closure]\index{integral closure}\index{integrally closed}
+  \(T_1\) is the \emph{integral closure} of \(R\) in \(T\). If \(T_1 = R\) we say \(R\) is \emph{integrally closed} in \(T\). If \(T_1 = T\) then \(T\) is integral over \(R\). If \(R\) is an integral domain then we say \(R\) is integrally closed if it is closed in its fractional field.
+\end{definition}
+
+\begin{eg}
+  \(\Z\) and \(k[X_1, \dots, X_n]\) are integrally closed. In a number field the ring of integers is the integral closure of \(\Z\) in the number field.
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Being integrally closed is a local property of integral domains. See example sheet.
+  \item We'll prove Noether's normalisation lemma for a finitely generated \(k\)-algebra \(T\), which says that \(T\) has a subalgebra \(R\) isomorphic to a polynomial algebra and \(T\) is integral over \(R\). Furthermore we'll see that if \(T\) is a finitely generated algebra which is an integral domain then it's integral closure \(T'\) of \(T\) in its fractional field is a finitely generated \(T\)-module. Then we have maps of prime spectrums
+    \[
+      \Spec T' \to \Spec T \to \Spec R
+    \]
+    given by restrictions. The geometric property equivalent to integrally closed is normality. We'll see that those restriction maps are surjective and their fibres are finite.
+  \item Integral closure of an integral domain has an alternative characterisation as the intersection of all valuation rings containing \(R\).
+  \end{enumerate}
+\end{remark}
+
+Now suppose \(R \subseteq T\) then we have a map \(\Spec T \to \Spec R, Q \mapsto Q \cap R\). Our aim is to understand the behaviour of chains in \(\Spec T\) under this restriction.
+
+\begin{lemma}
+  If \(R \subseteq T \subseteq T'\) with \(T\) integral over \(R\), \(T'\) integral over \(T\) then \(T'\) is integral over \(R\).
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{lemma}
+  Let \(R \subseteq T\) with \(T\) integral over \(R\) then
+  \begin{enumerate}
+  \item if \(J \subseteq T\) then \(T/J\) is integral over \(R/(J \cap R)\) (by identifying \(R/(J \cap R)\) with \((R + J)/J \subseteq R/J\)).
+  \item if \(S\) is a multiplicatively closed subset of \(R\) then \(S^{-1}T\) is integral over \(S^{-1}R\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item If \(x \in T\) then \(x^n + r_{n - 1}x^{n - 1} + \dots + r_0 = 0\) for some \(r_i \in R\). Modulo \(J\), \(\overline x^n + \overline r_{n - 1} \overline x^{n - 1} + \dots + \overline r_0 = 0\) so \(\overline x\) satisfies a monic equation.
+  \item Suppose \(\frac{x}{s} \in S^{-1}T\) then
+    \[
+      \left( \frac{x}{s} \right)^n + \frac{r_{n - 1}}{s} \left( \frac{x}{s} \right)^{n - 1} + \dots + \frac{r_0}{s^n} = 0
+    \]
+    so \(\frac{x}{s}\) satisfies a monic expression.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  Suppose \(R \subseteq T\) are integral domains with \(T\) integral over \(R\). Then \(T\) is a field if and only if \(R\) is.
+\end{lemma}
+
+\begin{proof}
+  Suppose \(R\) is a field and \(t \in T\) nonzero. Choose \(r_i \in R\) such that
+  \[
+    t^n + r_{n - 1}t^{n - 1} + \dots + r_0 = 0
+  \]
+  has minimal degree, \(T\) is an integral domain so \(r_0 \neq 0\) so \(t\) has inverse
+  \[
+    -r_0^{-1}(t^{n - 1} + \dots + r_1) \in T.
+  \]
+
+  Conversely suppose \(T\) is a field and let \(x \in R\) nonzero. Then it has an inverse \(x^{-1} \in T\) which satisfies a monic equation
+  \[
+    x^{-m} + r_{m - 1}' x^{-m + 1} + \dots + r_0' = 0
+  \]
+  for some \(r_i' \in R\). Multiply by \(x^{-m + 1}\) to get
+  \[
+    x^{-1} = -(r_{m - 1}' + r_{m - 2}' x + \dots + r_0' x^{m - 1}) \in R
+  \]
+  so \(R\) is a field.
+\end{proof}
+
+\begin{corollary}
+  Let \(R \subseteq T\) with \(T\) integral over \(R\). Let \(Q \in \Spec T\) with \(P = Q \cap R\). Then \(Q\) is maximal if and only if \(P\) is maximal.
+\end{corollary}
+
+\begin{proof}
+  \(T/Q\) is integral over \(R/P\). Thus \(T/Q\) is a field if and only if \(R/P\) is a field.
+\end{proof}
+
+\begin{theorem}[incomparability theorem]\index{incomparability theorem}
+  Let \(R \subseteq T\) be rings with \(T\) integral over \(R\). Let \(Q \subseteq Q_1\) be prime ideals of \(T\). Suppose \(Q \cap R = Q_1 \cap R\). Then \(Q = Q_1\). Hence a strict chain in \(\Spec T\) maps to a strict chain in \(\Spec R\) under the restriction map. In particular \(\dim R \geq \dim T\).
+\end{theorem}
+
+\begin{proof}
+  Let \(P = Q \cap R\) and \(S = R \setminus P\). We have \(T_P\) is integral over \(R_P\) where we're writing \(T_P\) for \(S^{-1}T\). We have the unique maximal ideal \(P_P = S^{-1}P\) in \(R_P\). Also \(S^{-1}Q\) and \(S^{-1}Q_1\) are prime and \(S^{-1}Q \cap S^{-1}R = S^{-1}P = P_P\) and same for \(S^{-1}Q_1\) (since \(S^{-1}Q \cap S^{-1}R\) is proper and contains \(S^{-1}P\)). Then \(S^{-1}Q, S^{-1}Q_1\) are maximal. But since \(S^{-1}Q \subseteq S^{-1}Q'\), we have equality. Finally prime ideal correspondence for localisation forces \(Q = Q_1\).
+\end{proof}
+
+\begin{theorem}[lying over theorem]\index{lying over theorem}
+  Let \(R \subseteq T\) be rings with \(T\) integral over \(R\). Take \(P \in \Spec R\). Then there exists \(Q \in \Spec T\) with \(Q \cap R = P\). In this case we say \(Q\) \emph{lies above} \(P\). In other words, the restriction map \(\Spec T \to \Spec R\) is surjective.
+\end{theorem}
+
+\begin{proof}
+  Take \(S = R \setminus P\) and then \(T_P\) is integral over \(R_P\). Take a maximal ideal of \(T_P\). It is of the form \(S^{-1}Q\) for some \(Q \in \Spec T\). Then \(S^{-1}Q \cap S^{-1}R\) is maximal. But \(R_P\) is local with a unique maximal ideal \(P_P\), so \(S^{-1}Q \cap S^{-1}R = P_P\). Hence \(Q \cap R = P\).
+\end{proof}
+
+We next have two theorems due to Cohen and Seidenberg (1946) that explain how to relate chains of primes in \(\Spec R\) and \(\Spec T\).
+
+\begin{theorem}[going up theorem]\index{going up theorem}
+  \label{thm:going up}
+  Let \(R \subseteq T\) with \(T\) integral over \(R\). Let \(P_1 \subseteq \dots \subseteq P_n\) be a chain in \(\Spec R\) and \(Q_1 \subseteq \dots \subseteq Q_m\) with \(m < n\) be a chain in \(\Spec T\) with \(Q_i \cap R = P_i\) for \(i \leq m\). Then we can extend the chain of \(Q_i\)'s to give \(Q_1 \subseteq \dots \subseteq Q_n\) with \(Q_i \in \Spec T\) with \(Q_i \cap R = P\) for \(1 \leq i \leq n\).
+\end{theorem}
+
+\begin{theorem}[going down theorem]\index{going down theorem}
+  \label{thm:going down}
+  Let \(R \subseteq T\) be integral domains, \(R\) integrally closed and \(T\) integral over \(R\). Let \(P_1 \supseteq \dots \supseteq P_n\) be a chain in \(\Spec R\), \(Q_1 \supseteq \dots \supseteq Q_m\) with \(m < n\) be a chain in \(\Spec T\) with \(Q_i \cap R = P_i\) for all \(i \leq m\). Then we can extend the chain of \(Q_i\)'s to give \(Q_1 \supseteq \dots \supseteq Q_n\) with \(Q_i \cap R = P_i\) for \(1 \leq i \leq n\), \(Q_i \in \Spec T\).
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:dimension of integral extension}
+  Let \(R \subseteq T\) with \(T\) integral over \(R\). Then \(\dim R = \dim T\).
+\end{corollary}
+
+\begin{proof}
+  Incomparability says \(\dim R \geq \dim T\): take a chain \(Q_0 \subsetneq Q_1 \subsetneq \dots \subsetneq Q_n\) of \(T\), then \(P_0 \subsetneq P_1 \subsetneq \dots \subsetneq P_n\) where \(P_i = Q_i \cap R\).
+
+  Conversely if \(P_0 \subsetneq P_1 \subsetneq \dots \subsetneq P_n\) is a chain in \(\Spec R\). Then by lying over there is a prime \(Q_0\) of \(T\) with \(Q_0 \cap R = P_0\). Going up gives chain \(Q_0 \subsetneq Q_1 \subsetneq \dots \subsetneq Q_n\) in \(\Spec T\) with \(Q_i \cap R = P_i\) so \(\dim T \geq \dim R\).
+\end{proof}
+
+\begin{corollary}
+  Let \(R \subseteq T\) be integral domains with \(R\) integrally closed and \(T\) integral over \(R\). Let \(Q \in \Spec T\). Then \(\htt(Q) = \htt(Q \cap R)\).
+\end{corollary}
+
+\begin{proof}
+  Take a chain \(Q_0 \subsetneq \dots \subsetneq Q_n = Q\). By incomparability \(P_0 \subsetneq \dots \subsetneq P_n = Q \cap R\) where \(P_i = Q \cap R\). Thus \(\htt(Q \cap R) \geq \htt (Q)\).
+
+  Conversely, if \(P_0 \subsetneq \dots \subsetneq P_n = Q \cap R\) then going down gives us \(Q_0 \subsetneq \dots \subsetneq Q_n = Q\) with \(Q_i \cap R = P_i\). Thus \(\htt(Q \cap R) \leq \htt(Q)\). Equality.
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:going up}]
+  By induction it's enough to consider the case \(n = 2, m = 1\). Write \(\overline R\) for \(R/P_1\), \(\overline T = T/Q_1\). Then \(\overline R \to \overline T\) with \(\overline T\) integral over \(\overline R\). By lying over there is a prime \(\overline Q_2\) of \(\overline T\) such that \(\overline Q_2 \cap \overline R = \overline P_2\). Lift back to a prime \(Q_2\) of \(T\) such that \(Q_2 \cap R = P_2\).
+\end{proof}
+
+The proof of going down is harder --- we need to extend our terminology about integrality, two lemmas of a bit of Galois theory.
+
+\begin{definition}[integral over an ideal]\index{integral over an ideal}
+  If \(I\) is an ideal of \(R\) and \(R \subseteq T\) then \(x \in T\) is \emph{integral over \(I\)} if it satisfies a monic equation \(x^n + r_{n - 1} x^{n - 1} + \dots + r_0 = 0\) with \(r_i \in I\).
+
+  The \emph{integral closure of \(I\) in \(T\)} is the set of all such \(x\)'s.
+\end{definition}
+
+\begin{lemma}
+  Let \(R \subseteq T\) be rings with \(T\) integral over \(R\), \(I\) an ideal of \(R\). Then the integral closure of \(I\) in \(T\) is the radical \(\sqrt{TI}\), which is closed under addition and multiplication. In particular if \(R = T\) then the integral closure of \(I\) in \(R\) is \(\sqrt I\).
+\end{lemma}
+
+\begin{proof}
+  If \(x\) is integral over \(I\) then \(x^n + r_{n - 1} x^{n - 1} + \dots + r_0 = 0\) implies \(x^n \in TI\) so \(x \in \sqrt{TI}\). Conversely if \(x \in \sqrt{TI}\) then \(x^n = \sum t_ir_i\) for some \(r_i \in I, t_i \in T\). But each \(t_i\) is integral over \(r\) so \(M = R[t_1, \dots, t_m]\) is a finitely generated \(R\)-module. Also \(x^n \cdot R[t_1, \dots, t_m] \subseteq IM\). Let \(y_1, \dots, y_s\) be a generating set for \(M\) as an \(R\)-module. Then we have \(x^n y_j = \sum r_{jk} y_k\) with \(r_{jk} \in I\). Rearrange to get \(\sum (x^n \delta_{jk} - r_{jk}) y_k = 0\) so \(x^n\) satisfies a monic equation with all but the top coefficient in \(I\). Thus \(x\) is integral over \(I\).
+\end{proof}
+
+\begin{lemma}
+  \label{lem:coefficient of min poly of an element integral over an ideal}
+  Let \(R \subseteq T\) be integral domains with \(R\) integrally closed and \(T\) integral over \(R\) and let \(x \in T\) be integral over \(I\). Then \(x\) is algebraic over the fraction field \(K\) of \(R\) and its minimal polynomial over \(K\)
+  \[
+    X^n + r_{n - 1} X^{n - 1} + \dots + r_0
+    \tag{\dagger}
+  \]
+  has coefficients \(r_{n - 1}, \dots, r_0 \in \sqrt I\).
+\end{lemma}
+
+\begin{proof}
+  Certainly \(x\) is algebraic over \(K\) from its integral dependence equation. Claim the coefficients \(r_i\) in \((\dagger)\) are integral over \(I\).
+  \begin{proof}
+    Take an extension field \(L\) of \(K\) containing all the conjugates \(x_1, \dots, x_s\) of \(x\), e.g.\ taking a splitting field of the minimal polynomial. By Galois theory for each \(i\) there is a \(K\)-automorphism of \(L\) sending \(x\) to \(x_i\). If \(x\) satisfies \(x^m + r_{m - 1}' x^{m - 1} + \dots + r_0' = 0\), \(r_j' \in I\) then so does \(x_i\). Thus each conjugate of \(x\) is integral over \(I\), and so sums and products of them are also integral over \(I\). However the coefficients in \((\dagger)\) by the usual theory of roots of polynomials are obtained by taking sums and products of the roots, namely the conjugates of \(x\). So the coefficients are integral over \(I\).
+  \end{proof}
+  They are in \(K\) and \(R\) by supposition is integrally closed in \(K\), so those coefficients are in \(R\), so lie in \(\sqrt I\).
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:going down}]
+  By induction it's enough to consider the case \(n = 2, m = 1\), i.e.\ we have \(P_1 \supseteq P_2\) and \(Q_1 \cap R = P_1\). We want to construct \(Q_2\) such that \(Q_1 \supseteq Q_2\) and \(Q_2 \cap R = P_2\). Let \(S_1 = T \setminus Q_1, S_2 = R \setminus P_2\) and \(S = S_1S_2 = \{tr: t \in S_1, r \in S_2\}\). This is multiplicatively closed and contains both \(S_1\) and \(S_2\). We'll show \(TP_2 \cap S = \emptyset\) (proof next time). Assuming this \(TP_2\) is an ideal of \(T\) and \(S^{-1}(TP_2)\) is a proper ideal of \(S^{-1}T\). It lies in a maximal ideal of \(S^{-1}T\), necessarily of the form \(S^{-1}Q_2\) for some prime ideal \(Q_2\) of \(T\) with \(Q_2 \cap S = \emptyset\). This implies \(Q_2 \subseteq Q_1\). As \(S^{TP_2} \subseteq S^{-1}Q_2\), \(TP_2 \subseteq Q_2\) so \(P_2 \subseteq TP_2 \cap R \subseteq Q_2 \cap R\). Together with \(Q_2 \cap S = \emptyset\), \(Q_2 \cap R = P_2\). Thus \(Q_2\) is a sought after prime ideal.
+
+  \begin{proof}[Proof of claim]
+    Take \(x \in TP_2 \cap S\). Then \(x\) is in the integral closure of \(P_2\) in \(T\). \(x\) is algebraic over the field of fractions of \(R\) and its minimal polynomial \(X^n + r_{n - 1} X^{n - 1} + \dots + r_0\) has coefficients in \(\sqrt{P_2} = P_2\). But \(x \in S\) so is of the form \(tr\) for \(t \in S_1, r \in S_2\). Then \(t = \frac{x}{r}\) has minimal polynomial
+    \[
+      X^n + \frac{r_{n -1}}{r} X^{n - 1} + \dots + \frac{r_0}{r^n}
+    \]
+    and those coefficients are in \(R\). All these coefficients are in \(R\) by 3.16 with \(I = R\) since \(t\) is integral over \(R\). Write these ceofficients as \(r_i'\). But \(r \notin P_2\) and \(r_i' = \frac{r_i}{r^{n - i}} \in R\), together with \(r_i = r_i' r^{n - i} \in P_2\) implies \(r_i' \in P_2\). Thus \(t\) is integral over \(P_2\), and so \(t \in \sqrt{TP_2}\). But this is a contradiction since \(t \in S_1 = T \setminus Q_1\). But \(TP_2 \subseteq Q_1\) and \(Q_1\) is prime, so \(\sqrt{TP_2} \subseteq Q_1\). Absurd.
+  \end{proof}
+\end{proof}
+
+The key result allowing us to use integral extension is
+
+\begin{lemma}[Noether's normalisation lemma]\index{Noether's normalisation lemma}
+  Let \(T\) be a finitely generated \(k\)-algebra. Then \(T\) is integral over a subalgebra \(k[x_1, \dots, x_n]\) with \(x_1, \dots, x_n\) algebraically independent over \(k\).
+\end{lemma}
+
+\begin{definition}[algebraically independent]\index{algebraically independent}
+  \(x_1, \dots, x_n\) are \emph{algebraically independent over \(k\)} if the map \(k[X_1, \dots, X_n] \to k[x_1, \dots, x_n], X_i \mapsto x_i\) is a ring isomorphism.
+\end{definition}
+
+\begin{proof}
+  Suppose \(T = k[a_1, \dots, a_n]\). Induction on \(n\), the number of generators. If all the \(n\)'s are algebraic over \(k\) then we can take our subalgebra to be \(k\). Otherwise relabel them so \(a_1, \dots, a_r\) are algebraically independent over \(k\) and \(a_{r + 1}, \dots, a_n\) are algebraically depdendent over \(a_1, \dots, a_r\). Take non-zero \(f \in k[X_1, \dots, X_r, X_n]\) such that \(f(a_1, \dots, a_r, a_n) = 0\). Then \(f(X_1, \dots, X_r, X_n)\) is a sum of terms
+  \[
+    \lambda_\ell X_1^{\ell_1} \cdots X_r^{\ell_r} X_n^{\ell_n}
+  \]
+  where \(\lambda_\ell \in k\). Claim that there exist integers \(m_1, \dots, m_r\) such that \(\phi: \ell \mapsto m_1 \ell_1 + \dots + m_r \ell_r\) is injective for those \(\ell\) for which \(\lambda_\ell \neq 0\).
+
+  \begin{proof}
+    There are finitely many possibilities for differences \(d = \ell - \ell'\) with \(\lambda_\ell \neq 0 \neq \lambda_{\ell'}\). Write \(d = (d_1, \dots, d_r, d_n)\) and consider the finitely many \((d_1, \dots, d_r) \in \Z^r\) obtained. Vectors orthogonal to the finitely many \(r\)-tuples lie in finitely many \((r - 1)\)-dimensional vector subspaces of \(\Q^r\). Pick \((q_1, \dots, q_r)\) with each \(q_i > 0\) such that \(\sum q_id_i \neq 0\) for all the finitely many non-zero \((d_1, \dots, d_r)\). Multiply by a positive integers to get \((m_1, \dots, m_r)\) so that \(|\sum m_i \ell_i| > |d_n|\) for all the finitely many \(d = (d_1, \dots, d_r, d_n) \neq 0\). Then if \(\phi(\ell) = \phi(\ell')\) then \(d_1 = \dots = d_r = 0\) and so \(\ell_n = \ell_n'\) and \(\ell = \ell'\).
+  \end{proof}
+
+  Now put
+  \begin{align*}
+    g(X_1, \dots, X_r, X_n)
+    &= f(X_1 + X_n^{m_1}, \dots, X_r + X_n^{m_r}, X_n) \\
+    &= \sum_\ell \lambda_\ell (X_1 + X_n^{m_1})^{\ell_1} \cdots (X_r + X_n^{m_r})^{\ell_r} X_n^{\ell_n}.
+  \end{align*}
+  Now different terms have different powers of \(X_n\) and there will be a single term of highest power in \(X_n\). As a polynomial in \(X_n\) the leading coefficient is one of the \(\lambda_\ell \in k\). Put \(b_i = a_i - a_n^{m_i}\) for \(1 \leq i \leq r\) and \(h(X_n) = g(b_1, \dots, b_r, X_n)\). Thus the leading coefficient of \(h\) is in \(k\) and all coefficients are in \(k[b_1, \dots, b_r]\). Moreover
+  \[
+    h(a_n) = g(b_a, \dots, b_r, a_n) = f(a_1, \dots, a_r, a_n) = 0.
+  \]
+  Dividing through by the top coefficient shows that \(a_n\) is integral over \(k[b_1, \dots, b_r]\) so for each \(1 \leq i \leq r\), \(a_i = b_i + a_n^{m_i}\) is also integral over \(k[b_1, \dots, b_r]\). Hence \(T\) is integral over \(k[b_1, \dots, b_r, a_{r + 1}, \dots, a_{n - 1}]\), which has \(n - 1\) generators so by induction is integral over some polynomial subalgebra. Thus \(T\) is integral over the polynomial algebra.
+\end{proof}
+
+\begin{remark}
+  There are other proofs, not using the little result from linear algebra: using \(X_i + X_n^{m_i}\) with \(m_i\) being the power of some integers \(\alpha\) (Nagata).
+\end{remark}
+
+We now show that this dimension agrees with transcendence degree from field theory.
+
+As in linear algebra, in a field \(K\) with subfield \(k\) we can consider maximal algebraically indepedent subsets over \(k\). They exist by Zorn's lemma and all have the same cardinality --- we can use a version of the exchange lemma. A maximal algebraically independent subset over \(k\) is a \emph{transcendence basis}\index{transcendence basis} of \(K\) over \(k\), written \(\trdeg_k K\).
+
+The \emph{algebraic closure of a set} \(S\) over \(k\) is the set of elements which are algebraically dependent over the subfield generated by \(k\) and \(S\).
+
+\begin{theorem}
+  Let \(T\) be a finitely generated \(k\)-algebra that is an integral domain. Let \(L\) be its field of fraction. Then \(\dim T = \trdeg_k L\). In particular \(\dim k[X_1, \dots, X_n] = \trdeg_k k(X_1, \dots, X_n) = n\).
+\end{theorem}
+
+\begin{proof}
+  Apply Noether normalisation to get \(T\) is integral over \(k[x_1, \dots, x_r]\) with \(x_1, \dots, x_r\) algebraically independent. Then by \Cref{cor:dimension of integral extension} \(\dim T = \dim k[X_1, \dots, X_r]\). Thus any finitely generated \(k\)-algebra has the same dimension as the dimension of a polynomial algebra with \(r\) variables where \(r = \trdeg_k(L)\).
+
+  It's left to prove that the dimension of such a polynomial algebra is \(r\). Recall that we observed \(\dim k[X_1, \dots, X_r] \geq r\). When \(r = 0\) equality holds. For general \(r\), suppose
+  \[
+    P_0 \subsetneq \cdots \subsetneq P_s
+  \]
+  is a chain of prime ideals, and we may assume \(P_0 = \{0\}, P_1 = (f)\). But
+  \[
+    \trdeg \Frac k[X_1, \dots, X_r]/(f) = r - 1.
+  \]
+  However by Noether normalisation, \(\dim k[X_1, \dots, X_n]/(f) = \dim k[\overline Y_1, \dots, \overline Y_t]\) where \(\overline Y_1, \dots, \overline Y_t\) algebraically independent in \(k[X_1, \dots, X_r]/(f)\) and \(k[X_1, \dots, X_r]/(f)\) integral over \(k[\overline Y_1, \dots, \overline Y_t]\). However
+  \[
+    \trdeg k(\overline Y_1, \dots, \overline Y_t) = \trdeg (\Frac k[X_1, \dots, X_r]/(f)) = r- 1
+  \]
+  so \(r = t - 1\). By induction \(\dim k[\overline Y_1, \dots, \overline Y_t] = r - 1\). But \(P_1 = (f)\) so modulo \(P_1\) we get
+  \[
+    \overline P_1 \subsetneq \overline P_1 \subsetneq \cdots \subsetneq \overline P_s
+  \]
+  is a chain of primes of length \(s - 1\), so \(s - 1 \leq r - 1\) and \(s \leq r\). Thus \(\dim k[X_1, \dots, X_r] \leq r\) so equality.
+\end{proof}
+
+\begin{theorem}
+  \label{thm:integral closure of Noetherian integral domain}
+  Let \(R\) be a Noetherian integral domain that is integrally closed with field of fractions \(K\) and \(L\) a finite separable field extension of \(K\). Let \(T\) be the integral closure of \(R\) in \(L\). Then \(T\) is a finitely generated \(R\)-module.
+\end{theorem}
+
+\begin{corollary}
+  The integral closure of \(\Z\) in a number field \(L\), i.e.\ a finite field extension of \(\Q\), is a finitely generated \(\Z\)-module.
+\end{corollary}
+
+\begin{corollary}
+  Suppose \(\ch k = 0\) and let \(T\) be a finitely generated \(k\)-algebra which is an integral domain and is integral over the polynomial algebra \(R = k[x_1, \dots, x_n]\). Let \(L\) be the field of fractions of \(T\). Then the integral closure \(T_1\) of \(R\) in \(L\) is a finitely generated \(R\)-module. Thus \(T_1\) is integrally closed and in the chain of maps
+  \[
+    \Spec T_1 \to \Spec T \to \Spec R
+  \]
+  all the fibres are finite.
+\end{corollary}
+
+\begin{proof}
+  Immediate from \Cref{thm:integral closure of Noetherian integral domain} apart from finiteness of fibre, which is example sheet 2 question 15, 16.
+\end{proof}
+
+The proof of \Cref{thm:integral closure of Noetherian integral domain} uses the \emph{trace function}
+\[
+  \tr_{L/K}(x) = - [L: K(x)] \cdot \text{next to top coefficient of min poly of \(x\) over \(K\)}
+\]
+for \(x \in L\), for any finite field extension \(L/K\). If \(L\) is Galois over \(K\) then
+\[
+  \tr_{L/K}(x) = \sum_{g \in \gal(L/K)} g(x)
+\]
+The next to top coefficient of the minimal polynomial is minus the sum of all the conjugates of \(x\), and then we may have repetitions so the factor \([L: K(\alpha)]\).
+
+Recall the following fact from Galois theory: if \(L\) is separable over \(K\) then
+\begin{align*}
+  L \times L &\to K \\
+  (x, y) &\mapsto \tr_{L/K}(xy)
+\end{align*}
+is a non-degenerate symmetric \(K\)-bilinear form on \(L\).
+
+\begin{proof}[Proof of \Cref{thm:integral closure of Noetherian integral domain}]
+  Pick a \(K\)-vector space basis \(y_1, \dots, y_n\) of \(L\). By multiplying by suitable elements of \(K\) we may assume each \(y_i\) lies in \(T\). Since \(\tr_{L/K}(xy)\) yields a non-degenerate symmetric bilinear form we can find a dual basis \(x_1, \dots, x_n\). We'll show that \(T \subseteq \sum Rx_i\), and then since \(R\) is Noetherian, \(T\) is a finitely generated \(R\)-module.
+
+  \begin{proof}
+    Let \(z \in T\). Then \(z = \sum \lambda_i x_i\) with \(\lambda_i \in K\). Thus
+    \[
+      \tr_{L/K}(zy_j) = \tr_{L/K}(\sum \lambda_i x_j y_j) = \sum \lambda_i \tr_{L/K}(x_i y_j) = \lambda_j.
+    \]
+    But \(z\) and \(y_j\) are in \(T\) and hence \(zy_j \in T\). Then by \Cref{lem:coefficient of min poly of an element integral over an ideal} with \(I = R\) the coefficients of the minimal polynomial of \(zy_j\) lie in \(R\), in particular the next to top coefficient is in \(R\). Thus \(\lambda_j = \tr_{L/K}(zy_j) \in R\).
+  \end{proof}
+\end{proof}
+
+\section{Heights}
+
+Let \(R\) be a commutative ring with \(1\), but note we're going to talk about general Noetherian rings, not just finitely generated \(k\)-algebras.
+
+Recall that for UFDs the height \(1\) primes are precisely those of the form \((f)\) with \(f\) irreducible. The principal ideal theorem gives us a recipe for finding height \(1\) primes in general.
+
+\begin{theorem}[principal ideal theorem]\index{principal ideal theorem}
+  \label{thm:principal ideal theorem}
+  Let \(R\) be a Noetherian ring and \(a\) be a non-unit. Let \(P\) be a minimal prime over \((a)\). Then \(\htt P \leq 1\).
+\end{theorem}
+
+This starts an inductive argument and appears in the proof of the inductive step proving
+
+\begin{theorem}[generalised principal ideal theorem]\index{generalised principal ideal theorem}
+  \label{thm:generalised principal ideal theorem}
+  Let \(R\) be a Noetherian ring and \(I\) be a proper ideal generated by \(n\) elements. Let \(P\) be a minimal prime over \(I\). Then \(\htt P \leq n\).
+\end{theorem}
+
+\begin{corollary}\leavevmode
+  \begin{enumerate}
+  \item Every prime ideal \(P\) of a Noetherian ring \(R\) has finite height, less than or equal to the minimum number of genertors of \(P\).
+  \item Every Noetherian local ring has finite dimension, less than or equal to minimum number of generators of the unique maximal ideal \(P\), which equal to \(\dim_{R/P} P/P^2\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Any ideal of a Noetherian ring is finitely generated and a prime ideal is a minimal prime over itself. Thus \(\htt P \leq\) minimum number of generators of \(P\).
+  \item By 1 \(\dim R = \htt P \leq\) minimum number of generators of \(P\). The final equality follows from Nakayama's lemma: claim \(P\) is generated by \(x_1, \dots, x_r\) if and only if \(P/P^2\) is generated by \(\overline x_1, \dots, \overline x_r\).
+
+    \begin{proof}
+      For the nontrivial direction, suppose \(\overline x_1, \dots, \overline x_n\) generate \(P/P^2\) with \(x_i \in R\). Consider \(I = (x_1, \dots, x_r) \subseteq P\). Clearly \(I + P^2 = P\) and so \(P (P/I) = P/I\). As \(P = \jac R\), by Nakayama's lemma \(P/I = 0\) so \(P\) is generated by \(x_1, \dots, x_r\).
+    \end{proof}
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[regular local ring]\index{regular local ring}
+  A \emph{regular local ring} \(R\) is one where \(\dim R = \dim_{R/P} P/P^2\).
+\end{definition}
+
+In algebraic geometry this correponds to localisation at a non-singular point, and \(P/P^2\) is the cotangent space at \(P\).
+
+\begin{remark}
+  Using \nameref{thm:generalised principal ideal theorem} we can get a better bound for a local ring \(R\): \(\dim R = \htt P \leq \) minimum number of generators of \(I\) with \(\sqrt I = P\). In fact (we will not prove here), \(\dim R = \htt P =\) minimum number of generators of some \(I\) with \(\sqrt I = P\).
+\end{remark}
+
+\begin{proof}[Proof of \nameref{thm:principal ideal theorem}]
+  Take a non-unit \(a \in P\) and \(P\) a minimal prime over \((a)\). First localise at \(P\) so \(R_P\) has unique prime ideal \(P_P = S^{-1}P\) where \(S = R\setminus P\). Observe that \(P_P\) is minimal over \(S^{-1}(a)\) by ideal correspondence. As \(\htt S^{-1}P = \htt P\), we may assume that \(R\) is local with unique maximal ideal \(P\).
+
+  Suppose for contradiction \(\htt P > 1\) and we have a chain of primes \(Q' \subsetneq Q \subsetneq P\). Consider \(R/(a)\) which has unique maximal ideal \(P/(a)\) which is also a minimal prime, so it is the only prime of \(R/(a)\). Thus \(\nilrad{R/(a)} = P/(a)\), and it is Noetherian as \(R/(a)\) is Noetherian. Thus \(P^n \subseteq (a)\) for some \(n\). Now consider
+  \[
+    R \supsetneq P \supseteq P^2 \supseteq \cdots \supseteq P^n
+  \]
+  and each factor is a finite dimensional \(R/P\)-vector space. Each factor satisfies the descending chain condition on subspaces and so \(R/P^n\) satisfies DCC on submodules, i.e.\ ideals. Thus \(R/P^n\) is Artinian and so is \(R/(a)\).
+
+  Now consider localisation at \(Q\) with \(S = R\setminus Q\).
+  \[
+    S^{-1}R \supsetneq S^{-1}Q \supseteq (S^{-1}Q)^2 \supseteq \cdots
+  \]
+  is a chain of ideals in \(S^{-1}R\). Set \(I_m = \{r: \frac{r}{1} \in (S^{-1}Q)^m\}\) so \(S^{-1}I_m = (S^{-1}Q)^m\). Clearly
+  \[
+    Q = I_1 \supseteq I_2 \supseteq \cdots
+  \]
+  and its image in \(R/(a)\)
+  \[
+    (I_1 + (a))/(a) \supseteq (I_2 + (a))/(a) \supseteq \dots
+  \]
+  is a descending chain so must terminate and \(I_m + (a) = I_{m + 1} + (a)\) for some \(m\). Now we show \(I_1 \supseteq I_2 \supseteq \cdots\) terminates. Take \(r \in I_m\). Then \(r = t + xa\) for some \(t \in I_{m + 1}, r \in R\). Thus \(xa = r - t \in I_m\). However \(a \notin Q\) as \(P\) is minimal over \((a)\) and so \(a \in S\). Thus \(\frac{a}{1}\) is a unit in \(S^{-1}R\). Then \(xa \in I_m\) if and only if \(\frac{xa}{1} \in (S^{-1}Q)^m\), if and only if \(\frac{x}{1} \in (S^{-1}Q)^m\), if and only if \(x \in I_m\). So \(I_m = I_{m + 1} + I_ma\) and \(I_m/I_{m + 1} = P(I_m/I_{m + 1})\) since \(a \in P\). Thus by Nakayama \(I_m/I_{m + 1} = 0\) and hence \(I_m = I_{m + 1}\), so
+  \[
+    (S^{-1}Q)^m = S^{-1}I_m = S^{-1}I_{m + 1} = (S^{-1}Q)^{m + 1}.
+  \]
+  Now \(S^{-1}Q = \jac{S^{-1}R}\) so by Nakayama \((S^{-1}Q)^m = 0\). However when we localise the chain \(Q' \subsetneq Q\) we get \(S^{-1}Q' \subsetneq S^{-1}Q\), contradiction.
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:generalised principal ideal theorem}]
+  Induction on \(n\). For \(n = 1\) this is \nameref{thm:principal ideal theorem}. Assume \(n > 1\). By passing to \(R_P\) we can assume \(R\) is local with unique maximal ideal \(P\). Pick any prime maximal subject to \(Q \subsetneq P\). Then \(P\) is the only prime ideal strictly containing \(Q\). Claim that \(\htt Q \leq n - 1\), and then it follows that \(\htt P \leq n\).
+
+  \begin{proof}
+    Since \(P\) is minimal over \(I\) we must have \(I \nsubseteq Q\). By assumption \(I = (a_1, \dots, a_n)\) and we may assume \(a_n \notin Q\). \(P\) is the only prime containing \(Q + (a_n)\), so \(\nilrad{R/(Q + (a_n))} = P/(Q + (a_n))\). It is nilpotent so there is \(m\) such that \(a_i^m \in Q + (a_n)\) for all \(i \leq n - 1\), say \(a_i^m = t_i + x_i a_n\) for some \(t_i \in Q, x_i \in R\). Any prime of \(R\) containing \(t_1, \dots, t_{n - 1}\) and \(a_n\) contains \(a_i^m\) and thus contains \(a_1, \dots, a_n\). Note that \((t_1, \dots, t_{n - 1}) \subseteq Q\). Claim that \(Q\) is minimal over \((t_1, \dots, t_{n - 1})\), and then we are done by induction hypothesis.
+
+    Write \(\overline R = R/(t_1, \dots, t_{n - 1})\) and use bar to denote image in \(\overline R\). The unique maximal ideal \(\overline P\) of \(\overline R\) is minimal over \(\overline{(a_n)}\). Then by \nameref{thm:principal ideal theorem} \(\htt \overline P \leq 1\). But \(\overline Q \subsetneq \overline P\) so must have height \(0\). Thus \(Q\) is minimal over \((t_1, \dots, t_{n - 1})\).
+  \end{proof}
+\end{proof}
+
+\section{Artinian rings}
+
+In this chapter \(R\) is not necessarily commutative.
+
+\begin{definition}[(right) Artinian ring]\index{Artinian}
+  \(R\) is \emph{right Artinian} if it satisfies the descending chain condition\index{DCC}\index{descending chain condition} on right ideals. Left Artinian rings are defined analogously.
+\end{definition}
+
+We can similarly define left/right Artinian modules.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(k\) be a field. Any \(R\) that is finite dimensional as \(k\)-vector space is right and left Artinian as right and left ideals are vector subspaces.
+  \item \(M_n(k)\), the ring of \(n \times n\) matrices, is Artinian.
+  \item \(R = \{
+    \begin{psmallmatrix}
+      q & r \\
+      0 & s
+    \end{psmallmatrix}
+    : q \in \Q, r, s \in \R\}\) is not left Artinian but is right Artinian.
+  \item The group algebra \(k G\) for a finite group \(G\). This is the \(k\)-space with bases labelled and \(g \in G\) and multiplication
+    \[
+      (\sum_g \lambda_g \cdot g) \cdot (\sum_h \mu_h \cdot h) = \sum_{k \in G} \nu_k \cdot k
+    \]
+    where \(\nu_k = \sum_{gh = k} \lambda_g \mu_h\).
+  \item Any division ring is Artinian. For example quaternions \(\H = \R + \R j + \R i + \R k\).
+  \item \(R = M_n(D)\) for a division ring \(D\). A right ideal generated by a matrix \(A\) is
+    \[
+      AR = \{B: \text{columns of } B \subseteq \text{right span of columns of A}\}.
+    \]
+    Thus right ideals are of the form \(\{B: \text{columns of } B \subseteq \text{right subspace of } D^n\}\). Similarly the left ideal generated by \(A\) is
+    \[
+      RA = \{B: \text{rows of } B \subseteq \text{left span of rows of A}\}
+    \]
+    so left ideals are of the form \(\{B: \text{rows of } B \subseteq \text{left subspace of } D^n\}\). Note that the only two-sided ideals are \(0\) and \(R\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[simple ring]\index{simple ring}
+  \(R\) is a \emph{simple ring} if the only two-sided ideals are \(0\) and \(R\).
+\end{definition}
+
+For a noncommutative ring \(R\), we define its Jacobson radical\index{Jacobson radical} \(\jac R\) to be the intersection of all maximal right ideals.
+
+\begin{remark}
+  This is actually a two-sided ideal: \(I\) is a maximal right ideal if and only if \(R/I\) is a simple right \(R\)-module.
+\end{remark}
+
+\begin{definition}[simple module]\index{simple module}
+  A module \(M\) is \emph{simple} if the only submodules are \(0\) and \(M\).
+\end{definition}
+
+Let \(M\) be a simple right \(R\)-module and \(0 \neq m \in M\). Then
+\[
+  \Ann_R(m) = \{r: mr = 0\}
+\]
+is a maximal right ideal of \(R\). Note that annihilator of an element is a right ideal, but \(\Ann_R M = \bigcap_{m \in M} \Ann_R(m)\) is a two-sided ideal, since for any \(m \in \Ann M, x \in R\), \(m(xr) = (mx) r = 0\) so \(xr \in \Ann(m)\) for all \(m\).
+
+We see \(\jac R = \bigcap_{M \text{ simple right \(R\)-module}} \Ann(M)\) and so a two-sided ideal.
+
+\begin{proposition}[Nakayama's lemma]\index{Nakayama's lemma}
+  For a right ideal \(I\), TFAE:
+  \begin{enumerate}
+  \item \(I \subseteq \jac R\).
+  \item If \(M\) is a finitely generated \(R\)-module with submodule \(N\) such that \(N + MI = M\) then \(N = M\).
+  \item \(\{1 + x: x \in I\}\) is a subgroup of the unit group of \(R\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Example sheet 3.
+\end{proof}
+
+From this we can see that \(\jac R\) is characterised as the largest two-sided ideal \(I\) such that \(\{1 + x: x \in I\}\) forms a subgroup of the unit group. This characterisation does not include right/left so if we developed the definition of \(\jac R\) using left ideals we would get the same result.
+
+\begin{definition}[semisimple ring]\index{semisimple ring}
+  \(R\) is \emph{semisimple} if \(\jac R = 0\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(M_n(D)\) for \(D\) a division ring is semisimple.
+  \item Let \(G\) be the cyclic group of order \(G\) and \(\F_p\) be the field with \(p\) elements. Then \(\F_p G \cong \F_p[x]/(x^p - 1)\) is not semisimple since \(x^p - 1 = (x - 1)^p\).
+  \item Let \(G\) be a finite group, \(\ch k = 0\). Then \(kG\) is semisimple. This requires proof.
+  \end{enumerate}
+\end{eg}
+
+The main goal of this chapter is to prove Artin-Wedderburn theorem which says that a right Artinian semisimple ring is a direct sum of matrix algebras over division rings. Before that we prove some properties about Artinian rings, which generalises the commutative results on example sheet 2.
+
+\begin{theorem}
+  \label{thm:properties of Artinian rings}
+  Let \(R\) be right Artinian. Then
+  \begin{enumerate}
+  \item \(\jac R\) is nilpotent.
+  \item \(R\) is right Noetherian.
+  \end{enumerate}
+\end{theorem}
+
+To prove this we need some lemmas and terminology.
+
+\begin{lemma}
+  Let \(R\) be a semisimple right Artinian ring. Then \(R\) is a finite direct sum of simple right \(R\)-modules.
+\end{lemma}
+
+\begin{proof}
+  Consider maximal right ideals \(M_i\) and the chain
+  \[
+    R \supsetneq M_1 \cap M_2 \supseteq \cdots
+  \]
+  The DCC on right ideals forces this to terminate so \(\jac R = M_1 \cap \cdots \cap M_n\), say, and we may assume \(n\) is minimal. Consider the module map
+  \begin{align*}
+    \theta: R &\to \bigoplus_{i = 1}^n R/M_i \\
+    r &\mapsto (r + M_1, \dots, r + M_n)
+  \end{align*}
+  Note \(R/M_i\) are simple modules. Consider the restriction of \(R \to R/M_i\) to \(\bigcap_{j \ne i} M_j\). This is injective since the kernel is \(\bigcap M_i = \jac R = (0)\) and is surjective since the image is a non-zero submodule of a simple module \(M/M_i\). The image of \(\bigcap_{j \neq i} M_j\) under \(\theta\) is \((0, \dots, R/M_i, \dots, 0)\) so the image is \(\bigoplus_{i = 1}^n R/M_i\). \(\theta\) is injective since \(\ker \theta = \bigcap M_i = (0)\).
+\end{proof}
+
+\begin{lemma}
+  Let \(R\) be a semisimple right Artinian ring and \(M\) a right Artinian \(R\)-module. Then \(M\) is a finite direct sum of simple \(R\)-modules.
+\end{lemma}
+
+\begin{proof}
+  Example sheet 3.
+\end{proof}
+
+\begin{definition}[socle]\index{socle}
+  The \emph{socle} of a non-zero Artinian module \(M\) is the sum of all the simple submodules of \(M\).
+\end{definition}
+
+Note that since \(M\) is non-zero Artinian, it does have minimal non-zero submodules, which are necessarily simple. Then \(\soc M \neq 0\).
+
+\begin{lemma}
+  \(\soc M = \{m \in M: mJ = 0\}\) where \(J = \jac R\).
+\end{lemma}
+
+\begin{proof}
+  Each minimal submodule \(M'\) of \(M\) is simple and thus of the form \(R/\Ann(m)\) for each \(m \in M'\). Thus \(J \subseteq \bigcap_{m \in M'} \Ann(m)\) and so \(\jac R\) anihilates \(M'\) and hence annihilates \(\soc M\).
+
+  Conversely if \(mJ = 0\) then \(mR\) can be regarded as a \(R/J\)-module. But \(mR\) inherits the Artinian property and so we have Artinian module for semisimple ring \(R/J\). Thus \(mR\) is a finite direct sum of simple modules, so \(mR \subseteq \soc M\).
+\end{proof}
+
+\begin{definition}
+  We define the \emph{socle series} of \(M\) inductively by
+  \[
+    \soc_0 M = (0), \soc_1 M = \soc M, \frac{\soc_i M}{\soc_{i - 1} M} = \soc (M/\soc_{i - 1} M).
+  \]
+\end{definition}
+
+Note that we have strict inequalities
+\[
+  (0) = \soc_0 M \subsetneq \soc_1 M \subsetneq \cdots
+\]
+until we reach \(\soc_n M = M\). We do reach \(M\) since we have descending chain
+\[
+  R \supseteq J \supseteq J^2 \supseteq \cdots
+\]
+which must terminate, say \(J^n = J^{n + 1}\), and so
+\[
+  \soc_n M = \{m \in M: mJ^n = 0\} = \soc_{n + 1} M = \{m \in M: mJ^{n + 1} = 0\}.
+\]
+
+\begin{proof}[Proof of \Cref{thm:properties of Artinian rings}]
+  Let \(M = R\). Consider \(R \supsetneq J \supseteq J^2 \supseteq \cdots\). This must terminate and we do have the socle series reaching \(M\). Each factor is annihilated by \(J\) and so can be viewed as an \(R/J\)-module. \(\soc_i M/\soc_{i - 1} M\) is a finite direct sum of simple modules. Such a finite direct sum satisfies both ACC and DCC submodules and so \(\soc_i M/\soc_{i - 1} M\) is a right Noetherian module. So \(M = \soc_n M\) is right Noetherian.
+
+  \(\soc_n R = R\) implies \(R\) is annihilated by \(J^n\), in particular \(1\) is annihilated by \(J^n\). Thus \(J^n = (0)\).
+\end{proof}
+
+To prove Artin-Wedderburn we need to think about endormorphim rings of modules.
+
+\begin{lemma}[Schur's lemma]\index{Schur's lemma}
+  Let \(S\) be a simple right \(R\)-module. Then \(\End_R(S)\) is a division ring. If \(S_1\) and \(S_2\) are non-isomorphic simple modules then \(\Hom_R(S_1, S_2) = \{0\}\).
+\end{lemma}
+
+Note that \(S\) is a left \(\End_R(S)\)-module and thus \(S\) is an \((\End_R(S), R)\)-bimodule.
+
+\begin{proof}
+  Let \(\phi: S \to S\) be an \(R\)-module map. Then either \(\phi(S) = 0\) so \(\phi = 0\), or \(\phi(S) = S\). Furthermore \(\ker \phi\) is a submodule of \(S\) so either \(\ker \phi = 0\) or \(\ker \phi = S\), in which case \(\phi = 0\). Thus if \(\phi \neq 0\) then it must be bijective and have a right and left inverse. Thus \(\End_R(S)\) is a division ring.
+
+  If \(S_1, S_2\) are non-isomorphic simple and \(\phi: S_1 \to S_2\) a similar argument about \(\ker \phi\) and \(\im \theta\) shows \(\theta = 0\).
+\end{proof}
+
+\begin{lemma}
+  Regard \(R\) as a right \(R\)-module, which we write \(R_R\) for emphasis, then \(\End_R(R_R) \cong R\).
+\end{lemma}
+
+\begin{proof}
+  Observe that multiplication on the left by \(r \in R\) gives an \(R\)-module endomorphism of \(R_R\). Observe that \(\phi \in \End_R(R_R)\) is uniquely determined by \(\phi(1)\) and so \(\End_R(R) \to R, \phi \mapsto \phi(1)\) is the sought after isomorphism.
+\end{proof}
+
+\begin{theorem}[Artin-Wedderburn]\index{Artin-Wedderburn theorem}
+  \label{thm:Artin-Wedderburn}
+  Let \(R\) be a semisimple right Artinian ring. Then \(R = \bigoplus_{i = 1}^r R_i\) where \(R_i = M_{n_i}(D_i)\) for some division ring \(D_i\) and the \(R_i\)'s are uniquely determined. \(R\) has exactly \(r\) isomorphism classes of simple modules \(S_1\) and \(\End_R(S_i) = D_i\) and \(\dim_{D_i} S_i = n_i\) when viewed as a left \(D_i\)-vector space.
+
+  Futhermore if \(R\) is finite dimensional as a \(k\)-vector space for a field \(k\) then \(D_i\) has finite dimension as \(k\)-vector spaces. If \(k\) is algebraically closed then \(D_i \cong k\).
+\end{theorem}
+
+For example for a finite group \(G\), \(\C G = \bigoplus_{i = 1}^r M_{n_i}(\C)\) where \(r\) is the number of simple modules of dimension \(n_i\) up to isomorphism.
+
+\begin{corollary}
+  Let \(G\) be a finite group. Then \(Z(\C G)\) is an \(r\)-dimensional \(\C\)-vector space where \(r\) is the number of isomorphism class of simple \(\C G\)-modules, equivalently the number of conjugacy classes in \(G\).
+\end{corollary}
+
+\begin{proof}
+  Any class sum \(\sum_{g' \in \mathrm{ccl}(g)} g' \in Z(\C G)\). Any element of \(Z(\C G)\) is a linear combination of such class sums. These class sums are also linearly independent over \(\C\) so \(\dim_\C (\C G)\) is the number of conjugacy classes. But \(\C G\) is semisimple and right Artinian so Artin-Wedderburn applies. \(\C\) is algebraically cosed so \(\C G = \bigoplus_{i = 1}^r M_{n_i}(\C)\). But \(Z(M_{n_i}(\C)) = \{\lambda I: \lambda \in \C\}\) which is \(1\)-dimensionl. Thus \(Z(\bigoplus_{i = 1}^r M_{n_i}(\C))\) is \(r\)-dimensional, and from Artin-Wedderburn \(r\) is the number of \(\C G\)-modules.
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Artin-Wedderburn}]
+  \(R_R\) is a finite direct sum of simple modules. Group those theogher that are isomorphic to each other:
+  \[
+    R_R = \underbrace{(S_{11} \oplus \cdots \oplus S_{1 n_1})}_{R_1} \oplus \underbrace{(S_{11} \oplus \cdots \oplus S_{2 n_2})}_{R_2} \oplus \cdots
+  \]
+  so that \(S_{im} \cong S_{i\ell}\) for \(1 \leq m, \ell \leq n_i\), \(S_{im} \ncong S_{j\ell}\) for \(i \neq j\).
+
+  Let \(S\) be a simple submodule of \(S_R\) and consider the projections \(\pi_{ik}: R \to S_{ik}\) restricted to \(S\). By Schur's lemma \(\pi_{ik}|_S\) are \(0\) or isomorphism. But at least one of the restrictions must be non-zero and the non-zero restrictions must all be into the same \(R_i\). Thus \(S \leq R_i\) for some \(i\) and is isomorphic to all the \(R_{ik}\). If all the \(S_{ik} \cong S_i\) say then \(R_i\) is the sum of all simple submodules of \(R-R\) that are isomorphic to \(S_i\) and this is uniquely determined.
+
+  Consider \(\End_R(R_R)\). We know that it is isomorphic to \(R\). However \(\End_R(R_R) = \End_R((S_{11} \oplus \cdots \oplus S_{1n_1}) \oplus (S_{21} \oplus \cdots \oplus S_{2 n_2}) \oplus \cdots)\). Consider \(\End_R(S_{11} \oplus \cdots \oplus S_{1 n_1})\) where \(S_{1k} \cong S_1\) for all \(k\). This is \(M_{n_1}(D_1)\) where \(D_1 = \End_R(S_1)\) which is a division ring from Schur's lemma. \(\phi \in \End_R(S_{11} \oplus \cdots \oplus S_{1n_1})\) is represented by a matrix \((\phi_{m\ell})\) where \(\varphi_{m\ell} \in \Hom_R(S_{im}, S_{i\ell})\). So
+  \[
+    R = \End_R(R_R) =
+    \begin{pmatrix}
+      M_{n_1}(D_1) \\
+      & M_{n_2}(D_2) \\
+      & & \ddots
+    \end{pmatrix}
+  \]
+  which is block diagonal.
+
+  Recall our example about \(M_n(D)\) for a division ring \(D\). We say that the minimal right ideals consist of matrices \(B\) whose columns are all of the form \(
+  \begin{psmallmatrix}
+    d_1 \\
+    \vdots \\
+    d_n
+  \end{psmallmatrix}
+  \lambda\) for a column \(
+  \begin{psmallmatrix}
+    d_1 \\
+    \vdots \\
+    d_n
+  \end{psmallmatrix}
+  \) and \(\lambda \in D\). These are all of dimension \(n\) as a \(D\)-vector space and so \(\dim_{D_i} S_i = m_i\).
+\end{proof}
+
+\begin{eg}
+  \(k S_3\) where \(k\) is a field. Let \(g = (12), h = (123)\). WHen \(\ch k = 0\) we know \(kG\) is semisimple. There are 3 conjugacy classes
+
+  \begin{table}
+    \centering
+  \begin{tabular}{c|c|c|c}
+    \(U_1\) & trivial & 1-dim & \(g\) acts trivially \\
+    \(U_2\) & signature & 1-dim & \(g\) acts by multiplication by \(-1\), \(h\) acts by multiplication by \(+1\) \\
+    \(U_3\) & & 2-dim & \(k^2\) row vectors with \(g\) acting by multiplication on right by \(
+                        \begin{psmallmatrix}
+                          -1 & -1 \\
+                          0 & 1
+                        \end{psmallmatrix}
+                              \) and \(h\) acts by \(
+                              \begin{psmallmatrix}
+                                -1 & -1 \\
+                                1 & 0
+                              \end{psmallmatrix}
+                                    \)
+  \end{tabular}
+  \end{table}
+
+  Now suppose \(\ch k = 3\). Modulo \(3\) we get \(\overline U_1, \overline U_2\) simple \(1\)-dimensional. Note that \(\overline U_3\) in characteristic \(3\) has \((2, 1)\) as a common eigenvector of both \(g\) and \(h\) and so there is a \(1\)-dimensional submodule. In fact there are only 2 isomorphism classes of simple modules. \(\jac{k S_3} = \ker (k S_3 \to k C_2)\), the map induced by the group map \(S_3 \to C_2\). This is \(4\)-dimensional over \(k\). We have seimple simple quotient
+  \[
+    k S_3/\jac{k S_3} \cong M_1(k) \oplus M_1(k)
+  \]
+  where \(M_1(k)\) corresponds to a simple \(1\)-dimensional modules. \((h - 1)^3 = h^3 - 1 = 0\) since \(h\) has order \(3\). One can show \(\jac{k S_3}\) is nilpotnent. \(\soc(kS_3)\) is the right ideal generatedy by \((h - 1)^2 = h^2 + h + 1\). It is \(2\)-dimensional and has a copy of \(\overline U_1\) and \(\overline U_2\).
+
+  (non-examinable)
+\end{eg}
+
+Some final words on noncommutative rings:
+1. related to modular representation theory
+2. when considering rational representation (of say Galois groups) we need to consider division rings.
+
+\section{Filtrations and Graded rings}
+
+We end our short interlude to noncommutative rings and assume \(R\) is commutative with \(1\).
+
+\begin{definition}[filtered ring]\index{filtered ring}
+  A \emph{(\(\Z\)-)filtered ring} \(R\) is one with additive subgroups \(R_i\)
+  \[
+    \cdots \subseteq R_{-1} \subseteq R_0 \subseteq R_1 \subseteq \cdots
+  \]
+  with \(R_i R_j \subseteq R_{ij}\) for  \(i, j \in \Z\) and \(1 \in R_0\).
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item \(\bigcup R_i\) is a subring --- usually we have \(\bigcup R_i = R\), in which case it is called a \emph{exhaustive filtration}\index{filtration!exhaustive}.
+  \item \(R_0\) is a subring.
+  \item \(\bigcap_{i \in \Z} R_i\) is an ideal of \(R_0\). We usually have \(\bigcap R_i = \{0\}\), in which case it is called a \emph{separated filtration}\index{separated filtration}.
+  \end{enumerate}
+\end{note}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(I\)-adic filtration\index{\(I\)-adic filtration}: given an ideal \(I \subseteq R\), we set
+    \[
+      R_i =
+      \begin{cases}
+        R & i \geq 0 \\
+        I^{-i} & i < 0
+      \end{cases}
+    \]
+    If \(R\) is a local ring we're particularly interested in the \(P\)-adic filtration where \(P\) is the maximal ideal.
+  \item If \(R\) is a \(k\)-algebra generated by \(x_1, \dots, x_n\) say, set \(R_i = 0\) for \(i < 0\), \(R_0 = k \cdot 1\) and \(R_i\) to be the \(k\)-subspace of polynomial expressions in the generators of total degree \(\leq i\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[associated graded ring]\index{associated graded ring}
+  The \emph{associated graded ring} is
+  \[
+    \gr R = \bigoplus R_i/R_{i - 1}
+  \]
+  as an additive group with multiplication
+  \[
+    (r + R_{i - 1}) (s + R_{j - 1}) = rs + R_{i + j - 1}
+  \]
+  where \(r \in R_i, s \in R_j\).
+\end{definition}
+
+\begin{eg}
+  For \(P\)-adic filtration of a local ring, the associated graded ring is
+  \[
+    \gr R = \bigoplus P^i/P^{i + 1}.
+  \]
+  Write \(K = R/P\), then \(\gr R\) is generated as a \(K\)-algebra by any \(K\)-vector space basis of \(P/P^2\).
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item On example sheet 3 we'll see that the regular case is when \(\gr R\) is a polynomial algebra in \(n\) variables where \(n = \dim_K P/P^2\).
+  \item Filtrations and associated graded rings are also of use for non-commutative \(R\), for example when \(R\) is the universal emveloping algebra of a finite dimensional Lie algebra. \(\gr R\) is commutative when \(R\) is filtered as in example 2 above.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[filtered module]\index{filtered module}\index{associated graded moduel}
+  Let \(R\) be a filtered ring with filtration \(R_i\) and let \(M\) be an \(R\)-module. Then \(M\) is a \emph{filtered \(R\)-module} with respect to filtration \(R_i\) of \(R\) if there are additive subgroups \(M_i\) of \(M\) such that \(R_j M_i \subseteq M_{i + j}\).
+
+  The \emph{associated graded module} is defined as the additive group
+  \[
+    \gr M = \bigoplus M_i/M_{i - 1}
+  \]
+  with multiplication
+  \[
+    (r + R_{j - 1})(m + M_{i - 1}) = rm + M_{i + j - 1}
+  \]
+  for \(r \in R_j, m \in M_i\), making it a \(\gr R\)-module.
+\end{definition}
+
+\begin{lemma}
+  If
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & N \ar[r] & M \ar[r] & M/N \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is exact then
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \gr N \ar[r] & \gr M \ar[r] & \gr (M/N) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is exact, using the filtration \(N \cap M_i\) for \(N\), \((M_i + N)/N\) for \(M/N\).
+\end{lemma}
+
+\begin{proof}
+  Example sheet 3 question \(9 \frac{3}{4}\).
+\end{proof}
+
+\begin{definition}[Rees ring]\index{Rees ring}
+  The \emph{Rees ring} of the filtration \(\{R_i\}\) of \(R\) is a subring of \(R[T, T^{-1}]\)
+  \[
+    \Rees(R) = \bigoplus_{j \in \Z} R_j T^j \subseteq R[T, T^{-1}].
+  \]
+\end{definition}
+
+Note that \(1 \in R_0 \subseteq R_1\) and so \(T \in \Rees(R)\). Observe also that
+\begin{align*}
+  R &= \Rees (R)/(T - 1) \\
+  \gr R &= \Rees (R)/(T)
+\end{align*}
+
+\begin{definition}[Rees module]\index{Rees module}
+  Given an \(R\)-module \(M\) with a filtration \(M_j\) with respect to filtration \(\{R_i\}\) of \(R\), we define the \emph{Rees \(R\)-module} to be
+  \[
+    \Rees(M) = \bigoplus M_i T^i
+  \]
+  which is a \(\Rees(R)\)-module.
+\end{definition}
+
+Similarly we have \(\gr(M) = \Rees(M)/T\Rees(M)\).
+
+\begin{definition}[graded ring, graded ideal, graded module]\index{graded ring}\index{graded ideal}\index{graded module}
+  A \emph{(\(\Z\)-)graded ring} \(S\) is \(S = \bigoplus_{i \in \Z} S_i\) where \(S_i\) are additive subgroups such that \(S_i S_j \subseteq S_{ij}\). \(S_0\) is a subring and each \(S_i\) is an \(S_0\)-module. \(S_i\) is the \emph{\(i\)th component} and \(s \in S\) is \emph{homogeneous of degree \(i\)} if \(s \in S_i\).
+
+  A \emph{graded ideal} \(I\) of \(S\) is an ideal of the form \(\bigoplus I_i\) with \(I_i \subseteq S_i\).
+
+  A \emph{graded \(S\)-module} \(V\) is of the form \(\bigoplus V_j\) such that \(S_i V_j \subseteq V_{i + j}\).
+
+  Similarly for positive/negative graded rings/ideals.
+\end{definition}
+
+Note that if such a graded ideal is finitely generated as an ideal then there is a finite generating set of homogeneous elements.
+
+Note that a negative graded ring may after renumbering be treated as a positive graded ring. For example the associated graded ring of an \(I\)-adic filtration may be treated after renumbering as a positive graded ring.
+
+\paragraph{Poincaré-Serre theorem}
+
+Suppose \(S = \bigoplus_{i \geq 0} S_i\) is a commutative Noetherian rings generated by \(S_0\) and generators \(x_1, \dots, x_n\) of degree \(k_1, \dots, k_n\) respectively. Let \(\lambda\) be an \emph{additive} integer valued function on finitely generated \(S_0\)-modules, i.e.\ if we have a short exact sequence
+\[
+  \begin{tikzcd}
+    0 \ar[r] & U_1 \ar[r] & U_2 \ar[r] & U_3 \ar[r] & 0
+  \end{tikzcd}
+\]
+then \(\lambda(U_2) = \lambda(U_1) + \lambda(U_3)\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(S_0 = k\), can take \(\lambda\) to be \(k\)-vector space dimension.
+  \item \(S_0\) is local Artinian with unique maximal ideal \(P\) then within any finitely generately \(S_0\)-module \(U\) we have a chain
+    \[
+      0 = U_0 \subsetneq U_1 \subsetneq U_2 \subsetneq \cdots \subsetneq U_n = U
+    \]
+    with \(U_i/U_{i - 1} \cong S_0/P\) for each \(i\). The number of factors is the \emph{composition length}\index{composition length} of \(U\). Set \(\lambda(U)\) to be composition length of \(U\) and it is an additive function. Check this is independent of the choice of the chain.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[Poincaré series]\index{Poincaré series}
+  The \emph{Poincaré series} of a graded finitely generated \(S\)-module \(V = \bigoplus_{i \geq 0} V_i\), is the power series
+  \[
+    P(V, t) = \sum_{i \geq 0} \lambda(V_i) t^i \in \Z[[t]].
+  \]
+\end{definition}
+
+\begin{theorem}[Hilbert-Serre]\index{Hilbert-Serre theorem}
+  \label{thm:Hilbert-Serre}
+  \(P(V, t)\) is a rational function of the form
+  \[
+    \frac{f(t)}{\prod_{j =1}^m (1 - t^{k_j})}
+  \]
+  where \(f(t) \in \Z[t]\) is a polynomial and \(k_j\) is the degree of the generator \(x_j\).
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:corollary of Hilbert-Serre}
+  If each \(k_j = 1\) then for large enough \(i\)
+  \[
+    \lambda(V_i) = \phi(i)
+  \]
+  for some rational polynomial \(\phi(t) \in \Q[t]\) of degree \(d - 1\) where \(d\) is the degree of pole of \(P(V, t)\) at \(t = 1\). Moreover
+  \[
+    \sum_{j = 0}^i \lambda(V_j) = \chi(i)
+  \]
+  where \(\chi(t) \in \Q[t]\) is of degree \(d\).
+\end{corollary}
+
+\begin{definition}[Hilbert polynomial, Samuel polynomial]\index{Hilbert polynomial}\index{Samuel polynomial}
+  \(\phi(t)\) is the \emph{Hilbert polynomial} and \(\chi(t)\) is the \emph{Samuel polynomial}.
+\end{definition}
+
+Note that the degree of \(\chi\) gives us another dimension.
+
+\begin{definition}
+  We define \(d(V) = \deg \chi(t)\). For a ring \(S\) we define \(d(S)\) by taking \(V = S\).
+\end{definition}
+
+\begin{proof}[Proof of \nameref{thm:Hilbert-Serre}]
+  Induction on \(m\), the number of generators. If \(m = 0\) then \(S = R_0\) and \(V\) is a finite generated \(S_0\)-module so \(V_j = 0\) for large enough \(j\) so in fact \(P(V, t)\) is a polynomial.
+
+  For \(m > 0\), multiplication by \(x_m\) gives maps \(x_m: V_i \to V_{i + k_m}\) and so we get an exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & K_i \ar[r] & V_i \ar[r, "x_m"] & V_{i + k_m} \ar[r] & L_{i + k_m} \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where \(K_i\) and \(L_{i + k_m}\) are the kernel and cokernel of multiplication by \(x_m\) respectively. Let \(K = \bigoplus K_i, L = \bigoplus L_i\). \(K\) is a graded submodule of \(V\) and hence a finitely generated \(S\)-module. \(L = V/x_m V\) is also a finitely generated \(S\)-module. Note that \(x_m\) is acting like \(0\) on \(K\) and \(L\) and so they may be viewedd as fintely-generated \(S_0[x_1, \dots, x_{m - 1}]\)-modules.
+
+  Apply \(\lambda\) to the exact sequence to get
+  \[
+    \lambda(K_i) - \lambda(V_i) + \lambda(V_{i + k_m}) - \lambda(L_{i + k_m}) = 0.
+  \]
+  Multiply by \(t^{i + k_m}\) and sum over \(i\),
+  \[
+    t^{k_m} P(K, t) - t^{k_m} P(V, t) + P(x, t) - P(L, t) = g(t)
+  \]
+  where \(g(t) \in \Z[t]\) arising from the first few terms. Apply the induction hypothesis to \(P(K, t)\) and \(P(L, t)\)
+\end{proof}
+
+\begin{proof}[Proof of \Cref{cor:corollary of Hilbert-Serre}]
+  Have \(k_1 = \dots = k_m = 1\) so
+  \[
+    P(V, t) = \frac{f(t)}{(1 - t)^d}
+  \]
+  where \(f(t) \in \Z[t], f(1) \neq 0\). Since
+  \[
+    (1 - t)^{-1} = 1 + t + t^2 + \cdots
+  \]
+  repeated differentiation gives
+  \[
+    (1 - t)^{-d} = \sum \binom{d + i - 1}{d - 1} t^i.
+  \]
+  Let \(f(t) = a_0 + a_1 t + \dots + a_s t^s\) say, then
+  \[
+    \lambda(V_i) = a_1 \binom{d + i - 1}{d - 1} + a_1 \binom{d + i - 2}{d - 1} + \dots + a_s \binom{d + i - s - 1}{d - 1}
+    \tag{\(\dagger\)}
+  \]
+  with \(\binom{r}{d - 1} = 0\) for \(r < d - 1\). RHS can be rearranged to give \(\phi(t)\) for \(\phi(t) \in \Q[t]\) valid (?) for \(d + i - s - 1 \geq d - 1\).
+  \[
+    \phi(t) = \frac{f(1)}{(d - 1)!} t^{d - 1} + \text{lower degree terms}.
+  \]
+  Note \(f(1) \neq 0\) and so degree of \(\phi(t)\) is \(d - 1\).
+
+  Using (\(\dagger\)) we can produce an expression for \(\sum_{j \leq i} \lambda(V_j)\),
+  \[
+    \sum_{j = 0}^i \binom{d + j - 1}{d - 1} = \binom{d + i}{d}
+  \]
+  using \(\binom{m}{n} = \binom{m - 1}{n - 1} + \binom{m - 1}{n}\) and so
+  \[
+    \sum_{j = 0}^i \lambda(V_j) = a_0 \binom{d + i}{d} + a_1 \binom{d + i - 1}{d} + \dots + a_s \binom{d + i - s}{d}.
+  \]
+  This is \(\chi(t)\) for \(\chi(t) \in \Q[t]\) of degree \(d\).
+\end{proof}
+
+\begin{eg}
+  Let \(S = k[X_1, \dots, X_m]\) be a polynomial algebra over a field \(k\), graded by total degree. The number of monomials of total degree \(i\) is \(\binom{i + m - 1}{m - 1}\) for all \(i \geq 0\). Thus the Hilbert polynomial is
+  \[
+    \phi(t) = \frac{1}{(m - 1)!} (t + m - 1) \cdots (t + 1)
+  \]
+  of degree \(m - 1\). Then \(d(S) = m\) with respect to this grading.
+\end{eg}
+
+Our aim is to apply theorems to \(P\)-adic filtrations of a Noetherian ring \(R\) where \(P\) is a maximal ideal. The filtration is \(P^j\) for \(-j\)th term of filtration and \(R\) for positive terms. The associated graded ring is
+\[
+  \gr R = \bigoplus_{i \in \Z} R_i/R_{i - 1} = \bigoplus P^j/P^{j + 1}.
+\]
+Renumber so that this is positively graded and we can apply Hilbert-Serre. Note that \(S_0 = R/P\) is a field since \(P\) is maximal. If \(S_1 = P/P^2\) then \(S_0\) and \(S_1\) generated \(S = \gr R\). Then can take \(\lambda = \dim_K\) since \(P^i/P^{i + 1}\) is a \(R/P\)-vector space. The corollary applies and we have Hilbert and Samuel polynomials
+\begin{align*}
+  \phi(i) &= \dim_K(P^i/P^{i + 1}) \text{ for large enough } i \\
+  \chi(i) &= \sum_{j = 1}^i \dim_K(P^j/P^{i + 1}) = \text{ composition length of } R/P^{i + 1}
+\end{align*}
+
+\begin{definition}
+  For a Noetherian ring \(R\) with a maximal ideal \(P\), define \(d_P(R) = d(\gr R)\).
+\end{definition}
+
+This equals to \(\deg \chi(t) = 1 + \deg \phi(t)\). Note that this depends on the choice of maximal ideal \(P\).
+
+\begin{remark}
+  We state without proof some facts about dimensions.
+  \begin{enumerate}
+  \item For a Noetherian local ring we have a unique maximal ideal \(P\), and so can suppress \(P\). In fact \(d(R) = \dim R\) when \(R\) is an integral domain.
+  \item For general Noetherian \(R\), \(d_P(R) = d(R_P)\) and so for integral domains \(d_P(R) = d(R_P) = \dim R_P = \htt P\).
+  \item From example sheet 3 for a finitely generaetd \(k\)-algebra \(R\) which is an integral domain, all maximal ideals are of height \(\dim R\) and so we deduce \(d_P(R) = \dim R\) for all maximal ideal \(P\).
+  \item For a finitely generated \(R\)-module \(M\) and maximal ideal \(P\) of \(R\), we can consider the \(P\)-adic filtration of \(M\) (\(P^iM\)). Define \(d(M) = d(\gr M)\) so we have a dimension for \(M\). If \(N \leq M\) is a submodule then there is a filtration induced on \(N\) from \(P\)-adic filtration on \(M\) (\(N \cap P^iM\)) and we can again form the associated graded module. Reassuringly the value of \(d(N)\) obtained from this filtration and obtained from the \(P\)-adic filtration on \(N\) are the same. The proof relies on Artin-Rees lemma, which is on example sheet 3.
   \end{enumerate}
 \end{remark}
 
 
 
+* Notes from 2018*
+
+Last task is to use our knowledge of commutative graded rings to give information about filtered rings where associated graded is commutative. and Noetherian.
+
+For a (not necessarily commutative) ring \(R\) with a maximal ideal \(\mathfrak p\) with \(R/\mathfrak p\) a field \(K\), form \(\gr R\) associated to the \(\mathfrak p\)-adic filtration. Recall that the \(\mathfrak p\)-filtration is a negative one, and so \(\gr R\) is a negatively graded ring. However we observed that we renumber a negatively graded ring to be positively graded. Assume that \(\gr R\) is commutative and now positively graded. Apply Hilbert-Serre with \(\lambda\) the \(K\)-vector space dimension. Take a finitely generated \(R\)-module \(M\) and form \(\gr M\) and renumber so it is also positively graded. Now by Hilbert-Serre
+\[
+  \dim_K(M \mathfrak p^i/M \mathfrak p^{i + 1}) = \phi(i)
+\]
+for \(i\) large enough for some rational polynomial \(\phi(t) \in \Q[t]\).
+
+We also know that
+\[
+  \sum_{j = 0}^i \dim_K (M \mathfrak p^j/M \mathfrak p^{j + 1}) = \chi(i)
+\]
+for some rational polynomial \(\chi(t)\) and for \(i\) large enough. However LHS is precisely the composition length of \(M /M \mathfrak p^{i + 1}\), given by a rational polynomial \(\chi(t)\) of degree \(d\). This gives yet another dimension.
+
+\begin{definition}
+  \(d(M) = d\).
+\end{definition}
+
+In particular this gives \(d(R)\). Note that this dimension depends on the choice of the maximal ideal \(\mathfrak p\).
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item For a commutative Noetherian local ring that is an integral domain, \(d(R) = \dim R\). In example sheet 4 we show this holds for any regular local ring.
+  \item For a finitely generated \(k\)-algebra \(R\) which is an integral domain we saw on example sheet that all maximal ideals have the same height, namely the dimension \(R\). So \(\dim R = \dim R_{\mathfrak p} = d(R)\) for any maximal ideal \(\mathfrak p\) and any \(\mathfrak p\)-adic filtration.
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}[Hilbert's Syzygy theorem]\index{Hilbert's Syzygy theorem}
+  Let \(k\) be a field and \(R = k[x_1, \dots, x_n]\) considered as a graded ring with respect to total degree. Let \(M\) be a finitely generated grade \(R\)-module. Then there is a free resolution of \(M\) of length \(\leq n\).
+\end{theorem}
+
+\begin{proof}
+  First we recall that the Koszul complex gives a free resolution of the trivial module \(k\) of length \(n\). We're going to view \(\Tor_M(k, M)\) in two different way. We can either apply \(- \otimes M\) to the Koszul complex (free resolution of \(k\)), or apply \(k \otimes -\) to a free resolution of \(M\), and we know that the homology groups arising from these two approaches are the same.
+
+  We can take a free resolution of \(M\)
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & F_n \ar[r] & F_{n - 1} \ar[r] & \cdots \ar[r] & F_1 \ar[r] & F_0 \ar[r] & M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  with each \(F_i\) of finite rank. Moreover we may assume it is minimal in the sense that the rank can't be less. For example \(\operatorname{rk}(F_0)\) equals tot he minimal number of generators of \(M\). This is called the \emph{minimal free resolution}\index{minimal free resolution} for \(M\). The crucial point is that if we consider
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & K \ar[r] & F_0 \ar[r] & M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where \(K\) is the first syzygy module, then when we apply \(k \otimes -\) we get
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & k \otimes K \ar[r] & k \otimes F_0 \ar[r] & k \otimes M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  and minimality implies that \(k \otimes K \to k \otimes F_0\) is the zero map. Hence apply \(k \otimes -\) to our minimal resolution,
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & k \otimes F_n \ar[r] & k \otimes F_{n - 1} \ar[r] & \cdots \ar[r] & k \otimes F_0 \ar[r] & k \otimes M
+    \end{tikzcd}
+  \]
+  and all these maps, apart from the last one, are zero. So it is eqsy to read off that the homology groups are \(k \otimes F_i\) which is a \(k\)-vector space of dimension equal to rank of \(F_i\).
+
+  However applying \(- \otimes M\) to the Koszul complex we learn that \(\Tor^i(k, M) = 0\) for \(i \geq n + 1\), we deduce that in our minimal resolution \(F_i\) is of rank \(0\) for \(i \geq n + 1\). In other words, \(F_0 = 0\) for \(i \geq n + 1\). Thus our minimal resolution is of length \(\leq n\).
+\end{proof}
+
+\section{Homological algebra}
+
+\(R\) is a commutative ring with a \(1\), but most of time doesn't need to be.
+
+We've already seen that if we apply \(N \otimes_R -\) to a short exact sequence it may not remain exact. We defined flat modules\index{flat module} \(N\) to be those where exactness is preserved for all short exact sequences. We also considered \(\Hom_R(N, -)\) and \(\Hom_R(-, N)\). If \(
+\begin{tikzcd}
+  0 \ar[r] & M_1 \ar[r] & M \ar[r] & M_2 \ar[r] & 0
+\end{tikzcd}
+\) then we get
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \Hom(N, M_1) \ar[r] & \Hom(N, M) \ar[r] & \Hom(N, M_2) \ar[r] & 0 \\
+    0 \ar[r] & \Hom(M_2, N) \ar[r] & \Hom(M, N) \ar[r] & \Hom(M_1, N) \ar[r] & 0
+  \end{tikzcd}
+\]
+but these need not be exact. We do have exactness at left and middle terms but not necessarily on right. For example if \(R = \Z, N = \Z/2\Z\) then
+\[
+  \begin{tikzcd}
+    0 \ar[r] & 2\Z/4\Z \ar[r] & \Z/4\Z \ar[r] & \Z/2\Z \ar[r] & 0
+  \end{tikzcd}
+\]
+we get non-exactness.
+
+\begin{definition}[projective module]\index{projective module}
+  A module \(P\) is \emph{projective} if for any map \(\phi: P \to M_2\), then there is a map \(P \to M\) which composes with \(M \to M_2\) to give \(\phi\).
+  \[
+    \begin{tikzcd}
+      & P \ar[dl, dotted] \ar[d, "\phi"] \\
+      M \ar[r] & M_2 \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Equivalently, \(\Hom(P, -)\) preserves exactness of short exact sequences.
+\end{definition}
+
+Dually
+\begin{definition}[injective module]\index{injective module}
+  A module \(E\) is \emph{injective} if \(\Hom(-, E)\) preserves exactness of short exact sequences.
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & M_1 \ar[r] \ar[d, "\phi"] & M \ar[dl, dotted] \\
+      & E
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Free modules are projective.
+  \item The fraction field of an integral domain \(R\) is an injective \(R\)-module.
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  For an \(R\)-module \(P\), TFAE:
+  \begin{enumerate}
+  \item \(P\) is projective.
+  \item \(\Hom(P, -)\) preserves exactness of short exact sequences.
+  \item If \(\epsilon: M \to P\) is surjective then there exists \(\beta: P \to M\) with \(\epsilon \beta = \id\).
+  \item \(P\) is a direct summand of every module of which it is a quotient.
+  \item \(P\) is a direct summand of a free module.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(1 \implies 2\): by definition.
+  \item \(2 \implies 3\): we have a short exact sequence
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & \ker \epsilon \ar[r] & M \ar[r, "\epsilon"] & P \ar[r] & 0
+      \end{tikzcd}
+    \]
+    then
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & \Hom(P, \ker \epsilon) \ar[r] & \Hom(P, M) \ar[r] & \Hom(P, P) \ar[r] & 0
+      \end{tikzcd}
+    \]
+    is also exact and so exists \(\beta: P \to M\) such that \(\varepsilon \beta = \id\).
+  \item \(3 \implies 4\): suppose \(P = M/M_1\) and so we have a short exact sequence
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & M_1 \ar[r] & M \ar[r, "\alpha"] & P \ar[r] & 0
+      \end{tikzcd}
+    \]
+    so there exists \(\beta: P \to M\) such that \(\alpha \beta = \id\). Thus \(P\) is a direct summand of \(M\).
+  \item \(4 \implies 5\): given \(P\) we can define a free module \(F\) on \(e_{x_\lambda}\) where \(\{x_\lambda\}\) is a generating set of \(P\). \(F \to P, e_{x_\lambda} \mapsto x_\lambda\) gives an \(R\)-module map so \(P\) is a direct summand of \(F\).
+  \item \(5 \implies 1\): there exists \(F\) free such that \(F = P \oplus Q\). Free modules are projective and \(\Hom\) behaves well with respect to direct summand and so \(P\) is projective.
+  \end{itemize}
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Given a PID, every finitely generated projective module is free (using structure theorem of finitely generated modules over PID).
+  \item There is a similar result giving equivalent statements for injective modules. See example sheet 4.
+  \item Projective modules, being direct summands of free modules, are flat.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[projective/free presentation]\index{projective presentation}\index{free presentation}
+  A \emph{projective presentation} of \(M\) is a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & K \ar[r] & P \ar[r] & M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  with \(P\) projective. \(K\) is called the \emph{syzygy module}\index{syzygy module} It is a free presentation if \(P\) is free.
+\end{definition}
+
+\begin{remark}
+  The proof of \(4 \implies 5\) shows how to produce a free presentation of a module.
+\end{remark}
+
+\begin{definition}[Tor, Ext]\index{Tor}\index{Ext}
+  Given a projective presentation of \(M\), apply \(N \otimes -\) to get
+  \[
+    \begin{tikzcd}
+      N \otimes K \ar[r] & N \otimes P \ar[r] & N \otimes M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Define \(\Tor^R(N, M) = \ker (N \otimes K \to N \otimes P)\).
+
+  Apply \(\Hom_R(-, N)\) to get
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Hom(M, N) \ar[r] & \Hom(P, N) \ar[r] & \Hom(K, N)
+    \end{tikzcd}
+  \]
+  Define \(\Ext_R(M, N) = \coker(\Hom(P, N) \to \Hom(K, N))\).
+\end{definition}
+
+Thus if \(N\) is flat \(\Tor^R(N, M) = 0\) for all \(M\) and if \(E\) is injective \(\Ext_R(M, E) = 0\) for all \(M\). If \(P\) is projective then \(\Ext_R(P, N) = 0\) for all \(N\) (if we have a projective presentation of \(P\)
+\[
+  \begin{tikzcd}
+    0 \ar[r] & K \ar[r] & P' \ar[r] & P \ar[r] & 0
+  \end{tikzcd}
+\]
+but \(P\) is a direct summand of \(P'\) and so if we apply \(\Hom(-, N)\) we still have a short exact sequence and so we get \(\Ext_R(P, N) = 0\)).
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item \(\Tor\) and \(\Ext\) are independent of choice of projective presentation. See example sheet 4.
+  \item One may take a projective presentation of \(N\) and apply \(- \otimes_R M\) to it. The analogous kernel is isomorphic to \(\Tor(N, M)\).
+  \item Similarly we could have taken a short exact sequence
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & N \ar[r] & E \ar[r] & L \ar[r] & 0
+      \end{tikzcd}
+    \]
+    with \(E\) injective and consider \(\coker(\Hom(M, E) \to \Hom(M, L))\). This is isomorphic to \(\Ext(M, N)\).
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}
+  The \(\Z\)-module \(\Z/2\Z\) has free presentation
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Z \ar[r, "\cdot 2"] & \Z \ar[r] & \Z/2\Z \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Apply \(\Z/2\Z \otimes -\) to get
+  \[
+    \Tor^\Z(\Z/2\Z, \Z/2\Z) = \ker(\Z/2\Z \otimes \Z \xrightarrow{\cdot 2} \Z/2\Z \otimes \Z) \cong \Z/2\Z.
+  \]
+  Apply \(\Hom_\Z(-, N)\) for \(N\) a \(\Z\)-module,
+  \[
+    \Ext_\Z(\Z/2\Z, N) = \coker(\Hom_\Z(Z, N) \xrightarrow{\cdot 2} \Hom_\Z(\Z, N)) = \coker(N \xrightarrow{\cdot 2} N) \cong N/2N.
+  \]
+\end{eg}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item \(Ext\) can be delternatively using equivalence classes of extensions of \(M\) by \(N\), namely short exact sequences of the form
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & N \ar[r] & X \ar[r] & M \ar[r] & 0
+      \end{tikzcd}
+    \]
+    Two extensions are equivalent if exists an \(R\)-module map \(\theta\) such that the following diagram commmutes:
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & N \ar[d, "\id"] \ar[r] & X_1 \ar[d, "\theta"] \ar[r] & M \ar[d, "\id"] \ar[r] & 0 \\
+        0 \ar[r] & N \ar[r] & X_2 \ar[r] & M \ar[r] & 0
+      \end{tikzcd}
+    \]
+    \(\theta\) is necessarily an isomorphism. On example sheet 4 we weill shoe \(\Ext(M, N)\) is isomorphic to equivalence of classes of extensions of \(M\) by \(N\) (one can define a sum of extensions, the \emph{Baer sum}\index{Baer sum}, and the zero element is direct sum).
+
+    For example if \(R = \Z, M = \Z/2\Z, N = \Z/2\Z\) then \(\Ext(\Z/2\Z, \Z/2\Z) \cong \Z/2\Z\), corresponding to the two equivalence classes of extensions \(\Z/2 \oplus \Z/2\Z\) and \(\Z/4\Z\).
+  \item The name \(\Tor\) is a bit less clear. It is from the case where \(R = \Z\). If \(A\) is an Abelian group, then the torsion subgroup is isomorphic to \(\Tor(\Q/\Z, A)\).
+  \item When \(R\) is commutative, \(N \otimes_R M\) and \(\Hom_R(M, N)\) are \(R\)-modules, and so \(\Tor(N, M)\) and \(\Ext(M, N)\) are \(R\)-modules. In general they are additive groups but not necessarily \(R\)-modules.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Let \(R = k[X]\). Then \(k\) is a trivial \(k[X]\)-module where \(X\) acts like \(0\). Then we have projective presentation
+    \[
+      \begin{tikzcd}[row sep=tiny]
+        0 \ar[r] & k[X] \ar[r] & k[X] \ar[r] & k \ar[r] & 0 \\
+        & g(X) \ar[r, mapsto] & Xg(X)
+      \end{tikzcd}
+    \]
+  \item Let \(R = k[X, Y]\). Then
+    \[
+      \begin{tikzcd}[row sep=tiny]
+        0 \ar[r] & K \ar[r] & k[X, Y] \ar[r] & k \ar[r] & 0 \\
+        & & f(X, Y) \ar[r, mapsto] & f(0, 0)
+      \end{tikzcd}
+    \]
+    where \(K\) is the ideal generated by \(X\) and \(Y\).
+
+    \(K\) has projective presentation
+    \[
+      \begin{tikzcd}[row sep=tiny]
+        0 \ar[r] & k[X, Y] \ar[r] & k[X, Y] \oplus k[X, Y] \ar[r] & K \ar[r] & 0 \\
+        & & (g, h) \ar[r, mapsto] & Xg + Yh \\
+        & f \ar[r, mapsto] & (Yf, - Xf)
+      \end{tikzcd}
+    \]
+
+    We can take \(F_0 = F_2 = k[X, Y], F_1 = k[X, Y] \oplus k[X, Y]\) and put everything together to get an exact sequence
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & F_2 \ar[r] & F_1 \ar[r] & F_0 \ar[r] & k \ar[r] & 0
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[projective/free resolution]\index{projective resolution}\index{free resolution}
+  A \emph{projective resolution} of an \(R\)-module \(M\) is an exact sequence of the form
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & P_n \ar[r] & P_{n - 1} \ar[r] & \cdots \ar[r] & P_0 \ar[r] & M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  with \(P_i\)'s projective. It is a \emph{free presentation} if all \(P_i\)'s are free.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item We just constructed a free resolution of the \(k[X, Y]\)-module \(k\).
+  \item If \(R\) is Noetherian and \(M\) is a finitely generated \(R\)-module, then we saw how to construct a free presentation of \(M\) using a generating set. This can be taken to be finite and \(K\) syzygy module is then a finitely generated \(R\)-module. Repeating for \(K\) etc gives a free resolution for \(M\) where all \(P_i\)'s are free modules of finite rank.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[Koszul complex]\index{Koszul complex}
+  The \emph{Koszul complex} gives a free ersolution of the trivial \(R\)-module \(k\) where \(R = k[X_1, \dots, X_n]\). Define \(F_i\) to be free \(R\)-module on a basis \(e_{j_1, \dots, j_i}\) where \(\{j_1, \dots, j_i\}\) is a subset of \(\{1, \dots, n\}\) of size \(i\). We define \(R\)-module map
+  \begin{align*}
+    F_i &\to F_{i - 1} \\
+    e_{j_1, \dots, j_i} &\mapsto \sum_{\ell = 1}^i (-1)^{\ell - 1} X_\ell e_{j_1, \dots, \hat j_{\ell}, \dots, j_i}
+  \end{align*}
+\end{definition}
+
+Note that this is what we did in the case of \(k[X]\) and \(k[X, Y]\). It is an exercise to check this this complex is exact and therefore gives a free resolution.
+
+Now we go on to define higher \(\Ext\) and \(\Tor\). There are two approaches. The first is by iternation the previous definition.
+
+\begin{definition}[Tor, Ext]\index{Tor}\index{Ext}
+  We define
+  \[
+    \Tor_i(N, M) =
+    \begin{cases}
+      N \otimes M & i = 0 \\
+      \Tor(N, M) & i = 1 \\
+      \Tor_{i - 1}(N, K) & i \geq 2
+    \end{cases}
+  \]
+  where \(K\) is the syzygy module in a projective presentation for \(M\). Similarly we define
+  \[
+    \Ext^i(M, N) =
+    \begin{cases}
+      \Hom(M, N) & i = 0 \\
+      \Ext(M, N) & i = 1 \\
+      \Ext^{i - 1}(K, N) & i \geq 2
+    \end{cases}
+  \]
+\end{definition}
+
+The alternative way is to put the presentations for syzygy module \(K_i\) together to get a projective resolution for \(M\)
+\[
+  \begin{tikzcd}
+    \cdots \ar[r] & P_1 \ar[r] & P_0 \ar[r] & M \ar[r] & 0
+  \end{tikzcd}
+\]
+Apply \(N \otimes -\) to get
+\[
+  \begin{tikzcd}
+    \cdots \ar[r] & N \otimes P_i \ar[r, "\theta_i"] & \cdots \ar[r] & N \otimes P_1 \ar[r] & N \otimes P_0 \ar[r] & N \otimes M \ar[r] & 0
+  \end{tikzcd}
+\]
+which need not be exact but \(\im \theta_i \subseteq \ker \theta_{i - 1}\) and we can consider the homology groups \(\ker \theta_{i - 1}/\im \theta_i\) and these  are the \(\Tor_i(N, M)\) for \(i \geq 1\).
+
+Similarly applying \(\Hom(-, N)\) to our projective resolution of \(M\) gives
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \Hom(M, N) \ar[r] & \Hom(P_0, N) \ar[r] & \cdots
+  \end{tikzcd}
+\]
+and \(\Ext^i(M, N)\) arises as the cohomology group of the complex.
+
+\begin{remark}
+  These are independent of the choice of presentations/resolutions.
+\end{remark}
+
+\begin{lemma}
+  TFAE:
+  \begin{enumerate}
+  \item \(\Ext^{n + 1}(M, N) = 0\) for all \(R\)-modules \(N\).
+  \item \(M\) has a projective resolution of length \(n\), i.e.\ it has a projective resolution of the form
+    \[
+      \begin{tikzcd}
+        \cdots \ar[r] & P_n \ar[r] & \cdots \ar[r] & P_1 \ar[r] & P_0 \ar[r] & M \ar[r] & 0
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Induction on \(n\). For \(n = 1\), \(\Ext^2(M, N) = 0\) for all \(N\) if and only if \(\Ext(K, N) = 0\) for \(N\) where \(N\) is the syzygy module in a projective resolution for \(M\), if and only if \(K\) is projective, if and only if \(M\) has a projective resolution of length \(1\).
+
+  For general \(n\), \(\Ext^{n + 1}(M, N) = 0\) for all \(N\) if and only if \(\Ext^n(K, N) = 0\) for all \(N\), if and only if \(K\) has a projective resolution of length \(n - 1\), if and only if \(M\) has a projective resolution of length \(n\).
+\end{proof}
 
 
 
@@ -931,15 +2446,6 @@ What we have just produced for an ideal of a Noetherian ring is the set of minim
 
 
 
-
-
-
-
-
-
-
-
-\iffalse
 \section{Hochschild homology}
 
 \begin{eg}
@@ -951,7 +2457,7 @@ What we have just produced for an ideal of a Noetherian ring is the set of minim
     \[
       0 \to \ker \mu \to R \otimes R \xrightarrow{\mu} R \to 0
     \]
-    where \(\mu\) is the multiplication \(r \otimes s \to rs\). \(R \otimes_k R^{\text{op}}\) is a free module --- as a \(R \otimes R\) module it is free of rank \(1\) gnerated by \(1 \otimes 1\).
+    where \(\mu\) is the multiplication \(r \otimes s \to rs\). \(R \otimes_k R^{\text{op}}\) is a free module --- as a \(R \otimes R\) module it is free of rank \(1\) generated by \(1 \otimes 1\).
   \end{enumerate}
 \end{eg}
 
@@ -1126,158 +2632,6 @@ Inner derivations in this context?
 
   If we identify \(R \ltimes M\) with \(R + M\varepsilon\) via \(r \mapsto r + D(r)\varepsilon, m\varepsilon \mapsto m\varepsilon\), then \(\Innder(R, M)\) is the set of automorphisms of \(R + M\varepsilon\) of form obtained by conjugation by \(1 + m\varepsilon\).
 \end{corollary}
-
-\section{Graded rings and filtrations}
-
-\begin{definition}[graded ring, homogeneous component, graded ideal, graded module]\index{graded ring}\index{homogeneous component}\index{graded ideal}\index{graded module}
-  A \emph{(\(\Z\)-)graded ring} \(R\) is a ring that can be decomposed as a direct sum of its additive subgroups
-  \[
-    R = \bigoplus_{i \in \Z} R_i
-  \]
-  where \(R_i\) is called the \emph{\(i\)th homogeneous component}, satisfying \(R_iR_j \subseteq R_{i + j}\).
-
-  A \emph{graded ideal} \(I \subseteq R\)  is of the form \(\bigoplus_{i \in \Z} I_i\) with \(I_i \subseteq R_i\).
-
-  A \emph{grade \(R\)-module} \(V\) is one of the form
-  \[
-    V = \bigoplus_{j \in \Z} V_j
-  \]
-  such that \(R_iV_j \subseteq V_{i + j}\).
-
-  Similarly we can have gradings with respect to different index sets, e.g.\ positively graded rings with indexing set \(\N = \{0, 1, \dots \}\).
-\end{definition}
-
-Then \(R_0\) is a subring of \(R\) and each \(R_i\) is a \(R_0\)-module.
-
-\begin{note}
-  If a graded ideal has a finite gnerating set then it has a finite generating set of homogeneous elements.
-\end{note}
-
-Suppose \(R = \bigoplus_{i \geq 0} R_i\) is a commutative Notherian rings generated by \(R_0\) and generators \(x_1, \dots, x_m\) of degree \(k_1, \dots, k_m \geq 1\). In particular \(R_0\) is Notherian. Let \(\lambda\) be an additive integer valued function on finitely generated \(R_0\)-modules, i.e.\ if we have a short exact sequence
-\[
-  \begin{tikzcd}
-    0 \ar[r] & U_1 \ar[r] & U \ar[r] & U_2 \ar[r] & 0
-  \end{tikzcd}
-\]
-then \(\lambda(U) = \lambda(U_1) + \lambda(U_2)\).
-
-\begin{eg}\leavevmode
-  \begin{enumerate}
-  \item \(R_0 = k\), can take \(\lambda\) to be \(k\)-vector space dimension.
-  \item \(R_0\) is local Artinian with unique maximal ideal \(\mathfrak p\) then within any finitely generately \(R_0\)-module \(U\) we have a chian
-    \[
-      U \geq U_0 \geq U_1 \geq U_2 \geq \dots \geq U_m = 0
-    \]
-    with each \(U_i/U_{i + 1} \cong R/\mathfrak p\). Set \(\lambda(U)\) to be number of factors. This is the \emph{composition length} of \(U\). It is well-defined.
-  \end{enumerate}
-\end{eg}
-
-\begin{definition}[Poincaré series]\index{Poincaré series}
-  The \emph{Poincaré series} of a graded finitely generated \(R\)-module \(V = \bigoplus_{i \geq 0} V_i\), is the power series
-  \[
-    P(V, t) = \sum_{i \geq 0} \lambda(V_i) t^i \in \Z[[t]].
-  \]
-\end{definition}
-
-\begin{theorem}[Hilbert-Serre]\index{Hilbert-Serre theorem}
-  \label{thm:Hilbert-Serre}
-  \(P(V, t)\) is a rational function
-  \[
-    \frac{f(t)}{\prod_{j =1}^m (1 - t^{k_j})}
-  \]
-  where \(f(t) \in \Z[t]\) is a polynomial and \(k_j\) is the degree of generator \(x_j\).
-\end{theorem}
-
-\begin{corollary}
-  If each \(k_j = 1\) then for large enough \(i\)
-  \[
-    \lambda(V_i) = \phi(i)
-  \]
-  for some rational polynomial \(\phi(t) \in \Q[t]\) of degree \(d - 1\) where \(d\) is the order of pole at \(t = 1\). Moreover
-  \[
-    \sum_{j = 0}^i \lambda(V_j) = \chi(i)
-  \]
-  where \(\chi(t) \in \Q[t]\) is of degree \(d\).
-\end{corollary}
-
-\begin{definition}[Hilbert polynomial, Samuel polynomial]\index{Hilbert polynomial}\index{Samuel polynomial}
-  \(\phi(t)\) is the \emph{Hilbert plynomial} and \(\chi(t)\) is the \emph{Samuel polynomial}.
-\end{definition}
-
-Note that the degree of \(\chi\) gives us another dimension.
-
-\begin{proof}[Proof of \nameref{thm:Hilbert-Serre}]
-  Induction on \(m\), the number of generators. If \(m = 0\) then \(R = R_0\) and \(V\) is a finite generated \(R_0\)-module so \(V_j = 0\) for large enough \(j\) so in fact \(P(V, t)\) is a polynomial.
-
-  For \(m > 0\), multiplication by \(x_m\) gives \(R_0\)-module homomorphisms \(x_m: V_i \to V_{i + k_m}\). Let \(K_i\) and \(L_{i + k_m}\) be the kernel and cokernel of the map and let \(K = \bigoplus K_i, L = \bigoplus L_i\). \(K\) is a graded submodule of \(V = \bigoplus V_i\) and so is a finitely generated \(R\)-module and \(L = V/x_mV\) is also a finitely generated \(R\)-module. Observe that \(x_m\) acts trivially on both and so \(K\) and \(L\) may be regarded as \(R_0[x_1, \dots, x_{m - 1}]\)-module.
-\end{proof}
-
-*Missed lecture on 24/11/18 (filtered ring)
-
-Last task is to use our knowledge of commutative graded rings to give information about filtered rings where associated graded is commutative. and Noetherian.
-
-For a (not necessarily commutative) ring \(R\) with a maximal ideal \(\mathfrak p\) with \(R/\mathfrak p\) a field \(K\), form \(\gr R\) associated to the \(\mathfrak p\)-adic filtration. Recall that the \(\mathfrak p\)-filtration is a negative one, and so \(\gr R\) is a negatively graded ring. However we observed that we renumber a negatively graded ring to be positively graded. Assume that \(\gr R\) is commutative and now positively graded. Apply Hilbert-Serre with \(\lambda\) the \(K\)-vector space dimension. Take a finitely generated \(R\)-module \(M\) and form \(\gr M\) and renumber so it is also positively graded. Now by Hilbert-Serre
-\[
-  \dim_K(M \mathfrak p^i/M \mathfrak p^{i + 1}) = \phi(i)
-\]
-for \(i\) large enough for some rational polynomial \(\phi(t) \in \Q[t]\).
-
-We also know that
-\[
-  \sum_{j = 0}^i \dim_K (M \mathfrak p^j/M \mathfrak p^{j + 1}) = \chi(i)
-\]
-for some rational polynomial \(\chi(t)\) and for \(i\) large enough. However LHS is precisely the composition length of \(M /M \mathfrak p^{i + 1}\), given by a rational polynomial \(\chi(t)\) of degree \(d\). This gives yet another dimension.
-
-\begin{definition}
-  \(d(M) = d\).
-\end{definition}
-
-In particular this gives \(d(R)\). Note that this dimension depends on the choice of the maximal ideal \(\mathfrak p\).
-
-\begin{remark}\leavevmode
-  \begin{enumerate}
-  \item For a commutative Noetherian local ring that is an integral domain, \(d(R) = \dim R\). In example sheet 4 we show this holds for any regular local ring.
-  \item For a finitely generated \(k\)-algebra \(R\) which is an integral domain we saw on example sheet that all maximal ideals have the same height, namely the dimension \(R\). So \(\dim R = \dim R_{\mathfrak p} = d(R)\) for any maximal ideal \(\mathfrak p\) and any \(\mathfrak p\)-adic filtration.
-  \end{enumerate}
-\end{remark}
-
-\begin{theorem}[Hilbert's Syzygy theorem]\index{Hilbert's Syzygy theorem}
-  Let \(k\) be a field and \(R = k[x_1, \dots, x_n]\) considered as a graded ring with respect to total degree. Let \(M\) be a finitely generated grade \(R\)-module. Then there is a free resolution of \(M\) of length \(\leq n\).
-\end{theorem}
-
-\begin{proof}
-  First we recall that the Koszul complex gives a free resolution of the trivial module \(k\) of length \(n\). We're going to view \(\Tor_M(k, M)\) in two different way. We can either apply \(- \otimes M\) to the Koszul complex (free resolution of \(k\)), or apply \(k \otimes -\) to a free resolution of \(M\), and we know that the homology groups arising from these two approaches are the same.
-
-  We can take a free resolution of \(M\)
-  \[
-    \begin{tikzcd}
-      \cdots \ar[r] & F_n \ar[r] & F_{n - 1} \ar[r] & \cdots \ar[r] & F_1 \ar[r] & F_0 \ar[r] & M \ar[r] & 0
-    \end{tikzcd}
-  \]
-  with each \(F_i\) of finite rank. Moreover we may assume it is minimal in the sense that the rank can't be less. For example \(\operatorname{rk}(F_0)\) equals tot he minimal number of generators of \(M\). This is called the \emph{minimal free resolution}\index{minimal free resolution} for \(M\). The crucial point is that if we consider
-  \[
-    \begin{tikzcd}
-      0 \ar[r] & K \ar[r] & F_0 \ar[r] & M \ar[r] & 0
-    \end{tikzcd}
-  \]
-  where \(K\) is the first syzygy module, then when we apply \(k \otimes -\) we get
-  \[
-    \begin{tikzcd}
-      0 \ar[r] & k \otimes K \ar[r] & k \otimes F_0 \ar[r] & k \otimes M \ar[r] & 0
-    \end{tikzcd}
-  \]
-  and minimality implies that \(k \otimes K \to k \otimes F_0\) is the zero map. Hence apply \(k \otimes -\) to our minimal resolution,
-  \[
-    \begin{tikzcd}
-      \cdots \ar[r] & k \otimes F_n \ar[r] & k \otimes F_{n - 1} \ar[r] & \cdots \ar[r] & k \otimes F_0 \ar[r] & k \otimes M
-    \end{tikzcd}
-  \]
-  and all these maps, apart from the last one, are zero. So it is eqsy to read off that the homology groups are \(k \otimes F_i\) which is a \(k\)-vector space of dimension equal to rank of \(F_i\).
-
-  However applying \(- \otimes M\) to the Koszul complex we learn that \(\Tor^i(k, M) = 0\) for \(i \geq n + 1\), we deduce that in our minimal resolution \(F_i\) is of rank \(0\) for \(i \geq n + 1\). In other words, \(F_0 = 0\) for \(i \geq n + 1\). Thus our minimal resolution is of length \(\leq n\).
-\end{proof}
-
-\fi
 
 
 \printindex

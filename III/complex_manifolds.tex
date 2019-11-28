@@ -941,7 +941,7 @@ One sees \(\rho_{\mathcal V \mathcal U} \compose \delta = \delta \compose \rho_{
 \]
 for all \(q\). One can check that this is independent of \(\varphi\).
 
-\begin{definition}[Čech cohomology]\index{Cech cohomolog@Čech cohomology}
+\begin{definition}[Čech cohomology]\index{Cech cohomology@Čech cohomology}
   Define \emph{Čech cohomology} to be the direct limit
   \[
     H^q(X, \mathcal F) = \varinjlim_{\mathcal U} \check H^q(\mathcal U, \mathcal F).
@@ -1108,7 +1108,7 @@ is a short exact sequence for all \(i\). Equivalently the induced sequence on st
   \]
   is exact. Note that \(\mathcal A^0\) is the sheaf of smooth functions and \(\mathcal A^p\) is the sheaf of \(p\)-forms and \(\d\) is the usual exterior derivative. That is, for all \(p\), if \(\mathcal Z^p = \ker (\d: \mathcal A^p \to \mathcal A^{p + 1})\) we have exact sequences
   \[
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       0 \ar[r] & \R \ar[r] & \mathcal A^0 \ar[r] & \mathcal Z^1 \ar[r] & 0 \\
       & & \vdots \\
       0 \ar[r] & \mathcal Z^{p - 1} \ar[r] & \mathcal A^{p - 1} \ar[r] & \mathcal Z^p \ar[r] & 0 \\
@@ -1158,7 +1158,7 @@ is a short exact sequence for all \(i\). Equivalently the induced sequence on st
   \]
   by the \(\conj \p\)-Poincaré lemma. We write \(\mathcal Z^{p, q} = \ker (\conj \p: \mathcal A_\C^{p, q} \to \mathcal A_\C^{p, q + 1})\). Thus we have exact sequences
   \[
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       0 \ar[r] & \Omega^p \ar[r] & \mathcal A^{p, 0} \ar[r] & \mathcal Z^{p, 1} \ar[r] & 0 \\
       & & \vdots \\
       0 \ar[r] & \mathcal Z^{p, q - 1} \ar[r] & \mathcal A^{p, q - 1} \ar[r] & \mathcal Z^{p, q} \ar[r] & 0 \\
@@ -3831,7 +3831,7 @@ For \(\P^1\), \(\mathcal O(1) = K^*_{\P^1}\) is ample so \(c_1(X) = c_1(K_S^*)\)
 
 Let \(X\) be a compact surface. For line bundles \(L_1, L_2\), let
 \[
-  L_1 . L_2 = \int_X \omega_1 \w \omega_2 = \int_X c_1(L_1) cup c_1(L_2)
+  L_1 . L_2 = \int_X \omega_1 \w \omega_2 = \int_X c_1(L_1) \smile c_1(L_2)
 \]
 where \(\omega_1 \in c_1(L_1), \omega_2 \in c_1(L_2)\). One thing to note that if \(\mathcal O(D) \cong L\) then \(Z(s) = D\) where \(s \in H^0(X, L)\). Thus
 \[
@@ -3887,7 +3887,7 @@ Equivalently, this can be formulated as
 Note that not all elliptic surfaces have \(\mathcal K(X) = 1\). For example \(\P^1 \times E\) where \(E\) is an elliptic curve.
 
 As an aside, \(\pi: X \to B\), \(F\) a general fibre, \(\mathcal K(X) \geq \mathcal K(B) + \mathcal K(F)\) is the Iltaka conjecture.
-\item \(\mathcal K(X) = 2\): surfaces of general type. \(K_X . K_X > 0\). These are wild and difficult to study. They do have nice moduli space (generalising \(\mathcal M_g\)) by Giesecker (Kollár-Shepherd compactification). We don't know, for exmaple, what their topology is (for a general one)
+\item \(\mathcal K(X) = 2\): surfaces of general type. \(K_X . K_X > 0\). These are wild and difficult to study. They do have nice moduli space (generalising \(\mathcal M_g\)) by Giesecker (Kollár-Shepherd compactification). We don't know, for exmaple, what their topology is (for a general one).
 \end{itemize}
 
 \subsection{Non-Kähler surfaces}

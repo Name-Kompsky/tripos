@@ -19,6 +19,10 @@
 \DeclareMathOperator{\Div}{Div} % divisor
 \DeclareMathOperator{\Pic}{Pic} % Picard group
 \newcommand{\rational}{\dashrightarrow} % rational map
+\renewcommand*{\O}{\mathcal{O}}
+\DeclareMathOperator{\Cl}{Cl} % Class group
+\DeclareMathOperator{\Sum}{sum} % sum map
+
 
 \begin{document}
 
@@ -331,7 +335,7 @@ The equation
 \[
   Y^2Z + a_1 XYZ + a_3 YZ^2 = X^3 + a_2 X^2Z + a_4 XZ^2 + a_6 Z^3
 \]
-is called \emph{Weierstrass form} and
+is called \emph{Weierstrass form}\index{Weierstrass equation} and
 \[
   Y^2Z = X(X - Z)(X - \lambda Z)
 \]
@@ -531,7 +535,7 @@ Here we recall a convention: if we don't specify the field extension the we mean
   \end{enumerate}
 \end{proof}
 
-\begin{definition}[linearly equivalent divisor]\index{divisor!lienarly equivalent}
+\begin{definition}[linearly equivalent divisor]\index{divisor!linearly equivalent}
   \(D_1, D_2 \in \Div(E)\) are \emph{linearly equivalent}, written \(D_1 \sim D_2\), if exists \(f \in \overline K(E)^*\) such that \(\div (f) = D_1 - D_2\).
 \end{definition}
 
@@ -888,7 +892,7 @@ Here by convention the 0 map has degree \(0\).
 For the proof we assume \(\ch K \neq 2, 3\) and write \(E_2: y^2 = f(x) = x^3 + ax + b\). Let \(P, Q \in E_2\) with \(P, Q, P + Q, P - Q \neq 0\). Let \(x_1, \dots, x_4\) be the \(x\) coordinates of these four points.
 
 \begin{lemma}
-  There exist \(W_0, W_1, W_2 \in \Z[a, b][x_1, x_2]\) of degree \(\leq 2\) in \(x\) and of degree \(\leq 2\) in \(x_2\) such that
+  There exist \(W_0, W_1, W_2 \in \Z[a, b][x_1, x_2]\) of degree \(\leq 2\) in \(x_1\) and of degree \(\leq 2\) in \(x_2\) such that
   \[
     (1: x_3 + x_4: x_3x_4) = (W_0: W_1: W_2).
   \]
@@ -1002,7 +1006,7 @@ As a consequence of Riemann-Roch, we have if \(0 \neq \omega \in \Omega_C\) then
   \[
     \div (x - x_P) = (P) + (-P) - 2(0_E).
   \]
-  If \(P \in E \setminus E[2]\) then \(\ord_P(x - x_P) = 1\) so \(ord_P(dx) = 0\). If \(P = T_i\) then \(\ord_P(x - x_P) = 2\) so \(\ord_P(dx) = 1\). Finally if \(P = 0_E\) then \(\ord_P(x) = -2\) so \(\ord_P(dx) = -3\). Therefore
+  If \(P \in E \setminus E[2]\) then \(\ord_P(x - x_P) = 1\) so \(\ord_P(dx) = 0\). If \(P = T_i\) then \(\ord_P(x - x_P) = 2\) so \(\ord_P(dx) = 1\). Finally if \(P = 0_E\) then \(\ord_P(x) = -2\) so \(\ord_P(dx) = -3\). Therefore
   \[
     \div(dx) = (T_1) + (T_2) + (T_3) - 3(0_E).
   \]
@@ -1058,6 +1062,1563 @@ As a consequence of Riemann-Roch, we have if \(0 \neq \omega \in \Omega_C\) then
     (\phi + \psi)^*\omega = \phi^*\omega + \psi^*\omega.
   \]
 \end{proof}
+
+\begin{lemma}
+  Let \(\phi: C_1 \to C_2\) be a nonconstant morphism. Then \(\phi\) is separable if and only if \(\phi^*: \Omega_{C_2} \to \Omega_{C_1}\) is non-zero.
+\end{lemma}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+\begin{eg}
+  Consider the group variety \(\mathbb G_m = \A^1 \setminus \{0\} = \P^1 \setminus \{0, \infty\}\) with group law being multiplication. Let \(n \geq 2\) be an intger and consider \(\phi(x) = x^n\). We know from Galois theory that if \(\ch K \ndivides n\) then \(\ker \phi\) has \(n\) elements. This can also be deducted geometrically using differentials: \(\phi^* (dx) = dx^n = nx^{n - 1}dx\) so if \(\ch K \ndivides n\) then \(\phi\) is separable. Then \(\#\phi^{-1}(Q) = \deg \phi\) for all but finitely many \(Q \in \mathbb G_m\). \(\phi\) is a group homomorphism so \(\# \phi^{-1}(Q) = \ker \phi\) for all \(Q \in \mathbb G_m\) so in fact \(\# \ker \phi = \deg \phi= n\). Thus \(K\) (which is algebraically closed) contains exactly \(n\) \(n\)th roots of unity.
+\end{eg}
+
+\begin{theorem}
+  If \(\ch K \ndivides n\) then \(E[n] \cong (\Z/n\Z)^2\).
+\end{theorem}
+
+\begin{proof}
+  By induction \([n]^*\omega = n\omega\) so if \(\ch K \ndivides n\) then \([n]: E \to E\) is separable. Thus by the theorem \(\# [n]^{-1}(Q) = \deg [n]\) for all but finitely many \(Q \in E\). But \([n]\) is a group homomorphism so \(\#[n]^{-1}(Q) = \# E[n]\) for all \(Q \in E\). Thus
+  \[
+    \# E[n] = \deg [n] = n^2.
+  \]
+  By classification of finitely generated abelian groups,
+  \[
+    E[n] \cong \Z/d_1\Z \times \Z/d_2\Z \times \cdots \times \Z/d_t\Z
+  \]
+  with \(d_1 \divides d_2 \divides \cdots \divides d_t \divides n\) and \(\prod d_i = n^2\). If \(p\) is a prime with \(p \divides d_1\) then \(E[p] \cong (\Z/p\Z)^t\). But \(\#E[p] = p^2\) so \(t = 2\) and \(d_1 \divides d_2 \divides n\), \(d_1d_2 = n^2\) so \(d_1 = d_2 = n\).
+\end{proof}
+
+\begin{remark}
+  If \(\ch K = p\) then \([p]\) is inseparable. It can be shown that either \(E[p^r] \cong \Z/p^r\Z\) for all \(r \geq 1\), or \(E[p^r] = 0\) for all \(r \geq 1\). They are called ordinary and supersingular.
+\end{remark}
+
+\section{Elliptic curves over finite fields}
+
+We begin by proving a form of Cauchy-Schwarz.
+
+\begin{lemma}
+  Let \(A\) be an abelian group and \(q: A \to \Z\) a positive definite quadratic form. If \(x, y \in A\) then
+  \[
+    |q(x + y) - q(x) - q(y)| \leq 2 \sqrt{q(x) q(y)}.
+  \]
+\end{lemma}
+
+\begin{notation}
+  \(\langle x, y \rangle = q(x + y) - q(x) - q(y)\) and note that \(\langle x, x \rangle = 2q(x)\).
+\end{notation}
+
+\begin{proof}
+  We may assume \(x \neq 0\) as otherwise the result is clear. Let \(m, n \in \Z\). Then
+  \begin{align*}
+    0 &\leq q(mx + ny) \\
+      & \frac{1}{2} \langle mx + ny, mx + ny \rangle \\
+      &= m^2 qx + mn \langle x, y \rangle + n62 q(y) \\
+      &= q(x) (m + \frac{n \langle x, y \rangle}{2q(x)})^2 + n^2 (q(y) - \frac{\langle x, y\rangle^2}{4q(x)}
+  \end{align*}
+  Take \(m = \langle x, y \rangle, n = -2q(x)\) to deduce
+  \[
+    \langle x, y \rangle^2 \leq 4q(x)q(y).
+  \]
+\end{proof}
+
+Let \(\F_q\) be the field with \(q\) elements where \(q = p^m\) for some \(p\) prime. Then \(\gal(\F_{q^r}/\F_q)\) is cyclic of order \(r\) generated by the Frobenius map \(x \mapsto x^q\).
+
+\begin{theorem}[Hasse]\index{Hasse's theorem}
+  Let \(E/\F_q\) be an elliptic curve. Then
+  \[
+    |\#E(\F_q) - (q + 1)| \leq 2 \sqrt q.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(E\) have Weierstrass equation with coefficients \(a_1, \dots, a_6 \in \F_q\) so \(a_i^q = a_i\) for all \(i\). Define the \emph{Frobenius endomorphism}\index{Frobenius endomorphism} \(\phi: E \to E, (x, y) \mapsto (x^q, y^q)\) which is an isogeny of degree \(q\). Then
+  \[
+    E(\F_q) = \{P \in E: \phi(P) = P\} = \ker (1 - \phi).
+  \]
+  Note \(\phi\) is not separable as
+  \[
+    \phi^*\omega = \phi^* (\frac{dx}{y}) = \frac{d x^q}{y^q} = \frac{qx^{q - 1} dx}{y^q} = 0
+  \]
+  but
+  \[
+    (1 - \phi)^* \omega = \omega - \phi^* \omega = \omega \ne 0
+  \]
+  so \(1 - \phi\) is separable. Same as before, we have \(\# \ker (1 - \phi) = \deg (1 - \phi)\).
+
+  Recall that \(\deg: \End(E) \to \Z\) is a positive definite quadratic form so by Cauchy-Schwarz
+  \[
+    |\deg (1 - \phi) - \deg [1] - \deg [\phi]| \leq 2 \sqrt{\deg [1] \deg [\phi]}
+  \]
+  so
+  \[
+    |\#E(\F_q) - 1 - q| \leq 2 \sqrt q
+  \]
+  as required.
+\end{proof}
+
+\subsection{Zeta function}
+
+For \(K\) a number field, define
+\[
+  \zeta_K(s) = \sum_{\mathfrak a \subseteq \O_K} \frac{1}{N(\mathfrak a)^s} = \prod_{\mathfrak p \subseteq \O_K \text{ prime}} \left( 1- \frac{1}{(N(\mathfrak p))^s} \right)^{-1}
+\]
+For \(K\) a function field, i.e.\ \(K = \F_q(C)\) where \(C/\F_q\) is a smoth projective curve, we define
+\[
+  \zeta_K(s) = \prod_{x \in |C|} \left(1 - \frac{1}{(Nx)^s} \right)^{-1}
+\]
+where \(|C|\) is the set of closed points of \(C\), and is the same as the orbits of \(\gal(\overline \F_q/\F_q)\) on \(C(\overline F_q)\). Have \(Nx = q^{\deg x}\) where \(\deg x\) is the size of the orbit.
+
+We have \(\zeta_K(s) = F(q^{-s})\) for some \(F \in \Q[[T]]\). Explicitly
+\[
+  F(T) = \prod_{x \in |C|} (1 - T^{\deg x})^{-1}.
+\]
+Take logarithm of the formal power series, we get
+\begin{align*}
+  \log F(T) &= \sum_{x \in |C|} \sum_{m = 1}^\infty \frac{1}{m} T^{m \deg x} \\
+  T \frac{d}{dT} \log F(T) &= \sum_{x \in |C|} \sum_{m = 1}^\infty (\deg x) T^{m \deg x} \\
+            &= \sum_{n = 1}^\infty (\sum_{x \in |C|, \deg x|n} \deg x) T^n \\
+            &= \sum_{n = 1}^\infty \# C(\F_{q^n}) T^n
+\end{align*}
+Now reverse the process,
+\[
+  F(T) = \exp \sum_{n = 1}^\infty \frac{\# C(\F_{q^n})}{n} T^n.
+\]
+
+We define \(\tr: \End(E) \to \Z, \phi \mapsto \langle \phi, 1 \rangle\).
+
+\begin{lemma}
+  If \(\phi \in \End(E)\) then
+  \[
+    \phi^2 - (\tr \phi) \phi + \deg \phi = 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Example sheet 2.
+\end{proof}
+
+\begin{definition}[zeta function]\index{zeta function}
+  The \emph{zeta function} of a variety \(V/\F_q\) is the formal power series (?)
+  \[
+  Z_V(T) = \exp \sum_{n = 1}^\infty \frac{\# V(\F_{q^n})}{n} T^n.
+  \]
+\end{definition}
+
+\begin{lemma}
+  Suppose \(E/\F_q\) is an elliptic curve, \(\# E(\F_q) = q + 1 - a\). Then
+  \[
+    Z_E(T) = \frac{1 - aT + qT^2}{(1 - T)(1 - qT)}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Let \(\phi: E \to E\) be the \(q\)-power Frobenius. By the proof of Hasse's theorem
+  \[
+    \#E(\F_q) = \deg (1 - \phi) = q + 1 - \tr \phi
+  \]
+  so \(a = \tr \phi\) and \(\deg \phi = q\). By the above lemma \(\phi^2 - a\phi + q = 0\) so \(\phi^{n + 2} - a \phi^{n + 1} + q \phi^n = 0\). Upon taking trace,
+  \[
+    \tr \phi^{n + 2} - a \tr \phi^{n + 1} + q \tr \phi^n = 0.
+  \]
+  This second order difference equation with initial condition \(\tr 1 = 2, \tr \phi = q\) has solution \(\tr \phi^n = \alpha^n + \beta^n\) where \(\alpha, \beta \in \C\) ar roots of \(X^2 - aX + q = 0\). Then
+  \[
+    \# E(\F_{q^n}) = \deg (1 - \phi^n)
+    = \deg \phi^n + 1 - \tr \phi^n
+    = q^n + 1 - \alpha^n - \beta^n
+  \]
+  Thus the zeta function is
+  \[
+    Z_V(T) = \exp \sum_{n = 1}^\infty \frac{1}{n} (T^n + (qT)^n - (\alpha T)^n - (\beta T)^n)
+    = \frac{(1 - \alpha T)(1 - \beta T)}{(1 - T)(1 - qT)}
+  \]
+  using \(-\log (1 - x) = \sum_{m = 1}^\infty \frac{x^m}{m}\). Expand.
+\end{proof}
+
+\begin{remark}
+  Hasse's theorem as Riemann hypothesis for finite fields: Hasse's theorem gives a bound \(|a| \leq 2 \sqrt q\) so \(\alpha = \overline \beta\). As \(\alpha\beta = q\), have \(|\alpha| = |\beta| = sqrt q\). Let \(K = \F_q(E)\). Then \(\zeta_K(s) = 0\) if and only if \(Z_E(q^{-s}) = 0\), so \(q^s = \alpha \text{ or } \beta\) so \(q^{\Re s} = \sqrt q\), i.e.\ \(\Re s = \frac{1}{2}\). Thus we have proven the Riemann hypothesis.
+\end{remark}
+
+\section{Formal groups}
+
+\begin{definition}[\(I\)-adic topology]\index{\(I\)-adic topology}
+  Let \(R\) be a ring and \(I \subseteq R\) an ideal. The \emph{\(I\)-adic topology} is the topology on \(R\) with basis \(\{r + I^n: r \in R, n \geq 1\}\)
+\end{definition}
+
+\begin{definition}
+  A sequence \((x_n)\) in \(R\) is \emph{Cauchy} if for all \(k\) exists \(N\) such that for all \(m, n \geq N\), have \(x_m - x_n \in I^k\).
+\end{definition}
+
+\begin{definition}
+  \(R\) is \emph{complete} if
+  \begin{enumerate}
+  \item \(\bigcap_{n \geq 0} I^n = \{0\}\) (Hausdorff condition),
+  \item every Cauchy sequence converges.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  Suppose \(R\) is complete. If \(x \in I\) then \(\frac{1}{1 - x} = 1 + x + x^2 + \cdots\) so \(1 - x \in R^*\).
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(R = \Z_p\) with \(I = p\Z_p\). This is complete by construction.
+  \item \(R = \Z[[t]]\) with \(I = (t)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}[Hensel's lemma]\index{Hensel's lemma}
+  Let \(R\) be an integral domain and is complete with respect to the ideal \(I\). Let \(F \in R[X]\), \(s \geq 1\). Suppose \(a \in R\) satisfies \(F(a) = 0 \pmod{I^s}, F'(a) \in R^\times\). Then there exists a unique \(b \in R\) satisfying \(F(b) = 0, b = a \pmod{I^s}\).
+\end{lemma}
+
+\begin{proof}
+  Let \(u \in R^\times\) with \(F'(a) = u \pmod I\). Replacing \(F\) by \(\frac{X + A}{u}\), we may assume \(a = 0\) and \(F'(0 = 1 \pmod I\). We define
+  \[
+    x_0 = 0, \quad x_{n + 1} = x_n - F(x_n).
+  \]
+  An easy induction shows \(x_n = 0 \pmod{I^s}\) for all \(n\). Also
+  \[
+    F(X) - F(Y) = (X - Y) (F'(0) + X G(X, Y) + Y H(X, Y))
+  \]
+  for some \(G, H \in R[X, Y]\). Claim that \(x_{n + 1} = x_n \pmod{I^{n + s}}\) for all \(n \geq 0\).
+
+  \begin{proof}
+    Induction on \(n\). \(n = 0\) holds. Suppose \(x_n = x_{n - 1} \pmod{I^{n + s - 1}}\). Then
+    \[
+      F(x_n) - F(x_{n - 1}) = (x_n - x_{n - 1})(1 + c)
+    \]
+    for some \(c \in I\). Modulo \(I^{n + s}\), get
+    \[
+      F(x_n) - F(x_{n - 1}) = x_n - x_{n - 1} \pmod{I^{n + s]}}.
+    \]
+    Rearrange to get
+    \[
+      x_{n + 1} = x_n - F(x_n) = x_{n - 1} - F(x_{n - 1}) = x_n \pmod{I^{n + s}}.
+    \]
+  \end{proof}
+  Thus by completeness \(x_n \to b\) as \(n \to \infty\) for some \(b \in R\). Taking limit of the recurrence relation and use the continuity of \(F\) to get \(F(b) = 0\). Taking limit in \(x_n = 0 \pmod{I^s}\) gives \(b = 0 \pmod{I^s}\). Uniqueness follows from the assumption \(R\) is an integral domain.
+\end{proof}
+
+Consider \(E: Y^2Z + a_1 XYZ + a_3 yZ^2 = X^3 + a_2X^2Z + a_4XZ^2 + a_6Z^3\). We want to study the behaviour near \(0_E\) so use the affine piece \(Y \neq 0\). Let \(t = -X/Y, w = -Z/Y\). Then
+\[
+  w = f(t, w) = t^3 + a_1tw + a_2t^2w + a_3w^2 + a_4tw^2 + a_6w^3.
+\]
+Apply Hensel's lemma to \(R = \Z[a_1, \dots, a_6][[t]], I = (t)\) and \(F(X) = X - f(t, X)\). The approximate root is \(a = 0\) for \(s = 3\). Check \(F(0) = -t^3, F'(0) = 1 - a_1t - a_2t^2 \in R^\times\). Then there exists a unique \(w(t) \in \Z[a_1, \dots, a_6][[t]]\) such that \(w(t) = f(t, w(t))\) and \(w(t) = 0 \pmod{t^3}\).
+
+To see \(w(t)\) explicitly, we follow the proof of Hensel's lemma (with \(u = 1\)) and get \(w(t) = \lim_{n \to \infty} w_n(t)\) where
+\[
+  w_0(t) = 0, \quad w_{n + 1}(t) = f(t, w_n(t)).
+\]
+In fact
+\[
+  \omega(t) = t^3 (1 + A_1t + A_2t^2 + \dots) = \sum_{n = 2}^\infty A_{n - 2}t^{n + 1}
+\]
+where \(A_1 = a_1, A_2 = a_1^2 + a_2, A_3 = a_1^3 + 2a_1a_2 + a_3, \dots\)
+
+\begin{lemma}
+  Let \(R\) be an integral domain, complete with respect to an ideal \(I\). Let \(a_1, \dots, a_6 \in R\) and \(K\) the field of fraction of \(R\). Then
+  \[
+    \hat E(I) = \{(t, w) \in E(K): t, w \in I\}
+  \]
+  is a subgroup of \(E(K)\).
+\end{lemma}
+
+\begin{remark}
+  By unqiueness in Hensel's lemma (with \(s = 1\)), we can also describe \(\hat E(I)\) as
+  \[
+    \hat E(I) = \{(t, w(t)) \in E(K): t \in I\}.
+  \]
+\end{remark}
+
+\begin{proof}
+  Taking \((t, w) = (0 0)\) shows \(0_E \in \hat E(I)\), so suffices to show if \(P_1, P_2 \in \hat E(I)\) then \(-P_1 - P_2 \in \hat E(I)\). Suppose \(P_i = (t_i, w_i)\). The line \(P_1P_2\) is given by \(\omega = \lambda t + \nu\) where
+  \[
+    \lambda =
+    \begin{cases}
+      \frac{w(t_2) - w(t_1)}{t_2 - t_1} & t_1 \neq t_2 \\
+      w'(t_1) & t_1 = t_2
+    \end{cases}
+  \]
+  so
+  \begin{align*}
+    \lambda &= \sum_{n = 2}^\infty A_{n - 2}(t_1^n + t_1^{n - 1}t_2 + \dots + t_2^n) \in I \\
+    \nu &= w_1 - \lambda t_1 \in I
+  \end{align*}
+  Subsituting \(w = \lambda t + \nu\) into \(w = f(t, w)\), we get
+  \begin{align*}
+    A &= \text{ coefficient of } t^3 = 1 + a_2 \lambda + a_4 \lambda^2 + a_6 \lambda^3 \\
+    B &= \text{ coefficient of } t^2 = a_1 \lambda + a_2 \nu + a_3 \lambda^2 + 2a_4 \lambda \nu + 3a_6 \lambda^2 \nu
+  \end{align*}
+  we have \(A \in R^\times, B \in I\) so \(t_3 = -B/A - t_1 - t_2 \in I\) and \(w_3 = \lambda t_3 + \nu \in I\).
+\end{proof}
+
+Taking \(R = \Z[a_1, \dots, a_t][[t]], I = (t)\). The lemma shows that there exists \(\iota(t) \in \Z[a_1, \dots, a_6][[t]]\) with \(\iota(0) = 0\) such that \([-1] (t, w(t)) = (\iota(t), w(\iota(t)))\). Taking \(R = \Z[a_1, \dots, a_6][[t_1, t_2]], I = (t_1, t_2)\), the lemma says there exists \(F \in \Z[a_1, \dots, a_6][[t]]\) with \(F(0, 0) = 0\) such that
+\[
+  (t_1, w(t_1)) + (t_2, w(t_2)) = (F(t_1, t_2), w(F(t_1, t_2))).
+\]
+In fact
+\begin{align*}
+  \iota(X) &= - X - a_1X^2 - a_2X^3 - (a_1^3 + a_3) X^4 + \dots \\
+  F(X, Y) &= X + Y - a_1XY - a_2(X^2Y + XY^2) + \dots
+\end{align*}
+By properties of the group law we deduce
+\begin{enumerate}
+\item \(F(X, Y) = F(Y, X)\).
+\item \(F(X, 0) = X\) and \(F(0, Y) = Y\).
+\item \(F(F(X, Y), Z) = F(X, F(Y, Z))\).
+\item \(F(X, \iota(X)) = 0\).
+\end{enumerate}
+
+\begin{definition}[formal group]\index{formal group}
+  Let \(R\) be a ring. A \emph{formal group} over \(R\) is a power series \(F(X, Y) \in R[[X, Y]]\) satisfying 1, 2, 3.
+\end{definition}
+
+A question on example sheet 2 shows that for any formal group, there exists a unique \(\iota(t) = -t + \dots \in R[[t]]\) satisfying 4.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(F(X, Y) = X + Y\). We call this formal group \(\hat \mathbb G_a\).
+  \item \(F(X, Y) = X + Y + XY = (1 + X)(1 + Y) - 1\) so is secretly the same as above. We call this formal group \(\hat \mathbb G_m\).
+  \item \(F\) arising from an elliptic curve. We call it \(\hat E\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}
+  Let \(\mathcal F\) and \(\mathcal G\) be formal groups, given by power series \(F\) and \(G\).
+  \begin{enumerate}
+  \item A \emph{morphism} \(f: \mathcal F \to \mathcal G\) is a power series \(f(T) \in R[[T]]\) with \(f(0) = 0\) satisfying \(f(F(X, Y)) = G(f(X), f(Y))\).
+  \item \(\mathcal F \cong \mathcal G\) if there exists morphisms \(f: \mathcal F \to \mathcal G, g: \mathcal G \to \mathcal F\) such that \(f(g(X)) = X, g(f(X)) = X\).
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+  If \(\ch R = 0\) then every formal group \(\mathbb F\) over \(R\) is isomorphic to \(\hat \mathbb G_a\) over \(R \otimes \Q\). More precisely,
+  \begin{enumerate}
+  \item there is a unique power series \(\log(T) = T + \frac{a_2}{2} T^2 + \frac{a_3}{3}T^3 + \cdots\) with \(a_i \in R\) such that
+    \[
+      \log F(X, Y) = \log(X) + \log(Y).
+      \tag{\ast}
+    \]
+  \item there is a unique power series \(\exp(T) = T + \frac{b_2}{2!} T^2 + \frac{b_3}{3!} T^3 + \cdots\) with \(b_i \in R\) such that
+    \[
+      \exp \log (T) = \log \exp (T) = T.
+    \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Write \(F_1(X, Y) = \frac{\partial F}{\partial X}(X, Y)\). For uniqueness, let
+    \[
+      p(T) = \frac{d}{dT} \log T = 1 + a_2 T + a_3 T^2 + \dots.
+    \]
+    Differentiating \((\ast)\) with respect to \(X\) gives
+    \[
+      p(F(X, Y)) F_1(X, Y) = p(X).
+    \]
+    Putting \(X = 0\) gives \(p(Y) F_1(0, Y) = 1\) so \(p(Y) = F_1(0, Y)^{-1}\) is unqiue. Thus \(\log\) is unique.
+
+    For existence, let \(p(T) = F_1(0, T)^{-1} = 1 + a_2 T + a_3 T^2 + \dots\) for some \(a_i \in R\). Let \(\log T = T + \frac{a_2}{2}T^2 + \dots\). Differentiate the associativity law with respect to \(X\) we get
+    \[
+      F_1(F(X, Y), Z) F_1(X, Y) = F_1(X, F(Y, Z)).
+    \]
+    Sub \(X = 0\) and use identity law,
+    \[
+      F_1(Y, Z) F_1(0, Y) = F_1(0, F(Y, Z))
+    \]
+    so
+    \[
+      F_1(Y, Z) p(F(Y, Z)) = p(Y).
+    \]
+    Integrate with repsect to \(Y\) to get
+    \[
+      \log (F(Y, Z)) = \log Y + h(Z)
+    \]
+    for some power series \(h\). By symmetry in \(Y, Z\) have \(h(Z) = \log Z\).
+  \item
+    We use
+    \begin{lemma}
+      Let \(f = aT + \cdots \in R[[t]]\) with \(a \in R^\times\). Then exists a unique \(g = a^{-1}T + \cdots \in R[[T]]\) such that \(f(g(T)) = g(f(T)) = T\).
+    \end{lemma}
+
+    \begin{proof}
+      We construct polynomials \(g_n(T)\) such that \(f(g_n(T)) = T \pmod{T^{n + 1}}\) and \(g_{n + 1}(T) = g_n(T) \pmod{T^{n + 1}}\). Then \(g(T) = \lim_{n \to \infty} g_n(T)\) exists and satisfies \(f(g(T)) = T\).
+
+      To start the induction set \(g_1(T) = a^{-1}T\). Now suppose \(n \geq 2\) and \(g_{n - 1}(T)\) exists so \(f(g_{n - 1}(T)) = T + bT^n \pmod{T^{n + 1}}\) for some \(b \in R\). We put \(g_n(T) = g_{n - 1}(T) + \lambda T^n\) for some \(\lambda \in R\) to be chosen later. Then
+      \begin{align*}
+        f(g_n(T))
+        &= f(g_{n - 1}(T) + \lambda T^n) \\
+        &= f(g_{n - 1}(T)) + \lambda aT^n \pmod{T^{n + 1}} \\
+        &= T + (b + \lambda a)T^n \pmod{T^{n + 1}}
+      \end{align*}
+      so we take \(\lambda = -b/a\).
+
+      We get \(g(T) = a^{-1}T + \cdots \in R[[T]]\) such that \(f(g(T)) = T\). Applying the same argument to \(g\) gives \(h(T) = aT + \cdots \in R[[T]]\) such that \(g(h(T)) = T\). Then
+      \[
+        f(T) = f(g(h(T))) = h(T).
+      \]
+    \end{proof}
+    The theorem then follows except for showing \(b_n \in R\) (not just \(R \otimes \Q\)). This is on example sheet 2.
+  \end{enumerate}
+\end{proof}
+
+\begin{notation}
+  Let \(\mathcal F\) (e.g.\ \(\hat \mathbb G_a, \hat \mathbb G_m, \hat E\)) be a formal group given by \(F \in R[[X, Y]]\). Suppose \(R\) is complete with respect to \(I\). For \(x, y \in I\) put \(x \oplus_{\mathcal F} y = F(x, y) \in I\). Then \(\mathcal F(I) = (I, \oplus_{\mathcal F})\) is an abelian group. For example \(\hat \mathbb G(I) = (I, +), \hat \mathbb G_m(I) \cong (1 + I, \times)\) and \(\hat E(I) \subseteq E(K)\) as in lemma 8.2. This also explains the earlier choice of notation.
+\end{notation}
+
+\begin{corollary}
+  Let \(\mathcal F\) be a formal group over \(R\) and \(n \in \Z\). Suppose \(n \in R^\times\). Then
+  \begin{enumerate}
+  \item \([n]: \mathcal F \to \mathcal F\) is an isomorphism.
+  \item If \(R\) is complete with respect to an ideal \(I\) then \(\times n: \mathcal F(I) \to \mathcal F(I)\) is an isomorphism. In particular \(\mathcal F(I)\) has no \(n\)-torsion.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  We first explain the notation \([n]\). We inductively define \([1](T) = T, [n](T) = F([n - 1] T, T)\) for \(n \geq 2\) (for \(n < 0\), use \([-1](T) = \iota(T)\)). An easy induction show \([n](T) = nT + \cdots \in R[[T]]\) so by Lemma 8.4 it is an isomorphism.
+\end{proof}
+
+\section{Elliptic curves over local fields}
+
+Let \(K\) be a field, complete with respect to a a discrete valuation \(v: K^* \surj \Z\). The valuation ring, also known as ring of integers, is
+\[
+  \O_K = \{x \in K^*: v(x) \geq 0\} \cup \{0\}
+\]
+with unit group
+\[
+  \O_K^* = \{x \in K^*: v(x) = 0\}
+\]
+and maximal ideal \(\pi \O_K\) where \(v(\pi) = 1\). It has residue field \(k = \O_k/\pi\O_K\). We assume \(\ch K = 0, \ch k = p > 0\). For example \(K = \Q_p, \O_K = \Z_p, k = \F_p\).
+
+Let \(E/K\) be an elliptic curve.
+
+\begin{definition}[integral/minimal Weierstrass equation]\index{Weierstrass equation!integral}\index{Weierstrass equation!minimal}
+  A Weierstrass equation for \(E\) with coefficients \(a_1, \dots, a_6 \in K\) is \emph{integral} if \(a_1, \dots, a_6 \in \O_K\) and is \emph{minimal} if \(v(\Delta)\) is minimal among all integral equations for \(E\).
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Putting \(x = u^2 x', y = u^3 y'\) gives \(a_i = u^i a_i'\) so integral equation exists.
+  \item If \(a_1, \dots, a_6 \in \O_K\) then \(\Delta \in \O_K\) so \(v(\Delta) \geq 0\) so minimal Weierstrass equations exist.
+  \item If \(\ch k \neq 2, 3\) then exists a minimal Weierstrass equation of the form \(y^2 = x^3 + ax + b\).
+  \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+  Let \(E/K\) have integral Weierstrass equation
+  \[
+    y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4x + a_6.
+  \]
+  Let \(0 \neq P \in E(K)\), say \(P = (x, y)\). Then either \(x, y \in \O_K\) or \(v(x) = -2s, v(y) = -3s\) for some \(s \geq 1\).
+\end{lemma}
+
+\begin{proof}
+  First we deal with the case \(v(x) \geq 0\) (or \(x = 0\)). If \(v(y) < 0\) then \(v(\mathrm{LHS}) = 0\) while \(v(\mathrm{RHS}) > 0\), absurd so \(x, y \in \O_K\).
+
+  Now suppose \(v(x) < 0\). Then
+  \[
+    v(\mathrm{LHS}) \geq \min(2 v(y), v(x) + v(y), v(y)), \quad v(\mathrm{RHS}) = 3v(x).
+  \]
+  In each of the three cases, \(v(y) < v(x)\) so \(2v(y) = 3v(x)\).
+\end{proof}
+
+\begin{remark}
+  See example sheet 1.
+\end{remark}
+
+Fix a minimal Weierstrass equation for \(E/K\), we get a formal group \(\hat E\) over \(\O_K\), and
+\begin{align*}
+  \hat E (\pi^r \O_K)
+  &= \{(x, y) \in E(K): -\frac{x}{y}, -\frac{1}{y} \in \pi^r \O_K\} \cup \{0\} \\
+  &= \{(x, y) \in E(K): v(\frac{x}{y}) \geq r, v(\frac{1}{y}) \geq r\} \cup \{0\} \\
+  &= \{(x, y) \in E(K): v(x) \leq -2r, v(y) \leq -2r\} \cup \{0\}
+\end{align*}
+by using the lemma. This is a \(\pi\)-neighbourhood of \(0\). By theorem 8.2 this is a subgroup of \(E(K)\), say \(E_r(K)\). Then we have a nested sequence of groups
+\[
+  E_1(K) \supseteq E_2(K) \supseteq \cdots
+\]
+More generally for \(\mathcal F\) a formal group over \(\O_K\), we have
+\[
+  \mathcal F(\pi \O_K) \supseteq \mathcal F(\pi^2 \O_K) \supseteq \cdots
+\]
+We will show that \(\mathcal F(\pi^r \O_K) \cong (\O_K, +)\) for \(r\) sufficiently large and
+\[
+  \frac{\mathcal F(\pi^r \O_K)}{\mathcal F (\pi^{r + 1} \O_K)} \cong (k, +)
+\]
+for all \(r \geq 1\).
+
+A reminder we are working over \(\ch K = 0, \ch k = p\).
+
+\begin{proposition}
+  Let \(\mathcal F\) be a formal group over \(\O_K\). Let \(e = v(p)\). If \(r > \frac{e}{p - 1}\) then
+  \[
+    \log: \mathcal F(\pi^r \O_K) \to \hat \mathbb G_a(\pi^r \O_K)
+  \]
+  is an isomorphism with inverse \(\exp\).
+\end{proposition}
+
+\begin{proof}
+  For \(x \in \pi^r \O_K\) we must show that the power series \(\exp\) and \(\log\) in theorem 8.3 converge. Recall \(\exp(T) = T + \frac{b_2}{2!} T^2 + \dots\) where \(b_n \in \O_K\). Note that while a ``big'' denominator is good in Archimedean analysis, the situation is the opposite in the non-Archimedean case. Claim \(v_p(n!) = \frac{n - 1}{p - 1}\).
+
+  \begin{proof}
+    \[
+      v_p(n!) = \sum_{r = 1}^\infty \floor*{\frac{n}{p^r}} < \sum_{r = 1}^\infty \frac{n}{p^r} = \frac{n}{p - 1}
+    \]
+    so \((p - 1) v_p(n!) < n\). By noting that it is integer valued we get the required inequality.
+  \end{proof}
+
+  Now
+  \[
+    v(\frac{b_n x^n}{n!} \geq nr - e \left(\frac{n - 1}{p - 1}\right) = (n - 1) \underbrace{(r - \frac{e}{p - 1})}_{> 0} + r
+  \]
+  This is always \(\geq r\) and goes to infinity as \(n \to \infty\) so \(\exp x\) converges and belongs to \(\pi^r \O_K\). \(\log x\) is similar but easier.
+\end{proof}
+
+\begin{proposition}
+  For \(r \geq 1\),
+  \[
+    \frac{\mathcal F(\pi^r \O_K)}{\mathcal F (\pi^{r + 1} \O_K)} \cong (k, +).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Recall \(F(X, Y) = X + Y + XY (\cdots)\) so if \(x, y \in \O_K\),
+  \[
+    F(\pi^rx, \pi^ry) = \pi^r(x + y) \pmod{\pi^{r + 1}}.
+  \]
+  Thus
+  \begin{align*}
+    \mathcal F(\pi^r \O_K) &\to (k, +) \\
+    \pi^r x &\mapsto x \pmod \pi
+  \end{align*}
+  is a surjective homomorphism with kernel \(\mathcal F(\pi^{r + 1}\O_K)\).
+\end{proof}
+
+\begin{corollary}
+  If \(k\) is finite then \(\mathcal F(\pi \O_K)\) contains a subgroup of finite index and is isomorphic to \((\O_K, +)\).
+\end{corollary}
+
+\begin{notation}
+  We denote reduction mod \(\pi\) by \(x \mapsto \tilde x\).
+\end{notation}
+
+\begin{proposition}
+  Suppose \(E/K\) is an elliptic curve. The reduction mod \(\pi\) of two minimal Weierstrass equations for \(E\) define isomorphic curves over \(k\).
+\end{proposition}
+
+\begin{proof}
+  Say Weierstrass equations are related by \([u; r, s, t]\) where \(u \in K^\times, r, s, t \in K\). Then \(\Delta_1 = u^{12} \Delta_2\). Minimality of equations implies that \(u \in \O_K^*\). By transformation formula for \(a_i\) and \(b_i\), we conclude \(r, s, t \in \O_K\). Then the Weierstrass equation for the reductions mod \(\pi\) are related by \([\tilde u; \tilde r, \tilde s, \tilde t]\). Note that all these are to ensure that things work in characteristic \(2\) or \(3\).
+\end{proof}
+
+\begin{definition}[reduction]\index{reduction}
+  The \emph{reduction} \(\widetilde E/k\) of \(E/K\) is defined to be the reduction of a minimal Weierstrass equation.
+
+  \(E\) has \emph{good reduction} if \(\widetilde E\) is nonsingular (and so is an elliptic curve), otherwise \emph{bad reduction}.
+\end{definition}
+
+For an integral Weierstras equation, \(v(\Delta) = 0\) is a sufficient condition for good reduction. On the other hand if \(0 < v(\Delta) < 12\) then by \(\Delta_1 = u^{12} \Delta_2\) we have bad reduction. If \(v(\Delta) \geq 12\) then the equation might not be minimal.
+
+There is a well-defined map
+\begin{align*}
+  \P^2(K) &\to \P^2(k) \\
+  (x:y:z) &\mapsto (\tilde x: \tilde y: \tilde z)
+\end{align*}
+where we choose representatives with \(\min(v(x), v(y), v(z)) = 0\) to ensure we do not get \((0: 0: 0)\). We restrict to get \(E(K) \to E(k), P \mapsto \widetilde P\). If \(P = (x, y) \in E(K)\) then either \(x, y \in \O_K\) so \(\widetilde P = (\tilde x, \tilde y)\), or \(v(x) = -2s, v(y) = -3s\) and we choose \(P = (\pi^{3s} x: \pi^{3s}y: \pi^{3s})\) which reduces to \(\widetilde P = (0: 1: 0)\). Thus
+\[
+  E_1(K) = \hat E(\pi \O_K) = \{P \in E(K): \widetilde P = 0\}
+\]
+is the \emph{kernel of reduction}\index{kernel of reduction}.
+
+Let \(\widetilde E_{\mathrm{ns}}\) be the set of nonsingular points on \(\widetilde E\). If \(E\) has good reduction then this is the same as \(\widetilde E\). Otherwise we delete the singular points. The chord and tangent process still defines a group law on \(\widetilde E_{\mathrm{ns}}\) (since the third intersection point only has multiplicity \(1\)). In case of bad reduction \(\widetilde E_{\mathrm{ns}} \cong \mathbb G_a\) or \(\mathbb G_m\) (over \(\overline k\)), called additive reduction or multiplicative reduction. For simpicity suppose \(\ch k \neq 2\) and we have \(\widetilde E: y^2 = f(x)\). Then \(\widetilde E\) is singular if and only if \(f\) has a repeated root. For double root (\(y^2 = x^2(x + 1)\)) we have a curve with a node and we use multiplicative reduction. For triple root (\(y^2 = x^3\)) we have a curve with a cusp and we use additive reduction
+\begin{align*}
+  \widetilde E_{\mathrm{ns}} &\to \mathbb G_a \\
+  (x, y) &\mapsto \frac{x}{y} \\
+  (t^{-2}, t^{-3}) &\mapsfrom t \\
+  \infty &\mapsfrom 0
+\end{align*}
+We check this is a group homomorphism. Let \(P_1, P_2, P_3\) be on the line \(ax + by = 1\). Write \(P_i = (x_i, y_i), t_i = \frac{x_i}{y_u}\). Then \(x_i^3 = y_i^2 = y_i^2(ax_i + by_i)\) so \(t_1, t_2, t_3\) are roots of \(X^3 - aX - b = 0\). Looking at the coefficient of \(X^2\) gives \(t_1 + t_2 + t_3 = 0\).
+
+The node case is on example sheet.
+
+\begin{definition}
+  We define
+  \[
+    E_0(K) = \{P \in E(K): \widetilde P \in \widetilde E_{\mathrm{ns}}(k)\},
+  \]
+  the points that do not become singular upon reduction.
+\end{definition}
+
+\begin{proposition}
+  \(E_0(K)\) is a subgroup of \(E(K)\) and reduction mod \(\pi\) is a surjective group homomorphism \(E_0(K) \to \widetilde E_{\mathrm{ns}}(k)\).
+\end{proposition}
+
+\begin{proof}
+  First check this is a group homomorphism. A line \(\ell\) in \(\P^2\) defined over \(K\) has equation \(aX + bY + cZ = 0\) where \(a, b, c \in K\). We may assume \(\min (v(a), v(b), v(c)) = 0\). Reduction mod \(\pi\) given the line \(\tilde \ell\) \(\tilde a X + \tilde b Y + \tilde c Z = 0\). If \(P_1, P_2, P_3 \in E(K)\) with \(P_1 + P_2 + P_3 = 0\) then they lie on a line \(\ell\). Then \(\widetilde P_1, \widetilde P_2, \widetilde P_3\) lie on \(\tilde \ell\). If \(\widetilde P_1, \widetilde P_2 \in \widetilde E_{\mathrm{ns}}(k)\) then \(\widetilde P_3 \in \widetilde E_{\mathrm{ns}}(k)\) so if \(P_1, P_2 \in E_0(K)\) then \(P_3 \in E_0(K)\) and \(\widetilde P_1 + \widetilde P_2 + \widetilde P_3 = 0\). It is an exercise to check that this still works when \(\widetilde P_1, \widetilde P_2, \widetilde P_3\) are not necessarily distinct.
+
+  Now we show surjectivity. Let \(f(x, y) = y^2 + a_1xy + a_3y - (x^3 + \dots)\) be the Weierstrass equation. Let \(\widetilde P \in \widetilde E_{\mathrm{ns}}(k) \setminus \{0\}\), say \(\widetilde P = (\tilde x_0, \tilde y_0)\) for some \(x_0, y_0 \in \O_K\). \(\widetilde P\) nonsingular implies that either \(\frac{\partial f}{\partial x}(x_0, y_0) \neq 0 \pmod \pi\) or \(\frac{\partial f}{\partial y}(x_0, y_0) \neq 0 \pmod \pi\). In the first case put \(g(t) = f(t, y_0) \in \O_K[t]\). Then
+  \[
+    g(x_0) = 0 \pmod \pi, \quad g'(x_0) \in \O_K^*
+  \]
+  so by Hensel's lemma exists \(b \in \O_K\) such that \(g(b) = 0, b = x_0 \pmod \pi\). Then \(P = (b, y_0) \in E(K)\) has reduction \(\widetilde P\). The second case is similar.
+\end{proof}
+
+Recall that for \(r \geq 1\) we put
+\[
+  E_r(K) = \{(x, y) \in E(K): v(x) \leq -2r, v(y) \leq -3r\} \cup \{0\}
+\]
+and we have a nested sequence of groups
+\[
+  (\O_K, +) \cong E_r(K) \subseteq \cdots \subseteq E_2(K) \subseteq E_1(K) \subseteq E_0(K) \subseteq E(K)
+\]
+for \(r > \frac{e}{p - 1}\). The quotient \(\frac{E_0(K)}{E_1(K)} \cong \widetilde E_{\mathrm{ns}}(K)\) and all quotients \(\frac{E_{t + 1}}{E_t} \cong (k, +)\). What about \(E_0(K) \subseteq E(K)\)? There are much to be said about this but we only cover a special case here. More can be found is Silverman's sequel.
+
+\begin{lemma}
+  If \(|k| < \infty\) then \(\P^n(K)\) is compact (with respect to \(\pi\)-adic topology).
+\end{lemma}
+
+\begin{proof}
+  If \(|k| < \infty\) then \(\frac{\O_K}{\pi^r \O_K}\) is finite for \(r \geq 1\) so \(\O_K \cong \varprojlim_r \O_K/\pi^r \O_K\) is compact. \(\P^n(K)\) is the union of compact sets
+  \[
+    \{(a_0: a_1: \cdots : a_{i - 1}: 1 : a_{i + 1}: \cdots: a_n): a_j \in \O_K\}
+  \]
+  and hence compact.
+\end{proof}
+
+\begin{lemma}
+  If \(|k| < \infty\) then \(E_0(K) \subseteq E(K)\) has finite index.
+\end{lemma}
+
+\begin{proof}
+  \(E(K) \subseteq \P^2(K)\) is a closed subset so \((E(K), +)\) is a compact topological group. If \(\widetilde E\) has singular point \((\tilde x_0, \tilde y_0)\) then
+  \[
+    E(K) \setminus E_0(K) = \{(x, y) \in E(K): v(x - x_0) \geq 1, v(y - y_0) \geq 1\}
+  \]
+  (?) is a closed subset of \(E(K)\) and so \(E_0(K)\) is an open subgroup of \(E(K)\). The cosets of \(E_0(K)\) are an open cover of \(E(K)\), and thus \(E_0(K)\) has finite index in \(E(K)\) by compactness. The index is called \emph{Tamagawa number} and is denoted \(c_K(E)\).
+\end{proof}
+
+\begin{remark}
+  Good reduction implies that \(c_K(E) = 1\) but the converse is false.
+\end{remark}
+
+\begin{fact}
+  For these facts it is essential that \(E\) is defined by a minimal Weierstrass equation, but we don't need \(|k| < \infty\).
+
+  Either \(c_K(E) = v(\Delta)\) or \(c_K(E) \leq 4\)
+\end{fact}
+
+\begin{theorem}
+  If \([K: \Q_p] < \infty\) then \(E(K)\) contains a subgroup \(E_r(K)\) of finite index with \(E_r(K) \cong (\O_K, +)\).
+\end{theorem}
+
+\begin{proof}
+  We have \(|k| < \infty\). Combine all results in this chapter.
+\end{proof}
+
+\begin{corollary}
+  \(E(K)_{\mathrm{tors}}\) injects into \(\frac{E(K)}{E_r(K)}\) and is therefore finite.
+\end{corollary}
+
+We now quote some results from algebraic number theory. Let \([K: \Q_p] < \infty\) and \(L/K\) a finite extension. Then \([L: K] = ef\) where \(v_L|_{K^*} = e v_K\) and \(f = [k': k]\) where \(k'\) and \(k\) are the residue fields of \(L\) and \(K\) respectively. If \(L/K\) is Galois then there is a natural group homomorphism \(\gal(L/K) \to \gal(k'/k)\). This map is surjective with kernel of order \(e\).
+
+\begin{definition}[unramified extension]\index{unramified extension}
+  \(L/K\) is \emph{unramified} if \(e = 1\).
+\end{definition}
+
+\begin{fact}
+  For each integer \(m \geq 1\),
+  \begin{enumerate}
+  \item \(k\) has a unique extension of degree \(m\), say \(k_m\).
+  \item \(K\) has a unique unramified extension of degree \(m\), say \(K_m\).
+  \end{enumerate}
+\end{fact}
+
+\begin{definition}[maximal unramified extension]\index{maximal unramified extension}
+  We define the \emph{maximal unramified extension} to be \(K^{\mathrm{nr}} = \bigcup_{m \geq 1} K_m\) (inside \(\overline K\)).
+\end{definition}
+
+\begin{theorem}
+  Suppose \([K: \Q_p] < \infty\), \(E/K\) an elliptic curve with good reduction and \(p \ndivides n\). If \(P \in E(K)\) then \(K([n]^{-1}P)/K\) is unramified.
+\end{theorem}
+
+Recall that when we do not specify a base field then we refer to the algebraic closure so
+\[
+  [n]^{-1}P = \{Q \in E(\overline K) = nQ = P\}.
+\]
+Also we denote
+\[
+  K(\{P_1, \dots, P_r\}) = K(X_1, \dots, x_r, y_1, \dots, y_r)
+\]
+where \(P_i = (x_i, y_i)\).
+
+\begin{proof}
+  For each \(m \geq 1\) there is a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & E_1(K_m) \ar[r] & E(K_m) \ar[r] & \widetilde E(k_m) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Taking union over all \(m \geq 1\) gives a commutative diagram with exact rows
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & E_1(K^{\mathrm{nr}}) \ar[d, "n"] \ar[r] & E(K^{\mathrm{nr}}) \ar[r] \ar[d, "n"] & \widetilde E(\overline k) \ar[r] \ar[d, "n"] & 0 \\
+      0 \ar[r] & E_1(K^{\mathrm{nr}}) \ar[r] & E(K^{\mathrm{nr}}) \ar[r] & \widetilde E(\overline k) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  The left vertical map is an isomorphism by corollary 8.5, which applies since \(p \ndivides n\) implies \(n \in \O_K^*\). The right vertical map is surjective by Theorem 2.8 and has kernel isomorphic to \((\Z/n\Z)^2\) by theorem 6.5. Then by snake lemma
+  \[
+    E(K^{\mathrm{nr}})[n] \cong (\Z/n\Z)^2, \frac{E(K^{\mathrm{nr}})}{n E(K^{\mathrm{nr}})} = 0
+  \]
+  so if \(P \in E(K)\) then \(P = nQ\) for some \(Q \in E(K^{\mathrm{nr}})\) so
+  \[
+    [n]^{-1} P = \{Q + T: T \in E[n]\} \subseteq E(K^{\mathrm{nr}})
+  \]
+  so \(K([n]^{-1} P) \subseteq K^{\mathrm{nr}}\) so \(K([n]^{-1}P)/K\) is unramified.
+\end{proof}
+
+\section{Elliptic curves over number fields}
+
+Suppose \([K: \Q] < \infty\) and \(E/K\) is an elliptic curve. Throughout we let \(\mathfrak p\) be a prime of \(K\) (i.e.\ of \(\O_K\)), \(K_{\mathfrak p}\) the \(\mathfrak p\)-adic completion of \(K\) and \(k_{\mathfrak p} = \O_k/\mathfrak p\).
+
+\begin{definition}[prime of good reduction]\index{good reduction}
+  \(\mathfrak p\) is a prime of \emph{good reduction} for \(E/K\) if \(E/K_{\mathfrak p}\) has good reduction.
+\end{definition}
+
+\begin{lemma}
+  \(E/K\) has only finitely many primes of bad reduction.
+\end{lemma}
+
+\begin{proof}
+  Take a Weierstrass equation for \(E\) with coefficients \(a_1, \dots, a_6 \in \O_K\). \(E\) is nonsingular implies that \(0 \neq \Delta \in \O_K\). Write \((\Delta) = \mathfrak p_1^{\alpha_1} \cdots \mathfrak p_r^{\alpha_r}\) for the factorisation into prime ideals. Let \(S = \{\mathfrak p_1, \dots, \mathfrak p_r\}\). If \(\mathfrak p \notin S\) then \(v_{\mathfrak p}(\Delta) = 0\) so \(E/K_{\mathfrak p}\) has good reduction.
+\end{proof}
+
+\begin{remark}
+  If \(K\) has class number \(1\) (e.g.\ \(K = \Q\)) then we can always find a Weierstrass equation for \(a_1, \dots, a_6 \in \O_K\) which is minimal at all primes \(\mathfrak p\).
+\end{remark}
+
+\begin{lemma}
+  \(E(K)_{\mathrm{tor}}\) is finite.
+\end{lemma}
+
+\begin{proof}
+  Take any \(\mathfrak p\). Note \(K \subseteq K_{\mathfrak p}\) and apply theorem 9.8.
+\end{proof}
+
+\begin{lemma}
+  Let \(\mathfrak p\) be a prime of good reduction with \(\mathfrak p \ndivides n\). Then reduction modulo \(\mathfrak p\) gives an injection \(E(K)[n] \embed \widetilde E(k_{\mathfrak p})[n]\).
+\end{lemma}
+
+\begin{proof}
+  Proposition 9.5 says that \(E(K_{\mathfrak p} \to \widetilde E(k_{\mathfrak p})\) is a group homomorphism with kernel \(E_1(K_{\mathfrak p})\). Then corollary 8.5 implies that \(E_1(K_{\mathfrak p})\) has no \(n\)-torsion.
+\end{proof}
+
+\begin{eg}
+  Let \(E/\Q: y^2 + y = x^3 - x^2\). \(\Delta = -11\). \(E\) has good reduction at all primes \(p \neq 11\).
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{c|cccccc}
+      p & 2 & 3 & 5 & 7 & 11 & 13 \\ \hline
+      \(\# \widetilde E(\F_p)\) & 5 & 5 & 5 & 10 & - & 10
+    \end{tabular}
+  \end{table}
+  so by looking at \(2\) and \(3\), \(\#E(\Q)_{\mathrm{tor}} \divides 5 \cdot 2^a\) for some \(a \geq 0\). \(\#E(\Q)_{\mathrm{tor}} \divides 5 \cdot 3^b\) for some \(b \geq 0\), so \(\#E(\Q)_{\mathrm{tor}} \divides 5\). Let \(T = (0, 0) \in E(\Q)\). We can check that \(5T = 0\) so \(E(\Q)_{\mathrm{tor}} \cong \Z/5\Z\).
+\end{eg}
+
+\begin{eg}
+  Let \(E/\Q: y^2 + y = x^3 + x\). \(\Delta = -43\). \(E\) has good reduction at all \(p \neq 43\).
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{c|cccccc}
+      p & 2 & 3 & 5 & 7 & 11 & 13 \\ \hline
+      \(\# \widetilde E(\F_p)\) & 5 & 6 & 10 & 8 & 9 & 19
+    \end{tabular}
+  \end{table}
+  By considering \(p = 2, 11\) we show \(E(\Q)_{\mathrm{tor}} = \{0\}\). Thus \(P = (0, 0) \in E(\Q)\) is a point of infinite order. Thus rank of \(E(\Q) \geq 1\).
+\end{eg}
+
+\begin{eg}
+  Let \(E_D: y^2 = y^2 = x^3 - D^2 x\) where \(D \in \Z\) square free and \(\Delta = 2^6 D^6\). We know the torsion group contains \(\{0, (0, 0), (\pm d, 0)\} \cong (\Z/2\Z)^2\). Let \(f(x) = x^3 - D^2x\). We can count the number of points using Legendre symbol. If \(p \ndivides 2D\) then
+  \[
+    \# \widetilde E_D(\F_p) = 1 + \sum_{x \in \F_p} (\legendre{f(x)}{p} + 1).
+  \]
+  If \(p = 3 \pmod 4\) then since \(f(x)\) is an odd function,
+  \[
+    \legendre{f(-x)}{p} = \legendre{-f(x)}{p} = \legendre{-1}{p} \legendre{f(x)}{p} = - \legendre{f(x)}{p}
+  \]
+  so \(\# \widetilde E_D(\F_p) = p + 1\).
+
+  Let \(m = \# E_D(\Q)_{\mathrm{tor}}\). We have \(4 \divides m \divides (p + 1)\) for all sufficiently large primes \(p\) with \(p = 3 \pmod 4\). Then by \(m = 4\) as otherwise we will get a contradiction to Dirichlet's theorem on primes in arithmetic progression. Thus \(E_D(\Q)_{\mathrm{tor}} \cong (\Z/2\Z)^2\). Thus rank \(E_D(\Q) \geq 1\) if and only if there exists \(x, y \in \Q\) with \(y \neq 0\) and \(y^2 = x^3 - D^2x\), if and only if \(D\) is a congruent number.
+\end{eg}
+
+\begin{lemma}
+  Let \(E/\Q\) be given by a Weierstrass equation with \(a_1, \dots, a_6 \in \Z\). Suppose \(0 \neq T = (x, y) \in E(\Q)_{\mathrm{tor}}\). Then
+  \begin{enumerate}
+  \item \(4x, 8y \in \Z\),
+  \item if \(2 \divides a_1\) or \(2T \neq 0\) then \(x, y \in \Z\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof} \leavevmode
+  \begin{enumerate}
+  \item The Weierstrass equation defines a formal group \(\hat E\) over \(\Z\). For \(r \geq 1\), recall
+    \[
+      \hat E(p^r \Z_p) = \{(x, y) \in E(\Q_p): v_p(x) \leq -2r, v_p(y) \leq -3r\} \cup \{0\}.
+    \]
+    Proposition 9.2 says \(\hat E(p^r\Z_p) \cong (\Z_p, +)\) if \(r > \frac{1}{p - 1}\). Thus \(\hat E(4 \Z_2)\) and \(\hat E(p\Z_p)\) for \(p\) odd are torsion free. Thus if \(0 \neq T = (x, y) \in E(\Q)_{\mathrm{tors}}\) then \(T \notin \hat E(4\Z_2)\), so \(v_2(x) \geq -2, v_2(y) \geq -3\). \(T \notin \hat E(p\Z_p)\) so \(v_p(X) \geq 0, v_p(y) \geq 0\).
+  \item Suppose \(T \in \hat E(2 \Z_2)\), i.e.\ \(v_2(x) = -2, v_3(y) = -3\). Since \(\frac{\hat E(2\Z_2)}{\hat E(4\Z_2)} \cong (\F_2, +)\) and \(\hat E(4\Z_2)\) is torsion free, we get \(2T = 0\). Also
+    \[
+      (x, y) = T = -T = (x, -y - a_1x - a_3)
+    \]
+    so \(2y + a_1x + a_3 = 0\). Thus \(8y + a_1 (4x) + 4a_3 = 0\), and \(8y, 4x\) are both odd and \(4a_3 = 0\) so \(a_1\) is odd. Thus if \(2T \neq 0\) or \(a_1\) is even then \(T \in \hat E(2\Z_2)\) and so \(x, y \in \Z\).
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}
+  \(y^2 + xy + x^3 + 4x + 1\) has \((-\frac{1}{4}, \frac{1}{8}) \in E(\Q)[2]\).
+\end{eg}
+
+\begin{theorem}[Lutz Nagell]
+  Let \(E/\Q: y^2 = x^3 + ax + b\) where \(a, b \in \Z\). Suppose \(0 \neq T = (x, y) \in E(\Q)_{\mathrm{tors}}\). Then \(x, y \in \Z\) and either \(y = 0\) or \(y^2 \divides (4a^2 + 27b^2)\).
+\end{theorem}
+
+\begin{proof}
+  Lemma 10.4 implies \(x, y \in \Z\). If \(2T = 0\) then \(y = 0\). Otherwise \(0 \neq 2T = (x_2, y_2)\) is torsion so \(x_2, y_2 \in \Z\). Then \(x_2 = \left(\frac{f'(x)}{2y}\right)^2 - 2x\). Everything is integer so \(y \divides f'(x)\). \(E\) is nonsingular so \(f(X)\) and \(f'(X)\) are coprime. \(f(X)\) and \(f'(X)^2\) are coprime so exists \(g, h \in \Q[X]\) such that \(g(X) f(X) + h(X) f'(X)^2 = 1\). A calculation gives
+  \[
+    (3X^3 + 4a) f'(X)^2 - 27(X^3 + aX - b)f(X) = 4a^3 + 27b^2.
+  \]
+  Since \(y \divides f'(x)\) and \(y^2 = f(x)\) we get \(y^2 \divides (4a^3 + 27b^2)\).
+\end{proof}
+
+\begin{remark}
+  Mazur has shown that if \(E/\Q\) is an elliptic curve then \(E(\Q)_{\mathrm{tors}}\) is isomorphic to one of the below:
+  \[
+    \Z/n\Z \text{ for } 1 \leq n \leq 12, n \neq 11 \text{ or } \Z/2\Z \times \Z/2n\Z \text{ for } 1 \leq n \leq 4.
+  \]
+  Moreover all 15 possibilities occur.
+\end{remark}
+
+\section{Kummer theory}
+
+Let \(K\) be a field with \(\ch K \ndivides n\). Assume \(\mu_n \subseteq K\).
+
+\begin{lemma}
+  Let \(\Delta \subseteq K^*/(K^*)^n\) be a finite subgroup. Let \(L = K(\sqrt[n]{\Delta})\). Then \(L/K\) is Galois and
+  \[
+    \gal(L/K) \cong \Hom(\Delta, \mu_n).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \(L/K\) is Galois since \(\mu_n \subseteq K\) and \(\ch K \ndivides n\). Define the \emph{Kummer pairing}\index{Kummer pairing}
+  \begin{align*}
+    \langle \cdot , \cdot \rangle: \gal(L/K) \times \Delta &\to \mu_n \\
+    (\sigma, x) &\mapsto \frac{\sigma(\sqrt[n]{x})}{\sqrt[n]{x}}
+  \end{align*}
+  Check this is well-defined: if \(\alpha, \beta \in L\) with \(\alpha^n = \beta^n = x\) then \((\frac{\alpha}{\beta})^n = 1\) so \(\frac{\alpha}{\beta} \in \mu_n \subseteq K\) so \(\sigma(\frac{\alpha}{\beta}) = \frac{\alpha}{\beta}\) so \(\frac{\sigma(\alpha)}{\alpha} = \frac{\sigma(\beta)}{\beta}\). It is bilinear:
+  \begin{align*}
+    \langle \sigma\tau, x \rangle
+    &= \frac{\sigma(\tau \sqrt[n]{x})}{\tau \sqrt[n]x} \frac{\tau \sqrt[n]x}{\sqrt[n]x}
+      = \langle \sigma, x \rangle \langle \tau, x \rangle \\
+    \langle \sigma, xy \rangle
+    &= \frac{\sigma \sqrt[n]{xy}}{\sqrt[n]{xy}}
+      = \frac{\sigma \sqrt[n]x}{\sqrt[n]x} \frac{\sigma \sqrt[n]y}{\sqrt[n]y}
+      = \langle \sigma, x\rangle \langle \sigma, y\rangle
+  \end{align*}
+  The pairing is nondegenerate in both arguments: let \(\sigma \in \gal(L/K)\). If \(\langle \sigma, x\rangle = 1\) for all \(x \in \Delta\) then \(\sigma \sqrt[n]x = \sqrt[n]x\) for all \(x \in \Delta\) so \(\sigma\) fixes \(L\) pointwise so \(\sigma = 1\). Conversely let \(x \in \Delta\). If \(\langle \sigma, x \rangle = 1\) for all \(\sigma \in \gal(L/K)\) then \(\sigma \sqrt[n]x = \sqrt[n]x\) for all \(\sigma\) so \(\sqrt[n]x \in K^*\) so \(x \in (K^*)^n\).
+
+  To put it in another way \(\gal(L/K)\) and \(\Delta\) are dual groups to each other and we have two injective group homomorphisms
+  \begin{enumerate}
+  \item \(\gal(L/K) \embed \Hom(\Delta, \mu_n)\),
+  \item \(\Delta \embed \Hom(\gal(L/K), \mu_n)\).
+  \end{enumerate}
+  Statement 1 implies \(\gal(L/K)\) is an abelian group of exponent dividing \(n\). Now similar to the fact that the dual group of a finite abelian group has the same size, we have \(|\Hom(\Delta, \mu_n)| = |\Delta|\) and same for the other so
+  \[
+    |\gal(L/K)| \leq |\Delta| \leq |\gal(L/K)|
+  \]
+  so 1 and 2 are isomorphisms.
+\end{proof}
+
+\begin{eg}
+  \(\gal(\Q(\sqrt 2, \sqrt 3, \sqrt 5)/\Q) \cong (\Z/2\Z)^3\).
+\end{eg}
+
+\begin{theorem}
+  There is a bijection
+  \begin{align*}
+    \left\{
+    \begin{tabular}{c}
+      finite subgroups \\
+      \(\Delta \subseteq K^*/(K^*)^n\)
+    \end{tabular}
+    \right\}
+    &\longleftrightarrow
+      \left\{
+      \begin{tabular}{c}
+        finite abelian extensions \\
+        \(L/K\) of exponent \\
+        dividing \(n\)
+      \end{tabular}
+    \right\} \\
+    \Delta &\mapsto K(\sqrt[n] \Delta) \\
+    \frac{(L^*)^n \cap K^*}{(K^*)^n} &\mapsfrom L
+  \end{align*}
+\end{theorem}
+
+\begin{proof}
+  Let \(\Delta \subseteq K^*/(K^*)^n\) be a finite subgroup. Let \(L = K(\sqrt[n]\Delta)\) and \(\Delta' = \frac{(L^*)^n \cap K^*}{(K^*)^n}\). Clearly \(\Delta \subseteq \Delta'\). To show equality,
+  \[
+    L = K(\sqrt[n]\Delta) \subseteq K(\sqrt[n]{\Delta'}) \subseteq L
+  \]
+  so \(K(\sqrt[n]\Delta) = K(\sqrt[n]{\Delta'})\) so \(|\Delta| = |\Delta'|\) by the lemma. Thus equality.
+
+  Conversey let \(L/K\) be a finite abelian extension of exponent dividing \(n\). Let \(\Delta\) be as defined in the statement. Then \(K(\sqrt[n]{\Delta}) \subseteq L\). We aim to show equality by showing \([K(\sqrt[n]{\Delta}) : K] = [L : K]\). Let \(G = \gal(L/K)\). The Kummer pairing defines an injective group homomorphism \(\Delta \embed \Hom(G, \mu_n)\). Claim this is surjective.
+
+  \begin{proof}
+    Let \(\chi: G \to \mu_n\) be a group homomorphism. From basic Galois theory distinct automorphisms are linearly independent so exists \(a \in L\) such that \(y = \sum_{\tau \in G} \chi(\tau)^{-1} \tau(a) \neq 0\). Let \(\sigma \in G\). Then
+    \[
+      \sigma(y)
+      = \sum_{\tau \in G} \chi(\tau)^{-1} \sigma \tau(a)
+      = \sum_{\tau \in G} \chi(\sigma^{-1} \tau)^{-1} \tau(a)
+      = \chi(\sigma) y
+    \]
+    Thus \(\sigma(y^n) = y^n\) for all \(\sigma \in G\) so \(x = y^n \in K^* \cap (L^*)^n\). Then \(x \in \Delta\) and \(\chi: \sigma \mapsto \frac{\sigma(y)}{y} = \frac{\sigma \sqrt[n]{x}}{\sqrt[n]{x}}\).
+  \end{proof}
+
+  Now
+  \[
+    [K(\sqrt[n]{\Delta}) : K] = |\Delta| = |\Hom(G, \mu_n)| = |G| = [L : K].
+  \]
+\end{proof}
+
+\begin{proposition}
+  Let \(K\) be a number field and \(\mu_n \subseteq K\). Let \(S\) be a finite set of primes of \(K\). There are only finitely many extensions \(L/K\) such that
+  \begin{enumerate}
+  \item \(L/K\) is abelian of exponent dividing \(n\).
+  \item \(L/K\) is unramified at all primes \(\mathfrak p \notin S\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  By 11.2 \(L = K(\sqrt[n]{\Delta})\) for some finite subgroup \(\Delta \subseteq K^*/(K^*)^n\). Let \(\mathfrak p\) be a prime of \(K\) with
+  \[
+    \mathfrak p \O_L = \mathfrak P_1^{e_1} \cdots \mathfrak P_r^{e_r}
+  \]
+  for distinct primes \(\mathfrak P_i\) of \(L\). If \(x \in K^*\) represents an element of \(\Delta\) then
+  \[
+    n v_{\mathfrak P_i}(\sqrt[n]{x}) = v_{\mathfrak P_i}(x) = e_i v_{\mathfrak p}(x).
+  \]
+  If \(\mathfrak p \notin S\) then \(e_i = 1\) for all \(i\) so \(v_{\mathfrak p}(x) = 0 \pmod n\). Thus \(\Delta \subseteq K(S, n)\) where
+  \[
+    K(S, n) = \{x \in K^*/(K^*)^n: v_{\mathfrak p}(x) = 0 \pmod n \text{ for all } \mathfrak p \notin S\}.
+  \]
+
+  \begin{lemma}
+    \(K(S, n)\) is finite.
+  \end{lemma}
+
+  \begin{proof}
+    The map
+    \begin{align*}
+      K(S, n) &\to (\Z/n\Z)^{|S|} \\
+      x &\mapsto (v_{\mathfrak p}(x) \pmod n)_{\mathfrak p \in S}
+    \end{align*}
+    is a group homomorphism with kernel \(K(\emptyset, n)\) so suffice to prove the lemma with \(S = \emptyset\). If \(x \in K^*\) represents an element of \(K(\emptyset, n)\) then \((x) = \mathfrak a^n\) for some ideal \(\mathfrak a\). There is an exact sequence
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & \O_K^*/(\O_K^*)^n \ar[r] & K(\emptyset, n) \ar[r] & \Cl_K[n] \ar[r] & 0
+      \end{tikzcd}
+    \]
+    From algebraic number theory \(|\Cl_K| < \infty\) and \(\O_K^*\) is finitely generated (Dirichlet's unit theorem) so \(K(\emptyset, n)\) is finite.
+  \end{proof}
+\end{proof}
+
+\section{Elliptic curves over number fields II}
+
+Mordell-Weil Theorem
+
+\begin{lemma}
+  Let \(E/K\) be an elliptic curve and \(L/K\) be a finite Galois extension. Then the map \(\frac{E(K)}{n E(K)} \to \frac{E(L)}{n E(L)}\) has finite kernel.
+\end{lemma}
+
+\begin{proof}
+  For each element in the kernel we pick a coset representative \(P \in E(K)\) and then exists \(Q \in E(L)\) such that \(n Q = P\). \(\gal(L/K)\) is finite and \(E[n]\) is finite so there are only finitely many possibilities for the map \(\gal(L/K) \to E[n], \sigma \mapsto \sigma Q - Q\). But if \(P_1, P_2 \in E(K)\) with \(P_i = nQ_i\) and \(\sigma Q_1 - Q_2 = \sigma Q_2 - Q_2\) for all \(\sigma \in \gal(L/K)\) then \(\sigma(Q_1 - Q_2) = Q_2 - Q_2\) so \(Q_1 - Q_2 \in E(K)\), and hence \(P_1 - P_2 \in n E(K)\).
+\end{proof}
+
+\begin{theorem}[weak Mordell-Weil theorem]\index{Mordell-Weil theorem}
+  Let \(K\) be a number field and \(E/K\) an elliptic curve. Then for \(n \geq 2\), \(|\frac{E(K)}{n E(K)}| < \infty\).
+\end{theorem}
+
+\begin{proof}
+  By lemma wlog we can assume \(\mu_n \subseteq K\) and \(E[n] \subseteq E(K)\). Let \(S = \{\mathfrak p \divides n\} \cup \{\text{primes of bad reduction for } E\}\). For each \(P \in E(K)\) the extension \(K([n]^{-1}P)/K\) is unramified outside \(S\) by theorem 9.9.
+
+  Let \(Q \in [n]^{-1}P\). Since \(E[n] \subseteq E(K)\), \(K(Q) = K([n]^{-1}P)\) is a Galois extension of \(K\). Define
+  \begin{align*}
+    \gal(K(Q)/K) &\to E[n] \cong (\Z/n\Z)^2 \\
+    \sigma &\mapsto \sigma Q - Q
+  \end{align*}
+  Check this is a homomorphism:
+  \[
+    \sigma\tau Q - Q = \sigma(\tau Q - Q) + \sigma Q - Q = (\tau Q - Q) + (\sigma Q - Q).
+  \]
+  It is injective as \(\sigma Q = Q\) implies \(\sigma\) fixes \(K(Q)\) so \(\sigma = 1\). Thus \(K(Q)/K\) is an abelian extension of exponent dividing \(n\), unramified outside \(S\). By 11.3 only there are only finitely many possibilities for \(K(Q)\). Let \(L\) be the composite of all such extensions (i.e.\ for all \(P \in E(K)\)). Then \(L/K\) is finite (and Galois) and \(\frac{E(K)}{nE(K)} \to \frac{E(L)}{nE(L)}\) is the zero map. Apply lemma 12.1.
+\end{proof}
+
+\begin{remark}
+  If \(K = \R\) or \(\C\) or \([K : \Q_p] < \infty\) then \(|\frac{E(K)}{nE(K)}| < \infty\), yet \(E(K)\) is not finitely generated (even uncountable).
+\end{remark}
+
+\begin{fact}
+  Let \(E/K\) be a elliptic curve over a number field. Then there exists a quadratic form, called \emph{canonical height}\index{canonical height} \(\hat h: E(K) \to \R_{\geq 0}\) with the property that for any \(B \geq 0\), \(\{P \in E(K): \hat h(P) \leq B\}\) is finite.
+\end{fact}
+
+\begin{theorem}[Mordell-Weil]\index{Mordell-Weil theorem}
+  Let \(K\) be a number field and \(E/K\) an elliptic curve. Then \(E(K)\) is a finitely generated abelian group.
+\end{theorem}
+
+\begin{proof}
+  Fix an integer \(n \geq 2\). Weak Mordell-Weil implies that \(|\frac{E(K)}{nE(K)}| < \infty\). Pick coset representatives \(P_1, \dots, P_m\). Let \(\Sigma = \{P \in E(K): \hat h(P) \leq \max_{1 \leq i \leq n} \hat h(P_i)\}\). Claim \(\Sigma\) generates \(E(K)\).
+
+  \begin{proof}
+    Suppose not. Then exists \(P \in E(K) \setminus \{\text{subgroup generated by }\Sigma\}\) of minimal height. Then \(P = P_i + nQ\) for some \(1 \leq i \leq m\) where \(Q \in E(K) \setminus \{\text{subgroup generated by } \Sigma\}\). Then \(\hat h(P) \leq \hat h(Q)\). Then
+    \begin{align*}
+      4 \hat h(P)
+      &\leq 4 \hat h(Q) \\
+      &\leq n^2 \hat(Q) \\
+      &= \hat h(nQ) \\
+      &= \hat h(P - P_2) \\
+      &\leq \hat h(P - P_i) + \hat h(P + P_i) \\
+      &= 2 \hat h(P) + 2 \hat h(P_1) \text{ parallalogram law}
+    \end{align*}
+    so \(\hat h(P) \in \hat h(P_i)\) so \(P \in \Sigma\), contradiction.
+  \end{proof}
+  \(\Sigma\) is finite so done.
+\end{proof}
+
+\section{Heights}
+
+For simplicity take \(K = \Q\). Write \(P \in \P^n(\Q)\) as \(P = (a_1: \cdots: a_n)\) where \(a_0, \dots, a_n \in \Z, \gcd(a_0, \dots, a_n) = 1\).
+
+\begin{definition}[height]\index{height}
+  We define the \emph{height} of \(P\) to be
+  \[
+    H(P) = \max_{0 \leq i \leq n} |a_i|.
+  \]
+\end{definition}
+
+\begin{lemma}
+  Let \(f_1, f_2 \in \Q[X_1, X_2]\) be coprime homogeneous polynomials of degree \(d\). Let
+  \begin{align*}
+    F: \P^1 &\to \P^1 \\
+    (x_1: x_2) &\mapsto (f_1(x_1, x_2): f_2(x_1, x_2))
+  \end{align*}
+  Then exists \(c_1, c_2 > 0\) such that
+  \[
+    c_1 H(P)^d \leq H(F(P)) \leq c_2 H(P)^d
+  \]
+  for all \(P \in \P^1(\Q)\).
+\end{lemma}
+
+\begin{proof}
+  wlog \(f_1, f_2 \in \Z[X_1, X_2]\). We prove the upper bound first. Write \(P = (a: b)\) where \(a, b \in \Z\) coprime. Then
+  \[
+    H(F(P))
+    \leq \max(|f_1(a, b)|, |f_2(a, b)|)
+    \leq c_2 \max(|a|^d, |b|^d)
+    = c_2 H(P)^d
+  \]
+  where \(c_2\) is the maximum of the sum of absolute values of coefficients of \(f_1\) and \(f_2\).
+
+  For the lower bound, we claim exists \(g_{ij} \in \Z[X_1, X_2]\) homogeneous of degree \(d - 1\) and \(\kappa \in \Z_{> 0}\) such that
+  \[
+    \sum_{j = 1}^2 g_{ij}f_j = \kappa  X_i^{2d - 1}.
+    \tag{\(\dagger\)}
+  \]
+  \begin{proof}
+    Indeed running Euclid's algorihm on \(f_1(X, 1)\) and \(f_2(X, 1)\) gives \(r, s \in \Q[X]\) such that
+    \[
+      r(X) f_1(X, 1) + s(X) f_2(X, 1) = 1.
+    \]
+    Homgogenising and clearing denominators gives (\(\dagger\)) for \(i = 2\) Likewise for \(i = 1\).
+  \end{proof}
+
+  Write \(P = (a_1: a_2)\) where \(a_1, a_2 \in \Z\) coprime. Then (\(\dagger\)) gives
+  \[
+    \sum_{j = 1}^w g_{ij}(a_i, a_2) f_j(a_1, a_2) = \kappa a_i^{2d - 1}.
+  \]
+  Thus \(\gcd(f_1(a_1, a_2), f_2(a_1, a_2))\) divides \(\gcd(\kappa a_1^{2d - 1}, \kappa a_2^{2d - 1}) = \kappa\). But also
+  \[
+    |\kappa a_i^{2d - 1}| \leq \underbrace{\max_{j = 1, 2} |f_j (a_i, a_2)|}_{\leq \kappa H(F(P))} \underbrace{\sum_{j = 1}^2 |g_{ij}(a_1, a_2)|}_{\leq \gamma_i H(P)^{d - 1}}.
+  \]
+  where \(\gamma_i\) is the sum over \(j\) of absolute values of coefficients of \(g_{ij}\). Thus
+  \[
+    |a_i|^{2d - 1} \leq \gamma_i H(F(P)) H(P)^{d - 1}
+  \]
+  for \(i = 1, 2\). Thus
+  \[
+    H(P)^{2d - 1} \leq \max(\gamma_1, \gamma_2) H(F(P)) H(P)^{d - 1}.
+  \]
+  Take \(c_1 = \max(\gamma_1, \gamma_2)^{-1}\).
+\end{proof}
+
+\begin{notation}
+  For \(x \in \Q\) we define \(H(x) = H((x: 1)) = \max(|u|, |v|)\) where \(x = \frac{u}{v}\) for \(u, v \in \Z\) coprime.
+\end{notation}
+
+Let \(E/\Q\) be an elliptic curve of the form \(y^2 = x^3 + ax + b\).
+
+\begin{definition}[height]\index{height}
+  The \emph{height} is defined as the map
+  \begin{align*}
+    H: E(\Q) &\to \R_{\geq 1} \\
+    P &\mapsto
+        \begin{cases}
+          H(x) & P = (x, y) \\
+          1 & P = 0_E
+        \end{cases}
+  \end{align*}
+
+  We define the \emph{logarithmic height} to be \(h = \log H\).
+\end{definition}
+
+\begin{lemma}
+  Let \(E, E'\) be elliptic curves over \(\Q\), \(\phi: E \to E'\) an isogeny defined over \(\Q\). Then exists \(c > 0\) such that
+  \[
+    |h(\phi(P)) - \deg(\phi) h(P)| \leq c
+  \]
+  for all \(P \in E(\Q)\). Note that \(c\) depends on \(E, E'\) and \(\phi\).
+\end{lemma}
+
+\begin{proof}
+  Recall (Lemma 5.4) we have commutative diagram
+  \[
+    \begin{tikzcd}
+      E \ar[r, "\phi"] \ar[d, "x"] & E' \ar[d, "x"] \\
+      \P^1 \ar[r, "\xi"] & \P^1
+    \end{tikzcd}
+  \]
+  and \(\deg \phi = \deg \xi = d\), say. Lemma 13.1 says that there exist \(c_1, c_2 > 0\) such that
+  \[
+    c_1 H(P)^d \leq H(\phi(P)) \leq c_2 H(P)^d
+  \]
+  for all \(P \in E(\Q)\). Taking logs gives
+  \[
+    |h(\phi(P)) - d h(P)| \leq \max(\log c_2, -\log c_1).
+  \]
+\end{proof}
+
+\begin{eg}
+  Let \(\phi = [2]: E \to E\). Then exists \(c > 0\) such that
+  \[
+    |h(2P) - 4h(P)| < c
+  \]
+  for all \(P \in E(\Q)\).
+\end{eg}
+
+\begin{definition}[canonical height]\index{canonical height}
+  The \emph{canonical height} is
+  \[
+    \hat h(P) = \lim_{n \to \infty} \frac{1}{4^n} h(2^nP).
+  \]
+\end{definition}
+
+Check convergence: for \(m \geq n\),
+\begin{align*}
+  |\frac{1}{4^m} h(2^m P) - \frac{1}{4^n} h(2^n P)|
+  &\leq \sum_{r = n}^{m - 1} |\frac{1}{4^{r + 1}} h(2^{r + 1}P) - \frac{1}{4^r} h(2^r P)| \\
+  &\leq \sum_{r = n}^{m - 1} \frac{1}{4^{r + 1}} |h(2^{r + 1}P) - 4h(2^r P)| \\
+  &\leq c \sum_{r = n}^\infty \frac{1}{4^{r + 1}} \\
+  &\to 0
+\end{align*}
+as \(n \to \infty\) so the sequence is Cauchy so \(\hat h(P)\) exists.
+
+\begin{lemma}
+  \(|h(P) - \hat h(P)|\) is bounded for \(P \in E(\Q)\).
+\end{lemma}
+
+\begin{proof}
+  Put \(n = 0\) in the above calcultion to give
+  \[
+    |\frac{1}{4^m} h(2^m P) - h(P)| \leq \frac{c}{3}.
+  \]
+  Take limit as \(m \to \infty\).
+\end{proof}
+
+\begin{corollary}
+  For any \(B > 0\), \(\# \{P \in E(\Q): \hat h(P) < B\} < \infty\).
+\end{corollary}
+
+\begin{proof}
+  By the lemma \(\hat h(P)\) is bounded implies \(h(P)\) is bounded, so only finitely many possibilities for \(x\). Each \(x\) leaves at most 2 choices for \(y\).
+\end{proof}
+
+\begin{lemma}
+  Suppose \(\phi: E \to E'\) is an isogeny defined over \(\Q\). Then
+  \[
+    \hat h(\phi P) = (\deg \phi) \hat h(P)
+  \]
+  for all \(P \in E(\Q)\).
+\end{lemma}
+
+\begin{proof}
+  By lemma 13.2 exists \(c > 0\) such that
+  \[
+    |h(\phi P) - (\deg \phi) h(P)| < c
+  \]
+  for all \(P \in E(\Q)\). Replace \(P\) by \(2^nP\), divide by \(4^n\) and take limit as \(n \to \infty\).
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The case \(\deg \phi = 1\) shows that \(\hat h\), unlike \(h\), is independent of the choice of Weierstrass equation.
+  \item Taking \(\phi = [n]: E \to E\) gives \(\hat h(nP) = n^2 \hat h(P)\) for all \(P \in E(\Q)\).
+  \end{enumerate}
+\end{remark}
+
+(Going to prove \(\hat h\) is a quadratic form by showing that it satisfies the parallelogram law).
+
+\begin{lemma}
+  Let \(E/\Q\) be an ellitpic curve. There exists \(c > 0\) such that
+  \[
+    H(P + Q) H(P - Q) \leq c H(P)^2 H(Q)^2
+  \]
+  for all \(P, Q, P + Q, P - Q \ne 0_E\).
+\end{lemma}
+
+\begin{proof}
+  Let \(E\) have Weierstrass equation \(y^2 = x^3 + ax + b\), \(a, b \in \Z\). Let \(P, Q, P + Q, P - Q\) has \(x\) coordinates \(x_1, \dots, x_4\). By lemma 5.8 there exist \(W_0, W_1, W_2 \in \Z[x_1, x_2]\) of degree \(\leq 2\) in \(x_1\) and degree \(\leq 2\) in \(x_2\) such that
+  \[
+    (1: x_3 + x_4: x_3x_4) = (W_0: W_1: W_2)
+  \]
+  and
+  \(W_0 = (x_1 - x_2)^2\). Write \(x_i = \frac{r_i}{s_i}\) where \(r_i, s_i \in \Z\) coprime. Then we get
+  \[
+    (s_3s_4: r_3s_4 + r_4s_3: r_3r_4) = ((r_1s_2 - r_2s_1)^2: \cdots ).
+  \]
+  So
+  \begin{align*}
+    H(P + Q) H(P - Q)
+    &= \max(|r_3|, |s_3|) \max(|r_4|, |s_4|) \\
+    &\leq 2 \max(|s_3s_4|, |r_3s_4 + r_4s_3|, |r_3r_4|) \\
+    &\leq 2 \max(|r_1s_2 - r_2s_1|, \cdots) \\
+    &\leq c H(P)^2 H(Q)^2
+  \end{align*}
+  where \(c\) depends on \(E\) but not on \(P\) and \(Q\).
+\end{proof}
+
+\begin{theorem}
+  \(\hat h: E(\Q) \to \R_{\geq 0}\) is a quadratic form.
+\end{theorem}
+
+\begin{proof}
+  Lemma 13.6 and \(|h(2P) - 4h(P)|\) bounded implies that
+  \[
+    h(P + Q) + h(P - Q) \leq 2 h(P) + 2h(Q) + c
+  \]
+  for \(P, Q \in E(\Q)\) (there are several special cases to check). Replacing \(P, Q\) by \(2^n P, 2^n Q\), dividing by \(4^n\) and taking limit \(n \to \infty\) gives
+  \[
+    \hat h(P + Q) + \hat h(P - Q) \leq 2 \hat h(P) + 2 \hat h(Q).
+  \]
+  Replacing \(P, Q\) by \(P + Q, P - Q\) and writing \(\hat h(2P) = 4 \hat h(P)\) gives the reverse inequality. Thus \(\hat h\) satisfies the parallelogram law and \(\hat h\) is a quadratic form.
+\end{proof}
+
+\begin{remark}
+  For \(K\) a number field, \(P = (a_0: \cdots :a_n) \in \P^n(K)\), define
+  \[
+    H(P) = \prod_v \max_{0 \leq i \leq n} |a_i|_v
+  \]
+  where the product is over all places \(v\) and the absolute values \(|\cdot|_v\) are normalised such that \(\prod_v |\lambda|_v = 1\) for all \(\lambda \in K^*\). Then all results in this section generalises to \(K\).
+\end{remark}
+
+\section{Dual isogenies \& Weil pairing}
+
+Let \(K\) be a perfect field and \(E/K\) an elliptic field.
+
+\begin{proposition}
+  Let \(\Phi \subseteq E(\overline K)\) be a finite \(\gal(\overline K/K)\)-stable subgroup. Then exists an elliptic curve \(E'/K\) and a separable isogeny \(\phi: E \to E'\) defined over \(K\) with kernel \(\Phi\) such that for every \(\psi: E \to E''\) with \(\psi \subseteq \ker \psi\) factors uniquely via \(\phi\).
+  \[
+    \begin{tikzcd}
+      E \ar[d, "\phi"] \ar[r, "\psi"] & E'' \\
+      E' \ar[ur, dotted, "\exists !"']
+    \end{tikzcd}
+  \]
+\end{proposition}
+
+\begin{proof}
+  Omitted. See Silverman Chapter 3.
+\end{proof}
+
+\begin{proposition}
+  Let \(\phi: E \to E'\) be an isogeny of degree \(n\). Then exists a unique isogeny \(\hat \phi: E' \to E\) such that \(\hat \phi \phi = [n]\). \(\hat \phi\) is called the \emph{dual isogeny}\index{dual isogeny}.
+\end{proposition}
+
+\begin{proof}
+  Case \(\phi\) separable: \(|\ker \phi| = n\) so \(\ker \phi \subseteq \E[n]\). Apply proposition 14.1 with \(\psi = [n]\). The \(\phi\) inseparble case is omitted (see Silverman. Suffice to check for Frobenius map). For uniqueness if \(\psi_1 \phi = \psi_2 \phi = [n]\) then \((\psi_1 - \psi_2) \phi = 0\) so \(\psi_1 = \psi_2\) since \(\phi\) nonconstant is surjective.
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item The relation of elliptic curves being isogenous is an equivalence relation.
+  \item If \(\deg \phi = n\) then \(\deg [n] = n^2\) implies that \(\deg \hat \phi = \deg \phi\) and \(\widehat{[n]} = [n]\).
+  \item \(\phi \hat \phi \phi = \phi [n]_E = [n]_{E'} \phi\) implies that \(\phi \hat \phi = [n]_{E'}\). In particular \(\hat{\hat \phi} = \phi\).
+  \item If \(E \xrightarrow{\psi} E' \xrightarrow{\phi} E''\) then \(\widehat{\phi\psi} = \hat \psi \hat \phi\).
+  \item If \(\phi \in \End(E)\) then by example sheet 2
+    \[
+      \phi^2 - (\tr \phi) \phi + \deg \phi = 0
+    \]
+    so
+    \[
+      \underbrace{([\tr \phi] - \phi)}_{\hat \phi} \phi = [\deg \phi]
+    \]
+    and hence \(\tr \phi = \phi + \hat \phi\).
+  \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+  If \(\phi, \psi \in \Hom(E, E')\) then \(\widehat{\phi + \psi} = \hat \phi + \hat \psi\).
+\end{lemma}
+
+\begin{proof}
+  If \(E = E'\) then this follows from \(\tr(\phi + \psi) = \tr \phi + \tr \psi\). In general let \(\alpha: E' \to E\) be any isogeny (e.g.\ \(\hat \phi\)). Thus
+  \[
+    \widehat{(\alpha \phi + \alpha \psi)} = \widehat{\alpha \phi} + \hat{\alpha \psi}
+  \]
+  so
+  \[
+    \widehat{\phi + \psi} \hat \alpha = (\hat \phi + \hat \psi) \hat \alpha.
+  \]
+\end{proof}
+
+\begin{remark}
+  In Silverman's book, he proves Lemma 14.3 first and uses this to show \(\deg: \Hom(E, E') \to \Z\) is a quadratic form.
+\end{remark}
+
+\begin{definition}[sum]\index{sum}
+  The \emph{sum map} is defined as
+  \begin{align*}
+    \Sum: \Div(E) &\to E \\
+    \sum n_P(P) &\mapsto \sum n_P P
+  \end{align*}
+  where LHS is a formal sum and RHS is sum using group law.
+\end{definition}
+
+Recall that we have a group isomorphism \(E \to \Pic^0(E), P \mapsto [P - 0]\). Thus \(\Sum D \mapsto [D]\) for all \(D \in \Div^0(E)\).
+
+\begin{lemma}
+  Let \(D \in \Div(E)\). Then \(D \sim 0\) if and only if \(\deg D = 0\) and \(\Sum D = 0\).
+\end{lemma}
+
+Let \(\phi: E \to E'\) be an isogeny of degree \(n\) with dual isogeny \(\hat \phi: E' \to E\). Assume \(\ch K \ndivides n\). We define the \emph{Weil pairing}\index{Weil pairing} \(e_\phi: E[\phi] \times E'[\hat \phi] \to \mu_n\). Let \(T \in E'[\hat \phi]\). Then \(nT = 0\) so exists \(f \in \overline K(E')\) such that \(\div(f) = n(T) - n(0)\). Pick \(T_0 \in E(\overline K)\) with \(\phi(T_0) = T\). Then
+\[
+  \phi^*(T) - \phi^*(0) = \sum_{P \in E[\phi]} (P + T_0) - \sum_{P \in E[\phi]}(P)
+\]
+has sum \(nT_0 = \hat \phi \phi T_0 = \hat \phi T = 0\) so exists \(g \in \overline K(E)\) such that \(\div(g) = \phi^*(T) - \phi^*(0)\). Now \(\div(\phi^*f) = \phi^*(\div f) = n(\phi^*(T) - \phi^*(0)) = \div (g^n)\) so \(\phi^* f = c g^n\) for some \(c \in \overline K^*\). Recaling \(f\), wlog \(c = 1\), i.e.\ \(\phi^*f = g^n\).
+
+If \(S \in E[\phi]\) then \(\tau_S^*(\div g) = \div g\) so \(\div(\tau_S^* g) = \div g\) so \(\tau_S^* g = \zeta g\) for some \(\zeta \in \overline K^*\), i.e.\ \(\zeta = \frac{g(X + S)}{g(X)}\) independent of choice of \(X \in E(\overline K)\). Now
+\[
+  \zeta^n = \frac{g(X + S)^n}{g(X)^n} = \frac{f(\phi(X + S))}{f(\phi(X))} = 1
+\]
+since \(S \in E[\phi]\). Thus \(\zeta \in \mu_n\). Finally we define
+\[
+  e_\phi(S, T) = \frac{g(X + S)}{g(X)}
+\]
+for any \(X \in E\).
+
+\begin{proposition}
+  \(e_\phi\) is bliniear and nondegenerate.
+\end{proposition}
+
+\begin{proof}
+  Linearity in first argument:
+  \[
+    e_\phi(S_1 + S_2, T) = \frac{g(X + S_1 + S_2)}{g(X + S_2)} \frac{g(X + S_2)}{g(X)} = e_\phi(S_1, T) e_\phi(S_2, T).
+  \]
+
+  Linearity in second argument: let \(T_1, T_2 \in E'[\hat \phi]\). We can find \(f_i, g_i\) such that \(\div (f_i) = n(T_i) - n(0), \phi^* f_i = g_n^n\). There exists \(h \in \overline K(E')\) such that
+  \[
+    \div (h) = (T_1) + (T_2) - (T_1 + T_2) - (0).
+  \]
+  Then put \(f = \frac{f_1f_2}{h^n}, g = \frac{g_1g_2}{\phi^*(h)}\). Check
+  \begin{align*}
+    \div (f) &= n(T_1 + T_2) - n(0) \\
+    \phi^*f &= \frac{\phi^*f_1 \phi^* f_2}{(\phi^* h)^n} = \left(\frac{g_1g_2}{\phi^*(h)}\right)^n = g^n
+  \end{align*}
+  so
+  \begin{align*}
+    e_\phi(S, T_1 + T_2) &= \frac{g(X + S)}{g(X)} \\
+                         &= \frac{g_1(X + S)}{g_1(X)} \frac{g_2(X + S)}{g_2(X)} \underbrace{\frac{h(\phi(X))}{h(\phi(X + S))}}_{= 1} \\
+                         &= e_\phi(S, T_1) e_\phi(S, T_2)
+  \end{align*}
+
+  \(e_\phi\) is nondegenerate: fix \(T \in E'[\hat \phi]\). Suppose \(e_\phi(S, T) = 1\) for all \(S \in E[\phi]\), so \(\tau_S^*g = g\) for all \(S \in E[\phi]\). Thus
+  \[
+    \begin{tikzcd}
+      \overline K(E) \ar[d, dash] \\
+      \phi^*\overline K(E')
+    \end{tikzcd}
+  \]
+  is a Galois extension with group \(E[\phi]\), with \(S \in E[\phi]\) acting as \(\tau_S^*\). Thus \(g = \phi^*h\) for some \(h \in \overline K(E')^*\). Thus \(\phi^*f = g^n = \phi^* h^n\) so \(f = h^n\). Thus \(\div h = (T) - (0)\) so \(T = 0_E\).
+
+  For the other direction, we've show \(E'[\hat \phi] \embed \Hom(E[\phi], \mu_n)\). It is an isomorphism by counting.
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(E, E'\) and \(\phi\) are defined over \(K\) then \(e_\phi\) is Galois equivariant, i.e.\ \(e_\phi(\sigma S, \sigma T) = \sigma(e_\phi(S, T))\).
+  \item Taking \(\phi = [n]: E \to E\) (so \(\hat \phi = [n]\)) gives \(e_n: E[n] \times E[n] \to \mu_{n^2} = \mu_n\) since \(e_n\) is bilinear.
+  \end{enumerate}
+\end{remark}
+
+\begin{corollary}
+  If \(E[n] \subseteq E(K)\) then \(\mu_n \subseteq K\).
+\end{corollary}
+
+\begin{proof}
+  We claim exists \(S, T \in E[n]\) such that \(e_n(S, T)\) is a primitive \(n\)th root of unit, say \(\zeta_n\). We pick \(T \in E[n]\) of order \(n\). The group homomorphism \(E[n] \to \mu_n, S \mapsto e_n(S, T)\) has image \(\mu_d\) for some \(d \divides n\). Then \(e_n(S, dT) = 1\) for all \(S \in E[n]\). By nondegeneracy \(dT = 0\) so \(d = n\), proving the claim. To show \(\zeta_n \in K\) we use Galois equivariance: for all \(\sigma \in \gal(\overline K/K)\),
+  \[
+    \sigma(\zeta_n) \sigma(e_n(S, T)) = e_n(\sigma S, \sigma T) = e_n(S, T) = \zeta_n
+  \]
+  so \(\zeta_n \in K\).
+\end{proof}
+
+\begin{eg}
+  There does not exist \(E/\Q\) with \(E(\Q)_{\mathrm{tor}} \cong (\Z/3\Z)^2\).
+\end{eg}
+
+\begin{remark}
+  In fact \(e_n\) is alternating, i.e.\ \(e_n(T, T) = 1\) for all \(T \in E[n]\). By expanding \(e_n(S + T, S + T)\), we have \(e_n\) alternating: \(e_n(S, T) = e_n(T, S)^{-1}\).
+\end{remark}
+
+\section{Galois cohomology}
+
+Let \(G\) be a group and \(A\) a \(G\)-module, i.e.\ an abelian group with an action of \(G\) via group homomorphism (in other words a \(\Z[G]\)-module). We begin with a very practical definition of group cohomology (or more precisely, \(H^0\) and \(H^1\)).
+
+\begin{definition}[group cohomology]\index{group cohomology}
+  We define
+  \[
+    H^0(G, A) = A^G = \{a \in A: \sigma(a) = a \text{ for all } \sigma \in G\}.
+  \]
+  We define the first cochains, cocyles and coboundaries 
+  \begin{align*}
+    C^1(G, A) &= \{G \to A\} \\
+    Z^1(G, A) &= \{(a_\sigma)_{\sigma \in G}: a_{\sigma\tau} = \sigma(a_\tau) + a_\sigma\} \\
+    B^1(G, A) &= \{(\sigma b - b)_{\sigma \in G}: b \in A\}
+  \end{align*}
+  Then we define
+  \[
+    H^1(G, A) = \frac{Z^1(G, A)}{B^1(G, A)}.
+  \]
+\end{definition}
+
+\begin{remark}
+  If \(G\) acts trivially on \(A\) then \(H^1(G, A) = \Hom(G, A)\).
+\end{remark}
+
+We quote some elementary results from homological algebra:
+
+\begin{theorem}
+  A short exact sequence of \(G\)-modules
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A \ar[r, "\phi"] & B \ar[r, "\psi"] & C \ar[r] & 0
+    \end{tikzcd}
+  \]
+  gives rise to a long exact sequence of abelian groups
+  \[
+    \begin{tikzcd}[column sep=small]
+      0 \ar[r] & A^G \ar[r] & B^G \ar[r] & C^G \ar[r] & H^1(G, A) \ar[r] & H^1(G, B) \ar[r] & H^1(G, C)
+    \end{tikzcd}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Omitted. We note the definition of \(\delta: C^G \to H^1(G, A)\): given \(c \in C^G\), exists \(b \in B\) such that \(\psi(b) = c\). Then
+  \[
+    \tau(\sigma b - b) = \sigma c - c = 0
+  \]
+  for all \(\sigma \in G\) so \(\sigma b - b = \phi(a_\sigma)\) for some \(a_\sigma \in A\). Can show \((a_\sigma)_{\sigma \in G} \in Z^1(G, A)\). We define \(\delta(c)\) to be the class of \((a_\sigma)_{\sigma \in G}\) in \(H^1(G, A)\).
+\end{proof}
+
+\begin{theorem}
+  Let \(A\) be a \(G\)-module and \(H \normal G\) be a nomrla subgroup. Then there is an \emph{inflation-restriction exact sequence}\index{inflation-restriciton exact sequence}
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H^1(G/H, A^H) \ar[r, "\mathrm{inf}"] & H^1(G, A) \ar[r, "\mathrm{res}"] & H^1(H, A)
+    \end{tikzcd}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+Let \(K\) be a perfect field. Then \(\gal(\overline K/K)\) is a topological group with basis of open subgroups \(\gal(\overline K/L)\) for \([L: K] < \infty\). If \(G = \gal(\overline K/K)\) we modify the definition of \(H^1(G, A)\) by insisting
+\begin{enumerate}
+\item the stabiliser of each \(a \in A\) is an open subgroup of \(G\),
+\item all cochains \(G \to A\) are continuous, where \(A\) is given the discrete topology.
+\end{enumerate}
+Then
+\[
+  H^1(\gal(\overline K/K), A) = \varinjlim_{L/K \text{ finite Galois}} H^1(\gal(L/K), A^{\gal(\overline K/L)}).
+\]
+Here the direct limit is with respect to inflation maps.
+
+\begin{theorem}[Hilbert theorem 90]\index{Hilbert theorem 90}
+  Suppose \(L/K\) is a finite Galois extension. Then
+  \[
+    H^1(\gal(L/K), L^*) = 0.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let \(G = \gal(L/K)\) and \((a_\sigma)_{\sigma \in G} \in Z^1(G, L^*)\). Distinct automorphisms are linearly independent so exists \(y\) such that
+  \[
+    x = \sum_{\tau \in G} a_\tau^{-1} \tau(y) \neq 0.
+  \]
+  For \(\sigma \in G\),
+  \[
+    \sigma(x) = \sum_{\tau \in G} \sigma(a_\tau)^{-1} \sigma\tau(y)
+    = a_\sigma \sum_{\tau \in G} a_{\sigma\tau}^{-1} \sigma\tau(y)
+    = a_\sigma x.
+  \]
+  Thus \(a_\sigma = \frac{\sigma(x)}{x}\) so \((a_\sigma)_{\sigma \in G} \in B^1(G, L^*)\). Thus \(H^1(G, L^*) = 0\).
+\end{proof}
+
+\begin{corollary}
+  \(H^1(\gal(\overline K/K), \overline K^*) = 0\).
+\end{corollary}
+
+As an application, assume \(\ch K \ndivides n\). There is a short exact sequence of \(\gal(\overline K/K)\)-modules
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \mu_n \ar[r] & \overline K^* \ar[r, "x \mapsto x^n"] & \overline K^* \ar[r] & 0
+  \end{tikzcd}
+\]
+so we have a long exact sequence
+\[
+  \begin{tikzcd}
+    K^* \ar[r, "x \mapsto x^n"] & K^* \ar[r] & H^1(\gal(\overline K/K), \mu_n) \ar[r] & H^1(\gal(\overline K/K), \overline K^*) = 0
+  \end{tikzcd}
+\]
+so
+\[
+  H^1(\gal(\overline K/K), \mu_n) \cong K^*/(K^*)^n.
+\]
+Now let's revisit Kummer theory. If \(\mu_n \subseteq K\) then
+\[
+  \Hom(\gal(\overline K/K), \mu_n) \cong K^*/(K^*)^n.
+\]
+Finite subgroups of LHS are of the form \(\Hom(\gal(L/K), \mu_n)\) for \(L/K\) a finite abelian extension of exponent dividing \(n\). Thus we get another proof of Theorem 11.2.
+
+\begin{remark}
+  Every continuous group homomorphism \(\chi: \gal(\overline K/K) \to \mu_n\) factorises uniquely as
+  \[
+    \gal(\overline K/K) \surj \gal(L/K) \embed \mu_n
+  \]
+  for \(L\) the fixed field of \(\ker \chi\).
+\end{remark}
+
 
 
 

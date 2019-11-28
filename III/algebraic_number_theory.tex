@@ -15,6 +15,7 @@
 
 \renewcommand*{\O}{\mathcal{O}}
 \DeclareMathOperator{\Cl}{Cl} % ideal class group
+\DeclareMathOperator{\Frob}{Frob} % Frobenius automorphism
 
 \begin{document}
 
@@ -81,7 +82,7 @@ In fact, the ideal \(I = \bigcap_{i \geq 0} \pi^i A\) is zero. This follows from
   \end{enumerate}
 \end{proof}
 
-Now back to the statement. Note \(\pi I = I\) so Nakayama's lemma implies that \(I = 0\). Hence each element of \(x \in A, x \neq 0\) admits a aunique description \(x = \pi^n u\), \(n \geq 0, u \in A^\times\). Each non-zero ideal of \(A\) has the form \((\pi^i)\) for some \(i \geq 0\).
+Now back to the statement. Note \(\pi I = I\) so Nakayama's lemma implies that \(I = 0\). Hence each element of \(x \in A, x \neq 0\) admits a unique description \(x = \pi^n u\), \(n \geq 0, u \in A^\times\). Each non-zero ideal of \(A\) has the form \((\pi^i)\) for some \(i \geq 0\).
 
 Therefore we can define a function \(v: K^\times \to \Z\) where \(K = \Frac A\) with the following properties:
 \begin{enumerate}
@@ -653,7 +654,7 @@ The kernel of this homomorphism is \(\bigcap_{i \geq 1} (\pi^i) = 0\) so \(A\) i
     \[
       d(\pi x, \pi y) = \frac{1}{2} d(x, y).
     \]
-    Let \((a_n)_{n \geq 1}\) be a Cauchy sequence in \(K\). Then there exists \(N \geq 1\) such that \(\pi^N a_n \in A\) for all \(n \geq 1\): there exists \(M\) such that for all \(n, m \geq M\), \(d(a_n, a_m) \leq 1\). Equvalently, \(a_n - a_m \in A\) so it's enough to choose \(N\) so that \(\pi^N a_n \in A\) for \(1 \leq n \leq M\). \((\pi^N a_n)_{n \geq 1}\) is a Cauchy sequence in \(A\) so exists \(a \in A\) such that \(d(\pi^N a_n, a) \to 0\) as \(n \to \infty\). Thus \(a_n \to \pi^{-N} a\) in \(K\).
+    Let \((a_n)_{n \geq 1}\) be a Cauchy sequence in \(K\). Then there exists \(N \geq 1\) such that \(\pi^N a_n \in A\) for all \(n \geq 1\): there exists \(M\) such that for all \(n, m \geq M\), \(d(a_n, a_m) \leq 1\). Equivalently, \(a_n - a_m \in A\) so it's enough to choose \(N\) so that \(\pi^N a_n \in A\) for \(1 \leq n \leq M\). \((\pi^N a_n)_{n \geq 1}\) is a Cauchy sequence in \(A\) so exists \(a \in A\) such that \(d(\pi^N a_n, a) \to 0\) as \(n \to \infty\). Thus \(a_n \to \pi^{-N} a\) in \(K\).
   \end{itemize}
 \end{proof}
 
@@ -790,20 +791,20 @@ As a consequence, we have \(\Z_p/(p) \cong \Z/p\Z\) so we can choose the set of 
 
 What is \(\Q_p\) like? It is a mixture of \(\R\) and \(\F_p\) and has features of both analytic (\(\R\)) and algebraic (number fields) objects.
 
-\begin{lemma}[Hensel's lemma]\index[Hensel's lemma]
-  \label{lem:Hensel lemma}
+\begin{lemma}[Hensel's lemma]\index{Hensel's lemma}
+  \label{lem:Hensel's lemma}
   Let \(A\) be a complete DVR. Let \(f(x) \in A[x]\) be monic. Suppose given \(\alpha \in A\) such that \(v(f(\alpha)) > 2v(f'(\alpha))\). Then exists a unique \(a \in A\) such that \(f(a) = 0\) and \(v(a - \alpha) > v(f'(\alpha))\).
 \end{lemma}
 
 \begin{corollary}
-  Let \(A\) be a complete DVR and \(f(x) \in A[x]\) a monic polnomial. Let \(k = A/(\pi)\) and \(\overline f(x) = f(x) \pmod \pi \in k[x]\). Suppose there exists \(\overline \alpha \in K\), a simple root of \(\overline f(x)\), then exists a unique \(a \in A\) such that \(f(a) = 0\) and \(a = \overline \alpha \pmod \pi\).
+  Let \(A\) be a complete DVR and \(f(x) \in A[x]\) a monic polnomial. Let \(k = A/(\pi)\) and \(\overline f(x) = f(x) \pmod \pi \in k[x]\). Suppose there exists \(\overline \alpha \in k\) a simple root of \(\overline f(x)\), then exists a unique \(a \in A\) such that \(f(a) = 0\) and \(a = \overline \alpha \pmod \pi\).
 \end{corollary}
 
 \begin{proof}
   Let \(\alpha \in A\) be a lift of \(\overline \alpha\). Then \(\overline f'(\overline \alpha) \neq 0\) implies that \(f'(\alpha) \in A^\times\) so \(v(f'(\alpha)) = 0\). Then apply the lemma.
 \end{proof}
 
-\begin{proof}[Proof of \nameref{lem:Hensel lemma}]
+\begin{proof}[Proof of \nameref{lem:Hensel's lemma}]
   We first show existence of \(a\) by Newton's method. Define
   \[
     a_1 = \alpha, \quad a_{n + 1} = a_n - \frac{f(a_n)}{f'(a_n)}.
@@ -895,7 +896,12 @@ What is \(\Q_p\) like? It is a mixture of \(\R\) and \(\F_p\) and has features o
   \end{enumerate}
 \end{proposition}
 
-In the previous example we use the surjective homomorphism \(\Z_p^\times \to \F_p^\times, \sum_{i = 0}^\infty a_i p^i \mapsto a_0 \pmod p\). In fact, this homomoprhism has a unique splitting, i.e.\ exists a unique homomorphism \(\tau: \F_p^\times \to \Z_p^\times\) such that for all \(\overline \alpha \in \F_p^\times\), \(\tau(\overline \alpha) \pmod p = \overline \alpha\). This \(\tau\) is called the \emph{Teichmüller lift}\index{Teichmüller lift} and is constructed as follow: let \(f(x) = x^p - x\). Then for all \(\overline \alpha \in \F_p, \overline f(\overline \alpha) = 0\), and \(\overline f'(x) = px^{p - 1} - 1 \pmod p = -1\) so never vanishes. So Hensel's lemma says that for all \(\overline \alpha \in \F_p\), exists a unique \(\alpha \in \Z_p\) such that \(\alpha^p = \alpha\) and \(\alpha \pmod{p\Z_p} = \overline \alpha\). Define \(\tau(\overline \alpha) = \alpha\).
+In the example we used the surjective homomorphism
+\begin{align*}
+  \Z_p^\times &\to \F_p^\times \\
+  \sum_{i = 0}^\infty a_i p^i &\mapsto a_0 \pmod p
+\end{align*}
+In fact, this homomoprhism has a unique splitting, i.e.\ exists a unique homomorphism \(\tau: \F_p^\times \to \Z_p^\times\) such that for all \(\overline \alpha \in \F_p^\times\), \(\tau(\overline \alpha) \pmod p = \overline \alpha\). This \(\tau\) is called the \emph{Teichmüller lift}\index{Teichmüller lift} and is constructed as follow: let \(f(x) = x^p - x\). Then for all \(\overline \alpha \in \F_p, \overline f(\overline \alpha) = 0\), and \(\overline f'(x) = px^{p - 1} - 1 \pmod p = -1\) so never vanishes. So Hensel's lemma says that for all \(\overline \alpha \in \F_p\), exists a unique \(\alpha \in \Z_p\) such that \(\alpha^p = \alpha\) and \(\alpha \pmod{p\Z_p} = \overline \alpha\). Define \(\tau(\overline \alpha) = \alpha\).
 
 If \(\overline \alpha, \overline \beta \in \F_p^\times\) then
 \[
@@ -939,15 +945,14 @@ Suppose \(q\) is a prime such that \(p = 1 \pmod q\). Then \(\Q_p^\times\) conta
   Since \(\zeta_q \in \Q_p^\times\), Kummer theory tells us that such extensions correspond to subgroups of \(\Q_p^\times/(\Q_p^\times)^q\) of order \(q\), where an element \(z\) of the subgroup corresponds to the extension \(\Q_p(\sqrt[q]{z})\). We've computed \(\Q_p^\times/(\Q_p^\times)^q \cong \Z/q\Z \times \Z/q\Z\), which has \(q + 1\) subgroups of order \(q\).
 \end{proof}
 
-End of this chapter. Where are we going?
-
+Before the end of the chapter, we briefly indicate where we're heading: we define \(K_Q\) to be the fraction field associated to the completion of \(\O_K\) localised at \(Q\). Then we are going to consider its ``rings of integers'' \(\O_{K_Q}\) so we have th following picture:
 \[
   \begin{tikzcd}
-    K & \O_K & \Q & \O_{K_Q} & K_Q \\
-    \Q & \Z & p & \Z_p & \Q_p
+    K \ar[d, dash] & \O_K \ar[d, dash] & Q \ar[d, dash] & \O_{K_Q} \ar[d, dash] & \ar[d, dash] K_Q \\
+    \Q & \Z & p\Z & \Z_p & \Q_p
   \end{tikzcd}
 \]
-if \(K/\Q\) is Galoios then \(K_Q/\Q_p\) is Glaois and \(\gal(K_\Q/\Q_p) \embed \gal(K/\Q)\). We are going to study \(\gal(K_\Q/\Q_p)\).
+If \(K/\Q\) is Galois then so is \(K_Q/\Q_p\) and \(\gal(K_Q/\Q_p) \embed \gal(K/\Q)\), and we are going to study \(\gal(K_Q/\Q_p)\).
 
 \section{Extensions of Dedekind domains}
 
@@ -974,7 +979,7 @@ Let \(A\) be a Dedekind domain and \(K = \Frac A\). Let \(E/K\) be a finite sepa
   \item \(1 \implies 2\): If \(\gamma^n + a_1 \gamma^{n - 1} + \dots + a_n = 0\) then \(A[\gamma] = A + A \gamma + \dots + A\gamma^{n - 1}\).
   \item \(2 \implies 1\): \(A\) is Noetherian and \(A[\gamma]\) is a finitely generated \(A\)-module so
     \[
-      A \subseteq A + A[\gamma] \subseteq A + A\gamma +A\gamma^2 \subseteq \cdots
+      A \subseteq A + A[\gamma] \subseteq A + A\gamma + A[\gamma^2] \subseteq \cdots
     \]
     is eventually stationary, so exists \(n \geq 1\) such that \(\gamma^n \in A + A\gamma + \dots + A\gamma^{n - 1}\).
   \item \(2 \implies 3\): \(M = A[\gamma]\).
@@ -1101,7 +1106,7 @@ Note that they are both integers greater than \(0\).
   \]
   and hence \(n = [E : K]\).
 
-  By reduction modulo \(P\), we have an isomorphism \(B/PB \cong (A/PA)^n\) of \(A/P\)-vector spaces. By the Chinese remainder theorem, we have an isomorphism
+  By reduction modulo \(P\), we have an isomorphism \(B/PB \cong (A/P)^n\) of \(A/P\)-vector spaces. By the Chinese remainder theorem, we have an isomorphism
   \[
     B/PB \cong \prod_{Q: v_Q(PB) > 0} B/Q^{v_Q(PB)}.
   \]
@@ -1141,19 +1146,1535 @@ Let \(e_i = e_{Q_i/P}, f_i = f_{Q_i/P}\) and so \(\sum_{i = 1}^r e_if_i = [E : K
   If for all \(1 \leq i \leq r, e_i = f_i = 1\), we say \(P\) \emph{splits completely} in \(B\) (or \(E\)).
 \end{definition}
 
+\begin{notation}
+  If \(P\) is a prime ideal in a Dedekind domain then we write \(k_P\) for the quotient field by \(P\). For example \(k_Q = B/Q, k_P = A/P\).
+\end{notation}
+
 \begin{eg}
-  If \(K/Q\) is a number field (i.e.\ finite extension), we write \(\O_K\) for the integral closure of \(\Z\) in \(K\). If \(K = Q(\sqrt d)\) where \(d \in \Z, d \neq 0, 1\) is a squarefree integer, then we can compute
+  If \(E/\Q\) is a number field (i.e.\ finite extension), we write \(\O_E\) for the integral closure of \(\Z\) in \(K\). If \(E = Q(\sqrt d)\) where \(d \in \Z, d \neq 0, 1\) is a squarefree integer, then we can compute
   \[
-    \O_K =
+    \O_E =
     \begin{cases}
       \Z[\sqrt d] & d = 2, 3 \pmod 4 \\
       \Z[\frac{1 + \sqrt d}{2}] & d = 1 \pmod 4
     \end{cases}
   \]
+  Note \(\sqrt d\) satisfies \(X^2 - d = 0\) and \(\frac{1 + \sqrt d}{2}\) satisfied \(X^2 - X + \frac{1 - d}{4}\). This shows the given rings are at least subrings of \(\O_E\). To show there's nothing else, let \(\alpha \in \O_E\). We can write \(\alpha = a + b \sqrt d\) where \(a, b \in \Q\). Note \(\gal(E/\Q)\) acts on \(E\) and preserves \(\O_E\): if \(\alpha \in \O_E\) so
+  \[
+    \alpha^n + a_1 \alpha^{n - 1} + \dots + a_n = 0
+  \]
+  for \(a_i \in \Z\), and \(\sigma \in \gal(E/\Q)\) then
+  \[
+    \sigma(\alpha)^n + a_1 \sigma(\alpha)^{n - 1} + \dots + a_n = 0
+  \]
+  so \(\sigma(\alpha) \in \O_E\). Hence \(\overline \alpha = a - b\sqrt d \in \O_E\) so
+  \begin{align*}
+    \alpha + \overline \alpha &= 2a \in \O_E \cap \Q = \Z \\
+    \alpha \overline \alpha &= a^2 - b^2d \in \Z
+  \end{align*}
+  we can make substitution \(a = \frac{u}{2}\) where \(u \in \Z\) to get \(u^2 - 4b^2d \in 4\Z\) so \(4b^2d \in \Z\). Let \(p\) be an odd prime. Then
+  \[
+    v_p(4b^2d) = v_p(d) + 2v_p(b) \geq 0.
+  \]
+  \(d\) is squarefree so \(v_p(d) \in \{0, 1\}\). Hence \(v_p(b) \geq 0\). Similarly
+  \[
+    v_2(4b^2d) = v_2(d) + 2(v_2(b) + 1) \geq 0
+  \]
+  so \(v_2(b) \geq -d\). So we can write \(b = \frac{v}{2}\) for some \(v \in \Z\). Then
+  \[
+    4 \alpha \overline \alpha = u^2 - dv^2 \in 4\Z,
+  \]
+  i.e.\ \(u^2 = dv^2 \pmod 4\). If \(d = 2, 3 \pmod 4\) this forces both \(u, v \in 2\Z\) so have \(a, b \in \Z\), and therefore \(\alpha \in \Z[\sqrt d]\). If \(d = 1 \pmod 4\) we get \(u^2 = v^2 \pmod 4\) so \(u = v \pmod 2\). This shows \(\O_E = \Z[\frac{1 + \sqrt d}{2}]\) in this case.
+
+  Next we show how to factorise \(p \O_E\) when \(p\) is a prime number. First suppose \(p\) is odd. Then it's enough to factorise \(p\O_E[\frac{1}{2}] = p\Z[\frac{1}{2}, \sqrt d]\). We compute
+  \[
+    \frac{\O_E[\frac{1}{2}]}{p \O_E[\frac{1}{2}]}
+    = \frac{\Z[\frac{1}{2}, \sqrt d]}{p \Z[\frac{1}{2}, \sqrt d]}
+    = \frac{\Z[\frac{1}{2}, X]}{(X^2 - d, p)}
+    = \frac{\F_p[X]}{(X^2 - d)}
+    =
+    \begin{cases}
+      \F_ p \times \F_p & \legendre{d}{p} = 1 \\
+      \F_{p^2} & \legendre{d}{p} = -1 \\
+      \F_p[X]/(X^2) & p \divides d
+    \end{cases}
+  \]
+  Now suppose \(p \O_E = \prod_Q Q^{e_{Q/P}}\), then by Chinese remainder theorem
+  \[
+    \O_E/p\O_E \cong \prod_Q (\O_E/Q^{e_{Q/P}}).
+  \]
+  There are three possible isomorphism classes of this quotient, corresponding to that for \(\O_E[\frac{1}{2}]/p\O_E[\frac{1}{2}]\):
+  \begin{itemize}
+  \item \(p\) splits completely if \(\legendre{d}{p} = 1\).
+  \item \(p\) is unramified (and not split) if \(\legendre{d}{p} = -1\).
+  \item \(p\) is ramified if \(p \divides d\).
+  \end{itemize}
+
+  It remains to treat the case \(p = 2\). If \(d = 2, 3 \pmod 4\) then
+  \[
+    \O_E/2\O_E \cong \F_2[X]/(X^2 - d) = \F_2[X]/((X - d)^2)
+  \]
+  so \(2\) is ramified in \(\O_E\) in this case. If \(d = 1 \pmod 4\) then
+  \[
+    \O_E/2\O_E \cong \F_2[X]/(X^2 - X + \frac{1 - d}{4})
+  \]
+  so
+  \begin{itemize}
+  \item \(2\) splits completely if \(\frac{1 - d}{4}\) is even, i.e.\ \(d = 1 \pmod 8\).
+  \item \(2\) is unramified (and not split) if \(\frac{1 - d}{4}\) is odd, i.e.\ \(d = 5 \pmod 8\).
+  \end{itemize}
+
+  This is a rather hands-on method and can be inefficient for large number fields. Soon we'll see another method to determine the factorisation of \(p \O_E\) for a general number field \(E\) based on factorisations in \(\Q_p[X]\).
 \end{eg}
+
+Now suppose \(A, K, E, B\) as before and suppose \(E/K\) is Galois with \(G = \gal(E/K)\). Then the action of \(G\) on \(E\) leaves \(B\) invariant.
+
+\begin{proposition}
+  Le \(Q \subseteq B\) be a non-zero prime ideal, \(P = Q \cap A\). Then
+  \begin{enumerate}
+  \item \(G\) acts transitively on the set of prime ideals of \(B\) which lie above \(P\).
+  \item for all \(\sigma \in G\), \(f_{\sigma(Q)/P} = f_{Q/P}\) and \(e_{\sigma(Q)/P} = e_{Q/P}\).
+  \item If \(g_{Q/P}\) is the number of prime ideals lying above \(P\) then \(e_{Q/P} f_{Q/P} g_{Q/P} = [E : K] = |G|\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  If \(\sigma \in G\) then \(\sigma(Q) \subseteq B\) is a prime ideal and
+  \[
+    \sigma(Q) \cap A = \sigma(Q) \cap \sigma(A) = \sigma(Q \cap A) = Q \cap A = P.
+  \]
+  To show the action is transitive, we can assume \(A\) is DVR, by replacing \(A\) by \(A_P\). Then \(B\) has only finitely many prime ideals (they all lie above the unique ideal in \(A\)) so by example sheet 1 is a PID. Let \(\pi \in B\) be a generator for \(Q\). Then
+  \[
+    N_{E/K}(\pi) = \prod_{\sigma \in G} \sigma(\pi) \in Q \cap A = P.
+  \]
+  If \(Q'\) is another prime ideal of \(B\) which lies above \(P\) then \(N_{E/K}(\pi) \in Q'\) and hence (as \(Q'\) is prime) there exists \(\sigma \in G\) such that \(\sigma(\pi) \in Q'\). Hence \(\sigma(Q) \subseteq Q'\) so equality.
+
+  For the second part, \(\sigma|_B: B \to B\) is an automorphism. If \(\sigma(Q) = Q'\) then it descends to an isomorphism \(B/Q \cong B/Q'\) which acts as identity on \(A/P\). In other words, \(\sigma\) determines an isomorphism \(k_Q \to k_{Q'}\) of extensions of \(k_P\). In particular \(f_{Q/P} = f_{Q'/P}\). By definition we can factorise \(PB = \prod_Q Q^{e_{Q/P}}\). Then for all \(\sigma \in G\),
+  \[
+    \sigma(PB) = \prod_Q \sigma(Q)^{e_{Q/P}}
+  \]
+  so by unique factorisation for all \(Q\) have \(e_{Q/P} = e_{\sigma(Q)/P}\).
+
+  Finally
+  \[
+    [E: K] = \sum_{Q'} e_{Q'/P} f_{Q'/P} = e_{Q/P} f_{Q/P} g_{Q/P}
+  \]
+  as \(e_{Q'/P} = e_{Q/P}, f_{Q'/P} = f_{Q/P}\) for all \(Q'\).
+\end{proof}
+
+We just saw that if \(\sigma(Q) = Q\) then \(\sigma|_B \pmod Q\) is an automorphism of \(k_Q\).
+
+\begin{definition}[decomposition group]\index{decomposition group}
+  If \(Q \subseteq B\) lies above \(P \subseteq A\) then the \emph{decomposition group} \(D_{Q/P} = \operatorname{Stab}_G(Q)\).
+\end{definition}
+
+\begin{proposition}
+  Suppose \(Q \subseteq B\) is a non-zero prime ideal and \(P = Q \cap A\) and suppose \(k_Q/k_P\) is separable. Then
+  \begin{enumerate}
+  \item \(k_Q/k_P\) is a Galois extension.
+  \item the map \(D_{Q/P} \to \gal(k_Q/k_P), \sigma \mapsto \sigma|_B \pmod Q\) is a surjective group homomorphism.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item We must show \(k_Q\) is normal, i.e.\ for all \(\overline \alpha \in k_Q\), all Galois conjugates of \(\overline \alpha\) in a normal closure of \(k_Q\) actually lie in \(k_Q\). Fix \(\overline \alpha \in k_Q = B/Q\). Choose any \(\alpha \in B\) such that \(\alpha \pmod Q = \overline \alpha\). Define
+    \[
+      f(X) = \prod_{\sigma \in G} (X - \sigma(\alpha)) \in B[X].
+    \]
+    The coefficient of \(f(X)\) are invariants under \(G\), so lie in \(E^G = K\), so in \(B \cap K = A\). We can define \(\overline f(X) = f(X) \pmod P \in k_P[X]\). Observe that \(\overline f(X)\) has \(\overline \alpha\) as a root and \(\overline f(X)\) splits into linear factors in \(k_Q[X]\). This shows that \(k_Q\) is normal, hence Galois.
+  \item Since \(k_Q/k_P\) is separable, there exists \(\overline \alpha \in k_Q\) such that \(k_Q = k_P(\overline \alpha)\), i.e.\ \(\overline \alpha\) is a primitive element. Let \(Q = Q_1, Q_2, \dots, Q_r\) be the prime ideals lying above \(P\). By Chinese remainder theorem we can find \(\alpha \in B\) such that \(\alpha \pmod Q = \overline \alpha\), and for each \(2 < i \leq r\), \(\alpha \pmod{Q_i} = 0\). Let \(f(X) = \prod_{\sigma \in G}(X - \sigma(\alpha)) \in A[X]\). Let \(\overline f(X) = f(X) \pmod Q \in k_P[X]\). Then
+    \begin{align*}
+      \overline f(X)
+      &= \prod_{\sigma \in G} (X - \sigma(\alpha) \pmod Q) \\
+      &= \prod_{\sigma \in D_{Q/P}} (X - \sigma (\alpha) \pmod Q)
+      + \prod_{\sigma \notin D_{Q/P}} (X - \sigma (\alpha) \pmod Q)
+    \end{align*}
+    Note if \(\sigma \notin D_{Q/P}\) then \(\sigma^{-1}(Q) = Q_i\) for some \(i > 1\) and hence
+    \[
+      \sigma(\alpha) \pmod Q = \sigma(\alpha) + Q= \sigma(\alpha + \sigma^{-1}(Q)) = \sigma(\alpha + Q_i).
+    \]
+    By construction \(\alpha \in Q_i\) so \(\sigma(\alpha) \pmod Q = 0\). Hence \(\overline f(X) = \overline g(X) X^d\) where
+    \[
+      \overline g(X) = \prod_{\sigma \in D_{Q/P}} (X - \sigma(\alpha) \pmod Q) \in k_P[X]
+    \]
+    and \(d = |G| - |D_{Q/P}|\). Suppose \(\tau \in \gal(k_Q/k_P)\). Then \(\tau(\overline \alpha)\) is also a root of \(\overline g(X)\). Hence exists \(\sigma \in D_{Q/P}\) such that \(\sigma(\alpha) \pmod Q = \tau(\overline \alpha)\). Since \(k_Q = k_P(\overline \alpha)\), this forces \(\sigma|_B \pmod Q = \tau\).
+  \end{enumerate}
+\end{proof}
+
+A nice situation to apply this is when \(E/K\) is a Galois extension of number fields. Note if \(P \subseteq \O_K\) is a non-zero prime ideal then \(k_P\) is a finite field so perfect (i.e.\ any finite extension is separable). If \(Q\) is a prime ideal of \(\O_E\) lying above \(P\) then \(\gal(k_Q/k_P)\) has a canonical generator, i.e.\ the Frobenius automorphism \(\alpha \mapsto \alpha^{|k_P|}\). Observe that
+\[
+  |D_{Q/P}| = |G|/g_{Q/P} = e_{Q/P} f_{Q/P}
+\]
+and \(|\gal(k_Q/k_P)| = f_{Q/P}\) so
+\[
+  |\ker (D_{Q/P} \to \gal(k_Q/k_P))| = e_{Q/P}
+\]
+so if \(P\) is unramified in \(E\) then \(D_{Q/P} \to \gal(k_Q/k_P)\) is an isomorphism. Thus we can specifiy an element \(\Frob_{Q/P} \in D_{Q/P} \subseteq G\) uniquely by defining \(\Frob_{Q/P}\) to be the preimage of Frobenius automorphism in \(\gal(k_Q/k_P)\).
+
+\begin{eg}
+  Let \(f(X) = X^n + a_1X^{n - 1} + \dots + a_n \in \Z[X]\) irreducible. Let \(E\) be the splitting field of \(f(X)\) over \(\Q\). Let \(\alpha_1, \dots, \alpha_n \in E\) be the roots of \(f(X)\). Then there is an injection \(\varphi: \gal(E/\Q) \embed S_n = \operatorname{Sym}(\alpha_1, \dots, \alpha_n)\).
+
+  Suppose \(p\) is a prime element such that \(\overline f(X) = f(X) \pmod p \in \F_p[X]\) factors as \(\overline f(X) = \prod_{i = 1}^r \overline f_i(X)\) where \(\overline f_1(X), \dots, \overline f_r(X)\) are distinct monic irreducible polynomials in \(\F_p[X]\) (equivalently \(p \ndivides \operatorname{disc} f\)).
+\end{eg}
+
+\begin{proposition}
+  The image of \(\gal(E/\Q)\) in \(S_n\) contains a permutation of cycle types \((d_1) (d_2) \cdots (d_r)\) where \(d_i = \deg \overline f_i(X)\).
+\end{proposition}
+
+\begin{proof}
+  Choose \(Q \subseteq \O_E\) lying above \((p) \subseteq \Z\). Let \(\overline \alpha_i = \alpha_i \pmod Q\). Note \(\overline \alpha_i\) are all the roots of \(\overline f(X)\) so are distinct. The map \(D_{Q/P} \to \gal(k_Q/k_P)\) is injective: if \(\sigma \in D_{Q/P}\) lies in the kernel then \(\sigma \pmod Q\) fixes each \(\overline \alpha_i\). Since these are distinct, this forces \(\sigma\) to fix \(\alpha_i\) so \(\sigma = 1\). So \(D_{Q/P} \cong \gal(k_Q/k_P)\) and \(e_{Q/P} = 1\) and we can define \(\Frob_{Q/P} \in D_{Q/P}\). Claim that \(\varphi(\Frob_{Q/P})\) has cycle type \((d_1) \cdots (d_r)\).
+
+  \begin{proof}
+    We must show \(\Frob_{Q/P}\) has orbits on \(\alpha_1, \dots, \alpha_n\) of size \(d_1, \dots, d_r\), or equivalently \(\gal(k_Q/k_P)\) has orbits on \(\overline \alpha_1, \dots, \overline \alpha_n\) of size \(d_1, \dots, d_r\). Note these orbits are in bijection with irreducible factors of \(\overline f(X)\)
+    \[
+      \O = \{\beta_1, \dots, \beta_s\} \longleftrightarrow \prod_{i = 1}^s(X - \beta_i).
+    \]
+    This lies in \(k_p[X]\) because this is an orbit, and is irreducible because it is a single orbit.
+  \end{proof}
+\end{proof}
+
+\begin{definition}[inertia group]\index{inertia group}
+  We define the \emph{inertia group} of \(Q\) to be
+  \[
+    I_{Q/P} = \ker (D_{Q/P} \to \gal(k_Q/k_P)).
+  \]
+\end{definition}
+
+We've seen that \(|I_{Q/P}| = e_{Q/P}\). When ramification occurs, \(I_{Q/P}\) is nontrivial and interesting things can happen. To understand \(D_{Q/P}\) in such cases we must use completion.
+
+\begin{proposition}
+  Let \(A\) be a Dedekind domain, \(K = \Frac A\), \(E/K\) a finite separable extension, \(B\) the integral closure of \(A\) in \(E\). Let \(P \subseteq A\) be a non-zero prime ideal and let \(Q \subseteq B\) be a prime ideal lying above \(P\). Then
+  \begin{enumerate}
+  \item there's a natural homomorphism \(\hat A_P \to \hat B_Q\) extending \(A \to B\).
+  \item Let \(K_P = \Frac \hat A_P, E_Q = \Frac \hat B_Q\). Then \(E_Q = K_P \cdot E\) is a finite separable extension of \(K_P\) and \(\hat B_Q\) is the integral closure of \(\hat A_P\) in \(E_Q\).
+  \item \(e_{Q/P} = e_{Q \hat B_Q/P \hat A_P}\) and \(f_{Q/P} = f_{Q \hat B_Q/P \hat A_P}\) and \([E_Q: K_P] = e_{Q/P} f_{Q/P}\).
+  \item Suppose further \(E/K\) is Galois. Then \(E_Q/K_P\) is also Galois and there is a natural isomorphism \(D_{Q/P} \to \gal(E_Q/K_P)\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Factor
+  \[
+    PB = Q_1^{e_{Q_1/P}} \cdots Q_r^{e_{Q_r/P}}
+  \]
+  where \(Q_1 = Q\). Then
+  \[
+    \hat A_P = \varprojlim_i A_P/P^iA_P = \varprojlim_i A/P^i
+  \]
+  and similarly \(\hat B_Q = \varprojlim_i B/Q^i\). There is a natural map \(A/P^i \to B/Q^i\) for any \(i \geq 1\) so passage to inverse limits gives a homomorphism \(\hat A_P \to \hat B_Q\).
+
+  Note we are free to replace \(A\) by \(A_P\) and assume wlog that \(A\) is a DVR. In this case, we've seen that \(B\) is a finite free \(A\)-module. Then
+  \[
+    B/P^iB = B/\prod_{j = 1}^r Q_j^{i e_{Q_j/P}} \cong \prod_{j = 1}^r B/Q_j^{i e_{Q_j/P}}
+  \]
+  so
+  \[
+    \varprojlim_i B/P^iB \cong \prod_{j = 1}^r \hat B_{Q_j}
+  \]
+  as \(\hat A_P\)-modules, which are finite free as \(\hat A_P\)-module since each \(B/P^iB\) is a finite free \(A/P^i\)-module. Thus each summand \(\hat B_{Q_i}\) is finite free as \(\hat A_P\)-module. In particular \(\hat B_Q\) is integral over \(\hat A_P\) so \(\hat B_Q\) is the integral closure of \(\hat A_P\) in \(E_Q\).
+
+  \(\hat B_Q/P \hat B_Q\) is isomorphic to \(B/Q^{e_{Q/P}}\) as \(\hat A_P/P \hat A_P \cong A/P\)-module so the map \(B/PB \to \hat B_Q/P\hat B_Q\) is surjective. By Nakayama's lemma (?), \(\hat B_Q\) is generated by \(B\) as \(\hat A_P\)-module. Passing to fraction field, we see \(E_Q\) is generated by \(E\) as \(K_P\)-vector space. If \(E/K\) is separable then every element of \(E\) is separable over \(K\), \(E_Q/K_P\) is separable. If \(E/K\) is Galois then \(E\) is the splitting field of a polynomial with coefficients in \(K\), which can be viewed as a polynomial with coefficients in \(K_P\), so \(E_Q/K_P\) is Galois.
+
+  The map \(\hat A_P \to \hat B_Q\) is obtained by passage to inverse limit from the collection of maps \(A/P^i \to B/Q^i\) which are defined as \(P \subseteq Q\) implies \(P^i \subseteq Q^i\). Note
+  \[
+    f_{Q\hat B_Q/P\hat A_P} = [\hat B_Q/Q\hat B_Q: \hat A_P/P\hat A_P] = [B/Q: A/P] = f_{Q/P}.
+  \]
+  Also if we factor \(PB = \prod_{i = 1}^r Q_p^{e_{Q_i/P}}\) where \(Q_1, \dots, Q_r\) are distinct prime ideals of \(B\) (and \(Q_1 = Q\)). Then
+  \[
+    P\hat B_Q = \prod_{i = 1}^r Q_i^{e_{Q_i/P}} \hat B_Q = Q^{e_{Q/P}} \hat B_Q
+  \]
+  as for each \(i > 1\), \(Q_i \hat B_{Q} = \hat B_{Q}\). Hence
+  \[
+    (P \hat A_P) \hat B_Q = (Q \hat B_Q)^{e_{Q/P}}
+  \]
+  implies \(e_{Q\hat B_Q/P \hat A_P} = e_{Q/P}\). We know
+  \[
+   [E_Q: K_P] = e_{Q\hat B_Q/P\hat A_P} f_{Q\hat B_Q/P\hat A_P} = e_{Q/P} f_{Q/P}.
+  \]
+
+  Now let's assume \(E/K\) is Galois and show 4 holds. We've already seen that as \(E_Q = K_P E\) and \(E_Q/K_P\) is a Galois extension. If \(\sigma \in D_{Q/P}\) then \(\sigma(Q) = Q\) so \(\sigma(Q^i) = Q^i\) for all \(i \geq 1\). Hence \(\sigma\) determines an automorphism \(\sigma|_B \pmod{Q^i}: B/Q^i \to B/Q^i\). By passage to inverse limit, we get an automorphism \(\varprojlim_i \sigma|_B \pmod{Q^i}: \hat B_Q \to \hat B_Q\). By passsage to fraction field, this determines an element of \(\gal(E_Q/K_P)\). This determines a homomorphism \(D_{Q/P} \to \gal(E_Q/K_P)\). By what we've just show,
+  \[
+    |\gal(E_Q/K_P)| = [E_Q: K_P] = e_{Q/P} f_{Q/P} = |D_{Q/P}|
+  \]
+  so it's enough to show injectivity. If \(\sigma \in D_{Q/P}\) gets sent to \(1\) then it acts as the identity on \(E_Q = K_P \cdot E\), so in particular acts as the identity on \(E\). As \(D_{Q/P} \subseteq \gal(E/K)\), this means that \(\sigma = 1\) in \(D_{Q/P}\).
+\end{proof}
+
+At this point one may wonder why we must pass to the completion, instead of using the localsation. If we had done so, then firstly the field of fraction would be the same. Secondly if \(Q\) is not the only prime ideal of \(B\) lying above \(P\) then \(B_Q\) would not be a finite \(A_P\)-module, so none of the developed techniques are available. For example take \(E = \Q(i), K = \Q, A = \Z, B = \Z[i]\). Consider \((5) = (2 + i)(2 - i)\). Then \(\frac{1}{2 + i}\) is not integral over \(\Z_{(5)}\), as for example its norm is \(\frac{1}{5}\). However as an exercise, by writing down the \(5\)-adic expansion of the minimal polynomial, check \(\frac{1}{2 - i}\) is a integral over \(\Z_5\).
+
+\begin{corollary}
+  Suppose \(E = K(\alpha)\) is finite separable over \(K\) and let \(f(X) \in K[X]\) be the minimal polynomial of \(\alpha\). For any non-zero prime ideals \(P \subseteq A\), there is a bijection between
+  \begin{align*}
+    \left\{
+    \begin{tabular}{c}
+      prime ideals \(Q\) of \(B\) \\
+      lying above \(P\)
+    \end{tabular}
+    \right\}
+    &\longleftrightarrow
+      \left\{
+      \begin{tabular}{c}
+        irreducible factors \\
+        of \(f(X)\) in \(K_P[X]\)
+      \end{tabular}
+      \right\}
+    \\
+    Q &\mapsto
+        \begin{tabular}{c}
+          unique irreducible factor \\
+          \(g(X)\) of \(f(X)\) in \(K_P[X]\) \\
+          such that \(g(\alpha) = 0\) in \(E_Q\)
+        \end{tabular}
+  \end{align*}
+\end{corollary}
+
+\begin{proof}
+  Let \(L/K\) be the Galois closure of \(E/K\). Let \(C\) be the integral closure of \(A\) in \(L\). Fix \(R \subseteq C\) be a prime ideal lying above \(P\). Let \(G = \gal(L/K), H = \gal(L/E)\). We know \(G\) acts transitively on the set of prime ideals of \(C\) lying above \(P\), so by orbit-stabiliser there is a bijection
+  \begin{align*}
+    G/D_{R/P} &\longleftrightarrow
+                \left\{
+                \begin{tabular}{c}
+                  primes in \(C\) \\
+                  lying above \(P\)
+                \end{tabular}
+    \right\}
+    \\
+    \sigma &\mapsto \sigma(R)
+  \end{align*}
+  More importantly, the bijection is \(G\)-equivariant. We know that \(H\) acts transitively on the set of prime ideals of \(C\) lying above any give non-zero prime ideals of \(B\), so there is a bijection
+  \begin{align*}
+    \left\{
+    \begin{tabular}{c}
+      prime ideals of \(B\) \\
+      lying above \(P\)
+    \end{tabular}
+    \right\}
+    =
+      \left\{
+      \begin{tabular}{c}
+        \(H\)-orbits of \\
+        prime ideal of \(C\) \\
+        lying above \(P\)
+      \end{tabular}
+    \right\}
+    &\longleftrightarrow
+      H \backslash G /D_{R/P} \\
+    \sigma(R) \cap B &\leftrightarrow \sigma
+  \end{align*}
+  This means every \(Q \subseteq B\) lying above \(P\) has the form \(Q = \sigma(R) \cap B\) for some \(\sigma \in G\). If \(\sigma, \sigma' \in G\) then \(\sigma(R) \cap B = \sigma'(R) \cap B\) if and only if exists \(h \in H, d \in D_{R/P}\) such that \(\sigma' = h\sigma d\).
+
+  On the other hand there is a bijection
+  \begin{align*}
+    \{\text{roots of \(f(X)\) in \(L\)}\} &\longleftrightarrow G/H \\
+    \sigma(\alpha) &\mapsfrom \sigma
+  \end{align*}
+  which is again \(G\)-equivariant. As \(\gal(L_R/K_P) \embed \gal(L/K)\), there is a \(\gal(L_R/K_P)\)-equivariant bijection
+  \begin{align*}
+    \{\text{roots of \(f(X)\) in \(L_R\)}\} &\longleftrightarrow G/H \\
+    \sigma(\alpha) &\mapsfrom \sigma
+  \end{align*}
+  Now irreducible factors of \(f(X)\) in \(K_P[X]\) corresponds to \(\gal(L_R/K_P) = D_{R/P}\)-orbits of roots in \(L_R\) so there's a bijection between irreducible factors of \(f(X)\) in \(K_P[X]\) and \(D_{R/P} \backslash G/H\), given by sending \(\sigma\) to the unique \(g(X)\) such that \(g(\sigma(\alpha)) = 0\) in \(L_R = K_P \cdot L\). Since there is an obvious bijection
+  \begin{align*}
+    H \backslash G /D_{R/P} &\longleftrightarrow D_{R/P} \backslash G/H \\
+    \sigma &\mapsto \sigma^{-1}
+  \end{align*}
+  there is also a bijection
+  \begin{align*}
+    \left\{
+    \begin{tabular}{c}
+      prime ideals \(Q\) of \(B\) \\
+      lying above \(P\)
+    \end{tabular}
+    \right\}
+    &\longleftrightarrow
+      \left\{
+      \begin{tabular}{c}
+        irreducible factors \\
+        of \(f(X)\) in \(K_P[X]\)
+      \end{tabular}
+    \right\}
+    \\
+    Q = \sigma(R) \cap B &\mapsto
+                           \begin{tabular}{c}
+                             unique irreducible factor \\
+                             \(g(X)\) of \(f(X)\) such that \\
+                             \(g(\sigma^{-1}(\alpha)) = 0\) in \(L_R\)
+                           \end{tabular}
+  \end{align*}
+  To finish the proof, it's enough to show that this map is the same as that in the statement of the corollary. What we need is to show that for all \(\sigma \in G\), \(g(\sigma^{-1}(\alpha)) = 0\) in \(L_R\) if and only if \(g(\alpha) = 0\) in \(E_Q\). At first sight this seems preposterous as \(L_R\) and \(E_Q\) live in completely different world. The key observation is that \(\sigma: L \to L\) extends to an isomorphism \(L_R \to L_{\sigma(R)}\) which acts as the identity on \(K_P\): \(\sigma(R)^i = \sigma(R^i)\) so \(\sigma\) determines a map \(\sigma|_C \pmod{R^i}: C/R^i \to C/\sigma(R)^i\) for every \(i \geq 1\). Passage to inverse limits and fraction fields gives the induced map \(L_R \to L_{\sigma(R)}\). Hence if \(g(X) \in K_P[X]\) is an irreducible factor of \(f(X)\) then \(g(\sigma^{-1}(\alpha)) = 0\) in \(L_R\) if and only if \(\sigma(g(\sigma^{-1}(\alpha))) = 0\) in \(L_{\sigma(R)}\), if and only if \(g(\alpha) = 0\) in \(L_{\sigma(R)}\). Note the coefficients of \(g\) are in \(K_P\) and \(\alpha \in E\) so it is equivalent to \(g(\alpha) = 0\) in \(E_Q\).
+  \[
+    \begin{tikzcd}
+      L_R \ar[d, dash] & L \ar[d, dash] \ar[l, hook'] \ar[r, hook] & L_{\sigma(R)} \ar[d, dash] \\
+      E_{R \cap B} \ar[d, dash] & E \ar[d, dash] \ar[l, hook'] \ar[r, hook] & E_Q \ar[d, dash] \\
+      K_P & K \ar[l, hook'] \ar[r, hook] & K_P
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\begin{eg}
+  Let \(K = \Q, E = \Q(i), A = \Z, B = \O_E\). We know \(2 \O_E = (1 + i)^2\) so \(X^2 + 1\) is irreducible in \(\Q_2[X]\). On the other hand, \(5 \O_E = (2 + i)(2 - i)\) splits so \(X^2 + 1\) must factor in \(\Q_5[X]\). By Hensel's lemma, there exists a unique \(\theta \in \Z_5\) such that \(\theta^2 = -1\) and \(\theta = 2 \pmod 5\), and \(X^2 + 1 = (X - \theta)(X + \theta)\) in \(\Q_5[X]\). The embedding \(\Q \to E\) extends to isomorphisms \(\Q_5 \to E_{(2 + i)}\) and \(\Q_5 \to E_{(2 - i)}\). Note that \(X - \theta = X - 2 \in \Q_5[X]\) and \(i = 2 \in E_{(2 - i)}\) so \(X - \theta\) corresponds to the ideal \((2 - i)\).
+\end{eg}
+
+\begin{eg}
+  Let \(K = \Q, E = \Q(\sqrt[3]{2}), P = 5\Z\). How does \(5\O_E\) factorise? We need to factor \(X^3 - 2\) in \(\Q_5[X]\). As \(3^3 = 2 \pmod 5\), by Hensel's lemma there exists a unique \(\theta \in \Z_5\) such that \(\theta^3 = 2\) and \(\theta = 3 \pmod{5\Z_5}\). We can write \(X^3 - 2 = (X - \theta) g(X)\) in \(\Q_5[X]\). In fact \(g(X)\) must be irreducible, as any root of \(g(X)\) must differ from \(\theta\) by a primitive 3rd root of unity. Note 3rd roots of unity in \(\Q_5\) are roots of \(X^3 - 1\), which by Hensel's lemma are in bijection with roots of \(X^3 - 1\) in \(\F_5\), so only one such. Thus \(5\O_E\) has two distinct prime factors.
+\end{eg}
+
+\section{Extensions of complete DVRs}
+
+\begin{definition}[complete discrete valuation field]\index{complete discrete valuation field}\index{CDVF}
+  We call a pair \((K, v_K)\) a \emph{complete discrete valuation field} (CDVF) if \(v_K: K^\times \to \Z\) is a valuation and the corresponding DVR
+  \[
+    A_K = \{x \in K^\times: v_K(x) \geq 0\} \cup \{0\}
+  \]
+  is complete.
+\end{definition}
+
+We usually have \(v_K\) implicit and call \(K\) a CDVF, for example \(K = \Q_p\). We'll usually write \(\pi_K \in A_K\) for a choice of uniformiser and \(k_K = A_K/(\pi_K)\) for the residue field.
+
+Next is an extremely important lemma on which almost all results in this chapter depend.
+
+\begin{lemma}
+  Let \(K\) be a CDVF and let \(E/K\) be a finite separable extension. Then \(E\) has a natural structure of a CDVF.
+\end{lemma}
+
+\begin{proof}
+  Let \(B\) be the integral closure of \(A_K\) in \(E\). By result in last chapter there is a bijection
+  \[
+    \{\text{non-zero prime ideals of \(B\)}\} \longleftrightarrow \{\text{factors of \(f(X)\) in \(K_P[X]\)}\}
+  \]
+  where \(f(X) \in K[X]\) is the minimal polynomial of a generator for \(E\) and \(P = (\pi_K)\). Since \(K\) is a CDVF, \(K_P = K\). Since \(f(X) \in K[X]\) is irreducible, this shows \(B\) has a unique nonzero prime ideal \(Q\), hence is a DVR. Let \(v_E: E^\times \to \Z\) be the corresponding valuation. We've seen that \(E_Q = K_P \cdot E = K \cdot E = E\), showing \((E, v_E)\) is a CDVF.
+\end{proof}
+
+\begin{definition}[extension of CDVF]\index{complete discrete valuation field!extension}
+  We call \(E/K\) an \emph{extension of CDVF} if \(K\) is a CDVF, \(E/K\) is finite separable and \(E\) has the structure of CDVF given by the lemma.
+\end{definition}
+
+In this situation \(A_E, A_K\) are DVRs. We write
+\begin{align*}
+  f_{E/K} &= f_{(\pi_E)/(\pi_K)} = [k_E: k_K] \\
+  e_{E/K} &= e_{(\pi_E)/(\pi_K)} = v_E(\pi_K)
+\end{align*}
+then \([E: K] = e_{E/K} f_{E/K}\).
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(E/K\) is Galois then for all \(\sigma \in \gal(E/K), x \in E\), \(v_E(\sigma(x)) = v_E(x)\). In other words, \(\gal(E/K)\) acts on \(E\) by isometry. This is because \(\sigma(\pi_E)\) is a uniformiser of \(A_E\) as \(\sigma|_{A_E}\) is a ring automorphism.
+  \item In general, without assuming \(E/K\) is Galois, we have that for all \(x \in E^\times\),
+    \[
+      v_E(x) = \frac{1}{f_{E/K}} v_K(N_{E/K}(x)).
+    \]
+
+    \begin{proof}
+      If \(E/K\) is Galois then
+      \[
+        \mathrm{RHS } = \frac{1}{f_{E/K}} \frac{1}{e_{E/K}} v_E(N_{E/K}(x))
+      \]
+      as \(v_E|_{K^\times} = e_{E/K} v_K\) by checking the uniformisers. But
+      \[
+        N_{E/K}(x) = \prod_{\alpha \in \gal(E/K)} \sigma(x)
+      \]
+      so
+      \[
+        \mathrm{RHS} = \frac{1}{[E : K]} \sum_{\sigma \in \gal(E/K)} v_E(\sigma(x)) = v_E(x)
+      \]
+      as \(v_E\) is Galois invariant.
+
+      Now suppose \(E/K\) is only separable and let \(L/K\) be the Galois closure. Then we have for all \(x \in L^\times\),
+      \[
+        v_L(x) = \frac{1}{f_{L/E}} v_E(N_{L/E}(x)) = \frac{1}{f_{L/K}} v_K(N_{L/K}(x))
+      \]
+      For \(x \in E^\times\), \(N_{L/E}(x) = x^{[L: E]}\) and \(N_{L/K}(x) = N_{E/K}(x)^{[L :E]}\) so
+      \[
+        \frac{[L: E]}{f_{L/E}} v_E(x) = \frac{1}{f_{L/K}} v_K(N_{L/K}(x)) = \frac{[L : E]}{f_{L/K}} v_K(N_{E/K}(x))
+      \]
+      and hence
+      \[
+        v_E(x) = \frac{f_{L/E}}{f_{L/K}} v_K(N_{E/K}(x)) = \frac{1}{f_{E/K}} v_K(N_{E/K}(x))
+      \]
+      by tower law.
+    \end{proof}
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[Newton polygon]\index{Newton polygon}
+  Let \(A\) be a DVR, \(K = \Frac A\) and let \(f(X) = X^n + a_1X^{n - 1} + \dots + a_n\) be a polynomial in \(K[X]\) with \(a_n \neq 0\). Then the \emph{Newton polygon} \(N_K(f)\) is the graph of the largest piecewise linear continuous function \(N: [0, n] \to \R\) such that
+  \begin{enumerate}
+  \item \(N(0) = 0, N(n) = v(a_n)\),
+  \item for all \(0 < j < n\), \(N(j) \leq v(a_j)\) if \(a_j \neq 0\),
+  \item \(N\) is convex.
+  \end{enumerate}
+  Equivalently, \(N\) is the lower convex hull of the points \((j, v(a_j))\) for \(0 \leq j \leq n\).
+\end{definition}
+
+\begin{eg}
+  Let \(f(X) = X^3 + 25X^2 + 5X + 125 \in \Q_5[X]\). Then we have
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-0.5, 0) -- (4, 0);
+      \draw [->] (0, -0.5) -- (0, 3.5);
+
+      \draw (0, 0) -- (2, 1) -- (3, 3);
+      \node at (0,0) [circle, fill, inner sep=1pt] {};
+      \node at (1,2) [circle, fill, inner sep=1pt] {};
+      \node at (2,1) [circle, fill, inner sep=1pt] {};
+      \node at (3,3) [circle, fill, inner sep=1pt] {};
+
+      \foreach \x in {1, 2, 3} {
+        \node at (\x, 0) [below] {\(\x\)};
+        \draw [shift={(\x, 0)}] (0pt, 2pt) -- (0pt, -2pt);
+      }
+
+      \foreach \y in {1, 2, 3} {
+        \node at (0, \y) [left] {\(\y\)};
+        \draw [shift={(0, \y)}] (-2pt, 0pt) -- (2pt, 0pt);
+      }
+
+      \iffalse
+      \begin{axis}[
+        ticks=none,
+        axis equal image,
+        axis lines=center,
+        xmin=-.2,
+        xmax=3.5,
+        ymin=-.2,
+        ymax=3.2
+        ]
+        \addplot[domain=0:2]{0.5*x};
+        \addplot[domain=2:3]{2*x-3};
+        \node at (0,0) [circle, fill, inner sep=1.5pt]{};
+        \node at (1,2) [circle, fill, inner sep=1.5pt]{};
+        \node at (2,1) [circle, fill, inner sep=1.5pt]{};
+        \node at (3,3) [circle, fill, inner sep=1.5pt]{};
+      \end{axis}
+      \fi
+    \end{tikzpicture}
+  \end{center}
+\end{eg}
+
+We define the \emph{slopes} of \(N_K(f)\) to be the slopes of the line segments, and the \emph{multiplicity of a slope} is the length of the projection of the corresponding line segment to the \(x\)-axis.
+
+In the above example we have slopes \(\frac{1}{2}\) with multiplicity \(2\) and \(2\) with multiplicity \(1\).
+
+\begin{lemma}
+  Let \(A\) be a DVR, \(K = \Frac A\), \(\alpha_1, \dots, \alpha_n \in K^\times\) and
+  \[
+    f(X) = \prod_{i = 1}^n (X - \alpha_i) = X^n + a_1 X^{n - 1} + \dots + a_n \in K[X].
+  \]
+  Let \(\lambda_i = v(\alpha_i)\) for \(1 \leq i \leq n\). Then \(\lambda_1, \dots, \lambda_n\) are the slopes of \(N_K(f)\) with multiplicity. In particular the slopes of \(N_K(f)\) are all integers.
+\end{lemma}
+
+\begin{proof}
+  wlog \(\lambda_1 \leq \dots \leq \lambda_n\). Let \(L(f)\) be the polygon with slopes \(\lambda_1, \dots, \lambda_n\). Then if \(L: [0, n] \to \R\) is the corresponding function then \(L(0) = 0\) by definition, \(L(n) = \lambda_1 + \dots + \lambda_n = v(\alpha_1 \cdots \alpha_n) = v(a_n) = N(n)\), and \(L\) is convex. If \(0 < j < n\) then \(L(j) = \lambda_1 + \dots + \lambda_j\). Also
+  \[
+    v(a_j) = v(\alpha_1 \cdots \alpha_j + \sum_{i_1 < \dots < i_j} \alpha_{i_1} \cdots \alpha_{i_j}) \geq v(\alpha_1 \cdots \alpha_j) = \lambda_1 + \dots + \lambda_j
+  \]
+  so in fact \(L(f)\) satisfies 1 -- 3 in the definition of \(N_K(f)\) so \(L(f)\) lies below \(N_K(f)\) by maximality of \(N_K(f)\). To show equality, it is enough to show each vertex of \(L(f)\) lies on \(N_K(f)\). If \((j, \lambda_1 + \dots + \lambda_j)\) is a vertex of \(L(f)\) then \(\lambda_{j + 1} > \lambda_j\), i.e.\ \(v(\alpha_{j + 1}) > v(\alpha_j)\) since in the above expression for \(v(a_j)\), if \((i_1, \dots, i_j) \neq (1, \dots j)\) then
+  \[
+    v(\alpha_{i_1} \cdots \alpha_{i_j}) \geq \lambda_1 + \dots + \lambda_{j - 1} + \lambda_{j + 1} > \lambda_1 + \dots + \lambda_j
+  \]
+  so by ultrametric inequality
+  \[
+    v(a_j) = v(\alpha_1 \cdots \alpha_j) = \lambda_1 + \dots + \lambda_j.
+  \]
+  Hence \(v(a_j) \geq N(j) \geq L(j) = v(a_j)\) so in fact \((j, v(a_j))\) is a vertex of both \(L\) and \(N\).
+\end{proof}
+
+\begin{proposition}
+  Let \(K\) be a CDVF and let \(f(X) \in K[X], a_n \neq 0\) be separable. Let \(\lambda_1 < \dots < \lambda_r\) be the slopes of \(N_K(f)\) where \(\lambda_i\) occurs with multiplicity \(m_i \geq 1\). Then there exists a unique factorisation \(f(X) = \prod_{i = 1}^r g_i(X)\) in \(K[X]\) where for all \(1 \leq i \leq r\), \(g_i(X)\) is a monic polynomial and \(N_K(g)\) has a single slope \(\lambda_i\).
+\end{proposition}
+
+Nonarchimedean analogue that an odd deg polynomial has a root.
+
+\begin{proof}
+  Let \(L/K\) be the splitting field of \(f(X)\). Let \(\alpha_1, \dots, \alpha_n \in L\) be the roots of \(f(X)\) in \(L\). Note \(N_L(f)\) is the image of \(N_K(f)\) under the linear transformation \(
+  \begin{psmallmatrix}
+    1 & 0 \\
+    0 & e_{L/K}
+  \end{psmallmatrix}
+  :\R^2 \to \R^2\), as \(v_L(a_j) = e_{L/K} v_K(a_j)\). The slopes of \(N_L(f)\) are \(e_{L/K} \lambda_1 < \dots < e_{L/K} \lambda_n\). We define
+  \[
+    g_i(X) = \prod_{v_L(\alpha_j) = e_{L/K} \lambda_i} (X - \alpha_j) \in L[X].
+  \]
+  Since \(\gal(L/K)\) leaves \(v_L\) invariant, it acts on \(\{\alpha_j: v_i(\alpha_j) = e_{L/K} \lambda_i\}\) so by Galois theory \(g_i(X) \in K[X]\). By construction \(f(X) = \prod_{i = 1}^r g_i(X)\). Uniqueness follows from essentially the same argument.
+\end{proof}
+
+\begin{eg}
+  Let \(f(X) = X^3 + X^2 + 2X + 8\). Then \(N_{\Q_2}(f)\) is
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-0.5, 0) -- (4, 0);
+      \draw [->] (0, -0.5) -- (0, 3.5);
+
+      \draw (0, 0) -- (1, 0) -- (2, 1) -- (3, 3);
+      \node at (0,0) [circle, fill, inner sep=1pt] {};
+      \node at (1,0) [circle, fill, inner sep=1pt] {};
+      \node at (2,1) [circle, fill, inner sep=1pt] {};
+      \node at (3,3) [circle, fill, inner sep=1pt] {};
+
+      \foreach \x in {1, 2, 3} {
+        \node at (\x, 0) [below] {\(\x\)};
+        \draw [shift={(\x, 0)}] (0pt, 2pt) -- (0pt, -2pt);
+      }
+
+      \foreach \y in {1, 2, 3} {
+        \node at (0, \y) [left] {\(\y\)};
+        \draw [shift={(0, \y)}] (-2pt, 0pt) -- (2pt, 0pt);
+      }
+
+
+      \iffalse
+      \begin{axis}[
+        ticks=none,
+        axis equal image,
+        axis lines=center,
+        xmin=-.2,
+        xmax=3.5,
+        ymin=-.2,
+        ymax=3.2
+        ]
+        \addplot[domain=1:2]{x-1};
+        \addplot[domain=2:3]{2*x-3};
+        \node at (0,0) [circle, fill, inner sep=1.5pt]{};
+        \node at (1,0) [circle, fill, inner sep=1.5pt]{};
+        \node at (2,1) [circle, fill, inner sep=1.5pt]{};
+        \node at (3,3) [circle, fill, inner sep=1.5pt]{};
+      \end{axis}
+      \fi
+    \end{tikzpicture}
+  \end{center}
+  The slopes are \(0, 1, 2\) each with multiplicity \(1\). Thus \(f(X)\) splits into linear factors in \(\Q_2[X]\). If \(f(X)\) is irreducible then \(E = \Q[X]/(f(X))\) is a cubic extension of \(\Q\) in which \(2\) splits completely.
+\end{eg}
+
+\begin{definition}
+  If \(E/K\) is an extension of CDVF, we say
+  \begin{enumerate}
+  \item \(E/K\) is \emph{unramified} if \(k_E/k_K\) is separable and \(e_{E/K} = 1\).
+  \item \(E/K\) is \emph{totally ramified} if \(f_{E/K} = 1\).
+  \end{enumerate}
+\end{definition}
+
+We are going to show how to construct totally ramified extensions, followed by unramified extensions. Then we show everything can be done in these two stages.
+
+\begin{definition}[Eisenstein polynomial]\index{Eisenstein polynomial}
+  Let \(A\) be a DVR, \(K = \Frac A\). We say \(f(X) = X^n + a_1 X^{n - 1} + \dots + a_0 \in A[X]\) is \emph{Eisenstein} if \(v_K(a_i) \geq 1\)  for each \(i = 1, \dots, n - 1\) if \(a_i \neq 0\) and \(v_K(a_n) = 1\).
+\end{definition}
+
+Eisenstein polynomial has a very simple characterisation in terms of Newton polygon: for any \(f(X) \in K[X]\), \(f(X)\) is Eisenstein if and only if \(N_K(f)\) is a single line segment of slope \(\frac{1}{n}\).
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item Let \(E/K\) be a totally ramified extension of CDVFs. Let \(f(X) \in K[X]\) be the minimal polynomial of \(\pi_E\). Then \(f(X)\) is Eisenstein and \(E = K(\pi_E)\).
+  \item Let \(K\) be a CDVF and let \(f(X) \in K[X]\) be a separable polynomial which is Eisenstein. Then \(f(X)\) is irreducible and if \(E = K[X]/(f(X))\) then \(E/K\) is totally ramified and \(X \pmod{f(X)}\) is a uniformiser in \(A_E\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(E/K\) is totally ramified and let \(f(X) \in K[X]\) be the minimal polynomial of \(\pi_E\). Then \(f(X) = X^n + a_1 X^{n - 1} + \dots + a_n\) where \(n = [K(\pi_E): K] \leq [E: K] = e_{E/K}\). We know \(N_E(f)\) is the dilation by a factor of \(e_{E/K}\) of \(N_K(f)\). Note that \(N_E(f)\) has a single slope, namely \(1\) with multiplicity \(n\): the roots of \(f(X)\) in a splitting field are all Galois conjugates of \(\pi_E\), so in particular have the same valuation as \(\pi_E\). In \(E\), \(v_E(\pi_E) = 1\), so \(N_E(f)\) has a single slope of \(1\). Hence \(N_K(f)\) has a single slope \(\frac{1}{e_{E/K}}\), and the endpoint is therefore \(\frac{n}{e_{E/K}}\). But this is the valuation of the constant term and we know \(v_K(a_n) \geq 1\), so must have \(n \geq e_{E/K}\). Thus we have equality and \(E = K(\pi_E)\). \(f(X)\) is Eisenstein.
+  \item Suppose \(K\) is a CDVF and let \(f(X) \in K[X]\) be a separable Eisenstein polynomial. Let \(E = K(\alpha)\) where \(\alpha\) is a root of \(f(X)\). Note that a priori this does not give a fixed isomorphism class of extensions \(E/K\), as \(f(X)\) is not assumed to be irreducible. Nevertheless \(E/K\) is finite and separable so \(E/K\) is an extension of CDVF. We know \(f(X)\) has a root in \(E\) so at least one slope of \(N_E(f)\) must be an integer. However as \(f\) is Eisenstein, \(N_K(f)\) has a single slope \(\frac{1}{n}\), hence \(N_E(f)\) has a single slope \(\frac{e_{E/K}}{n}\). As it is a non-zero integer, \(e_{E/K} \geq n\). Conversely,
+    \[
+      e_{E/K} \leq [E: K] = [K(\alpha): K] \leq n
+    \]
+    so equality. \(f(X)\) is irreducible and \(E/K\) is totally ramified. Moreover \(v_E(\alpha) = \frac{e_{E/K}}{n} = 1\) so \(\alpha \in A_E\) is a uniformiser.
+  \end{enumerate}
+\end{proof}
+
+\begin{eg}
+  We've seen \((1 + i)^2 = 2 \O_E\) where \(E = \Q(i)\). Thus \(E_{(1 + i)}/\Q_2\) is a totally ramified quadratic extension, with uniformiser \(1 + i\). So the minimal polynomial of \(1 + i\) must be Eisenstein. It is \(X^2 - 2X + 2\).
+\end{eg}
+
+We now show how to construct unramified extensions.
+
+\begin{proposition}
+  Let \(K\) be a CDVF. Let \(\ell/k_K\) be a finite separable extension. Then there exists an extension \(L/K\) of CDVFs and an isomorphism \(\iota: \ell \to k_L\) with the following property: for any extension \(E/K\) of CDVFs and field homomorphism \(j: \ell \to k_E\), there exists a unique \(K\)-embedding \(J: L \to E\) such that the diagram
+  \[
+    \begin{tikzcd}
+      k_L \ar[r, "\iota^{-1}"] \ar[dr, "\overline J"'] & \ell \ar[d, "j"] \\
+      & k_E
+    \end{tikzcd}
+  \]
+  commutes. Moreover \(L/K\) is unramified.
+\end{proposition}
+
+In other words, there is an unramified extension \(L/K\) such that
+\[
+  \Hom_K(L, E) \cong \Hom_{k_K}(\ell, k_E).
+\]
+
+\begin{proof}
+  Since \(\ell/k_K\) is separable, we can choose a primitive element \(\overline \alpha \in \ell\). Let \(\overline f(X) \in k_K[X]\) be the minimal polynomial and let \(f(X) \in A_K[X]\) be any monic lift of \(\overline f(X)\). \(f(X)\) is irreducible since \(\overline f(X)\) is, and is separable since \(\operatorname{disc} f \pmod{(\pi_K)} = \operatorname{disc} \overline f \neq 0 \in k_K\). We define \(L = K[X]/(f(X))\), which is separable, and \(\alpha = X \pmod{f(X)} \in L\). Claim \(A_L = A_K[\alpha]\): we have \(A_K[\alpha] \subseteq A_L\) since \(\alpha\) is integral over \(A_K\). There is a ring homomorphism \(A_K[\alpha]/(\pi_K) \to A_L/(\pi_K)\), so inducing a ring homomorphism \(\iota: \ell \to A_L/(\pi_K)\) as \(\ell = k_K[X]/(\overline f(X)) = A_K[X]/(f(X), \pi_K)\). To show \(A_L = A_K[\alpha]\), take \(z \in A_L\) and choose \(n \geq 0\) as small as possible such that \(\pi_K^nz \in A_K[\alpha]\). Since \(z\) is integral over \(A_K\), we can write
+  \[
+    z^m + a_1z^{m - 1} + \dots + a_m = 0
+  \]
+  for \(a_i \in A_K\). Then
+  \[
+    (\pi_K^n z)^m + a_1\pi_K^n (\pi_K^nz)^{m - 1} + \dots + a_m \pi_K^{nm} = 0
+  \]
+  in \(A_L\). Reduction modulo \(\pi_K\) gives \((\pi_K^n z)^m \pmod{(\pi_K)} = 0\) in \(A_L/(\pi_K)\). But \(\pi^n_K z \in A_K[\alpha]\) so \(\pi^n_K z \pmod{(\pi_K)}\) is in the image of \(\iota\). \(\iota(\ell)\) is a field so contains no non-zero nilpotent, so we must have \(\pi_K^n z \pmod{(\pi_K)} = 0\). Since \(\iota\) is injective this means \(\pi_K^n z \pmod{(\pi_K)} = 0 \in A_K[\alpha]/(\pi_K)\), i.e.\ \(\pi_K^n z\) is divisible by \(\pi_K\) in \(A_K[\alpha]\), so either \(\pi_K^{n - 1}z \in A_K[\alpha]\) or \(n = 0\). The first case contradicts the minimality of \(n\) so \(n = 0\) and \(z \in A_K[\alpha]\). Since \(z\) is arbitrary, this show \(A_L = A_K[\alpha]\), and also the map \(\iota: \ell \to A_L/(\pi_K) = k_L\) is an isomorphism. In particular \(L/K\) is unramified.
+
+  We need to show that if \(E/K\) is an extension of CDVFs then embeddings \(L \to E\) correspond to embeddings \(\ell \to k_E\). We know
+  \[
+    \{K\text{-embeddings } J: L \to E\}
+    \longleftrightarrow
+    \{\text{roots of } f(X) \text{ in } E\}
+    \longleftrightarrow
+    \{\text{roots of } f(X) \text{ in } A_E\}
+  \]
+  where the last correspondence is because \(f(X) \in A_K[X]\) is monic. On the other hand \(k_K\)-embeddings \(j: \ell \to k_E\) correspond to roots of \(\overline f(X)\) in \(k_E\). There is a map
+  \[
+    \{\text{roots of } f(X) \text{ in } A_E\}
+    \longleftrightarrow
+    \{\text{roots of } \overline f(X) \text{ in } k_E\}
+  \]
+  Hensel's lemma shows this map is bijective: \(\overline \alpha\) is separable so \(\overline f(X)\) has simple roots.
+\end{proof}
+
+\begin{eg}
+  Let \(p\) be a prime. Then for any \(n \geq 1\) there is a unique unramified extension of \(\Q_p\) of degreee \(n\) up to isomorphism. This follows from uniqueness of finite extension of degree \(n\) of finite field and the universal property: there is a unique extension \(\F_{p^n}/\F_p\) up to isomorphism. By proposition we can find \(L_n/\Q_p\) unramified extension of degree \(n\) and an isomorphism \(\iota: \F_{p^n} \to k_{L_n}\). To show uniqueness, let \(E_n/\Q_p\) be another unramified extension of degree \(n\). Then \(k_{E_n}/\F_p\) has degree \(n\), so we can find an isomorphism \(j: \F_{p^n} \to k_{E_n}\). Then there is a unique \(\Q_p\)-embedding \(J: L_n \to E_n\) inducing \(j \compose \iota^{-1}\) at the level of residue fields. Since \(L_n, E_n\) both have degree \(n\) over \(\Q_p\), \(J\) is an isomorphism.
+\end{eg}
+
+Let \(E/K\) be an extension of CDVFs with \(k_E/k_K\) separable. Then there exists a unique subextension \(E_0/K\) which is unramified, and such that \(k_{E_0} = k_E\). Then \(f_{E_0/K} = f_{E/K}\) and \(e_{E/E_0} = e_{E/K}\). Then we have
+\[
+  \begin{tikzcd}
+    E \ar[d, dash, "\text{totally ramified}"] \\
+    E_0 \ar[d, dash, "\text{unramified}"] \\
+    K
+  \end{tikzcd}
+\]
+
+We construct \(E_0\) as follow. Take a pair \((L, \iota)\) where \(L/K\) is unramified and \(\iota: k_E \to k_L\). Then there exists a unique \(K\)-embedding \(J: L \to E\) inducing \(\iota^{-1}\) at the level of residue fields. We define \(E_0\) to be the image \(J(L)\) of this embedding. To show uniqueness, note that any embedding of \(L\) in \(E\) must have image in \(E_0\). Moreover \(E_0\) contains any unramified subextension. \(E_0\) is called the \emph{maiximal unramified subextension}\index{maximal unramified subextension} of \(E/K\).
+
+Now suppose further that \(E/K\) is Galois and \(G = \gal(E/K)\). In this case we know \(k_E/k_K\) is also Galois and there is a surjective homomorphism \(f: G \to \gal(k_E/k_K)\). By Galois theory there is an intermediate extension \(E^{I_{E/K}}/K\). Claim that \(E^{I_{E/K}} = E_0\).
+
+\begin{proof}
+  By Galois theory it's enough to show that for all \(\sigma \in G = \gal(E/K)\), \(\sigma \in I_{E/K}\) if and only if \(\sigma|_{E_0} = \id|_{E_0}\). Note for all \(\sigma \in G\), \(\sigma(E_0)/K\) is still an unramified subextension of \(E/K\). As \(E_0\) is the maximal such, we have \(\sigma(E_0) = E_0\). In particular \(E_0/K\) is Galois. Moreover
+  \[
+    \Hom_K(E_0, E) = \gal(E_0/K) \to \gal(k_E/k_K)
+  \]
+  is bijective so for all \(\sigma \in G\), \(\sigma|_{E_0} = \id|_{E_0}\) if and only if the image of \(\sigma\) in \(\gal(E_0/K)\) is identity, if and only if the action of \(\sigma\) on \(k_E\) is the identity action.
+\end{proof}
+
+Thus we have an alternative characterisation of the maximal unramified subextension. As a consequence We have a tower of Galois extensions \(E/E_0/K\) with \(\gal(E/E_0) = I_{E/K}, \gal(E_0/K) = \gal(k_E/k_K)\).
+
+In fact we can do much more. We assume for the rest of today that \(E/K\) is a Galois extension of CDVFs with \(k_E/k_K\) separable. For concreteness one might have in mind finite extensions \(E/\Q_p\) and \(E/\Q((t))\).
+
+\begin{definition}[lower ramification group]\index{lower ramification group}
+  Let \(i \geq 0\). We define the \emph{\(i\)th lower ramification group} of \(G = \gal(E/K)\) to be \(G_i = \ker(G \to \aut(A_E/(\pi_E^{i + 1})))\). We set \(G_{-1} = G\).
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Informally, \(G_i\) is the set of elements which fix the first \(i + 1\) digits of the \(\pi_E\)-adic expansion of elements of \(A_E\).
+  \item \(G_0 = \ker(G \to \gal(k_E/k_K)) = I_{E/K}\).
+  \item \(G_{-1} \supseteq G_0 \supseteq G_1 \supseteq \cdots\) and \(\bigcap_{i \geq 0} G_i = \{1\}\).
+  \item Each \(G_i\) is normal in \(G\). If \(E/L/K\) is an intermediate extension and \(H = \gal(E/L)\) then \(H_i = H \cap G_i\).
+  \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+  Suppose \(\sigma \in G_0\). Then for any \(i \geq 0\), \(\sigma \in G_i\) if and only if \(v_E(\sigma(\pi_E) - \pi_E) \geq i + 1\).
+\end{lemma}
+
+\begin{proof}
+  Let \(E_0/K\) be the maximal unramified subextension. Then \(\sigma \in \gal(E/E_0)\). Note \(A_E = A_{E_0}[\pi_E]\) as any element of \(A_E\) admits a \(\pi_E\)-adic expansion with digits in \(A_{E_0}\): since maximal unramified implies they have the same residue field we may choose representatives in \(A_{E_0}\). Thus the map \(A_{E_0}[\pi_E] \to A_E/(\pi_E) = A_E/(\pi_K^{e_{E/K}})\) is surjective. We know \(A_E\) is a finitely generated \(A_{E_0}\)-module so Nakayama implies that \(A_{E_0}[\pi_E] = A_E\).
+
+  If \(\sigma \in G_0\) then the image of \(\sigma\) in \(\aut(A_E/(\pi_E^{i + 1}))\) is a ring automorphism and \(A_E/(\pi_E^{i + 1})\) is generated by \(A_{E_0}[\pi_E]\). So the image of \(\sigma\) is trivial if and only if \(\sigma(\pi_E) = \pi_E \pmod{\pi_E^{i + 1}}\), if and only if \(v_E(\sigma(\pi_E) - \pi_E) \geq i + 1\).
+\end{proof}
+
+\begin{eg}
+  Let \(K = \Q_2, E = \Q_2(\sqrt 2)\). \(E\) is the splitting field of \(X^2 + 2\) which is Eisenstein so \(E/K\) is totally ramified. \(G = G_0\) and we can take \(\pi_E = \sqrt 2\). Suppose \(G = \{1, s\}\), then
+  \[
+    v_E(s(\pi_E) - \pi_E) = v_E(-\sqrt 2 - \sqrt 2) = v_E( -2 \sqrt 2) = v_E(-(\sqrt 2)^3) = 3
+  \]
+  so by the lemma
+  \[
+    G = G_0 = G_1 = G_2, \{1\} = G_3 = G_4 = \cdots
+  \]
+\end{eg}
+
+\begin{eg}
+  Let \(K = \Q_2, E = \Q_2(i)\) so \(E\) is the splitting field of \(X^2 + 1\). We have \((1 + i)^2 = 2i\) so \(E/K\) must be a quadratic ramified extension (otherwise \(v_E(1 + i) = \frac{1}{2}\)) with \(\pi_E = 1 + i\). Suppose \(G = \{1, t\}\), then
+  \[
+    v_E(t(1 + i) - (1 + i)) = v_E(1- i - (1 + i)) = v_E(-2i) = 2.
+  \]
+  Hence
+  \[
+    G = G_0 = G_1, \{1\} = G_2 = G_3 = \cdots
+  \]
+
+  The extension \(\Q_2(\sqrt 2)\) is ``more ramified'' than \(\Q_2(i)\) as it has more non-trivial ramification groups.
+\end{eg}
+
+\begin{eg}
+  Let \(K = \Q_2, E = \Q_2(\sqrt 2, i)\). As \(\Q_2(\sqrt 2) \ncong \Q_2(i)\) by calculation above, \(E/K\) is Galois with \(G = \{1, s, t, st\}\) where
+  \[
+    s|_{\Q_2(\sqrt 2)} = s, s|_{\Q_2(i)} = \id_{\Q_2(i)}, \quad
+    t|_{\Q_2(i)} = t, t|_{\Q_2(\sqrt 2)} = \id_{\Q_2(\sqrt 2)}
+  \]
+  in notations above.
+
+  Let \(\zeta = \frac{1 + i}{\sqrt 2}\) so \(\zeta^2 = \frac{1 + 2i - 1}{2} = i\) so \(\zeta\) is a primitive \(8\)th roots of unity in \(\Q_2(\sqrt 2, i)\). \(\zeta - 1\) satisfies the polynomial
+  \[
+    (X + 1)^4 + 1 = X^4 + 4X^3 + 6X^2 + 4X + 2
+  \]
+  which is Eisenstein in \(\Q_2\). Thus \(E/K\) is totally ramified with uniformiser \(\pi_E = \zeta - 1\). We now calculate \(v_E(\sigma(\pi_E) - \pi_E)\) for all \(\sigma \in G = G_0\).
+  \begin{align*}
+    v_E(s(\pi_E) - \pi_E) &= v_E(- \frac{1 + i}{\sqrt 2} - \frac{1 + i}{\sqrt 2}) = v_E(-2\zeta) = v_E(2) = e_{E/K} = 4 \\
+    v_E(t(\pi_E) - \pi_E) &= v_E( \frac{1 - i}{\sqrt 2} - \frac{1 + i}{\sqrt 2}) = v_E(- \frac{2i}{\sqrt 2}) = v_E(\sqrt 2) = 2 \\
+    v_E(st(\pi_E) - \pi_E) &= v_E(-\frac{1 - i}{\sqrt 2} - \frac{1 + i}{\sqrt 2}) = v_E(-\frac{2}{\sqrt 2}) = v_E(\sqrt 2) = 2
+  \end{align*}
+  Thus
+  \[
+    G = G_0 = G_1, \{1, s\} = G_2 = G_3, \{1\} = G_4 = G_5 = \cdots
+  \]
+  In this case there are two jumps in the filtration of \(G\) by its lower ramification groups.
+\end{eg}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item There exists an injective homomorphism \(G_0/G_1 \to k_E^\times\). In particular \(G_0/G_1\) is of order prime to \(p\) if \(\ch k_E = p > 0\).
+  \item If \(i \geq 1\) then there's an injective homomorphism \(G_i/G_{i + 1} \to (k_E, +)\). In particular \(G_i/G_{i + 1}\) is abelian, and is trivial if \(\ch k_E = 0\) and an \(\F_p\)-vector space if \(\ch k_E = p > 0\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Note for any \(\sigma \in G_0\), we can write \(\sigma(\pi_E) = a_\sigma \pi_E \mod{\pi_E^2}\) for some \(a_\sigma \in A_{E_0}\) where \(E_0/K\) is the maximal unramified subextension: we can choose \(X \subseteq A_{E_0}\) containing \(0\) and giving a set of representatives of \(k_{E_0} = k_E\). Then any \(\alpha \in A_E\) has a unique expression \(\sum_{i = 0}^\infty a(\alpha)_i \pi_E^i\). \(\sigma(\pi_E)\) has valuation \(1\) so equals to \(a(\sigma(\pi_E))_1 \pi_E + \pi_E^2 z\) for some \(z \in A_E\), so we can take \(a_\sigma = a(\sigma(\pi_E))\). Note as well that \(a_\sigma \pmod{\pi_E} \ne 0\). Moreover \(a_\sigma \pmod{\pi_E}\) depends only on \(\sigma\) and \(\pi_E\) (but not \(X\)).
+
+    We define \(G_0 \to k_E^\times\) by \(\sigma \mapsto a_\sigma \pmod{\pi_E}\). To show \(a_{\sigma\tau} = a_\sigma a_\tau \pmod{\pi_E}\), note we have
+    \[
+      \sigma\tau (\pi_E) = a_{\sigma\tau} \pi_E \pmod{\pi_E^2}
+    \]
+    while
+    \[
+      \sigma(\tau(\pi_E)) = \sigma(a_\tau \pi_E + \pi_E^2 z) = a_\tau \sigma(\pi_E) + \pi_E^2 z' = a_\tau a_\sigma \pi_E \pmod{\pi_E^2}
+    \]
+    so we must have \(a_{\sigma\tau} = a_\sigma a_\tau \pmod{\pi_E}\), so the map is a homomorphism.
+
+    An element \(\sigma \in G_0\) lies in the kernel if and only if \(\sigma(\pi_E) = \pi_E \pmod{\pi_E^2}\), if and only if \(v_E(\sigma(\pi_E) - \pi_E) \geq 2\), if and only if \(\sigma \in G_1\). \(\im (G_0/G_1 \embed k_E^\times)\) is a finite subgroup of \(k_E^\times\). Any finite subgroup of the multiplicative group of a field is cyclic, of order prime to \(p\) if the characteristic \(p > 0\).
+  \item Observe if \(\sigma \in G_i\) for some \(i \geq 1\) then we can write
+    \[
+      \sigma(\pi_E) = \pi_E + a_\sigma \pi_E^{i + 1} \pmod{\pi_E^{i + 2}}
+    \]
+    where \(a_\sigma \in A_{E_0}\) and \(a_\sigma \pmod{\pi_E} \in k_E\) depends only on \(\sigma\) and \(\pi_E\). We thus define \(G_i \to (k_E, +)\) by \(\sigma \mapsto a_\sigma \pmod{\pi_E}\). This is a homomorphism:
+    \begin{align*}
+      \sigma(\tau(\pi_E))
+      &= \sigma(\pi_E + a_\tau \pi_E^{i + 1} + \pi_E^{i + 2} z) \\
+      &= \pi_E + a_\sigma \pi_E^{i + 1} + \pi_E^{i + 2} z' + \sigma(a_\tau \pi_E^{i + 1}) + \sigma(\pi_E^{i + 2} z) \\
+      &= \pi_E + a_\sigma \pi_E^{i + 1} + a_\tau \sigma(\pi_E)^{i + 1} \pmod{\pi_E^{i + 2}} \\
+      &= \pi_E + a_\sigma \pi_E^{i + 1} + a_\tau(\pi_E + a_\sigma \pi_E^{i + 1})^{i + 1} \pmod{\pi_E^{i + 2}} \\
+      &= \pi_E + (a_\sigma + a_\tau) \pi_E^{i + 1} \pmod{\pi_E^{i + 2}} \\
+      &= \pi_E + a_{\sigma\tau} \pi_E^{i + 1} \pmod{\pi_E^{i + 2}}
+    \end{align*}
+    so \(a_\sigma + a_\tau = a_{\sigma\tau} \pmod{\pi_E}\).
+
+    \(\sigma\) lies in the kernel if and only if \(\sigma(\pi_E) = \pi_E \pmod{\pi^{i + 2}}\), if and ony if \(v_E(\sigma(\pi_E) - \pi_E) \geq i + 2\), if and only if \(\sigma \in G_{i + 2}\). Thus we have an injective homomorphism \(G_i/G_{i + 1} \embed (k_E, +)\) so \(G_i/G_{i + 1}\) is abelian.
+
+    If \(\ch k_E = 0\) then \(k_E\) is a \(\Q\)-vector space so contains no non-trivial finite group so \(G_i/G_{i + 1} = \{1\}\). If \(\ch k_E = p\) then \(k_E\) is an \(\F_p\)-vector space, so \(G_i/G_{i + 1}\) is annihilated by \(p\).
+  \end{enumerate}
+\end{proof}
+
+As a consequence, if \(\ch k_E = 0\) then \(G_1\) is trivial, as each \(G_i/G_{i + 1}\) and \(\bigcap_{i \geq 0} G_i = \{1\}\). Thus \(G_0 = G_0/G_1\) is cyclic. If \(\ch k_E = p\) then \(G_0\) is solvable since we have
+\[
+  G_0 \supseteq G_1 \supseteq \cdots
+\]
+and all quotients \(G_i/G_{i + 1}\) are abelian. \(G_1\) is the (unique) \(p\)-Sylow subgroup of \(G_0\), as \(G_0/G_1\) has order prime to \(p\) while \(G_1\) has order a power of \(p\). As all \(p\)-Sylow subgroups are conjugate and \(G_1 \trianglelefteq G_0\), \(G_1\) is the unique one.
+
+Moreover in the case \(k_E\) is finite (such as when \(K/\Q_p\) is an extension of CDVFs) then \(G/G_0 \cong \gal(k_E/k_K)\) is cyclic so
+\[
+  G \supseteq G_0 \supseteq G_1 \supseteq \cdots
+\]
+and hence \(G = \gal(E/K)\) is solvable (not just \(G_0\)).
+
+\begin{definition}[tamely/wildly ramified]\index{tamely/wildly ramified}
+  If \(E/K\) is an extension of CDVFs, we say it's \emph{tamely ramified} if either \(\ch k_E = 0\) or \(\ch k_E = p > 0\) and \(p \ndivides e_{E/K}\). Otherwise we say \(E/K\) is \emph{wildly ramified}.
+\end{definition}
+
+Note that if \(E/K\) is Galois and \(k_E/k_K\) is separable, then \(E/K\) is wildly ramified if and only if \(G_1 \neq \{1\}\) (and the only case where the inertia group is not cyclic).
+
+\begin{proposition}
+  Let \(E/K\) be a Galois extension of CDVFs such that it's totally and tamely ramified, i.e.\ \(e_{E/K} = [E: K]\) and if \(\ch k_E = p > 0\) then \(p \ndivides e_{E/K}\). Then if \(n = [E: K]\) then \(K\) contains \(n\) \(n\)th roots of unity and there exists a uniformiser \(\pi_K \in A_K\) such that \(E = K(\sqrt[n]{\pi_K})\).
+\end{proposition}
+
+Eisenstein polynomial \(X^n - \pi_K\). Also if and only if (assuming \(K\) containing \(n\) \(n\)th roots of unity).
+
+\begin{proof}
+  Since it is tamely ramified, \(G_1\) is trivial so \(G_0 \embed k_E^\times = k_K^\times\). Since \(E/K\) is totally ramified, \(G = G_0\) and so \(G = G_0\) is cyclic of order \(n\). Hence \(k_K\) contains \(n\) \(n\)th roots of unity and \(f(X) = X^n - 1\) splits into linear factors in \(k_K[X]\). \(f'(X) = nX^{n - 1}\) and \(n \pmod{\pi_K} \in k_K^\times\) so the simple version of Hensel's lemma applies to show \(X^n - 1\) splits into linear factors in \(A_K[X]\) and \(K\) contains \(n\) \(n\)th roots of unity.
+
+  Let \(\sigma \in \gal(E/K)\) be a generator and \(\pi_E \in A_E\) be a choice of uniformiser. Then exists a unique primitive \(n\)th root of unity \(\zeta \in A_K\) such that
+  \[
+    \sigma(\pi_E) = \zeta \pi_E \pmod{\pi_E^2}.
+  \]
+  If
+  \[
+    \alpha = \pi_E + \zeta^{-1} \sigma(\pi_E) + \zeta^{-2} \sigma^2(\pi_E) + \cdots + \zeta^{1 - n} \sigma^{n - 1}(\pi_E) \pmod{\pi_E}
+  \]
+  then
+  \[
+    \sigma(\alpha) = \sigma(\pi_E) + \zeta^{-1} \sigma^2(\pi_E) + \cdots + \zeta \pi_E = \zeta \alpha
+  \]
+  and \(\alpha = n \pi_E \pmod{\pi_E^2}\). So \(v_E(\alpha) = 1\) and \(\alpha \in A_E\) is a uniformiser and \(\sigma(\alpha^n) = (\zeta \alpha)^n = \alpha^n\), so \(\alpha^n \in A_K\). Hence \(E = K(\sqrt[n]{\pi_K})\) where \(\pi_K = \alpha^n\).
+\end{proof}
+
+We have seen that \(\Q_2(\sqrt 2)/\Q_2\) is ``more ramified'' than \(\Q_2(i)/\Q_2\). How can we make this precise? The dream is to define for any \(v \in \R_{\geq 0}\) a subfield \(E^v/K\) inside \(E/K\). This should have the following property:
+\begin{enumerate}
+\item \(E^0\) is maximal unramified, \(E = \bigcup_{v \geq 0} E^v\) and if \(v \leq v'\) then \(E^v \subseteq E^{v'}\).
+\item for any intermediate extension \(E/L/K\) with \(L/K\) Galois, want \(L^v = L \cap E^v\).
+\item if \(L_1, L_2\) are intermediate extensions with \(E = L_1 \cdot L_2\) then \(E^v = L_1^v \cdot L_2^v\).
+\end{enumerate}
+
+The naïve idea is to define \(E^v = E^{G_v}\) for \(v \in \N\). This satisfies 1 as \(G_0 = I_{E/K}, \bigcap_{i \geq 0} G_i = \{1\}\) and \(G_0 \supseteq G_1 \supseteq \cdots\). However this definition does not satisfy 2 or 3. For 2, this is related to having an equality \((G/H)_i = \im(G_i \to G/H)\) where \(H = \gal(E/L)\) and \(G/H = \gal(L/K)\). Although \(G_i \cap H = H_i\), this does not hold in general for quotient group. For example take \(E = \Q_2(\sqrt 2, i), K = \Q_2\). Recall that
+\[
+  \gal(E/K)_i =
+  \begin{cases}
+    \gal(E/K) & i = 0, 1 \\
+    \{1, s\} & i = 2, 3 \\
+    \{1\} & i \geq 4
+  \end{cases}
+\]
+Look at \(\im(\gal(\Q_2(\sqrt 2, i)/\Q_2)_3 \to \gal(\Q_2(\sqrt 2)/\Q_2)) = \gal(\Q_2(\sqrt 2)/\Q_2)\), which is not the same as \(\gal(\Q_2(\sqrt 2)/\Q_2)_3 = \{1\}\).
+
+To solve this problem we introduce the upper ramification groups. These are the same as the lower groups but with a different indexing. First we extend \(G_u\) to \(u \in \R_{\geq 0}\) by \(G_u = G_{\ceil u}\). We define
+\[
+  \varphi_{E/K}(u) = \int_{t = 0}^u [G_0 : G_t]^{-1} dt.
+\]
+\(\varphi_{E/K}\) is a continuous piecewise linear function. The discontinuities of \(\varphi'_{E/K}(u)\) occur only at integer values of \(u\). Moreover \(\varphi_{E/K}(u)\) is strictly increasing and \(\varphi_{E/K}(0) = 0\) so \(\varphi_{E/K}: [0, \infty) \to [0, \infty)\) is a homeomorphism. We define \(\psi_{E/K} = \varphi_{E/K}^{-1}: [0, \infty) \to [0, \infty)\). Then \(\psi_{E/K}\) is also a strictly increasing piecewise linear homeomorphism.
+
+\begin{definition}[upper ramification group]\index{upper ramification group}
+  If \(v \in \R_{\geq 0}\), we define the \emph{\(v\)th upper ramification group} to be \(G^v = G_{\varphi_{E/K}(v)} \leq G = \gal(E/K)\).
+
+  We say \(v\) is a jump in the upper ramification group if \(G^v \ne G^{v + \varepsilon}\) for any \(\varepsilon > 0\).
+\end{definition}
+
+Warning: by definition, the jumps in the lower ramification groups \(G_u\) can only occur at integer values of \(u\). However, the jump in the upper ramification groups can occur at rational but non-integer values of \(v\).
+
+\begin{eg}
+  \(E = \Q_2(\sqrt 2, i), K = \Q_2, G = \gal(E/K)\). First plot \([G_0 : G_t]^{-1}\) against \(t\).
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-0.5, 0) -- (5, 0) node [right] {\(t\)};
+      \draw [->] (0, -0.5) -- (0, 2.5) node [above] {\([G_0: G_t]^{-1}\)};
+
+      \draw (0, 2) -- (1, 2);
+      \draw (1, 1) -- (3, 1);
+      \draw (3, 0.5) -- (4.5, 0.5);
+
+      \node at (1, 2) [circle, fill, inner sep=1pt] {};
+      \node at (1, 1) [circle, fill=white, outer sep=0pt,inner sep=1pt] {};
+      \node at (3, 1) [circle, fill, inner sep=1pt] {};
+
+      \foreach \x in {1,2,3,4} {
+        \node at (\x, 0) [below] {\(\x\)};
+        \draw [shift={(\x, 0)}] (0pt, 2pt) -- (0pt, -2pt);
+      }
+
+      \node at (0, 1) [left] {\(\frac{1}{2}\)};
+      \draw [shift={(0, 2)}] (-2pt, 0pt) -- (2pt, 0pt);
+      \node at (0, 2) [left] {\(1\)};
+      \draw [shift={(0, 1)}] (-2pt, 0pt) -- (2pt, 0pt);
+   \end{tikzpicture}
+  \end{center}
+  Then plot \(\varphi\) against \(u\).
+  \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-0.5, 0) -- (5, 0) node [right] {\(t\)};
+      \draw [->] (0, -0.5) -- (0, 2.75) node [left] {\(\varphi\)};
+
+      \draw (0, 0) -- (1, 1) -- (3, 2) -- (4.5, 2.375);
+
+      \foreach \x in {1,2,3,4} {
+        \node at (\x, 0) [below] {\(\x\)};
+        \draw [shift={(\x, 0)}] (0pt, 2pt) -- (0pt, -2pt);
+      }
+
+      \node at (0, 1) [left] {\(1\)};
+      \draw [shift={(0, 2)}] (-2pt, 0pt) -- (2pt, 0pt);
+      \node at (0, 2) [left] {\(2\)};
+      \draw [shift={(0, 1)}] (-2pt, 0pt) -- (2pt, 0pt);
+    \end{tikzpicture}
+  \end{center}
+  Its inverse \(\psi\) is
+   \begin{center}
+    \begin{tikzpicture}
+      \draw [->] (-0.5, 0) -- (3.5, 0) node [right] {\(t\)};
+      \draw [->] (0, -0.5) -- (0, 3) node [left] {\(\psi\)};
+
+      \draw (0, 0) -- (1, .5) -- (2, 1.5) -- (2.5, 2.5);
+
+      \foreach \x in {1,2,3} {
+        \node at (\x, 0) [below] {\(\x\)};
+        \draw [shift={(\x, 0)}] (0pt, 2pt) -- (0pt, -2pt);
+      }
+
+      \foreach \y in {2, 4} {
+        \node at (0, \y/2) [left] {\(\y\)};
+        \draw [shift={(0, \y/2)}] (-2pt, 0pt) -- (2pt, 0pt);
+      }
+    \end{tikzpicture}
+  \end{center}
+  so we conclude
+  \[
+    G^v =
+    \begin{cases}
+      G & v \in [0, 1] \\
+      \{1, s\} & v \in (1, 2] \\
+      \{1\} & v \in (2, \infty)
+    \end{cases}
+  \]
+  In this case all jumps occur at integer points.
+\end{eg}
+
+\begin{eg}
+  \(E = \Q_2(\sqrt 2)\).
+  \[
+    G^v =
+    \begin{cases}
+      G & v \in [0, 2] \\
+      \{1\} & v \in (2, \infty)
+    \end{cases}
+  \]
+  Note the map \(\gal(\Q_2(\sqrt 2, i)/\Q_2) \to \gal(\Q_2(\sqrt 2)/\Q_2)\) has kernel \(\{1, t\}\) and \(\im(\gal(\Q_2(\sqrt 2, i)/\Q_2)^v) = \gal(\Q_2(\sqrt 2)/\Q_2)^v\) for any \(v \in \R_{\geq 0}\).
+\end{eg}
+
+To show this works in general, we introduce some more notations. Given a Galois extension \(E/K\) of CDVFs with \(k_E/k_K\) separable and \(G = \gal(E/K)\), we define \(\iota_G: G \to \Z_{\geq 0} \cup \{\infty\}\) by
+\[
+  \iota_G(1) = \infty, \iota_G(s) = \sup \{i: s \in G_{i - 1}\} = 1 + \sup \{i: s \in G_i\}
+\]
+so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
+
+\begin{lemma}
+  For any \(u \in \R_{\geq 0}\) we have
+  \[
+    \varphi(u) + 1 = \frac{1}{|G_0|} \sum_{s \in G} \min(\iota_G(s), u + 1).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Both sides are continuous, piecewise linear and linear away from integer value of \(u\) and
+  \[
+    \mathrm{LHS}(0) = 1, \mathrm{RHS}(0) = \frac{1}{|G_0|} \sum_{s \in G} \min(1_G(s), 1) = \frac{1}{|G_0|} \sum_{s \in G_0} 1 = 1.
+  \]
+  To show they are equal it's enough to show for any \(i \in \Z_{\geq 0}\) and for any \(t \in (i, i + 1)\), \(\mathrm{LHS}'(t) = \mathrm{RHS}'(t)\).
+  \begin{align*}
+    \mathrm{LHS}'(t) &= [G_0: G_{i + 1}]^{-1} = [G_0: G_t]^{-1} \\
+    \mathrm{RHS}'(t) &= \frac{1}{|G_0|} \sum_{s \in G} \min(i_G(s), u + 1)'(t).
+  \end{align*}
+  We have
+  \[
+    \min(1_G(s), u + 1) =
+    \begin{cases}
+      1_G(s) & 1_G(s) \leq u + 1 \\
+      u + 1 & i_G(s) \geq u + 1
+    \end{cases}
+  \]
+  so for \(t \in (i, i + 1)\),
+  \[
+    \min(i_G(s), u + 1)'(t) =
+    \begin{cases}
+      0 & i_G(s) \leq t + 1 \\
+      1 & i_G(s) \geq t + 1
+    \end{cases}
+  \]
+  Note \(s \in G_i\) if and only if \(i_G(s) \geq i + 1\) and \(s \in G_t\) if and only if \(i_T(s) \geq t + 1\). Hence
+  \[
+    \mathrm{RHS}'(t) = 
+  \]
+\end{proof}
+
+\begin{lemma}
+  Suppose exists \(\alpha \in A_E\) such that \(A_E = A_K[\alpha]\). Then \(\iota_G(s) = v_E(s(\alpha) - \alpha)\).
+\end{lemma}
+
+\begin{proof}
+  By definition, \(s \in G_i\) if and only if \(s\) acts trivially \(A_E/(\pi_E^{i + 1})\), which is generated as a ring by image of \(A_K\) and \(\alpha\), so if and only if \(s\) acts trivially on the image of \(\alpha\) in \(A_E/(\pi_E^{i + 1})\), if and only if \(s(\alpha) = \alpha \pmod{\pi_E^{i + 1}}\).
+\end{proof}
+
+\begin{lemma}
+  There exists \(\alpha \in A_E\) such that \(A_E = A_K[\alpha]\).
+\end{lemma}
+
+\begin{proof}
+  By Nakayama, it's enough to find \(\alpha\) such that \(A_K[\alpha] \to A_E/(\pi_K)\) is surjective. Let \(\overline y \in k_E\) be a primitive element and \(\overline f(X) \in k_K[X]\) be its primitive polynomial, \(f(X) \in A_K[X]\) a choice of monic lift of \(\overline f(X)\), and \(y \in A_E\) the unique root of \(f(X)\) such that \(y \pmod{\pi_E} = \overline y\). Since \(\overline f(X)\) is separable, \(\overline f'(\overline y) \neq 0\) so \(f'(y) \in A_E^\times\). Thus
+  \[
+    f(y + \pi_E) = f(y) + f'(y) \pi_E + \pi_E^2 z
+  \]
+  has valuation \(1\) and is a uniformiser for \(A_E\). Moreover \(A_K[y + \pi_E] \to k_E\) sends \(y + \overline y\) so is surjective, so we can choose a set \(X \subseteq A_E\) of representative for \(k_E\) with \(0 \in X\) and \(X \subseteq A_K[y + \pi_K]\). Then any element of \(A_E/(\pi_K) = A_E/(\pi_E^{e_{E/K}})\) has a unique representative of the form \(\sum_{i = 0}^{e_{E/K} - 1} a_i f(y + \pi_E)\) with \(a_i \in X\). But this lies in \(A_K[y + \pi_E]\) so \(A_E = A_K[y + \pi_E]\).
+\end{proof}
+
+\begin{lemma}
+  Let \(H \trianglelefteq G, L = E^H\) so \(\gal(L/K) = G/H\). Let \(s \in G\). Then
+  \[
+    \iota_{G/H}(sH) = \frac{1}{e_{E/L}} \sum_{t \in H} \iota_G(st).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Choose \(\alpha \in E_E, \beta \in A_L\) such that \(A_E = A_K[\alpha], A_L = A_K[\beta]\).
+  \[
+    \begin{tikzcd}
+      E \ar[d, dash] & A_K[\alpha] \ar[d, dash] \\
+      L \ar[d, dash] & A_K[\beta] \ar[d, dash] \\
+      K & A_K
+    \end{tikzcd}
+  \]
+  Then
+  \begin{align*}
+    \iota_{G/H}(sH) &+ v_L(s(\beta) - \beta) = \frac{1}{e_{E/L}} v_E(s(\beta) - \beta) \\
+    \iota_G(st) &= v_E(st(\alpha) - \alpha)
+  \end{align*}
+  for \(t \in H\). We need to show
+  \[
+     \frac{1}{e_{E/L}} v_E(s(\beta) - \beta) = \frac{1}{e_{E/L}} \sum_{t \in H} ...
+  \]
+  or equivalently,
+  \[
+    v_E(s(\beta) - \beta) = \v_E(\prod_{t \in H} (st(\alpha) - \alpha)).
+  \]
+  Let \(f(X) \in A_L[X]\) be the minimal polynomial of \(\alpha\) over \(L\). Then \(f(X) = \prod_{t \in H} (X - t(\alpha))\). If \(s(f)(X)\) denotes the polynomial where \(s\) acts on the coefficients of \(f(X)\) then \(s(f)(X) = \prod_{t \in H} (X - st(\alpha))\) and \(s(f(\alpha) = \dots\). Write \(f(X) = \sum a_i X^i, s(f)(X) = \sum s(a_i)X^i\) for \(a_i \in A_L\). Then
+  \[
+    s(f)(\alpha) = s(f)(\alpha) - f(\alpha) = \sum (s(a_i) - a_i) \alpha^i
+  \]
+  Since \(A_L = A_K[\beta]\), andy \(a \in A_L\) satisfies \(s(a) - a\) is divisible by \(s(\beta) - \beta\) (?) so \(s(\beta) - \beta \divides s(f)(\alpha) = \prod_{t \in H}(\alpha - st(\alpha))\). Thus
+  \[
+    v_E(s(\beta) - \beta) \leq v_E(\prod_{t \in H}(\alpha - st(\alpha))).
+  \]
+
+  To show the reverse inequality, choose \(g(X) \in A_K[X]\) such that \(g(\alpha) = \beta\). We can do this since \(b \in A_E\) and \(A_E = A_K[\alpha]\). Then \(g(X) - \beta \in A_L[X]\) has \(\alpha\) as a zero, so is divisible by \(f(X)\) in \(A_L[X]\). Hence \(f(X) \divides g(X) - \beta\) in \(A_E[X]\), hence \(s(f)(X) \divides g(X) - s(\beta)\) in \(A_E[X]\). Now evaluate at \(X = \alpha\) to get
+  \[
+    s(f)(\alpha) \divides g(\alpha) - s(\beta) = \beta - s(\beta)
+  \]
+  in \(A_E\). Equivalently,
+  \[
+    v_E(\prod_{t \in H}(\alpha - st(\alpha))) \leq v_E(\beta - s(\beta))
+  \]
+  so equality.
+\end{proof}
+
+\begin{lemma}
+  Suppose \(H \trianglelefteq G\) and \(L = E^H\). Define \(j: G/H \to \Z_{\geq 0} \cup \{\infty\}\) by \(j(sH) = \sup_{t \in H} \iota_G(st)\). Then
+  \[
+    \iota_{G/H}(sH) = 1 + \varphi_{E/L}(j(sH) - 1).
+  \]
+\end{lemma}
+
+\begin{proof}
+  LHS is \(\frac{1}{e_{E/L}} \cdots\) and by last time
+  \[
+    RHS = \frac{1}{|H_0|} \sum_{t \in H} \min(\iota_H(t), j(sH)).
+  \]
+  Note that \(e_{E/L} = |H_0|\) and for all \(t \in H\), \(\iota_G(t) = \iota_H(t)\) (as both sides equal \(v_E(t(\alpha) - \alpha)\) where \(A_E = A_K[\alpha]\)), we can assume that thre representatives for \(sH\) is chosen so that \(j(sH) = \iota_G(s)\) or equivalently for all \(t \in H\), \(\iota_G(st) \leq i_G(s)\).
+
+  We need to show
+  \[
+    \sum_{t \in H} i_G(st) = \sum_{t \in H} \min(i_G(t), i_G(s)).
+  \]
+  We will show for all \(t \in H\), \(i_G(st) = \min(i_G(t), i_G(s))\).
+
+  If \(m + 1 = \i_G(t) < i_G(s) = n + 1\) then \(t \in G_m \setminus G_n, s \in G_n\). Hence \(st \in G_m \setminus G_n\) so \(i_G(st) = i_G(t)\). On the other hand if \(i_G(t) \geq i_G(s)\) then \(i_G(st) \geq i_G(s)\). Since \(s\) was chosen so that for all \(t \in H\), \(i_G(st) \leq i_G(s)\), we get \(i_G(st) = i_G(s)\).
+\end{proof}
+
+\begin{theorem}[Herbrand]\index{Herbrand's theorem}
+  Suppose \(H \trianglelefteq G\) and \(L = E^H\). If \(u \in \R_{\geq 0}\) and \(v = \varphi_{E/L}(u)\) then
+  \[
+    (G/H)_v = G_uH/H (= \im(G_u \to G/H)).
+  \]
+\end{theorem}
+
+\begin{proof}
+  For \(s \in G\), we have \(sH \in G_uH/H\) if and only if exists \(t \in H\) such that \(i_G(st) \geq u + 1\), if and only if \(j(sH) \geq u + 1\). Since \(\varphi_{E/L}\) is strictly increasing, we have \(j(sH) \geq u + 1\) if and only if \(\varphi_{E/L}(j(sH) - 1) \geq \varphi_{E/L}(u)\), if and only if \(i_{G/H}(sH) \geq \varphi_{E/L}(u) + 1\), if and only if \(sH \in (G/H)_{\varphi_{E/L}(u)}\).
+\end{proof}
+
+\begin{lemma}
+  We have \(\varphi_{E/K} = \varphi_{E/K} \compose \varphi_{E/L}\).
+\end{lemma}
+
+\begin{proof}
+  Both sides are piecewise linear continuous functions \([0, \infty) \to [0, \infty)\) which take \(0\) at \(0\). It's enough to show derivatives coincide whenever this makes sense.
+  \begin{align*}
+    \mathrm{LHS}'(u) &= [G_0 : G_u]^{-1} \\
+    \mathrm{RHS}'(u) &= \varphi'_{L/K}(\varphi_{E/L}(u)) \varphi'_{E/L}(u) \\
+                    &= [(G/H)_0: (G/H)_{\varphi_{E/L}(u)}]^{-1} [H_0 : H_u]^{-1} \\
+                    &= [G_0H/H: G_uH/H]^{-1} [H_0: H_8]^{-1}  \text{ Herbrand}
+  \end{align*}
+  Now we use use group theory to deduce
+  \[
+    G_uH/H \cong G_u/G_u \cap H = G_u/H_u
+  \]
+  (as lower ramification groups are compatible with subgroups) so
+  \[
+    [G_0H/H : G_uH/H] = \frac{|G_0|}{|H_0|} \frac{|H_u|}{|G_u|} = \frac{[G_0: G_u]}{[H_0: H_u]}
+  \]
+  so the result follows.
+\end{proof}
+
+Finally
+\begin{theorem}
+  For any \(v \geq 0\),
+  \[
+    G^vH/H = (G/H)^v.
+  \]
+\end{theorem}
+
+\begin{proof}
+  By definition \(G^v = G_{\varphi_{E/K}(v)}, (G/H)^v = (G/H)_{\psi_{L/K}(v)}, \varphi_{E/K} = \varphi^{-1}_{E/K}\). By the lemma \(\psi_{E/K} = \psi_{E/K} \compose \psi_{L/K}\), so Herbrand's theorem gives
+  \[
+    (G/H)^v = (G/H)_{\psi_{L/K}(v)} = G_{\psi_{E/L}(\psi_{L/K}(v))} H/H
+    = G_{\psi_{E/K}(v)} H/H = G^vH/H.
+  \]
+\end{proof}
+
+\begin{definition}
+  Let \(E/K\) be an extension of CDVF (not necessarily Galois) with \(k_E/k_K\) separable. If \(v \in [0, \infty)\) then we define
+  \[
+    E^v = E \cap L^{G^v}
+  \]
+  where \(L/E\) is any extension of CDVFs with \(k_L/k_K\) separable, \(L/K\) Galois and \(G = \gal(L/K)\), so \(G^v \leq \gal(L/K)\). Thus \(E^v\) is an intermediate extension of \(E/K\).
+\end{definition}
+
+This is independent of the choice of \(L\): it's enough to show that if \(L'/L\) is a further extension of CDVFs and \(L'/K\) is Galois then
+\[
+  E \cap L^{G'} = E \cap (L')^{(G')^v}
+\]
+where \(G' = \gal(L'/K)\). Let \(H = \gal(L'/L)\). Then
+\[
+  E \cap L^{G^v} = E \cap L^{(G'/H)^v} = E \cap L^{(G')^vH/H} = E \cap (L')^{(G')^v H} = E \cap (L')^{(G')^v}
+\]
+where the last equality is because \(E \subseteq L = (L')^H\).
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(E^0\) is the maximal unramified subextension and
+    \[
+      E^0 = E \cap L^{G^0} = E \cap L^{G_0} = E \cap L_0.
+    \]
+  \item If \(v \leq v'\) then \(E^v \subseteq E^{v'}\). For \(v \gg 0, E^v = E\).
+  \item If \(E/M/K\) is an intermediated extension then \(M^v = M \cap E^v\) (as both are \(M \cap L^{G^v}\) for \(L/E\) with \(L/K\) Galois).
+  \item If \(E/M, N/K\) are two intermediate extensions then \(M^v \cdot N^v \subseteq (M\cdot N)^v\) (as \((M \cap L^{G'}) \cdot (N \cap L^{G'}) \subseteq (M \cdot N) \cap L^{G^v}\)). Moreover if \(M^v = M, N^v = N\) then \((M \cdot N)^v = M \cdot N\).
+  \end{enumerate}
+\end{proposition}
+
+We can think of \(\inf\{v: E^v = E\}\) as a measure of ``how ramified'' an extension \(E/K\) is. For example back to the example \(E = \Q_2(\sqrt 2, i), K = \Q_2\). Recall that
+\[
+  G^v =
+  \begin{cases}
+    G & v \in [0, 1] \\
+    \{1, s\} & v \in (1, 2] \\
+    \{1\} & v \in (2, \infty)
+  \end{cases}
+\]
+so
+\[
+  E^v =
+  \begin{cases}
+    \Q_2 & v \in [0, 1] \\
+    \Q_2(i) & v \in (1, 2] \\
+    E & v \in (2, \infty)
+  \end{cases}
+\]
+
+This example displays another important feature of the group \(G^v\), which we will not prove:
+
+\begin{theorem}[Hasse-Arf]\index{Hasse-Arf theorem}
+  Let \(K/\Q_p\) be a finite extension and let \(E/K\) be an abelian extension, i.e.\ \(E/K\) is a Galois extension and \(\gal(E/K)\) is abelian. Then all of the jumps in the upper ramification groups are integers.
+\end{theorem}
+
+The example \(\Q_2(\sqrt 2, i)/\Q_2\) is an application. For counterexample in nonabelian case, example sheet 3 gives \(\Q_2(\zeta_3, \sqrt[3]{2})/\Q_2\) in which \(\frac{1}{2}\) is a jump.
+
+\begin{definition}[conductor ideal]\index{conductor ideal}
+  Let \(K/\Q_p\) be a finite extension. Let \(E/K\) be an abelian extension. We define the \emph{conductor ideal} \(C_{E/K}\) of \(A_K\) to be \((\pi_K^a)\) where
+  \[
+    a = \inf \{n \in \Z_{\geq 0}: G^n = \{1\}\} = 1 + \text{highest jump}.
+  \]
+\end{definition}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(C_{E/K} = A_K\) if and only if \(E/K\) is unramified.
+  \item If \(E_1, E_2/K\) are abelian extensions then \(C_{E_1 \cdot E_2/K} = \lcm(C_{E_1/K}, C_{E_2/K})\), as if \(C_{E_i/K} = (\pi_K^{a_i})\) then \(a_i = \inf \{n \in \Z_{\geq 0}: E^n_i = E_i\}\), but \((E_1 \cdot E_2)^n = E_1 \cdot E_2\) if and only if \(E_1^n = E_1\) and \(E_2^n = E_2\).
+  \end{enumerate}
+\end{proposition}
+
+This formulation will be important when studying global fields.
+
+\section{Global class field theory}
+
+What is GCFT? Fix a number field \(K\). Want to give a description of all abelian extensions \(E/K\). We will organise these around the notion of conductor ideal.
+
+\begin{definition}[conductor ideal]\index{conductor ideal}
+  Let \(E/K\) be an abelian extension of number fields. The \emph{conductor ideal} is the unique \(C_{E/K} \subseteq \O_K\) with the following property: for any non-zero prime ideal \(P \subseteq \O_K\) and any prime ideal \(Q \subseteq \O_E\) lying above \(P\), \(C_{E/K} A_{K_P} = C_{E_Q/K_P}\). Equivalently \(v_P(C_{E/K}) = v_P(C_{E_Q/K_P})\).
+\end{definition}
+
+This is well-defined as
+\begin{enumerate}
+\item \(C_{E_Q/K_P}\) is independent of choice of \(Q\) (as \(E_Q \cong E_{Q'}\) as extensions of \(K_P\)).
+\item \(C_{E_Q/K_P} = A_{K_P}\) for all but finitely many \(P\) (as all but finitely many \(P \subseteq \O_K\) are unramified in \(\O_E\)).
+\item existence and uniqueness of \(C_{E/K}\) then follows by unique factorisation of ideals in \(\O_K\).
+\end{enumerate}
+
+We first explain what happens for \(K = \Q\). We know that if \(N \in \Z_{\geq 1}\) then \(\Q_{\zeta_N}\) is an abelian extension of \(\Q\) and there's an isomorphism
+\begin{align*}
+  \gal(\Q(\zeta_N)/\Q) &\cong (\Z/N\Z)^\times \\
+  \sigma_a &\leftrightarrow a
+\end{align*}
+where \(\sigma_a(\zeta_N) = \zeta_N^a\). By Galois theory there's a bijection
+\[
+  \left\{
+  \begin{tabular}{c}
+    abelian extensions \(L/\Q\) \\
+    contained in \(\Q(\zeta_N)/\Q\)
+  \end{tabular}
+  \right\}
+  \longleftrightarrow
+  \{\text{quotients of } (\Z/N\Z)^\times\}
+\]
+
+We have the Kronecker-Weber(-Hilbert) theorem\index{Kronecker-Weber theorem}: if \(L/\Q\) is any abelian extension then exists \(N \in \Z_{\geq 1}\) such that \(L \subseteq \Q(\zeta_N)\). In fact, for any \(N \in \Z_{\geq 1}\), \(L \subseteq \Q(\zeta_N)\) if and only if \(C_{L/\Q} \divides (N)\). Thus we get a bijection for any \(N \in \Z_{\geq 1}\)
+\[
+  \left\{
+    \begin{tabular}{c}
+      abelian extension \(L/\Q\) \\
+      in a fixed algebraic closure \\
+      such that \(C_{L/\Q} \divides (N)\)
+    \end{tabular}
+  \right\}
+  \leftrightarrow
+  \{\text{quotients of } (\Z/N\Z)^\times\}
+\]
+This is almost GCFT for \(K = \Q\), but we still need to give a characterisation of the bijection independent of explicit description of \(\Q(\zeta_N)\). We do this using the \emph{Artin symbol}.
+
+Recall that if \(L/K\) is a Galois extension of number fields, not necessarily abelian, then for any non-zero prime ideal \(P \subseteq \O_K\) and prime ideal \(Q \subseteq \O_L\) lying above \(P\) such that \(e_{Q/P} = 1\) (i.e.\ \(P\) is unramified in \(\O_L\)), we define \(\Frob_{Q/P} \in \gal(L/K)\) as the unique element such that
+\begin{enumerate}
+\item \(\Frob_{Q/P}(Q) = Q\),
+\item for all \(x \in k_Q\), we have \(\Frob_{Q/P}(x) = x^{|k_P|}\), i.e.\ it is the Frobenius automorphism of \(k_Q/k_P\).
+\end{enumerate}
+If \(\sigma \in \gal(L/K)\) then there is a commutative diagram
+\[
+  \begin{tikzcd}
+    k_Q \ar[r, "x \mapsto x^{|k_P|}"] \ar[d, "\sigma"] & k_Q \ar[d, "\sigma"] \\
+    k_{\sigma(Q)} \ar[r, "x \mapsto x^{|k_P|}"] & k_{\sigma(Q)}
+  \end{tikzcd}
+\]
+so by the characterisation of Frobenius element
+\[
+  \Frob_{\sigma(Q)/P} = \sigma \Frob_{Q/P} \sigma^{-1}.
+\]
+In particular, if \(\gal(L/K)\) is abelian then \(\Frob_{\sigma(Q)/P} = \Frob_{Q/P}\), so is independent of choice of \(Q\).
+
+\begin{definition}[Artin symbol]\index{Artin symbol}
+  If \(L/K\) is an abelian extension of number fields and \(P \subseteq \O_K\) is a non-zero prime ideal that is unramified in \(\O_L\), we define the \emph{Artin symbol} \((P, L/K) \in \gal(L/K)\) by \((P, L/K) = \Frob_{Q/P}\) for any prime ideal \(Q \subseteq \O_L\) lying above \(P\).
+\end{definition}
+
+This allows us to give a formulation of GCFT over \(\Q\) that does not rely on knowing the extension \(\Q(\zeta_N)\): for any \(N \in \Z_{\geq 1}\), there's a bijection
+\[
+  \left\{
+    \begin{tabular}{c}
+      abelian extension \(L/\Q\) \\
+      such that \(C_{L/\Q} \divides (N)\)
+    \end{tabular}
+  \right\}
+  \longleftrightarrow
+  \{\text{quotients of } (\Z/N\Z)^\times\}
+\]
+This may be uniquely characterised as follow: suppose given \(L/\Q\). Then there is a unique surjective homomorphism \(\phi_{L/Q}: (\Z/N\Z)^\times \to \gal(L/\Q)\) with the property that for any prime \(p \ndivides N\),
+\[
+  \phi_{L/\Q}(p \bmod N) = ((p), L/\Q).
+\]
+
+\begin{remark}
+  When \(L = \Q(\zeta_N)\) this does recover the inverse of the usual map \(\gal(\Q(\zeta_N)/\Q) \to (\Z/N\Z)^\times\): need to check that if \(p \ndivides N\) then \(\sigma_p \in \gal(\Q(\zeta_N)/\Q)\) equals \(((p), \Q(\zeta_N)/\Q)\). Let \(Q \subseteq \O_{\Q(\zeta_N)}\) be a prime lying above \((p)\). Then \(k_Q = \F_p(\zeta_N)\) and
+  \[
+    ((p), \Q(\zeta_N)/\Q) (\zeta_N \pmod Q) = \zeta_N^p \pmod Q.
+  \]
+  But reduction modulo \(Q\) gives a bijection between roots of \(X^N - 1\) in \(\Q(\zeta_N)\) and in \(k_Q\). So we must have
+  \[
+    ((p), \Q(\zeta_N)/\Q)(\zeta_N) = \zeta_N^p
+  \]
+  so \(((p), \Q(\zeta_N)/\Q) = \sigma_p\).
+\end{remark}
+
+The first step is generalising this to general base number field \(K\). We first need to explain what object will replace \((\Z/N\Z)^\times\). This will be ray class group.
+
+\begin{definition}[modulus]\index{modulus}
+  A \emph{modulus} is a pair \(m = (m_0, m_\infty)\) where \(m_0 \subseteq \O_K\) is a non-zero ideal and \(m_\infty \subseteq \Hom_\Q(K, \R)\), a possibly empty subset.
+\end{definition}
+
+Recall that for any number field \(K\), \(|\Hom_\Q(K, \C)| = [K : \Q] = r + 2s\) where \(r\) is the number of real embeddings and \(s\) is the number of pairs of complex embeddings.
+
+If \(m = (m_0, m_\infty)\) and \(n = (n_0, n_\infty)\) are moduli, we write \(m \leq n\) if \(m_0 \divides n_0\) and \(m_\infty \subseteq n_\infty\).
+
+If \(L/K\) is an abelian extension, we can define its associated modulus \(m_{L/K} = (m_{L/K, 0}, m_{L/K, \infty})\) where
+\begin{align*}
+  m_{L/K, 0} &= C_{L/K} \\
+  m_{L/K, \infty} &=
+                    \left\{
+                    \begin{tabular}{c}
+                      \(\tau \in \Hom_\Q(K, \R)\): exist no \\
+                      \(\tilde \tau \in \Hom_\Q(L, \R)\) such that \(\tilde \tau|_K = \tau\)
+                    \end{tabular}
+                    \right\}
+\end{align*}
+
+Let \(K\) be a number field. We write \(\mathcal I = \Div \O_K, \mathcal P = \{I \in \mathcal I: \text{exists } \alpha \in K^\times \text{ such that } I = (\alpha)\}\) the principal fractional ideals. Then \(\mathcal I/\mathcal P\) is the \emph{ideal class group}\index{ideal class group} of \(\O_K\). Now let \(m = (m_0, m_\infty)\) be a modulus. We define
+\begin{align*}
+  K(m_0) &= \left\{
+           \begin{tabular}{c}
+             \(\alpha \in K^\times\): for all non-zero prime \(P \subseteq \O_K\) \\
+             such that \(v_P(m_0) > 0\), \(v_P(\alpha) = 0\)
+           \end{tabular}
+  \right\} \\
+  K_m &= \left\{
+        \begin{tabular}{c}
+          \(\alpha \in K(m_0)\): for all non-zero prime \(P \subseteq \O_K\) \\
+          such that \(v_P(m_0) > 0\), \(v_P(\alpha - 1) \geq v_P(m_0)\) \\
+          and for all \(\tau \in m_\infty\), \(\tau(\alpha) > 0\)
+        \end{tabular}
+  \right\} \\
+  \mathcal I(m_0) &= \left\{
+                    \begin{tabular}{c}
+                      \(I \in \mathcal I\): for all \(P \subseteq \O_K\) non-zero prime \\
+                      such that \(v_P(m_0) > 0 \), \(v_P(I) = 0\)
+                    \end{tabular}
+  \right\} \\
+  \mathcal P(m_0) &= \mathcal P \cap \mathcal I(m_0) = \{(\alpha): \alpha \in K(m_0)\} \\
+  \mathcal P_m &=
+                 \left\{
+                 \begin{tabular}{c}
+                   \(I \in \mathcal I\): exists \(\alpha \in K^\times\) such that \((\alpha) = I\) \\
+                   and for all \(P \subseteq \O_K\) non-zero prime \\
+                   such that \(v_P(m_0) > 0\), \(v_p(\alpha - 1) \geq v_p(m_0)\) \\
+                   and for all \(\tau \in m_\infty\), \(\tau(\alpha) > 0\)
+                 \end{tabular}
+  \right\} \\
+                  &= \{(\alpha): \alpha \in K_m\}
+\end{align*}
+Note \(\mathcal P_m\) is a subgroup of \(\mathcal P(m_0)\).
+
+\begin{definition}[ray class group]\index{ray class group}
+  The \emph{ray class group} of modulus \(m\) is
+  \[
+    H(m) = \mathcal I(m_0)/\mathcal P_m.
+  \]
+\end{definition}
+
+\begin{remark}
+  If \(m\) is the trivial modulus \((\O_K, \emptyset)\) then
+  \[
+    \mathcal I(m_0) = \mathcal I, \mathcal P_m = \mathcal P
+  \]
+  and \(H(m) = \mathcal I/\mathcal P\), the usual ideal class group.
+\end{remark}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(H(m)\) is a finite abelian group.
+  \item There are short exact sequences
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & \mathcal P(m_0)/\mathcal P_m \ar[r] & H(m) \ar[r] & H_K \ar[r] & 0
+      \end{tikzcd}
+    \]
+    where \(H_K\) is the usual ideal class group of \(\O_K\), and
+    \[
+      \begin{tikzcd}[column sep=small]
+        0 \ar[r] & \O_K^\times/(\O_K^\times \cap K_m) \ar[r] & (\O_K/m_0)^\times \times \{\pm 1\}^{m_\infty} \ar[r] & \mathcal P(m_0)/\mathcal P_m \ar[r] & 0
+      \end{tikzcd}
+    \]
+    In particular
+    \[
+      |H(m)| = |H_K| \cdot |(\O_K/m_0)^\times| \cdot 2^{|m_\infty|} \cdot |\O_K^\times/\O_K^\times \cap K_m|^{-1}.
+    \]
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  1 follows from 2 and the finiteness of \(H_K\) which is done in IID Number Fields. There's a short exact sequence
+  \[
+    \begin{tikzcd}[row sep=small]
+      0 \ar[r] & \mathcal P(m_0)/\mathcal P_m \ar[r] & \mathcal I(m_0)/\mathcal P_m \ar[r] \ar[d, equal] & \mathcal I(m_0)/\mathcal P(m_0) \ar[r] & 0 \\
+      & & H(m)
+    \end{tikzcd}
+  \]
+  There is a homomorphism \(\mathcal I(m_0)/\mathcal P(m_0) \to \mathcal I/ \mathcal P = H_K\). This is injective as \(\mathcal P(m_0) = \mathcal P \cap \mathcal I(m_0)\). We need to show it's surjective, i.e.\ for any \(I \in \mathcal I\), exists \(\alpha \in K^\times\) such that \(\alpha^{-1} I \in \mathcal I(m_0)\). Write \(I = I_1 I_2^{-1}\) where \(I_1, I_2 \subseteq \O_K\) are non-zero ideal. By Chinese remainder theorem we can find \(\alpha_1, \alpha_2 \in \O_K\) such that for all \(P \subseteq \O_K, v_P(m_0) > 0\),
+  \[
+    v_P(I_1) = v_P(\alpha_1), v_P(I_2) = v_P(\alpha_2).
+  \]
+  Then
+  \[
+    v_P(\alpha_1^{-1} I_1) = v_P(\alpha_2^{-1} I_2) = 0
+  \]
+  for all such \(P\), so
+  \[
+    \alpha_1^{-1} I_1 (\alpha_2^{-1} I_2)^{-1} = (\alpha_1/\alpha_2)^{-1} I \in \mathcal I(m_0).
+  \]
+  Set \(\alpha = \frac{\alpha_1}{\alpha_2}\).
+
+  To obtain the second short exact sequence, we consider the commutative diagram with exact rows
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \O_K^\times \ar[r] & K(m_0) \ar[r] & \mathcal P(m_0) \ar[r] & 0 \\
+      0 \ar[r] & \O_K^\times \cap K_m \ar[r] \ar[u] & K_m \ar[u] \ar[r] & \mathcal P_m \ar[r] \ar[u] & 0 \\
+    \end{tikzcd}
+  \]
+  By snake lemma there's a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \O_K^\times/(\O_K^\times \cap K_m) \ar[r] & K(m_0)/K_m \ar[r] & \mathcal P(m_0)/\mathcal P_m \ar[r] & 0
+    \end{tikzcd}
+  \]
+  We need to construct an isomorphism \(K(m_0)/K_m \to (\O_K/m_0)^\times \times \{\pm 1\}^{m_\infty}\). There is at least a homomorphism: we can think of
+  \[
+    (\O_K/m_0)^\times \times \{\pm 1\}^{m_\infty} = \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_p}) \times \prod_{\tau \in m_\infty} (\R^\times/\R_{> 0})
+  \]
+  For any \(P \subseteq \O_K\), there's an inclusion \(K^\times \subseteq K_P^\times\). If \(v_P(m_0) > 0\), this extends to an inclusion \(K(m_0) \subseteq A_{K_P}^\times\). The homomorphism we want is
+  \begin{align*}
+    K(m_0) &\to \prod_{P: v_P(m_0) > 0} A_{K_P}^\times \times \prod_{\tau \in m_\infty} \R^\times \to \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_p}) \times \prod_{\tau \in m_\infty} (\R^\times/\R_{> 0}) \\
+    \alpha &\mapsto ((\alpha)_P, (\tau(\alpha)))
+  \end{align*}
+  The kernel equals \(K_m\) by definition. To complete the proof we need to show this homomorphism is injective. Let \(((x_P)_P, (\varepsilon_\tau)_\tau) \in \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_p}) \times \{\pm 1\}^{m_\infty}\). By Chinese remainder theorem exists \(x \in \O_K - \{0\}\) such that for all \(P, v_P(m_0) > 0\), \(x \pmod{m_0 A_{K_P}} = x_p\). In particular \(x \in K(m_0)\). It's not enough to prove that for any \((\varepsilon_\tau)_{\tau \in m_\infty}\), exists \(y \in \O_K - \{0\}\) such that for all \(P\) such that \(v_P(m_0) > 0\), \(y = 1 \pmod{m_0 A_{K_P}}\) and for all \(\tau \in m_\infty\), \(\operatorname{sym}(\tau(y)) = \varepsilon_\tau\). Equivalently, \(y = 1 \pmod{m_0}\) and for all \(\tau \in m_\infty\), \(\operatorname{sym}(\tau(y)) = \varepsilon_\tau\). Note \(m_0 \cap \Z\) is a non-zero ideal, so we can find \(N \geq 2\) such that \(N \in m_0 \cap \Z\). We can find \(\beta \in \O_K\) such that \(K = \Q(\beta)\). Let \(f(X) \in \Z[X]\) be the minimal polynomial of \(\beta\). Then
+  \begin{align*}
+    \Hom_\Q(K, \C) &= \{\gamma \in \C: f(\gamma) = 0\} \\
+    \Hom_\Q(K, \R) &= \{\gamma \in \R: f(\gamma) = 0\}
+  \end{align*}
+  Let \(\gamma_\tau \in \R\) be \(\tau(\beta)\) for any \(\tau \in m_\infty\). We can find a polynomial \(g(X) \in \R[X]\) such that for all \(\tau \in m_\infty\), \(\operatorname{sym}(g(\gamma_\tau)) = \varepsilon_\tau\). Since \(\Q\) is dense in \(\R\), we can assume that \(g(X) \in \Q[X]\). By multiplying \(g(X)\) by a positive integer we can assume \(g(X) \in \Z[X]\). Then we take \(y = 1 + kNg(\beta)\) for some \(k \in \N\). Then \(y = 1 \pmod{m_0}\) as \(N \in m_0\). If \(k\) is large enough then
+  \[
+    \operatorname{sym}(\tau(y)) = \operatorname{sym}(1 + kN g(\gamma_\tau)) = \operatorname{sym}(g(\gamma_\tau)) = \varepsilon_\tau.
+  \]
+\end{proof}
+
+\begin{eg}
+  Let \(K = \Q, m = (N, \{\tau\})\) where \(N \in \N\). Then \(H_\Q = \{1\}\) so
+  \begin{align*}
+    H(m) \cong \frac{(\Z/N\Z)^\times \times \{\pm 1\}}{\Z^\times} &\cong (\Z/N\Z)^\times \\
+    (a \pmod N, 1) &\mapsfrom a \pmod N
+  \end{align*}
+  So ray class group generalises the classical ideal class group. If instead \(m = (N, \emptyset)\) then \(H(m) = (\Z/N\Z)^\times/\{\pm 1\}\).
+\end{eg}
+
+\begin{eg}
+  Let \(K = \Q(\sqrt d)\) where \(d \in \Z, d > 1\) square free. Then exists \(\varepsilon \in \O_K^\times\) such that \(\O_K^\times = \{\pm \varepsilon^\Z\}\) and there exist two distinct embeddings \(\sigma, \tau: K \to \R\) where \(\sigma(\sqrt d) > 0, \tau(\sqrt d) < 0\). Suppose \(H_K\) is trivial. Let \(m = (\O_K, \{\sigma, \tau\})\). Then
+  \[
+    H(m)
+    = \frac{\{\pm 1\} \times \{\pm 1\}}{\{(\operatorname{sym} \sigma(\alpha), \operatorname{sym} \tau(\alpha)): \alpha \in \O_K^\times\}}
+    \cong \frac{\{\pm 1\} \times \{\pm 1\}}{\langle (-1, -1), (\operatorname{sym} \sigma(\varepsilon), \operatorname{sym} \tau(\varepsilon)) \rangle}
+  \]
+  so two possibilities: either \(H(m)\) is trivial if \(sym \sigma(\varepsilon) \neq sym \tau(\varepsilon)\), or \(H(m)\) is cyclic of order \(2\) if \(\cdots =\). Note
+  \[
+    N_{K/\Q}(\varepsilon) = \sigma(\varepsilon) \tau(\varepsilon) =
+    \begin{cases}
+      1 & = \\
+      -1 & \ne
+    \end{cases}
+  \]
+  They both occur: if \(d = 2\) then \(H_K = \{1\}\) and \(\varepsilon = 1 + \sqrt 2\) has norm \(N_{K/\Q}(\varepsilon) = 1 - 2 = -2\). If \(d = 3\) then \(H_K = \{1\}\) and \(\varepsilon = 2 + \sqrt 3\) has norm \(1\).
+\end{eg}
+
 
 
 
 
 \printindex
 \end{document}
+
+% Books:
+% Lang: Algebraic Number theory
+% Swinnerton-Dyer: A brief guide to algebraic number theory

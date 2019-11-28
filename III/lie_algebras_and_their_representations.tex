@@ -13,10 +13,11 @@
 \DeclareMathOperator{\Mat}{Mat}
 \newcommand*{\Lie}[1]{\mathfrak{#1}} % Lie groups
 \renewcommand*{\P}{\mathbb{P}}
-\DeclareMathOperator{\ad}{ad} % adjoint
+\newcommand{\ad}{\mathrm{ad}} % adjoint
 \let\ch\relax
 \DeclareMathOperator{\ch}{ch} % character
 \DeclareMathOperator{\cha}{ch} % characteristic
+%\newcommand*{\gg}{\Lie{g}}
 
 \begin{document}
 
@@ -792,10 +793,838 @@ It has the following properties:
     \end{align*}
     form a basis of \(\Z[z, z^{-1}]^{S_2}\), the space of symmetric Laurent polynomials with integer coefficients. Now by complete reducibility if \(V \cong \bigoplus _{a\geq 0} n_a L(a), W \cong \bigoplus_{a \geq 0} m_a L(a)\) then \(V \cong W\) if and only if \(n_a = m_a\) for all \(a \geq 0\). As \(\{\ch L(n): n \geq 0\}\) is a basis of \(\Z[z, z^{-1}]^{S_2}\), \(\ch V = \sum m_a \ch L(n)\) determines \(V\).
   \end{proof}
-\item \(\ch (V \otimes W) = \ch V \cdot \ch W\).
-
-  Exercise: show that \(V_n \otimes W_m \subseteq (V \otimes W)_{n + m}\) and hence \((V \otimes W)_p = \bigoplus_{n + m = p} V_n \otimes W_m\)
+\item \(\ch (V \otimes W) = \ch V \cdot \ch W\). This follows from the exercise: show that \(V_n \otimes W_m \subseteq (V \otimes W)_{n + m}\) and hence \((V \otimes W)_p = \bigoplus_{n + m = p} V_n \otimes W_m\). This is exactly how we multiply polynomials.
 \end{enumerate}
+
+\begin{eg}
+  \begin{align*}
+    \ch (L(1) \otimes L(3))
+    &= \ch L(1) \cdot \ch L(3) \\
+    &= (z + z^{-1})(z^3 + z + z^{-1} + z^{-3}) \\
+    &= (z^4 + z^2 + 1 + z^{-2} + z^{-4}) + (z^2 + 1 + z^{-2})
+  \end{align*}
+  so complete reducibility and the fact that \(\ch L(n)\) form a basis immediately tell us that \(L(3) \otimes L(1) = L(4) \otimes L(2)\), which is a lot easier than finding highest weight vectors in the tensor product!
+\end{eg}
+
+\begin{corollary}[Clebsch-Gordon]\index{Clebsch-Gordon}
+  \[
+    L(n) \otimes L(m) = \bigoplus_{\substack{k = |n - m| \\ k = n - m \pmod 2}}^{n + m} L(k).
+  \]
+\end{corollary}
+
+\begin{proof}
+  Induction. Also pictorially,
+\end{proof}
+
+Purpose of this course: \(\Lie{sl}_n, \Lie{so}_n, \Lie{sp}_{2n}\) etc are simple Lie algebras and the category of their \(\C\)-representations are semisimple, and are parameterised by positive cones in the lattice \(\Z_{\geq 0}^\ell\). Also we can write down their characters parameterised by the lattice. Finally, we are going to draw more pictures like above.
+
+\section{Structure and Classification of simple Lie algebras}
+
+Let's do some warm up exercises in linear algebras. Let \(k\) be a field.
+
+\begin{definition}[simple Lie algebra]\index{simple}
+  Let \(\Lie g\) be a Lie algebra over \(k\). \(\Lie g\) is \emph{simple} if \(\dim \Lie g > 1\) and the only ideals of \(\Lie g\) are \(0\) and \(\Lie g\).
+\end{definition}
+
+1 dimensional Lie algebras are excluded because they are abelian and as we have seen, their representations do not form a discrete family so they tend to break results we are going to state for nonabelian simple algebras.
+
+In order to describe simple Lie algebras, we will need some Lie algebras which are very far from simple.
+
+\begin{definition}[derived subalgebra]\index{derived subalgebra}
+  The \emph{derived subalgebra} of \(\Lie g\), denoted \([\Lie g, \Lie g]\), is the linear span of \([x, y]\) for \(x, y \in \Lie g\).
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show \([\Lie g, \Lie g]\) is an ideal.
+  \item Show \(\Lie g/[\Lie g, \Lie g]\) is abelian.
+  \end{enumerate}
+\end{ex}
+
+\begin{definition}[central/derived series]\index{central series}\index{derived series}
+  The \emph{central series} for \(\Lie g\) is the sequence of subalgebras
+  \[
+    \Lie g \supseteq [\Lie g, \Lie g] \supseteq [[\Lie g, \Lie g], \Lie g] \supseteq \cdots
+  \]
+  or more formally,
+  \[
+    \Lie g^0 = \Lie g, \quad \Lie g^n = [\Lie g^{n - 1}, \Lie g] \text{ for } n \geq 1.
+  \]
+
+  The \emph{derived series} for \(\Lie g\) is the sequence
+   \[
+    \Lie g \supseteq [\Lie g, \Lie g] \supseteq [[\Lie g, \Lie g], [\Lie g, \Lie g]] \supseteq \cdots
+  \]
+  or more formally
+  \[
+    \Lie g^{(0)} = \Lie g, \quad \Lie g^{(n)} = [\Lie g^{(n - 1)}, \Lie g^{(n - 1)}] \text{ for } n \geq 1.
+  \]
+\end{definition}
+
+Note that \(\Lie g^{(n)} \subseteq \Lie g^n\).
+
+\begin{definition}[nilpotent/solvable Lie algebra]\index{nilpotent}\index{solvable}
+  \(\Lie g\) is \emph{nilpotent} if \(\Lie g^n = 0\) for some \(n > 0\), that is if the central series terminates.
+
+  \(\Lie g\) is \emph{solvable} if \(\Lie g^{(n)} = 0\) for some \(n > 0\), that is if the derived series terminates.
+\end{definition}
+
+Note that \(\Lie g\) nilpotent implies \(\Lie g\) solvable.
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item \(\Lie u\) of strictly upper triangular matrices is nilpotent.
+  \item \(\Lie b\) of upper triangular matrices is solvable.
+  \item The two dimensional Lie algebra with basis \(x, y\) and \([x, y] = y\) is solvable but not nilpotent.
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}
+  Compute the central and derived series for \(\Lie u, \Lie b\) and show they are nilpotent and solvable repsectively.
+
+  Compute the centre of these Lie algebras.
+\end{ex}
+
+\begin{eg}
+  Let \(W\) be a symplectic vector space, that is \(W\) is a \(k\)-vector space with a non-degenerated alternating form \(\langle \cdot, \cdot \rangle: W \times W \to k\). For example \(L\) be a finite dimensional vector space and let \(W = L \oplus L^*\) with symplectic form
+  \[
+    \langle L, L \rangle = \langle L^*, L^* \rangle = 0, \langle v^*, w\rangle = - \langle w, v^* \rangle = v^*(w).
+  \]
+  \(L\) is a maximal Lagrangian space and by basic linear algebra all examples are of this form. 
+
+  Define the \emph{Heisenberg Lie algebra}\index{Heisenberg Lie algebra} \(H_W = W \oplus k.c\) with Lie brackets
+  \begin{align*}
+    [w, w'] &= \langle w, w' \rangle . c \\
+    [c, w] &= 0
+  \end{align*}
+\end{eg}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show \(H_W\) is a Lie algebra.
+  \item Show \(H_W\) is nilpotent. Do we have to do any extra work?
+  \end{enumerate}
+\end{ex}
+
+Differentiating the Heisenberg group
+
+This is the most important nilpotent Lie algebra that arises in nature For example take \(k = \C, L = \C\). \(H_W\) has basis \(p, q, c\) with \([p, q] = c, [c, *] = 0\).
+
+\begin{ex}
+  Show \(\C[x]\) is a rep of \(H_W\) where \(q\) acts by multiplication by \(x\), \(p = \frac{\partial  }{\partial x}\) and \(c\) is identity.
+\end{ex}
+
+For a general vector space \(L\) with basis \(v_1, \dots, v_n\) and \(L^*\) with dual basis \(v_1^*, \dots, v_n^*\). Then \(H_W\) acts \(\C[x_1, \dots, x_n]\) with \(v_i^* \mapsto \frac{\partial }{\partial x_i}, v_i \mapsto x_i, c \mapsto 1\).
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Subalgebras and quotient Lie algebras of a solvable Lie algebra are solvable.
+  \item Subalgebras and quotient Lie algebras of a nilpotent Lie algebra are nilpotent.
+  \item Let \(\Lie g\) be a Lie algebra and \(\Lie h \subseteq \Lie g\) an ideal. Then \(\Lie g\) is solvable if and only if \(\Lie h\) and \(\Lie g/\Lie h\) are solvable. In particular solvable Lie algebras are built out of one-dimensional abelian Lie algebras, i.e.\ there is a refinement of the derived series such that all subquotients are one-dimensional (and hence abelian).
+  \item \(\Lie g\) is nilpotent if and only if centre of \(\Lie g\) is non-zero and the quotient of \(\Lie g\) by its centre is nilpotent.
+    
+    For only if, indeed if \(\Lie g\) is nilpotent we have central series
+    \[
+      \Lie g \supsetneq \Lie g^1 \supsetneq \cdots \supsetneq \Lie g^n = 0
+    \]
+    and since \(\Lie g^n = [\Lie g^{n - 1}, \Lie g] = 0\) so must have \(\Lie g^{n - 1}\) contained in the centre of \(\Lie g\).
+  \item \(\Lie g\) is nilpotent if and only if \(\ad (\Lie g) \subseteq \Lie{gl}(\Lie g)\) is a nilpotent Lie algebra. This is immediate from 4 as we have a short exact sequence of Lie algebras
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & \text{centre of } \Lie g \ar[r] & \Lie g \ar[r] & \ad(\Lie g) \ar[r] & 0
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+\end{ex}
+
+We will use but not prove
+
+\begin{theorem}[Lie]\index{Lie's theorem}
+  Let \(k = \overline k\) and \(\cha k = 0\). Let \(\Lie g\) be a solvable Lie algebra over \(k\) and \(\Lie g \subseteq \Lie{gl}(V)\) for some \(V\). Then there exists a basis \(v_1, \dots, v_n\) of \(V\) with respect to which all element of \(\Lie g\) are upper triangular, i.e.\ \(\Lie g \subseteq \Lie b\).
+\end{theorem}
+Note that \(\Lie g \subseteq \Lie{gl}(V)\) is automatic by Ado.
+
+Equivalently, there exists a linear function \(\lambda: \Lie g \to k\) and an element \(v \in V\) such that \(xv = \lambda(x) v\) for all \(x \in \Lie g\), that is \(\Lie g\) has a one dimensional subrep. In particular the only irreducible finite dimensional reps of \(\Lie g\) are one dimensional.
+
+\begin{ex}
+  Show these two formulations are equivalent.
+\end{ex}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show the theorem is false if \(k \neq \overline k\).
+  \item Show the theorem is false if \(\cha k = p > 0\). Hint: consider the 3 dimensional Heisenberg Lie algebra \(H\) and show that \(k[x]/(x^p)\) is an irreducible rep of \(H\) of dimension larger than \(1\).
+  \end{enumerate}
+\end{ex}
+
+\begin{corollary}
+  If \(\cha k = 0\) and \(\Lie g\) is solvable then \([\Lie g, \Lie g]\) is nilpotent.
+\end{corollary}
+
+\begin{proof}
+  It is an exercise to show that \(\Lie b\) solvable over \(k\) if and only if \(\Lie b \otimes_k \overline k\) is solvable over \(\overline k\), and similarly for nilpotents (?), so we may assume \(k = \overline k\). Now apply Lie's theorem to the adjoint rep \(\Lie g \to \End \Lie g\) so there exists a basis where \(\ad \Lie g\) are upper triangular. Then \([\ad \Lie g, \ad \Lie g]\) is strictly upper triangular. As \(\ad: \Lie g \to \Lie{gl}(\Lie g)\) is a rep, \([\ad \Lie g, \ad \Lie g] = \ad [\Lie g, \Lie g]\) so \(\ad [\Lie g, \Lie g]\) is nilpotent, hence \([\Lie g, \Lie g]\) is nilpotent since a Lie algebra \(\Lie h\) is nilpotent if and only if \(\ad \Lie h\) is nilpotent. (?)
+\end{proof}
+
+\begin{ex}
+  Show this is false in characteristic \(p\).
+\end{ex}
+
+\begin{theorem}[Engel]\index{Engel's theorem}
+  \(\Lie g\) is nilpotent if and only if for all \(x \in \Lie g\), \(\ad(x)\) is nilpotent. Equivalently, if \(V\) is a finite dimensional rep of a Lie algebra \(\Lie g\) and for all \(x \in \Lie g\), \(x\) acts on \(V\) as a nilpotent operator, then there exists \(v \in V\) such that \(xv = 0\) for all \(x \in \Lie g\). In otherwords, \(V\) has a 1 dimensional subrep which is the trivial rep. Equivalently, there exists a basis of \(V\) if \(\Lie g \subseteq \Lie{gl}(V)\) with respect to which all matrices in \(\Lie g\) are strictly upper triangular.
+\end{theorem}
+
+\begin{ex}
+  Show these are all equivalent.
+\end{ex}
+
+Engel says \(V\) is built out of trivial reps. That is \(V\) has a composition series whose subquotients are trivial reps.
+
+Warning: Engel says is \(\Lie g\) consists of nilpotent matrices then \(\Lie g\) is a nilpotent Lie algebra. The converse is \emph{false}, for example the abelian Lie algebra of scalar matrices. The correct converse is: \(\Lie g\) is nilpotent then \(\Lie g/\text{center}\) (which is isomorphic to \(\ad \Lie g\)) consists of nilpotent matrices.
+
+\begin{definition}[invariant symmetric bilinear form]\index{invariant symmetric bilinear form}
+  A symmetric bilinear form \((\cdot, \cdot): \Lie g \times \Lie g \to k\) is \emph{invariant} if \(([x, y], z) = (x, [y, z])\) for all \(x, y, z \in \Lie g\).
+\end{definition}
+
+\begin{ex}
+  Show if \(G\) is an algebraic group actions on a vector space \(V\) and \((gx, gy) = (x, y)\) for all \(g \in G, x, y \in V\) then this defines an invariant form on \(V\).
+\end{ex}
+
+\begin{ex}
+  If \(\mathfrak a \subseteq \Lie g\) is an ideal and \((\cdot, \cdot)\) is an invariant symmetric bilinear form then \(\mathfrak a^\perp\) is an ideal.
+\end{ex}
+
+\begin{definition}[trace form]\index{trace form}
+  If \(\rho: \Lie g \to \Lie{gl}(V)\) is a rep, define the \emph{trace form} of \(V\) to be
+  \[
+    (x, y)_V = \tr (\rho(x) \rho(y)).
+  \]
+\end{definition}
+
+\begin{ex}
+  Show \((\cdot, \cdot)_V\) is an invariant symmetric bilinear form.
+\end{ex}
+
+\begin{definition}[Killing form]\index{Killing form}
+  The \emph{Killing form} of a Lie algebra \(\Lie g\) is the trace form of the adjoint rep, i.e.
+  \[
+    (x, y)_{\ad} = \tr (\ad x \ad y).
+  \]
+\end{definition}
+
+The third theorem that we are not going to prove:
+
+\begin{theorem}[Cartan's criteria]\index{Cartan's criteria}
+  Suppose \(\cha k = 0\) and \(\Lie g \subseteq \Lie{gl}(V)\). Then \(\Lie g\) is solvable if and only if for all \(x \in \Lie g, y \in [\Lie g, \Lie g]\), the trace form \((x, y)_V = 0\). That is \([\Lie g, \Lie g] \subseteq \Lie g^\perp\).
+\end{theorem}
+
+\begin{ex}
+  Show only if is immediate from Lie's theorem. Idea: if \(\Lie g\) is solvable then we have a basis with \(x\) upper triangular and \(y\) strictly upper triangular, so \(xy\) has \(0\) entries on the diagonals and so has trace \(0\).
+\end{ex}
+
+\begin{corollary}
+  If \(\cha k = 0\) then \(\Lie g\) is solvable if and only if \((\Lie g, [\Lie g, \Lie g])_{\ad} = 0\).
+\end{corollary}
+
+\begin{proof}
+  If \(\Lie g\) is solvable then Lie's theorem says that \((\Lie g, [\Lie g, \Lie g])_{\ad} = 0\). Conversely Cartan says \(\ad \Lie g = \Lie g/\text{centre}\) is solvable so \(\Lie g\) is solvable.
+\end{proof}
+
+\begin{ex}
+  Show now every invariant symmetric bilinear form on \(\Lie g\) is a trace form. More precisely, let \(\Lie g = \tilde H\) where \(\tilde H\) has basis \(c, p, q, d\) with
+  \[
+    [c, \tilde H] = 0, [p, q] = c, [d, p] = p, [d, q] = -q.
+  \]
+  \begin{enumerate}
+  \item Show \(\tilde H\) is solvable.
+  \item Construct a non-degenerate invariant form on \(\tilde H\).
+  \item Why couldn't we just write use \(H\)?
+  \item Extend the rep of \(H\) on \(k[x]\) to a rep of \(\tilde H\).
+  \end{enumerate}
+\end{ex}
+
+Now we can use the theorems.
+
+\begin{definition}[semisimplicity]\index{semisimplicity}
+  \(\Lie g\) is \emph{semisimple} if is a sum of simple (non-abelian) Lie algebras.
+\end{definition}
+
+\begin{definition}[radical]\index{radical}
+  The \emph{radical} of \(\Lie g\), \(R(\Lie g)\), is the maximal solvable ideal in \(\Lie g\).
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show the sum of solvable ideals in \(\Lie g\) is solvable and hence \(R(\Lie g)\) is just the sum of all solvable ideals in \(\Lie g\).
+  \item Show \(R(\Lie g/R(\Lie g)) = 0\).
+  \end{enumerate}
+\end{ex}
+
+\begin{theorem}
+  \label{thm:semisimplicity criteria}
+  Suppose \(\cha k = 0\). Then TFAE:
+  \begin{enumerate}
+  \item \(\Lie g\) is semisimple.
+  \item \(R(\Lie g) = 0\).
+  \item Killing criterion: the Killing form is non-degenerate.
+  \end{enumerate}
+  Moreover if \(\Lie g\) is semisimple then every derivation \(D: \Lie g \to \Lie g\) is inner.
+\end{theorem}
+The converse of the last statement is \emph{false}.
+
+\begin{definition}[derivation]\index{derivation}
+  A \emph{derivation} is a linear map \(D: \Lie g \to \Lie g\) such that
+  \[
+    D[x, y] = [Dx, y] + [x, Dy].
+  \]
+\end{definition}
+
+\begin{eg}
+  If \(x \in \Lie g\) then \(\ad x\) is a derivation. Derivations of this form are called \emph{inner}\index{derivation!inner}.
+\end{eg}
+
+More generally if \(V\) is a rep of \(\Lie g\) then \(D: \Lie g \to V\) is a derivation if
+\[
+  D[x, y] = x Dy - y Dx
+\]
+and if \(v \in V\), \(x \mapsto xv\) is a derivation. Such a derivation is called inner. We define \(H^1(\Lie g, V)\) to be the quotient \(\operatorname{Der}(\Lie g, V)\) by the inner derivations. Thus the theorem says that \(\Lie g\) is semisimple implies that \(H^1(\Lie g, \Lie g) = 0\), but the converse is false. This is the subject of Lie algebra cohomology.
+
+\begin{remark}
+  If \(\Lie g\) is a Lie algebra over \(k\) where \(\cha k = 0\) then consider the SES
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & R(\Lie g) \ar[r] & \Lie g \ar[r] & \Lie g/R(\Lie g) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  The theorem says that \(\Lie g/R(\Lie g)\) is semisimple as its radical is \(0\). We are going to classify all the semisimple Lie algebras. As \(R(\Lie g)\) is solvable, this makes the theory particularly nice.
+\end{remark}
+
+It's helpful to mention that
+
+\begin{theorem}[Levi]
+  The above exact sequence splits, that is there exists a subalgebra \(\Lie h \subseteq \Lie g\) with \(\Lie h \to \Lie g/R(\Lie g)\). This subalgebra is not canonical, i.e.\ not an ideal, but his does say semidirect product.
+\end{theorem}
+
+\begin{ex}
+  Show Levi's theorem fails in characteristic \(p\). Let \(\Lie g = \Lie{sl}_p(\overline F_p)\). Show \(R(\Lie g) = \overline F_p \cdot I\) but there is no complement to \(R(\Lie g)\) which is a subalgebra.
+\end{ex}
+
+\begin{proof}[Proof of \Cref{thm:semisimplicity criteria}]
+  Claim \(\R(Lie g) = 0\) if and only if \(\Lie g\) has non-zero abelian ideals.
+  \begin{proof}
+    Only if is easy as an abelian ideal is solvable. For if, the derived series of \(R(\Lie g)\) is (defines?) a sequence of ideals of \(\Lie g\) and the last term is abelian.
+  \end{proof}
+
+  \(3 \implies 2\): we show that if \(\Lie a \subseteq \Lie g\) is an abelian ideal then \(\Lie a \subseteq \Lie g^\perp\) where the perp is with respect to the Killing form.
+  \begin{proof}
+    Take a vector space complement \(\Lie h\) to \(\Lie a\) in \(\Lie g\) so \(\Lie g = \Lie a \oplus \Lie h\). If \(x \in \Lie g\) then \(\ad x\) is block upper triangular and if \(a \in \Lie a\) then as \([\Lie a, \Lie a] = 0\) so \(\ad a\) ia block strictly upper triangular so \((a, x)_\ad = \tr \ad_a \ad_x = 0\).
+  \end{proof}
+
+  \(2 \implies 3\): let \(\Lie r \subseteq \Lie g^\perp\) be an ideal of \(\Lie g\) (for example \(\Lie r = \Lie g^\perp\) and  suppose \(\Lie r \neq 0\). Then \(R(\Lie g) = 0\) implies that centre of \(\Lie g\) is zero (?) so \(\Lie r \subseteq \Lie{gl}(\Lie g)\) as \(\ad: \Lie g \to \Lie{gl}(\Lie g)\) is injection and as \(Lie r \subseteq \Lie g^\perp\), \((x, y)_\ad = 0\) for all \(x, y \in \Lie g\). In particular for all \(y \in [\Lie r, \Lie r]\), so Carton's criteria implies that \(\Lie r\) is solvable, contradiction. Thus \(R(\Lie g) = 0\).
+
+  \begin{ex}
+    Show \(R(\Lie g) \supseteq \Lie g^\perp \supseteq [R(\Lie g), R(\Lie g)]\) in general for \(\cha k = 0\).
+  \end{ex}
+
+  \(2, 3 \implies 1\): Assume the Killing form is nondegenerate and let \(\Lie s \subseteq \Lie g\) be a minimal non-zero ideal. Observe that \((\cdot, \cdot)_\ad|_{\Lie s}\) is either non-degenerate or \(0\): the kernel is \(\{x \in \Lie s: (x, s)_\ad = 0\} = \Lie s \cap \Lie s^\perp\) which is an intersection of ideals, and we assumed \(\Lie s \neq 0\) is minimal. But if it is zero then by Cartan \(\Lie s\) is solvable so \(R(\Lie g) \neq 0\), contradiction. Thus \((\cdot, \cdot)_\ad|_{\Lie s}\) is non-degenerate and hence we get a direct sum decomposition \(\Lie g = \Lie s \oplus \Lie s^\perp\). Note \(\Lie s\) is not abelian as \(R(\Lie g) = 0\) and \(\Lie s\) is minimal implies \(\Lie s\) is simple. Moreover \(R(\Lie g) = 0\) implies \(R(\Lie s^\perp) = 0\) (exercise) and we can conclude by induction on \(\dim \Lie g\) as \(\Lie s^\perp\) is a Lie algebra of smaller dimension with \(R(\Lie s^\perp) = 0\).
+
+  \(1 \implies 2\): exercise: show that if \(\Lie g\) is semisimple then \(\Lie g\) is a direct sum of minimal ideals in a unique way. In particular show if \(\Lie g = \bigoplus_{i = 1}^r \Lie s_i\) where \(\Lie s_i\)'s are minimal ideals of \(\Lie g\) and if \(\Lie b\) is a minimal ideal of \(\Lie g\), show \(\Lie b = \Lie s_i\) for some \(i\) (hint: consider \(\Lie b \cap \Lie s_i\) for all \(i\)). Derive as a corollary \(1 \implies 2\).
+
+  Finally let \(D: \Lie g \to \Lie g\) be a derivation with \(\Lie g\) semisimple. Consider the linear map
+  \begin{align*}
+    \ell: \Lie g &\to k \\
+    x &\mapsto \tr (d \ad x: \Lie g \to \Lie g)
+  \end{align*}
+  As \((\cdot, \cdot)_\ad\) is non-degenerate, exists \(y \in \Lie g\) such that \(\ell(x) = (y, x)_\ad\) for all \(x \in \Lie g\). Would like to show \(E = D - \ad y = 0\): enough to show \((Ex, z)_\ad = 0\) for all \(x, z \in \Lie g\). But
+  \[
+    \ad(Ex) = E \ad x - \ad x E = [E, \ad x]
+  \]
+  as
+  \[
+    \ad(Ex)(z) = [Ex, z] = E[x, z] - [x, Ez]
+  \]
+  since \(E\) is a derivation. Hence
+  \begin{align*}
+    (Ex, z)_\ad
+    &= \tr(\ad(Ex) \ad(z)) \\
+    &= \tr([E, \ad x], \ad z) \\
+    &= \tr(E, [\ad x, \ad z]) \\
+    &= \tr(E, \ad[x, z]) \\
+    &= (E, [x, z])_\ad
+  \end{align*}
+  But by the definition of \(E\), \((E, a)_\ad = 0\) for all \(a \in \Lie g\), proving the result.
+\end{proof}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item If \(\Lie n\) is a nilpotent Lie algebra then there exists a non-inner derivation \(D: \Lie n \to \Lie n\).
+  \item Let \(\Lie g = \langle x, y\rangle, [x, y] = y\). Show this has only inner derivations (so this doesn't characterise semisimple Lie algebras).
+  \end{enumerate}
+\end{ex}
+
+\section{Structure theory of semisimple Lie algebras}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Let \(\Lie g\) be a simple Lie algebra with two nondegenerate symmetric bilinear forms \((\cdot, \cdot)_1, (\cdot, \cdot)_2\). SHow exists \(\lambda \in k^*\) such that \((\cdot, \cdot)_1 = \lambda (\cdot, \cdot)_2\) (\(\cha k = 0, k = \overline k\)).
+  \item Let \(\Lie g = \Lie{sl}_n(\C)\). Then there are two such forms: the Killing form and \((A, B) \mapsto \tr AB\). Find \(\lambda\).
+  \end{enumerate}
+\end{ex}
+
+\begin{definition}[torus]\index{torus}\index{maixmal torus}
+  Let \(\Lie g\) be a Lie algebra. A \emph{torus} \(\Lie t \subseteq \Lie g\) is an abelian subalgebra such that for all \(t \in \Lie t\), \(\ad t: \Lie g \to \Lie g\) is a diagonalisable linear map. A \emph{maximal torus} is a torus not contained in any strictly bigger torus.
+\end{definition}
+
+\begin{eg}
+  Let \(G\) be an algebraic group, \(T = (\C^*)^r \subseteq G\) a subgroup. Then \(\mathrm{Lie}(T)\) is a torus in \(\mathrm{Lie}(G)\).
+\end{eg}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item If \(\Lie g = \Lie{gl}_n\) then \(\Lie t\) of diagonal matrices in \(\Lie g\) is a maximal torus. Show the same for \(\Lie{sl}_n\).
+  \item Show \(
+    \begin{psmallmatrix}
+      0 & * \\
+      0 & 0
+    \end{psmallmatrix}
+    \subseteq \Lie{sl}_2\) is not a torus.
+  \end{enumerate}
+\end{ex}
+
+If \(V\) is a vector space, \(t_1, \dots, t_r: V \to V\) are pairwise commuting linear maps, \(\lambda_1, \dots, \lambda_r \in \C^r\). Define
+\[
+  V_{(\lambda_1, \dots, \lambda_r)} = \{v \in V: t_i v = \lambda_i v \text{ for all } i\},
+\]
+the simultaneous eigenspace.
+
+\begin{lemma}
+  If each \(t_i\) is diagonalisable then \(V = \bigoplus_{\lambda \in \C^r} V_\lambda\).
+\end{lemma}
+
+\begin{proof}
+  Induction on \(R\). If \(r = 1\) this is the assumption \(t_1\) is diagonalisable. For \(r > 1\), induction gives
+  \[
+    V = \bigoplus_{(\lambda_1, \dots, \lambda_{r - 1}) \in \C^{r - 1}} V_{(\lambda_1, \dots, \lambda_{r - 1})}
+  \]
+  and now \(t_r\) commutes with each of \(t_1, \dots, t_{r - 1}\) so preserves this eigenspace decomposition, so decomposes each \(V_{(\lambda_1, \dots, \lambda_{r - 1})}\) into eigenspaces for \(t_r\).
+\end{proof}
+
+Recap: let \(\Lie t\) be an abelian Lie algebra with basis \(t_1, \dots, t_n\), \(k = \overline k\). Then
+\begin{enumerate}
+\item a rep \(V\) of \(\Lie t\) is irreducible if and only if \(\dim V = 1\), exists \(\lambda \in \Lie t^* = \Hom(\Lie t, k)\), \(t v = \lambda(t) v\). \(\lambda_i = \lambda(t_i)\) is the eigenvalue of \(t_i\).
+\item \(V\) is a direct sum of irreducible reps if and only if each \(t_i\) is diagonalisable.
+\end{enumerate}
+
+Define \(\Lie t \subseteq \Lie g\) to be the maximal torus. If \(V\) is a rep of \(\Lie t^*\). Write \(V_\lambda\) for the \(\lambda\)-weight space of \(V\).
+
+\begin{corollary}
+  \(\Lie g = \Lie g + \bigoplus_{\lambda \in \Lie t^*} \Lie g_\lambda\)
+\end{corollary}
+
+\begin{definition}
+  We define the roots of \(\Lie g\) to be \(R = \{\lambda \in \Lie t^*: \Lie g_\lambda \neq 0\}\).
+\end{definition}
+
+\begin{eg}
+  Let \(\Lie g = \Lie{sl}_n\), \(\Lie t\) the diagonal matrices, i.e.\ the trace \(0\) diagonal matrices. Let \(t\) be the diagonal matrix with diagonal entries \(t_1, \dots, t_n\), \(E_{ij}\) with \(1\) at \(ij\)th entry and \(0\) elsewhere (matrix units). Then \([t, E_{ij}] = (t_i - t_j) E_{ij}\). Define linear maps \(\varepsilon_i: \Lie t \to k, ... \mapsto t_i\). Then \(\varepsilon_i\) span \(\Lie t^*\). Also as \(\Lie t \subseteq k^n\), we have \((k^n)^* \surj \Lie t^*\). \((k^n)^*\) has basis \(\varepsilon_i\), so this is quotient by \(\varepsilon_1 + \dots + \varepsilon_n = 0\).
+
+  Also \(\Lie g_0 = \Lie t, \Lie g_{\varepsilon_i - \varepsilon_j} = k \cdot E_{ij}\) and so \(\Lie{sl}_n\) has root space decomposition
+  \[
+    \Lie{sl}_n = \Lie t \oplus \bigoplus_{i \neq j} \Lie g_{\varepsilon_i - \varepsilon_j}.
+  \]
+\end{eg}
+
+\begin{ex}
+  Essential exercise. Suppose \(k = \overline k, \cha k \neq 2\) (can take \(k = \C\)). Compute the root space decomposition for \(\Lie g = \Lie{sl}_n, \Lie{so}_{2n + 1}, \Lie{so}_{2n}, \Lie{sp}_{2n}\) with \(\Lie t\) the diagonal matrices in \(\Lie g\). Note we use the bilinear form defining \(\Lie{so}_n\) to be \(\Lie{so}_n = \{A: JA + A^TJ = 0\}\) where \(J\) is the antidiagonal matrix with entries \(1\). Check that \(\Lie t\) is indeed a maximal torus.
+
+  Subexercise: show this \(\Lie{so}_n\) is the same as \(\{A + A^T = 0\}\) by showing all nondegenerate orthogonal forms are equivalent.
+\end{ex}
+
+\begin{proposition}
+  \(\Lie{sl}_n \C\) is a simple Lie algebra.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(\Lie r \subseteq \Lie{sl}_n \C = \Lie t \oplus \bigoplus_{\alpha \in R} \Lie g_\alpha\) is a nonzero ideal. We must show \(\Lie r = \Lie g\). Choose \(r \neq 0, r \in \Lie r\) such that \(\Lie r = \Lie t + \sum_\alpha e_\alpha\) with \(e_\alpha \in \Lie g_\alpha\) with the minimal number of non-zero terms. First suppose \(\Lie t \neq 0\). Choose \(\alpha \in \Lie t\) such that \(\alpha(t_0) neq 0\) for all \(\alpha \in R\), that is choosing a diagonal matrix with disinct eigenvalues. Consider \([t_0, r] \in \Lie r\), \([t_0, r] = \sum \alpha(t_0) e_\alpha\). If nonzero this has fewer terms than \(r\), absurd. Thus \(e_\alpha = 0\) for all \(\alpha \in R\), i.e.\ \(r = t \in \Lie t\). But \(t \neq 0\) so exists \(\alpha \in R\) with \(\alpha(t) \neq 0\). (as \(\alpha(t) = 0\) for all \(\alpha = \varepsilon_i - \varepsilon_j\) is saying \(t\) is \(\lambda I\), but \(\tr \lambda I = n\lambda \neq 0\). Phrase in another way: \(R\) spans \(\Lie t^*\))
+
+  Thus \([t, e_\alpha] = \alpha(t) e_\alpha \neq 0 \in \Lie r\) so \(e_\alpha \in \Lie r\). But \(\alpha = \varepsilon_i - \varepsilon_j\) for some \(i \neq j\), so this says \(E_{ij} \in \Lie r\). But \([E_{ij}, E_{jk}] = E_{ik}\) if \(k \neq i\) and \([E_{si}, E_{ij}] = E_{sj}\) if \(s \neq j\). Hence \(E_{ab} \in \Lie r\) for all \(a \neq b\). Finally
+  \[
+    [E_{i, i + 1}, E_{i + 1, i}] = E_{ii} - E_{i + 1, i + 1} \in \Lie r
+  \]
+  so we've just seen a basis for \(\Lie{sl}_n\) is in \(\Lie r\).
+
+  Finally if \(r = t + \sum e_\alpha\) and \(t = 0\). If there is one term in this expression, i.e.\ \(r = c E_{ij}\) for some \(c \neq 0\), we are done as above. Otherwise
+  \[
+    r = e_\alpha + e_\beta + \sum_{\gamma \in R\setminus\{\alpha, \beta\}} e_\alpha
+  \]
+  for some \(\alpha \neq \beta\). Choose \(t_0 \in \Lie t\) such that \(\alpha(t_0) \neq \beta(t_0)\). Then some linear combination of \([t_0, r]\) and \(r\) is nonzero with fewer terms, absurd.
+
+  Key ingedient: \([E_{ij}, E_{jk}] = \dots\) Combinatorial.
+\end{proof}
+
+\begin{proposition}
+  Let \(\Lie g\) be a semisimple Lie algebra over \(\C\). Then
+  \begin{enumerate}
+  \item non-zero maximal tori \(\Lie t\) exist.
+  \item \(\Lie t = \Lie g_0 = \{x \in \Lie g: [t, x] = 0 \text{ for all } t \in \Lie t\}\), that is, such \(\Lie t\) are maximal abelian.
+  \item Will state more precisely later: any two such \(\Lie t\) are conjugate by an element of algebraic group \(G\) of automorphisms of \(\Lie g\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Omitted, for lack of time.
+\end{proof}
+
+Hence \(\Lie g = \Lie g \oplus \bigoplus_{\alpha \in R} \Lie g_\alpha\), as we have seen by hand for the classical Lie algebras \(\Lie{sl}_n, \Lie{so}_n, \Lie{so}_{2n}\).
+
+\begin{theorem}[structure theorem for semisimple Lie algebras, part 1]
+  Let \(\Lie g\) be a semisimple Lie algebra over \(\C\), \(\Lie g = \Lie t \oplus \bigoplus_{\alpha \in R} \Lie g_\alpha\). Then
+  \begin{enumerate}
+  \item the roots span \(\Lie t^*\).
+  \item \(\dim \Lie g_\alpha = 1\) for all \(\alpha \in R\).
+  \item If \(\alpha, \beta \in R\) and \(\alpha, \beta \in R\) then \([\Lie g_\alpha, \Lie g_\beta] = \Lie g_{\alpha + \beta}\). If \(\alpha + \beta \notin R\) and \(\alpha \ne -\beta\) then \([\Lie g_\alpha, \Lie g_\beta] = 0\).
+  \item \([\Lie g_\alpha, \Lie g_{-\alpha}] \subseteq \Lie t\) is one-dimensional and \(\Lie g_\alpha + [\Lie g_\alpha, \Lie g_{-\alpha}] + \Lie g_{-\alpha}\) is a Lie subalgebra of \(\Lie g\), isomorphic to \(\Lie{sl}_2\). In particular if \(\alpha \in R\) then \(-\alpha \in R\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{ex}
+  Check this for classical Lie algebras.
+\end{ex}
+
+\begin{proof}
+  Suppose not. Then there exists \(t \in \Lie t^*\) such that \(\alpha(t) = 0\) for all \(\alpha \in R\). But then if \(x \in \Lie g_\alpha\), \([t, x] = \alpha(t) x = 0\) so \([t, \Lie g] = 0\), i.e.\ \(t\) is in the centre of \(\Lie g\). But \(\Lie g\) is semisimple so has no nontrivial abelian ideals.
+
+  We now prove a sequence of results which implies most of them. If \(\lambda, \mu \in \Lie t^*\) then \([\Lie g_\lambda, \Lie g_\mu] \subseteq \Lie g_{\lambda + \mu}\).
+
+  \begin{proof}
+    If \(x \in \Lie g_\lambda, y \in \Lie g_\mu, t \in \Lie t\) then
+    \begin{align*}
+      [t, [x, y]] &= [[t, x], y] + [x, [t, y]] \\
+                  &= \lambda(t) [x, y] + \mu(t) [x, y] \\
+                  &= (\lambda + \mu) (t) [x, y]
+    \end{align*}
+    Hence if \(\alpha, \beta \in R\) but \(\alpha + \beta \neq 0\) and \(\alpha + \beta \notin R\) (so \(\Lie g_{\alpha + \beta} = 0\)) then \([\Lie g_\alpha, \Lie g_\beta] = 0\) and if \(\alpha + \beta \in R\) then \([\Lie g_\alpha, \Lie g_\beta] \subseteq \Lie g_{\alpha + \beta}\). If \(\alpha + \beta = 0\) then \([\Lie g_\alpha, \Lie g_\beta] \subseteq \Lie t\). Note we will not show \([\Lie g_\alpha, \Lie g_\beta] = \Lie g_{\alpha + \beta}\) for a while.
+
+  \end{proof}
+  Secondly claim \((g_\lambda, g_\mu)_\ad = 0\) if \(\lambda + \mu \neq 0\) and \((\cdot, \cdot)_\ad|_{g_\lambda + g_{-\lambda}}\) is nondegenerate.
+
+  \begin{proof}
+    Let \(x \in g_\lambda, y \in g_\mu\). To show this is \(0\), it is enough to show \(\ad x \ad y\) is nilpotent (?). But
+    \[
+      (\ad x \ad y)^N g_\alpha \subseteq g_{\alpha + N(\lambda + \mu)}
+    \]
+    by the previous part. So if \(\lambda + \mu \neq 0\) then as \(g\) is finite dimensional, \(g_{\alpha + N(\lambda + \mu)} = 0\) for \(N >> 0\), showing \((x, y)_\ad = 0\).
+
+    On the other hand, the Killing form is nondegenerate and \(g = \bigoplus_\lambda (g_\lambda + g_{-\lambda})\) is an orthogonal decomposition by what we just showed, so \((\cdot, \cdot)_\ad|_{g_\lambda + g_{-\lambda}}\) is nondegenerate.
+  \end{proof}
+
+  In particular take \(\lambda = 0\). Get \((\cdot, \cdot)_\ad|_{\Lie t}\) is non-degenerate. Hence we get an isomorphism \(v: \Lie t \to \Lie t^*\) by \(v(t)(t') = (t, t')_\ad\). Moreover this defines a symmetric bilinear form on \(\Lie t^*\) by \((v(t), v(t')) = (t, t')_\ad\) (make \(v\) an isometry).
+
+  Claim if \(\alpha \in R\) then \(-\alpha \in R\): \((g_\alpha, g_\alpha)_\ad = 0\) as \(\alpha \neq 0\) implies \(2\alpha \neq 0\). But \((\cdot, \cdot)_\ad|_{g_\alpha + g_{-\alpha}}\) is non-degenerate (in particular so Killing form gives an isomorphism \(g_\alpha \cong g_{-\alpha}^*\)).
+
+  Let \(x \in g_\alpha, y \in g_{-\alpha}\). Claim \([x, y] = (x, y)_\ad v^{-1}(\alpha)\).
+
+  \begin{proof}
+    \begin{align*}
+      (t, [x, y])_\ad
+      &= ([t, x], y)_\ad \\
+      &= \alpha(t) (x, y)_\ad
+    \end{align*}
+  \end{proof}
+
+  Pick \(e_\alpha \in g_\alpha, e_\alpha \ne 0\) and \(e_{-\alpha} \in g_{-\alpha}\) such that \((e_\alpha, e_{\alpha})_\ad \ne 0\). and consider \(M_:a = \langle e_\alpha, e_{-\alpha}, v^{-1}(\alpha) \rangle\). This is a 3 dimensional Lie algebra as
+  \[
+    [v^{-1}(\alpha), e_\alpha] = \alpha(v^{-1}(\alpha)) e_\alpha = (\alpha, \alpha) e_\alpha
+  \]
+  and similarly \([v^{-1}(\alpha), e_{-\alpha}] = -(\alpha, \alpha) e_\alpha\). So if \((\alpha, \alpha) \neq 0\) then define \(h_\alpha = \frac{2}{(\alpha, \alpha)} v^{-1}(\alpha)\) and rescale \(e_{-\alpha}\) so that \((e_\alpha, e_{-\alpha})_\ad = \frac{2}{(\alpha, \alpha)}\). It is an exercise to show that \(M_\alpha \to \Lie{sl}_2, e_\alpha, h, e_{-\alpha} \mapsto e, h, f\).
+
+  Now we show if \(\alpha \in R\) then \((\alpha, \alpha) \neq 0\). Suppose otherwise, then \([M_\alpha, M_\alpha] = \C v^{-1}(\alpha)\) (or did we merely prove containment?), i.e.\ \(M_\alpha\) is a solvable Lie algebra. Hence by Lie's theorem, \(\ad[M_\alpha, M_\alpha]\) acts as nilpotent operators on \(\Lie g\), i.e.\ \(\ad v^{-1}(\alpha)\) is nilpotent. But \(v^{-1}(\alpha) \in \Lie t\) and hence diagonalisable. Together this implies \(\nu^{-1}(\alpha) = 0\). But \(\alpha \in R\) means \(\alpha \neq 0\), contradiction.
+
+  Claim \(\dim \Lie g_{-\alpha} = 1\) for all \(\alpha \in R\).
+
+  \begin{proof}
+    Fix \(\alpha\). Pick \(\Lie m_\alpha \subseteq \Lie g\) so \(\Lie m_\alpha \cong \Lie{sl}_2\). If \(\dim \Lie g_{-\alpha} > 1\) then the map \(g_{-\alpha} \to \C \nu^{-1}(\alpha), x \mapsto \ad e_\alpha \cdot x\) has a non-zero kernel. So exists \(v \in g_{-\alpha}\) such that
+    \begin{align*}
+      \ad(e_\alpha) v &= 0 \\
+      \ad(h_\alpha) v &= -\alpha(h_\alpha) . v = -2v
+    \end{align*}
+    Claim \(v\) is a highest weight vector for \(\Lie{sl}_2\) with negative highest weight. Hence the \(\Lie{sl}_2\)-submodule of \(\Lie g\) generated by \(v\) is infinite dimensional, conradiction.
+  \end{proof}
+\end{proof}
+
+Guaranteed question on exam: explain everything about each classical Lie algebra.
+
+\begin{theorem}[structure theorem, part II]\leavevmode
+  \begin{enumerate}
+  \item \(\frac{2(\alpha, \beta)}{(\alpha, \alpha)} \in \Z\) for all \(\alpha, \beta \in R\).
+  \item If \(\alpha \in R\) and \(k \alpha \in R\) then \(k = \pm 1\).
+  \item \(\bigoplus_{k \in \Z} \Lie g_{\beta + k \alpha}\). This is an irreducible module for \((\Lie{sl}_2)_\alpha = \Lie m_\alpha\). In particular
+    \[
+      \{k\alpha + \beta: k \in \Z, k \alpha + \beta \in \R \cup \{0\}\}
+    \]
+    is of the form \(\beta - p \alpha, \beta - (p - 1) \alpha, \dots, \beta + (p - 1)\alpha, \beta + q \alpha\) where \(p - q = \frac{2(\alpha, \beta)}{(\alpha, \alpha)}\). This is called the \emph{\(\alpha\) string through \(\beta\)}.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(q = \max \{k \in \Z: p + k \alpha \in R\}\) and let \(v \in \Lie g_{\beta + q \alpha} \setminus \{0\}\). Then \(\ad e_\alpha v \in \Lie g_{\beta + (q + 1)\alpha} = 0\) and
+    \[
+      \ad h_\alpha . v = (\beta + q\alpha) (h_\alpha) . v = \left( \frac{2(\beta, \alpha)}{(\alpha, \alpha)} + 2q \right) \cdot v
+    \]
+    Hence is a highest weight vector for \(\Lie{sl}_2\) with weight ... and this is a non-negative integer as \(\Lie g\) is finite dimensional.
+  \item
+  \item Structure of \(\Lie{sl}_2\)-modules implies that \((\ad e_{\alpha})^r v \neq 0\) for \(0 \leq r \leq N\) where \(N = \frac{2(\beta, \alpha)}{(\alpha, \alpha)} + 2q\) and \((\ad e_{-\alpha})^{N + 1}v = 0\). Hence
+  \[
+    \{\beta + (q - k) \alpha: 0 \leq k \leq N\}
+  \]
+  are all in \(R \cup \{0\}\) (in particular, non-zero eigenspaces). We need to show no other roots of the form \(\beta + k\alpha\). Repeat same construction from bottom up: \(p = \max \{k: \beta - k\alpha \in R \cup \{0\}\}\), \(w \in \Lie g_{\beta - p \alpha} \setminus \{0\}\) implies \(\ad e_{-\alpha} w = 0\).
+  ... diagram and the strings coincide.
+  \end{enumerate}
+  For 2, apply 1 to \(\{\alpha, \beta\} = \{\alpha, k\alpha\}\) to get
+  \[
+    \frac{2(\alpha, k\alpha)}{k \alpha, k \alpha} = \frac{2}{k} \in \Z, \frac{2(k\alpha, \alpha)}{\alpha, \alpha)} = 2k \in \Z.
+  \]
+  Take \(\alpha = \beta\) in 2 (?) as \((sl_2)_\alpha = g_\alpha + [g_\alpha, g_\alpha] + g_{-\alpha}\) is an irreducible \((sl_2)_\alpha\)-module, 2 says it is a string though \(\alpha\) so \(g_{2\alpha} = 0 = g_{-2\alpha}\).
+
+  Finally if \(\alpha, \beta, \alpha + \beta \in R\), we need to show \([g_\alpha, g_\beta] = g_{\alpha + \beta}\). But \(\bigoplus_{k \in \Z} g_{\beta + k \alpha}\) is an irreducible \(sl_2\)-module, so \(ad e_k: g_{\beta + k\alpha} \to g_{\beta + (k + 1)\alpha}\) is an iso if \(k < q\). But \(q \geq 1\) so in particular \(\ad e_\alpha: g_\beta \to g_{\beta + \alpha}\) is an iso.
+\end{proof}
+
+The statement of 3 is messsy. Here is a much cleaner consequence.
+
+Given \(\alpha \in t^*\), define ``reflection''
+\begin{align*}
+  s_\alpha: t^* &\to t^* \\
+  v &\mapsto v -\frac{2 (\alpha, v)}{(\alpha, \alpha)} \alpha
+\end{align*}
+Claim that 3 implies \(s_\alpha \beta \in R\) if \(\alpha, \beta \in R\).
+
+\begin{proof}
+  Let \(r = \frac{2(\alpha, \beta)}{(\alpha, \alpha)}\). If \(r \geq 0\) then \(p = q + r \geq r\). If \(r \leq 0\) then \(q = p - r \geq -r\). In either case \(\beta - r \alpha\) is the \(\alpha\)-string through \(\beta\). Exercise: show drawing is accurate (reflection sends \(\beta\) to \(s_\alpha \beta\).
+\end{proof}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item If \(\alpha, \beta \in R\) then \((\alpha, \beta) \in \Q\).
+  \item If we pick a basis \(\beta_1, \dots \beta_r\) of \(t^*\) with each \(\beta_i \in R\) then any \(\beta \in R\) is of the form \(\sum q_i \beta_i\) with \(q_i \in \Q\), that is the \(\Q\)-span of \(R\) has dimension equal to \(\dim_\C t\).
+  \item \((\cdot, \cdot)\) is positive definite on \(\Q R\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item As \(\frac{2(\alpha, \beta)}{(\alpha, \alpha)} \in \Z\) it is enough to show \((\beta, \beta) \in \Q\) for all \(\beta \in R\). Let \(t, t' \in t\), then
+    \[
+      (t, t')_\ad = \tr(\ad t \ad t': g \to g) = \sum_{\alpha \in R} \alpha(t) \alpha(t')
+    \]
+    by weight space decomposition. So if \(\lambda, \beta \in t^*\) then
+    \begin{align*}
+      (\lambda, \mu) &= (\nu^{-1}(\lambda), \nu^{-1}(\mu)) \\
+                     &= \sum_{\alpha \in R} \alpha(\nu^{-1}(\lambda)) \alpha (\nu^{-1}(\mu)) \\
+      &= \sum_{\alpha \in R} (\lambda, \alpha)(\mu, \alpha)
+    \end{align*}
+    In particular \((\beta, \beta) = \sum_{\alpha \in R} (\beta, \alpha)^2\). Multiply by \(\frac{4}{(\beta, \beta)^2}\), get
+    \[
+      \frac{4}{(\beta, \beta)} = \sum_{\alpha \in R} \left( \frac{2(\alpha, \beta)}{(\beta, \beta)} \right)^2 \in \Z.
+    \]
+  \item Let \(B\) be the grand matrix of \((\cdot, \cdot)\) on \(t^*\) with respect to basis \(\beta_i\), meaning \(B = [(\beta_i, \beta_j)]_{ij}\). It is an exercise to check \((\cdot, \cdot)\) is nondegenerate implies \(\det B \neq 0\). Let \(\beta = \sum c_i \beta_i \in R\) so \((\beta, \beta_i) = \sum_j c_j (\beta_j, \beta_i)\), that is
+    \[
+      \begin{pmatrix}
+        (\beta, \beta_1) \\
+        \vdots \\
+        (\beta, \beta_r)
+      \end{pmatrix}
+      = B
+      \begin{pmatrix}
+        c_1 \\
+        \vdots \\
+        c_r
+      \end{pmatrix}
+    \]
+    and as \(\det B \neq 0\) we can invert this. Then \(c_i \in \Q\).
+  \item Let \(\lambda = \sum c_i \beta_i\) with \(c_i \in \Q\), so \((\lambda, \alpha) \in \Q\) for all \(\alpha \in R\). But \((\lambda, \lambda) = \sum_{\alpha \in R}(\lambda, \alpha)^2 \geq 0\) and \((\lambda, \lambda) = 0\) implies \((\lambda, \alpha) = 0\) for all \(\alpha \in R\). But \(R\) spans \(t^*\) and \((\cdot, \cdot)\) is nondegenerate so \(\lambda = 0\).
+  \end{enumerate}
+\end{proof}
+
+\section{Root systems}
+
+Let \(V\) be a vector space over \(\R\), let \((\cdot, \cdot): V \times V \to \R\) be an inner product, i.e.\ a positive definite symmetric bilinear form. If \(\alpha \in V, \alpha \neq 0\) let \(\alpha^\vee = \frac{2\alpha}{(\alpha, \alpha)}\) so \((\alpha, \alpha^\vee) = 2\). Define
+\begin{align*}
+  s_\alpha: V &\to V \\
+  v &\mapsto v - (v, \alpha^\vee) \alpha
+\end{align*}
+
+\begin{lemma}
+  \(s_\alpha\) is the reflection in the hyperplane orthogonal to \(\alpha\). In particular \(s_\alpha \alpha = -\alpha\) and all other eigenvectors of \(s_\alpha\) have eigenvalue \(1\). Moreover
+  \[
+    s_\alpha^2 = 1, \quad (s_\alpha + 1)(s_\alpha - 1) = 0
+  \]
+  and \(s_\alpha \in O(V, (\cdot, \cdot))\), the orthogonal group of \(V\) with respect to \((\cdot, \cdot)\), which is in particular an algebraic group.
+\end{lemma}
+
+\begin{proof}
+  \(V = \R\alpha \oplus \alpha^\perp\) and if \(v \in \alpha^\perp\) then \(s_\alpha v = v\).
+\end{proof}
+
+\begin{definition}[root system]\index{root system}
+  A \emph{root system} \(R\) in \(V\) is a finite set \(R \subseteq V\) such that
+  \begin{enumerate}
+  \item \(0 \notin R, \R R = V\),
+  \item for all \(\alpha, \beta \in R\), \((\alpha, \beta^\vee) \in \Z\),
+  \item for all \(\alpha \in R\), \(s_\alpha R \subseteq R\). In particular \(s_\alpha \alpha = -\alpha \in R\).
+  \end{enumerate}
+  Moreover \(R\) is \emph{reduced} if in addition \(\alpha, k \alpha \in R\) implies \(k = \pm 1\).
+\end{definition}
+
+\begin{eg}
+  Let \(g\) be a semisimple Lie algebra over \(\C\). Then it has weight space decomposition \(g = t \oplus \bigoplus_{\alpha \in R} g_\alpha\). Then \(R\) is a root system.
+\end{eg}
+
+\begin{definition}[Weyl group]\index{Weyl group}
+  Let \(W\) be the group generated by the reflection \(s_\alpha\) for \(\alpha \in R\). This is the \emph{Weyl group of \(R\)}.
+\end{definition}
+
+Claim that \(W\) is finite.
+
+\begin{proof}
+  \(W\) acts on \(R\) by permutations and as \(\R R = V\), this action is faithful (?), so \(W \subseteq \operatorname{Sym}(R)\) so finite.
+\end{proof}
+
+\begin{definition}
+  The \emph{rank} of \(R\) is the dimension of \(V\).
+\end{definition}
+
+\begin{definition}
+  An isomorphism of root systems between \((V, R)\) and \((V', R')\) is a linear bijection \(\phi: V \to V'\) such that \(\phi(R) = R'\).
+\end{definition}
+Note that we do not require this to be an isometry.
+
+\begin{ex}
+  If \((R, V), (R', V')\) are two root systems then so is \((R \amalg R', V \oplus V')\).
+\end{ex}
+
+A root system not isomorphic to a direct sum is called \emph{irreducible}.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Rank 1: take \(V = \R, (x, y) = xy, R = \{\alpha, - \alpha\}\) with \(\alpha \in R, \alpha \neq 0\). \(W = \Z/2\). Exercise: this is the only rank \(1\) root system.
+  \item rank 2
+    \begin{enumerate}
+    \item \(V = \R^2\) with usual inner product is a root system. This is called \(A_1 \times A_1\) and is not irreducible. \(W = \Z/2 \times \Z/2\).
+    \item \((\alpha, \beta) = -1, \alpha = \alpha^\vee, \beta = \beta^\vee\) . \(W = S_3\). This is the root system for \(sl_3\). This is \(A_2\).
+    \item \(B_2\). \(W = D_8\).
+    \item \(\alpha = e_1, \beta = e_2 - e_1, (\alpha, \alpha) = 1, (\beta, \beta) = 1\). This is \(G_2\).
+    \end{enumerate}
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show these are root systems.
+  \item Show they are all the rank 2 root systems.
+  \item Show \(A_2, B_2, G_2\) are irreducible.
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}
+  If \((R, V)\) is a root system then so is \((R^\vee, V)\) where \(R^\vee = \{\alpha^\vee: \alpha \in R\}\).
+\end{ex}
+
+\begin{definition}[simply laced]\index{simply laced}
+  \(R\) is simply laced if all the roots have the samle length.
+\end{definition}
+
+\begin{ex}
+  If \(R\) is a simply laced root system then \(R\) is isomorphic to a root system with \((\alpha, \alpha) = 2\) for all \(\alpha \in R\).
+\end{ex}
+
+\begin{definition}[lattice]\index{lattice}\index{root}
+  A \emph{lattice} \(L\) is a finitely generated free abelian group (i.e. isomoprhic to \(\Z^\ell\) for some \(\ell\)) equipped with a form \((\cdot, \cdot): L \otimes L \to \Z\) such that the induced form \((\cdot, \cdot): L_\R \times L_\R \to \R\) is a positive definite symmetric bilinear form, where \(L_\R = L \otimes_\Z \R \cong \R^\ell\).
+
+  A \emph{root} of \(L\) is a vector \(\alpha \in L\) with \((\alpha, \alpha) = 2\). We denote the set of roots of \(L\) by \(R_L\).
+\end{definition}
+
+\begin{ex}
+  If \(\alpha \in R_L\) then \(s_\alpha(L) \subseteq L\).
+\end{ex}
+
+\begin{lemma}
+  \(R_L\) is a simply laced root system in \(\R R_L\).
+\end{lemma}
+
+\begin{proof}
+  Obvious except finiteness of \(R_L\). But \(R_L\) is the intersection of a compact set (the sphere \(\{\alpha \in \R L: (\alpha, \alpha) = 2\}\)) and a discrete set (\(L\)), so finite.
+\end{proof}
+
+\begin{definition}
+  \(L\) is \emph{generated by roots} if \(\Z R_L = L\).
+\end{definition}
+
+Note if so, \(L\) is an ``even lattice'', i.e.\ \((\ell, \ell) \in 2\Z\) for all \(\ell \in L\).
+
+\begin{eg}
+  \(L = \Z \alpha\) with \((\alpha, \alpha) = 2\). If \(\lambda = 2\) then \(R_L = \{\pm \alpha\}\) and \(L = \Z R_L\). If \(\frac{k^2\lambda}{2} \neq 1\) for all \(k \in \Z\) then \(R_L = \emptyset\).
+\end{eg}
+
+We will now meet all simply laced lattices generated by roots.
+\begin{enumerate}
+\item \(A_n\) Consider \(\Z^{n + 1} = \bigoplus_{i = 1}^{n + 1} \Z e_i\), \((e_i, e_j) = \delta_{ij}\). This is the square lattice. Define
+  \[
+    L = \{\ell \in \Z^{n + 1}: (\ell, e_1 + \dots + e_{n + 1}) = 0\}
+    = \{\sum a_i e_i: \sum a_i = 0\} \cong \Z^n
+  \]
+  then \(R_L = \{e_i - e_j: i \neq j, \# R_L = n(n + 1), \Z R_L = L\). If \(\alpha = e_i - e_j\) then \(s_\alpha\) waps \(i\)th and \(j\)th coordinate, i.e.
+  \[
+    s_\alpha(x_1e_1 + \dots + x_{n + 1} e_{n + 1}) = x_1e_1 + \dots + x_je_i + \dots + x_ie_j + \dots + x_{n + 1} e_{n + 1}
+  \]
+  so \(W = \langle s_{e_i - e_j}: i \neq j\rangle \cong S_{n + 1}\).
+
+  \((R_L, L)\) is the root system of \(\Lie{sl}_{n + 1}\).
+
+  \begin{ex}\leavevmode
+    \begin{enumerate}
+    \item Check all these statement, especially the one about root of \(\Lie{sl}_{n + 1}\).
+    \item Draw \(L\) and \(R_L\) for \(n = 1, 2\). Check \(A_2, A_2\) are as produced earlier.
+    \end{enumerate}
+  \end{ex}
+\item \(D_n\). Consider the square lattice \(\Z^n\) and define
+  \begin{align*}
+    R_L &= \{\pm e_i \pm e_j: i \neq j\} \\
+    L &= \Z R_L = \{\sum a_i e_i: \sum a_i \text{ even}\}
+  \end{align*}
+  and \(s_{e_i - e_j}\) as before, and \(s_{e_i + e_j}\) flips signs of \(i\)th and \(j\)th coordinate. \(\# R_L = 2n(n + 1)\). Then \(W = (\Z/2)^{n - 1} \rtimes S_n\).
+
+  \begin{ex}\leavevmode
+    \begin{enumerate}
+    \item Check all the claims.
+    \item Show \(D_n\) is irreducible if \(n \geq 3\).
+    \item \(D_3 \cong A_3, D_2 \cong A_1 \times A_1\).
+    \item Roots of \(\Lie{so}_{2n}\) are of type \(D_n\).
+    \end{enumerate}
+  \end{ex}
+\item \(E_8\). Let
+  \[
+    \Gamma_n = \{(k_1, \dots, k_n): \sum k_i \in 2\Z \text{ and either } k_i \in \Z \text{ or } k_i \in \Z + \frac{1}{1} \text{ for all } i\}
+  \]
+  with the usual inner product of \(\R^n\). Consider \(\alpha = (\frac{1}{2}, \dots, \frac{1}{2})\). Note \((\alpha, \alpha) = \frac{n}{4}\) so if \(\alpha \in \Gamma_n\) and \(\Gamma_n\) is an even lattice then \(8 \divides n\).
+
+  \begin{ex}\leavevmode
+    \begin{enumerate}
+    \item Show \(\Gamma_{8n}\) is an even lattice.
+    \item If \(n >1\), roots of \(\Gamma_{8n}\) are a root system of type \(D_n\).
+    \item Show the roots of \(\Gamma_8\) are \(\{\pm e_i \pm e_j: i \neq j\} \cup \{\frac{1}{2}(\pm e_i  \pm \dots \pm e_8): \text{ even number of minus signs}\}\). Roots of \(\Gamma_8\) are called \emph{root system of type \(E_8\)}. \(\# R_{E_8} = \binom{8}{2} \cdot 4 + 128 = 240\), so by classification of semisimple Lie algebras the associated Lie algebra has dimension \(248\).
+    \item Can you compute \(\# W_{E_8}\)? The answer is \(2^{14} \cdot 3^5 \cdot 5^2 \cdot 7\).
+    \end{enumerate}
+  \end{ex}
+\end{enumerate}
+
+\begin{ex}
+  If \(R\) is a root system, \(\alpha \in R\) then \(\alpha^\perp \cap R \) is a root system.
+\end{ex}
+
+
+
+
+
 
 
 
