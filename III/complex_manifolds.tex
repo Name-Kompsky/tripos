@@ -94,7 +94,7 @@ Let \(X\) be a second countable Hausdorff topological space. We always assume \(
 \end{definition}
 
 \begin{definition}[equivalent atlas]\index{atlas!equivalent}
-  Two holomorphic atlases \((U_\alpha, \varphi_\alpha), (\tilde U_\beta, \tilde U_\beta)\) are \emph{equivalent} if \(\varphi_\alpha \compose \tilde \varphi_\beta^{-1}\) is holomorphic fo all \(\alpha, \beta\).
+  Two holomorphic atlases \((U_\alpha, \varphi_\alpha), (\tilde U_\beta, \tilde U_\beta)\) are \emph{equivalent} if \(\varphi_\alpha \compose \tilde \varphi_\beta^{-1}\) is holomorphic for all \(\alpha, \beta\).
 
   Equivalently, their union is an atlas.
 \end{definition}
@@ -146,10 +146,10 @@ Let \(X\) be a second countable Hausdorff topological space. We always assume \(
   We say \(X\) is \emph{projective} is it is biholomorphic to a compact closed complex submanifold of \(\P^m\) for some \(m\).
 \end{definition}
 
-We state without a theorem:
+We state without proof a theorem:
 
 \begin{theorem}[Chow]
-  A projective complex manifold is projective variety, i.e.\ the vanishing set in \(\P^m\) of some homogeneous polynomial equations.
+  A projective complex manifold is a projective variety, i.e.\ the vanishing set in \(\P^m\) of some homogeneous polynomial equations.
 \end{theorem}
 
 In the example sheet we'll see an example of a compact complex manifold which is not projective.
@@ -407,28 +407,23 @@ Note that the statement alone is not true in general.
   via pullback.
 \end{ex}
 
-The Mittag-Leffler problem:  let \(S\) be a Riemann surface, i.e.\ one dimensional complex manifold. A \emph{principal part} at \(x \in S\) is a Laurent series of the form
+Dolbeaut cohomology is the obstruction to holomorphic sections and has its origin in the Mittag-Leffler problem: let \(S\) be a Riemann surface, i.e.\ one dimensional complex manifold. A \emph{principal part} at \(x \in S\) is a Laurent series of the form
 \[
   \sum_{k = 1}^n a_k z^{-k}
 \]
-with \(z\) a local coordinate. Then the Mittag-Leffler problem\index{Mittag-Leffler problem} asks given \(x_1, \dots, x_r \in S\) and principal parts \(P_1, \dots, P_r\), is there a meromorphic function on \(S\) with these principal parts at \(x_i\)'s?
+with \(z\) a local coordinate. The Mittag-Leffler problem\index{Mittag-Leffler problem} then asks given \(x_1, \dots, x_r \in S\) and principal parts \(P_1, \dots, P_r\), is there a meromorphic function on \(S\) with these principal parts at \(x_i\)'s?
 
-Take local solutions \(f_i\) at \(x_i\), defined on some \(U_i\) which form a cover of \(S\)  and a partition of unity \(\rho_i\) subordinate to the \(U_i\). Then \(\sum_{j = 1}^r \rho_j f_j\) is smooth on \(S \setminus \{x_1, \dots, x_r\}\) with described local expression (which is not necessarily holomorphic).
+Take local solutions \(f_i\) at \(x_i\), defined on some \(U_i\) which form a cover of \(S\)  and a partition of unity \(\rho_i\) subordinate to the \(U_i\). Then \(\sum_{j = 1}^r \rho_j f_j\) is smooth on \(S \setminus \{x_1, \dots, x_r\}\) with prescribed local expression (which is not necessarily holomorphic).
 
 A calculation shows that \(g = \conj \p (\sum_j \rho_j f_j)\) extends to a smooth \((0, 1)\)-form on \(S\). Clearly \(\conj \p g = 0\) as \(\conj \p^2 = 0\) so \([g] \in H_{\conj \p}^{0, 1}(S)\). Suppose \(H_{\conj \p}^{0, 1}(S) = 0\). Then there is a smooth function \(h\) with \(\conj \p h = g\) and \(f = \sum_j \rho_j f_j - h\) solves the Mittag-Leffler problem. This can be shown to be an if and only if using sheaf cohomology.
 
-\subsection{Del bar-Poincaré lemma}
-% TODO: resolve the title name
+\subsection{\(\conj \p\)-Poincaré lemma}
 
-Recall that if \(X\) is a contractible smooth manifold then
+Recall Poincaré lemma: if \(X\) is a contractible smooth manifold then
 \[
   H_{\text{dR}}^i (X; \R) = 0
 \]
-for \(i > 0\). We'll prove the analogous result for Dolbeault cohomology: a polydisk is
-\[
-  P = \{|z_i| < r_i\} \subseteq \C^n
-\]
-(with \(r = \infty\) allowed). Have
+for \(i > 0\). We'll prove the analogous result for Dolbeault cohomology: a polydisk is a subset of \(\C^n\) of the form \(P = \{|z_i| < r_i\}\) (with \(r = \infty\) allowed). Have
 \[
   H_{\conj \p}^{p, q}(P) = 0
 \]
@@ -1180,7 +1175,7 @@ is a short exact sequence for all \(i\). Equivalently the induced sequence on st
 
 \subsection{Computation of Čech cohomology}
 
-The direct limit in the definition of Čech cohomology means that it is very difficult to work out the cohomology directly. However, in a previous example we claimed that \(H^i(\P^1, \mathcal O)\) equals to \(\check H^i(\{\P^1 \setminus \{0\}, \P^1 \setminus \{\infty\}\}, \mathcal O)\), whose computation is manageable. This is due the following theorem:
+The direct limit in the definition of Čech cohomology means that it is very difficult to work out the cohomology directly. However, in a previous example we claimed that \(H^i(\P^1, \mathcal O)\) equals to \(\check H^i(\{\P^1 \setminus \{0\}, \P^1 \setminus \{\infty\}\}, \mathcal O)\), which can then be computed manually. This is due the following theorem:
 
 \begin{theorem}
   Let \(X\) be a complex manifold. Suppose \(\mathcal U\) is an open cover with \(H^p(U_{\alpha_0 \cdots \alpha_s}, \mathcal O) = 0\) for all \(p \geq 1\) and all \(\alpha_0, \dots, \alpha_s\). Then
@@ -1203,7 +1198,7 @@ The direct limit in the definition of Čech cohomology means that it is very dif
       0 \ar[r] & \mathcal Z^{0, q - 1}(U_{\alpha_0 \cdots \alpha_s}) \ar[r] & \mathcal A_\C^{0, q - 1}(U_{\alpha_0 \cdots \alpha_s}) \ar[r] & \mathcal Z^{0, q}(U_{\alpha_0 \cdots \alpha_s}) \ar[r] & 0
     \end{tikzcd}
   \]
-  is exact. It is true for all intersetions so we have a short exact sequence
+  is exact. It is true for all intersections so we have a short exact sequence
   \[
     \begin{tikzcd}
       0 \ar[r] & C^p(\mathcal U, \mathcal Z^{0, q - 1}) \ar[r] & C^p(\mathcal U, \mathcal A_\C^{0, q - 1}) \ar[r] & C^p(\mathcal U, \mathcal Z^{0, q}) \ar[r] & 0
@@ -1494,7 +1489,7 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
 \end{eg}
 
 \begin{eg}
-  If \(p: Y \to X\) is a morphism, \(E \to X\) is a holomorphic vector bundle then one obtains the \emph{pullback bundle}\index{pullback bundle} \(p^*E \to Y\) by simply pulling back transition functions. We write \(E|_Y\) if \(Y \subseteq X\) to the pullback under the inclusion map.
+  If \(p: Y \to X\) is a morphism, \(E \to X\) is a holomorphic vector bundle then one obtains the \emph{pullback bundle}\index{pullback bundle} \(p^*E \to Y\) by simply pulling back transition functions. We write \(E|_Y\) if \(Y \subseteq X\) for the pullback under the inclusion map.
 
   If \(X\) is projective, \(X \subseteq \P^n\), then \(X\) has a natural line bundle \(\mathcal O(1)|_X \to X\).
 \end{eg}
@@ -1536,7 +1531,7 @@ By implicit function theorem, if \(Y^{\text s}\) denotes the points which are no
 
 \end{definition}
 
-If \(\operatorname{codom} Y = 1\) then \(Y\) is an analytic hypersurface.
+If \(\operatorname{codim} Y = 1\) then \(Y\) is an analytic hypersurface.
 
 \section{Commutative algebra on complex manifolds}
 
@@ -3916,3 +3911,5 @@ For \(\dim X \geq 3\), we try to reduce to \(K_X^*\) or \(K_X\) ample, \(K_X \co
 \end{document}
 
 % https://www.dpmms.cam.ac.uk/~rd430/teaching.html
+% Books:
+% Huybrechts, Griffiths-Harris, Voison

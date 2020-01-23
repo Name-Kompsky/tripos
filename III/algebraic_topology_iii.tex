@@ -46,7 +46,7 @@ Let \(f_t(x) = F(x, t)\). Then \(f_t\) is a path from \(f_0\) to \(f_1\) in \(\M
   \begin{enumerate}
   \item Let \(f_0, f_1: \R^n \to \R^n\), \(f_0(x) = 0, f_1(x) = x\) then \(f_0 \sim f_1\) via \(f_t(x) = tx\).
   \item Let \(S^1 = \{z \in \C: |z| = 1\}\). Take \(f_0, f_1: S^1 \to S^1\), \(f_0(z) = z, f_1(z) = -z\). Then \(f_0 \sim f_1\) via \(f_t(z) = e^{i\pi t}z\).
-  \item Let \(S^n = \{v \in \R^{n + 1}: \norm v = 1\}\). Take \(f_0, f_1: S^n \to S^n\), \(f_0(v) = v, f_1(v) = -v\) the \emph{antipodal map}. We already knew \(f_0 \sim f_1\) and we'll soon see \(f_0 \nsim f_1\).
+  \item Let \(S^n = \{v \in \R^{n + 1}: \norm v = 1\}\). Take \(f_0, f_1: S^n \to S^n\), \(f_0(v) = v, f_1(v) = -v\) the \emph{antipodal map}. We already knew \(f_0 \sim f_1\) if \(n = 1\) and we'll soon see \(f_0 \nsim f_1\) for \(n\) even.
   \item Let \(f_0, f_1: S^1 \to S^2\), \(f_0(x, y) = (0, 0, 1), f_1(x, y) = (x, y, 0)\). Then \(f_0 \sim f_1\) via \(f_t(x, y) = (tx, ty, \sqrt{1 - t^2})\).
   \item Let \(D^n = \{v \in \R^n: \norm v \leq 1\}\). Say \(f: S^{n - 1} \to Y\) extends to \(D^n\) if there exists \(F: D^n \to Y\) with \(F|_{S^{n - 1}} = f\). Then \(f\) extends to \(D^n\) if and only if \(f\) is homotopic to a constant map as we can define \(f_t(v) = F(tv)\).
   \end{enumerate}
@@ -142,7 +142,7 @@ If \(f_0, f_1: (X, A) \to (Y, B)\), we say \(f_0 \sim f_1\) is there exist \(F: 
   \end{align*}
 \end{definition}
 
-For \(n > 0\), \(\pi_n(X, p)\) is a group. The identity is \(p_{S^n}\). For \(n > 1\), \(\pi_n(X, p)\) is abelian.
+For \(n > 0\), \(\pi_n(X, p)\) is a group. The identity is \(c_{S^n}\). For \(n > 1\), \(\pi_n(X, p)\) is abelian.
 
 A pointed map between pointed spaces \(f: (X, p) \to (Y, q)\) induces
 \begin{align*}
@@ -161,17 +161,15 @@ Furthermore \(f_*\) is homotopy invariant: if \(f \sim g\) then \(f_* = g_*\) si
   f_*([\gamma]) = [f \compose \gamma] = [g \compose \gamma] = g_*([\gamma]).
 \]
 
-\begin{eg}
-  \begin{table}[ht]
-    \centering
-    \begin{tabular}{c|c|c|c|c|c|c|c|c|c}
-      & 1 & 2 & 3 & 4 & 5 \\ \hline
-      \(\pi_n(S^1)\) & \(\Z\) &&&&&& \\ \hline
-      \(\pi_n(S^2)\) & \(0\) & \(\Z\) & \(\Z\) & \(\Z/2\) & \(\Z/2\) & \(\Z/12\) &\(\Z/2\)
-    \end{tabular}
-    \caption{Homotopy groups of \(S^n\)}
-  \end{table}
-\end{eg}
+For example the first few non-trivial homotopy groups of \(S^1\) and \(S^2\) are
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|c|c|c|c|c|c|c}
+    & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ \hline
+    \(\pi_n(S^1)\) & \(\Z\) &&&&&& \\ \hline
+    \(\pi_n(S^2)\) & \(0\) & \(\Z\) & \(\Z\) & \(\Z/2\) & \(\Z/2\) & \(\Z/12\) &\(\Z/2\)
+  \end{tabular}
+\end{table}
 
 \section{Homology}
 
@@ -247,8 +245,8 @@ Let \(R\) be a commutative ring (e.g.\ \(\Z, \Q, \Z/p\)).
   \end{align*}
 \end{definition}
 
-\begin{definition}
-  The \emph{reduced chain complex} of the simplex \(\Delta^n\) \(\widetilde S_*(\Delta^n)\) is the chain complex over \(\Z\) defined by
+\begin{definition}[reduced chain complex]\index{chain complex!reduced}
+  The \emph{reduced chain complex} of the simplex \(\Delta^n\), \(\widetilde S_*(\Delta^n)\), is the chain complex over \(\Z\) defined by
   \[
     \widetilde S_k(\Delta^n) = \langle f_I: |I| = k + 1 \rangle,
   \]
@@ -293,7 +291,7 @@ Let \(R\) be a commutative ring (e.g.\ \(\Z, \Q, \Z/p\)).
   \[
     (-1)^j (-1)^{j' - 1} + (-1)^{j'} (-1)^{j}
   \]
-  where the first term is by omitting \(i_j\) first and then \(i_{j'}\), and the second by omitting \(i_{j'}\) first and then \(i_j\). Then have opposite signs.
+  where the first term is obtained by omitting \(i_j\) first and then \(i_{j'}\), and the second by omitting \(i_{j'}\) first and then \(i_j\). Then have opposite signs.
 \end{proof}
 
 Note that if we have a chain complex then \(d^2 = 0\) so \(\im d_{i + 1} \subseteq \ker d_i\).
@@ -520,7 +518,7 @@ so \(f_\#\) is a chain map.
     so the result follows. The reduced homology is left as an exercise.
   \item Let \(\iota_P: P \embed X\) be the inclusion. Then we have
     \[
-      j = \sum (C_p)_\#: \bigoplus_{P \in \pi_0(X)} C_*(P) \to C_*(X)
+      j = \sum (\iota_P)_\#: \bigoplus_{P \in \pi_0(X)} C_*(P) \to C_*(X)
     \]
     an injective map. \(\Delta^k\) is path-connected so if \(\sigma: \Delta^k \to X\) then \(\im \sigma \subseteq P\) for some \(P \in \pi_0(X)\) so \(j\) is also surjective.
 
@@ -872,13 +870,13 @@ In other words, the sequence is exact is the same as saying \((A_*, f)\) is a ch
       H_*(K) \ar[r] & \widetilde H_*(X) \ar[r] & H_*(X) \ar[r] & H_{* - 1}(K)
     \end{tikzcd}
   \]
-  so for \(* > 0\), \(\tilde H_*(X) \cong H_*(X)\). The only interesting thing happens at \(* = 0\) which gives
+  so for \(* > 0\), \(\tilde H_*(X) \cong H_*(X)\). The only interesting bit is at \(* = 0\) which gives
   \[
     \begin{tikzcd}
       0 \ar[r] & \widetilde H_0(X) \ar[r] & H_0(X) \ar[r, "\b"] & \Z \ar[r] & \widetilde H_{-1}(X) \ar[r] & 0
     \end{tikzcd}
   \]
-  Let \(p \in X\) be any point and let \(\sigma_p: \Delta^0 \to X\) be an element of \(\widetilde H_0\). As \(d \sigma_p = \sigma_\emptyset\), we have \(\b[\sigma_p] = \sigma_\emptyset\) so \(\b\) is surjective. Thus \(\widetilde H_{-1}(X) = 0\) so \(H_0(X) \cong \widetilde H_0(X) \oplus \Z\) by example sheet 1 question 3.
+  Let \(p \in X\) be any point and let \(\sigma_p: \Delta^0 \to X\) be an element of \(H_0\). As \(d \sigma_p = \sigma_\emptyset\), we have \(\b[\sigma_p] = \sigma_\emptyset\) so \(\b\) is surjective. Thus \(\widetilde H_{-1}(X) = 0\) and \(H_0(X) \cong \widetilde H_0(X) \oplus \Z\) by example sheet 1 question 3.
 \end{eg}
 
 \subsubsection{Subcomplexes and quotient complexes}
@@ -942,7 +940,7 @@ where \(\iota: A \embed X\) is the inclusion.
   \]
   so the long exact sequence of the pair \((D^1, S^0)\) gives
   \[
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       H_1(D^1) \ar[r] \ar[d, equal] & H_1(X, A) \ar[r] & H_0(S^0) \ar[r] \ar[d, equal] & H_0(D^1) \ar[r] \ar[d, equal] & H_0(X, A) \ar[r] & 0 \\
       0 & & \Z \oplus \Z & \Z &
     \end{tikzcd}
@@ -978,7 +976,7 @@ Suppose \(f: (X, A) \to (Y, B)\) is a map of pairs, meaning \(f: X \to Y\) and \
   \]
 \end{proof}
 
-In the language of cateogry theory, this says that there is a functor from the category of short exact sequences with morphisms like the hypothesis of the lemma to the category of long exact sequences of \(R\)-modules with morphism like that in the conclusion.
+In the language of category theory, this says that there is a functor from the category of short exact sequences with morphisms satisfying the hypothesis of the lemma to the category of long exact sequences of \(R\)-modules with morphisms satisfying the conclusion.
 
 \begin{corollary}
   If \(f: (X, A) \to (X, B)\) then there is a commutative diagram
@@ -1037,7 +1035,7 @@ Define \(\widetilde C_*(X, A) = \widetilde C_*(X)/\widetilde C_*(A)\) and simila
     \begin{proof}
       Recall that \(\widetilde H_*(\{p\}) = 0\) so we have a long exact sequence
       \[
-        \begin{tikzcd}
+        \begin{tikzcd}[row sep=small]
           \widetilde H_*(\{p\}) \ar[r] \ar[d, equal] & \widetilde H_*(X) \ar[r, "\pi_*"] & \widetilde H_*(X, p) \ar[r] & \widetilde H_{* - 1}(\{p\}) \ar[d, equal] \\
           0 & & & 0
         \end{tikzcd}
@@ -1089,6 +1087,8 @@ If \(A \subseteq X\), we have a quotient map
 \begin{theorem}[collapsing a pair]\index{collapsing a pair}
   If a pair \((X, A)\) is good then \(\pi_*: H_*(X, A) \to H_*(X/A, \{p_A\}) \cong \widetilde H_*(X/A)\) is an isomorphism.
 \end{theorem}
+
+We defer the proof to the end of next section. For now let's see some applications.
 
 \begin{proposition}
   The reduced homology of \(S^n\) is
@@ -1161,7 +1161,7 @@ If \(A \subseteq X\), we have a quotient map
 
   Then the long exact sequence splits into SES's
   \[
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       0 \ar[r] & H_2(T^2) \ar[r] & H_2(T^2, B) \ar[r] \ar[d, equal] & \ker \iota_* \ar[r] \ar[d, equal] & 0 \\
       & & \Z & 0 \\
       0 \ar[r] & H_1(B) \ar[r] \ar[d, equal] & H_1(T^2) \ar[r] & H_1(T^2, B) \ar[r] \ar[d, equal] & 0 \\
@@ -1240,7 +1240,7 @@ There is a similar sequence for reduced homologies.
 \begin{eg}
   Let \(X = S^n, U_1 = S^n - \{p\}, U_2 = S^n - \{q\}\) so \(U_1 \cap U_2 \sim S^{n - 1}\). Then the Mayer-Vietoris sequence gives
   \[
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       \widetilde H_*(U_1) \oplus \widetilde H_*(U_2) \ar[r] \ar[d, equal] & \widetilde H_*(S^n) \ar[r] & \widetilde H_{* - 1}(U_1 \cap U_2) \ar[r] & \widetilde H_{* - 1}(U_1) \oplus \widetilde H_{* - 1}(U_2) \ar[d, equal] \\
       0 & & & 0
     \end{tikzcd}
@@ -1315,7 +1315,7 @@ Suppose \(B \subseteq A \subseteq X\) and \(j: (X - B, A - B) \to (X, A)\) is th
   \[
     \begin{tikzcd}
       C_*^{\mathcal U'}(X - B, A - B) \ar[r, "j_\#^{\mathcal U}"] \ar[d, "\iota_*'"] & C_*^{\mathcal U}(X, A) \ar[d, "\iota_*"] \\
-      C_*(X - B, A - B) \ar[r, "j_\#"] & C_*(A, B)
+      C_*(X - B, A - B) \ar[r, "j_\#"] & C_*(X, A)
     \end{tikzcd}
   \]
   By the corollary \(\iota_*'\) and \(\iota_*\) are isomorphisms, and \(j^{\mathcal U}_*\) is an isomorphism since \(j^{\mathcal U}_\#\) is. Thus \(j_*\) is an isomorphism.
@@ -1334,7 +1334,7 @@ Suppose \(B \subseteq A \subseteq X\) and \(j: (X - B, A - B) \to (X, A)\) is th
       \]
       so \(\b: H_*(\R^n, \R^n - p) \to H_{* - 1}(\R^n - p)\) is an isomorphism.
     \end{proof}
-    Note that this does not equal to \(\widetilde H_*(\R^n/(\R^n - p))\), which is a two-point non-Hausdorff space that does not even depend on \(n\).
+    Note that this does not equal to \(\widetilde H_*(\R^n/(\R^n - p))\), which is a two-point non-Hausdorff space whose homology does not even depend on \(n\).
   \item If \(U \subseteq \R^n\) is open then \(H_*(U, U - p) = \Z\) if \(* = n\) and \(0\) otherwise.
     \begin{proof}
       \(C = \R^n - U\) is closed in \(\R^n\) so \(\overline C \subseteq \R^n - p\). Thus by excision
@@ -1399,14 +1399,14 @@ Thus \(\iota \compose \pi \sim \id_U, \pi \compose \iota \sim \id_A\) so in part
 \begin{proof}
   \(\iota: A \to U\) is a homotopy equivalence so \(\iota_*: H_*(A) \to H_*(U)\) is an isomorphism. The LES of \((U, A)\) gives
   \[
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       0 \ar[r] & \coker \iota_*^{(n)} \ar[r] \ar[d, equal] & H_*(U, A) \ar[r] & \ker \iota_*^{(n - 1)} \ar[r] \ar[d, equal] & 0 \\
       & 0 & & 0
     \end{tikzcd}
   \]
   so \(H_*(U, A) = 0\). Now the LES for the triple \((X, U, A)\) gives
   \[
-    \begin{tikzcd}
+    \begin{tikzcd}[row sep=small]
       H_*(U, A) \ar[r] \ar[d, equal] & H_*(X, A) \ar[r] & H_*(X, U) \ar[r] & H_{* - 1}(U, A) \ar[d, equal] \\
       0 & & & 0
     \end{tikzcd}
@@ -1447,7 +1447,7 @@ and use it to inductively define generators of \(\widetilde H_n(S^n)\).
 
 \begin{proposition}\leavevmode
   \begin{enumerate}
-  \item \(\deg (f \compose g) = \deg f \compose \deg g\) by functoriality.
+  \item \(\deg (f \compose g) = \deg f \cdot \deg g\) by functoriality.
   \item If \(f \sim g\) then \(\deg f = \deg g\) by homotopy invariance.
   \item \(\deg \id_{S^n} = 1\).
   \item If \(f: S^n \to S^n\) is constant then \(\deg f = 0\).
@@ -1457,7 +1457,7 @@ and use it to inductively define generators of \(\widetilde H_n(S^n)\).
 
 \begin{proposition}
   \label{prop:degree of reflection of sphere}
-  If \(\rho: S^n \to S^n\) is reflection in a hyperplane then \(\deg \rho = -1\).
+  If \(\rho: S^n \to S^n\) is a reflection in a hyperplane then \(\deg \rho = -1\).
 \end{proposition}
 
 \begin{corollary}
@@ -1490,12 +1490,8 @@ To show reflection has degree \(-1\), we begin by considering reflection of the 
   \(0 = [\alpha + \alpha \compose R] = [\alpha] + \deg R [\alpha]\).
 \end{proof}
 
-\begin{proposition}
-  If \(\rho: S^{n - 1} \to S^{n - 1}\) is reflection in a hyperplane then \(\deg \rho = -1\).
-\end{proposition}
-
 \begin{proof}[Proof of \Cref{prop:degree of reflection of sphere}]
-  There is a homeomorphism \(f: (I^n, \b I^n) \to (D^n, S^{n - 1})\) with \(f \compose R = \rho_1 \compose f\) where \(\rho_1: D^n \to D^n, (x_1, x) \mapsto (-x_1, x)\) so \(\rho_{1*}[D^n, S^{n - 1}] = - [D^n, S^{n - 1}]\). Finally
+  There is a homeomorphism \(f: (I^n, \b I^n) \to (D^n, S^{n - 1})\) with \(f \compose R = \rho_1 \compose f\) where \(\rho_1: D^n \to D^n, (x_1, x) \mapsto (-x_1, x)\) so \(\rho_{1*}[D^n, S^{n - 1}] = - [D^n, S^{n - 1}]\). Then
   \[
     \rho_{1*}[S^{n - 1}] = \rho_{1*} \b [D^n, S^{n - 1}] = \b \rho_{1*} [D^n, S^{n - 1}] = - \b [D^n, S^{n - 1}] = -[S^{n - 1}]
   \]
@@ -1610,7 +1606,7 @@ if \(x \in X_\alpha\).
   \]
 \end{proof}
 
-In general the Hurewicz homomorphism is neither injective nor surjective. For example \(\pi_n(S^2, *)\) is nontrivial for any \(n > 2\) but \(H_n(S^2) = 0\) for \(n > 2\). On the other hand, if \(\alpha: S^2 \to T^2\) is a map then it lifts to \(\tilde \alpha: S^2 \to \R^2\) so
+In general the Hurewicz homomorphism is neither injective nor surjective. For example exists \(n > 2\) such that \(\pi_n(S^2, *)\) is nontrivial but \(H_n(S^2) = 0\) for all \(n > 2\). On the other hand, if \(\alpha: S^2 \to T^2\) is a map then it lifts to \(\tilde \alpha: S^2 \to \R^2\) so
 \[
   \alpha_*[S^2] = p_* \tilde \alpha_*[S^2] = 0
 \]
@@ -1657,7 +1653,7 @@ Note that finiteness of \(f^{-1}(p)\) guarantees \(\deg_{q_i}f\) is well-defined
       \bigoplus H_n(S^n, S^n - q_i) & \bigoplus H_n(U_i, U_i - q_i) \ar[u, "\iota_*"] \ar[ur, "g"'] \ar[l, "j_*"']
     \end{tikzcd}
   \]
-  where \(g [U_i, U_i - q_i] = \deg_{q_i} f[S^n, S^n - p]\). \(\iota_*\) is an isomorphism by excision. Let \(\alpha = f' \compose \pi_1, \beta' = g \compose \beta'\) where \(\beta' = \iota_*^{-1} \compose \pi_1\), then
+  where \(g [U_i, U_i - q_i] = \deg_{q_i} f[S^n, S^n - p]\). \(\iota_*\) is an isomorphism by excision. Let \(\alpha = f' \compose \pi_*, \beta = g \compose \beta'\) where \(\beta' = \iota_*^{-1} \compose \pi_1\), then
   \[
     \alpha[S^n] = \deg f [S^n, S^n - p] = \beta[S^n].
   \]
@@ -1721,7 +1717,7 @@ We write \([z_0: z_1: \cdots z_n]\) for the equivalence clas of \((z_0, \dots, z
   \iota: D^{2n} &\to \C\P^n \\
   (z_0, \dots z_{n - 1}) &\mapsto [z_0: \cdots : z_{n - 1}: 1 - \norm z]
 \end{align*}
-Have \(\iota(S^{2n - 1}) \subseteq \C\P^{n - 1}\). Can check that \(\iota|_{\Int D^{2n}}: \Int D^{2n} \to \C\P^n - \C\P^{n - 1}\) is a homeomorphism, so \(\C\P^n\) is obtained by attaching a \(2n\)-cell to \(\C\P^{n - 1}\). By induction we see \(\C\P^n\) is a FCC with one cell of dimension \(0, 2, \dots, 2n\). In particular \(\C\P^2 \cong S^2\)
+Have \(\iota(S^{2n - 1}) \subseteq \C\P^{n - 1}\). Can check that \(\iota|_{\Int D^{2n}}: \Int D^{2n} \to \C\P^n - \C\P^{n - 1}\) is a homeomorphism, so \(\C\P^n\) is obtained by attaching a \(2n\)-cell to \(\C\P^{n - 1}\). By induction we see \(\C\P^n\) is a FCC with one cell of dimension \(0, 2, \dots, 2n\). In particular \(\C\P^2 \cong S^2\).
 
 Claim that
 \[
@@ -1760,10 +1756,10 @@ Claim that
   \]
 \end{definition}
 
-The same argument shows that \(\R\P^n\) is a FCC with one cell of dimension \(0, 1, \dots, n\). The attaching map \(\iota: S^{n - 1} \to \R\P^{n - 1}\) is projection. This time there is no easy trick to calculate its homology. We need to develop the theory of celluar chain complex.
+The same argument shows that \(\R\P^n\) is a FCC with one cell of dimension \(0, 1, \dots, n\). The attaching map \(\iota: S^{n - 1} \to \R\P^{n - 1}\) is projection. This time there is no trick to bypass the computation. We need to develop the theory of celluar chain complex.
 
 \begin{definition}[cellular homology]\index{cellular homology}
-  If \((X, X_k)\) is a \(n\)-dimensional FCC with \(k\)-skeleton \(X_k\) we define \(C_k^\cell(X) = H_k(X_k, X_{k - 1})\) and \(d_k: C_k^\cell(X) \to C_{k - 1}^\cell(X)\) to be the boundary map in LES of triple \((X_k, X_{k - 1}, X_{k - 2})\).
+  If \(X\) is a \(n\)-dimensional FCC with \(k\)-skeleton \(X_k\) we define \(C_k^\cell(X) = H_k(X_k, X_{k - 1})\) and \(d_k: C_k^\cell(X) \to C_{k - 1}^\cell(X)\) to be the boundary map in LES of triple \((X_k, X_{k - 1}, X_{k - 2})\).
 \end{definition}
 
 Define \(\b_k: H_k(X_k, X_{k - 1}) \to H_{k - 1}(X_{k - 1})\) to be the boundary map in LES of \((X_k, X_{k - 1})\) and \(\pi_{k - 1}: H_{k - 1}(X_{k - 1}) \to H_{k - 1}(X_{k - 1}, X_{k - 2})\).
@@ -1837,7 +1833,7 @@ Near \(q\), \(f\) is a local homeormorphism so \(\deg_q f = 1\), and \(\deg A = 
     0 & k \text{ odd}
   \end{cases}
 \]
-so we have a chain of \(\Z\) with maps alternating between \(0\) and multiply by \(2\).
+so we have a chain of \(\Z\) with maps alternating between \(0\) and multiplication by \(2\).
 
 \begin{lemma}
   If \(X\) is a FCC with 1 \(0\)-cell and all other cells of dimension \(\geq m\) then \(\widetilde H_*(X_k) = 0\) unless \(m \leq * \leq k\).
@@ -1926,15 +1922,15 @@ so we have a chain of \(\Z\) with maps alternating between \(0\) and multiply by
   \]
 \end{eg}
 
-Before we closing this chapter, we would like to mention that cell complexes are important not only because they enable efficient computation of homology groups, but also because of its theoretical importance. In some sense cell complex (with some slight generalisations) is the ``correct'' category to do algebraic topology in.
+Before closing this chapter, we would like to mention that cell complexes are important not only because they enable efficient computation of homology groups, but also because of its theoretical importance. In some sense cell complex (with some slight generalisations) is the ``correct'' category to do algebraic topology in.
 
 We quote the following result
 
 \begin{theorem}[Whitehead]
-  If \(X\) and \(Y\) are connected FCC's, \(f: X \to Y\) with \(f_*: \pi_i(X) \to \pi_i(Y)\) are isomorphisms for all \(i \geq 1\) then it is a homotopy equivalence.
+  If \(X\) and \(Y\) are connected FCC's, \(f: X \to Y\) with \(f_*: \pi_i(X) \to \pi_i(Y)\) isomorphisms for all \(i \geq 1\) then it is a homotopy equivalence.
 \end{theorem}
 
-This is a cute result but it is impractical to check all homotopy groups. Instead, with the help of Hurewicz theorem (and Barrat-Puppe sequences) we have
+This is a nice result but it is impractical to check all homotopy groups. Instead, with the help of Hurewicz theorem (and Barrat-Puppe sequences) we have
 
 \begin{corollary}
   Suppose \(X\) and \(Y\) are as above and \(\pi_1(X) = \pi_1(Y) = 1\) then if \(f_*: H_*(X) \to H_*(Y)\) are isomorphisms then \(f\) is a homotopy equivalence.
@@ -2062,7 +2058,7 @@ If \(X\) is an FCC then we define \(H_*^\cell(X; G)\) to be the homology of \(C_
   \end{enumerate}
   A functor \(H_*(-, G)\) satisfying properties 1 -- 4 is a \emph{generalised homology theory}\index{generalised homology theory}, and has the property that it is completely determined by its value on the one point space.
 
-  For our purpose, we define \(\widetilde H(X; G) = \ker(f_*: H_*(X; G) \to H_*(\{p\}; G))\) where \(f: X \to \{p\}\). Then show
+  For our purpose, we define \(\widetilde H_*(X; G) = \ker(f_*: H_*(X; G) \to H_*(\{p\}; G))\) where \(f: X \to \{p\}\). Then show
   \begin{enumerate}
   \item \(\widetilde H_*(S^n; G) \cong \widetilde H_*(D^n, S^{n - 1}; G) =
     \begin{cases}
@@ -2123,7 +2119,7 @@ We also note that \(\Hom(\Z/a, \Z/b) = \Z/(a, b)\).
 If \(f: M_1 \to M_2\) we get \(f^*: \Hom(M_2, N) \to \Hom(M_1, N), \varphi \mapsto \varphi \compose f\) and \((f \compose g)^* = g^* \compose f^*\). In other words \(\Hom(-, N)\) is a contravariant functor.
 
 \begin{definition}[cochain complex, cohomology]\index{cochain complex}\index{cohomology}
-  A \emph{cochain complex} is \((C^*, d^*) = (\bigoplus_{k \in \Z} C^k, \sum d^k)\)  where \(d^k: C^k \to C^{k + 1}\) satisfying \((d^*)^2 = 0\).
+  A \emph{cochain complex} is \((C^*, d^*) = (\bigoplus_{k \in \Z} C^k, \sum d^k)\)  where \(d^k: C^k \to C^{k + 1}\) satisfies \((d^*)^2 = 0\).
 
   Its \emph{cohomology} is \(H^k(C^*) = \ker d^k/\im d^{k - 1}\).
 \end{definition}
@@ -2217,8 +2213,8 @@ Similarly if \(f: X \to Y\) then
   Given \([a] \in H^*(X; G), [x] \in H_*(X)\), we know \(d^*a = 0, d x = 0\) so by bilinearity
   \[
     \langle a + d^* b, x + dy \rangle
-    = \langle a, x \rangle + \langle b, dx \rangle + \langle d^*a, y \rangle + \langle b, d y\rangle
-    = \langle a, x \rangle
+    = \langle a, x \rangle + \langle b, dx \rangle + \langle d^*a, y \rangle + \langle b, d^2 y\rangle
+    = \langle a, x \rangle.
   \]
 \end{proof}
 
@@ -2473,7 +2469,7 @@ It is a fact (that we shall not prove here) that this does not depend on the cho
   \begin{tikzcd}
     0 \ar[r] & C_{k + 1} \ar[r] & C_k \ar[r] & 0
   \end{tikzcd}
-  \) is short injective, it is a (shifted) free resolution of \(H_k(C)\) so its homology is \(\Tor_1(H_*(C, N))\) and \(\Tor_0(H_*(C, N))\) in degree \(k + 1\) and \(k\). Similar for \(\Ext\).
+  \) is short injective, it is a (shifted) free resolution of \(H_k(C)\) so the homology of \(C_* \otimes N\) is \(\Tor_1(H_*(C, N))\) and \(\Tor_0(H_*(C, N))\) in degree \(k + 1\) and \(k\). Similar for \(\Ext\).
 \end{proof}
 
 \begin{corollary}
@@ -2489,7 +2485,7 @@ It is a fact (that we shall not prove here) that this does not depend on the cho
 \end{proof}
 
 \begin{corollary}
-  If \(H_*(X)\) is free then \(H^*(X) = \Hom(H_*(X), \Z)\) is dual of \(H_*(X)\). Furthermore if \(f: X \to Y\) then \(f^*: H^*(Y) \to H^*(X)\) is dual to \(f_*: H_*(X) \to H_*(Y)\).
+  If \(H_*(X)\) is free then \(H^*(X) = \Hom(H_*(X), \Z)\), the dual of \(H_*(X)\). Furthermore if \(f: X \to Y\) then \(f^*: H^*(Y) \to H^*(X)\) is dual to \(f_*: H_*(X) \to H_*(Y)\).
 \end{corollary}
 
 \begin{proof}
@@ -2537,7 +2533,7 @@ since \(|dy| = |y| - 1\).
 \end{eg}
 
 \begin{proof}[Sketch proof]
-  Take \(Z_k = \bigcup_{i + j = k} Y_i \times Y_j'\). If \(\alpha \in A_i, \alpha' \in A_j'\), have \(\iota_\alpha: D^i \to Y_i, \iota_\alpha': D^j \to Y_j'\). Then have \(\iota_\alpha \times \iota_\alpha': D^i \times D^j \cong D^{i + j} \to Y_i \otimes Y_j' \subseteq Z_k\). Check details.
+  Take \(Z_k = \bigcup_{i + j = k} Y_i \times Y_j'\). If \(\alpha \in A_i, \alpha' \in A_j'\), have \(\iota_\alpha: D^i \to Y_i, \iota_\alpha': D^j \to Y_j'\). Then have \(\iota_\alpha \times \iota_\alpha': D^i \times D^j \cong D^{i + j} \to Y_i \times Y_j' \subseteq Z_k\). Check details.
 \end{proof}
 
 \begin{theorem}
@@ -2655,9 +2651,9 @@ with suitable indices. In particular \(H_*(X \times Y)\) is determined by \(H_*(
 
 In fact we can write Künneth formula in a more compact and symmetric way as
 \[
-  H_*(C \otimes C') = \Tor_*(H_*(C), H_*(C')).
+  H_*(C \otimes C') = \Tor_*(H_*(C), H_*(C')),
 \]
-Then it immediately follows from the homological algebra fact that if \(C_*\) and \(C_*'\) are free resolutions of \(M\) and \(M'\) then \(H_*(C \otimes C') \cong \Tor_*(M, M')\).
+which immediately follows from the homological algebra fact that if \(C_*\) and \(C_*'\) are free resolutions of \(M\) and \(M'\) then \(H_*(C \otimes C') \cong \Tor_*(M, M')\).
 
 \begin{corollary}
   If \(H_*(X)\) is free over \(\Z\) then \(H_*(X \times Y) \cong H_*(X) \otimes H_*(Y)\).
@@ -2708,7 +2704,7 @@ If we only care about homology with coefficients in a field then the only inform
   \]
 \end{definition}
 
-The the corollary simply says that \(P_\F(X \times Y) = P_\F(X) P_\F(Y)\).
+The corollary simply says that \(P_\F(X \times Y) = P_\F(X) P_\F(Y)\).
 
 There is a problem with this approach. Recall that if \(H_*(X)\) is free then we have isomorphisms
 \begin{align*}
@@ -2758,7 +2754,7 @@ Note that we exploited the ring structure of \(R\).
 Thus if \(d^*\alpha = d^*\beta = 0\) then \(d^*(\alpha \cp \beta) = 0\) so
 \begin{align*}
   &\quad [(\alpha + d^* \alpha') \cp (\beta + d^* \beta')] \\
-  &= [\alpha \cp \beta + d^*(\alpha \cp \beta') + d^*((-1)^{|\alpha|} \alpha' \cp \beta) + d^*(\alpha' \cp \beta')] \\
+  &= [\alpha \cp \beta + d^*(\alpha \cp \beta') + d^*((-1)^{|\alpha|} \alpha' \cp \beta) + d^*(\alpha' \cp + d^* \beta')] \\
   &= [\alpha \cp \beta]
 \end{align*}
 so cup products descends to a map
@@ -2789,7 +2785,7 @@ so cup products descends to a map
   so
   \[
     f^*([\alpha] \cp [\beta])
-    = [f^*(\alpha \cp \beta)]
+    = [f^\#(\alpha \cp \beta)]
     = [f^\#(\alpha) \cp f^\#(\beta)]
     = f^*([\alpha]) \cp f^*([\beta]).
   \]
@@ -3080,7 +3076,7 @@ Recall that we promised at the end of last section that there is a natural way t
       \alpha^2 = \beta^2 = 0, \quad \alpha\beta = (c, 0, 0) \cp (0, c, 0) = 0
     \]
     As a result, \(H^*(S^2 \vee S^2 \vee S^4) \cong H^*(S^2 \times S^2)\) as groups but not as rings. Thus cohomology ring is strictly stronger than groups: the two spaces are not homotopy equivalent although they have isomorphic (co)homology groups.
-  \item Cohomology ring of \(\Sigma_2\). Let \(A\) be a loop (picture) so \(\pi: \Sigma_2 \to \Sigma_2/A \cong T_1^2 \vee T_2^2\). On homology group we have
+  \item Cohomology ring of \(\Sigma_2\). Let \(A\) be a loop (picture) so \(\pi: \Sigma_2 \to \Sigma_2/A \cong T_1^2 \vee T_2^2\). On homology groups we have
     \begin{align*}
       \pi_*: H_2(\Sigma_2) &\to H_2(T_1^2 \vee T_2^2) = H_2(T_1^2) \oplus H_2(T_2^2) \\
       1 &\mapsto (1, 1) \\
@@ -3147,8 +3143,8 @@ There is an analogous definition of complex vector bundles by replacing \(\R\) w
       B \ar[r, "f_B"] & B'
     \end{tikzcd}
   \]
+  such that for every \(b \in B\), \(f_E|_{\pi^{-1}(b)}: \pi^{-1}(b) \to (\pi')^{-1}(f(b))\) is a linear map.
 \end{definition}
-Note that this implies that \(f_E\) is fibre preserving and \(f_E|_{\pi^{-1}(b)}: \pi^{-1}(b) \to (\pi')^{-1}(f(b))\) is a linear map. (?)
 
 Vector bundles together with morphisms between them form a category.
 
@@ -3166,7 +3162,7 @@ Vector bundles together with morphisms between them form a category.
 
 Suppose \(\pi: E \to B\) is as above. Consider
 \begin{align*}
-  f_\alpha \compose f_\beta: (U_\alpha \cap U_\beta) \times \R^n &\to (U_\alpha \cap U_\beta) \times \R^n \\
+  f_\alpha \compose f_\beta^{-1}: (U_\alpha \cap U_\beta) \times \R^n &\to (U_\alpha \cap U_\beta) \times \R^n \\
   (b, v) &\mapsto (b, f_{\alpha\beta}(b, v))
 \end{align*}
 where \(f_{\alpha\beta}(b, v)\) is a linear function of \(v\). In other words \(f_{\alpha\beta}(v, b) = g_{\alpha\beta}(b) v\) where \(g_{\alpha\beta}(v) \in \GL_n(\R)\). The maps \(g_{\alpha\beta}: U_\alpha \cap U_\beta \to \GL_n(\R)\) are called \emph{transition functions}\index{transition function}.
@@ -3195,7 +3191,7 @@ Conversely
 \end{proof}
 
 \begin{definition}[section]\index{section}
-  A \emph{section} of \(\pi: E \to B\) is a map \(s: B \to E\) with \(\pi \compose s = \id B\).
+  A \emph{section} of \(\pi: E \to B\) is a map \(s: B \to E\) with \(\pi \compose s = \id_B\).
 \end{definition}
 
 \begin{eg}
@@ -3237,7 +3233,7 @@ The simplest bundle is the \(n\)-dimensional \emph{trivial bundle}\index{vector 
     \[
       \tau_{\C\P^n} = \{([z], v) \in \C\P^n \times \C^{n + 1}: v \in \C z\}.
     \]
-    In addition to the vector bundle, we have the map \(\pi_2: \tau_{\C\P^n} \to \C^{n + 1}\) which is \emph{blowup} in algebraic geometry. In \(v \neq 0\) then \(\pi_2^{-1}(v) = ([v], v)\). If \(v = 0\) then \(\pi_2^{-1}(v) = \{([z], 0)\}\) is the image of the zero section.
+    In addition to the vector bundle, we have the map \(\pi_2: \tau_{\C\P^n} \to \C^{n + 1}\) which is \emph{blowup} in algebraic geometry. If \(v \neq 0\) then \(\pi_2^{-1}(v) = ([v], v)\). If \(v = 0\) then \(\pi_2^{-1}(v) = \{([z], 0)\}\) is the image of the zero section.
   \item The \emph{tangent bundle}\index{tangent bundle} of \(S^n\)
     \[
       TS^n = \{(x, v) \in S^n \times \R^{n + 1}: v \cdot x = 0\}
@@ -3247,7 +3243,7 @@ The simplest bundle is the \(n\)-dimensional \emph{trivial bundle}\index{vector 
       f_i: \pi^{-1}(U_i) &\to \R^n \\
       (x, v) &\mapsto \pi_{\hat i}(v)
     \end{align*}
-    A section \(s: B \to E\) is nonvanishing if \(s(b) \neq 0\) for all \(b \in B\). From example sheet 1 if \(TS^n\) has nonvanishing sections then \(TS^n\) is trivial, and \(TS^1\) is trivial (in fact \(TS^n\) is trivial if and only if \(n = 1, 3, 7\)).
+    A section \(s: B \to E\) is nonvanishing if \(s(b) \neq 0\) for all \(b \in B\). From example sheet 1 if \(TS^n\) has a nonvanishing sections if and only if \(n\) is odd (in fact \(TS^n\) is trivial if and only if \(n = 1, 3, 7\)).
   \item Product of bundles\index{vector bundle!product}: if \(\pi: E \to B, \pi': E' \to B'\) are vector bundles then so is \(\pi \times \pi': E \times E': B \times E'\) with fibres \((\pi \times \pi')^{-1}(b, b') = \pi^{-1}(b) \times \pi'^{-1}(b')\).
   \item Pullback of bundle\index{vector bundle!pullback}: if \(\pi: E \to B\) is a vector bundle and \(f: X \to B\) then
     \[
@@ -3375,7 +3371,7 @@ which is in particular free. So by universal coefficient
 From now on we assume \(R\)-coefficient.
 
 \begin{definition}[Thom class]\index{Thom class}
-  \(U \in H^n(E, E^\#; R)\) is an \emph{\(R\)-Thom class} (or \(R\) orientation) for \(E\) if \(i_b^*(U)\) generates \(H^n(E_b, E_b^\#) \cong R\) for all \(b \in B\).
+  \(U \in H^n(E, E^\#; R)\) is an \emph{\(R\)-Thom class} (or \(R\)-orientation) for \(E\) if \(i_b^*(U)\) generates \(H^n(E_b, E_b^\#) \cong R\) for all \(b \in B\).
 \end{definition}
 
 \begin{eg}
@@ -3451,7 +3447,7 @@ If \(f: B' \to B\) there is a morphism
 
   Step 2: suppose \(B_1, B_2 \subseteq B\). Let \(B_\cap = B_1 \cap B_2\). Claim if the theorem holds for \(E|_{B_1}, E|_{B_2}\) and \(E|_{B_1 \cap B_2}\) then it holds for \(E|_{B_1 \cup B_2}\). Write \(E_i = E|_{B_i}\) and similarly \(E_\cap, E_\cup\). Consider the Mayer-Vietoris sequence for \(R = \Z/2\):
   \[
-    \begin{tikzcd}[column sep=small]
+    \begin{tikzcd}[column sep=small,row sep=small]
       H^{n - 1}(E_\cap, E_\cap^\#) \ar[d, equal] \ar[r] & H^n(E_\cup, E_\cup^\#) \ar[r, "\alpha"] & H^n(E_1, E_1^\#) \oplus H^n(E_2, E_2^\#) \ar[r, "\beta"] & H^n(E_\cap, E_\cap^\#) \\
       0
     \end{tikzcd}
@@ -3460,7 +3456,7 @@ If \(f: B' \to B\) there is a morphism
 
   For uniqueness note that if \(U_\cup'\) is a Thom class for \(E_\cup\) then \(U_\cup'|_{E_i}\) is a Thom class for \(E_i\) so again by uniqueness \(U_\cup'|_{E_i} = U_i\), i.e.\ \(\alpha(U_\cup') = U_1 \oplus U_2\) so \(U_\cup' = U_\cup\) by injectivity of \(\alpha\).
 
-  For part 2, consider the commutative diagram of Mayer-Viectoris sequences
+  For part 2, consider the commutative diagram of Mayer-Vietoris sequences
   \[
     \begin{tikzcd}
       H^*(B_\cup) \ar[r] \ar[d, "\psi_\cup"] & H^*(B_1) \oplus H^*(B_2) \ar[r] \ar[d, "\psi_1 \oplus \psi_2"] & H^*(B_\cap) \ar[d, "\psi_\cap"] & \\
@@ -3630,7 +3626,7 @@ where \(j: (E, \emptyset) \to (E, E^\#)\). Thus
       H^{* - 1}(\R\P^n) \ar[r, "\beta"] & H^*(\R\P^n) \ar[r] & H^*(S^n) \ar[r] & H^*(\R\P^n)
     \end{tikzcd}
   \]
-  Claim that \(\beta\) is an isomorphism for \(1 \leq * \leq n\) for \(n\) sufficiently large: for \(* = 1\) the relevant bit of LES is
+  Claim that \(\beta\) is an isomorphism for \(1 \leq * \leq n\) for \(n \geq 1\): for \(* = 1\) the relevant bit of LES is
   \[
     \begin{tikzcd}[column sep=scriptsize]
       0 \ar[r] & H^0(\R\P^n) \ar[r, "\cong"] & H^0(S^n) \ar[r, "0"] & H^0(\R\P^n) \ar[r, "\beta"] & H^1(\R\P^n) \ar[r] & H^1(S^n) = 0
@@ -3638,13 +3634,13 @@ where \(j: (E, \emptyset) \to (E, E^\#)\). Thus
   \]
   so \(\beta\) is an isomorphism. For \(1 < * < n\) this follows from \(H^{* - 1}(S^n) = H^*(S^n) = 0\). For \(* = n\) we have
   \[
-    \begin{tikzcd}[column sep=small]
-      H^{n - 1}(S^n) \ar[r] \ar[d, equal] & H^{n - 1}(\R\P^n) \ar[r, "\beta"] & H^*(\R\P^n) \ar[r, "0"] & H^n(S^n) \ar[r, "\cong"] \ar[d, equal] & H^n(\R\P^n) \ar[r] \ar[d, equal] & H^{n + 1}(\R\P^n) \ar[d, equal] \\
+    \begin{tikzcd}[column sep=small, row sep=small]
+      H^{n - 1}(S^n) \ar[r] \ar[d, equal] & H^{n - 1}(\R\P^n) \ar[r, "\beta"] & H^n(\R\P^n) \ar[r, "0"] & H^n(S^n) \ar[r, "\cong"] \ar[d, equal] & H^n(\R\P^n) \ar[r] \ar[d, equal] & H^{n + 1}(\R\P^n) \ar[d, equal] \\
       0 & & & \Z/2 & \Z/2 & 0
     \end{tikzcd}
   \]
 
-  Let \(a = e(\tau_{\R\P^n}) \in H^1(\R\P^1; \Z/2)\). Claim that \(\langle a^k \rangle = H^k(\R\P^n; \Z/2)\): induction on \(k\). \(k = 0\) is obvious. Suppose it holds for \(k - 1\). Then we have isomorphism
+  Let \(a = e(\tau_{\R\P^n}) \in H^1(\R\P^n; \Z/2)\). Claim that \(\langle a^k \rangle = H^k(\R\P^n; \Z/2)\): induction on \(k\). \(k = 0\) is obvious. Suppose it holds for \(k - 1\). Then we have isomorphism
   \begin{align*}
     \beta: H^{k - 1}(\R\P^n) &\to H^k(\R\P^n) \\
     a^{k - 1} &\mapsto a^k
@@ -3684,12 +3680,419 @@ so \(\overline \varphi_E \in \Hom(H_1(B), \Z/2) \cong H^1(B; \Z/2)\). We quote t
   where \(a = e(\tau_{\C\P^n})\) has \(|a| = 2\).
 \end{eg}
 
+\subsection{Manifolds}
 
+In the last bit of course we are going to discuss manifolds and Poincaré duality.
 
+\begin{definition}[topological manifold]\index{topological manifold}
+  An \emph{\(n\)-dimensional (topological) manifold} \(M\) is a second-countable Hausdorff space \(M\) which admits an open cover \(\{U_\alpha: \alpha \in A\}\) and homeomorphisms \(\varphi_\alpha: U_\alpha \to \R^n\) called \emph{charts}\index{chart}.
+\end{definition}
 
+The maps
+\[
+  \psi_{\alpha\beta} = \varphi_\alpha \compose \varphi_\beta^{-1}: \varphi_\beta(U_\alpha \cap U_\beta) \to \varphi_\alpha(U_\alpha \cap U_\beta)
+\]
+are called \emph{transition functions}\index{transition functions}. Like transition functions for vector bundles, they satisfy the cocycle conditions.
 
+\begin{definition}[smooth manifold]\index{smooth manifold}
+  A \emph{smooth manifold} is a topological manifold \(M\) together with an open cover \(\{U_\alpha\}\) and charts \(\varphi_\alpha\) such that all transition functions \(\psi_{\alpha\beta}\) are smooth maps.
 
+  If \(M, M'\) are smooth manifold, we say \(f: M \to M'\) is \emph{smooth} if \(\varphi_\beta' \compose f \compose \varphi_\alpha^{-1}\) is smooth where defined for all charts \(\varphi_\alpha\) of \(M\) and \(\varphi_\beta'\) of \(M'\). \(f\) is a \emph{diffeomorphism}\index{diffeomorphism} if \(f\) is a homeomorphism and \(f, f^{-1}\) are smooth.
+\end{definition}
 
+\begin{eg}
+  \(S^n, \R\P^n, \C\P^n, T^n, \Sigma_g\) are all smooth manifolds.
+\end{eg}
+
+\begin{remark}
+  If \(M\) is an \(n\)-manifold, we can consider the set of smooth manifolds homeomorphic to \(M\) up to diffeomorphism. For \(n \leq 3\) this set is a singleton. However for \(n > 3\) it could be empty or it could have more than one element.
+\end{remark}
+
+We're interested in smooth manifolds in this course because they have a natural bundle, the \emph{tangent bundle}. If \(M\) is a smooth manifold with charts \(\varphi_\alpha\), define
+\begin{align*}
+  g_{\alpha\beta}: U_\alpha \cap U_\beta &\to \GL_n(\R) \\
+  x &\mapsto D \psi_{\alpha\beta}|_{\varphi_\beta(x)}
+\end{align*}
+Then chain rule says \(g_{\alpha\beta}\)'s satisify the cocycle conditions.
+
+\begin{definition}[tangent bundle]\index{tangent bundle}
+  If \(M\) is a smooth manifold as above, the \emph{tangent bundle} \(TM\) is the \(n\)-dimensional vector bundle with transition functions \(g_{\alpha\beta}\).
+\end{definition}
+
+\paragraph{Fundamental class}
+
+\begin{notation}
+  Suppose \(M^n\) is an \(n\)-manifold and \(A \subseteq M\) compact. Write \((M|A)\) for the pair \((M, M - A)\). If \(B \subseteq A\) we have a map \(i: (M|A) \to (M|B)\). If \(w \in H_*(M|A)\) write \(w|_B = i_*(w)\).
+\end{notation}
+
+Fix \(R\)-coefficient. If \(x \in M\) choose a chart with \(U_\alpha \ni x\). By excision
+\[
+  H_n(M|x) \cong H_n(U_\alpha|x) = H_n(\R^n |\varphi(x)) = H_n(\R^n, \R^n - \varphi(x)) =
+  \begin{cases}
+    R & * = n \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+
+\begin{definition}[fundamental class, orientation]\index{fundamental clas}\index{orientation}
+  An \emph{\(R\)-fundamental class}, or \emph{\(R\)-orientation} for \(M\) is a class \([M] \in H_n(M; R) = H_n(M|M; R)\) such that \([M]|_x\) generates \(H_n(M|x; R) = R\) for all \(x \in M\).
+\end{definition}
+
+\begin{theorem}
+  Any closed manifold \(M\) has a unique \(\Z/2\)-fundamental class.
+\end{theorem}
+
+Recall that we say \(M\) is \emph{closed}\index{topological manifold!closed} if it is compact.
+
+\begin{theorem}
+  If \(M\) is closed and connected then
+  \begin{enumerate}
+  \item \(H_n(M; \Z/2) \cong \Z/2 = \langle [M] \rangle\).
+  \item \(H_n(M; \Z)\) is \(\Z\) or \(0\) and if \(M\) is \(\Z\)-orientable then \(H_n(M; \Z) = \Z = \langle [M] \rangle\).
+  \item \(H_i(M) = 0\) for all \(i > n\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Non-examinable and see lecture handout. Similar to the proof for Thom class, we show orientability is a local condition and use Mayer-Vietoris to glue together.
+\end{proof}
+
+\paragraph{Submanifolds}
+
+\begin{definition}[submanifold]\index{submanifold}
+  Suppose \(M\) is a smooth \(n\)-manifold. \(N \subseteq M\) is a \(k\)-dimensional \emph{submanifold} of \(M\) if for every \(x \in N\) there exists an open neighbourhood \(U_x \ni x\) and a chart \(\varphi_x: U_x \to \R^n\) such that \(\varphi_x(U_\alpha \cap N) = \R^k \times 0 \subset \R^n\).
+\end{definition}
+
+If so then \(N\) is a smooth \(k\)-manifold.
+
+\begin{eg}
+  \(S^{n - 1} \subseteq S^n, \R\P^{n - 1} \subseteq \R\P^n, S^n \times \{p\} \subseteq S^n \times S^m\).
+\end{eg}
+
+If \(N \subseteq M\) is a submanifold then \(TN \subseteq TM|_N\) is a subbundle.
+
+\begin{definition}[normal bundle]\index{normal bundle}
+  The \emph{normal bundle} is defined as \(\nu_{M/N} = TN^\perp \subseteq TM|_N\) so \(TM|_N = \nu_{M/N} \oplus TN\).
+\end{definition}
+
+Note that to define \(TN^\perp\) we need to pick a Riemannian metric on \(TM\). However the isomorphism class of \(\nu_{M/N}\) is independent of the choice. In fact \(\nu_{M/N} \cong TM|_N/TN\).
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item \(M = \R^{n + 1}, N = S^n\). Then \(\nu_{\R^{n + 1}/S^n}\) is trivial since it has a section \(x \mapsto x\). Note \(T\R^{n + 1}|_{S^n} \cong \nu \oplus TS^n\), where \(T\R^{n + 1}|_{S^n}\) and \(\nu\) are trivial but \(TS^n\) is not necessarily trivial.
+  \item Let \(M\) be the Möbius band and \(N = S^1\) its central band. Then \(\nu_{M/N}\) is the Möbius bundle.
+  \item Let \(M = \R\P^{n + 1}, N = \R\P^n\) then \(\nu_{M/N} = \tau_{\R\P^n}\).
+  \item Similarly if \(M = \C\P^{n + 1}, N = \C\P^n\) then \(\nu_{M/N} = \tau_{\C\P^n}\).
+  \end{enumerate}
+\end{ex}
+
+We need a technical tool from differential geometry:
+
+\begin{theorem}[tubular neighbourhood theorem]\index{tubular neighbourhood theorem}
+  If \(N \subseteq M\) is a submanifold, there is an open \(V\subseteq M\), \(N \subseteq V\) such that \((V, N) \cong (\nu_{M/N}, s_0(N))\).
+\end{theorem}
+
+\begin{proof}
+  Omitted. Proved using \(\exp: \nu_{M/N} \to M\) by showing that it is locally a diffeomorphism.
+\end{proof}
+
+\begin{proposition}
+  \(M\) is \(\Z\)-orientable if and only if \(TM\) is \(\Z\)-orientable.
+\end{proposition}
+
+\begin{proof}[Sketch proof]
+  If \(S^1 \cong \gamma \subseteq M\) is a submanifold, we get a tubular neighbourhood \(V(\gamma)\). \(M\) is orientable if and only if \(V(\gamma)\) is orientable for all \(\gamma\), if and only if \(TM|_{V(\gamma)}\) is orientable, if and only if \(TM|_\gamma\) is orientable, if and only if \(TM\) is orientable.
+\end{proof}
+
+\subsection{Poincaré duality}
+
+Use \(R\) coefficient throughout, where \(R\) be either \(\Z\) or a field. Let \(M\) be a closed connected smooth \(n\)-manifold and denote by \([M]\) the \(R\)-fundmental class for \(M\). Recall that if \(M\) is connected and \(R\)-orientable then \(H_n(M) = R\).
+
+\begin{corollary}
+  \(H^n(M) \cong R\).
+\end{corollary}
+
+\begin{proof}
+  If \(R\) is a field then \(H^n(M) \cong \Hom_\Z(H_n(M), R) \cong R\). If \(R\) is \(\Z\) then \(M\) is \(\Z/p\)-oriented for every prime \(p\) since the image of \([M]\) under \(H_n(M; \Z) \to H_n(M; \Z/p)\) is a \(\Z/p\)-fundamental class so \(H_n(M; \Z/p) \cong \Z/p\). \(H_n(M; \Z) \cong \Z\) so by universal coefficient \(H_{n - 1}(M; \Z)\) has no \(p\)-torsion. Hence \(H_{n - 1}(M; \Z)\) is free so \(H^n(M; \Z) \cong \Z\).
+\end{proof}
+
+Now suppose \(N \subseteq M\) is a \(k\)-dimensional closed submanifold and \(\nu = \nu_{M/N}\) is its normal bundle. \(V\) is a tubular neighbourhood for \(N\) so \((V|N) \cong (\nu, \nu^\#)\).
+
+\begin{lemma}
+  \(N\) is orientable if and only if \(\nu\) is orientable.
+\end{lemma}
+
+\begin{proof}[Sketch proof]
+  \(M\) is orientable implies \(TM\) is orientable, so \(TM|_N\) is orientable, so \(\overline \varphi_{TM|_N} = 0\) where \(\overline \varphi_{TM|_N} \in H^1(N; \Z/2)\). Now \(TM|_N = TN \oplus \nu\) so \(\overline \varphi_{TM|_N} = \overline \varphi_{TN} + \overline \varphi_\nu = 0\). Thus \(\overline \varphi_{TN} = 0\) if and only if \(\overline \varphi_\nu = 0\).
+\end{proof}
+
+Now suppose \(N\) is \(R\)-orientable, so \(\nu\) is \(R\)-orientable. Consider the following maps:
+\[
+  \begin{tikzcd}
+    (M, \emptyset) \ar[r, "j"] \ar[dr, "\beta"'] & (M|N) \ar[d, "\alpha"] & (V|N) \ar[l] & (\nu, \nu^\#) \ar[l, "\cong"'] \ar[ll, bend left, "i"] \\
+    & (M|x)
+  \end{tikzcd}
+\]
+The maps \(i_*\) and \(i^*\) are isomorphisms by excision.
+
+\begin{lemma}
+  \(j_*[M]\) generates \(H_n(M|N) \cong R\).
+\end{lemma}
+
+\begin{proof}
+  By excision and Thom isomorphism,
+  \[
+    H^*(M|N) \cong H^*(V|N) \cong H^*(\nu, \nu^\#) \cong H^{* - n + k}(N) =
+    \begin{cases}
+      R & * = n \\
+      0 & * > n
+    \end{cases}
+  \]
+  By universal coefficient, it follows that \(H_n(M|N) \cong R\). \([M]\) is a fundamental class so \(\beta_*[M] = \alpha_* j_*[M]\) generates \(H_n(M|x) \cong R\). Thus \(j_*[M]\) generates \(H_n(M|N)\).
+\end{proof}
+
+Let \([N]^* \in H^k(N)\) be given by \(\langle [N]^*, [N] \rangle = 1 \in R\).
+
+\begin{corollary}
+  There is a unique \(R\)-orientation \(U_{M/N}\) on \(\nu\) such that
+  \[
+    \langle \pi^*[N]^* \cp U_{M/N}, i_*^{-1} j_*[M] \rangle = 1 \in R.
+  \]
+\end{corollary}
+
+\begin{proof}
+  \(i_*^{-1} j_* [M]\) generates \(H_n(\nu, \nu^\#) \cong R\). Let \(U\) be some Thom class for \(\nu\). \([N]^*\) generates \(H^k(N)\) so \(\pi^*[N]^* \cp U\) generates \(H^n(\nu, \nu^\#)\). So \(\langle \pi^* [N]^* \cp U, i_*^{-1} j_* [M] \rangle = r\) generates \(R\). Take \(U_{M/N} = r^{-1}U\).
+\end{proof}
+
+\begin{definition}[Poincaré dual]\index{Poincaré dual}
+  If \([M]\) and \([N]\) are \(R\)-orientations on \(M\) and \(N\), the \emph{Poincaré dual} of \(N\) is
+  \[
+    PD_{[M]}([N]) = j^*(i^*)^{-1} (U_{M/N}) \in H^{n - k}(M).
+  \]
+\end{definition}
+
+The key ingredient is
+\begin{proposition}
+  If \(a \in H^k(M)\) then
+  \[
+    \langle a, i_{0*} [N] \rangle = \langle a\cp PD_{[M]}([N]), [M] \rangle
+  \]
+  where \(i_0: N \embed M\).
+\end{proposition}
+
+\begin{proof}
+  \([N]^*\) generates \(H^k(N) \cong R\) so if \(c = \langle a, i_{0*}[N] \rangle = \langle i_0^* a, [N] \rangle\) then \(i_0^*(a) = c [N]^*\). We have
+  \[
+    \begin{tikzcd}
+      V \cong \nu \ar[r, "i"] \ar[d, "\pi"] & M \\
+      N \ar[ur, "i_0"']
+    \end{tikzcd}
+  \]
+  which commutes up to homotopy, so \(i^*(a) = \pi^* i_0^*(a) = c \pi^*[N]^*\). So
+  \begin{align*}
+    \langle a \cp PD_{[M]}([N]), [M] \rangle
+    &= \langle a \cp j^* (i^*)^{-1} U_{M/N}, [M] \rangle \\
+    &= \langle a \cp (i^*)^{-1} U_{M/N}, j_*[M] \rangle \\
+    &= \langle i^* a \cp U_{M/N}, (i_*)^{-1} j_*([M]) \rangle \\
+    &= \langle c \pi^*[N]^* \cp U_{M/N}, (i_0)^{-1} j_* [M] \rangle \\\
+    &= c \\
+    &= \langle a, i_{0*}[N] \rangle
+  \end{align*}
+\end{proof}
+
+\begin{eg}
+  Let \(N = \{p\} \subseteq M\). Then
+  \[
+    \langle1 \cp PD_M(N), [M] \rangle = \langle 1, [p] \rangle = 1
+  \]
+  so \(PD_M(\{p\}) = [M]^*\).
+\end{eg}
+
+\begin{definition}[cup product pairing]\index{cup product pairing}
+  The \emph{cup product pairing} on \(H^*(M)\) is the bilinear map
+  \begin{align*}
+    (\cdot, \cdot): H^*(M) \times H^*(M) &\to R \\
+    (a, b) &\mapsto \langle a \cp b, [M] \rangle
+  \end{align*}
+\end{definition}
+We thus have \(\langle a, i_{0*}[N] \rangle = (a, PD_{[M]}([N]))\).
+
+\begin{remark}
+  Cup product pairing splits as a sum of pairings \((\cdot, \cdot): H^k(M) \times H^{n - k}(M) \to R\).
+\end{remark}
+
+\begin{definition}
+  Let \(V\) and \(W\) be \(\F\)-vector spaces. A blinear pairing \((\cdot, \cdot): V \times W \to \F\) is \emph{nonsingular} if
+  \begin{enumerate}
+  \item \((v, w) = 0\) for all \(v \in V\) implies \(w = 0\) and
+  \item \((v, w) = 0\) for all \(w \in W\) implies \(v = 0\). 
+  \end{enumerate}
+
+  \((\cdot, \cdot)\) induces maps \(\varphi: V \to W^*, \psi: W \to V^*\).
+\end{definition}
+
+\begin{lemma}
+  If \(V\) and \(W\) are finite dimensional and \((\cdot, \cdot)\) is nonsingular then \(\varphi\) and \(\psi\) are isomorphisms.
+\end{lemma}
+
+\begin{proof}
+  Nonsingularity implies that \(\varphi\) and \(\psi\) are injective. Now use dimensions.
+\end{proof}
+
+We need another technical tool from differential geometry.
+
+\begin{definition}[transverse]\index{transverse}
+  Two submanifolds \(N_1, N_2 \subseteq M\) are \emph{transverse}, written \(N_1 \pitchfork N_2\) if for every \(x \in N_1 \cap N_2\) there is a chart \(\varphi_x: U_x \to \R^n\) with \(\varphi_x(x) = 0\) and \(\varphi_x(N_1 \cap U_x) = \R^k \times \R^{n_1 - k} \times 0, \varphi_x(N_2 \cap U_x) = \R^k \times 0 \times \R^{n_2 - k}\). If so \(N' = N_1 \cap N_2\) is a \(k\)-dimensional submanifold of \(N_1, N_2\) and \(M\).
+\end{definition}
+
+From differential geometry we know \(N_1 \pitchfork N_2\) if \(TN_1|_x + TN_1|_x = TM|_x\) for all \(x \in N'\).
+
+\begin{proposition}
+  If \(N_1 \pitchfork N_2\) and \(i_2: N_2 \embed M\) is the inclusion then \(i_2^*(PD_M(N_1)) = PD_{N_2}(N')\).
+\end{proposition}
+
+\begin{proof}
+  Let \(V\) be a tubular neighbourhood of \(N_1\). If \(V\) is small enough then \(V' = N_1\cap V\) is a tubular neighbourhood of \(N'\) in \(N_2\). Consider the diagram
+  \[
+    \begin{tikzcd}[row sep=tiny]
+      (M, \emptyset) \ar[r, "j"] & (M|N_1) & (V|N_1) \cong (\nu, \nu^\#) \ar[l] \\
+      & & & (\R^{n - n_1}|0) \ar[ul, "i_x"'] \ar[dl, "i_x'"] \\
+      (N_2, \emptyset) \ar[uu, "i_2"] \ar[r, "j'"] & (N_2|N') \ar[uu] & (V'|N') \cong (\nu', \nu'^\#) \ar[l] \ar[uu, "i_2"] 
+    \end{tikzcd}
+  \]
+  Have \(i_2 \compose i_x' \sim i_x\). If \(U\) is a Thom class for \((V|N_1)\) then \(i_x'^*(i_2^*U) = i_x^*(U)\) generates \(H^{n - n_1}(\R^{n - n_1}|0)\) so \(i_2^*(U)\) is a Thom class for \((V'|N')\). Now
+  \[
+    i_2^* PD_M(N_1) = i_2^* j^* (i^*)^{-1} U = j'^* (i'^*)^{-1}(i_2^*U) = PD_{N_2}(N').
+  \]
+\end{proof}
+
+Now consider \(\Delta = \{(x, x): x \in M\} \subseteq M \times M\). \(\Delta\) is an \(n\)-dimensional submanifold in \(M \times M\). Assume \(R = \F\) is a field. Suppose \(M\) is orientable with dual fundamental class \([M]^*\) then \(M \times M\) is orientable with dual fundamental class \([M]^* \times [M]^*\). Let \(D = PD_{M \times M}(\Delta)\).
+
+\begin{lemma}
+  If \(a \in H^*(M)\) then
+  \[
+    (1 \times a) \cp D = (a \times 1) \cp D.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Consider
+  \[
+    \begin{tikzcd}
+      V \ar[r, "i"] & M \times M \\
+      M \ar[ur, "\Delta"'] \ar[u, "s_0"]
+    \end{tikzcd}
+  \]
+  where \(V\) is a tubular neighbourhood of \(\Delta\). As \(s_0: M \to V\) is a homotopy equivalence, \(s_0^*\) is an isomorphism. Then
+  \[
+    s_0^* i^*(a \times 1) = \Delta^*(a \times 1) = a \cp 1 = 1 \cp a = \Delta^*(1 \times a) = s_0^* i^*(1 \times a)
+  \]
+  so \(i^*(a \times 1) = i^*(1 \times a)\). Then we have the following sequence of equalities:
+  \begin{align*}
+    i^*(a \times 1) \cp U &= i^*(1 \times a) \cp U \\
+    (a \times 1) \cp (i^*)^{-1}U &= (1 \times a) \cp (i^*)^{-1}U \\
+    (a \times 1) \cp j^*(i^*)^{-1}U &= (1 \times a) \cp j^*(i^*)^{-1}U \\
+    (a \times 1) \cp D &= (1 \times a) \cp D
+  \end{align*}
+\end{proof}
+
+Choose a basis \(\{a_i\}\) for \(H^*(M)\). \(\F\) is a field so \(H^*(M \times M) = H^*(M) \otimes H^*(M)\). Write \(D = \sum_i a_i \times b_i\) for some \(b_i \in H^{n - |a_i|}(M)\).
+
+\begin{lemma}
+  \(D = [M]^* \times 1 + \sum_{|a_i| < n} a_i \times b_i\).
+\end{lemma}
+
+\begin{proof}
+  Consider \(i_y: M \to M \times M, x \mapsto (x, y)\). \(M \times y \pitchfork \Delta\) so
+  \[
+    i_y^*(PD_{M \times M}(\Delta)) = PD_{M \times y}(\Delta \cap M \times y) = PD_M(\{y\}) = [M]^*.
+  \]
+  Now
+  \begin{align*}
+    i_y^*(a_i \times b_i) &= i_y^*(\pi_1^*(a_i) \cp \pi_2^*(b_i)) \\
+                          &= (\pi_1 \compose i_y)^* a_i \cp (\pi_2 \compose i_y)^*b_i \\
+                          &=
+                            \begin{cases}
+                              a_i b_i & b_i \in H^0(M) \cong \F \\
+                              0 & \text{otherwise}
+                            \end{cases}
+  \end{align*}
+  Write \(D = [M]^* \times b_0 + \sum_{|a_i| < n} a_i \times b_i\). Then
+  \[
+    [M]^* = i_y^*(D) = [M]^* b_0 + 0
+  \]
+  so \(b_0 = 1\).
+\end{proof}
+
+\begin{lemma}
+  \label{lem:decomposition by cup product pairing}
+  If \(a \in H^*(M)\) then \(a = \sum (-1)^{n |a|}(a, a_i) b_i\).
+\end{lemma}
+
+\begin{proof}
+  As \((1 \times a) \cp D = (a \times 1) \cp D\), we have
+  \[
+    \sum (-1)^{|a_i||a|} a_i \times (a \cp b_i) = \sum (a \cp a_i) \times b_i.
+  \]
+  Find terms of the form \([M]^* \times c\) where \(c \in H^0(M)\) and use the previous lemma, we have
+  \[
+    (-1)^{n|a|} \times a = \sum \langle a \cp a_i, [M] \rangle [M]^* \times b_i
+  \]
+  so \(a = (-1)^{n|a|} \sum (a, a_i) b_i\).
+\end{proof}
+
+\begin{corollary}[Poincaré duality]\index{Poincaré duality}
+  Suppose \(\F\) is a field and \(M\) is \(\F\)-oriented. Then
+  \begin{enumerate}
+  \item the cup product pairing \((\cdot, \cdot): H^k(M) \times H^{n - k}(M) \to \F\) is nonsingular.
+  \item there is an isomorphism \(PD: H_k(M) \to H^{n - k}(M)\) given by \(\langle a, x \rangle = (a, PD(x))\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item If \((a, b) = 0\) for all \(b\) then \(a = 0\) by \Cref{lem:decomposition by cup product pairing}. As \((a, b) = (-1)^{|a||b|} (b, a)\), \((\cdot, \cdot)\) is nonsingular.
+  \item Poincaré duality and universal coefficient give two isomorphisms
+    \begin{align*}
+      \alpha: H^{n - k}(M) &\to H^k(M)^* \\
+      \alpha(b)(a) &= (a, b) \\
+      \beta: H_k(M) &\to H^k(M)^* \\
+      \beta(x)(a) &= \langle a, x \rangle
+    \end{align*}
+    so define \(PD = \alpha^{-1} \compose \beta\).
+  \end{enumerate}
+\end{proof}
+
+We conclude with three applications of Poincaré duality
+
+\begin{proposition}
+  If \(a_i, b_i\) are as above then \((a_i, b_j) = (-1)^{|b_i|} \delta_{ij}\).
+\end{proposition}
+
+\begin{proof}
+  \(a = b_j\) in lemma 3.
+\end{proof}
+
+\begin{proposition}
+  If \(\pi: E \to M\) is a vector bundle with transverse sections \(s, s_0: M \to E\) then
+  \[
+    e(E) = s_0^*(PD_E(s)) = PD_M(s^{-1}(0)).
+  \]
+\end{proposition}
+
+\begin{proposition}
+  \(e(TM) = \chi(M) [M]^*\).
+\end{proposition}
+
+\begin{proof}
+  \begin{align*}
+    \langle e(TM), [M] \rangle
+    &= (D, D) \quad \text{cup product pairing in } M \times M \\
+    &= (\sum a_i \times b_i, \sum (-1)^{|a_i||b_i|} b_i \times a_i) \\
+    &= \sum_i (-1)^{|b_i|} \\
+    &= \chi(M)
+  \end{align*}
+\end{proof}
 
 \printindex
 \end{document}

@@ -1,0 +1,286 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Non-archimedean Geometry}
+\def\nlecturer{T.\ Csige}
+
+\def\nterm{Lent}
+\def\nyear{2020}
+
+\input{header}
+
+\renewcommand*{\P}{\mathbb{P}}
+\newcommand{\sh}[1]{\mathcal{#1}} % sheaf
+\renewcommand*{\O}{\mathcal{O}}
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+What is non-archimedean geometry?
+
+\begin{definition}[non-archimedean field]\index{non-archimedean field}
+  A \emph{non-archimedean field} \(K\) is a field that is complete with respect to a non-archimedean absolute value (multi ... that satisfies the strict triangle inequality.
+\end{definition}
+
+\begin{notation}
+  We define the valuation ring and its unique maximal ideal to be
+  \begin{align*}
+    R &= K^0 \{x \in K: |x| \leq 1\} \\
+    \mathfrak m &= K^{00} \{x \in K: |x| < 1\}
+  \end{align*}
+  and we let \(k = \tilde K = R/\mathfrak m = K^0/K^{00}\).
+\end{notation}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item A field \(K\) with trivial absolute value \(|x| =
+    \begin{cases}
+      0 & x = 0 \\
+      1 & x \ne 0
+    \end{cases}
+    \). Then \(K = R = K, \mathfrak m = 0\).
+  \item Let \(F\) be a field. Let \(K = F((t))\) be the field of Laurent series with \(t\)-adic valuation, i.e.\ let \(\varepsilon \in (0, 1)\) and define \(|x| = \varepsilon^{\operatorname{ord}_t(x)}\). Then \(R = F[[t]], \mathfrak m = (t)\) and \(k = F\).
+  \item Let \(p\) be a prime. Then \(K = \Q_p\) with \(p\)-adic valuation. Usually we take \(\varepsilon = \frac{1}{p}\). \(R = \Z_p, \mathfrak m = (p)\) and \(k = \F_p\).
+
+    More generally let \(K'/K\) be an algebraic extension. Then \(|\cdot|_K\) extends uniquely to \(|\cdot|_{K'}\) which is non-archimedean and also a valuation on \(K'\). If \(K'\) is finite then \(K'\) is complete with respect to \(|\cdot|_{K'}\), but in general it is not.
+
+    We take the algebraic closure \(\overline K\) and then its completion \(\hat{\overline K}\). It is a theorem of Krasner that \(\hat{\overline K}\) is still algebraically closre. In the case \(K = \Q_p\), \(\C_p = \hat{\overline \Q_p}\) is the field of \(p\)-adic complex numbers.
+  \end{enumerate}
+\end{eg}
+
+Why do we care about non-archimedean fields?
+
+We want to solve Diophantine problems, which are in general very hard. Hasse proposed in 1920s the \emph{local-global principle}\index{local-global principle}: trivially if we have a (nontrivial) rational solution then we have a solution over \(\R\) and \(\Q_p\) for all \(p\). The local-global principle asks for the converse: if we have (nontrivial) solutions over \(\R\) and \(\Q_p\) for all \(p\), can we ``patch'' together to get a solution over \(\Q\)?
+
+\begin{theorem}[Hasse-Minsowski]
+  If \(Q(x_1, \dots, x_n)\) is a quadratic form over \(\Q\), then \(Q(x_1, \dots, x_n)\) has a nontrivial \(\Q\)-solution if and only if and only if it has nontrivial solutions over \(\R\) and \(\Q_p\) for all \(p\).
+\end{theorem}
+
+Counterexample (Selmer): \(3x^3 + 4y^3 + 5y^3 = 0\) have \(\R\) and \(\Q_p\)-solutions for all \(p\), but not \(\Q\)-solutions.
+
+Now we use the algebraic geometric language of schemes. Let \(X\) be an algebraic variety over \(\Q\) (i.e.\ a scheme of finite typer). We are interested in \(X(\Q)\). The local-global principle then says that we can extend it to \(X_\R\) (or \(X_\C)\)) and \(X_{\Q_p}\).
+
+Elliptic curves over \(\C\): we know that if \(\Lambda = \tau_1 \Z + \tau_2 \Z\) is a lattice, there is a \(\C\)-analytic isomorphism \(\phi: \C/\Lambda \to E_\Lambda(\C)\) for some elliptic curve \(E_\Lambda\) over \(\C\) which is also a group homomorphism. The converse is
+
+\begin{theorem}[uniformisation over \(\C\)]
+  Let \(E/\C\) be an elliptic curve. Then there exists a lattice \(\Lambda\) unique up to homothety (\(\Lambda_1, \Lambda_2\) are homothetic if exists \(\lambda \in \C^*\) such that \(\lambda \cdot \Lambda_1 = \lambda_2\)) and \(\C\)-analytic isomorphism \(\phi: \C/\Lambda \to E(\C)\) which is a group homomorphism.
+\end{theorem}
+
+We can rescale \(\Lambda\) to get normalised lattice \(\frac{1}{\tau_1}\Lambda = \Z + \tau \Z\) where \(\tau = \frac{\tau_1}{\tau_2}\). We can further assume that \(\tau \in \H = \{z \in \C: \Im(z) > 0\}\). Set \(u = e^{2\pi i z}, q = e^{2\pi i \tau}\). There is a \(\C\)-analytic isomorphism (or isomorphism of complex Lie groups)
+\begin{align*}
+  \C/\Lambda &\to \C^*/q^\Z \\
+  z &\mapsto e^{2\pi i z}
+\end{align*}
+Hence we have \(\C\)-analytic a isomorphism \(E(\C) \cong \C^*/q^\Z\) (multiplicative parameterisation). Conversely for each \(q \in \C, |q| < 1\), there exists an elliptic curve \(E_q\) such that \(E_q(\C) \cong \C^*/q^\Z\).
+
+Tate curves: let \(E/\Q_p\) be an elliptic curve. Then the ``additive uniformisation'' cannot work since \(\Q_p\) has no non-trivial discrete subgroups (exercise). But if we consider \(\Q_p^*\), there are a lot of discrete subgroups, e.g.\ \(q \in K^*\) with \(|q| < 1\) gives discrete a discrete subgroup \(q^\Z\).
+
+\begin{theorem}[Tate]
+  Let \(K\) be a non-archimedean field and \(q \in \Q_p^*, |q| < 1\). Then
+  \[
+    s_k(q) = \sum_{n = 1}^\infty \frac{n^k q^n}{1 - q^n}, a_4(q) = -5 s_3(q), a_6(q) = \frac{-5s_3(q) + 7s_5(q)}{12}
+  \]
+  then these series converge in \(K\) and the elliptic curve \(E_q: y^2 + xy = x^3 + a_4(q) x + a_6(q)\) has \(j\)-invariant \(|j(E_q)| > 1\). Moreover we have a \(p\)-adic analytic isomorphism \(\phi: \overline K^*/q^\Z \to E_q(\overline K)\). \(\phi\) is Galois invariant: \(\phi(u^g) = \phi(u)^g\) for all \(u \in \overline K^*, g \in \gal(\overline K/K)\). In particular we have \(L^*/q^\Z \cong E_q(L)\) for all \(L/K\) algebraic. The elliptic curve \(E_q\) is called the \emph{Tate curve}\index{Tate curve}.
+\end{theorem}
+
+\begin{ex}[Nagell-Lutz]
+  If \(E/\Q\) has split multiplicative reduction reduction at \(p\) (\(|j(E_q)| > 1\)) then \(E(\Q)_{\operatorname{tors}}\) is finite.
+\end{ex}
+
+\begin{theorem}[Tate uniformisation]
+  Let \(E/K\) be an elliptic curve with \(|j(E)| > 1\). Then there exists a unique \(q \in K^*, |q| < 1\) such that \(E_q \cong E\).
+\end{theorem}
+
+What should be the ``geometry''? 
+
+Naïve approach: define \(p\)-adic manifolds, analytic functions locally given by power converging power series. Book: J-P. Serre: \(p\)-adic Lie groups.
+
+Problem with this approach: if \(K\) is non-archimedean then it is totally disconnected!
+
+\begin{ex}
+  Easy facts:
+  \begin{enumerate}
+  \item A series \(\sum_{n = 0}^\infty a_n\) is Cauchy if and only if \(\lim |a_n| = 0\) (for if use strict triangle inequality).
+  \item \(|a + b| = \max\{|a|, |b|\}\) if \(|a| \ne |b|\).
+  \item \(B(a, r)\), the closed ball of radius \(r\), is both closed and open.
+  \item \(\mathring B(a, r)\), the open ball of radius \(r\), is both closed and open.
+  \item \(\p B(a, r)\) is also both open and closed.
+  \end{enumerate}
+  It follows that the closed balls are not connected
+\end{ex}
+
+Another more series problem: identity theorem does not hold. For example
+\begin{align*}
+  f: K &\to K \\
+  x &\mapsto
+      \begin{cases}
+        1 & |x| \leq 1 \\
+        0 & |x| > 1
+      \end{cases}
+\end{align*}
+
+Solution:
+\begin{enumerate}
+\item Tate ``rigidity'' analytic notion: analytic functions should have globally a power series expansion if they are defined on a ball. In particular on \(B = B(0, 1)\), \(f = \sum a_I x^I\) is analytic if and only if \(\lim |a_I| = 0\). They are called \emph{restricted power series}, or \emph{strictly convergent power series}. We then obtain \(T_n\), the Tate algebra. The is the analogue of \(k[x_1, \dots, x_n]\) in algebraic geometry.
+\item Berkovich spaces/adic spaces (Huber). More ``schematic'' approach. We are going to focus mostly on the latter after rigid analytic varieties and not so much on Berkovich spaces. Adic spaces are also the framework for perfectoid spaces.
+\end{enumerate}
+
+\section{Tate algebras}
+
+\begin{notation}
+  We use multiindex notation: \(f = \sum c_I x^I\) where \(I = (i_1, \dots, i_n)\), and \(|I| = \sum_{j = 1}^n i_j\).
+
+  We define \(\mathcal O_{T_n} = R\langle x_1, \dots, x_n\rangle\) to be the set of restricted power series with coefficients in \(R\).
+\end{notation}
+
+\begin{lemma}
+  A formal power series \(f = \sum c_I x^I \in K[[x_1, \dots, x_n]]\) converges in \(B(\overline K)\) if and only if \(\lim |c_I| = 0\).
+\end{lemma}
+
+\begin{proof}
+  For only if use \(x = (1, \dots, 1)\). For if, given \(x \in B(\overline K)\), exists \(K'/K\) finite such that \(x_i \in K'\) for all \(i\). If \(\lim |c_I| = 0\) then \(\lim |c_I| |x^I| = 0\), so \(f(x)\) converges in \(K'\) as \(K'\) is complete.
+\end{proof}
+
+Define the \emph{Gauss norm}\index{Gauss norm} on \(T_n\)
+\[
+  \norm*{\sum c_I x^i} = \sup_I \{|c_I|\} = \max_I \{|c_I|\}.
+\]
+
+It is clear that \(\norm f = 0\) if and only if \(f = 0\), \(\norm{cf} = |c| \norm f\), and \(\norm{f + g} \leq \max\{\norm f, \norm g\}\). What is not so obvious is that
+
+\begin{lemma}
+  The Gauss norm is multiplicative.
+\end{lemma}
+
+\begin{proof}
+  It is clear that \(\norm{fg} \leq \norm f \norm g\). wlog \(\norm f = \norm g = 1\), so \(f, g \in \mathcal O_{T_n}\). We may reduce mod \(\mathfrak m\) to get \(k[x_1, \dots, x_n]\). \(\overline f, \overline g \ne 0\) implies \(\overline f \overline g \ne 0\). Thus \(\norm{fg} = 1\).
+\end{proof}
+
+Therefore \(\norm \cdot\) on \(T_n\) is a \(K\)-algebra norm.
+
+\begin{lemma}
+  \(T_n\) is complete with respect to \(\norm \cdot\).
+\end{lemma}
+
+\begin{proof}
+  Suppose we have a Cauchy sequence \(\sum f_i\) with \(f_i \in T_n\), \(\lim \norm{f_i} = 0\). Let \(f_i = \sum c_{i, I} x^I\). Then \(|c_{i, I}| \leq \norm{f_i}\) so \(\lim_i |c_{i, I}| = 0\), thus we have \(\sum_i c_{i, I} = c_I\). Let \(f = \sum c_I x^I\). It is an exercise to show \(f \in T_n\).
+\end{proof}
+
+Thus the Tate algebra \(T_n\) is a \(K\)-Banach algebra.
+
+\begin{lemma}
+  For \(f\) normalised, i.e.\ \(\norm f = 1\), TFAE:
+  \begin{enumerate}
+  \item \(f\) is a unit in \(\mathcal O_{T_n}\).
+  \item \(f\) is a unit in \(T_n\).
+  \item \(\overline f\) is constant.
+  \item \(|f(0)| = 1\) and \(\norm{f - f(0)} < 1\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \(1 \iff 2\) by multiplicativity of norm. \(1 \implies 3\) by using units in a polynomial ring are precisely the non-zero constants. \(3 \implies 4\) is clear. \(4 \implies 1\): we may assume \(f(0) = 1\) so \(f = 1 - g\), \(\norm g < 1\) and \(\sum g^i\) is an inverse.
+\end{proof}
+
+We would like to model rigid analytic space using \(T_n\) as local models. In complex geometry we derive basic properties of the local ring of analytic functions using Weierstrass preparation and division. We are going to do the same for Tate algebras.
+
+\begin{definition}[distinguished power series]\index{distinguished power series}
+  A power series \(f = \sum g_i x_n^i\) where \(g_i \in T_{n - 1}\) is \emph{distinguished} in \(x_n\) of degree \(d\) if
+  \begin{enumerate}
+  \item \(\norm f = \norm{g_d}\) and \(\norm{g_s} < \norm f\) for \(s > d\).
+  \item \(g_d\) is a unit in \(T_{n - 1}\).
+  \end{enumerate}
+\end{definition}
+Thus if \(f\) is normalised then it is distinguished in \(x_n\) of degree \(d\) if and only if \(\overline f = \overline g_0 + \dots + \overline g_d x_n^d\) with \(\overline g_d \in k^*\).
+
+\begin{theorem}
+  Suppose \(f\) is normalised.
+  \begin{enumerate}
+  \item Division: suppose \(f \in \O_{T_n}\) is distinguished in \(x_n\) of degree \(d\). Then any \(g \in T_n\) can be uniquely written as \(g = qf + r\) where \(q \in T_n, r \in T_{n - 1}[x_n]\) with \(\deg_{x_n}(r) < d\). Moreover \(\norm g = \max\{\norm q, \norm r\}\).
+  \item Preparation: suppose \(f \in \O O_{T_n}\) is distinguished in \(x_n\) of degree \(d\). Then have a unique expression \(f = gk\) where \(g \in \O_{T_{n - 1}}[x_n]\) monic in \(x_n\) of degree \(d\), \(h \in \O_{T_n}^*\).
+  \item Distinction: if \(f_1, \dots, f_m \in \O_{T_n}\) are all normalised then exists an automorphism \(\tau\) of \(T_n\) (preserving \(\norm \cdot\)) such that \(f_1^\tau, \dots, f_n^\tau\) are distinguished in \(x_n\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item For uniqueness, suppose \(qf + r = q'f + r'\), then \((q - q')f = r' - r\). Let \(c\) be such that \(|c| = \norm{q - q'}^{-1}\). Then reduce \(c(q - q') f = c(r' - r)\) modulo \(\mathfrak m\) and inspect the \(x_n^d\) term to derive a contradiction.
+
+    For the statement on norms, suppose for contradiction suppose \(\norm{q} = \norm{r} > \norm g\). Choose \(c\) such that \(\norm c = \norm q^{-1}\), reduce to get \(0 = \overline{cq} \overline f + \overline r\). Again contradiction.
+
+    For existence, suppose first \(f = f_0 = c_0 + c_1x_n + \dots + c_d x_n^d\) where \(c_i \in \O_{T_{n - 1}}\). Let \(g = \sum d_Ix^I\). Decompose \(x^I = q_If + r_I\) (ordinary long division) in \(\O_{T_{n - 1}}[x_n]\) so \(\deg_{x_n}(r_I) < d\). By the result on norms \(\max\{\norm{q_I}, \norm{r_I}\} = \norm{x^I} = 1\). Then \(q = \sum d_I q_I, r = \sum d_Ir_I\) converge in \(T_n\) and \(g = qf + r\). Have \(r \in \O_{T_{n - 1}}[x_n]\) with \(\deg_{x_n}(r) < d\). For the general case, let \(f = f_0 + D\) where \(\norm D < 1\). Let
+    \[
+      g_0 = g, g_i = q_i f_0 + r_i = q_if + r_i - q_iD, g_{i + 1} = q_iD.
+    \]
+    Then \(q = \sum q_i, r = \sum r_i\) converges and \(g = qf + r\).
+  \item For existence, apply division \(x_n^d = q'f + r', q = x_n^d - r'\). \(q \in \O_{T_{n - 1}}[x_n], \deg_{x_n}(q) = d, q = q'f\). Reduce to get \(\overline q = \overline{q'} \overline f\). \(\overline q\) and \(\overline f\) have the same degree so \(\overline{q'}\) is a unit. Thus \(q'\) is a unit in \(T_n\). Thus \(f = gh\) where \(g = q, h = (q')^{-1}\). For uniqueness, suppose \(f = gh\) then \(x_n^d = h^{-1}f + (x_n^d - g)\). Apply uniqueness of division.
+  \item Let
+    \begin{align*}
+      \tau: T_n &\to T_n \\
+      x_i &\mapsto
+            \begin{cases}
+              x_i + x_n^{\alpha_i} & i < n \\
+              x_n & i = n
+            \end{cases}
+    \end{align*}
+    where \(\alpha_i\) is to be chosen later. It is clear that \(\tau\) is a \(K\)-algebra homomorphism and \(\tau\) preserves the Gauss norm. It has an inverse so \(\tau\) is a \(K\)-algebra automorphism that preservse the norm.
+
+    To choose \(\alpha_i\), suppose \(f_j = \sum c_{j, I} x^I\). \(\overline f_j\) are polynomials and consider those \(I\) such that \(|c_{j, I}| = 1\) and define \(t\) to be strictly larger than any of the index in \(I = (i_1, \dots, i_n)\) for all \(I\). Let \(\alpha_1 = t^{n - 1}, \dots, \alpha_{n - 1} = t\). Then
+    \begin{align*}
+      \overline{\tau(f_j)}
+      &= \sum \overline{c_{j, I}} (x_1 + x_n^{\alpha_1})^{i_1} \cdots (x_{n - 1} + x_n^{\alpha_{n - 1}})^{i_{n - 1}} x_n^{i_n} \\
+      &= \sum \overline c_{j, I} x_n^{\alpha_1 i_1 + \dots + \alpha_{n - 1}i_{n - 1} + i_n} + \overline g
+    \end{align*}
+    where \(\deg_{x_n} \overline g < \alpha_1i_1 + \dots + \alpha_{n - 1} i_{n - 1} + i_n\) for all such indices. Exercise: if \(I \ne J\) then \(\alpha_1i_1 + \dots + \alpha_{n - 1}i_{n - 1} + i_n \ne \alpha_{1 j_1} + \dots + \alpha_{n - 1} j_{n - 1} + j_n\). Thus there exists a maximum \(I_0\). Then
+    \[
+      \overline{\tau(f_j)} = c_{j, I} x_n^{d_j} + \text{ poly of degree } < d_j.
+    \]
+    Thus \(\tau(f_j)\) is distinguished of degree \(d_j\) for all \(j = 1, \dots, m\).
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}[Hilbert basis theorem]
+  The \(K\)-algebra \(T_n\) is Noetherian.
+\end{proposition}
+
+\begin{proof}
+  Induction on \(n\). The base case \(n = 0\) is obvious. Assume the statement is true for \(n - 1\). Let \(I \subseteq T_n\) be a nonzero ideal and \(0 \ne f \in I\). By Weierstrass distinction exists \(\tau\) such that \(f^\tau\) is distinguished in \(x_n\) of some degree. By division \(I^\tau\) is generated by \(f^\tau\) and \(I^\tau \cap T_{n - 1}[x_n]\). By induction hypothesis \(T_{n - 1}\) is Noetherian, and therefore so is \(T_{n - 1}[x_n]\). Thus \(I^\tau \cap T_{n - 1}[x_n]\) is finitely generated so \(I^\tau\) is finitely generated. \(I\) is finitely generated.
+\end{proof}
+
+\begin{proposition}
+  The \(K\)-algebra \(T_n\) is a UFD.
+\end{proposition}
+
+\begin{proof}
+  Induction on \(n\). Assume true for \(n - 1\). Take \(f \in T_n\). \(f^\tau\) is distinguished in \(x_n\). By preparation \(f^\tau = gh\) where \(g\) is monic in \(\O_{T_{n - 1}}[x_n]\) and \(h\) is a unit. As \(T_{n - 1}[x_n]\) is a UFD \(f^\tau\) can be decomposed into irreducibles. Uniqueness is similar.
+\end{proof}
+
+\begin{proposition}
+  The Krull dimension on \(T_n\) is \(n\).
+\end{proposition}
+
+\begin{proof}
+  \(0 \subseteq (x_1) \subseteq \dots \subseteq (x_1, \dots, x_n)\) is a chain of prime ideals of length \(n\). If \(f \in T_n\) irreducible, use distinction and preparation to get \(T_n/(g)\) (\(f^\tau = gh\)) which is finite over \(T_{n - 1}\) so \(\dim T_n \leq n\).
+\end{proof}
+
+\section{Affinoid algebra}
+
+\begin{definition}[affinoid algebra]\index{affinoid algebra}
+  An \emph{affinoid algebra} is a \(K\)-algebra of the form \(T_n/I\) for some \(I \subseteq T_n\).
+\end{definition}
+
+\begin{theorem}[Noether normalisation]
+  Let \(I\) be an ideal of \(T_n\), \(A = T_n/I\). Then there exists an injective map \(T_d \embed A\) of \(K\)-algebras for some \(d\). Moreover \(\dim A = d\).
+\end{theorem}
+
+
+\printindex
+\end{document}

@@ -1,0 +1,342 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Profinite Groups}
+\def\nlecturer{G.\ R.\ Wilkes}
+
+\def\nterm{Lent}
+\def\nyear{2020}
+
+\input{header}
+\renewcommand{\c}[1]{\mathbf{#1}} % category
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Question: how can we tell when two objects are different? This is in general a difficult question and to answer it we need a variety of techniques.
+
+\begin{itemize}
+\item \(\N \cong \Q\) is easier thatn \(\Q \ncong \R\).
+\item To show two finite dimensional vector spaces are not isomorphic we can compute their dimensions.
+\item For simplicial complexes, we can compute that homology groups \(H_n(X)\). Note that this is a partial invariant, in contrast to dimensiona which is a complete invariant for finite dimensional spaces.
+\item We can also consider \(\pi_1(X)\). However in contrast to \(H_1(X)\), \(\pi_1(X)\) is not necessarily abelian. The Adian-Rabin theorem says that there can be no algorithm which decides if a finitely presented group is trivial or not. Can we build algorithm which sometimes work? We can solve the problem for finite groups. For infinite groups we can build upon this idea. We can write out the lists of finite quotiesnts of two groups \(G_1\) and \(G_2\) and compare them. The question: when does this work?
+
+  Before we answer this question, note that a list of quotient groups is a very unpleasant object. Instead, we can combine this list into a single ``limiting'' object, called the profinite completion. This technique works in other situations:
+  \begin{itemize}
+  \item \(p\)-adic integers \(\Z_p\) being the ``limit'' of \(\Z/p^n\Z\),
+  \item Galois theory: let
+    \begin{align*}
+      K &= \Q(n\text{th root of unit for all } n) \\
+      K_N &= \Q(n\text{th root of unit for } n \leq N)
+    \end{align*}
+    Then \(K = \bigcup K_N\) and is a Galois extension over \(\Q\) so we can consider \(\gal(K/\Q)\), which is the ``limit'' of \(\gal(K_n/\Q)\).
+  \item étale fundamental groups in algebraic geometry.
+  \end{itemize}
+\end{itemize}
+
+Aside from profinite groups, we will also study group cohomolgy in this course. It is another invariant of groups. This is related to the homology of a simplicial complex and gives abelian invariants. Among other things, it tells if a group is free. It answers the question: given a group \(G\) and an abelian group \(A\), how many groups \(E\) exists such that \(A \normal E\) and \(E/A \cong G\)?
+
+\section{Inverse limits}
+
+\subsection{Categories \& Limits}
+
+Recap on categories and limits. Refer to III Category Theory.
+
+\subsection{Inverse limits and profinite groups}
+
+\begin{definition}[profinite completion]\index{profinite completion}
+  Let \(G\) be a group. Let \(\c N\) be the category whose objects are finite index normal subgroups \(N \normal_f G\) and with an arrow \(N_1 \to N_2\) if and only if \(N_1 \subseteq N_2\). This is a poset category.
+
+  The assignment
+  \begin{align*}
+    N &\mapsto G/N \\
+    (N_1 \to N_2) &\mapsto (G/N_1 \to G/N_2)
+  \end{align*}
+  is a functor \(\c N \to \c{Grp}\).
+
+  The limit of this diagram is a group called the \emph{profinite completion} \(\hat G\) of \(G\).
+\end{definition}
+
+\begin{notation}
+  \(\hat G\) is equipped with homomorphisms making the following diagram commutes:
+  \[
+    \begin{tikzcd}
+      \hat G \ar[d] \ar[dr] \\
+      G/N_1 \ar[r] & G/N_2
+    \end{tikzcd}
+  \]
+  In this course we refer to them as \emph{projection maps} and the horizontal map as \emph{transition map}. In addition, we have a \emph{canonical map} \(i: G \to \hat G\) which exists by the definition of limit.
+\end{notation}
+
+We haven't shown profinite completion exists. We will prove it shortly in a more general context, by showing that it is an exmaple of a particular kind of, in some sense well-behaved, limit.
+
+\begin{definition}[inverse system]\index{inverse system}
+  A poset \((J, \preceq)\) is called an \emph{inverse system} if for all \(i, j \in J\) exists \(k \in J\) such that \(k \preceq i\) and \(k \preceq j\).
+\end{definition}
+
+\begin{eg}
+  In \(\c{N}\), \(N_1 \cap N_2\) is a subgroup of both \(N_1\) and \(N_2\).
+\end{eg}
+
+\begin{definition}[inverse system, inverse limit]\index{inverse system}\index{inverse limit}
+  An \emph{inverse system} (of groups, sets etc) is a functor \(\c J \to \c C\) where \(\c J\) is the poset category corresponding to an inverse system.
+
+  If \(F: \c J \to \c{Grp}\) is an inverse system, the limit of \(F\) is called the \emph{inverse limit} of the objects \(F(j)\).
+\end{definition}
+
+Since this is the central subject of this course, we spell out this definition explicitly
+
+\begin{definition}
+  An \emph{inverse system of groups}, indexed over an inverse system \((J, \preceq)\), consists of
+  \begin{itemize}
+  \item a group \(G_j\) for all \(j \in J\),
+  \item for all \(i \preceq j\), a transition map \(\phi_{ij}: G_i \to G_j\) such that \(\phi_{ii} = \id_{G_i}, \phi_{jk} \compose \phi_{ij} = \phi_{ik}\).
+  \end{itemize}
+  The \emph{inverse limit of the system} \((G_j)_{j \in J}\) is a group \(\varprojlim_{j \in J} G_j\) with projection maps \(p_j: \varprojlim G_j \to G_j\) such that \(\phi_{ij} \compose p_i = p_j\) and such that for any \(Z\) with \(q_j: Z\to G_j\), a map \(q: Z \to \varprojlim G_j\) such that \(p_j \compose q = q_j\).
+\end{definition}
+
+\begin{definition}[profinite group]\index{profinite group}
+  A \emph{profinite group} is the inverse limit of an inverse system of finite groups.
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item The profinite completion of a group \(G\) is a profinite group.
+  \item \(\Z_p\), the \(p\)-adic integers, is \(\varprojlim \Z/p^n\Z\).
+  \end{enumerate}
+\end{eg}
+
+\begin{proposition}
+  Let \((G_j)_{j \in J}\) be an inverse system of groups indexed by an inverse system \(J\). \(\varprojlim G_j\) exists and is equal to
+  \[
+    L = \left\{ (g_j)_{j \in J} \in \prod_{j \in J} G_j: \varphi_{ij} (g_i) = g_j \right\}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let \(p_j: L \to G_j\) be the restriction of the projection \(\prod G_j \to G_j\). Then \(\varphi_{ij} \compose p_i = p_j\). Now let \(q_j: Z \to G_j\) be a cone. There is a unique map \(f: Z \to \prod G_j\) such that \(p_j \compose f = q_j\) and \(f(Z) \subseteq L\).
+\end{proof}
+
+Note that we do not use any properties of inverse system or posets. The construction works equally well for sets (except that the resulting inverse limit is not a group). We will see that the finiteness and inverse system requirement ensures that the construction gives a nonempty set. To do so we need to bring in topology.
+
+\subsection{Topology on a profinite group/set}
+
+Give each finite group \(G_j\) in an inverse system the discrete topology. Then give \(\prod G_j\) the product topology and \(\varprojlim G_j \subseteq \prod G_j\) the subspace topology. \(\prod G_j\) is Hausdorff and compact (Tychonoff). It follows that \(\varprojlim G_j\) is Hausdorff. Since the conditions defining the subgroup are closed conditions, it is also compact.
+
+\begin{proposition}
+  If \((X_j)_{j \in J}\) is an inverse system of nonempty finite sets that \(\varprojlim X_j \ne \emptyset\).
+\end{proposition}
+
+\begin{proof}
+  Consider the set
+  \[
+    Y_I = \{(x_j) \in \prod X_J: \phi_{ij}(x_i) = x_j \text{ for all } i, j \in I\}
+  \]
+  where \(I \subseteq J\). The \(Y_I\)'s are closed and \(\bigcup_{I \text{ finite}} Y_I = \varprojlim X_j\).
+
+  To show for \(I\) finite, \(Y_I \ne \emptyset\), by definition of inverse system exists \(k \in J\)  such that \(k \leq i\) for all \(i \in I\). Now \(X_k\) is nonempty so exists \(x_k \in X_K\). For \(i \in J\), set \(X = \varphi_{ki}(x_k)\). For \(j \notin I\), set \(x_j\) to be arbitrary. Then this gives a sequence \((x_i) \in Y_I\).
+
+  Now use finite intersection property: suppose \(I_1, \dots, I_m\) are are finite, then
+  \[
+    Y_{I_1} \cap \cdots \cap Y_{I_m} \supseteq Y_{I_1 \cup \cdots \cup I_m} \ne \emptyset
+  \]
+  so \(\varprojlim X_j = \bigcup_{I \subseteq J \text{ finite}} Y_I \ne \emptyset\).
+\end{proof}
+
+It is perhaps psychologically comforting to point out that the topology on a profinite group is metrisable, thanks to
+
+\begin{proposition}
+  If \((X_i)\) is a countable family of metric spaces then \(\prod X_i\) is a metric space.
+\end{proposition}
+
+\begin{proof}
+  IB Metric and Topological Spaces.
+\end{proof}
+
+In applications to profinite completions this is often implied by
+
+\begin{proposition}
+  If \(\Gamma\) is a finitely generated group then it has only countably many finite index subgroups.
+\end{proposition}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) be a profinite group. Then multiplication \(\mu: G \times G \to G\) and inversion \(i: G \to G\) are continuous maps.
+\end{proposition}
+
+\begin{proof}
+  Example sheet 1.
+\end{proof}
+
+Thus \(G\) is a \emph{topological group}\index{topological group}.
+
+\begin{definition}
+  A \emph{isomorphism of topological groups} is an isomorphism \(f: G \to H\) which is also a homeomorphism.
+\end{definition}
+
+From now on we only consider homomorphism between profinite groups which are continuous.
+
+\begin{lemma}
+  Let \(H\) be a topological group and let \(G = \varprojlim G_j\) be an inverse limit of finite groups with projections \(p_j: G \to G_j\). Then a homomorphism \(f: H \to G\) is continuous if and only if \(p_j \compose f: H \to G_j\) is continuous, if and only if \(\ker(p_j \compose f)\) is an open subgroups of \(H\).
+\end{lemma}
+
+\begin{proof}
+  The first iff is by definition of the product topology on \(\prod G_j\). For the second, let \(f_j = p_j \compose f\). If \(f_j: H \to G_j\) is continuous the \(\ker f_j = f_j^{-1}(1)\) is open. Conversely, if \(\ker f_j = f^-j^{-1}(1)\) is open. Then \(f_j^{-1}(g_i) = h \cdot \ker(f_j)\), where \(h \in f_j^{-1}(g_i)\) if nonempty, is open for all \(g_j \in G_j\). Thus \(f_j^{-1}(U)\) is open for all \(U \subseteq G_j\).
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) be a compact topological group. Then a subgroup \(U \subseteq G\) is open if and only if it is closed and has finite index.
+\end{proposition}
+
+\begin{proof}
+  Example sheet 1.
+\end{proof}
+
+\begin{proposition}
+  Let \(G = \varprojlim G_j\) be an inverse system of finite groups. Then the open subgroups \(U_j = \ker p_j\) form a basis of open neighbourhoods of the identity.
+\end{proposition}
+
+\begin{proof}
+  Let \(V \ni 1\) be open. By definition of the product topology, \(V\) contains a basic open set of the form \(p_{j_1}^{-1}(X_{j_1}) \cap \cdots \cap p_{j_m}^{-1}(X_{j_m}) \ni 1\), where \(X_{j_i} \subseteq G_{j_i}\) open. Then \(1 \in X_{j_i} \subseteq G_{j_i}\) so by shrinking wlog \(X_{j_i} = \{1\}\). Thus \(1 \in \ker p_{j_1} \cap \cdots \cap \ker p_{j_m}\). Now can find \(k \in J\) such that \(k \leq j_i\) for all \(i\). Then \(1 \in U_k \subseteq \ker p_{j_1} \cap \cdots \cap \ker p_{j_m} \subseteq V\).
+\end{proof}
+
+\begin{corollary}
+  A basis of open sets in \(G\) is \(\{p_j^{-1}(g_j): j \in J, g_j \in G_j\}\).
+\end{corollary}
+
+\begin{corollary}
+  Let \(S \subseteq G = \varprojlim G_j\) be a subset. Then \(S\) is dense in \(G\) if and only if \(p_j(S) = p_j(G)\).
+\end{corollary}
+
+\begin{proof}
+  If \(S\) is not dense then exist nonempty open set \(U\) such that \(U \subseteq X = \emptyset\). wlog \(U = p_j^{-1}(g_j)\). Then \(g_j \in p_j(G) \setminus p_j(S)\). Similarly if \(S\) is dense and \(U\) is nonempty open, wlog \(U = p_j^{-1}(g_j)\), then \(g_j \in p_j(G) = p_j(X)\) so \(S \cap U \ne \emptyset\).
+\end{proof}
+
+\begin{eg}
+  If \(\Gamma\) is an abstract group, \(\hat \Gamma\) its profinite completion with \(i: \Gamma \to \hat \Gamma\). Then \(p_j(i(\Gamma)) = \Gamma/N_j = p_j(\hat \Gamma)\), so \(i(\Gamma)\) is dense in \(\hat \Gamma\).
+\end{eg}
+
+\subsection{Change of inverse system}
+
+\subsubsection{Surjective inverse system}
+
+Let \((G_j)_{j \in J}\) be an inverse system with transition funcitons \(\varphi_{ij}\) and projections \(p_j\).
+
+\begin{definition}[surjective inverse system]\index{inverse system!surjective}
+  An inverse system is \emph{surjective} if the transition maps \(\varphi_{ij}\) are all surjective.
+\end{definition}
+
+\begin{proposition}
+  Let \((X_j)\) be a surjective inverse system of nonempty finite sets. Then all projections \(p_j: \varprojlim X_j \to X_j\) are surjective.
+\end{proposition}
+
+\begin{proof}
+  Example sheet 1.
+\end{proof}
+
+\begin{proposition}
+  Let \((X_j)\) be an inverse system of finite sets. Then there exists a surjective inverse system with the same inverse limit.
+\end{proposition}
+
+\begin{proof}
+  Recall that
+  \[
+    \varprojlim X_j = \left\{ (x_j) \in \prod X_j: \varphi_{ij}(x_i) = x_j \right\}.
+  \]
+  Define \(Y_j = p_j(\varprojlim X_j)\). Then \(Y_j\) with transition maps \(\varphi_{ij}|_{Y_i}\) form an inverse system: if \(y_i \in Y_i\) then \(\varphi_{ij}(y_i) \in Y_J\). Then \(\varprojlim Y_j = \varprojlim X_j\), and this is a surjective inverse system.
+\end{proof}
+
+\subsubsection{Cofinal subsystems}
+
+\begin{definition}[cofinal]\index{cofinal}
+  If \(J\) is an inverse system, \(I \subseteq J\) is \emph{cofinal} if for all \(j \in J\) exists \(i \in I\) such that \(i \leq j\).
+\end{definition}
+Therefore \(I\) is also an inverse system.
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item In the system of finite index subgroups of \(\Z\), one cofinal system is \(\{n! \Z\}\).
+  \item If \(k \in J\), then \(J_{\leq k} = \{j \in J: j \leq k\}\) is a \emph{principal cofinal system}.
+  \item A cofinal system of \(\N^{\text{op}}\) is the same as an increasing sequence of integers.
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}[linearly ordered inverse system]\index{inverse systme!linearly ordered}
+  An inverse system is \emph{linearly ordered} if it is isomorphic to \(\N^{\text{op}}\).
+\end{definition}
+
+\begin{proposition}
+  Let \(J\) be a countable inverse system. Then \(J\) has a linearly ordered cofinal system.
+\end{proposition}
+
+\begin{proof}
+  Example sheet 1.
+\end{proof}
+
+\begin{proposition}
+  Let \((X_j)\) be an inverse system of (finite) sets. Let \(I \subseteq J\) be a cofinal system. Then \(\varprojlim_{j \in J} X_j \cong \varprojlim_{i \in I} X_i\).
+\end{proposition}
+
+\begin{proof}
+  We prove the proposition for profinite groups. Let \(G = \varprojlim_{j \in J} G_j, H = \varprojlim_{i \in I} G_i\). The map \(\prod G_j \to \prod G_i\) is a continuous homomorphism and restricts to a map \(f: G \to H\). Remains to check this is a bijection. Suppose \((g_j) \in \ker f\), then \(p_i(g) = g_i = 1\) for all \(i \in I\). For every \(j \in J\) exists \(i \in I\) such that \(i \leq j\) so \(g_j = \varphi_{ij}(g_i) = 1\). Thus \((g_j) = 1\). For surjectivity, let \((g_i) \in H\). For \(j \notin I\), let \(i \in I\) be such that \(i \leq j\) and set \(g_j = \varphi_{ij}(g_i)\). It is well-defined and \((g_j) \in G\).
+\end{proof}
+
+\section{Profinite groups}
+
+\subsection{\(\Z_p\), the \(p\)-adic integers}
+
+Let \(p\) be a prime. Consider the inverse system
+\[
+  \begin{tikzcd}
+    \cdots \ar[r] & \Z/p^n \ar[r] & \cdots \ar[r] & \Z/p^2 \ar[r] & \Z/p \ar[r] & 1
+  \end{tikzcd}
+\]
+of finite rings. The inverse limit is the profinite ring \emph{\(p\)-adic integers}\index{\(p\)-adic integer}
+\[
+  \Z_p = \varprojlim \Z/p^n.
+\]
+An element \(\alpha \in \Z_p\) is a sequence \((a_n)\) of elements of \(\Z/p^n\) such that \(a_n = a_m \bmod{p^n}\) if \(n \geq m\), where \(a_n = \alpha \pmod{p^n} = p_n(a)\).
+
+Addition and multiplication are done component-wise. One way to get such \(\alpha\) is to take \(a \in \Z\) and let \(a_n\) be reductions mod \(p^n\) of \(a\). This gives \(\iota: \Z \to \Z_p\).
+
+\begin{definition}[pro-\(p\) group, pro-\(p\) completion]\index{pro-\(p\) group}\index{pro-\(p\) completion}
+  A \emph{pro-\(p\) group} is an inverse limit of \(p\)-groups.
+
+  The \emph{pro-\(p\) completion} of \(\Gamma\) is
+  \[
+    \hat \Gamma_{(p)} = \varprojlim_{\substack{N \normal \Gamma \\ \Gamma/N \text{ a \(p\)-group}}} \Gamma/N.
+  \]
+\end{definition}
+
+Therefore \(\Z_p = \hat \Z_{(p)}\). Usually we suppress \(\iota\) and regard \(\Z \subseteq \Z_p\).
+
+There is a natural metric on \(\Z_p\): let \(\alpha = (a_n), \beta = (b_n)\). If \(\alpha = \beta\) then \(d(\alpha, \beta) = 0\). Otherwise let \(n\) be the smallest integer such that \(a_n \ne b_n\) and set \(d(\alpha, \beta) = p^{-n}\). The restriction of this metric to \(\Z\) is the ``\(p\)-adic metric'' on \(\Z\).
+
+The open ball is
+\begin{align*}
+  B(0, r)
+  &= \{(a_n): a_m = 0 \text{ for } p^{-m} \geq r\} \\
+  &= \{(a_n): a_m = 0 \text{ for } m \leq -\log_p r\} \\
+  &= \ker(\Z_p \to \Z/p^{\floor{-\log_p r}})
+\end{align*}
+which is an open subgroup of \(\Z_p\).
+
+
+
+
+
+\printindex
+\end{document}
+
+% https://www.dpmms.cam.ac.uk/~grw46/partiiiprofinite.html

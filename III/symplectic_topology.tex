@@ -1,0 +1,335 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Symplectic Topology}
+\def\nlecturer{A.\ Keating}
+
+\def\nterm{Lent}
+\def\nyear{2020}
+
+\input{header}
+
+\renewcommand*{\P}{\mathbb{P}}
+\newcommand{\w}{\wedge} % wedge product
+\DeclareMathOperator{\Vect}{Vect} % vector field
+\DeclareMathOperator{\Vol}{Vol} % volume form
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction and Motivations}
+
+Let \(M\) be a manifold. In Riemannian geometry, we put a nondegenerate symmetric bilinear form on \(T_xM\). In symplectic geometry we put a non-degenerate skew symmetric form instead. By basic linear algebra, by a change of basis, such a form is
+\[
+  \Omega =
+  \begin{pmatrix}
+    0 & 1 \\
+    -1 & 0 \\
+    & & \ddots \\
+    & & & 0 & 1 \\
+    & & & -1 & 0
+  \end{pmatrix}
+\]
+We define the \emph{symplectic group} to be
+\[
+  \Sp_{2n}(\R) = \{A \in \GL_{2n}(\R): A^T\Omega A = \Omega\}.
+\]
+
+A symplectic manifold is a \(2n\)-manifold \(M^{2n}\) with an atlas of charts such that the derivatives of transition maps are in \(\Sp_{2n}(\R)\). We will prove that this is equivalent to \((M^{2n}, \omega)\), where \(\omega \in \Omega^2(M)\) closed (\(\d \omega = 0\)), everywhere nondegenerate (\(\omega^{\w n} \ne 0\)) at all points.
+
+\begin{ex}
+  \((\R^{2n}, \sum \d x_i \w \d y_i)\) gives \(\Omega\) with respect to \(\frac{\partial  }{\partial x_i}, \frac{\partial  }{\partial y_i}\). We call this sympletic form \(\omega_{\text{std}}\).
+\end{ex}
+
+In fact, this example is the ``local model'' for all symplectic manifolds. In other words, they have no local invariants.
+
+Motivation 1: mechanices. Given a particle in \(\R^n\) and a potential \(U\), define \(H = U + \frac{\dot q^2}{2}\) to be the energy. Then we can work out the flow of Hamilton's equations
+\[
+  \frac{\partial H}{\partial p} = \dot q, \frac{\partial H}{\partial q} = - \dot p.
+\]
+It is a fact that the flow preserves the symplectic form \(\sum \d p_i \w \d q_i\).
+
+Motivation 2: symmetry groups. We want to classify groups acting locally on \(\R^k\) such that
+\begin{itemize}
+\item act locally transitively (or reduce dim - orbit)
+\item noo invariant foliations: not of the form \((x, y) \mapsto (f(x), g(x, y))\) (or reduce dimension).
+\end{itemize}
+
+\begin{theorem}[Lie]
+  If such a group is finite dimensional, it is one of finitely many families (e.g.\ \(\SO(n), \SU(n), \SO(p, q)\) etc).
+\end{theorem}
+
+\begin{theorem}[Cartan]
+  If such a group is infinite dimensional, it is one of
+  \begin{itemize}
+  \item \(\operatorname{Diff}(\R^k)\): all diffeomorphisms (preserving orientation),
+  \item \(\operatorname{Vol}(\R^k)\): all diffeomorphisms preserving volume form,
+  \item \(\operatorname{Symp}(\R^{2\ell})\): symplectomorphisms, i.e.\ diffeomorphisms preserving symplectic structure,
+  \item \(\operatorname{Cont}(\R^{2\ell + 1})\): contactomorphism (odd dimensional analogue of symplectormorphism)
+  \item and their conformal analogues.
+  \end{itemize}
+\end{theorem}
+
+Motivation 3: difference with volume. WeAs \(A \in \Sp_{2n}(\R)\) implies \(\det A = 1\), we have inclusion \(\operatorname{Symp}(\R^{2n}) \subseteq \operatorname{Vol}(\R^{2n})\).
+
+\begin{theorem}[Moser]\leavevmode
+  \begin{enumerate}
+  \item Two volume forms on a closed manifold are equivalent if and only if they have the same total volume.
+  \item Suppose \(U, V\) are connected open in \(\R^k\). There is a volume form-preserving \(U \embed V\) if and only if \(\operatorname{vol}(U) \leq \operatorname{vol}(V)\).
+  \end{enumerate}
+\end{theorem}
+
+By contrast
+
+\begin{theorem}[Gromov non-squeezing]
+  There is no symplectic embedding \(B^{2n}(R) \embed B^2(r) \times \R^{2n - 2}\) if \(R > r\).
+\end{theorem}
+
+Motivation 4: complex geometry. Any smooth affine variety has a natural symplectic form
+
+Course outline:
+\begin{itemize}
+\item background: extra bit of differential geometry, almost complex structure, first Chern class,
+\item basic symplecti geometry: distinguished submanifolds, local models, some constants on symplectic manifolds,
+\item constructions: e.g.\ new sympletric manifolds from old,
+\item holomorphic curves: invariants given by generalisation of Cauchy-Riemann equations, proof of non-squeezing theorem
+\end{itemize}
+
+\section{(More) Differential geometry}
+
+\paragraph{Tensor algebra}
+
+Let \(E\) be a vector space over \(\F\). We define the \emph{tensor algebra} of \(E\) to be
+\[
+  T(E) = \bigoplus_{i \geq 0} E^{\otimes i}
+\]
+where \(E^{\otimes 0} \cong \F\). Then we define the \emph{exterior algebra} to be
+\[
+  \Lambda^*E = T(E)/\langle v \otimes v \rangle_{\text{as algebra}}
+\]
+which has a natural grading \(\Lambda^*E = \bigoplus_{k \geq 0} \Lambda^kE\),
+\[
+  \Lambda^kE = E^{\otimes k}/\langle w_1 \otimes \cdots \otimes w_k: w_i = w_j \text{ for some } i \ne j \rangle_{\text{as vector space}}
+\]
+If \(\dim_\F E = n\) then \(\dim \Lambda^*E = 2^n, \dim \Lambda^kE = \binom{n}{k}\). The tensor product on \(T(E)\) induces wedge product on \(\Lambda^*(E)\) which is bilinear, associative and graded commutative.
+
+If \(A: E \to F\) is a linear map then it induces a map \(\Lambda^k A: \Lambda^k E \to \Lambda^k F\). In \(\dim E = \dim F = n\) then we can identify \(\Lambda^nA: \Lambda^nE \to \Lambda^nF\) can be identified with \(\det A: \F \to \F\).
+
+\paragraph{Vector fields and differential forms}
+
+Suppose \(M^n\) is a manifold\footnote{In this course all manifolds are assumed to be smooth unless stated otherwise.}. Then we have the tangent and cotangent bundle \(TM, T^*M\). \emph{Vector fields} and \emph{\(k\)-forms} on \(M\) are defined to be
+\begin{align*}
+  \Vect(M) &= \Gamma(TM) = \Gamma(M, TM) \\
+  \Omega^k(M) &= \Gamma(M, \Lambda^kT^*M)
+\end{align*}
+The \(0\)-forms are also the smooth functions on \(M\), \(C^\infty(M) = \Omega^0(M)\).
+
+In local coordinates \(x_1, \dots, x_n\) on \(M\), \(X \in \Vect(M)\) can be written locally as
+\[
+  X_p = \sum_{i = 1}^n X^i \frac{\partial  }{\partial x_i}|_p
+\]
+where each \(X^i\) is a smooth function.
+
+Given \(X \in \Vect(M), f \in C^\infty(M)\), we can differentiate \(f\) along \(X\) by \((Xf)_p = X_p(f)\). In local coordinates,
+\[
+  (Xf)_p = \sum X^i(p) \frac{\partial f}{\partial x_i}|_p.
+\]
+We can check this is well-defined and it is a derivation in the sense that \(X(fg) = fX(g) + gX(f)\).
+
+\paragraph{Pullbacks}
+
+Suppose \(f: M \to N\) is smooth. It induces \(f^*: C^\infty(M) \to C^\infty(N), g \mapsto g \compose f\) and also induces a function on \(1\)-forms by \((f^*\varphi)_x = (Df_*)^* (\varphi_{f(x)})\). It then induces \(f^*: \Omega^*(N) \to \Omega^*(M)\) with the properties that
+\begin{enumerate}
+\item \(f^*\) is linear and \(f^*(\varphi \w \theta) = f^*\varphi \w f^* \theta\).
+\item \((f \compose g)^* \varphi = g^*f^* \varphi\)
+\end{enumerate}
+
+\paragraph{Differential on \(\Omega^*(M)\)}
+
+Let \(U \subseteq M\) be a chart with coordinates \(x_i\). Then a local basis for \(\Lambda^kU\) is \(\{\d x_I = \d x_{i_1} \w \cdots \w \d x_{i_k}\}\) where \(I = \{i_1 < \dots < i_k\}\). If \(\varphi: U \to \R\) then we have
+\begin{align*}
+  \d: C^\infty(M) &\to \Omega^1(M) \\
+  \varphi &\mapsto \d \varphi = \sum \frac{\partial \varphi}{\partial x_i} \d x_i
+\end{align*}
+Note that \((\d \varphi)X = X\varphi \in C^\infty(M)\). In general, if \(\varphi = \sum \varphi_i \d x_I \in \Omega^k(M)\) where \(\varphi_I\) smooth functions, then \(\d \varphi = \sum \d \varphi_I \w \d x_I\). Can check this is well-defined and satisfies
+\begin{enumerate}
+\item \(\d (\varphi_1 + \varphi_2) = \d \varphi_1 + \d \varphi_2\),
+\item \(\d (\varphi_1 \w \varphi_2) = \d \varphi_1 \w \varphi_2 + (-1)^k \varphi_1 \w \d \varphi_2\) if \(\varphi_1 \in \Omega^k\),
+\item \(\d^2 = 0\),
+\item \(\d (f^*\varphi) = f^*(\d \varphi)\).
+\end{enumerate}
+Moreover we can show these properties uniquely determines \(\d\).
+
+It follows that we have the \emph{de Rham complex}
+\[
+  \begin{tikzcd}
+    0 \ar[r] \Omega^0(M) \ar[r, "\d"] & \Omega^1(M) \ar[r, "\d"] & \Omega^2(M) \ar[r] & \cdots \ar[r, "\d"] & \Omega^n(M) \ar[r] & 0
+  \end{tikzcd}
+\]
+which gives rise to de Rham cohomology \(H^*_{\text{dR}}(M)\). By de Rham theorem this is isomorphic to \(H^*(M; \R)\), singular cohomology with coefficients in \(\R\). \((\Omega^*M, \w, \d)\) is the de Rham algebra. Morgan 1978 shows that it characterises the rational homotopy type of algebraic varieties.
+
+\paragraph{Isotopies and vector fields}
+
+\begin{definition}[isotopy]\index{isotopy}
+  A smooth map \(\rho: M \times \R \to M\) is an \emph{isotopy} if \(\rho_t = \rho(-, t): M \to M\) is a diffeomorphism for each \(t\) and \(\rho_0 = \id_M\).
+\end{definition}
+
+We could replace \(\R\) with open intervals containing \(0\).
+
+Given an isotopy \(\rho\), we get a time-dependent vector field, say \(v_t\), as follows:
+\[
+  v_t|_p = \frac{d}{ds} \rho_s(q)|_{s = t}
+\]
+where \(q = \rho_t^{-1}(p)\), i.e.
+\[
+  \frac{d \rho_t}{dt} = v_t \compose \rho_t.
+  \tag{\ast}
+\]
+
+Conversely, given a time-dependent vector field \(v_t\), if \(M\) is compact or if \(v_t\) is compactly supported, by Picard's theorem on existence of solutions to ODEs, there is an isotopy \(\rho\) such that \(\rho_0 = \id\) and the ODE (\(\ast\)) is satisfied. For compact \(M\) we have a one-to-one correspondence
+\[
+  \{\text{isotopies of } M\} \longleftrightarrow \{\text{time-dependent vector fields on } M\}.
+\]
+For non-compact \(M\), the flow still exists locally (i.e.\ at each point \(p\) for sufficiently small interval of time) by Picard(-Lindelöf).
+
+\begin{definition}\index{exponential map}
+  If \(v_t = v\) (independent of \(t\)), its flow is called the \emph{exponential map} of \(v\), denoted \(\exp(tv)\).
+\end{definition}
+
+Useful formula (III Differential Geometry Example sheet 2 question 3): for \(\theta \in \Omega^1(M), X, Y \in \Vect(M)\), have
+\[
+  \d \theta(X, Y) = X \theta(Y) - Y \theta(X) - \theta([X, Y]).
+\]
+
+\paragraph{Interior product}
+
+Suppose \(\alpha \in \Omega^{p + 1}(M), X \in \Gamma(TM)\), the we define the \emph{interior product} \(X \lrcorner \alpha = \iota_X a \in \Omega^p(X)\) to be
+\[
+  \iota_X(\alpha)(u) = \alpha(X \w u)
+\]
+for \(u \in \Gamma(\Lambda^pTM)\).
+
+\paragraph{Lie derivatives}
+
+DG ES2 Q 11*
+
+Let \(M\) be a manifold, \(X \in \Gamma(TM)\) a vector field. Then we have a local flow \(\varphi_t: M \to M\) for \(t \in (-\delta, \delta)\). Given \(\alpha \in \Omega^*(M)\), the \emph{Lie derivative} of \(\alpha\) with respect to \(X\) is
+\[
+  \mathcal L_X(\alpha) = \frac{d}{dt} (\varphi_t^*\alpha)|_{t = 0} \in \Omega^*(M)
+\]
+and has the same degree as \(\alpha\) if \(\alpha\) has pure degree. For \(V \in \Gamma(\Lambda^kTM)\), we similarly define
+\[
+  \mathcal L_XV = \frac{d }{d t}((\varphi_{-t})_*V)|_{t = 0}
+\]
+where \((\varphi_t)_* = \Lambda^k D\varphi_t\).
+
+Properties:
+\begin{enumerate}
+\item \(\mathcal L_Xf = Xf\) for \(f \in C^\infty(M)\).
+\item \(\mathcal L_X(Y) = [X, Y]\) for \(X, Y \in \Gamma(TM)\).
+\item \(\mathcal L_X(\d \alpha) = \d \mathcal L_X \alpha\) for \(\alpha \in \Omega^*(M)\).
+\item Cartan's formula: \(\mathcal L_X = \iota_X \compose \d + \d \compose \iota_X\).
+\item For a time-dependent \(X_t\) with flow \(\varphi_t\), \(\frac{d}{dt}(\varphi_t^*\alpha) = \varphi_t^* \mathcal L_{X_t}\alpha\) for \(\alpha \in \Omega^*(M)\).
+\end{enumerate}
+
+\begin{proof}[Sketch proof]\leavevmode
+  \begin{enumerate}
+  \item \(\mathcal L_X f = \frac{d}{dt}|_{t = 0} (f \compose \varphi_t) = Xf\).
+  \item Let \(\varphi_t\) be the flow of \(X\). Use the slightly unusual notation \(\varphi_t^*(Y)|_p = (D\varphi_t^{-1})(Y_{\varphi_t(p)})\). Check
+    \[
+      \varphi_t^*(Y)(f \compose \varphi_t) = Y(f) \compose \varphi_t
+    \]
+    so have
+    \[
+      \frac{\varphi_t^*(Y)(f \compose \varphi_t) - \varphi_t^*(Y)(f)}{t} + \frac{\varphi_t^*(Y)(f) - Y(f)}{t} = \frac{Y(f) \compose \varphi_t - Y(f)}{t}
+    \]
+    take limit as \(t \to 0\),
+    \[
+      YX(f) + \mathcal L_X(Y)(f) = XY(f).
+    \]
+  \item Omitted.
+  \item General strategy: check the formula holds for \(0\)-forms, both sides commute with \(\d\), both sides are derivations for \((\Omega^*(M), \w)\), and use the fact that the equations are local and for a local coordinate patch \(U\), \(\Omega^*(U)\) is generated as an algebra by \(\Omega^0(U)\) and \(\d \Omega^0(U)\).
+  \item Same as 4.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  For a smooth family \(\alpha_t \in \Omega^k(M)\),
+  \[
+    \frac{d}{dt}(\varphi_t^* \alpha_t) = \varphi_t^*(\mathcal L_{X_t} \alpha_t + \frac{d \alpha_t}{dt}).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Treat LHS as the derivative of a function of two variables,
+  \[
+    \frac{d}{dt}(\varphi_t^* \alpha_t)
+    = \frac{d}{dx}(\varphi_x^* \alpha_t)|_{x = t} + \frac{d}{dy}(\varphi_t^* \alpha_y)|_{y = t}
+    = \varphi_t^*\mathcal L_{X_t}\alpha_t + \varphi_t^* \frac{d\alpha_t}{dt}.
+  \]
+\end{proof}
+
+\paragraph{Oreintations}
+
+Let \(E\) be an \(n\)-dim \(\R\) vector space. Then an orientation on \(E\) is an equivalence class of ordered basis \((e_1, \dots, e_n)\) under the equivalence relation \((e_1, \dots, e_n) \sim (f_1, \dots, f_n)\) if and only if the endomorphism \(A: e_i \mapsto f_i\) has \(\det A > 0\).
+
+Let \(\pi: E \to B\) be a rank \(k\) real vector bundle. An orientation on \(E\) is a coherent choice of orientations on each fibre \(E_b\), where ``coherent'' means that for local trivialisation \(\pi^{-1}(U) \cong \R^k \times U\), the choice is constant.
+
+Let \(M^n\) be a manifold. An orientation of \(M\) is an orientation of \(TM\) (if exists). We will denote by \(\overline M\) the manifold \(M\) with opposite orientation. If \(M^n\) is a manifold with boundary \(\p M\), an orientation of \(M\) induces an orientation on \(\p M\): a basis \((e_1, \dots, e_{n - 1})\) for \(T_x(\p M)\) is positively oriented if \((n_x, e_1, \dots, e_{n - 1})\) is for ``\(T_xM\)'', where \(n_x\) is the outward pointing normal vector.
+
+Note if \(M\) is a compact oriented \(1\)-manifold with boundary the \(\sum_{p \in \p M} \operatorname{or}(p) = 0\).
+
+\paragraph{Integration}
+
+In vector calculus, we have if \(f: (U, x_i) \to (V, y_i)\) is a diffeomorphism of open subsets of \(\R^k\), then
+\[
+  \int_V a dy_1 \cdots dy_k = \int_U (a \compose f) |\det(Df)| dx_1 \cdots dx_k.
+\]
+In differential geometry we formulate integration in this way: for \(\varphi = a \d y_1 \w \cdots \w \d y_k\), if \(\varphi\) preserves orientation then
+\[
+  \int_V \varphi = \int_U f^* \varphi.
+\]
+
+\begin{lemma}
+  If \(X\) is an oriented \(k\)-manifold, there is a well-defined integration map
+  \[
+    \int_X: \Omega^k_c \to \R
+  \]
+  where \(\Omega^k_c\) are \(k\)-forms with compact support.
+\end{lemma}
+
+A \emph{volume form} on \(M^k\) is a nowhere zero section \(\d \Vol \in \Omega^k(M)\), which is equivalent to a choice of trivialisation \(\Lambda^kT^*M \cong \R \times M\). \(M\) is orientable if and only if \(\Lambda^kT^*M\) is trivial. Note that \(\d (\d \Vol) = 0\).
+
+\begin{theorem}[Stokes]
+  \[
+    \int_M \d \alpha = \int_{\p M} \alpha.
+  \]
+\end{theorem}
+
+\begin{corollary}
+  For \(X\) closed oriented, we have a surjection \(\int_X: H^k_{\text{dR}}(X) \to \R\).
+\end{corollary}
+
+\begin{proof}[Sketch proof]
+  Let \(U \subseteq \R^k_+\) be an open chart. Use linearity and partition of unity, it suffices to work in \(U\). Then use standard results from multivariate calculus/Fubini's theorem. See example sheet 1.
+\end{proof}
+
+
+
+
+
+
+
+\printindex
+\end{document}
+
+% Text
+% Cannas da Silva, Lectures on Symplectic Geometry
+% McDuff-Salamon, Introduction to Symplectic Topology
+% ---, J-holomoprhic curves and symplectic topology (more advanced)

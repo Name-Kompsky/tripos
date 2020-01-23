@@ -12,10 +12,11 @@
 
 \DeclareMathOperator{\Frac}{Frac}
 \DeclareMathOperator{\Div}{Div}
-
 \renewcommand*{\O}{\mathcal{O}}
 \DeclareMathOperator{\Cl}{Cl} % ideal class group
 \DeclareMathOperator{\Frob}{Frob} % Frobenius automorphism
+%\DeclareMathOperator{\sym}{sym} % symbol
+\DeclareMathOperator{\disc}{disc} % discriminant
 
 \begin{document}
 
@@ -2041,7 +2042,7 @@ To solve this problem we introduce the upper ramification groups. These are the 
 \(\varphi_{E/K}\) is a continuous piecewise linear function. The discontinuities of \(\varphi'_{E/K}(u)\) occur only at integer values of \(u\). Moreover \(\varphi_{E/K}(u)\) is strictly increasing and \(\varphi_{E/K}(0) = 0\) so \(\varphi_{E/K}: [0, \infty) \to [0, \infty)\) is a homeomorphism. We define \(\psi_{E/K} = \varphi_{E/K}^{-1}: [0, \infty) \to [0, \infty)\). Then \(\psi_{E/K}\) is also a strictly increasing piecewise linear homeomorphism.
 
 \begin{definition}[upper ramification group]\index{upper ramification group}
-  If \(v \in \R_{\geq 0}\), we define the \emph{\(v\)th upper ramification group} to be \(G^v = G_{\varphi_{E/K}(v)} \leq G = \gal(E/K)\).
+  If \(v \in \R_{\geq 0}\), we define the \emph{\(v\)th upper ramification group} to be \(G^v = G_{\psi_{E/K}(v)} \leq G = \gal(E/K)\).
 
   We say \(v\) is a jump in the upper ramification group if \(G^v \ne G^{v + \varepsilon}\) for any \(\varepsilon > 0\).
 \end{definition}
@@ -2136,23 +2137,23 @@ Warning: by definition, the jumps in the lower ramification groups \(G_u\) can o
   Note the map \(\gal(\Q_2(\sqrt 2, i)/\Q_2) \to \gal(\Q_2(\sqrt 2)/\Q_2)\) has kernel \(\{1, t\}\) and \(\im(\gal(\Q_2(\sqrt 2, i)/\Q_2)^v) = \gal(\Q_2(\sqrt 2)/\Q_2)^v\) for any \(v \in \R_{\geq 0}\).
 \end{eg}
 
-To show this works in general, we introduce some more notations. Given a Galois extension \(E/K\) of CDVFs with \(k_E/k_K\) separable and \(G = \gal(E/K)\), we define \(\iota_G: G \to \Z_{\geq 0} \cup \{\infty\}\) by
+To show this works in general, we introduce some more notations. Given a Galois extension \(E/K\) of CDVFs with \(k_E/k_K\) separable and \(G = \gal(E/K)\), we define \(i_G: G \to \Z_{\geq 0} \cup \{\infty\}\) by
 \[
-  \iota_G(1) = \infty, \iota_G(s) = \sup \{i: s \in G_{i - 1}\} = 1 + \sup \{i: s \in G_i\}
+  i_G(1) = \infty, i_G(s) = \sup \{i: s \in G_{i - 1}\} = 1 + \sup \{i: s \in G_i\}
 \]
-so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
+so in general \(i_G(s) \geq i + 1\) if and only if \(s \in G_i\).
 
 \begin{lemma}
   For any \(u \in \R_{\geq 0}\) we have
   \[
-    \varphi(u) + 1 = \frac{1}{|G_0|} \sum_{s \in G} \min(\iota_G(s), u + 1).
+    \varphi(u) + 1 = \frac{1}{|G_0|} \sum_{s \in G} \min(i_G(s), u + 1).
   \]
 \end{lemma}
 
 \begin{proof}
   Both sides are continuous, piecewise linear and linear away from integer value of \(u\) and
   \[
-    \mathrm{LHS}(0) = 1, \mathrm{RHS}(0) = \frac{1}{|G_0|} \sum_{s \in G} \min(1_G(s), 1) = \frac{1}{|G_0|} \sum_{s \in G_0} 1 = 1.
+    \mathrm{LHS}(0) = 1, \mathrm{RHS}(0) = \frac{1}{|G_0|} \sum_{s \in G} \min(i_G(s), 1) = \frac{1}{|G_0|} \sum_{s \in G_0} 1 = 1.
   \]
   To show they are equal it's enough to show for any \(i \in \Z_{\geq 0}\) and for any \(t \in (i, i + 1)\), \(\mathrm{LHS}'(t) = \mathrm{RHS}'(t)\).
   \begin{align*}
@@ -2161,9 +2162,9 @@ so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
   \end{align*}
   We have
   \[
-    \min(1_G(s), u + 1) =
+    \min(i_G(s), u + 1) =
     \begin{cases}
-      1_G(s) & 1_G(s) \leq u + 1 \\
+      i_G(s) & i_G(s) \leq u + 1 \\
       u + 1 & i_G(s) \geq u + 1
     \end{cases}
   \]
@@ -2175,18 +2176,18 @@ so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
       1 & i_G(s) \geq t + 1
     \end{cases}
   \]
-  Note \(s \in G_i\) if and only if \(i_G(s) \geq i + 1\) and \(s \in G_t\) if and only if \(i_T(s) \geq t + 1\). Hence
+  Recall \(s \in G_i\) if and only if \(i_G(s) \geq i + 1\) so
   \[
-    \mathrm{RHS}'(t) = 
+    \mathrm{RHS}'(t) = \frac{1}{|G_0|} \sum_{s \in G_t} 1 = [G_0: G_t]^{-1} = \mathrm{LHS}'(t).
   \]
 \end{proof}
 
 \begin{lemma}
-  Suppose exists \(\alpha \in A_E\) such that \(A_E = A_K[\alpha]\). Then \(\iota_G(s) = v_E(s(\alpha) - \alpha)\).
+  Suppose exists \(\alpha \in A_E\) such that \(A_E = A_K[\alpha]\). Then \(i_G(s) = v_E(s(\alpha) - \alpha)\).
 \end{lemma}
 
 \begin{proof}
-  By definition, \(s \in G_i\) if and only if \(s\) acts trivially \(A_E/(\pi_E^{i + 1})\), which is generated as a ring by image of \(A_K\) and \(\alpha\), so if and only if \(s\) acts trivially on the image of \(\alpha\) in \(A_E/(\pi_E^{i + 1})\), if and only if \(s(\alpha) = \alpha \pmod{\pi_E^{i + 1}}\).
+  By definition, \(s \in G_i\) if and only if \(s\) acts trivially on \(A_E/(\pi_E^{i + 1})\), which is generated as a ring by the image of \(A_K\) and \(\alpha\), so if and only if \(s\) acts trivially on the image of \(\alpha\) in \(A_E/(\pi_E^{i + 1})\), if and only if \(s(\alpha) = \alpha \pmod{\pi_E^{i + 1}}\).
 \end{proof}
 
 \begin{lemma}
@@ -2194,17 +2195,17 @@ so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
 \end{lemma}
 
 \begin{proof}
-  By Nakayama, it's enough to find \(\alpha\) such that \(A_K[\alpha] \to A_E/(\pi_K)\) is surjective. Let \(\overline y \in k_E\) be a primitive element and \(\overline f(X) \in k_K[X]\) be its primitive polynomial, \(f(X) \in A_K[X]\) a choice of monic lift of \(\overline f(X)\), and \(y \in A_E\) the unique root of \(f(X)\) such that \(y \pmod{\pi_E} = \overline y\). Since \(\overline f(X)\) is separable, \(\overline f'(\overline y) \neq 0\) so \(f'(y) \in A_E^\times\). Thus
+  By Nakayama, it's enough to find \(\alpha\) such that \(A_K[\alpha] \to A_E/(\pi_K)\) is surjective. Let \(\overline y \in k_E\) be a primitive element and \(\overline f(X) \in k_K[X]\) be its minimal polynomial, \(f(X) \in A_K[X]\) a choice of monic lift of \(\overline f(X)\), and \(y \in A_E\) the unique root of \(f(X)\) such that \(y \pmod{\pi_E} = \overline y\). Since \(\overline f(X)\) is separable, \(\overline f'(\overline y) \neq 0\) so \(f'(y) \in A_E^\times\). Thus
   \[
     f(y + \pi_E) = f(y) + f'(y) \pi_E + \pi_E^2 z
   \]
-  has valuation \(1\) and is a uniformiser for \(A_E\). Moreover \(A_K[y + \pi_E] \to k_E\) sends \(y + \overline y\) so is surjective, so we can choose a set \(X \subseteq A_E\) of representative for \(k_E\) with \(0 \in X\) and \(X \subseteq A_K[y + \pi_K]\). Then any element of \(A_E/(\pi_K) = A_E/(\pi_E^{e_{E/K}})\) has a unique representative of the form \(\sum_{i = 0}^{e_{E/K} - 1} a_i f(y + \pi_E)\) with \(a_i \in X\). But this lies in \(A_K[y + \pi_E]\) so \(A_E = A_K[y + \pi_E]\).
+  has valuation \(1\) and is a uniformiser for \(A_E\). Moreover \(A_K[y + \pi_E] \to k_E\) sends \(y + \pi_E \mapsto \overline y\) so is surjective, so we can choose a set \(X \subseteq A_E\) of representative for \(k_E\) with \(0 \in X\) and \(X \subseteq A_K[y + \pi_K]\). Then any element of \(A_E/(\pi_K) = A_E/(\pi_E^{e_{E/K}})\) has a unique representation of the form \(\sum_{i = 0}^{e_{E/K} - 1} a_i f(y + \pi_E)\) with \(a_i \in X\). But this lies in \(A_K[y + \pi_E]\) so \(A_E = A_K[y + \pi_E]\).
 \end{proof}
 
 \begin{lemma}
   Let \(H \trianglelefteq G, L = E^H\) so \(\gal(L/K) = G/H\). Let \(s \in G\). Then
   \[
-    \iota_{G/H}(sH) = \frac{1}{e_{E/L}} \sum_{t \in H} \iota_G(st).
+    i_{G/H}(sH) = \frac{1}{e_{E/L}} \sum_{t \in H} i_G(st).
   \]
 \end{lemma}
 
@@ -2219,22 +2220,22 @@ so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
   \]
   Then
   \begin{align*}
-    \iota_{G/H}(sH) &+ v_L(s(\beta) - \beta) = \frac{1}{e_{E/L}} v_E(s(\beta) - \beta) \\
-    \iota_G(st) &= v_E(st(\alpha) - \alpha)
+    i_{G/H}(sH) &= v_L(s(\beta) - \beta) = \frac{1}{e_{E/L}} v_E(s(\beta) - \beta) \\
+    i_G(st) &= v_E(st(\alpha) - \alpha)
   \end{align*}
   for \(t \in H\). We need to show
   \[
-     \frac{1}{e_{E/L}} v_E(s(\beta) - \beta) = \frac{1}{e_{E/L}} \sum_{t \in H} ...
+     \frac{1}{e_{E/L}} v_E(s(\beta) - \beta) = \frac{1}{e_{E/L}} \sum_{t \in H} v_E(st(\alpha) - \alpha)
   \]
   or equivalently,
   \[
-    v_E(s(\beta) - \beta) = \v_E(\prod_{t \in H} (st(\alpha) - \alpha)).
+    v_E(s(\beta) - \beta) = v_E(\prod_{t \in H} (st(\alpha) - \alpha)).
   \]
-  Let \(f(X) \in A_L[X]\) be the minimal polynomial of \(\alpha\) over \(L\). Then \(f(X) = \prod_{t \in H} (X - t(\alpha))\). If \(s(f)(X)\) denotes the polynomial where \(s\) acts on the coefficients of \(f(X)\) then \(s(f)(X) = \prod_{t \in H} (X - st(\alpha))\) and \(s(f(\alpha) = \dots\). Write \(f(X) = \sum a_i X^i, s(f)(X) = \sum s(a_i)X^i\) for \(a_i \in A_L\). Then
+  Let \(f(X) \in A_L[X]\) be the minimal polynomial of \(\alpha\) over \(L\). Then \(f(X) = \prod_{t \in H} (X - t(\alpha))\). Let \(s(f)(X)\) denote the polynomial where \(s\) acts on the coefficients of \(f(X)\) so \(s(f)(X) = \prod_{t \in H} (X - st(\alpha))\) and \(s(f)(\alpha) = \prod_{t \in H}(\alpha - st(\alpha))\). Write \(f(X) = \sum a_i X^i, s(f)(X) = \sum s(a_i)X^i\) for \(a_i \in A_L\). Then
   \[
-    s(f)(\alpha) = s(f)(\alpha) - f(\alpha) = \sum (s(a_i) - a_i) \alpha^i
+    s(f)(\alpha) = s(f)(\alpha) - f(\alpha) = \sum (s(a_i) - a_i) \alpha^i.
   \]
-  Since \(A_L = A_K[\beta]\), andy \(a \in A_L\) satisfies \(s(a) - a\) is divisible by \(s(\beta) - \beta\) (?) so \(s(\beta) - \beta \divides s(f)(\alpha) = \prod_{t \in H}(\alpha - st(\alpha))\). Thus
+  Since \(A_L = A_K[\beta]\), for \(a \in A_L\), \(s(a) - a\) is divisible by \(s(\beta) - \beta\) so \(s(\beta) - \beta \divides s(f)(\alpha) = \prod_{t \in H}(\alpha - st(\alpha))\). Thus
   \[
     v_E(s(\beta) - \beta) \leq v_E(\prod_{t \in H}(\alpha - st(\alpha))).
   \]
@@ -2251,26 +2252,24 @@ so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
 \end{proof}
 
 \begin{lemma}
-  Suppose \(H \trianglelefteq G\) and \(L = E^H\). Define \(j: G/H \to \Z_{\geq 0} \cup \{\infty\}\) by \(j(sH) = \sup_{t \in H} \iota_G(st)\). Then
+  Suppose \(H \trianglelefteq G\) and \(L = E^H\). Define \(j: G/H \to \Z_{\geq 0} \cup \{\infty\}\) by \(j(sH) = \sup_{t \in H} i_G(st)\). Then
   \[
-    \iota_{G/H}(sH) = 1 + \varphi_{E/L}(j(sH) - 1).
+    i_{G/H}(sH) = 1 + \varphi_{E/L}(j(sH) - 1).
   \]
 \end{lemma}
 
 \begin{proof}
-  LHS is \(\frac{1}{e_{E/L}} \cdots\) and by last time
-  \[
-    RHS = \frac{1}{|H_0|} \sum_{t \in H} \min(\iota_H(t), j(sH)).
-  \]
-  Note that \(e_{E/L} = |H_0|\) and for all \(t \in H\), \(\iota_G(t) = \iota_H(t)\) (as both sides equal \(v_E(t(\alpha) - \alpha)\) where \(A_E = A_K[\alpha]\)), we can assume that thre representatives for \(sH\) is chosen so that \(j(sH) = \iota_G(s)\) or equivalently for all \(t \in H\), \(\iota_G(st) \leq i_G(s)\).
-
-  We need to show
+  Recall that
+  \begin{align*}
+    \mathrm{LHS} &= \frac{1}{e_{E/L}} \sum_{t \in H} i_G(st) \\
+    \mathrm{RHS} &= \frac{1}{|H_0|} \sum_{t \in H} \min(i_H(t), j(sH))
+  \end{align*}
+  Note that \(e_{E/L} = |H_0|\) and for all \(t \in H\), \(i_G(t) = i_H(t)\) (as both sides equal \(v_E(t(\alpha) - \alpha)\) where \(A_E = A_K[\alpha]\)). We can assume that the representative for \(sH\) is chosen so that \(j(sH) = i_G(s)\) or equivalently for all \(t \in H\), \(i_G(st) \leq i_G(s)\). Therefore it suffices to show
   \[
     \sum_{t \in H} i_G(st) = \sum_{t \in H} \min(i_G(t), i_G(s)).
   \]
-  We will show for all \(t \in H\), \(i_G(st) = \min(i_G(t), i_G(s))\).
 
-  If \(m + 1 = \i_G(t) < i_G(s) = n + 1\) then \(t \in G_m \setminus G_n, s \in G_n\). Hence \(st \in G_m \setminus G_n\) so \(i_G(st) = i_G(t)\). On the other hand if \(i_G(t) \geq i_G(s)\) then \(i_G(st) \geq i_G(s)\). Since \(s\) was chosen so that for all \(t \in H\), \(i_G(st) \leq i_G(s)\), we get \(i_G(st) = i_G(s)\).
+  We will show for all \(t \in H\), \(i_G(st) = \min(i_G(t), i_G(s))\). If \(m + 1 = i_G(t) < i_G(s) = n + 1\) then \(t \in G_m \setminus G_n, s \in G_n\). Hence \(st \in G_m \setminus G_n\) so \(i_G(st) = i_G(t)\). On the other hand if \(i_G(t) \geq i_G(s)\) then \(i_G(st) \geq i_G(s)\). Since \(s\) was chosen so that for all \(t \in H\), \(i_G(st) \leq i_G(s)\), we get \(i_G(st) = i_G(s)\).
 \end{proof}
 
 \begin{theorem}[Herbrand]\index{Herbrand's theorem}
@@ -2285,18 +2284,18 @@ so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
 \end{proof}
 
 \begin{lemma}
-  We have \(\varphi_{E/K} = \varphi_{E/K} \compose \varphi_{E/L}\).
+  We have \(\varphi_{E/K} = \varphi_{L/K} \compose \varphi_{E/L}\).
 \end{lemma}
 
 \begin{proof}
-  Both sides are piecewise linear continuous functions \([0, \infty) \to [0, \infty)\) which take \(0\) at \(0\). It's enough to show derivatives coincide whenever this makes sense.
+  Both sides are piecewise linear continuous functions \([0, \infty) \to [0, \infty)\) which take \(0\) to \(0\) so it's enough to show derivatives coincide.
   \begin{align*}
     \mathrm{LHS}'(u) &= [G_0 : G_u]^{-1} \\
     \mathrm{RHS}'(u) &= \varphi'_{L/K}(\varphi_{E/L}(u)) \varphi'_{E/L}(u) \\
                     &= [(G/H)_0: (G/H)_{\varphi_{E/L}(u)}]^{-1} [H_0 : H_u]^{-1} \\
-                    &= [G_0H/H: G_uH/H]^{-1} [H_0: H_8]^{-1}  \text{ Herbrand}
+                    &= [G_0H/H: G_uH/H]^{-1} [H_0: H_u]^{-1}  \text{ Herbrand}
   \end{align*}
-  Now we use use group theory to deduce
+  Now use isomorphism theorem
   \[
     G_uH/H \cong G_u/G_u \cap H = G_u/H_u
   \]
@@ -2307,7 +2306,8 @@ so in general \(\iota_G(s) \geq i + 1\) if and only if \(s \in G_i\).
   so the result follows.
 \end{proof}
 
-Finally
+Finally we can deduce upper ramifications groups are compatible with quotients:
+
 \begin{theorem}
   For any \(v \geq 0\),
   \[
@@ -2316,7 +2316,7 @@ Finally
 \end{theorem}
 
 \begin{proof}
-  By definition \(G^v = G_{\varphi_{E/K}(v)}, (G/H)^v = (G/H)_{\psi_{L/K}(v)}, \varphi_{E/K} = \varphi^{-1}_{E/K}\). By the lemma \(\psi_{E/K} = \psi_{E/K} \compose \psi_{L/K}\), so Herbrand's theorem gives
+  By definition \(G^v = G_{\psi_{E/K}(v)}, (G/H)^v = (G/H)_{\psi_{L/K}(v)}\). \(\varphi_{E/K} = \varphi^{-1}_{E/K}\) so by the lemma \(\psi_{E/K} = \psi_{E/L} \compose \psi_{L/K}\). Herbrand gives
   \[
     (G/H)^v = (G/H)_{\psi_{L/K}(v)} = G_{\psi_{E/L}(\psi_{L/K}(v))} H/H
     = G_{\psi_{E/K}(v)} H/H = G^vH/H.
@@ -2324,16 +2324,16 @@ Finally
 \end{proof}
 
 \begin{definition}
-  Let \(E/K\) be an extension of CDVF (not necessarily Galois) with \(k_E/k_K\) separable. If \(v \in [0, \infty)\) then we define
+  Let \(E/K\) be an extension of CDVF (not necessarily Galois) with \(k_E/k_K\) separable. If \(v \in [0, \infty)\) we define
   \[
     E^v = E \cap L^{G^v}
   \]
-  where \(L/E\) is any extension of CDVFs with \(k_L/k_K\) separable, \(L/K\) Galois and \(G = \gal(L/K)\), so \(G^v \leq \gal(L/K)\). Thus \(E^v\) is an intermediate extension of \(E/K\).
+  where \(L/E\) is any extension of CDVFs with \(k_L/k_K\) separable, \(L/K\) Galois with \(G = \gal(L/K)\).
 \end{definition}
 
 This is independent of the choice of \(L\): it's enough to show that if \(L'/L\) is a further extension of CDVFs and \(L'/K\) is Galois then
 \[
-  E \cap L^{G'} = E \cap (L')^{(G')^v}
+  E \cap L^{G^v} = E \cap (L')^{(G')^v}
 \]
 where \(G' = \gal(L'/K)\). Let \(H = \gal(L'/L)\). Then
 \[
@@ -2348,8 +2348,8 @@ where the last equality is because \(E \subseteq L = (L')^H\).
       E^0 = E \cap L^{G^0} = E \cap L^{G_0} = E \cap L_0.
     \]
   \item If \(v \leq v'\) then \(E^v \subseteq E^{v'}\). For \(v \gg 0, E^v = E\).
-  \item If \(E/M/K\) is an intermediated extension then \(M^v = M \cap E^v\) (as both are \(M \cap L^{G^v}\) for \(L/E\) with \(L/K\) Galois).
-  \item If \(E/M, N/K\) are two intermediate extensions then \(M^v \cdot N^v \subseteq (M\cdot N)^v\) (as \((M \cap L^{G'}) \cdot (N \cap L^{G'}) \subseteq (M \cdot N) \cap L^{G^v}\)). Moreover if \(M^v = M, N^v = N\) then \((M \cdot N)^v = M \cdot N\).
+  \item If \(E/M/K\) is an intermediate extension then \(M^v = M \cap E^v\) (as both are \(M \cap L^{G^v}\) for \(L/E\) with \(L/K\) Galois).
+  \item If \(E/M, N/K\) are two intermediate extensions then \(M^v \cdot N^v \subseteq (M\cdot N)^v\) (as \((M \cap L^{G^v}) \cdot (N \cap L^{G^v}) \subseteq (M \cdot N) \cap L^{G^v}\)). Moreover if \(M^v = M, N^v = N\) then \((M \cdot N)^v = M \cdot N\).
   \end{enumerate}
 \end{proposition}
 
@@ -2502,18 +2502,6 @@ Recall that for any number field \(K\), \(|\Hom_\Q(K, \C)| = [K : \Q] = r + 2s\)
 
 If \(m = (m_0, m_\infty)\) and \(n = (n_0, n_\infty)\) are moduli, we write \(m \leq n\) if \(m_0 \divides n_0\) and \(m_\infty \subseteq n_\infty\).
 
-If \(L/K\) is an abelian extension, we can define its associated modulus \(m_{L/K} = (m_{L/K, 0}, m_{L/K, \infty})\) where
-\begin{align*}
-  m_{L/K, 0} &= C_{L/K} \\
-  m_{L/K, \infty} &=
-                    \left\{
-                    \begin{tabular}{c}
-                      \(\tau \in \Hom_\Q(K, \R)\): exist no \\
-                      \(\tilde \tau \in \Hom_\Q(L, \R)\) such that \(\tilde \tau|_K = \tau\)
-                    \end{tabular}
-                    \right\}
-\end{align*}
-
 Let \(K\) be a number field. We write \(\mathcal I = \Div \O_K, \mathcal P = \{I \in \mathcal I: \text{exists } \alpha \in K^\times \text{ such that } I = (\alpha)\}\) the principal fractional ideals. Then \(\mathcal I/\mathcal P\) is the \emph{ideal class group}\index{ideal class group} of \(\O_K\). Now let \(m = (m_0, m_\infty)\) be a modulus. We define
 \begin{align*}
   K(m_0) &= \left\{
@@ -2589,12 +2577,12 @@ Note \(\mathcal P_m\) is a subgroup of \(\mathcal P(m_0)\).
 \begin{proof}
   1 follows from 2 and the finiteness of \(H_K\) which is done in IID Number Fields. There's a short exact sequence
   \[
-    \begin{tikzcd}[row sep=small]
+    \begin{tikzcd}[row sep=scriptsize]
       0 \ar[r] & \mathcal P(m_0)/\mathcal P_m \ar[r] & \mathcal I(m_0)/\mathcal P_m \ar[r] \ar[d, equal] & \mathcal I(m_0)/\mathcal P(m_0) \ar[r] & 0 \\
       & & H(m)
     \end{tikzcd}
   \]
-  There is a homomorphism \(\mathcal I(m_0)/\mathcal P(m_0) \to \mathcal I/ \mathcal P = H_K\). This is injective as \(\mathcal P(m_0) = \mathcal P \cap \mathcal I(m_0)\). We need to show it's surjective, i.e.\ for any \(I \in \mathcal I\), exists \(\alpha \in K^\times\) such that \(\alpha^{-1} I \in \mathcal I(m_0)\). Write \(I = I_1 I_2^{-1}\) where \(I_1, I_2 \subseteq \O_K\) are non-zero ideal. By Chinese remainder theorem we can find \(\alpha_1, \alpha_2 \in \O_K\) such that for all \(P \subseteq \O_K, v_P(m_0) > 0\),
+  There is a homomorphism \(\mathcal I(m_0)/\mathcal P(m_0) \to \mathcal I/ \mathcal P = H_K\). This is injective as \(\mathcal P(m_0) = \mathcal P \cap \mathcal I(m_0)\). We need to show it's surjective, i.e.\ for any \(I \in \mathcal I\), exists \(\alpha \in K^\times\) such that \(\alpha^{-1} I \in \mathcal I(m_0)\). Write \(I = I_1 I_2^{-1}\) where \(I_1, I_2 \subseteq \O_K\) are non-zero ideal. By Chinese remainder theorem we can find \(\alpha_1, \alpha_2 \in \O_K\) such that for all \(P \subseteq \O_K\) such that \(v_P(m_0) > 0\),
   \[
     v_P(I_1) = v_P(\alpha_1), v_P(I_2) = v_P(\alpha_2).
   \]
@@ -2623,21 +2611,21 @@ Note \(\mathcal P_m\) is a subgroup of \(\mathcal P(m_0)\).
   \]
   We need to construct an isomorphism \(K(m_0)/K_m \to (\O_K/m_0)^\times \times \{\pm 1\}^{m_\infty}\). There is at least a homomorphism: we can think of
   \[
-    (\O_K/m_0)^\times \times \{\pm 1\}^{m_\infty} = \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_p}) \times \prod_{\tau \in m_\infty} (\R^\times/\R_{> 0})
+    (\O_K/m_0)^\times \times \{\pm 1\}^{m_\infty} = \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_P}) \times \prod_{\tau \in m_\infty} (\R^\times/\R_{> 0})
   \]
   For any \(P \subseteq \O_K\), there's an inclusion \(K^\times \subseteq K_P^\times\). If \(v_P(m_0) > 0\), this extends to an inclusion \(K(m_0) \subseteq A_{K_P}^\times\). The homomorphism we want is
   \begin{align*}
-    K(m_0) &\to \prod_{P: v_P(m_0) > 0} A_{K_P}^\times \times \prod_{\tau \in m_\infty} \R^\times \to \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_p}) \times \prod_{\tau \in m_\infty} (\R^\times/\R_{> 0}) \\
+    K(m_0) &\to \prod_{P: v_P(m_0) > 0} A_{K_P}^\times \times \prod_{\tau \in m_\infty} \R^\times \to \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_P}) \times \prod_{\tau \in m_\infty} (\R^\times/\R_{> 0}) \\
     \alpha &\mapsto ((\alpha)_P, (\tau(\alpha)))
   \end{align*}
-  The kernel equals \(K_m\) by definition. To complete the proof we need to show this homomorphism is injective. Let \(((x_P)_P, (\varepsilon_\tau)_\tau) \in \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_p}) \times \{\pm 1\}^{m_\infty}\). By Chinese remainder theorem exists \(x \in \O_K - \{0\}\) such that for all \(P, v_P(m_0) > 0\), \(x \pmod{m_0 A_{K_P}} = x_p\). In particular \(x \in K(m_0)\). It's not enough to prove that for any \((\varepsilon_\tau)_{\tau \in m_\infty}\), exists \(y \in \O_K - \{0\}\) such that for all \(P\) such that \(v_P(m_0) > 0\), \(y = 1 \pmod{m_0 A_{K_P}}\) and for all \(\tau \in m_\infty\), \(\operatorname{sym}(\tau(y)) = \varepsilon_\tau\). Equivalently, \(y = 1 \pmod{m_0}\) and for all \(\tau \in m_\infty\), \(\operatorname{sym}(\tau(y)) = \varepsilon_\tau\). Note \(m_0 \cap \Z\) is a non-zero ideal, so we can find \(N \geq 2\) such that \(N \in m_0 \cap \Z\). We can find \(\beta \in \O_K\) such that \(K = \Q(\beta)\). Let \(f(X) \in \Z[X]\) be the minimal polynomial of \(\beta\). Then
+  The kernel equals \(K_m\) by definition. To complete the proof we need to show this homomorphism is surjective. Let \(((x_P)_P, (\varepsilon_\tau)_\tau) \in \prod_{P: v_P(m_0) > 0} (A_{K_P}^\times/1 + m_0 A_{K_P}) \times \{\pm 1\}^{m_\infty}\). By Chinese remainder theorem exists \(x \in \O_K - \{0\}\) such that for all \(P\) such that \(v_P(m_0) > 0\), \(x \pmod{m_0 A_{K_P}} = x_P\). In particular \(x \in K(m_0)\). It's now enough to prove that for any \((\varepsilon_\tau)_{\tau \in m_\infty}\), exists \(y \in \O_K - \{0\}\) such that for all \(P\) such that \(v_P(m_0) > 0\), \(y = 1 \pmod{m_0 A_{K_P}}\) and for all \(\tau \in m_\infty\), \(\sgn(\tau(y)) = \varepsilon_\tau\). Equivalently, \(y = 1 \pmod{m_0}\) and for all \(\tau \in m_\infty\), \(\sgn(\tau(y)) = \varepsilon_\tau\). Note \(m_0 \cap \Z\) is a non-zero ideal, so we can find \(N \geq 2\) such that \(N \in m_0 \cap \Z\). We can find \(\beta \in \O_K\) such that \(K = \Q(\beta)\). Let \(f(X) \in \Z[X]\) be the minimal polynomial of \(\beta\). Then
   \begin{align*}
     \Hom_\Q(K, \C) &= \{\gamma \in \C: f(\gamma) = 0\} \\
     \Hom_\Q(K, \R) &= \{\gamma \in \R: f(\gamma) = 0\}
   \end{align*}
-  Let \(\gamma_\tau \in \R\) be \(\tau(\beta)\) for any \(\tau \in m_\infty\). We can find a polynomial \(g(X) \in \R[X]\) such that for all \(\tau \in m_\infty\), \(\operatorname{sym}(g(\gamma_\tau)) = \varepsilon_\tau\). Since \(\Q\) is dense in \(\R\), we can assume that \(g(X) \in \Q[X]\). By multiplying \(g(X)\) by a positive integer we can assume \(g(X) \in \Z[X]\). Then we take \(y = 1 + kNg(\beta)\) for some \(k \in \N\). Then \(y = 1 \pmod{m_0}\) as \(N \in m_0\). If \(k\) is large enough then
+  Let \(\gamma_\tau \in \R\) be \(\tau(\beta)\) for any \(\tau \in m_\infty\). We can find a polynomial \(g(X) \in \R[X]\) such that for all \(\tau \in m_\infty\), \(\sgn(g(\gamma_\tau)) = \varepsilon_\tau\). Since \(\Q\) is dense in \(\R\), we can assume that \(g(X) \in \Q[X]\). By multiplying \(g(X)\) by a positive integer we can assume \(g(X) \in \Z[X]\). Then we take \(y = 1 + kNg(\beta)\) for some \(k \in \N\). Then \(y = 1 \pmod{m_0}\) as \(N \in m_0\). If \(k\) is large enough then
   \[
-    \operatorname{sym}(\tau(y)) = \operatorname{sym}(1 + kN g(\gamma_\tau)) = \operatorname{sym}(g(\gamma_\tau)) = \varepsilon_\tau.
+    \sgn(\tau(y)) = \sgn(1 + kN g(\gamma_\tau)) = \sgn(g(\gamma_\tau)) = \varepsilon_\tau.
   \]
 \end{proof}
 
@@ -2651,24 +2639,421 @@ Note \(\mathcal P_m\) is a subgroup of \(\mathcal P(m_0)\).
 \end{eg}
 
 \begin{eg}
-  Let \(K = \Q(\sqrt d)\) where \(d \in \Z, d > 1\) square free. Then exists \(\varepsilon \in \O_K^\times\) such that \(\O_K^\times = \{\pm \varepsilon^\Z\}\) and there exist two distinct embeddings \(\sigma, \tau: K \to \R\) where \(\sigma(\sqrt d) > 0, \tau(\sqrt d) < 0\). Suppose \(H_K\) is trivial. Let \(m = (\O_K, \{\sigma, \tau\})\). Then
+  Let \(K = \Q(\sqrt d)\) where \(d \in \Z, d > 1\) squarefree. Then exists \(\varepsilon \in \O_K^\times\) such that \(\O_K^\times = \{\pm \varepsilon^\Z\}\) and there exist two distinct embeddings \(\sigma, \tau: K \to \R\) where \(\sigma(\sqrt d) > 0, \tau(\sqrt d) < 0\). Suppose \(H_K\) is trivial. Let \(m = (\O_K, \{\sigma, \tau\})\). Then
   \[
     H(m)
-    = \frac{\{\pm 1\} \times \{\pm 1\}}{\{(\operatorname{sym} \sigma(\alpha), \operatorname{sym} \tau(\alpha)): \alpha \in \O_K^\times\}}
-    \cong \frac{\{\pm 1\} \times \{\pm 1\}}{\langle (-1, -1), (\operatorname{sym} \sigma(\varepsilon), \operatorname{sym} \tau(\varepsilon)) \rangle}
+    = \frac{\{\pm 1\} \times \{\pm 1\}}{\{(\sgn \sigma(\alpha), \sgn \tau(\alpha)): \alpha \in \O_K^\times\}}
+    \cong \frac{\{\pm 1\} \times \{\pm 1\}}{\langle (-1, -1), (\sgn \sigma(\varepsilon), \sgn \tau(\varepsilon)) \rangle}
   \]
-  so two possibilities: either \(H(m)\) is trivial if \(sym \sigma(\varepsilon) \neq sym \tau(\varepsilon)\), or \(H(m)\) is cyclic of order \(2\) if \(\cdots =\). Note
+  so two possibilities for \(H(m)\): it is trivial if \(\sigma(\varepsilon)\) and \(\tau(\varepsilon)\) have different signs, or cyclic of order \(2\) if same sign. Note
   \[
     N_{K/\Q}(\varepsilon) = \sigma(\varepsilon) \tau(\varepsilon) =
     \begin{cases}
-      1 & = \\
-      -1 & \ne
+      1 & \sgn(\varepsilon) = \tau(\varepsilon) \\
+      -1 & \sgn(\varepsilon) \ne \tau(\varepsilon)
     \end{cases}
   \]
   They both occur: if \(d = 2\) then \(H_K = \{1\}\) and \(\varepsilon = 1 + \sqrt 2\) has norm \(N_{K/\Q}(\varepsilon) = 1 - 2 = -2\). If \(d = 3\) then \(H_K = \{1\}\) and \(\varepsilon = 2 + \sqrt 3\) has norm \(1\).
 \end{eg}
 
+\begin{theorem}[global class field theorem]\index{GCFT}\index{global class field theorem}
+  Let \(K\) be a number field and \(m\) a modulus of \(K\).
+  \begin{enumerate}
+  \item Let \(L/K\) be an abelian extension. Define its associated modulus\index{modulus} \(m_{L/K} = (m_{L/K, 0}, m_{L/K, \infty})\) where
+    \begin{align*}
+      m_{L/K, 0} &= C_{L/K} \\
+      m_{L/K, \infty} &=
+                        \left\{
+                        \begin{tabular}{c}
+                          \(\tau \in \Hom_\Q(K, \R)\): exist no \\
+                          \(\tilde \tau \in \Hom_\Q(L, \R)\) such that \(\tilde \tau|_K = \tau\)
+                        \end{tabular}
+      \right\}
+    \end{align*}
+    Define the homomorphism \(\psi_{L/K}: \mathcal I(C_{L/K}) \to \gal(L/K)\) as the unique homomorphism such that for any non-zero prime \(P \subseteq \O_K\) such that \(v_P(C_{L/K}) = 0, \psi_{L/K}(P) = (P, L/K)\). Suppose \(m_{L/K} \leq m\). Then \(\mathcal P_m \subseteq \ker \psi_{L/K}\) so \(\psi_{L/K}\) determines a homomorphism \(\phi_{L/K}: H(m) \to \gal(L/K)\) which is surjective.
+  \item The assignment \(L/K \mapsto \ker \phi_{L/K}\) defines an inclusion-reversing bijection
+    \[
+      \left\{
+        \begin{tabular}{c}
+          abelian extesion \(L/K\) \\
+          such that \(m_{L/K} \leq m\)
+        \end{tabular}
+      \right\}
+      \longleftrightarrow
+      \{\text{subgroup of } H(m)\}
+    \]
+    If \(L\) corresponds to \(H\) then \(\phi_{L/K}: H(m)/H \to \gal(L/K)\) is an isomorphism. In partciular the trivial subgroup of \(H(m)\) corresponds to the maximal abelian extension \(L(m)/K\) such that \(m_{L(m)K} \leq m\). \(L(m)\) is called the \emph{ray class field of modulus \(m\)}\index{ray class field}, and \(\phi_{L(m)/K}: H(m) \cong \gal(L(m)/K)\).
+  \end{enumerate}
+\end{theorem}
 
+\begin{eg}
+  For any \(K\) there's the ray class field \(E\) associated the trivial modulus. This is the maximal extension \(E/K\), everywhere unramified, and such that every embedding \(\tau: K \embed \R\) extends to an embedding \(\tilde \tau: E \embed \R\). \(E\) is called the \emph{Hilbert class field}\index{Hilbert class field} of \(K\), and comes with an isomorphism \(\phi_{E/K}: H_K \cong \gal(E/K)\).
+
+  If \(K\) has trivial ideal class group then \(E = K\), for example \(E = \Q\).
+
+  If \(K = \Q(\sqrt{-23})\) then \(E\) is the splitting field of \(X^3 - X + 1\).
+
+  \begin{proof}
+    Define \(L\) to be the splitting field of \(f(X) = X^3 - X + 1\) over \(\Q\). Then \(\operatorname{disc} f = -4a^3 - 27b^2 = -23\) so \(\Q(\sqrt{-23}) \subseteq L\) and \(f(X)\) is irreducible mod \(3\) so \(\gal(L/\Q) \cong S_3\) and \(\gal(L/K)\) is cyclic of order \(3\). To show \(L/K\) is the Hilbert class field, we need to check
+    \begin{enumerate}
+    \item \(m_{L/K} \leq (\O_K, \emptyset)\) (i.e.\ \(L/K\) is everywhere unramified),
+      \item \(|H_K| = 3\).
+      \end{enumerate}
+      We take 2 as given. For 1, note that \(L/\Q\) is unramified for any prime away from \(p = 23\). Note \(\O_K\) has a unique prime ideal \(P\) lying above \(23\) as \(23\) is ramified, i.e.\ \(23\O_K = P^2\) (in fact \(P = (\sqrt{-23})\). We need to show \(P\) is unramified in \(L\), equivalently that if \(Q\) is a prime ideal of \(\O_L\) lying above \(23\) then \(e_{Q/(23)} = |I_{Q/(23)}|\) is prime to \(3\).
+
+      If \(\overline f(X) = f(X) \bmod{23}\) then \(\overline f(X)\) has a repeated root. In fact \(\overline f(X) = a(X) b(X)^2\) where \(a(X), b(X) \in \F_{23}[X]\) of degree \(1\): a cubic having a repeated root either has a single root with multiplicity \(3\) or is of this form. But
+      \[
+        3f(X) - Xf'(X) = 3x^3 - 3X + 3 - 3X^3 + X = -2X + 3
+      \]
+      so \((\overline f, \overline f') \ni (-2X + 3)\) and \(\gcd(\overline f, \overline f')\) has degree \(1\). Let \(\alpha_1, \alpha_2, \alpha_3 \in \O_L\) be the roots of \(f(X)\). Assume they're labeled so that \(a(\alpha_1 \pmod Q) = 0, b(\alpha_2 \pmod Q) = 0\). Recall
+      \[
+        I_{Q/(23)} = \{\sigma \in \gal(L/\Q): \sigma(Q) = Q, \sigma \pmod Q = \id_{k_Q}\}.
+      \]
+      If \(\sigma \in I_{Q/(23)}\) then
+      \begin{align*}
+        a(\sigma(\alpha_1) \pmod Q) &= 0 \\
+        b(\sigma(\alpha_2) \pmod Q) &= b(\sigma(\alpha_3) \pmod Q) = 0
+      \end{align*}
+      hence we must have \(\sigma(\alpha_1) = \alpha_1, \sigma(\alpha_2) \in \{\alpha_2, \alpha_3\}\) so \(I_{Q/(23)} \subseteq \{1, (23)\}\).
+  \end{proof}
+\end{eg}
+
+\begin{eg}
+  Let \(d \in \Z, d > 1\) squarefree and let \(K = \Q(\sqrt d)\). Suppose \(H_K = \{1\}\). Recall that if \(m = (\O_K, \Hom_\Q(K, \R))\) then
+  \[
+    H(m) =
+    \begin{cases}
+      \{1\} & N_{K/\Q}(\varepsilon) = -1 \\
+      \Z/2 & N_{K/\Q}(\varepsilon) = 1
+    \end{cases}
+  \]
+ By GCFT if \(N_{K/\Q}(\varepsilon) = 1\) then there exists a quadratic extension \(L/K\) which is everywhere unramified but with no real embedding. For example let \(K = \Q(\sqrt 3)\). Then \(H_K = \{1\}, \varepsilon = 2 + \sqrt 3, N_{K/\Q}(\varepsilon) = 1\). In this case \(L = K(i) = K(\sqrt{-23})\) is an everywhere unramified quadratic extension of \(K\).
+  \[
+    \begin{tikzcd}
+      & L \ar[dl, dash] \ar[dr, dash] & & & L \ar[dl, dash] \ar[dr, dash] \\
+      K \ar[dr, dash] & & \Q(i) \ar[dl, "\text{ramified only at } 2", dash] & K \ar[dr, dash] & & \Q(\sqrt{-3}) \ar[dl, "\text{ramified only at } 3", dash] \\
+      & \Q & & & \Q
+    \end{tikzcd}
+  \]
+\end{eg}
+
+In the remainder of the course we'll examine the relation between GCFT of imaginary quadratic fields and binary quadratic forms.
+
+\begin{definition}[binary quadratic form]\index{binary quadratic form}
+  A \emph{binary quadratic form} is a polynomial \(f(x, y) = ax^2 + bxy + cy^2\) where \(a, b, c \in \Z\). Equivalently
+  \[
+    f(x, y) = (x, y)
+    \begin{pmatrix}
+      a & b/2 \\
+      b/2 & c
+    \end{pmatrix}
+    \begin{pmatrix}
+      x \\
+      y
+    \end{pmatrix}
+  \]
+
+  We say an integer \(m\) is \emph{represented} by \(f(x, y)\) if there exist \(x_0, y_0 \in \Z\) such that \(f(x_0, y_0) = m\).
+\end{definition}
+
+A classical question in number theory asks: which primes \(p\) are represented by a fixed BQF? For example (for \(p\) odd)
+\begin{itemize}
+\item \(p = x^2 + y^2\) if and only if \(p = 1 \pmod 4\) (Fermat).
+\item \(p = x^2 + 2y^2\) if and only if \(p = 1, 3 \pmod 8\) (Euler).
+\item \(p = x^2 + 5y^2\) if and only if \(p = 1, 9 \pmod{20}\) (Gauss).
+\item \(p = x^2 + 14y^2\) if and only if the equations \(x^2 = -14\) and \((y^2 + 1)^2 = 8\) both have solutions in \(\F_p\).
+\end{itemize}
+
+In fact if \(n \in \N\) and \(-n = 2, 3 \pmod 4\) squarefree then \(p\) is represented by \(x^2 + ny^2\) (with \(p \ndivides 4n\)) if and only if \(p\) splits completely in the Hilbert class field of \(\Q(\sqrt{-n})\).
+
+\begin{definition}[discriminant of a BQF]\index{discriminant}
+  If \(f(x, y) = ax^2 + bxy + cy^2\) is a BQF we define its \emph{discriminant} to be \(\disc f = b^2 - 4ac\).
+\end{definition}
+
+\(\SL_2(\Z)\) acts on the set of BQFs by
+\[
+  \gamma \cdot f(x, y) = f(\gamma^{-1}
+  \begin{pmatrix}
+    x \\
+    y
+  \end{pmatrix})
+\]
+Equivalently \(\gamma \cdot f\) is associated to \(\gamma^{-T}
+\begin{psmallmatrix}
+  a & b/2 \\
+  b/2 & c
+\end{psmallmatrix}
+\gamma^{-1}\). Since \(\disc f = -4 \det \begin{psmallmatrix}
+  a & b/2 \\
+  b/2 & c
+\end{psmallmatrix}
+\) it is invariant under the action.
+
+\begin{remark}
+  If \(\disc f < 0\) then \(f(x, y)\) is either positive definite (\(a > 0\)) or negative definite (\(a < 0\)).
+\end{remark}
+
+To describe the relation between BQFs and imaginary quadratic fields we need to introduce the \emph{discriminant}\index{discriminant} of a number field. Recall from IID Number Fields that if \(K/\Q\) is a number field of degree \([K: \Q] = n\) and \(\alpha_1, \dots, \alpha_n \in K\), we define
+\[
+  \disc (\alpha_1, \dots, \alpha_n) = \det D^2
+\]
+where \(D_{ij} = \sigma_i(\alpha_j), \sigma_1, \dots, \sigma_n: K \to \C\) are the distinct embeddings. This doesn't depend on the ordering of \(\sigma_1, \dots, \sigma_n\). If \(A \in M_n(\Z)\) and \(\beta_i = \sum_{j = 1}^n A_{ij} \alpha_j\) then
+\[
+  \disc (\beta_1, \dots, \beta_n) = \det A^2 \disc(\alpha_1, \dots, \alpha_n).
+\]
+In particular if \(M \leq K\) is a free \(\Z\)-module of rank \(n\) then we can define \(\disc M = \disc(\alpha_1, \dots, \alpha_n)\), where \(\alpha_1, \dots, \alpha_n\) is a generating set for \(M\). This does not depends on the choice of \(\alpha_i\)'s. If \(M' \leq M\) are free of rank \(n\) then by a similar argument using Smith normal form
+\[
+  \disc M' = \disc M \cdot [M : M']^2.
+\]
+
+\begin{note}
+  \(\O_K\) is always free of rank \(n\) as a \(\Z\)-module so we can define \(\disc \O_K\). For example if \(d \in \Z\) squarefree, \(d \neq 0, 1\) then
+  \[
+    \O_K =
+    \begin{cases}
+      \Z \oplus \Z \sqrt d & d = 2, 3 \pmod 4 \\
+      \Z \oplus \Z \frac{1 + \sqrt d}{2} & d = 1 \pmod 4
+    \end{cases}
+  \]
+  so
+  \[
+    \disc \O_K =
+    \begin{cases}
+      \det
+      \begin{psmallmatrix}
+        1 & \sqrt d \\
+        1 & - \sqrt d
+      \end{psmallmatrix}
+      ^2 = 4d & d = 2, 3 \pmod 4 \\
+      \det
+      \begin{psmallmatrix}
+        1 & \frac{1 + \sqrt d}{2} \\
+        1 & \frac{1 - \sqrt d}{2}
+      \end{psmallmatrix}
+      ^2 = d & d = 1 \pmod 4 \\
+    \end{cases}
+  \]
+\end{note}
+
+\begin{theorem}
+  \label{thm:bijection between SL2 orbits of BQF and class group}
+  Let \(d \in \Z\) squarefree, \(d < 0\). Fix an embedding \(K = \Q(\sqrt d) \to \C\). Then there is a bijection
+  \begin{align*}
+    \SL_2(\Z)
+    \left\{
+    \begin{tabular}{c}
+      positive definite BQF \\
+      of discriminant \(D\)
+    \end{tabular}
+    \right\}
+    &\longleftrightarrow H_K \\
+    ax^2 + bxy + y^2 &\mapsto \Z \oplus \Z \beta
+  \end{align*}
+  where \(\beta = \frac{-b + \sqrt D}{2a}\).
+\end{theorem}
+
+We first prove
+\begin{proposition}
+  There is a bijection
+  \[
+    \left\{
+    \begin{tabular}{c}
+      positive definite BQF \\
+      of discriminant \(D\)
+    \end{tabular}
+    \right\}
+    \longleftrightarrow
+    \left\{
+      \begin{tabular}{c}
+        \(\beta \in K\) such that \(\Im \beta > 0\) \\
+        and \(\Z \oplus \Z \beta\) is a \\
+        fractional ideal of \(\O_K\)
+      \end{tabular}
+    \right\}
+  \]
+  given by the same formula as above. This bijection is \(\SL_2(\Z)\)-equivariant, where \(\SL_2(\Z)\) acts on \(\beta \in K\) with \(\Im \beta > 0\) by Möbius transformation
+  \[
+    \begin{pmatrix}
+      A & B \\
+      C & D
+    \end{pmatrix}
+    \cdot \beta = \frac{A \beta + B}{C \beta + D}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  First check that \(\Z \oplus \Z \beta\) is a fractional ideal of \(\O_K\), i.e.\ it is stable under multiplication by \(\O_K\). Note \(\beta = \frac{-b + \sqrt D}{2a}\) is a root of \(f(x, 1) = ax^2 + bx + c\) so \(a\beta^2 = -(b \beta + c)\) and
+  \[
+    a \beta \cdot (\Z \oplus \Z \beta) \subseteq \Z \oplus \Z \beta.
+  \]
+  This implies that \(a\beta\) is integral over \(\Z\), hence \(a \beta \in \O_K\), hence \(\Z \oplus \Z a \beta \subseteq \O_K\).
+  \[
+    \disc (\Z \oplus \Z a \beta) = \det
+    \begin{pmatrix}
+      1 & a \beta \\
+      1 & a \overline \beta
+    \end{pmatrix}
+    ^2 = a^2 (\beta - \overline \beta)^2 = D = \disc \O_K
+  \]
+  Hence \(\Z \oplus \Z a\beta = \O_K\) so \(\Z \oplus \Z \beta\) is a fractional ideal of \(\O_K\).
+
+  We now define an inverse to the map in the statement of the proposition. It sends \(\beta\) to the binary quadratic form \(f(x, y) = ax^2 + bxy + cy^2\) where \(ax^2 + bx + c \in \Z[x]\) is the unique quadratic which has \(\beta\) as a root, \(\gcd(a, b, c) = 1\) and \(a > 0\). We need to check that \(\disc f = D\). Note \(a \beta^2 = -(b \beta + c)\) so \(a\beta \cdot (\Z \oplus \Z \beta) \subseteq \Z \oplus \Z \beta\) and \(a\beta \in \O_K\). If \(A + B \beta \in \O_K\) for \(A, B \in \Q\) then \((A + B \beta) \cdot (\Z \oplus \Z \beta) \subseteq \Z \oplus \Z \beta\) so
+  \begin{align*}
+    A + B \beta &\in \Z \oplus \Z \beta \\
+    (A + B \beta) \beta &= A\beta + B(- \frac{b \beta}{a} - \frac{c}{a}) \\
+                &= - \frac{Bc}{a} + (A - \frac{Bb}{a}) \beta \in \Z \oplus \Z \beta
+  \end{align*}
+  so \(A, B \in \Z\) and \(- \frac{Bc}{a}, A - \frac{Bb}{a} \in \Z\) so \(\frac{B}{a} \in \Z\) (as \(a, b, c\) coprime) so \(B \in a \Z\). Thus \(A + B \beta \in \O_K\) lies in \(\Z \oplus \Z a\beta\). Hence \(\O_K = \Z \oplus \Z a \beta\) and
+  \[
+    D = \disc \O_K = \disc (\Z \oplus \Z a \beta) = \disc f.
+  \]
+  This shows the existence of a bijection as in the statement of the proposition. \(\SL_2(\Z)\)-equivariane is left as an exercise.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:bijection between SL2 orbits of BQF and class group}]
+  By proposition there's a bijection
+  \[
+    \SL_2(\Z) \backslash
+    \left\{
+    \begin{tabular}{c}
+      positive definite BQF \\
+      of discriminant \(D\)
+    \end{tabular}
+    \right\}
+    \longleftrightarrow
+    \SL_2(\Z) \backslash
+    \left\{
+      \begin{tabular}{c}
+        \(\beta \in K\) such that \(\Im \beta > 0\) \\
+        and \(\Z \oplus \Z \beta\) is a \\
+        fractional ideal of \(\O_K\)
+      \end{tabular}
+    \right\}
+  \]
+  We need to show the map
+  \begin{align*}
+    \mathrm{RHS} &\to H_K \\
+    \Z \oplus \Z \beta &\mapsto [\Z \oplus \Z \beta]
+  \end{align*}
+  is an bijection. First show it is well-defined: suppose \(\beta, \beta' \in K, \Im \beta > 0, \Im \beta' > 0\), \(\Z \oplus \Z \beta, Z \oplus \Z \beta'\) fractional ideals of \(\O_K\) and \(\beta = \frac{x \beta + y}{z \beta + w}\) for \(
+  \begin{psmallmatrix}
+    x & y \\
+    z & w
+  \end{psmallmatrix}
+  \in \SL_2(\Z)\). Then
+  \[
+    \Z \oplus \Z \beta' = \Z \oplus \frac{x\beta + y}{z\beta + w} = \frac{1}{z\beta + w} (\Z(z \beta + w) \oplus \Z(x\beta + y))
+  \]
+  so
+  \[
+    [\Z \oplus \Z \beta'] = [\Z(z \beta + w) \oplus \Z(x \beta + y)] = [\Z \oplus \Z \beta].
+  \]
+
+  Now show the map is injective. If \([\Z \oplus \Z\beta] = [\Z \oplus \Z \beta']\) then exists \(\alpha \in K^\times\) such that \(\Z \oplus \Z \beta = \Z \alpha \oplus \Z \alpha \beta'\), so exists \(
+  \begin{psmallmatrix}
+    x & y \\
+    z & w
+  \end{psmallmatrix}
+  \in \GL_2(\Z)\) such that
+  \[
+    1 = x\alpha + y \alpha \beta', \beta = z \alpha + w \alpha \beta'
+  \]
+  so \(\beta = \frac{w\beta' + z}{y\beta' + x}\). Since \(\beta, \beta'\) both have positive imaginary part, the matrix \(
+  \begin{psmallmatrix}
+    w & z \\
+    y & x
+  \end{psmallmatrix}
+  \) has determinant \(+ 1\).
+
+  Finally we show the map is surjective. Let \(I\) be a fractional ideal of \(\O_K\). Then \(I\) is free of rank \(2\) as a \(\Z\)-module, so has a basis \(\alpha_1, \alpha_2\) over \(\Z\). wlog we can assume \(\Im \frac{\alpha_2}{\alpha_1} > 0\). Then
+  \[
+    [I] = [\Z \alpha_1 \oplus \Z \alpha_2] = [\Z \oplus \Z \frac{\alpha_2}{\alpha_1}]
+  \]
+  which lies in the image.
+\end{proof}
+
+This gives an efficient way to compute \(H_K\) as a set, using the existence of a fundamental domain for the action of \(\SL_2(\Z)\) on \(\H\), the upper half plane. We set
+\[
+  \mathcal D = \{z \in \H: |z| > 1, -\frac{1}{2} \leq \Re z < \frac{1}{2}\} \cup \{z \in \H: |z| = 1, -\frac{1}{2} \leq \Re z < 0\}.
+\]
+It is a fact that for all \(z \in \H\), \(\SL_2(\Z) \cdot z) \cap \mathcal D\) contains exactly one element.
+
+For any orbit of BQFs with discriminant \(D\), there is a unique representative \(f(x, y) = ax^2 + bxy + cy^2\) such that \(\beta = \frac{-b + \sqrt D}{2a} \in \mathcal D\). e have \(|\beta|^2 = \frac{c}{a}, \Re \beta = -\frac{b}{2a}\). Thus \(\beta \in \mathcal D\) if and only if
+\[
+  \frac{c}{a} > 1, a \geq b > -a \text{ or } \frac{c}{a}, a \geq b \geq 0.
+\]
+This is usually written as \(c \geq a \geq |b|\) and if \(c = a\) or \(a = |b|\) then \(b \geq 0\).
+
+\begin{definition}[reduced BQF]\index{BQF!reduced}
+  A positive definite BQF of disciminant \(D\) is called \emph{reduced} if it satisfies the condition above.
+\end{definition}
+
+\begin{lemma}
+  There is a bijection between \(H_K\) and the set of reduced positive definite BQFs of discriminant \(D\).
+\end{lemma}
+
+This also shows \(H_K\) is finite, as there are finitely many reduced forms \(f(x, y)\): \(-D = 4ac - b^2 \geq 4b^2 - b^2 = 3b^2\) so \(|b| \leq \sqrt{|D|}{3}\) so there are only finitely many possibilities for \(b\), hence for \(a, c\).
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item The identity \([\O_K] \in H_K\) corresponds to the reduced form
+    \[
+      f(x, y) =
+      \begin{cases}
+        x^2 - dy^2 & d = 2, 3 \pmod 4 \\
+        x^2 + xy + \frac{1 - d}{4} y^2 & d = 1 \pmod 4
+      \end{cases}
+    \]
+    called \emph{principal form of \(\O_K\)}.
+  \item A class \([I] \in \O_K\) satisfies \([I]^2 = [\O_K]\) if and only if the corresponding reduced form \(ax^2 + bxy + cy^2\) satisfies \(c = a, a = b\) or \(b = 0\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item We do the calculation for \(d = 2, 3 \pmod 4\). \(x^2 - dy^2\) has discriminat \(D\) and is reduced. It corresponds to the fractional ideal class \([\Z \oplus \Z \beta]\) where \(\beta = \frac{-b + \sqrt D}{2a} = \sqrt d\). We know \(\Z \oplus \Z \sqrt d = \O_K\).
+  \item Observe that \(\gal(K/\Q) = \{1, c\}\) acts on \(H_K\). In fact for any \([I] \in H_K\) we have \([I] [c(I)] = [\O_K]\): it's enough to check that if \(Q \subseteq \O_K\) is a non-zero prime ideal, \(Q c(Q)\) is principal. Say \(Q\) lies above \((p) \subseteq \Z\). Then one of the three cases:
+    \begin{enumerate}
+    \item \(p\) splits in \(\O_K\): \(p \O_K = Q c(Q)\) so \(Q c(Q) = p\O_K\).
+    \item \(p\) is inert: \(p \O_K = Q\) so \(Q c(Q) = p^2 \O_K\).
+    \item \(p\) is ramified: \(p \O_K = Q^2\) so \(Q c(Q) = p\O_K\).
+    \end{enumerate}
+    so we need to show \([I] = [c(I)]\) if and only if \(a = c, a = b\) or \(b = 0\). wlog \(I = \Z \oplus \Z \beta\) where \(\beta = \frac{-b + \sqrt D}{2a}\) so \(c(I) = \Z \oplus \Z \overline \beta = \Z \oplus \Z(-\overline \beta)\). If \(f(\beta, 1) = 0\) where \(f(x, y) = ax^2 + bxy + cy^2\) then \(g(-\overline \beta, 1) = 1\) where \(g(x, y) = ax^2 - bxy + cy^2\). Thus \([I]^2 = [\O_K]\) if and only if \(f(x, y), g(x, y)\) lies in the same \(\SL_2(\Z)\)-orbit.
+
+    If \(\beta\) lies in the interior of \(\mathcal D\), i.e.\ if \(c > a\) and \(a > |b|\) then \(\overline \beta\) also lies in the interior so \(g(x, y)\) is reduced, so \(f(x, y), g(x, y)\) lies in the same \(\SL_2(\Z)\)-orbit so by uniqueness \(f(x, y) = g(x,y)\) so \(b = 0\).
+
+    The other case is when \(\beta\) lies on the boundary of \(\mathcal D\), i.e.\ \(b = a\) or \(c = a\). In this case \(-\overline \beta\) is not in \(\mathcal D\) so \(g(x, y)\) is not reduced. However \(-\overline \beta\) \emph{is} \(\SL_2(\Z)\)-conjugate to \(\beta\) to \(f(x, y)\), (use, for example, the MMöbius tranformation \(
+    \begin{psmallmatrix}
+      1 & -1 \\
+      0 & 1
+    \end{psmallmatrix}
+    \) when \(b = 1\)) and indeed \([I]^2 = [\O_K]\).
+  \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+  Let \(p \ndivides D\) be a prime number. Then \(p\) is represented by the principal form of \(\O_K\) if and only if \(p\) splits completely in the Hilbert class field \(H/K\).
+\end{corollary}
+
+\begin{proof}
+  Suppose \(\O_K = \Z \oplus \Z \beta\) where \(\beta = \sqrt d\) \(\frac{1 + \sqrt d}{2}\). Have
+  \[
+    f(x, y) = (x + y\beta)(x + y \overline \beta) = N_{K/\Q}(x + y \beta)
+  \]
+  so \(p\) is representated by \(f(x, y)\) if and only if exists \(\alpha \in \O_K\) such that \(N_{K/\Q}(\alpha) = \alpha \overline \alpha = p\), if and only if exists \(\alpha \in \O_K\) such that \((\alpha)(\overline \alpha) = (p)\), if and only if \(p\) splits in \(\O_K\), \(p = Q_1 Q_2\) and both \(Q_1\) and \(Q_2\) are principal. Now recall the isomorphism \(\phi_{H/K}: H_K \to \gal(H/K)\) sending \([Q] \mapsto \gal(Q, H/K)\), \(Q \subseteq \O_K\) a non-zero prime ideal, \(D_{Q'/Q} = \langle (Q, H/K) \rangle\). So \(p\) is represented by \(f(x, y)\) if and only if \(p\) splits and \(\phi_{H/K}(Q_1) = \id_H\), if and only if \(p\) splits and \(Q_1Q_2\) splits completely in \(H/K\) (?), if and only if \(p\) splits completely in \(H/\Q\).
+\end{proof}
+
+We can show that if \(f(x, y)\) is a reduced form of discriminant \(D\) then \(f(x, y)\) represents a prime \(p \divides D\) if and only if \(p\) splits \(p = Q_1Q_2\) in \(\O_K\) and \(\phi_{H/K}(Q_i)\) equals \(\phi_{H/K}([I])\) for some \(i = 1, 2\), where \([I]\) is the class corresponding to \(f(x, y)\).
+
+Idea:\(H/K/\Q\). \(p\) is represented by some form \(f(x, y)\) of discriminant \(D\) if and only if \(p\) splits in \(\O_K\), which forms \(f(x, y)\) repsent \(p\) is determined by the factorisation of \(p\) in \(\O_H\).
+
+\begin{eg}
+  \(d = -1, K = \Q(i), D = -4\). There is a unique reduced form \(x^2 + y^2\) so if \(p ndivides 2\) then \(x^2 + y^2\) represents \(p\) if and only if \(p\) splits in \(\Z[i]\), if and only if \(\legendre{-1}{p} = 1\), if and only if \(p = 1 \pmod 4\).
+\end{eg}
+
+\begin{eg}
+  \(d = -5, D = -20\). Have bound \(|b| \leq \sqrt{\frac{|D|}{3}} < 3\) so \(|b| = 0, 1, 2\). Also \(b^2 - 4ac = -20\). If \(b = 0\) then there is a unique reduced form \(x^2 + 5y^2\). If \(b = 2\) then there is a unique reduced form \(2x^2 + 2xy + 3y^2\). The Hilbert class field is \(H = K(i) = K(\sqrt 5)\). Thus if \(p \ndivides 20\) then \(x^2 + 5y^2\) representes \(p\) if and only if \(p\) splits in \(H\) and \(2x^2 + 2xy + 3y^2\) represents \(p\) if and only if \(p\) splits in \(K\) but does not split in \(\Q(i)\).
+\end{eg}
 
 
 
@@ -2678,3 +3063,4 @@ Note \(\mathcal P_m\) is a subgroup of \(\mathcal P(m_0)\).
 % Books:
 % Lang: Algebraic Number theory
 % Swinnerton-Dyer: A brief guide to algebraic number theory
+% Weil History of number theory

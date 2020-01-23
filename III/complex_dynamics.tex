@@ -1,0 +1,235 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Complex Dynamics}
+\def\nlecturer{H.\ Krieger}
+
+\def\nterm{Lent}
+\def\nyear{2020}
+
+\input{header}
+
+\newcommand{\D}{\mathbb{D}}
+  
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+What is complex dynamics? Iteration of holomorphic self-maps of Riemann surfaces
+
+long term behaviour under iteration
+
+origin: iterative root finding algorithm, e.g. Newton's method. When and why does this work? Algebraically, the problem is to ask the convergence of the iteration of the map
+\[
+  f(z) = z - \frac{p(z)}{p'(z)}: \hat \C \to \hat \C
+\]
+where \(\hat \C\) is the Riemann sphere.
+
+Goals:
+\begin{itemize}
+\item equidistribution theorem
+
+  \begin{theorem}[Friere-Lopez-Mañe, 1983]
+    Let \(f: \hat \C \to \hat \C\) with degree \(d \geq 2\) holomorphic.  Then there exists a unique \(f\)-invariant probability measure \(\mu_f\) supported on the unstable locus of \(f\), such that for almost all \(\alpha \in \hat \C\), \(\frac{1}{d^n} \sum_{f^n(z) = \alpha} \delta_z \to \mu_f\) in weak-* topology.
+  \end{theorem}
+\item universality of the Mandelbrot set: fix \(d \geq 2\), define for \(c \in \C\), \(f_c(z): z^d + c\). The \(d\)-Mandelbrot set is
+  \[
+    M_d = \{c \in \C: |f_c^n(0)| \nto \infty\}.
+  \]
+
+  \begin{theorem}[McMullen 1997]
+    The Mandelbrot set is universal for bifurcations, i.e. in any bifurcation locus we see (slightly distorted) copics of some \(M_d\).
+  \end{theorem}
+\end{itemize}
+
+\section{Riemann surfaces}
+
+Recall at the end of IID Riemann Surfaces
+
+\begin{theorem}[uniformisation]
+  Every Riemann surface \(R\) is conformally isomorphic to \(\tilde R/G\) where \(\tilde R\) is one of the three simply connected Riemann surfaces (\(\hat \C, \C, \D\)) and \(G \subseteq \aut(\tilde R)\) acts freely and properly discontinuously.
+\end{theorem}
+
+Three cases:
+\begin{enumerate}
+\item \(\hat \C\): as \(\aut(\hat \C)\) are precisely the Möbius transformations and all Möbius transformations have fixed points, \(G = 1\) so \(R = \hat \C\).
+\item \(\C\): \(\aut(\C) = \{p(z) = az + b, a \ne 0\}\) so \(G\) only contains translations, so can be identified by a subgroup of \(\C\). Can show that \(G\) is one of \(\{0\}, \Z \omega_1\) or \(\Sigma = \Z\omega_1 \oplus \Z\omega_2\), a lattice. Then \(R\) is one of \(\C, \C^*\) or \(\C/\Lambda\), a complex torus.
+\item \(\D\): \(\aut(\D) = \{\lambda \cdot \frac{z - a}{1 - \conj a z}: \lambda \in S^1, a \in \D\}\), which has a lot of elements with no fixed point. This is called \emph{hyperbolic}.
+\end{enumerate}
+
+Recall \(\D\) is equipped with metric \(ds = \frac{2 |dz|}{1 - |z|^2}\), i.e.\ the distance between \(x, y \in \D\) is
+\[
+  \rho(x, y) = \inf_\gamma \int_a^b \frac{2 |\gamma'(t)|}{1 - |\gamma(t)|^2} dt
+\]
+where \(\gamma: [a, b] \to \D\) is a smooth curve from \(x\) to \(y\). One can use the origin to show that
+\[
+  \rho(x, y) = \frac{\log(1 + R)}{\log(1 - R)}
+\]
+where \(R = |\frac{y - x}{1 - \conj x y}|\). Elements of \(\aut(\D)\) are isometries of this metric so it descends to a hyperbolic metric on any hyperbolic Riemann surface, such that the covering map \(\tilde R \to R\) is a local isometry.
+
+\begin{ex}
+  Let \(R = \D/G\), \(f: R \to R\) holomorphic. Then \(f\) lifts to a holomorphic \(\tilde f: \D \to \D\), unique up to a composition with an element of \(G\), and induces a group homomorphism \(\gamma \mapsto \gamma'\) such that \(\tilde f \compose \gamma = \gamma' \compose \tilde f\).
+\end{ex}
+
+\begin{theorem}[Pick]
+  Let \(f: S \to T\) be a hyperbolic Riemann surfaces with Poincaré metric \(\rho_S, \rho_T\) respectively. The for all \(x, y \in S\),
+  \[
+    \rho_T(f(x), f(y)) \leq \rho_S(x, y).
+  \]
+\end{theorem}
+
+\begin{proof}
+  By lifting (of \(f \compose \pi_S: \D \to T\)) it suffices to show this for \(S = T = \D\). By computation this is the same as showing
+  \[
+    \frac{\log (1 + R')}{\log (1 - R')} \leq \frac{\log (1 + R)}{\log (1 - R)}
+  \]
+  where \(R = \cdots\). Note \(\frac{\log (1 + x)}{\log (1 - x)}\) is strictly increasing, so suffices to show \(R' \leq R\). Let \(\mu_1(z) = \frac{y - z}{1 - \conj y z}, \mu_2 = \frac{f(y) - z}{1 - \conj{f(y)} z}\). Let \(g = \mu_2 \compose f \compose \mu_1^{-1}: \D \to \D\). By Schwarz's lemma \(|g(z)| \leq |z|\), i.e.\ \(|\mu_2(f(w))| \leq |\mu_1(w)|\), so \(R' \leq R\).
+\end{proof}
+
+\begin{remark}
+  It follows from the ``strict inequality'' bit of Schwarz's lemma that exists \(x, y\) such that \(\rho_T(f(x), f(y)) = \rho_S(x, y)\) if and only if \(f\) lifts to a disk automorphism.
+\end{remark}
+
+\begin{eg}
+  Contracting holomorphic maps is a very strong requirement. Compre to, for example, \(f(z) = z + 1\) on \(\hat \C\) (drawing of different behaviour on two hemispheres).
+\end{eg}
+
+Case of \(\hat \C\):
+
+\begin{proposition}
+  Let \(f: \hat \C \to \hat \C\) be a holomorphic nonconstant map. Then \(f\) is a rational map, i.e.\ exists \(a_1, \dots, a_m, b_1, \dots, b_n, c \in \C\) such that
+  \[
+    f(z) = c \cdot \frac{(z - a_1) \cdots (z- a_m)}{(z - b_1) \cdots (z- b_n)}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  wlog \(f(\infty) \in \C\) (if not, replace with \(\frac{1}{f}\)). Then exist a finite collection \(f^{-1}(\infty) = \{b_1, \dots, b_n\} \subseteq \C\). About any \(b_i\) have locally
+  \[
+    f(z) = \sum_{j = -k}^\infty a_{ij} (z - b_i)^j.
+  \]
+  Set \(Q_i = \sum_{j = -k}^{-1} a_{ij} (z - b_i)^j\). Then \(g - f - Q_1 - \dots - Q_n\) has no pole so must be constant.
+\end{proof}
+
+Universal cover \(\C\): just a remark. Yes there are interesting dynamics. For example \(z \mapsto e^z\) belongs to the realm of transcendental dynamics. \(\C/\Lambda\) also admits nonconstant holomorphic maps. See example sheet 1.
+
+\paragraph{stable and unstable locus}
+
+Motivating example: \(z \mapsto z^2\) on \(\hat \C\). We can restrict \(f\) to the unit disk and we see \(f|_\D^n \to 0\) uniformly on compact subsets of \(\D\). Similarly on \(\hat \C \setminus \overline \D\), \(f|_{\hat \C \setminus \overline \D}^n \to \infty\). On the other hand for \(|z_0| = 1\), there is no neighbourhoood \(z_0 \in U\) such that \(f|_U^n(z)\) converging to a holomorphic function, as such a limit would have a discontinuity.
+
+\begin{definition}[locally uniform convergence/divergence]\index{locally uniform convergence}\index{locally uniform divergence}
+  Let \(S, T\) be metric spaces, \(f_n: S \to T\) a sequence of continuous maps. We say \((f_n)\) \emph{converges locally uniformly} if for all compact \(K \subseteq S\), for all \(\varepsilon > 0\) exists \(N \in \N\) such that for all \(m, n > N\), \(\sup_{x \in K} d_T(f_m(x), f_n(x)) < \varepsilon\).
+
+  We say \((f_n)\) \emph{diverges locally uniformly} if for all compact \(K \subseteq S\) and all compact \(K' \subseteq T\), exists \(N \in \N\) such that for all \(n > N\), \(f_n(K) \cap K' = \emptyset\).
+\end{definition}
+
+Recall that if holomorphic \(f_n\)'s converge locally uniformly on \(S\) then it has a holomorphic limit function.
+
+\begin{remark}
+  If \(T\) is compact then we never have locally uniform divergence.
+\end{remark}
+
+\begin{definition}[normal family]\index{normal family}
+  We say a family \(\mathcal F = \{f: S \to T\}\) of continuous functions is \emph{normal} if every sequence \((f_n) \subseteq \mathcal F\) has a subsequence which either converges locally uniformly or diverges locally uniformly.
+\end{definition}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item Show normality depends only on the topology, not the metric, of the spaces.
+  \item Normality is local: if \(\mathcal F\) is a family of continuous maps, \(S = \bigcup_\alpha U_\alpha\), then if \(\mathcal F|_{U_\alpha}\) is normal for all \(\alpha\) then \(\mathcal F\) is normal for \(S\).
+  \end{enumerate}
+\end{ex}
+
+A word of caution: in some texts (such as Ahlfors) the definition of normality excludes divergence.
+
+\begin{definition}[equicontinuity]\index{equicontinuity}
+  A family \(\mathcal F\) of continuous maps on a domain \(U \subseteq \C\) with values in a metric space \(T\) is \emph{equicontinuous} if for all \(\varepsilon > 0\), exists \(\delta > 0\) such that for all \(z, w \in U\) and for all \(f \in \mathcal F\), if \(|z - w| < \delta\) then \(d_T(f(z), f(w)) < \varepsilon\).
+\end{definition}
+
+\begin{theorem}[Arzela-Ascoli]
+  Let \(\mathcal F\) be a family of continuous maps \(U \to T\) with \(U \subseteq \C\) a domain and \(T\) a metric space. Then \(\mathcal F\) has the property that any sequence has a locally uniformly convergent subsequence if and only if
+  \begin{enumerate}
+  \item \(\mathcal F\) is equicontinuous on every compact \(K \subseteq U\),
+  \item for every \(z \in U\), \(\{f(z): f \in \mathcal F\}\) lies in a compact subset of \(T\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+  If \(T\) is compact then \(\mathcal F\) is normal if and only if it is equicontinuous on compact subsets of \(U\).
+\end{corollary}
+
+\begin{proof}
+  Only if is easy. For if, we use separability of \(\C\). Let \(\{z_k\}\) be a countable dense subset of \(U\) and fix \(\{f_n\} \subseteq \mathcal F\). Can find a set of indices \(n_{11} < n_{12} < \cdots\) such that \(f_{n_{1i}}(z_1)\) converges, and a subsequence of these \(n_{21} < n_{22} < \cdots\) such that \(f_{n_{2i}}(z_2)\) converges. Let \(g_k = f_{n_{kk}}\). Then for all \(z_i\) we have \(\lim_{k \to \infty} g_n(z_i)\) exists in \(T\). Now given \(K \subseteq U\) compact, by equicontinuity for any \(\varepsilon > 0\) exists \(\delta > 0\) such that for all \(z, w \in U\) with \(|z - w| < \delta\), we have for all \(f \in \mathcal F\), \(d_T(f(z), f(w)) < \varepsilon\). Cover \(K\) by \(\delta\)-balls, extract a finite subcover, and choose some \(z_i\) in each, say \(z_1, \dots, z_\ell\). For each \(z_i\), \(1 \leq i \leq \ell\), exists \(N_i\) such that for all \(n, m \geq N_i\), \(d_T(g_n(z_i), g_m(z_i)) < \varepsilon\). Let \(N = \max_i N_i\). Then for all \(z \in K\),
+  \[
+    d_T(g_n(z), g_m(z)) \leq d_T(g_n(z), g_n(z_I)) + d_T(g_n(z_i), g_m(z_i)) + d_T(g_n(z_i), g_m(z)) < 3\varepsilon.
+  \]
+\end{proof}
+
+\begin{theorem}[Montel]\index{Montel's theorem}
+  Suppose \(S, T\) are Riemann surfaces and \(T\) is hyperbolic. Then all families of holomorphic maps \(S \to T\) is normal.
+\end{theorem}
+
+\begin{remark}
+  If \(S\) is not hyperbolic, lifting plus Liouville's theorem imply that all maps are constant. Given a family \(\mathcal F\) of constant maps, let \(\{f_n\} \subseteq \mathcal F\) be a sequence. Then if \(\{f_n(S)\}\) lies in a compact set in \(T\), then exists a convergent subsequence; if not, exists a subsequence which leaves any compact set, so diverges locally uniformlly.
+
+  If \(S\) is hyperbolic, then if exists \(x \in S\) such that \(\{f_n(x)\}\) lies in a compact subset of \(T\), the same is true for all \(y \in S\) by Picks. This implies equicontinuity (?), so by Arzela-Ascoli, normal. Otherwise fix \(x \in S\) and \(y \in T\). Given \(\{f_n\} \subseteq \mathcal F\), exists a subsequence \(\{f_{n_k}\}\) such that \(d_T(f_{n_k}(x), y) \to \infty\). Given \(K \subseteq S, K' \subseteq T\) compact, by Picks, \(d_T(f_{n_k}(z), y) \to \infty\) (?) and so \(f_{n_k}(K) \cap K' = \emptyset\) for \(k \gg 1\). Thus the sequence diverges locally uniformlly.
+\end{remark}
+
+\begin{eg}
+  If \(f: \hat \C \to \hat \C\) is a rational map and \(D \subseteq \hat \C\), then the family of iterates \(\mathcal F = \{f^n\}_{n \in \N}\) is normal if \(\bigcup_{n \in \N} f^n(D)\) omits 3 or more points of \(\hat \C\). Idea: any subset of \(\hat \C\) with complement of cardinality \(\geq 3\) is hyperbolic.
+\end{eg}
+
+\begin{definition}[proper map]\index{proper map}
+  Suppose \(U, V\) are open subsets of Riemann surfaces and \(f: U \to V\). \(f\) is proper if for every \(K \subseteq V\) compact, \(f^{-1}(K)\) is compact in \(U\).
+\end{definition}
+
+The proofs are either the same as the compact case, or can use compact case directly.
+
+\begin{proposition}
+  Suppose \(U, V\) are open in \(\hat \C\). If \(f: U \to V\) is proper holomorphic nonconstant, then \(f\) has a well-defined degree, i.e.\ for all \(v \in V\), \(|f^{-1}(x)|\) is independent of \(x\), counting multiplicity.
+\end{proposition}
+
+\begin{theorem}[Riemann-Hurwitz]
+  Same assumption as above. Then the Euler characteristic \(\chi(U)\), \(\chi(V)\) satisfies
+  \[
+    \chi(U) = (\deg f) \chi(V) - \sum_{p \in U}(e_p - 1)
+  \]
+  where \(e_p\) is the local degree/ramification index of \(f\) at \(p\).
+\end{theorem}
+
+Note that one strategy is to observe that for \(U \subseteq \C\), we can cover by \(\delta\)-grid, let \(\delta \to 0\), we obtain a covering of \(U\) by open balls with compact closures and smooth boundaries.
+
+\begin{corollary}
+  If \(f: \hat \C \to \hat \C\) is holomorphic of degree \(d\), then \(f\) has \(2d - 2\) critical points, counting multiplicity.
+\end{corollary}
+
+\begin{corollary}
+  If \(\chi(U) = \chi(V) = 0\) then \(f: U \to V\) proper holomorphic nonconstant is unramified.
+\end{corollary}
+
+\begin{definition}[Fatou set, Julia set]\index{Fatou set}\index{Julia set}
+  Let \(f: \hat \C \to \hat \C\) be a holomorphic nonconstant map. The \emph{Fatou set} of \(f\) is
+  \[
+    F(f) = \{z \in \hat \C: \text{ on some nbhd } z \in U, f^n \text{ forms a normal family}\}.
+  \]
+  The \emph{Julia set} of \(f\) is \(J(f) = \hat \C \setminus F(f)\).
+\end{definition}
+
+
+\printindex
+\end{document}
+
+% prerequisite:
+% ES 0: basics of Riemann surfaces
+% measure theory: definitions and basics up to Fubini's
+%
+% References
+% McMullen: Riemann surfaces, complex dynamics and hperbolic geometry
+% potential theory: Ramsford book

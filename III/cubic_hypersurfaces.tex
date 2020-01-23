@@ -1,0 +1,254 @@
+\documentclass[a4paper]{article}
+
+\def\npart{III}
+
+\def\ntitle{Cubic Hypersurfaces}
+\def\nlecturer{D.\ Huybrechts}
+
+\def\nterm{Lent}
+\def\nyear{2020}
+
+\input{header}
+
+\renewcommand*{\P}{\mathbb{P}}
+\newcommand{\sh}[1]{\mathcal{#1}} % sheaf
+\DeclareMathOperator{\Pic}{Pic} % Picard group
+\newcommand{\rational}{\dashrightarrow} % rational map
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+
+Algebraic geometry studies the locus \(X = V(F_j) \subseteq \P^N\) of homogeneous polynomials. For degree \(1, 2\) this is essentially linear algebra and algebraic geometry starts with degree \(3\) and one polynomial. \(X = V(F) \subseteq \P^{n + 1}\) is a \emph{cubic hypersurface}. For simplicity we assume for now \(X\) is smooth.
+
+\begin{itemize}
+\item \(n = 0\): \(X = \{x_1, x_2, x_3\} \subseteq \P^1\).
+\item \(n = 1\): \(X\) is a cubic plane curve in \(\P^2\).
+\item \(n = 2\): classical theory of cubic surfaces. e.g.\ 27 lines on a cubic hypersurface.
+\item \(n = 3\): cubic threefold. Work of Griffiths et al, techniques from Hodge theory.
+\item \(n = 4\): cubic fourfolds. Future classic.
+\end{itemize}
+
+Links to abelian varieties, K3 surfaces etc.
+
+In this lecture we will introduce techniques, eg.\ Hodge theory, \(K(var)\), motifs, \(D^b(Coh)\) and apply them to cubics.
+
+Introduce \(F(X)\), the Fano varieties of lines
+
+\section{Lecture 1}
+
+Plan
+\begin{enumerate}
+\item basic facts,
+\item classical construction,
+\item rationality,
+\item existence of lines
+\end{enumerate}
+
+Let \(X = V(F) \subseteq \P^{n + 1} = \P = \{(V)\) where \(\dim V = n + 2\), \(F \in k[x_1, \dots, x_{n + 1}]_3 = S^3(V)\). Assume \(X\) is smooth. There are two exact sequences:
+\begin{enumerate}
+\item (co)normal bundle sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \sh I_X \ar[r] & \sh I_{\P/X} \ar[r] & N_{X/\P} \ar[r] & 0
+    \end{tikzcd}
+  \]
+  and dually
+  \[
+    \begin{tikzcd}
+      0 
+    \end{tikzcd}
+  \]
+\item Euler sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \sh O \ar[r, "s"] & \sh O(1)^{\oplus n + 2} \ar[r] & \sh I_\P \ar[r] & 0
+    \end{tikzcd}
+  \]
+  on \(\P^{n + 1}\)
+\end{enumerate}
+
+\begin{corollary}
+  \(\omega_X = \Lambda^n \Omega_X = \det \Sigma_{\P/X} \otimes \sh O(3) = \sh O(-n - 2 + 3) = \sh O(1 - n)\). THis is because when we take the determinant of the dual sequence we get \(\det \Omega_\P = \sh N^\vee \otimes \det \Omega_X\)
+
+  Thus \(\omega_X^*\) is (very) ample for \(n > 1\). This is called a \emph{Fano variety}.
+\end{corollary}
+
+\begin{corollary}
+  The restriction map \(H^q(\P, \Omega_\P^p) \to H^q(X, \Omega_X^p)\) is an isomorphism for \(p + q < n\).
+
+  \(H^q(X, \Omega_X^p \otimes \sh O(k)) = 0\) for \(k > 0, p + q > n\). This is a special case of Kodaira vanishing theorem: for \(\ch = 0\), \(H^q(X, \Omega^p \otimes \sh L) = 0\) for \(p + q > \dim X\) for \(\sh L\) ample. This is computed by taking the \(p\)th exterior power
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Omega_X^{p - 1} \otimes \sh O(-3) \ar[r] & \Omega_\P^p|_X \ar[r] & \Omega_X^p \ar[r] & 0
+    \end{tikzcd}
+  \]
+  and
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Omega_\P^p \otimes \sh O(-3) \ar[r] & \Omega_\P^p \ar[r] & \Omega_\P^p|_X \ar[r] & 0
+    \end{tikzcd}
+  \]
+\end{corollary}
+
+So far everything works over arbitrary field. If \(k = \C\), we can look at the singular cohomology of the analytic space, which is a complex manifold if \(X\) is smooth, and \(H^*(X, \Z) = H^*(X^{\text{an}}, \Z)\), a finitely generated \(\Z\)-module.
+
+Hodge decomposition: \(H^k(X, \Z) \otimes_\Z \C = H^k(X, \C) = \bigoplus_{p + q = k} H^{p, q}(X)\), \(H^{p, q}(X) = H^q(X, \Omega_X^p)\).
+
+Lefschetz hyperplane theorem: \(H^k(\P; \Z) \to H^k(X; \Z)\) is an isomorphism for \(k < n\). For \(k \ne n\)
+\[
+  H^k(X; \Z) =
+  \begin{cases}
+    \Z & k = 0 \pmod 2 \\
+    0 & k = 1 \pmod 2
+  \end{cases}
+\]
+
+Exponential sequence on \(X^{\text{an}}\)
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \Z \ar[r] & \sh O \ar[r, "\exp"] & \sh O^* \ar[r] & 0
+  \end{tikzcd}
+\]
+In the long exact sequence we have
+\[
+  H^1(X, \sh O^*) \cong H^2(X, \Z) \cong \Pic (X) = \Z
+\]
+for \(n > 2\).
+
+\begin{corollary}
+  \(\Pic (X) \cong \Z \cdot \sh O_X(1)\) for \(n > 2\).
+\end{corollary}
+
+The open question is the middle cohomology \(H^n(X, \Z)\).
+\begin{enumerate}
+\item \(b_n = rk H^n(X, \Z) = ?\)
+\item the intersection for \(H^n(X, \Z) \times H^n(X, \Z) \to \Z\) is nondegenerate unimodular so for \(n = 1 \pmod 2\) it is given by an alternating form. For \(n = 0 \pmod 2\) it is more complicated.
+\end{enumerate}
+
+Topological Euler characteristic
+\[
+  e(X) = \sum_{i = 1}^{2n} (-1)^i b_i(X) =
+  \begin{cases}
+    n + b_n & n = 0 \pmod 2 \\
+    n + 1 - b_n & n = 1 \pmod 2
+  \end{cases}
+\]
+
+Computation using Chern class:
+\[
+  e(X) = \int_X c_n(\sh T_X) = \int_X [\frac{c(\sh T_{\P/X})}{c(\sh O(3))}]_{2n} = \int_X [\frac{(1 + h)^{n + 2}}{1 + 3h}]_{2n}
+\]
+where \(h - c_1(\sh O(1)), c(\sh O(1)) = 1 + h\). So
+\[
+  e(X) = \int_\P [3h \frac{(1 + h)^{n + 2}}{1 + 3h}]_{2n + 2} = \frac{1}{3} ((-2)^{n + 2} + 3n + 5).
+\]
+
+To put it in a generating function,
+\[
+  \sum_{n = 0}^\infty e(X_n) z^{n + 1} = \frac{3z}{(1 - z)^2 (1 + 2z)}
+\]
+
+\(n = 0, 1, 2, 3, 4\), \(e = 3, 0, 9, -6, 27\)
+
+\begin{definition}
+  A (smooth projective) variety \(X\) is \emph{unirational} (of degree \(d\)) if there exists a rational map \(\P^n \rational X\) generically of degree \(d\), where \(n = \dim X\). It is rational if it is unirational of degree \(1\), if and only if \(\P^n \supseteq U \subseteq X\) one dense.
+\end{definition}
+
+Question: are cubic hypersurfaces rational/unirational?
+
+Let \(X \subseteq \P\) be a smooth cubic. For \(x \in X\), let \(T_xX\) be the tangent space. We get a rational map
+\begin{align*}
+  \P(T_xX) &\rational X \\
+  v &\mapsto y
+\end{align*}
+given as follow: \(x\) and \(v\) gives a line \(L_v \subseteq \P\) through \(x\). Then \(y\) is defined as the third intersection of \(L_v\) with \(X\). This is not defined if \(L_v \subseteq X\). Note that if \(L_v \subseteq X\) for all \(v\) then \(\P^n = \bigcup L_v \subseteq X\), contradicting smoothness.
+
+The map is generically injective: if \(xy = L_v\) then \(v\) is determined.
+
+Assume \(L [ X\) is a line. Then \(\P(\sh I_{X/L}) \to L \cong \P^1\) so \(\P(\sh I_X/L)\) is rational. \(\P(I_{X/L}) \rational X\) generically two to one.
+
+\begin{eg}
+  
+\end{eg}
+
+\begin{proposition}
+  Let \(X\) be a smooth cubic of dimension \(n \geq 3\) and \(x \in X\). Then exists \(x \in L \subseteq X\) a line.
+\end{proposition}
+
+\begin{corollary}
+  Every smooth cubic sontains a line is unirational in degree \(2\).
+\end{corollary}
+
+\begin{proof}
+  Let \(x = [a_0: \cdots a_{n + 1}], X = V(F), F \in k[x_0, \dots, x_{n + 1}]_3\). Let
+  \[
+    \mathbb T_xX = V(\sumx_i \p_i F(a)) \cong \P^n \subseteq \P^{n + 1}
+  \]
+  be the projective tangent space and
+  \[
+    P_xX = V(\sum a_i \p_i F) \subseteq \P^{n + 1}
+  \]
+  quadric be the polar of the hypersurface. Choose a generic hyperplane \(\P^n \subseteq \P^{n + 1}\) such that \(x \notin \P^n\). As \(n \geq 3\), the intersection \(\P^n \cap \mathbb T_x \cap P_xX \cap X \ne \emptyset\) so pick a point \(y\). Let \(y\) be the line through \(x\) and \(y\). Claim \(L \subseteq X\): wlog \(x = [1:0: \cdots :0], y = [0:1: 0: \cdots:0], x \notin \P^n = V(x_0), P_x = V(\p_0F)\). As \(y \in P_x\), have \(\p_0F(y) = 0\). As \(x \in \mathbb T_x\), have \(\p_0F(x) = 0\). Thus \(F|_L\) has zeros at \(x\) and \(y\) both with multiplicity \(2\). As \(F\) is cubic, \(F|_L = 0\) so \(L \subseteq X\).
+\end{proof}
+
+Later: \(F(X) = \{L \subseteq X ?\}\)
+
+\paragraph{Projection from a linear subspace}
+
+Let \(P = \P(W) \subseteq \P = \P(V)\) where \(\dim V = n + 2, \dim W = k\). Pick \(U \subseteq V\) such that \(U \oplus W = V\), so \(\dim U = n + 2 - k\). Choose \(x \notin P\). Then \(\overline \{xP\}\), the subspace generated by \(P\) and \(x\), is isomorphic to \(\P^k\) so intersects \(\P(U)\) at a single point \(y\). We thus get an induced map \(\P \setminus P \to \P(U)\), thus a rational map \(\varphi: \P \rational \P(U)\). \(\varphi\) is the map induced by the linear system \(|\sh I_P \otimes \sh O(1)| \subseteq |\sh O(1)|\). Consider the SES
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \sh I_P \ar[r] & \sh O_\P \ar[r] & \sh O_P \ar[r] & 0
+  \end{tikzcd}
+\]
+and
+\[
+  \begin{tikzcd}
+    0 \ar[r] & H^0(I_P \otimes O(1)) \ar[r] & H^0(\sh O_\{(1)) \ar[r] & H^0(\sh O_P(1)) \\
+    & U^* & V^* & W^*
+  \end{tikzcd}
+\]
+Consider the blow up and a morphism \(\varphi: \P \to \P(U)\)...
+
+Claim \(N_{P/\P} \cong V/W \otimes \sh O(1)\).
+
+\begin{ex}
+  \(\sh F \cong \sh O(1) \oplus (W^* \otimes \sh O)\).
+\end{ex}
+
+Let \(X \subseteq \P\) be a smooth hypersurface and assume \(P \subseteq X\). Blowup
+\[
+  \begin{tikzcd}
+    & E \ar[d] \\
+    \P(N_{P/X}) \ar[r, "\cong"] & E_x \ar[r, "\pi"] \ar[d] & \tilde X = \Operatorname{Bl}_P(X) \ar[r, "\subseteq"] & \tilde P \\
+    & P & X & \P
+  \end{tikzcd}
+\]
+have SES
+\[
+  \begin{tikzcd}
+    0 \ar[r] & N_{P/X} \ar[r] & N_{P/\P} \ar[r] & N_{X/\P}|_P \ar[r] & 0
+  \end{tikzcd}
+\]
+
+\begin{eg}
+  \(X \subseteq \P\) quartic, \(P\) is a point \(x \in X\). \(\varphi: BL_pX \to \P(U)\) is generically injective so \(X\) is rational. If \(X\) is cubic then \(\varphi\) is generically two-to-one.
+\end{eg}
+
+
+  
+
+
+
+\printindex
+\end{document}
+
+% http://www.math.uni-bonn.de/people/huybrech/Notes.pdf
+% same content but in a different order

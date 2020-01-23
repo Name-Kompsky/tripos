@@ -10,9 +10,16 @@
 
 \input{header}
 
+% define \Sh to be Cyrillic sha
+% https://tex.stackexchange.com/a/124746
+
+\DeclareFontFamily{U}{wncy}{} \DeclareFontShape{U}{wncy}{m}{n}{<->wncyr10}{} \DeclareSymbolFont{mcy}{U}{wncy}{m}{n} \DeclareMathSymbol{\Sh}{\mathord}{mcy}{"58}
+
 \theoremstyle{definition}
 \newtheorem*{fact}{Fact}
 
+\theoremstyle{theorem}
+\newtheorem*{conjecture}{Conjecture}
 
 \renewcommand*{\P}{\mathbb{P}}
 \DeclareMathOperator{\ord}{ord}
@@ -22,7 +29,6 @@
 \renewcommand*{\O}{\mathcal{O}}
 \DeclareMathOperator{\Cl}{Cl} % Class group
 \DeclareMathOperator{\Sum}{sum} % sum map
-
 
 \begin{document}
 
@@ -1380,8 +1386,8 @@ A question on example sheet 2 shows that for any formal group, there exists a un
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(F(X, Y) = X + Y\). We call this formal group \(\hat \mathbb G_a\).
-  \item \(F(X, Y) = X + Y + XY = (1 + X)(1 + Y) - 1\) so is secretly the same as above. We call this formal group \(\hat \mathbb G_m\).
+  \item \(F(X, Y) = X + Y\). We call this formal group \(\hat{\mathbb G_a}\).
+  \item \(F(X, Y) = X + Y + XY = (1 + X)(1 + Y) - 1\) so is secretly the same as above. We call this formal group \(\hat{\mathbb G_m}\).
   \item \(F\) arising from an elliptic curve. We call it \(\hat E\).
   \end{enumerate}
 \end{eg}
@@ -1395,7 +1401,7 @@ A question on example sheet 2 shows that for any formal group, there exists a un
 \end{definition}
 
 \begin{theorem}
-  If \(\ch R = 0\) then every formal group \(\mathbb F\) over \(R\) is isomorphic to \(\hat \mathbb G_a\) over \(R \otimes \Q\). More precisely,
+  If \(\ch R = 0\) then every formal group \(\mathbb F\) over \(R\) is isomorphic to \(\hat{\mathbb G_a}\) over \(R \otimes \Q\). More precisely,
   \begin{enumerate}
   \item there is a unique power series \(\log(T) = T + \frac{a_2}{2} T^2 + \frac{a_3}{3}T^3 + \cdots\) with \(a_i \in R\) such that
     \[
@@ -1466,7 +1472,7 @@ A question on example sheet 2 shows that for any formal group, there exists a un
 \end{proof}
 
 \begin{notation}
-  Let \(\mathcal F\) (e.g.\ \(\hat \mathbb G_a, \hat \mathbb G_m, \hat E\)) be a formal group given by \(F \in R[[X, Y]]\). Suppose \(R\) is complete with respect to \(I\). For \(x, y \in I\) put \(x \oplus_{\mathcal F} y = F(x, y) \in I\). Then \(\mathcal F(I) = (I, \oplus_{\mathcal F})\) is an abelian group. For example \(\hat \mathbb G(I) = (I, +), \hat \mathbb G_m(I) \cong (1 + I, \times)\) and \(\hat E(I) \subseteq E(K)\) as in lemma 8.2. This also explains the earlier choice of notation.
+  Let \(\mathcal F\) (e.g.\ \(\hat{\mathbb G_a}, \hat{\mathbb G_m}, \hat E\)) be a formal group given by \(F \in R[[X, Y]]\). Suppose \(R\) is complete with respect to \(I\). For \(x, y \in I\) put \(x \oplus_{\mathcal F} y = F(x, y) \in I\). Then \(\mathcal F(I) = (I, \oplus_{\mathcal F})\) is an abelian group. For example \(\hat{\mathbb G(I)} = (I, +), \hat{\mathbb G_m(I)} \cong (1 + I, \times)\) and \(\hat E(I) \subseteq E(K)\) as in lemma 8.2. This also explains the earlier choice of notation.
 \end{notation}
 
 \begin{corollary}
@@ -1555,7 +1561,7 @@ A reminder we are working over \(\ch K = 0, \ch k = p\).
 \begin{proposition}
   Let \(\mathcal F\) be a formal group over \(\O_K\). Let \(e = v(p)\). If \(r > \frac{e}{p - 1}\) then
   \[
-    \log: \mathcal F(\pi^r \O_K) \to \hat \mathbb G_a(\pi^r \O_K)
+    \log: \mathcal F(\pi^r \O_K) \to \hat{\mathbb G_a}(\pi^r \O_K)
   \]
   is an isomorphism with inverse \(\exp\).
 \end{proposition}
@@ -1811,7 +1817,7 @@ Suppose \([K: \Q] < \infty\) and \(E/K\) is an elliptic curve. Throughout we let
 \end{lemma}
 
 \begin{proof}
-  Proposition 9.5 says that \(E(K_{\mathfrak p} \to \widetilde E(k_{\mathfrak p})\) is a group homomorphism with kernel \(E_1(K_{\mathfrak p})\). Then corollary 8.5 implies that \(E_1(K_{\mathfrak p})\) has no \(n\)-torsion.
+  Proposition 9.5 says that \(E(K_{\mathfrak p}) \to \widetilde E(k_{\mathfrak p})\) is a group homomorphism with kernel \(E_1(K_{\mathfrak p})\). Then corollary 8.5 implies that \(E_1(K_{\mathfrak p})\) has no \(n\)-torsion.
 \end{proof}
 
 \begin{eg}
@@ -2619,14 +2625,364 @@ Finite subgroups of LHS are of the form \(\Hom(\gal(L/K), \mu_n)\) for \(L/K\) a
   for \(L\) the fixed field of \(\ker \chi\).
 \end{remark}
 
+\begin{notation}
+  Since we are dealing with Galois cohomology, write \(H^1(K, -)\) for \(H^1(\gal(\overline K/K), -)\).
+\end{notation}
 
+Let \(\phi: E \to E'\) be an isogeny of elliptic curves over \(K\). There is a short exact sequence of \(\gal(\overline K/K)\)-modules
+\[
+  \begin{tikzcd}
+    0 \ar[r] & E[\phi] \ar[r] & E \ar[r, "\phi"] & E' \ar[r] & 0
+  \end{tikzcd}
+\]
+which induces a long exact seqeucne
+\[
+  \begin{tikzcd}
+    E(K) \ar[r, "\phi"] & E'(K) \ar[r, "\delta"] & H^1(K, E[\phi]) \ar[r] & H^1(K, E) \ar[r, "\phi_*"] & H^1(K, E')
+  \end{tikzcd}
+\]
+from which we get a short exact sequence
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \frac{E'(K)}{\phi E(K)} \ar[r] & H^1(K, E[\phi]) \ar[r] & H^1(K, E)[\phi_*] \ar[r] & 0
+  \end{tikzcd}
+\]
+Now take \(K\) a number field. For each place \(v\) of \(K\) we fix an embedding \(\overline K \subseteq \overline K_v\). Then \(\gal(\overline K_V/K_V) \subseteq \gal(\overline K/K)\). We get a commutative diagram
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \frac{E'(K)}{\phi E(K)} \ar[r] \ar[d] & H^1(K, E[\phi]) \ar[r] \ar[d, "\mathrm{res}_V"] & H^1(K, E)[\phi_*] \ar[r] \ar[d, "\mathrm{res}_V"] & 0 \\
+    0 \ar[r] & \frac{E'(K_v)}{\phi E(K_v)} \ar[r] & H^1(K_v, E[\phi]) \ar[r] & H^1(K_v, E)[\phi_*] \ar[r] & 0
+  \end{tikzcd}
+\]
 
+\begin{definition}[Selmer group]\index{Selmer group}
+  The \emph{\(\phi\)-Selmer group} \(S^{(\phi)}(E/K)\) is the kernel of the dotted arrow in
+  \[
+    \begin{tikzcd}[column sep=scriptsize]
+      0 \ar[r] & \frac{E'(K)}{\phi E(K)} \ar[r] \ar[d] & H^1(K, E[\phi]) \ar[r] \ar[d, "\mathrm{res}_V"] \ar[dr, dotted] & H^1(K, E)[\phi_*] \ar[r] \ar[d, "\mathrm{res}_V"] & 0 \\
+      0 \ar[r] & \prod_v \frac{E'(K_v)}{\phi E(K_v)} \ar[r, "\delta_v"] & \prod_v H^1(K_v, E[\phi]) \ar[r] & \prod_v H^1(K_v, E)[\phi_*] \ar[r] & 0
+    \end{tikzcd}
+  \]
+  so
+  \begin{align*}
+    S^{(\phi)}(E/K)
+    &= \ker(H^1(K, E[\phi]) \to \prod_v H^1(K_v, E)) \\
+    &= \{\alpha\in H^1(K, E[\phi]): \mathrm{res}_V(\alpha) \in \im (\delta_v) \text{ for all } v\}
+  \end{align*}
+\end{definition}
 
+\begin{definition}[Tate-Shafarevich group]\index{Tate-Shafarevich group}
+  The \emph{Tate-Shafarevich group} is
+  \[
+    \Sh (E/K) = \ker(H^1(K, E) \to \prod_v H^1(K_v, E)).
+  \]
+\end{definition}
 
+We get a short exact sequence
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \frac{E'(K)}{\phi E(K)} \ar[r] & S^{(\theta)}(E/K) \ar[r] & Ш(E/K)[\phi_*] \ar[r] & 0
+  \end{tikzcd}
+\]
+In particular we can specialise to \(\phi = [n]\). Rearranging our proof of weak Mordell-Weil gives
 
+\begin{theorem}
+  \(S^{(n)}(E/K)\) is finite.
+\end{theorem}
 
+\begin{proof}
+  For \(L/K\) a finite Galois extension there is an exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H^1(\gal(L/K), E(L)[n]) \ar[r, "\mathrm{inf}"] & H^1(K, E[n]) \ar[d, "\supseteq"] \ar[r, "\mathrm{res}"] & H^1(L, E[n]) \ar[d, "\supseteq"] \\
+      & & S^{(n)}(E/K) \ar[r] & S^{(n)}(E/K)
+    \end{tikzcd}
+  \]
+  As \(H^1(\gal(L/K), E(L)[n])\) is finite, we we extend our field \(K\) and assume \(E[n] \subseteq E(K)\) and hence \(\mu_n \subseteq K\). Thus \(E[n] \cong \mu_n \times \mu_n\) as Galois modules. Thus
+  \[
+    H^1(K, E[n]) \cong H^1(K, \mu_n) \times H^1(K, \mu_n) \cong K^*/(K^*)^n \times K^*/(K^*)^n.
+  \]
 
+  Let \(S\) be the union of primes of bad reduction for \(E\), \(v\) such that \(v \divides n\) and the infinite places. Note \(S\) is a finite set of places.
 
+  \begin{definition}
+    The subgroup of \(H^1(K, A)\) unramified outside \(S\) is
+    \[
+      H^1(K, A; S) = \ker(H^1(K, A) \to \prod_{v \notin S} H^1(K_v^{\mathrm{nr}}, A)).
+    \]
+  \end{definition}
+  There is a commutative diagram with exact rows
+  \[
+    \begin{tikzcd}
+      E(K_v) \ar[r, "\times n"] \ar[d, hook] & E(K_v) \ar[r, "\delta_v"] \ar[d, hook] & H^1(K_v, E[n]) \ar[d, "\mathrm{res}"] \\
+      E(K_v^{\mathrm{nr}}) \ar[r, "\times n"] & E(K_v^{\mathrm{nr}}) \ar[r, "0"] & H^1(K_v^{\mathrm{nr}}, E[n])
+    \end{tikzcd}
+  \]
+  Multiplication by \(n\) on the second row is surjective for all \(v \notin S\) (Thm 9.9). Thus
+  \begin{align*}
+    S^{(n)}(E/K) &= \{\alpha \in H^1(K, E[n]): \mathrm{res}_v(\alpha) \in \im(\delta_v) \text{ for all } v\} \\
+                 &\subseteq H^1(K, E[n]; S) \\
+                 &\cong H^1(K, \mu_n; S) \times H^1(K, \mu_n; S)
+  \end{align*}
+  (?using the fact that \(\mathrm{res} \compose \delta_v = 0\)) But
+  \[
+    H^1(K, \mu_n; S)
+    = \ker(K^*/(K^*)^n \to \prod_{v \notin S} (K_v^{\mathrm{nr}})^*/(K_v^{\mathrm{nr}})^{*n})
+    = K(S, n)
+  \]
+  which is finite.
+\end{proof}
+
+\begin{remark}
+  \(S^{(n)}(E/K)\) is finite and effectively computable. It is conjectured that \(|Ш(E/K)| < \infty\). This would imply that \(\mathrm{rank} E(K)\) is effctively computable.
+\end{remark}
+
+\section{Descent by cyclic isogeny}
+
+Let \(E, E'\) be elliptic curves over a number field \(K\). Let \(\phi: E \to E'\) be an isogeny of degree \(n\). Suppose \(E'[\hat \phi] \cong \Z/n\Z\) is generated by \(T \in E'(K)\). Then \(E[\phi] \cong \mu_n, S \mapsto e_\phi(S, T)\) as a \(\gal(\overline K/K)\)-module. We have a short exact sequence of \(\gal(\overline K/K)\)-modules
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \mu_n \ar[r] & E \ar[r, "\phi"] & E' \ar[r] & 0
+  \end{tikzcd}
+\]
+giving rise to long exact sequence
+\[
+  \begin{tikzcd}
+    E(K) \ar[r] & E'(K) \ar[r, "\delta"] \ar[dr, "\alpha"'] & H^1(K, \mu_n) \ar[r] \ar[d, "\cong"] & H^1(K, E) \\
+    & & K^*/(K^*)^n
+  \end{tikzcd}
+\]
+
+\begin{theorem}
+  Let \(f \in K(E')\) and \(g \in K(E)\) with \(\div (f) = n(T) - n(0)\) and \(\phi^* f = g^n\). Then \(\alpha(P) = f(P) \pmod{(K^*)^n}\) for all \(P \in E'(K) \setminus \{0, T\}\).
+\end{theorem}
+
+\begin{proof}
+  Let \(Q \in \phi^{-1}P\). Then \(\delta(P) \in H^1(K, \mu_n)\) is represented by the cocyle \(\sigma \mapsto \sigma Q - Q \in E[\phi] \cong \mu_n\). For any \(X \in E\) not a zero or pole of \(g\),
+  \[
+    e_\phi(\sigma Q - Q, T)
+    = \frac{g(\sigma Q - Q + X)}{g(X)}
+    = \frac{g(\sigma Q)}{g(Q)}
+    = \frac{\sigma(g(Q))}{g(Q)}
+    = \frac{\sigma(\sqrt[n]{f(P)})}{\sqrt[n]{f(P)}}
+  \]
+  But
+  \begin{align*}
+    H^1(K, \mu_n) &\cong K^*/(K^*)^n \\
+    \sigma \mapsto \frac{\sigma \sqrt[n]{x}}{\sqrt[n]{x}} &\mapsfrom x
+  \end{align*}
+  so \(\alpha(P) = f(P) \pmod{(K^*)^n}\).
+\end{proof}
+
+\paragraph{Descent by \(2\)-isogeny}
+
+Let \(E: y^2 = x(x^2 + ax + b), E': y^2 = x(x^2 + a'x + b')\) where \(b(a^2 - 4b) \ne 0, a' = -2a, b' = a^2 - 4b\). Define
+\begin{align*}
+  \phi: E &\to E' \\
+  (x, y) &\mapsto ((\frac{y}{x})^2, \frac{y(x^2 - b)}{x^2}) \\
+  \hat \phi: E' &\to E \\
+  (x, y) &\mapsto (\frac{1}{4} (\frac{y}{x})^2, \frac{y(x^2 - b')}{8x^2})
+\end{align*}
+Check they are dual to each other. Have \(E[\phi] = \{0, T\}, E'[\hat \phi] = \{0, T'\}\) where \(T = (0, 0) \in E(K), E' = (0, 0) \in E'(K)\).
+
+\begin{proposition}
+  There is a group homomorphism
+  \begin{align*}
+    E'(K) &\to K^*/(K^*)^2 \\
+    (x, y) &\mapsto
+             \begin{cases}
+               x \pmod{(K^*)^2} & x \ne 0 \\
+               b' \pmod{(K^*)^2} & x = 0
+             \end{cases}
+  \end{align*}
+  with kernel \(\phi(E(K))\).
+\end{proposition}
+
+\begin{proof}
+  Either apply theorem 16.1 with \(f = x \in K(E'), g = \frac{y}{x} \in K(E)\), or direct calculation, see example sheet 4.
+\end{proof}
+
+Let
+\[
+  \alpha_E: \frac{E(K)}{\hat \phi(E'(K))} \embed K^*/(K^*)^2, \alpha_{E'}: \frac{E'(K)}{\phi(E(K))} \embed K^*/(K^*)^2.
+\]
+
+\begin{lemma}
+  \(2^{\mathrm{rank} E(K)} = \frac{1}{4} |\im \alpha_E| \cdot |\im \alpha_{E'}|\).
+\end{lemma}
+
+\begin{proof}
+  Since \(\hat \phi \phi = [2]_E\) there is an exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & E(K)[\phi] \ar[r] & E(K)[2] \ar[r, "\phi"] & E'(K)[\hat \phi] \ar[dll, overlay, out=0, in=180] \\
+      & \frac{E'(K)}{\phi E(K)} \ar[r, "\hat \phi"] & \frac{E(K)}{2E(K)} \ar[r] & \frac{E(K)}{\hat E'(K)} \ar[r] & 0
+    \end{tikzcd}
+  \]
+  so the alternative product of group orders is \(1\). Thus
+  \[
+    \frac{|E(K)/2E(K)|}{E(K)[2]} = \frac{|\im \alpha_E| \cdot |\im \alpha_{E'}|}{4}.
+  \]
+
+  By Mordell-Weil \(E(K) \cong \Delta \times \Z^r\) where \(\Delta\) is finite and \(r\) is the rank of \(E(K)\). Thus
+  \[
+    \frac{E(K)}{2E(K)} \cong \frac{\Delta}{2\Delta} \times (\Z/2\Z)^r, E(K)[2] \cong \Delta[2].
+  \]
+  Since \(\Delta\) is finite, \(\frac{\Delta}{2\Delta}\) and \(\Delta[2]\) have the same order. The result thus follows.
+\end{proof}
+
+\begin{lemma}
+  If \(K\) is a number field and \(a, b \in \O_K\) then \(\im \alpha_E \subseteq K(S, 2)\) where \(S = \{\text{primes dividing } b\}\).
+\end{lemma}
+
+\begin{proof}
+  Must show if \(x, y \in K\), \(y^2 = x(x^2 + ax + b)\) and \(v_{\mathfrak p}(b) = 0\) then \(v_{\mathfrak p}(x)\) is even. If \(v_{\mathfrak p}(x) < 0\) then by lemma 9.1 \(v_{\mathfrak p}(x) = -2r, v_{\mathfrak p}(y) = -3r\) for some \(r \geq 1\). If \(v_{\mathfrak p}(x) > 0\) then \(v_{\mathfrak p}(x^2 + ax + b) = 0\) so \(v_{\mathfrak p}(x) = v_{\mathfrak p}(y^2) = 2 v_{\mathfrak p}(y)\).
+\end{proof}
+
+\begin{lemma}
+  If \(b_1b_2 = b\) then \(b_1(K^*)^2 \in \im \alpha_E\) if and only if
+  \[
+    w^2 = b_1 u^4 + au^2v^2 + b_2v^4
+  \]
+  is soluble for \(u, v, w \in K\) not all zero.
+\end{lemma}
+
+\begin{proof}
+  If \(b_1 \in (K^*)^2\) or \(b_2 \in (K^*)^2\) then both conditions are satisfied so may assume \(b_1, b_2 \notin (K^*)^2\). \(b_1(K^*)^2 \in \im \alpha_E\) if and only if exists \((x, y) \in E(K)\) such that \(x = b_1t^2\) for some \(t \in K^*\), so
+  \[
+    y^2 = b_1t^2 ((b_1t^2)^2 + ab_1t^2 + b)
+  \]
+  so
+  \[
+    (\frac{y}{b_1t})^2 = b_1t^4 + at^2 + b_2
+  \]
+  so have solution \((u, v, w) = (t, 1, \frac{w}{b_1t})\).
+
+  Conversely if \((u, v, w)\) is a solution then \(uv \ne 0\). Check \((b_1 (\frac{u}{v})^2, b_1 \frac{uw}{v^3}) \in E(K)\).
+\end{proof}
+
+Now take \(K = \Q\).
+
+\begin{eg}
+  \(E: y^2 = x^3 - x\). By lemma 16.4, \(\im \alpha_E \subseteq \langle -1 \rangle \subseteq \Q^*/(\Q^*)^2\). But we know \((0, 0) \in \im \alpha_E\), equality. \(E': y^2 = x^3 + 4x\), \(\im \alpha_{E'} \subseteq \langle -1, 2 \rangle \subseteq \Q^*/(\Q^*)^2\). Need to check
+  \begin{align*}
+    b_1 = 1, & w^2 = - u^4 - 4u^4 \\
+    b_1 = 2, & w^2 = 2u^4 + 2v^4 \\
+    b_1 = -2, & w^2 = -2u^4 - 2v^4
+  \end{align*}
+  The first and third are not soluble over \(\R\). The second has solution \((u, v, w) = (1, 1, 2)\) so \(\im \alpha_{E'} = \langle 2\rangle \subseteq \Q^*/(\Q^*)^2\). Thus \(\mathrm{rank} E(\Q) = 0\) so \(1\) is not a congurent number.
+\end{eg}
+
+\begin{eg}
+  \(E: y^2 = x^3 + px\) where \(p\) is a prime, \(p = 5 \pmod 8\). \(b_1 = -1, w^2 = -u^4 - pv^4\) is insoluble over \(\R\) so \(\im \alpha_E = \langle p\rangle \subseteq \Q^*/(\Q^*)^2\). \(E': y^2 = x^3 - 4px\) so \(\im \alpha_{E'} \subseteq \langle -1, 2, p \rangle \subseteq \Q^*/(\Q^*)^2\). Note \(\alpha_{E'}(T') = (-4p) (\Q^*)^2 = (-p) (\Q^*)^2\) so only need to consider
+  \begin{align*}
+    b_1 = 2, & w^2 = 2u^4 - 2pv^4 \\
+    b_1 = -2, & w^2 = -2u^4 + 2pv^4 \\
+    b_1 = p, & w^2 = pu^4 - 4v^4
+  \end{align*}
+  Suppose equation 1 is soluble. wlog \(u, v, w \in \Z, \gcd(u, v) = 1\). If \(p \divides u\) then \(p \divides w\) and then \(p \divides v\), absurd. Thus \(w^2 = 2u^4 \ne 0 \pmod p\) so \(\legendre{2}{p} = 1\), contradicting \(p = 5 \pmod 8\).
+
+  Likewise 2 has no solution since \(\legendre{-2}{p} = -1\).
+\end{eg}
+
+To recall, for \(E: y^2 = x(x^2 + ax + b)\), \(\phi: E \to E'\) a \(2\)-isogeny. \(w^2 = b_1 u^4 + au^2v^2 + b_2v^4 (*)\). Have a short exact sequence
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \frac{E'(\Q)}{\phi E(\Q)} \ar[r] \ar[dr, "\alpha_{E'}"] & S^{(\phi)} (E/\Q) \ar[r] & \Sh (E/\Q)[\phi_*] \ar[r] & 0 \\
+    & & \Q^*/(\Q^*)^2
+  \end{tikzcd}
+\]
+\begin{align*}
+  \im \alpha_{E'} &= \{b_1 (\Q^*)^2: \text{\(\ast\) is soluble over \(\Q\)}\} \\
+  \subseteq S^{(\phi)}(E/\Q) &= \{b_1 (\Q^*)^2: \text{\(\ast\) is soluble over \(\R\) and over \(\Q_p\) for all \(p\)}\}
+\end{align*}
+
+\begin{fact}
+  (Uses example sheet 3 question 9 and Hensel's lemma) If \(a, b_1, b_2 \in \Z\) and \(p \ndivides 2b(a^2 - 4b)\) then \(\ast\) is solubleover \(\Q_p\).
+\end{fact}
+
+\begin{eg}[example 2 continued]
+  \(E: y^2 = x^3 + px\), \(p = 5 \pmod 8\), \(w^2 = pu^4 - 4v^4 \dagger\). \(E(\Q)\) has rank \(0\) if (\(\dagger\)) is insoluble over \(\Q\) and rank \(1\) if soluble. By the fact we only have to look at \(p\)- and \(2\)-adics.
+  \begin{itemize}
+  \item \(\dagger\) is soluble over \(\Q_p\) since \(\legendre{-1}{p} = 1\) so \(-1 \in (\Z_p^*)^2\) (by Hensel's lemma).
+  \item soluble over \(\Q_2\) since \(p - 4 = 1 \pmod 8\) so \(p - 4 \in (\Z_2^*)^2\).
+  \item soluble over \(\R\) since \(\sqrt p \in \R\).
+  \end{itemize}
+  We can try to spot solutions:
+  \[
+    \begin{array}{c|ccc}
+      p & u & v & w \\ \hline
+      5 & 1 & 1 & 1 \\
+      13 & 1 & 1 & 3 \\
+      29 & 1 & 1 & 5 \\
+      37 & 5 & 3 & 151 \\
+      53 & 1 & 1 & 7
+    \end{array}
+  \]
+  Conjecture: \(\mathrm{rank}(E(\Q)) = 1\) for all primes \(p = 5 \pmod 8\).
+\end{eg}
+
+\begin{eg}[Lind]
+  \(E: y^2 = x^3 + 17x\). \(\im \alpha_E = \langle 17 \rangle \subseteq \Q^*/(\Q^*)^2\). \(E': y^2 = x^3 - 68x\). \(\im \alpha_{E'} \subseteq \langle -1, 2, 17 \rangle \subseteq \Q^*/(\Q^*)^2\). Consider \(b_1 = 2\). \(w^2 = 2u^4 - 34v^4\). Replace \(w\) by \(2w\) and divide through by \(2\) to get \(C: 2w^2 = u^4 - 17v^4\). Denote by
+  \[
+    C(K) = \{(u, v, w) \in K^3 \setminus \{0\} \text{ satisfying } C\}/\sim
+  \]
+  where \((u, v, w) \sim (\lambda u, \lambda v, \lambda^2 w)\) for all \(\lambda \in K^*\).
+
+  \(C(\Q_2) \ne \emptyset\) as \(17 \in (\Z_2^*)^4\). \(C(\Q_{17}) \neq \emptyset\) since \(2 \in (\Z_{17}^*)^2\). \(C(\R) \ne \emptyset\) since \(\sqrt 2 \in \R\). Thus \(C(\Q_v) \ne \emptyset\) for all places of \(\Q\). However it has no solution over \(\Q\): suppose \((u, v, w) \in C(\Q)\). wlog \(u, v\in \Z, \gcd(u, v) = 1\), then \(w \in \Z\) and can assume \(w > 0\). If \(17 \divides w\) then \(17 \divides u\) and then \(17 \divides v\), absurd. So if \(p \divides w\) then \(p \ne 17\) and \(\legendre{17}{p} = 1\) so by quadratic reciprocity \(\legendre{p}{17} = \legendre{17}{2} = 1\) (for \(p\) odd. For \(p = 2\) have \(\legendre{2}{17} = 1\). Thus \(\legendre{w}{17} = 1\). But \(2w^2 = u^4 \pmod{17}\) so \(2 \in (\F_{17}^*)^4 = \{\pm 1, \pm 4\}\), absurd. Thus \(C(\Q) = \emptyset\). \(C\) is a counterexample to the Hasse principle. It representes a non-trivial element in \(\Sh(E/\Q)\).
+\end{eg}
+
+\paragraph{Birch Swinnerton-Dyer conjecture}
+\index{Birch Sinnerton-Dyer conjecture}
+
+Let \(E/\Q\) be an elliptic curve.
+
+\begin{definition}[\(l\)-function]\index{\(L\)-function}
+  The \emph{\(L\)-function} of \(E\) is \(L(E, s) = \prod_p L_p(E, s)\) where
+  \[
+    L_p(E, s) =
+    \begin{cases}
+      (1 - a_p p^{-s} + p^{1 - 2s})^{-1} & \text{good reduction} \\
+      (1 - p^{-s})^{-1} & \text{split multiplicative reduction} \\
+      (1 + p^{-s})^{-1} & \text{nonsplit multiplicative reduction} \\
+      1 & \text{additive reduction}
+    \end{cases}
+  \]
+  where \(\#(\F_p) = p + 1 - a_p\).
+\end{definition}
+
+Hasse's theorem says that \(|a_p| < s \sqrt p\) so \(L(E, s)\) converges for \(\Re s > \frac{3}{2}\).
+
+\begin{theorem}[Wiles, Breuid, Conrad, Diamond, Taylor]
+  \(L(E, s)\) is the \(L\)-function of a weight \(2\) modular form and hence has an analytic continuation to all of \(\C\) (and a functional equation relating \(L(E, s)\) and \(L(E, 2 - s)\)).
+\end{theorem}
+
+\begin{conjecture}[weak Birch Swinnerton-Dyer conjecutre]
+  \(\ord_{s = 1} L(E, s) = \mathrm{rank} E(\Q)\).
+\end{conjecture}
+
+Assuming weak BSD and let \(r = \ord_{s = 1} L(E, s)\) be the analytic rank, we have
+
+\begin{conjecture}[strong Birch Swinnerton-Dyer conjecutre]
+  \[
+    \lim_{s \to 1} \frac{1}{(s - 1)^r} L(E, s) = \frac{\Omega_E |\Sh(E/\Q)| \mathrm{Reg} E(\Q) \prod_P c_p}{|E(\Q)_{\mathrm{tors}}|^2}
+  \]
+  where
+  \begin{itemize}
+  \item \(c_p = [E(\Q_p): E_0(\Q_p)] = \text{ tamagawa number of } E/\Q_p\), if \(\frac{E(\Q)}{E(\Q)_{\mathrm{tors}}} = \langle P_1, \dots, P_r \rangle\) then
+    \[
+      \mathrm{Reg} E(\Q) = \det ([P_i, P_j])_{ij}
+    \]
+    where \([P, Q] = \hat h (P + Q) - \hat h(P) - \hat h(Q)\).
+  \item \(\Omega_E = \int_{E(\R)} \frac{dx}{|2y + a_1x + a_3|}\) where \(a_i\) is the coefficient of a globally minimal Weierstrass equation for \(E\).
+  \end{itemize}
+\end{conjecture}
+
+Best result so far:
+
+\begin{theorem}[Kolyragin]
+  If \(\ord_{s = 1} L(E, s) = 0\) or \(1\) then weak BSD is trus and \(|\Sh (E/\Q)| < \infty\).
+\end{theorem}
 
 \printindex
 \end{document}
