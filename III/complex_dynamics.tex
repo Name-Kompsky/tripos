@@ -60,7 +60,7 @@ Recall at the end of IID Riemann Surfaces
 Three cases:
 \begin{enumerate}
 \item \(\hat \C\): as \(\aut(\hat \C)\) are precisely the Möbius transformations and all Möbius transformations have fixed points, \(G = 1\) so \(R = \hat \C\).
-\item \(\C\): \(\aut(\C) = \{p(z) = az + b, a \ne 0\}\) so \(G\) only contains translations, so can be identified by a subgroup of \(\C\). Can show that \(G\) is one of \(\{0\}, \Z \omega_1\) or \(\Sigma = \Z\omega_1 \oplus \Z\omega_2\), a lattice. Then \(R\) is one of \(\C, \C^*\) or \(\C/\Lambda\), a complex torus.
+\item \(\C\): \(\aut(\C) = \{p(z) = az + b, a \ne 0\}\) so \(G\) only contains translations, so can be identified by a subgroup of \(\C\). Can show that \(G\) is one of \(\{0\}, \Z \omega_1\) or \(\Lambda = \Z\omega_1 \oplus \Z\omega_2\), a lattice. Then \(R\) is one of \(\C, \C^*\) or \(\C/\Lambda\), a complex torus.
 \item \(\D\): \(\aut(\D) = \{\lambda \cdot \frac{z - a}{1 - \conj a z}: \lambda \in S^1, a \in \D\}\), which has a lot of elements with no fixed point. This is called \emph{hyperbolic}.
 \end{enumerate}
 
@@ -79,7 +79,7 @@ where \(R = |\frac{y - x}{1 - \conj x y}|\). Elements of \(\aut(\D)\) are isomet
 \end{ex}
 
 \begin{theorem}[Pick]
-  Let \(f: S \to T\) be a hyperbolic Riemann surfaces with Poincaré metric \(\rho_S, \rho_T\) respectively. The for all \(x, y \in S\),
+  Let \(f: S \to T\) be hyperbolic Riemann surfaces with Poincaré metric \(\rho_S, \rho_T\) respectively. Then for all \(x, y \in S\),
   \[
     \rho_T(f(x), f(y)) \leq \rho_S(x, y).
   \]
@@ -90,7 +90,7 @@ where \(R = |\frac{y - x}{1 - \conj x y}|\). Elements of \(\aut(\D)\) are isomet
   \[
     \frac{\log (1 + R')}{\log (1 - R')} \leq \frac{\log (1 + R)}{\log (1 - R)}
   \]
-  where \(R = \cdots\). Note \(\frac{\log (1 + x)}{\log (1 - x)}\) is strictly increasing, so suffices to show \(R' \leq R\). Let \(\mu_1(z) = \frac{y - z}{1 - \conj y z}, \mu_2 = \frac{f(y) - z}{1 - \conj{f(y)} z}\). Let \(g = \mu_2 \compose f \compose \mu_1^{-1}: \D \to \D\). By Schwarz's lemma \(|g(z)| \leq |z|\), i.e.\ \(|\mu_2(f(w))| \leq |\mu_1(w)|\), so \(R' \leq R\).
+  where \(R = |\frac{y - x}{1 - \overline y x}|, R' = |\frac{f(y) - f(x)}{1 - \overline{f(y)} f(x)}|\). Note \(\frac{\log (1 + x)}{\log (1 - x)}\) is strictly increasing, so suffices to show \(R' \leq R\). Let \(\mu_1(z) = \frac{y - z}{1 - \conj y z}, \mu_2(z) = \frac{f(y) - z}{1 - \conj{f(y)} z}\). Let \(g = \mu_2 \compose f \compose \mu_1^{-1}: \D \to \D\). By Schwarz's lemma \(|g(z)| \leq |z|\), i.e.\ \(|\mu_2(f(w))| \leq |\mu_1(w)|\), so \(R' \leq R\).
 \end{proof}
 
 \begin{remark}
@@ -166,38 +166,40 @@ A word of caution: in some texts (such as Ahlfors) the definition of normality e
 \end{corollary}
 
 \begin{proof}
-  Only if is easy. For if, we use separability of \(\C\). Let \(\{z_k\}\) be a countable dense subset of \(U\) and fix \(\{f_n\} \subseteq \mathcal F\). Can find a set of indices \(n_{11} < n_{12} < \cdots\) such that \(f_{n_{1i}}(z_1)\) converges, and a subsequence of these \(n_{21} < n_{22} < \cdots\) such that \(f_{n_{2i}}(z_2)\) converges. Let \(g_k = f_{n_{kk}}\). Then for all \(z_i\) we have \(\lim_{k \to \infty} g_n(z_i)\) exists in \(T\). Now given \(K \subseteq U\) compact, by equicontinuity for any \(\varepsilon > 0\) exists \(\delta > 0\) such that for all \(z, w \in U\) with \(|z - w| < \delta\), we have for all \(f \in \mathcal F\), \(d_T(f(z), f(w)) < \varepsilon\). Cover \(K\) by \(\delta\)-balls, extract a finite subcover, and choose some \(z_i\) in each, say \(z_1, \dots, z_\ell\). For each \(z_i\), \(1 \leq i \leq \ell\), exists \(N_i\) such that for all \(n, m \geq N_i\), \(d_T(g_n(z_i), g_m(z_i)) < \varepsilon\). Let \(N = \max_i N_i\). Then for all \(z \in K\),
-  \[
-    d_T(g_n(z), g_m(z)) \leq d_T(g_n(z), g_n(z_I)) + d_T(g_n(z_i), g_m(z_i)) + d_T(g_n(z_i), g_m(z)) < 3\varepsilon.
-  \]
+  Only if is easy. For if, we use separability of \(\C\). Let \(\{z_k\}\) be a countable dense subset of \(U\) and fix \(\{f_n\} \subseteq \mathcal F\). Can find a set of indices \(n_{11} < n_{12} < \cdots\) such that \(f_{n_{1i}}(z_1)\) converges, and a subsequence of these \(n_{21} < n_{22} < \cdots\) such that \(f_{n_{2i}}(z_2)\) converges. Let \(g_k = f_{n_{kk}}\). Then for all \(z_i\) the limit \(\lim_{k \to \infty} g_k(z_i)\) exists in \(T\). Now given \(K \subseteq U\) compact, by equicontinuity for any \(\varepsilon > 0\) exists \(\delta > 0\) such that for all \(z, w \in U\) with \(|z - w| < \delta\), we have for all \(f \in \mathcal F\), \(d_T(f(z), f(w)) < \varepsilon\). Cover \(K\) by \(\delta\)-balls, extract a finite subcover, and choose some \(z_i\) in each, say \(z_1, \dots, z_\ell\). For each \(z_i\), \(1 \leq i \leq \ell\), exists \(N_i\) such that for all \(n, m \geq N_i\), \(d_T(g_n(z_i), g_m(z_i)) < \varepsilon\). Let \(N = \max_i N_i\). Then for all \(z \in K\),
+  \begin{align*}
+    d_T(g_n(z), g_m(z))
+    &\leq d_T(g_n(z), g_n(z_i)) + d_T(g_n(z_i), g_m(z_i)) + d_T(g_n(z_i), g_m(z)) \\
+    &< 3\varepsilon
+  \end{align*}
 \end{proof}
 
 \begin{theorem}[Montel]\index{Montel's theorem}
-  Suppose \(S, T\) are Riemann surfaces and \(T\) is hyperbolic. Then all families of holomorphic maps \(S \to T\) is normal.
+  Suppose \(S, T\) are Riemann surfaces and \(T\) is hyperbolic. Then all families of holomorphic maps \(S \to T\) are normal.
 \end{theorem}
 
-\begin{remark}
-  If \(S\) is not hyperbolic, lifting plus Liouville's theorem imply that all maps are constant. Given a family \(\mathcal F\) of constant maps, let \(\{f_n\} \subseteq \mathcal F\) be a sequence. Then if \(\{f_n(S)\}\) lies in a compact set in \(T\), then exists a convergent subsequence; if not, exists a subsequence which leaves any compact set, so diverges locally uniformlly.
+\begin{proof}
+  If \(S\) is not hyperbolic, lifting plus Liouville's theorem imply that all maps are constant. Given a family \(\mathcal F\) of constant maps, let \(\{f_n\} \subseteq \mathcal F\) be a sequence. Then if \(\{f_n(S)\}\) lies in a compact set in \(T\), then exists a convergent subsequence; if not, exists a subsequence which leaves any compact set, so diverges locally uniformly.
 
-  If \(S\) is hyperbolic, then if exists \(x \in S\) such that \(\{f_n(x)\}\) lies in a compact subset of \(T\), the same is true for all \(y \in S\) by Picks. This implies equicontinuity (?), so by Arzela-Ascoli, normal. Otherwise fix \(x \in S\) and \(y \in T\). Given \(\{f_n\} \subseteq \mathcal F\), exists a subsequence \(\{f_{n_k}\}\) such that \(d_T(f_{n_k}(x), y) \to \infty\). Given \(K \subseteq S, K' \subseteq T\) compact, by Picks, \(d_T(f_{n_k}(z), y) \to \infty\) (?) and so \(f_{n_k}(K) \cap K' = \emptyset\) for \(k \gg 1\). Thus the sequence diverges locally uniformlly.
-\end{remark}
+  Suppose \(S\) is hyperbolic, \(\{f_n\} \subseteq \mathcal F\). If exists \(x \in S\) such that \(\{f_n(x)\}\) lies in a compact subset of \(T\), the same is true for all \(y \in S\). Pick's therom implies equicontinuity so by Arzela-Ascoli \(\{f_n\}\) has a convergent subsequence. Otherwise fix \(x \in S\) and \(y \in T\) and exists a subsequence \(\{f_{n_k}\}\) such that \(d_T(f_{n_k}(x), y) \to \infty\). Given \(K \subseteq S, K' \subseteq T\) compact, by Pick's theorem \(d_T(f_{n_k}(z), y) \to \infty\) for all \(z \in K\) and so \(f_{n_k}(K) \cap K' = \emptyset\) for \(k \gg 1\). Thus the sequence diverges locally uniformly.
+\end{proof}
 
 \begin{eg}
-  If \(f: \hat \C \to \hat \C\) is a rational map and \(D \subseteq \hat \C\), then the family of iterates \(\mathcal F = \{f^n\}_{n \in \N}\) is normal if \(\bigcup_{n \in \N} f^n(D)\) omits 3 or more points of \(\hat \C\). Idea: any subset of \(\hat \C\) with complement of cardinality \(\geq 3\) is hyperbolic.
+  If \(f: \hat \C \to \hat \C\) is a rational map and \(D \subseteq \hat \C\), then the family of iterates \(\mathcal F = \{f^n\}_{n \in \N}\) is normal if \(\bigcup_{n \in \N} f^n(D)\) omits 3 or more points of \(\hat \C\), as any domain of \(\hat \C\) with complement of cardinality \(\geq 3\) is hyperbolic.
 \end{eg}
 
 \begin{definition}[proper map]\index{proper map}
   Suppose \(U, V\) are open subsets of Riemann surfaces and \(f: U \to V\). \(f\) is proper if for every \(K \subseteq V\) compact, \(f^{-1}(K)\) is compact in \(U\).
 \end{definition}
 
-The proofs are either the same as the compact case, or can use compact case directly.
+Proper maps have well-defined degrees and satisfies the Riemann-Hurwitz formula. The proofs are similar to the compact case.
 
 \begin{proposition}
-  Suppose \(U, V\) are open in \(\hat \C\). If \(f: U \to V\) is proper holomorphic nonconstant, then \(f\) has a well-defined degree, i.e.\ for all \(v \in V\), \(|f^{-1}(x)|\) is independent of \(x\), counting multiplicity.
+  Suppose \(U, V\) are open in \(\hat \C\). If \(f: U \to V\) is proper holomorphic nonconstant then \(f\) has a well-defined degree, i.e.\ for all \(x\in V\), \(|f^{-1}(x)|\) is independent of \(x\), counting multiplicity.
 \end{proposition}
 
 \begin{theorem}[Riemann-Hurwitz]
-  Same assumption as above. Then the Euler characteristic \(\chi(U)\), \(\chi(V)\) satisfies
+  With same assumptions as above, the Euler characteristic \(\chi(U)\), \(\chi(V)\) satisfy
   \[
     \chi(U) = (\deg f) \chi(V) - \sum_{p \in U}(e_p - 1)
   \]
@@ -221,6 +223,267 @@ Note that one strategy is to observe that for \(U \subseteq \C\), we can cover b
   \]
   The \emph{Julia set} of \(f\) is \(J(f) = \hat \C \setminus F(f)\).
 \end{definition}
+
+\begin{eg}
+  For \(z \mapsto z^2\), we have normality on \((\hat \C \setminus \overline \D) \cup \D\), and normality fails on any open neighbourhood which intersects \(S^1\). Thus \(J(z^2) = S^1\). This example might be slightly misleading, as we'll see that the Julia set of a rational map is almost never smooth.
+\end{eg}
+
+\begin{lemma}
+  \(F(f)\) and \(J(f)\) are totally \(f\)-invariant, i.e.\ \(f^{-1}(F(f)) = F(f), f^{-1}(J(f)) = J(f)\).
+\end{lemma}
+
+\begin{proof}
+  Suffices to show that if \(U \subseteq \hat \C\) then \(\{f^n|_U\}\) is normal on \(U\) if and only if \(\{f^{n + 1}|_{f^{-1}(U)}\}\) is normal on \(f^{-1}(U)\). If \(K \subseteq f^{-1}(U)\) compact then
+  \[
+    \sup_{z \in K} d(f^n(z), f^m(z)) = \sup_{w \in f(K)} d(f^{n - 1}(z), f^{m - 1}(z)).
+  \]
+  Since \(f\) is proper (continuous map from compact space to Hausdorff space is proper) and continuous, compactness is preserved by both \(f\) and \(f^{-1}\).
+\end{proof}
+
+\begin{lemma}
+  \(J(f) = J(f^n)\) and \(F(f) = F(f^n)\) for all \(n\).
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{remark}
+  The Julia set of \(f\) is the smallest (?) closed subset of \(\hat \C\) which is totally \(f\)-invariant and contains at least \(3\) points (for the moment assume \(|J(f)| \geq 3\)), since the complement of any such set has \(\{f^n\}\) normal by Montel.
+\end{remark}
+
+For the rest of the course, we consider only rational maps with \(\deg f \geq 2\). See example sheet 1 for a description of \(J(\mu)\) for \(\mu\) a Möbius transformation.
+
+\begin{theorem}
+  Let \(z \in U \subseteq J(f)\) be open. Then the union \(V = \bigcup_{n \in \N} f^n(U)\) contains all but at most 2 points of \(\hat \C\). Any point \(w \notin V\) is a critical point of the Fatou set.
+\end{theorem}
+
+\begin{proof}
+  The first statement follows from Montel. If \(w \notin V\), since \(f(V) \subseteq V\), then for all \(n \in \N\), \(f^{-n}(w) \cap V = \emptyset\). Suppose there are two points \(\{z_0, z_1\}\). Then examining possible ramification for these two points which are fixed under \(f^{-1}\), the only possiblities are \(z_i \mapsto z_i\) with degree \(d\), or \(z_1 \mapsto z_2, z_2 \mapsto z_1\) with degree \(d\). The case for a single point is similiar.
+
+  Replacing \(f\) by \(f^2\) if needed, it suffcies to show that if \(f(z) = z\) and \(f'(z) = 0\) then \(z \in F(f)\). Note that if \(\mu \in \aut(\hat \C)\), \(g = \mu^{-1} \compose f \compose \mu\), then \(g^n = \mu^{-1} \compose f^n \compose \mu\), and so \(\mu(J(g)) = J(f)\). Thus wlog \(f(0) = 0, f'(0) = 0\). Locally we have \(f(z) = a_2 z^2 + a_3z^3 + \dots = z^2(a_2 + O(z))\) about \(0\), so \(|f(z)| < |z|\) for \(z\) sufficiently close to \(0\), so on a neighbourhood of \(0\), \(f^n \to 0\) so form a normal family.
+\end{proof}
+
+The three cases do happen: \(z \mapsto z^d, z \mapsto z^{-d}, z \mapsto p(z)\) for \(p\) a polynomial with nonzero constatnt term.
+
+\begin{remark}
+  If \(f^n(z_0) = z_0\) for some \(n \in \N\) and \((f^n)'(z_0) = \prod_{i = 0}^{n - 1} f'(f^i(z_0)) = 0\) then \(z_0 \in F(f)\).
+\end{remark}
+
+\begin{corollary}
+  If \(J(f)\) contains an interior point then \(J(f) = \hat \C\).
+\end{corollary}
+
+\begin{proof}
+  If \(U\) is open in \(J(f)\), \(V = \bigcup f^n(U)\) contains all but at most 2 points on \(\hat \C\). Since \(J(f)\) is closed by definition, \(J(f) = \hat \C\).
+\end{proof}
+
+This does happen: let \(E_t: y^2 = x(x - 1)(x - t)\) for \(t \in \C \setminus \{0, 1\}\) be an elliptic curve.
+\[
+  \begin{tikzcd}
+    E_t \ar[r, "{[2]}"] \ar[d] & E_t \ar[d] \\
+    \hat \C \ar[r, "f_t"] & \hat \C
+  \end{tikzcd}
+\]
+where the vertical maps are quotient by ?, i.e.\ \((x, y) \mapsto x\). Then
+\[
+  f_t(z) = \frac{(z^2 - t)^2}{4z(z-1)(z - t)}.
+\]
+We can show \(J(f_t)\) is dense in \(\hat \C\) by showing the Julia set of \([2]\) is dense, and thus \(J(f_t) = \hat \C\).
+
+\begin{definition}[period, multiplier]\index{period}\index{multiplier}
+  Let \(z_0 \in \hat \C\). We say \(z_0\) is \emph{periodic} for a rational \(f\) if exists \(m \in \N\) such that \(f^m(z_0) = z_0\). The minimal such \(m\) is the \emph{period} of the cycle containing \(z_0\). If \(m = 1\) we also call it a \emph{fixed point}.
+
+  If \(z_0\) has period \(m\), the \emph{multiplier} of the cycle is
+  \[
+    (f^m)'(z_0) = \prod_{i = 0}^{m - 1} f'(f^i(z_0)).
+  \]
+  Let \(\lambda\) be the multiplier of \(z_0\). We say \(z_0\) is
+  \begin{enumerate}
+  \item \emph{superattracting} if \(\lambda = 0\),
+  \item \emph{attracting} if \(0 \leq |\lambda| < 1\),
+  \item \emph{indifferent} if \(|\lambda| = 1\),
+  \item \emph{repelling} if \(|\lambda| > 1\).
+  \end{enumerate}
+\end{definition}
+Recall that we might have to use the chart at infinity to compute the derivative. For example if \(z_0 = \infty, f(\infty) = \infty\) then
+\[
+  \lambda = \lim_{z \to \infty} \frac{1}{f'(z)}.
+\]
+
+\begin{definition}[basin of attraction]\index{basin of attraction}
+  Suppose \(C = \{z_0, f(z_0), \dots, f^{m - 1}(z_0)\}\) is an attracting cycle. The \emph{basin of attraction} for \(C\) is
+  \[
+    A = \{z \in \hat \C: \lim_{n \to \infty} f^{nm}(z) = f^i(z_0) \text{ for some } 0 \leq i \leq m - 1\}.
+  \]
+\end{definition}
+
+\begin{theorem}
+  If \(f: \hat \C \to \hat \C\) has an attracting cycle then the basin of attraction is in \(F(f)\). On the other hand all repelling cycles are contained in \(J(f)\).
+\end{theorem}
+
+\begin{eg}
+  The theorem completely describes the Fatou and Julia set of \(z \mapsto z^2\). \(z_0\) is periodic if and only if exists \(n\) such that \(z_0^{2^n} = z_0\), so \(z_0\) is \(0, \infty\) or some root of unity (which forms a dense subset of \(S^1\)). \(A_0 = \D, A_\infty = \hat \C \setminus \overline \D\). All other cycles are repelling and so \(J(f) = S^1\).
+\end{eg}
+
+\begin{proof}
+  Since \(J(f^m) = J(f)\), wlog assume \(z_0\) is a fixed point. Suppose that \(\lambda = f'(z_0)\) is such that \(|\lambda| < 1\). By Taylor expansion \(|f(z) - z_0| \leq c |z - z_0|\) for some constant \(c < 1\) for \(z\) sufficiently close to \(z_0\). So on a neighbourhood of \(_0\), \(f^n(z)\) converges uniformly on compact subsets to the constant function \(z_0\). So \(z_0 \in F(f)\).
+
+  On the other hand if \(z_0\) is repelling so \(|\lambda| > 1\), suppose for contradiction that \(z_0 \in F(f)\), so exists open neighbourhood \(U\) of \(z_0\) on which \(f^n\) has a subsequence converging to a holomorphic limit. Since \((f^n)'(z_0) = \lambda^n\), absurd.
+\end{proof}
+
+\begin{remark}
+  We will classify later when indifferent points are Julia.
+\end{remark}
+
+\subsection{Holomorphic Lefschetz fixed point formula}
+
+\begin{definition}[residue index]\index{residue index}
+  Let \(z_0\) be a fixed point of a rational map \(f\). The \emph{residue index} of \(f\) at \(z_0\) is
+  \[
+    i_f(z_0) = \frac{1}{2\pi i} \int_\gamma \frac{dz}{z - f(z)}
+  \]
+  where \(\gamma\) is a small, positively oriented circle about \(z_0\).
+\end{definition}
+
+\begin{lemma}
+  Let \(z_0\) have multiplier \(\ne 1\). Then \(i_f(z_0) = \frac{1}{1 - \lambda}\).
+\end{lemma}
+
+\begin{proof}
+  It is an exercise to check the multiplier is coordinate-independent. By definition the resude index is translation/conjugation independent, so wlog \(z_0 = 0\). Then on a neighbourhood of \(0\), \(f(z) = \lambda z + a_2z^2 + \dots\) so
+  \[
+    \frac{1}{z - f(z)} = \frac{1}{(1 - \lambda) z (1 + O(z))} = \frac{1}{(1 - \lambda) z} + g(z)
+  \]
+  with \(g\) holomorphic on a neighbourhood of \(0\). Integrate.
+\end{proof}
+
+\begin{theorem}[holomorphic Lefschetz on \(\hat \C\)]
+  Say \(f: \hat \C \to \hat \C\) of degree \(\geq 2\). Then the fixed points of \(f\) satisfy
+  \[
+    \sum_{z = f(z)} i_f(z) = 1.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Conjugation if necessary (exercise: use the above lemma to show the residue index is coordinate-independent), wlog \(f(\infty) \ne \infty\). Choose \(R \gg 0\) so that all fixed points of \(f\) are in \(D(0, R)\). Call the positively oriented boundary \(C_R\). By residue theorem
+  \begin{align*}
+    \sum_{z = f(z)} i_f(z)
+    &= \frac{1}{2\pi i} \int_{C_R} \frac{dz}{z - f(z)} \\
+    &= \frac{1}{2\pi i} \int_{-C_{1/R}} \frac{-dw}{w^2(\frac{1}{w} - f(\frac{1}{w}))} \\
+    &= \frac{1}{2\pi i} \int_{C_{1/R}} \frac{dw}{w(1 - wf(\frac{1}{w}))} \\
+    &= \operatorname{Res}_{w = 0} \frac{1}{w(1 - wf(\frac{1}{w}))} \\
+    &= 1
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  Suppose \(\deg f \geq 2\). Then \(J(f) \ne \emptyset\).
+\end{corollary}
+
+\begin{proof}
+  Consider the fixed points of \(f\). Assume first no fixed point multiplier is \(1\). Then \(\lambda \mapsto \frac{1}{1 - \lambda}\) sends the unit circle to the line \(\Re = \frac{1}{2}\), and \(\D\) to \(\Re > \frac{1}{2}\). Thus if \(|\lambda| \leq 1\) for all fixed point multipliers, and not equal to \(1\), (there is no multiplicity), there are \(d + 1 \geq 3\) distinct fixed points (?), so \(\Re( \sum_{z = f(z)} i_f(z)) \geq \frac{3}{2}\), absurd. If exists a repelling point then done. So suppose \(z_0\) is fixed with \(\lambda = 1\). Then in local coordinates \(f(z) = z + a_kz^k + \dots\) where \(a_k \ne 0\). Inductively \(f(z) = z + na_kz^k + \dots\) so the \(k\)th derivative of \(f^n(z_0)\) is \(k! na_k \to \infty\) as \(n \to \infty\), so the iterates cannot form a normal family on a neighbourhood of \(z_0\).
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(z_0\) is a indifferent fixed point, \(\lambda\) a root of unity. If \(\lambda^k = 1\) then \((f^k)'(z_0) = \prod_{i = 0}^{k - 1} f'(f(z_0)) = \lambda^k = 1\). Thus the preceding argument shows that \(z_0 \in J(f^k) = J(f)\).
+  \item It is possible for a rational map to have non repelling fixed point. For example \(z \mapsto z^2 + \frac{1}{4}\). The fixed points are \(\infty\) and \(\frac{1}{2}\) which is a double fixed point.
+  \item Any finite \emph{grand orbit} (the set \(\{z \in \hat \C: f^m(z) = f^n(z_0) \text{ for some } m, n\}\)) is necessarily Fatou (exercise), so \(|J(f)| = \infty\).
+  \end{enumerate}
+\end{remark}
+
+Recall: suppose \(f: \hat \C \to \hat \C\) is a rational map of degree \(d \geq 2\).
+
+\begin{enumerate}
+\item If \(U\) is open, \(U \cap J(f) \ne \emptyset\) then \(\bigcup_{n \geq 1} f^n(U)\) contains all but at most 2 points and contains \(J(f)\).
+\item \(J(f)\) contains all repelling cycles and all indifferent cycles with roots of unity multipliers.
+\item \(J(f) \ne \emptyset\) and \(|J(f)| = \infty\).
+\end{enumerate}
+
+\begin{proposition}
+  Suppose \(f\) has a periodic cycle which is attracting, with attracting basin \(A\). Then \(J(f) = \p A\).
+\end{proposition}
+
+\begin{proof}
+  Given \(U\) an open neighbourhood such that \(U \cap J(f) \ne \emptyset\), exists \(n\) such that \(f^n(U) \cap A = \emptyset\). As \(A\) is closed under preimages, \(U \cap A \ne \emptyset\). Thus \(J(f) \subseteq \overline A\). Since \(A \subseteq F(f)\), \(J(f) \subseteq \p A\).
+
+  Conversely suppose \(z_0 \in \p A\) and \(U\) is a neighbourhood of \(z_0\). Suppose \(\{f^n\}\) forms a normal family on \(U\). On \(U \cap A\), any holomorphic limit \(g\) of iterates of \(f\) must take finitely many constant values, but \(g\) cannot be locally constant as \(U\) contains points not in the basin, absurd. Thus \(z_0 \in J(f)\).
+\end{proof}
+
+\begin{eg}
+  Any \emph{polynomial} \(f\) has \(J(f)\) the boundary of basin at \(\infty\). Note that it might also be the boundary of another basin, for example \(z \mapsto z^2, z \mapsto z^2 - 1\).
+\end{eg}
+
+\begin{corollary}
+  Fix \(z_0 \in J(f)\). Then the full preimage \(\{z: f^n(z) = z_0 \text{ for some } n \geq 0\}\) forms a dense subset of \(J(f)\).
+\end{corollary}
+
+\begin{proof}
+  Fix \(z_1 \in J(f)\) and a neighbourhood \(U \ni z_1\). If it contains no preimage of \(z_0\) then \(\bigcup f^n(U) \notin z_0\), absurd.
+\end{proof}
+
+Topological preimage equidistribution
+
+\subsection{Attracting (and repelling) cycles}
+
+\begin{definition}[topologically attracting]\index{topologically attracting}
+  A fixed point \(p\) of \(f\) is \emph{topologically attracting} if there exists a neighbourhood \(U \ni p\) such that \(\{f^n\}\) converges locally uniformly to \(p\) on \(U\).
+\end{definition}
+
+\begin{lemma}
+  A fixed point \(p\) of \(f\) is attracting if and only if it is topologically attracting.
+\end{lemma}
+
+\begin{proof}
+  Exercise. Taylor's theorem in one direction, and Schwarz lemma in the other.
+\end{proof}
+
+\begin{theorem}
+  Suppose \(f\) has a fixed point \(p\) with multiplier \(\lambda\), \(|\lambda| \ne 0, 1\). Then exists local holomorphic change of coordinates \(\phi\) such that \(\phi(p) = 0\) and \(\phi \compose f \compose f^{-1}(w) = \lambda w\). Thus coordinate is unique up to multiplication by a constant. \(\phi\) is known as the \emph{Kaenig linearising map}\index{Kaenig linearising map}.
+\end{theorem}
+
+\begin{proof}
+  wlog \(p = 0\) and first suppose \(0 < |\lambda| < 1\). Choose a constant \(c\) such that \(c^2 < |\lambda| < c\). Find \(r > 0\) such that for all \(z \in D(0, r)\), \(|f(z)| \leq c |z|\), so \(|f^n(z)| \leq c^n r\). We can find \(B > 0\) such that for all \(z \in D(0, r)\), \(|f(z) - \lambda z| \leq B |z|^2\). Thus for all \(z \in D(0, r)\),
+  \[
+    |f^{n + 1}(z) - \lambda f^n(z)| \leq B |f^n(z)|^2 \leq B r^2 c^{2n}.
+  \]
+  Let \(w_n = \frac{f^n(z)}{\lambda^n}\). Then
+  \[
+    |w_{n + 1}(z) - w_n(z)|
+    = \left| \frac{f^{n + 1}(z)}{\lambda^{n + 1}} - \frac{f^n(z)}{\lambda^n} \right|
+    \leq \frac{1}{|\lambda|^{n + 1}} Br^2 c^{2n}
+    = \frac{Br^2}{\lambda} \left|\frac{c^2}{\lambda}\right|^n
+  \]
+  so \(w_n\) converges locally uniformly on \(D(0, r)\). Set \(\phi(z) = \lim w_n(z)\). As \(z \mapsto w_n(z)\) has derivative \(1\) at \(0\), so does \(\phi\) so it has a holomorphic inverse.
+
+  For uniqueness suppose \(\psi\) is another such coordinate, then for \(w \in \psi(U)\) have \(\lambda \phi(\psi^{-1}(w)) = \phi(\psi^{-1}(\lambda w))\). Done by comparing local power series.
+
+  For \(|\lambda| > 1\) apply the same argument to a branch of \(f^{-1}\).
+\end{proof}
+
+\begin{corollary}
+  Suppose \(p\) is an attracting fixed point of \(f\) with multiplier \(\lambda \ne 0\) and basin \(A\). Then exists a holomorphic \(\phi: A \to \C\) such that the following diagram commutes
+  \[
+    \begin{tikzcd}
+      A \ar[r, "f"] \ar[d, "\phi"] & A \ar[d, "\phi"] \\
+      \C \ar[r, "\lambda"] & \C
+    \end{tikzcd}
+  \]
+\end{corollary}
+
+\begin{proof}
+  Define \(\phi(z) = \lim_{n \to \infty} \frac{\phi_0(f^n(z))}{\lambda^n}\) where \(\phi_0\) is the linearlising coordinates on a neighbourhood of \(p\). Check the details.
+\end{proof}
+
+\begin{definition}[immediate basin]\index{immediate basin}
+  The \emph{immediate basin} of an attracting cycle is the union of the Fatou components containing the cycle elements.
+\end{definition}
+
+
+
+
+
 
 
 \printindex

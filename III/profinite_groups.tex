@@ -9,7 +9,9 @@
 \def\nyear{2020}
 
 \input{header}
+
 \renewcommand{\c}[1]{\mathbf{#1}} % category
+\DeclareMathOperator{\Mat}{Mat} % matrix group
 
 \begin{document}
 
@@ -117,7 +119,7 @@ Since this is the central subject of this course, we spell out this definition e
 \begin{proposition}
   Let \((G_j)_{j \in J}\) be an inverse system of groups indexed by an inverse system \(J\). \(\varprojlim G_j\) exists and is equal to
   \[
-    L = \left\{ (g_j)_{j \in J} \in \prod_{j \in J} G_j: \varphi_{ij} (g_i) = g_j \right\}.
+    L = \{ (g_j)_{j \in J} \in \prod_{j \in J} G_j: \varphi_{ij} (g_i) = g_j \}.
   \]
 \end{proposition}
 
@@ -272,7 +274,7 @@ Therefore \(I\) is also an inverse system.
   \end{enumerate}
 \end{eg}
 
-\begin{definition}[linearly ordered inverse system]\index{inverse systme!linearly ordered}
+\begin{definition}[linearly ordered inverse system]\index{inverse system!linearly ordered}
   An inverse system is \emph{linearly ordered} if it is isomorphic to \(\N^{\text{op}}\).
 \end{definition}
 
@@ -331,6 +333,215 @@ The open ball is
   &= \ker(\Z_p \to \Z/p^{\floor{-\log_p r}})
 \end{align*}
 which is an open subgroup of \(\Z_p\).
+
+\begin{proposition}
+  \(\Z_p\) is abelian and torsion-free.
+\end{proposition}
+
+\begin{proof}
+  Abelian is obvious. For torsion-free, let \(\alpha = (a_n) \in \Z_p\) with \(\alpha \ne 0\) and \(m\alpha = 0\) for some \(m > 0\). Write \(m = p^rs\) where \(s\) is coprime to \(p\). As \(\alpha \ne 0\), exists \(n\) such that \(\alpha \ne 0 \pmod{p^n}\), i.e.\ \(a_n \ne 0 \in \Z/p^n\). As \(m \ne 0\), \(s \ne 0\). Now consider \(ma \pmod{p^{n + r}}\). Claim this is nonzero: if \(p^{n + r} \divides ma_{n + r}\) then \(p^n \divides  a_{n + r}\), hence \(a_{n + r} = 0 \pmod{p^n} = a_n \pmod{p^n}\).
+\end{proof}
+
+\begin{proposition}
+  The ring \(\Z_p\) is an integral domain.
+\end{proposition}
+
+\begin{proof}
+  Example sheet 1.
+\end{proof}
+
+\subsection{The profinite integers \(\hat \Z\)}
+
+\begin{proposition}
+  \(\hat \Z\) is abelian and torsion-free.
+\end{proposition}
+
+\begin{proposition}
+  \(\hat \Z\) has zero divisors.
+\end{proposition}
+
+Both follow from
+
+\begin{theorem}[Chinese remainder theorem]
+  There an isomorphism of topological rings
+  \[
+    \hat \Z \cong \prod_{p \text{ prime}} \Z_p.
+  \]
+\end{theorem}
+
+\begin{proof}
+  There is a continuous homomorphism \(\hat \Z \to \Z_p\) for every \(p\) as
+  \[
+    \begin{tikzcd}
+      \hat \Z \ar[d] \ar[dr] \\
+      \Z/p^n \ar[r] & \Z/p^m
+    \end{tikzcd}
+  \]
+  We thus have a continuous homomorphism \(f: \hat \Z \to \prod_{p \text{ prime}} \Z_p\).
+
+  \(f\) is surjective if and only if \(\im f \subseteq \prod \Z_p\) is dense, if and only if \(\im f\) intersects all basic open sets non-trivially. A basic open set has the form \(\varphi^{-1}(x_1, \dots, x_r)\) where \(\phi: \prod_p \Z_p \to \Z/p_1^{n_1} \times \dots \times \Z/p_r^{n_r}\). Now invoke the classical Chinese remainder theorem: let \(m = p_1^{n_1} \cdots p_r^{n_r}\), then we have a commutative diagram
+  \[
+    \begin{tikzcd}
+      \hat \Z \ar[r, "f"] \ar[d, two heads] & \prod \Z_p \ar[d, "\phi"] \\
+      \Z/m \ar[r, "\cong"] & \Z/p_1^{n_1} \times \cdots \times \Z/p_r^{n_r}
+    \end{tikzcd}
+  \]
+  As \((x_1, \dots, x_r) \in \im (\phi \compose f)\), have \(\im f \cap \phi^{-1}(x_1, \dots, x_r) \ne \emptyset\).
+  
+  Now suppose \(g \in \hat \Z \setminus \{0\}\). Then exists \(m\) such that the image of \(g\) in \(\hat \Z \to \Z/m\) is nonzero. Now use injectivity of the isomorphism to conclude \(f\) must be injective.
+\end{proof}
+
+\subsection{Profinite matrix group}
+
+If \(R\) is a commutative ring with 1 then there is a matrix ring \(\Mat_n(R)\) of \(n \times n\) matrices whose entries are in \(R\). In particular
+\begin{align*}
+  \Mat_n(\Z_p) &\cong \varprojlim \Mat_n(\Z/p^m) \\
+  \Mat_n(\hat \Z) &\cong \varprojlim \Mat_n(\Z/m)
+\end{align*}
+for similar argument as above.
+
+Define
+\begin{align*}
+  \SL_n(R) &= \{A \in \Mat_n(R): \det A = 1\} \\
+  \GL_n(R) &= \{A \in \Mat_n(R): \det A \in R^\times\}
+\end{align*}
+As \(\det: \Mat_n(\Z_p) \to \Z_p\) is a polynomial so continuous, \(\SL_n(\Z_p) \subseteq \Mat_n(\Z_p)\) is a closed subset and is a group under multiplication. We will show in example sheet that \(\Z_p^\times\) and \(\hat \Z^\times\) are closed subsets of \(\Z_p\) and \(\hat \Z\), and in fact they are isomorphic to \(\varprojlim (\Z/p^m)^\times\) and \(\varprojlim (\Z/m)^\times\). We have
+\[
+  \SL_n(\Z_p) = \varprojlim \SL_n(\Z/p^m)
+\]
+etc. A version of Chinese remainder theorem also holds.
+
+Problem: consider the inclusion \(\SL_n(\Z) \subseteq \SL_n(\hat \Z)\). How does this inclusion look like? For example, is this inclusion dense? (the answer is yes, see example sheet 2). We know from general theory this holds if and only if \(\SL_n(\Z) \to \SL_n(\Z/m)\) is surjecitve. But this is not obvious at all. For example how can we find an element that is mapped to \(
+\begin{psmallmatrix}
+  7 & 9 \\
+  4 & 9
+\end{psmallmatrix}
+\in \SL_2(\Z/13)\)?
+
+Another question: do we have \(\SL_n(\hat \Z) = \widehat{\SL_n(\Z)}\), i.e.\ does \(\SL_n(\Z)\) have any other finite quotients other than \(\SL_n(\Z/m)\)? The answer is no for  \(n = 2\) (example sheet 2), and yes for \(n \geq 3\) (hard theorem of Bass-Lazard-Serre).
+
+\subsection{Subgroups, quotients and homomorphisms}
+
+A reminder that we are working in the category of topological groups so subgroups are closed and homomorphisms are continuous (non-closed subgroup can be pretty wild: \(\hat \Z \supseteq \prod \Z_p \supseteq \prod \Z\)).
+
+\begin{proposition}
+  Let \((G_j)\) be an inverse system of finite groups and \(G = \varprojlim G_j\). Let \(X \subseteq G\) be a subset. Then \(\overline X = \varprojlim X_j\) where \(X_j = p_j(X)\).
+\end{proposition}
+
+\begin{proof}
+  Let
+  \begin{align*}
+    X'
+    &= \varprojlim X_j
+    = \{(g_i) \in \prod G_j: g_j \in X_j \text{ for all } j, \phi_{ij}(g_i) = g_j\} \\
+    &= \bigcap p_j^{-1}(X_j) \\
+    &= \bigcap p_j^{-1}(p_j(X))
+  \end{align*}
+  which is closed. \(X \subseteq X'\) so \(\overline X \subseteq X'\). Let \(g \in G \setminus \overline X\). Then exists a basic open set \(p_j^{-1}(g_j) \subseteq G \setminus \overline X\). Hence \(\overline X \cap p_j^{-1}(g_j) = \emptyset\), so \(g_j \notin X_j\), so \(g \notin X'\).
+\end{proof}
+
+\begin{corollary}
+  \(X\) is closed if and only if \(X = \varprojlim X_j\).
+\end{corollary}
+
+Along the same line
+
+\begin{proposition}
+  Let \(G\) be a profinite group. Then
+  \[
+    \overline X = \bigcap_{N \normal_o G} XN.
+  \]
+\end{proposition}
+
+\begin{proof}
+  \[
+    \mathrm{RHS} = \bigcap_{N \normal_f G} XN = \bigcap p_j^{-1}(p_j(X)) = \mathrm{LHS}.
+  \]
+\end{proof}
+
+\begin{proposition}
+  A closed subgroup of a profinite group is a profinite group.
+\end{proposition}
+
+\begin{proposition}
+  Let \(G = \varprojlim G_j\) be a profinite group of a surjective inverse system, \(H \leq G\) a closed subgroup. Let \(H_j = p_j(H)\). Then \(H\) has finite index (i.e.\ open) if and only if \([G_j: H_j]\) is constant for \(j \in I\) for some cofinal subsystem \(I \subseteq J\), in which case \([G: H] = [G_j: H_j]\) for \(j \in I\).
+\end{proposition}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) be a profinite group and \(N \normal_c G\). Then \(G/N\) equipped with the quotient topology is a profinite group.
+\end{proposition}
+
+\begin{proof}
+  Let \(G = \varprojlim G_j\) be a surjective inverse system. Define \(N_j = p_j(N)\). Then \(N_j \normal G_j\) and define \(Q_j = G_j/N_j\). Exists \(\psi_{ij}\) such that the following diagram commutes:
+  \[
+    \begin{tikzcd}
+      G_i \ar[r, "\phi_{ij}"] \ar[d] & G_j \ar[d] \\
+      G_i/N_i \ar[r, "\psi_{ij}"] & G_j/N_j
+    \end{tikzcd}
+  \]
+  Check that \((Q_j, \psi_{ij})\) is an inverse system. Let \(Q = \varprojlim Q_j\). There exists a continuous map \(\prod G_j \to \prod Q_j\) restricts to \(f: G \to Q\). \((g_j) \in \ker f\) if and only if \(g_j \in \ker (G_j \to Q_j) = N_j\) for all \(j\), if and only if \(g \in N\). Thus \(\ker f = N\). By first isomorphism theorem for groups, exists group isomorphism \(\overline f: G/N \to Q\) making the diagram commute
+  \[
+    \begin{tikzcd}
+      G \ar[r, "f"] \ar[d] & Q \\
+      G/N \ar[ur, "\overline f"', dashed]
+    \end{tikzcd}
+  \]
+  \(\overline f\) is continuous by definition of quotient topology. \(\overline f\) is a homeomorphism because \(G/N\) is compact and \(Q\) is Hausdorff.
+\end{proof}
+
+\begin{theorem}[first isomorphism theorem for profinite groups]
+  If \(G\) and \(Q\) are profinite groups, \(f: G \to Q\) is a continuous surjective homomorphism, then exists an isomorphism of topological groups \(\overline f: G/\ker f \to Q\) making the following diagram commute
+  \[
+    \begin{tikzcd}
+      G \ar[r, "f"] \ar[d] & Q \\
+      G/\ker f \ar[ur, "\overline f"', dashed]
+    \end{tikzcd}
+  \]
+\end{theorem}
+
+\begin{corollary}
+  A (closed) quotient of a profinite group is a profinite group when given the quotient topology.
+\end{corollary}
+
+\begin{definition}[morphism of inverse system]\index{inverse system!morphism}
+  Let \((G_j)\) and \((H_j)\) be inverse system of finite groups, indexed over the same poset \(J\). A \emph{morphism of inverse system} is a family of group homomorphisms \(f_j: G_j \to H_j\) such that for all \(i \leq j\), the following diagram commutes
+  \[
+    \begin{tikzcd}
+      G_i \ar[r, "f_i"] \ar[d, "\varphi_{ij}^G"] & H_j \ar[d, "\varphi_{ij}^H"] \\
+      G_j \ar[r, "f_j"] & H_j
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{proposition}
+  Given a morphism of inverse systems as above, exists a unique continuous homomorphism \(f: G \to H\) such that
+  \[
+    \begin{tikzcd}
+      G \ar[r, "f"] \ar[d, "p_j^G"] & H \ar[d, "p_j^H"] \\
+      G_j \ar[r, "f_j"] & H_j
+    \end{tikzcd}
+  \]
+  commutes for all \(j\).
+\end{proposition}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{proposition}
+  Let \((G_j)_{j \in J}, (H_i)_{i \in I}\) be inverse systems of finite groups, \(G = \varprojlim G_j, H = \varprojlim H_j\). Let \(f: G \to H\) be a continuous homomorphism. Assume \(J\) and \(I\) are countable. Then there are cofinal subsystems \(J' \subseteq J, I' \subseteq I\) with an isomorphism \(\alpha: J' \to I'\) and a morphism \(f_{j'}: G_{j'} \to H_{\alpha(j')}\) of inverse system which induces \(f\).
+\end{proposition}
+
+\begin{proof}
+  We may assume \(J\) and \(I\) are linearly ordered, i.e.\ isomorphic to \(\N^{\text{op}}\). Also we may assume \((G_j)_{j \in J}\) is surjective. Set \(I' = I\). Construct an increasing sequence \(k_n\) of natural numbers inductively as follows: the composition \(G \to H \to H_n\) is continuous so the kernel is open, hence containing a basic open subgroup \(\ker p_{k_n}^G\) of \(G\). As \(\ker p_{k_n}^G \subseteq \ker p_n^H f\), exists a quotient map \(f_n: G_{k_n} \to H_n\). Increase \(k_n\) if necessary so \(k_n > k_{n - 1}\). Set \(J' = \{k_n\}\).
+\end{proof}
+
+
+
 
 
 

@@ -393,7 +393,7 @@ One similarly defines
 \]
 so we do not gain or lose anything.
 
-Much of the course will be devoted to prove Hodge decomposition, which asserts that for a certain class of compact manifolds (which include projective varieties),
+Much of the course will be devoted to prove Hodge decomposition, which asserts that for a certain class of compact manifolds, which include projective varieties,
 \[
   H_{\text{dR}}^k(X; \C) \cong \bigoplus_{p + q = k} H_{\conj \p}^{p, q}(X).
 \]
@@ -407,7 +407,7 @@ Note that the statement alone is not true in general.
   via pullback.
 \end{ex}
 
-Dolbeaut cohomology is the obstruction to holomorphic sections and has its origin in the Mittag-Leffler problem: let \(S\) be a Riemann surface, i.e.\ one dimensional complex manifold. A \emph{principal part} at \(x \in S\) is a Laurent series of the form
+Dolbeaut cohomology is the obstruction of a smooth section to being holomorphic and has its origin in the Mittag-Leffler problem: let \(S\) be a Riemann surface, i.e.\ one dimensional complex manifold. A \emph{principal part} at \(x \in S\) is a Laurent series of the form
 \[
   \sum_{k = 1}^n a_k z^{-k}
 \]
@@ -415,7 +415,7 @@ with \(z\) a local coordinate. The Mittag-Leffler problem\index{Mittag-Leffler p
 
 Take local solutions \(f_i\) at \(x_i\), defined on some \(U_i\) which form a cover of \(S\)  and a partition of unity \(\rho_i\) subordinate to the \(U_i\). Then \(\sum_{j = 1}^r \rho_j f_j\) is smooth on \(S \setminus \{x_1, \dots, x_r\}\) with prescribed local expression (which is not necessarily holomorphic).
 
-A calculation shows that \(g = \conj \p (\sum_j \rho_j f_j)\) extends to a smooth \((0, 1)\)-form on \(S\). Clearly \(\conj \p g = 0\) as \(\conj \p^2 = 0\) so \([g] \in H_{\conj \p}^{0, 1}(S)\). Suppose \(H_{\conj \p}^{0, 1}(S) = 0\). Then there is a smooth function \(h\) with \(\conj \p h = g\) and \(f = \sum_j \rho_j f_j - h\) solves the Mittag-Leffler problem. This can be shown to be an if and only if using sheaf cohomology.
+A calculation shows that \(g = \conj \p (\sum_j \rho_j f_j)\) extends to a smooth \((0, 1)\)-form on \(S\). Clearly \(\conj \p g = 0\) as \(\conj \p^2 = 0\) so \([g] \in H_{\conj \p}^{0, 1}(S)\). Suppose \(H_{\conj \p}^{0, 1}(S) = 0\). Then there is a smooth function \(h\) with \(\conj \p h = g\) and \(f = \sum_j \rho_j f_j - h\) solves the Mittag-Leffler problem. In fact it can be shown that this is possible if and only if \([g] = 0 \in H^{0, 1}_{\conj \p}(S)\) using sheaf cohomology.
 
 \subsection{\(\conj \p\)-Poincaré lemma}
 
@@ -453,14 +453,14 @@ This is a generalisation of Cauchy integral formula, with a correction term for 
     \frac{1}{2\pi i} \int_{\p D_\varepsilon} \frac{f(w)}{w - z} \d w
     = \frac{1}{2\pi i} \int_{\p D} \frac{f(w)}{w - z} \d w + \frac{1}{2\pi i} \int_{D \setminus D_\varepsilon} \frac{\p f(w)}{\p \conj w} \frac{\d w \w \d \conj w}{w - z}
   \]
-  The first term converges to \(f(z)\) as \(\varepsilon \to 0\): set \(w - z = re^{i\theta}\) so
+  The first term converges to \(f(z)\) as \(\varepsilon \to 0\): set \(w - z = \varepsilon e^{i\theta}\) so
   \[
     \frac{1}{2\pi i} \int_{\p D_\varepsilon} \frac{f(w)}{w - z} \d w
-    = \frac{1}{2\pi} \int_0^{2\pi} f(z + re^{i\theta}) \d\theta
+    = \frac{1}{2\pi} \int_0^{2\pi} f(z + \varepsilon e^{i\theta}) \d\theta
   \]
   which goes to \(f(z)\) as \(\varepsilon \to 0\) since \(f\) is smooth.
 
-  As \(\d w \w \d \conj w = 2ir \d r \w \d \theta\),
+  As \(\d w \w \d \conj w = -2i \d x \w \d y = -2ir \d r \w \d \theta\),
   \[
     \left| \frac{\partial f(w)}{\partial \conj w}  \frac{\d w \w \d \conj w}{w - z} \right|
     = 2 \left| \frac{\partial f}{\partial \conj w} \d r \w \d\theta \right|
@@ -490,7 +490,7 @@ This is a generalisation of Cauchy integral formula, with a correction term for 
   \[
     D_{2\varepsilon} = D(z_0, 2\varepsilon) \subsetneq D.
   \]
-  Using a partition of unity for the cover of \(D\) given by \(\{D \setminus D_\varepsilon, D_{2\varepsilon}\}\), write
+  Using a partition of unity for the cover of \(D\) given by \(\{D \setminus \overline D_\varepsilon, D_{2\varepsilon}\}\), write
   \[
     g(z) = g_1(z) + g_2(z)
   \]
@@ -498,11 +498,11 @@ This is a generalisation of Cauchy integral formula, with a correction term for 
 
   Define
   \[
-    f_2(z) = \int_D \frac{g_2(w)}{w - z} \d w \w \d \conj w.
+    f_2(z) = \frac{1}{2\pi i} \int_D \frac{g_2(w)}{w - z} \d w \w \d \conj w.
   \]
-  Then \(f_2(z)\) is smooth on \(D\) as \(g_2\) vanishes on \(D_\varepsilon\). Differentiate under the integral sign, get
+  Then \(f_2(z)\) is smooth on \(D_\varepsilon\) as \(g_2\) vanishes on \(D_\varepsilon\). Differentiate under the integral sign (as the integrand is smooth), get
   \[
-    \frac{\partial f_2(z)}{\partial \conj z} = \frac{1}{2\pi i} \int_D \frac{\partial  }{\partial \conj z} \frac{g_2(w)}{w - z} \d w \w \d \conj w.
+    \frac{\partial f_2(z)}{\partial \conj z} = \frac{1}{2\pi i} \int_D \frac{\partial  }{\partial \conj z} \frac{g_2(w)}{w - z} \d w \w \d \conj w = 0 = g_2(z).
   \]
   As \(g_1(z)\) has compact support we can write
   \begin{align*}
@@ -511,11 +511,13 @@ This is a generalisation of Cauchy integral formula, with a correction term for 
     &= \frac{1}{2\pi i} \int_\C \frac{g_1(u + z)}{u} \d u \w \d \conj u \\
     &= -\frac{1}{\pi} \int_\C g_1(z + re^{i\theta}) e^{-i\theta} \d r \w \d\theta \in C^\infty(D)
   \end{align*}
-  Define this to be \(f_1\). The trick here is that we defined \(f\) in this way so that it is automatically smooth. Then
-  \[
+  Define this to be \(f_1\). The trick here is that we defined \(f_1\) in this way so that it is automatically smooth. Then
+  \begin{align*}
     \frac{\partial f_1(z)}{\partial \conj z}
-    = \int_\C \frac{\partial g_1(w)}{\partial \conj w} \frac{\d w \w \d \conj w}{w - z}
-  \]
+    &= - \frac{1}{\pi} \int_\C \frac{\partial g_1(z + r e^{i\theta})}{\partial \overline z} e^{-i\theta} \d r \w \d \theta \\
+    &= - \frac{1}{\pi} \int_\C \frac{\partial g_1(w)}{\partial \overline w} \underbrace{\frac{\partial(\overline z + e^{i\theta})}{\partial \overline z}}_{= 1} e^{-i\theta} + \frac{\partial g_1(w)}{\partial w} \underbrace{\frac{\partial(z + e^{-i\theta})}{\partial \overline z}}_{= 0} e^{i\theta} \d r \w \d \theta \\
+    &= \frac{1}{2\pi i} \int_\C \frac{\partial g_1(w)}{\partial \overline w} \frac{\d w \w \d \overline w}{w - z} \\ 
+  \end{align*}
   so by Cauchy integral,
   \[
     g_1(z)
@@ -529,25 +531,26 @@ This is a generalisation of Cauchy integral formula, with a correction term for 
   for \(z \in D_\varepsilon\). But \(z_0\) was arbitrary so this works for all \(z_0\).
 \end{proof}
 
-In other words, if \(\alpha = g \d \conj z \in \mathcal A_\C^{0, 1}(D)\) and \(f\) is as above, then
-\[
-  \conj \p f = \alpha.
-\]
+In other words, if \(\alpha = g \d \conj z \in \mathcal A_\C^{0, 1}(D)\) and \(f\) is as above, then \(\conj \p f = \alpha\). Thus
+
+\begin{corollary}
+  \(H^{0, 1}_{\conj \p}(D) = 0\).
+\end{corollary}
 
 For the general \(\conj \p\)-Poincaré lemma, we shall use \emph{multiindex notation}: if \(I = (I_1, \dots, I_k)\) then
 \begin{align*}
   \d z_I &= \d z_{I_1} \w \dots \w \d z_{I_k} \\
   f_I &= f_{I_1 \dots I_k} \\
-  \frac{\partial  }{\partial z_I} &= \frac{\partial }{\partial z_{I_1} \dots \partial z_{I_k}}
+  \frac{\partial  }{\partial z_I} &= \frac{\partial^k }{\partial z_{I_1} \dots \partial z_{I_k}}
 \end{align*}
 and \(|I| = k\).
 
 At some point we are going to extend the result to \(\C^n\) by taking a sequence of holomorphic functions. The following result justifies the process:
 
 \begin{lemma}
-  Let \(U \subseteq \C^n\) be open, \(B \subsetneq B' \subseteq U\) where \(B, B'\) are bounded polydisks. Then for any multiindices \(I, J\) there is a constant \(c_{I, J}\) such that for all \(u\) holomorphic on \(U\), we have
+  Let \(U \subseteq \C^n\) be open, \(B \subsetneq B' \subseteq U\) where \(B, B'\) are bounded polydisks. Then for any multiindices \(I\) there is a constant \(c_I\) such that for all \(u\) holomorphic on \(U\), we have
   \[
-    \norm*{\frac{\partial  }{\partial z_I} \frac{\partial  }{\partial z_J} u}_{C^0(B)} \leq c_{I, J} \norm u_{C^0(B)}.
+    \norm*{\frac{\partial u}{\partial z_I}}_{C^0(B)} \leq c_I \norm u_{C^0(B')}.
   \]
 \end{lemma}
 
@@ -582,15 +585,15 @@ Then we have the following result due to Grothendieck:
   \[
     \omega = \sum_{|I| = p} \varphi_I \d z_I
   \]
-  where \(\conj \p \varphi_I = 0\). Hence by induction we can find \(\psi_I\) with \(\conj \p \psi_I = \varphi_I\) and then
+  where \(\conj \p \varphi_I = 0\). Hence if we can find \(\psi_I\) with \(\conj \p \psi_I = \varphi_I\) and then
   \[
     \conj \p \left(\sum_{|I| = p} \psi_I \w \d z_I\right) = \omega.
   \]
-  Thus we may assume \(p = 0\). The proof is in two steps.
+  Thus we may assume \(p = 0\). The proof consists of two steps.
 
   \paragraph{Step 1}
 
-  Given \(\omega \in \mathcal A_\C^{0, q}(P)\), we show that if \(P' = P(a, s)\) with \(s_i' < r_i\) finite then we can find \(\psi \in \mathcal A_\C^{0, q - 1}(P')\) with \(\conj \p \psi = \omega|_{P'}\).
+  Given \(\omega \in \mathcal A_\C^{0, q}(P)\), we show that if \(P' = P(a, s)\) with \(s_i < r_i\) necessarily finite then we can find \(\psi \in \mathcal A_\C^{0, q - 1}(P')\) with \(\conj \p \psi = \omega|_{P'}\).
 
   Given a form
   \[
@@ -606,9 +609,9 @@ Then we have the following result due to Grothendieck:
   \[
     \omega = \omega_1 \w \d \conj z_k + \omega_2
   \]
-  with \(\omega_2 = 0 \mod \{\d \conj z_1, \dots, \d \conj z_{k - 1}\}\). Have
+  where \(\omega_1, \omega_2\) have no \(\d \overline z_k\) terms. Have
   \[
-    \omega_1 = \sum_{|I| = q, k \in I} \omega_I \d  \conj z_{I \setminus \{k\}}.
+    \omega_1 = \sum_{I: k \in I} \omega_I \d  \conj z_{I \setminus \{k\}}, \omega_2 = 0 \mod \{\d \conj z_1, \dots, \d \conj z_{k - 1}\}.
   \]
   Since \(\conj \p \omega = 0\), we have
   \[
@@ -616,11 +619,11 @@ Then we have the following result due to Grothendieck:
   \]
   for \(\ell > k\). Set
   \[
-    \psi = \sum_{|I| = q, k \in I} (-1)^{k - 1} \psi_I \d \conj z_{I \setminus \{k\}}
+    \psi = \sum_{I: k \in I} (-1)^{k - 1} \psi_I \d \conj z_{I \setminus \{k\}}
   \]
   where
   \[
-    \psi_I = \frac{1}{2\pi i} \int_{|\xi| \leq s_k} \omega_i(z_1, \dots, z_{k - 1}, \xi, z_{k + 1}, \dots, z_n) \frac{\d  \xi \w \d  \conj \xi}{\xi - z_k}
+    \psi_I = \frac{1}{2\pi i} \int_{|\xi| \leq s_k} \omega_I(z_1, \dots, z_{k - 1}, \xi, z_{k + 1}, \dots, z_n) \frac{\d  \xi \w \d  \conj \xi}{\xi - z_k}
   \]
   is given by Cauchy integral formula. Then
   \[
@@ -628,7 +631,7 @@ Then we have the following result due to Grothendieck:
   \]
   by \(\conj \p\)-Poincaré in one variable and
  \[
-   \frac{\partial \psi_I}{\partial \conj z_k} = \frac{1}{2\pi i} \int_{|\xi| \leq s_k} \frac{\partial \omega_I}{\partial \conj z_j} (z_1, \dots, z_{k - 1}, \xi, z_{k + 1}, \dots, z_n) \frac{\d  \xi \w \d  \conj \xi}{\xi - z_k}
+   \frac{\partial \psi_I}{\partial \conj z_\ell} = \frac{1}{2\pi i} \int_{|\xi| \leq s_k} \frac{\partial \omega_I}{\partial \conj z_\ell} (z_1, \dots, z_{k - 1}, \xi, z_{k + 1}, \dots, z_n) \frac{\d  \xi \w \d  \conj \xi}{\xi - z_k}
    = 0
  \]
  by assumption. Hence \(\omega - \conj \p \psi = 0 \mod \d \conj z_1, \dots, \d \conj z_{k - 1}\).
@@ -638,11 +641,11 @@ Then we have the following result due to Grothendieck:
 
   We induct on \(q\), leaving \(q = 1\) for last. Since \(\conj \p(\psi_j - \psi_{j + 1}) = 0\) on \(P_j\), we can choose \(\beta_{j + 1}\) with
   \[
-    \psi_j - \psi_{j + 1} = \conj \p \beta_{j + 1}
+    \psi_j - \psi_{j + 1} = \conj \p \beta_j
   \]
-  on \(P_{j - 1}\). Extend \(\psi_{j + 1}, \beta_{j + 1}\) smoothly to \(P\) and set
+  on \(P_{j - 1}\) by induction (?). Extend \(\psi_{j + 1}, \beta_j\) smoothly to \(P\) and set
   \[
-    \phi_{j + 1} = \psi_{j + 1} + \conj \p \beta_{j + 1}.
+    \phi_{j + 1} = \psi_{j + 1} + \conj \p \beta_j.
   \]
   This produces a sequence \((\phi_j)\) such that
   \begin{align*}
@@ -655,15 +658,15 @@ Then we have the following result due to Grothendieck:
   \begin{align*}
     &\conj \p \phi_j = \omega \text{ on } P_j \\
     &\phi_{j + 1} - \phi_j \text{ holomorphic on } P_j \\
-    &\norm{\phi_{j + 1} - \phi_j}_{C^0(P_{j + 1})} < 2^{-j}
+    &\norm{\phi_{j + 1} - \phi_j}_{C^0(P_{j - 1})} < 2^{-j}
   \end{align*}
-  Assuming this, the \((\phi_j)\) converges uniformly to some \(\phi\) on \(P\). Moreover \(\phi - \phi_j\) is holomorphic on \(P_j\) as as a uniform limit of \((\phi_{j + 1} - \phi_j)\), all holomorphic following the corollary. So \(\conj \p \phi = \conj \p \phi_j = \omega\) on \(P_j\), Hence \(\conj \p \phi = \omega\) on \(P\).
+  Assuming this, the \((\phi_j)\) converges uniformly to some \(\phi\) on \(P\). Moreover \(\phi - \phi_j\) is holomorphic on \(P_j\) as a uniform limit of \((\phi_\ell - \phi_j)\), all holomorphic following the corollary. So \(\conj \p \phi = \conj \p \phi_j = \omega\) on \(P_j\), Hence \(\conj \p \phi = \omega\) on \(P\).
 
-  We now construct \((\phi_j)\). Solve \(\conj \p \psi_j = \omega\) on \(P_j\) as before and set \(\phi_1 = \psi_1\). We construct \(\phi_{j + 1}\), inducting on \(j\). Since \(\conj \p(\phi_j - \psi_{j + 1}) = 0\) on \(P_j\), \(\theta_j - \psi_{j + 1}\) is holomorphic on \(P_j\). Hence it has a Taylor series expansion valid on \(P_j\). Truncating gives a polynomial \(\gamma_{j + 1}\) such that
+  We now construct \((\phi_j)\). Solve \(\conj \p \psi_j = \omega\) on \(P_j\) as before and set \(\phi_1 = \psi_1\). We construct \(\phi_{j + 1}\), inducting on \(j\). Since \(\conj \p(\phi_j - \psi_{j + 1}) = 0\) on \(P_j\), \(\theta_j - \psi_{j + 1}\) is holomorphic on \(P_j\). Hence it has a power series expansion valid on \(P_j\). Truncating gives a polynomial \(\gamma_{j + 1}\) such that
   \[
-    \norm{\phi_j - \psi_{j + 1} - \gamma_{j + 1}}_{C^0(P_j - 1)} < 2^{-j}
+    \norm{\phi_j - \psi_{j + 1} - \gamma_{j + 1}}_{C^0(P_{j - 1})} < 2^{-j}
   \]
-  idea: approximate holomorphic by polynomial to arbitrary small error and extend the polynomial to the entire disk.
+  Idea: approximate holomorphic by polynomial to arbitrary small error and extend the polynomial to the entire disk.
 
   Extend \(\gamma_j\) holomorphically to \(P_j\) and set
   \[
@@ -1950,7 +1953,7 @@ It is easy to see that this generalises in case of manifolds. Recall from III Di
     \omega(u, v) = g(Ju, v).
   \]
 \end{definition}
-\(\omega\) extends \(\C\)-linearly to \(\omega \in \Lambda^{1, 1} (T^*X)_\C\). The extension \(g_\C\) of \(g\) gives a \emph{hermitian metric}\index{hermitian metric} on \((TX)_\C\) and hence on \(TX^{1, 0}\).
+\(\omega\) extends \(\C\)-linearly to \(\omega \in \Lambda^{1, 1} T^*X\). The extension \(g_\C\) of \(g\) gives a \emph{hermitian metric}\index{hermitian metric} on \((TX)_\C\) and hence on \(TX^{1, 0}\).
 
 Suppose on \(X\) we have holomorphic coordinates \(z_1, \dots, z_n\). Then \(\d z_1, \dots, \d z_n\) form a local holomorphic frame for \(T^*X^{1, 0}\). Let
 \[

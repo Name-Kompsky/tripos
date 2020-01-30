@@ -320,6 +320,353 @@ A \emph{volume form} on \(M^k\) is a nowhere zero section \(\d \Vol \in \Omega^k
   Let \(U \subseteq \R^k_+\) be an open chart. Use linearity and partition of unity, it suffices to work in \(U\). Then use standard results from multivariate calculus/Fubini's theorem. See example sheet 1.
 \end{proof}
 
+\section{Symplectic linear algebra}
+
+Recall the standard symplectic form \(\omega_{\text{std}} = \sum \d x_i \w \d y_i\) on \((\R^{2n}, (x_i, y_i))\): with respect to \(\frac{\partial  }{\partial x_1}, \frac{\partial  }{\partial y_1}, \dots, \frac{\partial  }{\partial x_n}, \frac{\partial  }{\partial y_n}\), it has matrix
+\[
+  \Omega_0 =
+  \begin{pmatrix}
+    0 & 1 \\
+    -1 & 0 \\
+    & & \ddots \\
+    & & & 0 & 1 \\
+    & & & -1 & 0
+  \end{pmatrix}
+\]
+Define
+\begin{align*}
+  \Sp_{2n}(\R)
+  &= \{A \in \GL_{2n}(\R): A^*\omega_0 = \omega_0\} \\
+  &= \{A \in \GL_{2n}(\R): A^T\Omega_0A = \Omega_0\}
+\end{align*}
+by identifying \(A\) with its matrix representation.
+
+Recall from linear algebra
+
+\begin{lemma}
+  Suppose \((V, \Omega)\) is a vector space with a non-degenerate alternating (or skew-symmetric) bilinear form \(\Omega\) (i.e.\ \(V\) is a \emph{symplectic vector space}\index{symplectic vector space}), then there is a basis \(\mathcal B = (u_1, v_1, \dots, u_n, v_n)\) of \(V\) such that \([\Omega]_{\mathcal B} = \Omega_0\).
+\end{lemma}
+
+\begin{proof}[Sketch]
+  By non-degeneracy exist \(u_1, v_1\) such that \(\Omega(u_1, v_1) = 1\). \(u_1, v_1\) are linearly independent since \(\Omega\) is alternating. Then \(V = \langle u_1, v_1 \rangle \oplus \{w: \Omega(u_1, w) = \Omega(v_1, w) = 0\}\). Proceed by induction.
+\end{proof}
+
+\begin{corollary}
+  Symplectic vector spaces are even-dimensional and \(\Omega \in \Lambda^2V^*\) is non-degenerate if and only if \(\Omega^n \ne 0 \in \Lambda^{2n}V^*\).
+\end{corollary}
+
+\begin{definition}[symplectic complement]\index{symplectic complement}
+  Suppose \(U \leq (V, \Omega)\). The \emph{symplectic complement} of \(U\) in \(V\) is
+  \[
+    U^{\Omega} = \{w \in V: \Omega(w, u) = 0 \text{ for all } u \in U\}.
+  \]
+\end{definition}
+
+\begin{definition}[symplectic, (co)isotropic, Lagrangian subspace]\index{symplectic subspace}\index{isotropic subspace}\index{coisotropic subspace}\index{Lagrangian subspace}
+  Let \((V, \Omega)\) be a symplectic vector space.
+  \begin{itemize}
+  \item \(U \leq V\) is a \emph{symplectic subspace} if \(U \cap U^\Omega = 0\), i.e.\ \(\Omega|_U\) is nondegenerate.
+  \item \(U \leq V\) is an \emph{isotropic subspace} if \(U \leq U^\Omega\).
+  \item \(U \leq V\) is a \emph{coisotropic subspace} if \(U^\Omega \leq U\).
+  \item \(U \leq V\) is a \emph{Lagrangian subspace} if it is both isotropic and coisotropic.
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}
+  An isotropic subspace has dimension at most \(\frac{1}{2} \dim V\) and a coisotropic subspace has dimension at least \(\frac{1}{2} \dim V\). If \(U\) is isotropic of dimension \(\frac{1}{2} \dim V\), it is also coisotropic (and vice versa), in which case it is Lagrangian.
+\end{proposition}
+
+\begin{proof}
+  \(\Omega\) nondegenerate gives an isomorphism \(V \to V^*, v \mapsto \Omega(-, v)\). Thus \(\dim U + \dim U^0 = \dim V\), so \(\dim U + \dim U^\Omega = \dim V\).
+\end{proof}
+
+\section{Symplectic manifolds: first notions}
+
+\(\varphi \in \Omega^2(M)\) gives
+\begin{align*}
+  \mu_\varphi: TM &\to T^*M \\
+  u &\mapsto (v \mapsto \varphi(u, v))
+\end{align*}
+i.e.\ \(\mu_\varphi u = \iota_u \varphi\). \(\varphi\) is \emph{non-degenerate} if \(\mu_\varphi\) is an isomorphism, which happens if and only if \(\varphi^n\) is nonwhere zero, where \(\dim M = 2n\).
+
+\begin{definition}[symplectic form]\index{symplectic form}
+  A closed and non-degenerate form \(\omega \in \Omega^2(M)\) is called a \emph{symplectic form}.
+\end{definition}
+First condition a linear algebra condition, the second a local condition: to check some integral is zero only have to check locally.
+
+\begin{definition}[symplectic manifold]\index{symplectic manifold}
+  \((M^{2n}, \omega)\) is a symplectic manifold.
+\end{definition}
+
+\begin{definition}[symplectic structure]\index{symplectic structure}
+  A \emph{symplectic structure} is a symplectic form up to pullback by diffeomorphism.
+\end{definition}
+
+\begin{proposition}
+  A 2-fold is symplectic if and only if it is orientable.
+\end{proposition}
+
+\begin{proof}
+  A non-degenerate form on \(M^2\) is a volume form. By dimension reason all \(2\)-forms are closed.
+\end{proof}
+
+\begin{proposition}
+  Suppose a closed manifold \(M^{2n}\) is symplectic. Then \(H^{2i}_{\text{dR}}(M) \ne 0\) for \(0 \leq i \leq n\).
+\end{proposition}
+
+\begin{proof}
+  \([\omega] \in H^2_{\text{dR}}(M)\) and \(\omega^n\) is a volume form, say \(\d \Vol\). Thus
+  \[
+    [\omega]^n = [\omega^{\w n}] = [\d \Vol] \ne 0 \in H^{2n}_{\text{dR}}(M).
+  \]
+\end{proof}
+
+\begin{eg}
+  \(S^4\) is not symplectic.
+\end{eg}
+
+\subsection{Hamiltonian flows}
+
+Suppose \((M^{2n}, \omega)\) is symplectic and \(f \in C^\infty(M)\). We can construct a vector field as follow: \(\d f \in \Omega^1(M)\). Use the bundle isomorphism \(\mu_\omega: TM \to T*M\) we obtain \(X_f = (\mu_\omega)^{-1}(\d f)\). It is the unique vector field such that \(\iota_{X_f} \omega = \d f\).
+
+\begin{definition}[Hamiltonian flow]\index{Hamiltonian flow}
+  The flow of \(X_f\) is called the \emph{Hamiltonian flow} of \(f\).
+\end{definition}
+
+\begin{proposition}
+  Wherever defined, the Hamiltonian flow of a function acts by symplectomorphism.
+\end{proposition}
+
+\begin{proof}
+  By Cartan's formula
+  \[
+    \mathcal L_{X_f} \omega = \iota_{X_f} \d \omega + \d \iota_{X_f} \omega
+    = 0 + \d (\d f) = 0.
+  \]
+\end{proof}
+
+\begin{remark}
+  This means that symplectic manifolds have larger spaces of symmetries than Riemannian manifolds. For example compare isometries of \(S^2\) vs. symplectomorphisms.
+\end{remark}
+
+\begin{eg}
+  Hamilton's equations
+  \[
+    \frac{\partial H}{\partial p} = \dot q, \frac{\partial H}{\partial q} = - \dot p
+  \]
+  where \(q\) is position and \(p\) is momentum. This is same as following the flow of \(X_H = (\frac{\partial H}{\partial p}, - \frac{\partial H}{\partial q})\), for \(\omega = \sum \d q_i \w \d p_i\). Note \(\iota_{X_H} \omega = \d H\). This shows that classical Hamiltonian flows are examples of Hamiltonian flows in the sense of symplectic geometry and are through symplectomorphisms of \(\R^{2n}\).
+\end{eg}
+
+\subsection{(Almost) complex manifolds}
+
+\begin{definition}[complex manifolds]
+  A \emph{complex manifold} is a manifold \(M^{2n}\) covered by charts \(u_\alpha \subseteq \C^n\) such that the transition maps are biholomorphisms. Equivalently, for two charts \((U_\alpha, \varphi_\alpha)\) and \((U_\beta, \varphi_\beta)\), we require \(D(\varphi_\alpha \compose \varphi_b^{-1}) \in \GL_n(\C) \subseteq \GL_{2n}(\R)\).
+\end{definition}
+
+The (co)tangent spaces of \(M\) are naturally complex vector spaces.
+
+\begin{definition}[almost complex structure]\index{almost complex structure}
+  An \emph{almost complex structure} (acs) on a smooth manifold \(M\) is an endomorphism \(J: TM \to TM\) such that \(J^2 = -\id\).
+\end{definition}
+
+\begin{definition}[integrable]\index{almost complex structure!integrable}
+  If an almost complex structure \(J\) comes from a complex structure then we say \(J\) is \emph{integrable}.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item A complex manifold is almost complex: the complex structure is induced by multiplication by \(i\).
+  \item \(J\) extends to a map \(TM \otimes_\R \C \to TM \otimes_\R \C\), which we also denote by \(J\). For complex manifolds we get
+    \[
+      J(\frac{\partial  }{\partial z_j}) = i \frac{\partial  }{\partial z_j}, J(\frac{\partial  }{\partial \overline z_j}) = -i \frac{\partial  }{\partial \overline z_j}
+    \]
+    where \(TM \otimes \C = \C \langle \frac{\partial  }{\partial x_j}, \frac{\partial  }{\partial y_j} \rangle\), and
+    \[
+      \frac{\partial  }{\partial z_j} = \frac{1}{2}(\frac{\partial  }{\partial x_j} - i \frac{\partial  }{\partial y_j}),
+      \frac{\partial  }{\partial \overline z_j} = \frac{1}{2}(\frac{\partial  }{\partial x_j} + i \frac{\partial  }{\partial y_j}),
+    \]
+    and their dual basis is
+    \[
+      \d z_j = \d x_j + i \d y_j, \d \overline z_j = \d x_j - i \d y_j.
+    \]
+  \item The complexified cotangent bundle splits as \(T^*M \otimes \C = T^*M^{1, 0} \oplus T^*M^{0, 1}\) where
+    \begin{align*}
+      T^*M^{1, 0} &= \{\alpha: \alpha(Jv) = i \alpha(v)\} = \C \langle \d z_j \rangle \\
+      T^*M^{0, 1} &= \{\alpha: \alpha(Jv) = -i \alpha(v)\} = \C \langle \d \overline z_j \rangle \\
+    \end{align*}
+    This then induces splitting on sections
+    \[
+      \Omega^1(M; \C) = \Gamma(T^*M \otimes \C) = \Omega^{1, 0} \oplus \Omega^{0, 1}.
+    \]
+    More generally, define
+    \[
+      \Omega^{p, q}(M) = \Gamma(\Lambda^pT^*M^{1, 0} \otimes \Lambda^qT^*M^{0, 1}) \leq \Gamma(\Lambda^{p + q}(T^*M \otimes \C)) = \Omega^{p + q}(M; \C).
+    \]
+    For \(M\) a complex manifold, a section for \(\Omega^{p, q}\) is given in locally coordintes by
+    \[
+      \sum \alpha_{PQ} \d z_P \w \d \overline Z_Q
+    \]
+    where \(\alpha_{PQ}\) are smooth functions.
+  \item \(\d: \Omega^k(M) \to \Omega^{k + 1}(M)\) induces \(\d: \Omega^k(M; \C) \to \Omega^{k + 1}(M; \C)\). Suppose \(\d: \Omega^0(M; \C) \to \Omega^1(M; \C)\). By composition with projections to \((1, 0)\)-forms and \((0, 1)\)-forms, we get \(\d = \p + \overline \p\).
+
+    For a \emph{complex manifold}, we can
+    \begin{enumerate}
+    \item talk about holomorphic functions (functions that are holomorphic on each chart), and \(f \in C^\infty(M)\) is holomorphic if and only if \(\overline \p f = 0\).
+    \item \(\d(\Omega^{p, q}) \subseteq \Omega^{p + 1, q} \oplus \Omega^{p, q + 1}\) (this needn't be true for almost complex manifolds).
+    \item \(\d^2 = 0\) implies \(\overline \p = 0\) so we can form the Dolbeault complex
+      \[
+        \begin{tikzcd}
+          \cdots \ar[r] & \Omega^{\bullet, k} \ar[r, "\overline \p"] & \Omega^{\bullet, k + 1} \ar[r, "\overline \p"] & \cdots
+        \end{tikzcd}
+      \]
+      The cohomology of this complex is Dolbeault cohomology \(H_{\overline \p}^{\bullet, k}(M)\).
+    \end{enumerate}
+  \end{enumerate}
+\end{remark}
+
+\subsection{Kähler manifold}
+
+\begin{definition}[Kähler manifold]\index{Kähler manifold}
+  A \emph{Kähler manifold} is a complex manifold with a closed positive-definite real \((1, 1)\)-form: \(\omega \in \Omega^{1, 1}(M)\) such that
+  \begin{itemize}
+  \item \(\p \omega = \overline \p \omega = 0\),
+  \item \(\omega = \frac{i}{2} \sum_{j, k} h_{jk} \d z_j \w \d \overline z_k\) with \((h_{jk})\) a hermitian postive definite matrix.
+  \end{itemize}
+\end{definition}
+
+\begin{ex}
+  Expand the local expression in terms of \(\d x_j\) and \(\d y_j\) to show that the factor \(\frac{i}{2}\) is sensible.
+\end{ex}
+
+\begin{proposition}
+  Kähler forms are symplectic forms.
+\end{proposition}
+
+\begin{proof}
+  A Kähler form \(\omega\) is closed, and
+  \[
+    \omega^n = n! \left(\frac{i}{2} \right)^n \underbrace{\det(h_{jk})}_{> 0} \d z_1 \w \d \overline z_1 \w \cdots \w \d z_n \w \d \overline z_n
+  \]
+  and since \(\frac{i}{2} \d z_i \w \d \overline z_i = \d x_i \w \d y_i\), \(\omega^n\) is nowhere zero.
+\end{proof}
+
+\begin{definition}[plurisubharmonic]\index{plurisubharmonic}
+  Let \(M\) be a complex manifold. A smooth function \(\rho: M \to \R\) is strictly \emph{plurisubharmonic} (plush) if
+  \[
+    \left( \frac{\partial^2 \rho}{\partial z_j \partial \overline z_k} \right)
+  \]
+  is positive definite everywhere.
+\end{definition}
+
+Check that for such a function, \(\frac{i}{2} \p \overline \p \rho\) defines a Kähler form on \(M\).
+
+\begin{remark}
+  Such an \(M\) can't be closed.
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\rho(z) = |z|^2\) on \(\C^n \cong \R^{2n}\) gives \(\frac{i}{2} \p \overline p \rho = \omega_{\text{std}}\).
+  \item \(\rho(z) = \log(1 + |z|^2)\) on \(\C^n \cong \R^{2n}\). To check this is plush, look at \((1, 0, \dots, 0)\) and use \(U(n)\)-invariance. Check also the induced volume form has finite total volume.
+  \item A complex submanifold of a Kähler manifold is Kähler with the pullback form.
+  \item \(\C \P^n\) is Kähler: \(\P^n\) can be covered by charts \(U_i = \{z_i \ne 0\}\). The transition functions are of the form
+    \[
+      \varphi: (u_1, \dots, u_n) \mapsto (\frac{1}{u_1}, \frac{u_2}{u_1}, \dots, \frac{u_n}{u_1})
+    \]
+    so
+    \[
+      \varphi^*(\frac{i}{2} \p \overline \p(\log(1 + |z|^2))
+      = \frac{i}{2} \p \overline \p (\log(1 + |z|^2) + \log (\frac{1}{|z_1|^2}))).
+    \]
+    Thus the local Kähler forms patch to give a global one. For details see III Complex Manifolds.
+  \end{enumerate}
+\end{eg}
+
+\begin{theorem}[Hodge]
+  If \(X\) is compact Kähler then
+  \begin{itemize}
+  \item \(H^k_{\mathrm{dR}}(X) \otimes \C \cong \bigoplus_{i + j = k} H^{i, j}_{\conj \p}(X)\).
+  \item \(H^{i, j}_{\conj \p}(X) \cong \conj{\H^{j, i}_{\conj \p}(X)}\). In particular they have the same dimension.
+  \end{itemize}
+\end{theorem}
+
+\begin{corollary}
+  If \(X\) is compact Kähler then any Betti number of odd degree is even.
+\end{corollary}
+
+\begin{theorem}[Lefschetz]
+  For \(X\) compact Kähler the wedge product
+  \[
+    - \w [\omega]^k: H^{n - k}_{\mathrm{dR}}(X) \to H^{n + k}_{\mathrm{dR}}(X)
+  \]
+  is an isomorphism, where \(n\) is the complex dimension of \(X\).
+\end{theorem}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item It is easy to write down a compact complex manifold that is not Kähler: consider \((\C^2 \setminus \{0\})/z \sim 2z\). It inherits a complex structure from \(\C^2\). It is homeomorphic to \(S^1 \times S^3\), so \(b_2 = 0\). Thus it can't be symplectic.
+  \item Most examples of complex Kähler manifold we'll see are projective, but plenty are not (e.g.\ take deformations of complex surfaces in \(\P^3\). c.f.\ K3 surfaces).
+  \end{enumerate}
+\end{remark}
+
+\subsection{Almost complex structure on symplectic manifolds}
+
+\begin{definition}[compatible almost complex structure]\index{almost complex structure!compatible}
+  An almost complex structure \(J\) on a symplectic manfiold \((M, \omega)\) is \emph{compatible} with \(\omega\) if
+  \begin{enumerate}
+  \item \(\omega(Ju, Jv) = \omega(u, v)\),
+  \item \(\omega(v, U(v) > 0\) unless \(v = 0\).
+  \end{enumerate}
+\end{definition}
+
+\begin{note}
+  It follows that \(\omega(\cdot, J \cdot)\) is a positive-definite symmetric bilinear form, so gives a Riemannian metric \(g(w, u) = \omega(u, Jv)\). Such a triple \((\omega, J, g)\) is sometimes called a compatible triple. We'll see any two of them determines the third.
+\end{note}
+
+\begin{proposition}
+  Any symplectic manifold \((M, \omega)\) admits a compatible almost complex structure.
+\end{proposition}
+
+\begin{proof}
+  Let \((V, \Omega)\) be a symplectic vector space. Fix any metric \(g\) on \(V\). As \(g\) and \(\Omega\) both determin isomorphisms \(V \to V^*\), there exists \(A \in \End V\) such that \(\omega(u, v) = g(Au, v)\). Note that
+  \[
+    \omega(u, v) = -\omega(v, u) = -g(Av, u) = -g(u, Av)
+  \]
+  so \(A^* = -A\) with respect to \(g\). As \(g(AA^*v, v) = g(A^*v, A^*v) > 0\) for all \(v \ne 0\) and \((AA^*)^* = AA^*\), so \(AA^*\) is positive definite symmetric. Thus by choosing an orthnormal basis, \(AA^* = BDB^{-1}\), where \(B\) is the diagonal matrix with entries \(\lambda_1, \cdots \lambda_{2n}\). Take the square root and define \(J = (\sqrt{AA^*})^{-1}A\).
+  \begin{enumerate}
+  \item \(J^2 = (\sqrt{-A^2})^{-1}A(\sqrt{-A^2})^{-1}A = -\id\).
+  \item \(J^* = -J\) (implies \(JJ^* = \id\) so \(J\) is orthogonal).
+  \item For compatibility,
+    \[
+      \omega(Ju, Jv) = g(AJu, Jv) = g(JAu, Jv) = g(Au, v) = \omega(u, v).
+    \]
+  \item \(\omega(u, Ju) = g(-JAu, u) = g(\sqrt{AA^*} u, \sqrt{AA^*} u) > 0\).
+  \end{enumerate}
+
+  Since \(A\) is uniquely determined and we are taking the positive square root, we can use this construction on each \(T_xM\), for a choice of Riemannian metric on \(M\). Our procedure on \((V, \Omega)\) is canonical so this works globally.
+\end{proof}
+
+\begin{note}
+  Given \((M, \Omega)\), there is a bijection
+  \[
+    \{\text{compatible complex structure } J\} \longleftrightarrow \{\text{Riemannian metric } M\}
+  \]
+  Note that RHS is convex so contractible, and it follows that LHS is also contractible. We will see that for many applications, there is ``essentially no choice'' of \(J\).
+\end{note}
+
+\subsection{Symplectic vector bundle}
+
+Given a real vector bundle \(\pi: E \to B\), a section \(\Omega \in \Gamma(\Lambda^2E^*)\) such that \(\Omega|_{E_b} = \omega_b\) symplectic on each fibre and locally trivial and locally trivial: \((\pi^{-1}(U), \Omega) \cong (U \times \R^{2n}, \omega_0)\)
+
+\begin{corollary}
+  Such an \(E\) admits the structure of a complex vector bundle, uniquely determined up to a contractible choice.
+\end{corollary}
+
+Note that this is weaker than a holomorphic bundle.
+
+
+
+
 
 
 

@@ -281,6 +281,81 @@ Thus if \(f\) is normalised then it is distinguished in \(x_n\) of degree \(d\) 
   Let \(I\) be an ideal of \(T_n\), \(A = T_n/I\). Then there exists an injective map \(T_d \embed A\) of \(K\)-algebras for some \(d\). Moreover \(\dim A = d\).
 \end{theorem}
 
+\begin{proof}
+  Induction on \(n\). Prove for \(n\) assuming \(n - 1\). We may asume that \(I \subseteq T_n\) is proper. Take \(0 \ne f \in I\). Apply Weierstrass distinction and preparation to get a monic polynomial \(f \in T_{n - 1}[x_n]\) in \(I\) in \(x_n\) (we write \(I\) for \(I^\tau\)). \(T_n/(f)\) is a free \(T_{n - 1}\)-module of finite rank. Let \(\varphi\) the composition \(T_{n - 1} \to T_n/(f) \to T_n/I\). If \(\ker \varphi = 0\) then done. If not then we may apply the induction hypothesis for \(T_{n - 1}/\ker \varphi\) to get \(T_d \embed T_{n - 1}/\ker \varphi\), and \(T_{n - 1}/\ker \varphi \embed T_n/I\) is finite and projective. The statement about dimension follows from integrality.
+\end{proof}
+
+\begin{remark}
+  Warning: unlike in the affine case, it can happen that an affinoid subalgebra has greater dimension than the affinoid algebra that contains it. See example 2.3.3 in Fresnel \& van der Put, Rigid Algebraic Geometry and its Applications.
+\end{remark}
+
+\begin{corollary}[Hilbert (weak) Nullstellensatz]
+  Any maximal ideal \(\mathfrak m \subseteq T_n\) has the property that \(T_n/\mathfrak m\) is finite over \(K\).
+\end{corollary}
+
+\begin{proof}
+  \(T_n/\mathfrak m\) is a field so has dimension \(0\) so by Noether normalisation it is finite over \(K\).
+\end{proof}
+
+\subsection{Interlude on \(p\)-adic analysis}
+
+Facts that carry over from \(\R\) and \(\C\):
+\begin{enumerate}
+\item For a finite dimensional Banach space over \(K\), any two norms are equivalent.
+\item A linear map \(f: V \to W\) of \(K\)-Banach spaces is continuous if and only if \(f\) is bounded.
+\item Open mapping theorem: if \(f: V \to W\) is a bounded surjective linear map between \(K\)-Banach spaces then \(f\) is open and the quotient topology on \(W\) conincides with the original topology on \(W\). More precisely, exists \(c > 0\) such that for any \(w \in W\), there is some \(v \in V\), \(w = f(v)\) satisfying \(\norm v \leq c \norm w\). As a corollary, any bounded bijective linear map \(f: V \to W\) is an isomorphism of Banach spaces.
+\item Closed graph theorem: a linear map \(f: V \to W\) between \(K\)-Banach spaces is bounded if and only if its graph in \(V \times W\) with product topology is closed.
+\end{enumerate}
+
+Unique to \(p\)-adic analysis we have
+
+\begin{lemma}
+  Let \(A\) be a \(K\)-Banach algebra which is Noetherian. Let \(M\) be a Banach \(A\)-module (i.e.\ \(M\) is Banach space with a norm compatible with the \(A\)-module structure: \(\norm{a \cdot m}_M \leq \norm a_A \norm m_M\)) such that \(M\) is finitely generated over \(A\). Then any \(A\)-submodule of \(M\) is closed.
+\end{lemma}
+
+Later we'll use this to put a norm on affinoid algebras: \(T_n\) is Noetherian so any ideal \(I\) is closed. Then we can equip \(T_n/I\) with the quotient norm.
+
+\begin{proof}
+  Let \(N\) be a submodule of \(M\). Let \(\overline N\) be the closure of \(N\). \(A\) Noetherian, \(M\) finitely generated implies that \(\overline N\) is finitely generated. Take generators \(e_1, \dots, e_n\). Consider \(A^n \surj \overline N\). Equip \(A^n\) with the maximum norm. By open mapping theorem, exists \(c \in (0, 1)\) such that every \(x \in \overline N\) can be written as \(\sum a_i e_i\) with \(c \cdot \max \norm{a_i} \leq \norm x\). \(N\) is dense in \(\overline N\) so choose \(f_1, \dots, f_n \in N\) such that \(\sum \norm{e_i - f_i} \leq c^2\). We show that \(f_1, \dots f_n\) generate \(\overline N\).
+
+  Given \(x \in \overline N\), write \(x_0 = x = \sum a_{0, i} e_i\) where \(c \cdot \max \norm{a_i} \leq \norm{x_0}\). Then \(x_0 = \sum a_{0, i} f_i + x_1\) where \(x_1 = \sum a_{0, i}(e_i - f_i)\) and \(\norm {x_1} \leq c \cdot \norm{x_0}\). Then write \(x_m = \sum a_{m, i} e_i\) with \(c \cdot \max \norm{a_{m, i}} \leq \norm{x_m}\). Take the infinite sum
+  \[
+    x = \sum_{m = 0}^\infty x_m - x_{m + 1} = \sum (\sum a_{m, i})f_i = \sum a_i f_i.
+  \]
+\end{proof}
+
+\paragraph{Completed tensor product}
+
+Let \(A\) be a \(K\)-Banach algebra, \(M, N\) Banach \(A\)-modules. \(M \otimes_A N\) is not complete in general, but there is a seminorm
+\[
+  \norm x = \inf\{\max \norm{m_i} \norm{n_i}: x = \sum m_i \otimes n_i\}.
+\]
+Define the \emph{completed tensor product}\index{completed tensor product} \(M \hat \otimes_A N\) to be the completion of \(M \otimes_A N\) with respect to this seminorm.
+
+\begin{ex}
+  Let \(A, M, N\) be as above. If \(M, N\) are finitely generated then \(\norm \cdot\) is a norm and \(M \otimes_A N\) is complete. (Hint: choose some finite presentation of \(M, N\) and reduce to the case of free modules of finite rank)
+\end{ex}
+
+The completed tensor product has the following universal property: there exists a continuous \(A\)-bilinear map \(\alpha: M \times N \to M \hat \otimes N\) such that for any continuous bilinear map \(\beta: M \times N \to E\) into some complete normed \(A\)-module, there exists a continuous linear map \(\varphi\) such that the following diagram commutes:
+\[
+  \begin{tikzcd}
+    M \times N \ar[d, "\alpha"] \ar[r, "\beta"] & T \\
+    M \hat \otimes N \ar[ur, "\varphi", dashed]
+  \end{tikzcd}
+\]
+
+\begin{eg}
+  Let
+  \[
+    A \langle x_1, \dots, x_n \rangle = \{ \sum a_I x^I \in A[[x_1, \dots, x_n]]: a_I \in A, \lim |a_I| = 0 \}.
+  \]
+  It is complete with respect to the Gauss norm. Next time: \(A \hat \otimes_K T_n\).
+\end{eg}
+
+
+
+
+
 
 \printindex
 \end{document}
