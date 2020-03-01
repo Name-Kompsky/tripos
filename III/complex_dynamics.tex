@@ -480,6 +480,202 @@ Topological preimage equidistribution
   The \emph{immediate basin} of an attracting cycle is the union of the Fatou components containing the cycle elements.
 \end{definition}
 
+...
+
+\(\frac{z^2 - 1}{z^2 - c}\) attracting \(5\)-cycle \(\infty \mapsto 1 \mapsto 0 \mapsto \frac{1}{c}\)
+
+\begin{proposition}
+  Let \(f\) be a rational map with \(f(p) = p\) an attracting fixed point. Then the immediate basin of \(p\) contains a critical point of \(f\).
+\end{proposition}
+
+\begin{proof}
+  wlog \(p = 0\). The component \(U\) of \(F(f)\) is hyperbolic as \(|J(f)| = \infty\). Thus we have
+  \[
+    \begin{tikzcd}
+      \D \ar[r, "F"] \ar[d, "\pi"] & \D \ar[d, "\pi"] \\
+      U \ar[r, "f"] & U
+    \end{tikzcd}
+  \]
+  If \(f\) has no critical points in \(U\) then \(f \compose \pi\) is a covering map \(\D \to U\) so exists \(G: \D \to \D\) covering it. If \(\pi, F, G\) fix \(0\), \(G\) is inverse to \(F\). Thus \(F \in \aut(\D)\) so \(F, f\) are hyperbolic local isometries, contradicting \(0\) an attracting fixed point.
+\end{proof}
+
+\begin{corollary}
+  \(f\) has at most \(2d - 2\) attracting cycles.
+\end{corollary}
+
+\begin{corollary}
+  \(f\) has at most \(4d - 4\) non-repelling cycles.
+\end{corollary}
+
+\begin{proof}
+  Holomorphic perturbation. Let \(f_t(z) = (1 - t) f(z) + tz^d\). Note \(f_0 = f(z), f_1 = z^d\). Suppose \(f^n(\alpha) = \alpha\) with multiplier \(\lambda \in S^1\). If \(\alpha\) is not a repeated root of \(f^n(z) - z\) there is a neighbourhood of \(0\) and holomorphic \(t \mapsto \alpha(t)\) such that \(\alpha(0) = \alpha\) and \(f^n(\alpha(t)) = \alpha(t)\) for all \(t\), i.e.\ if \(\lambda \ne 1\) (?). But if \(\lambda = 1\) we can base change \(t \mapsto t^k\). We then have \(t \mapsto \lambda(t)\) homomorphic in \(t\), \(\lambda(0) = \lambda\) and \((f^n)'(\alpha(t)) = \lambda(t)\). Either \(\lambda(t)\) is the constant \(1\) (more argument needed), or another constant \(\lambda\), or nonconstant. The first two cases contradict \(z^d\) having no indifferent cycles at \(t = 1\).
+
+  By conformality of holomorphic maps, the measure
+  \[
+    \mu(\{\theta \in S^1: |\lambda(\varepsilon e^{i\theta})|\}) \to \frac{1}{2}
+  \]
+  as \(\varepsilon \to 0\). Repeating this process for all indifferent cycles, exists a direction \(\theta\) such that perturbation in the \(\theta\)-direction makes half of these cycles attracting. For sufficiently small choice of \(\varepsilon e^{i\theta}\), attracting cycles remain attracting. Let \(N\) be the number of indifferent cycles of \(f\), \(M\) the number of attracting cycles of \(f\), then the number of non-repelling cycles of \(f\) is \(N + M = 2(M/2 + N/2) \leq 2 (2d - 2)\).
+\end{proof}
+
+\begin{remark}
+  \(f^n(z) = z\) has \(z^n + 1\) roots counting multiplicity, so must have a repelling cycle.
+\end{remark}
+
+Note we can be more precise, see example sheet.
+
+\begin{theorem}
+  If \(f(0) = 0\) is attracting with multiplier \(\lambda \ne 0\). Let \(\phi\) be a linearising coordinate with local inverse \(\psi: \D(0, \varepsilon) \to A_0\), where \(A_0\) is the immediate basin of \(0\). \(\psi\) extends to a holomorphic map on a disk \(\D(0, r)\) of some maximal radius \(r\), extending homeomorphically to \(\p \D(0, r)\) and \(\psi(\p \D(0, r))\) contains a critical point of \(f\).
+\end{theorem}
+
+\begin{remark}
+  Actually detecting whether \(f\) has an attractor is harder. Open problem: does \(z \mapsto z^2 - \frac{3}{2}\) has an attractor?
+\end{remark}
+
+Caution: linearising map need not continuously extend to \(J(f)\).
+
+\begin{theorem}
+  If \(f\) rational has \(J(f)\) disconnected then \(J(f)\) has uncountably many connected components.
+\end{theorem}
+
+\begin{proof}
+  If \(J(f) = J_0 \cup J_1\) where \(J_0, J_1\) are disjoint compact nonempty. Given \(z \in J\), define a seuqnce \(\beta(z) = (\beta_n(z))\) where \(\beta_n(z) = i\) if \(f^n(z) \in J_i\). If \(z, w\) are in the same connected component of \(J(f)\) then \(\beta(z) = \beta(w)\). It suffices to show that for any initial \(\beta_1(z), \dots, \beta_k(z)\), exists \(n > k\) such that exists \(z' \in J(f)\) such that \(\beta_i(z') = \beta_i(z)\) for all \(1 \leq i \leq k\) but \(\beta_n(z') \ne \beta_n(z)\). Define
+  \[
+    U_{z, k} = \{w \in \hat \C: f^i(w) \notin J_{1 - \beta_i(z)} \text{ for all } 1 \leq i \leq k\}.
+  \]
+  This is open and contains \(F(f)\). Some subsequence \((\beta_{n_j}(z))\) is constant, say the constant \(0\). If \(\beta_i(z') = \beta_i(z)\) for all \(1 \leq i \leq k\) then \(\beta_i(z') = \beta_i(z)\) for all \(i\), then
+  \[
+    f^{n_j}(U_{z, k}) \subseteq \C \setminus J_1.
+  \]
+  The maps \(f^{nj}: U_{z, k} \to \C \setminus J_1\) form a normal family, contradiction. Thus \(\{\beta(z): z \in J(f)\}\) is uncountable.
+\end{proof}
+
+\paragraph{Superattractor}
+
+\begin{theorem}
+  Suppose \(f(0) = 0\) is with local expansion \(f(z) = a_mz^m + a_{m + 1}z^{m + 1} + \dots, m \geq 2\). Then there exists a holomorphic change of coordinates \(\phi\) on a neighbourhood of \(0\) such that \(\phi(0) = 0\), \(\phi(f(z)) = \phi(z)^m\). \(\phi\) is unique up to multiplication by an \((m - 1)\)th root of unity. \(\phi\) is called the \emph{Böttcher coordinate}\index{Böttcher coordinate}.
+\end{theorem}
+
+\begin{proof}
+  We sketch the proof only. The details are the same as Kaenig's. Write locally \(f(z) = z^m(1 + h(z))\), where \(h(z) \to 0\) as \(z \to 0\) is holomorphic, where \(a_m = 1\) (otherwise conjugate by \(\alpha f(z/\alpha)\)). Write \(1 + h(z) = \exp(k(z))\) for some holomorphic \(h(z)\) on a neighbourhood of \(0\). Then there exists holomorphic \(k_n(z)\) on this neighbourhood so that \(f^n(z) = z^{m^n} \exp(k_n(z))\). Choose the branch \(\phi_n(z)\) of the \(m^n\)th root of \(f^n(z)\) such that \(\phi_n(z) = z(1 + O(z))\). Then \(\phi_n\) converges uniformly to some holomorphic \(\phi\) on this neighbourhood which satisfies the statement. Uniqueness follows from identification of Taylor expansion, a la Kaenig.
+\end{proof}
+
+\begin{corollary}
+  Let \(f(0) = 0\) be superattracting, with basin \(A\) and Böttcher coordinate \(\phi\) on a neighbourhood of \(0\). Then \(z \mapsto |\phi(z)|\) extends to a continuous map \(|\phi|: A \to [0, 1)\) satisfying \(|\phi(f(z))| = |\phi(z)|^m\) for \(z \in A\).
+\end{corollary}
+
+\begin{proof}
+  Given \(z \in A\), set \(|\phi|(z) = |\phi(f^n(z))|^{1/m^n}\), where \(n \gg 1\) such that \(f^n(z)\) is in the neighbourhood domain of \(\phi\). The desired equality is immediate.
+\end{proof}
+
+\section{Polynomial dynamics}
+
+\begin{definition}[filled Julia set]\index{filled Julia set}
+  Let \(p(z) = a_dz^d + a_{d - 1}z^{d - 1} + \dots + a_0, d \geq 2, a_d \ne 0\). The \emph{filled Julia set} of \(p\) is
+  \[
+    K(p) = \{z \in \C: |f^n(z)| \nto \infty \text{ as } n \to \infty\}.
+  \]
+\end{definition}
+
+Note this is the complement of the basin of infinity.
+
+From our results on boundaries of basins, \(\p K(p) = J(p)\). We know we have a Böttcher coordinate on a neighbourhood of \(\infty\): choose this (i.e.\ \(\phi(1/z)^{-1}\)) such that \(\phi(\infty) = \infty\).
+
+\begin{definition}[Green's function]\index{Green's function}
+  Suppose \(p(z)\) is a degree \(d\) polynomial. The \emph{Green's function} associated to \(p\) is
+  \[
+    G_p(z) = \lim_{n \to \infty} \frac{\log^+ |p^n(z)|}{d^n}
+  \]
+  where \(\log^+x = \max\{\log x, 0\}\) for \(x \geq 0\).
+\end{definition}
+
+\begin{lemma}
+  \(G_p(z)\) satisfying the following:
+  \begin{enumerate}
+  \item \(G_p\) is continuous everywhere and harmonic on \(\C \setminus K(p)\).
+  \item \(G_p(z) = \log |z| + O(1)\) as \(|z| \to \infty\).
+  \item \(G_p(z) \to 0\) as \(z \to K(p)\).
+  \item \(G_p(p(z)) = d G_p(z)\).
+  \end{enumerate}
+  1, 2, 4 uniquely characterises \(G_p\), and \(G_p(z) = \log |\phi_p(z)|\), where \(\phi_p\) is a Böttcher coordinate at \(\infty\) on \(\hat \C \setminus K(p)\).
+\end{lemma}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item This is how pictures of filled Julia sets are drawn.
+  \item The Green's function depends only on \(K(p)\).
+  \end{enumerate}
+\end{remark}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Consider the function \(\log^+|p(z)| - d \log^+|z|\) on \(\hat \C\). It is continuous and takes real values, so is bounded by some \(C \in \R\). Then for all \(n\),
+    \[
+      \left| \frac{\log^+|p^n(z)|}{d^n} - \frac{\log^+|p^{n - 1}(z)|}{d^{n - 1}}\right| \leq \frac{C}{d^n}
+    \]
+    so for \(m \leq n\),
+    \[
+      \left| \frac{\log^+|p^n(z)|}{d^n} - \frac{\log^+|p^m(z)|}{d^m}\right| \leq \sum_{k = m + 1}^n \frac{C}{d^k} \leq \frac{C}{d^m (d - 1)}
+    \]
+    so \(G_p\) is a uniform limit of continuous function so continuous.
+
+    Locally, a function is harmonic if and only if it is the real part of a holomophic function, if and only if it equals to \(\log |f|\) for some holomorphic \(f\) that does not vanish anywhere (since on a simply connected domain we can take logarithm). Given \(z \notin K(p)\), find a small disk \(D \ni p\) such that \(\overline D \cap K(p) = \emptyset\). There exists \(N \gg 1\) such that \(p^n(\overline D) \cap \D = \emptyset\) for \(n \geq N\). Then \(\frac{\log^+ |p^n(z)|}{d^n}\)  is harmonic on \(\overline D\). Since a uniform limit of harmonics is harmonic, we have \(G_p(z)\) is harmonic on \(D\) as well. Note if \(K(p)^{\mathrm{int}}(p) \ne \emptyset\) then \(G_p(z) = 0\) there so is harmonic as well. In other words, \(G_p(z)\) fails to be harmonic precisely on the Julia set (for more rigorous argument see later).
+  \item Set \(m = 0\), then the bound in 1 gives
+    \[
+      \left| \frac{\log^+ |p^n(z)|}{d^n} - \log^+|z| \right| \leq \frac{C}{d - 1}
+    \]
+    so as \(n \to \infty\), \(|G_p(z) - \log |z|| \leq \frac{C}{d - 1}\) for \(|z| \gg 0\).
+  \item \(G_p(z) = 0\) on \(K(p)\).
+  \item Definition.
+  \end{enumerate}
+
+  Suppose \(H(z)\) is a function satisfying 1, 2 and 4 and consider \(G(z) = G_p(z) - H(z)\). By 1 and 2 it is continuous and bounded on \(\hat \C\). By 4, as \(n \to \infty\), \(G(p^n(z)) = d^n G(z) \to \infty\) unless \(G(z) = 0\). We thus have \(G_p(z) = H(z)\). For \(G_p(z) = \log |\phi_p(z)|\), check continuity, growth at \(\infty\) and transformation.
+\end{proof}
+
+\begin{eg}
+  For \(z \mapsto z^d\),
+  \[
+    G_p(z) = \lim \frac{\log^+|z^{d^n}|}{d^n} = \log^+|z|.
+  \]
+  \(K(p) = \overline D\), where \(\log^+ |z| = 0\). The basin of infinity is \(\hat \C \setminus \D\).
+\end{eg}
+
+\begin{remark}
+  \(G_p(z)\) is also known as the \emph{potential function}\index{potential function} associated to \(K(p)\).
+\end{remark}
+
+Now back to superattractors.
+
+\begin{theorem}
+  Suppose \(f(0) = 0\) is superattracting, with Böttcher coordinate \(\phi\) for \(f\) at \(0\). There there exists a unique open disk \(\D(0, r)\) of maximal radius \(0 < r \leq 1\) such that the inverse \(\psi\) of \(\phi\) extends holomorphically to \(\psi: \D(0, r) \to A_0\), the immediate basin of attraction of \(0\). If \(r = 1\) then \(\psi: D(0, t) \cong A_0\) and \(0\) is the only critical points of \(f\) in \(A_0\). On the other hand if \(r < 1\) there exists a nonzero critical point in \(A_0\), which lies on \(\b \psi(\D(0, r))\).
+\end{theorem}
+
+\begin{proof}
+  Guided on example sheet 2. Non-examinable.
+\end{proof}
+
+\begin{eg}
+  \(f(z) = z^2 + \frac{1}{2}\). \(\phi\) sends a neighbourhood of \(\infty\) to the complement of a large closed disk in \(\hat \C\) isomorphically. \(\psi\) can be extended until it hits the image of a critical point.
+\end{eg}
+
+In the case \(f_c(z) = z^2 + c\), there are two critical points \(\infty, 0\). \(\infty\) is mapped to itself with multiplicity \(2\). We have
+
+\begin{corollary}
+  Suppose \(0 \notin K(f_c)\), i.e.\ \(f_c^n(0) \to \infty\) as \(n \to \infty\). Then the Böttcher coordinate \(\phi_c\) of \(f_c\) at \(\infty\) extends to a conformal isomorphism on a neighbourhood of \(\infty\) which contains \(c\).
+\end{corollary}
+
+\begin{proof}
+  \(0\) is the only critical point that can move around and \(f(0) = c\). Now use extension of Böttcher coordinate.
+\end{proof}
+
+\begin{proposition}
+  A closed subset of the sphere is connected if and only if the connected components of its complement are simply connected.
+\end{proposition}
+
+\begin{proof}
+  Beardon, Iteration of Rational Functions and Ahlfors.
+\end{proof}
+
+
 
 
 

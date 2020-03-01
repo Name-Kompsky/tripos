@@ -14,6 +14,8 @@
 \newcommand{\w}{\wedge} % wedge product
 \DeclareMathOperator{\Vect}{Vect} % vector field
 \DeclareMathOperator{\Vol}{Vol} % volume form
+\DeclareMathOperator{\Symp}{Symp}
+\newcommand{\immersion}{\looparrowright}
 
 \begin{document}
 
@@ -169,7 +171,7 @@ Moreover we can show these properties uniquely determines \(\d\).
 It follows that we have the \emph{de Rham complex}
 \[
   \begin{tikzcd}
-    0 \ar[r] \Omega^0(M) \ar[r, "\d"] & \Omega^1(M) \ar[r, "\d"] & \Omega^2(M) \ar[r] & \cdots \ar[r, "\d"] & \Omega^n(M) \ar[r] & 0
+    0 \ar[r] & \Omega^0(M) \ar[r, "\d"] & \Omega^1(M) \ar[r, "\d"] & \Omega^2(M) \ar[r] & \cdots \ar[r, "\d"] & \Omega^n(M) \ar[r] & 0
   \end{tikzcd}
 \]
 which gives rise to de Rham cohomology \(H^*_{\text{dR}}(M)\). By de Rham theorem this is isomorphic to \(H^*(M; \R)\), singular cohomology with coefficients in \(\R\). \((\Omega^*M, \w, \d)\) is the de Rham algebra. Morgan 1978 shows that it characterises the rational homotopy type of algebraic varieties.
@@ -377,7 +379,7 @@ Recall from linear algebra
 \end{proposition}
 
 \begin{proof}
-  \(\Omega\) nondegenerate gives an isomorphism \(V \to V^*, v \mapsto \Omega(-, v)\). Thus \(\dim U + \dim U^0 = \dim V\), so \(\dim U + \dim U^\Omega = \dim V\).
+  \(\Omega\) nondegenerate gives a surjection \(V \to U^*, v \mapsto \Omega(-, v)\). Thus \(\dim U^* + \dim U^0 = \dim V\), so \(\dim U + \dim U^\Omega = \dim V\).
 \end{proof}
 
 \section{Symplectic manifolds: first notions}
@@ -427,7 +429,7 @@ First condition a linear algebra condition, the second a local condition: to che
 
 \subsection{Hamiltonian flows}
 
-Suppose \((M^{2n}, \omega)\) is symplectic and \(f \in C^\infty(M)\). We can construct a vector field as follow: \(\d f \in \Omega^1(M)\). Use the bundle isomorphism \(\mu_\omega: TM \to T*M\) we obtain \(X_f = (\mu_\omega)^{-1}(\d f)\). It is the unique vector field such that \(\iota_{X_f} \omega = \d f\).
+Suppose \((M^{2n}, \omega)\) is symplectic and \(f \in C^\infty(M)\). We can construct a vector field as follow: \(\d f \in \Omega^1(M)\). Use the bundle isomorphism \(\mu_\omega: TM \to T^*M\) we obtain \(X_f = (\mu_\omega)^{-1}(\d f)\). It is the unique vector field such that \(\iota_{X_f} \omega = \d f\).
 
 \begin{definition}[Hamiltonian flow]\index{Hamiltonian flow}
   The flow of \(X_f\) is called the \emph{Hamiltonian flow} of \(f\).
@@ -566,7 +568,7 @@ Check that for such a function, \(\frac{i}{2} \p \overline \p \rho\) defines a K
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item \(\rho(z) = |z|^2\) on \(\C^n \cong \R^{2n}\) gives \(\frac{i}{2} \p \overline p \rho = \omega_{\text{std}}\).
+  \item \(\rho(z) = |z|^2\) on \(\C^n \cong \R^{2n}\) gives \(\frac{i}{2} \p \conj \p \rho = \omega_{\text{std}}\).
   \item \(\rho(z) = \log(1 + |z|^2)\) on \(\C^n \cong \R^{2n}\). To check this is plush, look at \((1, 0, \dots, 0)\) and use \(U(n)\)-invariance. Check also the induced volume form has finite total volume.
   \item A complex submanifold of a Kähler manifold is Kähler with the pullback form.
   \item \(\C \P^n\) is Kähler: \(\P^n\) can be covered by charts \(U_i = \{z_i \ne 0\}\). The transition functions are of the form
@@ -586,7 +588,7 @@ Check that for such a function, \(\frac{i}{2} \p \overline \p \rho\) defines a K
   If \(X\) is compact Kähler then
   \begin{itemize}
   \item \(H^k_{\mathrm{dR}}(X) \otimes \C \cong \bigoplus_{i + j = k} H^{i, j}_{\conj \p}(X)\).
-  \item \(H^{i, j}_{\conj \p}(X) \cong \conj{\H^{j, i}_{\conj \p}(X)}\). In particular they have the same dimension.
+  \item \(H^{i, j}_{\conj \p}(X) \cong \conj{H^{j, i}_{\conj \p}(X)}\). In particular they have the same dimension.
   \end{itemize}
 \end{theorem}
 
@@ -615,7 +617,7 @@ Check that for such a function, \(\frac{i}{2} \p \overline \p \rho\) defines a K
   An almost complex structure \(J\) on a symplectic manfiold \((M, \omega)\) is \emph{compatible} with \(\omega\) if
   \begin{enumerate}
   \item \(\omega(Ju, Jv) = \omega(u, v)\),
-  \item \(\omega(v, U(v) > 0\) unless \(v = 0\).
+  \item \(\omega(v, J(v)) > 0\) unless \(v = 0\).
   \end{enumerate}
 \end{definition}
 
@@ -628,11 +630,11 @@ Check that for such a function, \(\frac{i}{2} \p \overline \p \rho\) defines a K
 \end{proposition}
 
 \begin{proof}
-  Let \((V, \Omega)\) be a symplectic vector space. Fix any metric \(g\) on \(V\). As \(g\) and \(\Omega\) both determin isomorphisms \(V \to V^*\), there exists \(A \in \End V\) such that \(\omega(u, v) = g(Au, v)\). Note that
+  Let \((V, \Omega)\) be a symplectic vector space. Fix any metric \(g\) on \(V\). As \(g\) and \(\Omega\) both determine isomorphisms \(V \to V^*\), there exists \(A \in \End V\) such that \(\omega(u, v) = g(Au, v)\). Note that
   \[
     \omega(u, v) = -\omega(v, u) = -g(Av, u) = -g(u, Av)
   \]
-  so \(A^* = -A\) with respect to \(g\). As \(g(AA^*v, v) = g(A^*v, A^*v) > 0\) for all \(v \ne 0\) and \((AA^*)^* = AA^*\), so \(AA^*\) is positive definite symmetric. Thus by choosing an orthnormal basis, \(AA^* = BDB^{-1}\), where \(B\) is the diagonal matrix with entries \(\lambda_1, \cdots \lambda_{2n}\). Take the square root and define \(J = (\sqrt{AA^*})^{-1}A\).
+  so \(A^* = -A\) with respect to \(g\). As \(g(AA^*v, v) = g(A^*v, A^*v) > 0\) for all \(v \ne 0\) and \((AA^*)^* = AA^*\), \(AA^*\) is positive definite symmetric. Thus by choosing an orthnormal basis, \(AA^* = BDB^{-1}\), where \(B\) is the diagonal matrix with entries \(\lambda_1, \cdots \lambda_{2n}\). We can thus take the positive square root and define \(J = (\sqrt{AA^*})^{-1}A\).
   \begin{enumerate}
   \item \(J^2 = (\sqrt{-A^2})^{-1}A(\sqrt{-A^2})^{-1}A = -\id\).
   \item \(J^* = -J\) (implies \(JJ^* = \id\) so \(J\) is orthogonal).
@@ -640,7 +642,7 @@ Check that for such a function, \(\frac{i}{2} \p \overline \p \rho\) defines a K
     \[
       \omega(Ju, Jv) = g(AJu, Jv) = g(JAu, Jv) = g(Au, v) = \omega(u, v).
     \]
-  \item \(\omega(u, Ju) = g(-JAu, u) = g(\sqrt{AA^*} u, \sqrt{AA^*} u) > 0\).
+  \item \(\omega(u, Ju) = g(-JAu, u) = g(\sqrt{AA^*} u, u) > 0\).
   \end{enumerate}
 
   Since \(A\) is uniquely determined and we are taking the positive square root, we can use this construction on each \(T_xM\), for a choice of Riemannian metric on \(M\). Our procedure on \((V, \Omega)\) is canonical so this works globally.
@@ -654,9 +656,10 @@ Check that for such a function, \(\frac{i}{2} \p \overline \p \rho\) defines a K
   Note that RHS is convex so contractible, and it follows that LHS is also contractible. We will see that for many applications, there is ``essentially no choice'' of \(J\).
 \end{note}
 
-\subsection{Symplectic vector bundle}
+\begin{definition}[symplectic vector bundle]\index{symplectic vector bundle}
+  A \emph{symplectic vector bundle} is vector bundle \(\pi: E \to B\) with a section \(\Omega \in \Gamma(\Lambda^2E^*)\) such that \(\Omega|_{E_b} = \omega_b\) is symplectic on each fibre and locally trivial, i.e.\ \((\pi^{-1}(U), \Omega) \cong (U \times \R^{2n}, \omega_0)\).
+\end{definition}
 
-Given a real vector bundle \(\pi: E \to B\), a section \(\Omega \in \Gamma(\Lambda^2E^*)\) such that \(\Omega|_{E_b} = \omega_b\) symplectic on each fibre and locally trivial and locally trivial: \((\pi^{-1}(U), \Omega) \cong (U \times \R^{2n}, \omega_0)\)
 
 \begin{corollary}
   Such an \(E\) admits the structure of a complex vector bundle, uniquely determined up to a contractible choice.
@@ -664,12 +667,827 @@ Given a real vector bundle \(\pi: E \to B\), a section \(\Omega \in \Gamma(\Lamb
 
 Note that this is weaker than a holomorphic bundle.
 
+\subsection{First Chern class}
+
+What is the (unique) compatible complex structure good for? We can define a topological invariant. The \emph{first Chern class} of a complex vector bundle \(E \to B\) is an element of \(c_1(E) \in H^2(B; \Z)\). We present three definitions here. They are equivalent, but we will not prove so.
+\begin{enumerate}
+\item Algebraic topology: let \(\det E = \Lambda^{\mathrm{rank} E}E\), which is a complex line bundle over \(B\), so can be obtained as a pullback of \(\mathcal L_{\mathrm{taut}} \to BU(1) = \C\P^\infty\). Note the tautological bundle can be described as
+  \begin{align*}
+    \mathcal L_{\mathrm{taut}}
+    &= \{(w, z) \in \C\P^n \times \C^{n + 1}: z \in w\} \\
+    &= \{(w, z): z_iw_j = z_jw_i \text{ for all } i, j\} \subseteq \C\P^n \times \C^{n + 1}
+  \end{align*}
+  The advantage of the second description is that it is a smooth projective variety so a Kähler manifold.
+
+  Suppose \(\det E = \varphi^* \mathcal L_{\mathrm{taut}}\). \(H^*(\C\P^\infty) = \Z[c_1^{\mathrm{univ}}]\) where \(c_1\) has degree \(2\). We then define \(c_1(E) = \varphi^*(c_1^{\mathrm{univ}})\).
+\item Algebraic topology, alternative: take \(s: B \to \det E\) a generic section. Then \(\dim_\R(s(B) \cap s_0(B)) = n - 2\) (recall \(E\) is complex). Then define \(c_1(E)\) to be the Poincaré dual of this class.
+\item Differential geometry: suppose \(\d_A\) is a connection on \(E\), \(F_A = \d \cdot \d_A \in \Omega^2(\End E)\) the curvature. Then \(c_1(E) = [\frac{1}{2\pi i} \tr F_A]\).
+\end{enumerate}
+
+Properties of \(c_1(E)\):
+\begin{enumerate}
+\item from the second definition, \(c_1(E) = e(\det E) \in H^2(B; \Z)\).
+\item \(c_1(E) \in H^2(B; \Z)\) is invariant if \(J_E\) change continuously, so we get an invariant of the symplectic bundle.
+\item \(c_1(f^*E) = f^*c_1(E)\).
+\item \(c_1(E^*) = -c_1(E)\).
+\item For any short exact sequence of complex vector bundles \(0 \to E \to \mathcal E \to E' \to 0\), then \(c_1(\mathcal E) = c_1(E) + c_1(E')\).
+\item \(c_1(E \otimes F) = \mathrm{rk} E c_1(F) + \mathrm{rk} F c_1(E)\).
+\item For \(M\) compact, complex line bundles over \(M\) up to isomorphism is isomorphic to \(H^2(M; \Z)\) via \(c_1\).
+\end{enumerate}
+
+\begin{notation}
+  For a manifold with amost complex structure, define \(c_1(M) = c_1(TM)\).
+\end{notation}
+
+\begin{ex}\leavevmode
+  \begin{enumerate}
+  \item \(c_1(\Sigma_g) = (2 - 2g) PD(\mathrm{pt})\). This is Guass-Bonnet: count the signed zeros of a generic vector field. As \(\Sigma_g\) has complex dimension \(1\), this is just the Euler class of \(T\Sigma_g\).
+  \item \(c_1(\mathcal L_{\mathrm{taut}} \to \C\P^n) = -[H] = PD(\C\P^{n -1}) \in H^2(\C\P^n) \cong \Z \langle H\rangle\). \([H]\) is the hyperplane class. In algebraic geometry we have \(\mathcal L_{\mathrm{taut}} = \mathcal O(-1)\).
+  \item \(c_1(T \C\P^n) = c_1(\C\P^n) = (n + 1) [H]\).
+  \end{enumerate}
+\end{ex}
+
+Constraint for \(4\)-manifolds:
+
+\paragraph{adjunction formula}
+
+Suppose \(C \subseteq (X^4, J)\) is an almost complex curve in an almost complex surface (\(JTC = TC \subseteq TX\)). Then
+\[
+  2g(C) - 2 = -c_1(X) \cdot [C] + [C]^2
+\]
+where \([C]^2\) is the self-intersection number of \(C\). Thus the genus of \(C\) is determiend by its homology class.
+
+\begin{proof}
+  We have a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & TC \ar[r] & TX|_C \ar[r] & \nu_{C/X} \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where \(\nu_{C/X}\) is the normal bundle. So \(c_1(TX|_C) = c_1(TC) + c_1(\nu_{C/X})\). Pair this with \([C] \in H_2(C; \Z)\),
+  \[
+    c_1(TX) \cdot [C] = \underbrace{c_1(TC) \cdot [C]}_{\chi(C) = 2 - 2g(C)} + c_1(\nu_{C/X}) \cdot [C].
+  \]
+  The last term is \([C]^2\), argued as follow: the self-intersection number is the signed number of intersection points of \(C\) and a small (smooth) pushoff of \(C\), say \(C'\). We can identify \(C\) with the zero section of the normal bundle and \(C'\) a small generic section of \(\nu_{C/X}\).
+\end{proof}
+
+Recall for oriented \(X^4\), \(H^2(X; \R)\) has symmetric non-degenerate cup product pairing, so gives rise to \emph{signature} \(\sigma(X) = b_+ - b_-\). We state without proof
+
+\begin{theorem}[Hirzebruch signature theorem]
+  Let \(X^4\) be an almost complex manifold. Then \(c_1(X)^2 = 2 \chi(X) + 3\sigma(X)\). In particular this is a topological invariant.
+\end{theorem}
+
+Fact: \(c_1^2 = \sigma \pmod 8\).
+
+\begin{corollary}
+  If \(X^4\) admits an almost complex structure then \(X \# X, X \# X \# X \# X\) etc do not admit almost complex structures.
+\end{corollary}
+
+\begin{proof}
+  \(1 - b_1 + b_+\) is even if \(X\) admits an almost complex structure. Now \(b_\pm(X \# X) = 2 b_\pm(X)\) etc.
+\end{proof}
 
 
+\paragraph{Local forms for symplectic manifolds}
 
+\begin{theorem}[Moser stability]\index{Moser stability}
+  If we have a smooth family of symplectic forms \(\{\omega_t\}\) on a closed symplectic manifold \(M\) such that \([\omega_t] \in H^2_{\mathrm{dR}}(X)\) is constant, then there is a diffeomorphism \(f: M \to M\) such that \(f^*\omega_1 = \omega_0\).
+\end{theorem}
 
+Thus if we deform a symplectic form smoothly the symplectic structure remains unchanged.
 
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item Small deformation of symplectic form matters: let \(M = \C\P^1 \times \C\P^1, \Omega_1 = \omega \oplus \omega, \Omega_2 = \omega \oplus t \omega, t > 1\). They are not in the same class.
 
+    Gromov: there is a deformation retract \(\Symp(M, \Omega_1) \simeq \SO(3) \times \SO(3)\). On the other hand \(\pi_1 \Symp(M, \Omega_2)\) is infinite.
+  \item A blowup of \(S^2 \times T^2 \times S^2 \times S^2\) has two symplectic forms which are cohomologous but there does not exist a diffeomorphism pulling back one to the other.
+  \item A note on closedness: there exist exotic symplectic structures on \(\R^{2n}\) for \(n \geq 2\), i.e.\ no symplectic embedding into \((\R^{2n}, \omega_{\mathrm{std}})\).
+  \end{enumerate}
+\end{remark}
+
+\begin{proof}
+  We are going to show there is an isotopy \(\varphi_t: M \to M, \varphi_0 = \id, \varphi_1 = f\) and \(\varphi_t^* \omega_t = \omega_0\). It's equivalent to looking for a vector field \(X_t \in \Vect(M)\) whose flow is \(\varphi_t\). Recall that the vector field is defined by.
+  \[
+    \frac{d}{dt} \varphi_t = X_t \compose \varphi_t.
+  \]
+
+  Differentiate the relation \(\varphi_t^* \omega_t = \omega_0\),
+  \[
+    0 = \frac{d}{dt} (\varphi_t^* \omega_t)
+    = \varphi_t^*(\frac{d}{dt} \omega_t + \mathcal L_{X_t} \omega_t)
+    = \varphi_t^* (\frac{d}{dt} \omega_t + \d \iota_{X_t} \omega_t + \iota_{X_t} \d \omega_t).
+    \tag{\ast}
+  \]
+  Since \([\omega_t]\) is fixed, \(\frac{d}{dt}\omega_t = \d \sigma_t\) where \(\sigma_t \in \Omega^1(M)\) is smooth. Thus (\(\ast\)) is equivalent to \(\d \sigma_t + \d \iota_{X_t} \omega_t = 0\). Thus it is enough to show \(\sigma_t + \iota_{X_t} \omega_t = 0\), which unqiuely determines \(X_t\) as \(\omega_t\) is nondegenerate.
+\end{proof}
+
+Slogan for local form theorems: check condition infinitesimally, integrate on small neighbourhood using vector field/Moser type argument.
+
+\begin{theorem}[Darboux]\index{Darboux theorem}
+  If \(p \in (M^{2n}, \omega)\), there is a local chart \(f: D_\varepsilon(0) \to M\) with \(f(0) = p\) such that \(f^*\omega = \omega_0\). In other words, symplectic manifolds are locally standard.
+\end{theorem}
+
+\begin{proof}
+  Fix a chart \(h: D_r(0) = D \to M\) around \(p\). Both \(h^*\omega\) and \(\omega_0\) are symplectic forms on \(D\). Postcomposing an element of \(\Sp_{2n}(\R)\), wlog \(h^*\omega\) and \(\omega_0\) agree at \(p\). Let \(\omega_t = (1 - t)\omega_0 + t h^*\omega\) be the linear interpolation. Being nondegenerate is an open condition, so there is an open neighbourhood \(U \subseteq D\) containing \(0\) on which \(\omega_t\) is symplectic for \(t \in [0, 1]\). \(H^2(D) = 0\) so
+  \[
+    \frac{d}{dt} \omega_t = -\omega_0 + h^*\omega = \d \sigma
+  \]
+  for some \(\sigma \in \Omega^1(D)\). wlog \(\sigma\) vanishes at \(0\). Let \(X_t\) be the vector field defined by \(\iota_{X_t} \omega_t = -\sigma\). Note \(X_t\) vanishes at \(0\), so for some \(\varepsilon > 0\) the trajectory of every \(x \in D_\varepsilon(0) \subseteq U\) under the flow of \(X_t\) stays inside \(U\) (and is defined) up to at least time \(1\). Thus on \(D_\varepsilon(0)\) we can integrate \(X_t\) to \(\{\psi_t\}_{t \in [0, 1]}\) such that \(\psi_1^*h^* \omega = \omega_0\).
+\end{proof}
+
+\begin{remark}
+  This shows that closed nondegenerate \(2\)-form is the same as atlas of charts with transition functions whose derivatives are in \(\Sp_{2n}(\R)\).
+\end{remark}
+
+\begin{theorem}[Poincaré lemma]\index{Poincaré lemma}
+  Suppose \(M\) is a \(C^\infty\) manifold, \(Q \subseteq M\) closed smooth submanifold, \(\alpha_1, \alpha_2 \in \Omega^k(M)\) agreeing on \(TM|_Q\). Then exists \(\beta \in \Omega^{k - 1}(U_Q)\), where \(U_Q\) is an open neighbourhood of \(Q\), such that \(\d \beta = \alpha_1 - \alpha_2\) and \(\beta = 0\) on \(TM|_Q\).
+\end{theorem}
+
+\begin{proof}
+  Example sheet 2. Use partition of unity.
+\end{proof}
+
+\begin{note}
+  If \(Q \subseteq (M, \omega)\) is a symplectic submanifold. Then
+  \[
+    \nu_{Q/M} \cong (TQ)^\omega \subseteq TM|_Q
+  \]
+  as a subbundle. On each fibre \(V \cong W \oplus W^\omega\) for \(W \leq V\). Moreover \(\nu_{Q/M} = (TQ)^\omega\) is a symplectic vector bundle.
+\end{note}
+
+\begin{theorem}
+  If \(Q \subseteq (M, \omega)\) is a compact symplectic submanifold, the symplectic structure of \(M\) near \(Q\) is determined by \(\omega|_Q\) and \(\nu_{Q/M}\) as symplectic vector bundle, i.e.\ if two submanifolds have the same data then they have symplectomorphic tubular neighbourhoods.
+\end{theorem}
+
+\begin{proof}
+  Choice of a metric gives \(\exp: \nu_{Q/M} \to U_Q\) defined for \(|t| < \varepsilon\). If \(Q_i \subseteq M_i\) symplectic, \(\varphi: Q_1 \to Q_2\) a symplectomorphism then it lifts to \(\Phi: \nu_{Q_1/M_1} \to \nu_{Q_2/M_2}\), an isomorphism of symplectic bundles. Using metric to get \(\tilde \varphi: \exp_{M_2} \compose \Phi \compose \exp_{M_1}^{-1}: U_{Q_1} \to U_{Q_2}\). \(\omega_1\) and \(\tilde \varphi^* \omega_2\) are symplectic forms on \(U_{Q_1}\) which agree on \(TM|_{Q_1}\) so by Poincaré lemma exists \(\sigma \in \Omega^1(U_{Q_1}')\) which vanish on \(TM_{Q_1}\) and such that \(\d \sigma = \omega_1 - \tilde \varphi^* \omega_2\) on \(U_{Q_1}'\). Now apply Moser's method to the path \(\omega_t = t\omega_1 + (1 - t)\tilde \varphi^* \omega_2\). Similar to the proof of Darboux, we can integrate the vector field to time \(1\) on a sufficiently small neighbourhood of \(Q_1\).
+\end{proof}
+
+\begin{corollary}
+  A neighbourhood of a closed symplectic surface (i.e.\ real 2 dimensional) \(C \subseteq (M^4, \omega)\) is determined by
+  \begin{itemize}
+  \item topological type of \(C\) (i.e.\ genus), \(\int_C \omega\) (these determine \(C\) as symplectic manifold).
+  \item \([C]^2\) (determines \(\nu_{C/M}\)).
+  \end{itemize}
+\end{corollary}
+
+\begin{definition}\index{Lagrangian submanifold}
+  If \((M^{2n}, \omega)\) is symplectic, \(L \subseteq M\) is \emph{Lagrangian} if \(\dim_\R L = n\) and \(\omega|_L = 0\), i.e.\ \(i^* \omega = 0\) where \(i: L \embed M\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(S^1 \subseteq \Sigma\) a surface is Lagrangian as \(\Omega^2(S^1) = 0\).
+  \item \((S^1)^n \subseteq (\C^n, \omega_0)\), the Clifford torus\index{Clifford torus}. Note that the radius of \(S^1\)'s can be arbitrarily small so by Darboux, these exist in any symplectic manifold.
+  \end{enumerate}
+\end{eg}
+
+\paragraph{Cotangent bundle}
+
+\(\R^{2n} = T^*\R^n\). Let \(q_j\) be coordinates on \(\R^n\), \(p_j = \d q_j\). Together they give coordinates on \(\R^{2n}\). Together they give a 1-form
+\[
+  \lambda = \sum p_j \d q_j \in \Omega^1(T^*\R^n)
+\]
+and \(\d \lambda = \omega_0\). A diffeomorphism \(q \mapsto q'\) of \(\R^n\) induces a diffeomorphism of \(T^*\R^n\) via pullback which preserves \(\lambda\): \(\sum p_j \d q_j \mapsto \sum p_j' \d q_j'\), where \(p_j'\) are dual to \(q_j'\). (It doesn't work in general). For a manifold, patch \(\lambda\)'s together to get \(\lambda_{\mathrm{can}} \in \Omega^1(T^*X)\) with \(\d \lambda_{\mathrm{can}}\) symplectic.
+
+Coordinate-free description: for \(v \in T_{(q, p)}T^*X\),
+\[
+  \lambda_{\mathrm{can} (q, p)}(v) = \langle p, D \pi(v) \rangle
+\]
+where \(\pi: T^*X \to X\).
+
+\begin{ex}
+  If \(\sigma: M \to T^*M\) is a 1-form then
+  \[
+    \sigma^* \lambda_{\mathrm{can}} = \sigma
+  \]
+  where on LHS we interpret \(\sigma\) as a morphism and on RHS we treat it as an element of \(\Omega^1(M)\).
+\end{ex}
+
+Note \(M \subseteq (T^*M, \d \lambda_{\mathrm{can}})\), the zero section, is Lagrangian. It turns out to be the prototype for Lagrangian submanifolds.
+
+\begin{theorem}[Weinstein tubular neighbourhood theorem]\index{Weinstein tubular neighbourhood theorem}
+  If \(L \subseteq (M, \omega)\) is compact Lagrangian, then there is a tubular neighbourhood \(U(L)\) of \(L\) in \(M\) which is symplectomorphic to a neighbourhood \(U'(L) \subseteq T^*L\) of the zero section.
+\end{theorem}
+
+\begin{proof}
+  Choose an \(\omega\)-compatible almost complex structure \(J\) and let \(g = \omega(\cdot, J \cdot)\). Note the \(g\)-orthogonal complement to \(T_qL \subseteq T_qM\) is \(JT_qL\). Let \(\Phi: T^*M \to TM\) be induced by \(g\): \(g(\Phi(f), v) = f(v)\). Define
+  \begin{align*}
+    \varphi: T^*L &\to M \\
+    (q, f) &\mapsto \exp_q(J \Phi_q(f))
+  \end{align*}
+  Check
+  \[
+    D \varphi_{(q, 0)}(v, f) = v + J \Phi_q(f)
+  \]
+  for \((v, f) \in T_qL \oplus (T_qL)^* \cong T_{(q, 0)}(T^*L)\).
+  \begin{align*}
+    (\varphi^* \omega_M)(_{(q, 0)}((v, f), (v', f'))
+    &= \omega_M|_q(v + J\Phi f, v' + J\Phi f') \\
+    &= \omega_M|_q(v, J \Phi f') - \omega_M(v', J\Phi f) \\
+    &= g|_q(v, \Phi f') - g|_q(v', \Phi f) \\
+    &= f'(v) - f(v') \\
+    &= (\d \lambda_{\mathrm{can}})_{(q, 0)} ((v, f), (v', f'))
+  \end{align*}
+  so \(\varphi: T^*L \to M\) is such that \(\varphi^* \omega_M\) and \(\d \lambda_{\mathrm{can}}\) agree on the zero section, i.e.\ \(T(T^*L)|_L\). The Poincaré lemma now gives \(\sigma \in \Omega^1(T^*L)\) for which \(\d \lambda_{\mathrm{can}} - \varphi^* \omega_M = \d \sigma\) on \(U(L)\) an open neighbourhood of the \(0\)-section, \(\sigma = 0\) on \(0\)-section. Apply Moser's trick to the family of forms \(\omega_t = (1 - t) \varphi^* \omega_M + t \d \lambda_{\mathrm{can}}\).
+\end{proof}
+
+\begin{corollary}
+  A neighbourhood of a Lagrangian only depends on the smooth topology of \(L\) as a symplectic manifold.
+\end{corollary}
+
+\begin{ex}
+  Let \(L \subseteq M^4\) be Lagrangian.
+  \begin{enumerate}
+  \item \(\chi(L) = - [L]^2\) (because \(T^*L \cong \nu_{L/M}\)).
+  \item If \(L \subseteq M\) is homologically trivial, i.e.\ \([L] = 0\), and \(L\) is connected closed then \(L\) is a torus or a Klein bottle.
+  \end{enumerate}
+\end{ex}
+
+\begin{proposition}
+  If \(f: M \to M\) is a diffeomorphism then \(f^*\omega = \omega\) if and only if \(\Gamma_f \subseteq (M \times M, \omega \oplus -\omega)\) is Lagrangian.
+\end{proposition}
+
+\begin{proof}
+  \(f^*\omega = \omega\) if and only if \(f^*\omega - \omega = 0\) if and only if \(i^*(\omega \oplus -\omega) = 0\).
+\end{proof}
+
+\begin{eg}
+  The antidiagonal \(\Gamma_{\id}\) is Lagrangian.
+\end{eg}
+
+\begin{proposition}
+  If \(f: M \to M\) is antisymplectic, i.e.\ \(f^*\omega = - \omega\) then \(\mathrm{Fix}(f)\), the fixed points of \(f\), is Lagrangian where smooth.
+\end{proposition}
+
+\begin{eg}
+  Complex conjugation on \(\C^n\) or \(\C\P^n\) is antisymplectic. The fixed points are \(\R^n\) and \(\R\P^n\) respectively.
+
+  More generally if a quasi-affine or projective smooth variety \(X(\C)\) (smooth submanifold of \(\C^n\) or \(\C\P^n\) cut out by polynomial equations) is defined over \(\R\), then \(X(\R) \subseteq X(\C)\) is a Lagrangian submanifold where smooth.
+\end{eg}
+
+\begin{corollary}
+  A neighbourhood of \(\id \in \Symp(M)\) where \(M\) compact is homeomorphic to a neighbourhood of \(0\) in the space of closed 1-forms on \(M\). In particular \(\Symp(M)\) is locally path connected.
+\end{corollary}
+
+\begin{proof}
+  If \(f\) is close to \(\id\) then \(\Gamma_f \subseteq M \times M\) is close to the Lagrangian antidiagonal. By Weinstein \(\Gamma_f \subseteq U\) for \(U \subseteq T^*M\) a neighbourhood of the zero section of \(M\). Moreover the proof of Weinstein shows \(\Gamma_f\) gives a section of \(T^*M\) (near the \(0\)-section). This means that \(\Gamma_f \subseteq T^*M\) can be thought of as the graph of a 1-form, say \(\sigma\).
+  \[
+    \sigma^* \d \lambda_{\mathrm{can}} = \d \sigma^* \lambda_{\mathrm{can}} = \d \sigma
+  \]
+  so \(\Gamma_f\) is Lagrangian if and only if \(\sigma\) is closed.
+\end{proof}
+
+\begin{corollary}
+  Suppose \((M, \omega)\) is compact and \(H^1_{\mathrm{dR}}(M) = 0\). Then any \(f \in \Symp(M)\) which is \(C^1\) close to \(\id\) has at least \(2\) fixed points.
+\end{corollary}
+
+\begin{proof}
+  If \(f\) is \(C^1\) close to \(\id\) then \(\Gamma_f \subseteq T^*M\) can be written as the graph of a closed \(1\)-form \(\sigma\) (\(C^1\) is enough. See proof of Weinstein). But \(\sigma = \d h\) as \(H^1_{\mathrm{dR}}(M) = 0\). \(p \in \mathrm{Fix}(f)\) if and only if \(\d h_p = 0\), if and only if \(p \in \mathrm{Crit}(h)\). \(M\) is compact so \(h\) has at least 2 critical points, a minimum and a maximum.
+\end{proof}
+
+\begin{proposition}
+  Suppose \((M, \omega)\) is connected. Then \(\Symp(M, \omega)\) acts transitively on points.
+\end{proposition}
+
+\begin{proof}
+  \(M\) is path-connected so enough to work in a single Darboux chart. Let \(x \in \R^{2n}\). Translation from \(0\) to \(x\) is symplectic and is the time \(1\) flow of the constant vector field \(X = 0x\). Now need to cut out a chart, which we do by passing to forms. Let \(\sigma = \iota_X \omega_0\). Then
+  \[
+    \d \sigma = \d \iota_X \omega_0 = \mathcal L_X \omega_0 = 0
+  \]
+  so \(\sigma\) is exact as \(H^1(\R^{2n}) = 0\). Say \(\sigma = \d f\) for \(f \in C^\infty(\R^{2n})\). Now pick a suitable cut-off function \(\psi\) and replace \(f\) with \(\psi f\), \(X\) with \(Y\) such that \(\iota_Y \omega_0 = \d (\psi f)\).
+\end{proof}
+
+Stengthening of Darboux chart.
+
+\begin{theorem}[Gromov-Lees]
+  There is a Lagrangian immersion of \(L\) into \(\C^n \cong \R^{2n}\) if and only if \(TL \otimes_\R \C \cong L \times \C^n\) as complex vector bundles.
+\end{theorem}
+
+\begin{proof}
+  We prove only if and the other direction is beyond the scope of the course so omitted. Note \(V \leq (\C^n, \omega_0)\) is a Lagrangian subspace if and only if \(V \perp i V\) (with respect to standard metric) and \(\dim_\R V = n\) (recall this is also the observation we used for Weinstein). An immersion \(\iota: L \to \C^n\) is Lagrangian if and only if \(\Im (D \iota_x) \perp i \Im(D \iota_x)\) for all \(x \in L\). This gives a map
+  \begin{align*}
+    T_xL \otimes \C &\to \C^n \\
+    v \otimes (a + ib) &\mapsto a D \iota_x(v) + i b D \iota_x (v)
+  \end{align*}
+  on each fibre and varying over \(x\) induces the trivialisation.
+
+  The other direction is hard. Uses \(h\)-principle.
+\end{proof}
+
+\begin{proposition}
+  If \(W \subseteq (M, \omega)\) is an isotropic submanifold, i.e.\ \(\omega|_W = 0\), then a neighbourhood of \(W\) is determined symplectically by the smooth topology of \(W\) and the bundle \(TW^\perp/TW\) (which is trivial in Lagrangian case).
+\end{proposition}
+
+\begin{proof}
+  Example sheet 2.
+\end{proof}
+
+\begin{lemma}
+  Suppose \(W \immersion X\) is an isotropic immersion and \(\dim W < \frac{1}{2} \dim M\) then isotropic perturbation of \(W\) will be embedded generically.
+\end{lemma}
+
+\begin{proof}
+  General position argument: flow one branch of \(W\) by a compactly supported vector field near individual self-intersection points to remove them locally.
+
+  Slogan: stengthen a smooth perturbation to be isotropic.
+\end{proof}
+
+\begin{corollary}
+  If \(L\) compact has a Lagrangian immersion in \(\C^n\) then \(L \times S^1\) embeds in \(\C^{n + 1}\).
+\end{corollary}
+
+Note by Gromov-Less this is in fact if and only if.
+
+\begin{proof}
+  Have isotropic immersion \(L \immersion \C^n \times \C = \C^{n + 1}\). This can be perturbed to get an isotropic embedding \(L \embed \C^{n + 1}\). Note \(TL^\omega/TL\) is trivial and hence we get a symplectic embedding of an open neighbourhood of \(L \subseteq T^*L \times \C\). This containes a Lagrangian \(L \times S^1\) by taking the radius of \(S^1\) to be sufficiently small.
+\end{proof}
+
+Fact: every compact orientable \(3\)-manifold \(Y\) is parallelisable. (proof uses characteristic class)
+
+\begin{corollary}
+  If \(Y^3\) is compact orientable then we have a Lagrangian immersion \(Y \immersion \C^3\) and a Lagrangian embedding \(Y \times S^1 \embed \C^4\).
+\end{corollary}
+
+\begin{remark}
+  Any compact three manifold can be Lagrangian immersed in \(\C^3\). On the other hand if \(L^4\) compact is Lagrangian immersible into \(\C^4\) then by Gromov-Rees \(\chi(L) = 0\) so \(b_1 > 0\). Thus \(\pi_1(L)\) is infinite.
+\end{remark}
+
+How to remove double point?
+
+\begin{proposition}
+  Suppose \(M \supseteq L_1, L_2\) contains 2 Lagrangian submanifolds which meet transversally at a point \(p\). Then there is a Darboux chart \(\varphi: B(\varepsilon) \to M\) such that \(\varphi(0) = p, \varphi^{-1}(L_1) = \R^n \cap B(\varepsilon), \varphi^{-1}(L_2) = i \R^n \cap B(\varepsilon)\).
+\end{proposition}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\paragraph{Polterovich surgery}
+
+Polterovich surgery\index{Polterovich surgery} replaces \(L_1 \cup L_2\) with \(L_\gamma\), local on a neighbourhood of \(p\).
+
+Let \(\gamma: \R \to \C\) smooth, coincide with \(\R_+ \{0\} \cup \{0\} \{0\} \times \R_-\) away from the origin.
+\[
+  L_\gamma = \{z_j = \gamma a_j: (a_j) \in S^{n - 1}\}
+\]
+where \(z_j\) is the complex coordinate, \(a_j \in S^{n - 1} \cap \R^n \subseteq \C^n\). This is a Lagrangian handle.
+
+\begin{eg}
+  
+For \(n = 1\), \(L_\gamma = \{z = \gamma a: a\in S^0 = \{\pm 1\}\}\). Away from a neighbourhood of \(0\), \(L_\gamma\) agrees with \(L_1 \cup L_2\).
+
+For \(n = 2\), suppose \(\gamma = (\gamma_1(t), \gamma_2(t)) \in \R^2 \cong \C, S^1 = (\cos \theta, \sin \theta)\). Then
+\[
+  L_\gamma = \{(\gamma_1 \cos \theta, \gamma_2 \cos \theta, \gamma_1 \sin \theta, \gamma_2 \sin \theta)\} \subseteq \R^4 \cong \C^2.
+\]
+If \(\gamma_1 = 0\) then we get \(i\R^n\) minus a neighbourhood of \(0\). If \(\gamma_2 = 0\) then we get \(\R^n\) minus a neighbourhood of \(0\).
+\end{eg}
+
+This depends on the ordering of \(L^1\) and \(L^2\) (corresponding to the canonical order \(\R^n, i\R^n\)), doesn't depend on the choice of \(\gamma\), as long as \(\gamma\) agrees with half-axes outside the ball and \(\gamma \cap (-\gamma) = \emptyset\).
+
+\begin{corollary}
+  If \(L_1, L_2\) are Lagrangian submanifolds which meet transversally at a point, there is an embedding Lagrangian submanifold diffeomorphic to the connected sum \(L_1 \# L_2\).
+\end{corollary}
+
+General case: can perform surgery separately at any finite number of transverse intersections of Lagrangians. Topologically, each surgery replaces \(B^n \amalg B^n\) with \(\R \times S^{n - 1}\).
+
+\begin{eg}
+  If \(L^n \immersion M^{2n}\) Lagrangian with a single double point, get Lagrangian embedding of \(L \# (S^1 \times S^{n - 1}) \embed M\).
+\end{eg}
+
+\begin{corollary}
+  If \(Y\) is a compact orientable 3-manifold then for some \(k \geq 0\) there is a Lagrangian embedding of \(Y \# k(S^1 \times S^2)\) into \(\C^3\).
+\end{corollary}
+
+Highly restrictive
+
+\begin{definition}[prime manifold]\index{prime manifold}
+  A closed manifold \(M^n\) is \emph{prime} if it can't be written as \(M = M_1 \# M_2\) unless \(M_1\) or \(M_2\) is \(S^n\).
+\end{definition}
+
+\begin{theorem}[Fukaya]
+  A compact prime orientable 3-manifold has a Lagrangian embedding in \(\C^3\) if and only if and only if it is diffeomorphic to \(S^1 \times \Sigma_g\).
+\end{theorem}
+
+Fix a primitive \(\theta\) of \(\omega_0\) in \(\C^n\), i.e.\ \(\d \theta = \omega_0\). If \(L\) is Lagrangian then \(\omega_0|_L = 0\) so \([\theta|_L] \in H^1(L)\). (By Stoke's this measures the symplectic area of disc with boundary on \(L\)). Define \(L\) to be exact if \([\theta|_L] = 0\).
+
+\begin{theorem}[Gromov]
+  There is no compact exact Lagrangian in \(\C^n\).
+\end{theorem}
+
+\subsection{Symplectic submanifolds}
+
+\begin{theorem}[Gromov]
+  Fix symplectic manifold \((V, \omega_V)\) compact and \((X, \omega_X)\) with \(\dim V \leq \dim X - 4\). Suppose we are given a smooth embedding \(f: V \embed X\) such
+  \begin{itemize}
+  \item \(f^*[\omega_X] = [\omega_V] \in H^2(V)\),
+  \item \(Df\) is symplectic through bundle maps \(TV \to TX\) to a fibrewise symplectic embedding.
+  \end{itemize}
+  The \(f\) is smoothly isotopic to an embedding \(\tilde f: V \to X\) such that \(\tilde f^*\omega_X = \omega_V\).
+\end{theorem}
+
+\begin{proof}
+  Omitted. This is an instance of h-principle.
+\end{proof}
+
+This fails in general for codimension 2 but
+
+\begin{theorem}[Donaldson]
+  If \([\omega] \in H^2(X; \Z)\) then for \(k \gg 0\) there are symplectic submanifolds representing \(PD (k [\omega])\).
+\end{theorem}
+
+Idea: \([w] \in H^2(X; \Z)\) represents a complex line bundle \(\pi: L \to X\) with \(c_1(L) = [\omega]\). If \(s: X \to L\) is a section of \(\pi\), cleanly intersecting \(0\)-section, then
+\[
+  s^{-1}(0) = PD [c_1(L)] = PD[\omega].
+\]
+(By Sard's theorem, \(s^{-1}(0)\) is a \((2n - 2)\) dimensional manifold). If we use instead \(L^{\otimes k}\) then \(s^{-1}(0) = PD (k[\omega])\). Donaldson's idea is to construct, for sufficiently large \(k\), sections which are ``approximately holomorphic'' (they satisfy Cauchy-Riemann equations up to an error term). The error term is small enough that \(s^{-1}(0)\) is symplectic.
+
+c.f.\ ample/very ample line bundles in algebraic geometry.
+\begin{align*}
+  \sigma: X &\to \P(H^0(X, L^{\otimes k})^*) = \P^N \\
+  x &\mapsto [\varphi_x: x \mapsto s(x)]
+\end{align*}
+\(\sigma\) is injective for \(k \gg 0\). If that case, \(\P^{N - 1} \cap \sigma(X)\) represents \(PD(k c_1(L))\).
+
+\subsection{Blow-ups}
+
+\begin{definition}[blow-up]\index{blow-up}
+  The blow-up of \(0\) in \(\C^n\) is
+  \[
+    Z = \{(z, \ell) \in \C^n \times \P^{n - 1}: z \in \ell\}
+  \]
+  together with two projections \(\pi: Z \to \C^n, p: Z \to \P^{n - 1}\).
+\end{definition}
+
+\(\pi\) is one-to-one away from \(0\) and over \(0\) the fibre is \(\P^{n - 1}\). \(p: Z \to \P^{n - 1}\) is the tautological bundle. \(c_1 = - PD[\P^{n - 2}]\).
+
+\begin{note}
+  Our choice of Kähler form on \(\P^n\) is normalised so that \(\omega(\P^1) = \pi\).
+\end{note}
+
+Define
+\[
+  \omega_\lambda = \pi^* \omega_{\C^n} + \lambda^2 p^* \omega_{\P^{n - 1}}.
+\]
+
+\begin{lemma}
+  For \(\lambda > 0\), \(\omega_\lambda\) is Kähler and for \(\delta > 0\), let
+  \[
+    Z(\delta) = \{(z, \ell) \in Z: |z| \leq \delta\}.
+  \]
+  Then \((Z(\delta) \setminus Z(0), \omega_\lambda)\) is symplectomorphic to \((B(\sqrt{\lambda^2 + \delta^2}) \setminus B(\lambda), \omega_0)\).
+\end{lemma}
+
+\begin{proof}
+  Recall our definition of Fubin-Study metric: for the natural projection \(\Phi: \C^n \setminus \{0\} \to \P^{n - 1}\), have
+  \[
+    \Phi^*\omega_{\P^{n - 1}} = \frac{i}{2} \p \conj \p \log |z|^2.
+  \]
+  Let
+  \[
+    \mu_\lambda = \frac{i}{2} \p \conj \p (|z|^2 + \lambda^2 \log |z|^2).
+  \]
+  On \(Z(\delta) \setminus Z(0)\), \(\pi^* \mu_\lambda = \omega_\lambda\). Define a bijection
+  \begin{align*}
+    F: \C^n\setminus \{0\} &\to \C^n\setminus B(\lambda) \\
+    z &\mapsto \frac{z}{|z|} \sqrt{|z|^2 + \lambda^2}
+  \end{align*}
+  Note \(F^*\omega_0 = \mu_\lambda\). Using the fact that \(\omega_0\) is Kähler, easy to get plush for \(\mu_\lambda\) so Kähler.
+\end{proof}
+
+\begin{definition}[blowup]\index{blowup}
+  The \emph{weight \(\lambda\) blowup} of \((M, \omega)\) at \(p\) is a symplectic embedding \(\varphi: B(\sqrt{\lambda^2 + \delta^2}) \embed M, \varphi(0) = p\), and
+  \[
+    \widetilde M = (M \setminus \im \varphi) \cup Z(\delta)
+  \]
+  with \(\tilde \omega_M = \omega_{M \setminus \im \varphi} \cup \omega_\lambda\).
+\end{definition}
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item \(\Vol(\tilde M) = \Vol(M, \omega) - \Vol(B(\lambda))\) so the volume decreases under blowup.
+  \item \([\tilde \omega_\lambda] = \pi^*(\omega) - \pi \lambda^2 PD(E) \in H^2_{\mathrm{dR}}(M)\) where \(E = Z(0) \cong \P^{n - 1}\) is the exceptional divisor.
+  \end{enumerate}
+\end{note}
+
+\subsection{Fibre sums}
+
+\begin{lemma}
+  If \((Q^{2n - 2}, \omega_Q) \embed (M^{2n}, \omega_M)\) is a closed symplectic submanifold of \(M\) then \((Q^{2n - 2} \times B(\varepsilon), \omega_q \oplus \omega_0) \embed (M^{2n}, \omega_M)\) symplectically if and only if \(\nu_{Q/M}\) is symplectically trivial (i.e.\ \(c_1(\nu_{Q/M}) = 0\)).
+\end{lemma}
+
+Already proved!
+
+Consider
+\begin{align*}
+  \psi: B(\varepsilon) \setminus \{0\} &\to B(\varepsilon) \setminus \{0\} \\
+  (r, \theta) &\mapsto (\sqrt{\varepsilon^2 - r^2}, - \theta)
+\end{align*}
+(turn inside out and then flip orientation). Check
+\[
+  \psi^*\omega_0 = \psi^*(r \d r \w \d \theta) = r \d r \w \d \theta.
+\]
+Thus \(\psi\) is area preservaing and ``turns the annulus inside out''.
+
+Suppose \(Q^{2n - 2} \embed M_i^{2n}\) symplectically, \(i = 1, 2\), \(Q\) closed symplectic submanifold such that \(\nu_{Q/M_i}\) is symplectically trivial. We can define
+
+\begin{definition}[fibre sum]\index{fibre sum}
+  The \emph{fibre sum} of \(M_1\) and \(M_2\) along \(Q\) is
+  \[
+    M_1 \#_Q M_2 = (M_1 \setminus Q) \cup_{\id \times \psi} (M_2 \setminus Q)
+  \]
+  where \(\id \times \psi: M_1 \setminus Q \supseteq Q \times B(\varepsilon)^* \to Q \times B^*(\varepsilon) \subseteq M_2 \setminus Q\).
+\end{definition}
+
+\begin{note}
+  As \(\nu_{Q/M_i}\) is trivial, \(Q \embed M_1 \# M_2\) symplectically.
+\end{note}
+
+More generally, suppose \(Q \embed M_i\) symplectically and \(c_1(\nu_{Q/M_1}) = -c_1(\nu_{Q/M_2})\), then we can define \(M_1 \#_Q M_2\) completely analogously.
+
+Note that on each local chart of \(Q\) we use \(\id \times \psi\). These patch together to give a symplectomorphism
+\[
+  \begin{tikzcd}
+    \nu_{Q/M_1} \setminus \{0\} \ar[d] \ar[r] & \mathcal L \setminus \{0\} \ar[d] \\
+    Q \ar[r] & Q
+  \end{tikzcd}
+\]
+for some complex line bundle to be determined. This flips the signs of intersections of section and zero section, so \(c_1(\mathcal L) = - c_1(\nu_{Q/M_1})\).
+
+\begin{remark}
+  There is a hidden choice: the \emph{framing} of \(Q\) needn't be unique. Fo example if \(\nu_{Q/M}\) is trivial, the choices of symplectic trivialisations of \(\nu_{Q/M}\) are in one-to-one correspondence with \(H^1(Q; \Z)\) (\(\nu_{Q/M}\) is trivial and choices of trivialisation up to homotopy is \([Q, U(1)] = [Q, S^1] = H^1(Q; \Z)\)). More generally, maps \(\nu_{Q/M} \embed U(Q)\) can differ (up to homotopy) be an element of \(H^1(Q; \Z)\).
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Suppose \(X^4 \supseteq E\) where \(E\) a symplectic sphere of self-intersection number \(-1\). Pick \(Y^4 \supseteq S^2\) symplectic sphere of self-intersection number \(+1\), for example \(H \subseteq \P^2\) a hyperplane. Then we can form \(X^4 \#_{E} \C\P^2\). This is called the \emph{blowdown} of \(X\) along \(E\).
+
+    Note if \(\widetilde W\) is the blowup of \(W^4\) at \(p\) then \(\widetilde W \#_E \C\P^2 \cong W\).
+  \item Recall if \(C \subseteq \P^2\) smooth degree \(d\) curve then \([C] = d [\P^1]\), \([C] \cdot [C] = d^2, g(C) = \frac{(d - 1)(d - 2)}{2}\). Suppose \(X^4 \supseteq Q\) symplectic sphere of self-intersection \(-4\), \(\C\P^2 \supseteq C\) curve of degree \(2\). Then can form \(X^4 \#_{Q/C} \C\P^2\).
+
+    Claim \(\C\P^2 \setminus C \cong D_\varepsilon^*(\R\P^2)\), (truncated) cotangent bundle of Lagrangian \(\R\P^2\) (becuas given \(C \subseteq \C\P^2\) of genus \(0\), exists Lagrangian \(\R\P^2\) which doesn't intersect it. Check ``no other topology'')
+
+    Replcaed a symplectic sphere with a Lagrangian \(\R\P^2\). This is a purely symplectic operation --- we can't usually do this in the algebraic geometry world.
+  \end{enumerate}
+\end{eg}
+
+\subsection{Lefschetz principles}
+
+\begin{definition}[Lefschetz pencil]\index{Lefschetz pencil}
+  A \emph{Lefschetz pencil} on a closed oriented 4-manifold \(X\) is a smooth map \(f: X \setminus \{b_1, \dots, b_k\} \to \P^1\) such that
+  \begin{itemize}
+  \item \(Df\) is onto except at a finite collection of points \(\{p_1, \dots, p_m\} \subseteq X \setminus \{b_1, \dots, b_k\}\),
+  \item Near the \(b_i\) (\(p_j\) respectively) there are central local complex coordinates \(z, w \in B_\varepsilon(0) \subseteq \C\) such that \(f(z, w) = \frac{z}{w}\) (\(f(z, w) = z^2 + w^2\) respectively)
+  \end{itemize}
+  The \(b_i\)'s are called \emph{base points}, \(p_i\)'s \emph{critical points}.
+\end{definition}
+
+To get such a form, we use the complex Morse lemma
+
+\begin{lemma}
+  If \(U \subseteq \C^n\) is an open subset, \(f: U \to \C\) homomorphic maps \(0\) to \(0\) with a non-degenerate critical point at \(0\). Then exists local coordiantes \(z_1, \dots, z_n\) such that \(f(z_1, \dots, z_n) = \sum_{i = 1}^n z_i^2\).
+\end{lemma}
+
+Compare with the real Morse lemma which says that we can find coordinates such that \(f(x_1, \dots, x_n) = \sum_{i = 1}^p x_i^2 - \sum_{i = p + 1}^n x_i^2\). In the complex case we can run the same proof and absorb \(-1\) into the coordinates.
+
+Suppose \(t \in \P^1\) is not a critical value of \(f\). Then \(\overline{f^{-1}(t)} \subseteq X\) (gluing back \(b_i\)), the fibre of \(t\) is smooth. Around each critical point \(p_j\) of the pencil, the equation for a fibre looks like \(\{z^2 + w^2 = 0\}\), i.e.\ two complex lines intersecting transversally. \(p_j\) is also called \emph{ordinary double point} or \emph{node}.
+
+Note all smooth fibres are closed, orientable and have fixed genus (pick a path avoiding the critical points, then the fibre varies smoothly).
+
+Suppose \(X^4\) compact Kähler, \(L \to X\) a very ample holomorphic line bundle. For the purpose of this course, this means a holomorphic embedding \(i: X \embed \P^N\) uch that \(i^*\mathcal O(1) = L\), where \(O(1)\) is the line bundle such that \(c_1(\mathcal O(1)) = PD[\P^{N - 1}]\). Key fact: the restriction of a generic hyperplane \(\P^{N - 1}\) gives \(s^{-1}(0) \cap X\) for some holomorphic sections \(s\) of \(L\).
+
+Let \(s_1, s_2\) be generic holomorphic sections. Then we can define a rational map \(\pi: X \to \P^1, p \mapsto [s_1(p): s_2(p)]\). \(\{s_1 = s_2 = 0\}\) is a set of finitely many points. These are the base points of \(p\). Among critical points of a holomorphic functions, non-degenerate ones are generic, so by complex Morse lemma we have correct local forms near critical points.
+
+What's the local model near \(b \in \{s_1 = s_2 = 0\}\)? \((s_1, s_2)\) give local holomorphic coordintes
+
+\begin{eg}[pencil of cubics in \(\P^2\)]
+  Define
+  \begin{align*}
+    \P^2 &\to \P^1 \\
+    [x: y: z] &\mapsto [x^3 + y^3 + z^3: x^3 + y^3 + z^3 + xyz] = [f: g]
+  \end{align*}
+  \(f\) and \(g\) are sections of \(\mathcal O(3)\). The fibre
+  \[
+    \pi^{-1}([\lambda: \mu]) = \{\mu f - \lambda g = 0\} \subseteq \P^2
+  \]
+  is given by a cubic equation (so torus if smooth). The base points are given by \(\{f = g = 0\}\), i.e.\ \(x^3 + y^3 + z^3 = 0, xyz = 0\), which is a set of 9 points (this can also be seen by \([C] \cdot [C'] = 9\) for \(C, C'\) cubic). Explicitly, they are given by \([0: 1: \xi^i]\) and there cyclic permutations, where \(\xi^3 = -1\).
+
+  When is the set \(\{\mu f - \lambda g = 0\} \subseteq \P^2\) singular? either \(\mu = \lambda\), so \(xyz = 0\) three coordinate lines, 3 critical points. If \(\mu \ne \lambda\), this can be rephrased as \(\{x^3 + y^3 + z^3 + axyz = 0\}\). The critical points are given by the zeroes of all three partial derivatives. We get \(xyz = 0\) (already seen) or \(a^3 + 27 = 0\). Thus we get 3 more cricial fibres \(a = 3 \xi^i\). We can factorise \(x^3 + y^3 + z^3 - 3xyz\), which is again three lines.
+
+  In either case, there are three base points on each line.
+
+  (pic)
+
+  Near a base point, maps \((z, w) \mapsto \frac{z}{w}\) (this is the direction of the line). Then we get an honest map to \(\P^1\) by blowing up each of the base points:
+  \[
+    \pi: E(1) = \C\P^2 \# q \conj{\C\P^2} \to \P^1
+  \]
+  \(E(1)\) is the \emph{rational elliptic surface}.
+  \begin{itemize}
+  \item Smooth fibre \(C\) with \(C \cdot C = 0\) inside \(E(1)\) (fibration is locally trivial so can push \(C\) of itself).
+  \item \(\pi_1(E(1)) = 0\).
+  \item Example sheet 3: \(\pi_1(E(1) \setminus C) = 0\).
+  \end{itemize}
+\end{eg}
+
+\begin{theorem}
+  Suppose \(X^4\) connected closed oriented is the total space of a Lefschetz pencil with at least one basepoint. Then \(X\) admits a symplectic structure.
+\end{theorem}
+
+\begin{proof}
+  We first outline the general strategy. It is enough to construct a symplectic form on \(\tilde X\) obtained by blowing up basepoints. More precisely, near basepoint \(b\), we have local holomorphic coordinates \((z, w)\) such that \(\pi: X \to \P^1\) is given by \((z, w) \mapsto \frac{z}{w}\). Replace \(D_\varepsilon(0)\) with \(Z(\varepsilon)\) (local blowup model) at every basepoint to get \(\tilde X\). Now \(\pi\) induces a well-defined map \(\pi: \tilde X \to \P^1\). Each basepoint is replaced with exceptional divisor \(E\) (\(\cong \P^1\)), which gives a section of \(\pi\).
+
+  We will construct a symplectic form on \(\tilde X\) such that each smooth fibre is symplectic (ditto symplectic fibre away from critical points). We'll also see that for any \(N \geq 0\), \(\omega + N \pi^* \omega_{\P^1}\) is also symplectic. Taking \(N\) sufficiently large ensures that the sections coming from the basepoints are all symplectic. Now blow each of these down using fibre connected sum to get a symplectic form on \(X\).
+
+  Working on \(\tilde X\). Claim we can find \(\eta \in \Omega^2(\tilde X)\) closed such that
+  \begin{itemize}
+  \item \(\eta|_F\) is symplectic on neighbourhood of any smooth point points of a fibre.
+  \item near a critical point \(p_i\), \(\eta|_{U_i(p_i)} = \frac{i}{2}(\d z \d \conj z + \d w \d \conj w)\), where \(U_i(p_i)\) open in \(\tilde X\) (not the fibre), in local coordinates.
+  \end{itemize}
+
+  We postpone the proof. Let \(\omega = \eta + k \pi^* \pi_{\P^1}\). Claim for \(k \gg 0\), \(\omega\) is symplectic. This automatically gives us the sought after form.
+
+  \begin{proof}[Proof of step 3]
+    Near a smooth point \(T_x \tilde X = \ker D\pi \oplus (\ker D\pi)^\eta\). \(\ker D\pi = T_xF\) is called the vertical subspace, and the symplectic complement is called a choice of horizontal space. The matrix form for \(\eta + k \pi^* \omega_{\P^1}\) is
+    \[
+      \begin{pmatrix}
+        \eta|_F & 0 \\
+        0 & \eta|_{\mathrm{hor}} + k \pi^* \omega_{\P^1}
+      \end{pmatrix}
+    \]
+    Since \(\tilde X\) is compact, we can choose \(k\) sufficiently large such that the this is symplectic.
+
+    Near singular points, the local model is \(\pi: \C^2 \to \C, (z, w) \mapsto z^2 + w^2\). Check
+    \[
+      (\omega_{\mathrm{std}} + k\pi^* \omega_{\P^1})^2 = (1 + k |(z, w)|^2) \Vol > 0
+    \]
+    so symplectic.
+  \end{proof}
+
+  \begin{proof}[Proof of step 2]
+    Model fibre \(F\). Pick a symplectic \(2\)-form \(\sigma \in \Omega^2(F)\) with area 1. Claim exists \(\xi \in \Omega^2(\tilde X)\) closed such that \(\int_{F'} \xi = 1\) for all fibre \(F'\). This is Poincaré duality: the expression says \([\xi] \cap [F'] = 1\). This requires \([F] \ne 0\), which is OK if \(\#\{b_j\} > 0\) as \(E \pitchfork F = \{pt\}\), \(E\) section.
+
+    Pick open sets \(\tilde X\), \(\{U_\alpha\}_{\alpha \in A}, \{V_i\}_{i \in I}\) such that
+    \begin{itemize}
+    \item \(U_\alpha \cong F \times B_\alpha \to B_\alpha\) for some balls \(B_\alpha \subseteq \P^1\) away from the critical points.
+    \item \(V_i \cong B_i^4 \to \C (z^2 + w^2)\) near cricical points.
+    \end{itemize}
+
+    \begin{itemize}
+    \item On \(U_\alpha\), \(f: F \times B_\alpha \to F\), \(f^*\sigma - \xi = \d \lambda_\alpha\) for some \(\lambda_\alpha \in \Omega^1(U_\alpha)\).
+    \item On \(V_i\), \(\pi: B_i^4 \to \C\) smooth fibre, locally \(z^2 + w^2 = a\), \(a \ne 0\). Standard symplectic form restricts to a symplectic form. \(\d \theta_i = \omega_{\mathrm{std}}\).
+    \end{itemize}
+
+    Pick partitions of unity subordinate to \(\pi(\{U_\alpha\} \cup \{V_i\})\), say \(\{\varphi_\alpha, \psi_i\}\). Set (?)
+    \[
+      \eta = \xi - \d (\varphi_\alpha \compose \lambda_\alpha) + d ((\psi_i \compose \pi) \theta_i) \cdot N
+    \]
+  \end{proof}
+\end{proof}
+
+As a corollary
+
+\begin{theorem}
+  If \((X^4, \omega)\) is symplectic and \([\omega] \in H^2(X, \Z)\) then for all \(k \gg 0\) there exists a Lefschetz pencil \(X\) with fibre Poincaré dual to  \(k[\omega]\).
+\end{theorem}
+
+\begin{proof}
+  Omitted.
+\end{proof}
+
+Thus every integral symplectic 4 manifold is a Lefschetz pencil.
+
+\subsection{Grompf's theorem}
+
+\begin{theorem}[Grompf]\index{Gompf's theorem}
+  If \(G = \langle g_1, \dots, g_n | r_1, \dots, r_\ell \rangle\) is a finitely presented group then there exists \((Y_G, \omega)\) a symplectic 4 manifold with \(\pi_1 Y_G = G\).
+\end{theorem}
+
+This is really saying the symplectic category is big enough: the topological version is a basic result in algebraic topology. Symplectic 2 manifolds are surfaces so symplectic 4 manifolds are the simplest objects that the theorem could possibly hold.
+
+\begin{proof}
+  The proof strategy is as follow. From example sheet 3 \(\pi_1(E(1) \setminus T) = 0\) and \(c_1(\nu_{T(E(1))}) = 0\). We'll use this to kill off generators in a bigger space. Consider \((T^2 \times \Sigma_g, \omega_{T_2} \oplus \omega_{\Sigma_g})\). Find in here disjoint symplectic tori \(T_i\)'s and construct the fibre sum
+  \[
+    M = (T^2 \times \Sigma_g) \#_{T_1} E(1) \#_{T_2} E(1) \#_{T_3} \dots \#_{T_k} E(1)
+  \]
+  and then \(\pi_1M = \pi_1(T^2 \times \Sigma_g)/\langle \pi_1(T_i)\rangle\).
+
+  We first find disjoint tori. Let \(M = T^2 \times \Sigma_g\), regarded as a fibration with base \(\Sigma_g\) (pic). Then
+  \[
+    \pi_1(M) = \langle u \rangle \times \langle v \rangle \times \langle a_1, b_1, \dots, a_g, b_g | \prod [a_i, b_i] \rangle.
+  \]
+  Candidate tori: given loops \(\alpha_1, \dots, \alpha_k \in \Sigma_g\) and loops \(u_1, \dots, u_k\). Then \(\alpha_i \times u_i \subseteq M\) are (Lagrangian) tori.
+
+  Step 1: can we find enough tori so that \(\pi_1(M)/\langle \pi_1 T_i\rangle\) is the free group?
+
+  First let \(T_0 = T\) a torus fibre. It is an honest symplectic torus and will kill off \(\langle u \rangle \times \langle v \rangle\). Next consider tori given by \(u_i \times b_i\). This will kill off generators \(b_i\) in \(\pi_1M\). Claim the resulting space has free fundamental group: killing off \(b_i\) is the same as adding handlebodies to the ``holes'' on \(\Sigma_g\) and the resulting space is homotopic to \(g\) loops attached to \(S^2\), whose fundamental group is indeed \(F_g\).
+
+  For a finitely generated group \(G = F_g/ \langle r_1, \dots, r_\ell \rangle\), for each \(r_i\) we find a loop \(\alpha_i \in \Sigma_g\) of \(a_i\) which spell out the relation. We run into a problem: \(\alpha_i\)'s may not be embedded (as a simple example, \(a_1^2\) in \(\Sigma_1\)). We can resolve the problem by adding more generators: for example \(F_1/\langle a_1^2 \rangle = F_2/\langle a_1a_2, a_1a_2^{-1} \rangle\) (pic). Note that it does not matter if these two loops intersect, as we can move them off to different fibres.
+
+  So now we should be convinced that there are many Lagrangian tori \(T_i \subseteq T^2 \times \Sigma_g\) such that \(\pi_1(T^2 \times \Sigma_g)/\pi_1(T_i) = G\).
+
+  Remains to show exists \(\omega \ne \omega_{T^1} \oplus \omega_{\Sigma_g}\) making \(T_i\) symplectic. Oftentimes being Lagrangian is a ``closed'' condition on the space of symplectic forms. For example \(S^2 \subseteq T^*S^2\) is certainly Lagrangian. Consider \(T\P^1\) which is homeomorphic to \(T^*S^2\). \(T\P^1\) has symplectic form compatible with standard complex structure, and \(\P^1\) is complex so symplectic.
+
+  Claim exists \(\omega\) making the \(T_i\)'s symplectic.
+
+  Exists a closed form \(\beta \in \Omega^2(M, \R)\) such that the pullback \(i^*[\beta] \in \Omega^2(T_i^2, \R)\) is positive. Note that \(\beta\) is in the same class as the usual symplectic form but may not itself by symplectic.
+
+  Idea of proof: take forms \(s_1, s_2\) Poincaré dual to loops \(U_1, \alpha_1\) with \(T^2 = u_1 \times a_i\). Then \(\beta = s_1 \w s_2\).
+
+  Suppose \(\beta\) is such a form on \(M\), WTS we can modify this form so its pullback is symplectic. Since \(T_i\)'s are Lagrangian, we know that their neighbourhood is trivial. Let \(j: B_\varepsilon(0) \times T^2 \embed M\) be a neighbourhood of \(T_i\). The pullback \(j^*(\beta)\) on \(B_\varepsilon(0) \times T^2\) is in the same cohomology class of \(p^*_{T^2}\omega_{T^2}\) (?). By abuse of notation, \(\beta, \omega_{T^2} \in \Omega^2(B_\varepsilon(0) \times T^2)\) with \([\beta] = [\omega_{T^2}]\).
+
+  Let \(\eta = \Omega^1(B_\varepsilon \times T^2)\) with \(\d \eta = \omega_{T^2} - \beta\). Pick \(\rho: B_\varepsilon(0) \to \R\) which is 1 in neighbourhood of \(0\) and \(0\) in a neighbourhood of the boundary. Look at the forms
+  \[
+    \tilde \beta = \rho \omega_{T^2} + (1 - \rho) \beta - \d \rho \w \eta
+  \]
+  where the last term is presente to make sure \(\tilde \beta\) is closed:
+  \[
+    \d \tilde \beta = \d \rho \omega_{T^2} - \d \rho \w \beta - \d \rho \w \d \eta = 0.
+  \]
+  Substitute \(\beta\) on \(M\) with \(\tilde \beta\). Take \(\omega\) for \(T^2 \times \Sigma_g\) to be \(\omega_{T^2} \oplus \omega_{\Sigma_g} + \varepsilon \beta\) for \(\varepsilon\) small. This is nondegenerate since it is an open condition.
+\end{proof}
+
+Rcall that a Lefschetz pencil is a map \(\pi: (\tilde X, \omega, J) \setminus \{b_i\} \to \P^n\) that is
+\begin{enumerate}
+\item \(J\)-holomorphic,
+\item at the crtical points of the map exists honestly holomorphic coordinates such that \(\pi(z_1, z_2) = z_1^2 + z_2^2\).
+\end{enumerate}
+
+Goal: understand Lagrangian submanifolds in Lefschetz pencilss. For today let \(F_p = \pi^{-1}(p)\).
+
+Idea: suppose \(\ell \subseteq F_p\) is a Lagrangian and \(\gamma \subseteq \P^1\) is a Lagrangian, can we create \(L\) in \(\tilde X\) based on this data? For example if \(\tilde X = \Sigma_g \times \P^1\) then any product \(\ell \times \gamma\) is Lagrangian. We expect this to work locally in the general case.
+
+First claim \((F_p, \omega|_{F_p})\) is symplectic. Let \(i: F_p \embed \tilde X\). To check closedness
+\[
+  \d i^*\omega = i^* \d \omega = 0.
+\]
+To check nondegeneracy, note that \(F_p\) is a complex submanifold. Take \(v \in TF_p\). Then
+\[
+  \omega(v, Jv) = g_J(v, v) > 0
+\]
+so \(\omega\) is nondegerate. Thus the Lagrangian in the fibre component always makes sense. What about the other?
+
+Observe that at \(x \in \tilde X\), the tangent spaces splits as
+\[
+  T_x \tilde X = \ker D\pi \oplus (\ker D\pi)^\omega.
+\]
+As a result \(\tilde X \to \P^1\) carries a connection. Notation: given \(\gamma: [0, 1] \to \P^1 \setminus \{\text{critical values of } \pi\}\), let \(f_\gamma: F_{\gamma_0} \to F_{\gamma_1}\) be the induced parallel transport map.
+
+\begin{theorem}
+  \(f_\gamma\) is a symplectomorphism.
+\end{theorem}
+
+\begin{proof}
+  Need to show that if \(v \in T_x \tilde X\) is a horizontal vector then \(\mathcal L_V \omega\) vanishes on the fibre.
+  \[
+    \mathcal L_V \omega = \iota_V \d \omega + \d \iota_V \omega = \d \eta
+  \]
+  with \(\eta = \iota_V \omega\). \(\eta\) vanishes on the vertical tangent space \(\ker D\pi\) as
+  \[
+    \eta(w) = \omega(v, \omega) = 0.
+  \]
+  Write \(\eta = \pi^*\alpha\) for \(\alpha\) a \(1\)-form on \(\P^1\). Then \(\d \eta(v_1, v_2) = 0\) if \(v_1, v_2 \in \ker D\pi\).
+\end{proof}
+
+\begin{corollary}
+  If \(\ell \subseteq F_{\gamma(0)}\) is a Lagrangian submanifold for \(\omega|_{F_{\gamma(0)}}\) then \(\ell \times I \subseteq \tilde X\), given by the parallel transport along a curve \(\gamma\), is a Lagrangian submanifold.
+\end{corollary}
+
+Observation: if \(\gamma: [0, 1] \in \P^1\) with \(\gamma(1) \in \mathrm{CritVal}(\pi)\), there is still a map from \(F_{\gamma(0)} \to F_{\gamma(1)}\).
+
+\begin{definition}[vanishing path]\index{vanishing path}
+  A \emph{vanishing path} is a path \(\gamma: [0, 1] \to \P^1\) with \(\gamma(t) \in \mathrm{CritVal}(\pi)\) if and only if \(t = 1\).
+
+  The \emph{vanishing cycle} is \(V_{\gamma(0)} = f_\gamma^{-1}(p)\) for \(p \in \mathrm{Crti}(\pi)\), where \(f_\gamma\) is the parallel transport map.
+\end{definition}
+
+\begin{proposition}
+  \(V_p\) is a sphere.
+\end{proposition}
+
+\begin{proof}
+  Look at local model near the critical point: \(\C^2 \to \C, (z_1, z_2) \mapsto z_1^1 + z_2^2\). The regular fibre is \(\{z_1^2 + z^2 = a\}\), \(a \ne 0\) and the singular fibre is the union of two lines. Observe that \(\pi(\R \times \R) = \R\). \(\R \times \R\) is Langrangian and therefore the image is under parallel transport. Thus \(V_p = \{z_1^2 + z_2^2 = 1\}, z_1, z_2 \in \R\). Note that we can increase the dimension of fibration \(z_1, z_2, z_3, \dots\).
+\end{proof}
+
+Since parallel tarnsport along curves gives symplectomorphisms of fibres, a loop \(\gamma\) passing through \(a\) gives \(f_\gamma: F_a \to F_a\). Claim if \(\gamma\) is contractible in \(\P^1 \setminus \mathrm{CritVal}(\pi)\) then \(f_\gamma\) is Hamiltonian isotopy.
+
+Question: what happens to \(F_a\) if \(\gamma\) travels around a critical point? We study an easier picture first: consider a Lefschetz fibration \(\C \to \C, z \mapsto z^2\). Then over the regular value \(1\) sits two fibres, and the parallel transport induces the (only) nontrivial symplectomorphism that transposes them. (pic)
+
+Consider next \(\C^2 \to \C\). The symplectomorphism twists the hyperboloid.
+
+Now consider the projection \(z_2\)
+
+In general
+
+\begin{theorem}
+  There exists a symplectomorphism of \(T^*S^n \to T^*S^n\) fixing the boundary, \(\tau_{S^n}\) the Dehn twist.
+\end{theorem}
+
+Idea: geodesic flow on \(T^*S^n\) is a symplectomorphism which fixes \(S^n\). Time \(\pi\) flow is antipodal.
+
+For \(n \geq 2\), \(\tau_{S^n}^2\) is isotopic to identity but not symplectic isotopic.
 
 
 

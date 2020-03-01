@@ -20,7 +20,7 @@
 \DeclareMathOperator{\CaCl}{CaCl} % Cartier class group
 \DeclareMathOperator{\Supp}{Supp} % support
 
-% todo: quasi-coherent vs quasicoherent
+% todo: quasi-coherent vs quasi-coherent
 
 \begin{document}
 
@@ -1070,9 +1070,9 @@ We have
 \]
 an \(\sh O_X(X)\)-module. We define the \emph{Hom sheaf}\index{Hom sheaf} to be
 \[
-  \sh{Hom}_{\sh O_X}(\sh F, \sh G)(U) = \Hom_{\sh O_X|_U}(\sh F|_U, \sh G|_U),
+  \mathit{Hom}_{\sh O_X}(\sh F, \sh G)(U) = \Hom_{\sh O_X|_U}(\sh F|_U, \sh G|_U),
 \]
-an \(\sh O_X(U)\)-module. Then \(\sh{Hom}_{\sh O_X}(\sh F, \sh G)\) is a sheaf of \(\sh O_X\)-modules.
+an \(\sh O_X(U)\)-module. Then \(Hom_{\sh O_X}(\sh F, \sh G)\) is a sheaf of \(\sh O_X\)-modules.
 
 We define \(\sh F \otimes_{\sh O_X} \sh G\) to be the sheaf associated to the presheaf \(U \mapsto \sh F(U) \otimes_{\sh O_X(U)} \sh G(U)\).
 
@@ -1120,19 +1120,19 @@ Given \(f: X \to Y\) a morphism of ringed spaces, \(\sh F\) a sheaf of \(\sh O_X
 \end{proof}
 
 \begin{definition}[(quasi)coherent sheaf]\index{sheaf of modules!coherent}\index{sheaf of modules!quasi-coherent}
-  Let \(X\) be a scheme and \(\sh F\) a sheaf of \(\sh O_X\)-modules. We say \(\sh F\) is \emph{quasicoherent} if exists a cover \(\{U_i = \Spec A_i\}\) of \(X\) and \(A_i\)-modules \(M_i\) such that \(F|_{U_i} = \widetilde M_i\).
+  Let \(X\) be a scheme and \(\sh F\) a sheaf of \(\sh O_X\)-modules. We say \(\sh F\) is \emph{quasi-coherent} if exists a cover \(\{U_i = \Spec A_i\}\) of \(X\) and \(A_i\)-modules \(M_i\) such that \(F|_{U_i} = \widetilde M_i\).
 
   If further \(M_i\) is a finitely genertated \(A_i\)-module for each \(i\) we say \(\sh F\) is \emph{coherent}.
 \end{definition}
 
 \begin{remark}
-  The category of quasicoherent (coherent respectively) sheaves on \(X = \Spec A\) is equiavlent to the category of \(A\)-modules (finitely generated \(A\)-modules respectively). This is not obvious and the key point is to know that if \(\sh F\) is a quasicoherent sheaf on \(\Spec A\) then \(\sh F = \widetilde{\Gamma(X, \sh F)}\).
+  The category of quasi-coherent (coherent respectively) sheaves on \(X = \Spec A\) is equiavlent to the category of \(A\)-modules (finitely generated \(A\)-modules respectively). This is not obvious and the key point is to know that if \(\sh F\) is a quasi-coherent sheaf on \(\Spec A\) then \(\sh F = \widetilde{\Gamma(X, \sh F)}\).
 \end{remark}
 
 \begin{eg}\leavevmode
   \begin{enumerate}
-  \item A locally free sheaf is quasicoherent, and coherent if finite rank: if \(\sh F\) is locally free then there exists an open cover \(\{U_i\}\) such that \(\sh F|_{U_i} = \bigoplus_{i \in I} \sh O_{U_i}\). If \(U_i = \Spec A\) then \(\sh F|_{U_i} \cong \widetilde{\bigoplus_{i \in I} A}\).
-  \item Kernels, cokernels and images of morphisms of quasicoherent sheaves are quasicoherent. It reduces to show, for example, \(\ker(\widetilde M \to \widetilde N) \cong \widetilde{\ker(M \to N)}\).
+  \item A locally free sheaf is quasi-coherent, and coherent if finite rank: if \(\sh F\) is locally free then there exists an open cover \(\{U_i\}\) such that \(\sh F|_{U_i} = \bigoplus_{i \in I} \sh O_{U_i}\). If \(U_i = \Spec A\) then \(\sh F|_{U_i} \cong \widetilde{\bigoplus_{i \in I} A}\).
+  \item Kernels, cokernels and images of morphisms of quasi-coherent sheaves are quasi-coherent. It reduces to show, for example, \(\ker(\widetilde M \to \widetilde N) \cong \widetilde{\ker(M \to N)}\).
 
     If \(X\) is Noetherian then the same holds for coherent sheaves (as submodules of finitely generated modules over a Noetherian ring is finitely generated).
   \end{enumerate}
@@ -1168,7 +1168,7 @@ Given \(f: X \to Y\) a morphism of ringed spaces, \(\sh F\) a sheaf of \(\sh O_X
     \[
       m_1 \otimes m_2 \mapsto gm_1 \otimes hm_2 = (g\cdot h)(m_1 \otimes m_2).
     \]
-  \item set \(\sh L_1^\vee = \sh L_1^{-1} = \sh{Hom}_{\sh O_X}(\sh L_1, \sh O_X)\). Then the transition maps of \(\sh L_1^\vee\) are \(g_{ij}^{-1}\): if \(M\) is a rank \(1\) free \(A\)-module and \(\alpha: M \to M, m \mapsto gm\) then one might guess that \(M^\vee \to M^\vee\) is given by \(\varphi \mapsto g \varphi\). However, now we are going in the wrong way because of the dualising, so we invert \(g\).
+  \item set \(\sh L_1^\vee = \sh L_1^{-1} = Hom_{\sh O_X}(\sh L_1, \sh O_X)\). Then the transition maps of \(\sh L_1^\vee\) are \(g_{ij}^{-1}\): if \(M\) is a rank \(1\) free \(A\)-module and \(\alpha: M \to M, m \mapsto gm\) then one might guess that \(M^\vee \to M^\vee\) is given by \(\varphi \mapsto g \varphi\). However, now we are going in the wrong way because of the dualising, so we invert \(g\).
   \end{enumerate}
 \end{eg}
 
@@ -1661,9 +1661,9 @@ If \(s \in \Gamma(X, \sh L)\) for \(\sh L\) a line bundle, \(\{U_i\}\) a trivial
 
 This says that we have a natural isomorphism
 \[
-  \P(\Gamma(X, \sh L)) = (\Gamma(X, \sh L) \setminus \{0\})/k^* \cong |D|.
+  \P(\Gamma(X, \sh L)) = (\Gamma(X, \sh L) \setminus \{0\})/k^* \cong |D_0|.
 \]
-where \(|D| = \{D' \text{ Cartier effective}: D' \sim D_0\}\) is a \emph{complete linear system}\index{complete linear system}.
+where \(|D_0| = \{D' \text{ Cartier effective}: D' \sim D_0\}\) is a \emph{complete linear system}\index{complete linear system}.
 
 \begin{proof}\leavevmode
   \begin{enumerate}
@@ -1685,9 +1685,9 @@ where \(|D| = \{D' \text{ Cartier effective}: D' \sim D_0\}\) is a \emph{complet
 We can refine the correspondence between divisor and line bundle if we expand our vocabulary.
 
 \begin{definition}[support of an effective divisor]\index{support}
-  If \(D' = \{(U_i, f_i)\}\) is an effective Cartier divisor then define its \emph{support} to be
+  If \(D = \{(U_i, f_i)\}\) is an effective Cartier divisor then define its \emph{support} to be
   \[
-    \Supp D' = \bigcup_i \{x \in U_i: f_i \in \mathfrak m_x \subseteq \sh O_{X, x}\}.
+    \Supp D = \bigcup_i \{x \in U_i: f_i \in \mathfrak m_x \subseteq \sh O_{X, x}\}.
   \]
 \end{definition}
 Then for a Weil divisor,
@@ -1768,7 +1768,7 @@ We first give a list of properties of \(H^i(X, \cdot)\) and then give a sketch o
 \item \(H^0(X, \sh F) = \Gamma(X, \sh F)\).
 \end{enumerate}
 
-The construction of sheaf cohomology is similar to other derived functors in homological algebra. Recall that An abelian group \(I\) is \emph{injective}\index{injective module} if given any diagram where the row is exact
+The construction of sheaf cohomology is similar to other derived functors in homological algebra. Recall that an abelian group \(I\) is \emph{injective}\index{injective module} if given any diagram where the row is exact
 \[
   \begin{tikzcd}
     & I \\
@@ -1866,7 +1866,7 @@ We then define
     \]
     where the contribution from \(g\) is just inclusion, and the contribution from \(f\) must be multiplied by the transition function. \(\ker d = 0\) as no cancellation is possible. \(\coker d\) is one dimensional, spanned by  \(\frac{x_1}{x_0}\). Thus
     \[
-      \check H^0(\mathcal U, \sh F) = 0, \check H^0(\mathcal U, \sh F) = k.
+      \check H^0(\mathcal U, \sh F) = 0, \check H^1(\mathcal U, \sh F) = k.
     \]
 
     Similarly for \(d > 0\), \(\check H^1(\P^1, \sh O_{\P^1}(-d))\) is generated by \(\frac{x_1}{x_0}, \dots, \frac{x_1^{d - 1}}{x_0^{d - 1}}\).
@@ -1876,7 +1876,7 @@ We then define
 To remove the dependence on the cover, we need to take the direct limit of Čech cohomologies with respect to refinement of open cover. However this calculation soon becomes intractable. Fortunately we have
 
 \begin{theorem}
-  Let \(X\) be a Noetherian scheme with an open affine cover \(\sh U = \{U_i\}_{i \in I}\) such that \(U_{i_0 \cdots i_p}\) are affine for \(i_0 < \cdots < i_p\). Then \(\check H^p(\mathcal U, \sh F) = H^p(X, \sh F)\) for \(\sh F\) a quasicoherent sheaf.
+  Let \(X\) be a Noetherian scheme with an open affine cover \(\sh U = \{U_i\}_{i \in I}\) such that \(U_{i_0 \cdots i_p}\) are affine for \(i_0 < \cdots < i_p\). Then \(\check H^p(\mathcal U, \sh F) = H^p(X, \sh F)\) for \(\sh F\) a quasi-coherent sheaf.
 \end{theorem}
 
 \begin{proof}
@@ -1973,7 +1973,7 @@ Fix \(X = \P_k^r\) where \(r > 0\). We would like to calculate the cohomology of
   \]
   where RHS should be interpreted as \(0\) if any \(i_k + j_k \geq 0\). As a sanity check, it has degree \(m - m -r - 1 = -r - 1\). Note that \(x_0^{-i_0 - 1} \cdots x_r^{-i_r - 1}\) is the dual basis vector to \(x_0^{i_0} \cdots x_r^{i_r}\). Hence the pairing is perfect.
 
-  It remains to show \(H^i(X, \sh O_X(m)) = 0\) for \(0 < i < r\). Induction on \(r\). The base case \(r = 1\) is vacuously true. Assume true for \(r - 1\). If we localise \(\check C^\bullet(\mathcal U, \sh F)\) at \(x_r\) as a graded \(S\)-module, the Čech complex now calculates the cohomology of \(\sh F|_{U_r}\) using the open covering \(\{U_i \cap U_r: 0 \leq i \leq r\}\). But \(U_r \cong \A^n_k\) and any quasi-coherent sheaf \(\sh F\) on an affine scheme \(Y\) has \(H^i(Y, \sh F) = 0\) for all \(i > 0\), so \(H^i(U_r, \sh F|_{U_r}) = 0\) for all \(i > 0\) and thus \(\check C^\bullet(\mathcal U, \sh F)_{x_r}\) has cohomology vanishing in degree \(> 0\). Since localisation is exact, we see \(H^i(X, \sh F)_{x_r} = 0\) for all \(i > 0\). Thus for \(i > 0\) every element of \(H^i(X, \sh F)\) is annihilated by some power of \(x_r\). Let \(H = V((x_r)) \subseteq \P^r\). Note that we can view \(H\) as the closed subscheme \(\Proj S/(x_r) = \Proj k[x_0, \dots, x_{r - 1}]\) so \(H \cong \P^{r - 1}\). In particular we have a surjective map \(\sh O_{\P^r} \to i_* \sh O_H\) where \(i: H \to \P^r\) is the inclusion. The kernel is the \emph{ideal sheaf}\index{ideal sheaf} \(\sh I\) of \(H\) in \(\P^r\), and as \(H\) is defined by a single equation, \(\sh I\) is a line bundle (?). On \(U_i = \Spec S_{(x_i)}\), \(\sh I\) is generated by \(\frac{x_r}{x_i}\), i.e.\ \(H \cap U_i = \Spec \frac{S_{x_i}}{(x_r/x_r)}\). Thus \(\sh I\) is a line bundle with transition maps
+  It remains to show \(H^i(X, \sh O_X(m)) = 0\) for \(0 < i < r\). Induction on \(r\). The base case \(r = 1\) is vacuously true. Assume true for \(r - 1\). If we localise \(\check C^\bullet(\mathcal U, \sh F)\) at \(x_r\) as a graded \(S\)-module, the Čech complex now calculates the cohomology of \(\sh F|_{U_r}\) using the open covering \(\{U_i \cap U_r: 0 \leq i \leq r\}\). But \(U_r \cong \A^n_k\) and any quasi-coherent sheaf \(\sh F\) on an affine scheme \(Y\) has \(H^i(Y, \sh F) = 0\) for all \(i > 0\), so \(H^i(U_r, \sh F|_{U_r}) = 0\) for all \(i > 0\) and thus \(\check C^\bullet(\mathcal U, \sh F)_{x_r}\) has cohomology vanishing in degree \(> 0\). Since localisation is exact, we see \(H^i(X, \sh F)_{x_r} = 0\) for all \(i > 0\). Thus for \(i > 0\) every element of \(H^i(X, \sh F)\) is annihilated by some power of \(x_r\). Let \(H = V((x_r)) \subseteq \P^r\). Note that we can view \(H\) as the closed subscheme \(\Proj S/(x_r) = \Proj k[x_0, \dots, x_{r - 1}]\) so \(H \cong \P^{r - 1}\). In particular we have a surjective map \(\sh O_{\P^r} \to i_* \sh O_H\) where \(i: H \to \P^r\) is the inclusion. The kernel is the \emph{ideal sheaf}\index{ideal sheaf} \(\sh I\) of \(H\) in \(\P^r\), and as \(H\) is defined by a single equation, \(\sh I\) is a line bundle. On \(U_i = \Spec S_{(x_i)}\), \(\sh I\) is generated by \(\frac{x_r}{x_i}\), i.e.\ \(H \cap U_i = \Spec \frac{S_{x_i}}{(x_r/x_i)}\). Thus \(\sh I\) is a line bundle with transition maps
   \begin{align*}
     \sh O_{U_i}|_{U_i \cap U_j} &\to \sh I|_{U_i \cap U_j} \to \sh O_{U_j}|_{U_i \cap U_j} \\
     1 &\mapsto \frac{x_r}{x_i} \mapsto \frac{x_r}{x_i} \cdot \frac{x_j}{x_r}
@@ -1990,7 +1990,7 @@ Fix \(X = \P_k^r\) where \(r > 0\). We would like to calculate the cohomology of
       0 \ar[r] & \sh O_X(m - 1) \ar[r, "- \cdot x_r"] & \sh O_X(m) \ar[r] & (i_* \sh O_H) \otimes \sh O_X(m) \ar[r] & 0
     \end{tikzcd}
   \]
-  since \(\sh O_X(m)\) is locally free. On the other hand \((i_* \sh O_H) \otimes \sh O_X(m) = i_* \sh O_H(m)\) since transition maps for \(\sh O_X(m)\) restrict to transition maps for \(\sh O_H(m)\) (?). Direct sum over all \(m\),
+  since \(\sh O_X(m)\) is locally free. On the other hand \((i_* \sh O_H) \otimes \sh O_X(m) = i_* \sh O_H(m)\) since transition maps for \(\sh O_X(m)\) restrict to transition maps for \(\sh O_H(m)\). Direct sum over all \(m\),
   \[
     \begin{tikzcd}
       0 \ar[r] & \sh F(-1) \ar[r, "-\cdot x_r"] & \sh F \ar[r] & i_* \sh F_H \ar[r] & 0
@@ -2023,11 +2023,11 @@ Fix \(X = \P_k^r\) where \(r > 0\). We would like to calculate the cohomology of
   For \(j = r - 1\), we have
   \[
     \begin{tikzcd}[row sep=scriptsize, column sep=small]
-      H^{r - 1}(X, \sh F_H) \ar[r] & H^r(X, \sh F(-1)) \ar[r, "- \cdot x_r"] & H^r(X, \sh F) \ar[r] & H^r(X, \sh F_H) \ar[d, equal] \ar[r] & 0 \\
+      H^{r - 1}(H, \sh F_H) \ar[r] & H^r(X, \sh F(-1)) \ar[r, "- \cdot x_r"] & H^r(X, \sh F) \ar[r] & H^r(H, \sh F_H) \ar[d, equal] \ar[r] & 0 \\
       & & & 0
     \end{tikzcd}
   \]
-  By our calculations of \(H^r\), the kernel of \(- \cdot x_r\) is generated by \(\{x_0^{\ell_0} \cdots x_r^{\ell_r}: \ell_i \leq -1 \text{ for all } i, \ell_r = 1\}\). But this can be identified with the image of \(H^{r - 1}(X, \sh F_H)\) (check this!) so \(H^{r - 1}(X, \sh F_H) \to H^r(X, \sh F(-1))\) is injecitve, so \(- \cdot x_r: H^r(X, \sh F(-1)) \to H^r(X, \sh F)\) is surjective, so \(H^{r - 1}(X, \sh F) = 0\).
+  By our calculations of \(H^r\), the kernel of \(- \cdot x_r\) is generated by \(\{x_0^{a_0} \cdots x_r^{a_r}: a_i \leq -1 \text{ for all } i < r, a_r = 1\}\). But this is precisely \(H^{r - 1}(H, \sh F_H)\). So \(- \cdot x_r: H^{r - 1}(X, \sh F(-1)) \to H^{r - 1}(X, \sh F)\) is surjective and \(H^{r - 1}(X, \sh F) = 0\).
 \end{proof}
 
 \begin{remark}\leavevmode
@@ -2040,17 +2040,17 @@ Fix \(X = \P_k^r\) where \(r > 0\). We would like to calculate the cohomology of
 
 \paragraph{Normal and conormal bundles}
 
-Recall from example sheet 3 if \(i: Z \embed X\) is a closed subscheme then \(\sh I_{Z/X} = \ker(i^\#: \sh O_X \to i_* \sh O_Z)\) is a quasicoherent sheaf of ideals (coherent if \(X\) is Noetherian). Define
+Recall from example sheet 3 if \(i: Z \embed X\) is a closed subscheme then \(\sh I_{Z/X} = \ker(i^\#: \sh O_X \to i_* \sh O_Z)\) is a quasi-coherent sheaf of ideals (coherent if \(X\) is Noetherian). Define
 \[
   N_{Z/X}^\vee = \sh I_{Z/X}/\sh I_{Z/X}^2
 \]
-which is quasicoherent (coherent respectively). Note this is also an \(\sh O_X/\sh I_{Z/X} \cong \sh O_Z\)-module. This is the \emph{conormal sheaf}\index{conormal sheaf} of \(Z\) in \(X\) which can be viewed as a sheaf on \(Z\) (analogue: \(I \subseteq A\) an ideal then \(I/I^2\) is an \(A/I\)-module).
+which is quasi-coherent (coherent respectively). Note this is also an \(\sh O_X/\sh I_{Z/X} \cong \sh O_Z\)-module. This is the \emph{conormal sheaf}\index{conormal sheaf} of \(Z\) in \(X\) which can be viewed as a sheaf on \(Z\) (analogue: \(I \subseteq A\) an ideal then \(I/I^2\) is an \(A/I\)-module).
 
 Fact: if \(X\) and \(Z\) are nonsingular varieties (i.e.\ all local rings are regular) then \(N_{Z/X}^\vee\) is locally free of rank \(\codim(Z, X)\).
 
 In this case we define the \emph{normal bundle}\index{normal bundle}
 \[
-  N_{Z/X} = \sh{Hom}_{\sh O_Z}(N_{Z/X}^\vee, \sh O_Z).
+  N_{Z/X} = Hom_{\sh O_Z}(N_{Z/X}^\vee, \sh O_Z).
 \]
 
 \begin{definition}[differential]\index{differential}
@@ -2081,7 +2081,7 @@ The module of relative differential \(\Omega_{B/A}\) is a \(B\)-module satisfyin
 which makes \((I/I^2, d) = (\Omega_{B/A}, d)\).
 
 \begin{eg}
-  Suppose \(Y = \Spec k\), \(X\) a non-singular variety of dimension \(n\) over \(k\), then \(\Omega_{Y/X}\) is a locally free sheaf of rank \(n\) on \(X\).
+  Suppose \(Y = \Spec k\), \(X\) a non-singular variety of dimension \(n\) over \(k\), then \(\Omega_{X/Y}\) is a locally free sheaf of rank \(n\) on \(X\).
 \end{eg}
 
 Just as in differential geometry where we define bundle of differential forms once we have the cotangent bundle, we define the \emph{cananical bundle}\index{canonical bundle} of \(X\) to be \(\omega_X = \Lambda^{\dim X} \Omega_{X/Y}\). Hence if \(\Omega_{X/Y}\) has a trivialisation on an open cover \(\{U_i\}\) with transition maps \(g_{ij} \in \GL_n(\sh O_X(U_i \cap U_j))\), then \(\omega_X\) is the line bundle with transition maps \(\det g_{ij} \in \sh O_X^*(U_i \cap U_j)\). It is also called the \emph{determinant line bundle}\index{determinant line bundle} of \(\Omega_{X/Y}\). We usually write the divisor class of \(\omega_X\) as \(K_X\), called the \emph{canonical class}\index{canonical class}.
@@ -2091,10 +2091,10 @@ Just as in differential geometry where we define bundle of differential forms on
   \[
     H^i(X, \sh F^\vee \otimes \omega_X) \to H^{n - i}(X, \sh F)^\vee
   \]
-  where \(\sh F^\vee = \sh{Hom}_{\sh O_X}(\sh F, \sh O_X)\).
+  where \(\sh F^\vee = Hom_{\sh O_X}(\sh F, \sh O_X)\).
 \end{theorem}
 
-This is analogous to Poincaré duality for manifolds\footnote{To account for the mysterious tensor product we need the full version of twisted Poincaré duality which uses local orientations and does not require orientability}.
+This is analogous to Poincaré duality for manifolds\footnote{To account for the mysterious tensor product we need the full version of twisted Poincaré duality which uses local orientations and does not require orientability.}.
 
 \begin{eg}
   For \(\P^r = X, \omega_X = \sh O_X(-r - 1)\) so we can recover the perfect pairing by setting \(\sh F = \sh O_X(m)\):
@@ -2146,13 +2146,13 @@ Let \(X\) be a non-singular projective curve over a field \(k\), i.e.\ \(X \subs
     &= \dim H^0(X, \sh O_X(D)) - \dim H^0(X, \omega_X \otimes \sh O_X(-D)) \\
     &= \mathrm{LHS}
   \end{align*}
-  Now let \(\sh L\) be a line bundle on \(X\), \(P \in X\) a closed point. Have an exact sequence
+  Now let \(P \in X\) a closed point. Have an exact sequence
   \[
     \begin{tikzcd}
       0 \ar[r] & \sh I_{P/X} \ar[r] & \sh O_X \ar[r] & \sh O_P \ar[r] & 0
     \end{tikzcd}
   \]
-  (here \(\sh O_P\) denotes the pushforward) Note \(\sh I_{P/X} = \sh O_X(-P)\). Now tensor with \(\sh L\),
+  (recall the convention that \(\sh O_P\) denotes pushforward). Note \(\sh I_{P/X} = \sh O_X(-P)\). Now tensor with a line bundle \(\sh L\),
   \[
     \begin{tikzcd}[row sep=scriptsize]
       0 \ar[r] & \sh L \otimes \sh O_X(-P) \ar[r] \ar[d, equal] & \sh L \ar[r] & \sh O_P \otimes \sh L \ar[r] \ar[d, equal] & 0 \\

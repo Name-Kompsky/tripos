@@ -2298,10 +2298,10 @@ but \(P\) is a direct summand of \(P'\) and so if we apply \(\Hom(-, N)\) we sti
 \end{remark}
 
 \begin{definition}[Koszul complex]\index{Koszul complex}
-  The \emph{Koszul complex} gives a free resolution of the trivial \(R\)-module \(k\) where \(R = k[X_1, \dots, X_n]\). Define \(F_i\) to be free \(R\)-module on a basis \(e_{j_1, \dots, j_i}\) where \(\{j_1, \dots, j_i\}\) is a subset of \(\{1, \dots, n\}\) of size \(i\). We define \(R\)-module map
+  The \emph{Koszul complex} gives a free resolution of the trivial \(R\)-module \(k\) where \(R = k[X_1, \dots, X_n]\). Define \(F_i\) to be free \(R\)-module on a basis \(e_{j_1, \dots, j_i}\) where \(\{j_1, \dots, j_i\}\) is a subset of \(\{1, \dots, n\}\) of size \(i\). We define an \(R\)-module map
   \begin{align*}
     F_i &\to F_{i - 1} \\
-    e_{j_1, \dots, j_i} &\mapsto \sum_{\ell = 1}^i (-1)^{\ell - 1} X_\ell e_{j_1, \dots, \hat j_{\ell}, \dots, j_i}
+    e_{j_1, \dots, j_i} &\mapsto \sum_{\ell = 1}^i (-1)^{\ell - 1} X_{j_\ell} e_{j_1, \dots, \hat j_{\ell}, \dots, j_i}
   \end{align*}
 \end{definition}
 
@@ -2457,7 +2457,7 @@ Simiarly \(M\) can be regarded as a left \(R \otimes R^\op\)-module.
 Note that a finite field extension \(K\) of \(k\) is \(k\)-separable if and only if it is a separable field extension of \(k\). See example sheet 4.
 
 \begin{remark}
-  Hochschild (co)homology is ``good'' because it applies to any \(k\)-algebra \(R\), not just to ones where there is a canonical map \(R \to k\). Also note the multiplication in the algebra \(R\) is enccoded clearly in the resolution of \(R\).
+  Hochschild (co)homology is ``good'' because it applies to any \(k\)-algebra \(R\), not just to ones where there is a canonical map \(R \to k\). Also note the multiplication in the algebra \(R\) is encoded clearly in the resolution of \(R\).
 \end{remark}
 
 \begin{definition}[Hochschild chain complex]\index{Hochschild chain complex}
@@ -2470,7 +2470,7 @@ Note that a finite field extension \(K\) of \(k\) is \(k\)-separable if and only
   where
   \begin{align*}
     d: R^{\otimes n + 2} &\to R^{\otimes n + 1} \\
-    r_0 \otimes \dots \otimes r_{n + 1} &\mapsto \sum_{i = 0}^n (-1)^i r_0 \otimes \cdots r_{i - 1} \otimes r_ir_{i + 1} \otimes \dots \otimes r_{n + 1}
+    r_0 \otimes \dots \otimes r_{n + 1} &\mapsto \sum_{i = 0}^n (-1)^i r_0 \otimes \cdots \otimes r_{i - 1} \otimes r_ir_{i + 1} \otimes \dots \otimes r_{n + 1}
   \end{align*}
 \end{definition}
 
@@ -2485,7 +2485,7 @@ Observe that we need to regard \(R\) and its resolution as right \(R \otimes R^\
 \begin{definition}
   Define \emph{Hochschild cohomology}
   \[
-    \HH^n(R, M) = \Ext_{R, R}^i(R, M) = \Ext_{R \otimes R^\op}^i(R, M)
+    \HH^i(R, M) = \Ext_{R, R}^i(R, M) = \Ext_{R \otimes R^\op}^i(R, M)
   \]
 \end{definition}
 

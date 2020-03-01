@@ -910,7 +910,7 @@ by
   \(\im \delta\) consists of all holomorphic functions on \(\C^*\), again by a Laurent series argument. Thus
   \begin{align*}
     \check H^0(\mathcal U, \mathcal O) &= \C \\
-    \check H^1(\mathcal U, \mathcal O) &= 0 \text{ for all } i > 0
+    \check H^i(\mathcal U, \mathcal O) &= 0 \text{ for all } i > 0
   \end{align*}
   We'll see that this computes Čech cohomology \(H^i(\P^1, \mathcal O)\), which we will define later.
 \end{eg}
@@ -1026,7 +1026,7 @@ This induces a long exact sequence of homology groups. Explicitly, we define cob
   \delta^*: H^p(X, \mathcal G) \to H^{p + 1}(X, \mathcal E).
 \]
 
-Given \(\sigma \in C^p(\mathcal U, \mathcal G)\), we can pass to a refinement \(\mathcal V\) of \(\mathcal U\) and find \(\tau \in C^p(\mathcal V, \mathcal F)\) with \(\beta(\tau) = \rho_{\mathcal V \mathcal U} \sigma\). Now we assume \(\delta \sigma = 0\) so
+Given \(\sigma \in C^p(\mathcal U, \mathcal G)\), assume for now we can find a refinement \(\mathcal V\) of \(\mathcal U\) and \(\tau \in C^p(\mathcal V, \mathcal F)\) with \(\beta(\tau) = \rho_{\mathcal V \mathcal U} \sigma\). As \(\delta \sigma = 0\),
 \[
   \beta(\delta \tau)
   = \delta \beta \tau
@@ -1047,7 +1047,7 @@ Since \(\alpha\) is injective, \(\delta \mu = 0\). This defines \(\delta^*[\sigm
       0 \ar[r] & \mathcal E \ar[r, "\alpha"] & \mathcal F \ar[r, "\beta"] & \mathcal G \ar[r] & 0
     \end{tikzcd}
   \]
-  we have a long exact sequence of coholomogy groups
+  the morphism \(\delta^*\) is well-defined and there is a long exact sequence of coholomogy groups
   \[
     \begin{tikzcd}
       & & 0 \ar[dll, out=0, in=180] \\
@@ -1058,13 +1058,13 @@ Since \(\alpha\) is injective, \(\delta \mu = 0\). This defines \(\delta^*[\sigm
   \]
 \end{theorem}
 
-We won't prove this in general, but for all sheaves in this course, there exists arbitrarily fine open covers \(\mathcal U\) with
+We won't prove this in general, but for all sheaves in this course, it is an implication of the following stronger condition: for any open cover \(\mathcal U\) there exists a refinement \(\mathcal V\) such that
 \[
   \begin{tikzcd}
-    0 \ar[r] & \mathcal E(U) \ar[r] & \mathcal F(U) \ar[r] & \mathcal G(U) \ar[r] & 0
+    0 \ar[r] & \mathcal E(V) \ar[r] & \mathcal F(V) \ar[r] & \mathcal G(V) \ar[r] & 0
   \end{tikzcd}
 \]
-exact for all \(U \in \mathcal U\). In this case the theorem is an exercise.
+is exact for all \(V \in \mathcal V\). In this case the theorem is an exercise.
 
 We say that
 \[
@@ -1085,7 +1085,7 @@ is a short exact sequence for all \(i\). Equivalently the induced sequence on st
 \begin{theorem}[de Rham]
   If \(X\) is a smooth manifold then
   \[
-    H^i_{\text{dR}}(X; \R) \cong H^i(X, \R).
+    H^i_{\mathrm{dR}}(X; \R) \cong H^i(X, \R).
   \]
 \end{theorem}
 
@@ -1187,8 +1187,12 @@ The direct limit in the definition of Čech cohomology means that it is very dif
   \]
 \end{theorem}
 
+\begin{remark}
+  By Dolbeault, the hypothesis is satisfied whenever each intersection is biholomorphic to a polydisk.
+\end{remark}
+
 \begin{proof}
-  We have
+  The idea is to manipulate both sides into zeroth cohomology, where both sheaf and Čech cohomology can be interpreted as global section. We have
   \[
     H^1(U_{\alpha_0 \cdots \alpha_s}, \mathcal Z^{0, q - 1})
     = H^{0, q}_{\conj \p}(U_{\alpha_0 \cdots \alpha_s})
@@ -1207,7 +1211,7 @@ The direct limit in the definition of Čech cohomology means that it is very dif
       0 \ar[r] & C^p(\mathcal U, \mathcal Z^{0, q - 1}) \ar[r] & C^p(\mathcal U, \mathcal A_\C^{0, q - 1}) \ar[r] & C^p(\mathcal U, \mathcal Z^{0, q}) \ar[r] & 0
     \end{tikzcd}
   \]
-  The long exact sequence and \(\check H^p(\mathcal U, \mathcal A^{0, q}) = 0\) gives for all \(p \geq 1, q \geq 1\),
+  In the induced long exact sequence, \(\check H^p(\mathcal U, \mathcal A^{0, q}) = 0\) so for all \(p \geq 1, q \geq 1\)
   \[
     \check H^p(\mathcal U, \mathcal Z^{0, q}) \cong \check H^{p + 1}(\mathcal U, \mathcal Z^{0, q - 1}).
   \]
@@ -1222,7 +1226,7 @@ The direct limit in the definition of Čech cohomology means that it is very dif
   and
   \[
     \check H^1(\mathcal U, \mathcal Z^{0, p - 1})
-    \cong \frac{\mathcal Z^{0, p}(X)}{\conj \p(\mathcal A^{0, p - q}(X))}
+    \cong \frac{\mathcal Z^{0, p}(X)}{\conj \p(\mathcal A^{0, p - 1}(X))}
     \cong H^{0, p}_{\conj \p}(X)
     \cong H^p(X, \mathcal O).
   \]
@@ -1237,9 +1241,9 @@ The direct limit in the definition of Čech cohomology means that it is very dif
 
 \begin{eg}
   \[
-    H^q(\C^n, \mathcal O) \cong H^{0, q}(\C^n) = 0
+    H^q(\C^n, \mathcal O) \cong H_{\conj \p}^{0, q}(\C^n) = 0
   \]
-  for all \(q \geq 1\).
+  for all \(q > 0\).
 \end{eg}
 
 \begin{remark}\leavevmode
@@ -1254,7 +1258,7 @@ The direct limit in the definition of Čech cohomology means that it is very dif
     \[
       \chi(X, \mathcal F) = \sum_i (-1)^i \dim H^i(X, \mathcal F)
     \]
-    which is additive in short exact sequences, and usually constant in families, while \(H^0\) is not. Lastly, \(H^1\) is also ``geometric''.
+    which is additive in short exact sequences and satisfies good properties. For example it is usually constant in families so can be computed geometrically, while \(H^0\) is not. Lastly, \(H^1\) is also ``geometric''.
   \end{enumerate}
 \end{remark}
 
@@ -1348,17 +1352,17 @@ so we obtain an element \([\varphi^E] \in H^1(X, \GL_r(\C))\) (viewing \(\GL_r(\
     &= \sigma_\alpha \varphi_{\beta\alpha} f_\alpha f_\beta^{-1} \sigma_\beta^{-1} \\
     &= \sigma_{\alpha\beta} \varphi_{\alpha\beta}^{-1} \quad \text{as } f_\alpha f_\beta^{-1} = \id
   \end{align*}
-  so \([\sigma] = [\tau] \in H^1(X, \mathcal O^*)\).
+  as multiplication in \(\C^*\) is commutative. Thus \([\sigma] = [\tau] \in H^1(X, \mathcal O^*)\).
 
   Conversely, let \(L\) and \(F\) be line bundles with \([\varphi] = [\sigma] \in H^1(X, \mathcal O^*)\). This means that there is \(h = \{h_\alpha\} \in C^0(\mathcal U, \mathcal O^*)\) with
   \[
-    (\delta h)_{\alpha\beta} = \varphi_{\alpha\beta}^{-1} \sigma_{\alpha\beta}.
+    (\delta h)_{\alpha\beta} =\sigma_{\alpha\beta} \varphi_{\alpha\beta}^{-1}.
   \]
   Let
   \[
     f_\alpha = \sigma_\alpha^{-1} h_\alpha \varphi_\alpha: L|_{U_\alpha} \to F|_{U_\alpha}.
   \]
-  We claim the \(f_\alpha\)'s induce an isomorphism \(f: L \to M\), i.e.\ \(f_\alpha f_\beta^{-1} = \id\) on \(U_\alpha \cap U_\beta\). Indeed
+  We claim the \(f_\alpha\)'s induce an isomorphism \(f: L \to F\), i.e.\ \(f_\alpha f_\beta^{-1} = \id\) on \(U_\alpha \cap U_\beta\). Indeed
   \[
     f_\alpha f_\beta^{-1} = \sigma_\alpha^{-1} h_\alpha \varphi_\alpha \varphi_\beta^{-1} h_\beta^{-1} \sigma_\beta = \id
   \]
@@ -1396,7 +1400,23 @@ Note that we did not use any properties of holomorphicity so analogous results h
   \item \(E \oplus F\): transition functions are \(\varphi_{\alpha\beta} \oplus \sigma_{\alpha\beta} \in \GL_{r + r'}(\C)\).
   \item \(E \otimes F\): transition functions \(\varphi_{\alpha\beta} \otimes \sigma_{\alpha\beta} \in \GL(\C^r \otimes \C^{r'})\).
   \item \(\Lambda^kE\): transition functions \(\Lambda^k \varphi_{\alpha\beta}\). If \(k = r\) we write \(\Lambda^r E = \det E\).
+
+    If
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & E \ar[r] & F \ar[r] & G \ar[r] & 0
+      \end{tikzcd}
+    \]
+    is a short exact sequence of holomorphic vector bundles then
+    \[
+      \det F \cong \det E \otimes \det G.
+    \]
   \end{enumerate}
+\end{eg}
+
+\begin{eg}
+  If \(f: Y \to X\) is a morphism, \(E \to X\) is a holomorphic vector bundle then one obtains the \emph{pullback bundle}\index{pullback bundle} \(f^*E \to Y\) by simply pulling back transition functions. We write \(E|_Y\) if \(Y \subseteq X\) for the pullback under the inclusion map.
+
 \end{eg}
 
 \begin{definition}[section]\index{section}
@@ -1445,7 +1465,7 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
 
   Let \(X = \bigcup U_\alpha\) be an open covering by chart neighbourhoods \((U_\alpha, \varphi_\alpha)\). The Jacobian of a transition map is
   \[
-    J(\varphi_{\alpha\beta})(z) = \left( \frac{\partial \varphi_{\alpha\beta}^\gamma}{\partial z^\delta} (\varphi_\beta(z)) \right)_{\gamma, \delta}.
+    J(\varphi_{\alpha\beta})(z) = \left( \frac{\partial \varphi_{\alpha\beta}^\gamma}{\partial z^\delta}\Big|_{\varphi_\beta(z)} \right)_{\gamma, \delta}.
   \]
   Then by example sheet 1 Q1, \(TX^{1, 0}\) has transition functions
   \[
@@ -1455,9 +1475,8 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
   \begin{definition}[canonical line bundle]\index{canonical line bundle}\index{line bundle!canonical}
     The \emph{canonical line bundle} of \(X\) is defined to be
     \[
-      K_X = \det T^*X^{1, 0}
+      K_X = \det T^*X^{1, 0}.
     \]
-    where \(T^*X^{1, 0} = (TX^{1, 0})^*\) and \(\det E = \Lambda^n E\).
 \end{definition}
 \end{eg}
 
@@ -1474,7 +1493,7 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
   The transition functions are
   \begin{align*}
     \psi_{\alpha\beta}(\ell): \C &\to \C \\
-    z &\mapsto \frac{\ell_\beta}{\ell_\alpha} z
+    z &\mapsto \frac{\ell_\alpha}{\ell_\beta} z
   \end{align*}
   if \(\ell = [\ell_0 : \dots : \ell_n]\).
 
@@ -1492,8 +1511,6 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
 \end{eg}
 
 \begin{eg}
-  If \(p: Y \to X\) is a morphism, \(E \to X\) is a holomorphic vector bundle then one obtains the \emph{pullback bundle}\index{pullback bundle} \(p^*E \to Y\) by simply pulling back transition functions. We write \(E|_Y\) if \(Y \subseteq X\) for the pullback under the inclusion map.
-
   If \(X\) is projective, \(X \subseteq \P^n\), then \(X\) has a natural line bundle \(\mathcal O(1)|_X \to X\).
 \end{eg}
 
@@ -1875,7 +1892,7 @@ Recall that \(X\) is projective\index{projective manifold} if it is biholomorphi
   where \(\mathcal O(1)\) is the hyperplane line bundle\index{hyperplane line bundle} on \(\P^m\).
 \end{definition}
 
-Kähler geometry (in part) gives a differential geometric interpretation of ampleness.
+Ampleness is a central property in algebraic geometry. Much of the rest of the course will aim to characterise ampleness in terms of complex differential geometricaly, specifically through Kähler metrics, which give a differential geometric interpretation of ampleness.
 
 \section{Kähler manifolds}
 
@@ -1902,7 +1919,7 @@ We now extend to the complexification \(V_\C = V \otimes_\R \C\). The inner prod
 \[
   \ip{\lambda u, \mu v}_\C = \lambda \conj \mu \ip{u, v}
 \]
-where \(\lambda, \mu \in \C, u, v \in V\) and using that any \(\alpha \in V_\C\) can be written as \(\alpha = \alpha_1 + i\alpha_2\) where \(\alpha_1, \alpha_2 \in V\). \(\omega\) extend to \(\omega\) (by abuse of notation) on \(V_\C\).
+where \(\lambda, \mu \in \C, u, v \in V\) and using that any \(\alpha \in V_\C\) can be written as \(\alpha = \alpha_1 + i\alpha_2\) where \(\alpha_1, \alpha_2 \in V\). \(\omega\) extend to an element \(\omega\) (by abuse of notation) of \(\Lambda^2V_\C^*\).
 
 \begin{lemma}\leavevmode
   \begin{enumerate}
@@ -1963,7 +1980,7 @@ Suppose on \(X\) we have holomorphic coordinates \(z_1, \dots, z_n\). Then \(\d 
 \begin{ex}
   Show that \((h_{jk})\) is a Hermitian matrix and
   \[
-    \omega = \frac{i}{2} \sum_{j, k} h_{jk} \d z_j \w \d \conj{z_k}.
+    \omega = \frac{i}{2} \sum_{j, k} h_{jk} \d z_j \w \d \conj z_k.
   \]
 \end{ex}
 
@@ -2206,11 +2223,8 @@ Thus any identity only involving the metric \(h\) and its first derivative, if t
 
 \subsection{Kähler identities}
 
-Let \((X, g)\) be an oriented Riemannian manifold of dimension \(2n\). The exterior derivative \(\d: \mathcal A^k \to \mathcal A^{k + 1}\) satisfies \(\d^2 = 0\). Let \(\d \text{Vol}\) be the volume form associated to \(g\). The \emph{Hodge star operator}\index{Hodge star operator} is
-\[
-  \star: \mathcal A^k \to \mathcal A^{2n - k}
-\]
-defined in such a way that
+Recall some operators from differential geometry. Let \((X, g)\) be an oriented Riemannian manifold of dimension \(2n\). The exterior derivative \(\d: \mathcal A^k \to \mathcal A^{k + 1}\) satisfies \(\d^2 = 0\). Let \(\d \text{Vol}\) be the volume form associated to \(g\). The \emph{Hodge star operator}\index{Hodge star operator} \(\star: \mathcal A^k \to \mathcal A^{2n - k}\)
+is defined in such a way that
 \[
   \alpha \w \star \beta = \ip{\alpha, \beta}_g \d \text{Vol}
 \]
@@ -2270,7 +2284,7 @@ the \emph{inverse Lefschetz operator}\index{inverse Lefschetz operator} or somet
   \]
 \end{remark}
 
-The operators \(\p^*\) and \(\conj \p^*\) are adjoint to \(\p, \conj \p\) respectively with respect to \(L^2\) inner product, which is defined as
+The operators \(\p^*\) and \(\conj \p^*\) are adjoint to \(\p, \conj \p\) respectively with respect to \(L^2\) inner product when \(X\) is compact, which is defined as
 \[
   \ip{\alpha, \beta}_{L^2}
   = \int_X \alpha \w \star \beta
@@ -2338,7 +2352,7 @@ We introduce some notations
 \end{definition}
 It is an exercise in linear algebra to check this exists and is well-defined, as \(g_\C\) is nondegenerate. For example in holomorphic coordinates,
 \[
-  \d z_1 \vee \alpha = \alpha( \frac{\partial  }{\partial z}, -).
+  \d z_1 \vee \alpha = \alpha( \frac{\partial  }{\partial z_1}, -).
 \]
 
 For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
@@ -2372,7 +2386,7 @@ For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
 \begin{lemma}\leavevmode
   \begin{enumerate}
   \item \(\conj \p \alpha = \sum_j \d \conj z_j \w \conj \p_j \alpha\).
-  \item \(\p_j \ip{\alpha, \beta} = \ip{\p_j, \beta} + \ip{\alpha, \conj \p_j \beta}\).
+  \item \(\p_j \ip{\alpha, \beta} = \ip{\p_j \alpha, \beta} + \ip{\alpha, \conj \p_j \beta}\).
   \item \(\p_j (\d z_k \vee \alpha) = \d z_k \vee \p_j \alpha\).
   \end{enumerate}
 \end{lemma}
@@ -2408,7 +2422,7 @@ For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
   \[
     \int_{\C^n} \p_j \ip{\d z_j \vee \alpha, \beta} \d \text{Vol} = 0
   \]
-  by Stokes' theorem, with \(\d \text{Vol}\) being the stardard volume form, and \(\beta\) having compact support. Thus
+  by Stokes' theorem, with \(\d \text{Vol}\) being the stardard volume form so exact, and \(\beta\) having compact support. Thus
   \begin{align*}
     0
     &= \int_{\C^n} \p_j \ip{\d z_j \vee \alpha, \beta} \d \text{Vol} \\
@@ -2448,8 +2462,8 @@ For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
     \intertext{As \(\omega\) is the standard Kähler form, \(\p_j \omega = 0\).}
     &= - \frac{i}{2} \sum \d z_j \vee (\sum_k \d z_k \w \d \conj z_k \w \p_j \alpha) \\
     &= - \frac{i}{2} \sum_{j, k} \underbrace{(\d z_j \vee \d z_k)}_{= 0} \w \d \conj z_k \w \p_j \alpha \\
-    &\quad + \frac{i}{2} \sum_{j, k} \d z_k \w \underbrace{(\d z_j \vee \d \conj z_k)}_{= \delta_{jk}} \w \p_j \alpha \\
-    &\quad \underbrace{- \frac{i}{2} \sum_{j, k} \d z_k \w \d \conj z_k \w (\d z_k \vee \p_j \alpha)}_{= - \omega \w \sum_j \d z_j \vee \p_j \alpha} \\
+    &\quad + \frac{i}{2} \sum_{j, k} \d z_k \w \underbrace{(\d z_j \vee \d \conj z_k)}_{= 2\delta_{jk}} \w \p_j \alpha \\
+    &\quad \underbrace{- \frac{i}{2} \sum_{j, k} \d z_k \w \d \conj z_k \w (\d z_j \vee \p_j \alpha)}_{= - \omega \w \sum_j \d z_j \vee \p_j \alpha} \\
     &= 0 + i \p \alpha + \omega \w \conj \p^* \alpha
   \end{align*}
   so indeed
@@ -2460,7 +2474,10 @@ For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
   \]
 \end{proof}
 
-\begin{theorem}[Kähler identities]\index{Kähler identities}\leavevmode
+The local result on \(\C^n\) can be generalised to Kähler manifolds.
+
+\begin{theorem}[Kähler identities]\index{Kähler identities}
+  Let \((X, \omega)\) be a Kähler manifold. Then
   \begin{enumerate}
   \item \([\conj \p^*, L] = i \p\).
   \item \([\p^*, L] = -i \conj \p\).
@@ -2480,6 +2497,28 @@ For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
   \item Adjoint of 1.
   \item Adjoint of 2.
   \end{enumerate}
+\end{proof}
+
+\(\Lambda\) being adjoint to \(L\) is formally justified by
+
+\begin{lemma}
+  Let \(\alpha \in \mathcal A_\C^{p, q}(X), \beta \in \mathcal A_\C^{p - 1, q - 1}(X)\). Then
+  \[
+    g_\C(\alpha, L\beta) = g_\C(\Lambda \alpha, \beta).
+  \]
+\end{lemma}
+So \(L\) is the adjoint of \(\Lambda\).
+
+\begin{proof}
+  \begin{align*}
+    g_\C(L\alpha, \beta) \d \text{Vol}
+    &= L\alpha \w \star \beta \\
+    &= \omega \w \alpha \w \star \beta \\
+    &= \alpha \w \omega \w \star \beta \\
+    &= g_\C(\alpha, \star^{-1} L \star \beta) \d \text{Vol} \\
+    &= g_\C(\alpha, \Lambda \beta) \d \text{Vol}
+  \end{align*}
+  as \(\Lambda = \star^{-1} L \star\).
 \end{proof}
 
 \begin{theorem}
@@ -2535,33 +2574,13 @@ For today we write \(g_\C(\alpha, \beta) = \ip{\alpha, \beta}\).
   and similarly
   \begin{align*}
     \Delta_{\conj \p}
-    &= \conj \p \conj \p^* + \conj \p^* \p \\
+    &= \conj \p \conj \p^* + \conj \p^* \conj \p \\
     &= -i \conj \p[\Lambda, \p] - i [\Lambda, \p] \conj \p \\
     &= \Delta_\p
   \end{align*}
 \end{proof}
 
 This theorem shows that no matter which (co)differential we choose, there is no ``weird'' Hodge theory on Kähler manifold as all three Laplacians coincide.
-
-\begin{lemma}
-  Let \(\alpha \in \mathcal A_\C^{p, q}(X), \beta \in \mathcal A_\C^{p - 1, q - 1}(X)\). Then
-  \[
-    g_\C(\alpha, L\beta) = g_\C(\Lambda \alpha, \beta).
-  \]
-\end{lemma}
-So \(L\) is the adjoint of \(\Lambda\).
-
-\begin{proof}
-  \begin{align*}
-    g_\C(L\alpha, \beta) \d \text{Vol}
-    &= L\alpha \w \star \beta \\
-    &= \omega \w \alpha \w \star \beta \\
-    &= \alpha \w \omega \w \star \beta \\
-    &= g_\C(\alpha, \star^{-1} L \star \beta) \d \text{Vol} \\
-    &= g_\C(\alpha, \Lambda \beta) \d \text{Vol}
-  \end{align*}
-  as \(\Lambda = \star^{-1} L \star\).
-\end{proof}
 
 \begin{theorem}[Kähler identities II]\index{Kähler identities}
   Let \((X, \omega)\) be a Kähler manifold. Let \(\pi_k: \mathcal A_\C^* \to \mathcal A_\C^k\) be the projection and define the \emph{counting operator}\index{counting operator}
@@ -2794,7 +2813,7 @@ as
       \mathcal H^{p, q}(X) \cong \mathcal H^{q, p}(X).
     \]
     We used Kähler identities (\(\Delta_\p \alpha = 0\) if and only if \(\Delta_{\conj \p} \alpha = 0\)) and this is not true for arbitrary compact complex manifolds.
-  \item Hodge star operator \(\alpha \mapsto \star \alpha\) sends harmonic forms to harmonic forms (since \(\p^* \star \alpha = - \star \p \alpha = 0\) if \(\alpha\) is harmonic), hence inducing an isomorphism
+  \item Hodge star operator \(\alpha \mapsto \star \alpha\) sends harmonic forms to harmonic forms (since \(\p^* \star \alpha = - \star \p \alpha\)), hence inducing an isomorphism
     \[
       \mathcal H^{p, q}(X) \cong \mathcal H^{n - p, n - q}(X).
     \]
@@ -2905,10 +2924,8 @@ If \(e_1, \dots, e_r\) is a local frame for \(E\) (of rank \(r\)), then \([h_{jk
   If \(E, F\) are given hermitian metrics then \(E \oplus F, E \otimes F, E^*, \Lambda^j E\) all admit natural hermitian metrics.
 \end{ex}
 
-We now take \(E\) to be holomorphic.
-
 \begin{proposition}
-  There is a natural \(\C\)-linear operator
+  Suppose \(E\) is a holomorphic vector bundle. Then there is a natural \(\C\)-linear operator
   \[
     \conj \p_E: \mathcal A_\C^{p, q}(E) \to \mathcal A_\C^{p, q + 1}(E)
   \]
@@ -3049,7 +3066,7 @@ This gives a local characterisation of compatibility.
 \begin{proof}
   We begin with uniqueness. Let \(e_1, \dots, e_r\) be a local holomorphic frame (not necessarily unitary) and let
   \[
-    h_{ij} = h(e_j, e_k).
+    h_{ij} = h(e_i, e_j).
   \]
   Define the connection matrix by
   \[
@@ -3073,7 +3090,7 @@ This gives a local characterisation of compatibility.
 \end{proof}
 
 \begin{lemma}
-  If \(D_1, D_2\) are two connections on a complex vector bundle, then \(D_1 - D_2\) is \(\mathcal A_\C^0\)-linear, hence gives an element of \(\mathcal A^1_\C(\End)\). If \(D\) is a connection on \(E\) and \(a \in \mathcal A_\C^1(\End E)\) then \(D + a\) is a connection.
+  If \(D_1, D_2\) are two connections on a complex vector bundle, then \(D_1 - D_2\) is \(\mathcal A_\C^0\)-linear, hence gives an element of \(\mathcal A^1_\C(\End E)\). If \(D\) is a connection on \(E\) and \(a \in \mathcal A_\C^1(\End E)\) then \(D + a\) is a connection.
 \end{lemma}
 
 \begin{proof}
@@ -3090,7 +3107,10 @@ This gives a local characterisation of compatibility.
   \]
   so \(D + a\) is a connection.
 \end{proof}
-Thus given a connection \(D\), any other connection is given by the sum of \(D\) with an element of \(\mathcal A_\C^1(\End)\).
+
+\begin{corollary}
+  The set of all connections on a complex vector bundle \(E\) is in a natural way an affine space modelled on \(\mathcal A^1_\C(\End E)\).
+\end{corollary}
 
 A connection extends to
 \[
@@ -3110,11 +3130,11 @@ for \(\alpha \in \mathcal A_\C^p(U), s \in C^\infty(E)(U)\).
 \end{definition}
 
 \begin{lemma}
-  \(F_D\) is \(C^\infty\)-linear.
+  \(F_D\) is \(\mathcal A_\C^0\)-linear.
 \end{lemma}
 
 \begin{proof}
-  For \(f \in C^\infty_\C(u), s \in \mathcal A_\C^0(E)(U)\),
+  For \(f \in \mathcal A_\C^0(U), s \in \mathcal A_\C^0(E)(U)\),
   \begin{align*}
     F_D(fs)
     &= D(\d f \otimes s + f Ds) \\
@@ -3200,7 +3220,7 @@ We can interpret Fubini-Study metric\index{Fubini-Study metric} now. If \(X = \P
 \end{ex}
 One can show that this is equivalent to \(c_1(L) \in H^2(X, \Z)\) being a Kähler class, i.e.\ there is an \(\omega \in c_1(L)\) Kähler.
 
-On a projective space, \(\mathcal O(1) \to \P^n\) admits a hermitian metric \(h_{\text{FS}}\) with curvature \(\omega_{\text{FS}} = \frac{i}{2\subseteq} F_D\) which is Kähler. Thus \(\mathcal O(1)\) is positive.
+On a projective space, \(\mathcal O(1) \to \P^n\) admits a hermitian metric \(h_{\text{FS}}\) with curvature \(\omega_{\text{FS}} = \frac{i}{2\pi} F_D\) which is Kähler. Thus \(\mathcal O(1)\) is positive.
 
 If \(\varphi: X \to Y\) is a morphism of complex manifolds and \((E, h) \to Y\) a hermitian holomorphic vector bundle, then we can pullback to get \((\varphi^*E, \varphi^*h)\) a hermitian holomorphic vector bundle on \(X\). If \(E = L\) is a line bundle then \(F_D = \conj \p \p \log h\) and \(\varphi^* F_D = \varphi^*(\conj \p \p \log h) = \conj \p \p \log (\varphi^*h)\).
 

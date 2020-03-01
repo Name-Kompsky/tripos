@@ -134,7 +134,7 @@ Note that we do not use any properties of inverse system or posets. The construc
 Give each finite group \(G_j\) in an inverse system the discrete topology. Then give \(\prod G_j\) the product topology and \(\varprojlim G_j \subseteq \prod G_j\) the subspace topology. \(\prod G_j\) is Hausdorff and compact (Tychonoff). It follows that \(\varprojlim G_j\) is Hausdorff. Since the conditions defining the subgroup are closed conditions, it is also compact.
 
 \begin{proposition}
-  If \((X_j)_{j \in J}\) is an inverse system of nonempty finite sets that \(\varprojlim X_j \ne \emptyset\).
+  If \((X_j)_{j \in J}\) is an inverse system of nonempty finite sets then \(\varprojlim X_j \ne \emptyset\).
 \end{proposition}
 
 \begin{proof}
@@ -166,11 +166,11 @@ It is perhaps psychologically comforting to point out that the topology on a pro
 In applications to profinite completions this is often implied by
 
 \begin{proposition}
-  If \(\Gamma\) is a finitely generated group then it has only countably many finite index subgroups.
+  If \(G\) is a finitely generated group then it has only countably many finite index normal subgroups.
 \end{proposition}
 
 \begin{proof}
-  Omitted.
+  Every finite index normal subgroup arises as the kernel of some homomorphism \(G \to S_n\). For a fixed \(n\) the homomorphism is determined by the image of the generators of \(G\), so finitely many.
 \end{proof}
 
 \begin{proposition}
@@ -184,7 +184,7 @@ In applications to profinite completions this is often implied by
 Thus \(G\) is a \emph{topological group}\index{topological group}.
 
 \begin{definition}
-  A \emph{isomorphism of topological groups} is an isomorphism \(f: G \to H\) which is also a homeomorphism.
+  An \emph{isomorphism of topological groups} is an isomorphism \(f: G \to H\) which is also a homeomorphism.
 \end{definition}
 
 From now on we only consider homomorphism between profinite groups which are continuous.
@@ -194,7 +194,7 @@ From now on we only consider homomorphism between profinite groups which are con
 \end{lemma}
 
 \begin{proof}
-  The first iff is by definition of the product topology on \(\prod G_j\). For the second, let \(f_j = p_j \compose f\). If \(f_j: H \to G_j\) is continuous the \(\ker f_j = f_j^{-1}(1)\) is open. Conversely, if \(\ker f_j = f^-j^{-1}(1)\) is open. Then \(f_j^{-1}(g_i) = h \cdot \ker(f_j)\), where \(h \in f_j^{-1}(g_i)\) if nonempty, is open for all \(g_j \in G_j\). Thus \(f_j^{-1}(U)\) is open for all \(U \subseteq G_j\).
+  The first iff is by definition of the product topology on \(\prod G_j\). For the second, let \(f_j = p_j \compose f\). If \(f_j: H \to G_j\) is continuous then \(\ker f_j = f_j^{-1}(1)\) is open. Conversely, if \(\ker f_j\) is open then \(f_j^{-1}(g_j) = h \cdot \ker(f_j)\), where \(h \in f_j^{-1}(g_j)\) if nonempty, is open for all \(g_j \in G_j\). Thus \(f_j^{-1}(U)\) is open for all \(U \subseteq G_j\).
 \end{proof}
 
 \begin{proposition}
@@ -275,11 +275,11 @@ Therefore \(I\) is also an inverse system.
 \end{eg}
 
 \begin{definition}[linearly ordered inverse system]\index{inverse system!linearly ordered}
-  An inverse system is \emph{linearly ordered} if it is isomorphic to \(\N^{\text{op}}\).
+  An inverse system is \emph{linearly ordered} if it is isomorphic to a subset of \(\N^{\text{op}}\).
 \end{definition}
 
 \begin{proposition}
-  Let \(J\) be a countable inverse system. Then \(J\) has a linearly ordered cofinal system.
+  Let \(J\) be a countable inverse system with no initial element. Then \(J\) has a linearly ordered cofinal system.
 \end{proposition}
 
 \begin{proof}
@@ -454,9 +454,11 @@ Along the same line
 \end{proposition}
 
 \begin{proof}
+  Since \(\ker p_j\) form a neighbourhood basis of the identity,
   \[
-    \mathrm{RHS} = \bigcap_{N \normal_f G} XN = \bigcap p_j^{-1}(p_j(X)) = \mathrm{LHS}.
+    \overline X = \bigcap p_j^{-1}(p_j(X)) = \bigcap X \cdot \ker p_j \subseteq \bigcap_{N \normal_o G} XN.
   \]
+  Conversely if \(g \notin \overline X\) then can find a neighbourhood \(p_j^{-1}(g_j)\) of \(g\) that is disjoint from \(X\). Then \(g \notin X \cdot \ker p_j\).
 \end{proof}
 
 \begin{proposition}
@@ -539,6 +541,1516 @@ Along the same line
 \begin{proof}
   We may assume \(J\) and \(I\) are linearly ordered, i.e.\ isomorphic to \(\N^{\text{op}}\). Also we may assume \((G_j)_{j \in J}\) is surjective. Set \(I' = I\). Construct an increasing sequence \(k_n\) of natural numbers inductively as follows: the composition \(G \to H \to H_n\) is continuous so the kernel is open, hence containing a basic open subgroup \(\ker p_{k_n}^G\) of \(G\). As \(\ker p_{k_n}^G \subseteq \ker p_n^H f\), exists a quotient map \(f_n: G_{k_n} \to H_n\). Increase \(k_n\) if necessary so \(k_n > k_{n - 1}\). Set \(J' = \{k_n\}\).
 \end{proof}
+
+\subsection{Generators of profinite groups}
+
+\begin{definition}[topological generating set]\index{topological generating set}
+  Let \(G\) be a topological group. A subset \(S \subseteq G\) is a \emph{(topological) generating set} for \(G\) if \(\langle S\rangle\) is dense in \(G\). \(G\) is \emph{(topologically) finitely generated} (tfg) if it has a finite topological generating set.
+\end{definition}
+
+\begin{definition}
+  Let \(G\) be a topological group and \(S \subseteq G\). The \emph{closed subgroup generated by \(S\)} is the smallest closed subgroup of \(G\) which contains \(S\). Equivalently, it is the intersection of all closed subgroups which contain \(S\).
+\end{definition}
+
+\begin{ex}
+  The closed subgroup generated by \(S\) is \(\overline{\langle S\rangle}\). More generally, the closure of a subgroup is a subgroup.
+\end{ex}
+
+\begin{proposition}
+  If \(G\) is a profinite group, \(U \leq_o G\) then \(G\) is tfg if and only if \(U\) is tfg. 
+\end{proposition}
+
+\begin{proof}
+  If \(G = \overline{\langle S\rangle}\) for some finite \(S\) then \(U \cap \langle S\rangle\) is finitely generated. As \(U\) is open, \(U \cap \langle S\rangle\) is dense in \(U\).
+
+  Conversely if \(U = \overline{\langle S\rangle}\) and \(T\) is a set of coset representatives for \(U\) in \(G\), then \(S \cup T\) is a finite generating set for \(G\).
+\end{proof}
+
+\begin{proposition}
+  Let \(G = \varprojlim G_j\) be an inverse system of finite groups. Then \(S \subseteq G\) is a topological generating set if and only if \(p_j(S)\) generates \(p_j(G)\).
+\end{proposition}
+
+\begin{proof}
+  \(\langle S\rangle\) is dense if and only if \(p_j(G) = p_j(\langle S\rangle) = \langle p_j(S)\rangle\) for all \(j\).
+\end{proof}
+
+\begin{proposition}
+  \(\alpha \in \Z_p\) is a generator is and only if \(\alpha \ne 0 \pmod p\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\alpha = (a_n)\). \(\alpha\) is a generator if and only if \(a_n\) generates \(\Z/p^n\) for all \(n\), if and only if \(a_n\) is coprime to \(p^n\), if and only if \(a_n\) is coprime to \(p\).
+\end{proof}
+
+If \(\alpha\) is a generator then consider multiplication by \(\alpha\), \(f_\alpha: \Z_p \to \Z_p\). The image of \(f_\alpha\) contains \(\langle\alpha\rangle\) and hence \(\im f_\alpha \supseteq \overline{\langle \alpha\rangle} = \Z_p\) so exists \(\beta\) such that \(\alpha\beta = 1\). The converse is also true so we can identify the set of generators of \(\Z_p\) with \(\Z_p^\times\).
+
+\(\Z_p^\times\) is an open subset of \(\Z_p\) and for all \(n\) the natural map \(\Z_p^\times \to (\Z/p^n)^\times\) is surjective. Thus many elements of \(\Z\) are invertible in \(\Z_p\). For example to compute the inverse of \(2 \in \Z_3^\times\), we can compute its inverse in \((\Z/3^n)^\times\) for increasingly large \(n\) to get
+\[
+  2^{-1} = (\dots, 41, 14, 5, 2) \in \prod \Z/3^n
+\]
+so \(2^{-1} = (\dots, 81, 27, 5, 2) \in \Z_3\).
+
+\begin{proposition}
+  \(\alpha \in \hat \Z\) is a generator if and only if \(\alpha \ne 0 \pmod p\) for all \(p\).
+\end{proposition}
+
+By Chinese remainder theorem this set is \(\prod \Z_p^\times\), and thus can be identified with \(\hat \Z^\times\). It is a closed subset of \(\hat \Z\) and just as in the \(p\)-adic integer case, \(\hat \Z^\times \to (\Z/n)^\times\) is surjective for all \(n\).
+
+\begin{theorem}[Gaschutz's lemma for finite groups]\index{Gaschutz's lemma}
+  Let \(f: G \to H\) be a surjective homomorphism of finite groups. Assume that \(G\) has a generating set of size \(d\). Then for any generating set \(\{z_1, \dots, z_d\}\) of \(H\), there exists a generating set \(\{x_1, \dots, x_n\}\) of \(G\) such that \(f(x_i) = z_i\).
+\end{theorem}
+
+\begin{proof}
+  We formulate the theorem in terms of \emph{generating vectors}: \((x_1, \dots, x_d) \in G^d\) whose underlying set generates \(G\). \(f\) extends to \(f^d: G^d \to H^d\). Let \(y\) be a generating vector for \(H\) and let \(N_G(y)\) be the cardinality of the set of generating vectors \(x\) for \(G\) such that \(f^d(x) = y\). We show \(N_G(y)\) is independent of \(y\), and then the results follows.
+
+  Induction on \(|G|\). Let \(y\) be a generating vector for \(H\). Let \(\mathcal C\) be the set of \(\leq d\)-generated proper subgroups of \(G\). Then for all \(x\) such that \(f^d(x) = y\), either \(\langle x \rangle = G\) or \(\langle x\rangle \in \mathcal C\). Therefore
+  \[
+    |\ker f^d| = |\{x \in G^d: f^d(x) = y\}| = N_G(y) + \sum_{C \in \mathcal C} N_C(y).
+  \]
+  As \(\ker f^d\) is manifestly independent of \(y\), by induction hypothesis \(N_G(y)\) is independent of \(y\).
+\end{proof}
+
+\begin{theorem}[Gaschutz's lemma for profinite groups]\index{Gaschutz's lemma}
+  Let \(f: G \to H\) be a continuous surjective homomorphism of profinite groups. Assume \(G\) has a topological generating set of size \(d\). Then for every generating set \(\{z_1, \dots, z_d\}\) of \(H\), exists a generating set \(\{x_1, \dots, x_n\}\) of \(G\) such that \(f(x_i) = z_i\).
+\end{theorem}
+
+\begin{proof}
+  wlog \(G = \varprojlim_{j \in J} G_j, H = \varprojlim_{j \in J} H_j\) and \(f\) is induced by a morphism of inverse systems \(f_j: G_j \to H_j\) (see lemma below) and the inverse systems are surjective. Let
+  \[
+    X_j = \{x_j \text{ generating vector for } G_j: f_j(x_j) = p_j^H(z)\}
+  \]
+  which is nonempty. \((X_j)_{j \in J}\) forms an inverse system so
+  \[
+    \varprojlim X_j = \{x \in G^d: x \text{ generator of } G: f(x) = z\}
+  \]
+  is nonempty.
+\end{proof}
+
+\begin{lemma}
+  If \(G\) is tfg profinite group then \(G = \varprojlim_{j \in J} G_j\) where \(J\) is countable.
+\end{lemma}
+
+\begin{proof}
+  \(G\) has only countably many open normal subgroups of finite index.
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) be a profinite group and \(\mathcal U\) be a collection of open normal subgroups of \(G\) which form a neighbourhood basis at \(1\). Then \(G = \varprojlim_{U \in \mathcal U} G/U\).
+\end{proposition}
+
+\begin{proof}
+  There exists a homomorphism \(f: G \to \varprojlim_{U \in \mathcal U} G/U\) which is surjective since \(G\) surjects \(G/U\), and injective because \(\mathcal U\) is a neighbourhood basis: for all \(g \in G \setminus \{1\}\) exists \(V \normal_o G\) such that \(g \notin V\) and exists \(U \in \mathcal U\) such that \(U \subseteq V\).
+\end{proof}
+
+\begin{eg}
+  If \(G\) is tfg, take \(\mathcal U = \{U_n\}\) where
+  \[
+    U_n = \bigcap \{\text{open subgroup of \(G\) with index \(\leq n\)}\}
+  \]
+  which is open since the collection is finite.
+\end{eg}
+
+\section{Profinite completion}
+
+\subsection{Residual finiteness}
+
+Let \(\Gamma\) be an abstract group (usually finitely generated), \(\hat \Gamma = \varprojlim_{N \normal_f \Gamma} \Gamma/N\) its profinite completion, and a canonical map \(\iota = \iota_\Gamma: \Gamma \to \hat \Gamma\).
+
+We have seen for \(\Gamma = \Z\) this canonical map is an injection. This injection is sufficiently important that it deserves its own name.
+
+\begin{definition}[residually finite]\index{residually finite}
+  Let \(\Gamma\) be an abstract group. \(\Gamma\) is called \emph{residually finite} if for every \(\gamma \in \Gamma \setminus \{1\}\) there exists \(N \normal_f \Gamma\) such that \(\gamma \notin N\). Equivalently, \(\gamma\) is not in the kernel of \(\Gamma \to \Gamma/N\).
+\end{definition}
+
+\begin{proposition}
+  \(\Gamma\) is residually finite if and only if \(\iota_\Gamma: \Gamma \to \hat \Gamma\) is injective.
+\end{proposition}
+
+\begin{proposition}
+  A subgroup of a residually finite group is residually finite.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(\Delta \leq \Gamma\). If \(\gamma \in \Delta \setminus \{1\}\), exists \(N \normal_f \Gamma\) such that \(\gamma \notin N\). Then \(N \cap \Delta \normal_f \Delta\) and \(\gamma \notin N \cap \Delta\).
+\end{proof}
+
+A partial converse holds, provided the subgroup has finite index:
+
+\begin{proposition}
+  Let \(\Gamma\) be an abstract group, \(\Delta \leq \Gamma\) of finite index. Then if \(\Delta\) is residually finite so is \(\Gamma\).
+\end{proposition}
+
+\begin{proof}
+  Let \(\gamma \in \Gamma \setminus \{1\}\). If \(\gamma \notin \Delta\), take
+  \[
+    N = \mathrm{Core}_\Gamma(\Delta) = \bigcap_{g \in \Gamma} g\Delta g^{-1} \normal_f \Gamma
+  \]
+  and \(\gamma \notin N\). If \(\gamma \in \Delta\) then exists \(M \normal_f \Delta\) such that \(\gamma \notin M\). Then \(M \leq_f \Gamma\) so \(N = \mathrm{Core}_\Gamma(M) \normal_f \Gamma\) and \(\gamma \notin N\).
+\end{proof}
+
+\begin{proposition}
+  A direct product of residually finite groups is residually finite.
+\end{proposition}
+
+\begin{proof}
+  Example sheet 2.
+\end{proof}
+
+\begin{proposition}
+  All finitely generated abelian groups are residually finite.
+\end{proposition}
+
+\begin{remark}
+  Finite generation is necessary here. For example \(\Q\) has no nontrivial finite quotient.
+\end{remark}
+
+A source of residually finite groups is matrix group.
+
+\begin{proposition}
+  \(\SL_N(\Z)\) and \(\GL_N(\Z)\) are residually finite for all \(N\).
+\end{proposition}
+
+\begin{proof}
+  If \(A \in \GL_N(\Z)\), take a prime \(p\) greater than an entry of \(A\). Then \(A\) is not in the kernel of \(\GL_N(\Z) \to \GL_N(\Z/p)\).
+\end{proof}
+
+\begin{proposition}[Non-examinable][Mal'cev's theorem]
+  Let \(\Gamma\) be a finitely generated subgroup of \(\GL_N(K)\) (resp. \(\SL_N, \PSL_N\)) where \(K\) is a field. Then \(\Gamma\) is residually finite.
+\end{proposition}
+
+As a corollary, fundamental groups of surfaces are residually finite (as they are contained in \(\PSL_2(\R)\) by hyperbolic geometry).
+
+\begin{theorem}
+  Let \(G\) and \(H\) be tfg profinite groups. Then \(G \cong H\) if and only if the set of isomorphism types of continuous finite quotients of \(G\) and \(H\) are equal.
+\end{theorem}
+
+\begin{proof}
+  Let \(G_n\) be the intersection of all open normal subgroups of \(G\) of index \(\leq n\). Then \(G_n \normal_o G\) and \(G = \varprojlim G/G_n\). Define \(H_n\) similarly. Now \(G/G_n\) is a continuous finite quotient of \(G\) so it is also a continuous finite quotient of \(H\). Thus exists \(V \normal_o H\) such that \(G/G_n \cong H/V\). By definition the intersection of all normal subgroups of \(G/G_n\) of index \(\leq n\) is trivial, so upon taking their preimages under \(H \to H/V\) we have \(H_n \subseteq V\). Then
+  \[
+    |G/G_n| = |H/V| \leq |H/V_n|.
+  \]
+  By symmetry we have equality so \(H_n = V\) and thus \(G/G_n \cong H/H_n\).
+
+  To show there exists an isomorphism of inverse systems, let \(S_n\) be the set of isomorphisms \(G/G_n \to H/H_n\), which is nonempty. If \(f_n \in S_n\) then it takes normal subgroups of \(G/G_n\) of index \(\leq n - 1\) to those in \(H/H_n\), so defines an isomorphism \(G_{n - 1}/G_n \to H_{n - 1}/H_n\). Thus \(f_n\) descends to a map \(\phi_{n, n - 1}(f_n): G/G_{n - 1} \to H/H_{n - 1}\) which makes the following diagram commute
+  \[
+    \begin{tikzcd}
+      G/G_n \ar[r, "f_n"] \ar[d] & H/H_n \ar[d] \\
+      G/G_{n - 1} \ar[r, "\phi_{n, n - 1}(f_n)"] & H/H_{n - 1}
+    \end{tikzcd}
+  \]
+  \((S_n, \phi_{n, n - 1})\) is an inverse system of nonempty sets so \(\varprojlim S_n\) is nonempty and its element defines an isomorphism of inverse systems.
+\end{proof}
+
+As a corollary
+
+\begin{theorem}
+  Let \(\Gamma, \Delta\) be finitely generated abstract groups. Then \(\hat \Gamma \cong \hat \Delta\) if and only if the set of isomorphism types of finite quotients of \(\Gamma\) and \(\Delta\) are the same.
+\end{theorem}
+
+The following lemma characterises open subgroups of profinite completion
+
+% TODO: consider simplifying notations in the proof
+% merge the proof with basic correspondence
+% check if finitely generation is necessary
+
+\begin{lemma}
+  \label{lem:subgroup correspondence for profinite completion}
+  Let \(\Gamma\) be a finitely generated abstract group. Then the open subgroups of \(\hat \Gamma\) are precisely the subgroups \(\overline{\iota_\Gamma(\Delta)}\) for \(\Delta \leq_f \Gamma\).
+\end{lemma}
+
+\begin{proof}
+  If \(\Delta \leq_f \Gamma\) then \(\overline{\iota_\Gamma(\Delta)}\) is closed. It also has finite index so open: suppose \(\Gamma = \bigcup_{i = r}^r g_i \Delta\) is a finite (disjoint) union, then
+  \[
+    \hat \Gamma = \overline{\iota_\Gamma(\Gamma)}
+    = \overline{\bigcup \iota_\Gamma(g_i \Delta)}
+    = \bigcup \iota_\Gamma(g_i) \overline{\iota_\Gamma(\Delta)}
+  \]
+
+  Conversely, let \(U \leq_o \hat \Gamma\), then \(U \cap \iota_\Gamma(\Gamma)\) is dense in \(U\). Let \(\Delta = \iota_\Gamma^{-1}(U) = \iota_\Gamma^{-1}(U \cap \iota_\Gamma(\Gamma))\). Then \(\Delta \leq_f \Gamma\) and \(\iota_\Gamma(\Delta) = U \cap \iota_\Gamma(\Gamma)\).
+\end{proof}
+
+
+Question: how much can we learn about \(\Gamma\) from \(\hat \Gamma\), if \(\Gamma\) is residually finite?
+
+\begin{proposition}
+  If \(\hat \Gamma \cong \hat \Delta\), \(\Delta\) is abelian and \(\Gamma\) is residually finite then \(\Gamma\) is abelian.
+\end{proposition}
+
+\begin{proof}
+  If \(\Delta\) is abelian, all its quotients are abelian, so \(\hat \Delta\) is abelian. Then \(\iota_\Gamma: \Gamma \to \hat \Gamma = \hat \Delta\) shows \(\Gamma\) is abelian.
+\end{proof}
+
+\begin{proposition}
+  If \(G\) and \(H\) are finitely generated and \(\hat G \cong \hat H\) then \(G_{\mathrm{ab}} \cong H_{\mathrm{ab}}\). In particular if \(G\) is abelian and \(H\) is residually finite then \(G \cong H\).
+\end{proposition}
+
+\begin{proof}
+  If \(G\) and \(H\) have the same finite quotients then they have the same finite abelian quotients, which are precisely the finite quotients of abelianisation. Thus suffices to show we can recover a finitely generated abelian group \(G \cong \Z^r \times T\) from its finite quotient. Have
+  \[
+    r = \max\{k: G \surj (\Z/n)^k \text{ for all } n\}
+  \]
+  and \(T\) the largest finite abelian group such that \(G \surj (\Z/n)^r \times T\).
+\end{proof}
+
+\begin{eg}[Baumslag]
+  One does not have to go far from abelian groups to show this fails in general. Let \(\phi: C_{25} \to C_{25}\) be the automorphism \(t \mapsto t^6\) where \(t\) is a fixed generator. \(\phi\) has order \(5\). Form semidirect products \(G_1 = C_{25} \rtimes_\phi \Z, G_2 = C_{25} \rtimes_{\phi^2} \Z\). Write \(\Z = \langle s\rangle\) multiplicatively. Claim \(G_1 \ncong G_2\) but \(\hat G_1 \cong \hat G_2\).
+
+  \begin{proof}
+    Suppose \(\psi: G_2 \to G_1\) is an isomorphism. Then \(\psi(C_{25}) = C_{25}\) so \(\psi(t, 1) = (t^a, 1)\) where \(t^a\) generates \(C_{25}\). Let \(\psi(1, s) = (t^b, s^c)\). As \(s^c\) generates \(\Z\), \(c = \pm 1\). Now compute
+    \[
+      \psi((1, s) \bullet_2 (t, 1) \bullet_2 (1, s^{-1}))
+      = \psi(\phi^2(t), 1)
+      = (\phi^2(t^a), 1).
+    \]
+    On the other hand
+    \begin{align*}
+      (t^b, s^c) \bullet_1 (t^a, 1) \bullet_1 (\phi^{-c}(t^{-b}), s^{-c})
+      &= (t^b \phi^c(t^a), s^c) \bullet_1 (\phi^{-c} (t^{-b}), s^{-c}) \\
+      &= (t^b \phi^c(t^a) \phi^c \phi^{-c}(t^b), 1) \\
+      &= (\phi^c(t^a), 1)
+    \end{align*}
+    so \(\phi^2(t^a) = \phi^c(t^a)\) so \(2 = c \pmod 5\), absurd.
+
+    To show the profinite completions are isomorphic, note \(\hat G_1 = C_{25} \rtimes_\phi \hat \Z, \hat G_2 = C_{25} \rtimes_{\phi^2} \hat \Z\): let \(G_1 \to Q\) be a finite quotient. If the composition \(\Z \to G_1 \to Q\) has image of order \(m\), then \(f\) factors through the finite quotient \(C_{25} \rtimes_\phi (\Z/5m)\), so the quotients \(C_{25} \rtimes \Z/5m\) are cofinal in the finite quotients, so
+    \[
+      \hat G_1 = \varprojlim (C_{25} \rtimes \Z/5m) = C_{25} \rtimes \hat \Z.
+    \]
+    Same for \(G_2\).
+  \end{proof}
+
+  It is worth noting that if we try to compute the same expressions in the profinite completions, we can merely conclude \(c\) is a topological generator of \(\hat \Z\) --- but \(\hat \Z\) has many generators! In fact, for any \(c \in \hat \Z^\times\) such that \(c = 2 \pmod 5\) we can define \(\psi': \hat G_2 \to \hat G_1, (t^a, s^b) \mapsto (t^a, s^{bc})\) which is continuous and injective. As \(c\) is a generator, it is also surjective.
+\end{eg}
+
+Open problem: If \(G\) is finitely generated and residually finite and \(F\) is a finitely generated free group, does \(\hat F \cong \hat G\) imply \(F \cong G\)? Equivalently, does there exists a finitely generated residually finite group \(G\) and \(n \in \N\) such that a finite group \(Q\) is a quotient of \(G\) if and only if \(d(Q) \leq n\), where \(d\) is the minimum number of generators?
+
+\begin{proposition}
+  If \(F_1, F_2\) are both finitely generated free and \(\hat F_1 \cong \hat F_2\) then \(F_1 \cong F_2\).
+\end{proposition}
+
+\begin{proof}
+  Immediate.
+\end{proof}
+
+What about surface groups? They are fundamental groups of genus \(g\) orientable surfaces and has presentation
+\[
+  S_g = \langle a_1, b_1, \dots, a_g, b_g| [a_1, b_1] \cdots [a_g, b_g]\rangle.
+\]
+Can we tell them apart from free groups? If \(\hat S_g = \hat F_r\) then \(\Z^{2g} \cong \Z^r\) so \(r = 2g\). What next?
+
+\begin{proposition}[basic correspondence]
+  Let \(G_1, G_2\) be finitely generated residually finite groups. Suppose \(\hat G_1 \cong \hat G_2\). Then there is a bijection
+  \[
+    \psi: \{H \leq_f G_1\} \to \{H \leq_f G_2\}
+  \]
+  such that if \(K \leq_f H \leq_f G_1\) then
+  \begin{itemize}
+  \item \([H: K] = [\psi(H): \psi(K)]\).
+  \item \(K \normal H\) if and only if \(\psi(K) \normal \psi(H)\).
+  \item If \(K \normal H\) then \(H/K \cong \psi(H)/\psi(K)\).
+  \item \(\hat H \cong \widehat{\psi(H)}\).
+  \end{itemize}
+\end{proposition}
+
+Every finite-sheeted cover of a surface is a surface, so every finite index subgroup of \(S_g\) is a surface group so has abelianisation \(\Z^{2g'}\). However \(F_r\) has an index \(2\) subgroup, which is free of rank \(2(r - 1) + 1\) by Nielsen-Schreier. Thus from the corrspondence we deduce \(S_g\) is not free.
+
+The proposition itself follows from the correpondence between subgroups of \(G\) and \(\hat G\).
+
+\begin{proposition}
+  Let \(G\) be finitely generated residually finite and regard \(G\) as a subgroup of \(\hat G\). Then there is a bijection
+  \begin{align*}
+    \{H \leq_f G\} &\to \{U \leq_o \hat G\} \\
+    H &\mapsto \overline H \\
+    U \cap G &\mapsfrom U
+  \end{align*}
+  Furthermore if \(K \leq_f H \leq_f G\) then
+  \begin{itemize}
+  \item \([H : K] = [\overline H: \overline K]\),
+  \item \(K \normal H\) if and only if \(\overline K \normal \overline H\),
+  \item If \(K \normal H\) then \(H/K \cong \overline H/\overline K\),
+  \item \(\overline H \cong \hat H\).
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Surjectivity is done in \Cref{lem:subgroup correspondence for profinite completion}. To show injectivity enough to show \(\overline H \cap G = H\). Consider the action of \(G\) on \(G/H\), inducing a continuous \(\alpha: \hat G \to \mathrm{Sym}(G/H)\). Then \(g \in \mathrm{Stab}_{\hat G}(H)\), an open subgroup. If \(g \in G \setminus H\) then it is disjoint from \(H\), so \(g \notin \overline H\).
+
+  Let \(\{g_i\}\) be a set of coset representatives of \(H\) in \(G\). Then \(\hat G = \bigcup g_i \overline H\). This is a disjoint union since \(\overline H \cap G = H\), so \(\{g_i\}\) is also a coset representative of \(\overline H\) in \(\hat G\), so there is a natural bijection \(G/H \to \hat G/\overline H\).
+
+  If \(\overline K \normal \overline H\) then \(K = \overline K \cap G \normal \overline H \cap G = H\). \(H\) normalises \(K\) if and only if \(K\) lies in the kernel of the action \(H \to \mathrm{Sym}(H/K)\), so \(\overline K \subseteq \overline H\) so \(\overline K \normal \overline H\).
+
+  Any finite quotient \(K\) of \(H\) is the quotient of \(\overline H\) by the open subgroup \(\overline K\). Thus by universal property there is a continuous homomorphism \(\overline H \to \hat H\). It is injective since for any \(1 \ne h \in \overline H\), exists \(U\) open in \(\hat G\) such that \(h \notin U\). Then \(h\) is not mapped to identity under the composition \(\overline H \to \hat H \to \overline H/\overline H \cap U\).
+\end{proof}
+
+\begin{definition}[Hopf property]\index{Hopf property}
+  A (topological respectively) group \(G\) has the \emph{Hopf property} (or is Hopfian, or Hopf) if every (continuous respectively) surjective homomorphism \(G \to G\) is an isomorphism.
+\end{definition}
+
+Usually surjectivity is the easier condition to check --- if we know a set of generators then we only have to show that they lie in the image. On the other hand to show injectivity requires understanding the image of each element.
+
+\begin{proposition}
+  Let \(G\) be a tfg profinite group. Then \(G\) has the Hopf property.
+\end{proposition}
+
+\begin{proof}
+  Let \(G_n\) be the intersection of all open normal subgroups of \(G\) of index \(\leq n\). \(G_n\) is open and \(G = \varprojlim G/G_n\). If \(U \leq_o G\) with \([G: U] \leq n\) then because \(f\) is surjective, \([G: U] = [G: f^{-1}(U)] \leq n\) so \(G_n \leq f^{-1}(U)\). Thus \(G_n \subseteq \bigcap f^{-1}(U) = f^{-1}(G_n)\) so \(f(G_n) \subseteq G_n\), inducing a surjective map \(f_n: G/G_n \to G/G_n\). Finite groups are Hopfian so \(f_n\) is an isomorphism. The result thus follows.
+\end{proof}
+
+\begin{corollary}
+  If \(\Gamma\) is finitely generated and residually finite then \(\Gamma\) has the Hopf property.
+\end{corollary}
+
+\begin{proof}
+  Let \(f: \Gamma \to \Gamma\) be a surjection. Then \(f\) induces a unique map \(\hat f: \hat \Gamma \to \hat \Gamma\). \(\hat \Gamma\) is tfg and \(\hat f\) is surjective because its image is compact and contains a dense subset. The result then follows from the Hopf property of \(\hat \Gamma\).
+\end{proof}
+
+\begin{proposition}
+  Let \(G, H\) be (topological respectively) groups, \(G\) with Hopf property. If there exists (continuous respectively) surjections \(f: G \to H, f': H \to G\) then both \(f\) and \(f'\) are isomorphisms.
+\end{proposition}
+
+\begin{proof}
+  \(f' \compose f: G \to G\) is an isomorphism by Hopf property so \(f\) is injective and an isomorphism. Then \(f' = (f'\compose f) \compose f^{-1}\) is also an isomorphism.
+\end{proof}
+
+\begin{proposition}
+  Let \(\Gamma\) be a group and suppose exists a finite quotient \(Q\) of \(\Gamma\) such that \(d(\Gamma) = d(Q)\), where \(d\) is the minimum number of generators. Then for a free group \(F\), \(\hat F \ncong \hat \Gamma\) unless \(\Gamma\) is free, i.e.\ \(\Gamma \cong F\).
+\end{proposition}
+
+\begin{proof}
+  Let \(F\) be a free group with \(\hat F \cong \hat \Gamma\). Then \(Q\) is also a quotient of \(F\) so \(d(F) \geq d(Q) = d(\Gamma)\) so exists a surjection \(f: F \to \Gamma\), which induces a continuous surjection \(\hat f: \hat F \to \hat \Gamma\). By Hopf property \(\hat f\) is an isomorphism so \(f\) is injective.
+\end{proof}
+
+\begin{eg}
+  Non-Hopfian groups are not residually finite. For an example of non-Hopfian group, let
+  \[
+    \mathrm{BS}(n, m) = \langle a, t|a^nt^{-1} = a^m \rangle
+  \]
+  where \(n, m\) coprime. Define
+  \begin{align*}
+    f: \mathrm{BS}(n, m) &\to \mathrm{BS}(n, m) \\
+    y &\mapsto t \\
+    a &\mapsto a^n
+  \end{align*}
+  \(f\) is a surjection as it surjects the generators. But \(f\) is not injective: \(a\) does not commute with \(tat^{-1}\) (which we quote as a fact). But
+  \[
+    f([a, tat^{-1}]) = [a^n, ta^nt^{-1}] = [a^n, a^m] = 1
+  \]
+  so \(\mathrm{BS}(n, m)\) is not Hopfian. residually finite.
+\end{eg}
+
+\subsection{Finite quotients of free groups}
+
+\begin{theorem}
+  Free groups are residually finite.
+\end{theorem}
+
+There are two proofs. The first proof in online notes is non-examinable (and omitted). The proof actually shows that
+
+\begin{corollary}
+  For all \(p\), a free group \(F\) is residually \(p\)-finite. In particular \(F\) injects to its pro-\(p\) completion.
+\end{corollary}
+
+We record the second proof here, which is an algorithm to produce finite quotients.
+
+\begin{proof}
+  Let \(F\) be free on finite generating set \(S\). Let \(g \in F \setminus \{1\}\) be written as a reduced word \(s_1 \cdots s_n\). \(F = \pi_1 \bigvee_S S^1\). Write out \(g\) ``along a line'' to get a labelled graph \(Y\) and there is a continuous map \(Y \to X\). We seek to make \(Y\) a covering space of \(X\) by adding edges.
+
+  For each \(s \in S\), the number of vertices having an outgoing \(s\) edge is the same as those having an incoming one. Thus we can add \(s\) edges so that every vertex has exactly one \(s\) edge entering and one leaving. This gives a finite covering \(\overline Y\) of \(X\) so corresponds to a finite index subgroup \(\pi_1\overline Y\) of \(F\). \(g \notin \pi_1 \overline Y\) since it is not a loop.
+
+  For each \(s \in S\), following the edge \(s\) is a permutation of vertices to we have an action of \(F\) on vertices of \(Y\). \(g\) does not fix the initial vertex of \(Y\) as \(g\) is not contained in the finite index normal subgroup corresponding to the kernel of the action.
+\end{proof}
+
+\begin{theorem}[Marshall Hall's theorem]\index{Marshal Hall's theorem}
+  Let \(S \subseteq F\) be a finite subset. If \(y \notin \langle S\rangle\) then exists a finite group \(Q\) and a homomorphism \(f: F \to Q\) such that \(f(y) \notin f(\langle S\rangle)\).
+\end{theorem}
+
+\begin{corollary}
+  If \(S\) does not generate \(F\) then exists \(Q, f\) such that \(f(\langle S\rangle) \ne f(F)\).
+\end{corollary}
+
+\begin{remark}
+  Marshall Hall's theorem actually says that exists \(H \leq_f F\) such that \(S \subseteq H\) and \(H = \langle S \rangle * H'\).
+\end{remark}
+
+\begin{corollary}
+  \(S\) generates \(F\) if and only if \(S\) (topologically) generates \(\hat F\).
+\end{corollary}
+
+\begin{note}
+  As a result \(\overline{\langle S\rangle} \cap F = \langle S\rangle\), which generalises the basic correspondence, which holds only for finite index subgroup.
+\end{note}
+
+The proof uses monodromy action of the fundamental group. Let \(X\) be a wedge of circles whose fundamental group is \(F\). If we can find a finite covering space \(Y\) of \(X\) such that \(S\) is contained in the image of \(\pi_1Y\) then \(\langle S\rangle\) is contained in the stabiliser of a vertex of the covering action. Similar to the proof of residually finiteness of free groups, if \(y \notin \langle S\rangle\) then we can construct \(Y\) so that \(g\) does not lie in the stabiliser.
+
+To construct the covering space first let \(Y\) be the graph with a distinguished vertex and loops corresponding to words in \(S\) going around the vertex. We would like to add edges as before so that \(Y\) becomes a covering space. Here we encounter a problem as there might be more than one edge, say \(a\), coming from the distinguished vertex. We need to apply \emph{Stallings' fold}\index{Stalling' fold} to identify the repeated edges, and it is a fact that this procedure does not change the fundamental group.
+
+The formal proof is nonexaminable. A worked example can be found in the lecturer's online notes.
+
+\section{Pro-\(p\) groups}
+
+Recall that a \emph{pro-\(p\) group}\index{pro-\(p\) group} is an inverse limit of finite \(p\)-groups --- finite groups of order a power of \(p\). The \emph{pro-\(p\) completion}\index{pro-\(p\) completion} of \(\Gamma\) is
+\[
+  \hat \Gamma_{(p)} = \varprojlim_{\substack{N \normal \Gamma \\ \Gamma/N p\text{-group}}} \Gamma/N.
+\]
+For example \(\Z_p = \hat \Z_{(p)}\).
+
+\subsection{Generators of pro-\(p\) groups}
+
+\begin{definition}[Frattini subgroup]\index{Frattini subgroup}
+  Let \(G\) be a finite group. The \emph{Frattini subgroup} of \(G\) is
+  \[
+    \Phi(G) = \bigcap \{M: M \text{ maximal proper subgroup of } G\}.
+  \]
+\end{definition}
+
+\begin{proposition}
+  If \(f: G \to H\) is a surjective group homomorphism then \(f(\Phi(G)) \subseteq \Phi(H)\). In particular \(\Phi(G)\) is a characteristic normal subgroup\index{characteristic subgroup}, i.e.\ if \(f: G \to G\) is an automorphism then \(f(\Phi(G)) = \Phi(G)\).
+\end{proposition}
+
+\begin{proof}
+  Let \(M\) be a maximal proper subgroup of \(H\). Then \(f^{-1}(M)\) is a proper subgroup and it is maximal: if \(f^{-1}(M) \subseteq N \subseteq G\), assume \(f^{-1}(M) \ne N\). Then \(f(N) = H\) as \(M\) is maximal. Therefore \(G = N \cdot \ker f = N\) as \(N \supseteq \ker f\). Therefore \(\Phi(G) \subseteq f^{-1}(M)\), hence \(f(\Phi(G)) \subseteq M\). Taking intersection to get \(f(\Phi(G)) \subseteq \Phi(H)\).
+\end{proof}
+
+Note that we did not use finiteness anywhere.
+
+\begin{proposition}
+  Let \(G\) be a finite group. For \(S \subseteq G\) a subset, TFAE:
+  \begin{enumerate}
+  \item \(S\) generates \(G\).
+  \item \(S \Phi(G)\) generates \(G\).
+  \item \(S \Phi(G)/\Phi(G)\), the image of \(S\) in \(G/\Phi(G)\), generates \(G/\Phi(G)\).
+  \end{enumerate}
+\end{proposition}
+
+In other words, the elements of \(\Phi(G)\) are precisely the non-generators.
+
+\begin{proof}
+  Only \(3 \implies 1\) is nonobvious. Suppose \(S\) does not generate \(G\). Then \(\langle S\rangle\) is contained in some maximal proper subgroup. Here we used the crucial fact that \(G\) is finite. Since \(\Phi(G) \subseteq M\), \(M/\Phi(G)\) is a proper subgroup of \(G/\Phi(G)\). Thus \(S \Phi(G)/\Phi(G) \subseteq M/\Phi(G) \subsetneq G/\Phi(G)\).
+\end{proof}
+
+\begin{definition}
+  Let \(G\) be a group, \(H, K\) subgroups of \(G\) and \(m \in \Z\). Define
+  \[
+    HK = \{hk: h \in H, k \in K\}
+  \]
+  which is a priori a set, but is a subgroup if either \(H\) or \(K\) is normal, and is a normal subgroup if both \(H\) and \(G\) are.
+
+  Define the commutator to be
+  \[
+    [H, K] = \langle [h, k] = h^{-1}k^{-1}hk: h \in H, k \in K \rangle
+  \]
+  which is a subgroup and is a normal subgroup if both \(H\) and \(K\) are normal.
+
+  Finally define
+  \[
+    H^m = \langle h^m: h \in H\rangle.
+  \]
+  which is a subgroup.
+\end{definition}
+
+\begin{proposition}
+  Let \(G\) be a \(p\)-group. Then
+  \[
+    \Phi(G)
+    = [G, G] G^p
+    = \ker (G \to G_{\mathrm{ab}} \to G_{\mathrm{ab}}/p G_{\mathrm{ab}})
+    = \langle [g_1, g_2] g_3^p \rangle.
+  \]
+\end{proposition}
+
+Note that \(G_{\mathrm{ab}}/p G_{\mathrm{ab}}\) is an \(\F_p\)-vector space, so is isomorphic to \((\Z/p)^d\) for some \(d\). Thus \(G/\Phi(G) \cong \F_p^d\) where \(d = d(G)\) is the minimum size of a generating set of \(G\).
+
+\begin{proof}
+  Example sheet 2.
+\end{proof}
+
+\begin{definition}
+  Let \(G\) be a profinite group. Define
+  \[
+    \Phi(G) = \bigcap \{M: M \text{ maximal proper closed subgroups of } G\},
+  \]
+  where \(M\) maximal proper closed means that if \(N\) is a closed subgroup then \(M \subseteq N \subseteq G\) implies \(N = M\) or \(N = G\).
+\end{definition}
+
+\begin{proposition}
+  Any proper closed subgroup of a profinite group \(G\) is contained in a proper open subgroup, and hence is contained in a maximal proper closed subgroup, and maximal proper closed subgroups are open.
+\end{proposition}
+
+\begin{proof}
+  If \(H \leq_c G\) and \(G \ne H\) then write \(G = \varprojlim G_j\). Since \(H\) is not dense, exists \(j\) such that \(p_j(H) \ne p_j(G)\). Then \(p_j^{-1}(p_j(H))\) is open proper and contains \(H\).
+\end{proof}
+
+Similar to the finite case we have
+
+\begin{lemma}
+  If \(f: G \to H\) is a surjective continuous homomorphism of profinite groups then \(f(\Phi(G)) \subseteq \Phi(H)\).
+\end{lemma}
+
+\begin{proposition}
+  If \(S \subseteq G\) where \(G\) is a profinite group then TFAE
+  \begin{enumerate}
+  \item \(S\) is a tgs for \(G\).
+  \item \(S \Phi(G)\) is a tgs for \(G\).
+  \item \(S \Phi(G)/\Phi(G)\) is a tgs for \(G/\Phi(G)\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+  Let \((G_j)_{j \in J}\) be a surjective inverse system of finite groups. Let \(G = \varprojlim G_j\). Then
+  \[
+    \Phi(G) = \varprojlim \Phi(G_j).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let \(p_j: G \to G_j\) be the projection. Then \(p_j(\Phi(G)) \subseteq \Phi(G_j)\) for all \(j\). Hence \(\Phi(G) \subseteq \varprojlim \Phi(G_j)\).
+
+  Now let \(M\) be a maximal proper closed subgroup of \(G\). \(M\) is open so exists \(i\) such that \(\ker p_i \subseteq M\). Thus \(\ker p_j \subseteq M\) for all \(j \leq i\). Then \(p_j(M)\) is a maximal proper subgroup of \(G_j\) so \(p_j(M) \supseteq \Phi(G_j)\) for all \(j \leq i\). Thus
+  \[
+    M \supseteq \varprojlim_{j \leq i} \Phi(G_j) = \varprojlim \Phi(G_j).
+  \]
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) be a tfg pro-\(p\) group. Then
+  \[
+    \Phi(G) = \overline{[G, G] G^p}
+  \]
+  and \(G/\Phi(G) \cong \F_p^d\) where \(d = d(G)\).
+\end{proposition}
+
+Later we will see that \([G, G] G^p\) is in fact closed.
+
+\begin{note}
+  \(G/\Phi(G)\) is also denoted \(H_1(G, \F_p)\).
+\end{note}
+
+\begin{proof}
+  Write \(G = \varprojlim G_j\) as a surjective inverse limit of finite \(p\)-groups. Then \(\Phi(G) = \varprojlim [G_j, G_j] G_j^p\). If \(g_1, g_2, g_3 \in G\) then
+  \[
+    p_j([g_1, g_2]g_3^p) = [p_j(g_1), p_j(g_2)]p_j(g_3)^p \in [G_j, G_j] G_j^p
+  \]
+  so \(p_j(\overline{[G, G] G^p}) \subseteq [G_j, G_j] G_j^p\) for all \(j\) so \(\overline{[G, G] G^p} \subseteq \Phi(G)\). Now \(G/\overline{[G, G] G^p}\) is tfg abelian and every element has order \(p\). Therefore it is isomorphic to \(\F_p^d\) for some \(d\) (if \(a_1, \dots, a_d\) tgs of \(G/\overline{[G, G]G^p}\) then \(\{a_1^{n_1} \cdots a_d^{n_d}: n_1, \dots, n_d \in \{0, \dots, p - 1\}\}\) is a finite dense subgroup). Then since \(\Phi(\F_p^d) = \{0\}\), we find \(\Phi(G) \subseteq \overline{[G, G] G^p}\) as required.
+\end{proof}
+
+\begin{corollary}
+  Let \(f: G \to H\) be a continuous homomorphism of tfg pro-\(p\) groups. Then \(f(\Phi(G)) \subseteq \Phi(H)\) and hence there is an induced map \(f_*: G/\Phi(G) \to H/\Phi(H)\), which is a map of vector spaces over \(\F_p\). \(f\) is surjective if and only if \(f_*\) is surjective.
+\end{corollary}
+
+\begin{proof}
+  If \(g_1, g_2, g_3 \in G\) then
+  \[
+    f([g_1, g_2] g_3^p) = [f(g_1), f(g_2)] f(g_3)^p \in \Phi(H)
+  \]
+  so \(f(\Phi(G)) \subseteq \Phi(H)\).
+
+  \(f(G)\) generates \(H\) if and only if \(f(G) \Phi(H)/\Phi(H) = f_*(G/\Phi(G))\) generates \(H/\Phi(H)\). As the image of both are compact so closed, the result follows.
+\end{proof}
+
+\begin{eg}
+  Let \(F = \langle a, b\rangle\), the free group of rank 2 and \(G = \hat F_{(p)}\). Then \(G/\Phi(G) = \F_p^2\). Let \(S = \{a^4b^2a, ba^{-2}b\}\). Map \(S\) to \(G/\Phi(G)\) to test generation:
+  \begin{align*}
+    a^4b^2a &\mapsto
+              \begin{psmallmatrix}
+                5 \\
+                2
+              \end{psmallmatrix}
+    \\
+    ba^{-2}b &\mapsto
+               \begin{psmallmatrix}
+                 -2 \\
+                 2
+               \end{psmallmatrix}
+  \end{align*}
+  They generate \(\F_p^2\) if and only if \(\det
+  \begin{psmallmatrix}
+    5 & -2 \\
+    2 & 2
+  \end{psmallmatrix}
+  = 14 \ne 0\), if and only if \(p \ne 2, 7\).
+\end{eg}
+
+\subsection{Nilpotent groups}
+
+\begin{definition}
+  A commutator of length 2 is a commutator
+  \[
+    [g_1, g_2] = g_1^{-1}g_2^{-1}g_1g_2 = g_1^{-1}g_1^{g_2}.
+  \]
+  Define iteratively a commutator of length \(n\)
+  \[
+    [g_1, g_2, \dots, g_n] = [g_1, [g_2, \dots, g_n]].
+  \]
+\end{definition}
+
+\begin{definition}[lower central series]\index{lower central series}
+  The \emph{lower central series} of \(G\) is the following sequence of subgroups:
+  \begin{align*}
+    G_1 &= G \\
+    G_{n + 1} &= [G, G_n] = \langle [g, h]: g \in G, h \in G_n \rangle
+  \end{align*}
+  We sometimes denote \(G_n\) by \(\gamma_n(G)\).
+\end{definition}
+
+\begin{definition}[nilpotent group]\index{nilpotent group}
+  A group \(G\) is \emph{nilpotent of class \(c\)} if \(\gamma_{c + 1}(G) = 1\) but \(\gamma_c(G) \ne 1\).
+\end{definition}
+
+For a nilpotent group we have
+\[
+  G_1 = G \geq \gamma_2 \geq \dots \geq \gamma_{c + 1} = 1.
+\]
+
+\begin{note}
+  \(\gamma_c(G)\) is central in \(G\) and nilpotent of class \(1\) is the same as abelian.
+\end{note}
+
+\begin{proposition}
+  \(\gamma_n\) is \emph{fully characteristic}\index{fully characteristic subgroup} in the sense that if \(f: G \to H\) is a homomorphism then \(f(\gamma_n(G)) \subseteq \gamma_n(H)\).
+\end{proposition}
+
+\begin{proposition}
+  Subgroups and quotients of nilpotent groups of class \(c\) are nilpotent of class \(\leq c\).
+\end{proposition}
+
+\begin{proposition}
+  A finite \(p\)-group is nilpotent.
+\end{proposition}
+
+\begin{ex}
+  If \(R\) is a ring, then the set of upper trianglular \(n \times n\) matrices with \(1\) on the diagonal is a nilpotent group.
+\end{ex}
+
+\begin{definition}
+  For \(G\) is tfg pro-\(p\) group, the \emph{lower central \(p\)-series} is defined by
+  \begin{align*}
+    G_1 &= G \\
+    G_{n + 1} &= \overline{[G, G_n] G_n^p}
+  \end{align*}
+  \(\gamma_n(G) \subseteq G_n = \gamma_n^{(p)}(G)\).
+\end{definition}
+
+Why are we doing this?
+\begin{enumerate}
+\item \(G_n/G_{n + 1}\) are vector spaces over \(\F_p\).
+\item \(\gamma_n^{(p)}(G)\) is open in \(G\): \(\Phi(G) = \gamma_2^{(p)}(G)\) and \(\Phi(G_{n - 1}) \leq \gamma_n^{(p)}(G)\).
+\item \(\{\gamma_n^{(p)}(G)\}\) forms a neighbourhood basis for the identity: if \(N \normal_o G\), \(G/N\) is a finite \(p\)-group so \(\gamma_n^{(p)}(G/N)\) vanish for some \(n\). Therefore \(\gamma_n^{(p)}(G) \subseteq N\).
+\end{enumerate}
+
+\subsection{Invariance of topology}
+
+\begin{theorem}
+  \label{thm:homomorphism from pro-p group is continuous}
+  Let \(G\) be a tfg pro-\(p\) group, \(H\) a profinite group and \(f: G \to H\) a homomorphism. Then \(f\) is continuous.
+\end{theorem}
+
+\begin{corollary}
+  Let \(G\) be a tfg pro-\(p\) group. There is no other topology on \(G\) making it into a profinte group.
+\end{corollary}
+
+\begin{proof}
+  If \(\tau_1\) is our given topology and \(\tau_2\) is another topology such that \((G, \tau_2)\) is profinite, then the identity homomorphism from \(\tau_1\) to \(\tau_2\) is continuous so a homeomorphism.
+\end{proof}
+
+``The group structure determines the topology''.
+
+\Cref{thm:homomorphism from pro-p group is continuous} follows from
+
+\begin{theorem}
+  \label{thm:finite index subgroup of pro-p group is open}
+  Let \(G\) be a tfg pro-\(p\) group. Then any finite index subgroup of \(G\) is open.
+\end{theorem}
+
+\begin{proof}[Proof of \Cref{thm:homomorphism from pro-p group is continuous}]
+  Suppose \(f: G \to H\) is a homomorphism. Then for all \(U \normal_o H\), \(U\) has finite index so \(f^{-1}(H)\) is finite index and hence open in \(G\). Thus \(f\) is continuous.
+\end{proof}
+
+\begin{lemma}
+  Let \(G\) be a nilpotent group generated by \(a_1, \dots, a_d\). Then every \(g \in [G, G]\) can be written as
+  \[
+    g = [a_1, x_1] \cdots [a_d, x_d]
+  \]
+  for some \(x_1, \dots, x_d \in G\).
+\end{lemma}
+
+\begin{proof}
+  Induction on nilpotency class. \(c = 1\) is trivial. Assume true for nilpotency class \(c - 1\). In particular it is true for \(G/\gamma_c(G)\) so
+  \[
+    g = [a_1, x_1] \cdots [a_d, x_d] \cdot u
+  \]
+  for some \(u \in \gamma_c(G)\). We can write \(u\) as a product
+  \[
+    u = \prod_{i = 1}^N [g_i, v_i]
+  \]
+  where \(g_i \in G, v_i \in \gamma_{c - 1}(G)\). Recall the commutator relations
+  \begin{align*}
+    [xy, z] &= [x, z]^y [y, z] \\
+    [x, yz] &= [x, z] [x, y]^z
+  \end{align*}
+  which imply, for \(v \in \gamma_{c - 1}(G)\)
+  \begin{align*}
+    [a_ia_j, v] &= [a_i, v] [a_j v] \\
+    [a_i^{-1}, v] &= [a_i, v^{-1}] = [a_i, v]^{-1} \\
+    [a_i, v] [a_i, v] &= [a_i, v^2] \\
+    [a_i, w] [a_i, v] &= [a_i, vw]
+  \end{align*}
+  Now we can rewrite \(u\) in the form \([a_1, v_1'] \cdots [a_d, v_d']\) so
+  \[
+    g = [a_1, x_1] \cdots [a_d, x_d] [a_1, v_1'] \cdots [a_d, v_d']
+    = [a_1, x_1v_1'] \cdots [a_d, x_d v_d'].
+  \]
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) be a tfg pro-\(p\) group. Then \([G, G]\) is closed in \(G\).
+\end{proposition}
+
+\begin{proof}
+  Let \(a_1, \dots, a_d\) be a tgs for \(G\). Let
+  \[
+    X = \{[a_1, x_1] \cdots [a_d, x_d]: x_i \in G\}.
+  \]
+  \(X\) is the image of the the map
+  \begin{align*}
+    G^d &\to G \\
+    (x_1, \dots x_d) &\mapsto [a_1, x_1] \cdots [a_d, x_d]
+  \end{align*}
+  so is compact so closed. Obviously \(X \subseteq [G, G]\). Let \(g \in [G, G]\). Let \(G = \varprojlim G_j\) where \(p_j: G \to G_j\). Then \(p_j(g) \in [G_j, G_j]\). \(G_j\) is nilpotent as it is a \(p\)-group. By the previous lemma
+  \[
+    p_j(g) = [p_j(a_1), x_1] \cdots [p_j(a_d), x_d]
+  \]
+  for some \(x_1, \dots, x_d \in G_j\). Hence \(p_j(g) \in p_j(X)\) for all \(j\) so \(g \in \overline X = X\).
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) be a pro-\(p\) group and let \(K\) be a finite index subgroup. Then \([G: K]\) is a power of \(p\).
+\end{proposition}
+
+\begin{proof}
+  wlog assume \(K\) is normal (otherwise replace \(K\) by its core). Let \([G: K] = m = p^r m'\) where \(m'\) is coprime to \(p\). Consider \(X = \{g^m:g \in G\}\). Then \(X \subseteq K\) by Lagrange. \(X\) is closed so
+  \[
+    X = \overline X = \bigcap_{N \normal_o G} XN.
+  \]
+  We will show that \(g^{p^r} \in X \subseteq K\) for all \(g \in G\), and this shows \([G: K]\) divides \(p^r\) (?). Let \(N \normal_o G\) be open normal. Let \([G: N] = p^s\) for some \(s\). Let \(t = \max(r, s)\). Then \(g^{p^s} \in N\) for all \(g \in G\). But \((m, p^t) = p^r\) so exists \(a, b \in \Z\)  such that \(am + bp^t = p^r\). Then
+  \[
+    g^{p^r} = (g^a)^m \cdot (g^b)^{p^t} \in XN.
+  \]
+  This holds for all \(N \normal_o G\) so the result follows.
+\end{proof}
+
+\begin{proposition}
+  If \(G\) is a tfg pro-\(p\) group then \([G, G]G^p\) is closed in \(G\), hence equal to \(\Phi(G)\).
+\end{proposition}
+
+\begin{proof}
+  Let \(G^{\{p\}} = \{g^p: g \in G\}, G^p = \langle G^{\{p\}} \rangle\). As \(G/[G, G]\) is abelian,
+  \[
+    [G, G]G^p = [G, G]G^{\{p\}}
+  \]
+  and \([G, G]G^{\{p\}}\) is closed as it is the image of the map
+  \begin{align*}
+    [G, G] \times G &\to G \\
+    (x, g) &\mapsto xg^p
+  \end{align*}
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:finite index subgroup of pro-p group is open}]
+  Again wlog look at normal subgroups only. Suppose \(K \normal_f G\) is a counterexample with \([G: K]\) is minimal. Consider
+  \[
+    M = [G, G]G^p K \normal_f G
+  \]
+  which contains \(K\) as a finite index subgroup.
+
+  Now \(G/K\) is a non-trivial \(p\)-group so
+  \[
+    \Phi(G/K) = [G/K, G/K](G/K)^p,
+  \]
+  which is the image of \(M\) in \(G/K\). Hence \(M\) is a proper subgroup of \(G\) so either \(M = K\), so \(K \geq [G, G] G^p = \Phi(G)\) open, so \(K\) open, or \(M \ne K\), therefore by minimality \(K\) is open in \(M\) and \(M\) is open in \(G\) so \(K\) is open in \(G\).
+\end{proof}
+
+\subsection{Hensel's lemma \& \(p\)-adic arithmetic}
+
+We saw earlier that solving the equation \(ax = 1\) in \(\Z_p\) just depends on the image of \(a\) in \(\Z/p\). Hensel's lemma allows us to do so for all polynomials, and gives an algorithm for so.
+
+\begin{lemma}
+  Let \(f(x)\) be a polynomial with \(\Z_p\) coefficients. Then \(f\) has a root in \(\Z_p\) if and only if it has a root modulo \(\Z/p^k\) for all \(k\).
+\end{lemma}
+
+The aim is to reduce just to mod \(p\). To do so we use the method of \emph{Hensel lifting}\index{Hensel lifting}. As an example let \(p = 7\) and \(f(x) = x^2 - 2\). \(f(3) = 0 \pmod 7\) so to find a solution mod \(49\), consider the elements \(3 + 7a\), \(0 \leq a \leq 6\). Then
+\[
+  (3 + 7a)^2 = 9 + 7 \cdot 6a + 49 a^2 = 2 + 7 (1 + 6a) \pmod{49}
+\]
+so we only have to solve a linear equation since the square term vanishes. \(a = 1\), for example, gives a solution so \((3 + 7 \cdot 1)^2 = 100 = 2 \pmod{49}\). Next we can consider \(10 + 7^2 \cdot a \in \Z/343\) etc.
+
+\begin{proposition}[Hensel's lemma for square roots]
+  Let \(p \ne 2\) be prime. Suppose \(\lambda \in \Z_p\) is congruent to a nonzero square \(r_1^2 \pmod p\). Then exists a unique \(\rho \in \Z_p\) such that \(\rho^2 = \lambda\) and \(\rho = r_1 \pmod p\).
+\end{proposition}
+
+\begin{proof}
+  We construct a sequence \(r_k \in \Z\), unique modulo \(p^k\), such that
+  \begin{itemize}
+  \item \(r_{k + 1} = r_k \pmod{p^k}\),
+  \item \(r_k^2 = \lambda \pmod{p^k}\).
+  \end{itemize}
+  The first condition can be either interpreted as \((z_k)\) forming a Cauchy sequence in \(\Z_p\), or as \((r_k) \in \prod \Z/p^k\) compatible with transition functions. In either case it gives an elemnt \(\rho \in \Z_p\). The second condition then says \(\rho^2 = \lambda\).
+
+  Suppose we have constructed \(r_k\). Consider the elements \(r_k + ap^k\), \(0 \leq a < p\). Since \(r_k^2 = \lambda \pmod{p^k}\), we can write \(r_k^2 = \lambda + b_k p^k\) for some \(b_k \in \Z_p\). Then
+  \[
+    (r_k + p^ka)^2 = \lambda + p^kb_k + 2p^ka r_k + p^{2k} a^2
+    = \lambda + p^k(b_k + 2a r_k) \pmod{p^{k + 1}}
+  \]
+  Now modulo \(p\),
+  \[
+    b_k + 2ar_k = b_k + 2ar_1 \pmod p
+  \]
+  has a unique root for \(a \pmod p\), since \(2r_1 \ne 0 \pmod p\). Set \(r_{k + 1} = r_k + p^k a\).
+\end{proof}
+
+\begin{proposition}[Hensel's lemma]\index{Hensel's lemma}
+  Let \(f(x)\) be a polynomial with \(\Z_p\) coefficients and let \(K \in \N\). Let \(r \in \Z_p\) be such that \(f(r) = 0 \pmod{p^K}, f'(r) \ne 0 \pmod p\). Then exist a unique \(\rho \in \Z_p\) such that \(f(\rho) = 0\) and \(\rho = r \pmod{p^K}\).
+\end{proposition}
+
+This follows immediately from
+
+\begin{lemma}
+  For \(r, a \in \Z_p\) and \(k \geq 1\),
+  \[
+    f(r + p^ka) = f(r) + p^k af'(r) \pmod{p^{k + 1}}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  The statement is linear in \(f\) so enough to show for \(f(x) = x^n\). By binomial formula,
+  \begin{align*}
+    (r + p^ka)^n
+    &= r^n + np^ka r^{n - 1} + \sum_{i = 2}^n \binom{n}{i} p^{ki}a^i r^{n - i} \\
+    &= r^n + np^kar^{n - 1} \pmod{p^{k + 1}}
+  \end{align*}
+\end{proof}
+
+We can use adapt Hensel's lemma to matrix groups.
+
+\begin{definition}
+  Define filtrations
+  \begin{align*}
+    \GL_N^{(k)}(\Z_p)
+    &= \ker(\GL_N(\Z_p) \to \GL_N(\Z/p^k)) \\
+    &= \{I + p^k A: A \in \Mat_{N \times N}(\Z_p)\} \\
+    \SL_N^{(k)}(\Z_p)
+    &= \ker(\SL_N(\Z_p) \to \SL_N(\Z/p^k)) \\
+    &= \{I + p^k A: A \in \Mat_{N \times N}(\Z_p), \det(I + p^kA) = 1\}
+  \end{align*}
+\end{definition}
+
+\begin{proposition}
+  \(\GL_N^{(1)}(\Z_p)\) and \(\SL_N^{(1)}(\Z_p)\) are pro-\(p\) groups.
+\end{proposition}
+
+\begin{proof}
+  Write
+  \[
+    \GL_N^{(1)}(\Z_p) = \varprojlim_{k \in \Z} \GL_N^{(1)}(\Z/p^k)
+  \]
+  and \(\GL_N^{(1)}(\Z/p^k) = \{I + pA: A \in \Mat_{N \times N}(\Z/p^k)\}\) has order \(p^{N^2(k - 1)}\). \(\SL_N^{(1)}(\Z_p)\) is a closed subgroup of \(\GL_N^{(1)}(\Z_p)\) and is also a pro-\(p\) group.
+\end{proof}
+
+For the rest of the section we assume \(p\) is an odd prime.
+
+\begin{proposition}
+  The continuous function \(A \mapsto A^p\) maps \(\GL_N^{(k)}(\Z_p)\) onto \(\GL_N^{(k + 1)}(\Z_p)\). Same for \(\SL\).
+\end{proposition}
+
+``Every element in the latter has a \(p\)th root.''
+
+\begin{proof}
+  The proof is by Hensel-like sucessive approximations. Claim for all \(r \geq 1\), for all \(A\),
+  \[
+    (I + p^rA)^p
+    = I + p^{r + 1}A + p^{r + 2}(B)
+    = I + p^{r + 1}A \pmod{p^{r + 2}}
+  \]
+  where \(B\) is some polynomial of \(A\): for \(\ell \geq 2\) the term
+  \[
+    \binom{p}{p - \ell} p^{r\ell} A^{\ell}
+  \]
+  which always has a factor \(p^{r + 2}\).
+
+  Let \(I + p^{k + 1}A \in \GL_N^{(k + 1)}(\Z_p)\). We show inductively that: for all \(n \geq 1\), exist matrices \(B_n, E_n\) both expressible as polynomials in \(A\) such that
+  \begin{itemize}
+  \item \(B_{n + 1} = B_n \pmod{p^n}\),
+  \item \((I + p^k B_n)^p = I + p^{k + 1}A + p^{k + n + 1}E_n\).
+  \end{itemize}
+  Note that \(B_n, E_n\)'s commute and therefore we can apply binomial theorem. For \(n = 1\), choose \(B_1 = A\). Then
+  \[
+    (I + p^kA)^p = I + p^{k + 1}A + p^{k + 2}E_1.
+  \]
+  Inductively define \(B_{n + 1} = B_n - p^n E_n\),
+  \begin{align*}
+    (I + p^k B_{n + 1})^p
+    &= (I + p^k B_n - p^{k + n}E_n)^p \\
+    &= (I + p^kB_n)^p - p \cdot p^{k + n} E_n (I + p^k B_n)^{p - 1} + O(p^{k + n + 2}) \\
+    &= I + p^{k + 1}A + p^{k + n + 1}E_n - p^{k + n + 1} E_n (I + O(p^k)) + O(p^{k + n + 2}) \\
+    &= I + p^{k + 1}A + p^{k + n + 2}E_{n + 1}
+  \end{align*}
+  for some \(E_{n + 1}\). Thus the proposition holds for \(\GL\).
+
+  For \(\SL\), suffcies to show \(\det C^p = 1\) then \(\det C = 1\). See example sheet 3 Q10: \(\Z_p^\times = \Z_p \times C_{p - 1}\).
+\end{proof}
+
+\begin{lemma}
+  \[
+    (I + p^kA)(I + p^kB) = (I + p^k B)(I + p^kA) = I + p^k(A + B) \pmod{p^{k + 1}}.
+  \]
+\end{lemma}
+
+\begin{proposition}
+  For all \(k\),
+  \[
+    \Phi(\GL_N^{(k)}(\Z_p)) = \GL_N^{(k + 1)}(\Z_p)
+  \]
+  and
+  \[
+    GL_N^{(k)}/\GL_N^{(k + 1)} \cong \F_p^{N^2}.
+  \]
+\end{proposition}
+
+\begin{proof}
+  By the previous proposition
+  \[
+    \GL_N^{(k + 1)} \subseteq (\GL_N^{(k)})^p \subseteq \Phi(\GL_n^{(k)}).
+  \]
+  By the lemma \(\GL_N^{(k)}/\GL_N^{(k + 1)}\) is abelian and of exponent \(p\) so is isomorphic to \(\F_p^d\) for some \(d\). But we have already seen that \(|\GL_N^{(k)}/\GL_N^{(k + 1)}| = p^{N^2}\) so \(d = N^2\). As \(\Phi(\F_p^{N^2}) = 1\), \(\Phi(\GL_N^{(k)}) \subseteq \GL_N^{(k + 1)}\).
+\end{proof}
+
+\begin{corollary}
+  For any \(k\), the continuous map \(A \mapsto A^p\) induces an isomorphism
+  \[
+    \GL_N^{(k)}/\GL_N^{(k + 1)} \to \GL_N^{(k + 1)}/\GL_N^{(k + 2)}.
+  \]
+\end{corollary}
+
+\begin{theorem}
+  If \(H\) is a closed subgroup of \(\GL_N^{(1)}\) then \(d(H) \leq N^2\).
+\end{theorem}
+
+\begin{proof}
+  Suffices to show \(d(H) \leq N^2\) for any subgroup \(H\) of each finite group \(G = \GL_N^{(1)}/\GL_N^{(k + 1)}\) for each \(k\). For each \(H \leq G\), for \(m \leq k\), set
+  \begin{align*}
+    G_m &= \GL_N^{(m)}/\GL_N^{(k + 1)} \\
+    H_m &= H \cap G_m
+  \end{align*}
+  Induction to show \(d(H_m) \leq N^2\): for \(m = k\)
+  \[
+    H_k \leq G_k = \GL_N^{(k)}/\GL_N^{(k + 1)} \cong \F^{N^2}_p.
+  \]
+  Inductively, let \(e\) be the dimension of
+  \[
+    H_m/H_{m + 1} \leq G_m/G_{m + 1} \cong \F_p^{N^2}.
+  \]
+  Have a surjection \(H_m/\Phi(H_m) \to H_m/H_{m + 1}\) (?). Take \(e\) elements \(h_1, \dots, h_e\) of \(H_m\) which generate \(H_m/H_{m + 1}\). The \(p\)th-power map gives an isomorphism \(G_m/G_{m + 1} \cong G_{m + 1}/G_{m + 2}\) and hence \(h_1^p, \cdots, h_e^p\) are linearly independent in \(G_{m + 1}/G_{m + 2}\), thus linearly independent in \(H_{m + 1}/\Phi(H_{m + 1})\) (?). By extending to a basis, we can find \(y_1, \dots, y_{d - e}\) elements of \(H_{m + 1}\) such that \(H_{m + 1} = \langle h_1^p, \dots, h_e^p, y_1, \dots, y_{d - e} \rangle\). Then
+  \[
+    H_m = \langle h_1, \dots, h_e \rangle H_{m + 1} = \langle h_1, \dots, h_e, y_1, \dots, y_{d - e} \rangle
+  \]
+  so \(d(H_m) \leq d(H_{m + 1})\).
+\end{proof}
+
+\begin{corollary}[Non-examinable]
+  There is no closed nonabelian free pro-\(p\) subgroup in \(\GL_N(\Z_p)\).
+\end{corollary}
+
+\begin{proof}[Sketch proof]
+  \(\hat F_{(p)}\) has normal subgroups of index \(p^n\) for all \(n\). These subgroups, by a form of basic correspondence, are free pro-\(p\) of rank \(p^n(r - 1) + 1\), absurd.
+\end{proof}
+
+Compare this with the result that \(\SL_2(\Z)\) contains a nonabelian free subgroup.
+
+As a converse we have
+
+\begin{theorem}[Non-examinable]
+  If \(G\) is a pro-\(p\) group and exists \(R\) such that \(d(H) \leq R\) for all \(H \leq_c G\) then there exists an abelian normal subgroup \(A \cong \Z_p^e \leq G\) (\(e \leq R\)) such that \(G/A \embed \GL_R(\Z_p) \times F\) where \(F\) is a finite \(p\)-group.
+\end{theorem}
+
+\section{Cohomology of groups}
+
+\subsection{Group rings and chain complexes}
+
+Let \(G\) be an abstract group.
+
+\begin{definition}[group ring]\index{group ring}
+  The \emph{group ring} \(\Z G\) is the free abelian group with basis \(G\), with multiplication given on basis elements by \(g \cdot h = gh\).
+\end{definition}
+
+\(\Z G\) is in general noncommutative, but is commutative if \(G\) is abelian. The multiplicative identity is \(1 e = e\). Note that \(\Z G\) is not necessarily an integral domain, for example if \(G\) has torsion element.
+
+\begin{definition}[\(G\)-module]\index{\(G\)-module}
+  A \emph{\(G\)-module} is a \(\Z G\)-module.
+\end{definition}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item We only need to think about the action of basis elements.
+  \item A \(G\)-module \(M\) is trivial if \(g \cdot m = m\) for all \(g \in G, m \in M\).
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}
+  If \(M_1, M_2\) are \(G\)-modules, a morphism of \(G\)-modules or a \(G\)-linear map is a \(\Z G\)-module homomorphism \(M_1 \to M_2\).
+\end{definition}
+
+\begin{definition}
+  Let \(M_1, M_2\) be \(G\)-modules. The \emph{\(\Hom\)-group} \(\Hom_G(M_1, M_2)\) is the set of \(G\)-linear maps \(M_1 \to G_2\) with the structure of an abelian group.
+\end{definition}
+
+\begin{definition}[chain complex]\index{chain complex}
+  A \emph{chain complex of \(G\)-modules} is a sequence of \(G\)-modules and \(G\)-module maps
+  \[
+    \begin{tikzcd}
+      M_s \ar[r] & \cdots \ar[r] & M_n \ar[r, "d_n"] & \cdots \ar[r, "d_{t + 1}"] & M_t \ar[r] & \cdots \ar[r] & M_t
+    \end{tikzcd}
+  \]
+  such that \(d_n \compose d_{n + 1} = 0\) for all \(n\). Sometimes the chain complex is written as \((M_n, d_n)\).
+
+  The complex is \emph{exact at \(M_n\)} if \(\im d_{n + 1} = \ker d_n\). The complex is \emph{exact} if it is exact at \(M_n\) for all \(t < n < s\).
+
+  The \emph{homology} of the complex is the sequence of abelian groups \(H_S(M_\bullet) = \ker d_S, H_m(M_\bullet) = \ker d_n/\im d_{n + 1}, H_t(M_\bullet) = M_t/\im d_{t + 1}\).
+\end{definition}
+
+Revision on free/projective modules and free/projective resolution.
+
+\begin{eg}
+  Let \(X\) be a simplicial complex whose universal cover \(\widetilde X\) is contractible. let \(G = \pi_1X\) and let \(X_n\) be the set of \(n\)-simplices of \(X\). Now \(G\) acts on \(\widetilde X\) with quotient \(X\) and no fixed points. Thus the set of \(n\)-simplices of \(widetilde X\) is in bijection with \(G \times X_n\). The reduced simplicial chain complex of \(\widetilde X\) takes the form
+  \[
+    \begin{tikzcd}
+      \cdots \ar[r] & \Z G\{X_2\} \ar[r] & \Z G \{X_1\} \ar[r] & \Z G\{X_0\} \ar[r] & \Z \ar[r] & 0
+    \end{tikzcd}
+  \]
+  which is a free resolution of \(\Z\) by \(G\)-modules.
+\end{eg}
+
+\begin{definition}[group cohomology]\index{group cohomology}
+  Let \(F_\bullet\) be a projective resolution of \(\Z\) by \(G\)-modules. Let \(M\) be a \(G\)-module. Apply the functor \(\Hom_G(-, M)\) to get a chain complex
+  \[
+    \begin{tikzcd}
+      \Hom_G(F_0, M) \ar[r, "d^1"] & \Hom_G(F_1, M) \ar[r, "d^2"] & \cdots
+    \end{tikzcd}
+  \]
+  The \emph{\(n\)th cohomoogy group with coefficients in \(M\)} is then
+  \[
+    H^n(G, M) = \ker d^{n + 1}/\im d^n.
+  \]
+  Elements of \(\ker d^{n + 1}\) and \(\im d^n\) are called \emph{\(n\)-cocycles} and \emph{\(n\)-coboundaries} respectively.
+\end{definition}
+
+\begin{eg}
+  Let \(G = \Z = \langle t\rangle\) (writtern multiplicatively). Consider the chain complex
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \Z G \ar[r, "d_1"] & \Z G \ar[r, "\varepsilon"] & \Z \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where
+  \begin{align*}
+    \varepsilon(\sum n_g g) &= \sum n_g \\
+    d_1(x) &= x(t - 1)
+  \end{align*}
+  It is easy to check this is exact with perhaps the exception \(\ker \varepsilon \subseteq \im d_1\). To do so suppose \(x = \sum_{k = K}^L n_k t^k \in \ker \varepsilon\) so \(\sum n_k = 0\). Then
+  \begin{align*}
+    x &= n_L t^{L - 1} (t - 1) + n_L t^{L - 1} + \sum_{k = K}^{L - 1} n_k t^k \\
+      &= n_L t^{L - 1} (t - 1) + (n_L + n_{L - 1})t^{L - 2} (t - 1) + (n_L + n_{L - 1})t^{L - 2} + \sum_{k = K}^{L - 2} n_k t^k \\
+      &= \cdots \\
+      &= \text{ some expression } \cdot (t - 1) + \underbrace{(n_L + \dots + n_K) t^{K - 1}}_{= 0}
+  \end{align*}
+
+  Now let \(M\) be a \(G\)-module and apply \(\Hom_G(-, M)\) to get
+  \[
+    \begin{tikzcd}
+      \Hom_G(\Z G, M) \ar[r, "d^1"] & \Hom_G(\Z G, M) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Note that \(\Hom_G(\Z G, M) \cong M\) as abelian groups so we can rewrite the chain complex as
+  \[
+    \begin{tikzcd}
+      M \ar[r, "(t - 1) \cdot "] & M \ar[r] & 0
+    \end{tikzcd}
+  \]
+  so
+  \begin{align*}
+    H^0(G, M) &= \ker d^1 = \{m \in M: tm = m\} = M^G \\
+    H^1(G, M) &= M/\im d^1 = M/\langle (t - 1) M\rangle = M_G
+  \end{align*}
+  which are called \emph{invariants}\index{invariant} and \emph{coinvariants} of \(M\) respectively. \(H^n(G, M) = 0\) for \(n \geq 2\).
+\end{eg}
+
+\begin{proposition}
+  If \(G\) is a free group then \(H^n(G, M) = 0\) for all \(n \geq 2\).
+\end{proposition}
+
+\begin{proof}[Non-examinable]
+  Let \(X\) be a wedge of circles with \(\pi_1 X = G\). The universal ocver \(\widetilde X\) is a tree so contractible. The simplicial chain complex of \(\widetilde X\) gives a free resolution of \(G\)-modules of length \(1\).
+\end{proof}
+
+\begin{definition}[cohomological dimension]\index{cohomological dimension}
+  A group \(G\) has \emph{cohomological dimension} \(n\), written \(\mathrm{cd}(G) = n\), if \(H^m(G, M) = 0\) for all \(M\) for all \(m > n\) but exists \(M\) such that \(H^n(G, M) \ne 0\). If no such \(n\) exists then \(\mathrm{cd}(G) = \infty\).
+\end{definition}
+
+Thus free groups have cohomological dimension \(1\). One may ask if the converse is true. The answer is true, by a theorem of Stalling and Swan.
+
+We now investigate morphisms between complexes of \(G\)-modules, which should really be done in the context of homological algebra using derived categories. The proofs are omitted.
+
+\begin{definition}[chain map]
+  Let \((A_n, \alpha_n)\) and \((B_n, \beta_n)\) be chain complexes of \(G\)-modules. A \emph{chain map} is a sequence of \(G\)-linear maps \(f_n: A_n \to B_n\) such that
+  \[
+    f_{n - 1} \compose \alpha_n = \beta_n \compose f_n
+  \]
+  for all \(n\).
+\end{definition}
+
+\begin{proposition}
+  A chain map \((f_n): (A_n) \to (B_n)\) induces maps \(f_*: H_n(A_\bullet) \to H_n(B_\bullet)\).
+\end{proposition}
+
+\begin{corollary}
+  A \(G\)-linear map \(f: M \to N\) induces maps \(f_*: H^*(G, M) \to H^*(G, N)\).
+\end{corollary}
+
+\begin{proposition}
+  If
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & M_1 \ar[r] & M_2 \ar[r] & M_3 \ar[r] & 0
+    \end{tikzcd}
+  \]
+  is a short exact sequence of \(G\)-modules then there is a long exact sequence
+  \[
+    \begin{tikzcd}[column sep=small]
+      \cdots \ar[r] & H^n(G, M_1) \ar[r] & H^n(G, M_1) \ar[r] & H^n(G, M_3) \ar[r] & H^{n + 1}(G, M_1) \ar[r] & \cdots
+    \end{tikzcd}
+  \]
+\end{proposition}
+
+\subsection{Different projective resolutions}
+
+\begin{theorem}
+  The definition of \(H^n(G, M)\) does not depend on the choice of projective resolutions.
+\end{theorem}
+
+This follows from the homological algebra fact that projective resolutions are unique up to quasi-isomorphism. The proof is non-examniable \emph{except} for the definition of the chain map between two complexes.
+
+\subsection{Bar resolution}
+
+We define the so-called bar resolution\index{bar resolution} for the trivial \(G\)-module \(\Z\). Let \(G^{(n)}\) be the set of symbols \([g_1|g_2| \cdots |g_n]\), \(g_i \in G\). Let \(F_n = \Z G \{G^{(n)}\}\). Define
+\begin{align*}
+  d_0: F_0 &\to \Z \\
+  \sum n_g g &\mapsto \sum n_g
+\end{align*}
+i.e.\ the augmentation map. Define
+\begin{align*}
+  d_n: F_n &\to F_{n - 1} \\
+  [g_1| \cdots |g_n] &\mapsto g_1[g_2| \cdots | g_n] \\
+           &+ \sum (-1)^i [g_1| \cdots| g_ig_{i + 1}| \cdots | g_n] \\
+           &+ (-1)^n [g_1| \cdots |g_{n - 1}]
+\end{align*}
+
+\begin{proposition}
+  The bar resolution is a free resolution of \(\Z\) by \(G\)-modules.
+\end{proposition}
+
+\begin{proof}[Non-examinable]
+  \(F_n\) is \(G\)-isomorphic to \(\Z\{G^{n + 1}\}\) (with diagonal \(G\)-action) via \([g_1| \cdots |g_n] \mapsto (1, g_1, g_1g_2, \dots, g_1 \cdots g_n)\). The latter is a chain complex with boundary maps
+  \[
+    (g_0, \dots, g_n) \mapsto \sum (-1)^i (g_0, \dots, \hat g_i, \dots, g_n)
+  \]
+  and the complex is acyclic via the obvious chain homotopy
+  \[
+    (g_0, \dots, g_n) \mapsto (1, g_0, \dots, g_n).
+  \]
+\end{proof}
+
+Since different projective resolutions give the same cohomology groups we might reinterpret group cohomology in terms of bar resolution.
+
+\begin{definition}
+  The group of \emph{\(n\)th cochains} of \(G\) with coefficients in \(M\) is
+  \[
+    C^n(G, M) = \{G^n \to M\} = \Hom_G(F_n, M).
+  \]
+  The \emph{\(n\)th coboundary map} is
+  \begin{align*}
+    d^n: C^{n - 1}(G, M) &\to C^n(G, M) \\
+    \phi &\mapsto ((g_1, \dots, g_n) \mapsto g_1 \cdot \phi(g_2, \dots, g_n) \\
+                         &+ \sum (-1)^i \phi(g_1g_2, \dots, g_n) \\
+                         &+ (-1)^n \phi(g_1, \dots g_{n - 1})
+  \end{align*}
+  The \emph{\(n\)th cocycle} and \emph{\(n\)th coboundary} are
+  \begin{align*}
+    Z^n(G, M) &= \ker d^{n + 1} \\
+    B^n(G, M) &= \im d^n
+  \end{align*}
+  The \emph{\(n\)th cohomology} is defined to be
+  \[
+    H^n(G, M) = Z^n(G, M)/B^n(G, M).
+  \]
+\end{definition}
+
+We can write out the low-dimensional cocyles and coboundaries explicitly.
+\[
+  H^0(G, M) = \ker d^1 = \{m \in M: gm = m \text{ for all } g\} = M^G
+\]
+is called the set of \emph{invariants} of \(M\).
+\begin{align*}
+  \ker d^2 &= \{\phi: G \to M: \phi(gh) = g \phi(h) + \phi(g)\} \\
+  \im d^1 &= \{\phi: G \to M: \text{ exists } m \text{ such that } \phi(g) = (g - 1)m\}
+\end{align*}
+are called \emph{crossed homomorphisms} and \emph{principal crossed homomorphisms}.
+
+\begin{eg}
+  If \(M\) has trivial \(G\)-action then
+  \[
+    H^1(G, M) = \Hom(G, M).
+  \]
+\end{eg}
+
+\begin{proposition}
+  Let \(\alpha: G_1 \to G_2\) be a group homomorphism and \(M\) a \(G_2\)-module. Then there is a natural homomorphism \(\alpha^*: H^n(G_2, M) \to H^n(G_1, M)\).
+\end{proposition}
+
+\begin{proof}
+  Given \(f \in C^n(G_2, M)\), set \(\alpha^*f \in C^n(G_1, M)\) to be the composition \(f \compose \alpha^n\).
+\end{proof}
+
+Suppose we have a short sequence of groups
+\[
+  \begin{tikzcd}
+    1 \ar[r] & H \ar[r] & G \ar[r] & Q \ar[r] & 1.
+  \end{tikzcd}
+\]
+There is in general no long exact sequence on cohomologies in the style of the snake lemma.
+
+\begin{eg}
+  Let \(M = \Z\) (with trivial actions) and a short exact sequence \(0 \to \Z \to \Z^2 \to \Z \to 0\). Then the sequence
+  \[
+    \begin{tikzcd}[row sep=small]
+      H^2(\Z, \Z) \ar[r] \ar[d, equal] & H^2(\Z^2, \Z) \ar[r] & H^2(\Z, \Z) \ar[d, equal] \\
+      0 & & 0
+    \end{tikzcd}
+  \]
+  cannot be exact as \(H^2(\Z^2, \Z) \ne 0\).
+\end{eg}
+
+There is, however, \emph{some} exact sequences coming from spectral sequences, namely the five-term exact sequence. In low dimensions they can be described explicitly. We state the result below and sketch the proof.
+
+\begin{lemma}
+  Let \(H \normal G\) and let \(M\) be a \(G\)-module. Let \(G\) act on \(C^n(H, M)\) via
+  \[
+    (g \cdot \phi)(h_1, \dots, h_n) = g \phi(g^{-1} h_1g, \dots, g^{-1}h_n g).
+  \]
+  Then this gives an action of \(G\) on \(H^n(H, M)\). Moreover \(H\) acts trivially.
+\end{lemma}
+
+\begin{proof}
+  The first part is an easy computation:
+  \begin{align*}
+    (g \cdot d^n \phi)(h_1, \dots, h_n)
+    &= g d^n\phi(g^{-1}h_1g, \dots, g^{-1}h_ng) \\
+    &= g(g^{-1}h_1g) \phi(g^{-1}h_2g, \dots, g^{-1}h_ng) \\
+    &+ \sum (-1)^i g \phi(g^{-1}h_1g, \dots, g^{-1} h_ih_{i + 1} g, \dots, g^{-1} h_n g) \\
+    &+ (-1)^n g \phi(g^{-1}h_1g, \dots, g^{-1}h_{n - 1}g) \\
+    &= h_1 (g \cdot \phi)(h_2, \dots, h_n) \\
+    &+ \sum (-1)^i d (g \cdot \phi) (h_1, \dots, h_i h_{i + 1}, \dots, h_n) \\
+    &+ (-1)^n d(g \cdot \phi) (h_1, \dots, h_{n - 1}) \\
+    &= (d^n(g \cdot \phi))(h_1, \dots, h_n)
+  \end{align*}
+  
+  To show \(H\) acts trivially, we show if \(h \in H\), \(\phi \in Z^n(G, M)\) then \(h \cdot \phi - \phi \in \im d^n\). Induction on \(n\). \(n = 1\),
+  \[
+    0 = (d^2 \phi)(h_1, h_2) = h_1\phi(h_2) - \phi(h_1h_2) + \phi(h_1)
+  \]
+  so
+  \[
+    \phi(h_1h_2) = h_1\phi(h_2) + \phi(h_1)
+  \]
+  then
+  \begin{align*}
+    (h \cdot \phi - \phi)(h_1)
+    &= (h \cdot \phi)(h_1) - \phi(h_1) \\
+    &= h \phi(h^{-1}h_1h) - \phi(h_1) \\
+    &= h(h^{-1} \phi(h_1h) + \phi(h^{-1})) - \phi(h_1) \\
+    &= h_1\phi(h) + \phi(h_1) + h\phi(h^{-1}) - \phi(h_1) \\
+    &= h_1\phi(h) - \phi(h) \\
+    &= (h_1 - 1) \phi(h) \in \im d^1
+  \end{align*}
+  The induction process is another messy calculation and is left as an exercise.
+\end{proof}
+
+Note if \(M\) has trivial action and \(\phi \in C^1(H, M)\) then
+\[
+  (g \cdot \phi)(h) = \phi(g^{-1}hg)
+\]
+so \(\phi \in H^1(H, M)^G\) if and only if \(\phi(h) = \phi(g^{-1}gh)\) for all \(g \in G, h \in H\). Such a \(\phi: H \to M\) is called a \(G\)-invariant homomorphism.
+
+\begin{theorem}[inflation-restriction exact sequence]\index{inflation-restriction exact sequence}
+  Let \(H \normal G\) and \(Q = G/H\). Let \(M\) be a \(G\)-module. Then there is an exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H^1(Q, M^H) \ar[r] & H^1(G, M) \ar[r] & H^1(H, M)^G \ar[dll, out=0, in=180, overlay] \\
+      & H^2(Q, M^H) \ar[r] & H^2(G, M)
+    \end{tikzcd}
+  \]
+\end{theorem}
+
+Note that \(H^1(H, M)^G = H^1(H, M)^Q\) by the previous lemma.
+
+\begin{proof}[Non-examinable]
+  We only define the maps appearing in the sequence. This is done via the restriction map
+  \begin{align*}
+    H^n(G, M) &\to H^n(H, M)^G \\
+    \phi &\mapsto \phi|_{H^n}
+  \end{align*}
+  the inflation map
+  \begin{align*}
+    H^n(Q, M^H) &\to H^n(G, M) \\
+    \phi &\mapsto \phi \compose q^n
+  \end{align*}
+  where \(q: G \to Q\), and the transgression map \(Tg: H^1(H, M) \to H^2(Q, M^H)\) defined as follow: choose a set-theoretic section \(s: Q \to G\), i.e.\ a transversal, with \(s(1) = 1\). Define
+  \begin{align*}
+    \rho: G &\to H \\
+    g &\mapsto g \cdot s(gH)^{-1}
+  \end{align*}
+  If \(\phi: H \to M\) is a \(Q\)-invariant cocycle, define
+  \begin{align*}
+    Tg(\phi): G^2 &\to M \\
+    (g_1, g_2) &\mapsto \phi(\rho(g_1)\rho(g_2)) - \phi(\rho(g_1g_2))
+  \end{align*}
+  \(Tg(\phi)\) descends to \(Q^2 \to M\).
+\end{proof}
+
+\begin{corollary}[Hopf formula]\index{Hopf formula}
+  Let \(F\) be free, \(R \normal F\) and \(Q = F/R\). If \(A\) is abelian with trivial \(F\)-action then
+  \[
+    H^2(Q, A) \cong \frac{\{\text{\(F\)-invariant homomorphisms } R \to A\}}{\{\text{restrictions of homomorphisms } F \to A\}}.
+  \]
+\end{corollary}
+
+\begin{eg}
+  Suppose \(Q = \langle x_1, \dots, x_d| r_1, \dots, r_n \rangle\) is a presentation, so \(F = F \{x_1, \dots, x_d\}, R = \langle\langle r_1, \dots, r_m \rangle\rangle\). Then
+  \begin{align*}
+    d(H^1(Q, \Z)) &\leq d \\
+    d(H^2(Q, \Z)) &\leq m
+  \end{align*}
+\end{eg}
+
+\subsection{Cohomology and group extensions}
+
+Let \(E\) be a group, with an abelian normal subgroup \(M\). Let \(G = E/M\). Such an \(E\) is called an \emph{extension of \(G\) by \(M\)}\index{extension}. Two extensions are \emph{equivalent}\index{extension!equivalent} if there is a commutative diagram of homomorphisms
+\[
+  \begin{tikzcd}
+    1 \ar[r] & M \ar[r] \ar[d, equal] & E \ar[r] \ar[d] & G \ar[r] \ar[d, equal] & 1 \\
+    1 \ar[r] & M \ar[r] & E' \ar[r] & G \ar[r] & 1
+  \end{tikzcd}
+\]
+
+\begin{lemma}
+  Equivalent extensions are isomorphic as groups.
+\end{lemma}
+
+\begin{proof}
+  Same as five lemma.
+\end{proof}
+
+Note that \(M\) comes with the structure of a \(G\)-module: the conjugation action of \(E\) on \(M\) descends to a \(G\)-action. If this action is trivial, the extension is called a \emph{central extension}\index{extension!central}.
+
+Given a \(G\)-module \(M\), the group extension problem is concerned about the classification of the extensions. We can always form the \emph{semidirect product} \(E = M \rtimes G\). It is sometimes also called a \emph{split extension}\index{extension!split}.
+
+\begin{definition}[splitting]
+  The \emph{splitting} of an extension \(E\) is a group homomorphism \(G \to E\) that is a section to \(E \to G\).
+\end{definition}
+
+\begin{proposition}
+  Extensions which have a splitting are equivalent to \(M \rtimes G\).
+\end{proposition}
+
+\begin{proof}
+  Set \(M \rtimes G \to E, (m, g) \mapsto i(m) s(g)\) where \(s\) is a section of \(E \to G\).
+\end{proof}
+
+Let \(E\) be an arbitrary extension of \(G\) by \(M\). Let \(s: G \to E\) be a set-theoretic section with \(s(1) = 1\). To measure how far \(s\) is from being a homomorphism, consider the function
+\[
+  \phi(g_1, g_2) = s(g_1) s(g_2) s(g_1g_2)^{-1}.
+\]
+Then \(s\) is a homomorphism if and only if \(\phi\) is constant. The image of \(\phi\) is in \(M\) so \(\phi: G^2 \to M\) is an element of \(C^2(G, M)\). Claim that in fact \(\phi \in Z^2(G, M)\).
+
+\begin{proof}
+  We compute \(s(g_1)s(g_2)s(g_3)\) in two ways:
+  \begin{align*}
+    s(g_1)s(g_2)s(g_3)
+    &= \phi(g_1, g_2) s(g_1g_2) s(g_3) \\
+    &= \phi(g_1, g_2) \phi(g_1g_2, g_3) s(g_1g_2g_3)\\
+    s(g_1)s(g_2)s(g_3)
+    &= s(g_1) \phi(g_2, g_3) s(g_2g_3) \\
+    &= s(g_1) \phi(g_2, g_3) s(g_1)^{-1} s(g_1) s(g_2g_3) \\
+    &= s(g_1) \phi(g_2, g_3) s(g_1)^{-1} \phi(g_1, g_2g_3) s(g_1g_2g_3)
+  \end{align*}
+  so
+  \[
+    \phi(g_1, g_2) \phi(g_1g_2, g_3) = s(g_1) \phi(g_2, g_3) s(g_1)^{-1} \phi(g_1, g_2g_3).
+  \]
+  Recognising the first three terms on RHS as the action of \(G\) on \(M\) and convert to additive notation in \(M\), we get
+  \[
+    \phi(g_1, g_2) + \phi(g_1g_2, g_3) = g_1 \phi(g_2, g_3) + \phi(g_1, g_2, g_3).
+  \]
+\end{proof}
+
+In addition \(\phi\) is a \emph{normalised cocycle}\index{normalised cocycle}, i.e.
+\[
+  \phi(1, g) = \phi(g, 1) = 0.
+\]
+
+If we had chosen a different section \(s': G \to E\), consider \(\psi(g) = s'(g) s(g)^{-1}\) so \(\psi \in C^1(G, M)\). Have
+\begin{align*}
+  s'(g_1)s'(g_2)
+  &= \psi(g_1)s(g_1) \psi(g_2)s(g_2) \\
+  &= \psi(g_1)s(g_1) \psi(g_2)s(g_1)^{-1} s(g_1)s(g_2) \\
+  &= \psi(g_1)s(g_1)\psi(g_2)s(g_1)^{-1} \phi(g_1, g_2) s(g_1g_2) \\
+  &= \psi(g_1)s(g_1)\psi(g_2)s(g_1)^{-1} \phi(g_1, g_2)
+\end{align*}
+and a comparison with \(s'(g_1)s'(g_2) = \phi'(g_1, g_2)s'(g_1g_2)\) shows \([\phi] \in H^2(G, M)\) is well-defined. This shows part of
+
+\begin{theorem}
+  Let \(G\) be a group and \(M\) a \(G\)-module. There exists a bijection
+  \[
+    \{\text{equivalence classes of extensions of \(G\) by \(M\)}\} \longleftrightarrow H^2(G, M).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let to construct the inverse map. Let \([\phi] \in H^2(G, M)\) where \(\phi\) is a \emph{normalised cocycle}. Define a group structure on the set \(M \times G\) by
+  \[
+    (m_1, g_1) \cdot (m_2, g_2) = (m_1 + g_1 \cdot m_2 + \phi(g_1, g_2), g_1g_2).
+  \]
+  By the assumption on \(\phi\), this defines a group structure with identity \((0, 1)\) and the inverse of \((m, g)\) is \((-g^{-1} \cdot (m + \phi(g, g^{-1})), g^{-1})\). This is an extension.
+
+  If we choose a different normalised cocycle \(\phi'\) such that \(\phi - \phi' = d^2 \psi\), then the obvious map \(E_\phi \to E_{\phi'}, (m, g) \mapsto (m + \psi(g), g)\) is an equivalence of extensions.
+
+  It is an exercise to check the two maps are inverses to each other.
+\end{proof}
+
+One result that is used in the proof is
+
+\begin{lemma}
+  Every cohomology class is represented by some normalised cocycle.
+\end{lemma}
+
+\begin{proof}
+  Let \(\phi \in Z^2(G, M)\). Let \(\psi(g) = \phi(1, g)\). Then \(\phi - d^2\psi\) is normalised:
+  \begin{align*}
+    (\phi - d^2\psi)(1, g)
+    &= \phi(1, g) - (\phi(1, g) - \phi(1, g) + \phi(1, 1)
+      = \phi(1, g) - \phi(1, 1) \\
+    (\phi - d^2\psi)(g, 1)
+    &= \phi(g, 1) - g \phi(1, 1)
+  \end{align*}
+  and they both vanish since \(\phi\) is a cocycle.
+\end{proof}
+
+
 
 
 

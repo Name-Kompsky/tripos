@@ -13,14 +13,16 @@
 \renewcommand*{\P}{\mathbb{P}}
 \newcommand{\sh}[1]{\mathcal{#1}} % sheaf
 \renewcommand*{\O}{\mathcal{O}}
+\let\Sp\Relax
+\DeclareMathOperator{\Sp}{Sp} % maximum spectrum
+\DeclareMathOperator{\Max}{Max}
+\DeclareMathOperator{\Spf}{Spf}
 
 \begin{document}
 
 \input{titlepage}
 
 \tableofcontents
-
-\setcounter{section}{-1}
 
 \section{Introduction}
 
@@ -79,9 +81,9 @@ We can rescale \(\Lambda\) to get normalised lattice \(\frac{1}{\tau_1}\Lambda =
   \C/\Lambda &\to \C^*/q^\Z \\
   z &\mapsto e^{2\pi i z}
 \end{align*}
-Hence we have \(\C\)-analytic a isomorphism \(E(\C) \cong \C^*/q^\Z\) (multiplicative parameterisation). Conversely for each \(q \in \C, |q| < 1\), there exists an elliptic curve \(E_q\) such that \(E_q(\C) \cong \C^*/q^\Z\).
+Hence we have \(\C\)-analytic an isomorphism \(E(\C) \cong \C^*/q^\Z\) (multiplicative parameterisation). Conversely for each \(q \in \C, |q| < 1\), there exists an elliptic curve \(E_q\) such that \(E_q(\C) \cong \C^*/q^\Z\).
 
-Tate curves: let \(E/\Q_p\) be an elliptic curve. Then the ``additive uniformisation'' cannot work since \(\Q_p\) has no non-trivial discrete subgroups (exercise). But if we consider \(\Q_p^*\), there are a lot of discrete subgroups, e.g.\ \(q \in K^*\) with \(|q| < 1\) gives discrete a discrete subgroup \(q^\Z\).
+Tate curves: let \(E/\Q_p\) be an elliptic curve. Then the ``additive uniformisation'' cannot work since \(\Q_p\) has no non-trivial discrete subgroups (exercise). But if we consider \(\Q_p^*\), there are a lot of discrete subgroups, e.g.\ \(q \in K^*\) with \(|q| < 1\) gives a discrete subgroup \(q^\Z\).
 
 \begin{theorem}[Tate]
   Let \(K\) be a non-archimedean field and \(q \in \Q_p^*, |q| < 1\). Then
@@ -92,7 +94,7 @@ Tate curves: let \(E/\Q_p\) be an elliptic curve. Then the ``additive uniformisa
 \end{theorem}
 
 \begin{ex}[Nagell-Lutz]
-  If \(E/\Q\) has split multiplicative reduction reduction at \(p\) (\(|j(E_q)| > 1\)) then \(E(\Q)_{\operatorname{tors}}\) is finite.
+  If \(E/\Q\) has split multiplicative reduction at \(p\) (\(|j(E_q)| > 1\)) then \(E(\Q)_{\operatorname{tors}}\) is finite.
 \end{ex}
 
 \begin{theorem}[Tate uniformisation]
@@ -129,7 +131,7 @@ Another more series problem: identity theorem does not hold. For example
 
 Solution:
 \begin{enumerate}
-\item Tate ``rigidity'' analytic notion: analytic functions should have globally a power series expansion if they are defined on a ball. In particular on \(B = B(0, 1)\), \(f = \sum a_I x^I\) is analytic if and only if \(\lim |a_I| = 0\). They are called \emph{restricted power series}, or \emph{strictly convergent power series}. We then obtain \(T_n\), the Tate algebra. The is the analogue of \(k[x_1, \dots, x_n]\) in algebraic geometry.
+\item Tate's ``rigidity'' analytic notion: analytic functions should have globally a power series expansion if they are defined on a ball. In particular on \(B = B(0, 1)\), \(f = \sum a_I x^I\) is analytic if and only if \(\lim |a_I| = 0\). They are called \emph{restricted power series}, or \emph{strictly convergent power series}. We then obtain \(T_n\), the \emph{Tate algebra}\index{Tate algebra}. The is the analogue of \(k[x_1, \dots, x_n]\) in algebraic geometry.
 \item Berkovich spaces/adic spaces (Huber). More ``schematic'' approach. We are going to focus mostly on the latter after rigid analytic varieties and not so much on Berkovich spaces. Adic spaces are also the framework for perfectoid spaces.
 \end{enumerate}
 
@@ -151,7 +153,7 @@ Solution:
 
 Define the \emph{Gauss norm}\index{Gauss norm} on \(T_n\)
 \[
-  \norm*{\sum c_I x^i} = \sup_I \{|c_I|\} = \max_I \{|c_I|\}.
+  \norm*{\sum c_I x^I} = \sup_I \{|c_I|\} = \max_I \{|c_I|\}.
 \]
 
 It is clear that \(\norm f = 0\) if and only if \(f = 0\), \(\norm{cf} = |c| \norm f\), and \(\norm{f + g} \leq \max\{\norm f, \norm g\}\). What is not so obvious is that
@@ -177,6 +179,7 @@ Therefore \(\norm \cdot\) on \(T_n\) is a \(K\)-algebra norm.
 Thus the Tate algebra \(T_n\) is a \(K\)-Banach algebra.
 
 \begin{lemma}
+  \label{lem:units in Tate algebra}
   For \(f\) normalised, i.e.\ \(\norm f = 1\), TFAE:
   \begin{enumerate}
   \item \(f\) is a unit in \(\mathcal O_{T_n}\).
@@ -190,7 +193,7 @@ Thus the Tate algebra \(T_n\) is a \(K\)-Banach algebra.
   \(1 \iff 2\) by multiplicativity of norm. \(1 \implies 3\) by using units in a polynomial ring are precisely the non-zero constants. \(3 \implies 4\) is clear. \(4 \implies 1\): we may assume \(f(0) = 1\) so \(f = 1 - g\), \(\norm g < 1\) and \(\sum g^i\) is an inverse.
 \end{proof}
 
-We would like to model rigid analytic space using \(T_n\) as local models. In complex geometry we derive basic properties of the local ring of analytic functions using Weierstrass preparation and division. We are going to do the same for Tate algebras.
+We would like to construct rigid analytic space using \(T_n\) as local models. In complex geometry, we used Weierstrass preparation and division to derive basic properties of the local ring of analytic functions, such as being locally factorial and satisfying Nullstellensatz. We are going to do the same for Tate algebras.
 
 \begin{definition}[distinguished power series]\index{distinguished power series}
   A power series \(f = \sum g_i x_n^i\) where \(g_i \in T_{n - 1}\) is \emph{distinguished} in \(x_n\) of degree \(d\) if
@@ -201,11 +204,11 @@ We would like to model rigid analytic space using \(T_n\) as local models. In co
 \end{definition}
 Thus if \(f\) is normalised then it is distinguished in \(x_n\) of degree \(d\) if and only if \(\overline f = \overline g_0 + \dots + \overline g_d x_n^d\) with \(\overline g_d \in k^*\).
 
-\begin{theorem}
+\begin{theorem}\index{Weierstrass preparation}
   Suppose \(f\) is normalised.
   \begin{enumerate}
   \item Division: suppose \(f \in \O_{T_n}\) is distinguished in \(x_n\) of degree \(d\). Then any \(g \in T_n\) can be uniquely written as \(g = qf + r\) where \(q \in T_n, r \in T_{n - 1}[x_n]\) with \(\deg_{x_n}(r) < d\). Moreover \(\norm g = \max\{\norm q, \norm r\}\).
-  \item Preparation: suppose \(f \in \O O_{T_n}\) is distinguished in \(x_n\) of degree \(d\). Then have a unique expression \(f = gk\) where \(g \in \O_{T_{n - 1}}[x_n]\) monic in \(x_n\) of degree \(d\), \(h \in \O_{T_n}^*\).
+  \item Preparation: suppose \(f \in \O_{T_n}\) is distinguished in \(x_n\) of degree \(d\). Then have a unique expression \(f = gk\) where \(g \in \O_{T_{n - 1}}[x_n]\) monic in \(x_n\) of degree \(d\), \(h \in \O_{T_n}^*\).
   \item Distinction: if \(f_1, \dots, f_m \in \O_{T_n}\) are all normalised then exists an automorphism \(\tau\) of \(T_n\) (preserving \(\norm \cdot\)) such that \(f_1^\tau, \dots, f_n^\tau\) are distinguished in \(x_n\).
   \end{enumerate}
 \end{theorem}
@@ -278,15 +281,15 @@ Thus if \(f\) is normalised then it is distinguished in \(x_n\) of degree \(d\) 
 \end{definition}
 
 \begin{theorem}[Noether normalisation]
-  Let \(I\) be an ideal of \(T_n\), \(A = T_n/I\). Then there exists an injective map \(T_d \embed A\) of \(K\)-algebras for some \(d\). Moreover \(\dim A = d\).
+  Let \(I\) be an ideal of \(T_n\), \(A = T_n/I\). Then there exists a finite injective map \(T_d \embed A\) of \(K\)-algebras for some \(d\). Moreover \(\dim A = d\).
 \end{theorem}
 
 \begin{proof}
-  Induction on \(n\). Prove for \(n\) assuming \(n - 1\). We may asume that \(I \subseteq T_n\) is proper. Take \(0 \ne f \in I\). Apply Weierstrass distinction and preparation to get a monic polynomial \(f \in T_{n - 1}[x_n]\) in \(I\) in \(x_n\) (we write \(I\) for \(I^\tau\)). \(T_n/(f)\) is a free \(T_{n - 1}\)-module of finite rank. Let \(\varphi\) the composition \(T_{n - 1} \to T_n/(f) \to T_n/I\). If \(\ker \varphi = 0\) then done. If not then we may apply the induction hypothesis for \(T_{n - 1}/\ker \varphi\) to get \(T_d \embed T_{n - 1}/\ker \varphi\), and \(T_{n - 1}/\ker \varphi \embed T_n/I\) is finite and projective. The statement about dimension follows from integrality.
+  Induction on \(n\). Assume the result is true for \(n - 1\). We may asume that \(I \subseteq T_n\) is proper. Take \(0 \ne f \in I\). Apply Weierstrass distinction and preparation to get a monic polynomial \(f \in T_{n - 1}[x_n]\) in \(I\) in \(x_n\) (we write \(I\) for \(I^\tau\)). \(T_n/(f)\) is a free \(T_{n - 1}\)-module of finite rank. Let \(\varphi\) the composition \(T_{n - 1} \to T_n/(f) \to T_n/I\). If \(\ker \varphi = 0\) then done. If not then we may apply the induction hypothesis for \(T_{n - 1}/\ker \varphi\) to get \(T_d \embed T_{n - 1}/\ker \varphi\), and \(T_{n - 1}/\ker \varphi \embed T_n/I\) is finite and projective. The statement about dimension follows from integrality.
 \end{proof}
 
 \begin{remark}
-  Warning: unlike in the affine case, it can happen that an affinoid subalgebra has greater dimension than the affinoid algebra that contains it. See example 2.3.3 in Fresnel \& van der Put, Rigid Algebraic Geometry and its Applications.
+  Warning: unlike in the affine case, it can happen that an affinoid subalgebra has greater dimension than the affinoid algebra that contains it. See example 2.3.3 in Fresnel \& van der Put, Rigid Analytic Geometry and its Applications.
 \end{remark}
 
 \begin{corollary}[Hilbert (weak) Nullstellensatz]
@@ -324,7 +327,7 @@ Later we'll use this to put a norm on affinoid algebras: \(T_n\) is Noetherian s
   \]
 \end{proof}
 
-\paragraph{Completed tensor product}
+\subsection{Completed tensor product}
 
 Let \(A\) be a \(K\)-Banach algebra, \(M, N\) Banach \(A\)-modules. \(M \otimes_A N\) is not complete in general, but there is a seminorm
 \[
@@ -336,21 +339,904 @@ Define the \emph{completed tensor product}\index{completed tensor product} \(M \
   Let \(A, M, N\) be as above. If \(M, N\) are finitely generated then \(\norm \cdot\) is a norm and \(M \otimes_A N\) is complete. (Hint: choose some finite presentation of \(M, N\) and reduce to the case of free modules of finite rank)
 \end{ex}
 
-The completed tensor product has the following universal property: there exists a continuous \(A\)-bilinear map \(\alpha: M \times N \to M \hat \otimes N\) such that for any continuous bilinear map \(\beta: M \times N \to E\) into some complete normed \(A\)-module, there exists a continuous linear map \(\varphi\) such that the following diagram commutes:
+The completed tensor product has the following universal property: there exists a continuous \(A\)-bilinear map \(\alpha: M \times N \to M \hat \otimes_A N\) such that for any continuous bilinear map \(\beta: M \times N \to T\) into some complete normed \(A\)-module, there exists a continuous linear map \(\varphi\) such that the following diagram commutes:
 \[
   \begin{tikzcd}
     M \times N \ar[d, "\alpha"] \ar[r, "\beta"] & T \\
-    M \hat \otimes N \ar[ur, "\varphi", dashed]
+    M \hat \otimes_A N \ar[ur, "\varphi", dashed]
   \end{tikzcd}
 \]
 
 \begin{eg}
-  Let
+  Let \(A\) be an affinoid algebra. Define the restricted power series to be
   \[
     A \langle x_1, \dots, x_n \rangle = \{ \sum a_I x^I \in A[[x_1, \dots, x_n]]: a_I \in A, \lim |a_I| = 0 \}.
   \]
-  It is complete with respect to the Gauss norm. Next time: \(A \hat \otimes_K T_n\).
+  It is complete with respect to the Gauss norm and is isomorphic to \(A \hat \otimes_K T_n\). This is a consequence of the following general observation.
 \end{eg}
+
+\begin{proposition}
+  Let \(A_1 \to A_2\) be a homomorphism of affinoid algebras. Then
+  \[
+    A_2 \hat \otimes_{A_1} A_1\langle x_1, \dots, x_n \rangle \cong A_2\langle x_1, \dots, x_n \rangle.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Follows from universal property.
+\end{proof}
+
+\begin{theorem}
+  Let \(A \to A_1, A \to A_2\) be homomorphisms of affinoid algebras. Then \(A_1 \hat \otimes_A A_2\) is also affinoid.
+\end{theorem}
+
+\begin{proof}[Sketch proof]
+  We know \(T_{n + m} \cong T_n \hat \otimes_K T_m\). Prove first the statement over \(A = K\). Let \(\alpha_1: T_n \to A_1, \alpha_2: T_m \to A_2\). Then \(T_{n + m}/(\ker \alpha_1, \ker \alpha_2) \cong A_1 \hat \otimes_K A_2\). By base change \(A_1 \hat \otimes_K A_2 \surj A_1 \hat \otimes_R A_2\). Then show for \(R \to A, A \to A_1, A \to A_2\), we can exhibit an epimorphism \(A_1 \hat \otimes_R A_2 \surj A_1 \hat \otimes_A A_2\).
+\end{proof}
+
+As hinted in the previous section, every ideal \(I \subseteq T_n\) is closed, and hence any affinoid \(A = T_n/I\) admits a residue norm
+\[
+  \norm*{q(\sum c_Ix^I)}_A = \inf_{a \in I} \norm*{\sum c_I x^I + a}.
+\]
+where \(q: T_n \to A\) is the natural quotient. It then follows that \(A\) is a \(K\)-Banach algebra with respect to \(\norm \cdot_A\).
+
+\begin{proposition}
+  Let \(B\) be a Noetherian \(K\)-Banach algebra. Suppose exists \(\mathcal S\) a collection of ideals of \(B\) such that
+  \begin{enumerate}
+  \item for any \(I \in \mathcal S\), \(\dim_K B/I < \infty\);
+  \item \(\bigcap_{I \in \mathcal S} I = (0)\),
+  \end{enumerate}
+  then any \(K\)-algebra homomorphism \(A \to B\), where \(A\) is a Noetherian \(K\)-Banach algebra, is continuous.
+\end{proposition}
+
+\begin{proof}
+  Applying the closed graph theorem, we need to show if \(x_n \to 0\) and \(f(x_n) \to y\) then \(y = 0\). Note that if \(I \subseteq B\) is closed then so is \(J = f^{-1}(A) \subseteq A\). The induced map \(A/J \to B/I\) is injective. If \(I \in \mathcal S\) then since \(\dim_K B/I < \infty\), have \(\dim_K A/J < \infty\). Any linear map between finite dimensional Banach space is continuous, and all norms on finite dimensional spaces are equivalent, so the map is bounded with respect to maximum norm. Thus \(y \in I\). As this holds for all \(I \in \mathcal S\), \(y \in \bigcap I = (0)\) so \(y = 0\).
+\end{proof}
+
+\begin{corollary}
+  Any \(K\)-algebra homomorphism between affinoids is continuous. In particular for a fixed affinoid \(A\), all the residue norms are equivalent. Thus the Gauss norm on \(T_n\) is canonical in the sense that every \(K\)-algebra homomorphism \(T_n \to T_n\) preserves the Gauss norm.
+\end{corollary}
+
+\begin{proof}
+  Take all ideals \(I\) in \(A\) such that \(\dim_K A/I < \infty\), in particular all maximal ideals and their powers by Noether normalisation. Suppose \(y \ne 0\). Then \(\mathrm{Ann}(y) \subseteq \mathfrak m\) for some \(\mathfrak m\) maximal. By Krull intersection \(\bigcap \mathfrak m^n = 0\) in \(A_{\mathfrak m}\). Thus \(y \notin \bigcap \mathfrak m^n\).
+\end{proof}
+
+\subsection{Newton polygon}
+
+\begin{lemma}
+  Let \(P(z) = z^n + a_{n - 1}z^{n - 1} + \cdots + a_0\) over \(K\) with roots \(\alpha_1, \dots, \alpha_n\) in \(\overline K\). Sort the roots by \(|\alpha_1| \geq |\alpha_2| \geq \cdots \geq |\alpha_n|\). Then \(|a_{n - i}| \leq |\alpha_1 \cdots \alpha_i|\) with equality whenever \(|\alpha_i| > |\alpha_{i + 1}|\) or \(i = n\).
+\end{lemma}
+
+\begin{proof}
+  Write \(P(z) = \prod (z - \alpha_i)\). Then \(a_{n - i}\) is up to sign the same as \(i\)-folds of \(\alpha_j\)'s. The first statement then follows from the strict triangle inequality. If \(|\alpha_i| > |\alpha_{i + 1}|\) then \(\alpha_1 \cdots \alpha_i\) is strictly greater than any other \(i\)-fold so equality.
+\end{proof}
+
+\begin{corollary}
+  The maximum absolute value of the roots of \(P\) is equal to \(\max_j \norm{a_{n - j}}^{1/j}\).
+\end{corollary}
+
+\subsection{Maximum spectrum and spectral norm}
+
+Let \(A\) be an affinoid algebra. Let \(\operatorname{Max} A = \Sp A\) be the set of maximal ideals of \(A\). We refer to \(\Sp A\) together with its ring of ``functions'' \(A\) as an \emph{affinoid space}\index{affinoid space}, although we haven't defined a topology on \(\Sp A\) yet.
+
+Nullstellensatz implies that for any \(x \in \Sp A\), \(A/\mathfrak m_x\) is finite over \(K\). In particular it admits a unique extension of \(|\cdot|_K\). Write \(f(x)\) for the image of \(f \in A\) in \(A/\mathfrak m_x\). Define the \emph{supremum/spectral norm} to be
+\[
+  \norm f_{\mathrm{spec}} = \sup_{x \in \Sp A} |f(x)|.
+\]
+
+It is clear that \(\norm \cdot_{\mathrm{spec}}\) is a seminorm and is submultiplicative. It is a norm if and only if \(\bigcap_{x \in \Sp A} \mathfrak m_x = 0\), and we will see that it is equivalent to \(A\) being reduced.
+
+Given \(\varphi: A \to B\) a homomorphism of affinoids, we can define
+\begin{align*}
+  \Sp \varphi: \Sp B &\to \Sp A \\
+  \mathfrak m &\mapsto \varphi^{-1}(\mathfrak m)
+\end{align*}
+It is well-defined: by Noether normalisation the composition \(K \embed A/\varphi^{-1}(\mathfrak m) \to B/\mathfrak m\) is a finite extension so \(\varphi^{-1}(\mathfrak m)\) is maximal.
+
+\begin{lemma}[maximum modulus principle for Tate algebra]
+  Let \(f \in T_n\). Then for all \(x \in \Sp T_n\), \(|f(x)| \leq \norm f\) and exists \(x\) such that \(|f(x)| = \norm f\), i.e.\ \(\norm f_{\mathrm{spec}} = \norm f\).
+\end{lemma}
+
+\begin{proof}
+  Let \(f = \sum c_I x^I\). Let \(P(x_1, \dots, x_n)\) be the polynomial of terms in \(f\) such that \(|c_I| = \norm f\). Then \(\norm{P - f} < \norm P\) so it is enough to show the statement for \(P\). Normalise \(P\) so \(P \in \O_K[x_1, \dots, x_n]\) and not all coefficients are in \(\mathfrak m_K\). Consider \(\overline K, \overline k\). \(\overline P\) cannot vanish everywhere on \(\overline k^n\) so exists \((\alpha_1, \dots, \alpha_n) \in \overline k^n\) such that \(P(\alpha_1, \dots, \alpha_n) \ne 0\). Any lift \((r_1, \dots, r_n)\) of \((\alpha_1, \dots, \alpha_n)\) to \(R_{\overline K}^n\) will satisfy \(|P(r_1, \dots, r_n)| = 1\).
+
+  In general, evaluating functions \(f \in T_n\) at \(x = (\alpha_1, \dots, \alpha_n) \in R^n_{\overline K}\) gives a surjective map \(\varphi_x: T_n \to K(\alpha_1, \dots, \alpha_n)\), and \(\ker \varphi_x\) is a maximal ideal of \(T_n\). Claim \(B(\overline K) \to \Sp T_n\) is surjective: let \(\mathfrak m \subseteq T_n\) be maximal and consider the induced map \(\varphi: T_n \to \overline K\). Claim \(\varphi\) is contractive, i.e.\ \(|\varphi(f)| \leq \norm f\) for all \(f\). Assume \(|\varphi(f)| > \norm f\) for some \(f\) normalised. Write \(\alpha = \varphi(f)\). Let \(q(y) = y^k + c_{k - 1} y^{k - 1} + \dots + c_0\) be its minimal polynomial over \(K\). \(|\alpha_i| = |\alpha|\) for any root \(\alpha_i\) of \(q\). Since \(|\alpha| > 1\), \(|c_{n - i}| \leq |\alpha|^i < |\alpha|^k = |c_0|\) for all \(i < k\). Thus \(q(f) \in T_n\) is a unit by \Cref{lem:units in Tate algebra} so its image under \(\varphi\) is also a unit, contradicting \(\varphi(q(f)) = q(a) = 0\). Then \((\varphi(x_1), \dots, \varphi(x_n)) \in B(\overline K)\) so \(\varphi\) coincides with \(\varphi_x\).
+\end{proof}
+
+\begin{proposition}[maximum modulus principle for affinoid]
+  For any affinoid algebra \(A\) and \(f \in A\), there exists \(x \in \Sp A\) such that \(\norm f_{\mathrm{spec}} = |f(x)|\). Moreover \(\norm f_{\mathrm{spec}} = 0\) if and only if \(f\) is nilpotent.
+\end{proposition}
+
+\begin{proof}
+  Noether normalisation says there is a finite map \(T_d \embed A\), so exists some irreducible polynomial \(P(z) = z^n + a_{n - 1}z^{n - 1} + \dots + a_0\) such that \(P(f) = 0\). Use corollary in Newton polygon subsection, for any \(x \in \Sp A\) and any \(y \in \Sp T_d\) such that \(x\) lies over \(y\), we have \(|f(x)| = \max\{ \norm{a_{n - i}(y)}^{1/i}\}\). Thus \(\norm f_{\mathrm{spec}} = \max \{\norm{a_{n - i}}_{\mathrm{spec}}^{1/i}\}\). By maximum modulus principle for Tate algebra, exists \(y\) such that the maximum is achieved at \(y\).
+
+  If \(\norm f_{\mathrm{spec}} = 0\) then \(\norm{a_{n - i}}_{\mathrm{spec}} = 0\) so \(\norm{a_{n - i}} = 0\) so \(a_{n - i} = 0\). Thus \(f\) is nilpotent.
+\end{proof}
+
+\begin{corollary}
+  For any affinoid algebra \(A\), the Jacobson radical equals to the nilradical. In particular \(\norm \cdot_{\mathrm{spec}}\) is a norm if and only if \(\mathcal N(A) = 0\), i.e.\ \(A\) is reduced.
+\end{corollary}
+
+\begin{proof}
+  Suppose \(f \in \mathcal J(A)\), then \(\norm f_{\mathrm{spec}} = 0\) so by maximum modulus principle \(f\) is nilpotnent.
+\end{proof}
+
+\begin{remark}
+  In fact more is true. Let \(A\) be a reduced affinoid algebra. Then \(A\) is complete with respect to \(\norm \cdot_{\mathrm{spec}}\) and \(\norm \cdot_{\mathrm{spec}}\) is equivalent to any residual norm. The first statement is Theorem 3.4.9 in Fresnel \& van der Put.
+\end{remark}
+
+\section{Topology on \(\Sp A\)}
+
+\subsection{Affinoid subdomain}
+
+Let \(A\) be an affinoid algebra.
+
+\begin{definition}[affinoid subspace]\index{affinoid subspace}
+  An \emph{affinoid subspace (or affinoid subdomain)} of \(X = \Sp A\) is a subset \(Y \subseteq X\) for which there exists a morphism \(\phi: A \to B\) of affinoid algebra's with \(\Sp(\phi) (\Sp B) \subseteq Y\) with the following universal property: given any \(K\)-algebra homomorphism \(\psi: A \to C\) where \(C\) affinoid with \(\Sp(\psi)(\Sp C) \subseteq Y\), there exists a unique homomorphism \(\tau: B \to C\) making the following diagram commute
+  \[
+    \begin{tikzcd}
+      A \ar[r, "\psi"] \ar[d, "\phi"] & C \\
+      B \ar[ur, dashed, "\tau"]
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{proposition}
+  Let \(Y \subseteq X\) be an affinoid subdomain.
+  \begin{enumerate}
+  \item The map \(\phi: A \to B\) is unique up to isomorphism.
+  \item The induced map \(\Sp \phi: \Sp B \to Y\) is a bijection.
+  \item For any \(y \in Y\), let \(\mathfrak m_y\) by the corresponding maximal ideal of \(A\). Then \(A/\mathfrak m_y^n \to B/\mathfrak m_y^nB\) is an isomorphism for all \(n \geq 1\).
+  \item If \(Y\) is an affinoid subdomain of \(X\) and \(Z\) is an affinoid subdomain of \(Y\) then \(Z\) is an affinoid subdomain of \(X\).
+  \item If \(\psi: A \to C\) is a homomorphism of affinoids and \(X' = \Sp B\) is an affinoid subdomain of \(X\) then \(((\Sp\psi)^{-1}(Y), B \hat \otimes_A C)\) is an affinoid subdomain of \(\Sp C\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Universal property.
+  \item See 3.
+  \item By universal property \(A \to A/\mathfrak m_y^n\) factors through \(B\), so the square and the upper triangle in the diagram commute
+    \[
+      \begin{tikzcd}
+        A \ar[r] \ar[d, "\pi"] & B \ar[d, "\pi'"] \ar[dl, "\alpha"] \\
+        A/\mathfrak m_y^n \ar[r, "\sigma"] & B/\mathfrak m_y^nB
+      \end{tikzcd}
+    \]
+    Both \(\pi'\) and \(\sigma \compose \alpha\) satisfy the universal property with respect to \(\sigma \compose \pi: A \to B/(\mathfrak m_y')^n\), so by uniqueness the lower triangle also commutes. As \(\pi'\) is surjective, \(\sigma\) is surjective. As \(\alpha\) is surjective and \(\ker \pi' = \mathfrak m_y^nB \subseteq \ker \alpha\), \(\sigma\) must be injective. Set \(n = 1\) we get 2.
+  \item Definition.
+  \item Let \(X' = \Sp C\). The pushout of rings
+    \[
+      \begin{tikzcd}
+        A \ar[r, "\phi"] \ar[d, "\psi"] & B \ar[d] \ar[ddr, "\alpha", dashed, bend left] \\
+        C \ar[r] \ar[drr, "\beta", bend right] & B \hat \otimes_A C \ar[dr, dashed] \\
+        & & D
+      \end{tikzcd}
+    \]
+    gives
+    \[
+      \begin{tikzcd}
+        Z \ar[drr, "\Sp \beta", bend left] \ar[dr, dashed] \ar[ddr, dashed, bend right, "\Sp \alpha"'] \\
+        & Y \times_X X' \ar[r, "p"] \ar[d, "q"] & X' \ar[d, "\Sp \psi"] \\
+        & Y \ar[r, "\Sp \phi"] & X
+      \end{tikzcd}
+    \]
+    Using commutativity the image of projection \(p\) must be contained in \(\Sp(\psi)^{-1}(Y)\). Now let \(Z = \Sp D\) be affinoid. Assume that \(\Sp \beta(Z) \subseteq \Sp(\psi)^{-1}(Y)\), then \(\Sp \psi \compose \Sp \beta: Z \to X\)so universal property of \(Y\), we get a unique morphism \(\alpha: B \to D\) such that \(\Sp \alpha: Z\to X\). Then we use the universal property of tensor product to get a morphism \(B \hat \otimes_A C \to D\).
+  \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+  If \(Y_1, \dots, Y_k\) are affinoid subdomains with coordinate rings \(B_1, \dots, B_k\), then \(Y_1 \cap \cdots \cap Y_k\) is an affinoid subdomain with coordinate ring \(B_1 \hat \otimes_A B_2 \hat \otimes_A \cdots \hat \otimes_A B_k\).
+\end{corollary}
+
+\begin{definition}[mild G-topology]\index{mild G-topology}
+  We define the \emph{mild G-topology} on \(\Sp A\) on \(\Sp A\) to be the Grothendieck topology whose admissible opens (objects) are affinoid subdomains and admissible coverings (coverings) are coverings that have a finite subcovering.
+\end{definition}
+
+We define the \emph{structure presheaf}\index{structure presheaf} on mild G-topology by setting \(\O_X(A) = A\) if \(U = \Sp A\).
+
+\begin{definition}[(locally) closed/open immersion]\index{morphism!locally closed immersion}\index{morphism!open immersion}\index{morphism!closed immersion}
+  If \(X = \Sp B, Y = \Sp A\), \(\phi: X \to Y\) a morphism of affinoid spaces, we say that \(\phi\) is a \emph{closed immersion} if the corresponding homomorphism \(A \to B\) is surjective. It is a \emph{locally closed immersion (resp.\ open immersion)} if the induced homomorphism \(\O_{Y, y} \to \O_{X, x}\) where \(x \in \Sp B, y = \phi(x)\), is surjective (resp.\ bijective).
+\end{definition}
+
+\begin{ex}
+  A locally closed immersion \(\Sp B \to \Sp A\) of affinoids such that the induced map \(A \to B\) is finite is in fact a closed immersion.
+\end{ex}
+
+\subsection{Rational subdomain}
+
+Rational subdomains are analogous to distinguished open sets in affine schemes.
+
+\begin{definition}[rational subdomain]\index{rational subdomain}
+  Let \(A\) be an affinoid algebra, \(X = \Sp A\). We say that a subset \(Y \subseteq X\) is a \emph{rational subdomain} if there exist \(f_1, \dots, f_n, g \in A\) such that they generate the unit ideal and
+  \[
+    Y = \{x \in X: |f_i(x)| \leq |g(x)| \text{ for all } i\} = X(\tfrac{f_1, \dots, f_n}{g}).
+  \]
+\end{definition}
+
+\begin{proposition}
+  Any rational subdomain \(X(\tfrac{f_1, \dots, f_n}{g})\) is an affinoid subdomain with coordinate ring
+  \[
+    A \langle \tfrac{f_1, \dots, f_n}{g} \rangle = A \langle y_1, \dots, y_n \rangle/(f_1 - gy_1, \dots, f_n - gy_n).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let \(B = A \langle \tfrac{f_1, \dots, f_n}{g} \rangle\). Then \(g\) is automatically a unit in \(B\). A homomorphism \(\psi: A \to C\) of affinoids such that \(\Sp \psi(\Sp C) \subseteq X(\tfrac{f_1, \dots, f_n}{g})\), i.e.\ \(|\psi(f_i)(y)| \leq |\psi(g)(y)|\) for all \(y \in \Sp C\) for all \(i\) can be characterised as
+  \[
+    \norm{\psi(f_i) \psi(g)^{-1}}_{\mathrm{spec}} \leq 1.
+  \]
+  Note \(\psi(g)\) is indeed a unit in \(C\), for if not \(\psi(g) \in \mathfrak m\) for some maximal ideal \(\mathfrak m\). Then not all \(\psi(f_i)\) can be in \(\mathfrak m\) so \(|\psi(f_i)(y_{\mathfrak m})| > |g(y_{\mathfrak m})|\), absurd.
+
+  Now let \(\psi\) be the canonical map \(A \to A\langle \tfrac{f_1, \dots, f_n}{g}\rangle\). Then
+  \[
+    \norm*{\frac{f_i}{g}}_{\mathrm{spec}} \leq \norm{y_i}_{\mathrm{spec}} \leq 1
+  \]
+  so \(\im \Sp \psi \subseteq X(\tfrac{f_1, \dots, f_n}{g})\). If \(\varphi: A \to C\) a map of affinoids satisfying the hypothesis then define
+  \begin{align*}
+    \tilde \varphi: A\langle \tfrac{f_1, \dots, f_n}{g} \rangle & \to C \\
+    y &\mapsto \varphi(f_i) \varphi(g)^{-1}
+  \end{align*}
+  so we have a factorisation of \(\varphi: A \to C\). It is unique because of universal property of localisation and density of \(A[\frac{1}{g}]\).
+\end{proof}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item If \(f_1, \dots, f_n, g\) do not generate the unit ideal then we will not get the subset of \(X\) we want. For example take \(T_2 = K\langle x_1, x_2\rangle\) and consider \(\{y \in \Sp T_2: |x_1(y)| \leq |x_2(y)|\}\).
+  \item Consider special kind of rational subspaces
+    \[
+      X(f, \varepsilon) = \{x \in X: |f(x)| \leq \varepsilon\}
+    \]
+    for some \(f \in A, \varepsilon \in \R_{> 0}\). The topology generated by \(X(f, \varepsilon)\) is called the \emph{canonical topology}\index{canonical topology}.
+  \end{enumerate}
+\end{remark}
+
+\begin{eg}
+  Consider \(B^n(\overline K)\). We have seen that \(B^n(\overline K) \surj \Sp T_n\). It is a bijection if we take \(B^n(\overline K)/\aut_K(\overline K)\) (in the proof we choose an embedding \(K \embed K' \embed \overline K\), and the norm is Galois-invariant). Then the quotient topology is the canonical topology. In particular if \(K = \overline K\) then \(\Sp T_n\) is homeomorphic to the closed ball. Note that this topology is not suitable for geometry, as for example it is totally disconntected.
+\end{eg}
+
+Upon convincing ourselves that the intersection of two rational subdomains is rational, we define
+
+\begin{definition}[(very) weak G-topology]\index{very weak G-topology}\index{weak G-topology}
+  We define the \emph{very weak G-topology} on \(X = \Sp A\) to be the Grothendieck topology whose admissible opens are rational subdomains, admissible coverings are coverings that contain a finite subcovering.
+
+  The \emph{weak G-topology} on \(X\) is where admissible opens are finite unions of rational subdomains and admissible coverings are coverings that have a finite subcovering.
+\end{definition}
+
+Among the three G-topologies, mild topology is finer than very weak topology as we have shown above, and weak topology is finer than mild topology --- this is the famous theorem of Gerritzen-Grauert.
+
+\section{Tate's acyclicity theorem}
+
+\begin{theorem}[Gerritzen-Grauert theorem]\index{Gerritzen-Grauert theorem}
+  Let \(A\) be an affinoid algebra and \(Y = \Sp B\) an affinoid subdomain of \(\Sp A = X\). Then \(Y\) is a finite union of rational subdomains.
+\end{theorem}
+
+\begin{note}
+  The converse is not true. A counterexample is given in Fresnel \& van der Put.
+\end{note}
+
+\begin{proof}[Detailed sketch]
+  We have \(\phi: A \to B\) corresponding to \(Y \subseteq X\). Then we may choose a surjection \(\varphi: A \langle x_1, \dots, x_n\rangle \surj B\). This is possible since \(B\) affinoid implies that there is a surjection \(T_n \surj B\). Since \(K \embed A\), this extends to \(\varphi: A \langle x_1, \dots, x_n \rangle \surj B\). Choose a minimal such \(n\). Proceed by induction on \(n\).
+
+  We need a relative version of Weierstrass preparation, division and distinction. Recall that in the abolute version\index{Weierstrass preparation}, an element \(f = \sum c_i x_n^i \in T_n\) where \(c_i \in T_{n - 1}\) is said to be distinguished\index{distinguished power series} in \(x_n\) of degree \(d\) if
+  \begin{itemize}
+  \item \(c_d\) is a unit in \(T_{n - 1}\),
+  \item \(\norm{c_d} = \norm f\),
+  \item \(\norm{c_d} > \norm{c_i}\) for \(i > d\).
+  \end{itemize}
+
+  \begin{definition}
+    We say \(f \in A \langle x_1, \dots, x_n \rangle\) is \emph{distinguished in \(x_n\) of degree \(d_x\)}\index{distinguished power series} at \(x \in X\) if \(f \in A/\mathfrak m_x \langle x_1, \dots, x_n \rangle\) is distinguished in \(x_n\) of degree \(d_x\). We say \(f\) is \emph{distinguished in \(x_n\) of degree \(\leq d\) (resp.\ \(= d\))} if \(f\) is distinguished in \(x_n\) of degree \(\leq d\) (resp.\ \(= d\)) at all \(x \in X\).
+  \end{definition}
+
+  Note that \(f\) is distinguished of degree \(0\) if and only if \(f\) is a unit.
+
+  \begin{lemma}
+    Assume \(f \in A \langle x_1, \dots, x_n \rangle\) is distinguished in \(x_n\) of degree \(\leq d\). Then the set
+    \[
+      U_f = \{x \in X: f \text{ distinguished of degree \(d\) at \(x\)}\}
+    \]
+    is a rational subdomain.
+  \end{lemma}
+
+  \begin{proof}
+    Write \(f = \sum f_i x_n^i\). \(f\) distinguished in \(x_n\) of degree \(\leq d\) means that for all \(x \in X\), exists \(d_x \leq d\) such that
+    \begin{itemize}
+    \item \(\norm{\overline f_i} \leq \norm{\overline f_{d_x}}\) if \(i \leq d_x\) and
+    \item \(\norm{\overline f_i} < \norm{\overline f_{d_x}}\) if \(i > d_x\) in \(A/\mathfrak m_x \langle x_1, \dots, x_n \rangle\),
+    \item \(\overline f_{d_x} \in A/\mathfrak m_x \langle x_1, \dots, x_{n - 1} \rangle\) is a unit.
+    \end{itemize}
+
+    Let \(c_i \in A\) be the constant term of \(f_i\), which satisfies \(|c_i(x)| \leq \norm{\overline f_i}\) and by \Cref{lem:units in Tate algebra}, for \(i = d_x\), \(|c_{d_x}(x)| = \norm{f_{d_x}}_x\). In particular \(|c_{d_x}| \ne 0\). Since \(f\) is distinguished of degree \(\leq d\) at every point, we see that \(c_0, \dots, c_d\) cannot have a common zero in \(X\). Thus they generate the unit ideal in \(A\) so
+    \[
+      U = \{x \in X: |c_i(x)| \leq |c_d(x)|\}
+    \]
+    is a rational subdomain. It is the same as \(U_f\) by definition.
+  \end{proof}
+
+  The next two lemmas set up Weierstrass preparation in the relative case. The proofs are very similar to those over \(K\) and are left as exercises.
+  
+  \begin{lemma}[relative Weierstrass distinction]
+    Suppose \(f \in A \langle x_1, \dots, x_n \rangle\) is such that its coefficients have no common zero in \(X\). Then exists a \(K\)-algebra automorphism \(\tau\) of \(A \langle x_1, \dots, x_n\rangle\) such that \(\tau(f)\) is distinguished in \(x_n\) of degree \(\leq d\) for some \(d \geq 0\).
+  \end{lemma}
+
+  \begin{lemma}
+    Assume \(f \in A\langle x_1, \dots, x_n \rangle\) is distinguished of degree \(d\). Then the natural map \(A \langle x_1, \dots, x_{n - 1} \rangle \to A \langle x_1, \dots, x_n\rangle/(f)\) is finite.
+  \end{lemma}
+
+  Claim that we may find \(f \in \ker (\varphi: A \langle x_1, \dots, x_n \rangle \surj B)\) with coefficients having no common zero in \(X\).
+
+  \begin{proof}
+    Fix \(x \in X\) and consider \(\varphi_x: A/\mathfrak m_x\langle x_1, \dots, x_n \rangle \surj B/\mathfrak m_x B\). \(B/\mathfrak m_x B = K'\) for some finite extension \(K'\) of \(K\). As the domain of \(\varphi_x\) is not a field, \(\ker \varphi_x \ne 0\). Because \(\ker \varphi\) is mapped surjectively onto \(\ker \varphi_x\), we can find \(g_x \in \ker \varphi\) which is nonzero modulo \(\mathfrak m_x\). Consider the coefficients of one of these, say \(g_1\). Since \(A\) is Noetherian, we can find an integer \(d_1\) such that the zero set of the coefficients of \(g_1\) is already defined by coefficients of total degree \(< d_1\). Choose some \(\alpha_1, \dots, \alpha_n\) such that \(\alpha_1 + \dots + \alpha_n = d_1\). Then the zero set of \(g_1\): \(X(g_1)\) (the zero set of the coefficients of \(g_1\) in \(X\)) \(\implies\) there must be some \(g_2\) such that \(g_2(x) \ne 0\). \(g_2' = g_1 + x_1^{\alpha_1} \cdots x_n^{\alpha_n} g_1\) so \(X(g_2') \subseteq X(g_1)\). Repeat this step, we get a descending chain
+    \[
+      X(g_1) \supseteq X(g_2') \supseteq \cdots
+    \]
+    The chain stabilises after finitely many steps, so say \(X(g_r') = \emptyset\). Then \(f = g_1 + x_1^{\alpha_1} \cdots x_n^{\alpha_n} g_2 + \dots \in \ker \varphi\) and the coefficients must have no common zero.
+  \end{proof}
+
+  Use relative distinction, we may assume that \(f \in \ker \varphi\) is distinguished in \(x_n\) of degree \(\leq d\). Then \(U_f\) is a rational subdomain. Let \(A^{(f)}\) be its coordinate ring. We show that \(Y \cap U_f\) is a finite union of rational subdomains of \(Y\), hence of \(X\).
+
+  \(\varphi\) induces a surjection \(\varphi^{(f)}: A^{(f)}\langle x_1, \dots, x_n \rangle \surj B \hat \otimes_A A^{(f)}\). Note that the image of \(f\) in \(A^{(f)}\langle x_1, \dots, x_n \rangle\) is distinguished in \(x_n\) of degree \(d\). We show earlier \(f \in \ker \varphi\) so its image is in \(\ker \varphi^{(f)}\). Thus by lemma 5.4 \(\varphi': A^{(f)}\langle x_1, \dots, x_{n - 1} \rangle \to B \hat \otimes_A A^{(f)}\) is finite homomorphism of \(K\)-algebras. Use the exercise (locally closed finite immersion is closed) (to show the exercise, we need that the homomorphism does induce non-trivial extensions on the local rings (prop 4.1 (3) plus \(M = 0\) if and only if its localisation at maximal ideals are zero)), we see \(\varphi'\) is surjective. Use induction hypothesis \(Y \cap U_f\) is a union of rational subdomains.
+
+  \begin{lemma}
+    Let \(Y\) be an affinoid subdomain of \(X = \Sp A\). Let \(U\) be a rational subdomain of \(X\) given by
+    \[
+      U = \{x \in X: |f_i(x)| \leq |f_0(x)|\}
+    \]
+    where \(f_0, \dots, f_n\) generates the unit ideal. Then exists some \(\varepsilon > 1\) such that the rational subspace
+    \[
+      U_\varepsilon = \{x \in X: |f_i(x)| \leq \varepsilon \cdot |f_0(x)|\}
+    \]
+    has the property that \(Y \cap U_\varepsilon\) is also rational.
+  \end{lemma}
+
+  \begin{proof}
+    See Lemma 4.2.9 (extension lemma) in Bosch, Lectures on Formal and Rigid Geometry.
+  \end{proof}
+
+  Let us assume that \(U \cap U_f = \bigcup_{i = 1}^k U_i\). Claim that it is enough to find a cover
+  \[
+    X = (\bigcup_{\lambda = 1}^s V_\lambda) \cup (\bigcup_{i = 1}^k U_{i, \varepsilon_i})
+  \]
+  of rationals such that \(V_\lambda \subseteq X - U_f\) for all \(\lambda\).
+
+  \begin{proof}
+    If we have \(U_\lambda = \Sp B_\lambda\), tensor \(\varphi\) by \(B_\lambda\) to get \(\varphi_\lambda: B_\lambda \langle x_1, \dots, x_n \rangle \to B \hat \otimes_A B_\lambda\). Then \(f \in A \langle x_1, \dots, x_n\rangle\) has image in \(\ker \varphi_\lambda\) and it is distinguished in \(x_n\) of dgree \(\leq d - 1\) (since \(V_\lambda \cap X - U_f\)). Apply induction on the degree of \(f\).
+  \end{proof}
+
+  How to find this cover? If \(k = 1\), denote \(U_1\) by \(U\), \(U_{1, \varepsilon_1} = U'\). We know
+  \[
+    U' = X(\varepsilon^{-1}\tfrac{f_1}{f_0}, \cdots, \varepsilon^{-1}\tfrac{f_n}{f_0}).
+  \]
+  Then define \(V_\lambda = X(\varepsilon \tfrac{f_0}{f_\lambda}, \tfrac{f_j}{f_\lambda}: j \ne \lambda, 0)\). Then \(V_\lambda\)'s are rational subcomains and cover \(X - U_f\).
+
+  For \(k > 1\), for each \(i\) we find \(V_{i, \lambda}\)'s that cover \(X - U_i\). Then
+  \[
+    X - \bigcup U_i \subseteq \bigcup V_{1, \lambda_1} \cap \cdots V_{k, \lambda_k}
+  \]
+  for all \(k\) tuples \((\lambda_1, \dots, \lambda_k)\). This is rational so we get the desired cover. This completes the proof.
+\end{proof}
+
+We will consider \(X = \Sp A\) with the mild G-topology. We may associate to any finite generated \(A\)-module \(M\) the presheaf \(\sh M\) with sections \(\sh M(U) = M \otimes B\) for \(U = \Sp B\). Note that we do not have to pass to completed tensor product since \(M\) is finitely generated. Once we prove that it is in fact a sheaf, we call such \(\sh M\) \emph{coherent sheaf}\index{coherent sheaf}.
+
+\begin{theorem}[Tate's acyclicity theorem]\index{Tate's acyclicity theorem}
+  \label{thm:Tate's acyclicity theorem}
+  Let \(X = \Sp A\) be an affinoid space. Then \(\sh M\) is an acyclic sheaf, i.e.\ it is a sheaf and all higher Čech cohomology groups vanish.
+\end{theorem}
+
+In particular the structure presheaf is a sheaf and is acyclic, so we may call it structure presheaf\index{structure sheaf}\index{structure presheaf}.
+
+We need a technical result for Grothendieck topologies.
+
+\begin{lemma}[reduction]
+  Let \(X\) be a G-topological space. Let \(\sh F\) be a presheaf on \(X\), \(\{U_i\}_{i \in I}, \{V_j\}_{j \in J}\) covers such that \(\{V_j\}\) refines \(\{U_i\}\). Assume that \(\sh F\) is an acyclic sheaf on the restriction of \(\{V_j\}_{j \in J}\) to each intersection \(U_{i_0} \cap \cdots \cap U_{i_n}\). Then \(\sh F\) is an acyclic sheaf for \(\{U_i\}_{i \in I}\) if and only if \(\sh F\) is an acyclic sheaf for \(\{V_j\}_{j \in J}\).
+\end{lemma}
+
+\begin{proof}
+  A standard Leray spectral sequence argument. See Corollary 8.1.4/3 in Bosch, Güntzer, Remmert, Non-Archimedean Analysis, or refer to Stacks project for a more general statement.
+\end{proof}
+
+\begin{definition}[Laurent domain]\index{Laurent domain}
+  A \emph{Laurent domain} of \(X\) is a subset defined by
+  \[
+    X(f_1, \dots, f_n, g_1^{-1}, \dots, g_n^{-1}) = \{x \in X: |f_i(x)| \leq 1, |g_j(x)| \geq 1\}
+  \]
+\end{definition}
+
+\begin{lemma}
+  Laurent domains are affinoid subdomains.
+\end{lemma}
+
+\begin{proof}
+  Denote a Laurent domain by \(X(f, g^{-1})\) where \(f = (f_1, \dots, f_n), g^{-1} = (g_1^{-1}, \dots, g_n^{-1})\). Consider
+  \[
+    A \langle f, g^{-1} \rangle = A \langle x_1, \dots, x_n, y_1, \dots y_n \rangle/(x_i - f_i, 1 - g_j y_j).
+  \]
+  We have a canonical map \(A \to A \langle f, g^{-1} \rangle\). Similar as before, for any \(Y \to B\) affinoids corresponding to \(\varphi: A \to B\), \(\im Y \subseteq X(f, g^{-1})\) if and only if
+  \[
+    |\varphi(f_i)(y)| \leq 1, |\varphi(g_j)(y)| \geq 1
+  \]
+  for all \(y \in \Sp B\). The is equivalent to (check \(\varphi(g_j)\) are units)
+  \[
+    |\varphi(f_i)(y)| \leq 1, |\varphi(g_j)^{-1}(y)| \leq 1.
+  \]
+  Thus \(\Sp A \langle f, g^{-1} \rangle \subseteq X(f, g^{-1})\). Check \(B\) satisfies the universal property.
+\end{proof}
+
+\begin{definition}[standard rational covering]\index{standard rational covering}
+  Let \(X = \Sp A\) be affinoid and \(f_1, \dots, f_n \in A\) have no common zero. Let
+  \[
+    U_i = \{x \in X: |f_j(x)| \leq |f_i(x)| \text{ for all } j \ne i\}.
+  \]
+  \(U_1, \dots, U_n\) form a covering of \(X\), called the \emph{standard rational covering} of \(X\).
+\end{definition}
+
+\begin{lemma}
+  Every finite covering of \(X\) by affinoids can be refined by a standard rational covering.
+\end{lemma}
+
+\begin{proof}
+  By Gerritzen-Grauert we may start with a finite rational covering \(V_1, \dots, V_n\)
+  \[
+    V_i = \{x \in X: |f_{j, i}(x)| \leq |f_{0, i}(x)|: 0 \leq j \leq n_i\}
+  \]
+  with \(\{f_{j, i}\}_j\) generates the unit ideal. Consider the product over a multiindex \((v_1, \dots, v_n)\), \(0 \leq v_i \leq n_i\)
+  \[
+    f_{v_1, \dots, v_n} = \prod_{i = 1}^n f_{v_i, i}
+  \]
+  Choose those \(f_{v_1, \dots, v_n}\) such that at least one of the \(v_i\)'s is zero. Claim these functions generate the unit ideal and thus give a standard covering of \(X\).
+
+  \begin{proof}
+    Assume exists \(x \in X\) such that all such functions vanish. Suppose \(x \in V_k\). If \(f_{0, k}(x) \ne 0\) then \(\prod_{i \ne k} f_{v_i, i}\) must vanish. Thus we can find at least one index \(i_0\) such that \(f_{0, i_0}, \dots, f_{n, i_0}\) vanish at \(x\). But \(f_{0, i_0}, \dots, f_{n, i_0}\) generate the unit ideal, contradiction.
+  \end{proof}
+
+  Claim that the above standard rational covering is a refinement of \(\{V_i\}\).
+
+  \begin{proof}
+    Let
+    \[
+      X_{v_1, \dots, v_n} = X(\tfrac{f_{\lambda_1, \dots, \lambda_n}}{f_{v_1, \dots, v_n}})
+    \]
+    where \(\lambda_1, \dots, \lambda_n\) are as above. Suffice to show if \(v_n = 0\) then \(X_{v_1, \dots, v_n} \subseteq V_n\) as other cases follow similarly. Need
+    \[
+      |f_{\lambda_n, n}(x)| \leq |f_{0, n}(x)| = |f_{v_n, n}(x)|
+    \]
+    for all \(x \in X_{v_1, \dots, v_n}\). Fix \(x\). Then exists some index \(j\) such that \(x \in V_j\). If \(j = n\) then done. Otherwise wlog \(j = 1\). We know
+    \[
+      |f_{\lambda_1, 1}(x)| \leq |f_{0, 1}(x)|
+    \]
+    so
+    \[
+      |\prod_{i \ne n} f_{v_i, i}(x)| |f_{\lambda_n, n}(x)|
+      \leq |f_{0, 1}(x)| \prod_{i \ne n} |f_{\lambda_i, i}(x)| |f_{\lambda_n, n}(x)
+      \leq \prod |f_{v_i, i}(x)|
+    \]
+    RHS is non-zero so we can divide through by \(\prod_{i \ne n} |f_{v_i, i}(x)|\) and the claim follows.
+  \end{proof}
+\end{proof}
+
+Choose elements \(f_1, \dots, f_n \in A\). Consider the sets
+\[
+  X_i^+ = X(f_i), X_i^- = X(f_i^{-1}).
+\]
+Then \(X_1^* \cap \cdots \cap X_n^*\) where \(* = \pm\) is a Laurent domain and they give a covering of \(X\), called \emph{Laurent covering}\index{Laurent covering}.
+
+\begin{lemma}
+  Every finite covering by affinoids can be refined by a Laurent covering.
+\end{lemma}
+
+\begin{proof}
+  We may start with a standard rational covering given by \(f_1, \dots, f_n\). Since \(f_i\) is invertible in \(\O_X(U_i)\) and \(f_i^{-1}\) assumes its maximum on \(U_i\) by maximum modulus principle, we can find \(c \in K^*\) such that
+  \[
+    |c|^{-1} < \inf_{x \in X} \max_{i = 0, \dots, n} |f_i(x)|.
+  \]
+  Let us consider the Laurent covering \(V_1, \dots, V_n\) defined by \(cf_1, \dots, cf_n\). Claim if we restrict the standard rational covering to each of the \(V_j\) then we get a standard rational covering on \(V_j\) generated by units in \(\O_X(V_j)\).
+
+  \begin{proof}
+    Consider \(V = V_j\) for some fixed \(j\).
+    \[
+      V = X((cf_0)^{\alpha_1}, \dots, (cf_n)^{\alpha_n}), \alpha_i = \pm 1.
+    \]
+    We may assume that \(\alpha_1 = \dots = \alpha_s = 1, \alpha_{s + 1} = \dots = \alpha_n = -1\) for some \(s\). Then \(X(\frac{f_1, \dots, f_n}{f_i}) \cap V = \emptyset\) for all \(i = 0, \dot, s\). Since
+    \[
+      \max_{i = 0, \dots, s} |f_i(x)| \leq |c|^{-1} \leq \max_{i = 0, \dots, n} |f_i(x)|
+    \]
+    for all \(x \in V\). In particular
+    \[
+      \max_{i = 0, \dots, n} |f_i(x)| = \max_{i = s + 1, \dots, n} |f_i(x)|
+    \]
+    Hence \(\{U_i|_V\}\) is a rational covering generated by \(f_0|_V, \dots, f_n|_V\) and all these are units in \(\O_X(V)\).
+  \end{proof}
+
+  Claim if we have a rational covering generated by units \(f_1, \dots, f_n,\) then it can be refined to a Laurent covering. From this the lemma follows.
+
+  \begin{proof}
+    Consider the Laurent covering generated by \(\frac{f_j}{f_i}, 0 \leq i < j \leq n\). Call this covering \(\{V_i\}\). Pick one \(V \in \{V_i\}\). Write \(i <' j\) if \(|f_j(x)| \leq |f_i(x)|\) for all \(x \in V\). \(<\) is transitive and a total ordering so exists a maxumum \(i_0\). Then \(V \subseteq X(\frac{f_0, \dots, f_n}{f_{i_0}})\).
+  \end{proof}
+\end{proof}
+
+\begin{proof}[Proof of \nameref{thm:Tate's acyclicity theorem}]
+  Using the reduction lemma and induction on the number of functions generating the Laurent covering. We only need to consider a Laurent covering generated by one element \(f \in A\), \(X(f), X(f^{-1})\).
+
+  First prove for \(M = A\). It suffices to prove
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A \ar[r] & A \langle f\rangle \oplus A \langle f^{-1} \rangle \ar[r] \ar[d, equal] & A \langle f, f^{-1} \rangle \ar[r] \ar[d, equal] & 0 \\
+      & & A\langle x\rangle/(x - f) \oplus A \langle y\rangle/(1 - yf) & A \langle x, y\rangle/(x - f, 1 - yf)
+    \end{tikzcd}
+  \]
+  is a short exact sequence. It is part of the following commutative diagram which can be checked by diagram chasing
+  \[
+    \begin{tikzcd}
+      & & 0 \ar[d] & 0 \ar[d] \\
+      & & (x - f) A \langle x \rangle \oplus (1 - yf) A \langle y\rangle \ar[d] \ar[r, "\delta''"] & (x - f) A \langle x, x^{-1} \rangle \ar[r] \ar[d] & 0 \\
+      0 \ar[r] & A \ar[r, "\varepsilon'"] \ar[d, equal] & A \langle x \rangle \oplus A \langle y\rangle \ar[r, "\delta'"] \ar[d] & A\langle x, x^{-1}\rangle \ar[r] \ar[d] & 0 \\
+      0 \ar[r] & A \ar[r, "\varepsilon"] & A \langle f\rangle \oplus A \langle f^{-1} \rangle \ar[r, "\delta"] \ar[d] & A \langle f, f^{-1} \rangle \ar[r] \ar[d] & 0 \\
+      & & 0 & 0
+    \end{tikzcd}
+  \]
+
+  Now for the general case, suffices to show after tensoring with a finitely generated module preserves exactness, as \(- \otimes M\) gives complete modules for \(M\) finitely generated. This follows as the short exact sequence splits.
+
+  \begin{proof}
+    We have
+    \begin{align*}
+      A[x, y] &\to A \langle x \rangle \oplus A \langle y\rangle \\
+      x^iy^j &\mapsto
+               \begin{cases}
+                 x^{i - j} & i \geq j \\
+                 y^{j - i} & i < y
+               \end{cases}
+    \end{align*}
+    Compose with the natural map to \(A \langle f \rangle \oplus A \langle f^{-1} \rangle\) and extend continuously to \(A \langle x, y \rangle \to A \langle f \rangle \oplus A \langle f^{-1} \rangle\). Observe that \((x - f), (yf - 1)\) are in the kernel so it induces \(A \langle f, f^{-1} \rangle \to A \langle f\rangle \oplus A \langle f^{-1}\rangle\) which splits \(\delta\).
+  \end{proof}
+\end{proof}
+
+\begin{definition}[strong G-topology]\index{strong G-topology}
+  Let \(X\) be an affinoid space. The \emph{strong G-topology} on \(X\) is given by
+  \begin{itemize}
+  \item \(U \subseteq X\) admissible open if exists a covering \(U = \bigcup_{i \in I} U_i\) by affinoids such that for any morphism \(\varphi: Z \to X\) of affinoids with \(\varphi(Z) \subseteq U\), \(\{\varphi^{-1}(U_i)\}\) can be refined to a finite cover of affinoids of \(Z\).
+  \item an admissible covering \(\{V_j\}\) of an admissible open \(V\) is a covering such that for any \(\varphi: Z \to X\) of affinoids with \(\varphi(Z) \subseteq V\), \(\{\varphi^{-1}(V_i)\}\) admits a refinement by a finite covering of affinoids of \(Z\).
+  \end{itemize}
+\end{definition}
+
+We need another technical lemma to extend the structure sheaf from the weak G-topology to the strong G-topology.
+
+\begin{lemma}[extension lemma]
+  Let \(X\) be a set with G-topologies \(T, T'\) such that
+  \begin{enumerate}
+  \item \(T'\) is finer than \(T\),
+  \item each \(T'\)-open \(U \subseteq X\) admits a \(T'\)-covering by \(T\)-open subsets,
+  \item each \(T'\)-covering of a \(T\)-open admits a \(T\)-covering as a refinement.
+  \end{enumerate}
+  Then any \(T\)-acyclic sheaf \(\sh F\) on \(X\) admits a unique (up to isomorphism) extension \(\sh F'\) as a \(T'\)-acyclic sheaf on \(X\).
+\end{lemma}
+
+We omit the proof but outline the construction briefly. For any admissible open \(U \subseteq X\) with respect to \(T'\), define the presheaf
+\[
+  U \mapsto \varinjlim_{\{U_i \to U\}} H^0(\{U_i\}, \sh F)
+\]
+where \(\{U_i \to U\}\) runs through the set of \(T'\)-coverings by \(T\)-opens. By condition 3 \(\sh F'\) is an extension and using that \(\sh F\) is an acyclic sheaf, it's easy to prove that \(\sh F'\) is a \(T'\)-acyclic sheaf.
+
+\begin{corollary}
+  \(\sh O_X\) extends from the mild topology to the strong topology.
+\end{corollary}
+
+Note that every affinoid space \(X\) is a ringed G-topological space with the strong G-topology and sheaf \(\sh O_X\). To show this is a locally G-ringed space we show
+
+\begin{proposition}
+  Let \(X\) be as above. Then \(\sh O_{X, x}\) is a local ring with maximal ideal \(\mathfrak m_x \sh O_{X, x}\) for every \(x \in X\).
+\end{proposition}
+
+\begin{proof}
+  For any affinoid subdomain \(U \ni x\), we know \(\sh O_X(X)/\mathfrak m_x \cong \sh O_X(U)/\mathfrak m_x \sh O_X(U)\). By taking direct limit we get a surjection \(\varphi: \sh O_{X, x} \to \sh O_X(X)/\mathfrak m_x \cong K'\). Thus \(\mathfrak n = \ker \varphi\) is maximal. Obviously \(\mathfrak m_x \sh O_{X, x} \subseteq \mathfrak n\). Conversely, let \(f_x \in \mathfrak n\). Consider the short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathfrak m_x \sh O_X(U) \ar[r] & \sh O_X(U) \ar[r] & \sh O_X(U)/\mathfrak m_x \sh O_X(U) \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Since direct limit is exact and commutes with tensor product, have an exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \mathfrak m_x \sh O_{X, x} \ar[r] & \sh O_{X, x} \ar[r] & K' \ar[r] & 0
+    \end{tikzcd}
+  \]
+  \(\mathfrak m_x \sh O_{X, x}\) is the only maximal ideal so if \(f_x \in \sh O_{X, x} - \mathfrak m_x \sh O_{X, x}\) and \(f_x\) is represented by \((f, U)\) then \(f(x) \ne 0\) so we may assume that \(|f(x)| \geq 1\). Then \(x \in X(f^{-1})\) and \(f|_{X(f^{-1})}\) is a unit so \(f_x\) is a unit in \(\sh O_{X, x}\).
+\end{proof}
+
+\section{Rigid analytic spaces}
+
+\begin{proposition}
+  The contravariant functor \(A \mapsto (\Sp A, \sh O_X)\) (viewed as a locally G-ringed space with the strong topology) is an equivalence of categories. The quasi-inverse is given by the global section functors.
+\end{proposition}
+
+\begin{proof}[Sketch proof]
+  Fully faithfulness follows from the universal property of affinoid subdomains.
+\end{proof}
+
+\begin{definition}[rigid analytic space]\index{rigid analytic space}
+  A \emph{rigid analytic \(K\)-space} \(X\) is a G-ringed space for which there exists an admissible covering \(\{U_i\}_{i \in I}\) of \(X\) such that
+  \begin{itemize}
+  \item \(U_i\)'s are affinoid spaces,
+  \item \(U \subseteq X\) is admissible if and only if \(U \cap U_i\) is admisible.
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[coherent sheaf]\index{coherent sheaf}
+  A sheaf on \(X\) is \emph{coherent} if there exists an admissible covering \(\{U_i\}\) of affinoids such that \(\sh F|_{U_i}\) is induced by a finitely generated \(\sh O_X(U_i)\)-module.
+\end{definition}
+
+\begin{definition}[closed analytic subspace]\index{closed analytic subspace}
+  A \emph{closed analytic subspace} of \(X\) is a subspace \(Y\) such that \(Y \cap U_i\) is isomorphic to the zero locus of some ideal in \(\sh O_X(U_i)\).
+\end{definition}
+
+\begin{remark}
+  Rigid analytic spaces are formally very similar to schemes.
+  \begin{itemize}
+  \item We can glue spaces: let \(X_i\) be rigid \(K\)-spaces and \(X_{ij} \subseteq X_i\) open subspaces and isomorphisms \(\varphi_{ij}: X_{ij} \to X_{ji}\) such that
+    \begin{itemize}
+    \item \(\varphi_{ij} \compose \varphi_{ji} = \id\),
+    \item \(X_{ii} = X_i\) and \(\varphi_{ii} = \id\),
+    \item \(\varphi_{ij}\) induces isomorphisms \(\varphi_{ijk}: X_{ij} \cap X_{ik} \to X_{ji} \cap X_{jk}\) such that \(\varphi_{ijk} = \varphi_{kji} \compose \varphi_{ikj}\).
+    \end{itemize}
+    Then there exists a rigid analytic space \(X\) with an admissible covering \(\{X_i'\}\) such that \(X_i' \cong X_i, X_i' \cap X_j' \cong X_{ij}\) and the diagram commutes:
+    \[
+      \begin{tikzcd}
+        X_{ij} \ar[r] \ar[d, "\varphi_{ij}"] & X_i' \cap X_j' \ar[d, equal] \\
+        X_{ji} \ar[r] & X_i' \cap X_j'
+      \end{tikzcd}
+    \]
+  \item We can also glue morphisms: let \(X, Y\) be rigid analytic spaces, \(\{X_i\}_{i \in I}\) an admissible cover of \(X\) and \(\varphi_i: X_i \to Y\) such that \(\varphi_i|_{X_i \cap X_j}: X_i \cap X_j \to Y\) coincides with \(\varphi_j|_{X_i \cap X_j}\). Then there exists a unique map \(\varphi: X \to Y\) such that \(\varphi|_{X_i} = \varphi_i\).
+  \item If \(X, Y\) are rigid analytic spaces and \(Y\) is affinoid then the natural map
+    \[
+      \Hom(X, Y) \to \Hom(\O_Y(Y), \O_X(X))
+    \]
+    is bijective.
+  \item The fibre product of \(X\) and \(Y\) exists (because of completed tensor product).
+  \end{itemize}
+\end{remark}
+
+\subsection{Rigid analytification}
+
+Analogous to the complex analytic case, we want to construct a functor that assigns to every \(K\)-scheme \(Z\) locally of finite type a rigid analytic space \(Z^{\mathrm{rig}}\) called the \emph{rigid analytification}. We begin by giving two hands-on examples.
+
+\paragraph{Rigid analytic affinespace \(\A_K^{n, \mathrm{rig}}\)}
+
+Denote by
+\[
+  T_n(r) = \{\sum a_I x^I \subseteq K[[x]]: \lim |a_I r^{|I|}| = 0\} = K \langle r^{-1} x \rangle
+\]
+For \(r > 0\), \(\Sp T_n(r) = B^n(r)\). For any \(c \in K, |c| > 1\) we may consider
+\[
+  T_n = T_n(c^0) \supseteq T_n(c) \supseteq \cdots \supseteq K[x]
+\]
+which corresponds to
+\[
+  B^n \embed \Sp T_n(c) \embed \cdots
+\]
+By gluing, the union of these balls is a rigid analytic space \(\A_K^{n, \mathrm{rig}} = \bigcup_{i = 0}^\infty \Sp T_n(c^i)\). Claim \(\Max K[x] = \bigcup_{i = 0}^\infty \Max T_n(c^i)\).
+
+\begin{proof}
+  Let \(\mathfrak m \subseteq K\langle x\rangle\) maximal. Claim that \(\mathfrak m' = \mathfrak m \cap K[x]\) is maximal and \(\mathfrak m = \mathfrak m' \cdot K\langle x\rangle\).
+
+  \begin{proof}
+    For the first claim use the commutative diagram
+    \[
+      \begin{tikzcd}
+        & K[x] \ar[r] \ar[d] & K \langle x\rangle \ar[d] \\
+        K \ar[r, hook] & K[x]/\mathfrak m' \ar[r] & K\langle x\rangle /\mathfrak m \cong K'
+      \end{tikzcd}
+    \]
+    Since \(K'\) is a finite field extension of \(K\), \(K[x]/\mathfrak m'\) is a field.
+
+    For the second claim, consider
+    \[
+      \begin{tikzcd}
+        K[x]/\mathfrak m' \ar[r, hook] \ar[d, equal] & K \langle x\rangle/\mathfrak m' \cdot K \langle x\rangle \ar[d] \\
+        K[x]/\mathfrak m' \ar[r, hook] & K \langle x\rangle /\mathfrak m
+      \end{tikzcd}
+    \]
+    Since \(K[x]\) is dense in \(K\langle x\rangle\) and finite dimensional vector spaces are closed, the images of the horizontal maps are closed and dense. Thus the horizontal maps are surjectections so isomrophisms. It follows that the vertical map on the right is also an isomorphism
+  \end{proof}
+
+  Thus have an injection \(\Max K \langle c^{-i} x\rangle \embed \Max K[x]\). For the other direction, claim for any \(\mathfrak m' \subseteq K[x]\), exists some integer \(i_0\) such that \(\mathfrak m' \cdot K \langle c^{-i_0} x\rangle\) is a maximal ideal.
+
+  \begin{proof}[Sketch proof]
+    By Nullstellensatz for polynomial algebras, \(K[x]/\mathfrak m' \cong K'\) is a finite extension of \(K\). Extend the valuation uniquely to \(K'\) and choose an integer \(i_0\) such that \(\overline x_i \in K'\) satisfies \(|\overline x_i| \leq |c|^{i_0}\). Have a factorisation
+    \[
+      \begin{tikzcd}
+        K[x] \ar[r] \ar[dr] & K' \\
+        & T_n(c^{i_0}) \ar[u]
+      \end{tikzcd}
+    \]
+    and it is easy to check the assertion.
+  \end{proof}
+\end{proof}
+
+\paragraph{Analytification of affine schemes}
+
+Similarly as above, take \(\mathfrak a \subseteq K[x]\) and consider the chain
+\[
+  T_n/\mathfrak a \leftarrow T_n(c)/\mathfrak a \leftarrow \cdots
+\]
+where we also denote by \(\mathfrak a\) its extension. Then \(\bigcup_{i = 0}^\infty \Sp T_n(c^i)/\mathfrak a\) is the analytification of \(K[x]/\mathfrak a\).
+
+\begin{lemma}
+  Let \(Z\) be an affine \(K\)-scheme of finite type (with Zariski topology), \(Y\) a rigid \(K\)-space. Then the natural map
+  \[
+    \Hom(Y, Z) \to \Hom_k(\sh O_Z(Z), \sh O_Y(Y)),
+  \]
+  where LHS are morphisms in the category of locally G-ringed spaces, is a bijection.
+\end{lemma}
+
+\begin{proof}[Sketch proof]
+  Suffices to construct an inverse in the case \(Y = \Sp B\) affinoid, \(Z = \Spec C\) for \(\sigma: C \to B\). Pulling back maximal ideals gives
+  \[
+    \varphi: \Max B \to \Max C \embed \Spec C.
+  \]
+  For \(\varepsilon \in K, f \in C\), consider
+  \[
+    \begin{tikzcd}
+      C \ar[r, "\sigma"] \ar[d] & B \ar[d] \\
+      C[f^{-1}] \ar[r, dashed] & B \langle \varepsilon \cdot \sigma(f)^{-1}\rangle
+    \end{tikzcd}
+  \]
+  As \(B(\varepsilon \cdot \sigma(f)^{-1})\) corresponds to the Laurent domain \(X(\varepsilon^{-1} \cdot \sigma(f)\), by universal property of localisation we get a unique map completing the square. By varying \(\varepsilon\) we get
+  \[
+    \begin{tikzcd}
+      \sh O_Z(Z) \ar[r] \ar[d] & \sh O_Y(Y) \ar[d] \\
+      \sh O_Z(D_Z(f)) \ar[r] & \sh O_Y(\varphi^{-1}(D_Z(f)))
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\begin{definition}[rigid analytification]\index{rigid analytification}
+  Let \((Z, \O_Z)\) be a \(K\)-scheme locally of finite type. The \emph{rigid analytification} of \(Z\), \(Z^{\mathrm{rig}}\), is a rigid \(K\)-space \((Z^{\mathrm{rig}}, \sh O_{Z^{\mathrm{rig}}})\) together with a morphism \((Z^{\mathrm{rig}}, \sh O_{Z^{\mathrm{rig}}}) \to (Z, \O_Z)\) of locally G-ringed spaces with the following universal property: given any rigid analytic space \((Y, \sh O_Y)\), any morphism \((Y, \sh O_Y) \to (Z, \sh O_Z)\) factorises unqiuely through \(Z^{\mathrm{rig}}\).
+  \[
+    \begin{tikzcd}
+      (Y, \O_Y) \ar[r] \ar[dr, dashed] & (Z, \sh O_Z) \\
+      & (Z^{\mathrm{rig}}, \sh O_{Z^{\mathrm{rig}}}) \ar[u]
+    \end{tikzcd}
+  \]
+\end{definition}
+
+\begin{ex}
+  \(\A_K^{n, \mathrm{rig}} \to \Spec K[x]\) and \(\bigcup \Spec T_n(c^i)/\mathfrak a \to \Spec K[x]/\mathfrak a\) are rigid analytifications.
+\end{ex}
+
+We conclude this chapter by giving two more examples.
+
+\paragraph{Analytification of projective spaces}
+
+\(\P_K^n\) is covered by \(n + 1\) affine opens \(U_i = \Spec K[\frac{x_0}{x_i}, \dots, \frac{x_n}{x_i}]\). Take analytifications \(U_i^{\mathrm{rig}}\) and glue them together to get \(\P_K^{n, \mathrm{rig}}\). Check that \(\P_K^{n, \mathrm{rig}}\) is already covered by \(n + 1\) balls \(\Sp K \langle \frac{x_0}{x_i}, \dots, \frac{x_0}{x_i} \rangle \subseteq U_i^{\mathrm{rig}}\): take \(x \in \P_k^{n, \mathrm{rig}}\). It has residue field \(L = K(x)\) some finite extension of \(K\), so defines an \(L\)-valued point of \(\P_K^n\). Represent \(x\) in homogeneous coordinates \(x = (x_0: \dots : x_n)\). For some \(i\), \(\max_j{|x_j|} = |x_i|\). Then \(x\) factors through \(\Sp K \langle \frac{x_0}{x_1}, \dots, \frac{x_n}{x_i} \rangle\).
+
+\paragraph{Multiplicative group variety}
+
+The annulus \(\{x \in T_1: |a| \leq |x| \leq |b|\}\) where \(a, b \in K\) is the intersection \(X(\frac{a}{x}) \cap X(\frac{x}{b})\), which has coordinate ring \(K \langle x, y \rangle/(xy - \frac{a}{b})\). The set of \(K'\)-rational points for any \(K \subseteq K'\) corresponds to the annulus
+\[
+  \{z \in K': |a| \leq |z| \leq |b|\}.
+\]
+Define
+\[
+  \mathbb G_{m, K}^{\mathrm{rig}} = \bigcup_{n \in \Z} \Sp K \langle \tfrac{a^{n + 1}}{x}, \tfrac{x}{a^n} \rangle
+\]
+for some \(a\) such that \(|a| < 1\).
+
+Let \(X\) be a rigid \(K\)-space. Assign to \(X\) a contravariant functor from the category of affinoid algebras, send \(R/K\) to the set of morphisms  \(\Sp R \to X\) of rigid spaces over \(K\). \(G\) has the form \(R \mapsto R^*\).
+
+\paragraph{Tate curve}
+
+Recall that a Tate curve\index{Tate curve} is given by \(\mathbb G_{m, K}^{\mathrm{rig}}/q^\Z\) for some \(q \in \overline K^*, |q| < 1\) (uniformisation). Pick \(a \in K\), \(|a|^k = |q|\) for some \(k \geq 1\). We have the analytic covering \(\mathbb G_{m, K}^{\mathrm{rig}} = \bigcup_{n \in \Z} A_n\) where \(A_n = \Sp K \langle \tfrac{a^{n + 1}}{x}, \tfrac{x}{a^n} \rangle\). Multiplication by \(q\) maps \(A_n\) isomorphically to \(A_{n + k}\). We can glue the boundaries of the annuli together. The Tate curve, being the union of finitely many affinoids, is then quasicompact.
+
+\section{Rigid GAGA}
+
+Since the category of rigid \(K\) spaces has fibre products, we can define
+
+\begin{definition}[(quasi)separated]\index{separated}\index{quasiseparated}
+  A rigid \(K\)-space \(X\) is \emph{separated (quasiseparated respectively)} if \(X \to X \times_K X\) is a closed immersion (a quasicompact morphism respectively).
+
+  \(f: X \to Y\) is \emph{separated} if \(X \to X \times_Y X\) is closed immersion.
+\end{definition}
+
+\begin{proposition}
+  A rigid \(K\)-space \(X\) is separated if and only if it admits an admissible affinoid covering \(\{U_i\}_{i \in I}\) such that for \(i \ne j\) with \(U_i \cap U_j \ne \emptyset\), the intersection \(U_i \cap U_j\) is affinoid and the canonical map \(\sh O(U_i) \hat \otimes \sh O(U_j) \to \sh O(U_i \cap U_j)\) is surjective.
+\end{proposition}
+
+\begin{proof}
+  Same as schemes.
+\end{proof}
+
+\begin{eg}
+  All affinoids are separated.
+\end{eg}
+
+The definition of properness, on the other hand, is a bit more subtle.
+
+\begin{definition}[relatively compact]
+  Let \(X\) and \(Y\) be affinoid spaces with coordinate rings \(A\) and \(B\) respectively and let \(f: X \to Y\) be a morphism. Let \(U \cap X\) be an affinoid subdomain. We say \(U\) is \emph{relatively compact in \(X\) over \(Y\)} if there exists an affinoid generating system \(\{f_1, \dots, f_n\}\) (i.e.\ a surjection \(B \langle f_1, \dots, f_n \rangle \surj A\)) such that \(U \subseteq \{x \in X: |f_1(x)| \leq \varepsilon, \dots, |f_n(x)| \leq \varepsilon\}\) for some \(\varepsilon < 1\).
+\end{definition}
+
+\begin{definition}[proper]\index{proper}
+  Let \(X\) and \(Y\) be rigid \(K\)-spaces and \(f: X \to Y\) a morphism. Then \(f\) is \emph{proper} if \(f\) is separated and satsifies the following condition: exists an affinoid covering \(\{Y_i\}_{i \in I}\) of \(Y\) and for any \(i \in I\), there exist two finite admissible coverings \(\{X_{ij}\}_{j = 0, \dots, n_i}, \{X_{ij}'\}_{j = 0, \dots, n_i}\) of \(f^{-1}(Y_i)\) such that \(X_{ij}\) is relatively compact in \(X_{ij}'\) over \(Y_i\).
+
+  \(X\) is proper if it is proper over \(\Sp K\).
+\end{definition}
+
+For separated varieties, Čech cohomology agrees with sheaf cohomology.
+
+We state here the rigid GAGA correspondence. The proof uses the rigid analogue of Cartan-Serre
+
+\begin{theorem}[Khiel]\leavevmode
+  \begin{enumerate}
+  \item Let \(X\) be proper over \(\Sp K\). Then \(H^i(X, \sh F)\) are finite dimension over \(K\) for any coherent sheaf \(\sh F\).
+  \item (Higher) direct image theorem: let \(X\) be proper, \(Y\) separated, \(f: X \to Y\) a morphism and \(\sh F\) a coherent sheaf. Then \(f_* \sh F\) and higher direct images \(R^if_* \sh F\) are cohernet.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[rigid GAGA]\index{GAGA}
+  Let \(X\) be a proper (maybe projective?) scheme over \(K\). Then
+  \begin{enumerate}
+  \item For any coherent sheaf \(\sh F\) over \(X\), the canonical homomorphism between coherent algebraic cohomology and analytic cohomology, induced by \(f: (X^{\mathrm{rig}}, \sh O_{X^{\mathrm{rig}}}) \to (X, \sh O_X)\) is an isomorphism.
+  \item The analytification functor from coherent sheaves on \(X\) to coherent sheaves on \(X^{\mathrm{rig}}\) is fully faithful.
+  \item Every coherent analytic sheaf is isomorphic to the pullback of some algebraic coherent sheaf.
+  \end{enumerate}
+\end{theorem}
+
+2 and 3 together say analytification induces an equivalence of categories between coherent analytic and algebraic sheaves.
+
+\section{Formal models à la Raynaud}
+
+Let \(R\) be a complete DVR with a uniformiser \(\pi\). Let \(K = R[\frac{1}{\pi}]\). We quote the following facts:
+\begin{enumerate}
+\item An \(R\)-algebra \(A\) is topologically of finite type (tft) if it is isomorphic to \(R \langle x_1, \dots, x_n \rangle/I\) for some ideal \(I\). We could do the same analytification process as in affinoids. Raynaud's theorem measures how far the functor is from being an equivalence of a category.
+
+  Then \(A \cong \varprojlim_n A/\pi^{n + 1}A = \varprojlim A_n\)
+\item Define \(\Spf A= \varinjlim \Spec A_n\), the set of open prime ideals of \(A\) with the natural \(\pi\)-adic topology. It has a structure sheaf
+  \[
+    \sh O_{\Spf A} = \varprojlim \sh O_{\Spec A_n}.
+  \]
+  \((\Spf A, \sh O_{\Spf A})\) is a locally topologically ringed space, which is called an \emph{affine tft formal scheme}.
+\item Given \(f \in A\), let \(D(f)\) be the set of all open primes avoiding \(f\). We have
+  \[
+    \sh O_{\Spf A}(D(f)) = \hat A_f,
+  \]
+  the \(\pi\)-adic completion.
+\item A locally tft formal scheme \(\mathcal X\) is a locally topologically ringed space such that it has an open covering by affine tft formal schemes.
+\item As usual there is an isomorphism
+  \[
+    \Hom(\Spf A, \Spf B) \cong \Hom_{\mathrm{cont}}(B, A).
+  \]
+\item If we have \(f: X \to Y\) of tft affine formal schemes where \(X = \Spf A, Y = \Spf B\), then passing to the generic fibre gives
+  \[
+    B \otimes_R K \to A \otimes_R K
+  \]
+  of affinoid \(K\)-algebras, thus a mophism \(\Sp A \otimes K \to \Sp B \otimes K\) of rigid \(K\)-spaces. It induces a functor \((-)_{\mathrm{rig}}\) from the cateogry of locally tft formal schemes to the category of rigid \(K\)-spaces.
+\item An \(R\)-algebra tft is \emph{admissible} if it is flat, i.e.\ having no \(\pi\)-torsion. \(\mathcal X\) is \emph{admissible} if it is covered by admissible affine formal schemes.
+\item Given a rigid \(K\)-space \(X\), any admissible formal scheme \(\mathcal X\) over \(R\) such that \(\mathcal X_{\mathrm{rig}} \cong X\) is called a \emph{formal model}\index{formal model} of \(X\).
+\item A \emph{coherent sheaf}\index{coherent sheaf} on locally tft \(\mathcal X\) is an \(\sh O_{\mathcal X}\)-module \(\sh F\) such that there exists an open affine cover \(\{\mathcal X_i\}\) such that \(\sh F|_{\mathcal X_i} \cong \widehat M_i\), where \(M_i\) is a finitely generated \(\sh O_{\mathcal X_i}(\mathcal X_i)\)-modules, where \(\widehat M_i\) is the sheaf induced by \(D_f \mapsto M \otimes \hat A_f\).
+\item A \emph{formal blow-up} associated to a coherent open ideal sheaf \(\sh I \subseteq \sh O_{\mathcal X}\) is
+  \[
+    \mathcal X_{\sh I} = \varinjlim \mathrm{Proj} (\bigoplus_{d = 0}^\infty \sh I^d \otimes_{\sh O_{\mathcal X}} \sh O_{\mathcal X}/\pi^n \sh O_{\mathcal X}).
+  \]
+  We have a canonical projection \(\mathcal X_{\sh I} \to \mathcal X\) with the universal property that for any \(\mathcal Y \to \mathcal X\) such that \(\sh I \cdot \sh O_{\mathcal{Y}}\) is invertible, \(\mathcal{Y} \to \mathcal{X}\) factors uniquely throught \(\mathcal{X}_{\sh I}\).
+\end{enumerate}
+
+\begin{theorem}[Raynaud]
+  \((-)_{\mathrm{rig}}\) induces an equivalence of categories between
+  \begin{itemize}
+  \item quasi-paracompact admissible formal \(R\)-schemes localised by the class of formal blow-ups and
+  \item quasi-separated quasi-paracompact rigid \(K\)-spaces.
+  \end{itemize}
+
+  Quasi-paracompact means there exists a covering (admissible respectively) \(\{U_i\}\) of finite type (i.e.\ \(U_i\) is disjoint from almost all \(U_j\)) of quasi-compact (admissible respectively) opens.
+\end{theorem}
+
+
+
+
+
+
+
 
 
 

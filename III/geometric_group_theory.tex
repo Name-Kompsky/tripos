@@ -11,6 +11,9 @@
 \input{header}
 
 \DeclareMathOperator{\rk}{rk} % rank
+\DeclareMathOperator{\Cay}{Cay} % Cayley graph
+\DeclareMathOperator{\Ends}{Ends} % Ends
+\DeclareMathOperator{\QI}{QI} % quasi-isometry group
 
 \begin{document}
 
@@ -332,6 +335,772 @@ One way to create new finitely generated/presented groups from old one is via fr
 \begin{remark}
   \(\Z_2 * \Z_2\) is the only free product of non-trivial groups that does not contain a non-abelian free group. For example \(\Z_2 * \Z_3 \supseteq [\Z_2, \Z_3] \cong F_2\).
 \end{remark}
+
+\subsection{Group actions}
+
+\begin{theorem}[ping-pong lemma]\index{ping-pong lemma}
+  Let \(G\) act on \(X\). Let \(H_1, H_2 \leq G\) such that \(|H_1| \geq 3, |H_2| \geq 2\) and let \(H = \langle H_1, H_2 \rangle\). Suppose there exists nonempty \(X_1, X_2 \subseteq X\) with \(X_2 \nsubseteq X_1\) such that
+  \begin{align*}
+    h(X_2) &\subseteq X_1 \text{ for all } h \in H_1 \setminus \{e\} \\
+    h(X_1) &\subseteq X_2 \text{ for all } h \in H_2 \setminus \{e\}
+  \end{align*}
+  then \(H \cong H_1 * H_2\).
+\end{theorem}
+
+\begin{proof}
+  Let \(w\) be a nonempty reduced word in the alphabet \(H_1\setminus\{e\} \amalg H_2 \setminus \{e\}\). Need to show that the element defined by \(w\) in \(G\) is not \(e\). Cases:
+  \begin{itemize}
+  \item if \(w = a_1b_1 a_2b_2 \cdots a_k\) with \(a_i \in H_1 \setminus \{e\}, b_i \in H_2 \setminus \{e\}\), then
+    \[
+      w(X_2) = a_1b_1 \cdots a_k(X_2) \subseteq a_1b_1 \cdots b_{k - 1}(X_1)
+      \subseteq \cdots \subseteq a_1(X_2) \subseteq X_1.
+    \]
+    As \(X_2 \nsubseteq X_1\), \(w \ne e\) in \(G\).
+  \item if \(w = b_1a_2b_2 \cdots b_k\), then let \(a \in H_1 \setminus \{e\}\) we have \(a^{-1}wa \ne e\) by above.
+  \item if \(w = a_1b_1 \cdots a_kb_k\) take \(a \in H_1 \setminus \{e, a_1\}\) and \(a^{-1}wa \ne e\).
+  \item if \(w = b_1a_2 \cdots a_k\), take \(a \in H_1 \setminus \{e, a_k\}\) and use \(awa^{-1}\).
+  \end{itemize}
+\end{proof}
+
+\begin{eg}
+  Let \(\SL_2(\Z)\) act on \(\R^2\) in the usual way. Consider
+  \begin{align*}
+    H_1 &= \{
+          \begin{pmatrix}
+            1 & 0 \\
+            2n & 1
+          \end{pmatrix}
+                 : n \in \Z \}
+                 = \langle
+                 \begin{pmatrix}
+                   1 & 0 \\
+                   2 & 1
+                 \end{pmatrix}
+                       \rangle
+                       \cong \Z \\
+    H_2 &= \{
+          \begin{pmatrix}
+            1 & 2n \\
+            0 & 1
+          \end{pmatrix}
+                : n \in \Z\}
+                = \langle
+                \begin{pmatrix}
+                  1 & 2 \\
+                  0 & 1
+                \end{pmatrix}
+                      \rangle
+                      \cong \Z
+  \end{align*}
+  and
+  \begin{align*}
+    X_1 &= \{
+        \begin{pmatrix}
+          x \\
+          y
+        \end{pmatrix}
+    : |x| < |y|\} \\
+    X_2 & = \{
+          \begin{pmatrix}
+            x \\
+            y
+          \end{pmatrix}
+    : |x| > |y|\}
+  \end{align*}
+  If \(|x| > |y|\) then
+  \[
+    |2nx + y| \geq |2n| \cdot |x| - |y| \geq 2 |x| - |y| > |x|
+  \]
+  so the two subgroups map the subsets into each other. Thus by ping-pong lemma
+  \[
+    \langle H_1, H_2 \rangle \cong F_2 \leq \SL_2(\Z).
+  \]
+  Check this subgroup has finite index.
+\end{eg}
+
+\paragraph{Amalgamated free product}
+
+Suppose \(A \leq G, B \leq H\) and there is an isomorphism \(\varphi: A \to B\). Then the \emph{free product of \(G\) and \(H\) with amalgamation \(A\) and \(B\) (via \(\varphi\))}\index{free product with amalgamation} is
+\[
+  G *_A H = G * H/ \langle\langle \varphi(a)a^{-1}: a \in A \rangle\rangle.
+\]
+
+The intuition is to glue \(G\) and \(H\) along \(A\). \(G, H\) embed as subgroups and elements in \(G *_A H\) admits normal forms. It is related to Seifert-van Kampen theorem.
+
+\begin{eg}
+  \(\SL_2(\Z) = \Z_4 *_{\Z_2} \Z_6\), see de la Harpe.
+\end{eg}
+
+\subsection{HNN extension}
+
+Suppose \(A, B \leq G\), \(\varphi: A \to B\) is an isomorphism. We want \(A\) and \(B\) to be isomorphic via conjugation, but it might not be the case in \(G\) so we extend \(G\) to a larger group. The \emph{HNN extension}\index{HNN extension} of \(G\) (with \(A, B, \varphi\)) is
+\[
+  G *_\varphi = G * \langle t \rangle / \langle\langle t^{-1}at\varphi(a)^{-1}: a \in A \rangle\rangle.
+\]
+
+\(G\) embed in \(G *_\varphi\) and its elements admit normal forms. It has application to calculation of fundamental groups of surface bundles.
+
+\subsection{Semidirect product}
+
+\(G\) is the \emph{semidirect product of \(N\) by \(H\)}\index{semidirect product} of \(N \normal G, H \leq G\), \(N \cap H = \{e\}\) and \(G = NH\). Write \(N \rtimes H = G\). Equivalently, if \(H \leq G\) and exists a homomorphism \(\varphi: G \to H\) (such that the inclusion is a section) such that \(\ker \varphi = N\), then \(G = N \rtimes H\), i.e.\ the short exact sequence of groups
+\[
+  \begin{tikzcd}
+    1 \ar[r] & N \ar[r] & G \ar[r] & H \ar[r] & 1
+  \end{tikzcd}
+\]
+splits.
+
+Alternatively, given two groups \(H\) and \(N\) and a homomorphism \(\alpha: H \to \aut(N)\), we can construct \(G = N \rtimes_\alpha H\) as follow: as a set \(G = N \times H\). The multiplication is defined by
+\[
+  (n_1, h_1) (n_2, h_2) = (n_1 \alpha(h_1)(n_2), h_1h_2).
+\]
+The subgroups \(N \times \{e\}, \{e\} \times H\) satisfiy the conditions above. Conversely, given subgroups \(N\) and \(H\), we can recover \(\alpha: H \to \aut(N), \alpha(h)(n) = hnh^{-1}\).
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Direct product \(H \times H\).
+  \item \(D_{2n} \cong \Z_n \rtimes \Z_2\).
+  \item \(\pi_1(\text{Klein bottle}) \cong \Z \rtimes \Z\) where the action is the only nontrivial automorphism.
+  \end{enumerate}
+\end{eg}
+
+More generally, a \emph{group extension}\index{group extension} is a group \(G\) given by
+\[
+  \begin{tikzcd}
+    1 \ar[r] & N \ar[r] & G \ar[r] & H \ar[r] & 0
+  \end{tikzcd}
+\]
+We say \(G\) is the \emph{extension of \(N\) by \(H\)}.
+
+\begin{note}\leavevmode
+  \begin{enumerate}
+  \item If \(H\) is free then \(G\) splits.
+  \item Not all extensions split: \(2\Z \to \Z \to \Z_2\).
+  \end{enumerate}
+\end{note}
+
+\subsection{Wreath product}
+
+\begin{definition}[wreath product]\index{wreath product}
+    The \emph{wreath product} of \(G\) and \(H\), \(G \wr H\), is \(\bigoplus_H G \rtimes H\) where, thinking of \(\bigoplus_H G\) as the set of finitely supported function \(H \to G\), the action of \(H\) is given by
+    \[
+      h(f)(h_1) = f(h^{-1}h_1).
+    \]
+\end{definition}
+
+\begin{eg}
+  Lamplight group\index{lamplight group} \(\Z_2 \wr \Z\), which is not finitely presented. An element \(f \in \bigoplus_\Z \Z_2\) is a function \(\Z \to 0, 1\) with compact support and the action of \(\Z\) is shifting.
+\end{eg}
+
+\begin{theorem}[Kaloujnine-Krasner]
+  If \(D\) is a group and \(Q\) is a finite group then \(D \wr Q\) contains an isomorphic copy of every extension of \(D\) by \(Q\).
+\end{theorem}
+
+\begin{proof}
+  If \(G\) is an extension of \(D\) by \(Q\) then let \(\pi: G \to Q\) where \(\ker \pi = D\). We are going to define \(\varphi: G \to D \wr Q\) and show its an injective homomorphism. Choose transversal for \(D\) in \(G\), writing it as a map \(T: Q \to G\). For \(a \in G\), define \(f_a: Q \to D\) by
+  \[
+    f_a(x) = T(x)^{-1}a T(\pi(a^{-1}) x)
+  \]
+  and define \(\varphi(a) = (f_a, \pi(a))\). To show this is a homomorphism, if \(a, b \in G\) then
+  \begin{align*}
+    (f_a \cdot \pi(a)f_b)(x)
+    &= f_a(x) f_b(\pi(a)^{-1}x) \\
+    &= T(x)^{-1} a \underbrace{T(\pi(a^{-1})x) \cdot T(\pi(a)^{-1}x)^{-1}}_{= e} b T(\pi(b^{-1}) \pi(a)^{-1} x) \\
+    &= T(x)^{-1} ab T(\pi((ab)^{-1}) x) \\
+    &= f_{ab}(x)
+  \end{align*}
+
+  For injectivity, suppose \(a \in \ker \varphi\) then \(\pi(a) = e\) so \(a \in D\) and \(e = f_a(x) = T(x)^{-1}aT(x)\) so \(a = e\).
+\end{proof}
+
+\begin{remark}
+  The proof works verbatim for not necessarily finite groups \(G\) and \(H\) by using \(\prod_H G \rtimes H\).
+\end{remark}
+
+\subsection{Sketch of Bass-Serre theory}
+
+Reference: J-P.\ Serre, Trees.
+
+\begin{theorem}
+  Let \(G = G_1 *_A G_2\). Then \(G\) acts without inversion of edges on a tree \(X\) such that the quotient graph \(G \backslash X\) is a segment. Moreoever this segment can be lifted to one in \(X\) such that the stabilisers of its vertices are \(G_1, G_2\) and stabiliser of the edge is \(A\).
+\end{theorem}
+
+\begin{proof}[Sketch proof]
+  Let \(X^0 = G/G_1 \amalg G/G_2\) and the positively oriented edges \(X_+^1 = G/A\). It is well-defined since \(A = G_1 \cap G_2\). Check \(G\) acts on \(X\) via left multiplication.
+
+  \(X\) is connected: suffices to show \(gG_1\) is connected to \(G_1\). Express \(g\) as \(g_1g_2 \cdots g_n\) with \(g_i \in G_1 \amalg G_2\) and no consecutive elements in the same \(G_i\). Suppose \(g_n \in G_2\), then \(gG_2 = g_1\cdots g_{n - 1}G_2\). Proceed by induction.
+
+  Acyclicity follows from the uniqueness of normal form for almagmated free product.
+\end{proof}
+
+Serre gave a converse to the statement: if exists such an action then the group is an amalgmated product.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{p{5cm}|p{5cm}}
+    group \(G\) & \(G\) acting on a graph without inversion of edges \\ \hline
+    \(G_1 *_A G_2\) & \(G \backslash X\) segment \\ \hline
+    \(G = H *_\varphi\) & \(G \backslash X\) loop \\ \hline
+    fundamental group of a graph of groups \(\pi_1(G, Y)\) & \(G \backslash X = Y\) a graph
+  \end{tabular}
+  \caption{Correspondence}
+\end{table}
+
+Conseuquence: Kurosh subgroup theorem: if \(G = A * B\) then \(H \leq G\) has the form \(H = F(S) * (* \text{conjugate of subgroups of A} * ()\)
+
+\section{Cayley graphs}
+
+We'll focus on finitely generated groups.
+
+\begin{definition}[Cayley graph]\index{Cayley graph}
+  Let \(G = \langle S\rangle\), \(S \subseteq G\) finite. The \emph{Cayley graph} of \(G\) with respect to \(S\) \((\Cay(G, S))\) is given by
+  \begin{align*}
+    V(\Cay(G, S)) &= G \\
+    E((\Cay(G, S)) &= \{(g, gs): g \in G, s \in S\}.
+  \end{align*}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item \(\Z^2, S = \{(1, 0), (0, 1)\}\). Grid
+  \item In fact we don't have to require \(S\) generating \(G\). \(\Z^2, S = \{(1, 0)\}\). Parallel lines.
+  \end{itemize}
+\end{eg}
+
+The Cayley graph has the following properties:
+\begin{enumerate}
+\item \(\Cay(G, S)\) is a \(2|S|\)-regular graph.
+\item \(\Cay(G, S)\) is connected if and only if \(\langle S\rangle = G\).
+\item Relators in elements of \(S\) give rise to cycles.
+\item When \(\langle S\rangle = G\), paths from \(e\) to \(g\) give words in \(S\) representing \(g\).
+\item \(\Cay(G, S)\) allows us to view \(G\) as a metric space, with \emph{word metric}\index{word metric}
+  \[
+    d_S(g, h) = \min\{\text{length of path from \(g\) to \(h\) in \(\Cay(G, S)\)}\}.
+  \]
+  Define \emph{word length} to be \(|g| = d_S(e, g)\). Note \(d_S(g, h) = |g^{-1}h|\).
+\item It follows that \(G\) acts on \(\Cay(G, S)\) via left-multiplication by isometry.
+\end{enumerate}
+
+\begin{theorem}
+  \(\Cay(F(S), S)\) is a tree.
+\end{theorem}
+
+Let \(\overline X\) be a covering space of \(X = \bigvee_S S^1\), corresponding to \(N \normal F(S)\). Then \(\overline X\) is exactly \(\Cay(F(S)/N, \pi(S))\) where \(\pi: F(S) \to F(S)/N\) is the quotient map.
+
+\begin{definition}[quasi-isometric embedding, quasi-isometry]\index{quasi-isometric embedding}\index{quasi-isometry}
+  Let \((X, d_X), (Y, d_Y)\) be metric spaces. A map \(f: X \to Y\) is a \emph{quasi-isometric embedding} if exists \(\lambda \geq 1, C \geq 0\) such that for all \(a, b \in X\),
+  \[
+    \frac{1}{\lambda} d_X(a, b) - C \leq d_Y(f(a), f(b)) \leq \lambda d_X(a, b) + C.
+  \]
+
+  \(f\) is a \emph{quasi-isometry} if in addition exists \(D \geq 0\) such that for all \(y \in Y\) exists \(x \in X\) such that \(d_Y(f(x), y) \leq D\). Write \(X \simeq_{\mathrm{QI}} Y\) and we usually say \((\lambda, C, D)\) is a quasi-isometry.
+\end{definition}
+
+Quasi-isometry preserves large-scale structure of a space.
+
+\begin{proposition}
+  Quasi-isometry is an equivalence relation on metric spaces.
+\end{proposition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item A non-empty bounded metric space is quasi-isometric to a point. In particular all finite groups have Cayley graphs quasi-isometric to a point.
+  \item \(\R \times [0, 1] \simeq_{\mathrm{QI}} \R\).
+  \item \(\Cay(\Z, S) \simeq_{\mathrm{QI}} \R\).
+  \item \(\Cay(\Z^n, S) \simeq_{\mathrm{QI}} \R^n\).
+  \end{enumerate}
+\end{eg}
+
+\begin{eg}
+  Cayley graph cannot determine the group. For example \(C_4 \ncong C_2 \times C_2\) but taking \(S\) to be the set of all elements, both Cayley graphs are the complete graph on four vertices.
+
+  In fact Cayley graph doesn't even determine the group with respect to a minimal generating set. For example \(C_2 \times C_3 = \langle (1, 0), (0, 1) \rangle, S_3 = \langle (12), (123) \rangle\). The resulting Cayley graphs are isomorphic as undirected graphs but nonisomorphic as directed graphs. 
+
+  On the other hand we can obtain nonisomorphic Cayley graphs of \(G\) by choosing different generating sets. For example \(C_2 \times C_3 = \langle(1, 0), (0, 1)\rangle = \langle (1, 1), (1, 0) \rangle\).
+\end{eg}
+
+\begin{eg}
+  3 regular trees \(T_3 \cong T_4\) by contracting edges (graph)
+\end{eg}
+
+\begin{eg}
+  On the other hand, by using quasi-isomorphism invariants we can show some Cayley graphs are not isomorphic.
+  \begin{enumerate}
+  \item boundedness is an invariant so for example \(\R \ncong_{\mathrm{QI}} *\).
+  \item \(\R \ncong_{\mathrm{QI}} [0, \infty)\): suppose \(\varphi: \R \to [0, \infty)\) is a quasi-isomorphism \((\lambda, C, D)\). Then \(\varphi(t), \varphi(-t) \to \infty\) as \(t \to \infty\). For any \(x \in [0, \infty)\), let
+    \begin{align*}
+      M_x &= \max \{n \in \Z: \varphi(n) < x\} \\
+      N_x &= \min \{n \in \Z: \varphi(n) < x\} 
+    \end{align*}
+    They exist because for all \(x \in [0, \infty)\), there are only finitely many \(n \in \Z\) with \(\varphi(n) < x\). We thus have
+    \begin{align*}
+      \varphi(M_x) &< x \leq \varphi(M_x + 1) \\
+      \varphi(N_x) &< x \leq \varphi(N_x - 1)
+    \end{align*}
+    Since \(d_\R(M_x, M_x + 1) = d_\R(N_x, N_x + 1)\),
+    \begin{align*}
+      d_{[0, \infty)}(\varphi(M_x), \varphi(N_x))
+      &\leq d_{[0, \infty)}(\varphi(M_x), x) + d_{[0, \infty)}(x, \varphi(N_x)) \\
+      &\leq d_{[0, \infty)}(\varphi(M_x), \varphi(M_x + 1)) + d_{[0, \infty)}(\varphi(N_x - 1), \varphi(N_x)) \\
+      &\leq (\lambda \cdot 1 + C) + (\lambda \cdot 1 + C) \\
+      &\leq 2 \lambda + 2C
+    \end{align*}
+    which is bounded independent of \(x\). But \(d_\R(M_x, N_x) \to \infty\) as \(x \to \infty\) as more and more elements will land in \([0, x)\) as \(x \to \infty\). Absurd.
+  \item \(\R^m \ncong_{\mathrm{QI}} \R^n\) for \(m \ne n\).
+  \item \(T_3 \ncong_{\mathrm{QI}} \R\).
+  \end{enumerate}
+\end{eg}
+
+\begin{proposition}
+  Let \(G\) be a finitely generated group, \(S, S'\) two finite generating sets of \(G\). Then \(\Cay(G, S) \cong_{\mathrm{QI}} \Cay(G, S')\).
+\end{proposition}
+
+\begin{proof}
+  Consider the identity map \(\varphi = \id: |\Cay(G, S)| \to |\Cay(G, S')|\). Let
+  \begin{align*}
+    \lambda &= \max \{|a|_{S'}: a \in S\} \\
+    \lambda' &= \max \{|a|_{S}: a \in S'\}
+  \end{align*}
+  then
+  \begin{align*}
+    d_{S'}(\varphi(g), \varphi(h)) &\leq \lambda d_S(g, h) \\
+    d_S(g, h) &\leq \lambda' d_{S'}(\varphi(g), \varphi(h))
+  \end{align*}
+  Set \(\lambda = \max{\lambda, \lambda'}\).
+\end{proof}
+
+Recall that
+\begin{enumerate}
+\item a metric space is \emph{proper} if all closed balls are compact.
+\item a metric space is \emph{geodesic} if for any \(x, y\) there is a path between them with length \(d(x, y)\).
+\item an action \(G\) on \(X\) is \emph{proper} if for all \(K \subseteq X\) compact, \(|\{g \in G: gK \cap K \ne \emptyset\}| < \infty\). This implies that \(X/G\) is Hausdorff and locally compact.
+\end{enumerate}
+
+\begin{theorem}[Švarc–Milnor lemma]\index{Švarc–Milnor lemma}
+  Let \(X\) be a proper geodesic metric space and \(G\) acts on \(X\) properly by isometry. Assume also the quotient \(X/G\) is compact. Then \(G\) is finitely generated and picking \(x_0 \in X\) defines a quasi-isomorphism \(\varphi_{x_0}: G \to X, g \mapsto g x_0\).
+\end{theorem}
+
+\begin{proof}
+  Since the quotient space is compact, there is a closed ball \(\overline B = \overline B(x_0, D)\) such that \(G \overline B = X\). Since \(X\) is proper, \(\overline B\) is compact. Define
+  \[
+    S = \{g \in G: g \ne e, g \overline B \cap \overline B \ne \emptyset\}
+  \]
+  which is finite by properness. For \(A, B \subseteq X\), define
+  \[
+    d(A, B) = \inf \{d_X(a, b): a \in A, b \in B\}.
+  \]
+  Pick some \(g \in G \setminus (S \cup \{e\})\) such that \(d(\overline B, g \overline B) = R > 0\). Consider
+  \[
+    H = \{g \in G \setminus (S \cup \{e\}): d(\overline B, g \overline B) \leq R\}.
+  \]
+  Note as \(H\) is a subset of
+  \[
+    \{g \in G: g \overline B(x_0, D + R) \cap \overline B(x_0, D + R) \ne \emptyset\}
+  \]
+  it is finite. Thus
+  \[
+    \inf \{d(\overline B, g \overline B): g \in G \setminus (U \cup \{e\})\} = \min\{d(\overline B, h \overline B): h \in H\}
+  \]
+  so the infimum, say \(2d\), is achieved. Thus if \(d(\overline B, g \overline B) < 2d\) then \(g \in S \cup \{e\}\).
+
+  To prove that \(G = \langle S\rangle\) we translate paths in \(X\) to words in \(G\). Take \(g \in G\). Let \(k = \floor{\frac{d_X(x_0, gx_0)}{d}}\). Take a sequence of points \(y_0 = x_0, y_1, \dots, y_{k + 1} = gx_0\) on the geodesic from \(x_0\) to \(gx_0\) such that \(d_X(y_i, y_{i + 1}) \leq d\) for all \(i\). Take a corresponding sequence \(h_i \in G\) such that for all \(i\), \(y_i \in h_i \overline B\). Taking \(h_0 = e, h_{k + 1} = g\). We have
+  \[
+    d(h_i \overline B, h_{i + 1} \overline B) \leq d_X(y_i, y_{i + 1}) \leq d
+  \]
+  so \(d(\overline B, h_i^{-1}h_{i + 1} \overline B) \leq d\) so \(h_i^{-1}h_{i + 1} \in S \cup \{e\}\), i.e.\ \(h_{i + 1} = h_i s\). Inductively \(g = h_{k + 1} = s_0 \cdots s_k\).
+
+  All word metrics on \(G\) are quasi-isometric so take \(S\) as above. Clearly we have that \(2D\)-neighbourhood of the image of the map \(\varphi_{x_0}: g \mapsto g x_0\) is \(X\) so just need to show \(\varphi_{x_0}\) is a quasi-isometric embedding. By construction
+  \[
+    |g|_S \leq k + 1 \leq \frac{d_X(x_0, gx_0)}{d} + 1.
+  \]
+  On the other hand if \(|g|_S = m\) and \(t_1 \cdots t_m = g\) in \(G\), \(t_i \in S\) then
+  \begin{align*}
+    d_X(x_0, gx_0)
+    &\leq d_x(t_1^{-1}x_0, x_0) + d_X(x_0, t_2 \cdots t_m x_0) \\
+    &\leq d_X(x_0, t_1 x_0) + d_X(x_0, t_2 \cdots t_m x_0) \\
+    &\leq \sum_{i = 1}^m d_X(x_0, t_ix_0) \\
+    & \leq 2D m \\
+    &= 2D |g|_s
+  \end{align*}
+  Finally apply left-invariance of \(d_S\) and \(d_X\).
+\end{proof}
+
+\begin{corollary}
+  Let \(M\) be a compact connected Riemannian manifold and let \(\widetilde M\) be its universal. \(\pi_1M\) acts on \(\widetilde M\) isometrically so \(\pi_1M\) is finitely generated and is quasi-isometric to \(\widetilde M\).
+\end{corollary}
+
+\begin{corollary}
+  Let \(G\) be a connected real Lie group and let \(\Gamma\) be a cocompact lattice in \(G\), i.e.\ a discrete subgroup such that \(G/\Gamma\) is compact. Then \(\Gamma\) is finitely generated and \(\Gamma \cong_{\mathrm{QI}} G\).
+\end{corollary}
+
+\begin{corollary}
+  Let \(G\) be a finitely generated group.
+  \begin{enumerate}
+  \item If \(H\) is a finite index subgroup of \(G\) then \(G \cong_{\mathrm{QI}} H\).
+  \item If \(H \normal G\) finite then \(G \cong_{\mathrm{QI}} G/N\).
+  \item If \(G, H\) are commensurable finitely generated groups then \(G \cong_{\mathrm{QI}} H\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{definition}[commensurable]\index{commensurable}
+  \(G\) and \(H\) are \emph{commensurable} if exists \(K_1 \leq G, K_2 \leq H\) finite index such that \(K_1 \cong K_2\).
+\end{definition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item \(H\) acts on \(\Cay(G)\).
+  \item \(G\) acts on \(\Cay(G/N)\).
+  \item Immediate.
+  \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+  All finitely generated free groups are quasi-isometric.
+\end{corollary}
+
+\begin{proof}
+  \(F_n \leq F_2\) of finite index for all \(n \geq 2\).
+\end{proof}
+
+One may wonder if all quasi-isometric groups are commensurable. In other words, when does geometric similarity forces algebraic similarity? 
+
+\begin{eg}
+  There exist groups which are quasi-isometric but not commensurable. Take
+  \[
+    G = \Z_4 \wr \Z, H = (\Z_2 \times \Z_2) \wr \Z.
+  \]
+  Not commensurable: the only elements of finite order in \(H\), and hence in a finite index subgroup thereof, are of order \(2\). On the other hand, given a finite index subgroup \(K \leq G\), \(K\) necessarily contains elements of order \(4\) as
+  \[
+    [\bigoplus_\Z \Z_4: K \cap \bigoplus \Z_4] = [K \cdot \bigoplus \Z_4: K] < \infty
+  \]
+  and the subgroup generated by all elements of order \(2\) in \(\bigoplus \Z_4\) has infinite index.
+
+  Quasi-isometric: take the generating set
+  \[
+    S = \{(0, 1)\} \cup \{(f_1, 0), (f_2, 0), (f_3, 0)\}
+  \]
+  of \(\Z_4 \wr \Z\) where \(f_i(0) = i, f_i(n) = 0\) otherwise. Similarly take
+  \[
+    S' = \{(0, 1)\} \cup \{(f_{(0, 1)}, 0), (f_{(1, 0)}, 0), (f_{(1, 1)}, 0)\}
+  \]
+  of \((\Z_2 \times \Z_2) \wr \Z\). Then the Cayley graphs are actually isomorphic.
+\end{eg}
+
+Question: in which case does quasi-isometry imply commensurability? Typical rigidity question.
+
+Since quasi-isometry only sees finite index subgroups, it is convenient to define
+
+\begin{definition}[virtual property]\index{virtual property}
+  A group is called \emph{virtually \(P\)} for some property \(P\) if it has a finite index subgroup that is \(P\).
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{itemize}
+  \item \(\Z_2 \times \Z\) is virtually \(\Z\).
+  \item \(\SL_2(\Z)\) is virtually free.
+  \end{itemize}
+\end{eg}
+
+\begin{theorem}
+  Let \(G\) be a finitely generated group such that \(\Cay(G) \cong_{\mathrm{QI}} \Z\). Then \(G\) is virtually \(\Z\).
+\end{theorem}
+
+\begin{proof}[Sketch proof]
+  First show there is an element of infinite order in \(G\). We will find \(g \in G\) and \(A \subseteq G\) such that \(gA \subsetneq A\) (then \(g^n \ne e\) for all \(n\)). Let \(\varphi: \Cay(G) \to \R\) be a quasi-isometry. As \(G\) acts on \(\Cay(G)\) by isometry, any \(g \in G\) determines a quasi-isometry \(\psi_g: \R \to \R\). Take \([0, \infty) \subseteq \R\), then \(\psi_g([0, \infty))\) is either a bounded distance\footnote{\(X\) is bounded distance from \(Y\) if exists \(M \geq 0\) such that for all \(x \in X\) exists \(y \in Y\) such that \(d(x, y) \leq M\) and vice versa.} from \([\psi_g(0), \infty)\) or \((-\infty, \psi_g(0)]\). If \(\psi_g([0, \infty))\) is bounded distance from \([\psi_g(0), \infty)\) then setting
+  \[
+    A = V(\Cay(G)) \cap \varphi^{-1}([0, \infty)).
+  \]
+  If \(\psi_g(0) \gg 0\) then \(gA \subsetneq A\): this is possible since \(\psi_g(0)\) is bounded below in terms of the quasi-isometry constants, while \(\inf \psi_g([0, \infty))\) (the ``left-most point'' the image of \([0, \infty)\) reaches before going off to infity) is bounded above.
+
+  So need \(g\) so that \(\psi_g([0, \infty))\) is bounded distance from \([\psi_g(0), \infty)\) and \(\psi_g(0) \gg 0\). To find such \(g\), take \(h, k \in G\) such taht \(e, g, k\) far apart in \(\Cay(G)\) (if and only if \(\varphi(e), \varphi(h),  \varphi(h)\) far apart in \(\R\)). Consider images of \([0, \infty)\) under \(\psi_e, \psi_h, \psi_k\) --- at least two of thse images will be of bounded distance from each other, so at least two of \(A, hA, kA\) are nested. So take \(g\) to be one of the elements of \(h, k, k^{-1}h, h^{-1}k\).
+
+  Let \(H = \langle g\rangle\). Want to show \(H\) has finite index in \(G\). We have \(d(e, g^n) \to \infty\) as \(n \to \pm \infty\) and \(d(g^n, g^m) = d(e, g^{n - m})\). Define
+  \begin{align*}
+    f: \Z &\to \R \\
+    n &\mapsto \varphi(g^n)
+  \end{align*}
+  Then \(|f(n) - f(n - 1)|\) is bounded independent of \(n\) and for all \(r \geq 0\) exists \(K \in N\) such that \(|f(n) - f(m)| \leq r\) implies \(|m - n| \leq K\). It is an exercise to check that exists \(C > 0\) such that for all \(x \in \R\), exists \(n \in \Z\) such that \(|x - f(n)| \leq C\). Then exists \(C'\) such that for all \(g' \in G\), exists \(g^n \in H\) such that \(d(g', g^n) \leq C'\), i.e.\ \(\Cay(G)/H\) is finite, so \(H\) is a finite index subgroup in \(G\).
+\end{proof}
+
+Other examples:
+\begin{itemize}
+\item If both groups are virtually ablian then quasi-isometry implies commensurability. This is an exercise.
+\item It is also true if just one of the groups is assumed to be abelian. This is much deeper. See next chapter.
+\item True if both groups are virtually free.
+\item True if only one of the groups is assumed to be virtually free.
+\end{itemize}
+
+\section{Geometric property of groups}
+
+\subsection{Growth}
+
+\begin{notation}
+  Let \(f, g: X \to \R\) where \(X \subseteq \R\), we write
+  \begin{itemize}
+  \item \(f \preceq g\) if exists \(a, b > 0\) and \(x_0\) such that \(f(x) \leq a g(bx)\) for \(x \geq x_0\).
+  \item \(f \asymp g\) if \(f \preceq g, g \preceq f\).
+  \end{itemize}
+\end{notation}
+
+\begin{definition}[growth function]\index{growth function}
+  Let \(X\) be a discrete metric space and \(x_0 \in X\) a basepoint. The \emph{growth function} is the function
+  \[
+    \beta_{X, x_0}(r) = |\overline B_X(x_0, r)|.
+  \]
+\end{definition}
+
+\begin{lemma}
+  The equivalence class of growth function under \(\asymp\) is a quasi-isometry invariant for groups. In particular \(\beta_{G, g} = \beta_{G, h}\) for all \(g, h \in G\) and write \(\beta_G\) for this equivalence class.
+\end{lemma}
+
+We write \(\beta_{G, S}\) for the growth function relative to the generating set \(S\).
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item If \(G\) is infinite then \(\beta_{G, S}|_\N\) is strictly increasing.
+  \item \(\beta_{G, S}(r + t) \leq \beta_{G, S}(r) \cdot \beta_{G, S}(t)\).
+  \item \(\beta_{G, S}(r) \leq |S|^r\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\beta_{\Z^k}(r) \asymp r^k\).
+  \item \(\beta_{F_k}(r) \asymp (2k)^r\).
+  \end{enumerate}
+\end{eg}
+
+\begin{remark}
+  The proposition implies that
+  \[
+    \lim_{n \to \infty} \beta_{G, S}(n)^{1/n} \geq 1.
+  \]
+  The limit exists by Fekete's lemma: if \((a_n)\) is a subadditive sequence then \(\lim \frac{a_n}{n}\) exists.
+\end{remark}
+
+\begin{definition}[(sub)exponential/polynomial growth]\index{growth!exponential}\index{growth!subexponential}\index{growth!polynomial}
+  We say \(G\) has \emph{exponential growth} if \(\lim \beta_{G, S}(n)^{1/n} > 1\). Otherwise we say \(G\) has \emph{subexponential growth}.
+
+  \(G\) has \emph{polynomial growth} if exists \(D\) such that \(\beta_G(r) \leq r^D\).
+\end{definition}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item If \(H\) is a finitely generated subgroup of \(G\) then \(\beta_H \preceq \beta_G\).
+  \item If \(H\) is a finite index subgroup of \(G\) then \(\beta_H \asymp \beta_G\).
+  \item If \(N \normal G\) then \(\beta_{G/N} \asymp \beta_G\).
+  \item If \(N \normal G\) is finite then \(\beta_{G/N} \asymp \beta_G\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  2 and 4 are easy consequences Švarc-Milnor. For 1, take \(T\) to be a finite generating set of \(H\) and take \(S \supseteq T\) to be a finite generating set of \(G\). Then \(\Cay(H, T)\) is a subgraph of \(G\) so \(d_S(e, h) \leq d_T(e, h)\) for all \(h \in H\). Thus the closed ball of radius \(r\) about \(e\) in \(\Cay(G, S)\) contains the corresponding ball of \(\Cay(H, T)\).
+
+  For 3, take \(S\) to be a finite generating set of \(G\). Let \(T = SN/N\) be a finite generating set of \(N\). \(\pi: G \to G/N\) maps closed \(r\)-ball about \(e\) onto closed \(r\)-ball around \(e\) in \(G/N\).
+\end{proof}
+
+We can ask many questions about growth, for example
+\begin{enumerate}
+\item what types of growth can groups display?
+\item which group have which types of growth?
+\end{enumerate}
+
+We have seen that virtually abelian groups have polynomial growth. This generalises to
+
+\begin{proposition}
+  Let \(G\) be a 2-step nilpotent finitely generated group, i.e.\ \([[G, G], G] = \{e\}\). Then \(G\) has polynomial growth.
+\end{proposition}
+
+\begin{proof}
+  Suppose \(G\) is generated by \(g_1, \dots, g_m\). As \(G\) is 2-step nilpotent, \([G, G] \subseteq Z(G)\). We bound the size of all products of \(n\) generators using a normal form. Note we can exchange two elements at the cost of a commutator:
+  \[
+    gh = hg \cdot g^{-1}h^{-1}gh = hg [g, h].
+  \]
+  Commutators are central so we can move them to the right. Thus in \(\leq n^2\) moves we can express the element as \(g_1^{\alpha_1} \cdots g_m^{\alpha_m} \cdot C\), where \(C\) is a product of \(\leq n^2\) commutators. It is an easy exercise to check that \([G, G]\) is finitely generated, in this case by \([g_i^{\pm 1}, g_j^{\pm 1}]\). Thus the commutators are words of length 1 in generators of \([G, G]\) , which has polynomial growth (say degree \(D\)). Thus \(G\) has polynomial growth of degree \(\leq m + 2D\).
+\end{proof}
+
+\begin{theorem}
+  All finitely generated virtually nilpotent groups have polynomial growth.
+\end{theorem}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+Can we push this result further? The natural class of groups to consider after nilpotent groups is solvable groups. Unfortunately, there do exist solvable groups of exponential growth, for example the lamplight group\index{lamplight group} \(\Z_2 \wr \Z\). In fact,
+
+\begin{theorem}[Gromov]
+  A finitely generated group has polynomial growth if and only if it is virtually nilpotent.
+\end{theorem}
+
+\begin{remark}
+  The proof uses what is now called \emph{asymptotic cones}, the limit of the objects \((X, \frac{d}{n})\) as \(n \to \infty\).
+
+  Tits alternative: in the language of growth, a group either has exponential growth or is virtually solvable. Then we can use algebraic techniques to show it's virtually nilpotent.
+
+  c.f. paper by Wilkie van den Dries (rewrite the old paper), Kleiner (different proof, elementary but hard), Ozawa (functional analysis, representation theory)
+
+  For ultralimits and asymptotic growth, see Druţu and Kapovich Chapter 7.
+
+  There is also a proof based on approximate groups.
+\end{remark}
+
+\begin{corollary}
+  Being virtually nilpotent is quasi-isometry invariant.
+\end{corollary}
+
+Does there exist groups whose growth is between polynomial and exponential? The answer is yes, and such groups are said to have intermediate growth\index{growth!intermediate}
+
+\begin{theorem}[Grigorchuk, 1983]
+  Exists finitely generated group \(G\) such that
+  \[
+    2^{r^{\alpha_1}} \preceq \beta_G(r) \preceq 2^{r^{\alpha_2}}
+  \]
+  for \(0 < \alpha_1 < \alpha_2 < 1\).
+\end{theorem}
+
+For more on intermediate growth see de la Harpe.
+
+\subsection{Ends}
+
+How many ways are there to go to infinity in a Cayley graph? Informally, for \(F_2\) there are ``infinitely many'' while for \(\Z^2\) there is ``only one'' way. For \(\Z \times \Z/2\) there are ``two'' ways. Of course for finite groups there is no way to move to infinity. We are going to formalise this notion using \emph{ends} and prove that, perhaps surprisingly, the above are all the possibilities that can arise from the Cayley graph of a finitely generated group.
+
+\begin{definition}[proper map]
+  A map \(f: X \to Y\) between topological spaces is \emph{proper} if \(f^{-1}(C)\) is compact whenever \(C\) is compact.
+\end{definition}
+
+\begin{definition}[ray]\index{ray}
+  Let \(X\) be a topological space. A \emph{ray} in \(X\) is a proper continuous map \(r: [0, \infty) \to X\).
+\end{definition}
+
+\begin{definition}[convergence to the same end]\index{end}
+  Let \(r_1, r_2: [0, \infty) \to X\) be rays. \(r_1, r_2\) \emph{converge to the same end} if for all compact \(C \subseteq X\), exists \(N \in \N\) such that \(r_1([N, \infty))\) and \(r_2([N, \infty))\) are contained in the same path component of \(X \setminus C\).
+\end{definition}
+
+(pic of Calyay graph of \(F_2\))
+
+This defines an equivalence relation on rays, the equivalence classes of which are called the set of \emph{ends} of \(X\) and is denoted \(\Ends(X)\). If \(|\Ends(X)| = m\) we say \(X\) has \(m\) ends.
+
+We can topologise \(\Ends(X)\) by declaring a set \(B \subseteq \Ends(X)\) to be closed if \(\mathrm{end}(r_n) \in B\) for all \(n\) and \(\mathrm{end}(r_n) \to \mathrm{end}(r)\) imply that \(\mathrm{end}(r) \in B\), where \(\mathrm{end}(r_n) \to \mathrm{end}(r)\) if for all \(C \subseteq X\) compact, exists a sequence of natural numbers \((N_n)\) such that \(r_n([N_n, \infty))\) and \(r([N_n, \infty))\) lie in the same path compnent of \(X \setminus C\) for \(n\) sufficiently large.
+
+\begin{definition}
+  A \emph{\(k\)-path} from \(x\) to \(y\) in a metric space \(X\) is a sequence of points \(x_1 = x, x_2, \dots, x_n = y\) such that \(d(x_i, x_{i + 1}) \leq k\) for all \(i\).
+\end{definition}
+
+The following lemma justifies the heuristics at the beginning of the section of thinking ends as ways of escaping to infinity from a fixed point.
+
+\begin{lemma}
+  Let \(X\) be a proper geodesic metric space, \(k > 0\) and \(r_1, r_2\) rays in \(X\). Let \(G_{x_0}(X)\) be the set of (proper) geodesic rays starting at \(x_0 \in X\). Then
+  \begin{enumerate}
+  \item \(\mathrm{end}(r_1) = \mathrm{end}(r_2)\) if and only if for all \(R > 0\), exists \(T > 0\) such that for all \(t > T\), \(r_1(t)\) can be connected to \(r_t(t)\) by a \(k\)-path in \(X \setminus B(x_0, R)\).
+  \item the natural map \(G_{x_0}(X) \to \Ends(X)\) is surjective.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Every compact subset of \(X\) is contained in an open ball about \(x_0\) and vice versa. Given a \(k\)-path from \(x_1\) to \(x_n\) in \(X \setminus B(x_0, R + k)\), concatenate any geodesics from \(x_i\) to \(x_{i + 1}\) to get a continuous path in \(B(x_0, R)\).
+  \item Let \(r: [0, \infty) \to X\) be a ray. Let \(c_n: [0, d_n] \to X\) be a geodesic from \(x_0\) to \(r(n)\) where \(d_n = d(x_0, r(n)\). Extend \(c_n\) to \([d_n, \infty)\) by setting \(c_n(t) = r(n)\) for \(t \in [d_n, \infty)\). Ay Arzela-Ascoli, there exists a convergent subsequence of \(c_n\) converging to \(c: [0, \infty) \to X\) a geodesic ray with \(\mathrm{end}(c) = \mathrm{end}(r)\).
+  \end{enumerate}
+\end{proof}
+
+Let \(X\) be a metric space. Given \(f, g: X \to X\), say \(f \sim g\) if \(\sup_{x \in X} d_X(f(x), g(x))\) is finite. The set of equivalent classes of quasi-isometries of \(X\) forms a group, which we denote by \(\QI(X)\). A quasi-isometry \(\varphi: X \to Y\) induces an isomorphism \(\varphi_*: \QI(X) \to \QI(Y)\).
+
+\begin{proposition}
+  Let \(X\) and \(Y\) be proper geodesic metric spaces. A quasi-isometry \(f: X \to Y\) induces a homeomorphism \(\overline f: \Ends(X) \to \Ends(Y)\) which will be defined below. Then
+  \begin{align*}
+    \QI(X) &\to \mathrm{Homeo}(\Ends(X)) \\
+    f &\mapsto \overline f
+  \end{align*}
+  is a homomorphism.
+\end{proposition}
+
+\begin{proof}
+  Let \(r\) be a geodesic ray in \(X\) from \(x_0\), \(f_* r\) be the ray in \(Y\) obtained by concatenating some choice of geodesic segments \([f(r(n)), f(r(n + 1))]\). \(f\) is a quasi-isometry implies that \(f_*r\) is a (proper) ray. \(\mathrm{end}(f_*r)\) is independent of the choice of geodesic segments. Define
+  \begin{align*}
+    \overline f: \Ends(X) &\to \Ends(Y) \\
+    \mathrm{end}(r) &\mapsto \mathrm{end}(f_*r)
+  \end{align*}
+  The image of a \(k\)-path under \(f\) is a \((\lambda k + c)\)-path so \(\overline f\) is well-defined and continuous by the previous lemma part 1.
+
+  Lemma part 2 ensures that \(\overline f\) is defined on all of \(\Ends(X)\). The rest are exercise.
+\end{proof}
+
+\begin{definition}[ends of a group]\index{end}
+  Let \(G\) be a finitely generated group. Then \(\Ends(G) = \Ends(\Cay(G))\).
+\end{definition}
+
+\begin{theorem}
+  Let \(G\) be a finitely generated group.
+  \begin{enumerate}
+  \item \(G\) has \(0, 1, 2\) or finitely many ends.
+  \item \(G\) has 0 end if and only if \(G\) is finite.
+  \item \(G\) has 2 ends if and only if \(G\) is virtually \(\Z\).
+  \item \(G\) has infinitely many ends if and only if \(G\) can be expressed as \(A *_C B\) or \(A *_C\) with \(C\) finite, \(|A/C| \geq 3, |B/C| \geq 2\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  We prove 1. Fix a generating set \(S\) of \(G\) and work with \(\Cay(G, S)\). \(G\) acts \(\Cay(G, S)\) by isometry, giving a homomorphism \(G \to \mathrm{Homeo}(\Ends(\Cay(G, S)))\). Let \(H\) be its kernel. Suppose \(|\Ends(G)| < \infty\), so \(H\) has finite index in \(G\). Assume further \(e_0, e_1, e_2 \in \Ends(G)\) are distinct for contracdiction. Fix geodesic rays \(r_1, r_2: [0, \infty) \to \Cay(G)\) with \(r_1(0) = r_2(0) = e_G\) such that \(\mathrm{end}(r_i) = e_i\). The ray corresponding to \(e_0\) is defined  slightly differently. Since \(H\) has finite index in \(G\), exists \(\mu > 0\) such that for all \(g \in G\), exists \(h \in H\) with \(d(g, h) \leq \mu\). Thus exists a ray \(r_0: [0, \infty) \to \Cay(G)\) with
+  \begin{itemize}
+  \item \(\mathrm{end}(r_0) = e_0\),
+  \item \(d(r_0(n), e_G) \geq n\),
+  \item \(r_0(n) \in H\) for all \(n\).
+  \end{itemize}
+  Set \(h_n = r_n(n)\). Fix \(N > 0\) such that \(r_i[N, \infty)\) lie in different path components of \(\Cay(G) \setminus B(e_G, N)\). If \(t, t' > 2N\) then \(d(r_1(t), r_2(t')) > 2N\) since any path joining \(r_1(t)\) and \(r_2(t')\) must pass though \(B(e_G, N)\).
+
+  \(H\) acts trivially on \(\Ends(G)\) so \(\mathrm{end}(h_n r_i) = \mathrm{end}(r_i)\) for all \(i\). Let \(n > 3N\). Then \(h_nr_i(0) = h_n\) lie in a different path component of \(\Cay(G) \setminus B(e_G, N)\) from \(r_i[N, \infty)\) for \(i = 1, 2\), so \(h_nr_i\) must though \(B(e_G, N)\). Thus exists \(t_i\) such that \(h_nr_i(t_i) \in B(e_n, N)\) for \(i = 1, 2\). Since \(h_n\) is an isometry, \(d(r_1(t_1), r_2(t_2)) < 2N\), contradicting \(d(r_1(t_1), r_2(t_2)) > 2N\).
+\end{proof}
+
+\begin{remark}
+  We have seen that being virtually nilpotent is a geometric property. In fact,
+  \begin{enumerate}
+  \item being virtually free is geometric, as it is equivalent to being quasi-isometric to a tree. c.f.\ Antolin.
+  \item being finitely presentable is geometric. c.f.\ Bridson-Haefliger Prop 8.24.
+  \end{enumerate}
+\end{remark}
+
+\section{Amenability}
+
+The motivating example for this chapter is \emph{paradoxical decomposition}, which is the key argument in Banach-Tarski.
+
+\begin{definition}[equidecomposable]\index{equidecomposable}
+  Let \(G\) act on a set \(X\) and \(A, B \subseteq X\). Say that \(A\) and \(B\) are \emph{(finitely) \(G\)-equidecomposable} if exist partitions
+  \begin{align*}
+    A &= A_1 \cup A_2 \cup \dots \cup A_n \\
+    B &= B_1 \cup B_2 \cup \dots \cup B_n
+  \end{align*}
+  and \(g_1, \dots, g_n \in G\) such that \(g_i A_i = B_i\) for all \(i\). We write \(A \sim B\). If \(A \sim C\) for some \(C \subseteq B\) then write \(A \lesssim B\).
+
+  A \emph{realisation} \(h\) of \(A \sim B\) is a bijection \(h: A \to B\) such that there exists a decomposition as above with \(h(a_i) = g_i(a_i)\) for all \(i\) and for all \(a_i \in A_i\).
+\end{definition}
+
+Note that if \(h: A \to B\) is a realisation of \(A \sim B\) and \(S \subseteq A\) then \(S \sim h(S)\). For fixed \(X\), \(G\)-equidecomposability is an equivalence relation.
+
+\begin{theorem}
+  Suppose \(G\) acts on \(X\) and \(A, B \subseteq X\). Then \(A \lesssim B\) and \(B \lesssim A\) implies \(A \sim B\).
+\end{theorem}
+
+\begin{proof}
+  Let \(f: A \to B_1, g: A_1 \to B\) be the realisations. Define inductively
+  \begin{align*}
+    C_0 &= A \setminus A_1 \\
+    C_{n + 1} &= g^{-1} f(C_n)
+  \end{align*}
+  and let \(C = \bigcup_{n = 0}^\infty C_n\). If \(a \in A \setminus C\) then \(a \notin C_n\) for all \(n \geq 0\), so \(g(a) \notin f(C_n)\). Thus \(g(A \setminus C) = B \setminus f(C)\). Similarly \(B \setminus f(C) \subseteq g(A\setminus C)\). Thus \(A \setminus C \sim_g B \setminus f(C)\). Since \(C \sim f(C)\) we get \(A \sim B\).
+\end{proof}
+
+\begin{corollary}
+  Let \(G\) act on \(X\). Then TFAE:
+  \begin{enumerate}
+  \item there exist proper disjoint subsets \(A, B \subseteq X\) such that \(A \sim X \sim B\).
+  \item exist proper disjoint subsets \(A, B \subseteq X\) such that \(A \cup B = X\) and \(A \sim X \sim B\).
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  For \(1 \implies 2\), since \(X \sim B \subseteq X \setminus A\), have \(X \lesssim X \setminus A\). Trivially \(X \setminus A \lesssim X\). Thus \(A \sim X \sim X \setminus A\).
+\end{proof}
 
 
 
