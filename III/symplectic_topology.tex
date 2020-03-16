@@ -78,7 +78,7 @@ Motivation 2: symmetry groups. We want to classify groups acting locally on \(\R
   \end{itemize}
 \end{theorem}
 
-Motivation 3: difference with volume. WeAs \(A \in \Sp_{2n}(\R)\) implies \(\det A = 1\), we have inclusion \(\operatorname{Symp}(\R^{2n}) \subseteq \operatorname{Vol}(\R^{2n})\).
+Motivation 3: difference with volume. As \(A \in \Sp_{2n}(\R)\) implies \(\det A = 1\), we have inclusion \(\operatorname{Symp}(\R^{2n}) \subseteq \operatorname{Vol}(\R^{2n})\).
 
 \begin{theorem}[Moser]\leavevmode
   \begin{enumerate}
@@ -89,7 +89,7 @@ Motivation 3: difference with volume. WeAs \(A \in \Sp_{2n}(\R)\) implies \(\det
 
 By contrast
 
-\begin{theorem}[Gromov non-squeezing]
+\begin{theorem}[Gromov non-squeezing]\index{Gromov non-squeezing}
   There is no symplectic embedding \(B^{2n}(R) \embed B^2(r) \times \R^{2n - 2}\) if \(R > r\).
 \end{theorem}
 
@@ -1488,6 +1488,301 @@ In general
 Idea: geodesic flow on \(T^*S^n\) is a symplectomorphism which fixes \(S^n\). Time \(\pi\) flow is antipodal.
 
 For \(n \geq 2\), \(\tau_{S^n}^2\) is isotopic to identity but not symplectic isotopic.
+
+\section{\(J\)-holomorphic curves}
+
+Let \((X, \omega)\) be a symplective manifold and fix \(J\) a compatible almost complex structure.
+
+\begin{definition}[\(J\)-holomorphic curve]\index{\(J\)-holomorphic curve}
+  A \emph{\(J\)-holomorphic curve} \(f: \Sigma \to X\) is a triple \((\Sigma, j, f)\) where \((\sigma, j)\) is a smooth real 2-manifold equipped with a complex structure \(j\), and \(f \in C^\infty(\Sigma, X)\) such that \(Df \compose j = J \compose Df\) or equivalently, \(Df + J \compose Df \compose j = 0.\)
+\end{definition}
+
+\begin{remark}
+  In real dimension 2, all almost complex structure are complex.
+\end{remark}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item \(Df(T_x \Sigma) \subseteq F_{f(x)}X\) is \(J\)-invariant.
+  \item \(f\) needn't be an embedding.
+  \item \(J\)-holomorphic curves are parameterised (we care about \(f\) rather than merely about \(\im f\).
+  \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+  If \(f: \Sigma \to X\) is \(J\)-holomorphic then its image is a symplectic submanifold at the smooth points and
+  \[
+    \int_{f(\Sigma)} \omega = \int_\Sigma f^*\omega \geq 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+  At a smooth point \(f(x) \in f(\Sigma)\), \(J(T_{f(x)}f(\Sigma)) = T_{f(x)}f(\Sigma)\). As \(\omega\) is \(J\)-compatible, this is nondegenerate
+
+  Basis for \(T_{f(x)}f(\Sigma)\) is \(v, J_v\) for some \(v \ne 0\) and \(\omega(v, Jv) \geq 0\).
+\end{proof}
+
+In local coordinates, suppose \(x + iy\) is a local complex coordiante on \(\Sigma\), the \(J\)-holomorphic condition says
+\[
+  (\frac{\partial f}{\partial x} + J \frac{\partial f}{\partial y}) \d x + (\frac{\partial f}{\partial y} - J \frac{\partial f}{\partial x}) \d y = 0
+\]
+or equivalently,
+\[
+  \p_x f + J \p_y f = 0.
+\]
+This is called the \emph{generalised Cauchy-Riemann equation}\index{generalised Cauchy-Riemann equation}, or \(\overline \p\)-equation.
+
+\begin{definition}[energy]\index{energy}
+  Suppose \((X, \omega, J)\) is a symplectic manifold with a compatible almost complex structure, with associated metric \(g_J = |\cdot|_J\). Let \(u: \Sigma \to X\) be smooth where \(\Sigma\) is a surface. \(\d u \in \Omega^1(\Sigma, u^*(T^*X))\). The \emph{energy} of \(u\) is
+  \[
+    E(u) = \frac{1}{2} \int_\Sigma |\d u|^2_J \d\Vol_\Sigma
+  \]
+  where for \(L: T_z \Sigma \to T_{u(z)} X\),
+  \[
+    |L|_J = |\xi|^{-1} \sqrt{|L(\xi)|^2_J + |L(j\xi)|^2_J}
+  \]
+  where \(0 \ne \xi \in T_z\Sigma\).
+\end{definition}
+
+\begin{note}
+  \(E(u)\) depends on
+  \begin{itemize}
+  \item metric \(g_J\) on \(X\),
+  \item the complex structure on \(\Sigma\) (but not the volume form itself). More compactly,\(|\alpha|^2 \d \Vol_\Sigma = -\alpha \w (\alpha \compose j)\).
+  \end{itemize}
+\end{note}
+
+\begin{lemma}
+  \[
+    E(u) = \int_\Sigma \frac{1}{2} |\overline \p_J u|_J^2 \d \Vol_\Sigma + \int_\Sigma u^* \omega
+  \]
+  where \(\overline \p_J u = D u + J \compose Du \compose j\).
+\end{lemma}
+
+\begin{proof}
+  Use conformal coordinates \(x + iy\) on \(\Sigma\),
+  \begin{align*}
+    |\d u|^2 \d \Vol
+    &= (|\p_x u|^2 + |\p_y u|^2) \d x \w \d y \\
+    &= (|\p_x u + J \p_y u|^2 + 2 \langle \p_x u, J \p_y u \rangle) \d x \w \d y \\
+    &= |\p_J u|^2 \d \Vol + 2 u^*\omega
+  \end{align*}
+  as \(J\) is \(\omega\)-compatible.
+\end{proof}
+
+First properties of \(J\)-holomorphic curves:
+\begin{enumerate}
+\item local existence: there are always locally defined \(J\)-holomorphic curves through any point \(p\) of an almost complex structure. (In fact morally there is a one-to-one correspondence with curves through \(0 \in \C^n\)).
+\item unique continuation: if \(f, g: \Sigma \to X\) are \(J\)-holomorphic curves and agree to infinite order (as smooth maps) at a point \(p \in \Sigma\) then \(f = g\).
+\item corollary of energy identity: \(J\)-holomorphic curves are energy minimising within their cohomology class.
+\item Positivity of intersection for almost complex submanifolds.
+
+  If \(C\) is a \(J\)-holomorphic curve and \(Y \subseteq X\) is a codimension 2 submanifold which is also \(J\)-holomorphic. If \(C \cap Y\) is discrete and nonempty, each intersection point has a positive sign, i.e.\ if the intersection is nonempty then \([C] \cdot [Y] > 0\) (could be infinite).
+
+  \begin{proof}
+    Pick local almost-complex coordinates near an intersection point so that \(Y = \{(z_1, \dots, z_{n - 1}, 0)\} \subseteq X\). Local analysis analogous to the proof of 5 (stated below) tells us that \(C\) is locally given by \(z \mapsto (f(z), a z^k + O(|z|^{k + 1}))\) for some \(a \ne 0\). Perturb this to \(z \mapsto (f(z), az^k + \varepsilon + O(|z|^{k + 1}))\). This gives transverse intersection points, each of which is positive as they are locally modelled on complex intersection points.
+  \end{proof}
+
+  Corollary: \((X^4, \omega)\) compat with \(J\) a compatible almost complex structure. Suppose \(u: C \to X\) is \(J\)-holomorphic, \([u(C)] \cdot [u(C)] < 0\). Any other holomorphic curve \(v: C' \to X\) representing the same cohomology class must have the same image as \(u\) (it's given by a holomorphic reparameterisation of \(u\)).
+\item Let \(\Sigma\) be closed. If \(u: \Sigma \to X\) is \(J\)-holomorphic nonconstant then both \(\{z \in \Sigma| d u_z = 0\}\) and \(u^{-1}(\mathrm{Crit}(u))\) are finite.
+
+  \begin{proof}
+    Work in a coordinate patch. Let \(u: D \to \C^n\) is \(J\)-holomorphic for \(J: D \to \End_\R(\C^n)\). wlog \(u(0) = 0, Du_0 = 0\), i.e.\ \(0\) a critical point and \(J(0)\) is the action of \(i\) on \(\C^n\). We've assumed that \(u\) is non-constant so exists \(\ell \geq 2\) such that \(u(z) = O(|z|^\ell)\) near \(0\), \(u(z) \ne O(|z|^{\ell + 1})\). In this step we're using unique continuation property to say that all derivatives can't be zero. \(J(u(z)) = i + O(|z|^\ell)\) near \(0\). Let's look at Taylor expansion, say \(T_\ell u\), the \(\ell\)th order expansion. Taking the Taylor expansion of the Cauchy-Riemann equation
+    \[
+      \frac{\partial u}{\partial s} + J(u) \frac{\partial u}{\partial t} = 0,
+    \]
+    we obtain
+    \[
+      \frac{\partial (T_\ell u)}{\partial s} + i \frac{\partial (T_\ell u)}{\partial t} = 0
+    \]
+    so \(T_\ell u\) is holomorphic in the standard sense. By Taylor's theorem \(T_\ell u(z) = c z^\ell\) for some \(c \ne 0\), so \(u(z) = c z^\ell + O(|z|^{\ell + 1})\). Thus \(0\) is an isolated critical point. Finiteness follows from closedness of \(\Sigma\).
+  \end{proof}
+\item Two versions
+  \begin{itemize}
+  \item Monotonicity theorem: suppose \(u: (D, 0) \to (B^{2n}(r), 0)\) is \(J\)-holomorphic for \((B^{2n}(r), \omega_0, J)\) for some \(J\) compatible, and \(u(\p D) \subseteq \p B^{2n}(r)\). Then \(\mathrm{area}(u(D)) \geq \pi r^2\), where the area is \(\int_{u(D)} \omega\).
+
+    We will not prove this theorem. This is a special case of the monotonicity theorem for minimal surfaces (which are energy minimising surfaces). We say last time that \(J\)-holomorphic curves are minimal.
+  \item Weaker version: same statement with \(\mathrm{area}(u(D)) \geq \frac{\pi}{4} r^2\).
+
+    \begin{proof}
+      Assume we have such a \(u\). Let \(S_t = u^{-1}(B_0^{2n}(t))\). Let \(a(t) = \mathrm{area}(S_t)\), \(\ell(t) = \mathrm{length}(f|_{\p S_t})\). We have
+      \begin{itemize}
+      \item \(a'(t) = \ell(t)\) almost everywhere. This part does not use any property of \(J\)-holomorphicity.
+      \item \(a(t) \leq \frac{\ell(t)^2}{\pi}\). Proof later.
+      \end{itemize}
+      Putting these together
+      \[
+        \frac{d}{dt} \sqrt{a(t)} = \frac{a'(t)}{2\sqrt{a(t)}} = \frac{\ell(t)}{2\sqrt{a(t)}} \geq \frac{\sqrt{\pi}}{2}.
+      \]
+      Integrating gives \(\sqrt{a(t)} \geq \frac{\sqrt \pi}{2} t\).
+
+      \begin{proof}[Proof of second claim]
+        \(u(\p D)\) bounds a 2-complex \(C\) which can be made arbitrarily close to a union of ``flat 2-simplicies'' (pieces of linear subplanes). These can be approximated by union of small flat discs. For a disc of radius \(\varepsilon\), \(\pi \varepsilon^2 = \frac{(2\pi \varepsilon)^2}{4\pi}\) so \(\mathrm{area} C \leq \frac{\ell(\p D)^2}{\pi}\). By Stokes'
+        \[
+          \mathrm{area}(u(D)) = \int_D f^*\omega = \int_C \omega \leq \int_C 1 = \mathrm{area}(C)
+        \]
+        because \(\norm \omega_p \leq 1\) for any \(p \in B^{2n}(0)\).
+      \end{proof}
+    \end{proof}
+  \end{itemize}
+\item Reomoval of singularity: given \(J\)-holomorphic map \(f: D^* \to X\) of finite energy, \(f\) extends \(J\)-holomorphically to \(D\).
+
+  Sketch: can use monotonicity to get continuous extension (argue that \(f(D^*)\) must have a unique limit as \(x \to 0\), as else the energy would be infinite).
+\item
+  \begin{definition}
+    A \(J\)-holomorphic curve \(f: \Sigma \to X\) is \emph{simple} if it isn't multiplely covered, i.e.\ it doesn't factor as \(\Sigma \to \Sigma' \to X\) where \(\Sigma \to \Sigma'\) is a nontrivial branched cover.
+  \end{definition}
+
+  Corollary of 5: if \(f: \Sigma \to X\) is \(J\)-holomorphic, \(\Sigma\) closed and \(f\) simple then the set of injective points, i.e.\ \(\{x \in \Sigma: Df_x \ne 0, f^{-1}(f(x)) = \{x\}\}\), is open and dense. In fact, non-injective points are at most countable, and can only accummulate at critical points.
+\item Suppose \(\Sigma_0, \Sigma_1\) closed, \(u_j: \Sigma_j \to M\) \(J\)-holomorphic simple such that \(u_0(\Sigma_0) = u_1(\Sigma_1)\), then exists a biholomorphic \(u: \Sigma_0 \to \Sigma_1\) such that \(u_0 = u_1 \compose \varphi\). ``\(J\)-holomorphic curves with same energy as the same up to reparameterisation''.
+\end{enumerate}
+
+Note for 6B: area is calculated using the Riemannian metric \(g_J\), and for \(J\)-holomorphic curves it is the same as \(\int_C \omega\).
+
+For a general \((X, g)\) Riemannian, say \(g\) has injectivity radius \(r \geq 0\) if \(s < r\), \(\gamma \subseteq B_x(r)\) closed \(C^\infty\) loop, then \(\gamma\) bounds a disc of area \(A_\gamma \leq \frac{\ell(\gamma)^2}{\pi}\).
+
+Another remark: we used \(u: (D, \p D) \to (B^{2n}(r), \p B^{2n}(r))\) where \(J\) on the codomain is only required to be compatible. If instead we use the standard complex structure then we can do better using standard isoperimetric inequality: \(u(\p D) = (u_1(t), \dots, u_nt) \in \C^n, t \in S^1\), can fill them with \(C_i \subseteq \R^2\) such that \(\mathrm{area}(c_i) \leq \frac{\ell_i^2}{4\pi}\), and we can actually get the stronger inequality.
+
+\subsection{Moduli space of \(J\)-holomorphic curves}
+
+Let \((X, \omega, J)\) be a symplectic manifold with a fixed compatible almost complex structure \(J\). Let \((\Sigma, j)\) closed.
+
+\begin{definition}
+  For \(A \in H_2(X, \Z)\), define the moduli space of \(J\)-holomorphic curves to be
+  \[
+    \mathcal M_J(A, X) = \{J\text{-holomorphic curves } \Sigma \to X \text{ such that } [\Sigma] = A\}.
+  \]
+\end{definition}
+
+Fact: in favourable circumstances (\(J\) is regular), \(\mathcal M_J(A, X)\) is a manifold of real dimension
+\[
+  n(2 - 2g) + 2\langle c_1, A\rangle
+\]
+where \(g = g(\Sigma), 2n = \dim_\R X, c_1 = c_1(X)\).
+
+\begin{theorem}
+  If \(X\) is compact, \(A\) is simple in homology (i.e.\ primitive) then regular \(J\)'s are dense in the space of all almost complex structures.
+\end{theorem}
+
+Let \(S_0, S_1\) be Riemann surfaces diffeomorphic to \(S^2\). They are biholomorphic, in constrast to elliptic curves. \(\C\P^1\) admits a \(\PSL_2(\C)\)-action by reparameterisation. If \(A = [\Sigma]\) where \(\Sigma \cong S^2\), \(\PSL_2(\C)\) acts on \(\mathcal M_J(X, A)\) so we can form the quotient \(\overline{\mathcal M}_J(X, A)\). For regular \(J\), \(\overline {\mathcal M}_J(A, X)\) is a manifold of dimension \(2(n - 3 + \langle c_1, A\rangle)\).
+
+\begin{itemize}
+\item If \(X = \P^2, A = [\C\P^1]\) the the dimension is \(2 (2 - 3 + 3) = 4\). This agrees with the fact that the Grassmannian of lines in \(\P^2\) is isomorphic to \(\P^2\), which has real dimension \(4\).
+\item \(X = \P^2, A = 2[\C\P^1]\) (conic, still isomorphic to \(\C\P^1\)): dimension \(2(2 - 3 + 6) = 10\). c.f. conic through 5 points in generic position.
+\end{itemize}
+
+Example of non-regular behaviour: \(X^4\) Kähler, \(C \cap X^4\) smooth holomorphic curves. Take local coordinate \(z\) on \(C\). Blow up at points \(0, t\) on \(C\) (in \(X\)). If \(t \ne 0\) get two exceptional divisors \(E_1, E_2\). If \(t = 0\) then we blow up twice. Symplectically they are the same: \(\P^2 \# 2 \overline \P^2\), wlog with the same symplectic form. The construction for varying \(t\) gives a \(1\)-(complex) parameter family of \(J\)'s on \(\P^2 \# 2 \overline \P^2\), say \(J_2\). There are two curves for \(t = 0\), lies in class \(E_1 = E_2\). However for \(t \ne 0\), no connected smooth holomorphic curve \(C\) in that class: suppose not, \((E_1 + E_2) \cdot E_1 = -1\), so would get a contradiction to positivity of intersection unless \(E_1 \subseteq C\) or \(C \cap E_1\) (impossible), similar for \(E_2\). Thus \(J_0\) is not regular for the class \(E_1 + E_2\).
+
+Note: blowing up \(p \in C^2 \subseteq X^4\) gives \(\pi: \tilde X \to X\), \(\pi^{-1}(C) = \tilde C + E\) where \(\tilde C\) is the strict transform of \(C\), \(E \cong \C\P^1\) is the exceptional divisor. Then \([\tilde C]^2 = [C]^2 - 1\).
+
+Question: suppose we have a sequence of points in \(\mathcal M_J(X, A)\). When do we have convergence?
+
+Example: consider the family
+\begin{align*}
+  \P^1 &\to \P^2 \\
+  [x: y] &\mapsto [x^2 : y^2 : txy]
+\end{align*}
+The iamge is \(\{t^2XY = Z^2\}\). If \(t \ne 0, \infty\) then have smooth conic. As \(t \to \infty\), it becomes \(\{XY = 0\}\). This is an example of \emph{bubbling}.
+
+\begin{eg}
+  More bubbling: consider
+  \begin{align*}
+    f_n: \P^1 &\to \P^1 \times \P^1 \\
+    z &\mapsto (z, \frac{1}{zn^2})
+  \end{align*}
+  Away from \(0\), \(|Df_n|\) is bounded and \(f_n\)'s coverge uniformly on compact sets. As \(n \to \infty\), \(\{|z| \leq \frac{1}{n}\}\) collapses to a point. However, \(\im \{f_n\}\) converges pointwise to  \(\P^1 \times \{0\} \cup \{0\} \times \P^1\).
+\end{eg}
+
+\begin{definition}[bubble]\index{bubble}
+  A \(J\)-holomorphic curve \(g: \P^1 \to X\) occurs as a \emph{bubble} in a seuqnece \(f_n: \Sigma \to X\) of \(J\)-holomorphic curves if for some \(p \in \Sigma\), exist holomorphic charts \(\{\varphi_n: B(R_n) \to \Sigma\}_{R_n \to \infty}\) such that for all \(z \in \C\), \(\varphi_n(z) \to p\) (for \(n \gg 0\)) on \(\Sigma\) and \(f_n \compose \varphi_n \to g\) uniformly on compact sets of \(\C\).
+\end{definition}
+
+\begin{theorem}
+  If \(f_n: \Sigma \to X\) is a sequence of \(J_n\)-holomorphic curves (some sequence \(J_n \to J\) compatible almost complex structures) with compact image, then either some subsequence coverges to a \(J\)-holomorphic map, or there is bubbling.
+\end{theorem}
+
+\begin{note}
+  Each bubble splits off its symplectic area's worth of energy (recall that the energy is zero if and only if the \(J\)-holomorphic curve is constant.
+\end{note}
+
+\begin{definition}
+  We say that a class \(\alpha \in H^2(X, \Z)\) has \emph{least area} if \(\omega(\alpha) > 0\) and there does not exist \(\beta \in H_2(X, \Z)\) such that \(0 < \omega(\beta) < \omega(\alpha)\).
+\end{definition}
+
+If \(\alpha\) has least area then any bubble ``eats'' at least \(\omega(\alpha)\) energy, there are \(\leq \omega(\Sigma)/\omega(\alpha)\) bubbles, so
+
+\begin{corollary}
+  If \(X\) has a class of least area, any sequence in \(\mathcal M_J(X, \beta)\), for any \(\beta\), can only have finitely many bubbles.
+\end{corollary}
+
+\begin{theorem}
+  Let \(X^{2n}\) be a closed symplectic manifold. Suppose \(\alpha \in H_2(X, \Z)\) has least symplctic area. Then exists a dense collection of compatible almost complex structures \(J\) which are regular for \(\alpha\). In this case \(\mathcal M_J(X, \alpha)\) is a compact manifold (every sequence of nets converges).
+\end{theorem}
+
+Fact: the dnese collection is path-connected.
+
+Idea for bubbling theorem:
+
+\begin{itemize}
+\item If there is a uniform bound on \(|Df_n|\) then there is a convergent subsequence of \(f_n\)'s by Arzela-Ascoli.
+\item Could fail to converge if exists points \(p_n \in \Sigma\) with \(|Df_n(p_n)| \to \infty\). Since \(\Sigma\) is compact, \(p_n \to p\), say. Slogan: energy concentrates near \(p\), i.e.\ bubble at \(p\).
+\end{itemize}
+
+Sketch application: conisder \(\mathrm{ev}: \mathcal M_J(\P^2, [H]) \to \mathrm{Sym}^2(\P^2)\) given by evaluation at two fixed points on \(\im \P^1\). Note by adjunction the only \(J\)-holomorphic curves in \([H]\) are isomorphic to \(\P^1\). For the standard \(J\) (which is regular), \([\im \mathrm{ev}] = [\mathrm{Sym}^2 \P^2]\). For another regular \(J\), \([\im \mathrm{ev}: \mathcal M_J(\P^2, [H])]\) is unchanged as a cycle. In particular \(mathrm{ev}\) must hit every point in \(\mathrm{Sym}^2(\P^2)\) (if not, \(\im \mathrm{ev}\) would not be fundamental class). Thus for a regular \(J\) (thought as the standard Kähler form deformed a bit), there is a \(J\)-holomorphic \(\P^1\) between any two points.
+
+\subsection{Gromov non-squeezing}\index{Gromov non-squeezing}
+
+Recall Gormov non-squeezing theorem says if there is a symplectic embedding \(B^{2n}(R) \embed B^2(r) \times \R^{2n - 2}\) then \(r \leq R\).
+
+First proof
+
+Assume \(B^{2n}(r) \embed B^2(R) \times \R^{2n - 2}\) is a symplectic embedding. We get \(\overline B^{2n}(r_0) \embed B^2(R) \times \R^{2n - 2}\) for any \(r_0 < r\). \(\overline B^{2n}(r_0)\) has compact images so exists symplectic embedding \(\overline B^{2n}(r_0) \embed (\P^1, \Sigma) \times V\) where \(\int_{\P^1} \omega = \pi R^2 + \varepsilon\) for some \(\varepsilon\) small and \(V = \R^{2n - 2}/L \Z^{2n - 2}\) for \(L\) sufficiently large. We have \(\varphi: B^{2n}(r_0) \embed M = \P^1 \times V, 0 \mapsto (a, b)\). Blow up \(\P^1 \times V\) by cutting out this ball and replacing it by a ball of any weight \(\rho < r_0\) to get \((\tilde M, \omega_\rho)\). \(u: \P^1 \to \P^1 \times V, x \mapsto (x, b)\) is a \(J\)-holomorphic curve through \((a, b)\) on \(M\). We can lift it to \(\tilde u: \P^1 \setminus u^{-1}(a, b) \to \tilde M\) which is \(\tilde J\)-holomorphic automatically, where \(\tilde J\) is picked so that it agrees with \(J\) away from the exceptional divisor \(E\). Finiteness of energy/area means that we can apply removal of singularities to extend to a \(\tilde J\)-holomorphic map \(\tilde u: \P^1 \to \tilde M\). By positivity of intersection, \([\tilde u(\P^1)] \cdot E > 0\). But
+\[
+  \pi R^2 + \varepsilon = \int_{\P^1} u^*\omega = \int_{\P^1} (\pi \compose \tilde u)^* \omega = \underbrace{\int_{\P^1} \tilde u^* \omega_\rho}_{> 0} + \pi\rho^2 \underbrace{[\tilde u(\P^1)] \cdot E}_{\geq 1}
+\]
+so \(\pi R^2 + \varepsilon > \pi \rho^2\) for \(\varepsilon\) arbitrarily small. Thus \(r \leq R\).
+
+Could use monotonicity to get bounds on areas of bubbule
+
+***
+
+Moduli space for non-primitive classes: define \(M_J^*(X, A) \subseteq M_J(X, A)\) to be the subspace of curves which are simple (for example generic degree \(d\) in \(\C\P^2\) represents \(d[H]\) and is simple. We have a version of the theorem before
+
+\begin{theorem}
+  for \(J \in \mathcal J\) where \(\mathcal J\) is a subspace of the space of all compatible almost complex structures which is of the second category (i.e.\ contains an intersection of countably many dense open subsets), \(M_J^*(X, A)\) is a smooth manifold of dimension \(n(2 - 2g) + 2c_1(A)\), where \(g = g(\Sigma)\) and \(u: \Sigma \to X\). Such a \(J\) is ``regular''.
+\end{theorem}
+
+\subsection{Application of Gromov non-squeezing}
+
+\begin{theorem}[Eliashberg]\label{thm:Elaishberg theorem about C0 closure of Symp}
+  Let \(M\) be a symplectic manifold. Then \(\Symp(M)\) is \(C^0\) closed in \(\mathrm{Diff}(M)\), i.e.\ the topology of uniform convergence of compact sets).
+\end{theorem}
+
+\begin{lemma}
+  Volume (Lebesgue measure) is preserved under \(C^0\) limit. This means that if \(\{f_n\} \subseteq \Symp(M)\) and \(f_n \to f\) in \(C^0\) where \(f \in \mathrm{Diff}(M)\) then \(f\) is volume preserving.
+\end{lemma}
+
+\begin{proof}
+  Work near a point, wlog \(0 \in \R^{2n}, Df|_0 = A\). Let \(B(\delta) = B_\delta(0)\). \(\frac{\Vol(f(B(\delta)))}{\Vol(B(\delta))} \to \det A\) as \(\delta \to 0\). Now note \(f_n\)'s are volume preserving and converge uniformly on compact sets to \(f\), so \(\det A = 1\).
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:Elaishberg theorem about C0 closure of Symp}]
+  This is a local result. Suppose we have a sequence of symplectic embeddings \(B^{2n}(r) \embed (\R^{2n}, \omega)\) such that \(f_n \to f\) in \(C^0\), \(f \in C^\infty\). Need to show \(A = Df|0 \in \Sp_{2n}(\R)\). We will show \(A^*\omega = \pm \omega\), and this is enought to show \(A^*\omega = \omega\) by considering \(f_n \times \id: B^{2n + 2}(r) \to \R^{2n + 2}\) which \(C^0\) converges to \(f \times \id\).
+
+  Assume \(A^*\omega \ne \pm \omega\). Work with \(A^\tau = -J_0 A^T J_0\) where \(J_0\) is the standard complex structure. This is such that \(\omega(Ax, y) = \omega(x, A^\tau y)\). Exist \(u, v \in \R^{2n}\) such that \(\omega(A^\tau u, A^\tau v) \ne \pm \omega(u, v)\). \(|\det A| = |\det A^\tau| = 1\). We can assume
+  \[
+    0 < \lambda^2 = |\omega(A^\tau u, A^\tau)| < \omega(u, v) = 1.
+  \]
+  Fix signs, wlog \(\omega(A^\tau u, A^\tau v) = \lambda^2\). Extend \(u, v\) to a basis \(\mathcal B_1\) for \(\R^{2n}\) with respect to which \(\omega\) is given by the standard matrix. Similarly extend \(\frac{A^\tau u}{\lambda}, \frac{A^\tau v}{\lambda}\) to a basis \(\mathcal B_2\) for \(\R^{2n}\) such that \(\omega\) has the same matrix representation. Let \(S \in \Sp_{2n}(\R)\) be the linear map taking \(\mathcal B_1\) to \(\mathcal B_2\). Now with respect to \(\mathcal B_1\), \(A \compose S\) has matrix
+  \[
+    \begin{pmatrix}
+      \lambda & 0 & 0 \\
+      0 & \lambda \\
+      * & & *
+    \end{pmatrix}
+  \]
+  \(A \compose S = D(f \compose S)_0\) and this takes \(B^{2n}(\varepsilon) \embed B^2(\lambda \varepsilon) \times \R^{2n - 2}\). For sufficiently small \(\varepsilon\), \(f \compose S: B^{2n}(\varepsilon) \embed B^2(\lambda \varepsilon) \times \R^{2n - 2}\). Thus exists \(n\) such that \(f_n \compose S: B^{2n}(\varepsilon) \embed B^2(\lambda \varepsilon) \times \R^{2n - 2}\), contradicting Gromov non-squeezing.
+\end{proof}
 
 
 

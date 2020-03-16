@@ -17,6 +17,8 @@
 \DeclareMathOperator{\Sp}{Sp} % maximum spectrum
 \DeclareMathOperator{\Max}{Max}
 \DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\supp}{supp} % support of a valuation
 
 \begin{document}
 
@@ -35,8 +37,8 @@ What is non-archimedean geometry?
 \begin{notation}
   We define the valuation ring and its unique maximal ideal to be
   \begin{align*}
-    R &= K^0 \{x \in K: |x| \leq 1\} \\
-    \mathfrak m &= K^{00} \{x \in K: |x| < 1\}
+    R &= K^0 = \{x \in K: |x| \leq 1\} \\
+    \mathfrak m & = K^{00} = \{x \in K: |x| < 1\}
   \end{align*}
   and we let \(k = \tilde K = R/\mathfrak m = K^0/K^{00}\).
 \end{notation}
@@ -465,7 +467,7 @@ It is well-defined: by Noether normalisation the composition \(K \embed A/\varph
   In fact more is true. Let \(A\) be a reduced affinoid algebra. Then \(A\) is complete with respect to \(\norm \cdot_{\mathrm{spec}}\) and \(\norm \cdot_{\mathrm{spec}}\) is equivalent to any residual norm. The first statement is Theorem 3.4.9 in Fresnel \& van der Put.
 \end{remark}
 
-\section{Topology on \(\Sp A\)}
+\section{Topology on maximum spectrum}
 
 \subsection{Affinoid subdomain}
 
@@ -1228,13 +1230,434 @@ Let \(R\) be a complete DVR with a uniformiser \(\pi\). Let \(K = R[\frac{1}{\pi
   \item quasi-separated quasi-paracompact rigid \(K\)-spaces.
   \end{itemize}
 
-  Quasi-paracompact means there exists a covering (admissible respectively) \(\{U_i\}\) of finite type (i.e.\ \(U_i\) is disjoint from almost all \(U_j\)) of quasi-compact (admissible respectively) opens.
+  Quasi-paracompact means there exists a covering (admissible respectively) \(\{U_i\}\) of finite type (i.e.\ \(U_i\) is disjoint from almost all \(U_j\)) of quasicompact (admissible respectively) opens.
 \end{theorem}
 
+\section{Adic spaces}
 
+\subsection{Huber pairs}
 
+\begin{definition}[Huber ring]\index{Huber ring}\index{ring of definition}\index{ideal of definition}
+  A \emph{Huber ring} (or \(f\)-adic ring in old literature) is a topological ring \(R\) such that there exists an open subring \(R_0 \leq R\) and a finitely generated ideal \(I \subseteq R_0\) such that the topology on \(R_0\) is the \(I\)-adic topology. \(R_0\) is called a \emph{ring of definition} and \(I\) is an \emph{ideal of definition}.
+\end{definition}
 
+\begin{remark}
+  \(R_0\) may not be complete with respect to the \(I\)-adic topology. One can always complete \(R_0\) to get the completion \(\hat R_0\). Then \(\hat R\) is Huber with ring of definition \(\hat R_0\). We will see that in the case of adic spaces it does not make any difference.
+\end{remark}
 
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item Schemes: any ring \(R\) with discrete topology, any subring \(R_0 \leq R\) and \(I = 0\).
+  \item Formal schemes: any adic ring \(R\) is Huber if it has a finitely generated ideal of definition. Then \(R_0 = R\).
+  \item Rigid spaces: \(R_0\) any ring, \(g \in R_0\) a non-zero divisor and \(R = R_0[\frac{1}{g}]\) with the topology making \(\{g^nR_0\}\) the fundamental system of open neighbourhoods. Then \(R\) is Huber with ring of definition \(R_0\) and \(gR_0\) an ideal of definition.
+
+    If \(R\) is a \(K\)-Banach algebra, we can take \(R_0 \subseteq R\) to be the coordinate ring of the unit ball, \(g\) any non-zero element with norm smaller than \(1\). For example \(T_n = K\langle x_1, \dots, x_n\rangle, R_0 = \O_K\langle x_1, \dots, x_n\rangle, g = \pi_K\).
+  \end{enumerate}
+\end{eg}
+
+\begin{definition}
+  A subset \(S \subseteq R\) of a topological ring \(R\) is \emph{bounded} if for any open neighbourhood \(U\) of \(0\), exists open neighbourhood \(V\) of \(0\) such that \(S \cdot V \subseteq U\).
+\end{definition}
+
+\begin{remark}
+  In verifying this condition in Huber rings, we may assume that \(U\) is closed under addition as \(\{I^n\}\) is a basis of open neighbourhoods of \(0\).
+\end{remark}
+
+\begin{lemma}
+  A subring \(R_0 \subseteq R\) of a Huber ring \(R\) is a ring of definition if and only if \(R_0\) is open and bounded.
+\end{lemma}
+
+\begin{proof}
+  We prove if and leave only if as an exercise. wlog we may assume that \(U = I^n\) for some \(n\). Then \(V = I^n\) suffices.
+\end{proof}
+
+\begin{definition}[Tate ring]\index{Tate ring}\index{pseudo-uniformiser}
+  A Huber ring \(R\) is \emph{Tate} if it contains a topological nilpotent unit \(g \in R\), called a \emph{pseudo-uniformiser} (topological nilpotent means \(g^n \to 0\)).
+\end{definition}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item If \(R = R_0[\frac{1}{g}]\) as in example 3 then \(R\) is Tate.
+  \item If \(R\) is Tate with topological nilpotent unit \(g\), \(R_0 \subseteq R\) any ring of definition, then exists \(n\) large enough such that \(R_0\) is \((g^nR_0)\)-adic.  Moreover \(R = R_0[\frac{1}{g^n}]\).
+  \item Let \(R, R_0, g\) be as above. A subset \(S \subseteq R\) is bounded if and only if \(S \subseteq g^{k}R_0\) for some \(k\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Clear from definition.
+  \item Let \(I \subseteq R_0\) be an ideal of definition. Since \(g^n \to 0\), exists \(n\) such that \(g' = g^n \in I\). \((g')^{-1}: R_0 \to R_0\) is a continuous map. Then \(g'R_0\) is the preimage of \(R_0\) under the map so is open and thus contains \(I^m\) for some \(m\). Then
+    \[
+      g^{nm}R_0 = (g')^mR_0 \subseteq I^m \subseteq g^nR_0
+    \]
+    so \(R_0\) is \(g^n\)-adic.
+
+    Clearly \(R_0[\frac{1}{g'}] \subseteq R\). For any \(x \in R, g^nx \to 0\) so exists \(k\) such that \((g')^kx \in I\), so in \(R_0\). Thus \(x \in R[\frac{1}{g'}]\).
+  \item Exercise.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[power-bounded]\index{power-bounded}
+  Let \(R\) be a Huber ring. An element \(x \in R\) is called \emph{power-bounded} if \(\{x^n:n \geq 0\}\) is bounded. Denote by \(R^0 \subseteq R\) the set of power bounded elements and by \(R^{00}\) the subset of topological nilpotent elements.
+
+\end{definition}
+
+\begin{eg}
+  If \(R = T_n\) then \(R^0 = \O_K \langle x_1, \dots, x_n \rangle\), which is the same as the ring of definition. In particular for \(n = 0\) this agrees with the notation we gave in introduction.
+\end{eg}
+
+\begin{lemma}\leavevmode
+  \begin{enumerate}
+  \item \(R^0\) is an integrally closed open subring of \(R\).
+  \item \(R^0\) is the colimit of all rings of definitions of \(R\).
+  \item \(R^{00}\) forms an open ideal of \(R^0.\)
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(f, g \in R^0\). Then \(f^\N \cdot g^\N\) is a bounded set, since if \(S, T\) are bounded sets then \(S \cdot T\) is also bounded. Then since
+    \[
+      f^\N \cdot g^\N = \{(f + g)^n\} \cup \{(fg)^n\},
+    \]
+    both \(f + g\) and \(fg\) are power-bounded.
+
+    Suppose \(x\) is integral over \(R^0\), i.e.\ \(x^n + a_{n - 1}x^{n - 1} + \dots + a_0 = 0\) where \(a_{n - 1}, \dots, a_0 \in R^0\). Then
+    \[
+      x^\N \subseteq a_0^\N \cdots a_{n - 1}^\N \{1, x, \dots, x^{n - 1}\}.
+    \]
+    Since finite sets are bounded, it follows that \(x\) is power-bounded.
+  \item Let \(f \in R^0\). Then \(R_0f^\N\) is an \(R_0\)-subring of \(R\) and open. Since \(R_0 \subseteq R_0f^\N\), \(R_0f^\N\) is a ring of definition and \(f \in R_0f^\N\).
+  \item Exercise.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[Huber pair]\index{Huber pair}
+  Let \(R\) be a Huber ring. A subring \(R^+\) is called a \emph{subring of integral elements} if it is open, integrally closed in \(R\) and \(R^+ \subseteq R^0\).
+
+  \(R\) is called \emph{uniform} if \(R^0\) is a ring of definition.
+
+  A \emph{Huber pair} \((R, R^+)\) is a pair where \(R\) is a Huber ring and \(R^+\)  is a ring of integral elements.
+\end{definition}
+
+We will often take \(R^+ = R^0\). For example, all the rings that come from rigid geometry are uniform.
+
+Note \(R^{00} \subseteq R^+\): for any \(f \in R^{00}\), \(f^n \in R^+\) for some \(n \geq 1\) since \(R^+\) is open. \(R^+\) integrally closed implies \(f \in R^+\).
+
+\subsection{Adic spectrum of a Huber pair}
+
+\begin{definition}[valuation]\index{valuation}
+  A \emph{valuation} on a ring \(R\) is the data of a totally ordered abelian group \(\Gamma\) (written multiplicatively) and a map \(x: R \to \Gamma \cup \{0\}\) (with \(0 < \gamma\) and \(0 \cdot \gamma = 0\) for all \(\gamma \in \Gamma\)) such that
+  \begin{itemize}
+  \item \(x(0) = 0, x(1) = 1\),
+  \item \(x(fg) = x(f) \cdot x(g)\),
+  \item \(x(f + g) \leq \max(x(f), x(g))\).
+  \end{itemize}
+
+  The \emph{value group} \(\Gamma_x \subseteq \Gamma\) is the subgroup generated by \(x(R) \setminus \{0\}\).
+
+  The \emph{support} of \(x\) is the prime ideal \(P_x = \{f \in R: x(f) = 0\}\).
+
+  The \emph{residue field} is \(k(x) = \mathrm{Frac} R/P_x\). We can extend the valuation to \(k(x)\) by
+  \begin{align*}
+    x: k(x) &\to \Gamma \cup \{0\} \\
+    \frac{f}{g} &\mapsto \frac{x(f)}{x(g)}.
+  \end{align*}
+
+  \(\O_x = \{f \in k(x): x(f) \leq 1\} \supseteq R/P_x\) is the \emph{valuation ring} of \(R\).
+\end{definition}
+
+\begin{lemma}
+  Let \(x: R \to \Gamma_1 \cup \{0\}, y: R \to \Gamma_2 \cup \{0\}\) be two valuations. then TFAE:
+  \begin{enumerate}
+  \item for any \(f, g \in R\), \(x(f) \leq x(g)\) if and only if \(y(f) \leq y(g)\).
+  \item \(\supp x = \supp y\) and \(\O_x = \O_y\).
+  \item there exists an isomorphism of totally ordered abelian groups \(i: \Gamma_{1, x} \to \Gamma_{2, x}\) such that \(y = i \compose x\).
+  \end{enumerate}
+  If any of the above holds then we say \(x\) and \(y\) are \emph{equivalent}\index{valuation!equivalent}.
+\end{lemma}
+
+\begin{proof}
+  \(3 \implies 1\) is obvious. \(1 \implies 2\) is also immediate as \(x(f) = 0\) if and only if \(x(f) \leq x(0)\) and \(\frac{f}{g} \in \O_x\) if and only if \(x(f) \leq x(g)\). For \(2 \implies 3\), \(x\) induces a surjection \(k(x)^\times \surj \Gamma_{1, x}\) with kernel \(\O_x^\times\), similar for \(y\). Since \(P_x = P_y\), \(k(x) = k(y)\) so we can define \(i\) via
+  \[
+    \begin{tikzcd}
+      k(x)^\times/\O_x^\times \ar[r, "\cong"] \ar[d, equal] & \Gamma_{1, x} \ar[d, dashed, "i"] \\
+      k(y)^\times/\O_y^\times \ar[r, "\cong"] & \Gamma_{1, y}
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\begin{definition}[adic spectrum of a Huber pair]\index{adic spectrum}
+  Let \((R, R^+)\) be a Huber pair. Its asscociated \emph{adic spectrum}, \(\Spa(R, R^+)\), is the set of equivalence classes of valuations \(x: R \to \Gamma \cup \{0\}\) such that
+  \begin{itemize}
+  \item \(x(f) \leq 1\) for all \(f \in R^+\).
+  \item \(x\) is continuous with respect to the order topology, i.e.\ \(\{f\in R: x(f) < \gamma\}\) is open for all \(\gamma \in \Gamma\).
+  \end{itemize}
+
+  The topology on \(\Spa(R, R^+)\) is generated by
+  \[
+    \{x \in \Spa(R, R^+): x(f) \leq x(g) \ne 0\}
+  \]
+  for \(f, g \in R\).
+\end{definition}
+
+Sometimes we also denote the valuation \(x(f)\) by \(|f(x)|\), to imitate the notation for rigid spaces.
+
+\begin{eg}
+  Consider \(\Spa(\Z, \Z)\), where \(\Z\) is given the discrete topology. Its points are
+  \begin{itemize}
+  \item a point \(\eta\), which corresponds to the trivial valuation, i.e.\ taking all non-zero integers to \(1\).
+  \item a special point \(s_p\) for each prime \(p\), which corresponds to the composition \(\Z \to \F_p \to \{0, 1\}\).
+  \item a point \(\eta_p\) for each prime \(p\), which corresponds to \(\Z \to \Z_p \to p^\Z \cup \{0\}\).
+  \end{itemize}
+  These are all the points by Ostrowski (no archimedean valuation). \(\{s_p\}\) are closed, \(\overline{\{\eta_p\}} = \{\eta_p, s_p\}\) and \(\overline{\{\eta\}} = \Spa(\Z, \Z)\).
+
+  In general, for a discrete ring \(R\), we have a map \(\Spec R \to \Spa(R, R)\) which sends a prime ideal \(\mathfrak p\) to its corresponding special point \(s_{\mathfrak p}\). It has a left inverse
+  \begin{align*}
+    \Spa(R, R) &\to \Spec R \\
+    x &\mapsto \supp x
+  \end{align*}
+\end{eg}
+
+\begin{eg}
+  Assume \(K\) is a non-archimedean field with absolute value \(|\cdot|\) and let \(R = K \langle T\rangle, R^+ = R^0 = \O_K\langle T \rangle\). In general there are five types of points of \(\Spa(R, R^+)\):
+  \begin{itemize}
+  \item type I points (classical points): they come from rigid geometry and correspond to points of \(\Sp R\). For any \(\lambda \in \O_K = K^0\), i.e.\ \(|\lambda| \leq 1\), for any \(f \in R\), evaluating \(f\) and \(\lambda\) and taking absolute value gives
+    \[
+      f = \sum a_iT^i \mapsto \sum a_i \lambda^i \mapsto |f(\lambda)|.
+    \]
+    This is obviously a continuous valuation and for any \(f \in R^0\), \(|f| \leq 1\).
+  \item type II + III points: let \(r \in \R, 0 \leq r \leq 1, \lambda \in K^0\), then
+    \[
+      f = \sum a_n (T - \lambda)^i \mapsto \sup_{x \in \overline B(\lambda, r)} |f(x)| = \sup_n |a_n| \cdot r^n
+    \]
+    is a continuous valuation and for \(f \in R^0\), \(|f| \leq 1\). Thus ``every closed disc gives a point''. If \(r \in |K^\times|\) then the corresponding valuation is of type II, otherwise of type III (irrational discs). If \(r = 0\) we get the classical points. If \(r = 1\) every \(\lambda\) is a centre and the corresponding point, independent of \(\lambda\), is called the \emph{Gauss point}\index{Gauss point}.
+  \item type IV points: if \(K\) is not spherically complete (e.g.\ \(\C_p\)) then we have a decreasing sequence
+    \[
+      D_1 \supseteq D_2 \supseteq D_3 \supseteq \cdots
+    \]
+    with \(\bigcap D_i = \emptyset\). We get a correponding valuation
+    \[
+      f \mapsto \inf_i \sup_{x \in D_i} |f(x)|.
+    \]
+  \item type V points: these are only visible in the theory of adic spaces. Let \(\lambda \in K^0\) and fix \(r \in \R, 0 < r \leq 1\) and define a totally ordered abelian group
+    \[
+      \Gamma_{< r} = \R_{> 0} \times \gamma^\Z
+    \]
+    endowed with the unique total ordering such that \(r' < \gamma < r\) for all \(r' < r\). Then
+    \[
+      x_{< r}: f = \sum a_n(T - \lambda)^n \mapsto \sup |a_n| \gamma^n
+    \]
+    is a continuous valuation. Similar define
+    \[
+      \Gamma_{> r} = \R_{> 0} \times \gamma^\Z
+    \]
+    with \(r < \gamma < r'\) for all \(r < r'\) and get
+    \[
+      x_{> r}: f = \sum a_n (T - \lambda)^n \mapsto \sup |a_n| \gamma^n
+    \]
+    By definition if \(r \notin |K^\times|\) then \(x_{< r} = x_{> r} = x_r\), corresponding to type III point associated to \(\overline B(\lambda, r)\). For each type II point we get an additional type V point for each branching.
+  \end{itemize}
+
+  The subspace of \(\Spa(R, R^+)\) of points of type I to IV is the \emph{Berkovich space}\index{Berkovich space}. The classification theorem of Berkovich says we get all rank 1 valuations.
+\end{eg}
+
+\begin{note}
+  If \(\Gamma\) is a totally ordered abelian group, we define a convex subgroup \(\Delta\) to be a subgroup such that if \(\gamma \leq \delta \leq \gamma'\) and \(\gamma, \gamma' \in \Delta\) then \(\delta \in \Delta\). The number of non-trivial convex subgroups of \(\Gamma\) for a valuation \(x: R \to \Gamma \cup \{0\}\) is called its \emph{rank}\index{valuation!rank}. For example \(\Gamma\) has rank \(0\) if and only if \(\Gamma = 1\). \(\R_{\geq 0}\) or any subgroup have rank \(1\). 
+\end{note}
+
+There is a nice way to visualise \(\Spa(K\langle T\rangle, K^0\langle T\rangle)\). Let \(X_r, X_{r'}\) correspond to \(\overline B(a, r), \overline B(b, r')\). There are two possibilities:
+\begin{enumerate}
+\item \(\overline B(a, r) \subseteq \overline B(b, r')\) (or the other way round): there exists a unique path which consists of all closed balls that contain \(\overline B(a, r)\) and contained in \(\overline B(b, r')\). For example if \(a = b\) then the path just corresponds to \([r, r'] \subseteq \R\).
+\item \(\overline B(a, r) \cap \overline B(b, r') = \emptyset\): this implies \(r, r' \leq |a - b|\). Then the smallest closed ball containing both \(\overline B(a, r)\) and \(\overline B(b, r')\) is just \(\overline B(a, |a - b|) = \overline B(b, |a - b|)\). The corresponding point is denoted by \(X_r \vee X_{r'}\). So the unique map \(X_r \rightsquigarrow X_r'\) is the concatenation \(X_r \rightsquigarrow X_r \vee X_{r'} \rightsquigarrow X_{r'}\). In other words, we have all the closed ball \(\overline B(a, t)\) such that \(r \leq t \leq |a - b|\), or \(\overline B(b, t')\) such that \(r' \leq t' \leq |a - b|\).
+\end{enumerate}
+
+(pic)
+
+\begin{definition}[rational subset]\index{rational subset}
+  Let \((R, R^+)\) be a Huber pair. Let \(U \subseteq \Spa(R, R^+)\). We say \(U\) is a \emph{rational subset} of \(\Spa(R, R^+)\) if there exist \(f_1, \dots, f_n \in R\) which generate an open ideal and \(g \in R\) such that
+  \[
+    U = \Spa(R, R^+) (\tfrac{f_1, \dots, f_n}{g}) = \{x \in \Spa(R, R^+): |f_i(x)| \leq |g(x)| \ne 0\}.
+  \]
+\end{definition}
+
+\begin{remark}
+  For Tate-Huber pair, the only open ideal of \(R\) is \(R\) itself, since for any open ideal \(I\), some power of the pseudo-uniformiser is in \(I\).
+\end{remark}
+
+\begin{lemma}
+  Let \((R, R^+)\) be a Huber pair. Then rational subsets are open in \(\Spa(R, R^+)\) and are closed under finite intersection.
+\end{lemma}
+
+\begin{proof}
+  Let \(U_1, \dots, U_k\) be rational subsets. Almost by definition, \(U_1 \cap \cdots \cap U_k\) is open. By the defintion of valuation on \((R, R^+)\), it is clear that if \(U, U'\) are rational given by \(f_1, \dots, f_n, g\) and \(f_1', \dots, f_k', g'\) respectively then
+  \[
+    U \cap U' = \Spa(R, R^+)(\tfrac{f_i \cdot f_j'}{gg'}).
+  \]
+  Note that \(\{f_i \cdot f_j': 1 \leq i \leq n, 1 \leq j \leq k\}\) does generate an open ideal as
+  \[
+    I^n \subseteq (f_1, \dots, f_n), I^m \subseteq (f_1', \dots, f_k')
+  \]
+  implies \(I^{n + m} \subseteq (f_i \cdot f_j')\).
+\end{proof}
+
+\begin{definition}[morphism of Huber pairs]\index{Huber pair!morphism}
+  A \emph{morphism} of Huber pairs \((R, R^+) \to (S, S^+)\) is a countinuous ring homomorphism \(\varphi: R \to S\) such that \(\varphi(R^+) \subseteq S^+\).
+\end{definition}
+
+It is clear that such a morphism induces a continuous map \(\Spa(S, S^+) \to \Spa(R, R^+)\).
+
+\begin{definition}[spectral topological space]\index{spectral}
+  A topological space is \emph{spectral} it is quasicompact, has a basis of quasicompact open subsets that are closed under finite intersections and is sober (every irreducible subset has a unique generic piont).
+\end{definition}
+
+It can be shown that it is equivalent to being homeomorphic to the spectrum of a ring.
+
+The upshot is
+
+\begin{theorem}
+  \label{thm:properties of Spa}
+  Let \((R, R^+)\) be a Huber pair.
+  \begin{enumerate}
+  \item The topological space \(\Spa(R, R^+)\) is spectral.
+  \item The rational subsets form a basis of for the topology on \(\Spa(R, R^+)\).
+  \item Any rational subset is quasicompact.
+  \item \(\Spa(R, R^+) = \emptyset\) if and only if the topology on \(\Spa(R, R^+)\) is trivial.
+  \item
+    \begin{align*}
+      R^+ &= \{f \in R: x(f) \leq 1 \text{ for all } x \in \Spa(R, R^+)\} \\
+      R^{00} &= \{f \in R: x(f) < 1 \text{ for all } x \in \Spa(R, R^+)\}
+    \end{align*}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Huber \emph{Continuous Valuation} section 2, 3.
+\end{proof}
+
+\begin{note}
+  The defining opens in \(\Spa(R, R^+)\) are not quasicompact in general. Consider a Tate-Huber pair with pseudo-uniformiser \(t \in R\), then
+  \[
+    \Spa(R, R^+)(\tfrac{f}{g}) = \bigcup_n \Spa (R, R^+) (\tfrac{f, t^n}{g}),
+  \]
+  a union of rational subsets since \(\{f, t^n\}\) generates an open ideal. \(|g(x)| \ne 0\) implies that \(|g(x)| > |t^n(x)|\) for \(n \gg 0\). Typically it is no a finite union (exercise: look at the Zariski open corresponding to \(f = g\)).
+\end{note}
+
+\subsection{Completion of Huber pairs}
+
+Recall that for a metric space \(X\), its completion \(\hat X\) is defined as the quotient of all Cauchy sequences under the equivalence relation \((x_n) \sim (y_n)\) if and only if \(\lim_n d(x_n, y_n) = 0\).
+
+Similarly for a topological ring \(R\) with an ideal of definition \(I\), a sequence \((x_n)\) is Cauchy if for all \(n_0\), \(x_n - x_m \in I^{n_0}\) for all \(n, m \gg 0\). The set of all Cauchy sequences form a ring. Let \(I_0\) be the ideal of all Cauchy sequences such that all but finitely many \(x_n\)'s are zero. Then define \(R \to \hat R = \{\text{Cauchy sequences}\}/I_0\) to be the completion of \(R\).
+
+\begin{proposition}
+  \(\hat R\) is a Huber ring. If \(I \subseteq R_0\) is an ideal (resp.\ ring) of definition of \(R\) then
+  \begin{enumerate}
+  \item \(I \cdot \hat R_0 \subseteq \hat R_0\) is an ideal (resp.\ ring) of definition in \(\hat R\), where \(\hat R_0 = \varprojlim R_0/I^n\).
+  \item the canonical map \(\hat R_0 \otimes_{R_0} R \to \hat R\) is an isomorphism.
+  \item \(\hat R^+\) is a subring of integral elements of \(\hat R\) and \((\hat R, \hat R^+)\) is called the \emph{completion} of \((R, R^+)\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  1 is well-known (see stacks project). To define the map in 2, consider the commutative diagram
+  \[
+    \begin{tikzcd}
+      \hat R \ar[dr, dotted, "h"] \\
+      & \hat R_0 \otimes_{R_0} R & R \ar[l, "f"] \ar[ull, "i"', bend right] \\
+      & \hat R_0 \ar[u, "g"] \ar[uul, "\alpha", bend left] & R_0 \ar[l] \ar[u]
+    \end{tikzcd}
+  \]
+  \(i(R)\) is dense in \(\hat R\) and \(\hat R_0\) is open in \(\hat R\). Thus \(\hat R = i(R) + \hat R_0\) and \(i^{-1}(\hat R_0) = R_0\). Thus the outer square is also a pushout so exists unique \(h\) such that \(h \compose i = f, h \compose \alpha = g\).
+\end{proof}
+
+\begin{corollary}
+  \((R, R^+) \to (\hat R, \hat R^+)\) is a morphism of Huber pairs.
+\end{corollary}
+
+\begin{theorem}
+  \(\Spa(\hat R, \hat R^+) \to \Spa(R, R^+)\) is a homeomorphism. Moreover, rational subsets are mapped to rational subsets.
+\end{theorem}
+
+\begin{proof}
+  Theorem 3.9 in Huber, Continuous Valuations.
+\end{proof}
+
+\begin{proposition}
+  Let \((R, R^+)\) be a complete Huber pair. Then
+  \begin{enumerate}
+  \item \(R^\times = \{f \in R: x(f) \ne 0 \text{ for all } x \in \Spa(R, R^+)\}\).
+  \item if \(I \subseteq R\) is a proper ideal then exists \(x \in \Spa(R, R^+)\) such that \(x(f) = 0\) for all \(f \in I\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  For the first part \(\subseteq\) is clear. For the other direction, assume \(f \in R\) is a non-unit. Then exists \(\mathfrak m \subseteq R\) maximal containing \(f\). We show that \(R \setminus \mathfrak{m}\) contains \(1 + R^{00}\), and therefore \(\mathfrak m\) is closed. Claim \(R^\times\) contains \(1 + R^{00}\): let \(I \subseteq R_0\) be an ideal (resp.\ ring) of definition in \(R\). Then if \(g \in R^{00}\) then \(g^m \in I\) for some \(m \in \N\). \(R_0\) is \(I\)-adic complete by assumption so \(1 - g^m \in R_0^\times \subseteq R^\times\). But
+  \[
+    (1 - g) (1 + g + \dots + g^{m - 1}) = 1 - g^m
+  \]
+  and therefore \(1 - g \in R^\times\).
+
+  Let \(K = R/\mathfrak{m}\) and \(K^+\) be the integral closure of \(R^+\) in \(K\). Consider the pair \((K, K^+)\). Since \(\mathfrak{m}\) is closed, the topology on \(K\) is separable. Thus by \Cref{thm:properties of Spa} 4, \(\Spa(K, K^+) \ne \emptyset\). Then the image of an \(x \in \Spa(K, K^+)\) satisfies \(x(f) = 0\).
+
+  For the second part apply the same argument to a maximal \(\mathfrak m\) containing \(I\).
+\end{proof}
+
+\begin{theorem}
+  Let \(U \subseteq \Spa(R, R^+)\) be a rational subset. Then exists a complete Huber pair \((R, R^+) \to (\sh O_X(U), \sh O_X(U)^+)\) over \((R, R^+)\) such that the map
+  \[
+    \Spa(\sh O_X(U), \sh O_X(U)^+) \to \Spa(R, R^+)
+  \]
+  factors through \(U\) and has the unique property that if we have a morphism \(\varphi: (R, R^+) \to (S, S^+)\) to a complete Huber pair such that the image of \(\Spa(S, S^+)\) is contained in \(U\) then we have a unique map making the following diagram commute:
+  \[
+    \begin{tikzcd}
+      (R, R^+) \ar[r, "\varphi"] \ar[dr] & (S, S^+) \\
+      & (\sh O_X(U), \sh O_X(U)^+) \ar[u, dotted]
+    \end{tikzcd}
+  \]
+\end{theorem}
+Here the notation \(\sh O_X(U)\) is purely formal but should prompt one to think about the possibility of attaching a structure sheaf of adic spectrum.
+
+\begin{proof}[Sketch proof]
+  Let \(f_1, \dots, f_n, g\) be elements that define \(U\). Let \(I \subseteq R_0\) be an ideal (resp.\ ring) of definition in \(R\). Take \(\varphi: (R, R^+) \to (S, S^+)\) as in statement. Then by part 1 of the above proposition, \(g\) is invertible in \(S\) and therefore we have a unique ring homomorphism \(R[\frac{1}{g}] \to S\). By definition all \(\frac{f_i}{g}\) have image in \(S\) such that \(x(\frac{\varphi(f_i)}{\varphi(g)}) \leq 1\) for all \(x \in \Spa(S, S^+)\), so \(\frac{\varphi(f_i)}{\varphi(g)} \in S^+ \subseteq S^0\) by \Cref{thm:properties of Spa} 5. Recall \(S^0\) is the colimit of all rings of definitions so we can choose some ring of definition \(S_0\) such that \(\frac{\varphi(f_i)}{\varphi(g)} \in S_0\) for all \(i\).
+
+  We get a ring homomorphism \(R_0[\frac{f_1, \dots, t_n}{g}] \to S_0\). Endow it with the \(I \cdot R_0 [\frac{f_1, \dots, t_n}{g}]\)-adic topology. Technical claim: this defines a topology on \(R[\frac{1}{g}]\) making \(I \cdot R_0[\frac{f_1, \dots, f_n}{g}] \subseteq R_0[\frac{f_1, \dots, f_n}{g}]\) an ideal (resp. ideal) of definition, and \(R[\frac{1}{g}]\) is a Huber ring.
+
+  Define \(R[\frac{1}{g}]^+\) to be the integral closure of \(R^+[\frac{f_i}{g}]\) in \(R[\frac{1}{g}]\) and \((R \langle \frac{f_1, \dots, f_n}{g}\rangle, R \langle \frac{f_1, \dots, f_n}{g}\rangle^+)\) be its completion. By construction we have an induced morphism of Huber pairs \((R \langle \frac{f_1, \dots, f_n}{g}\rangle, R \langle \frac{f_1, \dots, f_n}{g}\rangle^+) \to (S, S^+)\).
+\end{proof}
+
+\begin{definition}\index{adic spectrum!structure presheaf}
+  Define the \emph{structure presheaf of topological rings} on \(X = \Spa(R, R^+)\) as follow: if \(U \subseteq X\) is rational then let
+  \begin{align*}
+    \sh O_X(U) &= R \langle \tfrac{f_1, \dots, f_n}{g} \rangle \\
+    \sh O_X(U)^+ &= R \langle \tfrac{f_1, \dots, f_n}{g} \rangle^+
+  \end{align*}
+  For general open \(W\), define
+  \[
+    \sh O_X(W) = \varprojlim_{U \subseteq W} \sh O_X(U)
+  \]
+  and \(\sh O_X(W)^+\) similarly.
+\end{definition}
+
+Observe that since
+\[
+  \sh O_X^+(U) = \{f \in \sh O_X(U): x(f) \leq 1 \text{ for all } x \in U\},
+\]
+\(\sh O_X^+\) is a sheaf if \(\sh O_X\) is a sheaf.
+
+\begin{theorem}[Tate, Bosch-Günter-Remert, Huber]
+  Let \((R, R^+)\) be a Huber pair and let \(X = \Spa(R, R^+)\). Assume
+  \begin{enumerate}
+  \item either \(R\) is Tate-Huber and is strongly noetherian (i.e.\ \(R\langle x_1, \dots, x_n \rangle\) is noetherian for all \(n \geq 0\)),
+  \item or \(R^+\) has a subring of definition which is noetherian,
+  \end{enumerate}
+  then \(\sh O_X\) is an acyclic sheaf. \(X\) is called \emph{sheafy}\index{adic spectrum!sheafy}.
+\end{theorem}
+
+The most recent result when this set of notes is taken is
+
+\begin{theorem}[Buzzard-Verberkmoes]
+  Let \((R, R^+)\) be a Tate-Huber pair which is stably uniform (i.e.\ all rational subsets \(U \subseteq X\) are uniform). Then \(\sh O_X\) is an acyclic sheaf.
+\end{theorem}
 
 
 

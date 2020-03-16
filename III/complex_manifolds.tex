@@ -308,7 +308,7 @@ Locally a \((p, q)\)-form looks like
 Note that \(f\) is only required to be smooth and not required to be either holomorphic or antiholomorphic. For example \(\conj z \d z\) is a section of \(T^*X^{1, 0}\).
 
 \begin{definition}
-  We denote by \(\mathcal A_\C^k(U)\) the sections of \(\Lambda^k(T^*X)_\C\) over \(U \subseteq X\). We also denote by \(\mathcal A_\C^{p, q}(U)\) the smooth sections of \(\Lambda^{p, q}(U)\).
+  We denote by \(\mathcal A_\C^k(U)\) the sections of \(\Lambda^k(T^*X)_\C\) over \(U \subseteq X\). We also denote by \(\mathcal A_\C^{p, q}(U)\) the smooth sections of \(\Lambda^{p, q}T^*X\).
 \end{definition}
 In particular \(\mathcal A_\C^{0, 0}(U)\) consists of smooth \(\C\)-valued functions.
 
@@ -1557,15 +1557,11 @@ If \(\operatorname{codim} Y = 1\) then \(Y\) is an analytic hypersurface.
 
 Recall that if \(\mathcal F\) is a sheaf on \(X\) and \(x \in X\) we denote by \(\mathcal F_x\) the \emph{stalk}\index{stalk} of \(\mathcal F\) at \(x\).
 
-On \(\C^n\) denote by \(\mathcal O_{\C^n}\) the sheaf of holomorphic functions and set \(\mathcal O_n = \mathcal O_{\C^n, 0}\). Elements of \(\mathcal O_n\) are of the form \((U, f)\) where \(0 \in U\) and \(f \in \mathcal O_{\C^n(U)}\), and \((U, f) = (V, g)\) if there is an open \(W \subseteq U \cap V\) such that \(f|_W = g|_W\).
+On \(\C^n\) denote by \(\mathcal O_{\C^n}\) the sheaf of holomorphic functions and set \(\mathcal O_n = \mathcal O_{\C^n, 0}\). Elements of \(\mathcal O_n\) are of the form \((U, f)\) where \(0 \in U\) and \(f \in \mathcal O_{\C^n}(U)\), and \((U, f) = (V, g)\) if there is an open \(W \subseteq U \cap V\) such that \(f|_W = g|_W\).
 
-If \(X\) is an \(n\)-dimensional complex manifold, \(\mathcal O_X\) is the sheaf of holomorphic functions. Have
-\[
-  \mathcal O_{X, x} \cong \mathcal O_n
-\]
-for any \(x \in X\). We call elements of \(\mathcal O_{X, x}\) \emph{germs}\index{germ} of holomorphic functions.
+If \(X\) is an \(n\)-dimensional complex manifold, \(\mathcal O_X\) is the sheaf of holomorphic functions. Have \(\mathcal O_{X, x} \cong \mathcal O_n\) for any \(x \in X\). We call elements of \(\mathcal O_{X, x}\) \emph{germs}\index{germ} of holomorphic functions.
 
-\(\mathcal O_n\) is a local ring, in the sense that it has a unique maximal ideal \(\{f: f(0) = 0\}\). Functions not vanishing at \(0\) are invertible. These are the units of the ring.
+\(\mathcal O_n\) is a local ring, in the sense that it has a unique maximal ideal \(\{f: f(0) = 0\}\): functions not vanishing at \(0\) are invertible. These are the units of the ring.
 
 We now state several results about \(\mathcal O_n\), proved using commutative algebra and complex analysis. We shall not prove them but proofs can be found in Huybrechts Chapter 1.
 
@@ -2560,7 +2556,7 @@ So \(L\) is the adjoint of \(\Lambda\).
     &= (\p^* + \conj \p^*) (\p + \conj \p) + (\p + \conj \p) (\p^* + \conj \p^*) \\
     &= \Delta_\p + \Delta_{\conj \p}
   \end{align*}
-  as the cross terms cancel. Finally we next show
+  as the cross terms cancel. Finally we show
   \[
     \Delta_\p = \Delta_{\conj \p}.
   \]
@@ -3118,7 +3114,7 @@ A connection extends to
 \]
 by
 \[
-  D(\alpha \otimes s) = \d \alpha \otimes + (-1)^p \alpha \w Ds
+  D(\alpha \otimes s) = \d \alpha \otimes s + (-1)^p \alpha \w Ds
 \]
 for \(\alpha \in \mathcal A_\C^p(U), s \in C^\infty(E)(U)\).
 
@@ -3161,7 +3157,7 @@ In this notation we can also write down the expression for curvature. Have
   F_D s
   &= D^2s \\
   &= (\d + \Theta)(\d + \Theta)s \\
-  &= \d^2 + (\d \Theta)s - \Theta(\d s) + \Theta(\d s) + \Theta \w \Theta s \\
+  &= \d^2s + (\d \Theta)s - \Theta(\d s) + \Theta(\d s) + \Theta \w \Theta s \\
   &= (\d \Theta + \Theta \w \Theta) s
 \end{align*}
 
@@ -3183,9 +3179,10 @@ In this notation we can also write down the expression for curvature. Have
   \begin{enumerate}
   \item The statement is local so let \(e_1, \dots, e_r\) be a local unitary frame, \(D = \d + \Theta\) with \(\Theta^* = - \Theta\). We have
     \begin{align*}
-      (\d \Theta + \Theta \w \Theta)^*
+      F_D^*
+      &= (\d \Theta + \Theta \w \Theta)^* \\
       &= (\d \Theta)^* - \Theta^* \w \Theta^* \\
-      &= \d \Theta^* - \Theta^* \w \Theta^* \\
+      &= \d \Theta^* - \Theta \w \Theta \\
       &= -\d \Theta - \Theta \w \Theta \\
       &= -F_D
     \end{align*}
@@ -3193,7 +3190,7 @@ In this notation we can also write down the expression for curvature. Have
     \[
       D \compose D
       = (D' + \conj \p_E) \compose (D' + \conj \p_E)
-      = D' \compose D' + D' \compose \conj \p_E + \conj \p_E D' + \underbrace{\conj \p_E^2}_{= 0}
+      = D' \compose D' + D' \compose \conj \p_E + \conj \p_E \compose D' + \underbrace{\conj \p_E^2}_{= 0}
     \]
     so the \((0, 2)\)-component vanishes.
   \item Follows from 1 and 2.
@@ -3203,7 +3200,7 @@ In this notation we can also write down the expression for curvature. Have
 From now on we focus on line bundles. Let \((L, h)\) be a hermitian holomorphic line bundle and \(D\) be the Chern connection. Then \(F_D \in \mathcal A_\C^{1, 1}(\End L)\) is skew-Hermitian, so \(F_D\) is a real \((1, 1)\)-form. In this case
 \begin{align*}
   \Theta &= \p \log h = h^{-1} \p h \\
-  F_D &= \conj \p \log h
+  F_D &= \conj \p \p \log h
 \end{align*}
 We can interpret Fubini-Study metric\index{Fubini-Study metric} now. If \(X = \P^n\) and \(L = \mathcal O(1)\), there is a natural hermitian metric on \(\mathcal O(-1)\) arising from the usual hermitian metric on \(\C^{n + 1}\). This induces a hermitian metric on \(L = \mathcal O(1)\). Then on \(U_0 = \{[z_0: \cdots z_n]: z_0 \neq 0\}\)
 \[

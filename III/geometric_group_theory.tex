@@ -952,7 +952,7 @@ Can we push this result further? The natural class of groups to consider after n
 Does there exist groups whose growth is between polynomial and exponential? The answer is yes, and such groups are said to have intermediate growth\index{growth!intermediate}
 
 \begin{theorem}[Grigorchuk, 1983]
-  Exists finitely generated group \(G\) such that
+  There exists a finitely generated group \(G\) such that
   \[
     2^{r^{\alpha_1}} \preceq \beta_G(r) \preceq 2^{r^{\alpha_2}}
   \]
@@ -1062,6 +1062,8 @@ Let \(X\) be a metric space. Given \(f, g: X \to X\), say \(f \sim g\) if \(\sup
 
 \section{Amenability}
 
+\subsection{Paradoxical decomposition}
+
 The motivating example for this chapter is \emph{paradoxical decomposition}, which is the key argument in Banach-Tarski.
 
 \begin{definition}[equidecomposable]\index{equidecomposable}
@@ -1082,25 +1084,388 @@ Note that if \(h: A \to B\) is a realisation of \(A \sim B\) and \(S \subseteq A
 \end{theorem}
 
 \begin{proof}
+  Schöder-Bernstein.
+  \iffalse
   Let \(f: A \to B_1, g: A_1 \to B\) be the realisations. Define inductively
   \begin{align*}
     C_0 &= A \setminus A_1 \\
     C_{n + 1} &= g^{-1} f(C_n)
   \end{align*}
   and let \(C = \bigcup_{n = 0}^\infty C_n\). If \(a \in A \setminus C\) then \(a \notin C_n\) for all \(n \geq 0\), so \(g(a) \notin f(C_n)\). Thus \(g(A \setminus C) = B \setminus f(C)\). Similarly \(B \setminus f(C) \subseteq g(A\setminus C)\). Thus \(A \setminus C \sim_g B \setminus f(C)\). Since \(C \sim f(C)\) we get \(A \sim B\).
+  \fi
 \end{proof}
 
 \begin{corollary}
   Let \(G\) act on \(X\). Then TFAE:
   \begin{enumerate}
   \item there exist proper disjoint subsets \(A, B \subseteq X\) such that \(A \sim X \sim B\).
-  \item exist proper disjoint subsets \(A, B \subseteq X\) such that \(A \cup B = X\) and \(A \sim X \sim B\).
+  \item there exist proper disjoint subsets \(A, B \subseteq X\) such that \(A \cup B = X\) and \(A \sim X \sim B\).
   \end{enumerate}
 \end{corollary}
 
 \begin{proof}
   For \(1 \implies 2\), since \(X \sim B \subseteq X \setminus A\), have \(X \lesssim X \setminus A\). Trivially \(X \setminus A \lesssim X\). Thus \(A \sim X \sim X \setminus A\).
 \end{proof}
+
+\begin{definition}[\(G\)-paradoxical]\index{\(G\)-paradoxical}
+  Let \(G\) act on \(X\). If the condition in the previous corollary holds, we say \(X\) is \emph{(finitely) \(G\)-paradoxical}.
+\end{definition}
+
+\begin{proposition}\leavevmode
+  \begin{enumerate}
+  \item \(F_2\) is \(F_2\)-paradoxical (left multiplication).
+  \item If \(F_2\) acts on \(X\) freely then \(X\) is \(F_2\)-paradoxical.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(F_2 = \langle a, b\rangle\). Let \(W(y)\) be the set of reduced words starting in \(y\) where \(y \in \{a^{\pm 1}, b^{\pm 1}\}\). Then
+    \[
+      F_2 = \{e\} \cup W(a) \cup (a^{-1}) \cup W(b) \cup W(b^{-1})
+    \]
+    as a disjoint union. We can also write
+    \[
+      F_2 = W(a) \cup aW(a^{-1}) = W(b) \cup bW(b^{-1})
+    \]
+    so define
+    \begin{align*}
+      A &= W(a) \cup W(a^{-1}) \\
+      B &= W(b) \cup W(b^{-1})
+    \end{align*}
+    and \(A, B\) satisfies the first condition in the corollary.
+  \item Take \(M\) to be a set of representatives of \(F_2\)-orbits of \(X\). Set
+    \[
+      X_y = \{zm: z \in W(y), m \in M\}.
+    \]
+    Then \(X_a, X_{a^{-1}}, X_b, X_{b^{-1}}\) are disjoint and
+    \[
+      X = X_a \cup aX_{a^{-1}} = X_b \cup bX_{b^{-1}},
+    \]
+    giving the desired decomposition.
+  \end{enumerate}
+\end{proof}
+
+Note that in the second part we need the axiom of choice.
+
+\begin{proposition}
+  \(F_2 \leq \SO(3, \R)\), with generators
+  \[
+    \begin{pmatrix}
+      1 & 0 & 0 \\
+      0 & \frac{1}{3} & \frac{-2\sqrt 2}{3} \\
+      0 & \frac{2\sqrt{2}}{3} & \frac{1}{3}
+    \end{pmatrix},
+    \begin{pmatrix}
+      \frac{1}{3} & \frac{-2\sqrt 2}{3} & 0 \\
+      \frac{2\sqrt 2}{3} & \frac{1}{3} & 0 \\
+      0 & 0 & 1
+    \end{pmatrix}
+  \]
+\end{proposition}
+
+\begin{proof}
+  Exercise. Uses a ping-pong lemma argument.
+\end{proof}
+
+\begin{theorem}[Hausdorff paradox]
+  There exists a countable set \(D \subseteq S^2\) such that \(S^2 \setminus D\) is \(\SO(3, \R)\)-paradoxical.
+\end{theorem}
+
+\begin{proof}
+  Every non-trivial element in \(\SO(3, \R)\) fixes exactly two points of \(S^2\). Let \(D\) be the union of fixed points of \(F_2 \subseteq \SO(3, \R)\). \(F_2\) then acts freely on \(S^2 \setminus D\).
+\end{proof}
+
+\begin{proposition}
+  For any countable \(D \subseteq S^2\), \(S^2\) and \(S^2 \setminus D\) are \(\SO(3)\)-equidecomposable.
+\end{proposition}
+
+\begin{proof}
+  Let \(\ell\) be a line though the origin that misses \(D\). As \(D\) is countable, exists \(\theta\) such that for all \(n > 0\), the image \(\rho^n(D)\) of \(D\) under rotation \(\rho^n\) by \(n \theta\) about \(\ell\) does not intersect \(D\). Set \(\overline D = \bigcup_{n = 0}^\infty \rho^n(D)\). Then
+  \begin{align*}
+    S^2
+    &= \overline D \cup (S^2 \setminus \overline D) \\
+    &\sim \rho(\overline D) \cup \rho(S^2 \setminus \overline D) \\
+    &\sim \rho(\overline D) \cup (S^2 \setminus \overline D) \\
+    &= S^2 \setminus D
+  \end{align*}
+\end{proof}
+
+Together this shows
+
+\begin{theorem}[Banach-Tarski]\index{Banach-Tarski}
+  \(S^2\) is \(\SO(3, \R)\)-paradoxical.
+\end{theorem}
+
+\begin{theorem}
+  Let \(E(3)\) be the group of isometries of \(\R^3\). Then any solid ball in \(\R^3\) is \(E(3)\)-paradoxical, as is \(\R^3\).
+\end{theorem}
+
+Moral: cannot put a finitely-additive probability measure that is invariant under rotations on subsets of \(S^2\).
+
+\begin{theorem}[Tarski]
+  Let \(G\) act on \(X\) and \(E \subseteq X\). Then there is a finitely-additive measure \(\mu: \mathcal P(X) \to [0, \infty]\) with \(\mu(E) = 1\) that is \(G\)-invariant if and only if \(E\) is not \(G\)-paradoxical.
+\end{theorem}
+
+\subsection{Amenable group}
+
+\begin{definition}[amenable]\index{amenablility}
+  Let \(G\) be a discrete (resp.\ locally compact) group. A \emph{measure} on \(G\) is a finitely-additive left-invariant measure \(\mu\) on \(\mathcal P(G)\) (resp.\ Borel sets of \(G\)) with \(\mu(G) = 1\). \(G\) is \emph{amenable} if it it has such a measure.
+\end{definition}
+
+\begin{remark}
+  Clearly if \(G\) acts on itself by multiplication and \(G\) is paradoxical then \(G\) is not amenable. In particular \(F_2\) is not amenable, nor is any group containing \(F_2\). One might naturally wonder if it is the only obstruction to amenability. This is the von Neumann conjecture: any non-amenable group contains \(F_2\). It is disproved by Ol'shanskii, who constructed a counterexample called Tarski monster. It has the strange propery that for \(p\) a fixed prime, every non-trivial proper subgroup has order \(p\).
+\end{remark}
+
+\begin{definition}
+  Let \(G\) be a finitely generated group, and let \(\ell^\infty(G)\) be the space of bounded functions on \(G\). A linear functional \(M: \ell^\infty(G) \to \R\) is a \emph{left-invariant mean} on \(G\) if
+  \begin{itemize}
+  \item \(M(f) \geq 0\) if \(f(g) \geq 0\) for all \(g \in G\).
+  \item \(M(\chi_G) = 1\) for the characteristic function on \(G\).
+  \item \(M(g(f)) = M(f)\) for all \(g \in G\), where \(g(f)(h) = f(g^{-1}h)\).
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}
+  \(G\) is amenable if and only if \(G\) admits a left-invariant mean.
+\end{proposition}
+
+\begin{proof}
+  If \(G\) is amenable then define
+  \[
+    M(f) = \int f d \mu.
+  \]
+  Conversely if \(M\) is a left-invariant mean on \(G\) define
+  \[
+    \mu(A) = M(\chi_A).
+  \]
+\end{proof}
+
+\begin{proposition}
+  Let \(G\) amenable act on \(X\). Then there exists a finitely-additive probability measure on \(\mathcal P(X)\) that is \(G\)-invariant. In particular \(X\) is not \(G\)-paradoxical.
+\end{proposition}
+
+\begin{proof}
+  Let \(\mu\) be the measure realising amenability of \(G\). Fix \(x_0 \in X\) and define
+  \begin{align*}
+    \nu: \mathcal P(X) &\to [0, 1] \\
+    A &\mapsto \mu \{g \in G: g(x_0) \in A\}
+  \end{align*}
+\end{proof}
+
+To summarise
+
+\begin{theorem}
+  TFAE:
+  \begin{enumerate}
+  \item \(G\) amenable.
+  \item \(G\) admits a left-invariant measure.
+  \item \(G\) is not paradoxical.
+  \end{enumerate}
+\end{theorem}
+
+\begin{eg}
+  All finite groups are amenable via normalised counting measure.
+\end{eg}
+
+\begin{proposition}\leavevmode
+  \label{prop:sub/quot/direct limit of amenable groups}
+  \begin{enumerate}
+  \item If \(G\) is amenable and \(H \leq G\) then \(H\) is amenable.
+  \item If \(G\) is amenable and \(N \normal G\) then \(G/N\) is amenable.
+  \item If \(N \normal G\) and \(G/N\) are amenable then \(G\) is amenable.
+  \item If \(\{G_i\}\) is a direct system of amenable groups then so is \(\varinjlim G_i\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(\mu: \mathcal P(G) \to [0, 1]\) realise the amenability of \(G\). Let \(M\) be a right transversal of \(H \leq G\) and define
+    \begin{align*}
+      \nu: \mathcal P(H) &\to [0, 1] \\
+      A &\mapsto \mu(AM)
+    \end{align*}
+  \item Define
+    \begin{align*}
+      \lambda: \mathcal P(G/N) &\to [0, 1] \\
+      A &\mapsto \mu(AN)
+    \end{align*}
+  \item Let \(\nu_1, \nu_2\) realise amenability of \(N, G/N\) respectively. For \(A \leq G\) define
+    \begin{align*}
+      f_A: G &\to \R \\
+      g &\mapsto \nu_1(N \cap g^{-1}A)
+    \end{align*}
+    Note for \(n \in N\), by translation invariance
+    \[
+      f_A(gn) = \nu_1(N \cap n^{-1}g^{-1}A) = \nu_1(N \cap g^{-1}A) = f_A(g)
+    \]
+    so \(f_A\) descends to a function on \(G/N\). Now define the measure on \(G\) to be
+    \begin{align*}
+      \mu: \mathcal P(G) &\to [0, 1] \\
+      A &\to \int f_A d \nu_2
+    \end{align*}
+    To show left-invariance, note
+    \[
+      f_{hA}(g) = \nu_1(N \cap g^{-1}hA) = f_A(h^{-1}g) = h f_A(g)
+    \]
+    The action of \(G\) on functions \(G/N \to \R\) factors thorugh \(G/N\):
+    \[
+      hnf_A(g) = f_A(n^{-1}h^{-1}g) = \nu_1(N \cap g^{-1}hnA) = \nu_1(N \cap g^{-1}hA) = hf_A(g)
+    \]
+    so
+    \[
+      \mu(hA) = \int h^{-1}f_A d \nu_2 = \int f_A d \nu_2 = \mu(A)
+    \]
+    by \(G/N\)-invariance of \(\nu_2\).
+  \item Omitted.
+  \end{enumerate}
+\end{proof}
+
+\subsection{Amenability from a geometric viewpoint}
+
+We first derive a combinatorial characterisation of amenability.
+
+\begin{definition}[Følner condition]\index{Følner condition}
+  A finitely generated group \(G\) is said to satsify the \emph{Følner condition} if for all finite subsets \(A \subseteq G\), for all \(\varepsilon > 0\), exists finite nonemepty subset \(F \subseteq G\) such that
+  \[
+    \frac{|aF \triangle F|}{|F|} \leq \varepsilon
+  \]
+  for all \(a \in A\) where \(\triangle\) denotes symmetric difference.
+\end{definition}
+
+\begin{theorem}
+  Suppose \(G\) is a finitely generated group. Then TFAE:
+  \begin{enumerate}
+  \item \(G\) is amenable.
+  \item \(G\) satisfies the Følner condition.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  For \(1 \implies 2\), see Theorem 16.62 in Druţu and Kapovich, or Theorem 4.2.3 in Juschenko's ``Amenability''.
+
+  For \(2 \implies 1\), \([0, 1]^{\mathcal P(G)}\) is compact in product topology. For \(A \subseteq G\) finite, \(\varepsilon > 0\), define \(M_{A, \varepsilon}\) to be the set of finitely additive probability meansure \(\mu\) on \(G\) such that \(|\mu(B) - \mu(a B)| \leq \varepsilon\) for all \(B \subseteq G\), for all \(a \in A\). \(M_{A, \varepsilon}\) is closed in \([0, 1]^{\mathcal P(G)}\). To show it is nonempty, define \(\mu(B) = \frac{|B \cap F|}{|F|}\) where \(F\) is a Følner set for \(A, \varepsilon\). Check
+    \begin{align*}
+      |\mu(B) - \mu(aB)|
+      &= \left|\frac{|B \cap F|}{|F|} - \frac{|aB \cap F|}{|F|}\right| \\
+      &= \left|\frac{|B \cap F|}{|F|} - \frac{|B \cap a^{-1} F|}{|F|}\right| \\
+      &\leq \frac{|F \triangle a^{-1}F|}{|F|} \\
+      &= \frac{|aF \triangle F|}{|F|} \\
+      &\leq \varepsilon
+    \end{align*}
+    As
+    \[
+      \bigcap_{i = 1}^n M_{A_i, \varepsilon_i} \supseteq M_{\bigcup A_i, \min \varepsilon_i} \ne \emptyset,
+    \]
+    \(\{M_{A, \varepsilon}\}\) has finite intersection property so \(\bigcap_{A, \varepsilon} M_{A, \varepsilon}\) is nonempty.
+\end{proof}
+
+\begin{definition}[Cheeger constant]\index{Cheeger constant}
+  Let \(X\) be a graph. The \emph{Cheeger constant} \(h(X)\) is defined by
+  \[
+    h(X) = \inf \frac{|\p A|}{|A|}
+  \]
+  over all nonempty finite \(A \subseteq V(X)\), where \(\p A\) is the set of vertices in \(V(X) \setminus A\) that are connected by an edge to some element in \(A\).
+\end{definition}
+
+Note that under this definition \(h(\text{finite group}) = 0\). This fits our purpose of studying amenability. Usually, a more useful definition is to take \(A\) such that \(|A| \leq \frac{1}{2} |V(X)|\) for finite graphs.
+
+\begin{proposition}
+  Let \(G\) be a finitely generated group. Then TFAE:
+  \begin{enumerate}
+  \item \(G\) satsifies the Følner condition.
+  \item \(h(\Cay(G, S)) = 0\) for all generating sets \(S\).
+  \item \(h(\Cay(G, S)) = 0\) for some generating set \(S\).
+  \end{enumerate}
+\end{proposition}
+
+Informally this is saying non-amenability is equivalent to a ``connectivity'' property.
+
+\begin{proof}
+  \(2 \implies 3\) is clear. \(3 \implies 1\) is an exercise. For \(1 \implies 2\), note that the Folner condition can be equivalently phrased in terms of right translates: take the Folner set \(F\) corresponding to \(A^{-1}\) and then
+  \[
+    \frac{|F^{-1}a \triangle F^{-1}|}{|F^{-1}|} = \frac{|a^{-1}F \triangle F|}{|F|} < \varepsilon.
+  \]
+
+  Now take \(A = S^{\pm 1}\) for some generating set \(S\) of \(G\) and \(\varepsilon > 0\). Let \(F\) be the Folner set such that
+  \[
+    \frac{|Fs \triangle F|}{|F|} \leq \varepsilon
+  \]
+  for all \(s \in S^{\pm 1}\). Then
+  \begin{align*}
+    \frac{|\p F|}{|F|}
+    &= \frac{|\{gs: g \in F, s \in S^{\pm 1}, gs \notin F\}|}{|F|} \\
+    &\leq \frac{|\bigcup_{s \in S^{\pm 1}} (Fs \triangle F)|}{|F|} \\
+    &\leq |S^{\pm 1}| \cdot \varepsilon \\
+    &\leq 2 |S| \cdot \varepsilon
+  \end{align*}
+  so indeed its infimum is \(0\).
+\end{proof}
+
+\begin{eg}
+  \(h = 0\) is quasi-isometry-invariant.
+\end{eg}
+
+\begin{corollary}
+  Amenability is a quasi-isometry invariant.
+\end{corollary}
+
+\begin{corollary}
+  All finitely generated groups of subexponential growth\index{growth!subexponential} are amenable.
+\end{corollary}
+
+\begin{proof}
+  Recall that if \(G\) has subexponential growth then at most
+  \[
+    \beta_{G, S}(n)^{1/n} = |B(n)|^{1/n} \to 1.
+  \]
+  If exists \(\varepsilon\) such that for all \(k\), \(\frac{|B(k + 1)|}{|B(k)|} > 1 + \varepsilon\) then
+  \[
+    |B(k + 1)| > (1 + \varepsilon)^k \cdot |B(1)|
+  \]
+  and letting \(k \to \infty\), \(\beta(k)^{1/k} \nto 1\). Thus for all \(N > 0\) exists \(k_N\) such that
+  \[
+    \frac{|B(k_N + 1)|}{|B(k_N)|} < 1 + \frac{1}{N}
+  \]
+  and so
+  \[
+    \frac{|\p B(k_N)|}{|B(k_N)|} = \frac{|B(k_N + 1) \setminus B(k_N)|}{|B(k_N)|} < \frac{1}{N}.
+  \]
+\end{proof}
+
+The converse is not true, by the following corollary and the existence of solvable groups of exponential growth:
+
+\begin{corollary}
+  All solvable groups are amenable.
+\end{corollary}
+
+\begin{proof}
+  All abelian groups have polynomial growth and are thus amenable. Any solvable group can be written as the direct limit of abelian groups. Use \Cref{prop:sub/quot/direct limit of amenable groups}.
+\end{proof}
+
+Take the closure of finite groups and abelian groups by the operations of \Cref{prop:sub/quot/direct limit of amenable groups}, we obtain the class of \emph{elementary amenable groups}\index{elementary amenable group}. They are strictly contained in amenable groups, as Grigorchuk group of intermediate growth.
+
+Open question:
+\begin{enumerate}
+\item Is ``elementary amenable'' a quasi-isometry invariant?
+\item Is Thompson's group \(F\) amenable?
+\end{enumerate}
+
+More topics in geometric groups theory:
+\begin{itemize}
+\item Martin Bridson: world of finitely presented groups. 
+\item Gromov: Space and Questions.
+\item word problem. word problem for hyperbolic groups, solved by Dehn.
+\item small cancellation. It leads to the construction of many interesting examples.
+\item expander graphs, Kazhdan's property (T).
+\end{itemize}
+
+To conclude this course we mention the characterisation of non-amenability in terms of Ponzi scheme. Consider a function \(\rho: G \to G\) such that
+\begin{itemize}
+\item exists \(R\) such that \(d(g, \rho(g)) \leq R\).
+\item \(|\rho^{-1}(g)| \geq 2\).
+\end{itemize}
+Imagine each person indexed by \(G\) holds £1, and person \(g\) passes his money to \(\rho(g)\). In this process everyone ends up with stricly more money than they had, and money has moved by a bounded distance. An example is \(F_2\), where everyone passes the money towards the centre of the Cayley graph. This condition is, in fact, equivalent to non-amenability.
 
 
 

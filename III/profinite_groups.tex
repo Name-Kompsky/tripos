@@ -1197,7 +1197,7 @@ Later we will see that \([G, G] G^p\) is in fact closed.
 
 For a nilpotent group we have
 \[
-  G_1 = G \geq \gamma_2 \geq \dots \geq \gamma_{c + 1} = 1.
+  G = \gamma_1 \geq \gamma_2 \geq \dots \geq \gamma_{c + 1} = 1.
 \]
 
 \begin{note}
@@ -1232,7 +1232,7 @@ For a nilpotent group we have
 Why are we doing this?
 \begin{enumerate}
 \item \(G_n/G_{n + 1}\) are vector spaces over \(\F_p\).
-\item \(\gamma_n^{(p)}(G)\) is open in \(G\): \(\Phi(G) = \gamma_2^{(p)}(G)\) and \(\Phi(G_{n - 1}) \leq \gamma_n^{(p)}(G)\).
+\item \(\gamma_n^{(p)}(G)\) is open in \(G\): inductively \(\Phi(G) = \gamma_2^{(p)}(G)\) and \(\Phi(G_{n - 1}) \leq \gamma_n^{(p)}(G)\), and Frattini subgroup of a tfg pro-\(p\) group is open.
 \item \(\{\gamma_n^{(p)}(G)\}\) forms a neighbourhood basis for the identity: if \(N \normal_o G\), \(G/N\) is a finite \(p\)-group so \(\gamma_n^{(p)}(G/N)\) vanish for some \(n\). Therefore \(\gamma_n^{(p)}(G) \subseteq N\).
 \end{enumerate}
 
@@ -1459,13 +1459,13 @@ For the rest of the section we assume \(p\) is an odd prime.
   The continuous function \(A \mapsto A^p\) maps \(\GL_N^{(k)}(\Z_p)\) onto \(\GL_N^{(k + 1)}(\Z_p)\). Same for \(\SL\).
 \end{proposition}
 
-``Every element in the latter has a \(p\)th root.''
+Slogan: every element in \(\GL_n^{k + 1}(\Z_p)\) has a \(p\)th root.
 
 \begin{proof}
-  The proof is by Hensel-like sucessive approximations. Claim for all \(r \geq 1\), for all \(A\),
+  The proof is by Hensel-like successive approximations. Claim for all \(r \geq 1\), for all \(A\),
   \[
     (I + p^rA)^p
-    = I + p^{r + 1}A + p^{r + 2}(B)
+    = I + p^{r + 1}A + p^{r + 2}B
     = I + p^{r + 1}A \pmod{p^{r + 2}}
   \]
   where \(B\) is some polynomial of \(A\): for \(\ell \geq 2\) the term
@@ -1509,7 +1509,7 @@ For the rest of the section we assume \(p\) is an odd prime.
   \]
   and
   \[
-    GL_N^{(k)}/\GL_N^{(k + 1)} \cong \F_p^{N^2}.
+    \GL_N^{(k)}/\GL_N^{(k + 1)} \cong \F_p^{N^2}.
   \]
 \end{proposition}
 
@@ -1617,7 +1617,7 @@ Let \(G\) be an abstract group.
 Revision on free/projective modules and free/projective resolution.
 
 \begin{eg}
-  Let \(X\) be a simplicial complex whose universal cover \(\widetilde X\) is contractible. let \(G = \pi_1X\) and let \(X_n\) be the set of \(n\)-simplices of \(X\). Now \(G\) acts on \(\widetilde X\) with quotient \(X\) and no fixed points. Thus the set of \(n\)-simplices of \(widetilde X\) is in bijection with \(G \times X_n\). The reduced simplicial chain complex of \(\widetilde X\) takes the form
+  Let \(X\) be a simplicial complex whose universal cover \(\widetilde X\) is contractible. let \(G = \pi_1X\) and let \(X_n\) be the set of \(n\)-simplices of \(X\). Now \(G\) acts on \(\widetilde X\) with quotient \(X\) and no fixed points. Thus the set of \(n\)-simplices of \(\widetilde X\) is in bijection with \(G \times X_n\). The reduced simplicial chain complex of \(\widetilde X\) takes the form
   \[
     \begin{tikzcd}
       \cdots \ar[r] & \Z G\{X_2\} \ar[r] & \Z G \{X_1\} \ar[r] & \Z G\{X_0\} \ar[r] & \Z \ar[r] & 0
@@ -1680,7 +1680,7 @@ Revision on free/projective modules and free/projective resolution.
   which are called \emph{invariants}\index{invariant} and \emph{coinvariants} of \(M\) respectively. \(H^n(G, M) = 0\) for \(n \geq 2\).
 \end{eg}
 
-\begin{proposition}
+\begin{proposition}\label{prop:cohomological dimension of free group}
   If \(G\) is a free group then \(H^n(G, M) = 0\) for all \(n \geq 2\).
 \end{proposition}
 
@@ -1692,7 +1692,7 @@ Revision on free/projective modules and free/projective resolution.
   A group \(G\) has \emph{cohomological dimension} \(n\), written \(\mathrm{cd}(G) = n\), if \(H^m(G, M) = 0\) for all \(M\) for all \(m > n\) but exists \(M\) such that \(H^n(G, M) \ne 0\). If no such \(n\) exists then \(\mathrm{cd}(G) = \infty\).
 \end{definition}
 
-Thus free groups have cohomological dimension \(1\). One may ask if the converse is true. The answer is true, by a theorem of Stalling and Swan.
+Thus free groups have cohomological dimension \(1\). The converse is a also true, by a deep theorem of Stallings and Swan.\index{Stallings-Swan theorem}
 
 We now investigate morphisms between complexes of \(G\)-modules, which should really be done in the context of homological algebra using derived categories. The proofs are omitted.
 
@@ -1840,7 +1840,7 @@ There is, however, \emph{some} exact sequences coming from spectral sequences, n
 \begin{lemma}
   Let \(H \normal G\) and let \(M\) be a \(G\)-module. Let \(G\) act on \(C^n(H, M)\) via
   \[
-    (g \cdot \phi)(h_1, \dots, h_n) = g \phi(g^{-1} h_1g, \dots, g^{-1}h_n g).
+    (g \cdot \phi)(h_1, \dots, h_n) = \phi(g^{-1} h_1g, \dots, g^{-1}h_n g).
   \]
   Then this gives an action of \(G\) on \(H^n(H, M)\). Moreover \(H\) acts trivially.
 \end{lemma}
@@ -1884,7 +1884,7 @@ Note if \(M\) has trivial action and \(\phi \in C^1(H, M)\) then
 \[
   (g \cdot \phi)(h) = \phi(g^{-1}hg)
 \]
-so \(\phi \in H^1(H, M)^G\) if and only if \(\phi(h) = \phi(g^{-1}gh)\) for all \(g \in G, h \in H\). Such a \(\phi: H \to M\) is called a \(G\)-invariant homomorphism.
+so \(\phi \in H^1(H, M)^G\) if and only if \(\phi(h) = \phi(g^{-1}hg)\) for all \(g \in G, h \in H\). Such a \(\phi: H \to M\) is called a \(G\)-invariant homomorphism.
 
 \begin{theorem}[inflation-restriction exact sequence]\index{inflation-restriction exact sequence}
   Let \(H \normal G\) and \(Q = G/H\). Let \(M\) be a \(G\)-module. Then there is an exact sequence
@@ -2049,6 +2049,436 @@ One result that is used in the proof is
   \end{align*}
   and they both vanish since \(\phi\) is a cocycle.
 \end{proof}
+
+We may recover Hopf formula from this identification. Suppose \(G\) has presentation \(\langle x_1, \dots, x_n | r_1, \dots, r_m \rangle\). Then take \(F\) be the free groups on \(x_i\)'s and \(R = \ker (F \to G)\). Suppose \(E\) is a central extension of \(G\) by \(A\). Choose some preimages \(\overline x_i \in E\) of generators \(x_i\) of \(G\). Let \(\overline r_i\) be the element of \(E\) given by replacing each occurrence of \(x_i\) in \(r_i\) with \(\overline x_i\). Then \(\overline r_i \in A = \ker (E \to G)\), say \(a_i\). Write down a group presentation
+\[
+  \overline E = \langle \overline x_1, \dots, \overline x_n, A | \overline r_1 = a_1, \dots, \overline r_m = a_m, A \text{ central}, \text{relations of A}\rangle
+\]
+The exists a natural diagram of exact rows
+\[
+  \begin{tikzcd}
+    & A \ar[r] \ar[d, equal] & \overline E \ar[r] \ar[d] & G \ar[r] \ar[d, equal] & 1 \\
+    1 \ar[r] & A \ar[r] & E \ar[r] & G \ar[r] & 1
+  \end{tikzcd}
+\]
+It follows that \(A \embed \tilde E\) and \(\overline E \cong E\). Can try to define \(F\)-invariant homomorphism \(R \to A\) by \(r_i \mapsto a_i\). Fact (non-examinable): this is a well-defined \(F\)-invariant homomorphism if and only if \(A \to \overline E\) is an injection. We made a choice of preimages \(\overline x_i\) of \(x_i\) in \(E\). A different choice \(\overline x_i'\) differ from \(\overline x_i\) by an element \(b_i \in A\). Then \(x_i \mapsto b_i\) gives a homomoprhism \(f: F \to A\) and \(\overline r_i' = \overline r_i f(b_i)\).
+
+\begin{eg}
+  Let \(G = \langle x_1, x_2| x_1x_2x_1^{-1}x_2^{-1}x_1 \rangle\). We show \(H^2(G, \Z) = 0\). Any central extension of \(G\) by \(\Z\) has a presentation
+  \[
+    \langle \overline x_1, \overline x_2, t | \overline x_1 \overline x_2 \overline x_1^{-1} \overline x_2^{-1} \overline x_1 = t^k, t \text{ central} \rangle.
+  \]
+  Now we can make a substitution \(\overline x_1 \mapsto \overline x_1 t^{-k} = \overline x_1'\),
+  \[
+    E \cong \langle \overline x_1', \overline x_2, t | \overline x_1' t^k \cdot \overline x_2 (\overline x_1' t^k)^{-1} \overline x_2^{-1} (\overline x_1' t^k) = t^k, t \text{ central}\rangle = E'
+  \]
+  \(E\) and \(E'\) are equivalent as extensions and we can simplify \(E'\)
+  \begin{align*}
+    \langle \overline x_1', \overline x_2, t | \overline x_1' \overline x_2 (\overline x_1')^{-1} \overline x_2^{-1} \overline x_1' = 1, t \text{ central}\rangle = \Z \times G
+  \end{align*}
+  It follows that \(H^2(G, \Z) = 0\).
+\end{eg}
+
+\subsection{Worked example: \(\Z^2\)}
+
+Let \(T = \Z^2 = \langle a, b \rangle\). We will classify all central extensions of \(T\) by \(\Z\). Start with a free resolution derived from topology
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \Z T \ar[r, "\beta"] & (\Z T)^2 \ar[r, "\alpha"] & \Z T \ar[r, "\varepsilon"] & \Z \ar[r] & 0
+  \end{tikzcd}
+\]
+where
+\begin{itemize}
+\item \(\varepsilon\) is the augmentation map.
+\item \(\alpha(x, y) = x(a - 1) + y(b - 1)\).
+\item \(\beta(z) = (z(1 - b), z(a - 1))\).
+\end{itemize}
+Exactness can either be derived from topology (square tiling of the plane), or direct computation.
+
+Apply \(\Hom_{\Z T}(-, \Z)\) to get
+\[
+  \begin{tikzcd}
+    \Hom_{\Z T}(\Z T, \Z) \ar[r, "\alpha^*"] & \Hom_{\Z T}((\Z T)^2, \Z) \ar[r, "\beta^*"] & \Hom_{\Z T}(\Z T, \Z) \ar[r] & 0
+  \end{tikzcd}
+\]
+where
+\begin{align*}
+  \beta^*(f)(z)
+  &= f(z (1 - b), z(a - 1)) \\
+  &= f(z - zb, 0) + f(0, za - z) \\
+  &= (b - 1) \cdot f(z, 0) + (1 - 1) \cdot f(0, z) \\
+  &= 0
+\end{align*}
+so \(\beta^* = 0\). Similarly \(\alpha^* = 0\). Thus
+\[
+  H^i(T, \Z) =
+  \begin{cases}
+    \Z & i = 0\\
+    \Z^2 & i = 1 \\
+    \Z & i = 2
+  \end{cases}
+\]
+
+To get extensions, we turn to bar resolutions. We seek a chain map
+\[
+  \begin{tikzcd}
+    \dots \ar[r] & \Z T\{T^2\} \ar[r, "d_2"] \ar[d, "f_2"] & \Z T \{T\} \ar[r, "d_1"] \ar[d, "f_1"] & \Z T \ar[r, "\varepsilon"] \ar[d, "f_0"] & \Z \ar[r] \ar[d, equal] & 0 \\
+    0 \ar[r] & \Z T \ar[r, "\beta"] & (\Z T)^2 \ar[r, "\alpha"] & \Z T \ar[r, "\varepsilon"] & \Z \ar[r] & 0
+  \end{tikzcd}
+\]
+Obviously \(f_0 = \id\). \(f_1\) should satisfy \(\alpha f_1 = f_0 d_1 = d_1\). Want to find an element \((x_{r, s}, y_{r, s}) \in (\Z T)^2\) such that
+\[
+  \alpha(x_{r, s}, y_{r, s}) = d_1([a^rb^s]) = a^rb^s - 1 = (a^r - 1)b^s + (b^s - 1)
+\]
+then define \(f_1\) by \([a^rb^s] \mapsto (x_{r, s}, y_{r, s})\). By commutativity of \(T\),
+\begin{align*}
+  x_{r, s} &= \frac{a^r - 1}{a - 1} b^s = S(a, r) b^s \\
+  y_{r, s} &= \frac{b^s - 1}{b - 1} = S(b, s)
+\end{align*}
+where
+\[
+  S(a, r) =
+  \begin{cases}
+    1 + a + \dots + a^{r - 1} & r \geq 0 \\
+    -(a^{-1} + \dots + a^r) & r < 0
+  \end{cases}
+\]
+
+So \(f_1([a^rb^s]) = (S(a, r)b^s, S(b, s))\). By a messy calculation we similarly find
+\[
+  f_2([a^rb^s|a^tb^u]) = S(a, r)b^sS(b, u).
+\]
+
+A cohomology class \(p \in \Z \cong \Hom_{\Z T}(T, \Z)\) is represented by the \(2\)-cochain given by the composition 
+\[
+  (a^rb^s, a^tb^u) \mapsto S(a, r)b^sS(b, u) \mapsto p r u
+\]
+so the group structure on the set \(\Z \times T\) corresponding to this cochain is
+\[
+  (m, a^rb^s) \cdot (n, a^tb^u) = (m + n + pru, a^{r + t} b^{n + s}).
+\]
+More concretely, this group has a \(3\)-dimensional representation
+\[
+  (m, a^rb^s) \mapsto
+  \begin{pmatrix}
+    1 & pr & m \\
+    0 & 1 & s \\
+    0 & 0 & 1
+  \end{pmatrix}
+\]
+The group of central extensions of \(T\) by \(\Z\) is generated by \(p = 1\).
+
+\subsection{Cohomology of profinite groups}
+
+The cohomology theorey works for the profinite case.
+
+\begin{definition}[\(G\)-module]\index{\(G\)-module}
+  Let \(G\) be a profinite group. A \emph{finite \(G\)-module} is a finite abelian group \(M\) with a continuous \(G\)-action \(G \times M \to M\).
+\end{definition}
+
+To avoid defining the group ring of a profinite ring, we use the ad hoc definition
+
+\begin{definition}\index{group cohomology!profinite group}
+  Let \(G\) be a profinite group and \(M\) a finite \(G\)-module. Define
+  \[
+    C^n(G, M) = \{G^n \to M \text{ continuous}\}
+  \]
+  and \(d^n\) given by the same formula as before. Define \(H^n(G, M) = \ker d^{n + 1}/\im d^n\).
+\end{definition}
+
+Course convention: all general results in this chapter and example sheet 4 may be assumed to hold for profinite groups, where all groups are profinite, all functions are continuous and all modules are finite.
+
+\begin{eg}
+  An extension of \(G\) by \(M\) is a profinite group \(E\) with \(M \normal E\) such that \(E/M \cong G\). Equivalence of extensions is a continuous homomorphism respecting \(M\) and \(G\). Then there exists a bijection between equivalent classes of extensions and \(H^2(G, M)\).
+\end{eg}
+
+One can treat profinite groups as discrete groups, but the resulting cohomology theory is horrid. Another question: why finite modules only? For example consider the exact sequence of \(\hat \Z\)-modules with trivial \(\hat \Z\)-action
+\[
+  \begin{tikzcd}
+    0 \ar[r] & \Z \ar[r] & \Q \ar[r] & \Q/\Z \ar[r] & 0
+  \end{tikzcd}
+\]
+Have
+\[
+  H^1(\hat \Z, \Z) = H^1(\hat \Z, \Q) = 0
+\]
+as the continuous map from \(\hat \Z \to \Z\) has compact image. \(H^1(\hat \Z, \Q/\Z) \cong \Q/\Z\). But we should have a long exact sequence, which implies that \(H^2(\hat \Z, \Z)\). Thus free profinite groups \(\hat \Z\) does not have ``cohomologicial dimension'' \(1\).
+
+\subsubsection{Pro-\(p\) groups of cohomological dimension 1}
+
+For simplicity in this section assuming all pro-\(p\) groups are tfg. The aim of this section is to prove Stallings-Swan for tfg pro-\(p\) groups\index{Stallings-Swan theorem!pro-\(p\) group}\index{cohomological dimension!pro-\(p\) group}, i.e.\ \Cref{prop:cohomological dimension of free group} and its converse:
+
+\begin{theorem}
+  \label{thm:Stallings-Swan for pro-p group}
+  A tfg pro-\(p\) group \(G\) is free if and only if \(\mathrm{cd}(G) = 1\), if and only if \(H^2(G, \F_p) = 0\).
+\end{theorem}
+
+Note that for any non-trivial tfg pro-\(p\) group \(G\), in particular free pro-\(p\) groups, \(\mathrm{cd}(G) \geq 1\) as
+\[
+  H^1(G, \F_p) \cong \Hom(G, \F_p) \ne 0.
+\]
+
+We first show the equivalence of the characterisations
+
+\begin{theorem}
+  Let \(G\) be a pro-\(p\) group. Then
+  \[
+    \mathrm{cd}(G) = \max(n: H^n(G, \F_p) \ne 0).
+  \]
+\end{theorem}
+
+\begin{definition}[simple]\index{simple}
+  A \(G\)-module \(M\) is \emph{simple} if the only \(G\)-submodules are \(0\) and \(M\).
+\end{definition}
+
+\begin{proposition}
+  Fix \(n \geq 0\). Let \(G\) be a profinite group and suppose \(H^n(G, S) = 0\) for all simple finite \(G\)-modules \(S\). Then \(H^n(G, M) = 0\) for all finite \(M\).
+\end{proposition}
+
+\begin{proof}
+  Suppose for contradiction \(M\) of minimal size has nonvanishing \(H^n(G, M)\). \(M\) is not simple so exists \(G\)-submodule \(N \leq M\), giving rise to a short exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & N \ar[r] & M \ar[r] & M/N \ar[r] & 0
+    \end{tikzcd}
+  \]
+  of \(G\)-modules. By using long exact sequence and minimality of \(M\), \(H^n(G, M) = 0\), absurd.
+\end{proof}
+
+\begin{definition}[\(p\)-primary component]\index{\(p\)-primary component}
+  Let \(M\) be a finite \(G\)-module. Let \(M_p\) be the Sylow \(p\)-subgroup of \(M\), called the \emph{\(p\)-primary component} of \(M\). Then \(M = \bigoplus_p M_p\).
+\end{definition}
+
+\begin{proposition}
+  Let \(G\) be a pro-\(p\) group, \(M\) a finite \(G\)-module. Then
+  \[
+    H^n(G, M) = H^n(G, M_p)
+  \]
+  for \(n \geq 1\).
+\end{proposition}
+
+\begin{proof}
+  Write \(M = M_p \oplus M'\) where \(M'\) is the direct sum of other \(q\)-primary components. Then
+  \[
+    H^n(G, M) = H^n(G, M_p) \oplus H^n(G, M')
+  \]
+  (the proof of the finite \(p\)-group case is in example sheet 4) and we show \(H^n(G, M') = 0\). Let \(\phi: G^n \to M'\) be a continuous function. Claim \(\phi\) factors as \(G^n \to (G/K)^n \to M'\) for some \(K \normal_o G\).
+
+  \begin{proof}
+    We want to find \(K\) such that \(\ker \phi\) is a union of cosets of \(K^n\). \(\ker \phi = \phi^{-1}(0)\) is open and closed, so can be written as \(\phi^{-1}(m) = \bigcup (a_i + K_i^n)\) where \(K_i \normal_o G\). The cover may be taken to be finite and we take \(K\) to be the intersection of all the \(K_i\)'s.
+  \end{proof}
+
+  But \(H^n(G/K, M') = 0\) as \(G/K\) is a finite \(p\)-group, so exists \(\psi_K: (G/K)^{n - 1} \to M\) such that \(\phi_K = d^n\psi_K\). Now set \(\psi: G^{n - 1} \to (G/K)^{n - 1} \to M'\) so \(\phi = d^n \psi\).
+\end{proof}
+
+\begin{remark}
+  The argument actually shows that if \(G = \varprojlim G/K\) then \(H^n(G, M) = \varinjlim H^n(G/K, M)\).
+\end{remark}
+
+\begin{proposition}
+  Let \(G\) be a pro-\(p\) group. The only simple \(p\)-primary \(G\)-module is \(\F_p\).
+\end{proposition}
+
+\begin{proof}
+  Example sheet 4.
+\end{proof}
+
+Combining these gives
+
+\begin{proposition}
+  Let \(G\) be a pro-\(p\) group. If \(H^n(G, \F_p) = 0\) then \(H^n(G, M) = 0\) for all finite modules \(M\).
+\end{proposition}
+
+\begin{proposition}
+  Suppose exists \(N\) such that \(H^N(G, M) = 0\) for all \(M\) then \(\mathrm{cd}(G) \leq N - 1\).
+\end{proposition}
+
+\begin{proof}[Non-examinable]
+  By course convention we shall prove this for an abstract group \(G\). The main idea is \emph{dimension shifting}: suppose there is a short exact sequence of \(G\)-modules
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & M \ar[r] & N \ar[r] & M' \ar[r] & 0
+    \end{tikzcd}
+  \]
+  where \(N\) is cohomologically trivial. Then from the long exact sequence one know \(H^i(G, M') \cong H^{i + 1}(G, M)\).
+  
+  Example sheet 4 shows that for \(K \leq G\), the following holds for coinduced module \(\Hom_{\Z K}(\Z G, M)\):
+  \[
+    H^n(G, \mathrm{coind}^K_G(M)) \cong H^n(K, M).
+  \]
+  So take \(K = 1\), have \(\mathrm{coind}^K_G(M) = \Hom_\Z(\Z G, M)\) cohomologically trivial. Finally the map
+  \begin{align*}
+    \alpha: M &\to \Hom(\Z G, M) \\
+    m &\mapsto (x \mapsto xm)
+  \end{align*}
+  is an injection so gives the required short exact sequence.
+\end{proof}
+
+\begin{corollary}
+  Free pro-\(p\) groups have cohomological dimension \(1\).
+\end{corollary}
+
+\begin{proof}
+  Suffice to show \(H^2(G, \F_p) = 0\), i.e.\ to show every extension of \(G\) by \(\F_p\) splits. Let \(G\) be free on \(X\) for some \(X\) finite. Suppose we have an extension
+  \[
+    \begin{tikzcd}
+      1 \ar[r] & \F_p \ar[r] & E \ar[r] & F(X) \ar[r] & 1
+    \end{tikzcd}
+  \]
+  \(E\) is again a pro-\(p\) group. For each \(x \in X\) choose a preimage \(e_x \in E\). It extends to a unique homomorphism \(F(X) \to E\).
+\end{proof}
+
+Note that the proof works for free groups as well, so providing an algebraic proof of \Cref{prop:cohomological dimension of free group}.
+
+\begin{theorem}
+  Let \(G\) and \(G'\) be tfg pro-\(p\) groups. Let \(f: G \to G'\) be a continuous homomorphism. Assume
+  \begin{itemize}
+  \item \(f^*: H^1(G', \F_p) \to H^1(G, \F_p)\) is an isomorphism,
+  \item \(f^*: H^2(G', \F_p) \to H^2(G, \F_p)\) is an injection.
+  \end{itemize}
+  Then \(f\) is an isomorphism.
+\end{theorem}
+
+Heurestics: \(H^1(G, \F_p) = \Hom(G, \F_p) = \Hom(G/\Phi(G), \F_p)\), the dual of the \(\F_p\)-vector space \(G/\Phi(G)\). The first condition tells us something about generators. In particular \(f\) is a surjection. \(H^2\) is related to relations, and the second condition says that we impose no additional relations so \(f\) is an injection.
+
+\begin{proof}[Non-examinable]
+  Let \(G_n = \gamma_n^{(p)}(G)\), the lower central \(p\)-series. Recall that \(G_n\) are all open, \(G = \varprojlim G/G_n\). \(G_n\)'s are fully characteristic, therefore inducing maps \(f_n: G/G_n \to G'/G_n'\). We will show that they are all isomorphisms and so is \(f\).
+
+  Induction on \(n\). For \(n = 2\), \(f_2: G/\Phi(G) \to G'/\Phi(G')\). By the remark before the transpose of \(f_2\) is an isomorphism, so is \(f_2\) itself.
+
+  Suppose the result holds for \(n\). If we can show \(G_n/G_{n + 1} \to G_n'/G_{n + 1}'\) is an isomorphism then combining the induction hypothesis we deduce the result for \(n + 1\) from the diagram
+  \[
+    \begin{tikzcd}
+      1 \ar[r] & G_n/G_{n + 1} \ar[r] \ar[d, "\cong"] & G/G_{n + 1} \ar[r] \ar[d] & G/G_n \ar[r] \ar[d, "\cong"] & 1 \\
+      1 \ar[r] & G_n'/G_{n + 1}' \ar[r] & G'/G_{n + 1}' \ar[r] & G'/G_n' \ar[r] & 1
+    \end{tikzcd}
+  \]
+
+  \(G_n/G_{n + 1}\) is a finite-dimensional \(\F_p\)-vector space so \(G_n/G_{n + 1} \to G_n'/G_{n + 1}'\) is an isomorphism if and only if its dual \(H^1(G_n'/G_{n + 1}', \F_p) \to H^1(G_n/G_{n + 1}, \F_p)\) is. A homomorphism \(\phi: G_n \to \F_p\) factors through \(G_n/G_{n + 1}\) if and only if \(\phi([g, g']) = 0\) for all \(g \in G, g' \in G_n\), if and only if
+  \[
+    0 = \phi(g^{-1}(g')^{-1}gg') = - \phi(g^{-1}g'g) + \phi(g'),
+  \]
+  if and only if \(\phi\) is \(G\)-invariant. Thus \(H^1(G_n/G_{n + 1}, \F_p) = H^1(G_n, \F_p)^G\). The five term exact sequence induced by
+  \[
+    \begin{tikzcd}
+      1 \ar[r] & G_n \ar[r] & G \ar[r] & G/G_n \ar[r] & 1
+    \end{tikzcd}
+  \]
+  says we have a commutative diagram of exact sequences
+  \[
+    \begin{tikzcd}
+      H^1(G'/G'_n) \ar[r] \ar[d, "\cong"] & H^1(G') \ar[r] \ar[d, "\cong"] & H^1(G'_n)^{G'} \ar[r] \ar[d] & H^2(G'/G'_n) \ar[r] \ar[d, "\cong"] & H^2(G') \ar[d, hook] \\
+      H^1(G/G_n) \ar[r] & H^1(G) \ar[r] & H^1(G_n)^G \ar[r] & H^2(G/G_n) \ar[r] & H^2(G)
+    \end{tikzcd}
+  \]
+  By induction hypothesis and injectivity on \(H^2\), the middle vertical map is an isomorphism by five lemma. Therefore \(G_n/G_{n + 1} \cong G_n'/G_{n + 1}'\).
+\end{proof}
+
+In fact we get for free from the proof
+
+\begin{theorem}
+  If \(\Gamma\) and \(\Gamma'\) are finitely generated abstract groups and \(f: \Gamma \to \Gamma'\) is a homomorphism and the same conditions hold, then \(\hat f: \hat \Gamma_{(p)} \to \hat \Gamma_{(p)}'\) is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+  Set \(\Gamma_n = \gamma_n^{(p)}(\Gamma)\). Then \(\hat \Gamma_{(p)} = \varprojlim \Gamma/\Gamma_n\). Proceed as before.
+\end{proof}
+
+\begin{proof}[Proof of \Cref{thm:Stallings-Swan for pro-p group}]
+  Suppose \(x_1, \dots, x_d\) is a generating set of minimal size. Let \(F\) be the free pro-\(p\) group on \(x_i\) and consider \(f: F \to G\). \(F/\Phi(F) \to G/\Phi(G)\) is an isomorphism since they are the same \(\F_p\)-vector space and \(H^2(G, \F_p) \to H^2(F, \F_p)\) is an injecition. Thus \(f\) is an isomorphism.
+\end{proof}
+
+\begin{eg}
+  Let \(\Gamma = \langle x_1, x_2| x_1x_2x_1^{-1}x_2^{-1}x_1 \rangle\). Recall \(H^2(\Gamma, \Z) = 0\). The same argument shows \(H^2(\Gamma, \F_p) = 0\). \(H^1(\Gamma, \F_p) = \Hom(\Gamma, \F_p)\). Let \(\phi: \Gamma \to \F_p\). Then
+  \[
+    0 = \phi(x_1x_2x_1^{-1}x_2^{-1}x_1) = \phi(x_1)
+  \]
+  and no further relation so \(H^1(\Gamma, \F_p) = \F_p\) generated by \(x_1 \mapsto 0, x_2 \mapsto 1\). Let \(f: \Z \to \Gamma, 1 \mapsto x_2\). Then \(f\) induces \(\hat \Gamma_{(p)} \cong \Z_p\).
+\end{eg}
+
+\subsubsection{Presentation of pro-\(p\) groups}
+
+\begin{definition}[presentation of pro-\(p\) group]\index{presentation}
+  Let \(X\) be a finite set and \(F\) a free pro-\(p\) group on \(X\). Let \(R \subseteq F\). The pro-\(p\) group with \emph{presentation} \(\floor{X|R}_p\) is defined to be \(F/\overline{\langle\langle R\rangle\rangle}\).
+\end{definition}
+
+Note that not all elements in \(\floor{X|R}_p\) can be written as a product of elements of \(X\).
+
+\begin{lemma}
+  Let \(F_{\mathrm{abs}}\) be the abstract free group on \(X\) and let \(R \subseteq F_{\mathrm{abs}}\). Let \(\Gamma = \langle X | R\rangle, G = \floor{X|R}_p\). Then \(G = \hat \Gamma_{(p)}\).
+\end{lemma}
+
+\begin{proof}
+  Suffices to look at the \(p\)-group quotients of \(G\) and \(\Gamma\). A quotient \(\Gamma \to P\), where \(P\) is a \(p\)-group, is the same as a function \(X \to P\) such that its extension to \(F_{\mathrm{abs}}\) contains \(R\) in the kernel. But this is exactly the same as a continuous quotient \(G \to P\).
+\end{proof}
+
+\begin{theorem}
+  \label{thm:size of generators and relators of pro-p group}
+  Let \(G\) be a tfg pro-\(p\) group. Let \(X\) be a finite tgs of \(G\). Let \(r_X\) be the minimal size of a set \(R \subseteq F(X)\) such that \(G = \floor{X|R}_p\). Then
+  \[
+    |X| - r_X = \dim_{\F_p} H^1(G, \F_p) - \dim_{\F_p} H^2(G, \F_p).
+  \]
+  In particular if \(X\) is a minimal generating set then \(r_X = \dim H^2(G, \F_p)\).
+\end{theorem}
+
+\begin{remark}\leavevmode
+  \begin{enumerate}
+  \item One may ask the same question for abstract groups. If \(\Gamma\) is a finitely generated (abstract) group, \(X\) a finite generating set, let \(\rho_X\) be the minimal size of an \(R\) such that \(\Gamma = \langle X| R\rangle\). Then what can we say about \(|X| - \rho_X\)? It is a subtle question and in general the answer depends on \(X\).
+  \item For \(G\) finite \(p\)-group, let \(X\) be a generating set. One may ask must \(\rho_X = r_X\)? Certainly \(r_X \leq \rho_X\) by the lemma. The other direction is open.
+  \end{enumerate}
+\end{remark}
+
+\begin{lemma}
+  Let \(G\) and \(L\) be profinite groups. Assume \(L\) acts continuously on \(G\) by homomorphism via \(\rho: L \times G \to G\). Then there is a proper open normal subgroup of \(G\) which is invariant under the action of \(L\).
+\end{lemma}
+
+Note that if we assume \(G\) is tfg then this follows from the old trick of taking all intersections.
+
+\begin{proof}
+  Let \(U\) be a proper open normal subgroup of \(G\). Claim \(\tilde L = \{\ell \in L: \ell \cdot U = U\}\) is open in \(L\). If this claim holds, there are finitely many subgroups of the form \(\ell \cdot U\) by orbit-stabiliser. Their intersection is then an \(L\)-invariant open normal subgroup.
+
+  Let \(\ell \in \tilde L\). For each \(u \in U\) we have \(\ell \cdot u \in U\). Can find \(A_u \subseteq L, B_u \subseteq U\) open such that
+  \[
+    (\ell, u) \in A_u \times B_u \subseteq \rho^{-1}(U).
+  \]
+  \(B_u\)'s cover \(U\) which is compact so we can take a finite subcover \(B_{u_1}, \dots, B_{u_k}\). Take \(A = A_{u_1} \cap \cdots \cap A_{u_k}\). Left to show \(A \subseteq \tilde L\): if \(a \in A, u \in U\) then exists \(u_i\) such that \(u \in B_{u_i}\) and \(a \in A_{u_i}\), hence \((a, u) \in A_{u_i} \times B_{u_i} \subseteq \rho^{-1}(U)\). Thus \(A \cdot U \subseteq U\).
+\end{proof}
+
+\begin{lemma}
+  Let \(F\) be a free pro-\(p\) group, \(N \normal F\) a closed proper normal subgroup of \(F\). Then exists a set \(R \subseteq N\) of size \(r\) such that \(N = \overline{\langle\langle R\rangle\rangle}\) if and only if \(\dim_{\F_p} H^1(N, \F_p)^F \leq r\).
+\end{lemma}
+
+\begin{proof}
+  Recall
+  \begin{align*}
+    H^1(N, \F_p)^F
+    &= \{\phi: N \to \F_p \text{ homomorphism such that } \phi(f^{-1}nf) = \phi(n)\} \\
+    &= \{\phi: N/N^p[N, F] \to \F_p\}
+  \end{align*}
+  If \(N = \overline{\langle\langle R\rangle\rangle}\), an \(F\)-invariant map \(\phi: N \to \F_p\) is determined by the restriction to \(R\), so there is an injection \(H^1(N, \F_p)^F \embed \F_p^{|R|}\).
+
+  Conversely suppose \(\dim H^1(N, \F_p)^F = r\), then \(\dim N/N^p[N, F] = r\). Let \(R \subseteq N\) be a lift of a basis of the vector space. \(R\) has the property that every \(F\)-invariant homomorphism \(N \to \F_p\) which kills \(R\) is trivial. Claim \(N = \overline{\langle\langle R\rangle\rangle}\): suppose \(N' = \overline{\langle\langle R\rangle\rangle} \ne N\). Then \(N' \Phi(N) \ne N\) by definition of Frattini subgroup, so \(M = N/N'\Phi(N) \ne 0\). \(M\) is an abelian pro-\(p\) group with a continuous action of \(F\). By the previous lemma \(M\) has a \(F\)-invariant proper open subgroup \(U\). Now \(M/U\) is a finite \(F\)-module which is an abelian \(p\)-group, so by the characterisation of simple modules there is a map \(M/U \to \F_p\). This contradicts
+  \[
+    N \to N/N'\Phi(N) = M \to M/U \to \F_p
+  \]
+  which kills all of \(R\).
+\end{proof}
+
+\begin{proof}[Non-examinable proof of \Cref{thm:size of generators and relators of pro-p group}]
+  This follows from minimal generating set has size equal to \(\dim G/\Phi(G) = \dim H^1(G, \F_p)\).
+
+  Let \(N = \ker(F(X) \to G)\). We obtain the five term exact seqeunce
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & H^1(G) \ar[r] & H^1(F) \ar[r] & H^1(N)^F \ar[r] & H^2(G) \ar[r] & H^2(F) = 0 \\
+      & \dim H^1(G) & {|X|} & r_X & \dim H^2(G)
+    \end{tikzcd}
+  \]
+  Now take Euler characteristic.
+\end{proof}
+
+
+
 
 
 
