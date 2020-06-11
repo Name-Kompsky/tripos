@@ -699,20 +699,18 @@ The kernel of this homomorphism is \(\bigcap_{i \geq 1} (\pi^i) = 0\) so \(A\) i
     a - (a_0 + \dots + a_i \pi^i) = 0 \pmod{\pi^{i + 1}}.
   \]
 
-  Note that we have a commmutative diagram
+  Note that we have a commutative diagram
   \[
     \begin{tikzcd}
-      A/(\pi^{i + 1}) \ar[r, "="] \ar[d] & \{a_0 + a_1 \pi + \dots + a_i \pi^i: a_j \in X\} \ar[d] \\
-      A/(\pi^i) \ar[r, "="] & \{a_0 + a_1 \pi + \dots + a_{i - 1} \pi^{i - 1}: a_j \in X\}
+      A/(\pi^{i + 1}) \ar[r, leftrightarrow] \ar[d] & \{a_0 + a_1 \pi + \dots + a_i \pi^i: a_j \in X\} \ar[d] \\
+      A/(\pi^i) \ar[r, leftrightarrow] & \{a_0 + a_1 \pi + \dots + a_{i - 1} \pi^{i - 1}: a_j \in X\}
     \end{tikzcd}
   \]
-  where the map on the right is to forget the last digit. Thus there is a bijection between \(\hat A\) and the set of formal sums \(\sum_{i = 0}^\infty a_i \pi^i\) where \(a_i \in X\) for all \(i \geq 0\).
-
-  How do we interpret \(a_0 + a_1 \pi + \cdots\) as an element of \(\hat A\)? We can't yet think of it as an infinite sum since we haven't yet shown \(\hat A\) is a DVR. For any \(i\), we set
+  where the map on the right is to omit the \(\pi^i\) term. Thus there is a bijection between \(\hat A\) and the set of formal sums \(\sum_{i = 0}^\infty a_i \pi^i\) where \(a_i \in X\) for all \(i \geq 0\). Note that we can't yet think of it as an infinite sum since we haven't yet shown \(\hat A\) is complete. For any \(i\), we set
   \[
     x_ i = a_0 + a_1\pi + \dots + a_{i - 1}\pi^{i - 1} \pmod{\pi^i} \in A/(\pi^i),
   \]
-  then \(x = (x_i)_{i \geq 1} \in \varprojlim_i A/(\pi^i) = \hat A\).
+  then \(\sum_{i = 0}^\infty a_i\pi^i\) is simply a short hand for the element \(x = (x_i)_{i \geq 1} \in \varprojlim_i A/(\pi^i) = \hat A\).
 
   Let's now show \(\hat A\) is a DVR. We know \(A \to \hat A\) is injective. We'll show each nonzero element \(x \in \hat A\) has a unique expression \(x = \pi^n u\) where \(n \geq 0, u \in \hat A^\times\). Let's write \(x = a_0 + a_1 \pi + \cdots\) and say
   \[
@@ -892,7 +890,7 @@ What is \(\Q_p\) like? It is a mixture of \(\R\) and \(\F_p\) and has features o
 \begin{proposition}\leavevmode
   \begin{enumerate}
   \item If \(p\) is odd then \(u \in \Z_p^\times\) is a square if and only if \(u \pmod p \in \F_p^\times\) is a square.
-  \item If \(p = 2\) then \(u \in \Z_2^\times\) is a square if and only if \(u = 1 \pmod 8\), or equivalently \(u \pmod 8 \in (\Z/8\Z)^2\) is a square.
+  \item If \(p = 2\) then \(u \in \Z_2^\times\) is a square if and only if \(u = 1 \pmod 8\), or equivalently \(u \pmod 8 \in (\Z/8\Z)^\times\) is a square.
   \end{enumerate}
 \end{proposition}
 

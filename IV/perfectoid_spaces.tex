@@ -1,0 +1,1388 @@
+\documentclass[a4paper]{article}
+
+\def\npart{IV}
+
+\def\ntitle{Perfectoid Spaces}
+\def\nlecturer{T.\ Csige}
+
+\def\nterm{Easter}
+\def\nyear{2020}
+
+\input{header}
+
+\newcommand{\tilt}{\flat} % tilting
+\newcommand{\perf}{\mathrm{perf}}
+%\DeclareMathOperator{\perf}{perf} % perfection
+\renewcommand{\c}[1]{\mathbf{#1}}
+\newcommand{\Mod}{{\c{Mod}}}
+\DeclareMathOperator{\Tor}{Tor} % torsion
+\DeclareMathOperator{\Ext}{Ext} % extension
+\newcommand{\sh}[1]{\mathcal{#1}} % sheaf
+\DeclareMathOperator{\Spa}{Spa}
+\renewcommand*{\O}{\mathcal{O}}
+
+
+\newtheorem*{construction}{Construction}
+
+\iffalse
+\renewcommand*{\P}{\mathbb{P}}
+\newcommand{\sh}[1]{\mathcal{#1}} % sheaf
+\renewcommand*{\O}{\mathcal{O}}
+\let\Sp\Relax
+\DeclareMathOperator{\Sp}{Sp} % maximum spectrum
+\DeclareMathOperator{\Max}{Max}
+\DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\supp}{supp} % support of a valuation
+\fi
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Perfection and Tilting}
+
+Let \(p\) be a ring. Recall that a ring \(R\) of characteristic \(p\), is \emph{perfect}\index{perfect} if Frobenius \(\phi: R \to R\) is an isomorphism. We call \(R\) \emph{semiperfect}\index{semiperfect} if \(\phi\) is surjective.
+
+\begin{definition}[tilting]\index{tilt!of ring}
+  Let \(R\) be a ring.
+  \begin{itemize}
+  \item If \(R\) has characteristic \(p\), set \(R_\perf = \varinjlim_\phi R\) and \(R^\perf = \varprojlim_\phi R\).
+  \item (Fountaine) Set \(R^\tilt = (R/p)^\perf\). We endow \(R^\tilt\) with the profinite topology (and \(R/p\) with the discrete topology).
+  \end{itemize}
+\end{definition}
+
+\begin{remark}
+  Universal property of tilting: both \(R_\perf\) and \(R^\perf\) are perfect and the canonical map \(R^\perf \to R\) (resp.\ \(R \to R_\perf\)) has the universal property for maps from perfect rings to \(R\) (resp.\ from \(R\) into perfect rings). Moreover \(R^{\mathrm{perf}} \to R\) is surjective if and only if \(R\) is semiperfect.
+\end{remark}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(\F_p[t]_\perf = \F_p[t^{1/p^\infty}], \F_p[t]^\perf = \F_p\).
+  \item \(\F_p[t]^\tilt = \F_p\).
+  \item If \(R\) is perfect of characteristic \(p\), then for any \(f \in R\) non-zero divisor, \((R/f)^\perf \cong \hat R\), where \(\hat R\) is the completion with respect to the \((f)\)-adic topology. This is left as an exercise. In particular, \((\F_p[t^{1/p^\infty}]/(t))^\perf \cong \widehat{\F_p[t^{1/p^\infty}]}\), the perfect polynomial ring.
+  \item \((\Z_p)^\tilt \cong \F_p\).
+  \item \((\widehat{\Z_p[p^{1/p^\infty}]})^\tilt \cong \widehat{\F_p[t^{1/p^\infty}]}\). Note LHS before tilting is the completed direct limit of \(\Z_p[t]/(t^{p^n} - p)\).
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}
+  Show that if \(R \to S\) is a surjective ring homomorphism of characteristic \(p\) rings with nilpotent kernel then \(R_\perf \cong S_\perf\), \(R^\perf \cong S^\perf\). Slogan: tilting kills nilpotent extensions.
+\end{ex}
+
+An elementary but important lemma:
+
+\begin{lemma}
+  Let \(R\) be a ring and \(t \in R\) such that \(p \in (t)\). Give \(a, b \in R\) such that \(a = b \pmod t\), then \(a^{p^n} = b^{p^n} \pmod{t^{n + 1}}\).
+\end{lemma}
+
+\begin{proof}
+  Induction on \(n\). Clear for \(n = 0\). Assume it is true for \(n\), then \(a^{p^n} = b^{p^n} + t^{n + 1} \cdot c\). Raising to \(p\)th power,
+  \[
+    a^{p^{n + 1}} = b^{p^{n + 1}} + p \cdot t^{n + 1} \cdot d + t^{(n + 1) p} \cdot c^p.
+  \]
+  Since \(p \in (t)\), the claim follows.
+\end{proof}
+
+Crucial lemma:
+
+\begin{lemma}
+  Assume that \(R\) is \(p\)-adically complete. The map \(R \to R/p\) induces an isomorphism of multiplicative monoids
+  \[
+    \varprojlim_\phi R \to \varprojlim_\phi R/p = R^\tilt.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Injectivity: let \((a_n), (b_n) \in \varprojlim_\phi R\) such that \(a_n = b_n \pmod p\) for all \(n\). Then since \(a_{n + k} = b_{n + k} \pmod p\), by the previous lemma \(a_{n + k}^{p^k} = b_{n + k}^{p^k} \pmod{p^{k + 1}}\) for all \(k\). \(R\) is \(p\)-adically separated as it is complete so \(a_n = b_n\).
+
+  Surjectivity: let \((\overline a_n) \in R^\tilt\). Choose lifts \(a_n \in R\) of \(\overline a_n\). Then \(a_{n + k}^{p^k} = a_n \pmod p\) for all \(n, k\). Using the lemma again, \((a_{n + k}^{p^k})_k\) are Cauchy so by completeness it has a limit \(b_n\). By construction \(b_{n + 1}^p = b_n\) and \(b_n\)'s are lifts of \(\overline a_n\).
+\end{proof}
+
+\begin{remark}
+  It is easy to see that \(b_n\)'s do not depend on the chosen lifts and it gives an explicit inverse to the map in the lemma. Composing this inverse with projection to the last component, we get the map
+  \begin{align*}
+    \sharp: R^\tilt &\to R \\
+    f &\mapsto f^\sharp
+  \end{align*}
+  Its image is exactly those \(f \in R\) which admit compatible system \(\{f^{1/p^\infty}\}\). Such elements are called the \emph{perfect elements} in this course.
+\end{remark}
+
+\begin{lemma}[tilting and valuation]
+  If a \(p\)-adically complete ring \(R\) is a domain (resp.\ valuation ring), the same is true for \(R^\tilt\). In fact, if \(|\cdot|: R \to \Gamma \cup \{0\}\) is the valuation on \(R\), then the composition
+  \[
+    |\cdot|^\tilt: R^{\tilt} \xrightarrow{\sharp} R \xrightarrow{|\cdot|} \Gamma \cup \{0\}
+  \]
+  gives the valuation on \(R^\tilt\). The rank of \(|\cdot|^\tilt\) is bounded above by the rank of \(|\cdot|\).
+\end{lemma}
+
+\begin{proof}
+  Since \(R^\tilt \cong \varprojlim_\phi R\), if \((a_n), (b_n) \in R^\tilt\) are such that \((a_n) \cdot (b_n) = 0\), then in particular \(a_0 \cdot b_0 = 0\) so \(a_0 = 0\) or \(b_0 = 0\) as \(R\) is a domain. Then \(a_i^{p^i} = a_0 = 0\) so \(a_i = 0\). Thus \(R^\tilt\) is a domain.
+
+  If \(R\) is a vaulation ring, its elements are totally ordered by divisibility and given \((a_n), (b_n) \in R^\tilt\), wlog \(a_0 \divides b_0\). Then \(a_n \divides b_n\) (since \(\frac{b_n}{a_n} \in \mathrm{Frac} R\) must lie in \(R\), since \(p\)th root does). Thus \(R^\tilt\) is a valuation ring. The rest follows from definition.
+\end{proof}
+
+\section{Perfectoid fields and their tilt}
+
+\subsection{Perfectoid fields}
+
+We construct, as a first step, non-archimedean fields with ``a lot of'' \(p\)-power roots and formulate almost purity in this case, which is already a deep theorem. We identify the Galois theory of \(K\) and \(K^\tilt\).
+
+\begin{definition}[perfectoid field]\index{perfectoid field}
+  A \emph{perfectoid field} is a non-archimedean complete field \(K\) of residue characteristic \(p > 0\) such that
+  \begin{itemize}
+  \item the value group \(|K^\times| \subseteq \R_{> 0}\) is non-discrete,
+  \item \(K^\circ/p\) is semiperfect.
+  \end{itemize}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item \(K = \widehat{\Q_p(p^{1/p^\infty})}\). Then \(|K^\times| = \Z[\frac{1}{p}]\). Note that colimit and completion of valuation ring is a valuation ring, hence \(K^\circ = \widehat{\Z_p[p^{1/p^\infty}]}\): we have a canonical injection \(\widehat{\Z_p[p^{1/p^\infty}]} \embed K^\circ\). Both are valuation rings with the same fraction fields, hence equal. Then \(K\) is perfectoid.
+  \item The same argument shows that \(K = \widehat{\Q_p[\mu_{p^\infty}]}\) is perfectoid.
+  \item Any characteristic \(p\) field \(K\) is perfectoid if and only if \(K\) is perfect.
+  \end{enumerate}
+\end{eg}
+
+\begin{lemma}
+  Let \(K\) be perfectoid.
+  \begin{enumerate}
+  \item The value group \(|K^\times|\) is \(p\)-divisible.
+  \item \((K^{\circ \circ})^2 = K^{\circ \circ}\). Moreover \(K^{\circ \circ}\) is a flat \(K^\circ\)-module.
+  \item \(K^\circ\) is not noetherian.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Let \(x \in K\) be such that \(|p| < |x| < 1\) (these are called small elements). By perfectoidness, exists \(y \in K^\circ\) such that \(x = y^p + p z\). Then \(|x| = |y^p| = |y|^p\).
+
+    In general, since \(|K^\times|\) is non-discrete, \(|p|^\Z \subsetneq |K^\times|\) so exists \(x \in K\), \(|x| \notin |p|^\Z\). Multiplying by a suitable power of \(p\) we may assume \(|p| < |x| < 1\). As \(p\) does not divide \(x\), by valuation property \(p = xy\) for some \(y \in K^\circ\). Then \(y\) is also small, therefore \(|y|\) is also \(p\)-divisible. Thus \(|p|^\Z\) is divisible and we are done.
+  \item Pick \(f \in K^{\circ \circ}\). By perfectoidness \(f = g^p + p h\) where \(g \in K^{\circ \circ}, h \in K^\circ\). Since \(p = xy \in (K^{\circ \circ})^2\) in the previous part, \((K^{\circ \circ})^2 = K^\circ\). Since \(K^{\circ \circ}\) is torsion-free and over a valuation ring, it is flat.
+  \item \(K^{\circ \circ}\) is not finitely generated since it has elements with arbitrarily small valuation. Alternatively use Nakayama.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  The proof shows that \(|K^\times|\) is generated by \(|x|\) such that \(|p| < |x| < 1\).
+\end{remark}
+
+\subsection{Tilting of perfectoid fields}
+
+We are going to define the tilt of a perfectoid field. Fix a pseudo-uniformiser \(\pi \in K^\circ\) such that \(|p| \leq |\pi| < 1\) (we can pick \(p\)). Consider
+\[
+  \begin{tikzcd}
+    \varprojlim_\phi K^{\circ} \ar[r] \ar[d, "\cong"] & K^\circ \ar[d] \\
+    K^{\circ \tilt} = \varprojlim_\phi K^\circ/p \ar[r] \ar[d, "\cong"] & K^\circ/p \ar[d] \\
+    \varprojlim_\phi K^\circ/\pi \ar[r] & K^\circ/\pi
+  \end{tikzcd}
+\]
+\(K^{\circ \tilt} \to \varprojlim_\phi K^\circ/\pi\) is an isomorphism since exists \(n\) such that \(|\pi|^n < |p|\), so \(K^\circ/p \to K^\circ/\pi\) has nilpotent kernel, and hence \((K^\circ/p)^\perf \cong (K^\circ/\pi)^\perf\).
+
+\begin{lemma}
+  There exists some \(t \in K^{\circ \tilt}\) such that \(|t^\sharp| = |\pi|\). Moreover \(t\) maps to \(0\) in \(K^\circ/\pi\) and gives an isomorphism \(K^{\circ \tilt}/t \cong K^\circ/\pi\).
+\end{lemma}
+
+\begin{proof}
+  By assumption \((p) \subseteq (\pi)\) so we have surjective maps \(K^{\circ \tilt} \to K^\circ/p \to K^\circ/\pi\). By \(p\)-divisibility of \(|K^\times|\), exists \(f \in K^\circ\) such that \(|f|^p = |\pi|\). Thus \(|f| > |\pi|\) and hence \(\overline f \ne 0\) in \(K^\circ/\pi\). Choose a lift \(g \in K^{\circ \tilt}\) of \(\overline f\). By the above diagram, \(g^\sharp = f \pmod \pi\). By non-archimedean property \(|g^\sharp| = |f|\). Let \(t = g^p\) and
+  \[
+    |t^\sharp| = |g^{\sharp p}| = |\pi|
+  \]
+  by multiplicativity of \(\sharp\).
+
+  \(t\) maps to \(0\) in \(K^\circ/\pi\) by construction and we have a surjection \(K^{\circ \tilt}/t \to K^\circ/\pi\). It is an isomorphism: suppose \(h \in K^{\circ \tilt}\) is such that \(h\) maps to \(0\) in \(K^\circ/\pi\). Since \(|\pi| = |t^\sharp|\), \((\pi) = (t^\sharp)\). \(h^\sharp\) is also mapped to \(0\) by the commutative diagram so \(h^\sharp = a \cdot t^\sharp\). Set \(a_n = \frac{(h^{1/p^n})^\sharp}{(t^{1/p^n})^\sharp} \in K\). Then \(a_n^{p^n} = a\) so \(\tilde a = (a_n) \in \varprojlim_\phi K^\circ\). Then \(h = \tilde a \cdot t\) in \(\varprojlim_\phi K^\circ\).
+\end{proof}
+
+\begin{corollary}
+  \(K^{\circ \tilt}\) is \(t\)-adically complete and the \(t\)-adic topology coincides with the inverse limit topology.
+\end{corollary}
+
+\begin{proof}
+  Exercise. Use \(\varprojlim_n K^{\circ \tilt}/t^n \cong \varprojlim_n K^{\circ \tilt}/t^{p^n}\).
+\end{proof}
+
+\begin{proposition}
+  Fix an element \(t\) as in the previous lemma.
+  \begin{enumerate}
+  \item \(K^{\circ \tilt}\) is a valuation ring and \(K^\tilt = K^{\circ \tilt}[\frac{1}{t}]\) is a field (of characteristic \(p\)).\index{tilt!of perfectoid field}
+  \item The ideal \((t^{1/p^\infty})\) is maximal and the Krull dimension of \(K^{\circ \tilt}\) is \(1\).
+  \item The valuation topology on \(K^{\circ \tilt}\) coming from 1 coincides with the \(t\)-adic topology. In this topology \(K^\tilt\) is a perfectoid field and \(K^{\tilt \circ} = K^{\circ \tilt}\).
+  \item The value groups of \(K\) and \(K^\tilt\) are identified, so are their residue fields.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Observe that \(a \in K^{\circ \tilt}\) is a unit if and only if \(a^\sharp\) is a unit.
+  \begin{enumerate}
+  \item \(K^{\circ \tilt}\) is a valuation ring of rank 1 since the valuation is not trivial. It is a general fact that \(K^{\circ \tilt}[\frac{1}{t}]\) produces the fraction field: \(|t|^\tilt = |t^\sharp| = |\pi|\) so for any \(h \in K^{\circ \tilt}\), exists \(n\) such that \(|t^n| < |h|\). Thus \(\frac{1}{h} = \frac{z}{t^n}\) if \(t^n = h \cdot z\).
+  \item It is a general fact that the Krull dimension of a valuation ring is the rank of valuation. Since \(K^{\circ \tilt}/t \cong K^\circ/\pi\), the maximal ideal of \(K^\circ/\pi\) is its nilradical (since it is artinian) so the same is true for LHS. Certainly \((t^{1/p^\infty}) \subseteq N(K^{\circ \tilt}/t)\) and by construction \(K^{\circ \tilt}/(t^{1/p^\infty})\) is perfect and hence reduced, so equality.
+  \item Using that \(|t|^\tilt < 1\), we see that \(t\)-adic topology is equivalent to the valuation topology. Since \(K^{\circ \tilt}\) is \(t\)-adically complete, \(K^\tilt \) is non-archimedean. It is also perfect so is perfectoid.
+  \item Easily \(|K^{\tilt \times}| \subseteq |K^\times|\). We've seen \(|K^\times|\) is generated by \(|x|\) such that \(|p| < |x| < 1\). Using the previous lemma, all generators of \(|K^\times|\) are in \(|K^{\tilt \times}|\) so equality.
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}[tilting continuous valuations]
+  For any continuous non-archimedean valuation \(|\cdot| : K \to \Gamma \cup \{0\}\) (of any rank), the function \(|\cdot|^\tilt\) is also a continuous valuation. This identifies the space of continuous valuations on \(K\) and \(K^\tilt\).
+\end{proposition}
+
+\begin{proof}[Sketch proof]
+  It is clear that \(|\cdot|^\tilt\) is multiplicative and \(|f|^\tilt = 0\) if and only if \(f = 0\). Check non-archimedean property: take \((f_n), (g_n) \in \varprojlim_\phi K^\circ\) so \(f_0 = f^\sharp, g_0 = g^\sharp\). Then
+  \begin{align*}
+    |f + g|^\tilt
+    &= |(f + g)^\sharp| \\
+    &= |\lim (f_n + g_n)^{p^n}| \\
+    &= \lim |f_n + g_n|^{p^n} \\
+    &\leq \lim \max(|f_n|^{p^n}, |g_n|^{p^n}) \\
+    &= \max(|f^\sharp|, |g^\sharp|)
+  \end{align*}
+
+  For continuity, note that a valuation \(|\cdot|\) is continuous if and only if for any pseudo-uniformiser \(f \in K^{\circ \circ}\), we have \(|f|^n \to 0\). Since any pseudo-uniformiser can be tilted to a pseudo-uniformiser in \(K^{\circ \tilt}\), \(|\cdot|\) is continuous implies \(|\cdot|^\tilt\) is continuous.
+
+  We can also use this characterisation to prove
+  \begin{enumerate}
+  \item \(K^{\circ \circ} \subseteq R\), where \(R\) is the valuation ring of \(|\cdot|\).
+  \item \(R \subseteq K^\circ\).
+  \end{enumerate}
+
+  Standard fact (Matsumura, Commmutative Ring Theory Theorem 16.1): let \(R \subseteq R' \subseteq K\) be valuation rings in a field, \(\mathfrak m_R, \mathfrak m_{R'}\) maximal ideals of \(R\) and \(R'\). Suppose \(R \ne R'\). Then \(\mathfrak m_{R'} \subseteq \mathfrak m_R \subseteq R\) and \(\mathfrak m_{R'}\) is a prime ideal of \(R\). Moreover \(R' \cong R_{\mathfrak m_{R'}}\). Hence if \(R\) has properties 1 and 2, \(R \to K^\circ\) is a localisation and \(K^{\circ \circ}\) lies in \(\Spec R\). Thus \(|f|^n \to 0\) for \(f \in K^{\circ \circ}\).
+  
+  Passing to the quotient, there exists an bijection
+  \[
+    \{\text{continuous valuations on } K\} \leftrightarrow \{\text{valuation rings in } K^\circ/K^{\circ \circ}\}
+  \]
+  Similar for \(K^\tilt\) and use the identification \(K^\circ/K^{\circ \circ} \cong K^{\tilt \circ}/K^{\tilt \circ\circ}\), we are done.
+\end{proof}
+
+\begin{theorem}[almost purity in dimension \(0\)]
+  Let \(L/K\) be a finite extension and \(K\) be perfectoid. Then
+  \begin{enumerate}
+  \item \(L\) is perfectoid.
+  \item the field extension \(L^\tilt/K^\tilt\) is finite of the same degree as \(L/K\).
+  \item the association \(L \mapsto L^\tilt\) defines an equivalence of categories \(K_{\textup{fét}} \simeq K^\tilt_{\textup{fét}}\) of finite étale algebras.
+  \end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+  \(\gal(\overline K/K) \cong \gal(\overline K^\tilt/K^\tilt)\).
+\end{corollary}
+
+\begin{remark}
+  For \(\widehat{\Q_p(\mu_{p^\infty})}\), it is the famous Fontaine-Wintenberger theorem.
+\end{remark}
+
+\begin{remark}
+  It can be shown that if \(K = \overline K\) then \(\overline{K^\tilt} = K^\tilt\). See for example Prop.\ 3.8 in Scholze, Perfectoid Space.
+\end{remark}
+
+\begin{eg}
+  This example show that the tilting functor \(K \mapsto K^\tilt\) is not fully faithful in general. Let \(K = \widehat{\Q_p(\mu_{p^\infty})}\) so \(K^\circ = \widehat{\Z_p[\mu_{p^\infty}]}\). \(K^\circ\) can be explicitly described as the \(p\)-adic completion of \(\Z_p[\varepsilon^{1/p^\infty}]/(1 + \varepsilon^{1/p} + \dots + \varepsilon^{(p - 1)/p})\) by taking a compatible system of \(p\)-power roots of unity \(\varepsilon_n \in \mu_{p^n}\) and sending \(\varepsilon_n\) to \(\varepsilon^{1/p^n}\). Since \(\frac{x^p - 1}{x - 1} = (x - 1)^{p - 1} \pmod p\),
+  \[
+    K^\circ/p \cong \F_p[\varepsilon^{1/p^\infty}]/(\varepsilon^{1/p} - 1)^{p - 1} \cong \F_p[t^{1/p^\infty}]/t^{p - 1}
+  \]
+  by substituting \(t\) for \(\varepsilon - 1\). so \(K^{\circ \tilt} \cong \widehat{\F_p[t^{1/p^\infty}]} \cong (\widehat{\Z_p[p^{1/p^\infty}]})^\tilt\). Thus \(K^\tilt \cong (\widehat{\Q_p(p^{1/p^\infty})})^\tilt\).
+\end{eg}
+
+\section{Almost ring theory}
+
+The idea behind Faltings' theory is to develop commutative algebra notions whilst systematically ``ignoring'' some class of torsion modules. We follow Gabber \& Ramero, Almost Ring Theory.
+
+The basic setup for almost mathematics is as follow. Assume \(R\) is a commutative ring and \(I \subseteq R\) an ideal such that \(I^2 = I\) and \(I\) is flat.
+
+The cases of interest for us are
+\begin{itemize}
+\item for a perfectoid field \(K\), let \(R = K^\circ\) and \(I = K^{\circ \circ}\). We have shown \(I^2 = I\) and \(I\) is flat. In fact we know that for any pseudo-uniformiser \(t \in K^{\tilt \circ}\), \(t^\sharp\) admits a compatible system of \(p\)-power roots and \(I = ((t^\sharp)^{1/p^\infty})\).
+\item let \(R\) be a perfect ring of characteristic \(p\) and \(I = (f^{1/p^\infty})\) for \(f \in R\). It is straightfoward that \(I^2 = I\). If \(f\) is a non-zero divisor then \(I\) is flat.
+\end{itemize}
+
+\begin{definition}[almost zero module]
+  We say that \(M \in \Mod_R\) is \emph{almost zero} if \(IM = 0\), i.e.\ \(M\) is \(I\)-torsion. If \(f \in M\) is such that \(I \cdot f = 0\) then \(f\) is called an \emph{almost zero element}.
+\end{definition}
+
+\begin{definition}[Serre subcategory]
+  Let \(\c{A}\) be an abelain category. A \emph{Serre subcategory} is a full subcategory \(\c B \subseteq \c A\) such that
+  \begin{enumerate}
+  \item \(\c B\) is an abelian subcategory, i.e.\ clsoed under direct sumes, kernels and cokernels,
+  \item \(\c B\) is closed under extensions, i.e.\ if
+    \[
+      \begin{tikzcd}
+        0 \ar[r] & M \ar[r] & N \ar[r] & L \ar[r] & 0
+      \end{tikzcd}
+    \]
+    is a short exact sequence and \(M, L \in \c B\) then \(N \in \c B\).
+  \end{enumerate}
+\end{definition}
+
+\begin{construction}[quotient category]
+  Let \(\c A, \c B\) be as above. Then one can form a \emph{quotient category} \(\c A/\c B\) with the following properties:
+  \begin{enumerate}
+  \item \(\c A/\c B\) is an abelian category and there exists a quotient functor \(q: \c A \to \c A/\c B\) which is exact and sends every object of \(\c B\) to \(0\).
+  \item given any abelian category \(\c C\) and an exact functor \(F: \c A \to \c C\) such that \(F(B) = 0\) for all \(B \in \c B\), \(F\) factors through \(q\).
+    \[
+      \begin{tikzcd}
+        \c A \ar[r, "F"] \ar[d, "q"] & \c C \\
+        \c A/\c B \ar[ur, dashed]
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+
+  Explicitly, \(\mathrm{Obj}(\c A/\c B)\) are the objects of \(\c A\) and
+  \[
+    \Hom_{\c A/\c B}(X, Y) = \varinjlim_{X' \to X} \Hom(X', Y)
+  \]
+  where \(X' \to X\) has kernel and cokernel in \(\c B\).
+\end{construction}
+
+\begin{definition}[almost category]\index{almost category}
+  The \emph{almost category} \(\Mod_R^a\) is the quotient of \(\Mod_R\) by the Serre subcategory of \(\Mod_{R/I}\), i.e.\ the \(I\)-torsion modules.
+\end{definition}
+
+Note that if
+\[
+  \begin{tikzcd}
+    0 \ar[r] & M \ar[r] & N \ar[r] & L \ar[r] & 0
+  \end{tikzcd}
+\]
+is a short exact sequence such that \(M\) and \(L\) are \(I\)-torsion then \(M\) is killed by \(I^2 = I\).
+
+We have an exact functor \((-)^a: \Mod_R \to \Mod_R^a\) called \emph{almostification}\index{almostification}. The objects of \(\Mod_R^a\) are called \emph{almost \(R\)-modules} or \emph{\(R^a\)-modules}.
+
+By construction
+\[
+  \Hom_{R^a}(M^a, N^a) = \varinjlim_{M' \to M} \Hom_R(M', N)
+\]
+where \(M' \to M\) has almost zero kernel and cokernel, i.e.\ \(M' \to M\) is an almost isomorphism. In our case it is explicit: for any 
+
+the direct system has an initial object (?) \(I \otimes M \to M\), so
+\[
+  \Hom_{R^a}(M^a, N^a) = \Hom_R(I \otimes M, N)
+\]
+which has a natural \(R\)-module structure.
+
+\begin{remark}
+  It is straightforward to check that the tensor product on \(\Mod_R\) descends to \(\Mod_R^a\), i.e\ \(\Mod_R^a\) is an abelian tensor category with tensor product
+  \[
+    M^a \otimes_{R^a} N^a = (M \otimes_R)^a
+  \]
+  (it is enough to show that \(M \otimes_R N\) is \(I\)-torsion if either \(M\) or \(N\) is \(I\)-torsion).
+\end{remark}
+
+\begin{remark}
+  It can be checked that there exists a right adjoint, the \emph{internal Hom}\index{internal hom}, to tensor product in \(\Mod_R^a\). We denote it by \(\mathrm{alHom}(-, -)\) and it is given by
+  \[
+    \mathrm{alHom}(X, Y) = \Hom_{R^a}(M^a, N^a)^a
+  \]
+  for \(X = M^a, Y = N^a\), with an isomorphism
+  \[
+    \Hom(X \otimes Y, Z) \cong \Hom(X, \mathrm{alHom}(Y, Z)).
+  \]
+\end{remark}
+
+\begin{construction}[functors relating \(\Mod_R\) and \(\Mod_R^a\)]
+  Consider this motivating example of sheaves on topological spaces. If \(X\) is a topological space and \(U \subseteq X\) open, then we have \(j^*: \c{Sh}(X) \to \c{Sh}(U)\) (pullback). This functor is exact and has two adjoints \(j_!, j_*\) (extension by zero and pushforward). The functor \(j_!\) is exact and \(j_*\) is left exact.
+
+  Similar almostification \((-)^a: \Mod_R \to \Mod_R^a\) admits adjoints
+  \[
+    (-)_!, (-)_*: \Mod_R^a \to \Mod_R.
+  \]
+  It is enough to describe them on honest \(R\)-modules and check that they respect almost isomorphisms. They are given by
+  \begin{align*}
+    M_! &= I \otimes M \\
+    M_* &= \Hom_R(I, M)
+  \end{align*}
+  The adjunction can be checked by
+  \[
+    \Hom_{R^a}(M^a, N^a) = \Hom_R(I \otimes M, N) = \Hom_R(M, \Hom_R(I, N)).
+  \]
+  Finally since \(I\) is flat, \((-)_!\) is flat.
+\end{construction}
+
+\begin{construction}(almost category in disguise)
+  Let \(\c A \subseteq \Mod_R\) be the full subcategory of \(R\)-modules such that the multiplication map \(I \otimes M \to M\) is an isomorphism. Equivalently, as \(I \otimes I \cong I^2 \cong I\), \(\c A\) is the essential image of the functor \(\Mod_R \to \Mod_R, M \mapsto I \otimes M\). This functor is exact since \(I\) is flat. Flatness also shows that \(\c A\) is an abelian category. We prove that \(\c A\) is a quotient of \(\Mod_R\) and it gives an explicit realisation of \(\Mod_R^a\).
+
+  Denote by \(j^*: \Mod_R \to \c A\) the functor \(- \otimes I\).
+
+  \begin{proposition}
+    The functor \(j^*: \Mod_R \to \c A\) provides an explicitsation of the quotient functor \(q: \Mod_R \to \Mod_R^a\).
+  \end{proposition}
+
+  \begin{proof}
+    We must check that \(j^*\) satisfies the properties in the definition of a quotient category.
+    \begin{itemize}
+    \item Let \(M\) be an \(I\)-torsion module. Then since \(M\) is canonically an \(R/I\)-module, \(I \otimes_R M = I \otimes_R (R/I \otimes_R M) = 0\) as \(I/I^2 = 0\).
+    \item \(j^*\) is exact as \(I\) is flat.
+    \item Universal property: if \(F: \c A \to \c B\) is an exact funtor, \(\c B\) is abelian and \(F\) sends \(I\)-torsion modules to \(0\), then \(F\) factors through \(j^*\): if \(I \otimes M \to M\) is the multiplication map then its kernel is \(\Tor_1^R(R/I, M)\) and the cokernel is \(R/I \otimes_R M\) (as \(0 \to I \to R \to R/I \to 0\) is a flat resolution of \(R/I\)). Both \(\Tor^R_1(R/I, M)\) and \(R/I \otimes_R M\) are \(I\)-torsion as
+      \[
+        \Tor_R^1(R/I, M) \otimes_R I \cong \Tor_R^1(R/I \otimes_R I, M) = 0.
+      \]
+      Thus \(F(I \otimes M) \cong F(M)\) and \(F \compose j^*(M) \cong F(M)\), so \(F\) factors through \(j^*\).
+    \end{itemize}
+  \end{proof}
+\end{construction}
+
+\begin{remark}
+  We realised \(\Mod_R^a\) as a full subcategory of \(\Mod_R\). Then it is straightforward that \(\Mod_R^a\) is an abelian tensor category and that
+  \[
+    \mathrm{alHom}(j^*(M), j^*(N)) = j^* \Hom(M, N).
+  \]
+\end{remark}
+
+\begin{definition}[almost finitely generated/presented]\index{almost finitely generated}\index{almost finitely presented}
+  An object \(M^a \in \Mod_R^a\) is \emph{almost finitely generated} if for every \(\varepsilon \in I\), exists a finitely generated \(R\)-module \(M_\varepsilon\) and a map \(M_\varepsilon \to M\) such that the cokernel is annihilated by \(\varepsilon\). \emph{Mutatis mutandis} define \emph{almost finitely presented} modules.
+
+  If the number of generators can be bounded above independent of \(\varepsilon\), we say that \(M\) is \emph{uniformly almost finitely generated}.
+\end{definition}
+
+\begin{remark}
+  A priori the definition depends on the choice of the \(R\)-module \(M\) giving \(M^a\). However it is easy to check that it doesn't.
+\end{remark}
+
+\begin{definition}
+  Let \(M \in \Mod_R\) with image \(M^a \in \Mod_R^a\). Then
+  \begin{itemize}
+  \item we say \(M\) or \(M^a\) is \emph{almost flat} if \(M^a \otimes -\) is exact, or equivalently \(\Tor^R_i(M, N)\) is almost zero for any \(R\)-module \(N\) and \(i > 0\).
+  \item we say that \(M\) or \(M^a\) is \emph{almost projective} if \(\mathrm{alHom}(M^a, -)\) is exact, or equivalently \(\Ext^i_R(M, M)\) is almost zero for any \(R\)-module \(N\) and \(i > 0\).
+  \end{itemize}
+\end{definition}
+
+\begin{ex}
+  The bifunctor \(\Hom_{R^a}(M^a, N^a)\) can be derived in either variable to convert a short exact sequence to a long exact sequence. In fact we get derivatives by formula
+  \[
+    \Ext_{R^a}^i(M^a, N^a) = \Ext_R^i(I \otimes_R M, N).
+  \]
+  In particular, if \(0 \to M'^a \to M^a \to M''^a \to 0\) is a short exact sequence in \(\Mod_R^a\), we have a long exact sequence
+  \[
+    \begin{tikzcd}
+      \Ext_{R^a}^i(R^a, M'^a) \ar[r] & \Ext_{R^a}^i(R^a, M^a) \ar[r] & \Ext_{R^a}^i(R^a, M''^a) \ar[dll, out=0, in=180, overlay] \\
+      \Ext_{R^a}^{i + 1}(R^a, M'^a) \ar[r] & \Ext_{R^a}^{i + 1}(R^a, M^a) \ar[r] & \Ext_{R^a}^{i + 1} (R^a, M''^a) \ar[dll, out=0, in=180, overlay] \\
+      \cdots 
+    \end{tikzcd}
+  \]
+  deriving the functor \((-)_*\) of almost elements.
+\end{ex}
+
+\begin{remark}
+  Note that almost projective modules are \emph{not} projective objects in \(\Mod_R^a\). Recall that an object \(P\) in some abelian category \(\c A\) is projective if \(\Hom_{\c A}(P, -)\) is exact. We have just shown that \(R^a\) is not a projective object in \(\Mod_R^a\), but it is certainly an almost projective module.
+
+  For example, for \(K\) perfectoid field, let \(R = K^\circ, I = K^{\circ \circ}\) and \(k\) its residue field. Using the above exercise, we can show
+  \[
+    \Ext_{R^a}^i(R^a, R^a) \cong \Ext_R^2(k, R).
+  \]
+  It is a standard fact that if \(K\) is not spherically complete (e.g.\ \(\C_p\)) then \(\Ext^2_R(k, R)\) is non-zero.
+\end{remark}
+
+\begin{ex}
+  Consider \(R = \F_p[t^{1/p^\infty}], I = (t^{1/p^\infty})\). Consider
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & R \ar[r, "t\cdot"] & R \ar[r] & R/tR \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Applying \((-)^a\) and the \((-)_*\), we get
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & R \ar[r] & R \ar[r] & (R/tR)_*
+    \end{tikzcd}
+  \]
+  which is not exact on the right because of elements such as \(\sum_{n > 0} t^{1- 1/p^n}\).
+\end{ex}
+
+But if \(K\) is spherically complete, then higher derived functors of \((-)_*\) vanish.
+
+\section{Almost purity in characteristic \(p\) and for perfectoid fields}
+
+Let \(R\) be a perfect \(\F_p\)-algebra and for any non-zero divisor \(t \in R\), let \(I = (t^{1/p^\infty})\).
+
+\begin{proposition}
+  Let \(S \to S'\) be a map of perfect \(R\)-algebras and suppose that \(S, S'\) are integral over \(R\). Assume that \(S[\frac{1}{t}] \to S'[\frac{1}{t}]\) is an isomorphism. Then \(S \to S'\) is an almost isomorphism.
+\end{proposition}
+
+\begin{proof}
+  Let \(s \in S'\). Let \(M \subseteq S'\) be the \(S\)-module generated by \(s\). Any finitely generated \(R\)-module \(M' \subseteq S'\) has the property that there exists \(N \in \N\) such that \(t^N \cdot M' \subseteq S\) since \(S[\frac{1}{t}] \cong S'[\frac{1}{t}]\) and \(S'\) is integral over \(R\). In particular there exists \(N \in \N\) such that for any \(n \in \N\), \(t^N \cdot s^n \in S\). Taking \(n = p^r\) for \(r \in \N\) and extracting \(p^r\)-th roots, we see that \(t^{N/p^r} \cdot s \in S\) (\(t^{N/p^r}\) exists as \(I^N = I = (t^{1/p^\infty})\)). Hence \(s\) almost belongs to \(S\). Similarly we can show almost injectivity.
+\end{proof}
+
+\begin{corollary}
+  There is an equivalence of categories
+  \[
+    \{\text{perfect \(R[\frac{1}{t}]\)-algberas}\} \longleftrightarrow
+    \{\text{perfect \(R\)-algebras integral over \(R\)}\}/\sim_{\text{almost iso}}
+  \]
+\end{corollary}
+
+\begin{definition}[finite étale algebra]\index{finite étale algebra}
+  Let \(R\) be a commutative ring. An \(R\)-algebra \(S\) is called \emph{finite étale} if
+  \begin{enumerate}
+  \item \(S\) is finitely generated projective over \(R\),
+  \item \(R \to S\) is unramified, which means any of the following equivalent conditions is satisfied:
+    \begin{enumerate}
+    \item the multiplication map \(m: S \otimes_R S \to S\) admits a section in \(S \otimes_R S\)-modules;
+    \item exists an idempotent \(e \in S \otimes_R S\) such that \(e\) generates the kernel of \(m\) (then \((1 - e) S \otimes_R S \cong S\) and \((1 - e) \ker m = 0\));
+    \item \(\ker m/(\ker m)^2 = 0\).
+    \end{enumerate}
+  \end{enumerate}
+\end{definition}
+
+\begin{construction}
+  In general, if \(R \to S\) is a ring map such that \(S\) is finitely generated projective, then we have a trace map \(\tr: S \to R\). If \(S\) is free of finite rank then \(S \cong R^n\) and \(\tr(s)\) is the trace of the matrix that corresponds to multiplication by \(s\). If \(S\) is finitely generated projective then it corresponds to a locally free sheaf \(\sh F\) of rank \(n\) over \(\Spec R\). There is an open cover \(\{U_i\}\) of \(\Spec(R)\) such that \(\sh F|_{U_i} \cong \sh O_{U_i}^n\), so we can define trace maps on \(\sh F(U_i) \cong \sh O_X^n(U_i)\). Since \(\tr (M) = \tr (C^{-1}MC)\) for any matrix \(M\), the local data can be glued together to give a trace map \(\tr: S \to R\).
+\end{construction}
+
+The trace map \(\tr: S \to R\) induces a trace pairing
+\begin{align*}
+  \Tr: S \times S &\to R \\
+  (s_1, s_2) &\mapsto \tr (s_1 s_2)
+\end{align*}
+It is a standard fact that this symmetric bilinear map is nondegenerate if and only if \(R \to S\) is finite étale (do it locally).
+
+Using the idempotent \(e'\) from the definition, we see that in fact \(S \otimes_R S \cong S \times S'\) (as rings) for some finite étale \(R\)-algebra \(S'\). We write \(e' = \sum a_i \otimes b_i \in S \otimes_R S\). Then we can explicitly realise \(S\) as a direct summand of \(R^n\) via \(S \xrightarrow{\alpha} R^n \xrightarrow{\beta} S\) where
+\begin{align*}
+  \alpha(f) &=
+              \begin{psmallmatrix}
+                \tr (f a_1) \\
+                \vdots \\
+                \tr (f a_n)
+              \end{psmallmatrix}
+  \\
+  \beta
+  \begin{psmallmatrix}
+    r_1 \\
+    \vdots \\
+    r_n
+  \end{psmallmatrix}
+            &= \sum r_i b_i
+\end{align*}
+To see that it works, we need that \(\beta \compose \alpha = \id\), i.e.\ \(\sum \tr(f a_i) \cdot b_i = f\) for \(f \in S\). Use that \(S \otimes_R S \cong S \times S'\) and that the trace maps is additive across products of finite étale algebras, we can show that if \(i_2: S \to S \otimes_R S, s \mapsto 1 \otimes s\) then \(\tr_{i_2} (e') = \tr_{S/S}(1) = 1\). By compatiblitiy of the trace map with base change of rings, we get that
+\[
+  \sum \tr(a_i) \cdot b_i = 1
+\]
+so we get the statement for \(e'\). Then repeat the same argument by replacing \(e'\) with \((f \otimes 1) \cdot e'\).
+
+\begin{definition}
+  A \emph{monoid} \((M, \mu, i)\) in a monoidal category \((\c C, \otimes, I)\) is an object \(M \in \c C\) with morphisms \(\mu: M \otimes M \to M\), \(i: I \to M\) called \emph{multiplication} and \emph{unit morphism} making the following diagrams commute
+  \[
+    \begin{tikzcd}
+      (M \otimes M) \otimes M \ar[r] \ar[d, "\mu \otimes 1"] & M \otimes (M \otimes M) \ar[r, "1 \otimes \mu"] & M \otimes M \ar[d] \\
+      M \otimes M \ar[rr, "\mu"] && M
+    \end{tikzcd}
+  \]
+  \[
+    \begin{tikzcd}
+      I \otimes M \ar[r] \ar[dr, "\lambda"'] & M \otimes M \ar[d, "\mu"] & M \otimes I \ar[l] \ar[dl, "\eta"] \\
+      & M
+    \end{tikzcd}
+  \]
+  where \(\lambda\) and \(eta\) are left and right identity maps.
+\end{definition}
+
+\begin{eg}
+  In this course we meet monoidal categories \((\Mod_R, \otimes_R, R)\) and \((\Mod_R^a, \otimes, R^a)\). A monoid in \((R, \otimes, R)\) is just an \(R\)-algebra.
+\end{eg}
+
+We define \emph{almost \(R\)-algebras}\index{almost algebra} or \(R^a\)-algebras to be the monoid objects in \(\Mod_R^a\).
+
+The functor \((-)^a\) restricts to \(\c{Alg}_R \to \c{Alg}_{R^a}\). Moreover if \(A\) is an \(R^a\)-algebra then \((A_*)^a \cong A\), \(A_*\) being an honest \(R\)-algebra.
+
+\begin{definition}
+  A map \(A \to B\) of \(R^a\)-algebras is \emph{almost finite étale} if
+  \begin{enumerate}
+  \item \(B\) is almost finite projective (i.e.\ almost finitely generated and almost projective) over \(A\),
+  \item (almost unramified) there exists an almost idempotent, i.e.\ \(e \in (B \otimes B)_*\) such that \(e^2 = e\), \(\ker (\mu)_* \cdot e = 0\), where \(\mu: B \otimes B \to B\).
+  \end{enumerate}
+  We write \(A_{\textup{afét}}\) for the category of almost finite étale \(A\)-algebras.
+\end{definition}
+
+\begin{theorem}[almost purity in characteristic \(p\)]\leavevmode
+  \begin{enumerate}
+  \item If \(S\) is a perfect \(R\)-algebra (\(R\) is a perfect \(\F_p\)-algebra) which is integral over \(R\) and \(S[\frac{1}{t}]\) is finite étale over \(R[\frac{1}{t}]\), then \(S\) is almost finite étale over \(R\).
+  \item Inverting \(t\) induces an equivalence of categories between finite étale \(R^a\)-algebras and finite étale \(R[\frac{1}{t}]\)-algebras.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Reduce to the case \(S\) is \(t\)-torsion free: the ideal of \(t\)-power torsion elements in \(S\) is almost zero. Given \(a \in S\) which is \(t\)-power torsion, exists \(n \in \N\) such that \(t^n \cdot a = 0\). Thus \(t^n \cdot a^{p^k} = 0\) so by perfectness \(t^{n/p^k} \cdot a = 0\). Thus we may replace \(S\) by \(S/\{t-\text{power torsion}\}\) since the kernel is almost zero.
+
+  Reduce to when \(R\) (resp.\ \(S\)) are integrallly closed in \(R[\frac{1}{t}]\) (resp.\ \(S[\frac{1}{t}]\)): let \(R_{\mathrm{int}}\) be the integral closure of \(R\) in \(R[\frac{1}{t}]\). The \(R\)-submodule \(f^N \cdot R \subseteq R[\frac{1}{t}]\) for \(f \in R_{\mathrm{int}}\) is finitely generated. Thus exists \(c \in \N\) such that \(t^c \cdot f^N \in R\). In particular \(t^c \cdot f^{p^n} \in R\) so \(t^{c/p^n} \cdot f \in R\) for all \(n\). Thus \(f\) almost belongs to \(R\), i.e.\ \(R \to R_{\mathrm{int}}\) is an almost isomorphism. Similarly for \(S\).
+
+  Almost unramifniteness: \(R[\frac{1}{t}] \to S[\frac{1}{t}]\) is finitely étale so exists \(e \in (S \otimes S)[\frac{1}{t}] = S[\frac{1}{t}] \otimes S[\frac{1}{t}]\) with property 2. Thus \(t^c \cdot e \in S \otimes_R S\) for some \(c \in \N\). As \(e^{p^n} = e\), \(t^{c/p^n} \cdot e \in S \otimes S\) for all \(n \in \N\). Thus \(e\) almost belongs to \(S \otimes S\), i.e.\ \(e \in (S^a \otimes S^a)_*\). Thus \(R \to S\) is almost unramified.
+
+  It remains to prove that \(S\) is almost finite projective over \(R\). Since \(t^{1/p^n} \cdot e \in S \otimes S\), fix \(n \in N\), \(t^{1/p^n} \cdot e = \sum a_i \otimes b_i\). Now we use the decomposition
+  \[
+    S[\frac{1}{t}] \xrightarrow{\alpha} R[\frac{1}{t}]^n \xrightarrow{\beta} S[\frac{1}{t}]
+  \]
+  and consider maps
+  \[
+    S \xrightarrow{\alpha_0} R^n \xrightarrow{\beta_0} S
+  \]
+  where
+  \begin{align*}
+    \alpha_0(f) &=
+                  \begin{psmallmatrix}
+                    \tr (f \cdot a_i) \\
+                    \vdots \\
+                    \tr (f \cdot a_n)
+                  \end{psmallmatrix}
+    \\
+    \beta_0
+    \begin{psmallmatrix}
+      r_1 \\
+      \vdots \\
+      r_n
+    \end{psmallmatrix}
+    &= \sum r_i \cdot b_i
+  \end{align*}
+  Since \(R\) is integrally closed these maps are well-defined. By (*) we have \(\beta_0 \compose \alpha_0 = t^{1/p^n}\) (use \(S\) is \(t\)-torsion free). In particular, multiplication by \(t^{1/p^n}\) factors through a finite free \(R\)-module. This is true for all \(n\). Thus \(S\) is almost finite projective.
+
+  For 2, the functor \(R_{\textup{afét}} \to R[\frac{1}{t}]_{\textup{fét}}, S \mapsto (S^a)_*[\frac{1}{t}]\) is an equivalence of category:
+
+  essential surjectivity: follows from 1 since any integral extension of \(R[\frac{1}{t}]\) is obtained by an integral extension \(R \to S\) and then inverting \(t\). By 1 \(R \to S\) is almost finite étale.
+
+  fully faithful: fix: fix \(S \in  R_{\textup{afét}}\). Claim \(S \cong T^a\) for the integral losure \(T\) of \(R\) in \(S_*[\frac{1}{t}]\). So the claim recovers \(S\) functorially from the map \(S \to S_*[\frac{1}{t}]\) as desired
+\end{proof}
+
+almost direct sum of a finite module.
+
+\section{Integral perfectoid rings}
+
+\begin{definition}[integral perfectoid ring]\index{integral perfectoid ring}
+  Let \(A\) be a topological ring. We say that \(A\) is \emph{integral perfectoid} if there exists a non-zero divisor \(\pi \in A\) such that
+  \begin{enumerate}
+  \item the topology on \(A\) is the \(\pi\)-adic topology and \(A\) is complete with respect to \(\pi\)-adic topology,
+  \item \(p \in \pi^p A\),
+  \item \(\phi: A/\pi A \to A/\pi^pA\) is an isomorphism. 
+  \end{enumerate}
+\end{definition}
+
+\begin{eg}\leavevmode
+  \begin{enumerate}
+  \item If \(K\) is a perfectoid field, by semiperfectness \(K^\circ/\pi \to K^\circ/\pi^p\) is surjective for some appropriate non-zero divisor \(\pi \in K^\circ\). To show injectivity, let \(z \in K^\circ\) be such that \(z^p \in (\pi^p)\). Then \(z^p/\pi^p\) is power bounded, therefore so is \(z/\pi\) so \(z = \pi \cdot a\) for some \(a \in K^\circ\).
+  \item If \(A\) is integral perfectoid then so is the algebra of ``perfectoid restricted power series''
+    \[
+      A \langle t_1^{1/p^\infty}, \dots, t_n^{1/p^\infty} \rangle,
+    \]
+    the \(\pi\)-adic completion of \(A[t_1^{1/p^\infty}, \dots, t_n^{1/p^\infty}]\).
+  \item Let \(A\) be integral perfectoid and \(B\) étale over \(A\). Then \(B\) is also integral perfectoid. This uses the fact that in characteristic \(p\), the \emph{relative Frobenius} is an isomorphism for étale maps, i.e. (commutative diagram)
+    \[
+      \begin{tikzcd}
+      \end{tikzcd}
+    \]
+    and étale maps are closed under base change.
+  \end{enumerate}
+\end{eg}
+
+\begin{ex}
+  If \(A\) is a complete topological ring of characteristic \(p\), then \(A\) is integral perfectoid if and only if \(A\) is perfect and the topology is the \(\pi\)-adic topology for some non-zero divisor \(\pi \in A\).
+\end{ex}
+
+\begin{construction}[tilt of an integral perfectoid ring]
+  We have already defined \(A^\tilt\) and we have showed that \(\varprojlim_\phi A \to A^\tilt\) is an isomorphism of multiplicative monoids and a homeomorphism. We also defined the sharp map \(\sharp: A^\tilt \to A\). This is multiplicative but not additive in general. More specifically
+  \[
+    (a + b)^\sharp = \lim_n ((a^{1/p^n})^\sharp + (b^{1/p^n})^\sharp)^{p^n}.
+  \]
+  Note also that modulo \(p\), sharp is a ring homomorphism \(A^\tilt \to A \to A/pA\).
+\end{construction}
+
+\begin{lemma}
+  The tilt \(A^\tilt\) of an integral perfectoid ring is integral perfectoid.
+\end{lemma}
+
+\begin{proof}
+  We know that \(A^\tilt\) is perfect of characteristic \(p\). We also know that \(A^\tilt\) is complete with respect to the inverse limit topology. The only thing we need is a non-zero divisior \(\pi^\tilt \in A^\tilt\) such that the topology is given by the \(\pi^\tilt\)-adic topology.
+
+  Let \(\pi \in A\) give the topology on \(A\). Since \(\phi: A/\pi \to A/\pi^p\) is surjective, there exists some element \(\varprojlim_\phi A/\pi^pA\) of the form \((\pi (\pi^p), \pi^{1/p} (\pi^p), \dots)\). The very same proof that showed \(\varprojlim_\phi A \cong \varprojlim_\phi A/\pi A\) can also be used to show that \(\varprojlim_\phi A \cong \varprojlim_\phi A/\pi^p A\). Thus exists \((a_0, a_1, \dots)\) such that \(a_0 = \pi \pmod{\pi^p}\) etc. Therefore \(a_0 = u \in \pi\) for \(u \in 1 + \pi^{p - 1}A \subseteq A^\times\), where the inclusion follows from the fact that \(A\) is \(\pi\)-adically complete. After multiplication by a uit, we may asume that \(\pi\) admits \(p\)-power roots.
+
+  Take \(\pi^\tilt = (\overline \pi, \overline \pi^{1/p}, \dots) \in A^\tilt\). Check that \(\pi^\tilt\) is a non-zero divisor: for any \(n \in \N_{> 0}\), we have an exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \pi^{1 - 1/p^n} A/\pi A \ar[r] & A/\pi A \ar[r, "\pi^{1/p^n}"] & A/\pi A \ar[r, "\phi^n"] & A/\pi A \ar[r] & 0
+    \end{tikzcd}
+  \]
+  third last term: if \(a \in A\) is such that \(a^{p^n} \in \pi A\) then \(\frac{a}{\pi^{1/p^n}} \in A[\frac{1}{\pi}]\) satisfies \((\frac{a}{\pi^{1/p^n}})^{p^n} \in A\). (By exactness?) \(\frac{a}{\pi^{1/p^n}} \in A\).
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & \pi^{1 - 1/p^n} A/\pi A \ar[r] & A/\pi A \ar[r, "\pi^{1/p^n}"] & A/\pi A \ar[r, "\phi^n"] & A/\pi A \ar[r] & 0 \\
+      0 \ar[r] & \pi^{1 - 1/p^{n + 1}} A/\pi A \ar[r] \ar[u] & A/\pi A \ar[r, "\pi^{1/p^n}"] \ar[u, "\varphi"] & A/\pi A \ar[r, "\phi^n"] \ar[u, "\varphi"] & A/\pi A \ar[r] \ar[u, "\id"] & 0
+    \end{tikzcd}
+  \]
+  We have a compatible system of inverse systems. Since all connecting maps in the inverse systems are surjective or \(0\), by Mittag-Leffler condition \(\varprojlim\) is exact, we get an exact sequence
+  \[
+    \begin{tikzcd}
+      0 \ar[r] & A^\tilt \ar[r, "\pi^\tilt"] & A^\tilt \ar[r, "\cdot^\sharp \pmod p"] & A/\pi A \ar[r] & 0
+    \end{tikzcd}
+  \]
+  Hence \(\pi^\tilt\) is indeed a non-zero divisor and \(A^\tilt/\pi^\tilt A^\tilt \cong A/\pi A\).
+
+  Check that the topology on \(A^\tilt\) is induced by \(\pi^\tilt\): \(A^\tilt \cong \varprojlim A/\pi A\) is a homeomorphism so a basis of open neighbourhoods of \(0\) is give by \(\ker \mathrm{pr}_n: A^\tilt \to A/\pi A\). Now the composition
+  \[
+    A^\tilt \xrightarrow{\phi^n} A^\tilt \xrightarrow{\mathrm{pr}_n} A/A
+  \]
+  is \(pr_0\), then
+  \[
+    \ker \mathrm{pr}_n = \phi^n (\ker \mathrm{pr}_0) = \phi^n (\pi^\tilt A^\tilt ) = (\pi^\tilt)^{p^n} A
+  \]
+\end{proof}
+
+\section{Fontaine's \(\Theta\) map}
+
+We introduce \(\Theta: W(A^\tilt) \to A\) (\(W(A^\tilt)\) also called \(A_{\mathrm{inf}}\)) for integral perfectoid rings.
+
+\begin{remark}
+  Reminder on Witt ring, reference: Local Fields, Serre. Let \(R\) be a commutative ring.
+  \begin{itemize}
+  \item \(W(R) = R^\N\) as a set.
+  \item Addition and multiplication are given by certain polynomials over \(\Z\). For example
+    \begin{align*}
+      (a_0, a_1, \dots) + (b_0, b_1, \dots) &= (a_0 + b_0, a_1 + b_1 - \sum \frac{1}{p} \binom{p}{i} a_0^i b_0^{p - i}, \dots, ) \\
+      +(a_0, a_1, \dots) (b_0, b_1, \dots) &= (a_0b_0, a_0^pb_1 + b_0^pa_1 + a_1b_1, \dots)
+    \end{align*}
+  \item There is a natural ring homomorphism called ghost or phantom map \(\mathrm{gh}: W(R) \to R^\N\), where
+    \[
+      \mathrm{gh}_n: (a_0, a_1, \dots) \mapsto \sum_{i = 0}^n p^i a_i^{p^{n - i}}
+    \]
+  \item If \(\Q \subseteq \R\), \(\mathrm{gh}\) is an isomorphism and if \(R\) is \(p\)-torsion free, \(\mathrm{gh}\) is injective.
+  \item Given \(a \in R\), its Teichmüller lift is
+    \[
+      [a] = (a, 0, \dots) \in W(R)
+    \]
+    and \([-]: W(R) \to R\) is a multiplicative map (but not additive).
+  \item If \(\F_p \subseteq R\) then \(W(R)\) is \(p\)-adically complete and for any \(a_i \in R\), \(\sum [a_i] p^i = (a_0, a_1^p, a_2^{p^2}, \dots)\). In particular, if \(R\) is perfect, \(f \in W(R)\) may be written uniquely as \(\sum [a_i] p^i\) for some \(a_i \in R\). The element \(p\) is a non-zero divisor and \(W(R)/p \cdot W(R) \cong R, (a_0, \dots) \mapsto a_0\). Hence \(W(R)\) is a strict \(p\)-ring.
+  \end{itemize}
+\end{remark}
+
+\begin{theorem}[Fontaine]
+  Let \(A\) be an integral perfectoid ring.
+  \begin{enumerate}
+  \item There is a unique homomorphism \(\Theta: A_{\mathrm{inf}} \to A\) satisfying \(\Theta([b]) = b^\sharp\)
+  \item \(\Theta\) is surjective and its kernel is generated by a non-zero divisor (usually denoted by \(\xi \in W(A^\tilt)\).
+  \item \(\chi \in \ker \phi\) is a generator if and only if \((\chi = (\chi_0, \chi_1, \dots) \in W(A^\tilt)\) is such that \(\chi_1 \in (A\)
+  \end{enumerate}
+\end{theorem}
+
+We are going to require some results that we do not have time to prove during this course. Instead, go through the following exercises on your own.
+
+\begin{ex}
+  Suppose that \(R\) is perfect of characteristic \(p\) and let \(t \in R\) be a non-zero divisor and \(q \in W(R)\) such that \(q = p \pmod{[t]}\), then
+  \begin{enumerate}
+  \item \([t] \in W(R)\) is a non-zero divisor.
+  \item using that \(p\) is a non-zero divisor, show that \(t\) is a non-zero divisor in \(R = W(R)/p \cdot W(R)\), \(p\) is a non-zero divisor in \(W(R)/([t])\).
+  \item \(q\) is a non-zero divisor in \(W(R)/[t]\), \([t]\) is a non-zero divisor in \(W(R)/q \cdot W(R)\).
+  \end{enumerate}
+
+  Now assume that \(R\) is \(t\)-adically complete, prove that \(W(R)\) is \([t]\)-adically complete (by induction show that \(W(R)/p^n \cdot W(R)\) is \([t]\)-adically complete and pass to inverse limit). In fact, it is even \((p, [t])\)-adically complete.
+
+  Finally show that \(w\) is a non-zero divisor in \(W(R)\). Show that \(W(R)/q \cdot W(R)\) is \([t]\)-adically complete.
+\end{ex}
+
+\begin{proof}\leavevmode
+  \begin{enumerate}
+  \item Every element \(b \in W(A^\tilt)\) may be written uniquely as \(b = \sum_{i \geq 0} [b_i] p^i\). We define
+    \begin{align*}
+      \Theta: W(A^\tilt) &\mapsto A \\
+      \sum [b_i] p^i &\mapsto \sum b_i^\sharp \cdot p^i
+    \end{align*}
+    which makes sense as \(A\) is \(p\)-adically complete and is well-defined by uniqueness of power series expansion. Left to show it is a ring homomorphism. Note that it is enough to check that \(\Theta\) is a ring homomorphism modulo \(p^n\) as \(A\) is \(p\)-adically separated. Fix \(n\) and consider the ghost map \(\mathrm{gh}_n\). te that Cif \(a_i = a_i' \pmod p\) then \(p^i a_i^{p^{n - i}} = p^i \cdot a_i'^{p^{n - i}} \pmod{p^{n + 1}}\). Consider \(\mathrm{gh}_n \pmod{p^{n + 1}}\). The values only depend on the coordinates modulo \(p\), i.e.\ we have a commutative diagram
+    \[
+      \begin{tikzcd}
+        W(A) \ar[r, "\mathrm{gh}_n"] \ar[r] & A \ar[d] \\
+        W(A/pA) \ar[r, "\mathrm{gh}_n"] & A/p^{n + 1}A
+      \end{tikzcd}
+    \]
+  \end{enumerate}
+  Consider
+  \[
+    \begin{tikzcd}
+      W(A^\tilt) \ar[r, "W(\phi^{-n})"] & W(A^\tilt) \ar[r, "W(\cdot^\sharp \pmod p)"] & W(A/pA) \ar[r, "\overline{\mathrm{gh}}_n"] & A/p^{n + 1}A
+    \end{tikzcd}
+  \]
+  this map is exactly \(\Theta \pmod{p^{n + 1}}\) as
+  \[
+    \begin{tikzcd}
+      \sum [b_i] p^i = (b_0, b_1, b_2^{p^2}, \dots) \ar[r] & (b_0^{p^{-n}}, b_1^{p^{1 - n}}, \dots) \ar[r] & ((b_0^{p^{-n}})^\sharp, \dots) \ar[r] & \sum_{i = 0}^n ({b_n^{p^{i - n}}}^\sharp)^{p^{n - i}} \cdot p^i = \sum_{i = 0}^n b_i^\sharp \cdot p^i
+    \end{tikzcd}
+  \]
+  Since all the maps in the composition are ring homomorphisms, so is \(\Theta \pmod{p^{n + 1}}\).
+\item Both \(W(A^\tilt)\) and \(A\) are \(p\)-adically complete so to prove surjectivity it is enough to check it modulo \(p\). But since \(\cdot^\sharp \pmod p: A^\tilt \to A/pA\) is surjective, \(\Theta\) is surjective.
+
+  Now we construct a generator for \(\ker \Theta\). Let \(\pi \in A\) be a perfectoid pseudo-uniformiser (a pseudo-uniformiser whcih satisfies a, b, c, in Def 5. 1 (integral perfectoid ring) that admits \(p\)-power roots and \(\pi^\tilt = (\pi, \pi^{1/p}, \dots)\). Since \(p \in \pi^pA\) and \(\Theta\) is surjective, we may write \(p = \pi^p \cdot \Theta(z)\) (note \(\Theta(\pi^\tilt) = \pi\)). Hence \(\xi = p + [\pi^\tilt] \cdot z'\), where \(z' = -z\), is a generator: \(\xi \in \ker \Theta\) and by exercise earlier, \(\xi\) is a non-zero divisor of \(W(A^\tilt)\) (\(R = A^\tilt, t = \pi^\tilt, q = \xi\)). \(\ker \Theta = \xi \cdot W(A^\tilt)\): by exercise \(W(A^\tilt)\) is \([\pi^\tilt]\)-adically complete and \(A\) is \(\Theta([\pi^\tilt]) = \pi\)-adically complete and \(\pi\)-torsion free. We see that \(W(A^\tilt)/\xi \cdot W(A^\tilt) \to A\) is an isomorphism if and only if it is an isomorphism modulo \(([\pi^\tilt])\), i.e.\ \(W(A^\tilt)/(\xi, [\pi^\tilt]) \to A/\pi A\) is an isomorphism. But as \(\xi = p \pmod{[\pi^\tilt]}\), \(A^\tilt/\pi^\tilt A^\tilt \to A/\pi A\) must be an isomorphism (prove in lecture 6).
+\item
+  \[
+    \xi
+    = (\xi_0, \xi_1, \dots)
+    = p + [\pi^\tilt]^p \cdot x = (0, 1, 0, \dots) + (\pi^{\tilt p} x_0, \pi^{\tilt p^2} \cdot x_1, \dots)
+    = (\pi^{\tilt p} \cdot x_0, 1 + \pi^{\tilt p^2} \cdot x_1, \dots)
+  \]
+  \(\xi_1 \in A^{\tilt \times}\) (\(\pi^\tilt\)-adically complete), \(\xi_1 \in \pi^\tilt A^\tilt\). \(\chi = (\chi_0, \chi_1, \dots) \in \ker \Theta\) and write \(\chi = \beta \cdot \xi\).
+  \[
+    \chi = (\beta_0, \beta_1, \dots) (\xi_0, \xi_1, \dots) = (\beta_0 \xi_0, \beta_1 \xi_0^p + \beta_0^p \xi_1, \dots)
+  \]
+  \(\ker \Theta = \chi \cdot A^\tilt\) if and only if \(\xi \cdot W(A^\tilt) = \beta \xi \cdot W(A^\tilt)\) if and only if \(\beta \in W(A^\tilt)^\times\) (using \(\xi\) is a non-zero divisor), if and only if \(\beta_0 \in A^{\tilt \times}\) (use \(W(A^\tilt)\) is \(p\)-adically complete and \(W(A^\tilt)/p \cdot W(A^\tilt) = A^\tilt\)), if and only if \(\beta_0^p \cdot \xi_1 \in A^{\tilt \times}\), if and only if \(\beta_1 \xi_0^p + \beta_0^p \xi \in A^{\tilt \times}\) (\(A^\tilt\) is \(\pi^\tilt\)-adically complete and \(\xi_0 \in \pi^\tilt A^\tilt\)), if and only if \(\chi_1 \in A^{\tilt \times}\).
+\end{proof}
+
+\section{Tilting correspondence for integral perfectoid rings}
+
+\begin{definition}[perfectoid algebra]\index{perfectoid algebra}
+  Given an integral perfectoid ring \(A\) and \(B\) an \(A\)-algebra, we equip \(B\) with the topology induced by the image of \(\pi\), the perfectoid pseudo-uniformiser of \(A\).
+
+  We say that \(B\) is a \emph{perfectoid \(A\)-algebra} if \(B\) is an integral perfectoid ring with respect to this topology.
+\end{definition}
+
+Note that if \(\pi \in A\) is a perfectoid pseudo-uniformiser then its image in \(B\) is a pefectoid pseudo-uniformiser of \(B\).
+
+\begin{theorem}[tilting correspondence]
+  Fix an integral perfect ring \(A\). Tilting gives an equivalence of categories
+  \begin{align*}
+    \{\text{perfectoid \(A\)-algebras}\} &\longleftrightarrow \{\text{perfectoid \(A^\tilt\)-algebras}\} \\
+    B &\mapsto B^\tilt \\
+    C^\sharp = W(C) \otimes_{W(A^\tilt), \Theta} A &\mapsfrom C
+  \end{align*}
+  The \(\sharp\) map is sometimes called untilt.
+\end{theorem}
+
+\begin{proof}
+  Let \(\pi \in A\) be a perfectoid pseudo-uniformiser admitting \(p\)-power roots and let \(\pi^\tilt = (\pi, \pi^{1/p}, \dots) \in A^\tilt\). Recall \(\xi = p + [\pi^\tilt]^p \cdot x \in \ker \Theta\) generates \(\ker \Theta\).
+
+  Step 1: let \(B\) be a perfectoid \(A\)-algebra. We show \((B^\tilt)^\sharp = B\). We have a commutative diagram
+  \[
+    \begin{tikzcd}
+      W(A^\tilt) \ar[r, "\Theta_A"] \ar[d] & A \ar[d] \\
+      W(B^\tilt) \ar[r, "\Theta_B"] & B
+    \end{tikzcd}
+  \]
+  and hence \(\xi\) lands in \(\ker \Theta_B\). Since \(\xi_1 \in A^{\tilt \times}\), its image is also a unit in \(B^\tilt\). By Fontaine 3, image of \(\xi\) generates \(\ker \Theta_B\). Thus the commutative diagram is a pushout. Thus \(W(B^\tilt) \otimes A \to B\) is an isomorphism.
+
+  Step 2: if \(C\) is a perfectoid \(A^\tilt\)-algebra, we show that \(C^\sharp\) is a perfectoid \(A\)-algebra and \((C^\sharp)^\tilt = C\). Since \(\Theta_A\) is surjective with kernel generated by \(\xi\), \(C^\sharp = W(C) \otimes A = W(C)/\xi W(C)\) as \(A \cong W(A^\tilt)/ \xi W(A^\tilt)\). By exercise (\(R = C, t = \pi^\tilt, q = \xi\)), \(C^\sharp\) is \(\pi\)-adically complete and \(\pi\) is a non-zero divisor. We need \(\phi: C^\sharp/\pi C^\sharp \to C^\sharp/\pi^p C^\sharp\) to be an isomorphism. But \(C^\sharp = W(C)/\xi \cdot W(C)\) and \(\xi = p \pmod{[\pi^\tilt]^p}\) so we need \(C/\pi^\tilt C \to C/(\pi^\tilt)^p \cdot C\) to be an isomorphism. This follows from definition as \(C\) is integral perfectoid. Finally
+  \[
+    (C^\sharp)^\tilt = \varprojlim_\phi C^\sharp/pC^\sharp = \varprojlim_\phi C/\pi^\tilt C = C^\tilt = C.
+  \]
+\end{proof}
+
+\section{Perfectoid Tate rings}
+
+Recall that a \emph{Tate ring} is a Huber ring such that there exists a pseudo-uniformiser \(\pi\) (i.e.\ a topological nilpotent unit). Some facts:
+\begin{enumerate}
+\item if \(R_0 \subseteq R\) is any subring of definition, then \(R_0\) is \((\pi^n)\)-adic for some \(n\);
+\item if \(R_0\) is any ring with non-zero divisor \(\pi \in R_0\) and \(R = R_0[\frac{1}{\pi}]\) equipped with the topology induced by \(\{\pi^n \cdot R_0\}\) as a basis of open neighbourhoods of \(0\), then \(R\) is a Tate ring with ring of definition \(R_0\) and ideal of definition \(I = (\pi)\).
+\end{enumerate}
+
+Given an integral perfectoid ring \(A\), let \(\pi\) be a perfectoid pseudo-uniformiser. Then \(A[\frac{1}{\pi}]\) is a Tate ring. It does not depend on the choice of \(\pi\): if \(\pi'\) is another perfectoid pseudo-uniformiser then by definition \(\pi\) and \(\pi'\) induce the same topology on \(A\). Hence they divide a power of each other and \(A[\frac{1}{\pi}] = A[\frac{1}{\pi}]\). We thus have a \emph{generic fibre functor} from the category of integral perfectoid rings to Tate rings, mapping \(A \mapsto A[\frac{1}{\pi}]\).
+
+\begin{definition}[perfectoid Tate ring]\index{perfectoid Tate ring}
+  A Tate ring \(R\) is called a \emph{perfectoid Tate ring} if any of the following equivalent conditions is satisfied:
+  \begin{enumerate}
+  \item \(R\) has a subring of definition \(R_0\) which is integral perfectoid;
+  \item \(R\) is in the image of the generic fibre functor;
+  \item the subring \(R^\circ\) is integral perfectoid;
+  \item (Fontaine) \(R\) is uniform (i.e.\ \(R^\circ\) is bounded) and there exists a pseudo-uniformiser \(\pi \in R\) such that \(p \in \pi^p R^\circ\) and \(\phi: R^\circ/\pi R^\circ \to R^\circ/\pi^p R^\circ\) is an isomorphism.
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  Let \(R\) be a perfectoid Tate ring and \(R_0 \subseteq R\) a subring of definition. Then \(R_0\) is integral perfectoid if and only if it is \(p\)-closed, i.e.\ if \(f \in R\) is such that \(f^p \in R_0\) then \(f \in R_0\). In particular every subring of integral elements \(R^+ \subseteq R\) is integral perfectoid.
+\end{proposition}
+
+\begin{proof}[Proof of the equivalence of conditions in definition]\leavevmode
+  \begin{itemize}
+  \item \(4 \implies 1\): if \(R\) is uniform then \(R^\circ\) is a ring of definition, \(\pi \in R^\circ\) so by the above reminder \(R^\circ\) is \(\pi\)-adic. The other conditions hold directly.
+  \item \(1 \implies 2\): note that any perfectoid pseudo-uniformiser \(\pi \in R_0\) is a pseudo-uniformsier of \(R\), since \(\pi R_0\) is open, so fixing some pseudo-uniformiser \(\varpi \in R\), it follows that \(\varpi^n \in \pi R\). Thus \(\pi \in R^\times\) so \(R = R_0[\frac{1}{\pi}]\).
+  \item \(2 \implies 3\): suppose that \(R = A[\frac{1}{\pi}]\) where \(A\) is integral perfectoid and \(\pi\) is a perfectoid pseudo-uniformiser. Note \(R^{\circ \circ} \subseteq A\) since if \(f \in R^{\circ \circ}\) then \(f^{p^n} \in A\) (?). Thus \(f \in A\): For \(n = 1\), let \(\ell \geq 0\) be the smallest integer such that \(\pi^\ell f \in A\). If \(\ell > 0\) then \(\pi^{\ell \cdot p} \cdot f^p \in \pi^{p \cdot \ell} A \subseteq \pi^p A\) so \(\pi^\ell \cdot f \in \pi A\) by condition 3 of definition 4.5.1. So \(\pi^{\ell - 1} \cdot f \in A\), absurd. In partcicular \(\pi R^\circ \subseteq A\) so \(R^\circ\) is uniform.
+  \item \(3 \implies 4\): since any subring of definition is bounded, \(R\) is uniform and any perfectoid pseudo-uniformiser \(\pi \in R^\circ\) will give all the assumptions.
+  \end{itemize}
+\end{proof}
+
+\begin{proof}
+  \(\impliedby\): Let \(R_0\) be a \(p\)-closed subring of definition (e.g.\ \(R^\circ)\). By \(p\)-closedness \(R^{\circ \circ} \subseteq R_0\), so \(\pi \in R_0\), so \(R_0\) is \(\pi\)-adic. Every element is \(p\)th power modulo \(\pi\): let \(f \in R_0\). Then \(\pi \cdot f \in R^{\circ \circ}\). Since \(\pi \cdot f \in R^\circ\), by condition 3 exists \(y, z \in R^\circ\) such that \(\pi \cdot f = y^p + y^p + \pi^p \cdot z\). We may assume that \(\pi\) admits \(p\)-power roots. Then \(f - \pi^{p - 1} \cdot z = (\pi^{-1/p} \cdot y)^p \in R_0\). Hence \(\pi^{-1/p} \cdot y \in R_0\). Thus \(f\) is indeed a \(p\)th power modulo \(\pi\). Note \(p \in (\pi^{1/p})^pR^{\circ}\), \(p \in \pi^p R^\circ \subseteq \pi R^{\circ \circ}\). By \(p\)-closedness \(\phi: R_0/\pi^{1/p}R_0 \to R_0/\pi R_0\) is injective.
+
+  \(\implies\) is a consequence of 2.
+\end{proof}
+
+Recall that if \(R\) is uniform then any subring of integral elements is a subring of definition (\(R_0 \subseteq R\) is a subring of definition if and only if it is open and bounded).
+
+\begin{corollary}
+  Let \(R\) be a perfectoid Tate. Then any subring of defition contains \(R^{\circ \circ}\) and the resulting functor \(R_0 \mapsto R_0/R^{\circ \circ}\) defines a bijection
+  \[
+    \{\text{integral perfectoid subring of definition of } R\}
+    \longleftrightarrow
+    \{\text{\(p\)-closed subring of } R^\circ/R^{\circ \circ}\}
+  \]
+  which restricts to a bijection
+  \[
+    \{\text{subring of integral elements } R^+ \subseteq R\}
+    \longleftrightarrow
+    \{\text{integrally closed subring of } R^\circ/R^{\circ \circ}\}
+  \]
+\end{corollary}
+
+\begin{proof}
+  Use the previous proposition and the observation that if \(R_0\) is \(p\)-closed then \(R^{\circ \circ} \subseteq R_0\).
+\end{proof}
+
+\begin{remark}
+  Using that \(R\) is integral perfectoid of characteristic \(p\) if and only if \(R\) is perfect and the topology is \(\pi\)-adic for some pseudo-uniformiser, one can show that a characteristic \(p\) complete Tate ring is perfectoid if and only if it is perfect.
+
+  So the only non-trivial part is to show that \(R\) is uniform. Let \(R_0 \subseteq R\) be a subring of definition, \(\pi \in R_0\) a pseudo-uniformiser. Set
+  \[
+    R_N = \phi^{-n}(R_0) = \{f \in R: f^{p^n} \in R_0\},
+  \]
+  which is a subring as \(\ch R = p\). Since \(\phi\) is a continuous isomorphism, it is a homeomorphism by open mapping theorem (which holds for complete Tate rings). \(\phi(R_0)\) is open so \(\pi^m R_0 \subseteq \phi(R_0)\) for some \(m \geq 1\). Apply \(\phi^{-n}\), \(\pi^{m/p^n} R_n \subseteq R_{n - 1}\) for all \(n\). By induction \(\pi^{\sum_{i = 1}^n m/p^i} R_n \subseteq R_0\). Thus \(\pi^m R_n \subseteq R_0\) as \(m \geq \sum m/p^i\). Given \(f \in R^\circ\), \(\{f^\N\}\) is bounded if and only if \(\pi^{p^n} \cdot f^\N \subseteq R_0\) for some \(n \geq 0\). In particular \(\pi^{p^n} f^{p^n} \in R_0\), i.e.\ \(\pi \cdot f \in R_0\). Thus \(\pi^{m + 1} R^\circ \subseteq R_0\), i.e.\ \(R^\circ\) is bounded.
+\end{remark}
+
+\begin{lemma}
+  Let \(B\) be a perfect \(A\)-algebra where \(A\) is integral perfectoid. Then \(A \to B\) is an almost isomorphism if and only if \(A^\tilt \to B^\tilt\) is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+  Let \(\pi, \pi^\tilt\) be as before, i.e.\ \(\pi\) a perfectoid pseudo-uniformiser that admits \(p\)-power roots and \(\pi^\tilt = (\pi, \pi^{1/p}, \dots)\). Then \(\pi^\tilt\) is a pseudo-uniformiser for \(A^\tilt\).
+  \begin{itemize}
+  \item \(\implies\): Since \(A\) is \(\pi\)-torsion free, \(A \to B\) is injective. \(\pi^{1/p^n}B \subseteq A\) for all \(n \geq 0\). By injectivity \(A^\tilt \cong \varprojlim_\phi A \to \varprojlim_\phi B \cong B^\tilt\) is also injective. Moreover given \(b^\tilt \in B^\tilt\), \(b^\tilt = (b_0, b_1, \dots)\) and \((b_0 \pi^{1/p^n}, b_1 \pi^{1/p^n}, \dots) \in A^\tilt\). Thus \(A^\tilt \to B^\tilt\) is almost surjective.
+  \item \(\impliedby\): \(A^\tilt \to B^\tilt\) is an almost isomorphism if and only if \(A^\tilt/\pi^\tilt A^\tilt \to B^\tilt/\pi^\tilt B^\tilt\) is an almost isomorphism. But we have showed \(A^\tilt/\pi^\tilt A^\tilt \cong A/\pi A, B^\tilt/\pi^\tilt B^\tilt \cong B/\pi B\). Thus \(A \to B\) is an almost isomorphism.
+  \end{itemize}
+\end{proof}
+
+\begin{lemma}
+Let \(B\) be a perfect \(A\)-algebra where \(A\) is integral perfectoid. Then \(A \to B\) is an almost isomorphism if and only if \(A[\frac{1}{\pi}] \to B[\frac{1}{\pi}]\) is an isomorphism, where \(\pi\) is a perfectoid pseudouniformiser that admits \(p\)-power roots.
+\end{lemma}
+
+\begin{proof}\leavevmode
+  \begin{itemize}
+  \item \(\implies\): let \(\phi: A \to B\). \(\ker \phi\) and \(\coker \phi\) are killed by \((\pi^{1/p^\infty})\), in particular killed by \(\pi\). Thus both \(\ker \phi\) and \(\coker \phi\) vanish after inverting \(\pi\).
+  \item \(\impliedby\): Let \(R = A[\frac{1}{\pi}] = B[\frac{1}{\pi}]\). Then \(A\) and \(B\) are integral perfectoid subrings of definitions of \(R\). Thus \(R^{\circ \circ} \subseteq A, B\). In particular \(\pi^{1/p^n}B \subseteq A\), so we have an almost surjection \(A \to B\). Almost injection is automatic as \(A\) is \(\pi\)-torsion free.
+  \end{itemize}
+\end{proof}
+
+\section{Tilting perfectoid Tate rings}
+
+\begin{definition}[tilt of a perfectoid Tate ring]\index{tilt!perfectoid tate ring}
+  The \emph{tilt} of a perfectoid Tate ring \(R\) is by definition \(R^\tilt = R_0^\tilt[\frac{1}{\pi^\tilt}]\), the generic fibre of \(R_0^\tilt\).
+\end{definition}
+
+This does not depend on the choice of either \(R_0\) or \(\pi\): \(R_0 \subseteq R^\circ\) (\(R^\circ\) is the colimit of all subrings of definition) and they have the same generic fibre. Thus by last lemma in the previous section \(R_0 \to R^\circ\) is an almost isomorphism. THus \(R_0^\tilt \to R^{\circ \tilt}\) is also an isomorphism, hence \(R_0^\tilt[\frac{1}{\pi^\tilt}] \cong R^{0\tilt}[\frac{1}{\pi^\tilt}]\).
+
+\begin{theorem}[tilting correspondence of lattice of subrings]\index{tilting correspondence!lattice of subrings}
+  Let \(R\) be a perfectoid Tate ring. Then \(R^{\circ \tilt} = R^{\tilt \circ}\). Moreover tilting gives a bijection
+  \[
+    \{\text{integral perfectoid subrings of definitions of } R\}
+    \longleftrightarrow
+    \{\text{integral perfectoid subrings of definitions of } R^\tilt\}
+  \]
+  which restricts to a bijection
+  \[
+    \{\text{subrings of integral elements of } R\}
+    \longleftrightarrow
+    \{\text{subrings of integral elements of } R^\tilt\}
+  \]
+\end{theorem}
+
+\begin{proof}
+  We show \(R^{\circ \tilt} = R^{\tilt \circ}\). \(R^{\circ \tilt}\) is a subring of definition of \(R^\tilt\) so \(R^{\circ \tilt} \subseteq R^{\tilt \circ}\), so \(R^{\tilt \circ}\) is a perfectoid \(R^{\circ \tilt}\)-algebra. Since passing to generic fibre gives an isomorphism \(R^{\circ \tilt}[\frac{1}{\pi^\tilt}] \to R^{\tilt \circ}[\frac{1}{\pi^\tilt}]\). Thus \(R^\circ \to B = (R^{\tilt \circ})^\sharp\) is an almost isomorphism. Thus \(R^\circ[\frac{1}{\pi}] \to B[\frac{1}{\pi}]\) is an ismophism, so \(B\) is a subring of definition. Thus by tilting correspondence \(R^{\circ \tilt} = R^{\tilt \circ}\).
+
+  The rest of the statement follows from corollary 8.8.3.
+\end{proof}
+
+\begin{theorem}[tilting correspondence for perfectoid Tate rings]
+  Let \(R\) be a perfectoid Tate ring. Then tilting defines an equivalence of categories
+  \[
+    \{\text{perfectoid Tate algebras over } R\}
+    \to
+    \{\text{perfectoid Tate algebras over } R^\tilt\}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{theorem}[tilting in dimension \(0\)]
+  Let \(K\) be a perfectoid field. Then \(K \mapsto K^\tilt\) defines an equivalence
+  \[
+    \{\text{perfectoids fields over } K\}
+    \longleftrightarrow
+    \{\text{perfectoid fields over } K^\tilt\}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Claim that if \(R\) is a perfectoid \(K\)-algebra then \(R\) is a perfctoid field if and only if \(R^\tilt\) is a perfectoid field.
+
+  \begin{proof}
+    One direction is clear. For if, we know that \(R\) is a uniform Tate complete algebra over \(K\). Consider the spetral norm on \(R\)
+    \[
+      \norm x_R = \inf \{|t|^{-1}: t \in K^\times, tx \in R^\circ\},
+    \]
+    a priori only submultiplicative. Since \(R\) is a uniform complete Tate algebra, \(\norm \cdot_R\) defines the topology on \(R\), i.e.\ a neighbourhood basis of \(0\) is given by the sets \(\norm \cdot_R^{-1}((0, \varepsilon))\). We need to show \(\norm \cdot_R\) is multiplicative and \(R\) is a field.
+
+    For multiplicativity, let \(x, y \in R\). After multiplying by elements in \(K\) we may assume \(x, y \in R^\circ\), but not in \(\pi^{1/p} \cdot R^\circ\). But we can find \(x^\tilt, y^\tilt \in R^{\tilt \circ}\) with \(x - (x^\tilt)^\sharp, y - (y^\tilt)^\sharp \in \pi R^\circ\). Then \(\norm x_R = \norm{x^\tilt}_{R^\tilt}, \norm y_R = \norm{y^\tilt}_{R^\tilt}\) and \(\norm{xy}_R = \norm{x^\tilt y^\tilt}_{R^\tilt}\).
+
+    To show \(R\) is a field, choose \(x\) such that \(x \in R^\circ\) but not in \(\pi R^\circ\) and take \(x^\tilt\) as above. By multiplicativity of \(\norm \cdot_R\), \(\norm{1 - \frac{x}{(x^\tilt)^\sharp}}_R < 1\). Hence \(\frac{x}{(x^\tilt)^\sharp}\) is invertible, so is \(x\).
+  \end{proof}
+\end{proof}
+
+\section{Perfectoid spaces and tilting}
+
+\begin{definition}[adic space]\index{adic space}
+  We define the category \(\c U\)
+  
+  objects: triples \((X, \sh O_X, (|\cdot|_x)_{x \in X})\), where \(X\) is a topological space, \(\sh O_X\) a sheaf of topological rings, \((|\cdot|_x)\) an equivalence class of continuous valuations on \(\sh O_{X, x}\) (Recall from Non-archimedean Geometry that this determines \(\sh O_X^+\))
+
+  morphisms: \(f: X \to Y\) of topoogically ringed spaces such that the following diagram commutes (up to equivalence) for all \(x \in X\)
+  \[
+    \begin{tikzcd}
+      \sh O_{Y, f(x)} \ar[r] \ar[d] & \sh O_{X, x} \ar[d] \\
+      \Gamma_{f(x)} \cup \{0\} \ar[r] & \Gamma_x \cup \{0\}
+    \end{tikzcd}
+  \]
+
+  An \emph{adic space} is an object in \(\c U\) such that it has an open covering of \((U_i, \sh O_X|_{U_i}, (|\cdot|_x)_{x \in U_i}) \cong \Spa(A_i, A_i^+)\) for some sheafy Huber pair \((A_i, A_i^+)\) called affinoid adic spaces.
+
+  Equivalently, one can define adic spaces as a topological space \(X\) equipped with a sheaf of topological rings and a subsheaf \(\sh O_X^+ \subseteq \sh O_X\) such that for each \(x \in X\), exists an open neighbourhood \(x \in U \subseteq X\), a sheafy Huber pair \((R, R^+)\) and an isomorphism \((U, \sh O_X|_U, \sh O_X^+|_U) \cong (\Spa(R, R^+), \sh O_{\Spa(R, R^+)}, \sh O^+_{\Spa(R, R^+)})\).
+\end{definition}
+
+\begin{definition}[perfectoid space]\index{perfectoid space}
+  An adic space \(X\) is a \emph{perfectoid space} if we can choose each \(R\) to be perfectoid.
+\end{definition}
+
+\begin{remark}
+  It is not clear that a perfectoid Tate ring induces a sheafy Huber pair. But we know that a Tate-Huber pair which is stably uniform is sheafy (Buzzard-Verberkmoes).
+
+  In characteristic \(p\) it is eay to see that perfectness is preserved under rational localisation. Then using Theorem 9.9.4, one can show that rational subsets are perfectoid Tate rings. By Fontaine's definition they are uniform so \(R\) is stably uniform.
+\end{remark}
+
+Fix a perfectoid Huber pair \((R, R^+)\), i.e.\ \(R\) is perfectoid Tate. Equivalently, \(R^+\) is integral perfectoid as it is \(p\)-closed. Fix a perfectoid pseudo-uniformiser \(\pi \in R\) admitting \(p\)-power roots and let \(\pi^\tilt = (\pi, \pi^{1/p}, \dots) \in R^\tilt\). Let by \(X = \Spa(R, R^+)\), \(X^\tilt = \Spa(R^\tilt, R^{\tilt +})\). Define, as before, the tilting map \(\tilt: X \to X^\tilt\) as follow: given a continuous valuation \(|\cdot|: R \to \Gamma \cup \{0\}\), we define
+\begin{align*}
+  |\cdot|^\tilt: R^\tilt &\to \Gamma \cup \{0\} \\
+  f &\mapsto |f^\sharp|
+\end{align*}
+
+\begin{lemma}
+  The tilting map \(\tilt\) is well-defined, i.e.\ \(|\cdot|^\tilt\) is a continuous valuation. Moreover \(\tilt: X \to X^\tilt\) is continuous.
+\end{lemma}
+
+\begin{proof}
+  We already proved the first statement in chapter 1. To show the tilting map is continuous, it is enough to check that the preimage of a rational subset \(U \subseteq X^\tilt\) is a rational subset. The following is a general argument: let \(f_1, \dots, f_n, g \in R^\tilt\) induce \(U = X(\frac{f_1, \dots, f_n}{g})\) (so \(f_1, \dots, f_n\) generate an open ideal in \(R\) (?)). We may assume that \(f_1, \dots, f_n, g \in R^{+ \tilt}\) and \(f_n = (\pi^\tilt)^N\): by multiplying by a suitable power of \(\pi^\tilt\) we may assume \(f_1, \dots, f_n, g \in R^{+ \tilt}\) (multiplication by a unit does not change \(U\)). Moreover for Tate-Huber pairs the only open ideal is \(R\). Hence \(\sum h_if_i = 1\) for some \(h_i \in R^\tilt\). We may find \(M > 0\) such that \((\pi^\tilt)^Mh_i \in R^{+ \circ}\), then for any \(x \in X^\tilt\),
+  \[
+    |\pi^M|_x = |\sum \pi^M \cdot h_if_i|_x \leq \max |\pi^M \cdot h_i|_x \cdot |f_i|_x^\tilt \leq |g|_x
+  \]
+  We may ``add'' \(\pi^M\), i.e.\ \(f_1, \dots, f_n, \pi^M, g\) induce the same rational subset \(U\).
+
+  Then the untilts \(f_1^\sharp, \dots, f_n^\sharp, g^\sharp\) define a rational subset \(V \subseteq X\) (since \(\pi^N \in (f_1, \dots, f_n)\) hence it is open) and by definition \(\tilt^{-1}(U) = X(\frac{f_1^\sharp, \dots, f_n^\sharp}{g^\sharp})\).
+\end{proof}
+
+\begin{theorem}[tilting correpondence for (analytic topology of) perfectoid space]\index{tilting correspondence!perfectoid space}
+  The tilting map \(\tilt: X \to X\) is a homeomorphism which identifies rational subsets. Moreover if \(V \subseteq X, U \subseteq X^\tilt\) are corresponding subsets then
+  \begin{enumerate}
+  \item \(\sh O_X(U)\) is a perfectoid Tate algebra over \(R\);
+  \item \(\sh O_{X^\tilt}(U)\) is a perfectoid Tate algebra over \(R^\tilt\);
+  \item there exists a unique continuous \(R^\tilt\)-algebra homomorphism \(\sh O_X(U)^\tilt \to \sh O_{X^\tilt}(U)\). It is an isomorphism. It restricts to an isomorphism of integral perfectoid \(R^{+ \tilt}\)-algebras \(\sh O_X^+(U)^\tilt \to \sh O_{X^\tilt}^+(U)\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+  Let \(A\) be an integral perfectoid ring, \(\pi \in A\) a perfectoid pseudo-uniformiser admitting \(p\)-power roots, \(\pi^\tilt = (\pi, \pi^{1/p}, \dots)\). Let \(f_1, \dots, f_n, g \in A^\tilt\) where \(f_n= (\pi^\tilt)^N\). Let \(C\) be the \(A^\tilt\)-subalgebra of \(A^\tilt[\frac{1}{g}]\) generated by \(\frac{f_1^{1/p^k}}{g^{1/p^K}}, \dots, \frac{f_n^{1/p^k}}{g^{1/p^k}}\) for all \(k \geq 0\). Similarly let \(B\) be the \(A\)-subalgebra of \(A[\frac{1}{g^\tilt}]\) generated by ... Then
+  \begin{enumerate}
+  \item ...
+  \item Similarly the kernel of
+    \begin{align*}
+      A[x^{1/p^\infty}] &\to B \\
+      x_i^{1/p^k} &\mapsto \frac{{f^{\sharp}}}{...}
+    \end{align*}
+    is generated by
+  \item the \(\pi^\tilt\)-adic completion of \(C\) is an integral perfectoid \(A^\tilt\)-algebra (then \(\widehat C^\sharp\) is an integral perfectoid \(A\)-algebra, hence \(\widehat C^\sharp[\frac{1}{\pi}]\) is perfectoid Tate);
+  \item there is a unique continuous map of \(R\)-algebras \(\widehat B[\frac{1}{\pi}] \to \widehat C^\sharp[\frac{1}{\pi}]\) which is an isomorphism (\(\widehat B[\frac{1}{\pi}]\) is perfectoid Tate). This restricts to an injective almost surjection \(\widehat B \to \widehat C^\sharp\);
+  \item \(\widehat C^\sharp\) is integral over \(\widehat B\);
+  \item \(\widehat C\) is integral over the subring \(\widehat{A^\tilt[\frac{f_i}{g}]}\) and \(\coker(\widehat{A^\tilt[\frac{f_i}{g}]} \to \widehat C)\) is killed by a power of \(\pi^\tilt\).
+
+    Similarly \(\widehat B\) is integral over its subring \(\widehat{A[\frac{f_i^\sharp}{g^\sharp}]}\) and \(\coker\) is killed by a power of \(\pi\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  We show 3 first. \(C\) is clearly perfect and \(\pi^\tilt\) is a non-zero divisor. Therefore \(\widehat C\) with respect to the \(\pi^\tilt\)-adic topology is integral perfectoid.
+
+  1: let \(J = (g^{1/p^k} \cdot x_i^{1/p^k} - f_i^{1/p^k})_{k \geq 0, i = 1, \dots, k}\). \(J \subseteq \ker \psi^\tilt\). Note that \(\phi\) acts as an isomorphism on both \(J\) and \(\ker \psi^\tilt\). Hence it is enough to prove that \(\ker \psi^\tilt /J\) vanishes after inverting \(\pi^\tilt\), i.e.\ \(A^\tilt[\frac{1}{\pi^\tilt}][x^{1/p^\infty}]/J \to C[\frac{1}{\pi}]\) is an isomorphism, i.e.\ injective. Since \(f_n = (\pi^\tilt)^N\), \(f_n\) is invertible on LHS. Then \(g\) is also invertible on both sides \(g \cdot x_n - f_n\). By rescaling the relations, we need
+  \[
+    A^\tilt[\frac{1}{\pi^\tilt}, \frac{1}{g}][x^{1/p^\infty}]/(x_i^{1/p^k} - \frac{f_i^{1/p^k}}{g^{1/p^k}}) \to C[\frac{1}{\pi^\tilt}, \frac{1}{g}] = A^\tilt[\frac{1}{\pi^\tilt}, \frac{1}{g}]
+  \]
+  is injection. But this is now elementary that it is an isomorphism.
+
+  2 + 4: by 3 \(\widehat C^\sharp\) is integral perfectoid and \((\frac{f_i^{1/p^k}}{g^{1/p^k}})^\sharp\) satisfies
+  \[
+    (g^\sharp)^{1/p^k} \cdot (\frac{f_i^{1/p^k}}{g^{1/p^k}})^\sharp
+    = ((g^\sharp)^{1/p^k} \cdot \frac{f_i^{1/p^k}}{g^{1/p^k}})^\sharp
+    = (f_i^\sharp)^{1/p^k}
+  \]
+  and \(g^\sharp\) is an non-zero divisor (apply the above for \(i = n\)). So there is a unique map of \(A\)-algebras
+  \begin{align*}
+    eB &\to \widehat C^\sharp \\
+    \frac{f_i^{\sharp 1/p^k}}{g^{\sharp 1/p^k}} &\mapsto (\frac{f_i^{1/p^k}}{g^{1/p^k}})^?
+  \end{align*}
+  Taking \(\pi\)-adic completion we get \(\hat e: \widehat B \to \widehat C^\sharp\). Inverting \(\pi\) gives \(\widehat B[\frac{1}{\pi}] \to \widehat C^\sharp[\frac{1}{\pi}]\)...
+  \[
+    e \compose \psi: A[x^{1/p^\infty}]/(g^{\sharp 1/p^k} \cdot x_i^{1/p^k} - f_i^{\sharp 1/p^k}) \to B \to \widehat C^\sharp
+  \]
+  Using
+  \[
+    A^\tilt/\pi^\tilt A^\tilt \cong A/\pi A, \widehat C/\pi^\tilt \widehat C \cong \widehat C^\sharp/\pi \widehat C^\sharp,
+  \]
+  we see \(e \compose \psi \pmod \pi\) is the same as \(\psi^\tilt \pmod{\pi^\tilt}\). By 1 \(\psi^\tilt \pmod{\pi^\tilt}\) is an almost isomorphism. Then \(\psi\) is almost injective modulo \(\pi\) and surjective. Hence \(\psi\) is an almost injection, proving 2.
+
+  Since \(e \compose \psi\) is an almost isomorphism and \(\psi\) is surjection, \(e\) is also an almost isomorphism modulo \(\pi\). By induction \(e\) is an almost isomorphism modulo \(\pi^n\) for all \(n \geq 1\). Then by taking inverse limit \(\hat e\) is an almost isomorphism. Inverting \(\pi\), we get 4.
+
+  5: we don't know if \(\widehat B\) is integral perfectoid, so let \(B'\) be its integral closure in \(\widehat C^\sharp\). Since \(\widehat C^\sharp\) is an open integral perfectoid subring of \(\widehat{B[\frac{1}{\pi}]}\), \(B'\) is integral perfectoid (\(p\)-closedness). \(B'\) contains \(\frac{f_i^{\sharp 1/p^k}}{g^{\sharp 1/p^k}}\), hence its tilt contains \(\frac{f_i^{1/p^k}}{g^{1/p^k}}\). Thus \(B^{'\tilt} \supseteq C\). But \(B^{' \tilt} \subseteq \widehat C\), so \(\widehat C = B^{' \tilt}\). Thus \(\widehat C^\sharp = B'\).
+
+  6: \(A^\tilt[\frac{f_i}{g}] \subseteq C\). Since \(f_n = (\pi^\tilt)^N\), it is enough that \(\coker(\widehat{A^\tilt[\frac{f_i}{g}]} \to \widehat C\) is killed by \(f_n^n\). By
+  \[
+    ...
+  \]
+  for any \(k_1, \dots, k_n \geq 0\). Taking \(\pi^\tilt\)-adic completion, \(\widehat{A^\tilt[\frac{f_i}{g}]} \subseteq \widehat C\) such that \(\widehat{A^\tilt[\frac{f_i}{g}]} \supseteq (\pi^\tilt)^M \widehat C\). But \(C\) is clearly integral over \(A^\tilt[\frac{f_i}{g}]\), so if combine these two observations \(\widehat C\) is integral over \(\widehat{A^\tilt[\frac{f_i}{g}]}\). Do the same in the untilted case.
+\end{proof}
+
+\begin{corollary}
+  Let \(X, X^\tilt\) be as before. Let \(U \subseteq X^\tilt\) be a rational subset. Then \(V = \tilt^{-1}(U)\) is a rational subset and all three assertions of theorem 20.2 are true.
+\end{corollary}
+
+\begin{proof}
+  We have already seen that \(V\) is a rational subset. Let \(f_1, \dots, f_n, g \in R^{+ \tilt}\) with \(f_n = (\pi^\tilt)^N\) such that \(U = X^\tilt(\frac{f_1, \dots, f_n}{g})\). Let \(B, \widehat B, C, \hat C\) be as in the previous proposition. Recall that for any Huber pair \((S, S^+)\) and elements \(f_1, \dots, f_n, g \in R\) such that \((f_1, \dots, f_n)\) is an open ideal,
+  \begin{align*}
+    R\langle \tfrac{f_1, \dots, f_n}{g} \rangle &= \widehat{R[\tfrac{f_1, \dots, f_n}{g}]} \\
+    R\langle \tfrac{f_1, \dots, f_n}{g} \rangle^+ &= \text{ completion of the integral closure of } R[\tfrac{f_1, \dots, f_n}{g}] \subseteq R[\tfrac{1}{g}]
+  \end{align*}
+  then
+  \[
+    \Spa(S\tfrac{f_1, \dots, f_n}{g}, S\tfrac{f_1, \dots, f_n}{g}^+) = \Spa(S, S^+)(\tfrac{f_1, \dots, f_n}{g}).
+  \]
+  By part 6 of the previous proposition, \(\widehat C[\frac{1}{\pi^\tilt}] = \sh O_{X^\tilt}(U), \widehat B[\frac{1}{\pi}] = \sh O_X(V)\). Therefore part 3 and 4 shows \(\sh O_{X^\tilt}(U), \sh O_X(U)\) are perfectoid Tate and exists a unique isomorphism \(\sh O_X(V) \to \sh O_{X^\tilt}(U)^\sharp\). Then we have
+  \[
+    \sh O_X^+(V) = \text{ completion of integral closure of } R^+(\tfrac{f_i^\sharp}{g^\sharp}) \subseteq \sh O_X(V)[\tfrac{1}{g^\sharp}].
+  \]
+  Observe \(\frac{1}{g^\sharp} \in \sh O_{X^\tilt}(U)^\sharp = \sh O_X(U)\) as \(f_n^\sharp = \pi^N\) and \(\widehat C^\sharp\) contains \(\frac{f_n^\sharp}{g^\sharp}\). Thus \(\sh O_X^+(V)\) is the completion of the integral closure of \(R^+[\frac{f_i^\sharp}{g^\sharp}] \subseteq \sh O_X(U)^\sharp = \widehat C^\sharp[\frac{1}{\pi}]\), which as an exercise can be show to be
+  the integral closure of \(\widehat{R^+[\frac{f_i^\sharp}{g^\sharp}]} \subseteq \sh O_{X^\sharp}(U)^\sharp\),
+
+  same as integral closure of \(\widehat B \subseteq \widehat B[\frac{1}{\pi}]\) by 6
+
+  same as integral closure of \(\widehat C \subseteq \widehat C^\sharp[\frac{1}{\pi}]\) by 5
+
+  same as the sharp of the integral closure of \(\widehat C \subseteq \widehat C[\frac{1}{\pi^\tilt}]\) (compatibility of tilting with integral closure
+
+  same as the sharp of the integral closure of \(\widehat{R^{+ \tilt}[\frac{f}{g}]} \subseteq \sh O_{X^\tilt}(U)\)
+
+  same as \(\sh O_{X^\tilt}^+(U)^\sharp\)
+\end{proof}
+
+The second ingredient is a subtle approximation lemma which roughly says that we can approximate elements in \(R\) by perfect elements.
+
+\begin{proposition}[approximation lemma]
+  Let \(S\) be a perfectoid Tate \(R\)-algebra. Let \(f \in R\) and fix rational number \(c \geq 0\) and real number \(\varepsilon > 0\). Then exists \(g_{c, \varepsilon} \in R^\tilt\) such that for any \(x \in \Spa(R, R^\circ)\),
+  \[
+    |f(x) - g_{c, \varepsilon}^\sharp(x)| \leq |\pi(x)|^{1 - \varepsilon} \cdot \max(|f(x)|, |\pi(x)|^c).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Omitted. See Scholze, Perfectoid Space
+\end{proof}
+
+\begin{corollary}
+  Any rational subset \(V \subseteq X\) is of the form \(\tilt^{-1}(U)\) where \(U \subseteq X^\tilt\) rational.
+\end{corollary}
+
+\begin{proof}
+  Pick \(f_1, \dots, f_n, g \in R^+\) with \(f_n = \pi^N\) such that \(V = X(\frac{f_1, \dots, f_n}{g})\). Then \(V = \bigcap X(\frac{f_i, \pi^N}{g})\) so suffice to show the result for \(X(\frac{f_i, \pi^N}{g})\). Applying the approximation lemma with \(f = f_i, c = N, \varepsilon \in (0, 1)\), get \(a \in R^\tilt\) such that
+  \[
+    \max(|f(x)|, |\pi(x)|^N) = \max(|a^\sharp(x)|, |\pi(x)|^N)
+  \]
+  (use approximation lemma to show this equality for any \(\varepsilon < 1\)). Use approximation lemma again with \(f = g, c = N, \varepsilon = 1\). Exists \(b \in R^\tilt\) such that
+  \[
+    |g(x) - b^\sharp(x)| \leq \max (|g(x)|, |\pi(x)|^N).
+  \]
+
+  Now let \(x \in X(\frac{f_i, \pi^N}{g})\). We show \(x \in X(\frac{a^\sharp, \pi^N}{b^\sharp})\). As \(|\pi(x)^N| \leq |g(x)|\),
+  \[
+    |g(x) - b^\sharp(x)| < |g(x)|
+  \]
+  so by strict triangle inequality \(|b^\sharp(x)| = |g(x)|\), so \(|\pi(x)|^N \leq |b^\sharp(x)|\). Also we have \(|a^\sharp(x)| \leq |\pi(x)|^N\) or \(|a^\sharp(x)| = |f(x)|\). The former implies
+  \[
+    |a^\sharp(x)| \leq |\pi(x)|^N \leq |g(x)| = |b^\sharp(x)|
+  \]
+  and the latter implies
+  \[
+    |a^\sharp(x)| = |f(x)| \leq |g(x)| = |b^\sharp(x)|
+  \]
+  so we do have \(x \in X(\frac{a^\sharp, \pi^N}{b^\sharp})\). The converse is similar.
+\end{proof}
+
+\begin{proof}[Proof of tilting correspondence in general case]
+  We know that the elements of the basis for the topology are pullbacks from \(X^\tilt\) so \(\tilt: X \to X^\tilt\) is injective by general topology (\(X\) is \(T_0\)). Suffice to show surjectivity since then rational subsets are mapped to rational subsets, so continuity of the inverse follows.
+
+  Pick \(x \in X^\tilt\). We then have a map of Huber pairs \((R^\tilt, R^{+ \tilt}) \to (\widehat{k(x)}, \widehat{k(x)}^+)\), where \(\widehat{k(x)}\) is a perfectoid field.
+
+  (recall
+  \begin{align*}
+    \sh O_{X, x} &= \varinjlim_{x \in U} \sh O_X(U) \\
+    \sh O_{X, x}^+ &= \varinjlim_{x \in U} \sh O_X^+(U)
+  \end{align*}
+  Facts:
+  \begin{enumerate}
+  \item \(\sh O_{X, x}\) is local, the valuation \(|\cdot|_x\) extends to \(\sh O_{X, x}\).
+  \item \(\sh O_{X, x} = \{f \in \sh O_{X, x}: |f(x)| \leq 1\}\)
+  \item \(\mathfrak m_{\sh O_{X, x}}\) is the support of \(|\cdot|_x\) on \(\sh O_{X, x}\).
+  \item \(\sh O_{X, x}^+\) is local with \(\mathfrak m_{\sh O_{X, x}^+} = \{f \in \sh O_{X, x}: |f(x)| < 1\}\).
+  \item \(\sh O_{X, x} \to k(x), \sh O_{X, x}^+ \to k(x)\) and let \(\k(x)^+\) be its image. Then \(\sh O_{X, x}^+ \to k(x)^+\) is an isomorphism after \(\pi\)-adic completion.
+  \end{enumerate}
+  )
+
+  \(\widehat{k(x)}\) is a non-archimedean field with valuation \(|\cdot|_x\) and with corresponding valuation ring \(\widehat{k(x)^+}\). Therefore \(\widehat{k(x)}^+\)  is the completion of the colimit of integral perfectoid \(R\)-algebras, so is indeed integral perfectoid. Thus \(\widehat{k(x)}\) is perfect Tate, so a perfectoid field.
+
+  By tilting correspondence \((\widehat{k(x)}^\sharp, \widehat{k(x)}^{+ \sharp})\) is a perfect Huber pair such that \(\widehat{k(x)}^\sharp\) is a perfectoid field. Then it corresponds to a point \(y \in X\) as we have \((R, R^+) \to (\widehat{k(x)}^\sharp, \widehat{k(x)}^{+ \sharp})\), and by construction \(\tilt(y) = x\).
+\end{proof}
+
+\section{Tilting étale topology and almost purity}
+
+Motivation: this allows us to study étale cohomology of objects over \(\Q_p\) via étale cohomology in characteristic \(p\).
+
+\begin{theorem}[almost purity]
+  Let \(R\) be a perfectoid Tate ring.
+  \begin{enumerate}
+  \item Let \(S\) be a finite étale \(R\)-algebra. Give \(S\) the canonical topology (see below). Then \(S\) is a perfectoid Tate \(R\)-algebra, \(S^\circ\) is almost finite étale over \(R^\circ\).
+  \item Tilting \(S \mapsto S^\tilt\) induces an equivalence of categories \(R_{\textup{fét}} \to R^\tilt_{\textup{fét}}\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+  If \(R\) is Tate and \(S\) is finite étale over \(R\), there is a unique way to give \(S\) a topology so that \(S\) is Tate and \(R \to S\) is continuous. This is the \emph{canonical topology} on \(S\)\index{canonical topology}. Pick any subring of definition \(R_0 \subseteq R\) and pseudo-uniformiser \(\pi \in R\). Then we pick ga finitely generated \(R_0\)-submodule \(M \subseteq S\) such that \(M[\frac{1}{\pi}] = S\) and give \(M\) the unique linear topology induced by topology on \(R_0\). Then put the induced topology on \(S\).
+\end{remark}
+
+\begin{proof}
+  The outline of the strategy is
+  \begin{enumerate}
+  \item part 1 is easy in characteristic \(p\);
+  \item hence we will obtain an untilting functor \(\sharp: R^\tilt_{\textup{fét}} \to R^\tilt_{\textup{fét}}\) and the theorem can be reformulated as this functor is essentially surjective;
+  \item we prove the theorem for perfectoid fields;
+  \item finally observe that the adic spectra \(X\) and \(X^\tilt\) are locally given by perfectoid fields. We use \(X \cong X^\tilt\) to glue the results in the case of fields.
+  \end{enumerate}
+
+  We begin with step A.
+
+  \begin{lemma}
+    Let \(T\) be a finite étale \(R^\tilt\)-algebra. Then \(T\) is a perfectoid Tate algebra over \(R^\tilt\) and \(T^\circ\) is almost finite étale over \(R^{\tilt \circ}\).
+  \end{lemma}
+
+  \begin{proof}
+    (note that we cannot just use the old result in characteristic \(p\) as we do not necessarily have integral ring extension) Note that since \(R^\tilt\) is perfect and \(R^\tilt \to T\) is étale, \(T\) is perfect (see example lecture 6, 5.2). Thus since \(T\) is Tate with the canonical topology, \(T\) is perfect Tate. Therefore \(T^\circ\) is an integral perfect \(R^{\tilt \circ}\)-algebra. We have showed in Theorem lecture 5 4.6(2) that inverting \(\pi^\tilt\) induces an equivalence \(R^{\tilt \circ}_{\textup{afét}} \to R^\tilt[\frac{1}{\pi^\tilt}]_{\textup{fét}}\). Hence exists some almost finiteétale \(R^{\tilt \circ}\)-algebra \(S\) such that \(R^{\tilt \circ}[\frac{1}{\pi^\tilt}] \to S[\frac{1}{\pi^\tilt}]\). But \(S\) is also integral perfect as it is a subring of integral elements in \(S[\frac{1}{\pi^\tilt}]\). Then \(S \to T^\circ\) is an almost isomorphism. By lemma (lecture 9) 8.6 (almost isomorphism if and only if iso by inverting one element), so \(T^\circ\) is almost finite étale.
+  \end{proof}
+
+  \begin{lemma}
+    Let \(A\) be an integral perfectoid ring and \(\pi\) a perfectoid pseudo-uniformiser which admits \(p\)-power roots. Let \(M\) be an \(A\)-module that is \(\pi\)-adically complete and \(\pi\)-torsion free. Then if \(M/\pi M\) is almost finitely generated (resp.\ almost finitely presented) then \(M\) is almost finitely generated (resp.\ almost finitely presented).
+  \end{lemma}
+
+  \begin{proof}
+    We prove the finitely generated case. Fix some \(\varepsilon \in (0, 1) \subseteq \Z[\frac{1}{p}]\). Then exists \(\overline M_{\varepsilon}\) finitely generated such that \(\pi^\varepsilon \cdot M/\pi M \subseteq \overline M_\varepsilon\). Let \(M_\varepsilon\) be a finitely generated submodule of \(M\) which projects onto \(\overline M_\varepsilon\). Then for any \(x \in M\) we can write
+    \[
+      \pi^\varepsilon \cdot x = \pi z_0 + m_0
+    \]
+    where \(z_0 \in M, m_0 \in M_\varepsilon\). Then \(\pi z_0 = \pi^{1 - \varepsilon}(\pi^\varepsilon z_0)\) and repeat to get
+    \[
+      \pi^\varepsilon x = m_0 + \pi^{1 - \varepsilon} m_1 + (\pi^{1 - \varepsilon})^2 m_2 + \cdots
+    \]
+    As \(M\) is \(\pi\)-adically complete, it is \(\pi^{1 - \varepsilon}\)-adically complete so \(\pi^\varepsilon M \subseteq M_\varepsilon\).
+  \end{proof}
+
+  \begin{lemma}
+    Let \(A\) and \(\pi\) be as in the previous lemma. Let \(B\) be a \(\pi\)-adically complete and \(\pi\)-torsion freee \(A\)-algebra. Then TFAE
+    \begin{enumerate}
+    \item \(B\) is almost finite étale over \(A\);
+    \item \(B/\pi B\) is almost finite étale over \(A/\pi A\).
+    \end{enumerate}
+  \end{lemma}
+
+  \begin{proof}
+    \(B\) is almost finitely presented by the previous lemma so \(2 \implies 1\).
+
+    Then the existence of idempotent follows from the lifting property of idempotent via nilpotent (complete) ideal.
+  \end{proof}
+
+  \begin{lemma}
+    \(T^\sharp\) is finite étale over \(R\), \(T^{\sharp \circ}\) is  almost finite étale over \(R^\circ\).
+  \end{lemma}
+
+  \begin{proof}
+    By lemma we know \(R^{\tilt \circ} \to T^\circ\) is almost finite étale. Thus \(R^{\tilt \circ}/\pi^\tilt R^{\tilt \circ} \to T^\circ/\pi^\tilt R^{\tilt \circ}\) finite étale. As \(R^\circ/\pi R^\circ \cong R^{\tilt \circ}/\pi^\tilt R^{\tilt \circ}, T^\circ/\pi^\tilt T^\circ \cong T^{\sharp \circ}/\pi T^{\sharp \circ}\), have \(R^\circ\) ...
+
+    Use lemma 3 to show \(R^\circ \to T^{\sharp \circ}\) is almost finite étale.
+  \end{proof}
+
+  In other words untilting defines a fully faithful functor whose image consists of perfectoid Tate algebra \(S\) such that \(S^\circ\) is almost finite étale over \(R^0\). Thus almost purity is a matter of essential surjectivity of the untilting functor.
+
+  We now carry out step c, proving almost purity for perfectoid fields. Let \(K\) be a perfectoid field. 
+  \begin{enumerate}
+  \item Any finite extension \(L/K\) is perfectoid.
+  \item \(L \mapsto L^\tilt\) is a degree-preserving equivalence of categories between finite extensions of \(K\) and finite extensions of \(K^\tilt\). It follows that \(\gal(\overline K/K) \cong \gal(\overline K^\tilt/K)\).
+  \end{enumerate}
+
+  \begin{proof}
+    We know \(\O_L\) is \(\pi\)-adically complete and \(\pi\)-torsion free, so we need that every element in \(\O_L/p \O_L\) is a \(p\)th power. In characteristic \(p\), every finite extension of perfect fields is perfect so \(L\) is perfectoid and we know 2 since tilting doesnt do anything in characteristic \(p\).
+
+    In characteristic \(0\), we already know that tilting and untilting gives an equivalence of categories between perfectoid fields over \(K\) and \(K^\tilt\). Left to prove it is degree preserving.
+
+    Let \(M/K^\tilt\) be a finite extension. Claim that \(\O_M/\pi^\tilt \O_M\) is almost free over \(\O_{K^\tilt}/\pi^\tilt \O_{K^\tilt}\) of rank \([M : K^\tilt]\).
+
+    \begin{proof}
+      This is a special case of the proof of almost purity in characteristic \(p\).
+    \end{proof}
+
+    Claim also that it is easy to check that if \(A\) is integral perfectoid, \(\pi\) a perfectoid pseudo-uniformsier which admits \(p\)-power roots, then a \(\pi\)-adically complete, \(\pi\)-torsion free module \(M\) is almost free of rank \(d\) if and only if \(M/\pi M\) is almost free of rank \(d\). (exercise)
+
+    Use this and the fact that \(\O^\sharp_M/\pi \O_M^\sharp \cong \O_M/\pi^\sharp \O_M\) to get that \(\O_M^\sharp\) is almost free of rank \([M : K^\tilt]\) over \(\O_K\). Thus \(M/K\) is a finite extension of degree \([M : K^\tilt]\). Thus untilting is a fully functor whose images are finite extensions of \(K\) that are perfectoid.
+
+    Left to show it is essentially surjective. We quote
+
+    \begin{lemma}[Krasner's lemma]
+      Let \(F\) be a field which is complete with respect to an absolute value \(|\cdot|: F \to R_{\geq 0}\), \(\alpha, \beta \in F^{\text{sep}}\) and \(\alpha_1 = \alpha, \alpha_2, \dots, \alpha_d \in F^{\text{sep}}\) be conjugates of \(\alpha\). If \(|\alpha - \beta| < |\alpha - \alpha_i|\) for \(i = 2, \dots, d\) then \(\alpha \in F(\beta)\).
+    \end{lemma}
+
+    and its corollary
+
+    \begin{corollary}
+      Let \(F\) be a field complete with respect to \(|\cdot|: F \to R_{\geq 0}\) and \(F_0 \subseteq F\) a dense subfield. Then \(F = F^{\text{sep}}\) if and only if \(F_0 = F_0^{\text{sep}}\).
+    \end{corollary}
+
+    Now let \(Q\) be the completion of an algebraic closure of \(K^\tilt\). By the corollary, \(Q\) is algebraically closed (it is perfect and separably closed so algebraically closed as perfect implies every algebraic extension is separable). By previous lemma \(Q^\sharp\) is algebraically closed over \(K\). Moreover for any finite subextension \(K^\tilt \subseteq M \subseteq Q\), we have \(K \subseteq M^\sharp \subseteq Q^\sharp\). Now let \(N = \bigcup M^\sharp \subseteq Q^\sharp\) over all \(M\) finite, then \(N\) is an algebraic extension of \(K\) which is dense in \(Q^\sharp\): on the level of rings of integers
+    \[
+      \O_N/\pi = \varinjlim_M \O_{M^\sharp}/\pi = \varinjlim_M \O_M/\pi^\tilt = \O_{Q^\sharp}/\pi^\tilt.
+    \]
+    Thus by the corollary \(N\) is algebraically closed. In particular for any finite extension \(K \subseteq L\) we have \(L \subseteq N\) so exists a finite extension \(M/K^\tilt\) such that \(L \subseteq M^\sharp\). Replace \(M\) by its Galois closure, we have shown untilting from subextensions of \(M/K^\tilt\) to subextensions of \(M^\sharp/K\) is essentially surjective. But as untilting is degree-preserving and \(\gal(M^\sharp/K) = \gal(M/K^\tilt)\) as it is fully faithful, the two categories have the same cardinality. Then essential surjectivity follows.
+  \end{proof}
+
+  Step d: we are going to be handwaving here. Recall two facts from commutative algebra
+  \begin{enumerate}
+  \item Let \(A\) be a ring that is Henselian along an ideal \(t A\), where \(t \in A\) is a non-zero divisor (i.e.\ Hensel's lemma holds modulo \(t A\), e.g.\ if \(A\) is \(t\)-adically complete). Then \(A[\frac{1}{t}]_{\textup{fét}} \to \widehat A[\frac{1}{t}]\) is an equivalence of categories.
+  \item Let \(\varinjlim_i A_i\) be a filteded colimit of rings. Then the 2-limit \(\varinjlim_i (A_i)_{\textup{fét}} \to (\varinjlim A_i)_{\textup{fét}}\) (LHS is a filtered colimit of categories).
+  \end{enumerate}
+
+  Recall \(\widehat{k^+(x)} \cong \widehat{\sh O_{X, x}^+}, \widehat{k(x)} \cong \widehat{\sh O_{X, x}^+}[\frac{1}{\pi}]\) for any \(x \in X = \Spa(R, R^+)\) and analogously for \(X^\tilt\). Note also that \(\sh O_{X, x}^+\) is Henselian along \(\pi \sh O_{X, x}^+\) since it is a filtered dolmit of \(\pi\)-adically complete rings. Similarly \(\sh O_{X^{\tilt, x^\tilt}}^+\) is Henselian along \(\pi^\tilt\). Then the two results above translate to
+  \[
+    \widehat{k(x)}_{\textup{fét}} = \widehat{\sh O_{X, x}^+}[\tfrac{1}{\pi}]_{\textup{fét}} \cong_{\text{(1)}} \sh O_{X, x}^+[\tfrac{1}{\pi}]_{\textup{fét}} \cong_{\text{(2)}}  \varinjlim_{x \in U \subseteq X} \sh O_X(U)_{\textup{fét}}.
+  \]
+  Thus any finite étale \(\widehat{k(x)}\)-algebra spreads out to a finite étale \(\sh O_X(U)\)-algebra for a sufficiently small \(U\). Moreover spreading out is unique, i.e.\ another choice must agree on a smaller rational subset.
+
+  Consider the commutative diagram
+
+  Conclusion: given a finite \(R\)-algebra \(S\), the finite étale \(\widehat{k(x)}\)-algebra \(S \otimes_R \widehat{k(x)}\) may be writeen as \(T_x^\sharp \otimes_{\sh O_X(U)} \widehat{k(x)}\) for some finite étale \(\sh O_X(U_x)^\tilt\)-algebra \(T_x\), where \(U_x\) is some sufficiently small rational subset containing \(x\). Since \(\sh O_X, \sh O_{X^\tilt}\) are sheafs with vanishing higher cohomology (we did not prove this), one can glue \(T_x\) as we vary \(x\) to a finite étale \(R^\tilt\)-algebra \(T\) such that \(T^\sharp \cong S\).
+\end{proof}
+
+\begin{remark}
+  Fact: for any perfectoid space \(X\), it is true that \(X_{\textup{ét}} \cong X_{\textup{ét}}^\tilt\).
+  \begin{enumerate}
+  \item Fibre products exist in the category of perfectoid spaces over \(X\).
+  \item étale morphisms: \(f: X \to Y\) is étale if locally around any point we have open neighbourhoods \(U\) and \(V\) for \(x \in X\) and \(f(x) \in Y\) such that
+    \[
+      \begin{tikzcd}
+        U \ar[r, "j"] \ar[dr, "f|_U"'] & W \ar[d, "p"] \\
+        & V
+      \end{tikzcd}
+    \]
+    where \(p\) is finite étale.
+  \end{enumerate}
+\end{remark}
+
+
+
+\printindex
+\end{document}

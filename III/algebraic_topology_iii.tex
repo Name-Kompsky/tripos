@@ -33,7 +33,7 @@
 \section{Homotopy}
 
 \begin{definition}[homotopy]\index{homotopy}
-  Suppose \(X, Y\) are topological spaces, \(f_0, f_1: X \to Y\) continuous. We say \(f_0\) is \emph{homotopic} to \(f_1\) is there is a continuous \(F: X \times I \to Y\) with \(F(x, 0) = f_0(x), F(x, 1) = f_1(x)\). We write \(f_0 \sim f_1\).
+  Suppose \(X, Y\) are topological spaces, \(f_0, f_1: X \to Y\) continuous. We say \(f_0\) is \emph{homotopic} to \(f_1\) if there is a continuous \(F: X \times I \to Y\) with \(F(x, 0) = f_0(x), F(x, 1) = f_1(x)\). We write \(f_0 \sim f_1\).
 \end{definition}
 
 Let \(f_t(x) = F(x, t)\). Then \(f_t\) is a path from \(f_0\) to \(f_1\) in \(\Map(X, Y) = \{f: X \to Y \text{ continuous}\}\).
@@ -88,7 +88,7 @@ In other words, \([X, \R^n]\) has one element.
 \end{definition}
 
 \begin{proposition}
-  \(Y\) is contractible if and only if \([X, Y]\) has one element for all \(Y\).
+  \(Y\) is contractible if and only if \([X, Y]\) has one element for all \(X\).
 \end{proposition}
 
 \begin{proof}
@@ -111,7 +111,7 @@ In other words, \([X, \R^n]\) has one element.
   If \(X_1 \sim X_2, Y_1 \sim Y_2\) then there is a bijection between \([X_1, Y_1]\) and \([X_2, Y_2]\).
 \end{lemma}
 
-The basic questions that algebraic topology tries to answer is the follow: given spaces \(X\) and \(Y\), is \(X \sim Y\)? What is \([X, Y]\)?
+The basic question that algebraic topology tries to answer is the follow: given spaces \(X\) and \(Y\), is \(X \sim Y\)? What is \([X, Y]\)?
 
 One of the tools used is homotopy groups, which we mention briefly here.
 
@@ -124,7 +124,7 @@ One of the tools used is homotopy groups, which we mention briefly here.
   \end{itemize}
 \end{definition}
 
-If \(f_0, f_1: (X, A) \to (Y, B)\), we say \(f_0 \sim f_1\) is there exist \(F: (X \times I, A \times I) \to (Y, B)\) with \(F(x, 0) = f_0(x), F(x, 1) = f_1(x)\).
+If \(f_0, f_1: (X, A) \to (Y, B)\), we say \(f_0 \sim f_1\) if there exist \(F: (X \times I, A \times I) \to (Y, B)\) with \(F(x, 0) = f_0(x), F(x, 1) = f_1(x)\).
 
 \begin{notation}
   We denote by \(*\) the point \((-1, 0, \dots, 0) \in S^n\).
@@ -371,7 +371,7 @@ If \(f: (C, d) \to (C', d')\) is a chain map then it follows that \(f(\ker d) \s
 
 Let \(X\) be a topological space. A \emph{singular \(k\)-simplex} in \(X\) is a map \(\sigma: \Delta^k \to X\). Thus a singular \(0\)-simplex is a point in \(X\) and a \(1\)-simplex is a curve in \(X\).
 
-\begin{definition}[singular chain complex]\index{singular chain complex}
+\begin{definition}[singular chain complex]\index{chain complex!singular}
   A \emph{singular chain complex} \(C_*(X)\) is given by
   \[
     C_k(X) = \langle \sigma: \Delta^k \to X \text{ continuous} \rangle,
@@ -789,7 +789,7 @@ In other words, the sequence is exact is the same as saying \((A_*, f)\) is a ch
   \]
   is a \emph{SES of chain complexes} if
   \begin{enumerate}
-  \item \(A_*, B_*, C_*\) are chain complexes arnd \(\iota, \pi\) are chain maps.
+  \item \(A_*, B_*, C_*\) are chain complexes and \(\iota, \pi\) are chain maps.
   \item \(
     \begin{tikzcd}
       0 \ar[r] & A_i \ar[r, "\iota"] & B_i \ar[r, "\pi"] & C_i \ar[r] & 0
@@ -1692,7 +1692,7 @@ Note that finiteness of \(f^{-1}(p)\) guarantees \(\deg_{q_i}f\) is well-defined
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(X = S^k\). Then \(X\) has the structure of a \(k\)-dimensional cell complex with exactly 1 \(0\)-cell and 1 \(k\)-cell.
-  \item \(X = \bigvee^n S^k\) has 1 \(0\)-cell and \(n\) \(k\)-cells. Conversely, any cell complex with this structure must be a wedge of spheres.
+  \item \(X = \bigvee_n S^k\) has 1 \(0\)-cell and \(n\) \(k\)-cells. Conversely, any cell complex with this structure must be a wedge of spheres.
   \item In general a space has many different cell complex structures. For example let \(X = S^1\). Then \(X\) can be obtained by gluing two arcs on their endpoints, so has the 2 \(0\)-cells and 2 \(1\)-cells.
   \item \(X = T^2\). It has 1 \(1\)-cell, 2 \(1\)-cells (an equator and a meridian), and 1 \(2\)-cell.
   \end{enumerate}
@@ -1700,19 +1700,19 @@ Note that finiteness of \(f^{-1}(p)\) guarantees \(\deg_{q_i}f\) is well-defined
 
 The next important example is
 
-\begin{definition}[projective space]\index{projective space}\index{Hopf map}
+\begin{definition}[complex projective space]\index{projective space!complex}\index{Hopf map}
   The \emph{\(n\)-dimensional complex projective space} is
   \[
     \C\P^n
     = (\C^{n + 1} - 0)/\C^*
-    = \{z \in \C^n + 1: \norm z = 1\}/\C^*
+    = \{z \in \C^{n + 1}: \norm z = 1\}/\C^*
     = S^{2n + 1}/\C^*.
   \]
 
   The map \(\pi: S^{2n + 1} \to \C\P^n\) is called the \emph{Hopf map}.
 \end{definition}
 
-We write \([z_0: z_1: \cdots z_n]\) for the equivalence clas of \((z_0, \dots, z_n)\) in \(\C\P^n\). Note that \(\C\P^{n - 1} \to \C\P^n\) by adding \(0\) to the last coordinate. Consider
+We write \([z_0: z_1: \cdots z_n]\) for the equivalence class of \((z_0, \dots, z_n)\) in \(\C\P^n\). Note that \(\C\P^{n - 1} \to \C\P^n\) by adding \(0\) to the last coordinate. Consider
 \begin{align*}
   \iota: D^{2n} &\to \C\P^n \\
   (z_0, \dots z_{n - 1}) &\mapsto [z_0: \cdots : z_{n - 1}: 1 - \norm z]
@@ -1749,7 +1749,7 @@ Claim that
   \]
 \end{proof}
 
-\begin{definition}[real projective space]\index{real projective space}
+\begin{definition}[real projective space]\index{projective space!real}
   The \emph{real projective space} is
   \[
     \R\P^n = (\R^{n - 1} - \{0\})/\R^* = S^n/(x \sim - x).
@@ -2014,7 +2014,7 @@ On the level of chain complexes, if \((C_*, d)\) is a chain complex over \(R\) a
   If \(f: C _* \to C_*'\) is a chain map then \(f \otimes \id_M: C_* \otimes M \to C_* \otimes M\) is also a chain map. If \(f \sim g\) then \(f \otimes \id_M \sim g \otimes \id_M\).
 \end{lemma}
 
-\begin{definition}[singular homology with coefficients]\index{singular chain complex with coefficients}\index{singular homology with coefficients}
+\begin{definition}[singular homology with coefficients]\index{chain complex!singular!with coefficients}\index{singular homology!with coefficients}
   If \(X\) is a space, \(G\) a \(\Z\)-module we define the \emph{singular chain complex of \(X\) with coefficients in \(G\)} to be \(C_*(X; G) = C_*(X) \otimes_\Z G\) and \emph{the singular homology of \(X\) with coefficients in \(G\)} to be \(H_*(X; G) = H_*(C_*(X; G))\).
 \end{definition}
 
@@ -2041,7 +2041,7 @@ If \(X\) is an FCC then we define \(H_*^\cell(X; G)\) to be the homology of \(C_
 \begin{proof}[Sketch proof]
   Basically we review what we have done so far and convince ourselves that they still hold with coefficients. The list of properties are
   \begin{enumerate}
-  \item functoriality: \(H_*(-, G)\) is a functor from the category of pairs of spaces to the category of abelian groups. This entails that
+  \item functoriality: \(H_*(-, G)\) is a functor from the category of pairs of spaces to the category of abelian groups. This follows from
     \[
       C_*(X, A; G) = C_*(X, A) \otimes G \cong \frac{C_*(X; G)}{C_*(A; G)}.
     \]
@@ -2127,7 +2127,7 @@ It is nothing but a chain complex/homology with a different grading.
 
 If \((C_*, d)\) is a chain complex then \((\Hom(C_*, N), d^*)\) is a cochain complex. Explicitly \(d^{k - 1} = (d_k)^*\), the transpose of \(d_k\).
 
-\begin{definition}[singular cohomology with coefficients]\index{singular cohomology with coefficients}
+\begin{definition}[singular cohomology with coefficients]\index{singular cohomology!with coefficients}
   If \(X\) is a space and \(G\) an abelian group, then the \emph{singular cochain complex of \(X\) with coefficients in \(G\)} is \(C^*(X; G) = \Hom(C_*(X), G)\), and its cohomology is \(H^*(X; G) = H^*(C^*(X; G))\).
 \end{definition}
 
@@ -2621,7 +2621,7 @@ with suitable indices. In particular \(H_*(X \times Y)\) is determined by \(H_*(
       R \ar[r, "\begin{psmallmatrix} a \\ \mp a' \end{psmallmatrix}"] \& R^2 \ar[r, "{\begin{psmallmatrix} \pm a' & a \end{psmallmatrix}}"] \& R
     \end{tikzcd}
   \]
-  Let \(b = \gcd(a, b)\). Then
+  Let \(b = \gcd(a, a')\). Then
   \begin{align*}
     H_{i + j}(C \otimes C') &= R/b = H_i(C) \otimes H_j(C') \\
     H_{i + j + 1}(C \otimes C') &= R/b = \Tor_1(H_i(C), H_j(C'))
@@ -2648,12 +2648,6 @@ with suitable indices. In particular \(H_*(X \times Y)\) is determined by \(H_*(
   \]
   so torsion contributes \(\Z/2\) to degree \(1 + 1 + 1 = 3\) in \(H_*(\R\P^2 \times \R\P^2)\). Compare with result last time.
 \end{eg}
-
-In fact we can write Künneth formula in a more compact and symmetric way as
-\[
-  H_*(C \otimes C') = \Tor_*(H_*(C), H_*(C')),
-\]
-which immediately follows from the homological algebra fact that if \(C_*\) and \(C_*'\) are free resolutions of \(M\) and \(M'\) then \(H_*(C \otimes C') \cong \Tor_*(M, M')\).
 
 \begin{corollary}
   If \(H_*(X)\) is free over \(\Z\) then \(H_*(X \times Y) \cong H_*(X) \otimes H_*(Y)\).
@@ -2724,7 +2718,7 @@ it would be really painful to write it down. Instead we use cohomology where is 
 Let \(R\) be a commutative ring.
 
 \begin{definition}[cup product]\index{cup product}
-  If \(\alpha \in C^*(X; R)\) and \(\beta \in C^\ell(X; R)\), their \emph{cup product} \(\alpha \cp \beta \in C^{k + \ell}(X; R)\) is given by
+  If \(\alpha \in C^k(X; R)\) and \(\beta \in C^\ell(X; R)\), their \emph{cup product} \(\alpha \cp \beta \in C^{k + \ell}(X; R)\) is given by
   \[
     \alpha \cp \beta(\sigma) = \alpha(\sigma \compose F_{0 \cdots k}) \beta(\sigma \compose F_{k \cdots \ell + k})
   \]
@@ -2884,7 +2878,7 @@ since \(\im \sigma \compose F_{0 \cdots k} \subseteq A\). In other words we have
 
 \paragraph{Exterior product}
 
-Recall that we promised at the end of last section that there is a natural way to define a blinear map from product cohomology groups to the cohomology of product space. Now we define the map. 
+Recall that we promised at the end of last section that there is a natural way to define a bilinear map from product cohomology groups to the cohomology of product space. Now we define the map. 
 
 \begin{definition}[exterior product]\index{exterior product}
   Let \(\pi_1: X \times Y \to X, \pi_2: X \times Y \to Y\) be the projections. If \(a \in H^k(X), b \in H^\ell(Y)\) then their \emph{exterior product} is
@@ -2927,7 +2921,7 @@ Recall that we promised at the end of last section that there is a natural way t
 
   naturality: we have done this for \(H^*\). Then \(\overline h^*\) follows. For \(\underline h^*\) this follows from the flatness of \(H^*(Y)\). Note that the assumption of freeness of \(H^*(Y)\) is crucial.
 
-  excision: for \(H^*\) we can prove this using subdivision, or use the result that if \(f_*: H_*(X, A) \to H_*(Y, B)\) is an isomorphism then so is \(f^*: H^*(Y, B) \to H^*(X, A)\), which is left as an exercise. Then \(\overline h^*\) follows. \(\underline h^*\) is obvious. As a side note, 1, 2, 3, 4 together imply collpasing a pair, and the proof is exactly the same as in homology.
+  excision: for \(H^*\) we can prove this using subdivision, or use the result that if \(f_*: H_*(X, A) \to H_*(Y, B)\) is an isomorphism then so is \(f^*: H^*(Y, B) \to H^*(X, A)\), which is left as an exercise. Then \(\overline h^*\) follows. \(\underline h^*\) is obvious. As a side note, 1, 2, 3, 4 together imply collapsing a pair, and the proof is exactly the same as in homology.
 
   Now the key ingredient is to note that
   \begin{lemma}
@@ -3025,7 +3019,7 @@ Recall that we promised at the end of last section that there is a natural way t
 \end{proof}
 
 \begin{theorem}
-  If \(X\) is homotopy equivalent to a FCC then \(\Phi: H^*(X) \otimes H^*(Y) \to H^*(X \times Y)\) is an isomorphism.
+  If \(X\) is homotopy equivalent to a FCC and \(H^*(Y)\) is free over \(\Z\) then \(\Phi: H^*(X) \otimes H^*(Y) \to H^*(X \times Y)\) is an isomorphism.
 \end{theorem}
 
 \begin{proof}
@@ -3198,7 +3192,7 @@ Conversely
   For every bundle \(\pi: E \to B\) we have the zero section \(s: B \to E, b \mapsto 0 \in \pi^{-1}(b)\). It is an exercise to check this is continuous.
 \end{eg}
 
-The simplest bundle is the \(n\)-dimensional \emph{trivial bundle}\index{vector bundle!bundle} over \(B\) given by \(\pi_1: B \times \R^n \to B\).
+The simplest bundle is the \(n\)-dimensional \emph{trivial bundle}\index{vector bundle!trivial} over \(B\) given by \(\pi_1: B \times \R^n \to B\).
 
 \begin{proposition}
   \(\pi: E \to B\) is isomorphic to \(B \times \R^n\) if and only if there are sections \(s_1, \dots, s_n: B \to E\) such that \(\{s_1(b), \dots, s_n(b)\}\) is a basis of \(\pi^{-1}(b)\) for all \(b \in B\).
@@ -3243,7 +3237,7 @@ The simplest bundle is the \(n\)-dimensional \emph{trivial bundle}\index{vector 
       f_i: \pi^{-1}(U_i) &\to \R^n \\
       (x, v) &\mapsto \pi_{\hat i}(v)
     \end{align*}
-    A section \(s: B \to E\) is nonvanishing if \(s(b) \neq 0\) for all \(b \in B\). From example sheet 1 if \(TS^n\) has a nonvanishing sections if and only if \(n\) is odd (in fact \(TS^n\) is trivial if and only if \(n = 1, 3, 7\)).
+    For a general vector bundle \(E \to B\), a section \(s: B \to E\) is \emph{nonvanishing}\index{section!nonvanishing} if \(s(b) \neq 0\) for all \(b \in B\). From example sheet 1 \(TS^n\) has a nonvanishing section if and only if \(n\) is odd (in fact \(TS^n\) is trivial if and only if \(n = 1, 3, 7\)).
   \item Product of bundles\index{vector bundle!product}: if \(\pi: E \to B, \pi': E' \to B'\) are vector bundles then so is \(\pi \times \pi': E \times E': B \times E'\) with fibres \((\pi \times \pi')^{-1}(b, b') = \pi^{-1}(b) \times \pi'^{-1}(b')\).
   \item Pullback of bundle\index{vector bundle!pullback}: if \(\pi: E \to B\) is a vector bundle and \(f: X \to B\) then
     \[
@@ -3452,7 +3446,7 @@ If \(f: B' \to B\) there is a morphism
       0
     \end{tikzcd}
   \]
-  since \(2\) holds for \(E_\cap\). Since 1 holds for \(E_1\) and \(E_2\), they have Thom classes \(U_i \in H^n(E_i, E_i^\#)\). By lemma \(U_i|_{E_\cap}\) is a Thom class for \(E_\cap\). By 1 \(U_i|_{E_\cap} = U_\cap\) is the unqiue Thom class for \(E_\cap\), so \(\beta(U_1 \oplus U_2) = U_\cap - U_\cap = 0\). By exactness \(U_1 \oplus U_2 \in \im \alpha\) so exists \(U_\cup \in H^n(E_\cup, E_\cup^\#)\) with \(U_\cup|_{E_i} = U_i\). By lemma \(U_\cup\) is a Thom class for \(E_\cup\).
+  since \(2\) holds for \(E_\cap\). Since 1 holds for \(E_1\) and \(E_2\), they have Thom classes \(U_i \in H^n(E_i, E_i^\#)\). By lemma \(U_i|_{E_\cap}\) is a Thom class for \(E_\cap\). By 1 \(U_i|_{E_\cap} = U_\cap\) is the unique Thom class for \(E_\cap\), so \(\beta(U_1 \oplus U_2) = U_\cap - U_\cap = 0\). By exactness \(U_1 \oplus U_2 \in \im \alpha\) so exists \(U_\cup \in H^n(E_\cup, E_\cup^\#)\) with \(U_\cup|_{E_i} = U_i\). By lemma \(U_\cup\) is a Thom class for \(E_\cup\).
 
   For uniqueness note that if \(U_\cup'\) is a Thom class for \(E_\cup\) then \(U_\cup'|_{E_i}\) is a Thom class for \(E_i\) so again by uniqueness \(U_\cup'|_{E_i} = U_i\), i.e.\ \(\alpha(U_\cup') = U_1 \oplus U_2\) so \(U_\cup' = U_\cup\) by injectivity of \(\alpha\).
 
@@ -3596,7 +3590,7 @@ where \(j: (E, \emptyset) \to (E, E^\#)\). Thus
 \end{proof}
 
 \begin{eg}
-  As an application, let's compute the cohomology ring of projective spaces using Euler class of the tautological bundle. Recall
+  As an application, let's compute the cohomology ring of projective spaces using Euler class of the tautological bundle\index{tautological bundle}. Recall
   \[
     H_*(\R\P^n; \Z/2) =
     \begin{cases}
@@ -3682,7 +3676,7 @@ so \(\overline \varphi_E \in \Hom(H_1(B), \Z/2) \cong H^1(B; \Z/2)\). We quote t
 
 \subsection{Manifolds}
 
-In the last bit of course we are going to discuss manifolds and Poincaré duality.
+In the last bit of the course we are going to discuss manifolds and Poincaré duality.
 
 \begin{definition}[topological manifold]\index{topological manifold}
   An \emph{\(n\)-dimensional (topological) manifold} \(M\) is a second-countable Hausdorff space \(M\) which admits an open cover \(\{U_\alpha: \alpha \in A\}\) and homeomorphisms \(\varphi_\alpha: U_\alpha \to \R^n\) called \emph{charts}\index{chart}.
@@ -3692,7 +3686,7 @@ The maps
 \[
   \psi_{\alpha\beta} = \varphi_\alpha \compose \varphi_\beta^{-1}: \varphi_\beta(U_\alpha \cap U_\beta) \to \varphi_\alpha(U_\alpha \cap U_\beta)
 \]
-are called \emph{transition functions}\index{transition functions}. Like transition functions for vector bundles, they satisfy the cocycle conditions.
+are called \emph{transition functions}\index{transition function}. Like transition functions for vector bundles, they satisfy the cocycle conditions.
 
 \begin{definition}[smooth manifold]\index{smooth manifold}
   A \emph{smooth manifold} is a topological manifold \(M\) together with an open cover \(\{U_\alpha\}\) and charts \(\varphi_\alpha\) such that all transition functions \(\psi_{\alpha\beta}\) are smooth maps.
@@ -3734,7 +3728,7 @@ Fix \(R\)-coefficient. If \(x \in M\) choose a chart with \(U_\alpha \ni x\). By
   \end{cases}
 \]
 
-\begin{definition}[fundamental class, orientation]\index{fundamental clas}\index{orientation}
+\begin{definition}[fundamental class, orientation]\index{fundamental class}\index{orientation}
   An \emph{\(R\)-fundamental class}, or \emph{\(R\)-orientation} for \(M\) is a class \([M] \in H_n(M; R) = H_n(M|M; R)\) such that \([M]|_x\) generates \(H_n(M|x; R) = R\) for all \(x \in M\).
 \end{definition}
 
@@ -3806,7 +3800,7 @@ We need a technical tool from differential geometry:
 
 \subsection{Poincaré duality}
 
-Use \(R\) coefficient throughout, where \(R\) be either \(\Z\) or a field. Let \(M\) be a closed connected smooth \(n\)-manifold and denote by \([M]\) the \(R\)-fundmental class for \(M\). Recall that if \(M\) is connected and \(R\)-orientable then \(H_n(M) = R\).
+Use \(R\) coefficient throughout, where \(R\) be either \(\Z\) or a field. Let \(M\) be a closed connected smooth \(n\)-manifold and denote by \([M]\) the \(R\)-fundamental class for \(M\). Recall that if \(M\) is connected and \(R\)-orientable then \(H_n(M) = R\).
 
 \begin{corollary}
   \(H^n(M) \cong R\).
@@ -3922,7 +3916,7 @@ We thus have \(\langle a, i_{0*}[N] \rangle = (a, PD_{[M]}([N]))\).
 \end{remark}
 
 \begin{definition}
-  Let \(V\) and \(W\) be \(\F\)-vector spaces. A blinear pairing \((\cdot, \cdot): V \times W \to \F\) is \emph{nonsingular} if
+  Let \(V\) and \(W\) be \(\F\)-vector spaces. A bilinear pairing \((\cdot, \cdot): V \times W \to \F\) is \emph{nonsingular} if
   \begin{enumerate}
   \item \((v, w) = 0\) for all \(v \in V\) implies \(w = 0\) and
   \item \((v, w) = 0\) for all \(w \in W\) implies \(v = 0\). 
@@ -4026,7 +4020,7 @@ Choose a basis \(\{a_i\}\) for \(H^*(M)\). \(\F\) is a field so \(H^*(M \times M
 
 \begin{lemma}
   \label{lem:decomposition by cup product pairing}
-  If \(a \in H^*(M)\) then \(a = \sum (-1)^{n |a|}(a, a_i) b_i\).
+  If \(a \in H^*(M)\) is homogeneous then \(a = \sum (-1)^{n |a|}(a, a_i) b_i\).
 \end{lemma}
 
 \begin{proof}
@@ -4034,9 +4028,9 @@ Choose a basis \(\{a_i\}\) for \(H^*(M)\). \(\F\) is a field so \(H^*(M \times M
   \[
     \sum (-1)^{|a_i||a|} a_i \times (a \cp b_i) = \sum (a \cp a_i) \times b_i.
   \]
-  Find terms of the form \([M]^* \times c\) where \(c \in H^0(M)\) and use the previous lemma, we have
+  By degree consideration only terms of the form \([M]^* \times c\) where \(c \in H^0(M)\) do not vanish on LHS. Thus by the previous lemma
   \[
-    (-1)^{n|a|} \times a = \sum \langle a \cp a_i, [M] \rangle [M]^* \times b_i
+    (-1)^{n|a|} [M]^* \times a = \sum \langle a \cp a_i, [M] \rangle [M]^* \times b_i
   \]
   so \(a = (-1)^{n|a|} \sum (a, a_i) b_i\).
 \end{proof}
