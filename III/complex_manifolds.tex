@@ -61,7 +61,7 @@ this is the Cauchy-Riemann equations. If one formally defines
 then \(f\) is holomorphic if and only if \(\frac{\partial f}{\partial \conj{z_j}} = 0\) for all \(j\).
 
 \begin{proposition}[maximum principle]\index{maximum principle}
-  Let \(U \subseteq \C^n\) open and connected. If \(f\) is holomorphic on some bounded open disk \(U\) with \(\cl D \subseteq U\) then
+  Let \(U \subseteq \C^n\) be open and connected. If \(f\) is holomorphic on some bounded open disk \(U\) with \(\cl D \subseteq U\) then
   \[
     \max_{\cl D} |f(z)| = \max_{\partial \cl D} |f(z)|.
   \]
@@ -193,9 +193,9 @@ As \(J^2 = -\id\), the eigenvalues are \(\pm i\). Since \(V\) is real, there are
   Let \(X\) be a smooth manifold. An \emph{almost complex structure} is a bundle isomorphism \(J: TX \to TX\) with \(J^2 = -\id\).
 \end{definition}
 
-One can complexify \(TX\) to obtain \((TX)_\C = TX \otimes \C\) so each fibre of \((TX)_\C \to X\) is a complex vector space. \((TX)_\C\) is called the \emph{complexified tangent bundle}\index{complexified tangent bundle}.
+Suppose \(X\) admits an almost complex structure. One can complexify \(TX\) to obtain \((TX)_\C = TX \otimes \C\) so each fibre of \((TX)_\C \to X\) is a complex vector space. \((TX)_\C\) is called the \emph{complexified tangent bundle}\index{complexified tangent bundle}.
 
-Just as the case for complex structure, \((TX)_\C\) splits as a direct sum
+Same as the case for complex structure, \((TX)_\C\) splits as a direct sum
 \[
   (TX)_\C \cong TX^{1, 0} \oplus TX^{0, 1}.
 \]
@@ -1516,7 +1516,7 @@ Thus for a holomorphic vector bundle \(E\), we define its cohomology to be the c
 
 We now relate sections of line bundles, codimension \(1\) submanifolds and meromorphic functions.
 
-By the implicit function theorem, a subset \(Y \subseteq X\) is a closed complex manifold if and only if for all \(p \in X\) there exists a chart neighbourhood \((U, \varphi)\) of \(p\) and holomorphic functions \(f_1, \dots, f_k: U \to \C\) such that \(0\) is a regular value of \((f_1 \compose \varphi^{-1}, \dots, f_k \compose \varphi^{-1})\) and
+By implicit function theorem, a subset \(Y \subseteq X\) is a closed complex manifold if and only if for all \(p \in X\) there exists a chart neighbourhood \((U, \varphi)\) of \(p\) and holomorphic functions \(f_1, \dots, f_k: U \to \C\) such that \(0\) is a regular value of \((f_1 \compose \varphi^{-1}, \dots, f_k \compose \varphi^{-1})\) and
 \[
   Y \cap U = \bigcap_{i = 1}^k f_i^{-1}(0).
 \]

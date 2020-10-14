@@ -494,7 +494,7 @@ is an \(A\)-submodule of \(K\) but is in general not fg.
   \]
 \end{proof}
 
-Observe that for any \(P\), there is a homomorphism
+Observe that for any non-zero \(P\), there is a homomorphism
 \begin{align*}
   \Div A &\to \Div A_P \\
   I &\mapsto IA_P
@@ -712,11 +712,11 @@ The kernel of this homomorphism is \(\bigcap_{i \geq 1} (\pi^i) = 0\) so \(A\) i
   \]
   then \(\sum_{i = 0}^\infty a_i\pi^i\) is simply a short hand for the element \(x = (x_i)_{i \geq 1} \in \varprojlim_i A/(\pi^i) = \hat A\).
 
-  Let's now show \(\hat A\) is a DVR. We know \(A \to \hat A\) is injective. We'll show each nonzero element \(x \in \hat A\) has a unique expression \(x = \pi^n u\) where \(n \geq 0, u \in \hat A^\times\). Let's write \(x = a_0 + a_1 \pi + \cdots\) and say
+  Let's now show \(\hat A\) is a DVR. We know \(A \to \hat A\) is injective. We'll show each non-zero element \(x \in \hat A\) has a unique expression \(x = \pi^n u\) where \(n \geq 0, u \in \hat A^\times\). Let's write \(x = a_0 + a_1 \pi + \cdots\) and say
   \[
     a_0 = a_1 = \dots = a_{n - 1} = 0, a_n \neq 0.
   \]
-  Then \(x = \pi^n y\) where \(y = a_n + a_{n + 1} \pi + \cdots\). We must show \(y \in \hat A^\times\). Note \(0 \in X \subseteq A\). If \(\alpha \in X - \{0\}\) then \(\alpha \pmod \pi\) is nonzero and hence \(\alpha \in A^\times\). So \(y = a_n(1 - \pi b)\) where
+  Then \(x = \pi^n y\) where \(y = a_n + a_{n + 1} \pi + \cdots\). Note if \(\alpha \in X - \{0\}\) then \(\alpha \pmod \pi\) is non-zero and hence \(\alpha \in A^\times\). Thus \(y = a_n(1 - \pi b)\) where
   \[
     b = 1 - \pi a_n^{-1} a_{n + 1} - \pi^2 a_n^{-1} a_{n + 2} + \cdots \in \hat A.
   \]
@@ -919,7 +919,7 @@ As a consequence
 \[
   \Q_p^\times \cong \Z \times \Z_p^\times \cong \Z \times (1 + p \Z_p) \times \F_p^\times
 \]
-since each element can be written as \(p^n \cdot u \cdot \tau(\overline \alpha)\). There is an isomorphism
+corresponding to the expression \(p^n \cdot u \cdot \tau(\overline \alpha)\). There is an isomorphism
 \[
   1 + p \Z_p \cong \varprojlim_i \underbrace{\ker ((\Z/p^i\Z)^\times \to (\Z/p\Z)^\times)}_{\text{\(p\)-power order}}
 \]
@@ -943,14 +943,14 @@ Suppose \(q\) is a prime such that \(p = 1 \pmod q\). Then \(\Q_p^\times\) conta
   Since \(\zeta_q \in \Q_p^\times\), Kummer theory tells us that such extensions correspond to subgroups of \(\Q_p^\times/(\Q_p^\times)^q\) of order \(q\), where an element \(z\) of the subgroup corresponds to the extension \(\Q_p(\sqrt[q]{z})\). We've computed \(\Q_p^\times/(\Q_p^\times)^q \cong \Z/q\Z \times \Z/q\Z\), which has \(q + 1\) subgroups of order \(q\).
 \end{proof}
 
-Before the end of the chapter, we briefly indicate where we're heading: we define \(K_Q\) to be the fraction field associated to the completion of \(\O_K\) localised at \(Q\). Then we are going to consider its ``rings of integers'' \(\O_{K_Q}\) so we have th following picture:
+Before the end of the chapter, we briefly indicate where we're heading: we define \(K_Q\) to be the fraction field associated to the completion of \(\O_K\) localised at \(Q\). Then we are going to consider its ``rings of integers'' \(\O_{K_Q}\) so we have the following picture:
 \[
   \begin{tikzcd}
     K \ar[d, dash] & \O_K \ar[d, dash] & Q \ar[d, dash] & \O_{K_Q} \ar[d, dash] & \ar[d, dash] K_Q \\
     \Q & \Z & p\Z & \Z_p & \Q_p
   \end{tikzcd}
 \]
-If \(K/\Q\) is Galois then so is \(K_Q/\Q_p\) and \(\gal(K_Q/\Q_p) \embed \gal(K/\Q)\), and we are going to study \(\gal(K_Q/\Q_p)\).
+If \(K/\Q\) is Galois then so is \(K_Q/\Q_p\) and \(\gal(K_Q/\Q_p) \embed \gal(K/\Q)\), and we are going to study \(\gal(K_Q/\Q_p)\) in detail.
 
 \section{Extensions of Dedekind domains}
 
@@ -968,7 +968,7 @@ Let \(A\) be a Dedekind domain and \(K = \Frac A\). Let \(E/K\) be a finite sepa
   \begin{enumerate}
   \item \(\gamma\) is integral over \(A\).
   \item \(A[\gamma]\) is a finitely generated \(A\)-module.
-  \item there exists a nonzero \(A[\gamma]\)-submodule \(M \leq E\) which is a finitely generated \(A\)-module.
+  \item there exists a non-zero \(A[\gamma]\)-submodule \(M \leq E\) which is a finitely generated \(A\)-module.
   \end{enumerate}
 \end{lemma}
 
@@ -1024,7 +1024,7 @@ Let \(B = \{\gamma \in E: \gamma \text{ integral over } A\}\), the integral clos
 \end{proof}
 
 \begin{remark}
-  If \(x \in B\) then \(\tr_{E/K}(x) \in A\): \(\sigma_i(x) \in L\) is integral over \(A\) and hence \(\sigma_1(x) + \dots + \sigma_n(x)\) is an element of \(L\) which is in \(K\) and integral over \(A\). \(A\) is integrally closed implies that \(\tr_{E/K}(x) \in A\).
+  If \(x \in B\) then \(\tr_{E/K}(x) \in A\): \(\sigma_i(x) \in L\) is integral over \(A\) and hence \(\sigma_1(x) + \dots + \sigma_n(x)\) is an element of \(L\) which is in \(K\) and integral over \(A\). \(A\) being integrally closed implies that \(\tr_{E/K}(x) \in A\).
 \end{remark}
 
 Observe that if \(S \subseteq A\) is multiplicatively closed and \(0 \notin S\) then \(S^{-1}A\) is a Dedekind domain with field of fractions \(K\). Moreover, the integral closure of \(S^{-1}A\) in \(E\) is \(S^{-1}B\). This is because \(S^{-1}B\) is contained in the integral closure of \(S^{-1}A\) in \(E\). Conversely, if \(\gamma \in E\) satisfies
@@ -1044,7 +1044,7 @@ For example \((A - \{0\})^{-1} A = K\) so \((A - \{0\})^{-1}B = E\). In particul
 \end{proposition}
 
 \begin{proof}
-  Let \(e_1, \dots, e_n\) be basis of \(E\) as \(K\)-vector space. We assume that in fact \(e_1, \dots, e_n \in B\). Recall that there is a \(K\)-bilinear form \(T: E \times E \to K, (x, y) \mapsto \tr_{E/K}(xy)\) and is non-degenerate as \(E/K\) is separable. Moreover if \(x \in B\) then \(\tr_{E/K}(x) \in A\). Let \(f_1, \dots, f_n\) be the dual basis of \(e_1, \dots, e_n\) with respect to \(T\), i.e.\ for all \(i, j\), \(T(e_i, f_j) = \tr_{E/K}(e_if_j) = \delta_{ij}\). If \(x \in B\) we can write \(x = \sum_{j = 1}^n a_jf_j\) where \(a_j \in K\), and
+  Let \(e_1, \dots, e_n\) be basis of \(E\) as \(K\)-vector space. We assume that in fact \(e_1, \dots, e_n \in B\). Recall that there is a \(K\)-bilinear form \(T: E \times E \to K, (x, y) \mapsto \tr_{E/K}(xy)\) and is nondegenerate as \(E/K\) is separable. Moreover if \(x \in B\) then \(\tr_{E/K}(x) \in A\). Let \(f_1, \dots, f_n\) be the dual basis of \(e_1, \dots, e_n\) with respect to \(T\), i.e.\ for all \(i, j\), \(T(e_i, f_j) = \tr_{E/K}(e_if_j) = \delta_{ij}\). If \(x \in B\) we can write \(x = \sum_{j = 1}^n a_jf_j\) where \(a_j \in K\), and
   \[
     \tr_{E/K}(x e_i) = T(x, e_i) = \sum_{j = 1}^n a_j T(f_j, e_i) = a_i \in A.
   \]
@@ -1096,15 +1096,15 @@ Note that they are both integers greater than \(0\).
   The first is because by unique factorisation,
   \begin{align*}
     PB &= \prod_Q Q^{e_{Q/P}} \\
-    S^{-1}PB &= \prod_{Q} Q^{e_{Q/S^{-1}P}}
+    S^{-1}PB &= \prod_{Q} (S^{-1}Q)^{e_{Q/P}}
   \end{align*}
-  so by prime ideal correspondence for localisation we must have equality. The second is because the maps \(A/P \to S^{-1}A/S^{-1}P, B/Q \to S^{-1}B/S^{-1}Q\) are both isomophisms. Therefore we can replace \(A\) by \(S^{-1}A\) and assume that \(A\) is a DVR, in particular a PID. Then \(B\) is a fg \(A\)-module which is torsion free (i.e.\ for all \(b \in B\) if exists \(a \in A - \{0\}\) such that \(ab = 0\) then \(b = 0\)), so we can use the classification of fg modules over a PID to conclude that as an \(A\)-module, \(B \cong A^n\) for some \(n \in \N\). Then
+  so by prime ideal correspondence for localisation we must have equality. The second is because the maps \(A/P \to S^{-1}A/S^{-1}P, B/Q \to S^{-1}B/S^{-1}Q\) are both isomophisms. Therefore we can replace \(A\) by \(S^{-1}A\) and assume that \(A\) is a DVR, in particular a PID. Then \(B\) is a fg \(A\)-module which is torsion free, so we can use the classification of fg modules over a PID to conclude that as an \(A\)-module, \(B \cong A^n\) for some \(n \in \N\). Then
   \[
     E = (A - \{0\})^{-1}B \cong (A - \{0\})^{-1}A^n \cong K^n
   \]
   and hence \(n = [E : K]\).
 
-  By reduction modulo \(P\), we have an isomorphism \(B/PB \cong (A/P)^n\) of \(A/P\)-vector spaces. By the Chinese remainder theorem, we have an isomorphism
+  Reducing modulo \(P\), we have an isomorphism \(B/PB \cong (A/P)^n\) of \(A/P\)-vector spaces. By Chinese remainder theorem we have an isomorphism
   \[
     B/PB \cong \prod_{Q: v_Q(PB) > 0} B/Q^{v_Q(PB)}.
   \]
@@ -1149,7 +1149,7 @@ Let \(e_i = e_{Q_i/P}, f_i = f_{Q_i/P}\) and so \(\sum_{i = 1}^r e_if_i = [E : K
 \end{notation}
 
 \begin{eg}
-  If \(E/\Q\) is a number field (i.e.\ finite extension), we write \(\O_E\) for the integral closure of \(\Z\) in \(K\). If \(E = Q(\sqrt d)\) where \(d \in \Z, d \neq 0, 1\) is a squarefree integer, then we can compute
+  If \(E/\Q\) is a number field (i.e.\ finite extension), we write \(\O_E\) for the integral closure of \(\Z\) in \(K\). If \(E = \Q(\sqrt d)\) where \(d \in \Z, d \neq 0, 1\) is a squarefree integer, then we can show
   \[
     \O_E =
     \begin{cases}
@@ -1225,7 +1225,7 @@ Let \(e_i = e_{Q_i/P}, f_i = f_{Q_i/P}\) and so \(\sum_{i = 1}^r e_if_i = [E : K
   This is a rather hands-on method and can be inefficient for large number fields. Soon we'll see another method to determine the factorisation of \(p \O_E\) for a general number field \(E\) based on factorisations in \(\Q_p[X]\).
 \end{eg}
 
-Now suppose \(A, K, E, B\) as before and suppose \(E/K\) is Galois with \(G = \gal(E/K)\). Then the action of \(G\) on \(E\) leaves \(B\) invariant.
+Now suppose \(A, K, E, B\) are as before and suppose \(E/K\) is Galois with \(G = \gal(E/K)\). Then the action of \(G\) on \(E\) leaves \(B\) invariant.
 
 \begin{proposition}
   Le \(Q \subseteq B\) be a non-zero prime ideal, \(P = Q \cap A\). Then
@@ -1241,7 +1241,7 @@ Now suppose \(A, K, E, B\) as before and suppose \(E/K\) is Galois with \(G = \g
   \[
     \sigma(Q) \cap A = \sigma(Q) \cap \sigma(A) = \sigma(Q \cap A) = Q \cap A = P.
   \]
-  To show the action is transitive, we can assume \(A\) is DVR, by replacing \(A\) by \(A_P\). Then \(B\) has only finitely many prime ideals (they all lie above the unique ideal in \(A\)) so by example sheet 1 is a PID. Let \(\pi \in B\) be a generator for \(Q\). Then
+  To show the action is transitive, we can assume \(A\) is DVR by replacing \(A\) with \(A_P\). Then \(B\) has only finitely many prime ideals so by example sheet 1 is a PID. Let \(\pi \in B\) be a generator of \(Q\). Then
   \[
     N_{E/K}(\pi) = \prod_{\sigma \in G} \sigma(\pi) \in Q \cap A = P.
   \]
@@ -1280,13 +1280,13 @@ We just saw that if \(\sigma(Q) = Q\) then \(\sigma|_B \pmod Q\) is an automorph
     \[
       f(X) = \prod_{\sigma \in G} (X - \sigma(\alpha)) \in B[X].
     \]
-    The coefficient of \(f(X)\) are invariants under \(G\), so lie in \(E^G = K\), so in \(B \cap K = A\). We can define \(\overline f(X) = f(X) \pmod P \in k_P[X]\). Observe that \(\overline f(X)\) has \(\overline \alpha\) as a root and \(\overline f(X)\) splits into linear factors in \(k_Q[X]\). This shows that \(k_Q\) is normal, hence Galois.
+    The coefficients of \(f(X)\) are invariant under \(G\), so lie in \(E^G = K\), so in \(B \cap K = A\). Define \(\overline f(X) = f(X) \pmod P \in k_P[X]\). Observe that \(\overline f(X)\) has \(\overline \alpha\) as a root and \(\overline f(X)\) splits into linear factors in \(k_Q[X]\). \(k_Q\) is normal, hence Galois.
   \item Since \(k_Q/k_P\) is separable, there exists \(\overline \alpha \in k_Q\) such that \(k_Q = k_P(\overline \alpha)\), i.e.\ \(\overline \alpha\) is a primitive element. Let \(Q = Q_1, Q_2, \dots, Q_r\) be the prime ideals lying above \(P\). By Chinese remainder theorem we can find \(\alpha \in B\) such that \(\alpha \pmod Q = \overline \alpha\), and for each \(2 < i \leq r\), \(\alpha \pmod{Q_i} = 0\). Let \(f(X) = \prod_{\sigma \in G}(X - \sigma(\alpha)) \in A[X]\). Let \(\overline f(X) = f(X) \pmod Q \in k_P[X]\). Then
     \begin{align*}
       \overline f(X)
       &= \prod_{\sigma \in G} (X - \sigma(\alpha) \pmod Q) \\
       &= \prod_{\sigma \in D_{Q/P}} (X - \sigma (\alpha) \pmod Q)
-      + \prod_{\sigma \notin D_{Q/P}} (X - \sigma (\alpha) \pmod Q)
+      \cdot \prod_{\sigma \notin D_{Q/P}} (X - \sigma (\alpha) \pmod Q)
     \end{align*}
     Note if \(\sigma \notin D_{Q/P}\) then \(\sigma^{-1}(Q) = Q_i\) for some \(i > 1\) and hence
     \[
@@ -1300,7 +1300,7 @@ We just saw that if \(\sigma(Q) = Q\) then \(\sigma|_B \pmod Q\) is an automorph
   \end{enumerate}
 \end{proof}
 
-A nice situation to apply this is when \(E/K\) is a Galois extension of number fields. Note if \(P \subseteq \O_K\) is a non-zero prime ideal then \(k_P\) is a finite field so perfect (i.e.\ any finite extension is separable). If \(Q\) is a prime ideal of \(\O_E\) lying above \(P\) then \(\gal(k_Q/k_P)\) has a canonical generator, i.e.\ the Frobenius automorphism \(\alpha \mapsto \alpha^{|k_P|}\). Observe that
+As an application, suppose \(E/K\) is a Galois extension of number fields. Note if \(P \subseteq \O_K\) is a non-zero prime ideal then \(k_P\) is a finite field so perfect (i.e.\ any finite extension is separable). If \(Q\) is a prime ideal of \(\O_E\) lying above \(P\) then \(\gal(k_Q/k_P)\) has a canonical generator, i.e.\ the Frobenius automorphism \(\alpha \mapsto \alpha^{|k_P|}\). Observe that
 \[
   |D_{Q/P}| = |G|/g_{Q/P} = e_{Q/P} f_{Q/P}
 \]
@@ -1372,19 +1372,19 @@ We've seen that \(|I_{Q/P}| = e_{Q/P}\). When ramification occurs, \(I_{Q/P}\) i
   \]
   as \(\hat A_P\)-modules, which are finite free as \(\hat A_P\)-module since each \(B/P^iB\) is a finite free \(A/P^i\)-module. Thus each summand \(\hat B_{Q_i}\) is finite free as \(\hat A_P\)-module. In particular \(\hat B_Q\) is integral over \(\hat A_P\) so \(\hat B_Q\) is the integral closure of \(\hat A_P\) in \(E_Q\).
 
-  \(\hat B_Q/P \hat B_Q\) is isomorphic to \(B/Q^{e_{Q/P}}\) as \(\hat A_P/P \hat A_P \cong A/P\)-module so the map \(B/PB \to \hat B_Q/P\hat B_Q\) is surjective. By Nakayama's lemma (?), \(\hat B_Q\) is generated by \(B\) as \(\hat A_P\)-module. Passing to fraction field, we see \(E_Q\) is generated by \(E\) as \(K_P\)-vector space. If \(E/K\) is separable then every element of \(E\) is separable over \(K\), \(E_Q/K_P\) is separable. If \(E/K\) is Galois then \(E\) is the splitting field of a polynomial with coefficients in \(K\), which can be viewed as a polynomial with coefficients in \(K_P\), so \(E_Q/K_P\) is Galois.
-
-  The map \(\hat A_P \to \hat B_Q\) is obtained by passage to inverse limit from the collection of maps \(A/P^i \to B/Q^i\) which are defined as \(P \subseteq Q\) implies \(P^i \subseteq Q^i\). Note
-  \[
-    f_{Q\hat B_Q/P\hat A_P} = [\hat B_Q/Q\hat B_Q: \hat A_P/P\hat A_P] = [B/Q: A/P] = f_{Q/P}.
-  \]
-  Also if we factor \(PB = \prod_{i = 1}^r Q_p^{e_{Q_i/P}}\) where \(Q_1, \dots, Q_r\) are distinct prime ideals of \(B\) (and \(Q_1 = Q\)). Then
+  Note
   \[
     P\hat B_Q = \prod_{i = 1}^r Q_i^{e_{Q_i/P}} \hat B_Q = Q^{e_{Q/P}} \hat B_Q
   \]
-  as for each \(i > 1\), \(Q_i \hat B_{Q} = \hat B_{Q}\). Hence
+  as for each \(i > 1\), \(Q_i \hat B_{Q} = \hat B_{Q}\) so \(\hat B_Q/P \hat B_Q\) is isomorphic to \(B/Q^{e_{Q/P}}\) as \(\hat A_P/P \hat A_P \cong A/P\)-module. Thus the map \(B/PB \to \hat B_Q/P\hat B_Q\) is surjective and by Nakayama, \(\hat B_Q\) is generated by \(B\) as \(\hat A_P\)-module. Passing to fraction field, we see \(E_Q\) is generated by \(E\) as \(K_P\)-vector space. If \(E/K\) is separable then every element of \(E\) is separable over \(K\) so \(E_Q/K_P\) is separable. If \(E/K\) is Galois then \(E\) is the splitting field of a polynomial with coefficients in \(K\), which can be viewed as a polynomial with coefficients in \(K_P\), so \(E_Q/K_P\) is Galois.
+
+  Note
   \[
-    (P \hat A_P) \hat B_Q = (Q \hat B_Q)^{e_{Q/P}}
+    f_{Q\hat B_Q/P\hat A_P} = [\hat B_Q/Q\hat B_Q: \hat A_P/P\hat A_P] = [B/Q: A/P] = f_{Q/P}.
+  \]
+  In addition
+  \[
+    (P \hat A_P) \hat B_Q = P \hat B_Q = (Q \hat B_Q)^{e_{Q/P}}
   \]
   implies \(e_{Q\hat B_Q/P \hat A_P} = e_{Q/P}\). We know
   \[
@@ -1398,7 +1398,7 @@ We've seen that \(|I_{Q/P}| = e_{Q/P}\). When ramification occurs, \(I_{Q/P}\) i
   so it's enough to show injectivity. If \(\sigma \in D_{Q/P}\) gets sent to \(1\) then it acts as the identity on \(E_Q = K_P \cdot E\), so in particular acts as the identity on \(E\). As \(D_{Q/P} \subseteq \gal(E/K)\), this means that \(\sigma = 1\) in \(D_{Q/P}\).
 \end{proof}
 
-At this point one may wonder why we must pass to the completion, instead of using the localsation. If we had done so, then firstly the field of fraction would be the same. Secondly if \(Q\) is not the only prime ideal of \(B\) lying above \(P\) then \(B_Q\) would not be a finite \(A_P\)-module, so none of the developed techniques are available. For example take \(E = \Q(i), K = \Q, A = \Z, B = \Z[i]\). Consider \((5) = (2 + i)(2 - i)\). Then \(\frac{1}{2 + i}\) is not integral over \(\Z_{(5)}\), as for example its norm is \(\frac{1}{5}\). However as an exercise, by writing down the \(5\)-adic expansion of the minimal polynomial, check \(\frac{1}{2 - i}\) is a integral over \(\Z_5\).
+At this point one may wonder why we must pass to the completion, instead of using the localsation. If we had done so, then firstly the field of fraction would be the same. Secondly if \(Q\) is not the only prime ideal of \(B\) lying above \(P\) then \(B_Q\) would not be a finite \(A_P\)-module, so none of the developed techniques are available. For example take \(E = \Q(i), K = \Q, A = \Z, B = \Z[i]\). Consider \((5) = (2 + i)(2 - i)\). Then \(\frac{1}{2 + i}\) is not integral over \(\Z_{(5)}\), as for example its norm is \(\frac{1}{5}\). However as an exercise, by writing down the \(5\)-adic expansion of the minimal polynomial, check \(\frac{1}{2 + i}\) is a integral over \(\Z_5\).
 
 \begin{corollary}
   Suppose \(E = K(\alpha)\) is finite separable over \(K\) and let \(f(X) \in K[X]\) be the minimal polynomial of \(\alpha\). For any non-zero prime ideals \(P \subseteq A\), there is a bijection between
@@ -1427,7 +1427,7 @@ At this point one may wonder why we must pass to the completion, instead of usin
 \end{corollary}
 
 \begin{proof}
-  Let \(L/K\) be the Galois closure of \(E/K\). Let \(C\) be the integral closure of \(A\) in \(L\). Fix \(R \subseteq C\) be a prime ideal lying above \(P\). Let \(G = \gal(L/K), H = \gal(L/E)\). We know \(G\) acts transitively on the set of prime ideals of \(C\) lying above \(P\), so by orbit-stabiliser there is a bijection
+  Let \(L/K\) be the Galois closure of \(E/K\). Let \(C\) be the integral closure of \(A\) in \(L\). Fix \(R \subseteq C\) a prime ideal lying above \(P\). Let \(G = \gal(L/K), H = \gal(L/E)\). We know \(G\) acts transitively on the set of prime ideals of \(C\) lying above \(P\), so by orbit-stabiliser there is a bijection
   \begin{align*}
     G/D_{R/P} &\longleftrightarrow
                 \left\{
@@ -1540,7 +1540,7 @@ Next is an extremely important lemma on which almost all results in this chapter
   \[
     \{\text{non-zero prime ideals of \(B\)}\} \longleftrightarrow \{\text{factors of \(f(X)\) in \(K_P[X]\)}\}
   \]
-  where \(f(X) \in K[X]\) is the minimal polynomial of a generator for \(E\) and \(P = (\pi_K)\). Since \(K\) is a CDVF, \(K_P = K\). Since \(f(X) \in K[X]\) is irreducible, this shows \(B\) has a unique nonzero prime ideal \(Q\), hence is a DVR. Let \(v_E: E^\times \to \Z\) be the corresponding valuation. We've seen that \(E_Q = K_P \cdot E = K \cdot E = E\), showing \((E, v_E)\) is a CDVF.
+  where \(f(X) \in K[X]\) is the minimal polynomial of a generator for \(E\) and \(P = (\pi_K)\). Since \(K\) is a CDVF, \(K_P = K\). Since \(f(X) \in K[X]\) is irreducible, this shows \(B\) has a unique non-zero prime ideal \(Q\), hence is a DVR. Let \(v_E: E^\times \to \Z\) be the corresponding valuation. We've seen that \(E_Q = K_P \cdot E = K \cdot E = E\), showing \((E, v_E)\) is a CDVF.
 \end{proof}
 
 \begin{definition}[extension of CDVF]\index{complete discrete valuation field!extension}
@@ -1674,14 +1674,12 @@ In the above example we have slopes \(\frac{1}{2}\) with multiplicity \(2\) and 
   \[
     v(a_j) = v(\alpha_1 \cdots \alpha_j) = \lambda_1 + \dots + \lambda_j.
   \]
-  Hence \(v(a_j) \geq N(j) \geq L(j) = v(a_j)\) so in fact \((j, v(a_j))\) is a vertex of both \(L\) and \(N\).
+  Hence \(v(a_j) \geq N(j) \geq L(j) = v(a_j)\) so in fact \((j, v(a_j))\) is a vertex of both \(L(f)\) and \(N_K(f)\).
 \end{proof}
 
 \begin{proposition}
-  Let \(K\) be a CDVF and let \(f(X) \in K[X], a_n \neq 0\) be separable. Let \(\lambda_1 < \dots < \lambda_r\) be the slopes of \(N_K(f)\) where \(\lambda_i\) occurs with multiplicity \(m_i \geq 1\). Then there exists a unique factorisation \(f(X) = \prod_{i = 1}^r g_i(X)\) in \(K[X]\) where for all \(1 \leq i \leq r\), \(g_i(X)\) is a monic polynomial and \(N_K(g)\) has a single slope \(\lambda_i\).
+  Let \(K\) be a CDVF and let \(f(X) \in K[X], a_n \neq 0\) be monic separable. Let \(\lambda_1 < \dots < \lambda_r\) be the slopes of \(N_K(f)\) where \(\lambda_i\) occurs with multiplicity \(m_i \geq 1\). Then there exists a unique factorisation \(f(X) = \prod_{i = 1}^r g_i(X)\) in \(K[X]\) where for all \(1 \leq i \leq r\), \(g_i(X)\) is a monic polynomial with degree \(m_i\) and \(N_K(g)\) has a single slope \(\lambda_i\).
 \end{proposition}
-
-Nonarchimedean analogue that an odd deg polynomial has a root.
 
 \begin{proof}
   Let \(L/K\) be the splitting field of \(f(X)\). Let \(\alpha_1, \dots, \alpha_n \in L\) be the roots of \(f(X)\) in \(L\). Note \(N_L(f)\) is the image of \(N_K(f)\) under the linear transformation \(
@@ -1740,7 +1738,7 @@ Nonarchimedean analogue that an odd deg polynomial has a root.
       \fi
     \end{tikzpicture}
   \end{center}
-  The slopes are \(0, 1, 2\) each with multiplicity \(1\). Thus \(f(X)\) splits into linear factors in \(\Q_2[X]\). If \(f(X)\) is irreducible then \(E = \Q[X]/(f(X))\) is a cubic extension of \(\Q\) in which \(2\) splits completely.
+  The slopes are \(0, 1, 2\) each with multiplicity \(1\). Thus \(f(X)\) splits into linear factors in \(\Q_2[X]\).
 \end{eg}
 
 \begin{definition}
@@ -1812,16 +1810,16 @@ In other words, there is an unramified extension \(L/K\) such that
 
   We need to show that if \(E/K\) is an extension of CDVFs then embeddings \(L \to E\) correspond to embeddings \(\ell \to k_E\). We know
   \[
-    \{K\text{-embeddings } J: L \to E\}
+    \{K\text{-embeddings } L \to E\}
     \longleftrightarrow
     \{\text{roots of } f(X) \text{ in } E\}
     \longleftrightarrow
     \{\text{roots of } f(X) \text{ in } A_E\}
   \]
-  where the last correspondence is because \(f(X) \in A_K[X]\) is monic. On the other hand \(k_K\)-embeddings \(j: \ell \to k_E\) correspond to roots of \(\overline f(X)\) in \(k_E\). There is a map
+  where the last correspondence is because \(f(X) \in A_K[X]\) is monic. On the other hand \(k_K\)-embeddings \(\ell \to k_E\) correspond to roots of \(\overline f(X)\) in \(k_E\). There is a map
   \[
     \{\text{roots of } f(X) \text{ in } A_E\}
-    \longleftrightarrow
+    \to
     \{\text{roots of } \overline f(X) \text{ in } k_E\}
   \]
   Hensel's lemma shows this map is bijective: \(\overline \alpha\) is separable so \(\overline f(X)\) has simple roots.
@@ -1840,9 +1838,9 @@ Let \(E/K\) be an extension of CDVFs with \(k_E/k_K\) separable. Then there exis
   \end{tikzcd}
 \]
 
-We construct \(E_0\) as follow. Take a pair \((L, \iota)\) where \(L/K\) is unramified and \(\iota: k_E \to k_L\). Then there exists a unique \(K\)-embedding \(J: L \to E\) inducing \(\iota^{-1}\) at the level of residue fields. We define \(E_0\) to be the image \(J(L)\) of this embedding. To show uniqueness, note that any embedding of \(L\) in \(E\) must have image in \(E_0\). Moreover \(E_0\) contains any unramified subextension. \(E_0\) is called the \emph{maiximal unramified subextension}\index{maximal unramified subextension} of \(E/K\).
+We construct \(E_0\) as follow. Take a pair \((L, \iota)\) where \(L/K\) is unramified and \(\iota: k_E \to k_L\). Then there exists a unique \(K\)-embedding \(J: L \to E\) inducing \(\iota^{-1}\) at the level of residue fields. We define \(E_0\) to be the image \(J(L)\) of this embedding. To show uniqueness, note that any embedding of \(L\) in \(E\) must have image in \(E_0\). Moreover \(E_0\) contains any unramified subextension. \(E_0\) is called the \emph{maximal unramified subextension}\index{maximal unramified subextension} of \(E/K\).
 
-Now suppose further that \(E/K\) is Galois and \(G = \gal(E/K)\). In this case we know \(k_E/k_K\) is also Galois and there is a surjective homomorphism \(f: G \to \gal(k_E/k_K)\). By Galois theory there is an intermediate extension \(E^{I_{E/K}}/K\). Claim that \(E^{I_{E/K}} = E_0\).
+Now suppose further that \(E/K\) is Galois and \(G = \gal(E/K)\). In this case we know \(k_E/k_K\) is also Galois and there is a surjective homomorphism \(G \to \gal(k_E/k_K)\). By Galois theory there is an intermediate extension \(E^{I_{E/K}}/K\). Claim that \(E^{I_{E/K}} = E_0\).
 
 \begin{proof}
   By Galois theory it's enough to show that for all \(\sigma \in G = \gal(E/K)\), \(\sigma \in I_{E/K}\) if and only if \(\sigma|_{E_0} = \id|_{E_0}\). Note for all \(\sigma \in G\), \(\sigma(E_0)/K\) is still an unramified subextension of \(E/K\). As \(E_0\) is the maximal such, we have \(\sigma(E_0) = E_0\). In particular \(E_0/K\) is Galois. Moreover
@@ -2408,7 +2406,7 @@ This is well-defined as
 \item existence and uniqueness of \(C_{E/K}\) then follows by unique factorisation of ideals in \(\O_K\).
 \end{enumerate}
 
-We first explain what happens for \(K = \Q\). We know that if \(N \in \Z_{\geq 1}\) then \(\Q_{\zeta_N}\) is an abelian extension of \(\Q\) and there's an isomorphism
+We first explain what happens for \(K = \Q\). We know that if \(N \in \Z_{\geq 1}\) then \(\Q(\zeta_N)\) is an abelian extension of \(\Q\) and there's an isomorphism
 \begin{align*}
   \gal(\Q(\zeta_N)/\Q) &\cong (\Z/N\Z)^\times \\
   \sigma_a &\leftrightarrow a
@@ -2472,7 +2470,7 @@ This allows us to give a formulation of GCFT over \(\Q\) that does not rely on k
   \longleftrightarrow
   \{\text{quotients of } (\Z/N\Z)^\times\}
 \]
-This may be uniquely characterised as follow: suppose given \(L/\Q\). Then there is a unique surjective homomorphism \(\phi_{L/Q}: (\Z/N\Z)^\times \to \gal(L/\Q)\) with the property that for any prime \(p \ndivides N\),
+This may be uniquely characterised as follow: suppose given \(L/\Q\). Then there is a unique surjective homomorphism \(\phi_{L/\Q}: (\Z/N\Z)^\times \to \gal(L/\Q)\) with the property that for any prime \(p \ndivides N\),
 \[
   \phi_{L/\Q}(p \bmod N) = ((p), L/\Q).
 \]
@@ -2489,7 +2487,7 @@ This may be uniquely characterised as follow: suppose given \(L/\Q\). Then there
   so \(((p), \Q(\zeta_N)/\Q) = \sigma_p\).
 \end{remark}
 
-The first step is generalising this to general base number field \(K\). We first need to explain what object will replace \((\Z/N\Z)^\times\). This will be ray class group.
+The first step is generalising this to arbitrary base number field \(K\). We first need to explain what object will replace \((\Z/N\Z)^\times\). This will be ray class group.
 
 \begin{definition}[modulus]\index{modulus}
   A \emph{modulus} is a pair \(m = (m_0, m_\infty)\) where \(m_0 \subseteq \O_K\) is a non-zero ideal and \(m_\infty \subseteq \Hom_\Q(K, \R)\), a possibly empty subset.

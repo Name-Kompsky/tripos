@@ -1,0 +1,140 @@
+\documentclass[a4paper]{article}
+
+\def\npart{IV}
+
+\def\ntitle{Geometric Aspects of p-adic Hodge Theory}
+\def\nlecturer{T.\ Csige}
+
+\def\nterm{Michaelmas}
+\def\nyear{2020}
+
+\input{header}
+
+\newcommand{\tilt}{\flat} % tilting
+\newcommand{\perf}{\mathrm{perf}}
+%\DeclareMathOperator{\perf}{perf} % perfection
+\renewcommand{\c}[1]{\mathbf{#1}}
+\newcommand{\Mod}{{\c{Mod}}}
+\DeclareMathOperator{\Tor}{Tor} % torsion
+\DeclareMathOperator{\Ext}{Ext} % extension
+\newcommand{\sh}[1]{\mathcal{#1}} % sheaf
+\DeclareMathOperator{\Spa}{Spa}
+\renewcommand*{\O}{\mathcal{O}}
+
+
+\newtheorem*{construction}{Construction}
+
+\iffalse
+\renewcommand*{\P}{\mathbb{P}}
+\newcommand{\sh}[1]{\mathcal{#1}} % sheaf
+\renewcommand*{\O}{\mathcal{O}}
+\let\Sp\Relax
+\DeclareMathOperator{\Sp}{Sp} % maximum spectrum
+\DeclareMathOperator{\Max}{Max}
+\DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\supp}{supp} % support of a valuation
+\fi
+
+\begin{document}
+
+\input{titlepage}
+
+\tableofcontents
+
+\section{Introduction}
+
+Course structure:
+\begin{enumerate}
+\item introduction
+\item Hodge-Tate decomposition for abelian varieties with good reduction
+\item Hodge-Tate decomposition in generale (pro-étale cohomology)
+\item integral aspects
+\item some additional topics (Hodge-Tate decomposition theorem for rigid analytic varieties)
+\end{enumerate}
+
+\subsection{Hodge decomposition over \(\C\)}
+
+Let \(X\) be a smooth projective variety over \(\C\). The \emph{Hodge decomposition} is a direct sum decomposition for all \(n \geq 0\)
+\[
+  H_{\mathrm{sing}}^n(X^{\mathrm{an}}, \C) = \bigoplus_{p + q = n} H^{p, q}
+\]
+where LHS is the singular cohomology of the \(\C\)-analytic manifold \(X^{\mathrm{an}}\) (the complex analytification) and on RHS
+\[
+  H^{p, q} = H^q(X^{\mathrm{an}}, \Omega_{X^{\mathrm{an}}}^p)
+\]
+with \(\Omega_{X^{\mathrm{an}}}^p\) denoting the sheaf of holomorphic \(p\)-forms. Moreover, complex conjugation acts on
+\[
+  H^n_{\mathrm{sing}}(X^{\mathrm{an}}, \C) \cong H_{\mathrm{sing}}^n(X^{\mathrm{an}}, \Q) \otimes \C
+\]
+via its action on \(\C\) and \(H^{p, q} = \overline{H^{q, p}}\). This is called a \emph{pure structure of weight \(n\)}.
+
+These are proven via identifying \(H^{p, q}\) with Dolbeault cohomology and using the (very deep) theory of harmonic forms. However, part of the theory can be understood purely algebraically. It is known that \(H^n_{\mathrm{sing}}(X^{\mathrm{an}}, \C)\) gives the cohomology of the constant sheaf \(\C\) on \(X^{\mathrm{an}}\). On the other hand, consider the de Rham complex
+\[
+  \Omega_{X^{\mathrm{an}}}^\bullet = \O_{X^{\mathrm{an}}} \xrightarrow{\d} \Omega_{X^{\mathrm{an}}}^1 \xrightarrow{\d} \Omega_{X^{\mathrm{an}}}^2 \to \cdots
+\]
+Here \(\d\) is the usual derivation and the higher \(\d\)'s are given by
+\[
+  \d (\omega_1 \wedge \omega_2) = \d \omega_1 \wedge\omega_2 + (-1)^p \omega_1 \wedge\d \omega_2
+\]
+for \(\omega_1 \in \Omega_{X^{\mathrm{an}}}^p, \omega_2 \in \Omega_{X^{\mathrm{an}}}^q\). Taking hypercohomology
+\[
+  H^n_{\mathrm{dR}}(X^{\mathrm{an}}) := \H(X^{\mathrm{an}}, \Omega_{X^{\mathrm{an}}}^\bullet)
+\]
+we get the so-called de Rham cohomology group.
+
+Embedding the constant sheaf \(\C\) into \(\O_{X^{\mathrm{an}}}\) induces a map \(\C \to \Omega_{X^{\mathrm{an}}}^\bullet\) of complexes of sheaves. The (holomorphic) Poincaré lemma states that this map is a quasi-isomorphism of sheaves. More precisely, one can cover \(X^{\mathrm{an}}\) by open balls and for any open ball \(U \subseteq X^{\mathrm{an}}\), the complex
+\[
+    0 \to \C \to \O_{X^{\mathrm{an}}}(U) \xrightarrow{\d} \Omega^1_{X^{\mathrm{an}}} \to \cdots
+\]
+is exact: any closed differential form can be integrated on an open ball. Thus
+\[
+  H^n_{\mathrm{sing}}(X^{\mathrm{an}}, \C) \cong H^n_{\mathrm{dR}}(X^{\mathrm{an}}).
+\]
+This is the comparison theorem between singular and de Rham cohomology.
+
+Now the complex \(\Omega_{X^{\mathrm{an}}}^\bullet\) has a decreasing filtration of subcomplexes
+\[
+  \Omega_{X^{\mathrm{an}}}^{\geq p} := 0 \to \cdots \to 0 \to \Omega^p_{X^{\mathrm{an}}} \xrightarrow{\d} \Omega_{X^{\mathrm{an}}}^{p + 1} \xrightarrow{\d} \cdots
+\]
+We have that \(\operatorname{gr}^p \Omega^\bullet_{X^{\mathrm{an}}} \cong \Omega^p_{X^{\mathrm{an}}}\). It is well-known that there is a convergent spectral sequence associated to \(\Omega_{X^{\mathrm{an}}}^\bullet\) with the filtration above, called the \emph{Hodge to de Rham spectral sequence}
+\[
+  E_1^{pq} = H^q(X^{\mathrm{an}}, \Omega^p_{X^{\mathrm{an}}}) \Rightarrow H^{p + q}_{\mathrm{dR}}(X^{\mathrm{an}}).
+\]
+The filtration on \(H^n_{\mathrm{dR}}(X^{\mathrm{an}})\) given by the spectral sequence is called the \emph{Hodge filtration}.
+
+Fact: the Hodge to de Rham spectral sequence degenerates at \(E_1\). This together with the comparison theorem gives the Hodge decomposition
+\[
+  H^n_{\mathrm{sing}}(X^{\mathrm{an}}, \C) = \bigoplus_{p + q = n} H^q(X^{\mathrm{an}}, \Omega_{X^{\mathrm{an}}}^p)
+\]
+for all \(n\).
+
+\subsection{Algebraisation}
+
+On a complex variety \(X\) we may consider the algebraic de Rham complex
+\[
+  \Omega_X^\bullet := \O_X \xrightarrow{\d} \Omega_X^1 \xrightarrow{\d} \cdots
+\]
+For \(X\) smooth these are locally free sheaves. The same way as above, we get the algebraic Hodge to de Rham spectral sequence
+\[
+  E_1^{pq} = H^q(X, \Omega_X^p) \Rightarrow H^{p + q}_{\mathrm{dR}}(X).
+\]
+Here we use the Zariski topology.
+
+There are two natural maps
+\begin{align*}
+  H^q(X, \Omega_X^p) &\to H^q(X^{\mathrm{an}}, \Omega_{X^{\mathrm{an}}}^p) \\
+  H^{p +q}_{\mathrm{dR}}(X) &\to H^{p +q}_{\mathrm{dR}}(X^{\mathrm{an}})
+\end{align*}
+all compatible with the maps in the above spectral sequences. By GAGA the first one is an isomorphism, and by a theorem of Grothendieck the second is also an isomorphism. Hence degeneration of the analytic Hodge to de Rham is equivalent to the degeneration of the algebraic counterpart.
+
+However, there is no algebraic Poincaré lemma, the algebraic de Rham complex is not a resolution of \(\C\) and anyway the sheaf cohomology of \(\C\) is trivial in the Zariski topology.
+
+\subsection{The case of a \(p\)-adic base field}
+
+Let \(p\) be a prime. Recall \(\C_p\) is the completion of the algebraic closure \(\overline Q_p\) of \(\Q_p\). The Galois group \(\gal(\overline \Q_p/\Q_p)\) acts on \(\C_p\) by continuity. Let \(K\) be a finite extension of \(\Q_p\).
+
+
+
+\printindex
+\end{document}

@@ -2080,7 +2080,7 @@ which makes \((I/I^2, d) = (\Omega_{B/A}, d)\).
   Suppose \(Y = \Spec k\), \(X\) a non-singular variety of dimension \(n\) over \(k\), then \(\Omega_{X/Y}\) is a locally free sheaf of rank \(n\) on \(X\).
 \end{eg}
 
-Just as in differential geometry where we define bundle of differential forms once we have the cotangent bundle, we define the \emph{cananical bundle}\index{canonical bundle} of \(X\) to be \(\omega_X = \Lambda^{\dim X} \Omega_{X/Y}\). Hence if \(\Omega_{X/Y}\) has a trivialisation on an open cover \(\{U_i\}\) with transition maps \(g_{ij} \in \GL_n(\sh O_X(U_i \cap U_j))\), then \(\omega_X\) is the line bundle with transition maps \(\det g_{ij} \in \sh O_X^*(U_i \cap U_j)\). It is also called the \emph{determinant line bundle}\index{determinant line bundle} of \(\Omega_{X/Y}\). We usually write the divisor class of \(\omega_X\) as \(K_X\), called the \emph{canonical class}\index{canonical class}.
+Just as in differential geometry where we define bundle of differential forms once we have the cotangent bundle, we define the \emph{canonical bundle}\index{canonical bundle} of \(X\) to be \(\omega_X = \Lambda^{\dim X} \Omega_{X/Y}\). Hence if \(\Omega_{X/Y}\) has a trivialisation on an open cover \(\{U_i\}\) with transition maps \(g_{ij} \in \GL_n(\sh O_X(U_i \cap U_j))\), then \(\omega_X\) is the line bundle with transition maps \(\det g_{ij} \in \sh O_X^*(U_i \cap U_j)\). It is also called the \emph{determinant line bundle}\index{determinant line bundle} of \(\Omega_{X/Y}\). We usually write the divisor class of \(\omega_X\) as \(K_X\), called the \emph{canonical class}\index{canonical class}.
 
 \begin{theorem}[Serre duality]\index{Serre duality}
   Let \(X\) be a non-singular projective variety over \(\Spec k\) of dimension \(n\). Then for any locally free sheaf \(\sh F\) on \(X\), there is a natural isomorphism
@@ -2169,7 +2169,7 @@ Let \(X\) be a non-singular projective curve over a field \(k\), i.e.\ \(X \subs
 \begin{remark}\leavevmode
   \begin{enumerate}
   \item By Serre duality, \(H^1(X, \sh O_X) \cong H^0(X, \omega_X)^\vee\) so \(g = \dim H^0(X, \omega_X)\), the definition of genus from IID Algebraic Geometry using differentials.
-  \item If \(k = \C\) we can endow \(X\) with the Euclidean topology on \(X\), written as \(X^{\mathrm{an}}\), making \(X^{\mathrm{an}}\) a \(2\)-dimensional manifold. Then \(g\) is the genus of \(X^{\mathrm{an}}\) and
+  \item If \(k = \C\) we can endow \(X\) with the Euclidean topology, making it a \(2\)-dimensional manifold, written \(X^{\mathrm{an}}\). Then \(g\) is the genus of \(X^{\mathrm{an}}\) and
     \[
       H^1_{\mathrm{sing}}(X^{\mathrm{an}}, \C) \cong H^0(X, \omega_X) \oplus H^1(X, \sh O_X).
     \]
@@ -2187,7 +2187,11 @@ Let \(X\) be a non-singular projective curve over a field \(k\), i.e.\ \(X \subs
       &= g - 1
     \end{align*}
     so \(g - 1 = \deg K_X + 1 - g\) so \(\deg K_X = 2g - 2\).
-  \item If \(\deg D < 0\) then \(H^0(X, \sh O_X(D)) = 0\). Indeed if \(D \sim D'\) then \(\deg D = \deg D'\) (as \(\chi(\sh O_X(D)) = \chi(\sh O_X(D'))\), this follow from Riemann-Roch). If \(s \in \Gamma(X, \sh O_X(D)), s \ne 0\) then \((s)_0 \sim D\) and \((s)_0\) is effective. This contradicts \(\deg (s)_0 < 0\). Thus if \(\deg D > 2g - 2\) then \(\deg K_X - D = 2g - 2 - \deg D < 0\), so \(\dim H^0(X, \sh O_X(K_X - D)) = 0\). Thus by Riemann-Roch \(\dim H^0(\sh O_X(D)) = \deg D + 1 - g\).
+  \item If \(\deg D < 0\) then \(H^0(X, \sh O_X(D)) = 0\). Indeed if \(D \sim D'\) then \(\deg D = \deg D'\) (as \(\chi(\sh O_X(D)) = \chi(\sh O_X(D'))\), this follow from Riemann-Roch). If \(s \in \Gamma(X, \sh O_X(D)), s \ne 0\) then \((s)_0 \sim D\) and \((s)_0\) is effective, contradicting \(\deg (s)_0 < 0\). Thus if \(\deg D > 2g - 2\) then
+    \[
+      \deg (K_X - D) = 2g - 2 - \deg D < 0,
+    \]
+    so \(\dim H^0(X, \sh O_X(K_X - D)) = 0\). Thus by Riemann-Roch \(\dim H^0(\sh O_X(D)) = \deg D + 1 - g\).
   \item A linear system\index{linear system} on a curve on a curve is basepoint-free\index{basepoint-free} if
     \[
       \dim H^0(X, \sh O_X(D)) = \dim H^0(X, \sh O_X(D - P)) + 1
@@ -2212,10 +2216,16 @@ Let \(X\) be a non-singular projective curve over a field \(k\), i.e.\ \(X \subs
 \begin{eg}\leavevmode
   \begin{enumerate}
   \item \(g = 0\). Then if \(P \in X\) then \(|P|\) is very ample and \(\dim H^0(X, \sh O_X(P)) = 2\) so we get a closed embedding \(f: X \embed \P^1\), necessarily an isomorphism.
-  \item \(g = 1\). Fix \(P_0 \in X\). \(|3P_0|\) is very ample and we get an embedding \(f: X \embed \P^2\). The image is a plane cubic, given by a single equation \(g = 0\) (as height \(1\) prime ideals are principal) where \(g\) is a homogeneous polynomial of degree \(3\). Why does it have degree \(3\)? Suppose \(L = (s)_0\) for \(s \in \Gamma(\P^2, \sh O_{\P^2}, \sh O_{\P^2}(1))\). Then \(3P_0 \sim (f^* s)_0\). What are divisors of degree \(0\) on \(X\)? Claim that if \(D \in \Div X\) with \(\deg D = 0\) then \(D \sim P - P_0\) for some unique \(P \in X\).
+  \item \(g = 1\). Fix \(P_0 \in X\). \(|3P_0|\) is very ample and we get an embedding \(f: X \embed \P^2\). The image is a plane cubic, given by a single equation \(h = 0\) (as height \(1\) prime ideals are principal) where \(h\) is a homogeneous polynomial of degree \(3\). To see it has degree \(3\), suppose \(H = (s)_0\) for \(s \in \Gamma(\P^2, \sh O_{\P^2}(1))\) is a hyperplane. Then \(3P_0 \sim (f^* s)_0\).
+
+    What are divisors of degree \(0\) on \(X\)? Claim that if \(D \in \Div X\) with \(\deg D = 0\) then \(D \sim P - P_0\) for some unique \(P \in X\).
 
     \begin{proof}
-      Consider \(D + P_0\). We have \(\dim H^0(X, \sh O_X(D + P_0)) = 1\) so exists an effecitve divisor \(P \sim D + P_0\), i.e.\ \(P = (s)_0\) for \(s \in H^0(X, \sh O_X(D + P_0)) \setminus \{0\}\). Note \(P\) must be a point. This point is uniquely determined: \(|P| = \P(H^0(X, \sh O_X(D + P))) = \{\mathrm{pt}\}\). Then \(D \sim P - P_0\).
+      Consider \(D + P_0\). We have \(\dim H^0(X, \sh O_X(D + P_0)) = 1\) so exists an effective divisor \(P \sim D + P_0\), say \(P = (s)_0\) for \(s \in H^0(X, \sh O_X(D + P_0)) \setminus \{0\}\). Note \(P\) has degree \(1\) so must be a point. This point is uniquely determined as
+      \[
+        |P| = \P(H^0(X, \sh O_X(D + P))) = \{\mathrm{pt}\}.
+      \]
+      Then \(D \sim P - P_0\).
     \end{proof}
   \end{enumerate}
 \end{eg}
@@ -2226,16 +2236,21 @@ For any curve we have an exact sequence
     0 \ar[r] & \Cl^0 X \ar[r] & \Cl X \ar[r, "\deg"] & \Z \ar[r] & 0
   \end{tikzcd}
 \]
-where \(\Cl^0 X\) is the eqvuialnce classes of degree \(0\) divisors. Thus if \(g = 1\) have a bijection \(\{\text{closed points of } X\} \leftrightarrow \Cl^0 X\). Thus we can transport the group structure on \(\Cl^0 X\) to the set of closed points. See for example III Elliptic Curves.
+where \(\Cl^0 X\) is the equivalence class of degree \(0\) divisors. Thus if \(g = 1\) have a bijection \(\{\text{closed points of } X\} \leftrightarrow \Cl^0 X\), so we can transport the group structure on \(\Cl^0 X\) to the set of closed points. See for example III Elliptic Curves.
 
-More generally if \(X\) is of genus \(g\), \(\Cl^0 X\) is in bijection with the closed points of a projective variety of dimension \(g\), \(A\). We also specify maps \(m: A \times A \to A, i: A \to A\), group law maps that are also morphisms.
+More generally if \(X\) is of genus \(g\), \(\Cl^0 X\) is in bijection with the closed points of a projective variety \(A\) of dimension \(g\). We can also specify morphisms \(m: A \times A \to A, i: A \to A\) that satisfy group laws.
 
 \paragraph{Surfaces*}
 
-Fix \(X\) a projective non-singular surface. Divisors are combinations of curves. If two curves \(C, D\) intersect transversally we can count the number of intersections.
+Fix \(X\) a projective non-singular surface. Then divisors on \(X\) are linear combinations of curves. If two curves \(C, D\) intersect transversally we can count the number of intersections.
 
 \begin{theorem}
-  There exists a unique pairing \(\Div X \times \Div X \to \Z, (C, D) \mapsto C \cdot D\) satisfying the following properties:
+  There exists a unique pairing
+  \begin{align*}
+    \Div X \times \Div X &\to \Z \\
+    (C, D) &\mapsto C \cdot D
+  \end{align*}
+  satisfying the following properties:
   \begin{enumerate}
   \item if \(C, D\) are non-singular curves meeting transversally (i.e.\ \(C\) and \(D\) not tangent at any point of \(C \cap D)\) then \(C \cdot D = \#(C \cap D)\).
   \item \(C \cdot D = D \cdot C\).
@@ -2249,10 +2264,10 @@ Analogy with algebraic topology: a two dimensional projective surface over \(\C\
 
 \begin{theorem}[Riemann-Roch for surfaces]\index{Riemann-Roch theorem for curves}
   For \(X\) a non-singular surface,
-  \[
-    \dim H^0(X, \sh O_X(D)) - \dim H^1(X, \sh O_X(D)) + \dim H^0(X, \sh O_X(K_X - D))
+  \begin{align*}
+    \dim H^0(X, \sh O_X(D)) - \dim H^1(X, \sh O_X(D)) + \dim H^0(X, \sh O_X(K_X - D)) \\
     = \frac{1}{2} D \cdot (D - K_X) + 1 + P_a(X)
-  \]
+  \end{align*}
   where \(P_a(X) = \chi(\sh O_X) - 1\) is the \emph{arithmetic genus}\index{arithmetic genus} of \(X\).
 \end{theorem}
 
@@ -2270,12 +2285,12 @@ Consider \(X \subseteq \A^n \times \P^{n - 1}\) and \(\mathrm{pr}_1: \A^n \times
 
 \[
   \begin{tikzcd}
-    X \ar[r, "\subseteq"] \ar[dr, "\varphi"] & \A^n \times \P^{n - 1} \ar[d, "pr_1"] \\
+    X \ar[r, "\subseteq"] \ar[dr, "\varphi"'] & \A^n \times \P^{n - 1} \ar[d, "pr_1"] \\
     & \A^n
   \end{tikzcd}
 \]
 
-Facts
+Some facts:
 \begin{enumerate}
 \item \(X\) is a closed subvariety (in particular irreducible) of \(\A^n \times \P^{n - 1}\).
 \item \(\varphi: \varphi^{-1}(\A^n \setminus \{1\}) \to \A^n \setminus \{0\}\) is an isomorphism.
@@ -2288,9 +2303,9 @@ If \(Z \subseteq \A^n\) is any closed subvariety and \(0 \in Z\) then the blow-u
 This allows blowing up affine variety the points and then not too hard to define the blow-up of a projective variety at a point.
 
 \begin{eg}
-  Let \(X\) be the blow-up of \(\P^2\) at \(6\) general points \(P_1, \dots, P_6 \in \P^2\) (here it mean no \(3\) lie on a line and not all \(6\) lie on a conic). Let \(\varphi: X \to \P^2\) be the blow-up. Let \(E_i = \varphi^{-1}(P_i)\), \(E_i \cong \P^1\). Have \(\Cl X = \Cl \P^2 \oplus \bigoplus_{i = 1}^6 \Z E_i\). Here we use the convention thatn \(\Cl \P^2\) is identified as a subgroup of \(\Cl X\) via the pullback map \(\varphi^*: \Pic \P^2 \to \Pic X\), and for \(H \in \Cl \P^2\) the generator, write \(\varphi^*H\) for the corresponding divisor in \(\Cl X\). One can cehck that
+  Let \(X\) be the blow-up of \(\P^2\) at \(6\) general points \(P_1, \dots, P_6 \in \P^2\) (here it means no \(3\) lie on a line and not all \(6\) lie on a conic). Let \(\varphi: X \to \P^2\) be the blow-up. Let \(E_i = \varphi^{-1}(P_i)\), \(E_i \cong \P^1\). Have \(\Cl X = \Cl \P^2 \oplus \bigoplus_{i = 1}^6 \Z E_i\). Here we use the convention that \(\Cl \P^2\) is identified as a subgroup of \(\Cl X\) via the pullback map \(\varphi^*: \Pic \P^2 \to \Pic X\), and for \(H \in \Cl \P^2\) the generator, write \(\varphi^*H\) for the corresponding divisor in \(\Cl X\). One can check that
   \[
-    (\varphi^* D) \cdot (\varphi^* D') = D \cdot D'
+    (\varphi^* D) \cdot (\varphi^* D') = D \cdot D',
     (\varphi^* D) \cdot E_i = 0,
     E_i \cdot E_j =
     \begin{cases}
